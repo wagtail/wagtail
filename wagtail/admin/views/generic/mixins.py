@@ -184,7 +184,7 @@ class PanelMixin:
 
         form = context.get("form")
         panel = self.get_bound_panel(form)
-        edit_handler_json = None
+        edit_handler_data = None
 
         media = context.get("media", Media())
         if form:
@@ -193,15 +193,14 @@ class PanelMixin:
             media += panel.media
 
             js_context = JSContext()
-            packed_edit_handler = js_context.pack(panel)
-            edit_handler_json = json.dumps(packed_edit_handler)
+            edit_handler_data = js_context.pack(panel)
             media += js_context.media
 
         context.update(
             {
                 "panel": panel,
                 "media": media,
-                "edit_handler_json": edit_handler_json,
+                "edit_handler_data": edit_handler_data,
             }
         )
 

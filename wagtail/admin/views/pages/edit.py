@@ -947,8 +947,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         side_panels = self.get_side_panels()
 
         js_context = JSContext()
-        packed_edit_handler = js_context.pack(bound_panel)
-        edit_handler_json = json.dumps(packed_edit_handler)
+        edit_handler_data = js_context.pack(bound_panel)
 
         media = MediaContainer(
             [bound_panel, self.form, action_menu, side_panels, js_context]
@@ -960,7 +959,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 "page_for_status": self.page_for_status,
                 "content_type": self.page_content_type,
                 "edit_handler": bound_panel,
-                "edit_handler_json": edit_handler_json,
+                "edit_handler_data": edit_handler_data,
                 "errors_debug": self.errors_debug,
                 "action_menu": action_menu,
                 "side_panels": side_panels,

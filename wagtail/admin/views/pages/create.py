@@ -1,4 +1,3 @@
-import json
 from urllib.parse import quote, urlencode
 
 from django.conf import settings
@@ -455,8 +454,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         side_panels = self.get_side_panels()
 
         js_context = JSContext()
-        packed_edit_handler = js_context.pack(bound_panel)
-        edit_handler_json = json.dumps(packed_edit_handler)
+        edit_handler_data = js_context.pack(bound_panel)
 
         media = MediaContainer(
             [bound_panel, self.form, action_menu, side_panels, js_context]
@@ -468,7 +466,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 "page_class": self.page_class,
                 "parent_page": self.parent_page,
                 "edit_handler": bound_panel,
-                "edit_handler_json": edit_handler_json,
+                "edit_handler_data": edit_handler_data,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
                 "form": self.form,

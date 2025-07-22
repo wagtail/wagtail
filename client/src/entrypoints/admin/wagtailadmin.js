@@ -12,11 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initSidePanel();
   initCollapsiblePanels();
 
-  const editHandlerElement = document.querySelector('[data-edit-handler]');
+  const editHandlerElement = document.getElementById('w-edit-handler-data');
   if (editHandlerElement) {
-    const editHandlerJson =
-      editHandlerElement.getAttribute('data-edit-handler');
-    const packedEditHandler = JSON.parse(editHandlerJson);
+    const packedEditHandler = JSON.parse(editHandlerElement.textContent);
     window.wagtail.editHandler = window.telepath.unpack(packedEditHandler);
   }
 });

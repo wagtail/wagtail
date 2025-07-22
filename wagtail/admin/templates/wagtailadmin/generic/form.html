@@ -29,7 +29,6 @@
         data-w-unsaved-confirmation-value="true"
         data-w-unsaved-force-value="{{ has_unsaved_changes|yesno:'true,false' }}"
         data-w-unsaved-watch-value="edits"
-        {% if edit_handler_json %} data-edit-handler="{{ edit_handler_json }}"{% endif %}
     >
         {% csrf_token %}
 
@@ -89,6 +88,7 @@
 {% block extra_js %}
     {{ block.super }}
     {{ media.js }}
+    {% if edit_handler_data %}{{ edit_handler_data|json_script:"w-edit-handler-data" }}{% endif %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}
 

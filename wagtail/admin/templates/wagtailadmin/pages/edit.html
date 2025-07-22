@@ -25,7 +25,6 @@
             data-w-unsaved-confirmation-value="true"
             data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
             data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
-            data-edit-handler="{{ edit_handler_json }}"
         >
             {% csrf_token %}
 
