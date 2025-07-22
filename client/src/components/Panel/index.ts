@@ -64,7 +64,11 @@ export class FieldPanel extends Panel {
 
     // Widget classes created before Wagtail 7.1 may not have a `getByName` method :-(
     if (this.widget.getByName) {
-      this.#boundWidget = this.widget.getByName(this.fieldName, document.body);
+      const wrapper = document.getElementById(`${this.prefix}-wrapper`);
+      this.#boundWidget = this.widget.getByName(
+        this.fieldName,
+        wrapper || document.body,
+      );
     } else {
       this.#boundWidget = null;
     }

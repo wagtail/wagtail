@@ -300,6 +300,7 @@ class FieldPanel(Panel):
             widget_described_by_ids = []
             help_text_id = "%s-helptext" % self.prefix
             error_message_id = "%s-errors" % self.prefix
+            wrapper_id = "%s-wrapper" % self.prefix
 
             widget_described_by_ids = []
             if self.help_text:
@@ -341,6 +342,7 @@ class FieldPanel(Panel):
                 "field": self.bound_field,
                 "rendered_field": rendered_field,
                 "error_message_id": error_message_id,
+                "wrapper_id": wrapper_id,
                 "help_text": self.help_text,
                 "help_text_id": help_text_id,
                 "show_add_comment_button": self.comments_enabled

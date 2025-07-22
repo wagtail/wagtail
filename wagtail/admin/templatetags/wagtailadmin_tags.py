@@ -1161,6 +1161,7 @@ def formattedfield(
     show_add_comment_button=False,
     label_text=None,
     error_message_id=None,
+    wrapper_id=None,
 ):
     """
     Renders a form field in standard Wagtail admin layout.
@@ -1177,6 +1178,7 @@ def formattedfield(
     - `show_add_comment_button` - Display a comment control within Wagtail forms.
     - `label_text` - Manually set this if the field’s HTML is hard-coded.
     - `error_message_id` - ID of the error message container element.
+    - `wrapper_id` - ID of the overall wrapper element.
     """
 
     label_for = id_for_label or (field and field.id_for_label) or ""
@@ -1188,6 +1190,7 @@ def formattedfield(
         "icon": icon,
         "show_add_comment_button": show_add_comment_button,
         "error_message_id": error_message_id,
+        "wrapper_id": wrapper_id,
         "label_for": label_for,
         "label_id": f"{label_for}-label" if label_for else "",
         "label_text": label_text or (field and field.label) or "",
@@ -1247,6 +1250,7 @@ def formattedfieldfromcontext(context):
         "show_add_comment_button",
         "label_text",
         "error_message_id",
+        "wrapper_id",
     ):
         if arg in context:
             kwargs[arg] = context[arg]

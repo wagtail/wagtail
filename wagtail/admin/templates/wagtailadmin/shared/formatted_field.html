@@ -13,7 +13,7 @@
     A unified template for both use cases is messy, but it guarantees we are keeping form field styles the same everywhere.
 {% endcomment %}
 
-<div class="w-field__wrapper {{ classname }}" data-field-wrapper>
+<div class="w-field__wrapper {{ classname }}"{% if wrapper_id %} id="{{ wrapper_id }}"{% endif %} data-field-wrapper>
 
     {# Render custom label attributes if provided, or the bound field’s label attributes otherwise. #}
     {% if show_label %}
