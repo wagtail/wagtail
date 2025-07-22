@@ -53,14 +53,12 @@ $header-button-size: theme('spacing.6');
   label {
     cursor: pointer;
   }
-
-  @include media-breakpoint-up(md) {
-    padding-inline-end: theme('spacing.5');
-  }
 }
 
 .w-panel__heading--label {
   @apply w-label-1;
+  flex-shrink: 1;
+  overflow: hidden;
 }
 
 .w-panel__anchor,
@@ -70,6 +68,7 @@ $header-button-size: theme('spacing.6');
   display: inline-grid;
   justify-content: center;
   align-content: center;
+  flex-shrink: 0;
   color: theme('colors.icon-primary');
   border-radius: theme('borderRadius.full');
   margin: 0;
@@ -147,7 +146,8 @@ $header-button-size: theme('spacing.6');
 }
 
 .w-panel__divider {
-  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 2;
 }
 
 .w-panel__controls {
