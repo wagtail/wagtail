@@ -123,12 +123,26 @@ export class StructBlock {
       this.container = dom;
     }
 
+    // Set in initialisation regardless of block state for screen reader users.
+    if (this.blockDef.collapsible) {
+      this.setTextLabel();
+    }
+
     setAttrs(this.container[0], this.blockDef.meta.attrs || {});
   }
 
   #initializeCollapsiblePanel(dom, prefix) {
     const collapsibleToggle = dom.find('[data-panel-toggle]')[0];
+    const collapsibleTitle = dom.find('[data-panel-heading-text]')[0];
     initCollapsiblePanel(collapsibleToggle);
+    this.setTextLabel = () => {
+      const label = this.getTextLabel({ maxLength: 50 });
+      collapsibleTitle.textContent = label || '';
+    };
+    collapsibleToggle.addEventListener(
+      'wagtail:panel-toggle',
+      this.setTextLabel,
+    );
     return dom.find(`#${prefix}-content`);
   }
 
