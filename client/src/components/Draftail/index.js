@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { setAttrs } from '../../utils/attrs';
 import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
+import { InputNotFoundError } from '../Widget/index';
 
 import {
   ModalWorkflowSource,
@@ -486,7 +487,7 @@ class DraftailRichTextArea {
       input = container.querySelector(selector);
     }
     if (!input) {
-      throw new Error(`No input found with name "${name}"`);
+      throw new InputNotFoundError(name);
     }
 
     return new BoundDraftailWidget(input, this.options, null, false);
