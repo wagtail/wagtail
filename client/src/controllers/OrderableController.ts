@@ -14,7 +14,7 @@ enum Direction {
  * Enables the ability for drag & drop or manual re-ordering of elements
  * within a prescribed container or the controlled element.
  *
- * If the url value is provided, the controller will submit the updated
+ * If a url value is provided, the controller will submit the updated
  * order to the server via an async POST request once re-ordering is
  * completed (via drag & drop) or manually via calling the submit method.
  * This allows for granular keyboard control without submitting to the server
@@ -238,7 +238,7 @@ export class OrderableController extends Controller<HTMLElement> {
       order.splice(newIndex, 0, id); // to stop at the top
     }
 
-    // Do not re-order if the order is the same
+    // Do not re-order if the order is the same to avoid unnecessary DOM changes.
     if (this.sortable.toArray().join() === order.join()) return;
 
     this.sortable.sort(order, true);
