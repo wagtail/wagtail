@@ -4,14 +4,6 @@
   @apply w-sr-only;
 }
 
-// Only hide the block type if the field is collapsed *and* the title isn’t empty.
-[aria-expanded='false']
-  + .w-panel__heading
-  .c-sf-block__title:not(:empty)
-  + .c-sf-block__type {
-  display: none;
-}
-
 .c-sf-help .help {
   // StreamField block help text is above the blocks rather than below.
   margin-top: 0;
