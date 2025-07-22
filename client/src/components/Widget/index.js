@@ -1,4 +1,5 @@
 import { setAttrs } from '../../utils/attrs';
+import { gettext } from '../../utils/gettext';
 import { runInlineScripts } from '../../utils/runInlineScripts';
 
 /**
@@ -70,14 +71,20 @@ export class BoundWidget {
     }
   }
 
+  getValueForLabel() {
+    return this.getValue();
+  }
+
   getTextLabel(opts) {
-    const val = this.getValue();
-    if (typeof val !== 'string') return null;
+    const val = this.getValueForLabel();
+    const allowedTypes = ['string', 'number', 'boolean'];
+    if (!allowedTypes.includes(typeof val)) return null;
+    const valString = String(val).trim();
     const maxLength = opts && opts.maxLength;
-    if (maxLength && val.length > maxLength) {
-      return val.substring(0, maxLength - 1) + '…';
+    if (maxLength && valString.length > maxLength) {
+      return valString.substring(0, maxLength - 1) + '…';
     }
-    return val;
+    return valString;
   }
 
   focus() {
@@ -156,6 +163,10 @@ export class BoundCheckboxInput extends BoundWidget {
   setState(state) {
     this.input.checked = state;
   }
+
+  getValueForLabel() {
+    return this.getValue() ? gettext('Yes') : gettext('No');
+  }
 }
 
 export class CheckboxInput extends Widget {
@@ -171,6 +182,27 @@ export class BoundRadioSelect {
       `input[name="${name}"][type="checkbox"]`,
     );
     this.selector = `input[name="${name}"]:checked`;
+  }
+
+  getValueForLabel() {
+    const getLabels = (input) => {
+      const labels = Array.from(input?.labels || [])
+        .map((label) => label.textContent.trim())
+        .filter(Boolean);
+      return labels.join(', ');
+    };
+    if (this.isMultiple) {
+      return Array.from(this.element.querySelectorAll(this.selector))
+        .map(getLabels)
+        .join(', ');
+    }
+    return getLabels(this.element.querySelector(this.selector));
+  }
+
+  getTextLabel() {
+    // This class does not extend BoundWidget, so we don't have the truncating
+    // logic without duplicating the code here. Skip it for now.
+    return this.getValueForLabel();
   }
 
   getValue() {
@@ -217,7 +249,7 @@ export class RadioSelect extends Widget {
 }
 
 export class BoundSelect extends BoundWidget {
-  getTextLabel() {
+  getValueForLabel() {
     return Array.from(this.input.selectedOptions)
       .map((option) => option.text)
       .join(', ');
