@@ -15,7 +15,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
               <span class="c-sf-block__type">Heading block</span>
               
             </h2>
@@ -80,7 +80,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
               <span class="c-sf-block__type">Heading block</span>
               
             </h2>
@@ -145,7 +145,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
               <span class="c-sf-block__type">Heading block</span>
               
             </h2>
@@ -210,7 +210,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -275,7 +275,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -340,7 +340,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -405,7 +405,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -470,7 +470,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -535,7 +535,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -599,7 +599,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text - label: the-prefix-size</span>
               <span class="c-sf-block__type">Heading block</span>
               
             </h2>
@@ -657,7 +657,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
               <span class="c-sf-block__type">Heading block</span>
               
             </h2>
@@ -719,7 +719,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-settings-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -786,7 +786,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
               <span class="c-sf-block__type">Heading block</span>
               
             </h2>
@@ -848,7 +848,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-settings-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -915,7 +915,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
               <span class="c-sf-block__type">Heading block</span>
               
             </h2>
@@ -977,7 +977,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-settings-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
@@ -1044,7 +1044,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
               <span class="c-sf-block__type">Heading block</span>
               
             </h2>
@@ -1106,7 +1106,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-settings-accent_color</span>
               <span class="c-sf-block__type">Settings block</span>
               
             </h2>
