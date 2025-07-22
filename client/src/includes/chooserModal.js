@@ -160,6 +160,17 @@ class SearchController {
         this.request = null;
         this.resultsContainer.html(resultsData);
         if (this.onLoadResults) {
+          // save the state of the checkboxes when the user searches or navigates between pages.
+          const checkboxes = document.querySelectorAll(
+            'form[data-multiple-choice-form] input[type="checkbox"]',
+          );
+          checkboxes.forEach((checkbox) => {
+            const savedState = sessionStorage.getItem(checkbox.id);
+
+            if (savedState === 'true') {
+              checkbox.setAttribute('checked', true);
+            }
+          });
           this.onLoadResults(this.resultsContainer);
         }
       },
@@ -237,6 +248,13 @@ class ChooserModalOnloadHandlerFactory {
     $('[data-multiple-choice-select]', containerElement).on('change', () => {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
+
+    this.updateMultipleChoiceSubmitLocalStorage();
+
+    const form = document.querySelector('form[data-multiple-choice-form]');
+    form.addEventListener('submit', () => {
+      this.getMissingCheckboxes(form);
+    });
   }
 
   updateMultipleChoiceSubmitEnabledState(modal) {
@@ -246,6 +264,42 @@ class ChooserModalOnloadHandlerFactory {
       $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
     } else {
       $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
+    }
+  }
+
+  updateMultipleChoiceSubmitLocalStorage() {
+    // eslint-disable-next-line func-names
+    $(document).on('change', '[data-multiple-choice-select]', function () {
+      $(this).each(() => {
+        sessionStorage.setItem($(this).prop('id'), $(this).prop('checked'));
+      });
+    });
+  }
+
+  // get Checkbox States and create hidden inputs on submit to update the form with the missing checkboxes.
+  getMissingCheckboxes(form) {
+    for (let i = 0; i < sessionStorage.length; i += 1) {
+      const key = sessionStorage.key(i);
+      const value = sessionStorage.getItem(key);
+
+      if (
+        key.startsWith('chooser-modal-select') &&
+        value === 'true' &&
+        (document.getElementById(key) == null ||
+          (document.getElementById(key) &&
+            document.getElementById(key).checked !== true))
+      ) {
+        const id = key.substring('chooser-modal-select-'.length);
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'id';
+        input.value = id;
+        form.appendChild(input);
+      }
+
+      if (key.startsWith('chooser-modal-select') && value === 'true') {
+        sessionStorage.setItem(key, false);
+      }
     }
   }
 
