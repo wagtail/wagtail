@@ -51,8 +51,10 @@ class SettingsBlock(blocks.StructBlock):
 
     class Meta:
         icon = 'cog'
-        collapsed = True  # This block will be initially collapsed
-        label_format = "Settings (Theme: {theme})"  # The label when collapsed
+        # This block will be initially collapsed
+        collapsed = True
+        # The label when the block is collapsed
+        label_format = "Settings (Theme: {theme}, Available: {available})"
 
 
 class PersonBlock(blocks.StructBlock):

@@ -238,6 +238,20 @@ describe('RadioSelect', () => {
     ).toBeNull();
   });
 
+  test('getTextLabel() returns the text of selected option', () => {
+    expect(boundWidget.getTextLabel()).toBe('Tea');
+  });
+
+  test('getTextLabel() safely handles input with no labels', () => {
+    // Disassociate the label from the input by removing the "for" attribute
+    // and moving the input outside of the label.
+    const label = document.querySelector('label[for="the-id_0"]');
+    label.removeAttribute('for');
+    const input = document.querySelector('input[value="tea"]');
+    document.body.appendChild(input);
+    expect(boundWidget.getTextLabel()).toBe('');
+  });
+
   test('focus() focuses the first element', () => {
     boundWidget.focus();
 
@@ -299,6 +313,20 @@ describe('RadioSelect for CheckboxSelectMultiple', () => {
     expect(document.querySelector('input[value="green"]').checked).toBe(true);
     expect(document.querySelector('input[value="blue"]').checked).toBe(false);
   });
+
+  test('getTextLabel() returns the text of selected options', () => {
+    expect(boundWidget.getTextLabel()).toBe('Red, Blue');
+  });
+
+  test('getTextLabel() safely handles input with no labels', () => {
+    // Disassociate the label from the input by removing the "for" attribute
+    // and moving the input outside of the label.
+    const label = document.querySelector('label[for="the-id_0"]');
+    label.removeAttribute('for');
+    const input = document.querySelector('input[value="red"]');
+    document.body.appendChild(input);
+    expect(boundWidget.getTextLabel()).toBe('Blue');
+  });
 });
 
 describe('CheckboxInput', () => {
@@ -336,6 +364,12 @@ describe('CheckboxInput', () => {
     expect(document.querySelector('input[id="id-sugar"]').checked).toBe(false);
     boundWidget.setState(true);
     expect(document.querySelector('input[id="id-sugar"]').checked).toBe(true);
+  });
+
+  test('getTextLabel() returns a human-readable value', () => {
+    expect(boundWidget.getTextLabel()).toBe('Yes');
+    boundWidget.setState(false);
+    expect(boundWidget.getTextLabel()).toBe('No');
   });
 
   test('focus() focuses the checkbox', () => {
@@ -377,8 +411,9 @@ describe('Select', () => {
     expect(selectedOptions[0].value).toBe('1');
   });
 
-  test('getTextLabel() returns the text of selected option', () => {
+  test('getTextLabel() returns the truncated text of selected option', () => {
     expect(boundWidget.getTextLabel()).toBe('Option 1');
+    expect(boundWidget.getTextLabel({ maxLength: 6 })).toBe('Optio…');
   });
 
   test('getValue() returns the current value', () => {
@@ -429,8 +464,9 @@ describe('Select multiple', () => {
     expect(selectedOptions[1].value).toBe('blue');
   });
 
-  test('getTextLabel() returns the text of selected options', () => {
+  test('getTextLabel() returns the truncated text of selected options', () => {
     expect(boundWidget.getTextLabel()).toBe('Red, Blue');
+    expect(boundWidget.getTextLabel({ maxLength: 6 })).toBe('Red, …');
   });
 
   test('getValue() returns the current values', () => {
