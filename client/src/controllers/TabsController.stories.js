@@ -56,6 +56,7 @@ const Template = ({ debug = false }) => (
           role="tabpanel"
           aria-labelledby="tab-1"
           data-w-tabs-target="panel"
+          data-action="w-focus:focus->w-tabs#selectInside"
         >
           Tab 1 content
         </section>
@@ -65,6 +66,7 @@ const Template = ({ debug = false }) => (
           role="tabpanel"
           aria-labelledby="tab-2"
           data-w-tabs-target="panel"
+          data-action="w-focus:focus->w-tabs#selectInside"
         >
           Tab 2 content (selected by default)
         </section>
@@ -74,6 +76,7 @@ const Template = ({ debug = false }) => (
           role="tabpanel"
           aria-labelledby="tab-3"
           data-w-tabs-target="panel"
+          data-action="w-focus:focus->w-tabs#selectInside"
         >
           Tab 3 content
         </section>
