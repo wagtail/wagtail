@@ -56,6 +56,8 @@ class IndexView(generic.IndexView):
         "-title": gettext_lazy("Title: (Z -> A)"),
         "file_size": gettext_lazy("File size: (low to high)"),
         "-file_size": gettext_lazy("File size: (high to low)"),
+        "usage_count": gettext_lazy("Usage count: (low to high)"),
+        "-usage_count": gettext_lazy("Usage count: (high to low)"),
     }
     default_ordering = "-created_at"
     context_object_name = "images"
@@ -90,11 +92,10 @@ class IndexView(generic.IndexView):
             .prefetch_renditions("max-165x165")
         )
 
-        # Annotate with usage count from the ReferenceIndex if using the list layout
-        if self.layout == "list":
-            return images.annotate(
-                usage_count=ReferenceIndex.usage_count_subquery(self.model)
-            )
+        # Annotate with usage count from the ReferenceIndex
+        images = images.annotate(
+            usage_count=ReferenceIndex.usage_count_subquery(self.model)
+        )
 
         return images
 
@@ -168,7 +169,12 @@ class IndexView(generic.IndexView):
                     label=_("Created"),
                     sort_key="created_at",
                 ),
-                UsageCountColumn("usage_count", label=_("Usage")),
+                UsageCountColumn(
+                    "usage_count",
+                    label=_("Usage"),
+                    sort_key="usage_count",
+                    width="16%",
+                ),
             ]
 
             return columns

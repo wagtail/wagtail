@@ -133,6 +133,8 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             "-created_at",
             "file_size",
             "-file_size",
+            "usage_count",
+            "-usage_count",
         ]
         for ordering in orderings:
             response = self.get({"ordering": ordering})
@@ -558,6 +560,54 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(
             layout_toggle_button, "Expected layout toggle button in grid layout"
         )
+
+    def test_usage_count_column(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        expected_url = reverse(
+            "wagtailimages:image_usage",
+            args=(self.kitten_image.pk,),
+        )
+        link = soup.select_one(f"a[href='{expected_url}']")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), "Used 1 time")
+
+        expected_url = reverse(
+            "wagtailimages:image_usage",
+            args=(self.puppy_image.pk,),
+        )
+        link = soup.select_one(f"a[href='{expected_url}']")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), "Used 0 times")
+
+    def test_order_by_usage_count(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+            VariousOnDeleteModel.objects.create(protected_image=self.puppy_image)
+
+        cases = {
+            "usage_count": [self.puppy_image, self.kitten_image],
+            "-usage_count": [self.kitten_image, self.puppy_image],
+        }
+        for layout in ["list", "grid"]:
+            for ordering, expected_order in cases.items():
+                with self.subTest(layout=layout, ordering=ordering):
+                    response = self.client.get(
+                        reverse("wagtailimages:index"),
+                        {"ordering": ordering, "layout": layout},
+                    )
+                    self.assertEqual(response.status_code, 200)
+                    context = response.context
+                    self.assertSequenceEqual(
+                        context["page_obj"].object_list,
+                        expected_order,
+                    )
 
 
 class TestBulkActionsColumn(WagtailTestUtils, TestCase):
@@ -1839,38 +1889,6 @@ class TestUsage(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 302)
-
-    def test_usage_count_column_with_image_usage(self):
-        with self.captureOnCommitCallbacks(execute=True):
-            home_page = Page.objects.get(id=2)
-            home_page.add_child(
-                instance=EventPage(
-                    title="Christmas",
-                    slug="christmas",
-                    feed_image=self.image,
-                    date_from=datetime.date.today(),
-                    audience="private",
-                    location="Test",
-                    cost="Test",
-                )
-            ).save_revision().publish()
-
-        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
-        self.assertEqual(response.status_code, 200)
-
-        self.assertContains(response, "Used 1 time")
-
-        expected_url = "/admin/images/usage/%d/" % self.image.id
-        self.assertContains(response, expected_url)
-
-    def test_usage_count_column_no_image_usage(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
-        self.assertEqual(response.status_code, 200)
-
-        self.assertContains(response, "Used 0 times")
-
-        expected_url = "/admin/images/usage/%d/" % self.image.id
-        self.assertContains(response, expected_url)
 
 
 class TestImageChooserView(WagtailTestUtils, TestCase):

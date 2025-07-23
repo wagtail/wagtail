@@ -114,7 +114,12 @@ class IndexView(generic.IndexView):
                 label=_("Created"),
                 sort_key="created_at",
             ),
-            UsageCountColumn("usage_count", label=_("Usage"), width="16%"),
+            UsageCountColumn(
+                "usage_count",
+                label=_("Usage"),
+                width="16%",
+                sort_key="usage_count",
+            ),
         ]
         if self.filters and "collection_id" in self.filters.filters:
             columns.insert(
