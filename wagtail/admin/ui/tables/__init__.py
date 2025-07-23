@@ -160,7 +160,7 @@ class Column(BaseColumn):
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        value = self.get_value(instance)
+        context["raw_value"] = value = self.get_value(instance)
         if isinstance(value, int) and not isinstance(value, bool):
             # To prevent errors arising from USE_THOUSAND_SEPARATOR, we require all numbers output
             # on templates to be explicitly localized or unlocalized. For numeric table cells, we
@@ -179,7 +179,7 @@ class NumberColumn(Column):
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context["value"] = intcomma(context["value"])
+        context["value"] = intcomma(context["raw_value"])
         return context
 
 
@@ -413,7 +413,7 @@ class BulkActionsCheckboxColumn(BaseColumn):
         return context
 
 
-class UsageCountColumn(BaseColumn):
+class UsageCountColumn(Column):
     cell_template_name = "wagtailadmin/tables/usage_count_column_cell.html"
 
 
