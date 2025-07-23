@@ -48,7 +48,14 @@ export class FocusController extends Controller<
   focus() {
     const target = this.target;
 
-    if (target) {
+    if (
+      target &&
+      !this.dispatch('focus', {
+        bubbles: true,
+        cancelable: true,
+        target,
+      }).defaultPrevented
+    ) {
       forceFocus(target);
       this.dispatch('focused', { bubbles: true, cancelable: false, target });
     }
