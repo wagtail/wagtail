@@ -33,7 +33,7 @@ import { forceFocus } from '../utils/forceFocus';
  * </div>
  * ```
  *
- * @example - Full tabs with class changes, history/location handling, keyboard controls & extra trigger
+ * @example - Full tabs with class changes, history/location handling, keyboard controls, selection from inside & extra trigger
  * ```html
  * <div data-controller="w-tabs" data-action="popstate@window->w-tabs#select" data-w-tabs-active-class="animate-in" data-w-tabs-use-location-value="true">
  *   <div role="tablist" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
@@ -41,10 +41,10 @@ import { forceFocus } from '../utils/forceFocus';
  *     <a id="tab-2" href="#panel-2" role="tab" data-w-tabs-target="trigger" data-action="w-tabs#select:prevent">Tab 2</a>
  *   </div>
  *   <div class="tab-content">
- *     <section id="panel-1" role="tabpanel" aria-labelledby="tab-1" data-w-tabs-target="panel">
+ *     <section id="panel-1" role="tabpanel" aria-labelledby="tab-1" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
  *       Tab 1 content
  *     </section>
- *     <section id="panel-2" role="tabpanel" aria-labelledby="tab-2" data-w-tabs-target="panel">
+ *     <section id="panel-2" role="tabpanel" aria-labelledby="tab-2" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
  *       Tab 2 content
  *     </section>
  *   </div>
@@ -327,6 +327,22 @@ export class TabsController extends Controller {
       forceFocus(target);
     }
     return id;
+  }
+
+  /**
+   * Allow selection based on an event being dispatched from inside a tab panel.
+   */
+  selectInside(event: Event) {
+    const target = event.currentTarget;
+    if (!target) return;
+    const id = this.panelTargets.find((panel) =>
+      panel.contains(target as HTMLElement),
+    )?.id;
+    if (!id) return;
+    this.select({
+      target: target as HTMLElement,
+      params: { id, focus: false },
+    });
   }
 
   /**
