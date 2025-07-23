@@ -666,20 +666,6 @@ def admin_theme_color_scheme(context):
     return theme_name
 
 
-@register.simple_tag(takes_context=True)
-def keyboard_shortcut_preference(context):
-    """
-    Retrieves the character key keyboard shortcut preference for current user
-    """
-    user = getattr(context.get("request"), "user", None)
-    custom_keyboard_shortcuts = (
-        user.wagtail_userprofile.custom_keyboard_shortcuts
-        if hasattr(user, "wagtail_userprofile")
-        else True
-    )
-    return {"custom_keyboard_shortcuts": custom_keyboard_shortcuts}
-
-
 @register.simple_tag
 def absolute_static(path):
     """
@@ -912,6 +898,8 @@ def get_comments_enabled():
 @register.simple_tag(takes_context=True)
 def wagtail_config(context):
     request = context["request"]
+    user = getattr(context.get("request"), "user", None)
+
     config = {
         "CSRF_TOKEN": get_token(request),
         "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(
@@ -938,6 +926,9 @@ def wagtail_config(context):
             for locale in Locale.objects.all()
         ],
         "STRINGS": get_js_translation_strings(),
+        "KEYBOARD_SHORTCUT_PREFERENCE": user.wagtail_userprofile.custom_keyboard_shortcuts
+        if hasattr(user, "wagtail_userprofile")
+        else True,
     }
 
     if locale := context.get("locale"):
@@ -1384,6 +1375,5 @@ def human_readable_date(date, description=None, placement="top"):
 # Shadow the laces `component` tag which was extracted from Wagtail. The shadowing
 # is useful to avoid having to update all the templates that use the `component` tag.
 register.tag("component", component)
-
 
 register.simple_tag(get_icon_sprite_url, name="icon_sprite_url")

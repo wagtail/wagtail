@@ -3,6 +3,12 @@ import Mousetrap from 'mousetrap';
 
 import { KeyboardController } from './KeyboardController';
 
+jest.mock('../config/wagtailConfig', () => ({
+  WAGTAIL_CONFIG: {
+    KEYBOARD_SHORTCUT_PREFERENCE: true,
+  },
+}));
+
 describe('KeyboardController', () => {
   let app;
   const buttonClickMock = jest.fn();
@@ -47,6 +53,32 @@ describe('KeyboardController', () => {
     app?.stop();
     jest.clearAllMocks();
     Mousetrap.reset();
+  });
+
+  describe('should load keyboard controller based on the keyboard shortcut preference', () => {
+    const mockWagtailConfig = require('../config/wagtailConfig');
+
+    afterEach(() => {
+      mockWagtailConfig.WAGTAIL_CONFIG = {
+        KEYBOARD_SHORTCUT_PREFERENCE: true,
+      };
+    });
+
+    it('should return true when KEYBOARD_SHORTCUT_PREFERENCE is true', () => {
+      mockWagtailConfig.WAGTAIL_CONFIG = {
+        KEYBOARD_SHORTCUT_PREFERENCE: true,
+      };
+
+      expect(KeyboardController.shouldLoad).toBe(true);
+    });
+
+    it('should return false when KEYBOARD_SHORTCUT_PREFERENCE is false', () => {
+      mockWagtailConfig.WAGTAIL_CONFIG = {
+        KEYBOARD_SHORTCUT_PREFERENCE: false,
+      };
+
+      expect(KeyboardController.shouldLoad).toBe(false);
+    });
   });
 
   describe('basic keyboard shortcut usage', () => {
@@ -152,69 +184,6 @@ describe('KeyboardController', () => {
 
       // Simulate keydown while target is text input
       simulateKey({ key: 'j' }, document.getElementById('input'));
-
-      expect(buttonClickMock).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('custom keyboard shortcut enabled', () => {
-    afterEach(() => {
-      const existingElement = document.getElementById(
-        'w-keyboard-shortcut-preference',
-      );
-      if (existingElement) {
-        existingElement.remove();
-      }
-    });
-
-    it('should return true when custom_keyboard_shortcuts is true', async () => {
-      const preferenceElement = document.createElement('script');
-      preferenceElement.id = 'w-keyboard-shortcut-preference';
-      preferenceElement.type = 'application/json';
-      preferenceElement.textContent = JSON.stringify({
-        custom_keyboard_shortcuts: true,
-      });
-      document.head.appendChild(preferenceElement);
-
-      await setup(
-        `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j">Go</button>`,
-      );
-
-      simulateKey({ key: 'j' });
-
-      expect(buttonClickMock).toHaveBeenCalledTimes(1);
-    });
-
-    it('should return false when custom_keyboard_shortcuts is false', async () => {
-      const preferenceElement = document.createElement('script');
-      preferenceElement.id = 'w-keyboard-shortcut-preference';
-      preferenceElement.type = 'application/json';
-      preferenceElement.textContent = JSON.stringify({
-        custom_keyboard_shortcuts: false,
-      });
-      document.head.appendChild(preferenceElement);
-
-      await setup(
-        `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j">Go</button>`,
-      );
-
-      simulateKey({ key: 'j' });
-
-      expect(buttonClickMock).not.toHaveBeenCalled();
-    });
-
-    it('should return true when JSON parsing fails', async () => {
-      const preferenceElement = document.createElement('script');
-      preferenceElement.id = 'w-keyboard-shortcut-preference';
-      preferenceElement.type = 'application/json';
-      preferenceElement.textContent = 'invalid json content';
-      document.head.appendChild(preferenceElement);
-
-      await setup(
-        `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j">Go</button>`,
-      );
-
-      simulateKey({ key: 'j' });
 
       expect(buttonClickMock).toHaveBeenCalledTimes(1);
     });
