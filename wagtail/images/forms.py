@@ -81,7 +81,6 @@ class BaseImageForm(BaseCollectionMemberForm):
                 attrs={
                     "data-controller": "w-clean",
                     "data-w-clean-allow-unicode": "true",
-                    "data-action": "change->w-clean#urlify",
                 }
             ),
             "focal_point_x": forms.HiddenInput(attrs={"class": "focal_point_x"}),
