@@ -3,8 +3,7 @@
 import { Chooser, ChooserFactory } from '.';
 
 /**
- * A state object representing the chosen image.
- * @typedef {object} ImageChosenState if an image is chosen
+ * @typedef {object} ImageChosenState A state object representing the chosen image.
  * @property {number} id The ID of the chosen image.
  * @property {string} edit_url The URL to edit the chosen image.
  * @property {string} title The title of the chosen image.
