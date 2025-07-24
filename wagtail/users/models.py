@@ -109,12 +109,10 @@ class UserProfile(models.Model):
         max_length=40,
     )
 
-    custom_keyboard_shortcuts = models.BooleanField(
-        verbose_name=_("Custom keyboard shortcut"),
+    keyboard_shortcuts = models.BooleanField(
+        verbose_name=_("Keyboard shortcuts"),
         default=True,
-        help_text=_(
-            "Enable custom Wagtail shortcuts. For example, the ']' shortcut to toggle minimap, or 'b' to toggle breadcrumbs"
-        ),
+        help_text=_("Enable custom keyboard shortcuts specific to Wagtail."),
     )
 
     @classmethod

@@ -21,7 +21,6 @@ from django.views.generic.base import TemplateView
 from wagtail import hooks
 from wagtail.admin.forms.account import (
     AvatarPreferencesForm,
-    KeyboardShortcutPreference,
     LocalePreferencesForm,
     NameEmailForm,
     NotificationPreferencesForm,
@@ -197,14 +196,6 @@ class ThemeSettingsPanel(BaseSettingsPanel):
     form_object = "profile"
 
 
-class KeyboardShortcutPreferenceSettingsPanel(BaseSettingsPanel):
-    name = "keyboard_shortcut_preference"
-    title = gettext_lazy("Keyboard shortcuts")
-    order = 470
-    form_class = KeyboardShortcutPreference
-    form_object = "profile"
-
-
 class ChangePasswordPanel(BaseSettingsPanel):
     name = "password"
     title = gettext_lazy("Password")
@@ -271,7 +262,6 @@ class AccountView(WagtailAdminTemplateMixin, TemplateView):
             NotificationsSettingsPanel(request, user, profile),
             LocaleSettingsPanel(request, user, profile),
             ThemeSettingsPanel(request, user, profile),
-            KeyboardShortcutPreferenceSettingsPanel(request, user, profile),
             ChangePasswordPanel(request, user, profile),
         ]
         for fn in hooks.get_hooks("register_account_settings_panel"):

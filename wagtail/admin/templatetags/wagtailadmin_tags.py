@@ -898,7 +898,6 @@ def get_comments_enabled():
 @register.simple_tag(takes_context=True)
 def wagtail_config(context):
     request = context["request"]
-    user = getattr(context.get("request"), "user", None)
 
     config = {
         "CSRF_TOKEN": get_token(request),
@@ -926,13 +925,18 @@ def wagtail_config(context):
             for locale in Locale.objects.all()
         ],
         "STRINGS": get_js_translation_strings(),
-        "KEYBOARD_SHORTCUT_PREFERENCE": user.wagtail_userprofile.custom_keyboard_shortcuts
-        if hasattr(user, "wagtail_userprofile")
-        else True,
     }
 
     if locale := context.get("locale"):
         config["ACTIVE_CONTENT_LOCALE"] = locale.language_code
+
+    user = getattr(context.get("request"), "user", None)
+
+    config["KEYBOARD_SHORTCUTS_ENABLED"] = (
+        user.wagtail_userprofile.keyboard_shortcuts
+        if hasattr(user, "wagtail_userprofile")
+        else True
+    )
 
     return config
 

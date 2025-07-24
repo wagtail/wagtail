@@ -253,7 +253,7 @@ class TestAccountSectionUtilsMixin:
             "theme-theme": "dark",
             "theme-density": "default",
             "theme-contrast": "system",
-            "custom-keyboard-shortcuts": "true",
+            "keyboard-shortcuts": "true",
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse("wagtailadmin_account"), post_data)
@@ -712,7 +712,7 @@ class TestAccountSection(
     def test_change_keyboard_shortcut_preference(self):
         response = self.post_form(
             {
-                "custom_keyboard_shortcuts": "false",
+                "keyboard_shortcuts": "false",
             }
         )
 
@@ -724,7 +724,7 @@ class TestAccountSection(
         )
 
         # Check that the keyboard shortcut preferences are as submitted
-        self.assertFalse(profile.custom_keyboard_shortcuts)
+        self.assertFalse(profile.keyboard_shortcuts)
 
 
 class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):

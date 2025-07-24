@@ -5,7 +5,7 @@ import { KeyboardController } from './KeyboardController';
 
 jest.mock('../config/wagtailConfig', () => ({
   WAGTAIL_CONFIG: {
-    KEYBOARD_SHORTCUT_PREFERENCE: true,
+    KEYBOARD_SHORTCUTS_ENABLED: true,
   },
 }));
 
@@ -60,21 +60,21 @@ describe('KeyboardController', () => {
 
     afterEach(() => {
       mockWagtailConfig.WAGTAIL_CONFIG = {
-        KEYBOARD_SHORTCUT_PREFERENCE: true,
+        KEYBOARD_SHORTCUTS_ENABLED: true,
       };
     });
 
-    it('should return true when KEYBOARD_SHORTCUT_PREFERENCE is true', () => {
+    it('should return true when KEYBOARD_SHORTCUTS_ENABLED is true', () => {
       mockWagtailConfig.WAGTAIL_CONFIG = {
-        KEYBOARD_SHORTCUT_PREFERENCE: true,
+        KEYBOARD_SHORTCUTS_ENABLED: true,
       };
 
       expect(KeyboardController.shouldLoad).toBe(true);
     });
 
-    it('should return false when KEYBOARD_SHORTCUT_PREFERENCE is false', () => {
+    it('should return false when KEYBOARD_SHORTCUTS_ENABLED is false', () => {
       mockWagtailConfig.WAGTAIL_CONFIG = {
-        KEYBOARD_SHORTCUT_PREFERENCE: false,
+        KEYBOARD_SHORTCUTS_ENABLED: false,
       };
 
       expect(KeyboardController.shouldLoad).toBe(false);
