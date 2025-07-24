@@ -42,6 +42,7 @@ Changelog
  * Add support for `preview_value` and `default` in `Block` meta options as callables for dynamic previews within StreamField (Ziyao Yan, Sage Abdullah)
  * Add previews support for generic and site settings (Sébastien Corbin, Sage Abdullah)
  * Provide client-side access to the editing form panel structure (Matt Westcott)
+ * Make transliteration of titles to slugs locale-aware, and provide further customisation options (LB (Ben) Johnston)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
