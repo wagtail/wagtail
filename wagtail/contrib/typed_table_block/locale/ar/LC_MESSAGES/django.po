@@ -5,15 +5,16 @@
 #
 # Translators:
 # Fouad AAGOUR, 2023
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: 2021-10-15 16:05+0000\n"
-"Last-Translator: Fouad AAGOUR, 2023\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,23 +23,31 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Caption"
+msgstr "عنوان الجدول"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr "عنوان يحدد الموضوع العام للجدول، وهو مفيد لمستخدمي قارئات الشاشة."
+
 msgid "Add column"
-msgstr "ضف عمود"
+msgstr "إضافة عمود"
 
 msgid "Add row"
-msgstr "ضف صف"
+msgstr "إضافة صف"
 
 msgid "Column heading"
 msgstr "عنوان العمود"
 
 msgid "Insert column"
-msgstr "أدخل عمود"
+msgstr "إدراج عمود"
 
 msgid "Delete column"
 msgstr "حذف عمود"
 
 msgid "Insert row"
-msgstr "أدرج صف"
+msgstr "إدراج صف"
 
 msgid "Delete row"
 msgstr "حذف صف"

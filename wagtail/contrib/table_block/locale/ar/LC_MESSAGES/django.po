@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,8 +27,34 @@ msgstr "كتلة جدول Wagtail"
 msgid "Row header"
 msgstr "رأس الصف"
 
+msgid "Table headers"
+msgstr "رؤوس الجدول"
+
+msgid "Display the first row as a header"
+msgstr "عرض الصف الأول كرأس"
+
+msgid "Display the first column as a header"
+msgstr "عرض العمود الأول كرأس"
+
 msgid "Column header"
 msgstr "رأس العمود"
 
+msgid "Display the first row AND first column as headers"
+msgstr "عرض الصف الأول والعمود الأول كرؤوس"
+
+msgid "No headers"
+msgstr "بدون رؤوس"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "أي الخلايا يجب عرضها كرؤوس؟"
+
 msgid "Table caption"
-msgstr "جدول فرعي"
+msgstr "عنوان الجدول"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr "عنوان يحدد الموضوع العام للجدول، ومفيد لمستخدمي قارئات الشاشة."
+
+msgid "Table"
+msgstr "جدول"

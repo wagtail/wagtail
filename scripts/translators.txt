@@ -4,6 +4,7 @@ Jaco du Plessis <jaco.jacoduplessis.co.za>
 
 Arabic - ar
 -----
+Abdullah Bamuhrez <bamuhrez.gmail.com>
 Ahmad Kiswani <kiswani.ahmad.gmail.com>
 Ahmed Miske Sidi Med <boutien321.gmail.com>
 Amr Awad <amro.khir.gmail.com>
@@ -175,6 +176,7 @@ Maarten Kling <kling.maarten.gmail.com>
 Matt Westcott <matthew.torchbox.com>
 Meteor0id
 Michael van Tellingen <michaelvantellingen.gmail.com>
+Michel Vuijlsteke
 Ramon de Jezus <rdejezus.leukeleu.nl>
 Richard Voorhorst
 Rob Moorman <rob.moori.nl>
@@ -227,6 +229,7 @@ Christophe CHAUVET <christophe.chauvet.gmail.com>
 Dominique PERETTI <dperetti.gmail.com>
 Fabien Le Frapper <contact.fabienlefrapper.me>
 Loic Teixeira
+Lucie Laporte
 Léo <leo.naeka.fr>
 Matt Westcott <matthew.torchbox.com>
 Renaud Kern <renaud.kern.gmail.com>

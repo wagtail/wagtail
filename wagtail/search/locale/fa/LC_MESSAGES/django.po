@@ -4,14 +4,15 @@
 #
 # Translators:
 # Bardia, 2024
+# Bardia, 2024
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
-"Last-Translator: Bardia, 2024\n"
+"Last-Translator: Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"

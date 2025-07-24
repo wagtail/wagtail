@@ -45,6 +45,14 @@ msgstr "Date jusqu’au"
 
 #, python-format
 msgid ""
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
+msgstr ""
+"Le nom '%(duplicate_clean_name)s' est déjà assigné à ce champ et ne peut "
+"être modifié. Veuillez saisir un libellé différent pour le champ en conflit."
+
+#, python-format
+msgid ""
 "Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
 "change the label."
 msgstr ""

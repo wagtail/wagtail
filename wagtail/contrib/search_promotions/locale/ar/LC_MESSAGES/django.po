@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,30 +22,76 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Wagtail search promotions"
+msgstr "ترويج البحث في Wagtail"
+
 msgid "Search term(s)/phrase"
-msgstr "مصطلح البحث/عبارة البحث"
+msgstr "مصطلح/عبارة البحث"
 
 msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"ادخل نص البحث الكامل للحصول عليه. التخصيص بالنتائج مطلوب من اجل تحسين ظهور "
-"نتائج افضل ,علامات الترقيم غير مقبوله "
+"أدخل نص البحث الكامل للمطابقة. مطلوب تطابق تام لعرض النتائج المروجة، ولا "
+"يُسمح باستخدام الأحرف البديلة (wildcards)."
+
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr "يجب إدخال نص للرابط الخارجي إذا قمت بإدخال عنوان URL لرابط خارجي."
+
+msgid "You must recommend a page OR an external link."
+msgstr "يجب التوصية بصفحة أو رابط خارجي."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "الرجاء اختيار صفحة فقط أو إدخال رابط خارجي."
 
 msgid "Please specify at least one recommendation for this search term."
-msgstr "المرجو تخصيص توصية واحدة على الأقل لمصطلح البحث هذا"
+msgstr "الرجاء تحديد توصية واحدة على الأقل لمصطلح البحث هذا."
 
 msgid "Query Daily Hits"
-msgstr "استعلام الزيارات اليومية"
+msgstr "الزيارات اليومية للاستعلام"
 
 msgid "page"
 msgstr "صفحة"
 
+msgid "Choose an internal page for this promotion"
+msgstr "اختر صفحة داخلية لهذا الترويج"
+
+msgid "External link URL"
+msgstr "عنوان URL للرابط الخارجي"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "بدلاً من ذلك، استخدم رابطًا خارجيًا لهذا الترويج"
+
 msgid "description"
 msgstr "وصف"
 
+msgid "Applies to internal page or external link"
+msgstr "ينطبق على الصفحة الداخلية أو الرابط الخارجي"
+
 msgid "search promotion"
 msgstr "ترويج البحث"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. "
+"E.g recommending your primary donation page to a user searching with the "
+"less common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p>النتائج المروجة للبحث هي وسيلة للتوصية بصفحات معينة أو روابط خارجية قد لا "
+"تظهر بشكل طبيعي في أعلى نتائج البحث. على سبيل المثال، التوصية بصفحة التبرعات "
+"الرئيسية الخاصة بك لمستخدم يبحث باستخدام المصطلح الأقل شيوعًا \"<em>giving</"
+"em>\".</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>يجب أن يحتوي حقل \"مصطلح/عبارة البحث\" أدناه على نص البحث الكامل والدقيق "
+"الذي ترغب في توفير نتائج موصى به له، <em>بما في ذلك</em> أي أخطاء إملائية/"
+"أخطاء المستخدم. للمساعدة، يمكنك الاختيار من بين مصطلحات البحث التي كانت "
+"شائعة بين مستخدمي موقعك.</p>"
 
 #, python-format
 msgid "Delete %(query)s"
@@ -53,84 +99,99 @@ msgstr "حذف %(query)s"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
-msgstr "أتريد فعلا أن تحذف كل النتائج الموجودة لهذا المصطلح المبحوث؟"
+msgstr "هل أنت متأكد أنك تريد حذف جميع النتائج المروجة لمصطلح البحث هذا؟"
 
 msgid "Move up"
-msgstr "تقدم إلى فوق "
+msgstr "تحريك لأعلى"
 
 msgid "Move down"
-msgstr "تقدم إلى تحت"
+msgstr "تحريك لأسفل"
 
 msgid "Drag"
-msgstr "اسحب"
+msgstr "سحب"
 
 msgid "Delete"
-msgstr "احذف"
+msgstr "حذف"
+
+msgid "Recommended search result"
+msgstr "نتيجة البحث الموصى بها"
 
 msgid "Promoted search results"
-msgstr "نتائج البحث المطلوب"
+msgstr "نتائج البحث المروجة"
+
+msgid "Add a recommended result"
+msgstr "إضافة نتيجة موصى بها"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr "عذرًا ، لا توجد نتائج تمت ترقيتها تطابق \"<em> %(query_string)s</em>\""
+msgstr "عذرًا، لا توجد نتائج مروجة تطابق \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
 "No promoted results have been created. Why not <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"لم يتم إنشاء نتائج ترويجية. لماذا لا <a "
+"لم يتم إنشاء أي نتائج مروجة. لماذا لا <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">تضيف واحدة</a>؟"
 
+msgid "No promoted results have been created."
+msgstr "لم يتم إنشاء أي نتائج مروجة."
+
 msgid "Popular search terms"
-msgstr "مصطلحات البحث الاكثر شعبية"
+msgstr "مصطلحات البحث الشائعة"
 
 msgid "Search"
 msgstr "بحث"
 
 msgid "Terms"
-msgstr "مصطلحات"
+msgstr "المصطلحات"
+
+msgid "Views"
+msgstr "المشاهدات"
 
 msgid "No results found"
-msgstr "لاتوجد نتائج"
+msgstr "لم يتم العثور على نتائج"
 
 msgid "Choose from popular search terms"
-msgstr "احتر من المصطلخات الأكثر شعبية"
+msgstr "اختر من مصطلحات البحث الشائعة"
 
 msgid "External link"
-msgstr "حلقة خارجية"
+msgstr "رابط خارجي"
 
 msgid "None"
-msgstr "لا أحد"
+msgstr "لا شيء"
 
 msgid "Date"
-msgstr "تاريخ"
+msgstr "التاريخ"
+
+msgid "Search terms"
+msgstr "مصطلحات البحث"
 
 msgid "Search term(s)"
-msgstr "مصطلح , مصطلحات البحث"
+msgstr "مصطلح(مصطلحات) البحث"
 
 msgid "Add new promoted result"
-msgstr "أضف نتيجة البحث"
+msgstr "إضافة نتيجة مروجة جديدة"
 
 msgid "Promoted results"
-msgstr "النتائج المطلوبة"
+msgstr "النتائج المروجة"
 
 msgid "Promoted search result"
-msgstr "نتيجة البحث المطلوب"
+msgstr "نتيجة البحث المروجة"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
-msgstr "اختيارات المحرر لـ '%(query)s' تم إنشاؤها."
+msgstr "تم إنشاء اختيارات المحرر لـ '%(query)s'."
 
 msgid "Recommendations have not been created due to errors"
-msgstr "لم تنشأ توصيات بسسبب أخطاء"
+msgstr "لم يتم إنشاء التوصيات بسبب وجود أخطاء"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
-msgstr "اختيارات المحرر لـ '%(query)s' محدثة."
+msgstr "تم تحديث اختيارات المحرر لـ '%(query)s'."
 
 msgid "Recommendations have not been saved due to errors"
-msgstr "لم تحفظ توصيات بسبب أخطاء "
+msgstr "لم يتم حفظ التوصيات بسبب وجود أخطاء"
 
 msgid "Editor's picks deleted."
-msgstr "محذوف انتقاءات المحرر"
+msgstr "تم حذف اختيارات المحرر."

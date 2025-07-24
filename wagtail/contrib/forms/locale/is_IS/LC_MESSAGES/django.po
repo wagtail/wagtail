@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
-# saevarom <saevar@saevar.is>, 2017-2018,2020,2022
+# saevarom <saevar@saevar.is>, 2017-2018,2020,2022,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2017-2018,2020,2022\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2017-2018,2020,2022,2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,23 @@ msgstr "Dags frá"
 
 msgid "Date to"
 msgstr "Dags til"
+
+#, python-format
+msgid ""
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
+msgstr ""
+"Heitið '%(duplicate_clean_name)s' hefur nú þegar verið sett á þennan reit "
+"áður og ekki hægt að breyta eftir á. Vinsamlegastu veldu annað heiti fyrir "
+"reitinn."
+
+#, python-format
+msgid ""
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
+msgstr ""
+"Heitið '%(duplicate_clean_name)s' rekst á við annan reit. Vinsamlegast "
+"breyttu heitinu."
 
 msgid "Single line text"
 msgstr "Textastrengur"

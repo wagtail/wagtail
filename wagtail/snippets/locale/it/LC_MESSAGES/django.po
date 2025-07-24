@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:03+0100\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -128,8 +128,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">ne crei uno adesso</a>?"
 
+msgid "Scheduling…"
+msgstr "Schedulazione in corso..."
+
 msgid "Publishing…"
 msgstr "Pubblicazione in corso..."
+
+msgid "Schedule to publish"
+msgstr "Schedula pubblicazione"
 
 msgid "Publish this version"
 msgstr "Pubblica questa versione"

@@ -10,6 +10,7 @@
 # mahulst, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Michel Vuijlsteke, 2025
 # Storm Heg <storm@stormbase.digital>, 2021-2025
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023\n"
+"Last-Translator: Michel Vuijlsteke, 2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -395,7 +396,7 @@ msgid ""
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Er zijn nog geen afbeeldingen toegevoegd aan deze collectie. Waarom <a "
-"href=\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
+"href=\"%(wagtailimages_add_image_url)s\">upload je er niet nu een</a>?"
 
 #, python-format
 msgid ""
@@ -403,7 +404,7 @@ msgid ""
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Er zijn nog geen afbeeldingen toegevoegd. Waarom <a "
-"href=\"%(wagtailimages_add_image_url)s\">uploadt je er niet nu een</a>?"
+"href=\"%(wagtailimages_add_image_url)s\">upload je er niet nu een</a>?"
 
 msgid "Preview"
 msgstr "Voorbeeld"

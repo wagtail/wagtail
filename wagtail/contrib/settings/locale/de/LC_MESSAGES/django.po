@@ -7,10 +7,12 @@
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # Matthias Martin, 2019
 # Matthias Martin, 2019
+# mattibo, 2022
 # Matti Borchers, 2022
 # mattibo, 2022
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Scriptim <Scriptim@gmx.de>, 2020
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tibor <tibor@lpld.io>, 2020
@@ -19,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Scriptim <Scriptim@gmx.de>, 2020\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"

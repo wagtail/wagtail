@@ -6,14 +6,15 @@
 # Amawalee Combe <dang@getsalebox.com>, 2019
 # Jon Combe <jon@naremit.com>, 2019
 # Siramol Khunchai, 2024
+# Siramol Khunchai, 2024
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Siramol Khunchai, 2024\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
