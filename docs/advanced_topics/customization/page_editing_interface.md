@@ -367,7 +367,7 @@ There are multiple ways to override the `SlugInput`, depending on your use case 
 
 #### Via `promote_panels`
 
-The simplest, if have already set custom `promote_panels`, is to leverage the `FieldPanel` widget kwarg as follows.
+The simplest, if you have already set custom `promote_panels`, is to leverage the `FieldPanel` widget kwarg as follows.
 
 ```python
 from wagtail.admin.widgets.slug import SlugInput
