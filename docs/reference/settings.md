@@ -326,6 +326,8 @@ WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
 
 This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.
 
+(wagtailimages_all_settings)=
+
 ## Images
 
 ### `WAGTAILIMAGES_IMAGE_MODEL`
@@ -453,7 +455,6 @@ WAGTAILIMAGES_HEIC_QUALITY = 60
 ```
 
 Change the global default for HEIC image encoding quality (default: 80).
-
 
 ## Documents
 
