@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,12 +76,12 @@ msgstr ""
 msgid "Delete selected snippets"
 msgstr ""
 
-#: bulk_actions/delete.py:88
+#: bulk_actions/delete.py:78
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr ""
 
-#: bulk_actions/delete.py:94
+#: bulk_actions/delete.py:84
 #, python-format
 msgid "%(count)d %(model_name)s deleted."
 msgid_plural "%(count)d %(model_name)s deleted."
@@ -97,14 +97,7 @@ msgstr ""
 msgid "Delete "
 msgstr ""
 
-#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:26
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:29
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:27
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr ""
@@ -114,21 +107,21 @@ msgstr ""
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr ""
 
-#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:46
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:49
 #, python-format
 msgid "You don't have permission to delete this %(snippet_type_name)s"
 msgstr ""
 
-#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:50
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:53
 #, python-format
 msgid "You don't have permission to delete these %(snippet_plural_name)s"
 msgstr ""
 
-#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:59
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:62
 msgid "Yes, delete"
 msgstr ""
 
-#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:60
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:63
 msgid "No, don't delete"
 msgstr ""
 
@@ -185,38 +178,38 @@ msgstr ""
 msgid "Choose"
 msgstr ""
 
-#: views/snippets.py:85 views/snippets.py:856 wagtail_hooks.py:38
+#: views/snippets.py:87 views/snippets.py:864 wagtail_hooks.py:38
 msgid "Snippets"
 msgstr ""
 
-#: views/snippets.py:126
+#: views/snippets.py:128
 msgid "Name"
 msgstr ""
 
-#: views/snippets.py:132
+#: views/snippets.py:134
 msgid "Instances"
 msgstr ""
 
-#: views/snippets.py:216
+#: views/snippets.py:224
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/snippets.py:848
+#: views/snippets.py:856
 msgid "Home"
 msgstr ""
 
-#: widgets.py:22
+#: widgets.py:25
 #, python-format
 msgid "Choose %(object)s"
 msgstr ""
 
-#: widgets.py:23
+#: widgets.py:26
 #, python-format
 msgid "Choose another %(object)s"
 msgstr ""
 
-#: widgets.py:24
+#: widgets.py:27
 #, python-format
 msgid "Edit this %(object)s"
 msgstr ""

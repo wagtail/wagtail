@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgid "Wagtail documents"
 msgstr ""
 
 #: forms.py:25 views/bulk_actions/add_to_collection.py:13 views/chooser.py:92
-#: views/documents.py:113
+#: views/documents.py:127
 msgid "Collection"
 msgstr ""
 
@@ -150,32 +150,24 @@ msgstr[1] ""
 msgid "Delete documents"
 msgstr ""
 
-#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:17
-#: views/documents.py:281
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:18
+#: views/documents.py:295
 msgid "Are you sure you want to delete this document?"
 msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:28
-#: templates/wagtaildocs/documents/edit.html:27
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:38
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:41
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:45
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:48
 msgid "Yes, delete"
 msgstr ""
 
-#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:46
+#: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:49
 msgid "No, don't delete"
 msgstr ""
 
@@ -198,15 +190,16 @@ msgstr ""
 
 #: templates/wagtaildocs/chooser/results.html:18
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
 
 #: templates/wagtaildocs/documents/_file_field.html:4
 msgid "Change document:"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:3 views/documents.py:77
+#: templates/wagtaildocs/documents/add.html:3 views/documents.py:79
 msgid "Add a document"
 msgstr ""
 
@@ -226,9 +219,16 @@ msgstr ""
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:25
+#: templates/wagtaildocs/documents/edit.html:25 views/documents.py:119
 msgid "Usage"
 msgstr ""
+
+#: templates/wagtaildocs/documents/edit.html:27
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/wagtaildocs/documents/index.html:10
 msgid "Select all documents in listing"
@@ -340,26 +340,26 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/bulk_actions/delete.py:8 views/documents.py:247
+#: views/bulk_actions/delete.py:9 views/documents.py:261
 msgid "Delete"
 msgstr ""
 
-#: views/bulk_actions/delete.py:10
+#: views/bulk_actions/delete.py:11
 msgid "Delete selected documents"
 msgstr ""
 
-#: views/bulk_actions/delete.py:30
+#: views/bulk_actions/delete.py:34
 #, python-format
 msgid "%(num_parent_objects)d document has been deleted"
 msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/chooser.py:87 views/documents.py:102
+#: views/chooser.py:87 views/documents.py:111
 msgid "File"
 msgstr ""
 
-#: views/chooser.py:88 views/documents.py:105
+#: views/chooser.py:88 views/documents.py:114
 msgid "Created"
 msgstr ""
 
@@ -375,42 +375,42 @@ msgstr ""
 msgid "Edit this document"
 msgstr ""
 
-#: views/documents.py:63 wagtail_hooks.py:59 wagtail_hooks.py:132
+#: views/documents.py:65 wagtail_hooks.py:59 wagtail_hooks.py:132
 msgid "Documents"
 msgstr ""
 
-#: views/documents.py:97
+#: views/documents.py:106
 msgid "Title"
 msgstr ""
 
-#: views/documents.py:162
+#: views/documents.py:176
 msgid "The document could not be created due to errors."
 msgstr ""
 
-#: views/documents.py:184
+#: views/documents.py:198
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr ""
 
-#: views/documents.py:192
+#: views/documents.py:206
 msgid "The document could not be saved due to errors."
 msgstr ""
 
-#: views/documents.py:221
+#: views/documents.py:235
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr ""
 
-#: views/documents.py:245
+#: views/documents.py:259
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 
-#: views/documents.py:269
+#: views/documents.py:283
 msgid "Delete document"
 msgstr ""
 
-#: views/documents.py:287
+#: views/documents.py:301
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:99 forms.py:234 views/users.py:77
+#: forms.py:99 forms.py:234 views/users.py:68
 msgid "Administrator"
 msgstr ""
 
@@ -173,11 +173,19 @@ msgstr ""
 msgid "density"
 msgstr ""
 
-#: models.py:130
+#: models.py:113
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: models.py:115
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr ""
+
+#: models.py:136
 msgid "user profile"
 msgstr ""
 
-#: models.py:131
+#: models.py:137
 msgid "user profiles"
 msgstr ""
 
@@ -222,27 +230,26 @@ msgstr[1] ""
 #: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:11
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:23
 #: templates/wagtailusers/groups/includes/page_permissions_form.html:13
-#: views/bulk_actions/delete.py:9
+#: views/bulk_actions/delete.py:11
 msgid "Delete"
 msgstr ""
 
-#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:17
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:18
 msgid "Are you sure you want to delete these users?"
 msgstr ""
 
-#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:30
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:34
 msgid "You don't have permission to delete this user"
 msgid_plural "You don't have permission to delete these users"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:37
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:41
 #: templates/wagtailusers/groups/confirm_delete.html:21
-#: templates/wagtailusers/users/confirm_delete.html:8
 msgid "Yes, delete"
 msgstr ""
 
-#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:38
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:42
 msgid "No, don't delete"
 msgstr ""
 
@@ -300,7 +307,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:20
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:107
-#: views/groups.py:88 views/users.py:133
+#: views/groups.py:88 views/users.py:125
 msgid "Name"
 msgstr ""
 
@@ -366,17 +373,13 @@ msgid ""
 "href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 
-#: templates/wagtailusers/users/confirm_delete.html:5
-msgid "Are you sure you want to delete this user?"
-msgstr ""
-
 #: templates/wagtailusers/users/create.html:9
 #: templates/wagtailusers/users/edit.html:9
 msgid "Account"
 msgstr ""
 
 #: templates/wagtailusers/users/create.html:11
-#: templates/wagtailusers/users/create.html:43
+#: templates/wagtailusers/users/create.html:44
 #: templates/wagtailusers/users/edit.html:11
 msgid "Roles"
 msgstr ""
@@ -416,23 +419,23 @@ msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/bulk_actions/delete.py:11
+#: views/bulk_actions/delete.py:13
 msgid "Delete selected users"
 msgstr ""
 
-#: views/bulk_actions/delete.py:31
+#: views/bulk_actions/delete.py:39
 #, python-format
 msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/bulk_actions/set_active_state.py:11 views/users.py:100
-#: views/users.py:158
+#: views/bulk_actions/set_active_state.py:11 views/users.py:87
+#: views/users.py:150
 msgid "Active"
 msgstr ""
 
-#: views/bulk_actions/set_active_state.py:11 views/users.py:160
+#: views/bulk_actions/set_active_state.py:11
 msgid "Inactive"
 msgstr ""
 
@@ -501,66 +504,62 @@ msgstr ""
 msgid "Delete group"
 msgstr ""
 
-#: views/users.py:81 views/users.py:169
+#: views/users.py:72 views/users.py:157
 msgid "Last login"
 msgstr ""
 
-#: views/users.py:87
+#: views/users.py:95
 msgid "Group"
 msgstr ""
 
-#: views/users.py:117
+#: views/users.py:112
 msgid "Add a user"
 msgstr ""
 
-#: views/users.py:122 views/users.py:353 views/users.py:390
+#: views/users.py:114 views/users.py:352 views/users.py:381
 msgid "Users"
 msgstr ""
 
-#: views/users.py:143
+#: views/users.py:135
 msgid "Username"
 msgstr ""
 
-#: views/users.py:150
+#: views/users.py:142
 msgid "Admin"
 msgstr ""
 
-#: views/users.py:151
+#: views/users.py:143
 msgid "Access level"
 msgstr ""
 
-#: views/users.py:162
-msgid "Status"
-msgstr ""
-
-#: views/users.py:205
+#: views/users.py:210
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/users.py:240
+#: views/users.py:239
 #, python-format
 msgid "User '%(object)s' created."
 msgstr ""
 
-#: views/users.py:241
+#: views/users.py:240
 msgid "Add user"
 msgstr ""
 
-#: views/users.py:262
+#: views/users.py:261
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr ""
 
-#: views/users.py:263
+#: views/users.py:262
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:316
+#: views/users.py:315
 msgid "Delete user"
 msgstr ""
 
-#: views/users.py:317
+#: views/users.py:316
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr ""

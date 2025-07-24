@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:08+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,7 +127,7 @@ msgid "Recommended search result"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:4
-#: views/settings.py:31 wagtail_hooks.py:36
+#: views/settings.py:35 wagtail_hooks.py:36
 msgid "Promoted search results"
 msgstr ""
 
@@ -166,7 +166,7 @@ msgid "Terms"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/queries/chooser/results.html:10
-#: views/reports.py:34 views/reports.py:38 views/settings.py:56
+#: views/reports.py:34 views/reports.py:38 views/settings.py:60
 msgid "Views"
 msgstr ""
 
@@ -194,40 +194,40 @@ msgstr ""
 msgid "Search terms"
 msgstr ""
 
-#: views/reports.py:33 views/reports.py:37 views/settings.py:44
+#: views/reports.py:33 views/reports.py:37 views/settings.py:48
 msgid "Search term(s)"
 msgstr ""
 
-#: views/settings.py:40
+#: views/settings.py:44
 msgid "Add new promoted result"
 msgstr ""
 
-#: views/settings.py:51
+#: views/settings.py:55
 msgid "Promoted results"
 msgstr ""
 
-#: views/settings.py:90
+#: views/settings.py:94
 msgid "Promoted search result"
 msgstr ""
 
-#: views/settings.py:179
+#: views/settings.py:183
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
-#: views/settings.py:180
+#: views/settings.py:184
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views/settings.py:189
+#: views/settings.py:193
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr ""
 
-#: views/settings.py:190
+#: views/settings.py:194
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views/settings.py:199
+#: views/settings.py:203
 msgid "Editor's picks deleted."
 msgstr ""

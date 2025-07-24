@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:08+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,22 +22,22 @@ msgstr ""
 msgid "Wagtail forms"
 msgstr ""
 
-#: forms.py:169
+#: forms.py:160
 msgid "Date from"
 msgstr ""
 
-#: forms.py:173
+#: forms.py:164
 msgid "Date to"
 msgstr ""
 
-#: forms.py:239
+#: forms.py:230
 #, python-format
 msgid ""
 "The name '%(duplicate_clean_name)s' is already assigned to this field and "
 "cannot be changed. Please enter a different label for the conflicting field."
 msgstr ""
 
-#: forms.py:252
+#: forms.py:243
 #, python-format
 msgid ""
 "Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
@@ -155,7 +155,7 @@ msgstr ""
 msgid "help text"
 msgstr ""
 
-#: models.py:195 views.py:194
+#: models.py:195 views.py:198
 msgid "Submission date"
 msgstr ""
 
@@ -231,33 +231,33 @@ msgstr ""
 msgid "Submissions of %(form_title)s"
 msgstr ""
 
-#: views.py:54
+#: views.py:58
 msgid "Page type"
 msgstr ""
 
-#: views.py:81 views.py:311 wagtail_hooks.py:26
+#: views.py:85 views.py:315 wagtail_hooks.py:26
 msgid "Forms"
 msgstr ""
 
-#: views.py:97
+#: views.py:101
 msgid "Title"
 msgstr ""
 
-#: views.py:107
+#: views.py:111
 msgid "Origin"
 msgstr ""
 
-#: views.py:116
+#: views.py:120
 msgid "Pages"
 msgstr ""
 
-#: views.py:146
+#: views.py:150
 #, python-format
 msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: views.py:213
+#: views.py:217
 msgid "Form data"
 msgstr ""

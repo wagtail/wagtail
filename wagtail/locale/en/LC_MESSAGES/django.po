@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:05+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Wagtail core"
 msgstr ""
 
-#: blocks/field_block.py:126
+#: blocks/field_block.py:128
 msgid "Add Comment"
 msgstr ""
 
@@ -42,27 +42,27 @@ msgstr ""
 msgid "The maximum number of items is %(max_num)d"
 msgstr ""
 
-#: blocks/list_block.py:460 blocks/stream_block.py:848
+#: blocks/list_block.py:462 blocks/stream_block.py:849
 msgid "Move up"
 msgstr ""
 
-#: blocks/list_block.py:461 blocks/stream_block.py:849
+#: blocks/list_block.py:463 blocks/stream_block.py:850
 msgid "Move down"
 msgstr ""
 
-#: blocks/list_block.py:462 blocks/stream_block.py:850
+#: blocks/list_block.py:464 blocks/stream_block.py:851
 msgid "Drag"
 msgstr ""
 
-#: blocks/list_block.py:463 blocks/stream_block.py:851
+#: blocks/list_block.py:465 blocks/stream_block.py:852
 msgid "Duplicate"
 msgstr ""
 
-#: blocks/list_block.py:464 blocks/stream_block.py:852 wagtail_hooks.py:138
+#: blocks/list_block.py:466 blocks/stream_block.py:853 wagtail_hooks.py:138
 msgid "Delete"
 msgstr ""
 
-#: blocks/list_block.py:465 blocks/stream_block.py:853 models/pages.py:263
+#: blocks/list_block.py:467 blocks/stream_block.py:854 models/pages.py:264
 msgid "Add"
 msgstr ""
 
@@ -93,6 +93,10 @@ msgstr ""
 
 #: coreutils.py:151
 msgid "Unknown content type"
+msgstr ""
+
+#: fields.py:32
+msgid "Date cannot be in the future."
 msgstr ""
 
 #: forms.py:9
@@ -206,7 +210,7 @@ msgstr ""
 msgid "Currently locked and will go live on the scheduled date"
 msgstr ""
 
-#: models/audit_log.py:191 models/pages.py:297 models/workflows.py:49
+#: models/audit_log.py:191 models/pages.py:298 models/workflows.py:49
 #: models/workflows.py:656 models/workflows.py:996
 msgid "content type"
 msgstr ""
@@ -245,7 +249,7 @@ msgstr ""
 msgid "model log entries"
 msgstr ""
 
-#: models/draft_state.py:14 models/draft_state.py:92 models/workflows.py:1337
+#: models/draft_state.py:14 models/draft_state.py:92 models/workflows.py:1361
 msgid "live"
 msgstr ""
 
@@ -273,23 +277,23 @@ msgstr ""
 msgid "expiry date/time"
 msgstr ""
 
-#: models/draft_state.py:42 models/draft_state.py:81 models/workflows.py:1322
+#: models/draft_state.py:42 models/draft_state.py:81 models/workflows.py:1346
 msgid "expired"
 msgstr ""
 
-#: models/draft_state.py:83 models/workflows.py:1324
+#: models/draft_state.py:83 models/workflows.py:1348
 msgid "scheduled"
 msgstr ""
 
-#: models/draft_state.py:85 models/workflows.py:1328
+#: models/draft_state.py:85 models/workflows.py:1352
 msgid "draft"
 msgstr ""
 
-#: models/draft_state.py:88 models/workflows.py:1331
+#: models/draft_state.py:88 models/workflows.py:1355
 msgid "live + scheduled"
 msgstr ""
 
-#: models/draft_state.py:90 models/workflows.py:1335
+#: models/draft_state.py:90 models/workflows.py:1359
 msgid "live + draft"
 msgstr ""
 
@@ -330,11 +334,11 @@ msgstr ""
 msgid "collections"
 msgstr ""
 
-#: models/media.py:164 models/pages.py:2055
+#: models/media.py:164 models/pages.py:2068 models/sites.py:287
 msgid "group"
 msgstr ""
 
-#: models/media.py:175 models/pages.py:2067
+#: models/media.py:175 models/pages.py:2080 models/sites.py:298
 msgid "permission"
 msgstr ""
 
@@ -354,239 +358,239 @@ msgstr ""
 msgid "uploaded by user"
 msgstr ""
 
-#: models/pages.py:263
+#: models/pages.py:264
 msgid "Add/edit pages you own"
 msgstr ""
 
-#: models/pages.py:264
+#: models/pages.py:265
 msgid "Bulk delete"
 msgstr ""
 
-#: models/pages.py:264
+#: models/pages.py:265
 msgid "Delete pages with children"
 msgstr ""
 
-#: models/pages.py:265 wagtail_hooks.py:137
+#: models/pages.py:266 wagtail_hooks.py:137
 msgid "Edit"
 msgstr ""
 
-#: models/pages.py:265
+#: models/pages.py:266
 msgid "Edit any page"
 msgstr ""
 
-#: models/pages.py:266 wagtail_hooks.py:151
+#: models/pages.py:267 wagtail_hooks.py:151
 msgid "Lock"
 msgstr ""
 
-#: models/pages.py:266
+#: models/pages.py:267
 msgid "Lock/unlock pages you've locked"
 msgstr ""
 
-#: models/pages.py:267 wagtail_hooks.py:139
+#: models/pages.py:268 wagtail_hooks.py:139
 msgid "Publish"
 msgstr ""
 
-#: models/pages.py:267
+#: models/pages.py:268
 msgid "Publish any page"
 msgstr ""
 
-#: models/pages.py:268 wagtail_hooks.py:152
+#: models/pages.py:269 wagtail_hooks.py:152
 msgid "Unlock"
 msgstr ""
 
-#: models/pages.py:268
+#: models/pages.py:269
 msgid "Unlock any page"
 msgstr ""
 
-#: models/pages.py:280
+#: models/pages.py:281
 msgid "title"
 msgstr ""
 
-#: models/pages.py:282
+#: models/pages.py:283
 msgid "The page title as you'd like it to be seen by the public"
 msgstr ""
 
-#: models/pages.py:288
+#: models/pages.py:289
 msgid "slug"
 msgstr ""
 
-#: models/pages.py:292
+#: models/pages.py:293
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
 
-#: models/pages.py:302
+#: models/pages.py:303
 msgid "URL path"
 msgstr ""
 
-#: models/pages.py:305
+#: models/pages.py:306
 msgid "owner"
 msgstr ""
 
-#: models/pages.py:315
+#: models/pages.py:316
 msgid "title tag"
 msgstr ""
 
-#: models/pages.py:319
+#: models/pages.py:320
 msgid ""
 "The name of the page displayed on search engine results as the clickable "
 "headline."
 msgstr ""
 
-#: models/pages.py:325
+#: models/pages.py:326
 msgid "show in menus"
 msgstr ""
 
-#: models/pages.py:328
+#: models/pages.py:329
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 
-#: models/pages.py:332
+#: models/pages.py:333
 msgid "meta description"
 msgstr ""
 
-#: models/pages.py:335
+#: models/pages.py:336
 msgid ""
 "The descriptive text displayed underneath a headline in search engine "
 "results."
 msgstr ""
 
-#: models/pages.py:340
+#: models/pages.py:341
 msgid "latest revision created at"
 msgstr ""
 
-#: models/pages.py:444
+#: models/pages.py:452
 msgid "For search engines"
 msgstr ""
 
-#: models/pages.py:454
+#: models/pages.py:462
 msgid "For site menus"
 msgstr ""
 
-#: models/pages.py:658
+#: models/pages.py:666
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use within the parent page at "
 "'%(parent_url_path)s'"
 msgstr ""
 
-#: models/pages.py:2021 models/pages.py:2061 models/pages.py:2374
-#: models/pages.py:2441
+#: models/pages.py:2034 models/pages.py:2074 models/pages.py:2387
+#: models/pages.py:2454
 msgid "page"
 msgstr ""
 
-#: models/pages.py:2022
+#: models/pages.py:2035
 msgid "pages"
 msgstr ""
 
-#: models/pages.py:2080
+#: models/pages.py:2093
 msgid "group page permission"
 msgstr ""
 
-#: models/pages.py:2081
+#: models/pages.py:2094
 msgid "group page permissions"
 msgstr ""
 
-#: models/pages.py:2382
+#: models/pages.py:2395
 msgid "page view restriction"
 msgstr ""
 
-#: models/pages.py:2383
+#: models/pages.py:2396
 msgid "page view restrictions"
 msgstr ""
 
-#: models/pages.py:2449 models/workflows.py:57 models/workflows.py:129
+#: models/pages.py:2462 models/workflows.py:57 models/workflows.py:129
 #: models/workflows.py:614
 msgid "workflow"
 msgstr ""
 
-#: models/pages.py:2474
+#: models/pages.py:2487
 msgid "workflow page"
 msgstr ""
 
-#: models/pages.py:2475
+#: models/pages.py:2488
 msgid "workflow pages"
 msgstr ""
 
-#: models/pages.py:2542
+#: models/pages.py:2555
 msgid "page log entry"
 msgstr ""
 
-#: models/pages.py:2543
+#: models/pages.py:2556
 msgid "page log entries"
 msgstr ""
 
-#: models/pages.py:2561
+#: models/pages.py:2574
 msgid "Draft saved"
 msgstr ""
 
-#: models/pages.py:2609
+#: models/pages.py:2622
 msgid "comment"
 msgstr ""
 
-#: models/pages.py:2610
+#: models/pages.py:2623
 msgid "comments"
 msgstr ""
 
-#: models/pages.py:2705
+#: models/pages.py:2718
 msgid "comment reply"
 msgstr ""
 
-#: models/pages.py:2706
+#: models/pages.py:2719
 msgid "comment replies"
 msgstr ""
 
-#: models/preview.py:160
+#: models/preview.py:165
 msgid "Default"
 msgstr ""
 
-#: models/preview.py:166
+#: models/preview.py:171
 msgid "Preview in mobile size"
 msgstr ""
 
-#: models/preview.py:172
+#: models/preview.py:177
 msgid "Preview in tablet size"
 msgstr ""
 
-#: models/preview.py:178
+#: models/preview.py:183
 msgid "Preview in desktop size"
 msgstr ""
 
-#: models/reference_index.py:110 models/reference_index.py:120
+#: models/reference_index.py:140 models/reference_index.py:150
 #: models/revisions.py:95 models/workflows.py:119
 msgid "object id"
 msgstr ""
 
-#: models/reference_index.py:678
+#: models/reference_index.py:798
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr ""
 
-#: models/reference_index.py:682
+#: models/reference_index.py:802
 msgid "prevents deletion"
 msgstr ""
 
-#: models/reference_index.py:684
+#: models/reference_index.py:804
 #, python-format
 msgid "will be set to the default %(model_name)s"
 msgstr ""
 
-#: models/reference_index.py:688
+#: models/reference_index.py:808
 msgid "will do nothing"
 msgstr ""
 
-#: models/reference_index.py:698
+#: models/reference_index.py:818
 msgid "may prevent deletion"
 msgstr ""
 
-#: models/reference_index.py:706
+#: models/reference_index.py:826
 #, python-format
 msgid "will be set to a %(model_name)s specified by the system"
 msgstr ""
 
-#: models/reference_index.py:712
+#: models/reference_index.py:832
 msgid "will unset the reference"
 msgstr ""
 
@@ -618,60 +622,68 @@ msgstr ""
 msgid "latest revision"
 msgstr ""
 
-#: models/sites.py:81
+#: models/sites.py:82
 msgid "hostname"
 msgstr ""
 
-#: models/sites.py:84
+#: models/sites.py:85
 msgid "port"
 msgstr ""
 
-#: models/sites.py:87
+#: models/sites.py:88
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
 
-#: models/sites.py:92
+#: models/sites.py:93
 msgid "site name"
 msgstr ""
 
-#: models/sites.py:95
+#: models/sites.py:96
 msgid "Human-readable name for the site."
 msgstr ""
 
-#: models/sites.py:99
+#: models/sites.py:100
 msgid "root page"
 msgstr ""
 
-#: models/sites.py:104
+#: models/sites.py:105
 msgid "is default site"
 msgstr ""
 
-#: models/sites.py:107
+#: models/sites.py:108
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
 
-#: models/sites.py:115
+#: models/sites.py:116 models/sites.py:293
 msgid "site"
 msgstr ""
 
-#: models/sites.py:116
+#: models/sites.py:117
 msgid "sites"
 msgstr ""
 
-#: models/sites.py:122
+#: models/sites.py:123
 msgid "default"
 msgstr ""
 
-#: models/sites.py:198
+#: models/sites.py:199
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
+msgstr ""
+
+#: models/sites.py:317
+msgid "group site permission"
+msgstr ""
+
+#: models/sites.py:318
+msgid "group site permissions"
 msgstr ""
 
 #: models/view_restrictions.py:21
@@ -870,11 +882,11 @@ msgstr ""
 msgid "Task states"
 msgstr ""
 
-#: models/workflows.py:1326
+#: models/workflows.py:1350
 msgid "in moderation"
 msgstr ""
 
-#: models/workflows.py:1333
+#: models/workflows.py:1357
 msgid "live + in moderation"
 msgstr ""
 
