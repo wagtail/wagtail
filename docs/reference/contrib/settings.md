@@ -113,7 +113,6 @@ Settings are editable by superusers, and any users who have been granted "change
 The ability to assign permissions for individual sites was added.
 ```
 
-
 ## Appearance
 
 You can change the label used in the menu by changing the

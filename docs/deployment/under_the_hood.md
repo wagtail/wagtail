@@ -56,7 +56,6 @@ If a remote ("cloud") storage backend is used, the serve method will default to 
 
 Any system that allows user-uploaded files is a potential security risk. When `WAGTAILDOCS_SERVE_METHOD` is set to `serve_view`, Wagtail ensures that documents are served securely, enforcing permissions checks and prevent cross-site scripting. The alternative serve methods `'direct'` and `'redirect'` work by serving the documents directly from `MEDIA_ROOT` via your configured storage backend. In these cases, additional care should be taken to ensure uploads are served securely. Several approaches for securing uploaded documents are detailed under [](documents_security_considerations).
 
-
 #### Cloud storage
 
 Be aware that setting up remote storage will not entirely offload file handling tasks from the application server - some Wagtail functionality requires files to be read back by the application server.
