@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0.2 (24.07.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error when restoring scroll position for cross-domain preview iframe (Sage Abdullah)
