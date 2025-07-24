@@ -22,6 +22,7 @@ from .models import (  # noqa: F401
     EditView,
     IndexView,
     InspectView,
+    ReorderView,
     RevisionsCompareView,
     RevisionsUnscheduleView,
     UnpublishView,
