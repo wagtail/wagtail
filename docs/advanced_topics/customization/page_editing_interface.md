@@ -435,7 +435,7 @@ The following sections will only focus on the `SlugInput(...)` usage and not whe
 
 The `SlugInput` is locale aware and will adjust the transliteration (Unicode to ASCII conversion) based on the most suitable locale, only when [`WAGTAIL_ALLOW_UNICODE_SLUGS`](wagtail_allow_unicode_slugs) is `False`.
 
-The locale will be determined from the target translation locale if ()[internationalisation] is enabled.
+The locale will be determined from the target translation locale if [](internationalisation) is enabled.
 
 If internationalization is not in use, it will be based on the language of the admin for the currently logged in user. This behavior can be overridden - see below.
 
