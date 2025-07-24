@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0054_delete_notyetregisteredgenericsetting_and_more'),
+        ('tests', '0055_previewable_settings'),
         ('wagtailcore', '0095_groupsitepermission'),
     ]
 
