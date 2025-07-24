@@ -253,6 +253,7 @@ class TestAccountSectionUtilsMixin:
             "theme-theme": "dark",
             "theme-density": "default",
             "theme-contrast": "system",
+            "keyboard-shortcuts": "true",
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse("wagtailadmin_account"), post_data)
@@ -707,6 +708,23 @@ class TestAccountSection(
         AccountView.as_view()(request)
         self.assertTrue(hasattr(request, "sensitive_post_parameters"))
         self.assertEqual(request.sensitive_post_parameters, "__ALL__")
+
+    def test_change_keyboard_shortcut_preference(self):
+        response = self.post_form(
+            {
+                "keyboard_shortcuts": "false",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(
+            get_user_model().objects.get(pk=self.user.pk)
+        )
+
+        # Check that the keyboard shortcut preferences are as submitted
+        self.assertFalse(profile.keyboard_shortcuts)
 
 
 class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):

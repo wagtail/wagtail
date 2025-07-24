@@ -4,6 +4,8 @@ import Mousetrap from 'mousetrap';
 // import with side-effect to add global-bind plugin (see https://github.com/ccampbell/mousetrap/tree/master/plugins/global-bind)
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+
 /**
  * Adds the ability to trigger a button click event using a
  * keyboard shortcut declared on the controlled element.
@@ -43,6 +45,13 @@ export class KeyboardController extends Controller<
   declare keyValue: string;
   /** Scope of the keyboard shortcut, defaults to the normal MouseTrap (non-input) scope. */
   declare scopeValue: '' | 'global';
+
+  /**
+   * If custom keyboard shortcuts are disabled by user in settings then controller will not be loaded
+   */
+  static get shouldLoad() {
+    return !!WAGTAIL_CONFIG.KEYBOARD_SHORTCUTS_ENABLED;
+  }
 
   initialize() {
     this.handleKey = this.handleKey.bind(this);

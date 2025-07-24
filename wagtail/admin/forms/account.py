@@ -150,4 +150,7 @@ class AvatarPreferencesForm(forms.ModelForm):
 class ThemePreferencesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ["theme", "contrast", "density"]
+        fields = ["theme", "contrast", "density", "keyboard_shortcuts"]
+        widgets = {
+            "keyboard_shortcuts": SwitchInput(),
+        }

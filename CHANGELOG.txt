@@ -32,6 +32,7 @@ Changelog
  * Add support for translated string concatenation in the locale selector when switching between a model's language in the admin (Matt Westcott, Ellie Walsh-O'Neill)
  * Switch to check / cross icons for users’ active state in users listing (Sage Abdullah)
  * Add a keyboard shortcut to easily toggle the visibility of the minimap side panel (Dhruvi Patel)
+ * Add a new user profile setting to disable Wagtail’s custom keyboard shortcuts (Dhruvi Patel)
  * Add API for extracting preview page content (Sage Abdullah)
  * Add toggle from grid to list layout for image listings (Joel William)
  * Add `UsageCountColumn` to document and image listings (Joel William, Sage Abdullah)

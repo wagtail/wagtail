@@ -19,6 +19,7 @@ export interface WagtailConfig {
     code: string;
     display_name: string;
   }[];
+  KEYBOARD_SHORTCUTS_ENABLED: boolean;
 }
 
 declare global {

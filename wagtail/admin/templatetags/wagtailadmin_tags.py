@@ -929,6 +929,14 @@ def wagtail_config(context):
     if locale := context.get("locale"):
         config["ACTIVE_CONTENT_LOCALE"] = locale.language_code
 
+    user = getattr(context.get("request"), "user", None)
+
+    config["KEYBOARD_SHORTCUTS_ENABLED"] = (
+        user.wagtail_userprofile.keyboard_shortcuts
+        if hasattr(user, "wagtail_userprofile")
+        else True
+    )
+
     return config
 
 
@@ -1333,7 +1341,7 @@ def keyboard_shortcuts_dialog(context):
             ("actions-model", _("Actions")): [
                 (_("Save changes"), f"{KEYS.MOD} + s"),
                 (_("Preview"), f"{KEYS.MOD} + p"),
-                (_("Minimap"), f"{KEYS.ALT} + ]"),
+                (_("Toggle minimap"), "]"),
                 (_("Add or show comments"), f"{KEYS.CTRL} + {KEYS.ALT} + m")
                 if comments_enabled
                 else None,
