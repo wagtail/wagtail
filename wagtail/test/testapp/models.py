@@ -88,7 +88,7 @@ from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 
-from ...locks import WorkflowLock
+from ...locks import BaseLock, WorkflowLock
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
 EVENT_AUDIENCE_CHOICES = (
@@ -2452,6 +2452,11 @@ class UserApprovalTask(Task):
 class CustomWorkflowLock(WorkflowLock):
     def get_message(self, user):
         return "If there is a door, there must be a key"
+
+
+class NotSuitableForWorkflowLock(BaseLock):
+    def __init__(self, object, _task):
+        super().__init__(object)
 
 
 class CustomLockTask(Task):

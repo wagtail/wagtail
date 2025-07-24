@@ -1,3 +1,4 @@
+import logging
 from typing import Union
 
 from django import forms
@@ -42,6 +43,8 @@ from .locking import LockableMixin
 from .orderable import Orderable
 from .revisions import Revision, RevisionMixin
 from .specific import SpecificMixin
+
+logger = logging.getLogger(__name__)
 
 
 class WorkflowContentType(models.Model):
@@ -1375,7 +1378,15 @@ class WorkflowMixin(models.Model):
             # but only if it is or inherits from WorkflowLock
             lock_class = current_workflow_task.lock_class
             if not issubclass(lock_class, WorkflowLock):
-                lock_class = WorkflowLock
+
+                def model_name(model):
+                    return f"{model.__module__}.{model.__name__}"
+
+                logger.warning(
+                    f'The lock class "{model_name(lock_class)}" '
+                    f'for the "{model_name(current_workflow_task.specific_class)}" task '
+                    f'is not a subclass of "{model_name(WorkflowLock)}".'
+                )
 
             return lock_class(self, current_workflow_task)
 

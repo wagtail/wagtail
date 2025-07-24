@@ -26,7 +26,7 @@ from wagtail.admin.utils import (
     get_latest_str,
     get_user_display_name,
 )
-from wagtail.locks import BaseLock, WorkflowLock
+from wagtail.locks import BasicLock
 from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
@@ -47,6 +47,7 @@ from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
     ModeratedModel,
     MultiPreviewModesPage,
+    NotSuitableForWorkflowLock,
     SimplePage,
     SimpleTask,
     UserApprovalTask,
@@ -4873,12 +4874,28 @@ class TestCustomWorkflowLockOnTask(BasePageWorkflowTests):
         self.assertIsInstance(self.object.get_lock(), CustomWorkflowLock)
 
     @mock.patch.object(CustomLockTask, "lock_class", new_callable=mock.PropertyMock)
-    def test_workflowlock_used_if_custom_lock_class_inherits_something_else(
+    def test_warning_raised_if_custom_lock_class_inherits_something_else(
         self, mock_property
     ):
-        mock_property.return_value = BaseLock
+        mock_property.return_value = NotSuitableForWorkflowLock
 
         self.post("submit")
-        response = self.client.get(self.get_url("edit"))
+        with self.assertLogs(level="WARNING") as log_output:
+            response = self.client.get(self.get_url("edit"))
+
         self.assertNotContains(response, "If there is a door, there must be a key")
-        self.assertIsInstance(self.object.get_lock(), WorkflowLock)
+        self.assertIn(
+            'The lock class "wagtail.test.testapp.models.NotSuitableForWorkflowLock" '
+            'for the "wagtail.test.testapp.models.CustomLockTask" task '
+            'is not a subclass of "wagtail.locks.WorkflowLock"',
+            log_output.output[0],
+        )
+
+    @mock.patch.object(CustomLockTask, "lock_class", new_callable=mock.PropertyMock)
+    def test_typeerror_if_custom_lock_class_inherits_basic_locks(self, mock_property):
+        mock_property.return_value = BasicLock
+
+        self.post("submit")
+
+        with self.assertRaises(TypeError), self.assertLogs(level="WARNING"):
+            self.client.get(self.get_url("edit"))
