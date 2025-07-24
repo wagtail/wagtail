@@ -30,7 +30,6 @@ If you want to add custom attributes other than `class` on a `StructBlock` in th
 
 In addition, the `StructBlock`'s `Meta` class also accepts a `collapsed` attribute. When set to `True`, the block is initially displayed in a collapsed state in the editing interface. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. Note that this only applies to `StructBlock` inside another `StructBlock`. If the `StructBlock` is within a `StreamBlock` or `ListBlock`, the initial state will follow the parent block's `collapsed` option.
 
-
 ```python
 class SettingsBlock(blocks.StructBlock):
     theme = ChoiceBlock(

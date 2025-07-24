@@ -130,9 +130,9 @@ def get_page(request: "HttpRequest", page_id: int):
 With this in place, we are still missing a way to determine which of the schemas to use for a given page.
 We want to do this by page type, adding an extra `content_type` class attribute annotation to our schemas.
 
-- For `BasePageSchema`, we define `content_type: str`, as any page type can use this base.
-- For `HomePageSchema`, we set `content_type: Literal["homepage"]`.
-- And for `BlogPageSchema`, we set `content_type: Literal["blogpage"]`.
+-   For `BasePageSchema`, we define `content_type: str`, as any page type can use this base.
+-   For `HomePageSchema`, we set `content_type: Literal["homepage"]`.
+-   And for `BlogPageSchema`, we set `content_type: Literal["blogpage"]`.
 
 All we need now is to add a [resolver](https://django-ninja.dev/guides/response/#resolvers) calculated field to the `BasePageSchema`, to return the correct content type for each page. Here is the final version of `BasePageSchema`:
 

@@ -165,10 +165,10 @@ Unregistering ``Format`` objects will cause errors when viewing or editing pages
 
 The `NoFutureDateValidator` prevents users from entering dates in the future. This is particularly useful for fields that should only contain past or present dates, such as:
 
-- Birth dates
-- Historical event dates  
-- Publication dates for content that has already been published
-- Completion dates for finished projects
+-   Birth dates
+-   Historical event dates
+-   Publication dates for content that has already been published
+-   Completion dates for finished projects
 
 ```python
 from django.db import models

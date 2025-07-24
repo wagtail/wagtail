@@ -132,7 +132,7 @@ export default function Userbar({ hidden = false }: { hidden?: boolean }) {
         if (
           !userbarRef.current ||
           // useEffect runs twice in development mode, so we need to bail out if
-          // the userbar is already present from the previous fetch() call.
+          // the user bar is already present from the previous fetch() call.
           userbarRef.current.querySelector('wagtail-userbar')
         )
           return;

@@ -78,9 +78,9 @@ Place your own SVG files in `<your_app>/templates/wagtailadmin/icons/`.
 
 (custom_icons_userbar)=
 
-### Using custom icons in the userbar
+### Using custom icons in the user bar
 
-The userbar provides quick actions within page views when logged in. To customize the items shown in the user bar, you can use the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook. If you want to use custom icons within these menu items they must be made available in the correct template.
+The user bar provides quick actions within page views when logged in. To customize the items shown in the user bar, you can use the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook. If you want to use custom icons within these menu items they must be made available in the correct template.
 
 ```html+django
 {# <yourapp>/templates/wagtailadmin/userbar/base.html #}

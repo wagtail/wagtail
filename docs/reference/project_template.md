@@ -98,6 +98,8 @@ The Django settings files are split up into `base.py`, `dev.py`, `production.py`
 On production servers, we recommend that you only store secrets in ``local.py`` (such as API keys and passwords). This can save you headaches in the future if you are ever trying to debug why a server is behaving badly. If you are using multiple servers which need different settings then we recommend that you create a different ``production.py`` file for each one.
 ```
 
+(project_templates_testing)=
+
 ### Writing and running tests
 
 When you create a new project using `wagtail start`, there will be a set of basic tests included in the `home/tests.py` file.
