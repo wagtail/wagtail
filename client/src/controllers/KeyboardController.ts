@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-
 import Mousetrap from 'mousetrap';
 
 // import with side-effect to add global-bind plugin (see https://github.com/ccampbell/mousetrap/tree/master/plugins/global-bind)

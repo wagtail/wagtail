@@ -898,7 +898,6 @@ def get_comments_enabled():
 @register.simple_tag(takes_context=True)
 def wagtail_config(context):
     request = context["request"]
-
     config = {
         "CSRF_TOKEN": get_token(request),
         "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(
@@ -1342,7 +1341,7 @@ def keyboard_shortcuts_dialog(context):
             ("actions-model", _("Actions")): [
                 (_("Save changes"), f"{KEYS.MOD} + s"),
                 (_("Preview"), f"{KEYS.MOD} + p"),
-                (_("Minimap"), f"{KEYS.ALT} + ]"),
+                (_("Toggle minimap"), "]"),
                 (_("Add or show comments"), f"{KEYS.CTRL} + {KEYS.ALT} + m")
                 if comments_enabled
                 else None,
@@ -1379,5 +1378,6 @@ def human_readable_date(date, description=None, placement="top"):
 # Shadow the laces `component` tag which was extracted from Wagtail. The shadowing
 # is useful to avoid having to update all the templates that use the `component` tag.
 register.tag("component", component)
+
 
 register.simple_tag(get_icon_sprite_url, name="icon_sprite_url")
