@@ -1341,7 +1341,7 @@ def keyboard_shortcuts_dialog(context):
             ("actions-model", _("Actions")): [
                 (_("Save changes"), f"{KEYS.MOD} + s"),
                 (_("Preview"), f"{KEYS.MOD} + p"),
-                (_("Toggle menu"), "["),
+                (_("Toggle sidebar"), "["),
                 (_("Toggle minimap"), "]"),
                 (_("Add or show comments"), f"{KEYS.CTRL} + {KEYS.ALT} + m")
                 if comments_enabled
