@@ -618,7 +618,6 @@ class QuoteBlock(blocks.StructBlock):
         return {"text": quote.text, "source": quote.source}
 ```
 
-
 Alternatively, the `preview_value` can be defined as a callable.
 
 ```{code-block} python
