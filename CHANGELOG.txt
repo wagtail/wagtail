@@ -44,6 +44,7 @@ Changelog
  * Add previews support for generic and site settings (Sébastien Corbin, Sage Abdullah)
  * Provide client-side access to the editing form panel structure (Matt Westcott)
  * Make transliteration of titles to slugs locale-aware, and provide further customisation options (LB (Ben) Johnston)
+ * Add a keyboard shortcut to easily toggle the visibility of the main menu (Dhruvi Patel)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
