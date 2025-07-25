@@ -108,17 +108,18 @@ export class SyncController extends Controller<HTMLInputElement> {
     // Do not override if user has already typed a title
     if (titleInput.value) return;
 
-    const rawPath = input.value || '';
-    const parts = rawPath.split('\\');
-    const filenameWithExt = parts[parts.length - 1] || '';
+    // Browser returns the value as `C:\fakepath\image.jpg`,
+    // convert to just the filename part
+    const filenameWithExt = input.value.split('\\').at(-1) || '';
 
     // Remove file extension
     const title = filenameWithExt.replace(/\.[^.]+$/, '');
 
     // Prepare details for the custom event
-    const maxTitleLengthAttr = titleInput.getAttribute('maxLength');
-    const maxTitleLength =
-      maxTitleLengthAttr !== null ? parseInt(maxTitleLengthAttr, 10) : null;
+    const maxTitleLengthAttr = titleInput.getAttribute('maxlength');
+    const maxTitleLength = maxTitleLengthAttr
+      ? parseInt(maxTitleLengthAttr, 10)
+      : null;
 
     const customEvent = new CustomEvent(this.eventValue, {
       bubbles: true,
@@ -140,8 +141,11 @@ export class SyncController extends Controller<HTMLInputElement> {
 
     // Optionally dispatch a change event if you want to notify any listeners
     if (!this.quietValue) {
-      const changeEvent = new Event('change', { bubbles: true });
-      titleInput.dispatchEvent(changeEvent);
+      this.dispatch('change', {
+        cancelable: false,
+        prefix: '',
+        target: titleInput as HTMLInputElement,
+      });
     }
   }
 
