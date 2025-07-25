@@ -74,6 +74,7 @@ class BaseImageForm(BaseCollectionMemberForm):
                 attrs={
                     "data-controller": "w-sync",
                     "data-w-sync-target-value": "#id_title",
+                    "data-w-sync-event-value": "wagtail:images-upload",
                     "data-action": "change->w-sync#prefillTitleFromFilename cut->w-sync#clear focus->w-sync#check",
                 }
             ),

@@ -28,6 +28,7 @@ export class SyncController extends Controller<HTMLInputElement> {
     delay: { default: 0, type: Number },
     disabled: { default: false, type: Boolean },
     quiet: { default: false, type: Boolean },
+    event: String,
     target: String,
   };
 
@@ -35,6 +36,7 @@ export class SyncController extends Controller<HTMLInputElement> {
   declare delayValue: number;
   declare disabledValue: boolean;
   declare quietValue: boolean;
+  declare readonly eventValue: string;
   declare readonly targetValue: string;
 
   /**
@@ -118,7 +120,7 @@ export class SyncController extends Controller<HTMLInputElement> {
     const maxTitleLength =
       maxTitleLengthAttr !== null ? parseInt(maxTitleLengthAttr, 10) : null;
 
-    const customEvent = new CustomEvent('wagtail:images-upload', {
+    const customEvent = new CustomEvent(this.eventValue, {
       bubbles: true,
       cancelable: true,
       detail: {
@@ -129,10 +131,10 @@ export class SyncController extends Controller<HTMLInputElement> {
     });
 
     // Dispatch the event on the closest <form> element
-    const form = input.closest('form');
-    const cancelled = form ? !form.dispatchEvent(customEvent) : false;
-
-    if (cancelled) return;
+    if (input.form) {
+      input.form.dispatchEvent(customEvent);
+      if (customEvent.defaultPrevented) return;
+    }
 
     titleInput.value = title;
 

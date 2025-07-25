@@ -66,6 +66,7 @@ class BaseDocumentForm(BaseCollectionMemberForm):
                 attrs={
                     "data-controller": "w-sync",
                     "data-w-sync-target-value": "#id_title",
+                    "data-w-sync-event-name": "wagtail:documents-upload",
                     "data-action": "change->w-sync#prefillTitleFromFilename cut->w-sync#clear focus->w-sync#check",
                 }
             ),
