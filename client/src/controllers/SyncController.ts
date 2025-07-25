@@ -28,6 +28,7 @@ export class SyncController extends Controller<HTMLInputElement> {
     delay: { default: 0, type: Number },
     disabled: { default: false, type: Boolean },
     quiet: { default: false, type: Boolean },
+    event: String,
     target: String,
   };
 
@@ -35,6 +36,7 @@ export class SyncController extends Controller<HTMLInputElement> {
   declare delayValue: number;
   declare disabledValue: boolean;
   declare quietValue: boolean;
+  declare readonly eventValue: string;
   declare readonly targetValue: string;
 
   /**
@@ -88,6 +90,63 @@ export class SyncController extends Controller<HTMLInputElement> {
         applyValue(target);
       }
     });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  prefillTitleFromFilename(_event?: Event) {
+    const input = this.element;
+
+    // Find the target input via the selector in data-w-sync-target-value
+    const titleInput = document.querySelector<HTMLInputElement>(
+      this.targetValue,
+    );
+
+    if (!titleInput) {
+      return;
+    }
+
+    // Do not override if user has already typed a title
+    if (titleInput.value) return;
+
+    // Browser returns the value as `C:\fakepath\image.jpg`,
+    // convert to just the filename part
+    const filenameWithExt = input.value.split('\\').at(-1) || '';
+
+    // Remove file extension
+    const title = filenameWithExt.replace(/\.[^.]+$/, '');
+
+    // Prepare details for the custom event
+    const maxTitleLengthAttr = titleInput.getAttribute('maxlength');
+    const maxTitleLength = maxTitleLengthAttr
+      ? parseInt(maxTitleLengthAttr, 10)
+      : null;
+
+    const customEvent = new CustomEvent(this.eventValue, {
+      bubbles: true,
+      cancelable: true,
+      detail: {
+        data: { title },
+        filename: filenameWithExt,
+        maxTitleLength,
+      },
+    });
+
+    // Dispatch the event on the closest <form> element
+    if (input.form) {
+      input.form.dispatchEvent(customEvent);
+      if (customEvent.defaultPrevented) return;
+    }
+
+    titleInput.value = title;
+
+    // Optionally dispatch a change event if you want to notify any listeners
+    if (!this.quietValue) {
+      this.dispatch('change', {
+        cancelable: false,
+        prefix: '',
+        target: titleInput as HTMLInputElement,
+      });
+    }
   }
 
   /**

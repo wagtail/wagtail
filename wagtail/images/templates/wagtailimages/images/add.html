@@ -2,7 +2,7 @@
 {% load wagtailimages_tags wagtailadmin_tags i18n %}
 {% block titletag %}{% trans "Add an image" %}{% endblock %}
 
-{% block extra_js %}
+{% comment %} {% block extra_js %}
     {{ block.super }}
 
     <script>
@@ -34,7 +34,7 @@
             );
         });
     </script>
-{% endblock %}
+{% endblock %} {% endcomment %}
 
 {% block actions %}
     <button

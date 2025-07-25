@@ -257,6 +257,8 @@ class ChooserModalOnloadHandlerFactory {
     });
 
     /* If this form has a file and title field, set up the title to be prefilled from the title */
+    // The code below is no longer used for image and document choosers, but kept for backwards compatibility
+    // with any custom choosers that may still use it.
     if (
       this.creationFormFileFieldSelector &&
       this.creationFormTitleFieldSelector
