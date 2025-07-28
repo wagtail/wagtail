@@ -62,9 +62,6 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
         Note that non-text-based fields (such as ``IntegerField`` and ``DateField``) that have not been defined as ``null=True`` do not permit saving blank values at the database level, and so these will always be enforced as required fields when saving drafts.
 
-        .. versionadded:: 7.0
-           The ability to leave required fields blank when saving drafts was introduced.
-
     .. attribute:: FieldPanel.attrs (optional)
 
         Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.

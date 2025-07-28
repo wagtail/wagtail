@@ -464,10 +464,6 @@ def user_listing_external_profile(user, request_user):
 The `wagtail.users.widgets.UserListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
 ```
 
-```{versionadded} 7.0
-The `wagtail.admin.widgets.ListingButton` class can be used to add buttons to the top-level menu in the users listing.
-```
-
 (filter_form_submissions_for_user)=
 
 ### `filter_form_submissions_for_user`
@@ -1415,10 +1411,6 @@ The `priority` argument controls the order the buttons are displayed in. Buttons
 
 ```{versionchanged} 7.0
 The `wagtail.snippets.widgets.SnippetListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
-```
-
-```{versionadded} 7.0
-The `wagtail.admin.widgets.ListingButton` class can be used to add buttons to the top-level menu in the snippets listing.
 ```
 
 (construct_snippet_listing_buttons)=
