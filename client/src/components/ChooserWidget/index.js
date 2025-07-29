@@ -86,7 +86,7 @@ export class Chooser extends EventTarget {
 
   setStateFromModalData(data) {
     this.setState(data);
-    this.dispatchEvent(new Event('chosen', data));
+    this.dispatchEvent(new CustomEvent('chosen', { detail: data }));
   }
 
   clear() {
