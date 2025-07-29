@@ -1,6 +1,5 @@
 import json
 import re
-from typing import List, Optional, Tuple, Union
 
 from django.conf import settings
 from django.forms import widgets
@@ -19,16 +18,17 @@ class SlugInput(widgets.TextInput):
 
     def __init__(
         self,
-        attrs: Optional[dict] = None,
-        formatters: Optional[
-            List[
-                Tuple[
-                    Union[re.Pattern, str, bytes],
-                    Optional[str],
+        attrs: dict | None = None,
+        formatters: None
+        | (
+            list[
+                tuple[
+                    re.Pattern | str | bytes,
+                    str | None,
                 ],
             ]
-        ] = [],
-        locale: Optional[object] = None,
+        ) = [],
+        locale: object | None = None,
     ):
         default_attrs = {
             "data-controller": "w-slug",

@@ -5,7 +5,7 @@ import re
 import unicodedata
 from collections.abc import Iterable
 from hashlib import md5
-from typing import TYPE_CHECKING, Any, List, Optional, Union
+from typing import TYPE_CHECKING, Any
 
 from anyascii import anyascii
 from django.apps import apps
@@ -527,7 +527,7 @@ class BatchCreator(BatchProcessor):
         if self.max_size and len(self.items) == self.max_size:
             self.process()
 
-    def extend(self, iterable: Iterable[Union[Model, dict[str, Any]]]) -> None:
+    def extend(self, iterable: Iterable[Model | dict[str, Any]]) -> None:
         for value in iterable:
             if isinstance(value, self.model):
                 self.add(instance=value)
@@ -563,9 +563,9 @@ def make_wagtail_template_fragment_key(fragment_name, page, site, vary_on=None):
 
 
 def get_js_regex(
-    regex: Optional[Union[re.Pattern, str, bytes]] = None,
-    base_js_flags: Optional[str] = "gu",
-) -> List[str]:
+    regex: re.Pattern | str | bytes | None = None,
+    base_js_flags: str | None = "gu",
+) -> list[str]:
     """
     Converts a Python regex (or pattern string) to an array of
     JavaScript regex params list, that can be used for ``new RegExp(..._)``.

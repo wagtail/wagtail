@@ -1,5 +1,4 @@
 import json
-from typing import Optional
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -123,7 +122,7 @@ class LocaleMixin:
     def translations(self):
         return self.get_translations() if self.locale else []
 
-    def get_locale(self) -> Optional[Locale]:
+    def get_locale(self) -> Locale | None:
         if not getattr(self, "model", None):
             return None
 

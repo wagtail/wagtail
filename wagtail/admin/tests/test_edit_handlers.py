@@ -1,7 +1,7 @@
 from collections.abc import Mapping
 from datetime import date, datetime, timezone
 from functools import wraps
-from typing import Any, Optional
+from typing import Any
 from unittest import mock
 
 from django import VERSION as DJANGO_VERSION
@@ -871,8 +871,8 @@ class TestFieldPanel(TestCase):
 
     def _get_form(
         self,
-        data: Optional[Mapping[str, Any]] = None,
-        fields: Optional[list[str]] = None,
+        data: Mapping[str, Any] | None = None,
+        fields: list[str] | None = None,
     ) -> WagtailAdminPageForm:
         cls = get_form_for_model(
             EventPage,

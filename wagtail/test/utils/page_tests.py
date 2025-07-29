@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 from unittest import mock
 
 from django.conf import settings
@@ -174,8 +174,8 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
     def assertPageIsRoutable(
         self,
         page: Page,
-        route_path: Optional[str] = "/",
-        msg: Optional[str] = None,
+        route_path: str | None = "/",
+        msg: str | None = None,
     ):
         """
         Asserts that ``page`` can be routed to without raising a ``Http404`` error.
@@ -216,13 +216,13 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
     def assertPageIsRenderable(
         self,
         page: Page,
-        route_path: Optional[str] = "/",
-        query_data: Optional[dict[str, Any]] = None,
-        post_data: Optional[dict[str, Any]] = None,
-        user: Optional[AbstractBaseUser] = None,
-        accept_404: Optional[bool] = False,
-        accept_redirect: Optional[bool] = False,
-        msg: Optional[str] = None,
+        route_path: str | None = "/",
+        query_data: dict[str, Any] | None = None,
+        post_data: dict[str, Any] | None = None,
+        user: AbstractBaseUser | None = None,
+        accept_404: bool | None = False,
+        accept_redirect: bool | None = False,
+        msg: str | None = None,
     ):
         """
         Asserts that ``page`` can be rendered without raising a fatal error.
@@ -297,9 +297,9 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
     def assertPageIsEditable(
         self,
         page: Page,
-        post_data: Optional[dict[str, Any]] = None,
-        user: Optional[AbstractBaseUser] = None,
-        msg: Optional[str] = None,
+        post_data: dict[str, Any] | None = None,
+        user: AbstractBaseUser | None = None,
+        msg: str | None = None,
     ):
         """
         Asserts that the page edit view works for ``page`` without raising a fatal error.
@@ -378,10 +378,10 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
     def assertPageIsPreviewable(
         self,
         page: Page,
-        mode: Optional[str] = "",
-        post_data: Optional[dict[str, Any]] = None,
-        user: Optional[AbstractBaseUser] = None,
-        msg: Optional[str] = None,
+        mode: str | None = "",
+        post_data: dict[str, Any] | None = None,
+        user: AbstractBaseUser | None = None,
+        msg: str | None = None,
     ):
         """
         Asserts that the page preview view can be loaded for ``page`` without raising a fatal error.

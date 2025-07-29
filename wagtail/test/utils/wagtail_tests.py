@@ -1,6 +1,5 @@
 import warnings
 from contextlib import contextmanager
-from typing import Union
 
 from bs4 import BeautifulSoup
 from django.contrib.auth import get_user_model
@@ -9,7 +8,7 @@ from django.test.testcases import assert_and_parse_html
 
 class WagtailTestUtils:
     @staticmethod
-    def get_soup(markup: Union[str, bytes]) -> BeautifulSoup:
+    def get_soup(markup: str | bytes) -> BeautifulSoup:
         # Use an empty string_containers argument so that <script>, <style>, and
         # <template> tags do not have their text ignored.
         return BeautifulSoup(markup, "html.parser", string_containers={})

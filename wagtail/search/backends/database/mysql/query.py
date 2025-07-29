@@ -1,5 +1,5 @@
 import re
-from typing import Any, Union
+from typing import Any
 
 from django.db.backends.base.base import BaseDatabaseWrapper
 from django.db.models.expressions import CombinedExpression, Expression, Value
@@ -149,7 +149,7 @@ class SearchQueryCombinable:
 
 class SearchQuery(SearchQueryCombinable, Expression):
     def __init__(
-        self, value: Union[LexemeCombinable, str], search_type: str = "lexeme", **extra
+        self, value: LexemeCombinable | str, search_type: str = "lexeme", **extra
     ):
         super().__init__(output_field=SearchQueryField())
         self.extra = extra

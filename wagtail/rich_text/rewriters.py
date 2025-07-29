@@ -4,7 +4,7 @@ Utility classes for rewriting elements of HTML-like strings
 
 import re
 from collections import defaultdict
-from typing import Callable
+from collections.abc import Callable
 
 from django.utils.functional import cached_property
 
