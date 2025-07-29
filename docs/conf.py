@@ -190,6 +190,11 @@ myst_url_schemes = {
     "https": None,
     "http": None,
     "mailto": None,
+    "controller": {
+        "url": "/reference/ui/client/classes/controllers_{{path}}.{{path}}.html#{{fragment}}",
+        "title": "{{path}}",
+        "classes": ["pre"],
+    },
 }
 
 myst_enable_extensions = [
