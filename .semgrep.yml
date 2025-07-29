@@ -80,3 +80,21 @@ rules:
       See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
     languages: [javascript, typescript]
     severity: ERROR
+  - id: no-inline-html-styles
+    message: |
+      Do not use inline styles in HTML.
+      Use CSS classes or Stimulus attributes instead.
+    languages: [html]
+    severity: ERROR
+    patterns:
+      - pattern: <$TAG ... style="$STYLE_CONTENT" ...>
+  - id: no-setattribute-style
+    message: |
+      Avoid setting inline styles using `element.setAttribute('style', ...)`.
+      This approach triggers Content Security Policy (CSP) violations with strict
+      policies and leads to unmaintainable CSS. Prefer adding/removing CSS classes
+      or using framework-specific styling solutions.
+    languages: [javascript, typescript]
+    severity: ERROR
+    patterns:
+      - pattern: $ELEMENT.setAttribute('style', $STYLE_STRING)
