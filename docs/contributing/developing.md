@@ -232,9 +232,9 @@ We want to make Wagtail accessible for users of a wide variety of assistive tech
 -   [NVDA](https://www.nvaccess.org/download/) on Windows with Firefox ESR
 -   [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on macOS with Safari
 -   [Windows Magnifier](https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier) and macOS Zoom
--   Windows Speech Recognition and macOS Dictation
--   Mobile [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on iOS, or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
--   Windows [High-contrast mode](https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696)
+-   [Windows voice access](https://support.microsoft.com/en-gb/topic/use-voice-access-to-control-your-pc-author-text-with-your-voice-4dcd23ee-f1b9-4fd1-bacc-862ab611f55d) and [macOS Voice Control](https://support.apple.com/en-gb/102225)
+-   [iOS VoiceOver](https://support.apple.com/en-gb/guide/iphone/iph3e2e415f/ios), or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
+-   [Windows Contrast themes](https://support.microsoft.com/en-us/windows/change-color-contrast-in-windows-fedc744c-90ac-69df-aed5-c8a90125e696)
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialized training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
 
