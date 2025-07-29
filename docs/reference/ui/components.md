@@ -2,6 +2,15 @@
 
 # UI components
 
+This document provides a reference for Wagtail's user interface (UI) components, which are used to build the features within the CMS. A demonstration of these components are available through the [Styleguide app](styleguide) and the [pattern library](pattern_library).
+
+````{note}
+```{include} ../../../client/README.md
+:start-after: <!-- STABILITY:START -->
+:end-before: <!-- STABILITY:END -->
+```
+````
+
 ## Dialog
 
 ```{eval-rst}

@@ -267,6 +267,8 @@ This must be done after every change to the source files. To watch the source fi
 npm start
 ```
 
+(pattern_library)=
+
 ## Using the pattern library
 
 Wagtail’s UI component library is built with [Storybook](https://storybook.js.org/) and [django-pattern-library](https://github.com/torchbox/django-pattern-library). To run it locally,
