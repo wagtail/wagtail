@@ -59,3 +59,17 @@ class TestPagesAdminAPIRendererClasses(WagtailTestUtils, TestCase):
         content = json.loads(response.content.decode("UTF-8"))
         self.assertIn("meta", content)
         self.assertIn("items", content)
+
+    def test_api_response_returns_html_with_html_accept_header(self):
+        """Test that API returns HTML when HTML is explicitly requested via Accept header."""
+        response = self.client.get(
+            reverse("wagtailadmin_api:pages:listing"), HTTP_ACCEPT="text/html"
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
+
+        # Should contain HTML content
+        content = response.content.decode("UTF-8")
+        self.assertIn("<html", content)
+        self.assertIn("</html>", content)
