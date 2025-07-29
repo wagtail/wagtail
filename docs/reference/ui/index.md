@@ -1,6 +1,6 @@
-(ui_components)=
+(admin_ui_reference)=
 
-# UI components
+# Admin UI reference
 
 Wagtail includes a wide range of user interface (UI) components that are used to build the features within the CMS. These components are built using a combination of Django templates, [template components](template_components), custom Python classes, and JavaScript. They start out as internal components, but they are designed with extensibility and reusability in mind.
 
