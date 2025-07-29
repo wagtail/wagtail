@@ -1,10 +1,12 @@
 from collections import OrderedDict
 
+from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import path, reverse
+from django.utils.functional import classproperty
 from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
@@ -35,7 +37,16 @@ from .utils import (
 
 
 class BaseAPIViewSet(GenericViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    @classproperty
+    def renderer_classes(cls):
+        renderers = [JSONRenderer]
+
+        # Only add BrowsableAPIRenderer if rest_framework is installed
+        # (which provides the necessary templates and static files)
+        if apps.is_installed("rest_framework"):
+            renderers.append(BrowsableAPIRenderer)
+
+        return renderers
 
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer

@@ -901,6 +901,7 @@
 * Ellie Walsh-O'Neill
 * M. Sumair Khokhar
 * Gaurav Verma
+* Vijay Raj
 
 ## Translators
 
