@@ -28,7 +28,7 @@ concurrency:
 # - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 5.2, python 3.13, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.2.x, python 3.12, postgres:15, psycopg 3 (allow failures)
-# - django main, python 3.13, postgres:latest, psycopg 3, parallel (allow failures)
+# - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
 # - elasticsearch 7, django 4.2, python 3.10, postgres:latest, psycopg 2
 # - opensearch 2, django 5.2, python 3.10, sqlite
 # - elasticsearch 8, django 5.1, python 3.13, sqlite, USE_EMAIL_USER_MODEL=yes
@@ -105,7 +105,7 @@ jobs:
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
-          - python: '3.13'
+          - python: '3.14'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
@@ -127,10 +127,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Install build dependencies
+        if: ${{ matrix.python == '3.14' }}
+        run: |
+          sudo add-apt-repository ppa:strukturag/libheif
+          sudo apt update
+          sudo apt -y install libheif-dev libde265-dev libx265-dev libsharpyuv-dev libaom-dev
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+          allow-prereleases: true
           cache: 'pip'
       - name: Install dependencies
         run: |

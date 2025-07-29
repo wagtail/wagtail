@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.8 (Matt Westcott)
+ * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
 
 
 7.1 (xx.xx.xxxx) - IN DEVELOPMENT
