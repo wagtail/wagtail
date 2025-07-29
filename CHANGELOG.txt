@@ -4,7 +4,7 @@ Changelog
 7.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Removed support for Python 3.8 (Matt Westcott)
 
 
 7.1 (xx.xx.xxxx) - IN DEVELOPMENT
