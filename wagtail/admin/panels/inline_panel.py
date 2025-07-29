@@ -198,6 +198,7 @@ class InlinePanel(Panel):
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
             context["options_json"] = json.dumps(self.js_opts())
+            context["can_order"] = self.formset.can_order
             return context
 
         def telepath_pack(self, context):

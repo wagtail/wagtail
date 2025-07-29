@@ -1430,6 +1430,11 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         # check that attr option renders the data-controller attribute
         self.assertIn('data-controller="test"', result)
 
+        # Reordering controls should be present
+        self.assertIn("data-inline-panel-child-move-up", result)
+        self.assertIn("data-inline-panel-child-move-down", result)
+        self.assertIn("data-inline-panel-child-drag", result)
+
     def test_render_with_panel_overrides(self):
         """
         Check that inline panel renders the panels listed in the InlinePanel definition
