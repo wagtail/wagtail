@@ -19,5 +19,6 @@ maxdepth: 2
 titlesonly:
 ---
 
+components
 client
 ```
