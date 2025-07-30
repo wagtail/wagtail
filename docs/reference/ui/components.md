@@ -11,6 +11,12 @@ This document provides a reference for Wagtail's user interface (UI) components,
 ```
 ````
 
+## Fragment
+
+```{eval-rst}
+.. autofunction:: wagtail.admin.templatetags.wagtailadmin_tags.fragment
+```
+
 ## Dialog
 
 ```{eval-rst}
