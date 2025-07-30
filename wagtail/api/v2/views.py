@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
@@ -35,7 +36,21 @@ from .utils import (
 
 
 class BaseAPIViewSet(GenericViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    @property
+    def renderer_classes(self):
+        """
+        Dynamically determine renderer classes based on installed apps.
+        If rest_framework is not installed, only use JSONRenderer to avoid
+        template/static file errors when accessing endpoints directly in browser.
+        """
+        renderers = [JSONRenderer]
+
+        # Only add BrowsableAPIRenderer if rest_framework is installed
+        # (which provides the necessary templates and static files)
+        if apps.is_installed("rest_framework"):
+            renderers.append(BrowsableAPIRenderer)
+
+        return renderers
 
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
