@@ -240,6 +240,8 @@ class WagtailMenuRegisterableGroup(WagtailMenuRegisterable):
     menu_icon = "folder-open-inverse"
     add_to_admin_menu = True
 
+    submenu_hook = None
+
     def __init__(self):
         """
         When initialising, instantiate the classes (or use the instances)
@@ -261,7 +263,9 @@ class WagtailMenuRegisterableGroup(WagtailMenuRegisterable):
     def get_menu_item(self, order=None):
         return SubmenuMenuItem(
             label=self.menu_label,
-            menu=Menu(items=self.get_submenu_items()),
+            menu=Menu(
+                register_hook_name=self.submenu_hook, items=self.get_submenu_items()
+            ),
             name=self.menu_name,
             icon_name=self.menu_icon,
             order=order if order is not None else self.menu_order,
