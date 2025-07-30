@@ -978,28 +978,33 @@ def fragment(parser, token):
     Store a template fragment as a variable.
 
     Usage:
+
+    .. code-block:: html+django
+
         {% fragment as header_title %}
             {% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}
         {% endfragment %}
+        {% include "my/custom/header.html" with title=header_title %}
 
-    Copy-paste of slippers’ fragment template tag.
-    See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L173.
+    Adopted from `slippers' fragment template tag <https://mitchel.me/slippers/docs/template-tags-filters/#fragment>`_ with a few tweaks.
 
     To strip leading and trailing whitespace produced in the fragment, use the
-    `stripped` option. This is useful if you need to check if the resulting
+    ``stripped`` option. This is useful if you need to check if the resulting
     fragment is empty (after leading and trailing spaces are removed):
+
+    .. code-block:: html+django
 
         {% fragment stripped as recipient %}
             {{ title }} {{ first_name }} {{ last_name }}
-        {% endfragment }
+        {% endfragment %}
         {% if recipient %}
             Recipient: {{ recipient }}
         {% endif %}
 
     Note that the stripped option only strips leading and trailing spaces, unlike
-    {% blocktrans trimmed %} that also does line-by-line stripping. This is because
+    ``{% blocktrans trimmed %}`` that also does line-by-line stripping. This is because
     the fragment may contain HTML tags that are sensitive to whitespace, such as
-    <pre> and <code>.
+    ``<pre>`` and ``<code>``.
     """
     error_message = "The syntax for fragment is {% fragment as variable_name %}"
 
