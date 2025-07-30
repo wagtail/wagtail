@@ -37,7 +37,7 @@ const createMinimapLink = (
   const ariaLevel = heading.getAttribute('aria-level');
   const headingLevel = `h${ariaLevel || heading.tagName[1] || 2}`;
   const errorCount = [].slice
-    .call(panel.querySelectorAll('.error-message'))
+    .call(panel.querySelectorAll('.error-message,.help-critical'))
     .filter((err) => err.closest('[data-panel]') === panel).length;
 
   return {
