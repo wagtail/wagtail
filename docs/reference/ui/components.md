@@ -66,6 +66,77 @@ Arguments for the `{% dialog_toggle %}` tag:
 - `text`: The text to display on the button.
 - `classname` (optional): CSS classes for styling the button.
 
+## Dropdown
+
+```{eval-rst}
+.. class:: wagtail.admin.templatetags.wagtailadmin_tags.DropdownNode
+   :no-contents-entry:
+```
+
+A dropdown menu to display a list of actions or options. It is powered by the [`DropdownController`](controller:DropdownController) (`w-dropdown`). To create a dropdown, you can use the `{% dropdown %}` and `{% enddropdown %}` template tags.
+
+```html+django
+{% dropdown toggle_icon="dots-horizontal" toggle_aria_label="Actions" %}
+    <a href="/admin/pages/2/move/">{% icon name="arrow-right-full" %} Move</a>
+    <a href="/admin/pages/2/copy/">{% icon name="copy" %} Copy</a>
+    <a href="/admin/pages/2/delete/">{% icon name="bin" %} Delete</a>
+    <a href="/admin/pages/2/unpublish/">{% icon name="download" %} Unpublish</a>
+{% enddropdown %}
+```
+
+The dropdown's contents must be `a` and `button` elements only.
+
+Arguments for the `{% dropdown %}` tag:
+
+- `toggle_icon`: Name of the icon to display on the toggle button.
+- `toggle_label`: Visible label for the toggle button, displayed before the icon.
+- `toggle_suffix`: Visible content for the toggle button, displayed after the icon.
+- `toggle_aria_label`: `aria-label` for the toggle button.
+- `toggle_describedby`: `aria-describedby` for the toggle button.
+- `toggle_classname`: CSS classes for styling the toggle button.
+- `toggle_tooltip_offset`: The offset value for the dropdown, in similar format to the offset of [Tooltip](ui_tooltip).
+- `toggle_tippy_offset`: The offset value for the dropdown toggle's [Tooltip](ui_tooltip).
+- `hide_on_click`: Whether or not the dropdown should hide when clicking inside its content.
+- `keep_mounted` Whether or not the dropdown should keep its DOM node mounted when hidden.
+- `classname`: CSS classes for styling the dropdown.
+- `attrs`: HTML attributes to add to the dropdown element.
+
+All of the above arguments are optional, but either `toggle_label` or a combination of `toggle_icon` and `toggle_aria_label` must be provided to ensure the dropdown toggle is accessible.
+
+### Button with dropdown
+
+```{eval-rst}
+.. class:: wagtail.admin.templatetags.wagtailadmin_tags.DropdownButtonNode
+   :no-contents-entry:
+```
+
+A button with a dropdown menu next to it. This is a specialized version of the [dropdown](DropdownNode) component. To create a button with dropdown, you need to combine a rendered button HTML fragment with the `{% dropdown_button %}` and `{% enddropdown_button %}` template tags.
+
+```html+django
+{% load wagtailadmin_tags %}
+{% fragment as button %}
+    <button type="button" class="button">Main button</button>
+{% endfragment %}
+{% dropdown_button button=button toggle_icon="arrow-up" %}
+    <button type="submit" class="button">First item</button>
+    <a class="button" href="#">Second item</a>
+{% enddropdown_button %}
+```
+
+The dropdown's contents must be `a` and `button` elements only.
+
+Arguments for the `{% dropdown_button %}` tag:
+
+- `button`: The main button HTML fragment.
+- `toggle_icon`: Name of the icon to display on the toggle button. Defaults to `arrow-down`.
+- `toggle_classname`: CSS classes for styling the toggle button.
+- `keep_mounted`: Whether or not the dropdown should keep its DOM node mounted when hidden.
+- `classname`: CSS classes for styling the element that wraps the button and dropdown.
+
+Only the `button` argument is required, the rest are optional.
+
+(ui_tooltip)=
+
 ## Tooltip
 
 A tooltip that can be attached to an HTML element to display additional information on hover or focus. It is powered by the [`TooltipController`](controller:TooltipController) (`w-tooltip`). To add a tooltip, attach the `w-tooltip` controller to an element and specify the properties using data attributes.
