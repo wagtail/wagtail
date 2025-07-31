@@ -2392,6 +2392,10 @@ class PagePermissionTester:
         ):
             return False
 
+        # if the page cannot be created at the destination, it cannot be moved there
+        if not self.page.specific.can_create_at(destination):
+            return False
+
         # shortcut the trivial 'everything' / 'nothing' permissions
         if not self.user.is_active:
             return False
