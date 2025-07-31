@@ -348,6 +348,8 @@ window.wagtail.app.register('word-count', WordCountController);
 
 You may want to avoid bundling Stimulus with your JavaScript output and treat the global as an external/alias module, refer to your build system documentation for instructions on how to do this.
 
+(extending_client_side_react)=
+
 ## Extending with React
 
 To customize or extend the [React](https://reactjs.org/) components, you may need to use React too, as well as other related libraries.
@@ -400,5 +402,3 @@ window.draftail.TooltipEntity;
 
 -   [](streamfield_widget_api)
 -   [](custom_streamfield_blocks_media)
-
-(extending_client_side_react)=
