@@ -16,6 +16,15 @@ def convert_alias(request, page_id):
     if not page.permissions_for_user(request.user).can_edit():
         raise PermissionDenied
 
+    if not page.can_create_at(page.get_parent()):
+        messages.error(
+            request,
+            _(
+                "You cannot convert this page because it cannot be created at its parent."
+            ),
+        )
+        return redirect("wagtailadmin_pages:edit", page.id)
+
     with transaction.atomic():
         for fn in hooks.get_hooks("before_convert_alias_page"):
             result = fn(request, page)
