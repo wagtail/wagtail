@@ -25,6 +25,13 @@ def convert_alias(request, page_id):
         next_url = get_valid_next_url_from_request(request)
 
         if request.method == "POST":
+            if not page.can_create_at(page.get_parent()):
+                messages.error(
+                    request,
+                    _("You cannot convert this page because it cannot be created at its parent."),
+                )
+                return redirect("wagtailadmin_pages:edit", page.id)
+            
             action = ConvertAliasPageAction(page, user=request.user)
             action.execute(skip_permission_checks=True)
 
