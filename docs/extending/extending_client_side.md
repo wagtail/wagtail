@@ -63,7 +63,7 @@ The [Stimulus handbook](https://stimulus.hotwired.dev/handbook/introduction) is 
 
 Wagtail exposes two client-side globals for using Stimulus.
 
-1. `window.wagtail.app` the core admin Stimulus application instance.
+1. `window.wagtail.app` the core admin Stimulus [`WagtailApplication`](client:classes/includes_initStimulus.WagtailApplication) instance.
 2. `window.StimulusModule` Stimulus module as exported from `@hotwired/stimulus`.
 
 First, create a custom [Stimulus controller](https://stimulus.hotwired.dev/reference/controllers) that extends the base `window.StimulusModule.Controller` using [JavaScript class inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). If you are using a build tool you can import your base controller via `import { Controller } from '@hotwired/stimulus';`.
