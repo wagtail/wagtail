@@ -2317,6 +2317,9 @@ class PagePermissionTester:
         ):
             return False
 
+        if not self.page.specific.can_create_at(destination):
+            return False
+
         # shortcut the trivial 'everything' / 'nothing' permissions
         if not self.user.is_active:
             return False
