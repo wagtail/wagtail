@@ -1592,6 +1592,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not parent_is_root and parent.locale_id != self.locale_id:
             return False
 
+        # if the page has a max_count_per_parent, check for a page of this type under the destination
+        if self.max_count_per_parent is not None:
+            return (
+                parent.get_children().type(self.specific_class).not_page(self).count()
+                < self.max_count_per_parent
+            )
+
         return self.can_exist_under(parent)
 
     @classmethod
@@ -2316,16 +2323,6 @@ class PagePermissionTester:
             not self.page.specific.can_move_to(destination)
         ):
             return False
-
-        # if the page has a max_count_per_parent, check for a page of this type under the destination
-        if self.page.specific.max_count_per_parent is not None:
-            return (
-                destination.get_children()
-                .type(self.page.specific_class)
-                .not_page(self.page)
-                .count()
-                < self.page.specific.max_count_per_parent
-            )
 
         # shortcut the trivial 'everything' / 'nothing' permissions
         if not self.user.is_active:
