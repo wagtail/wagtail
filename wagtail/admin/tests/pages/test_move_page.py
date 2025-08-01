@@ -7,7 +7,6 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.admin.views.chooser import can_choose_page
 from wagtail.models import Page
 from wagtail.signals import post_page_move, pre_page_move
 from wagtail.test.testapp.models import (
