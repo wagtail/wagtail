@@ -9,7 +9,12 @@ from django.urls import reverse
 
 from wagtail.models import Page
 from wagtail.signals import post_page_move, pre_page_move
-from wagtail.test.testapp.models import BusinessSubIndex, SimplePage, SimpleChildPage, SimpleParentPage
+from wagtail.test.testapp.models import (
+    BusinessSubIndex,
+    SimpleChildPage,
+    SimplePage,
+    SimpleParentPage,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
