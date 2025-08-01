@@ -2183,8 +2183,16 @@ class PagePermissionTester:
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
+
         specific_class = self.page.specific_class
-        if specific_class is None or not specific_class.creatable_subpage_models():
+        if specific_class is None:
+            return False
+
+        creatable_subpage_models = specific_class.creatable_subpage_models()
+        if not any(
+            subpage_model.can_create_at(self.page)
+            for subpage_model in creatable_subpage_models
+        ):
             return False
         return self.user.is_superuser or ("add" in self.permissions)
 
