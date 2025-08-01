@@ -9,7 +9,7 @@ from django.urls import reverse
 
 from wagtail.models import Page
 from wagtail.signals import post_page_move, pre_page_move
-from wagtail.test.testapp.models import BusinessSubIndex, SimplePage
+from wagtail.test.testapp.models import BusinessSubIndex, SimplePage, SimpleChildPage, SimpleParentPage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -50,6 +50,33 @@ class TestPageMove(WagtailTestUtils, TestCase):
         sub_page = SimplePage(title="Sub Page", slug="sub-page", content="child")
         cls.root_page.add_child(instance=cls.unpublished_page)
         cls.unpublished_page.add_child(instance=sub_page)
+
+        # Create test pages using SimpleParentPage and SimpleChildPage
+        cls.parent_page_a = SimpleParentPage(
+            title="Parent Page A", slug="parent-page-a"
+        )
+        cls.section_a.add_child(instance=cls.parent_page_a)
+
+        cls.parent_page_b = SimpleParentPage(
+            title="Parent Page B", slug="parent-page-b"
+        )
+        cls.section_a.add_child(instance=cls.parent_page_b)
+
+        cls.parent_page_c = SimpleParentPage(
+            title="Parent Page C", slug="parent-page-c"
+        )
+        cls.section_a.add_child(instance=cls.parent_page_c)
+
+        cls.child_page_1 = SimpleChildPage(
+            title="Child Page 1", slug="child-page-1"
+        )
+        cls.parent_page_a.add_child(instance=cls.child_page_1)
+
+        cls.child_page_2 = SimpleChildPage(
+            title="Child Page 2", slug="child-page-2"
+        )
+        cls.parent_page_b.add_child(instance=cls.child_page_2)
+
 
         # unpublish pages last (used to validate the edit only permission)
         cls.unpublished_page.unpublish()
@@ -262,3 +289,59 @@ class TestPageMove(WagtailTestUtils, TestCase):
         form = response.context["move_form"]
         self.assertEqual(form.fields["new_parent_page"].initial.pk, self.section_a.pk)
         self.assertNotContains(response, self.section_a.title)
+
+    def test_max_count_per_parent_child_can_move_to_parent_with_no_children(self):
+        # Test for issue #13293 to check that a child page can be moved to a parent with no children
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(self.child_page_1.id, self.parent_page_c.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(self.child_page_1.id, self.parent_page_c.id),
+            )
+        )
+        self.assertEqual(response.status_code, 302)
+
+        # Check for success message, which should include the title of the moved page
+        response = self.client.get(reverse("wagtailadmin_home"))
+        messages = list(response.context["messages"])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].level, message_constants.SUCCESS)
+        self.assertIn(self.child_page_1.title, messages[0].message)
+
+        # Page should be moved
+        self.assertEqual(Page.objects.get(id=self.child_page_1.id).get_parent().id, self.parent_page_c.id)
+
+    def test_max_count_per_parent_prevents_move_to_parent_with_existing_child(self):
+        # Test for issue #13293 to check that a child page can be moved to a parent with no children
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(self.child_page_1.id, self.parent_page_b.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(self.child_page_1.id, self.parent_page_b.id),
+            )
+        )
+        self.assertEqual(response.status_code, 302)
+
+        # Check for error message
+        response = self.client.get(reverse("wagtailadmin_home"))
+        messages = list(response.context["messages"])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].level, message_constants.ERROR)
+
+        # Page should not be moved
+        self.assertEqual(Page.objects.get(id=self.child_page_1.id).get_parent().id, self.parent_page_a.id)
+
