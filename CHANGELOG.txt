@@ -91,6 +91,7 @@ Changelog
  * Docs: Add experimental documentation for admin UI components and client-side code (Sage Abdullah)
  * Docs: Clean up JSDoc documentation comments, syntax, and update spelling where suitable (LB (Ben) Johnston)
  * Docs: Add more examples of all images settings and include `avif` in `WAGTAILIMAGES_EXTENSIONS` example (Thibaud Colas)
+ * Docs: Add an example of using `data-edit-form` and interacting with the editor form and preview panel (Sage Abdullah)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
