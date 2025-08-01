@@ -7,6 +7,7 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.admin.views.chooser import can_choose_page
 from wagtail.models import Page
 from wagtail.signals import post_page_move, pre_page_move
 from wagtail.test.testapp.models import (
@@ -72,16 +73,11 @@ class TestPageMove(WagtailTestUtils, TestCase):
         )
         cls.section_a.add_child(instance=cls.parent_page_c)
 
-        cls.child_page_1 = SimpleChildPage(
-            title="Child Page 1", slug="child-page-1"
-        )
+        cls.child_page_1 = SimpleChildPage(title="Child Page 1", slug="child-page-1")
         cls.parent_page_a.add_child(instance=cls.child_page_1)
 
-        cls.child_page_2 = SimpleChildPage(
-            title="Child Page 2", slug="child-page-2"
-        )
+        cls.child_page_2 = SimpleChildPage(title="Child Page 2", slug="child-page-2")
         cls.parent_page_b.add_child(instance=cls.child_page_2)
-
 
         # unpublish pages last (used to validate the edit only permission)
         cls.unpublished_page.unpublish()
@@ -321,7 +317,10 @@ class TestPageMove(WagtailTestUtils, TestCase):
         self.assertIn(self.child_page_1.title, messages[0].message)
 
         # Page should be moved
-        self.assertEqual(Page.objects.get(id=self.child_page_1.id).get_parent().id, self.parent_page_c.id)
+        self.assertEqual(
+            Page.objects.get(id=self.child_page_1.id).get_parent().id,
+            self.parent_page_c.id,
+        )
 
     def test_max_count_per_parent_prevents_move_to_parent_with_existing_child(self):
         # Test for issue #13293 to check that a child page can be moved to a parent with no children
@@ -348,5 +347,7 @@ class TestPageMove(WagtailTestUtils, TestCase):
         self.assertEqual(messages[0].level, message_constants.ERROR)
 
         # Page should not be moved
-        self.assertEqual(Page.objects.get(id=self.child_page_1.id).get_parent().id, self.parent_page_a.id)
-
+        self.assertEqual(
+            Page.objects.get(id=self.child_page_1.id).get_parent().id,
+            self.parent_page_a.id,
+        )
