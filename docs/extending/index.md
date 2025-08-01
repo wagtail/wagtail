@@ -26,6 +26,7 @@ custom_account_settings
 customizing_group_views
 custom_image_filters
 extending_client_side
+editor_api
 rich_text_internals
 extending_draftail
 custom_bulk_actions

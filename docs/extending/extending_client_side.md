@@ -402,3 +402,7 @@ window.draftail.TooltipEntity;
 
 -   [](streamfield_widget_api)
 -   [](custom_streamfield_blocks_media)
+
+## Extending the editor
+
+-   [](editor_api)
