@@ -5,7 +5,7 @@ import { Application } from '@hotwired/stimulus';
  * Wagtail's extension of the base Stimulus `Application` with additional
  * capabilities for convenience.
  */
-class WagtailApplication extends Application {
+export class WagtailApplication extends Application {
   /**
    * Returns the first Stimulus controller that matches the identifier.
    * @param identifier - The identifier of the controller to query.
@@ -17,13 +17,13 @@ class WagtailApplication extends Application {
    * const content = await controller?.extractContent();
    * ```
    */
-  queryController(identifier: string): Controller | null {
+  queryController<T extends Controller<Element>>(identifier: string) {
     return this.getControllerForElementAndIdentifier(
       document.querySelector(
         `[${this.schema.controllerAttribute}~="${identifier}"]`,
       )!,
       identifier,
-    );
+    ) as T | null;
   }
 
   /**
@@ -37,7 +37,7 @@ class WagtailApplication extends Application {
    * controllers.forEach((controller) => controller.reset());
    * ```
    */
-  queryControllerAll(identifier: string): Controller[] {
+  queryControllerAll<T extends Controller<Element>>(identifier: string): T[] {
     return Array.from(
       document.querySelectorAll(
         `[${this.schema.controllerAttribute}~="${identifier}"]`,
@@ -46,7 +46,7 @@ class WagtailApplication extends Application {
       .map((element) =>
         this.getControllerForElementAndIdentifier(element, identifier),
       )
-      .filter(Boolean) as Controller[];
+      .filter(Boolean) as T[];
   }
 }
 
