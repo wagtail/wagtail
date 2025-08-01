@@ -98,6 +98,7 @@ Changelog
  * Maintenance: Bump minimum Willow version to v1.11.0 to use Pillow's built-in AVIF support (Sage Abdullah)
  * Maintenance: Add overridable blocks in comments and checks side panel templates (Sage Abdullah)
  * Maintenance: Rewrite Tabs component frontend to use Stimulus and TypeScript (Sai Srikar Dumpeti, LB (Ben) Johnston, Sage Abdullah)
+ * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
 
 
 7.0.2 (24.07.2025)
