@@ -99,7 +99,7 @@ export class FormsetController extends Controller<HTMLElement> {
   elementPrefixRegex = /__prefix__(.*?['"])/g;
 
   initialize() {
-    this.updateOrdering = debounce(this.updateOrdering.bind(this), 50);
+    this.syncOrdering = debounce(this.syncOrdering.bind(this), 50);
     this.totalValue = parseInt(this.totalFormsInputTarget.value, 10);
     this.minValue = parseInt(this.minFormsInputTarget.value, 10);
     this.maxValue = parseInt(this.maxFormsInputTarget.value, 10);
@@ -117,7 +117,7 @@ export class FormsetController extends Controller<HTMLElement> {
       target.querySelectorAll('.error-message').forEach((el) => el.remove());
     });
 
-    this.updateOrdering();
+    this.syncOrdering();
 
     this.dispatch('ready', {
       cancelable: false,
@@ -185,7 +185,7 @@ export class FormsetController extends Controller<HTMLElement> {
    * update the total count and dispatch an added event (only when it is a new one).
    */
   childTargetConnected(target: HTMLElement) {
-    this.updateOrdering();
+    this.syncOrdering();
 
     const totalFormsCount =
       this.childTargets.length + this.deletedTargets.length;
@@ -262,7 +262,7 @@ export class FormsetController extends Controller<HTMLElement> {
       cancelable: false,
     });
 
-    this.updateOrdering();
+    this.syncOrdering();
   }
 
   /**
@@ -301,7 +301,7 @@ export class FormsetController extends Controller<HTMLElement> {
    * If the orderInputTargets are present, update the value of each input
    * to match the current order of the child elements.
    */
-  updateOrdering() {
+  syncOrdering() {
     const orderInputTargets = this.orderInputTargets;
     if (!orderInputTargets.length) return;
 
