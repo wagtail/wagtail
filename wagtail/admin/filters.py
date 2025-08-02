@@ -18,13 +18,34 @@ class DateRangePickerWidget(SuffixedMultiWidget):
     A widget allowing a start and end date to be picked.
     """
 
-    template_name = "wagtailadmin/widgets/daterange_input.html"
+    template_name = "wagtailadmin/widgets/date_and_usage_range_input.html"
     suffixes = ["from", "to"]
 
     def __init__(self, attrs=None):
         widgets = (
             AdminDateInput(attrs={"placeholder": _("Date from")}),
             AdminDateInput(attrs={"placeholder": _("Date to")}),
+        )
+        super().__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return [value.start, value.stop]
+        return [None, None]
+
+
+class UsageCountWidget(SuffixedMultiWidget):
+    """
+    A widget allowing a minimum and maximum usage count to be picked.
+    """
+
+    template_name = "wagtailadmin/widgets/date_and_usage_range_input.html"
+    suffixes = ["from", "to"]
+
+    def __init__(self, attrs=None):
+        widgets = (
+            forms.NumberInput(attrs={"placeholder": _("Minimum"), "min": "0"}),
+            forms.NumberInput(attrs={"placeholder": _("Maximum"), "min": "0"}),
         )
         super().__init__(widgets, attrs)
 
@@ -247,6 +268,12 @@ class PopularTagsFilter(RelatedFilterMixin, django_filters.MultipleChoiceFilter)
 
 class BaseMediaFilterSet(WagtailFilterSet):
     permission_policy = None
+
+    usage_count = django_filters.RangeFilter(
+        field_name="usage_count",
+        label=_("Usage count"),
+        widget=UsageCountWidget(),
+    )
 
     def __init__(
         self, data=None, queryset=None, *, request=None, prefix=None, is_searching=None
