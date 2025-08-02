@@ -609,6 +609,46 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
                         expected_order,
                     )
 
+    def test_filter_by_usage_count(self):
+        unused_image = Image.objects.create(
+            title="an abandoned toy",
+            file=get_test_image_file(size=(1, 1)),
+        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+            VariousOnDeleteModel.objects.create(protected_image=self.puppy_image)
+
+        response = self.client.get(
+            reverse("wagtailimages:index"),
+            {"usage_count_min": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            response.context["page_obj"].object_list,
+            [self.kitten_image, self.puppy_image],
+        )
+
+        response = self.client.get(
+            reverse("wagtailimages:index"),
+            {"usage_count_min": "1", "usage_count_max": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            response.context["page_obj"].object_list,
+            [self.puppy_image],
+        )
+
+        response = self.client.get(
+            reverse("wagtailimages:index"),
+            {"usage_count_max": "0"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            response.context["page_obj"].object_list,
+            [unused_image],
+        )
+
 
 class TestBulkActionsColumn(WagtailTestUtils, TestCase):
     def setUp(self):
