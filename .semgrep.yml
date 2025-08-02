@@ -83,7 +83,7 @@ rules:
   - id: no-inline-html-styles
     message: |
       Do not use inline styles in HTML.
-      Use CSS classes or Stimulus attributes instead.
+      Use CSS classes or data attributes instead.
     languages: [html]
     severity: ERROR
     patterns:
@@ -92,9 +92,17 @@ rules:
     message: |
       Avoid setting inline styles using `element.setAttribute('style', ...)`.
       This approach triggers Content Security Policy (CSP) violations with strict
-      policies and leads to unmaintainable CSS. Prefer adding/removing CSS classes
-      or using framework-specific styling solutions.
+      policies. Modify CSS classes (e.g. `element.classList.add/remove()`) or
+      change each style property directly (e.g. `element.style.width = '200px'`).
     languages: [javascript, typescript]
     severity: ERROR
     patterns:
       - pattern: $ELEMENT.setAttribute('style', $STYLE_STRING)
+  - id: no-style-elements
+    message: |
+      Do not use <style> elements in HTML.
+      Use external CSS files instead for better maintainability.
+    languages: [html]
+    severity: ERROR
+    patterns:
+      - pattern: <style ...>$CONTENT</style>
