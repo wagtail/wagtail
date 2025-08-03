@@ -151,7 +151,6 @@ export class OrderableController extends Controller<HTMLElement> {
     const id = item.getAttribute(`data-${identifier}-item-id`) || '';
     const label = item.getAttribute(`data-${identifier}-item-label`) || '';
 
-    // todo - check the ?? is what I want here
     const newIndex = newIndexOverride ?? this.sortable.toArray().indexOf(id);
 
     const formElement = this.element.closest('form');
