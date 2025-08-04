@@ -2,6 +2,10 @@
 
 On model creation and editing views that are defined through [panels](forms_panels_overview) - including the views for pages, [snippets](snippets) and [site settings](../reference/contrib/settings) - the panel structure is accessible to client-side code as the variable `window.wagtail.editHandler`. This makes it possible to retrieve and manipulate the form contents without navigating the HTML structure of the page, which is not guaranteed to remain stable across releases of Wagtail.
 
+```{versionadded} 7.1
+The `window.wagtail.editHandler` variable was added.
+```
+
 ## `Panel`
 
 `window.wagtail.editHandler` gives a `Panel` object corresponding to the top-level panel, usually a `TabbedInterface` or `ObjectList`. All panel objects have the following attributes and methods:
