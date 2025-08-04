@@ -6,6 +6,7 @@ Changelog
 
  * Removed support for Python 3.8 (Matt Westcott)
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
+ * Maintenance: Updated NPM packages and linting configuration (LB (Ben) Johnston)
 
 
 7.1 (04.08.2025)
