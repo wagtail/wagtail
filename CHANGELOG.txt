@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1 (04.08.2025)
 ~~~~~~~~~~~~~~~~
 
  * Allow configuring permissions for site settings on a per-site basis (Matt Westcott)
