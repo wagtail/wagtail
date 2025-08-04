@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -174,12 +174,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "آیا از حذف این تصویر اطمینان دارید؟"
 msgstr[1] "آیا از حذف این تصاویر اطمینان دارید؟"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s بار استفاده شده"
-msgstr[1] "%(usage_count)s بار استفاده شده"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "شما مجوز حذف این تصویر را ندارید"
@@ -206,13 +200,6 @@ msgstr "آخرین تصاویر"
 #, python-format
 msgid "Select %(title)s"
 msgstr "انتخاب %(title)s"
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>یک مورد "
-"الآن بارگذاری کنید</a>"
 
 msgid "Choose a format"
 msgstr "انتخاب یک فورمت"
@@ -252,6 +239,12 @@ msgstr "اندازه فایل"
 
 msgid "File not found"
 msgstr "فایل پیدا نشد"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s بار استفاده شده"
+msgstr[1] "%(usage_count)s بار استفاده شده"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -343,6 +336,9 @@ msgstr "ویرایش این تصویر"
 
 msgid "Images"
 msgstr "عکس‌ها"
+
+msgid "Title"
+msgstr "عنوان"
 
 msgid "The image could not be saved due to errors."
 msgstr "به دلیل بروز خطا این تصویر ذخیره نشد."

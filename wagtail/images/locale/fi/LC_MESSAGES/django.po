@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -237,12 +237,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Haluatko varmasti poistaa tämän kuvan?"
 msgstr[1] "Haluatko varmasti poistaa nämä kuvat?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Käytetty %(usage_count)s kerran"
-msgstr[1] "Käytetty %(usage_count)s kertaa"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Oikeutesi eivät riitä tämän kuvan poistamiseen"
@@ -289,13 +283,6 @@ msgstr "Et ole lähettänyt kuvia tähän kokoelmaan."
 
 msgid "You haven't uploaded any images."
 msgstr "Et ole lähettänyt kuvia."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Mitä jos vaikka <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>lähettäisit kuvan nyt</a>?"
 
 msgid "Choose a format"
 msgstr "Valitse muoto"
@@ -369,6 +356,12 @@ msgstr "Tiedostoa ei löydy"
 
 msgid "Usage"
 msgstr "Käyttö"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
 
 msgid "Sort by"
 msgstr "Järjestys"
@@ -538,6 +531,12 @@ msgstr "Tiedostokoko: (suurimmasta pienimpään)"
 
 msgid "Images"
 msgstr "Kuvat"
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "Created"
+msgstr "Luotu"
 
 msgid "The image could not be saved due to errors."
 msgstr "Kuvaa ei voitu tallentaa virheiden vuoksi."

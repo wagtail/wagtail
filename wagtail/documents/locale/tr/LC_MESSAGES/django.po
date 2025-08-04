@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -70,12 +70,6 @@ msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "Bu dokümanları silmek istediğinize emin misiniz?"
 msgstr[1] "Bu dokümanları silmek istediğinize emin misiniz?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s kez kullanıldı"
-msgstr[1] "%(usage_count)s kez kullanıldı"
-
 msgid "Yes, delete"
 msgstr "Evet, sil"
 
@@ -111,6 +105,12 @@ msgstr "Dosya bulunamadı"
 
 msgid "Usage"
 msgstr "Kullanım"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s kez kullanıldı"
+msgstr[1] "%(usage_count)s kez kullanıldı"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

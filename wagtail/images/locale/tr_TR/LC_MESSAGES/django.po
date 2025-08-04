@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -151,12 +151,6 @@ msgstr "resim"
 msgid "images"
 msgstr "resimler"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s kez kullanıldı"
-msgstr[1] "%(usage_count)s kez kullanıldı"
-
 msgid "Yes, delete"
 msgstr "Evet, sil"
 
@@ -223,6 +217,12 @@ msgstr "Dosya bulunamadı"
 
 msgid "Usage"
 msgstr "Kullanım"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s kez kullanıldı"
+msgstr[1] "%(usage_count)s kez kullanıldı"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -299,6 +299,9 @@ msgstr "Resmi düzenle"
 
 msgid "Images"
 msgstr "Resimler"
+
+msgid "Title"
+msgstr "Başlık"
 
 msgid "The image could not be saved due to errors."
 msgstr "Hata oluştuğu için resim kaydedilemedi."

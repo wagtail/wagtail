@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Richard Voorhorst, 2024-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -346,8 +346,8 @@ msgstr "Geef je workflow een naam"
 msgid "Add tasks to your workflow"
 msgstr "Voeg taken aan je workflow toe"
 
-msgid "Task"
-msgstr "Taak"
+msgid "task"
+msgstr "taak"
 
 msgid "1 page selected"
 msgstr "1 pagina geselecteerd"
@@ -875,6 +875,9 @@ msgstr "Sluit"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Jouw pagina's en snippets in een workflow"
+
+msgid "Task"
+msgstr "Taak"
 
 msgid "Task started"
 msgstr "Taak gestart"
@@ -1479,14 +1482,6 @@ msgstr[1] ""
 "Ook zullen %(translation_count)s vertalingen van deze pagina worden "
 "verwijderd."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Deze actie zal in totaal <b>%(total_pages)s</b> pagina's verwijderen."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Typ alsjeblieft <b>%(wagtail_site_name)s</b> om te bevestigen."
-
 msgid "Yes, delete it"
 msgstr "Ja, verwijderen"
 
@@ -1929,6 +1924,10 @@ msgstr "Toon/verberg kruimelpad"
 
 msgid "Breadcrumb"
 msgstr "Kruimelpad"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Typ alsjeblieft <b>%(wagtail_site_name)s</b> om te bevestigen."
 
 msgid "Close dialog"
 msgstr "Sluit dialoog"
@@ -2459,13 +2458,6 @@ msgstr "Helaas, geen taken komen overeen met \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Je hebt nog geen taken aangemaakt."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"<a class=\"create-one-now\" href=\"#tab-new\" role=\"tab\">Maak er nu een "
-"aan!</a>."
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2571,6 +2563,9 @@ msgstr "Opnieuw doen"
 
 msgid "Save changes"
 msgstr "Wijzigingen opslaan"
+
+msgid "Toggle sidebar"
+msgstr "Toon/verberg zijbalk"
 
 msgid "Text content"
 msgstr "Binnen een tekstvak"
@@ -2868,24 +2863,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s%(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Wijzig '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Kopieer '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspecteer"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspecteer '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Verwijder '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3414,40 +3393,8 @@ msgstr "Taak '%(task_name)s' ingeschakeld."
 msgid "Choose another"
 msgstr "Kies een ander"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Voorvertoning van conceptversie '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Toon de live versie van '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Verplaats pagina '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopieer pagina '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Verwijder pagina '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Trek publicatie van pagina '%(title)s' in."
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Bekijk de versiegeschiedenis voor '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Sortering aanpassen"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Verander volgorde van onderliggende pagina's van '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Kop 1"

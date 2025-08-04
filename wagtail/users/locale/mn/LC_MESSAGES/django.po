@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -212,9 +212,6 @@ msgstr ""
 "href=\"%(wagtailusers_create_group_url)s\">Шинийг үүсгэж</a> яагаад болохгүй "
 "гэж?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Энэ хэрэглэгчийг үнэхээр устгах уу?"
-
 msgid "Account"
 msgstr "Хэрэглэгчийн эрх"
 
@@ -283,9 +280,6 @@ msgstr "Хэрэглэгчийн нэр"
 
 msgid "Admin"
 msgstr "Админ"
-
-msgid "Status"
-msgstr "Төлөв"
 
 msgid "Add user"
 msgstr "Хэрэглэгч нэмэх"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -275,9 +275,6 @@ msgstr "당신의 작업흐름의 이름을 정하세요."
 
 msgid "Add tasks to your workflow"
 msgstr "당신의 작업에 업무를 추가하세요."
-
-msgid "Task"
-msgstr "업무"
 
 msgid "1 page selected"
 msgstr "1 페이지가 선댁툄"
@@ -665,6 +662,9 @@ msgstr "사이트 요약"
 
 msgid "Close"
 msgstr "닫기"
+
+msgid "Task"
+msgstr "업무"
 
 msgid "Task started"
 msgstr "업무 시작"
@@ -1702,6 +1702,9 @@ msgstr "재실행"
 msgid "Save changes"
 msgstr "변경점 저장"
 
+msgid "Toggle sidebar"
+msgstr "사이드 전환"
+
 msgid "Italic"
 msgstr "기울임꼴"
 
@@ -1831,16 +1834,8 @@ msgstr "%(model_name)s '%(object)s' 수정됨."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' 생성됨."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' 수정"
-
 msgid "Inspect"
 msgstr "검사"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "'%(title)s' 삭제"
 
 msgid "Editing"
 msgstr "수정"
@@ -2141,40 +2136,8 @@ msgstr "작업 '%(object)s' 불가"
 msgid "Task '%(task_name)s' enabled."
 msgstr "작업 '%(task_name)s' 불가"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "'%(title)s'의 초고 버전 미리보기"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "'%(title)s'의 라이브 버전 보기"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "'%(title)s' 페이지 이동"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "'%(title)s' 페이지 복사"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "'%(title)s' 페이지 삭제"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "'%(title)s' 페이지 게시 해제"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "%(title)s의 페이지 자취를 보기"
-
 msgid "Sort menu order"
 msgstr "메뉴 순서 분류"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "파생 페이지의 '%(title)s' 순서를 바꿈"
 
 msgid "Heading 1"
 msgstr "머리말 1"

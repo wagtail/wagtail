@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -78,12 +78,6 @@ msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "آیا از حذف این سند اطمینان دارید؟"
 msgstr[1] "ایا از حذف این اسناد اطمینان دارید؟"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s بار استفاده شده"
-msgstr[1] "%(usage_count)s بار استفاده شده"
-
 msgid "Yes, delete"
 msgstr "بله حذف شود"
 
@@ -98,13 +92,6 @@ msgstr "شما هیچ سندی در این مجموعه بارگذاری نکر�
 
 msgid "You haven't uploaded any documents."
 msgstr "شما هیچ سندی بارگذاری نکرده اید."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>یک مورد "
-"الآن بارگذاری کنید</a>"
 
 msgid "Change document:"
 msgstr "تغییر سند:"
@@ -123,6 +110,12 @@ msgstr "اندازه فایل"
 
 msgid "File not found"
 msgstr "فایل پیدا نشد"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s بار استفاده شده"
+msgstr[1] "%(usage_count)s بار استفاده شده"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

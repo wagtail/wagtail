@@ -2,15 +2,15 @@
 # Translators:
 # Karl Hobley <karl@torchbox.com>, 2022
 # Yiannis Inglessis <negtheone@gmail.com>, 2022
-# fekioh, 2022
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2022
 # Loic Teixeira, 2024
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2025
 # serafeim <serafeim@torchbox.com>, 2025
+# fekioh, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: serafeim <serafeim@torchbox.com>, 2025\n"
+"Last-Translator: fekioh, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/torchbox/teams/8009/el/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: el\n"
@@ -69,6 +69,9 @@ msgstr "Αρχείο που λείπει"
 
 msgid "More actions"
 msgstr "Περισσότερες επιλογές"
+
+msgid "No"
+msgstr "Όχι"
 
 msgid "No results"
 msgstr "Κανένα αποτέλεσμα"
@@ -150,3 +153,6 @@ msgstr "Αποεστίαση σχολίου"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Εμφάνιση υποσελίδων της '%(title)s'"
+
+msgid "Yes"
+msgstr "Ναι"

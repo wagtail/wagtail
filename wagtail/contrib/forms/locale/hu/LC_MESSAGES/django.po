@@ -4,16 +4,17 @@
 #
 # Translators:
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020,2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020,2022,2025
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:08+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Kornel Novak Mergulhão <nkornel@gmail.com>, 2016\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, "
+"2019-2020,2022,2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +31,23 @@ msgstr "Dátumtól"
 
 msgid "Date to"
 msgstr "Dátumig"
+
+#, python-format
+msgid ""
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
+msgstr ""
+"A(z) '%(duplicate_clean_name)s' név már hozzá lett rendelve ehhez a mezőhöz, "
+"és nem lehet megváltoztatni. Kérjük adjon meg egy eltérő nevet a másik "
+"mezőnek."
+
+#, python-format
+msgid ""
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
+msgstr ""
+"A(z) '%(duplicate_clean_name)s' mezőnév ütközik egy másik mező nevével. "
+"Kérjük változtassa meg."
 
 msgid "Single line text"
 msgstr "Egysoros szöveg"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -265,8 +265,8 @@ msgstr "Anna työnkululle nimi"
 msgid "Add tasks to your workflow"
 msgstr "Lisää tehtäviä työnkulkuun"
 
-msgid "Task"
-msgstr "Tehtävä"
+msgid "task"
+msgstr "tehtävä"
 
 msgid "1 page selected"
 msgstr "1 sivu valittu"
@@ -698,6 +698,9 @@ msgstr "Sulje"
 msgid "Your pages and snippets in a workflow"
 msgstr "Sivusi ja pätkäsi työnkulussa"
 
+msgid "Task"
+msgstr "Tehtävä"
+
 msgid "Task started"
 msgstr "Tehtävä aloitettu"
 
@@ -992,14 +995,6 @@ msgid_plural "It will also delete %(translation_count)s translations."
 msgstr[0] "Se tulee myös poistamaan %(translation_count)s käännöksen."
 msgstr[1] "Se tulee myös poistamaan %(translation_count)s käännöstä."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Tämä toiminto tulee poistamaan <b>%(total_pages)s</b> sivua."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Kirjoita <b>%(wagtail_site_name)s</b> vahvistaaksesi."
-
 msgid "Yes, delete it"
 msgstr "Kyllä, poista"
 
@@ -1285,6 +1280,10 @@ msgstr "Murupolut päälle/pois"
 
 msgid "Breadcrumb"
 msgstr "Linkkipolku"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Kirjoita <b>%(wagtail_site_name)s</b> vahvistaaksesi."
 
 msgid "System"
 msgstr "Järjestelmä"
@@ -1784,6 +1783,9 @@ msgstr "Tee uudestaan"
 msgid "Save changes"
 msgstr "Tallenna muutokset"
 
+msgid "Toggle sidebar"
+msgstr "Sivupalkki päälle/pois"
+
 msgid "Text content"
 msgstr "Tekstisisältö"
 
@@ -1944,20 +1946,8 @@ msgstr "%(model_name)s '%(object)s' päivitetty ja julkaistu."
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr "%(model_name)s '%(object)s' luotu ja julkaistu."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Muokkaa sivua '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Kopioi '%(title)s'"
-
 msgid "Inspect"
 msgstr "Tarkastele"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Poista '%(title)s'"
 
 #, python-format
 msgid "Add %(model_name)s"
@@ -2273,34 +2263,6 @@ msgstr "Tehtävä '%(task_name)s' otettu käyttöön."
 
 msgid "Choose another"
 msgstr "Valitse toinen"
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Esikatsele sivun '%(title)s' vedosta"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Katso sivun '%(title)s' esillä olevaa versiota"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Siirrä sivu '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopioi sivu '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Poista sivu '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Peruuta sivun '%(title)s' julkaisu"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Näytä sivun '%(title)s' historia"
 
 msgid "Heading 1"
 msgstr "Otsikko 1"

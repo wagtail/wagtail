@@ -54,6 +54,12 @@ msgstr[3] "%(num)s بكسل"
 msgstr[4] "%(num)s بكسل"
 msgstr[5] "%(num)s بكسل"
 
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
 msgid "Actions"
 msgstr "الإجراءات"
 
@@ -143,6 +149,9 @@ msgstr "مستند مفقود"
 
 msgid "More actions"
 msgstr "المزيد من الإجراءات"
+
+msgid "No"
+msgstr "لا"
 
 msgid "No results"
 msgstr "لا توجد نتائج"
@@ -234,6 +243,9 @@ msgstr "الحد الأدنى لعدد العناصر هو %(min_num)d"
 msgid "This field is required."
 msgstr "هذا الحقل مطلوب."
 
+msgid "Toggle section"
+msgstr "تبديل القسم"
+
 msgid "Toggle side panel"
 msgstr "تبديل اللوحة الجانبية"
 
@@ -251,3 +263,6 @@ msgstr "عرض الصفحات الفرعية لـ '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "اكتب شيئًا أو اكتب '/' لإدراج كتلة"
+
+msgid "Yes"
+msgstr "نعم"

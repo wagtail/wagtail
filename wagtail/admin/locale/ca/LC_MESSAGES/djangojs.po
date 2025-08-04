@@ -36,6 +36,12 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s píxel"
 msgstr[1] "%(num)s píxels"
 
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
 msgid "Actions"
 msgstr "Accions"
 
@@ -125,6 +131,9 @@ msgstr "Document no trobat"
 
 msgid "More actions"
 msgstr "Més accions"
+
+msgid "No"
+msgstr "No"
 
 msgid "No results"
 msgstr "Cap resultat"
@@ -218,6 +227,9 @@ msgstr "El nombre mínim d'elements és %(min_num)d"
 msgid "This field is required."
 msgstr "Aquest camp és obligatori."
 
+msgid "Toggle section"
+msgstr "Commutar secció"
+
 msgid "Toggle side panel"
 msgstr "Communtar panell lateral"
 
@@ -235,3 +247,6 @@ msgstr "Mostra pàgines filles de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escriviu alguna cosa o teclegeu '/' per inserir un bloc"
+
+msgid "Yes"
+msgstr "Sí"

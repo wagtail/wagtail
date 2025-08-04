@@ -5,12 +5,12 @@
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
-# Sébastien Corbin <seb.corbin@gmail.com>, 2024
 # Loic Teixeira, 2025
+# Sébastien Corbin <seb.corbin@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2025\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2025\n"
 "Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -43,6 +43,12 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixels"
 msgstr[2] "%(num)s pixels"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s : %(localized_time_zone_label)s"
 
 msgid "Actions"
 msgstr "Actions"
@@ -134,6 +140,9 @@ msgstr "Document manquant"
 
 msgid "More actions"
 msgstr "Plus d'actions"
+
+msgid "No"
+msgstr "Non"
 
 msgid "No results"
 msgstr "Aucun résultat"
@@ -228,6 +237,9 @@ msgstr "Le nombre minimum d'éléments est %(min_num)d"
 msgid "This field is required."
 msgstr "Ce champ est requis."
 
+msgid "Toggle section"
+msgstr "Afficher/masquer la section"
+
 msgid "Toggle side panel"
 msgstr "Afficher/masquer le panneau latéral"
 
@@ -245,3 +257,6 @@ msgstr "Voir les sous-pages de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Écrivez quelque chose ou tapez « / » pour insérer un bloc"
+
+msgid "Yes"
+msgstr "Oui"

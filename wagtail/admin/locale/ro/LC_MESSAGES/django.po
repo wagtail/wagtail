@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -309,8 +309,8 @@ msgstr "Dați un nume fluxului de lucru"
 msgid "Add tasks to your workflow"
 msgstr "Adăugați sarcini la fluxul de lucru"
 
-msgid "Task"
-msgstr "Sarcina"
+msgid "task"
+msgstr "sarcină"
 
 msgid "1 page selected"
 msgstr "1 pagină selectată"
@@ -794,6 +794,9 @@ msgstr "Închideți"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Paginile și fragmentele Dvs. într-un flux de lucru"
+
+msgid "Task"
+msgstr "Sarcina"
 
 msgid "Task started"
 msgstr "Sarcină incepută"
@@ -1422,14 +1425,6 @@ msgstr[2] ""
 "Vor fi șterse și %(descendant_count)s pagini descendente. Ștergerea acestei "
 "pagini va șterge și %(translation_count)sde  traduceri corespunzătoare."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Această acțiune va șterge <b>%(total_pages)s</b> pagini în total."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Introduceți <b>%(wagtail_site_name)s</b> pentru a confima."
-
 msgid "Yes, delete it"
 msgstr "Da, șterge"
 
@@ -1835,6 +1830,10 @@ msgstr "Comută breadcrumb"
 
 msgid "Breadcrumb"
 msgstr "Traseu navigare"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Introduceți <b>%(wagtail_site_name)s</b> pentru a confima."
 
 msgid "Close dialog"
 msgstr "Închide dialog"
@@ -2292,13 +2291,6 @@ msgstr ""
 msgid "You haven't created any tasks."
 msgstr "Nu ați creat nici o sarcină"
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"De ce să nu <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>creați una acum</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2406,6 +2398,9 @@ msgstr "Refacere"
 
 msgid "Save changes"
 msgstr "Salvează modificările"
+
+msgid "Toggle sidebar"
+msgstr "Comutați bara laterală"
 
 msgid "Text content"
 msgstr "Conținut text"
@@ -2650,24 +2645,8 @@ msgstr ""
 "Versiunea din %(timestamp)s a %(model_name)s '%(object)s' a fost programată "
 "pentru publicare."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editează '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Copie '%(title)s'"
-
 msgid "Inspect"
 msgstr "Examinează"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Examinează '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Șterge '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3108,40 +3087,8 @@ msgstr "Sarcina '%(task_name)s' a fost activată."
 msgid "Choose another"
 msgstr "Alege alt(ă)"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Previzualizează versiunea ciornă a '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Vezi versiunea live a '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Mutați pagina '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copiază pagina '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Șterge pagina '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Pagină nepublicată '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Vezi istoria paginii pentru '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Sortează ordinea de meniu"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Schimbă ordinea paginilor descendente la '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Antet 1"

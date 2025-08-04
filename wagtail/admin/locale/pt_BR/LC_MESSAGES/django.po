@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -331,8 +331,8 @@ msgstr "Dê um nome ao seu fluxo de trabalho"
 msgid "Add tasks to your workflow"
 msgstr "Adicione tarefas ao seu fluxo de trabalho"
 
-msgid "Task"
-msgstr "Tarefa"
+msgid "task"
+msgstr "tarefa"
 
 msgid "1 page selected"
 msgstr "1 página selecionada"
@@ -830,6 +830,9 @@ msgstr "Fechar"
 msgid "Your pages and snippets in a workflow"
 msgstr "Suas páginas e snippets em um fluxo de trabalho"
 
+msgid "Task"
+msgstr "Tarefa"
+
 msgid "Task started"
 msgstr "Tarefa iniciada"
 
@@ -1246,14 +1249,6 @@ msgstr[0] "Também excluirá %(translation_count)s tradução."
 msgstr[1] "Também excluirá %(translation_count)s traduções."
 msgstr[2] "Também excluirá %(translation_count)s traduções."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Esta ação irá apagar o total de <b>%(total_pages)s</b> páginas."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Por favor digite <b>%(wagtail_site_name)s</b> para confirmar."
-
 msgid "Yes, delete it"
 msgstr "Sim, exclua"
 
@@ -1602,6 +1597,10 @@ msgstr "Editar avatar da conta"
 
 msgid "Breadcrumb"
 msgstr "Navegação"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Por favor digite <b>%(wagtail_site_name)s</b> para confirmar."
 
 msgid "Close dialog"
 msgstr "Fechar caixa de diálogo"
@@ -2068,13 +2067,6 @@ msgstr "Desculpe, nenhuma tarefa coincide com \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Você não criou nenhuma tarefa."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"Por que não <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>criar um agora</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2178,6 +2170,9 @@ msgstr "Refazer"
 
 msgid "Save changes"
 msgstr "Salvar alterações"
+
+msgid "Toggle sidebar"
+msgstr "Alternar barra lateral"
 
 msgid "Text content"
 msgstr "Conteúdo de texto"
@@ -2460,24 +2455,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Copiar '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspecionar"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspecionar '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Excluir '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2909,40 +2888,8 @@ msgstr "Tarefa '%(task_name)s' habilitada."
 msgid "Choose another"
 msgstr "Escolha outro"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Visualizar versão de rascunho de '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Ver versão ao vivo de '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Mover página '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copiar página '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Excluir página '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Cancelar publicação da página '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Ver o histórico da página para '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Ordem do menu de classificação "
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Alterar a ordem das páginas filhas de '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Cabeçalho 1"

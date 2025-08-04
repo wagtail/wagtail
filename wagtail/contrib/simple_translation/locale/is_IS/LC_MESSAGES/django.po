@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2024\n"
 "Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/teams/"
@@ -84,7 +84,3 @@ msgstr "Tókst að búa til %(locales)s fyrir %(model_name)s '%(object)s'"
 
 msgid "Translate this page"
 msgstr "Þýða þessa síðu"
-
-#, python-format
-msgid "Translate '%(title)s'"
-msgstr "Þýða '%(title)s'"

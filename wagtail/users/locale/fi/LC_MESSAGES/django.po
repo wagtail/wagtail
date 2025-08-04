@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -143,6 +143,9 @@ msgstr "Oletus"
 #. between elements in the user interface
 msgid "density"
 msgstr "tiiviys"
+
+msgid "Keyboard shortcuts"
+msgstr "Pikanäppäimet"
 
 msgid "user profile"
 msgstr "käyttäjäprofiili"
@@ -292,9 +295,6 @@ msgstr ""
 "Yhtään ryhmää ei ole asetettu. Mikset vaikka <a "
 "href=\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Haluatko varmasti poistaa tämän käyttäjän?"
-
 msgid "Account"
 msgstr "Tili"
 
@@ -417,9 +417,6 @@ msgstr "Ylläpitäjä"
 
 msgid "Access level"
 msgstr "Pääsytaso"
-
-msgid "Status"
-msgstr "Tila"
 
 #, python-format
 msgid "User '%(object)s' created."

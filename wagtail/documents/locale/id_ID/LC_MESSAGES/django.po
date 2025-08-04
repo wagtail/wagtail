@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -63,11 +63,6 @@ msgstr "Penanda"
 msgid "document"
 msgstr "Dokumen"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Digunakan %(usage_count)skali"
-
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
@@ -100,6 +95,11 @@ msgstr "File tidak ditemukan"
 
 msgid "Usage"
 msgstr "Pemakaian"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)skali"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

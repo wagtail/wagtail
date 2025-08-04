@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:05+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -80,6 +80,9 @@ msgstr "خرائط موقع Wagtail"
 
 msgid "Unknown content type"
 msgstr "نوع محتوى غير معروف"
+
+msgid "Date cannot be in the future."
+msgstr "لا يمكن أن يكون التاريخ في المستقبل."
 
 msgid "Password"
 msgstr "كلمة المرور"
@@ -251,31 +254,31 @@ msgid "locked by"
 msgstr "مقفل بواسطة"
 
 msgid "collection"
-msgstr "مجموعة"
+msgstr "رزمة"
 
 msgid "collection view restriction"
-msgstr "تقييد عرض المجموعة"
+msgstr "تقييد عرض الرزمة"
 
 msgid "collection view restrictions"
-msgstr "قيود عرض المجموعة"
+msgstr "قيود عرض الرزمة"
 
 msgid "name"
 msgstr "الاسم"
 
 msgid "collections"
-msgstr "المجموعات"
+msgstr "الرزم"
 
 msgid "group"
 msgstr "مجموعة"
 
 msgid "permission"
-msgstr "صلاحية"
+msgstr "إذن"
 
 msgid "group collection permission"
-msgstr "صلاحية مجموعة المجموعات"
+msgstr "أذن مجموعة ل رزمة"
 
 msgid "group collection permissions"
-msgstr "صلاحيات مجموعة المجموعات"
+msgstr "أذونات مجموعة ل رزمة"
 
 msgid "for content type"
 msgstr "لنوع المحتوى"
@@ -384,10 +387,10 @@ msgid "pages"
 msgstr "صفحات"
 
 msgid "group page permission"
-msgstr "صلاحية صفحة المجموعة"
+msgstr "أذن صفحة ل مجموعة"
 
 msgid "group page permissions"
-msgstr "صلاحيات صفحة المجموعة"
+msgstr "أذونات صفحة ل مجموعة"
 
 msgid "page view restriction"
 msgstr "تقييد عرض الصفحة"
@@ -536,6 +539,12 @@ msgstr ""
 "%(hostname)s مضبوط بالفعل كموقع افتراضي. يجب عليك إلغاء ذلك قبل أن تتمكن من "
 "حفظ هذا الموقع كافتراضي."
 
+msgid "group site permission"
+msgstr "أذن مجموعة في موقع"
+
+msgid "group site permissions"
+msgstr "أذونات مجموعة في موقع"
+
 msgid "Public"
 msgstr "عام"
 
@@ -593,7 +602,7 @@ msgid ""
 "snippet."
 msgstr ""
 "يمكن أن يكون هناك حالة سير عمل واحدة قيد التنفيذ أو تحتاج إلى تغييرات لكل "
-"صفحة/جزء."
+"صفحة/مقتطف."
 
 #, python-format
 msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
@@ -616,8 +625,8 @@ msgid ""
 "Active workflows can be added to pages/snippets. Deactivating a workflow "
 "does not remove it from existing pages/snippets."
 msgstr ""
-"يمكن إضافة سير العمل النشط إلى الصفحات/الأجزاء. تعطيل سير العمل لا يزيله من "
-"الصفحات/الأجزاء الموجودة."
+"يمكن إضافة سير العمل النشط إلى الصفحات/المقتطفات. تعطيل سير العمل لا يزيله "
+"من الصفحات/الأجزاء الموجودة."
 
 msgid "workflows"
 msgstr "سير العمل"
@@ -648,7 +657,7 @@ msgid ""
 "Pages/snippets at this step in a workflow will be moderated or approved by "
 "these groups of users"
 msgstr ""
-"سيتم مراجعة أو الموافقة على الصفحات/الأجزاء في هذه الخطوة من سير العمل "
+"سيتم مراجعة أو الموافقة على الصفحات/المقتطفات في هذه الخطوة من سير العمل "
 "بواسطة هذه المجموعات من المستخدمين"
 
 msgid "Request changes"
@@ -733,7 +742,7 @@ msgstr[1] "%(count)s مجموعتين فرعيتين"
 msgstr[2] "%(count)s مجموعات فرعية"
 msgstr[3] "%(count)s مجموعة فرعية"
 msgstr[4] "%(count)s مجموعة فرعية"
-msgstr[5] "%(count)s مجموعة فرعية"
+msgstr[5] "%(count)s رزمة فرعية"
 
 msgid "Create"
 msgstr "إنشاء"

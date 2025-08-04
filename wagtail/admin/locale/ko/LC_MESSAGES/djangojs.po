@@ -1,14 +1,14 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2022
-# Kyu Choi, 2022
 # Loic Teixeira, 2024
 # sl kim <vizuan@gmail.com>, 2025
 # Kyungil Choi <hanpama@gmail.com>, 2025
+# Kyu Choi, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2025\n"
+"Last-Translator: Kyu Choi, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/torchbox/teams/8009/ko/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ko\n"
@@ -85,6 +85,9 @@ msgstr "문서 없음"
 
 msgid "More actions"
 msgstr "더 많은 움직임"
+
+msgid "No"
+msgstr "아니오"
 
 msgid "No results"
 msgstr "결과 없음"
@@ -189,3 +192,6 @@ msgstr "툴바 고정 해제"
 
 msgid "View child pages of '%(title)s'"
 msgstr " '%(title)s' 페이지의 하위 페이지 보기"
+
+msgid "Yes"
+msgstr "예"

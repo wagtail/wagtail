@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -231,8 +231,8 @@ msgstr "Andke oma töövoole nimi"
 msgid "Add tasks to your workflow"
 msgstr "Lisage töövoole ülesandeid"
 
-msgid "Task"
-msgstr "Ülesanne"
+msgid "task"
+msgstr "ülesanne"
 
 msgid "Content"
 msgstr "Sisu"
@@ -471,6 +471,9 @@ msgstr "Saidi kokkuvõte"
 
 msgid "Close"
 msgstr "Sulge"
+
+msgid "Task"
+msgstr "Ülesanne"
 
 msgid "Task started"
 msgstr "Ülesanne algas"
@@ -1188,10 +1191,6 @@ msgstr "%(model_name)s '%(object)s' on värskendatud."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' on loodud."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redigeeri '%(title)s'"
-
 msgid "Inspect"
 msgstr "Kontrollige"
 
@@ -1459,34 +1458,6 @@ msgstr "Ülesanne '%(object)s' on keelatud."
 #, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Ülesanne '%(task_name)s' on lubatud."
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "„%(title)s” mustandi versiooni eelvaade"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Kuva reaalajas versioon '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Teisalda leht ' %(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopeeri leht ' %(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Kustuta leht ' %(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Lehe ' %(title)s' avaldamise tühistamine"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Kuva lehe ajalugu: %(title)s"
 
 msgid "Heading 1"
 msgstr "Pealkiri 1"

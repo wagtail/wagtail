@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -207,9 +207,6 @@ msgstr ""
 "هنوز گروهی تنظیم نشده. میتوانید یکی <a "
 "href=\"%(wagtailusers_create_group_url)s\">ایجاد</a> کنید."
 
-msgid "Are you sure you want to delete this user?"
-msgstr "آیا مطمئنید که میخواهید این کاربر حذف شود؟"
-
 msgid "Account"
 msgstr "حساب"
 
@@ -277,9 +274,6 @@ msgstr "نام کاربری"
 
 msgid "Admin"
 msgstr "راهبر"
-
-msgid "Status"
-msgstr "وضعیت"
 
 msgid "Add user"
 msgstr "افزودن کاربر"

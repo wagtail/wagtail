@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Azat, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "default"
 msgstr "كۆڭۈلدىكى"
+
+msgid "Sites"
+msgstr "بېكەت"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: aaao <aron.santa@gmail.com>, 2019\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -233,12 +233,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Biztosan törölni szeretné ezt a képet?"
 msgstr[1] "Biztosan törölni szeretné ezeket a képeket?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Felhasználva %(usage_count)s alkalommal"
-msgstr[1] "Felhasználva %(usage_count)s alkalommal"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Nincs jogosultsága törölni ezt a képet"
@@ -286,11 +280,13 @@ msgid "You haven't uploaded any images."
 msgstr "Még nem töltött fel képet."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"Miért nem <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>tölt fel egyet most</a>?"
+"Miért nem <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">tölt fel egyet</a>?"
 
 msgid "Choose a format"
 msgstr "Formátum kiválasztása"
@@ -365,6 +361,12 @@ msgstr "Fájl nem található"
 msgid "Usage"
 msgstr "Használat"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Felhasználva %(usage_count)s alkalommal"
+msgstr[1] "Felhasználva %(usage_count)s alkalommal"
+
 msgid "Sort by"
 msgstr "Sorrend"
 
@@ -392,6 +394,9 @@ msgid ""
 msgstr ""
 "Még nem töltött fel képet. Miért nem <a "
 "href=\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+
+msgid "Toggle layout"
+msgstr "Elrendezés váltása"
 
 msgid "Preview"
 msgstr "Előnézet"
@@ -529,8 +534,20 @@ msgstr "Fájlméret: (növekvő)"
 msgid "File size: (high to low)"
 msgstr "Fájlméret: (csökkenő)"
 
+msgid "Usage count: (low to high)"
+msgstr "Használat alapján (emelkedő)"
+
+msgid "Usage count: (high to low)"
+msgstr "Használat alapján (csökkenő)"
+
 msgid "Images"
 msgstr "Képek"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "Created"
+msgstr "Létrehozva"
 
 msgid "The image could not be saved due to errors."
 msgstr "Hiba történt a kép mentése közben."

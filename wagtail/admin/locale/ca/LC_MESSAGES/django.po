@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -328,8 +328,8 @@ msgstr "Poseu-li un nom al fluxe de treball"
 msgid "Add tasks to your workflow"
 msgstr "Afegir tasques al fluxe de treball"
 
-msgid "Task"
-msgstr "Tasca"
+msgid "task"
+msgstr "tasca"
 
 msgid "1 page selected"
 msgstr "1 pàgina seleccionada"
@@ -857,6 +857,9 @@ msgstr "Tanca"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Les vostres pàgines i fragments en un fluxe de treball"
+
+msgid "Task"
+msgstr "Tasca"
 
 msgid "Task started"
 msgstr "La tasca s'ha iniciat"
@@ -1466,14 +1469,6 @@ msgstr[1] ""
 "S'esborraran també %(descendant_count)s pàgines filles més. Esborrar aquesta "
 "pàgines esborrarà també %(translation_count)s traduccions d'aquesta pàgina."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Aquesta acció esborrarà un total de <b>%(total_pages)s</b> pàgines."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Escriviu <b>%(wagtail_site_name)s</b> per confirmar."
-
 msgid "Yes, delete it"
 msgstr "Sí, eliminar-la"
 
@@ -1916,6 +1911,19 @@ msgstr "Commutar rutes de navegació"
 
 msgid "Breadcrumb"
 msgstr "Ruta de navegació"
+
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] ""
+"Aquesta acció suprimirà <b>%(total_pages_formatted)s</b> pàgina en total."
+msgstr[1] ""
+"Aquesta acció suprimirà <b>%(total_pages_formatted)s</b> pàgines en total."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Escriviu <b>%(wagtail_site_name)s</b> per confirmar."
 
 msgid "Close dialog"
 msgstr "Tancar el diàleg"
@@ -2448,11 +2456,13 @@ msgid "You haven't created any tasks."
 msgstr "No heu creat cap tasca."
 
 msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
 msgstr ""
-"En voleu <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>crear un ara</a>?"
+"Voleu <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">crear-ne un ara</a>?"
 
 #, python-format
 msgid ""
@@ -2559,6 +2569,12 @@ msgstr "Refés"
 
 msgid "Save changes"
 msgstr "Desar els canvis"
+
+msgid "Toggle sidebar"
+msgstr "Commutar la barra lateral"
+
+msgid "Toggle minimap"
+msgstr "Commutar mini-mapa"
 
 msgid "Add or show comments"
 msgstr "Afegir o mostrar comentaris"
@@ -2866,24 +2882,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Copiar '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspeccionar"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspeccionar '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Esborrar '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3415,40 +3415,8 @@ msgstr "S'ha activat la tasca %(task_name)s'."
 msgid "Choose another"
 msgstr "Triar un altre"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Previsualitzar versió d'esborrany de '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Visualitzar versió En viu de '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Moure la pàgina '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copiar la pàgina '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Esborrar la pàgina '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Anul·lar la publicació de la pàgina '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Veure l'historial de pàgina de '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Ordenar el menú"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Canviar l'ordre de les pàgines filles de '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Capçalera 1"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -238,9 +238,6 @@ msgstr "Prašome pasirinkti bent vieną grupę."
 
 msgid "All types"
 msgstr "Visi tipai"
-
-msgid "Task"
-msgstr "Užduotis"
 
 msgid "Content"
 msgstr "Turinys"
@@ -491,6 +488,9 @@ msgstr "Tinklalapio suvestinė"
 
 msgid "Close"
 msgstr "Uždaryti"
+
+msgid "Task"
+msgstr "Užduotis"
 
 msgid "Task started"
 msgstr "Užduotis pradėta"
@@ -1016,16 +1016,8 @@ msgstr "%(model_name)s '%(object)s' atnaujintas."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' sukurtas."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redaguoti '%(title)s'"
-
 msgid "Inspect"
 msgstr "Tikrinti"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Ištrinti '%(title)s'"
 
 msgid "Editing"
 msgstr "Redaguojama"
@@ -1159,26 +1151,6 @@ msgstr "Išjungti"
 
 msgid "Enable"
 msgstr "Įjungti"
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Peržiūrėti '%(title)s' juodraštį"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Perkelti puslapį '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopijuoti puslapį '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Ištrinti puslapį '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Nebepublikuoti '%(title)s' puslapio"
 
 msgid "Sort menu order"
 msgstr "Meniu rikiavimo tvarka"

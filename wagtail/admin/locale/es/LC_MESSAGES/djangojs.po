@@ -1,18 +1,18 @@
 #
 # Translators:
-# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2022
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2022
 # Hector Garcia <torkoff@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
 # Antoni Aloy <aaloy@apsl.net>, 2022
-# X Bello <xbello@gmail.com>, 2023
 # Loic Teixeira, 2024
 # Amós Oviedo <amos.oviedo@gmail.com>, 2025
 # Oscar Luciano Espirilla Flores, 2025
+# X Bello <xbello@gmail.com>, 2025
+# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Oscar Luciano Espirilla Flores, 2025\n"
+"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/torchbox/teams/8009/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
@@ -118,6 +118,9 @@ msgstr "Documento faltante"
 msgid "More actions"
 msgstr "Más acciones"
 
+msgid "No"
+msgstr "No"
+
 msgid "No results"
 msgstr "Sin resultados"
 
@@ -205,6 +208,9 @@ msgstr "El mínimo número de elementos es %(min_num)d"
 msgid "This field is required."
 msgstr "Este campo es necesario."
 
+msgid "Toggle section"
+msgstr "Alternar sección"
+
 msgid "Toggle side panel"
 msgstr "Alternar menú lateral"
 
@@ -219,3 +225,6 @@ msgstr "Ver páginas hijas de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escribe algo o pulsa '/' para insertar un bloque"
+
+msgid "Yes"
+msgstr "Sí"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -282,6 +282,9 @@ msgstr "Upraviť tento obrázok"
 
 msgid "Images"
 msgstr "Obrázky"
+
+msgid "Title"
+msgstr "Titulok"
 
 msgid "The image could not be saved due to errors."
 msgstr "Obrázok nemôže byť uložený kvôli chybám."

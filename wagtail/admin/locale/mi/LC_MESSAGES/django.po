@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -238,6 +238,9 @@ msgstr "Hoatu he ingoa ki to mahi pūheke"
 
 msgid "Add tasks to your workflow"
 msgstr "Tāpiri waitara ki ō mahi pūheke"
+
+msgid "task"
+msgstr "mahi"
 
 msgid "Content"
 msgstr "Rārangi take"
@@ -547,14 +550,6 @@ msgstr "%(model_name)s '%(object)s' kua whakahou."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' kua hangaia."
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Whakarerekē '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Muku '%(title)s'"
 
 msgid "Editing"
 msgstr "Whakarerekē"
