@@ -24,7 +24,7 @@ This document provides a reference for Wagtail's user interface (UI) components,
    :no-contents-entry:
 ```
 
-A dialog to display information in a modal dialog. It is powered by the [`DialogController`](controller:DialogController) (`w-dialog`). To create a dialog, you can use the `{% dialog %}` and `{% enddialog %}` template tags.
+A dialog to display information in a modal dialog. It is powered by the [`DialogController`](./client/classes/controllers_DialogController.DialogController.html){.external} (`w-dialog`). To create a dialog, you can use the `{% dialog %}` and `{% enddialog %}` template tags.
 
 ```html+django
 {% dialog icon_name="globe" title="Dialog with critical error" id="my-dialog" subtitle="This is a testing subtitle" message_status="critical" message_heading="There was an issue with the thing" message_description="This is a subtext for the message" %}
@@ -79,7 +79,7 @@ Arguments for the `{% dialog_toggle %}` tag:
    :no-contents-entry:
 ```
 
-A dropdown menu to display a list of actions or options. It is powered by the [`DropdownController`](controller:DropdownController) (`w-dropdown`). To create a dropdown, you can use the `{% dropdown %}` and `{% enddropdown %}` template tags.
+A dropdown menu to display a list of actions or options. It is powered by the [`DropdownController`](./client/classes/controllers_DropdownController.DropdownController.html){.external} (`w-dropdown`). To create a dropdown, you can use the `{% dropdown %}` and `{% enddropdown %}` template tags.
 
 ```html+django
 {% dropdown toggle_icon="dots-horizontal" toggle_aria_label="Actions" %}
@@ -145,7 +145,7 @@ Only the `button` argument is required, the rest are optional.
 
 ## Tooltip
 
-A tooltip that can be attached to an HTML element to display additional information on hover or focus. It is powered by the [`TooltipController`](controller:TooltipController) (`w-tooltip`). To add a tooltip, attach the `w-tooltip` controller to an element and specify the properties using data attributes.
+A tooltip that can be attached to an HTML element to display additional information on hover or focus. It is powered by the [`TooltipController`](./client/classes/controllers_TooltipController.TooltipController.html){.external} (`w-tooltip`). To add a tooltip, attach the `w-tooltip` controller to an element and specify the properties using data attributes.
 
 ```html
 <button
