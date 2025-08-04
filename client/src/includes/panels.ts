@@ -110,7 +110,9 @@ export function initCollapsiblePanels(
  * JS-rendered elements.
  */
 export function initAnchoredPanels(
-  anchorTarget = document.getElementById(window.location.hash.slice(1)),
+  anchorTarget = window.location.hash
+    ? document.getElementById(window.location.hash.slice(1))
+    : null,
 ) {
   const target = anchorTarget?.matches('[data-panel]')
     ? anchorTarget
