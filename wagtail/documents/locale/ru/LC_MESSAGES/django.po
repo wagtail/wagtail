@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -172,14 +172,6 @@ msgstr[1] "Вы уверены, что хотите удалить эти док
 msgstr[2] "Вы уверены, что хотите удалить эти документы?"
 msgstr[3] "Вы уверены, что хотите удалить эти документы?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Использован %(usage_count)s раз."
-msgstr[1] "Использован %(usage_count)s раз."
-msgstr[2] "Использован %(usage_count)s раз."
-msgstr[3] "Использован %(usage_count)s раз."
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "У вас недостаточно прав для удаления этого документа"
@@ -208,13 +200,6 @@ msgstr "Вы не загрузили документы в эту коллекц
 msgid "You haven't uploaded any documents."
 msgstr "Вы не загрузили каких-либо документов."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Почему бы не <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>загрузить один сейчас</a>?"
-
 msgid "Change document:"
 msgstr "Изменить документ:"
 
@@ -235,6 +220,14 @@ msgstr "Файл не найден"
 
 msgid "Usage"
 msgstr "Использование"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использован %(usage_count)s раз."
+msgstr[1] "Использован %(usage_count)s раз."
+msgstr[2] "Использован %(usage_count)s раз."
+msgstr[3] "Использован %(usage_count)s раз."
 
 msgid "Select all documents in listing"
 msgstr "Выбрать все документы из списка"

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -295,8 +295,8 @@ msgstr "Ge ditt arbetsflöde ett namn"
 msgid "Add tasks to your workflow"
 msgstr "Lägg till uppgifter till ditt arbetsflöde"
 
-msgid "Task"
-msgstr "Uppgift"
+msgid "task"
+msgstr "uppgift"
 
 msgid "1 page selected"
 msgstr "1 sida vald"
@@ -779,6 +779,9 @@ msgstr "Stäng"
 msgid "Your pages and snippets in a workflow"
 msgstr "Dina sidor och snuttar i arbetsflöde"
 
+msgid "Task"
+msgstr "Uppgift"
+
 msgid "Task started"
 msgstr "Uppgift påbörjad"
 
@@ -1192,14 +1195,6 @@ msgid_plural "It will also delete %(translation_count)s translations."
 msgstr[0] "Den kommer även radera %(translation_count)s översättning."
 msgstr[1] "Den kommer även radera %(translation_count)s översättningar."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Denna handling kommer att radera totalt <b>%(total_pages)s</b> sidor."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Vänligen ange <b>%(wagtail_site_name)s</b> för att bekräfta."
-
 msgid "Yes, delete it"
 msgstr "Ja, ta bort"
 
@@ -1542,6 +1537,10 @@ msgstr "Växla sökvägsnavigering"
 
 msgid "Breadcrumb"
 msgstr "Sökvägsnavigering"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Vänligen ange <b>%(wagtail_site_name)s</b> för att bekräfta."
 
 msgid "Close dialog"
 msgstr "Stäng dialog"
@@ -1929,13 +1928,6 @@ msgstr "Ledsen, inga uppgifter matchar \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Du har inte skapat några uppgifter."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"Varför inte <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>skapa en nu</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2035,6 +2027,9 @@ msgstr "Gör om"
 
 msgid "Save changes"
 msgstr "Spara ändringar"
+
+msgid "Toggle sidebar"
+msgstr "Växla sidorad"
 
 msgid "Text content"
 msgstr "Textinnehåll"
@@ -2207,24 +2202,8 @@ msgstr ""
 "Version från %(timestamp)s av %(model_name)s '%(object)s' har blivit "
 "schemalagt för publicering."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redigera '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Kopiera '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspektera"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspektera '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Radera '%(title)s'"
 
 #, python-format
 msgid "Add %(model_name)s"
@@ -2583,40 +2562,8 @@ msgstr "Uppgift '%(task_name)s' aktiverad."
 msgid "Choose another"
 msgstr "Välj en annan"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Förhandsvisa utkast till version av '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Visa live-version av '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Flytta sida '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopiera sida '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Radera sida '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Avpublicera sidan '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Visa sidohistorik för '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Sortera menyordning"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Ändra sortering på undersidor till '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Rubrik 1"

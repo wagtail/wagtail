@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -709,6 +710,14 @@ msgstr "Oluşturulma zamanı"
 msgid "Breadcrumb"
 msgstr "İçerik haritası"
 
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] "هذا الإجراء سيحذف <b>%(total_pages_formatted)s</b> إجمالي صفحة."
+msgstr[1] ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+
 msgid "Continue"
 msgstr "Devam et"
 
@@ -874,10 +883,6 @@ msgstr "%(model_name)s '%(object)s' güncellendi."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' oluşturuldu."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' düzenle"
-
 msgid "Inspect"
 msgstr "Denetle"
 
@@ -996,30 +1001,6 @@ msgstr "Sayfa '%(page_title)s' şuan kontrol edilmek üzere beklemiyor."
 
 msgid "Show"
 msgstr "Göster"
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "'%(title)s' sayfasının taslak sürümünü önizle"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "'%(title)s' sayfasının canlı sürümünü gör"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "'%(title)s' sayfasını taşı"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "'%(title)s' sayfasını kopyala"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "'%(title)s' sayfasını sil"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "'%(title)s' sayfasını yayından kaldır"
 
 msgid "Heading 1"
 msgstr "Başlık 1"

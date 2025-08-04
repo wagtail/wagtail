@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -142,11 +142,6 @@ msgstr "圖片"
 msgid "Delete images"
 msgstr "刪除圖片"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "已使用%(usage_count)s次"
-
 msgid "Yes, delete"
 msgstr "是的，刪除吧。"
 
@@ -209,6 +204,11 @@ msgstr "未找到文件"
 
 msgid "Usage"
 msgstr "使用情況"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -293,6 +293,12 @@ msgstr "編輯此圖片"
 
 msgid "Images"
 msgstr "圖片"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "Created"
+msgstr "已建立"
 
 msgid "The image could not be saved due to errors."
 msgstr "圖片無法儲存。出現錯誤。"

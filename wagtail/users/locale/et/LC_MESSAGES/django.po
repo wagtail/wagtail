@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -163,9 +163,6 @@ msgstr ""
 "Konfigureeritud gruppe pole. Miks mitte <a "
 "href=\"%(wagtailusers_create_group_url)s\">lisada üks</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Kas soovite kindlasti selle kasutaja kustutada?"
-
 msgid "Account"
 msgstr "Konto"
 
@@ -230,9 +227,6 @@ msgstr "Kasutajanimi"
 
 msgid "Admin"
 msgstr "Administraator"
-
-msgid "Status"
-msgstr "Staatus"
 
 msgid "Add user"
 msgstr "Lisa kasutaja"

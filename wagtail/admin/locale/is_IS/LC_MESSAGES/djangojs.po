@@ -127,6 +127,9 @@ msgstr "Vantar skrá"
 msgid "More actions"
 msgstr "Fleiri aðgerðir"
 
+msgid "No"
+msgstr "Nei"
+
 msgid "No results"
 msgstr "Engar niðurstöður"
 
@@ -219,6 +222,9 @@ msgstr "Fjöldi eininga má minnst vera %(min_num)d"
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
 
+msgid "Toggle section"
+msgstr "Sýna/fela síðuhluta"
+
 msgid "Toggle side panel"
 msgstr "Sýna/fela hliðarstiku"
 
@@ -236,3 +242,6 @@ msgstr "Skoða undirsíður '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Skrifaðu eitthvað eða sláðu inn '/' til að setja inn blok"
+
+msgid "Yes"
+msgstr "Já"

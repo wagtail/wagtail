@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -95,9 +95,6 @@ msgstr "ပြောင်းလဲပါ"
 msgid "Page"
 msgstr "စာမျက်နှာ"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "ဤအသုံးပြုသူကို ဖျက်သိမ်းဖို့ သေချာပါပြီလား။"
-
 msgid "Account"
 msgstr "အကောင့်"
 
@@ -130,9 +127,6 @@ msgstr "'%(object)s'အဖွဲ့ကို ဖျက်သိမ်းပြ�
 
 msgid "Delete group"
 msgstr "အဖွဲ့ဖျက်သိမ်းပါ"
-
-msgid "Status"
-msgstr "အခြေအနေ"
 
 msgid "Add user"
 msgstr "အသုံးပြုသူထည့်ပါ"

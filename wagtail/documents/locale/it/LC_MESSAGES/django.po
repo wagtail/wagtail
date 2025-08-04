@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -146,13 +146,6 @@ msgstr[0] "Sei sicuro di voler eliminare questo documento?"
 msgstr[1] "Sei sicuro di voler eliminare questi documenti?"
 msgstr[2] "Sei sicuro di voler eliminare questi documenti?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Usato %(usage_count)s volta"
-msgstr[1] "Usato %(usage_count)s volte"
-msgstr[2] "Usato %(usage_count)s volte"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Non hai i permessi per eliminare questo documento"
@@ -179,13 +172,6 @@ msgstr "Non hai ancora caricato alcun documento in questa raccolta."
 msgid "You haven't uploaded any documents."
 msgstr "Non hai ancora caricato alcun documento."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Perché non <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>caricarne una adesso</a>?"
-
 msgid "Change document:"
 msgstr "Cambia documento"
 
@@ -206,6 +192,13 @@ msgstr "File non trovato"
 
 msgid "Usage"
 msgstr "Utilizzo"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usato %(usage_count)s volta"
+msgstr[1] "Usato %(usage_count)s volte"
+msgstr[2] "Usato %(usage_count)s volte"
 
 msgid "Select all documents in listing"
 msgstr "Seleziona tutti i documenti dalla lista"

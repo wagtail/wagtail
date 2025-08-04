@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -260,7 +260,7 @@ msgstr "ワークフローに名前をつけてください"
 msgid "Add tasks to your workflow"
 msgstr "ワークフローにタスクを追加"
 
-msgid "Task"
+msgid "task"
 msgstr "タスク"
 
 msgid "Content"
@@ -507,6 +507,9 @@ msgstr "サイトの概要"
 
 msgid "Close"
 msgstr "閉じる"
+
+msgid "Task"
+msgstr "タスク"
 
 msgid "Task started"
 msgstr "タスク開始時刻"
@@ -979,10 +982,6 @@ msgstr "予定された公開を取り消す"
 
 msgid "Workflow history"
 msgstr "ワークフローの履歴"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s'を編集します"
 
 msgid "Inspect"
 msgstr "詳細"

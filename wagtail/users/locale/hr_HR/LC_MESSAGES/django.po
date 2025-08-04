@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -271,9 +271,6 @@ msgstr ""
 "Nema postavljenih grupa. Zašto ne <a "
 "href=\"%(wagtailusers_create_group_url)s\">dodate neke</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Jeste li sigurni da želite izbrisati korisnika?"
-
 msgid "Account"
 msgstr "Korisnički račun"
 
@@ -388,9 +385,6 @@ msgstr "Administrator"
 
 msgid "Access level"
 msgstr "Razina pristupa"
-
-msgid "Status"
-msgstr "Status"
 
 #, python-format
 msgid "More options for '%(title)s'"

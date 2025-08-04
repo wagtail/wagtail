@@ -6,14 +6,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2024
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: David Llop, 2014\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -144,6 +144,12 @@ msgstr "Ajustat"
 #. between elements in the user interface
 msgid "density"
 msgstr "densitat"
+
+msgid "Keyboard shortcuts"
+msgstr "Dreceres de teclat"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Habilitar dreceres de teclat personalitzades específiques de Wagtail"
 
 msgid "user profile"
 msgstr "perfil d'usuari"
@@ -292,9 +298,6 @@ msgstr ""
 "No hi ha cap grup configurat. Per què no n'<a "
 "href=\"%(wagtailusers_create_group_url)s\">afegiu un</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Segur que voleu eliminar aquest usuari?"
-
 msgid "Account"
 msgstr "Compte"
 
@@ -417,9 +420,6 @@ msgstr "Admin"
 
 msgid "Access level"
 msgstr "Nivell d'accés"
-
-msgid "Status"
-msgstr "Estat"
 
 #, python-format
 msgid "More options for '%(title)s'"

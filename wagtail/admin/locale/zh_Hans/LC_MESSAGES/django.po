@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -310,7 +310,7 @@ msgstr "请给你的工作流一个名称"
 msgid "Add tasks to your workflow"
 msgstr "增加任务到你的工作流"
 
-msgid "Task"
+msgid "task"
 msgstr "任务"
 
 msgid "1 page selected"
@@ -739,6 +739,9 @@ msgstr "网站摘要"
 
 msgid "Close"
 msgstr "关闭"
+
+msgid "Task"
+msgstr "任务"
 
 msgid "Task started"
 msgstr "任务已启动"
@@ -1655,13 +1658,6 @@ msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的任务"
 msgid "You haven't created any tasks."
 msgstr "你还没有创建任何任务。"
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"为什么不用 <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>马"
-"上创建一个</a>呢？"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -1716,6 +1712,9 @@ msgstr "撤销"
 
 msgid "Redo"
 msgstr "重复"
+
+msgid "Toggle sidebar"
+msgstr "切换侧边栏"
 
 msgid "Italic"
 msgstr "斜体"
@@ -1840,16 +1839,8 @@ msgstr "%(model_name)s '%(object)s' 已更新。"
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' 已创建。"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "编辑“%(title)s”"
-
 msgid "Inspect"
 msgstr "检查"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "删除“%(title)s”"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2168,40 +2159,8 @@ msgstr "任务 '%(task_name)s' 已启用。"
 msgid "Choose another"
 msgstr "选择另一个"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "预览“%(title)s”的草稿版本"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "查看 '%(title)s' 的发布版本"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "移动页面“%(title)s”"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "复制页面“%(title)s”"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "删除页面“%(title)s”"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "取消发布页面“%(title)s”"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "查看“%(title)s”的页面历史"
-
 msgid "Sort menu order"
 msgstr "排序菜单顺序"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "更改“%(title)s”的子页面顺序"
 
 msgid "Heading 1"
 msgstr "标题1"

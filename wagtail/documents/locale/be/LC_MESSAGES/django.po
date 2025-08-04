@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -70,14 +70,6 @@ msgstr "Так, дадаць"
 msgid "No, don't add"
 msgstr "Не, не дадаваць"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Выкарыстоўваецца %(usage_count)s раз"
-msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
-msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
-msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
-
 msgid "Yes, delete"
 msgstr "Так, выдаліць"
 
@@ -113,6 +105,14 @@ msgstr "Файл не знойдзены"
 
 msgid "Usage"
 msgstr "Выкарыстоўванне"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Выкарыстоўваецца %(usage_count)s раз"
+msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
+msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
+msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

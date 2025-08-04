@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -252,13 +252,6 @@ msgstr[0] "Você tem certeza que deseja excluir esta imagem?"
 msgstr[1] "Você tem certeza que deseja excluir estas imagens?"
 msgstr[2] "Você tem certeza que deseja excluir estas imagens?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Usado %(usage_count)s vez"
-msgstr[1] "Usado %(usage_count)s vezes"
-msgstr[2] "Usado %(usage_count)s vezes"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Você não tem permissão para excluir esta imagem"
@@ -298,13 +291,6 @@ msgstr "Você não enviou nenhuma imagem nesta coleção."
 
 msgid "You haven't uploaded any images."
 msgstr "Você não enviou nenhuma imagem."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Por que não <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>carregar um agora</a>?"
 
 msgid "Choose a format"
 msgstr "Escolha um formato"
@@ -366,6 +352,13 @@ msgstr "Arquivo não encontrado"
 
 msgid "Usage"
 msgstr "Uso"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s vezes"
+msgstr[2] "Usado %(usage_count)s vezes"
 
 msgid "Sort by"
 msgstr "Ordenar por"
@@ -532,6 +525,12 @@ msgstr "Tamanho do arquivo: (alto a baixo)"
 
 msgid "Images"
 msgstr "Imagens"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Created"
+msgstr "Criado"
 
 msgid "The image could not be saved due to errors."
 msgstr "A imagem não pôde ser salva devido à erros."

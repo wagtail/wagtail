@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -157,9 +157,6 @@ msgstr ""
 "Zatiaľ nie sú nastavené žiadne skupiny. Prečo nenastaviť <a "
 "href=\"%(wagtailusers_create_group_url)s\">jednu skupinu teraz</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Naozaj chcete zmazať tohto používateľa?"
-
 msgid "Account"
 msgstr "Účet"
 
@@ -216,9 +213,6 @@ msgstr "Používateľské meno"
 
 msgid "Admin"
 msgstr "Admin"
-
-msgid "Status"
-msgstr "Postavenie"
 
 msgid "Add user"
 msgstr "Pridať používateľa"

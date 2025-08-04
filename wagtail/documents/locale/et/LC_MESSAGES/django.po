@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -63,12 +63,6 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokumendid"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Kasutatud %(usage_count)s korda"
-msgstr[1] "Kasutatud %(usage_count)s korda"
-
 msgid "Yes, delete"
 msgstr "Jah, kustuta"
 
@@ -104,6 +98,12 @@ msgstr "Faili ei leitud"
 
 msgid "Usage"
 msgstr "Kasutamine"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

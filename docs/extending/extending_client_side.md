@@ -63,7 +63,7 @@ The [Stimulus handbook](https://stimulus.hotwired.dev/handbook/introduction) is 
 
 Wagtail exposes two client-side globals for using Stimulus.
 
-1. `window.wagtail.app` the core admin Stimulus application instance.
+1. `window.wagtail.app` the core admin Stimulus [`WagtailApplication`](client:classes/includes_initStimulus.WagtailApplication) instance.
 2. `window.StimulusModule` Stimulus module as exported from `@hotwired/stimulus`.
 
 First, create a custom [Stimulus controller](https://stimulus.hotwired.dev/reference/controllers) that extends the base `window.StimulusModule.Controller` using [JavaScript class inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). If you are using a build tool you can import your base controller via `import { Controller } from '@hotwired/stimulus';`.
@@ -348,6 +348,8 @@ window.wagtail.app.register('word-count', WordCountController);
 
 You may want to avoid bundling Stimulus with your JavaScript output and treat the global as an external/alias module, refer to your build system documentation for instructions on how to do this.
 
+(extending_client_side_react)=
+
 ## Extending with React
 
 To customize or extend the [React](https://reactjs.org/) components, you may need to use React too, as well as other related libraries.
@@ -401,4 +403,6 @@ window.draftail.TooltipEntity;
 -   [](streamfield_widget_api)
 -   [](custom_streamfield_blocks_media)
 
-(extending_client_side_react)=
+## Extending the editor
+
+-   [](editor_api)

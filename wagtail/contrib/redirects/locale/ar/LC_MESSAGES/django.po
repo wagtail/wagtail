@@ -4,6 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:08+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -223,8 +224,8 @@ msgstr "حدث %(error)s أثناء محاولة قراءة الملف: %(filena
 #, python-format
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
-msgstr[0] "تم استيراد إعادة توجيه واحدة"
-msgstr[1] "تم استيراد إعادتي توجيه"
+msgstr[0] "تم استيراد%(total)d إعادة توجيه"
+msgstr[1] "تم استيراد%(total)d إعادة توجيه"
 msgstr[2] "تم استيراد %(total)d إعادة توجيه"
 msgstr[3] "تم استيراد %(total)d إعادة توجيه"
 msgstr[4] "تم استيراد %(total)d إعادة توجيه"

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -253,13 +253,6 @@ msgstr[0] "¿Seguro que quieres eliminar esta imagen?"
 msgstr[1] "¿Seguro que quieres eliminar estas imágenes?"
 msgstr[2] "¿Seguro que quieres eliminar estas imágenes?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Usado %(usage_count)s vez"
-msgstr[1] "Usado %(usage_count)s veces"
-msgstr[2] "Usado %(usage_count)s veces"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "No tienes permiso para eliminar esta imagen"
@@ -306,13 +299,6 @@ msgstr "No has subido ninguna imagen en esta colección."
 
 msgid "You haven't uploaded any images."
 msgstr "No has subido ninguna imagen."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"¿Por qué no <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>subir uno ahora</a>?"
 
 msgid "Choose a format"
 msgstr "Selecciona un formato"
@@ -374,6 +360,13 @@ msgstr "Archivo no encotrado"
 
 msgid "Usage"
 msgstr "Uso"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s veces"
+msgstr[2] "Usado %(usage_count)s veces"
 
 msgid "Sort by"
 msgstr "Ordenar por"
@@ -533,6 +526,12 @@ msgstr "Tamaño de archivo: (de mayor a menor)"
 
 msgid "Images"
 msgstr "Imágenes"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Created"
+msgstr "Creado"
 
 msgid "The image could not be saved due to errors."
 msgstr "La imagen no puedo ser guardada debido a errores"

@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023-2024
+# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:05+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: David Llop, 2014\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,9 @@ msgstr "Wagtail sitemaps"
 
 msgid "Unknown content type"
 msgstr "Tipus de contingut desconegut"
+
+msgid "Date cannot be in the future."
+msgstr "La data no pot ser en futur."
 
 msgid "Password"
 msgstr "Contrasenya"
@@ -546,6 +549,12 @@ msgid ""
 msgstr ""
 "%(hostname)s ja està configurat com a lloc predeterminat. Heu de treure "
 "aquesta configuració abans de desar aquest lloc com a predeterminat."
+
+msgid "group site permission"
+msgstr "permís de lloc de grup"
+
+msgid "group site permissions"
+msgstr "permisos de lloc de grup"
 
 msgid "Public"
 msgstr "Pública"

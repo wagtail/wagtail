@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -146,12 +146,6 @@ msgstr "зураг"
 msgid "images"
 msgstr "зургууд"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s удаа ашигласан"
-msgstr[1] "Used %(usage_count)s times"
-
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
@@ -218,6 +212,12 @@ msgid "Usage"
 msgstr "Хэрэглээ"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашигласан"
+msgstr[1] "Used %(usage_count)s times"
+
+#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Уучлаарай, \"<em>%(query_string)s</em>\" хайлтад тохирох зураг олдсонгүй"
@@ -272,6 +272,9 @@ msgstr "Энэ зургийг засах"
 
 msgid "Images"
 msgstr "Зургууд"
+
+msgid "Title"
+msgstr "Гарчиг"
 
 msgid "The image could not be saved due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."

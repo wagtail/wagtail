@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -300,9 +300,6 @@ msgstr ""
 "Nid oes unrhyw grwpiau wedi'u ffurfweddu. Pam ddim <a "
 "href=\"%(wagtailusers_create_group_url)s\">ychwanegu un</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Ydych chi'n siŵr eich bod am ddileu'r defnyddiwr hwn?"
-
 msgid "Account"
 msgstr "Cyfrif"
 
@@ -438,9 +435,6 @@ msgstr "Gweinyddol"
 
 msgid "Access level"
 msgstr "Lefel mynediad"
-
-msgid "Status"
-msgstr "Statws"
 
 #, python-format
 msgid "More options for '%(title)s'"

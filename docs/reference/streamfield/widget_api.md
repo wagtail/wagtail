@@ -39,7 +39,7 @@ class FancyInputAdapter(WidgetAdapter):
 register(FancyInputAdapter(), FancyInput)
 ```
 
-The JavaScript object associated with a widget instance should provide a single method:
+The JavaScript object associated with a widget instance should provide the following methods:
 
 ```{eval-rst}
 .. js:function:: render(placeholder, name, id, initialState)
@@ -53,7 +53,22 @@ The JavaScript object associated with a widget instance should provide a single 
 
 A widget's state will often be the same as the form field's value, but may contain additional data beyond what is processed in the form submission. For example, a page chooser widget consists of a hidden form field containing the page ID, and a read-only label showing the page title: in this case, the page ID by itself does not provide enough information to render the widget, and so the state is defined as a dictionary with `id` and `title` items.
 
-The value returned by ``render`` is a 'bound widget' object allowing this widget instance's data to be accessed. This object should implement the following attributes and methods:
+.. js:function:: getByName(name, container)
+
+   Return an object representing an existing instance of this widget that has already been rendered on the page. Raises ``InputNotFoundError`` if a matching widget instance cannot be found.
+
+   :param name: The ``name`` attribute of the widget to search for
+   :param container: An HTML DOM element in which to search; the widget's HTML must be present as a descendant of this element, or the element itself.
+```
+
+```{versionadded} 7.1
+The `getByName` method was added to the API.
+```
+
+(bound_widget_api)=
+
+```{eval-rst}
+The value returned by ``render`` and ``getByName`` is a 'bound widget' object allowing this widget instance's data to be accessed. This object should implement the following attributes and methods:
 
 .. js:attribute:: idForLabel
 

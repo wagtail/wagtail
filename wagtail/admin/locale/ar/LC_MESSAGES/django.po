@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -108,7 +108,7 @@ msgid "All"
 msgstr "الكل"
 
 msgid "Collection"
-msgstr "مجموعة"
+msgstr "رزمة"
 
 msgid "Tag"
 msgstr "وسم"
@@ -165,7 +165,7 @@ msgid "Search"
 msgstr "بحث"
 
 msgid "All collections"
-msgstr "جميع المجموعات"
+msgstr "جميع الرزم"
 
 msgid "Parent"
 msgstr "الأصل"
@@ -174,32 +174,32 @@ msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
 msgstr ""
-"اختر الموقع الهرمي. ملاحظة: لا يمكن أن تصبح المجموعة فرعًا لنفسها أو لأحد "
+"اختر الموقع الهرمي. ملاحظة: لا يمكن أن تصبح الرزمة فرعًا لنفسها أو لأحد "
 "فروعها."
 
 msgid "Please select another parent"
 msgstr "الرجاء اختيار أصل آخر"
 
 msgid "You cannot have multiple permission records for the same collection."
-msgstr "لا يمكن أن يكون لديك سجلات صلاحيات متعددة لنفس المجموعة."
+msgstr "لا يمكن أن يكون لديك سجلات صلاحيات متعددة لنفس الرزمة."
 
 msgid "Add"
 msgstr "إضافة"
 
 msgid "Add collections"
-msgstr "إضافة مجموعات"
+msgstr "إضافة رزم"
 
 msgid "Edit"
 msgstr "تحرير"
 
 msgid "Edit collections"
-msgstr "تحرير المجموعات"
+msgstr "تحرير رزم"
 
 msgid "Delete"
 msgstr "حذف"
 
 msgid "Delete collections"
-msgstr "حذف المجموعات"
+msgstr "حذف رزم"
 
 msgid "You cannot edit another user's comment."
 msgstr "لا يمكنك تحرير تعليق مستخدم آخر."
@@ -229,8 +229,8 @@ msgstr "نسخ الصفحات الفرعية"
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "سيتم نسخ %(count)s صفحة فرعية"
-msgstr[1] "سيتم نسخ صفحة فرعية واحدة"
-msgstr[2] "سيتم نسخ صفحتين فرعيتين"
+msgstr[1] "سيتم نسخ  %(count)s صفحة فرعية واحدة."
+msgstr[2] "سيتم نسخ %(count)s صفحتين فرعيتين."
 msgstr[3] "سيتم نسخ %(count)s صفحات فرعية"
 msgstr[4] "سيتم نسخ %(count)s صفحة فرعية"
 msgstr[5] "سيتم نسخ %(count)s صفحة فرعية"
@@ -251,9 +251,11 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] "%(count)s من الصفحات التي يتم نسخها منشورة. هل ترغب في نشر نسختها؟"
-msgstr[1] "صفحة واحدة من الصفحات التي يتم نسخها منشورة. هل ترغب في نشر نسختها؟"
-msgstr[2] "صفحتان من الصفحات التي يتم نسخها منشورتان. هل ترغب في نشر نسختهما؟"
+msgstr[0] "%(count)s من الصفحات التي يتم نسخها منشورة، هل ترغب في نشر نسخها؟. "
+msgstr[1] ""
+"%(count)s  من الصفحات التي يتم نسخها منشورة، هل ترغب في نشر نسخها؟. "
+msgstr[2] ""
+"%(count)s  من الصفحات التي يتم نسخها منشورة، هل ترغب في نشر نسخها؟. "
 msgstr[3] ""
 "%(count)s صفحات من الصفحات التي يتم نسخها منشورة. هل ترغب في نشر نسخها؟"
 msgstr[4] ""
@@ -341,7 +343,7 @@ msgstr "أعط سير العمل الخاص بك اسمًا"
 msgid "Add tasks to your workflow"
 msgstr "أضف مهامًا إلى سير العمل الخاص بك"
 
-msgid "Task"
+msgid "task"
 msgstr "مهمة"
 
 msgid "1 page selected"
@@ -557,10 +559,10 @@ msgstr "رابط مرساة"
 #, python-format
 msgid "There is %(counter)s match"
 msgid_plural "There are %(counter)s matches"
-msgstr[0] "يوجد تطابق واحد"
-msgstr[1] "يوجد تطابق واحد"
-msgstr[2] "يوجد تطابقان"
-msgstr[3] "يوجد %(counter)s تطابقات"
+msgstr[0] "يوجد %(counter)s تطابق"
+msgstr[1] "يوجد %(counter)s تطابق"
+msgstr[2] "يوجد %(counter)s تطابقين"
+msgstr[3] "يوجد %(counter)s تطابق"
 msgstr[4] "يوجد %(counter)s تطابقًا"
 msgstr[5] "يوجد %(counter)s تطابق"
 
@@ -656,7 +658,7 @@ msgid "Explore"
 msgstr "استكشف"
 
 msgid "This collection has been made private by a parent collection."
-msgstr "تم جعل هذه المجموعة خاصة بواسطة مجموعة أصل."
+msgstr "تم جعل هذه الرزمة خاصة بواسطة مجموعة أصل."
 
 msgid "You can edit the privacy settings on:"
 msgstr "يمكنك تحرير إعدادات الخصوصية على:"
@@ -669,34 +671,34 @@ msgstr "تغيير إعدادات الخصوصية"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
-msgstr "تحدد إعدادات الخصوصية من يمكنه عرض المستندات في هذه المجموعة."
+msgstr "تحدد إعدادات الخصوصية من يمكنه عرض المستندات في هذه الرزمة."
 
 msgid "Privacy"
 msgstr "الخصوصية"
 
 msgid "Set collection privacy. Current status: Public"
-msgstr "تعيين خصوصية المجموعة. الحالة الحالية: عامة"
+msgstr "تعيين خصوصية الرزمة. الحالة الحالية: عامة"
 
 msgid "Public"
 msgstr "عامة"
 
 msgid "Set collection privacy. Current status: Private"
-msgstr "تعيين خصوصية المجموعة. الحالة الحالية: خاصة"
+msgstr "تعيين خصوصية الرزمة. الحالة الحالية: خاصة"
 
 msgid "Private"
 msgstr "خاصة"
 
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
-msgstr "لا يمكن حذف هذه المجموعة لأنها ليست فارغة. تحتوي على:"
+msgstr "لا يمكن حذف هذه الرزمة لأنها ليست فارغة. تحتوي على:"
 
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
 "href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
-"واحدة</a>؟"
+"لم يتم إنشاء أي رزم. لماذا لا <a href=\"%(add_collection_url)s\">تضيف واحدة</"
+"a>؟"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -788,19 +790,19 @@ msgstr "التغييرات"
 #, python-format
 msgid "Moved down 1 place."
 msgid_plural "Moved down %(counter)s places."
-msgstr[0] "تم النزول بمقدار مكان واحد."
+msgstr[0] "تم النزول بمقدار  %(counter)s مكان."
 msgstr[1] "تم النزول بمقدار مكان واحد."
-msgstr[2] "تم النزول بمقدار مكانين."
+msgstr[2] "تم النزول بمقدار  %(counter)s مكانين."
 msgstr[3] "تم النزول بمقدار %(counter)s أماكن."
 msgstr[4] "تم النزول بمقدار %(counter)s مكانًا."
-msgstr[5] "تم النزول بمقدار %(counter)s مكان."
+msgstr[5] "تم النزول بمقدار  %(counter)s مكان."
 
 #, python-format
 msgid "Moved up 1 place."
 msgid_plural "Moved up %(counter)s places."
-msgstr[0] "تم الصعود بمقدار مكان واحد."
+msgstr[0] "تم الصعود بمقدار %(counter)s مكان."
 msgstr[1] "تم الصعود بمقدار مكان واحد."
-msgstr[2] "تم الصعود بمقدار مكانين."
+msgstr[2] "تم الصعود بمقدار %(counter)s مكانين."
 msgstr[3] "تم الصعود بمقدار %(counter)s أماكن."
 msgstr[4] "تم الصعود بمقدار %(counter)s مكانًا."
 msgstr[5] "تم الصعود بمقدار %(counter)s مكان."
@@ -865,10 +867,9 @@ msgid_plural ""
 "%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
 "%(total)s صفحة <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
-msgstr[1] ""
-"صفحة واحدة <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
+msgstr[1] "%(total)s صفحة تم إنشاؤها في %(site_name)s</span>"
 msgstr[2] ""
-"صفحتان <span class=\"w-sr-only\">تم إنشاؤهما في %(site_name)s</span>"
+"%(total)s صفحتان <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
 msgstr[3] ""
 "%(total)s صفحات <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
 msgstr[4] ""
@@ -895,6 +896,9 @@ msgstr "إغلاق"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "صفحاتك ومقتطفاتك في سير عمل"
+
+msgid "Task"
+msgstr "مهمة"
 
 msgid "Task started"
 msgstr "بدء المهمة"
@@ -1256,12 +1260,12 @@ msgstr "صفحات تستخدم %(page_type)s"
 #, python-format
 msgid "Delete 1 page"
 msgid_plural "Delete %(counter)s pages"
-msgstr[0] "احذف %(counter)s صفحة"
-msgstr[1] "احذف صفحة واحدة"
-msgstr[2] "احذف صفحتين"
-msgstr[3] "احذف %(counter)s صفحات"
-msgstr[4] "احذف %(counter)s صفحة"
-msgstr[5] "احذف %(counter)s صفحة"
+msgstr[0] "حذف%(counter)s صفحة"
+msgstr[1] "حذف صفحة واحدة"
+msgstr[2] "حذف%(counter)s صفحتين"
+msgstr[3] "حذف%(counter)s صفحات"
+msgstr[4] "حذف%(counter)s صفحة"
+msgstr[5] "حذف%(counter)s صفحات"
 
 msgid "Are you sure you want to delete these pages?"
 msgstr "هل أنت متأكد من رغبتك في حذف هذه الصفحات؟"
@@ -1271,7 +1275,7 @@ msgid "This will also delete one more subpage."
 msgid_plural "This will also delete %(counter)s more subpages."
 msgstr[0] "سيؤدي هذا أيضًا إلى حذف %(counter)s صفحة فرعية"
 msgstr[1] "سيؤدي هذا أيضًا إلى حذف صفحة فرعية إضافية"
-msgstr[2] "سيؤدي هذا أيضًا إلى حذف صفحتين فرعيتين إضافيتين"
+msgstr[2] "سيؤدي هذا أيضًا إلى حذف صفحتين فرعيتين إضافيتين %(counter)s ."
 msgstr[3] "سيؤدي هذا أيضًا إلى حذف %(counter)s صفحات فرعية إضافية"
 msgstr[4] "سيؤدي هذا أيضًا إلى حذف %(counter)s صفحة فرعية إضافية"
 msgstr[5] "سيؤدي هذا أيضًا إلى حذف %(counter)s صفحة فرعية إضافية"
@@ -1283,14 +1287,14 @@ msgstr[1] "ليست لديك الصلاحية لحذف هذه الصفحة"
 msgstr[2] "ليست لديك الصلاحية لحذف هاتين الصفحتين"
 msgstr[3] "ليست لديك الصلاحية لحذف هذه الصفحات"
 msgstr[4] "ليست لديك الصلاحية لحذف هذه الصفحات"
-msgstr[5] "ليست لديك الصلاحية لحذف هذه الصفحات"
+msgstr[5] "ليست لديك صلاحية حذف هذه الصفحات"
 
 #, python-format
 msgid "Move 1 page"
 msgid_plural "Move %(counter)s pages"
 msgstr[0] "انقل %(counter)s صفحة"
 msgstr[1] "انقل صفحة واحدة"
-msgstr[2] "انقل صفحتين"
+msgstr[2] "انقل %(counter)s صفحتين"
 msgstr[3] "انقل %(counter)s صفحات"
 msgstr[4] "انقل %(counter)s صفحة"
 msgstr[5] "انقل %(counter)s صفحة"
@@ -1305,8 +1309,8 @@ msgstr "هل أنت متأكد من رغبتك في نقل هذه الصفحات
 msgid "This page has one child page"
 msgid_plural "This page has %(counter)s child pages"
 msgstr[0] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية"
-msgstr[1] "تحتوي هذه الصفحة على صفحة فرعية واحدة"
-msgstr[2] "تحتوي هذه الصفحة على صفحتين فرعيتين"
+msgstr[1] " تحتوي هذه الصفحة على صفحة واحدة فرعية"
+msgstr[2] "تحتوي هذه الصفحة على  %(counter)s صفحتين فرعيتين"
 msgstr[3] "تحتوي هذه الصفحة على %(counter)s صفحات فرعية"
 msgstr[4] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية"
 msgstr[5] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية"
@@ -1318,7 +1322,7 @@ msgstr[1] "ليست لديك الصلاحية لنقل هذه الصفحة"
 msgstr[2] "ليست لديك الصلاحية لنقل هاتين الصفحتين"
 msgstr[3] "ليست لديك الصلاحية لنقل هذه الصفحات"
 msgstr[4] "ليست لديك الصلاحية لنقل هذه الصفحات"
-msgstr[5] "ليست لديك الصلاحية لنقل هذه الصفحات"
+msgstr[5] "ليست لديك صلاحية نقل هذه الصفحات"
 
 #, python-format
 msgid "The following page cannot be moved to %(dest_title)s"
@@ -1353,7 +1357,7 @@ msgid "Publish 1 page"
 msgid_plural "Publish %(counter)s pages"
 msgstr[0] "انشر %(counter)s صفحة"
 msgstr[1] "انشر صفحة واحدة"
-msgstr[2] "انشر صفحتين"
+msgstr[2] "انشر %(counter)s صفحتين"
 msgstr[3] "انشر %(counter)s صفحات"
 msgstr[4] "انشر %(counter)s صفحة"
 msgstr[5] "انشر %(counter)s صفحة"
@@ -1366,7 +1370,7 @@ msgid "This page has one unpublished subpage"
 msgid_plural "This page has %(counter)s unpublished subpages"
 msgstr[0] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية غير منشورة"
 msgstr[1] "تحتوي هذه الصفحة على صفحة فرعية واحدة غير منشورة"
-msgstr[2] "تحتوي هذه الصفحة على صفحتين فرعيتين غير منشورتين"
+msgstr[2] "تحتوي هذه الصفحة على %(counter)s صفحتين فرعيتين غير منشورتين"
 msgstr[3] "تحتوي هذه الصفحة على %(counter)s صفحات فرعية غير منشورة"
 msgstr[4] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية غير منشورة"
 msgstr[5] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية غير منشورة"
@@ -1378,7 +1382,7 @@ msgstr[1] "ليست لديك الصلاحية لنشر هذه الصفحة"
 msgstr[2] "ليست لديك الصلاحية لنشر هاتين الصفحتين"
 msgstr[3] "ليست لديك الصلاحية لنشر هذه الصفحات"
 msgstr[4] "ليست لديك الصلاحية لنشر هذه الصفحات"
-msgstr[5] "ليست لديك الصلاحية لنشر هذه الصفحات"
+msgstr[5] "ليست لديك صلاحية نشر هذه الصفحات"
 
 msgid "Yes, publish"
 msgstr "نعم، انشر"
@@ -1391,7 +1395,7 @@ msgid "Unpublish 1 page"
 msgid_plural "Unpublish %(counter)s pages"
 msgstr[0] "ألغِ نشر %(counter)s صفحة"
 msgstr[1] "ألغِ نشر صفحة واحدة"
-msgstr[2] "ألغِ نشر صفحتين"
+msgstr[2] "الغي نشر%(counter)s صفحتين"
 msgstr[3] "ألغِ نشر %(counter)s صفحات"
 msgstr[4] "ألغِ نشر %(counter)s صفحة"
 msgstr[5] "ألغِ نشر %(counter)s صفحة"
@@ -1404,7 +1408,7 @@ msgid "This page has one subpage"
 msgid_plural "This page has %(counter)s subpages"
 msgstr[0] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية"
 msgstr[1] "تحتوي هذه الصفحة على صفحة فرعية واحدة"
-msgstr[2] "تحتوي هذه الصفحة على صفحتين فرعيتين"
+msgstr[2] "تحتوي هذه الصفحة على  %(counter)s صفحتين فرعيتين"
 msgstr[3] "تحتوي هذه الصفحة على %(counter)s صفحات فرعية"
 msgstr[4] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية"
 msgstr[5] "تحتوي هذه الصفحة على %(counter)s صفحة فرعية"
@@ -1416,7 +1420,7 @@ msgstr[1] "ليست لديك الصلاحية لإلغاء نشر هذه الص�
 msgstr[2] "ليست لديك الصلاحية لإلغاء نشر هاتين الصفحتين"
 msgstr[3] "ليست لديك الصلاحية لإلغاء نشر هذه الصفحات"
 msgstr[4] "ليست لديك الصلاحية لإلغاء نشر هذه الصفحات"
-msgstr[5] "ليست لديك الصلاحية لإلغاء نشر هذه الصفحات"
+msgstr[5] "ليست لديك صلاحية إلغاء نشر هذه الصفحات"
 
 msgid "Yes, unpublish"
 msgstr "نعم، ألغِ النشر"
@@ -1452,8 +1456,9 @@ msgid "Deleting this page will also delete %(descendant_count)s child page."
 msgid_plural ""
 "Deleting this page will also delete %(descendant_count)s more child pages."
 msgstr[0] "سيؤدي حذف هذه الصفحة أيضًا إلى حذف %(descendant_count)s صفحة فرعية"
-msgstr[1] "سيؤدي حذف هذه الصفحة أيضًا إلى حذف صفحة فرعية واحدة"
-msgstr[2] "سيؤدي حذف هذه الصفحة أيضًا إلى حذف صفحتين فرعيتين"
+msgstr[1] "سيؤدي حذف هذه الصفحة أيضًا إلى حذف %(descendant_count)s صفحة فرعية."
+msgstr[2] ""
+"سيؤدي حذف هذه الصفحة أيضًا إلى حذف %(descendant_count)s صفحتين فرعيتين"
 msgstr[3] "سيؤدي حذف هذه الصفحة أيضًا إلى حذف %(descendant_count)s صفحات فرعية"
 msgstr[4] "سيؤدي حذف هذه الصفحة أيضًا إلى حذف %(descendant_count)s صفحة فرعية"
 msgstr[5] "سيؤدي حذف هذه الصفحة أيضًا إلى حذف %(descendant_count)s صفحة فرعية"
@@ -1469,9 +1474,11 @@ msgstr[0] ""
 "سيؤدي هذا أيضًا إلى حذف ترجمة واحدة و%(translation_descendant_count)s صفحة "
 "فرعية مترجمة تابعة لها"
 msgstr[1] ""
-"سيؤدي هذا أيضًا إلى حذف ترجمة واحدة وصفحة فرعية مترجمة واحدة تابعة لها"
+"سيؤدي هذا أيضًا إلى حذف ترجمة واحدة و%(translation_descendant_count)s صفحة "
+"فرعية مترجمة."
 msgstr[2] ""
-"سيؤدي هذا أيضًا إلى حذف ترجمة واحدة وصفحتين فرعيتين مترجمتين تابعتين لها"
+"سيؤدي هذا أيضًا إلى حذف ترجمة واحدة و%(translation_descendant_count)s صفحتين "
+"فرعيتين مترجمتين."
 msgstr[3] ""
 "سيؤدي هذا أيضًا إلى حذف ترجمة واحدة و%(translation_descendant_count)s صفحات "
 "فرعية مترجمة تابعة لها"
@@ -1512,8 +1519,8 @@ msgstr[5] ""
 msgid "It will also delete %(translation_count)s translation."
 msgid_plural "It will also delete %(translation_count)s translations."
 msgstr[0] "سيؤدي هذا أيضًا إلى حذف %(translation_count)s ترجمة"
-msgstr[1] "سيؤدي هذا أيضًا إلى حذف ترجمة واحدة"
-msgstr[2] "سيؤدي هذا أيضًا إلى حذف ترجمتين"
+msgstr[1] "سيؤدي هذا أيضًا إلى حذف %(translation_count)s ترجمة."
+msgstr[2] "سيؤدي هذا أيضًا إلى حذف %(translation_count)s ترجمتين."
 msgstr[3] "سيؤدي هذا أيضًا إلى حذف %(translation_count)s ترجمات"
 msgstr[4] "سيؤدي هذا أيضًا إلى حذف %(translation_count)s ترجمة"
 msgstr[5] "سيؤدي هذا أيضًا إلى حذف %(translation_count)s ترجمة"
@@ -1529,11 +1536,11 @@ msgstr[0] ""
 "سيؤدي حذف هذه الصفحة أيضًا إلى حذف ترجمة واحدة "
 "و%(translation_descendant_count)s صفحة فرعية مترجمة تابعة لها"
 msgstr[1] ""
-"سيؤدي حذف هذه الصفحة أيضًا إلى حذف ترجمة واحدة وصفحة فرعية مترجمة واحدة تابعة "
-"لها"
+"سيؤدي حذف هذه الصفحة أيضًا إلى حذف ترجمة واحدة "
+"و%(translation_descendant_count)s صفحة مترجمة فرعية تابعة لها."
 msgstr[2] ""
 "سيؤدي حذف هذه الصفحة أيضًا إلى حذف ترجمة واحدة وصفحتين فرعيتين مترجمتين "
-"تابعتين لها"
+"تابعتين لها %(translation_descendant_count)s ."
 msgstr[3] ""
 "سيؤدي حذف هذه الصفحة أيضًا إلى حذف ترجمة واحدة "
 "و%(translation_descendant_count)s صفحات فرعية مترجمة تابعة لها"
@@ -1581,11 +1588,10 @@ msgstr[0] ""
 "سيؤدي هذا أيضًا إلى حذف %(descendant_count)s صفحة فرعية إضافية. سيؤدي حذف هذه "
 "الصفحة أيضًا إلى حذف %(translation_count)s ترجمة لهذه الصفحة"
 msgstr[1] ""
-"سيؤدي هذا أيضًا إلى حذف %(descendant_count)s صفحة فرعية إضافية. سيؤدي حذف هذه "
-"الصفحة أيضًا إلى حذف ترجمة واحدة لهذه الصفحة"
+"حذف هذه الصفحة سيؤدي أيضا إلى حذف %(translation_count)sترجمتين لهذه الصفحة."
 msgstr[2] ""
-"سيؤدي هذا أيضًا إلى حذف %(descendant_count)s صفحتين فرعيتين إضافيتين. سيؤدي "
-"حذف هذه الصفحة أيضًا إلى حذف ترجمتين لهذه الصفحة"
+"هذا سيحذف %(descendant_count)s صفحات فرعية أخرى. حذف هذه الصفحة سيؤدي أيضا "
+"إلى حذف %(translation_count)s ترجمتين لهذه الصفحة."
 msgstr[3] ""
 "سيؤدي هذا أيضًا إلى حذف %(descendant_count)s صفحات فرعية إضافية. سيؤدي حذف "
 "هذه الصفحة أيضًا إلى حذف %(translation_count)s ترجمات لهذه الصفحة"
@@ -1595,14 +1601,6 @@ msgstr[4] ""
 msgstr[5] ""
 "سيؤدي هذا أيضًا إلى حذف %(descendant_count)s صفحة فرعية إضافية. سيؤدي حذف هذه "
 "الصفحة أيضًا إلى حذف %(translation_count)s ترجمة لهذه الصفحة"
-
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "سيؤدي هذا الإجراء إلى حذف <b>%(total_pages)s</b> صفحة إجمالاً"
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "يرجى كتابة <b>%(wagtail_site_name)s</b> للتأكيد"
 
 msgid "Yes, delete it"
 msgstr "نعم، احذفها"
@@ -1644,7 +1642,9 @@ msgstr[0] ""
 "سيؤدي هذا أيضًا إلى نقل %(translations_to_move_count)s ترجمة لهذه الصفحة "
 "وصفحاتها الفرعية"
 msgstr[1] "سيؤدي هذا أيضًا إلى نقل ترجمة واحدة لهذه الصفحة وصفحاتها الفرعية"
-msgstr[2] "سيؤدي هذا أيضًا إلى نقل ترجمتين لهذه الصفحة وصفحاتها الفرعية"
+msgstr[2] ""
+"سيؤدي هذا إلى نقل %(translations_to_move_count)s ترجمة هاتين الصفحتين و "
+"صفحاتهما الفرعية"
 msgstr[3] ""
 "سيؤدي هذا أيضًا إلى نقل %(translations_to_move_count)s ترجمات لهذه الصفحة "
 "وصفحاتها الفرعية"
@@ -1668,7 +1668,7 @@ msgid_plural ""
 msgstr[0] ""
 "سيؤدي هذا أيضًا إلى إلغاء نشر جميع %(translation_count)s ترجمات الصفحة"
 msgstr[1] "سيؤدي هذا أيضًا إلى إلغاء نشر ترجمة واحدة للصفحة"
-msgstr[2] "سيؤدي هذا أيضًا إلى إلغاء نشر ترجمتين للصفحة"
+msgstr[2] "سيؤدي هذا أيضًا إلى إلغاء نشر  %(translation_count)s ترجمتين للصفحة."
 msgstr[3] "سيؤدي هذا أيضًا إلى إلغاء نشر %(translation_count)s ترجمات للصفحة"
 msgstr[4] "سيؤدي هذا أيضًا إلى إلغاء نشر %(translation_count)s ترجمة للصفحة"
 msgstr[5] "سيؤدي هذا أيضًا إلى إلغاء نشر %(translation_count)s ترجمة للصفحة"
@@ -1740,7 +1740,9 @@ msgstr[0] ""
 "تحتوي هذه الصفحة على %(live_descendant_count)s صفحة فرعية. قم بإلغاء نشرها "
 "أيضًا"
 msgstr[1] "تحتوي هذه الصفحة على صفحة فرعية واحدة. قم بإلغاء نشرها أيضًا"
-msgstr[2] "تحتوي هذه الصفحة على صفحتين فرعيتين. قم بإلغاء نشرها أيضًا"
+msgstr[2] ""
+"تحتوي هذه الصفحة على صفحتين فرعيتين  %(live_descendant_count)s قم بإلغاء "
+"نشرها أيضًا"
 msgstr[3] ""
 "تحتوي هذه الصفحة على %(live_descendant_count)s صفحات فرعية. قم بإلغاء نشرها "
 "أيضًا"
@@ -1929,9 +1931,9 @@ msgstr "أنواع الصفحات"
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
-msgstr[0] "لا توجد صفحات مطابقة"
+msgstr[0] "لا توجد %(counter)s صفحات مطابقة"
 msgstr[1] "هناك صفحة واحدة مطابقة"
-msgstr[2] "هناك صفحتان مطابقتان"
+msgstr[2] "هناك %(counter)s صفحتين مطابقتين"
 msgstr[3] "هناك %(counter)s صفحات مطابقة"
 msgstr[4] "هناك %(counter)s صفحة مطابقة"
 msgstr[5] "هناك %(counter)s صفحة مطابقة"
@@ -1978,10 +1980,10 @@ msgid "Save schedule"
 msgstr "حفظ الجدول"
 
 msgid "Collection management permissions"
-msgstr "أذونات إدارة المجموعات"
+msgstr "أذونات إدارة الرزم"
 
 msgid "Add a collection permission"
-msgstr "إضافة إذن مجموعة"
+msgstr "إضافة إذن رزمة"
 
 msgid "Last published"
 msgstr "آخر نشر"
@@ -2094,6 +2096,27 @@ msgstr "تبديل مسار التصفح"
 msgid "Breadcrumb"
 msgstr "مسار تصفح"
 
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] ""
+"سيؤدي هذا الإجراء إلى حذف <b>%(total_pages_formatted)s</b>  صفحة إجمالاً."
+msgstr[1] ""
+"سيؤدي هذا الإجراء إلى حذف <b>%(total_pages_formatted)s</b> صفحة واحدة."
+msgstr[2] ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[3] ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[4] ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[5] ""
+"سيؤدي هذا الإجراء إلى حذف <b>%(total_pages_formatted)s</b>صفحة إجمالاً."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "يرجى كتابة <b>%(wagtail_site_name)s</b> للتأكيد"
+
 msgid "Close dialog"
 msgstr "إغلاق الحوار"
 
@@ -2123,10 +2146,10 @@ msgstr "يتم عرضه حاليًا"
 #, python-format
 msgid "One other user is currently viewing"
 msgid_plural "%(num_user)s other users are currently viewing"
-msgstr[0] "لا يوجد مستخدمين آخرين يشاهدون"
-msgstr[1] "مستخدم آخر واحد يشاهد حاليًا"
-msgstr[2] "مستخدمان آخران يشاهدان حاليًا"
-msgstr[3] "%(num_user)s مستخدمين آخرين يشاهدون حاليًا"
+msgstr[0] "%(num_user)s لا يوجد مستخدمين آخرين يشاهدون"
+msgstr[1] "مستخدمً واحد آخر يشاهد حاليًا"
+msgstr[2] "%(num_user)s مستخدمان آخران يشاهدان حاليًا"
+msgstr[3] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
 msgstr[4] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
 msgstr[5] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
 
@@ -2398,8 +2421,8 @@ msgstr "لديك <span>تعديلات غير محفوظة</span> و<span>تعل�
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
 msgstr[0] "يتم الإشارة إلى هذا %(model_name)s %(usage_count)s مرة"
-msgstr[1] "يتم الإشارة إلى هذا %(model_name)s مرة واحدة"
-msgstr[2] "يتم الإشارة إلى هذا %(model_name)s مرتين"
+msgstr[1] "هذا %(model_name)s يتم الإشارة له%(usage_count)s مرة واحدة."
+msgstr[2] "يتم الإشارة إلى هذا%(model_name)s  %(usage_count)s مرتين."
 msgstr[3] "يتم الإشارة إلى هذا %(model_name)s %(usage_count)s مرات"
 msgstr[4] "يتم الإشارة إلى هذا %(model_name)s %(usage_count)s مرة"
 msgstr[5] "يتم الإشارة إلى هذا %(model_name)s %(usage_count)s مرة"
@@ -2570,9 +2593,9 @@ msgstr "الخطوة %(step_number)s"
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
-msgstr[0] "لا صفحات"
+msgstr[0] "%(counter)s صفحات"
 msgstr[1] "صفحة واحدة"
-msgstr[2] "صفحتين"
+msgstr[2] "%(counter)s صفحتين"
 msgstr[3] "%(counter)s صفحات"
 msgstr[4] "%(counter)s صفحة"
 msgstr[5] "%(counter)s صفحة"
@@ -2580,9 +2603,9 @@ msgstr[5] "%(counter)s صفحة"
 #, python-format
 msgid "1 snippet type"
 msgid_plural "%(counter)s snippet types"
-msgstr[0] "لا أنواع مقتطفات"
+msgstr[0] "%(counter)s نوع مقتطف"
 msgstr[1] "نوع مقتطف واحد"
-msgstr[2] "نوعين مقتطفات"
+msgstr[2] "%(counter)s نوع مقتطفين"
 msgstr[3] "%(counter)s أنواع مقتطفات"
 msgstr[4] "%(counter)s نوع مقتطف"
 msgstr[5] "%(counter)s نوع مقتطف"
@@ -2634,11 +2657,13 @@ msgid "You haven't created any tasks."
 msgstr "لم تقم بإنشاء أي مهام."
 
 msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
 msgstr ""
-"لماذا لا <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>تقوم "
-"بإنشاء واحدة الآن</a>؟"
+"لماذا لا <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">يتم إنشاء واحد الآن</a>؟"
 
 #, python-format
 msgid ""
@@ -2744,6 +2769,12 @@ msgstr "أعد"
 msgid "Save changes"
 msgstr "حفظ التغييرات"
 
+msgid "Toggle sidebar"
+msgstr "تبديل الشريط الجانبي"
+
+msgid "Toggle minimap"
+msgstr "تبديل الخريطة المصغرة"
+
 msgid "Add or show comments"
 msgstr "إضافة أو عرض التعليقات"
 
@@ -2766,7 +2797,7 @@ msgid "Monospace (code)"
 msgstr "أحادي المسافة (كود)"
 
 msgid "Strike-through"
-msgstr "خط في المنتصف"
+msgstr "يشطب"
 
 msgid "Superscript"
 msgstr "مرتفع"
@@ -2898,34 +2929,34 @@ msgid "You have been successfully logged out."
 msgstr "لقد تم تسجيل الخروج بنجاح."
 
 msgid "Collections"
-msgstr "مجموعات"
+msgstr "رزم"
 
 msgid "Add a collection"
-msgstr "اضافة مجموعة"
+msgstr "اضافة رزمة"
 
 msgid "Add collection"
-msgstr "اضف مجموعة"
+msgstr "اضف رزمة"
 
 #, python-format
 msgid "Collection '%(object)s' created."
-msgstr "مجموعة '%(object)s' تم إنشاؤها."
+msgstr "رزمة '%(object)s' تم إنشاؤها."
 
 #, python-format
 msgid "Collection '%(object)s' updated."
-msgstr "تم تحديث المجموعة '%(object)s'."
+msgstr "تم تحديث رزم'%(object)s'."
 
 msgid "The collection could not be saved due to errors."
-msgstr "لا يمكن حفظ المجموعة بسبب الأخطاء."
+msgstr "لا يمكن حفظ الرزمة بسبب الأخطاء."
 
 #, python-format
 msgid "Collection '%(object)s' deleted."
-msgstr "المجموعة '%(object)s' محذوفة."
+msgstr "الرزمة '%(object)s' محذوفة."
 
 msgid "Delete collection"
-msgstr "حذف المجموعة"
+msgstr "حذف الرزمة"
 
 msgid "Are you sure you want to delete this collection?"
-msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
+msgstr "هل أنت متأكد من أنك تريد حذف هذه الرزمة؟"
 
 msgid "Home"
 msgstr "الرئيسة"
@@ -3045,24 +3076,8 @@ msgstr "تم جدولة النسخة من %(timestamp)s لـ %(model_name)s '%(o
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "عَدِّلْ '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "نسخ '%(title)s'"
-
 msgid "Inspect"
 msgstr "فحص"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "فحص '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "حذف '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3171,7 +3186,7 @@ msgstr "تم حذف %(parent_pages)s و %(child_pages)s"
 msgid "%(num_parent_objects)d page has been deleted"
 msgid_plural "%(num_parent_objects)d pages have been deleted"
 msgstr[0] "تم حذف %(num_parent_objects)d صفحة"
-msgstr[1] "تم حذف صفحتين"
+msgstr[1] "%(num_parent_objects)d تم حذف صفحتين"
 msgstr[2] "تم حذف %(num_parent_objects)d صفحات"
 msgstr[3] "تم حذف %(num_parent_objects)d صفحة"
 msgstr[4] "تم حذف %(num_parent_objects)d صفحة"
@@ -3187,8 +3202,8 @@ msgstr "نقل الصفحات المحددة"
 msgid "%(num_pages)d page has been moved"
 msgid_plural "%(num_pages)d pages have been moved"
 msgstr[0] "تم نقل %(num_pages)d صفحة"
-msgstr[1] "تم نقل صفحتين"
-msgstr[2] "تم نقل %(num_pages)d صفحات"
+msgstr[1] "%(num_pages)d تم نقل صفحة"
+msgstr[2] "تم نقل %(num_pages)d صفحتين"
 msgstr[3] "تم نقل %(num_pages)d صفحة"
 msgstr[4] "تم نقل %(num_pages)d صفحة"
 msgstr[5] "تم نقل %(num_pages)d صفحة"
@@ -3197,8 +3212,8 @@ msgstr[5] "تم نقل %(num_pages)d صفحة"
 msgid "%(num_parent_objects)d page"
 msgid_plural "%(num_parent_objects)d pages"
 msgstr[0] "%(num_parent_objects)d صفحة"
-msgstr[1] "صفحتين"
-msgstr[2] "%(num_parent_objects)d صفحات"
+msgstr[1] "%(num_parent_objects)d صفحة"
+msgstr[2] "%(num_parent_objects)d صفحتين"
 msgstr[3] "%(num_parent_objects)d صفحة"
 msgstr[4] "%(num_parent_objects)d صفحة"
 msgstr[5] "%(num_parent_objects)d صفحة"
@@ -3207,8 +3222,8 @@ msgstr[5] "%(num_parent_objects)d صفحة"
 msgid "%(num_child_objects)d child page"
 msgid_plural "%(num_child_objects)d child pages"
 msgstr[0] "%(num_child_objects)d صفحة فرعية"
-msgstr[1] "صفحتين فرعيتين"
-msgstr[2] "%(num_child_objects)d صفحات فرعية"
+msgstr[1] "%(num_child_objects)d صفحة فرعية"
+msgstr[2] "%(num_child_objects)dصفحتين فرعيتين"
 msgstr[3] "%(num_child_objects)d صفحة فرعية"
 msgstr[4] "%(num_child_objects)d صفحة فرعية"
 msgstr[5] "%(num_child_objects)d صفحة فرعية"
@@ -3226,8 +3241,8 @@ msgstr "تم نشر %(parent_pages)s و %(child_pages)s"
 msgid "%(num_parent_objects)d page has been published"
 msgid_plural "%(num_parent_objects)d pages have been published"
 msgstr[0] "تم نشر %(num_parent_objects)d صفحة"
-msgstr[1] "تم نشر صفحتين"
-msgstr[2] "تم نشر %(num_parent_objects)d صفحات"
+msgstr[1] "%(num_parent_objects)d تم نشر صفحة"
+msgstr[2] "تم نشر %(num_parent_objects)d صفحتين"
 msgstr[3] "تم نشر %(num_parent_objects)d صفحة"
 msgstr[4] "تم نشر %(num_parent_objects)d صفحة"
 msgstr[5] "تم نشر %(num_parent_objects)d صفحة"
@@ -3245,8 +3260,8 @@ msgstr "تم إلغاء نشر %(parent_pages)s و %(child_pages)s"
 msgid "%(num_parent_objects)d page has been unpublished"
 msgid_plural "%(num_parent_objects)d pages have been unpublished"
 msgstr[0] "تم إلغاء نشر %(num_parent_objects)d صفحة"
-msgstr[1] "تم إلغاء نشر صفحتين"
-msgstr[2] "تم إلغاء نشر %(num_parent_objects)d صفحات"
+msgstr[1] "%(num_parent_objects)d تم إلغاء نشر صفحة"
+msgstr[2] "تم إلغاء نشر %(num_parent_objects)d صفحتين"
 msgstr[3] "تم إلغاء نشر %(num_parent_objects)d صفحة"
 msgstr[4] "تم إلغاء نشر %(num_parent_objects)d صفحة"
 msgstr[5] "تم إلغاء نشر %(num_parent_objects)d صفحة"
@@ -3547,8 +3562,8 @@ msgstr[0] ""
 "سير العمل هذا قيد التقدم على %(states_in_progress)d صفحة/مقتطف. تعطيل سير "
 "العمل هذا سيلغي الاعتماد على هذه الصفحة/المقتطف."
 msgstr[1] ""
-"سير العمل هذا قيد التقدم على صفحتين/مقتطفين. تعطيل سير العمل هذا سيلغي "
-"الاعتماد على هاتين الصفحتين/المقتطفين."
+"سير العمل هذا قيد التقدم على %(states_in_progress)d صفحة/مقتطف. تعطيل سير "
+"العمل هذا سيلغي الاعتماد على هذه الصفحة/المقتطف"
 msgstr[2] ""
 "سير العمل هذا قيد التقدم على %(states_in_progress)d صفحات/مقتطفات. تعطيل سير "
 "العمل هذا سيلغي الاعتماد على هذه الصفحات/المقتطفات."
@@ -3606,8 +3621,9 @@ msgstr[0] ""
 "المهمة سيؤدي إلى تخطيها في سير العمل ولن يتم سردها للاختيار عند تحرير سير "
 "العمل."
 msgstr[1] ""
-"هذه المهمة قيد التقدم على صفحتين/مقتطفين. تعطيل هذه المهمة سيؤدي إلى تخطيها "
-"في سير العمل ولن يتم سردها للاختيار عند تحرير سير العمل."
+"هذه المهمة قيد التقدم على %(states_in_progress)d صفحة/مقتطف. تعطيل هذه "
+"المهمة سيؤدي إلى تخطيها في سير العمل ولن يتم سردها للاختيار عند تحرير سير "
+"العمل."
 msgstr[2] ""
 "هذه المهمة قيد التقدم على %(states_in_progress)d صفحات/مقتطفات. تعطيل هذه "
 "المهمة سيؤدي إلى تخطيها في سير العمل ولن يتم سردها للاختيار عند تحرير سير "
@@ -3632,40 +3648,8 @@ msgstr "تم تمكين المهمة '%(task_name)s'."
 msgid "Choose another"
 msgstr "اختر آخر"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "معاينة النسخة المسودة من '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "معاينة النسخة المباشرة من '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "نقل الصفحة '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "نسخ الصفحة '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "حذف الصفحة '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "إلغاء نشر الصفحة '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "عرض سجل الصفحة لـ '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "ترتيب قائمة الفرز"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "تغيير ترتيب الصفحات الفرعية لـ '%(title)s'"
 
 msgid "Heading 1"
 msgstr "ترويسة 1"
@@ -3701,7 +3685,7 @@ msgid "Link"
 msgstr "رابط"
 
 msgid "Strikethrough"
-msgstr "يتوسطه خط"
+msgstr "يشطب"
 
 msgid "Code"
 msgstr "كود"

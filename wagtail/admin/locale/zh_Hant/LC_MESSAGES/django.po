@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -260,7 +260,7 @@ msgstr "命名工作流程"
 msgid "Add tasks to your workflow"
 msgstr "增加作業至工作流程"
 
-msgid "Task"
+msgid "task"
 msgstr "作業"
 
 msgid "1 page selected"
@@ -581,6 +581,9 @@ msgstr "網站摘要"
 
 msgid "Close"
 msgstr "關閉"
+
+msgid "Task"
+msgstr "作業"
 
 msgid "Task started"
 msgstr "作業開始"
@@ -1356,16 +1359,8 @@ msgstr "%(model_name)s '%(object)s' 已更新。"
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' 已創建。"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "編輯 '%(title)s'"
-
 msgid "Inspect"
 msgstr "檢查"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "刪除 '%(title)s'"
 
 msgid "Editing"
 msgstr "正在編輯"
@@ -1588,30 +1583,6 @@ msgstr "已啟用作業 '%(task_name)s'"
 
 msgid "Choose another"
 msgstr "選擇其他"
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "預覽草稿版本 '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "移動頁面 '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "複製頁面 '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "刪除頁面 '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "取消發佈頁面 '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "檢視 '%(title)s' 歷史頁面"
 
 msgid "Sort menu order"
 msgstr "排列選單順序"

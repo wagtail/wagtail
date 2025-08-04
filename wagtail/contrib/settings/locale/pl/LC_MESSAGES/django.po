@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2016\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,6 +26,9 @@ msgstr ""
 
 msgid "default"
 msgstr "domyślny"
+
+msgid "Sites"
+msgstr "Serwisy"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

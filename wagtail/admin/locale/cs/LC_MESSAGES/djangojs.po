@@ -3,14 +3,14 @@
 # Jiri Stepanek <stepiiicz@gmail.com>, 2022
 # Martin Galda <martingalda9@gmail.com>, 2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2022
-# Marek Turnovec <aesculap@gmail.com>, 2022
 # Loic Teixeira, 2024
-# Mirek Zvolský <zvolsky@seznam.cz>, 2025
 # IT Management <hudan@itmanagement.cz>, 2025
+# Marek Turnovec <aesculap@gmail.com>, 2025
+# Mirek Zvolský <zvolsky@seznam.cz>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: IT Management <hudan@itmanagement.cz>, 2025\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/torchbox/teams/8009/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: cs\n"
@@ -76,6 +76,9 @@ msgstr "Chybějící dokument"
 
 msgid "More actions"
 msgstr "Další akce"
+
+msgid "No"
+msgstr "Ne"
 
 msgid "No results"
 msgstr "Žádné výsledky"
@@ -144,6 +147,9 @@ msgstr "Minimální počet položek je %(min_num)d"
 msgid "This field is required."
 msgstr "Toto pole je vyžadováno."
 
+msgid "Toggle section"
+msgstr "Přepnout výběr"
+
 msgid "Toggle side panel"
 msgstr "Přepnout postranní panel"
 
@@ -152,3 +158,6 @@ msgstr "Nezvýrazňovat komentář"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Ukázat podstránky '%(title)s'"
+
+msgid "Yes"
+msgstr "Ano"

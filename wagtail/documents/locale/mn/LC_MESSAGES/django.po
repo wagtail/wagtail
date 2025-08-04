@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -61,12 +61,6 @@ msgstr "файл"
 msgid "documents"
 msgstr "файлууд"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s удаа ашиглагдсан байна"
-msgstr[1] "%(usage_count)s удаа ашиглагдсан байна"
-
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
@@ -102,6 +96,12 @@ msgstr "Файл олдсонгүй"
 
 msgid "Usage"
 msgstr "Хэрэглээ"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашиглагдсан байна"
+msgstr[1] "%(usage_count)s удаа ашиглагдсан байна"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

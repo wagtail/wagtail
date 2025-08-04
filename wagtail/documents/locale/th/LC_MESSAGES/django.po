@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -62,11 +62,6 @@ msgstr "เอกสาร"
 msgid "documents"
 msgstr "เอกสาร"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
-
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
@@ -99,6 +94,11 @@ msgstr "ไม่พบไฟล์ที่หา,ไม่พบแฟ้ม�
 
 msgid "Usage"
 msgstr "การใช้"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -141,12 +141,6 @@ msgstr "ετικέτες"
 msgid "image"
 msgstr "Εικόνα"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
-msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
-
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
 
@@ -197,6 +191,12 @@ msgstr "Το αρχείο δεν βρέθηκε"
 
 msgid "Usage"
 msgstr "Χρήση"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
+msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -280,6 +280,12 @@ msgstr "Επεξεργασία αυτής της εικόνας"
 
 msgid "Images"
 msgstr "Εικόνες"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
 
 msgid "The image could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση της εικόνας."

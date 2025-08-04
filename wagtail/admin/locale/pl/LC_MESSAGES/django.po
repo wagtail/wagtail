@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -324,8 +324,8 @@ msgstr "Nadaj nazwę swojemu procesowi"
 msgid "Add tasks to your workflow"
 msgstr "Dodaj zadania do swojego procesu"
 
-msgid "Task"
-msgstr "Zadanie"
+msgid "task"
+msgstr "zadanie"
 
 msgid "1 page selected"
 msgstr "1 strona zaznaczona"
@@ -854,6 +854,9 @@ msgstr "Zamknij"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Twoje strony i skrawki w procesie"
+
+msgid "Task"
+msgstr "Zadanie"
 
 msgid "Task started"
 msgstr "Zadanie rozpoczęte"
@@ -1466,14 +1469,6 @@ msgstr[3] ""
 "powiązanych %(translation_descendant_count)s przetłumaczonych stron "
 "podrzędnych."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Ta akcja skasuje <b>%(total_pages)s</b> stron."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Proszę wpisz <b>%(wagtail_site_name)s</b> aby potwierdzić."
-
 msgid "Yes, delete it"
 msgstr "Tak, usuń"
 
@@ -1831,6 +1826,10 @@ msgstr "Przełącz okruszki"
 
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Proszę wpisz <b>%(wagtail_site_name)s</b> aby potwierdzić."
 
 msgid "Close dialog"
 msgstr "Zamknij informację"
@@ -2343,13 +2342,6 @@ msgstr ""
 msgid "You haven't created any tasks."
 msgstr "Nie utworzyłeś żadnych zadań."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"Dlaczego nie <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>utworzyć jednego teraz</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2453,6 +2445,9 @@ msgstr "Ponów"
 
 msgid "Save changes"
 msgstr "Zapisz zmiany"
+
+msgid "Toggle sidebar"
+msgstr "Rozszerzanie bocznej nawigacji"
 
 msgid "Text content"
 msgstr "Treść tekstowa"
@@ -2650,24 +2645,8 @@ msgstr "%(model_name)s '%(object)s' utworzony."
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Edytuj '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Kopiuj '%(title)s'"
-
 msgid "Inspect"
 msgstr "Sprawdź"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Podejrzyj '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Usuń '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3113,40 +3092,8 @@ msgstr "Zadanie '%(task_name)s' włączone."
 msgid "Choose another"
 msgstr "Wybierz inny"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Podejrzyj szkic '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Podejrzyj opublikowaną wersję '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Przesuń stronę '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopiuj stronę '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Usuń stronę '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Odpublikuj stronę '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Wyświetl historyczną rewizję '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Sortuj menu"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Zmień kolejność stron podrzędnych od '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Nagłówek 1"

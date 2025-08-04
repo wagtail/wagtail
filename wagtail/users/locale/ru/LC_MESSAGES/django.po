@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Никита Викторович <hnknta@gmail.com>, 2014\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -168,6 +168,9 @@ msgstr "Удобная"
 #. between elements in the user interface
 msgid "density"
 msgstr "плотность"
+
+msgid "Keyboard shortcuts"
+msgstr "Горячие клавиши"
 
 msgid "user profile"
 msgstr "профиль пользователя"
@@ -335,9 +338,6 @@ msgstr ""
 "Группы еще не созданы. Почему бы не <a "
 "href=\"%(wagtailusers_create_group_url)s\">добавить</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Вы уверены, что хотите удалить этого пользователя?"
-
 msgid "Account"
 msgstr "Аккаунт"
 
@@ -468,9 +468,6 @@ msgstr "Администратор"
 
 msgid "Access level"
 msgstr "Уровень доступа"
-
-msgid "Status"
-msgstr "Статус"
 
 #, python-format
 msgid "More options for '%(title)s'"

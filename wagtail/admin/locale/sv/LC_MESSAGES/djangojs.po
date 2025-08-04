@@ -2,14 +2,14 @@
 # Translators:
 # Andreas Lans <andreas.lans@gmail.com>, 2022
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
-# Martin Sandström <martin@marteinn.se>, 2024
 # Loic Teixeira, 2024
 # Thomas Kunambi <kunambi@gmail.com>, 2025
 # Philip Andersen <renegadevi@codeofmagi.net>, 2025
+# Martin Sandström <martin@marteinn.se>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>, 2025\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
@@ -124,6 +124,9 @@ msgstr "Dokument saknas"
 msgid "More actions"
 msgstr "Fler åtgärder"
 
+msgid "No"
+msgstr "Nej"
+
 msgid "No results"
 msgstr "Inga resultat funna"
 
@@ -212,6 +215,9 @@ msgstr "Det minsta antalet block är %(min_num)d"
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt."
 
+msgid "Toggle section"
+msgstr "Växla sektion"
+
 msgid "Toggle side panel"
 msgstr "Växla sidopanel"
 
@@ -226,3 +232,6 @@ msgstr "Visa undersidor av '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Skriv något eller tryck på ‘/’ för att lägga till ett block"
+
+msgid "Yes"
+msgstr "Ja"

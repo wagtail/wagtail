@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -67,11 +67,6 @@ msgstr "ドキュメント"
 msgid "documents"
 msgstr "ドキュメント"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s回使用"
-
 msgid "Yes, delete"
 msgstr "はい、削除します"
 
@@ -107,6 +102,11 @@ msgstr "ファイルは見つかりませんでした"
 
 msgid "Usage"
 msgstr "使用法"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s回使用"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

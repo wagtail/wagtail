@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: B N <biczoxd@gmail.com>, 2018\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023,2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +145,12 @@ msgstr "Tömör"
 #. between elements in the user interface
 msgid "density"
 msgstr "sűrűség"
+
+msgid "Keyboard shortcuts"
+msgstr "Billenytűkombinációk"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Wagtail-specifikus billentyű parancsok engedélyezése"
 
 msgid "user profile"
 msgstr "felhasználói profil"
@@ -296,9 +302,6 @@ msgstr ""
 "Nincs csoport hozzáadva. Miért nem <a "
 "href=\"%(wagtailusers_create_group_url)s\">ad hozzá egyet</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Biztosan törli ezt a felhasználót?"
-
 msgid "Account"
 msgstr "Fiók"
 
@@ -422,9 +425,6 @@ msgstr "Admin"
 
 msgid "Access level"
 msgstr "Elérés szintje"
-
-msgid "Status"
-msgstr "Állapot"
 
 #, python-format
 msgid "More options for '%(title)s'"

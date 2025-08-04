@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -140,6 +140,9 @@ msgstr "ئازادە"
 #. between elements in the user interface
 msgid "density"
 msgstr "زىچلىقى"
+
+msgid "Keyboard shortcuts"
+msgstr "ھەرپتاختا تېزلەتمىسى"
 
 msgid "user profile"
 msgstr "ئىشلەتكۈچى تەرجىمىھالى"
@@ -290,9 +293,6 @@ msgstr ""
 "سەپلەيدىغان ھېچقانداق گۇرۇپپا يوق. نېمىشقا <a "
 "href=\"%(wagtailusers_create_group_url)s\">بىر قانچىنى قوش</a>مايسىز؟"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "بۇ ئىشلەتكۈچىنى راستتىنلا ئۆچۈرەمسىز؟"
-
 msgid "Account"
 msgstr "ھېسابات"
 
@@ -415,9 +415,6 @@ msgstr "باشقۇرغۇچى"
 
 msgid "Access level"
 msgstr "زىيارەت دەرىجىسى"
-
-msgid "Status"
-msgstr "ھالەت"
 
 #, python-format
 msgid "More options for '%(title)s'"

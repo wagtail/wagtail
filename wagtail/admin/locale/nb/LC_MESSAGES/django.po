@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -283,9 +283,6 @@ msgstr "Gi arbeidsflyten et navn"
 
 msgid "Add tasks to your workflow"
 msgstr "Legg til oppgaver i arbeidsflyten din"
-
-msgid "Task"
-msgstr "Oppgave"
 
 msgid "1 page selected"
 msgstr "1 side valgt"
@@ -749,6 +746,9 @@ msgstr "Lukk"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Dine sider og snutter i en arbeidsflyt"
+
+msgid "Task"
+msgstr "Oppgave"
 
 msgid "Task started"
 msgstr "Oppgave startet"
@@ -1255,10 +1255,6 @@ msgstr "%(model_name)s «%(object)s» oppdatert."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s «%(object)s» opprettet."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Endre «%(title)s»"
-
 msgid "Inspect"
 msgstr "Inspiser"
 
@@ -1380,30 +1376,6 @@ msgstr "Sider som bruker"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Siden \"%(page_title)s\" påventer ikke godkjenning."
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Forhåndsvis kladd av «%(title)s»"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Vis publisert versjon av  «%(title)s»"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Flytt siden «%(title)s»"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopier siden «%(title)s»"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Slett siden «%(title)s»"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Avpublisér siden «%(title)s»"
 
 msgid "Heading 1"
 msgstr "Overskrift 1"

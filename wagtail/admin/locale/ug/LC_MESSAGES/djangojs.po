@@ -125,6 +125,9 @@ msgstr "يوقالغان پۈتۈك"
 msgid "More actions"
 msgstr "تېخىمۇ كۆپ مەشغۇلات"
 
+msgid "No"
+msgstr "ياق"
+
 msgid "No results"
 msgstr "نەتىجە يوق"
 
@@ -218,6 +221,9 @@ msgstr "ئەڭ ئاز تۈر سانى %(min_num)d"
 msgid "This field is required."
 msgstr "بۇ بۆلەك زۆرۈر."
 
+msgid "Toggle section"
+msgstr "بۆلەك ئالماشتۇر"
+
 msgid "Toggle side panel"
 msgstr "يان تاختىنى ئالماشتۇر"
 
@@ -235,3 +241,6 @@ msgstr "كۆرسىتىدىغىنى «%(title)s» نىڭ بالا بېتى"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "بىر نەرسە يېزىلىدۇ ياكى «/» كىرگۈزۈلسە بىر بۆلەك قىستۇرىدۇ"
+
+msgid "Yes"
+msgstr "ھەئە"
