@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Michel Vuijlsteke, 2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -249,12 +249,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Weet je zeker dat je deze afbeelding wilt verwijderen?"
 msgstr[1] "Weet je zeker dat je deze afbeeldingen wilt verwijderen?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s keer gebruikt"
-msgstr[1] "%(usage_count)s keer gebruikt"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Je hebt niet de juiste rechten om deze afbeelding te verwijderen"
@@ -300,13 +294,6 @@ msgstr "Je hebt nog geen afbeelding geüpload naar deze collectie."
 
 msgid "You haven't uploaded any images."
 msgstr "Je hebt nog geen afbeeldingen geüpload."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>Upload er "
-"nu eentje!</a>"
 
 msgid "Choose a format"
 msgstr "Kies een formaat"
@@ -379,6 +366,12 @@ msgstr "Bestand niet gevonden"
 
 msgid "Usage"
 msgstr "Gebruik"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s keer gebruikt"
+msgstr[1] "%(usage_count)s keer gebruikt"
 
 msgid "Sort by"
 msgstr "Sorteer op"
@@ -547,6 +540,12 @@ msgstr "Bestandsgrootte: (groot naar klein)"
 
 msgid "Images"
 msgstr "Afbeeldingen"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Created"
+msgstr "Aangemaakt"
 
 msgid "The image could not be saved due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -172,13 +172,6 @@ msgstr "Ne, nemoj dodati"
 msgid "Add images to collection"
 msgstr "Dodaj slike u zbirku"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Korišteno %(usage_count)s put "
-msgstr[1] "Korišteno %(usage_count)s puta"
-msgstr[2] "Korišteno %(usage_count)s puta"
-
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -196,13 +189,6 @@ msgstr "Novi"
 
 msgid "Latest images"
 msgstr "Najnovije slike"
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Zašto ne <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>dodate jedan</a>?"
 
 msgid "Choose a format"
 msgstr "Odaberi format"
@@ -254,6 +240,13 @@ msgstr "Datoteka nije pronađena"
 
 msgid "Usage"
 msgstr "Upotreba"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Korišteno %(usage_count)s put "
+msgstr[1] "Korišteno %(usage_count)s puta"
+msgstr[2] "Korišteno %(usage_count)s puta"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -337,6 +330,12 @@ msgstr "Uredi ovu sliku"
 
 msgid "Images"
 msgstr "Slike"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Created"
+msgstr "Stvoreno"
 
 msgid "The image could not be saved due to errors."
 msgstr "Nije moguće sačuvati sliku zbog grešaka."

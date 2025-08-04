@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -251,14 +251,6 @@ msgstr[1] "Ydych chi'n siŵr eich bod am ddileu'r lluniau hyn?"
 msgstr[2] "Ydych chi'n siŵr eich bod am ddileu'r lluniau hyn?"
 msgstr[3] "Ydych chi'n siŵr eich bod am ddileu'r lluniau hyn?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Wedi defnyddio %(usage_count)s waith"
-msgstr[1] "Wedi defnyddio %(usage_count)s o weithiau"
-msgstr[2] "Wedi defnyddio %(usage_count)s o weithiau"
-msgstr[3] "Wedi defnyddio %(usage_count)s o weithiau"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Nid oes gennych ganiatâd i ddileu'r llun yma"
@@ -307,13 +299,6 @@ msgstr "Nid ydych wedi uwchlwytho unrhyw ddelweddau yn y casgliad hwn."
 
 msgid "You haven't uploaded any images."
 msgstr "Nid ydych wedi uwchlwytho unrhyw ddelweddau."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Beth am <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>uwchlwytho un rwan</a>?"
 
 msgid "Choose a format"
 msgstr "Dewisiwch fformat"
@@ -375,6 +360,14 @@ msgstr "Ffeil heb ei chanfod"
 
 msgid "Usage"
 msgstr "Defnydd"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Wedi defnyddio %(usage_count)s waith"
+msgstr[1] "Wedi defnyddio %(usage_count)s o weithiau"
+msgstr[2] "Wedi defnyddio %(usage_count)s o weithiau"
+msgstr[3] "Wedi defnyddio %(usage_count)s o weithiau"
 
 msgid "Sort by"
 msgstr "Trefnu un ôl"
@@ -549,6 +542,9 @@ msgstr "Maint ffeil: (uchel i isel)"
 
 msgid "Images"
 msgstr "Delweddau"
+
+msgid "Title"
+msgstr "Teitl"
 
 msgid "The image could not be saved due to errors."
 msgstr "Ni fu modd cadw'r llun oherwydd gwallau."

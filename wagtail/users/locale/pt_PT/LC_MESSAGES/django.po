@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -258,9 +258,6 @@ msgstr ""
 "Ainda não foi configurado nenhum grupo. Que tal <a "
 "href=\"%(wagtailusers_create_group_url)s\">criar um</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Tem a certeza que quer apagar este utilizador?"
-
 msgid "Account"
 msgstr "Conta"
 
@@ -378,9 +375,6 @@ msgstr "Administração"
 
 msgid "Access level"
 msgstr "Level de acesso"
-
-msgid "Status"
-msgstr "Estado"
 
 #, python-format
 msgid "User '%(object)s' created."

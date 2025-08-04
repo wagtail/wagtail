@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -149,12 +149,6 @@ msgstr "whakaahua"
 msgid "images"
 msgstr "Ngā whakaahua"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "I whakamahi %(usage_count)s taima"
-msgstr[1] "I whakamahi %(usage_count)s taima"
-
 msgid "Yes, delete"
 msgstr "Ae, muku"
 
@@ -197,6 +191,12 @@ msgstr "Ehara i kimi te kōnae"
 msgid "Usage"
 msgstr "Whakamahi"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "I whakamahi %(usage_count)s taima"
+msgstr[1] "I whakamahi %(usage_count)s taima"
+
 msgid "Preview"
 msgstr "Titiro"
 
@@ -223,6 +223,12 @@ msgstr "Kōhiti he whakaahua"
 
 msgid "Images"
 msgstr "Ngā whakaahua"
+
+msgid "Title"
+msgstr "Taitara"
+
+msgid "Created"
+msgstr "Hangaia"
 
 msgid "The image could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te whakahua nei, he raruraru "

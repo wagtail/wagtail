@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -283,9 +283,6 @@ msgstr ""
 "Гурты не настроенныя. Давай дададзім <a "
 "href=\"%(wagtailusers_create_group_url)s\">дадай трохі</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Вы ўпэўнены, што хочаце выдаліць гэтага карыстальніка?"
-
 msgid "Account"
 msgstr "Уліковы запіс"
 
@@ -404,9 +401,6 @@ msgstr "Адміністратар"
 
 msgid "Access level"
 msgstr "Узровень доступу"
-
-msgid "Status"
-msgstr "Статус"
 
 #, python-format
 msgid "User '%(object)s' created."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -59,12 +59,6 @@ msgstr "ޑިލީޓްކުރެވޭ"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)sގެ %(object)s ފުހެލެވިއްޖެ"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)sފަހަރު ބޭނުން ކުރެވިއްޖެ"
-msgstr[1] " %(usage_count)s ފަހަރު ބޭނުންކުރެވިއްޖެ "
 
 msgid "Yes, delete"
 msgstr "ލައްބަ! ފުހެލާ"

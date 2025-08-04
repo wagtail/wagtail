@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -131,6 +131,9 @@ msgstr "тема адмінки"
 msgid "Default"
 msgstr "Початковий"
 
+msgid "Keyboard shortcuts"
+msgstr "Комбінації клавіш"
+
 msgid "user profile"
 msgstr "профіль користувача"
 
@@ -238,9 +241,6 @@ msgid ""
 msgstr ""
 "Немає налаштованих груп. Чому б не <a "
 "href=\"%(wagtailusers_create_group_url)s\">додати одну</a>?"
-
-msgid "Are you sure you want to delete this user?"
-msgstr "Ви впевнені, що хочете видалити цього користувача?"
 
 msgid "Account"
 msgstr "Аккаунт"
@@ -360,9 +360,6 @@ msgstr "Адмін"
 
 msgid "Access level"
 msgstr "Рівень доступу"
-
-msgid "Status"
-msgstr "Статус"
 
 #, python-format
 msgid "More options for '%(title)s'"

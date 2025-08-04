@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -158,11 +158,6 @@ msgstr "네, 추가합니다"
 msgid "No, don't add"
 msgstr "아니오, 추가하지 않습니다"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s번 사용"
-
 msgid "Yes, delete"
 msgstr "네, 지우겠습니다"
 
@@ -180,13 +175,6 @@ msgstr "신규"
 
 msgid "Latest images"
 msgstr "최근 이미지"
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"지금 <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>새로 "
-"업로드</a>를 해보는 건 어떨까요?"
 
 msgid "Choose a format"
 msgstr "포맷 선택"
@@ -238,6 +226,11 @@ msgstr "파일을 찾을 수 없습니다"
 
 msgid "Usage"
 msgstr "사용"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s번 사용"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -347,6 +340,12 @@ msgstr "오래된순"
 
 msgid "Images"
 msgstr "이미지"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Created"
+msgstr "생성일"
 
 msgid "The image could not be saved due to errors."
 msgstr "에러로 인해 이미지를 저장할 수 없습니다."

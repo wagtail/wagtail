@@ -80,6 +80,9 @@ msgstr "Učitavanje..."
 msgid "Missing document"
 msgstr "Nedostaje dokument"
 
+msgid "No"
+msgstr "Ne"
+
 msgid "No results"
 msgstr "Nema rezultata"
 
@@ -144,3 +147,6 @@ msgstr "Pogledaj djecu stranice '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Upišite nešto ili utipkajte '/' za ubacivanje bloka"
+
+msgid "Yes"
+msgstr "Da"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -272,9 +272,6 @@ msgstr "Ажлын урсгалдаа нэр өгөх"
 msgid "Add tasks to your workflow"
 msgstr "Ажлын урсгалдаа даалгавар нэмэх"
 
-msgid "Task"
-msgstr "Даалгавар"
-
 msgid "1 page selected"
 msgstr "Сонгосон 1 хуудас"
 
@@ -507,6 +504,9 @@ msgstr "Сайтын хураангуй"
 
 msgid "Close"
 msgstr "Хаах"
+
+msgid "Task"
+msgstr "Даалгавар"
 
 msgid "Changes requested at"
 msgstr "Өөрчлөлт хүссэн"
@@ -923,10 +923,6 @@ msgstr "%(model_name)s%(object)s шинэчлэгдлээ."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s%(object)s боллоо."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' засах"
-
 msgid "Inspect"
 msgstr "Шалгалт"
 
@@ -1026,22 +1022,6 @@ msgstr "Ашиглаж буй хуудсууд"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "'%(page_title)s' хуудас хянуулахаар хүлээгдэж байна."
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "%(title)s хуудас руу шилжих"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "%(title)s хуудсыг хуулах"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "%(title)s хуудсыг устгах"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "%(title)s хуудсыг нийтлээгүй"
 
 msgid "Bulleted list"
 msgstr "Сумтай жагсаалт"

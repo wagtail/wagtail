@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -151,14 +151,6 @@ msgstr[1] "Ali ste prepričani, da želite izbrisati ta dva dokument?"
 msgstr[2] "Ali ste prepričani, da želite izbrisati ta dokument?"
 msgstr[3] "Ali ste prepričani, da želite izbrisati ta dokument?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Uporabljeno %(usage_count)s krat "
-msgstr[1] "Uporabljeno %(usage_count)s krat"
-msgstr[2] "Uporabljeno %(usage_count)s krat"
-msgstr[3] "Uporabljeno %(usage_count)s krat"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Nimate dovoljenja za brisanje tega dokumenta"
@@ -185,13 +177,6 @@ msgstr "V to zbirko niste naložili nobenega dokumenta."
 msgid "You haven't uploaded any documents."
 msgstr "Naložili niste nobenega dokumenta."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Zakaj ne bi <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>enega naložili zdaj</a>?"
-
 msgid "Change document:"
 msgstr "Spremeni dokument:"
 
@@ -212,6 +197,14 @@ msgstr "Datoteka ne obstaja"
 
 msgid "Usage"
 msgstr "Uporaba"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uporabljeno %(usage_count)s krat "
+msgstr[1] "Uporabljeno %(usage_count)s krat"
+msgstr[2] "Uporabljeno %(usage_count)s krat"
+msgstr[3] "Uporabljeno %(usage_count)s krat"
 
 msgid "Select all documents in listing"
 msgstr "Izberite vse dokumente na seznamu"

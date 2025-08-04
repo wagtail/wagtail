@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -136,12 +136,6 @@ msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "Er du sikker på at du vil slette dette dokumentet?"
 msgstr[1] "Er du sikker på at du vil slette disse dokumentene?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Brukt %(usage_count)s gang"
-msgstr[1] "Brukt %(usage_count)s ganger"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Du har ikke tillatelse til å slette dette dokumentet"
@@ -166,13 +160,6 @@ msgstr "Du har ikke lastet opp noen dokumenter til denne samlingen."
 msgid "You haven't uploaded any documents."
 msgstr "Du har ikke lastet opp noen dokumenter."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Hvorfor ikke <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>laste en opp nå</a>?"
-
 msgid "Change document:"
 msgstr "Bytt ut dokument:"
 
@@ -193,6 +180,12 @@ msgstr "Fil ikke funnet"
 
 msgid "Usage"
 msgstr "Bruk"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
 
 msgid "Select all documents in listing"
 msgstr "Velg alle dokumenter i listen"

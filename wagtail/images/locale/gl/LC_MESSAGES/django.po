@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022-2024
+# X Bello <xbello@gmail.com>, 2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -235,12 +235,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Seguro que queres eliminar esta imaxe?"
 msgstr[1] "Seguro que queres eliminar estas imaxes?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Usado %(usage_count)s vez"
-msgstr[1] "Usado %(usage_count)s veces"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Non tes permiso para eliminar esta imaxe"
@@ -288,11 +282,13 @@ msgid "You haven't uploaded any images."
 msgstr "Non subiches ningunha imaxe."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"Por qué non <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>subir un agora</a>?"
+"Por qué non <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">subir unha agora</a>?"
 
 msgid "Choose a format"
 msgstr "Selecciona un formato"
@@ -365,6 +361,12 @@ msgstr "Arquivo non atopado"
 msgid "Usage"
 msgstr "Uso"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s veces"
+
 msgid "Sort by"
 msgstr "Ordenar por"
 
@@ -390,6 +392,9 @@ msgid ""
 msgstr ""
 "Non subiches ningunha imaxe. ¿Por que non <a "
 "href=\"%(wagtailimages_add_image_url)s\">subes unha agora</a>?"
+
+msgid "Toggle layout"
+msgstr "Cambiar deseño"
 
 msgid "Preview"
 msgstr "Previsualizar"
@@ -531,8 +536,20 @@ msgstr "Tamaño do arquivo: (menor a maior)"
 msgid "File size: (high to low)"
 msgstr "Tamaño do arquivo: (maior a menor)"
 
+msgid "Usage count: (low to high)"
+msgstr "Veces usada: (de menor a maior)"
+
+msgid "Usage count: (high to low)"
+msgstr "Veces usado: (de maior a menor)"
+
 msgid "Images"
 msgstr "Imaxes"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Created"
+msgstr "Creado"
 
 msgid "The image could not be saved due to errors."
 msgstr "A imaxe non puido ser gardada debido a erros"

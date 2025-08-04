@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -292,8 +292,8 @@ msgstr "Дайте назву робочому процесу"
 msgid "Add tasks to your workflow"
 msgstr "Додати завдання до робочого процесу"
 
-msgid "Task"
-msgstr "Завдання"
+msgid "task"
+msgstr "завдання"
 
 msgid "1 page selected"
 msgstr "Обрано 1 сторінку"
@@ -696,6 +696,9 @@ msgstr "Резюме сайту"
 
 msgid "Close"
 msgstr "Закрити"
+
+msgid "Task"
+msgstr "Завдання"
 
 msgid "Task started"
 msgstr "Завдання запущене"
@@ -1819,16 +1822,8 @@ msgstr "%(model_name)s '%(object)s' заплановано до публікац
 msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
 msgstr "%(model_name)s '%(object)s' створено і заплановано до публікації."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Редагувати '%(title)s'"
-
 msgid "Inspect"
 msgstr "Переглянути"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Видалити '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2140,40 +2135,8 @@ msgstr "Завдання '%(object)s' вимкнено."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Завдання \"%(task_name)s\" увімкнено."
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Попередньо переглянути чернетку для '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Переглянути живу версію для '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Перемістити сторінку '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Копіювати сторінку '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Видалити сторінку '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Зняти з публікації сторінку '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Переглянути історію змін для '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Сортувати порядок меню"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Змінити порядок дочірніх сторінок у '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Заголовок 1"

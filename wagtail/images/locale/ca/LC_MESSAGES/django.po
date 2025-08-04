@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2024
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: David Llop, 2014\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -234,12 +234,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Esteu segur de voler esborrar aquesta imatge?"
 msgstr[1] "Esteu segur de voler esborrar aquestes imatges?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Utilitzat %(usage_count)s vegada"
-msgstr[1] "Utilitzat %(usage_count)s vegades"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "No teniu permís per esborrar aquesta imatge"
@@ -287,11 +281,13 @@ msgid "You haven't uploaded any images."
 msgstr "No heu pujat cap imatge."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"Per què no <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>pujar-ne un ara</a>?"
+"Voleu <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">pujar-ne un ara</a>?"
 
 msgid "Choose a format"
 msgstr "Escull un fomat"
@@ -364,6 +360,12 @@ msgstr "No s'ha trobat el fitxer"
 msgid "Usage"
 msgstr "Ús"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilitzat %(usage_count)s vegada"
+msgstr[1] "Utilitzat %(usage_count)s vegades"
+
 msgid "Sort by"
 msgstr "Odenar per"
 
@@ -389,6 +391,9 @@ msgid ""
 msgstr ""
 "No heu pujat cap imatge. Per què no en <a "
 "href=\"%(wagtailimages_add_image_url)s\">pugeu una ara</a>?"
+
+msgid "Toggle layout"
+msgstr "Commutar disposició"
 
 msgid "Preview"
 msgstr "Previsualització"
@@ -532,8 +537,20 @@ msgstr "Mida de fitxer: (menor a major)"
 msgid "File size: (high to low)"
 msgstr "Mida de fitxer: (major a menor)"
 
+msgid "Usage count: (low to high)"
+msgstr "Recompte d'ús: (de menor a major)"
+
+msgid "Usage count: (high to low)"
+msgstr "Recompte d'ús: (de major a menor)"
+
 msgid "Images"
 msgstr "Imatges"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "Created"
+msgstr "Creada"
 
 msgid "The image could not be saved due to errors."
 msgstr "No s'ha pogut desar la imatge."

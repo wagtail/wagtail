@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -255,14 +255,6 @@ msgstr[1] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
 msgstr[2] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
 msgstr[3] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Użyto %(usage_count)s raz"
-msgstr[1] "Użyto %(usage_count)s razy"
-msgstr[2] "Użyto %(usage_count)s razy"
-msgstr[3] "Użyto %(usage_count)s razy"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Nie posiadasz uprawnień do usunięcia tego obrazu"
@@ -310,13 +302,6 @@ msgstr "Nie przesłano żadnych obrazów do tej kolekcji"
 
 msgid "You haven't uploaded any images."
 msgstr "Nie przesłałeś żadnych obrazów."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Dlaczego nie <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>wgrać jednego teraz</a>?"
 
 msgid "Choose a format"
 msgstr "Wybierz format"
@@ -378,6 +363,14 @@ msgstr "Plik nie został odnaleziony"
 
 msgid "Usage"
 msgstr "Użycie"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Użyto %(usage_count)s raz"
+msgstr[1] "Użyto %(usage_count)s razy"
+msgstr[2] "Użyto %(usage_count)s razy"
+msgstr[3] "Użyto %(usage_count)s razy"
 
 msgid "Sort by"
 msgstr "Sortuj przez"
@@ -549,6 +542,12 @@ msgstr "Rozmiar pliku: (większy do mniejszego)"
 
 msgid "Images"
 msgstr "Obrazy"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Created"
+msgstr "Utworzone"
 
 msgid "The image could not be saved due to errors."
 msgstr "Obraz nie mógł zostać zapisany z powodu błędów."

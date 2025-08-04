@@ -4,6 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Bashar Al-Abdulhadi, 2020
 # Bashar Al-Abdulhadi, 2020
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2016\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,13 @@ msgstr ""
 
 msgid "default"
 msgstr "الإفتراضي"
+
+msgid "Sites"
+msgstr "مواقع"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s أذونات "
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

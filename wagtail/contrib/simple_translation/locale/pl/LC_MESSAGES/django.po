@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
@@ -99,7 +99,3 @@ msgstr "Pomyślnie utworzono %(locales)s dla %(model_name)s '%(object)s'"
 
 msgid "Translate this page"
 msgstr "Przetłumacz tę stronę"
-
-#, python-format
-msgid "Translate '%(title)s'"
-msgstr "Przetłumacz '%(title)s'"

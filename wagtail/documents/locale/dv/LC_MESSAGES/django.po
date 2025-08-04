@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,24 +53,11 @@ msgstr "ލައްބަ އިތުރުކުރޭ"
 msgid "No, don't add"
 msgstr "ނޫން އިތުރު ނުކުރާތި"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)sފަހަރު ބޭނުން ކުރެވިއްޖެ"
-msgstr[1] " %(usage_count)s ފަހަރު ބޭނުންކުރެވިއްޖެ "
-
 msgid "Yes, delete"
 msgstr "ލައްބަ! ފުހެލާ"
 
 msgid "No, don't delete"
 msgstr "ނޫން! ފުހެނުލާތި"
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"މިހާރު <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>އެއްޗެއް "
-"އަޕްލޯޑް</a> ކޮށްލަން ވީނު؟"
 
 msgid "Uploading…"
 msgstr "އަޕްލޯޑް ވަނީ . . . "
@@ -86,6 +73,12 @@ msgstr "ފައިލް ނުފެނުން"
 
 msgid "Usage"
 msgstr "ބޭނުންކުރުން"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)sފަހަރު ބޭނުން ކުރެވިއްޖެ"
+msgstr[1] " %(usage_count)s ފަހަރު ބޭނުންކުރެވިއްޖެ "
 
 msgid "Or choose from your computer"
 msgstr "ނުވަތަ ކޮމްޕިއުޓަރުން ޚިޔާރު ކުރޭ"

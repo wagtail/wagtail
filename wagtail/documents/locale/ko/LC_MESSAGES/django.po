@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -123,11 +123,6 @@ msgid "Are you sure you want to delete this document?"
 msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "정말 해당 문서를 삭제할까요?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s번 사용"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "당신은 이 문서를 삭제할 권한이 없습니다"
@@ -151,13 +146,6 @@ msgstr "이 모음에는 업로드한 문서가 없습니다."
 msgid "You haven't uploaded any documents."
 msgstr "업로드한 문서가 없습니다."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"지금 <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>새로 "
-"업로드</a>를 해보는 건 어떨까요?"
-
 msgid "Change document:"
 msgstr "문서 변경:"
 
@@ -178,6 +166,11 @@ msgstr "파일을 찾을 수 없습니다"
 
 msgid "Usage"
 msgstr "사용"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s번 사용"
 
 msgid "Select all documents in listing"
 msgstr "목록에 모든 문서를 선택"

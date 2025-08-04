@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -248,14 +248,6 @@ msgstr[1] "Ви впевнені, що ви бажаєте видалити ці
 msgstr[2] "Ви впевнені, що ви бажаєте видалити ці зображення?"
 msgstr[3] "Ви впевнені, що ви бажаєте видалити ці зображення?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Використано %(usage_count)s раз"
-msgstr[1] "Використано %(usage_count)s разів"
-msgstr[2] "Використано %(usage_count)s разів"
-msgstr[3] "Використано %(usage_count)s разів"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Вам не дозволено видаляти це зображення"
@@ -303,13 +295,6 @@ msgstr "Ви ще не надіслали жодних зображень у ц�
 
 msgid "You haven't uploaded any images."
 msgstr "Ви не надіслали жодних зображень"
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Чому б не <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>завантажити якесь зараз</a>?"
 
 msgid "Choose a format"
 msgstr "Оберіть формат"
@@ -371,6 +356,14 @@ msgstr "Файл не знайдено"
 
 msgid "Usage"
 msgstr "Використання"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Використано %(usage_count)s раз"
+msgstr[1] "Використано %(usage_count)s разів"
+msgstr[2] "Використано %(usage_count)s разів"
+msgstr[3] "Використано %(usage_count)s разів"
 
 msgid "Sort by"
 msgstr "Сотрувати за"
@@ -527,6 +520,12 @@ msgstr "Розмір файлу: (від більших до менших)"
 
 msgid "Images"
 msgstr "Зображення"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Created"
+msgstr "Створено"
 
 msgid "The image could not be saved due to errors."
 msgstr "Це зображення не можна зберегти через помилки"

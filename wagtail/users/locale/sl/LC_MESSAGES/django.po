@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -138,6 +138,9 @@ msgstr "Udobno"
 #. between elements in the user interface
 msgid "density"
 msgstr "gostota"
+
+msgid "Keyboard shortcuts"
+msgstr "Bližnjice na tipkovnici"
 
 msgid "user profile"
 msgstr "uporabniški profil"
@@ -301,9 +304,6 @@ msgstr ""
 "Dodana ni še nobena skupina. Zakaj je ne bi <a "
 "href=\"%(wagtailusers_create_group_url)s\">dodali</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Ali ste prepričani, da želite izbrisati tega uporabnika?"
-
 msgid "Account"
 msgstr "Račun"
 
@@ -426,9 +426,6 @@ msgstr "Admin"
 
 msgid "Access level"
 msgstr "Raven dostopa"
-
-msgid "Status"
-msgstr "Status"
 
 #, python-format
 msgid "More options for '%(title)s'"

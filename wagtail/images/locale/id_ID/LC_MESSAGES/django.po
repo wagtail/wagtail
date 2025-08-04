@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -143,11 +143,6 @@ msgstr "gambar"
 msgid "images"
 msgstr "gambar-gambar"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Digunakan %(usage_count)s kali"
-
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
@@ -198,6 +193,11 @@ msgstr "Berkas tidak ditemukan"
 
 msgid "Usage"
 msgstr "Penggunaan"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)s kali"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -273,6 +273,9 @@ msgstr "Ubah gambar ini"
 
 msgid "Images"
 msgstr "Gambar"
+
+msgid "Title"
+msgstr "Judul"
 
 msgid "The image could not be saved due to errors."
 msgstr "Gambar tidak dapat disimpan karena suatu kesalahan."

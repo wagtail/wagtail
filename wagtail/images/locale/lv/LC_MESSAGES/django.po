@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -153,6 +153,9 @@ msgstr "Labot šo attēlu"
 
 msgid "Images"
 msgstr "Attēli"
+
+msgid "Title"
+msgstr "Virsraksts"
 
 msgid "The image could not be saved due to errors."
 msgstr "Attēlu nevarēja saglabāt kļūdu dēļ."

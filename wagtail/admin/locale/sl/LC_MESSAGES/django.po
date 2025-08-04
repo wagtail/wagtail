@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -317,8 +317,8 @@ msgstr "Poimenujte svoj potek dela"
 msgid "Add tasks to your workflow"
 msgstr "Dodajte opravila svojemu poteku dela"
 
-msgid "Task"
-msgstr "Naloga"
+msgid "task"
+msgstr "naloga"
 
 msgid "1 page selected"
 msgstr "Izbrana je 1 stran"
@@ -813,6 +813,9 @@ msgstr "Zapri"
 msgid "Your pages and snippets in a workflow"
 msgstr "Vaše strani in delci v procesu dela"
 
+msgid "Task"
+msgstr "Naloga"
+
 msgid "Task started"
 msgstr "Naloga se je začela"
 
@@ -1200,14 +1203,6 @@ msgstr[3] ""
 "Z izbrisom te strani se izbriše tudi 1 prevod in skupaj "
 "%(translation_descendant_count)s prevedenih podrejenih strani."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "To dejanje bo izbrisalo skupno <b>%(total_pages)s</b> strani."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Prosimo vpišite <b>%(wagtail_site_name)s</b> za potrditev."
-
 msgid "Yes, delete it"
 msgstr "Da, izbriši ga"
 
@@ -1572,6 +1567,10 @@ msgstr "Preklop navigacijske sledi"
 
 msgid "Breadcrumb"
 msgstr "Drobtina"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Prosimo vpišite <b>%(wagtail_site_name)s</b> za potrditev."
 
 msgid "Close dialog"
 msgstr "Zapri pogovorno okno"
@@ -2054,13 +2053,6 @@ msgstr "Žal se nobena naloga ne ujema z \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Niste ustvarili nobene naloge."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"Zakaj ne <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>ustvarite enega sedaj</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2168,6 +2160,9 @@ msgstr "Ponovi"
 
 msgid "Save changes"
 msgstr "Shrani spremembe"
+
+msgid "Toggle sidebar"
+msgstr "Preklopi stransko vrstico"
 
 msgid "Text content"
 msgstr "Vsebina besedila"
@@ -2416,24 +2411,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Uredi '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Kopiraj '%(title)s'"
-
 msgid "Inspect"
 msgstr "Preglejte"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Preglejte '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Izbriši '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2869,40 +2848,8 @@ msgstr "Naloga '%(task_name)s' omogočena."
 msgid "Choose another"
 msgstr "Izberite drugega"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Predogled osnutka različice '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Poglej objavljeno različico '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Premakni stran '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopiraj stran '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Izbriši stran '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Prekliči objavo strani '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Poglej zgodovino strani od  '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Vrstni red menija"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Spremenite vrstni red podrejenih strani '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Naslovnica 1"

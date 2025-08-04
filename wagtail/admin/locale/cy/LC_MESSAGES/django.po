@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -484,16 +484,8 @@ msgstr "%(model_name)s '%(object)s' wedi'i diweddaru."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' wedi'i greu."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Golygu '%(title)s'"
-
 msgid "Inspect"
 msgstr "Archwilio"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Dileu '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -329,8 +329,8 @@ msgstr "Gefðu vinnuflæðinu nafn"
 msgid "Add tasks to your workflow"
 msgstr "Bæta skrefum við vinnuflæði"
 
-msgid "Task"
-msgstr "Skref"
+msgid "task"
+msgstr "verkefni"
 
 msgid "1 page selected"
 msgstr "1 síða valin"
@@ -857,6 +857,9 @@ msgstr "Loka"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Þínar síður og snifsi í vinnuflæði"
+
+msgid "Task"
+msgstr "Skref"
 
 msgid "Task started"
 msgstr "Skref hófst"
@@ -1455,15 +1458,6 @@ msgstr[1] ""
 "Þetta mun einnig eyða %(descendant_count)s undirsíðum og "
 "%(translation_count)s þýðingum af þessari síðu."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Þessi aðgerð mun eyða samtals <b>%(total_pages)s</b> síðum."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr ""
-"Vinsamlegast sláðu inn <b>%(wagtail_site_name)s</b> til þess að staðfesta."
-
 msgid "Yes, delete it"
 msgstr "Já, eyddu því"
 
@@ -1905,6 +1899,11 @@ msgstr "Sýna/fela brauðmolaslóð"
 
 msgid "Breadcrumb"
 msgstr "Brauðmolar"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr ""
+"Vinsamlegast sláðu inn <b>%(wagtail_site_name)s</b> til þess að staðfesta."
 
 msgid "Close dialog"
 msgstr "Loka glugga"
@@ -2433,13 +2432,6 @@ msgstr "Því miður, engin skref passa við \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Þú hefur ekki búið til nein skref."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"Af hverju ekki <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>búa til nýtt núna</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2547,6 +2539,9 @@ msgstr "Endurgera"
 
 msgid "Save changes"
 msgstr "Vista breytingar"
+
+msgid "Toggle sidebar"
+msgstr "Hliðarstika af/á"
 
 msgid "Add or show comments"
 msgstr "Bæta við eða sýna athugasemdir"
@@ -2854,24 +2849,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Breyta '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Afrita '%(title)s'"
-
 msgid "Inspect"
 msgstr "Skoða"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Skoða '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Eyða '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3401,40 +3380,8 @@ msgstr "Skref '%(task_name)s' virkt."
 msgid "Choose another"
 msgstr "Veldu aðra"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Forskoða uppkastsútgáfu af '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Skoða birta útgáfu af '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Færa síðu '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Afrita síðu '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Eyða síðu '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Taka '%(title)s' úr loftinu"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Skoða sögu síðunnar '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Röðun undirsíðna"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Breyta röðun undirsíðna '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Fyrirsögn 1"

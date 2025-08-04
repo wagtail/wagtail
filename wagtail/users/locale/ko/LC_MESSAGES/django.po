@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -203,9 +203,6 @@ msgstr ""
 "그룹이 설정되어 있지 않습니다. 지금 그룹을 <a "
 "href=\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "이 사용자를 확실히 삭제하시겠습니까?"
-
 msgid "Account"
 msgstr "계정"
 
@@ -265,9 +262,6 @@ msgstr "사용자명"
 
 msgid "Admin"
 msgstr "관리자"
-
-msgid "Status"
-msgstr "상태"
 
 msgid "Add user"
 msgstr "사용자 추가"

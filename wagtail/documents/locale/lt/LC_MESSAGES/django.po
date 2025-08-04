@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -74,14 +74,6 @@ msgstr "Taip, pridėti"
 msgid "No, don't add"
 msgstr "Ne, nepridėti"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Panaudota %(usage_count)s kartą"
-msgstr[1] "Panaudota %(usage_count)s kartus"
-msgstr[2] "Panaudota %(usage_count)s kartų"
-msgstr[3] "Panaudota %(usage_count)s kartų"
-
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
 
@@ -111,6 +103,14 @@ msgstr "Byla nerasta"
 
 msgid "Usage"
 msgstr "Panaudojimas"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Panaudota %(usage_count)s kartą"
+msgstr[1] "Panaudota %(usage_count)s kartus"
+msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

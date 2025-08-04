@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -226,9 +226,6 @@ msgstr "Гэта поле з'яўляецца абавязковым."
 
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
-
-msgid "Task"
-msgstr "Задача"
 
 msgid "Content"
 msgstr "Змест"
@@ -483,6 +480,9 @@ msgstr "Агульная інфармацыя"
 
 msgid "Close"
 msgstr "Зачыніць"
+
+msgid "Task"
+msgstr "Задача"
 
 msgid "Preview"
 msgstr "Папярэдні прагляд"
@@ -928,10 +928,6 @@ msgstr "Чарнавік"
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Рэдагаваць '%(title)s'"
-
 msgid "Editing"
 msgstr "Рэдагаванне"
 
@@ -1055,30 +1051,6 @@ msgstr "Адключан"
 
 msgid "Enable"
 msgstr "Уключан"
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Прадпрагляд чарнавы версіі '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Паглядзець апублікаваную версію '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Перамясціць старонку '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Скапіраваць старонку '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Выдаліць старонку '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Выдаліць з публікацыі '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Заголовак 1"
