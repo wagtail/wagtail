@@ -13,7 +13,7 @@ const data = new FormData(editForm);
 
 ## The preview panel
 
-The preview panel is powered by the [`PreviewController`](controller:PreviewController) and its instance can be accessed using the [`wagtail.app.queryController`](client:classes/includes_initStimulus.WagtailApplication#querycontroller) function. The `PreviewController` provides methods to control the preview, such as extracting the previewed content and running content checks. Refer to the `PreviewController` documentation for more details.
+The preview panel is powered by the [`PreviewController`](../reference/ui/client/classes/controllers_PreviewController.PreviewController.html){.external} and its instance can be accessed using the [`wagtail.app.queryController`](../reference/ui/client/classes/includes_initStimulus.WagtailApplication#querycontroller){.external} function. The `PreviewController` provides methods to control the preview, such as extracting the previewed content and running content checks. Refer to the `PreviewController` documentation for more details.
 
 ```javascript
 const previewController = window.wagtail.app.queryController('w-preview');
