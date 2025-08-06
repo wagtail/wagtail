@@ -114,6 +114,9 @@ class TestUsageCountFilter(WagtailTestUtils, TestCase):
         self.login()
 
         image_model = get_image_model()
+        document_model = get_document_model()
+
+        self.home_page = Page.objects.get(id=2)
 
         self.image_1 = image_model.objects.create(
             title="Test image 1",
@@ -128,134 +131,6 @@ class TestUsageCountFilter(WagtailTestUtils, TestCase):
             file=get_test_image_file(),
         )
 
-    def test_usage_count_filter_for_images(self):
-        home_page = Page.objects.get(id=2)
-
-        # image_1: used in 1 page
-
-        with self.captureOnCommitCallbacks(execute=True):
-            home_page.add_child(
-                instance=EventPage(
-                    title="test_page_1",
-                    slug="test_page_1",
-                    feed_image=self.image_1,
-                    date_from=datetime.date.today(),
-                    audience="private",
-                    location="Test",
-                    cost="Test",
-                )
-            ).save_revision().publish()
-
-        # image_2: used in 2 pages
-
-        with self.captureOnCommitCallbacks(execute=True):
-            home_page.add_child(
-                instance=EventPage(
-                    title="test_page_2",
-                    slug="test_page_2",
-                    feed_image=self.image_2,
-                    date_from=datetime.date.today(),
-                    audience="private",
-                    location="Test",
-                    cost="Test",
-                )
-            ).save_revision().publish()
-
-        with self.captureOnCommitCallbacks(execute=True):
-            home_page.add_child(
-                instance=EventPage(
-                    title="test_page_3",
-                    slug="test_page_3",
-                    feed_image=self.image_2,
-                    date_from=datetime.date.today(),
-                    audience="private",
-                    location="Test",
-                    cost="Test",
-                )
-            ).save_revision().publish()
-
-        # image_3: used in 3 pages
-
-        with self.captureOnCommitCallbacks(execute=True):
-            home_page.add_child(
-                instance=EventPage(
-                    title="test_page_4",
-                    slug="test_page_4",
-                    feed_image=self.image_3,
-                    date_from=datetime.date.today(),
-                    audience="private",
-                    location="Test",
-                    cost="Test",
-                )
-            ).save_revision().publish()
-
-        with self.captureOnCommitCallbacks(execute=True):
-            home_page.add_child(
-                instance=EventPage(
-                    title="test_page_5",
-                    slug="test_page_5",
-                    feed_image=self.image_3,
-                    date_from=datetime.date.today(),
-                    audience="private",
-                    location="Test",
-                    cost="Test",
-                )
-            ).save_revision().publish()
-
-        with self.captureOnCommitCallbacks(execute=True):
-            home_page.add_child(
-                instance=EventPage(
-                    title="test_page_6",
-                    slug="test_page_6",
-                    feed_image=self.image_3,
-                    date_from=datetime.date.today(),
-                    audience="private",
-                    location="Test",
-                    cost="Test",
-                )
-            ).save_revision().publish()
-
-        # This checks if only image_3 is returned when minimum usage count is set to 3
-
-        response = self.client.get(
-            reverse("wagtailimages:index"), {"usage_count_min": "3"}
-        )
-        self.assertEqual(response.status_code, 200)
-
-        images = response.context["page_obj"].object_list
-        self.assertEqual(len(images), 1)
-        self.assertEqual(images[0], self.image_3)
-
-        # This checks if only image_1 and image_2 are returned when maximum usage count is set to 2
-
-        response = self.client.get(
-            reverse("wagtailimages:index"), {"usage_count_max": "2"}
-        )
-        self.assertEqual(response.status_code, 200)
-
-        images = response.context["page_obj"].object_list
-        self.assertEqual(len(images), 2)
-        self.assertIn(self.image_1, images)
-        self.assertIn(self.image_2, images)
-
-        # This checks if only image_1 is returned when maximum usage count is set to 1
-
-        response = self.client.get(
-            reverse("wagtailimages:index"), {"usage_count_max": "1"}
-        )
-        self.assertEqual(response.status_code, 200)
-
-        images = response.context["page_obj"].object_list
-        self.assertEqual(len(images), 1)
-        self.assertIn(self.image_1, images)
-
-
-class TestUsageCountFilterForDocuments(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
-
-        document_model = get_document_model()
-
         self.document_1 = document_model.objects.create(
             title="Test document 1",
             file=get_test_document_file(),
@@ -269,12 +144,25 @@ class TestUsageCountFilterForDocuments(WagtailTestUtils, TestCase):
             file=get_test_document_file(),
         )
 
-    def _create_page_with_document(self, title, slug, document):
-        """Helper method to create a page with a linked document"""
-        home_page = Page.objects.get(id=2)
-
+    # Helper method to create a page with a feed image
+    def _create_page_with_image(self, title, slug, image):
         with self.captureOnCommitCallbacks(execute=True):
-            event_page = home_page.add_child(
+            self.home_page.add_child(
+                instance=EventPage(
+                    title=title,
+                    slug=slug,
+                    feed_image=image,
+                    date_from=datetime.date.today(),
+                    audience="private",
+                    location="Test",
+                    cost="Test",
+                )
+            ).save_revision().publish()
+
+    # Helper method to create a page with a linked document
+    def _create_page_with_document(self, title, slug, document):
+        with self.captureOnCommitCallbacks(execute=True):
+            event_page = self.home_page.add_child(
                 instance=EventPage(
                     title=title,
                     slug=slug,
@@ -292,6 +180,50 @@ class TestUsageCountFilterForDocuments(WagtailTestUtils, TestCase):
             related_link.title = f"Link to {document.title}"
             related_link.link_document = document
             related_link.save()
+
+    def test_usage_count_filter_for_images(self):
+        # image_1: used in 1 page
+        self._create_page_with_image("test_page_1", "test_page_1", self.image_1)
+
+        # image_2: used in 2 pages
+        self._create_page_with_image("test_page_2", "test_page_2", self.image_2)
+        self._create_page_with_image("test_page_3", "test_page_3", self.image_2)
+
+        # image_3: used in 3 pages
+        self._create_page_with_image("test_page_4", "test_page_4", self.image_3)
+        self._create_page_with_image("test_page_5", "test_page_5", self.image_3)
+        self._create_page_with_image("test_page_6", "test_page_6", self.image_3)
+
+        # This checks if only image_3 is returned when minimum usage count is set to 3
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"usage_count_min": "3"}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        images = response.context["page_obj"].object_list
+        self.assertEqual(len(images), 1)
+        self.assertEqual(images[0], self.image_3)
+
+        # This checks if only image_1 and image_2 are returned when maximum usage count is set to 2
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"usage_count_max": "2"}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        images = response.context["page_obj"].object_list
+        self.assertEqual(len(images), 2)
+        self.assertIn(self.image_1, images)
+        self.assertIn(self.image_2, images)
+
+        # This checks if only image_1 is returned when maximum usage count is set to 1
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"usage_count_max": "1"}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        images = response.context["page_obj"].object_list
+        self.assertEqual(len(images), 1)
+        self.assertIn(self.image_1, images)
 
     def test_usage_count_filter_for_documents(self):
         # document_1: used in 1 page
