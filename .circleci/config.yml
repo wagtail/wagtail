@@ -56,10 +56,7 @@ jobs:
           paths:
             - wagtail
       - run: npm run build-storybook
-      - run: npm run lint:js
-      - run: npm run lint:css
-      - run: npm run lint:format
-      - run: npm run lint:project
+      - run: npm run lint --loglevel silent
       - run: npm run test:unit:coverage -- --runInBand
       - run: bash <(curl -s https://codecov.io/bash) -F frontend
 

@@ -75,6 +75,7 @@
     "@wagtail/stylelint-config-wagtail": "^0.8.0",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^9.2.1",
+    "concurrently": "^9.2.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.11.0",
     "cssnano": "^5.1.15",
@@ -105,9 +106,9 @@
     "typedoc": "^0.28.7",
     "typedoc-plugin-mdn-links": "^5.0.4",
     "typescript": "^5.8.3",
-    "yaml": "^2.8.0",
     "webpack": "^5.100.2",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "yaml": "^2.8.0"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
@@ -139,16 +140,16 @@
   "scripts": {
     "start": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
     "build": "webpack --config ./client/webpack.config.js --mode production",
+    "fix": "npm run @all -- 'npm:fix:*'",
     "fix:css": "stylelint --fix **/*.scss",
     "fix:js": "eslint --ext .js,.ts,.tsx --fix .",
-    "fix": "npm run fix:css && npm run fix:js",
     "format": "prettier --write \"**/?(.)*.{css,scss,js,ts,tsx,json,yaml,yml}\"",
+    "lint": "npm run @all -- 'npm:lint:*'",
     "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives .",
     "lint:css": "stylelint **/*.scss",
     "lint:format": "prettier --check \"**/?(.)*.{css,scss,js,ts,tsx,json,yaml,yml}\"",
     "lint:project": "node ./scripts/check-dependencies.mjs",
     "lint:ts": "tsc --noEmit",
-    "lint": "npm run lint:js && npm run lint:ts && npm run lint:css && npm run lint:format && npm run lint:project",
     "test": "npm run test:unit",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
@@ -156,6 +157,7 @@
     "test:integration": "./client/tests/integration/node_modules/.bin/jest --config ./client/tests/integration/jest.config.js",
     "storybook": "storybook dev -c client/storybook -p 6006 --no-open --no-version-updates",
     "build-docs": "typedoc",
-    "build-storybook": "storybook build -c client/storybook"
+    "build-storybook": "storybook build -c client/storybook",
+    "@all": "concurrently --group --passthrough-arguments --prefix-colors auto --timings"
   }
 }
