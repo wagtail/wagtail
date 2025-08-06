@@ -40,7 +40,7 @@ class UsageCountWidget(SuffixedMultiWidget):
     """
 
     template_name = "wagtailadmin/widgets/date_and_usage_range_input.html"
-    suffixes = ["from", "to"]
+    suffixes = ["min", "max"]
 
     def __init__(self, attrs=None):
         widgets = (
