@@ -7,10 +7,12 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.admin.filters import FilteredModelChoiceField
+from wagtail.documents import get_document_model
+from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page
-from wagtail.test.testapp.models import EventPage
+from wagtail.test.testapp.models import EventPage, EventPageRelatedLink
 from wagtail.test.utils import WagtailTestUtils
 
 User = get_user_model()
@@ -246,3 +248,91 @@ class TestUsageCountFilter(WagtailTestUtils, TestCase):
         images = response.context["page_obj"].object_list
         self.assertEqual(len(images), 1)
         self.assertIn(self.image_1, images)
+
+
+class TestUsageCountFilterForDocuments(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+        document_model = get_document_model()
+
+        self.document_1 = document_model.objects.create(
+            title="Test document 1",
+            file=get_test_document_file(),
+        )
+        self.document_2 = document_model.objects.create(
+            title="Test document 2",
+            file=get_test_document_file(),
+        )
+        self.document_3 = document_model.objects.create(
+            title="Test document 3",
+            file=get_test_document_file(),
+        )
+
+    def _create_page_with_document(self, title, slug, document):
+        """Helper method to create a page with a linked document"""
+        home_page = Page.objects.get(id=2)
+
+        with self.captureOnCommitCallbacks(execute=True):
+            event_page = home_page.add_child(
+                instance=EventPage(
+                    title=title,
+                    slug=slug,
+                    date_from=datetime.date.today(),
+                    audience="private",
+                    location="Test",
+                    cost="Test",
+                )
+            )
+            event_page.save_revision().publish()
+
+            # Create a related link that links to the document
+            related_link = EventPageRelatedLink()
+            related_link.page = event_page
+            related_link.title = f"Link to {document.title}"
+            related_link.link_document = document
+            related_link.save()
+
+    def test_usage_count_filter_for_documents(self):
+        # document_1: used in 1 page
+        self._create_page_with_document("test_page_1", "test_page_1", self.document_1)
+
+        # document_2: used in 2 pages
+        self._create_page_with_document("test_page_2", "test_page_2", self.document_2)
+        self._create_page_with_document("test_page_3", "test_page_3", self.document_2)
+
+        # document_3: used in 3 pages
+        self._create_page_with_document("test_page_4", "test_page_4", self.document_3)
+        self._create_page_with_document("test_page_5", "test_page_5", self.document_3)
+        self._create_page_with_document("test_page_6", "test_page_6", self.document_3)
+
+        # This checks if only document_3 is returned when minimum usage count is set to 3
+        response = self.client.get(
+            reverse("wagtaildocs:index"), {"usage_count_min": "3"}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        documents = response.context["page_obj"].object_list
+        self.assertEqual(len(documents), 1)
+        self.assertEqual(documents[0], self.document_3)
+
+        # This checks if only document_1 and document_2 are returned when maximum usage count is set to 2
+        response = self.client.get(
+            reverse("wagtaildocs:index"), {"usage_count_max": "2"}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        documents = response.context["page_obj"].object_list
+        self.assertEqual(len(documents), 2)
+        self.assertIn(self.document_1, documents)
+        self.assertIn(self.document_2, documents)
+
+        # This checks if only document_1 is returned when maximum usage count is set to 1
+        response = self.client.get(
+            reverse("wagtaildocs:index"), {"usage_count_max": "1"}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        documents = response.context["page_obj"].object_list
+        self.assertEqual(len(documents), 1)
+        self.assertIn(self.document_1, documents)
