@@ -27,6 +27,14 @@ StandaloneHTMLBuilder.supported_image_types = ["image/gif", "image/png"]
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 
+# Relative path to the root of the documentation, used for linking to the
+# Typedoc-generated sub-docs. RTD allows optional language and version.
+base_path = ""
+if rtd_lang := os.environ.get("READTHEDOCS_LANGUAGE", ""):
+    base_path += f"/{rtd_lang}"
+if rtd_version := os.environ.get("READTHEDOCS_VERSION", ""):
+    base_path += f"/{rtd_version}"
+
 html_theme = "sphinx_wagtail_theme"
 html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
 
@@ -191,12 +199,15 @@ myst_url_schemes = {
     "http": None,
     "mailto": None,
     "client": {
-        "url": "/reference/ui/client/{{path}}.html#{{fragment}}",
+        "url": "%s/reference/ui/client/{{path}}.html#{{fragment}}" % base_path,
         "title": "{{path}}",
         "classes": ["pre"],
     },
     "controller": {
-        "url": "/reference/ui/client/classes/controllers_{{path}}.{{path}}.html#{{fragment}}",
+        "url": (
+            "%s/reference/ui/client/classes/controllers_{{path}}.{{path}}.html#{{fragment}}"
+            % base_path
+        ),
         "title": "{{path}}",
         "classes": ["pre"],
     },
