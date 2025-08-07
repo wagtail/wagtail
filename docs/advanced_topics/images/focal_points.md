@@ -21,6 +21,8 @@ attribute on the rendition to position the rendition based on the focal point in
 </div>
 ```
 
+For sites enforcing a Content Security Policy, you can apply those styles via a `<style>` tag with a `nonce` attribute.
+
 ## Accessing the focal point in templates
 
 You can access the focal point in the template by accessing the `.focal_point` attribute of a rendition:
