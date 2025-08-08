@@ -42,7 +42,7 @@ Core team members working on Wagtail are expected to go through the same process
 
 ### Closing pull requests
 
-When pull requests become stale over time, we will close them to make room for other contributions. As a general rule, this applies to pull requests that have stalled over more than 2 release cycles. Once a pull request is closed, any contributor can pick the task back up.
+When pull requests become stale over time, we will close them to encourage others to take them on. As a general rule, this applies to pull requests that have stalled over more than 2 release cycles. Once a pull request is closed, any contributor can resume work on it at any time, with the same approach taken further, or with a different angle.
 
 ## Release schedule
 
