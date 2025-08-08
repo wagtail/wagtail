@@ -146,11 +146,10 @@ varying levels.
 
     The rule of thumb is that fixes will be backported to the last feature
     release for bugs that would have prevented a release in the first place
-    (release blockers).
+    (release blockers). Additionally, fixes for the above issues may also be backported to releases under “active support” at the discretion of maintainers.
 
 -   Security fixes and data loss bugs will be applied to the current `main`, the
-    last feature release branch, and any other supported long-term
-    support release branches.
+    last feature release branch, and any other releases under “security support”.
 
 -   Documentation fixes generally will be more freely backported to the last
     release branch. That's because it's highly advantageous to have the docs for
