@@ -1,6 +1,8 @@
 import { gettext } from '../../utils/gettext';
 import { initCommentApp } from '../../components/CommentApp/main';
 
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
+
 const KEYCODE_M = 77;
 
 /**
@@ -11,10 +13,15 @@ window.comments = (() => {
 
   /**
    * Returns true if the provided keyboard event is using the 'add/focus comment' keyboard
-   * shortcut
+   * shortcut and custom keyboard shortcuts enabled by user in settings.
    */
   function isCommentShortcut(e) {
-    return (e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === KEYCODE_M;
+    return (
+      WAGTAIL_CONFIG.KEYBOARD_SHORTCUTS_ENABLED &&
+      (e.ctrlKey || e.metaKey) &&
+      e.altKey &&
+      e.keyCode === KEYCODE_M
+    );
   }
 
   function getContentPath(fieldNode) {
