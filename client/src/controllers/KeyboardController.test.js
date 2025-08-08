@@ -3,12 +3,6 @@ import Mousetrap from 'mousetrap';
 
 import { KeyboardController } from './KeyboardController';
 
-jest.mock('../config/wagtailConfig', () => ({
-  WAGTAIL_CONFIG: {
-    KEYBOARD_SHORTCUTS_ENABLED: true,
-  },
-}));
-
 describe('KeyboardController', () => {
   let app;
   const buttonClickMock = jest.fn();
