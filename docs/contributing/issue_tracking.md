@@ -40,6 +40,10 @@ Rebasing / squashing of pull requests is welcome, but not essential. When doing 
 
 Core team members working on Wagtail are expected to go through the same process with their own fork of the project.
 
+### Closing pull requests
+
+When pull requests become stale over time, we will close them to make room for other contributions. As a general rule, this applies to pull requests that have stalled over more than 2 release cycles. Once a pull request is closed, any contributor can pick the task back up.
+
 ## Release schedule
 
 We aim to release a new version every 2 months. To keep to this schedule, we will tend to 'bump' issues and PRs to a future release where necessary, rather than let them delay the present one. For this reason, an issue being tagged under a particular release milestone should not be taken as any kind of guarantee that the feature will actually be shipped in that release.
