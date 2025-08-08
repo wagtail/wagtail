@@ -137,6 +137,12 @@ varying levels.
     -   Major functionality bugs in newly-introduced features.
 
     -   Regressions from older versions of Wagtail.
+ 
+-   At the discretion of maintainers, we may also apply patches in additional scenarios:
+ 
+    -   Accessibility bugs, blocking specific user groups.
+
+    -   User interface bugs, adding unreasonable friction.
 
     The rule of thumb is that fixes will be backported to the last feature
     release for bugs that would have prevented a release in the first place
