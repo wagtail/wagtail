@@ -116,17 +116,21 @@ For example:
 The warnings are silent by default. You can turn on display of these warnings
 with the `python -Wd` option.
 
+(supported_versions)=
+
 ## Supported versions
 
 At any moment in time, Wagtail's developer team will support a set of releases to
 varying levels.
+See our [release schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule)
+for the current state of support for each version.
 
 -   The current development `main` will get new features and bug fixes
     requiring non-trivial refactoring.
 
--   Patches applied to the `main` branch must also be applied to the last feature
-    release branch, to be released in the next patch release of that feature
-    series, when they fix critical problems:
+-   Commits applied to the `main` branch must also be applied to the release
+    branches under "active support", to be released in the next patch release of
+    that feature series, when they fix critical problems:
 
     -   Security issues.
 
@@ -137,22 +141,21 @@ varying levels.
     -   Major functionality bugs in newly-introduced features.
 
     -   Regressions from older versions of Wagtail.
- 
--   At the discretion of maintainers, we may also apply patches in additional scenarios:
- 
-    -   Accessibility bugs, blocking specific user groups.
-
-    -   User interface bugs, adding unreasonable friction.
 
     The rule of thumb is that fixes will be backported to the last feature
     release for bugs that would have prevented a release in the first place
     (release blockers).
 
--   Security fixes and data loss bugs will be applied to the current `main`, the
-    last feature release branch, and any other supported long-term
-    support release branches.
+-   Security and data loss fixes must also be applied to release branches under
+    "security support".
 
--   Documentation fixes generally will be more freely backported to the last
+-   At the discretion of maintainers, we may also apply commits to the release branches under "active support" when they fix additional scenarios:
+
+    -   Accessibility bugs, blocking specific user groups.
+
+    -   User interface bugs, adding unreasonable friction.
+
+-   Documentation fixes may be more freely backported to the last
     release branch. That's because it's highly advantageous to have the docs for
     the last release be up-to-date and correct, and the risk of introducing
     regressions is much less of a concern.
@@ -160,14 +163,16 @@ varying levels.
 As a concrete example, consider a moment in time halfway between the release of
 Wagtail 6.1 and 6.2. At this point in time:
 
--   Features will be added to `main`, to be released as Wagtail 6.2.
+-   Features and bug fixes will be added to `main`, to be released as Wagtail 6.2.
 
--   Critical bug fixes will be applied to the `stable/6.1.x` branch, and
-    released as 6.1.1, 6.1.3, etc.
+-   Critical bug fixes and specific UI and accessibility fixes in `main`
+    will be applied to the `stable/6.1.x` (active support) and `stable/5.2.x`
+    (LTS) branches, to be released as 6.1.1, 6.1.2, 5.2.6, 5.2.7, etc.
 
--   Security fixes and bug fixes for data loss issues will be applied to
-    `main` and to the `stable/6.1.x` and `stable/5.2.x` (LTS) branches.
-    They will trigger the release of `6.1.3`, `5.2.6`, etc.
+-   Security fixes and bug fixes for data loss issues in `main` will be applied
+    to `stable/6.1.x` (active support), `stable/6.0.x` (security support),
+    and `stable/5.2.x` (LTS) branches. They will trigger the release of `6.1.3`,
+    `6.0.6`, `5.2.8`, etc.
 
 -   Documentation fixes will be applied to `main`, and, if easily backported, to
     the latest stable branch, `stable/6.1.x`.
@@ -255,12 +260,13 @@ in the `A.B+1` cycle.
 
 ### Patch releases
 
-After a feature release `A.B`, the previous release will go into security
+After a feature release `A.B`, the previous non-LTS release will go into security
 support mode.
 
-The branches for the current feature release `stable/A.B.x` and the last LTS release will receive critical bug, security, and data loss fixes.
+The branches for the current feature release `stable/A.B.x` and supported LTS releases will receive fixes for critical, security, data loss, accessibility, and user
+interface bugs as described in [](supported_versions).
 
-The branch for the previous feature release `stable/A.B-1.x` will only include security and data loss fixes.
+The branch for the previous feature release `stable/A.B-1.x`, if it is non-LTS, will only include security and data loss fixes until the next feature release (`A.B+1`).
 
 Bugs fixed on `main` must _also_ be fixed on other applicable branches; this
 means that commits need to cleanly separate bug fixes from feature additions.
