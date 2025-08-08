@@ -35,6 +35,7 @@ const wagtailConfig = {
     },
   ],
   ACTIVE_CONTENT_LOCALE: 'en',
+  KEYBOARD_SHORTCUTS_ENABLED: true,
 };
 
 const configScript = Object.assign(document.createElement('script'), {
