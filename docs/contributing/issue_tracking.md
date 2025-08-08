@@ -42,7 +42,7 @@ Core team members working on Wagtail are expected to go through the same process
 
 ## Release schedule
 
-We aim to release a new version every 2 months. To keep to this schedule, we will tend to 'bump' issues and PRs to a future release where necessary, rather than let them delay the present one. For this reason, an issue being tagged under a particular release milestone should not be taken as any kind of guarantee that the feature will actually be shipped in that release.
+We aim to release a new version every 3 months. To keep to this schedule, we will tend to 'bump' issues and PRs to a future release where necessary, rather than let them delay the present one. For this reason, an issue being tagged under a particular release milestone should not be taken as any kind of guarantee that the feature will actually be shipped in that release.
 
 -   See the [Release Schedule wiki page](https://github.com/wagtail/wagtail/wiki/Release-schedule) for a full list of dates.
 -   See the [Roadmap wiki page](https://github.com/wagtail/wagtail/wiki/Roadmap) for a general guide of project planning.
