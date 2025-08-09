@@ -10,6 +10,10 @@ Changelog
  * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
 
 
+7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+
 7.1 (04.08.2025)
 ~~~~~~~~~~~~~~~~
 
