@@ -60,7 +60,7 @@ export class KeyboardController extends Controller<
   declare readonly elementTargets: (HTMLButtonElement | HTMLAnchorElement)[];
 
   /**
-   * If custom keyboard shortcuts are disabled by user in settings then controller will not be loaded
+   * If custom keyboard shortcuts are disabled by user in settings then controller will not be loaded.
    */
   static get shouldLoad() {
     return !!WAGTAIL_CONFIG.KEYBOARD_SHORTCUTS_ENABLED;
