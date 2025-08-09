@@ -1,3 +1,6 @@
+import logging
+from typing import Union
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
@@ -20,7 +23,7 @@ from modelcluster.models import (
 
 from wagtail.coreutils import get_content_type_label
 from wagtail.forms import TaskStateCommentForm
-from wagtail.locks import WorkflowLock
+from wagtail.locks import BaseLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.query import SpecificQuerySetMixin
 from wagtail.signals import (
@@ -40,6 +43,8 @@ from .locking import LockableMixin
 from .orderable import Orderable
 from .revisions import Revision, RevisionMixin
 from .specific import SpecificMixin
+
+logger = logging.getLogger(__name__)
 
 
 class WorkflowContentType(models.Model):
@@ -665,6 +670,8 @@ class Task(SpecificMixin, models.Model):
         ),
     )
     objects = TaskManager()
+
+    lock_class = WorkflowLock
 
     admin_form_fields = ["name"]
     admin_form_readonly_on_edit_fields = ["name"]
@@ -1360,13 +1367,27 @@ class WorkflowMixin(models.Model):
             else:
                 return _("live")
 
-    def get_lock(self):
+    def get_lock(self) -> Union[BaseLock, WorkflowLock, None]:
         # Standard locking should take precedence over workflow locking
         # because it's possible for both to be used at the same time
-        lock = super().get_lock()
-        if lock:
+        if lock := super().get_lock():
             return lock
 
-        current_workflow_task = self.current_workflow_task
-        if current_workflow_task:
-            return WorkflowLock(self, current_workflow_task)
+        if current_workflow_task := self.current_workflow_task:
+            # Use the workflow task-defined lock class,
+            # but only if it is or inherits from WorkflowLock
+            lock_class = current_workflow_task.lock_class
+            if not issubclass(lock_class, WorkflowLock):
+
+                def model_name(model):
+                    return f"{model.__module__}.{model.__name__}"
+
+                logger.warning(
+                    f'The lock class "{model_name(lock_class)}" '
+                    f'for the "{model_name(current_workflow_task.specific_class)}" task '
+                    f'is not a subclass of "{model_name(WorkflowLock)}".'
+                )
+
+            return lock_class(self, current_workflow_task)
+
+        return None
