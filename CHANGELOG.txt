@@ -5,6 +5,8 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.8 (Matt Westcott)
+ * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
+ * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
  * Maintenance: Updated NPM packages and linting configuration (LB (Ben) Johnston)
  * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
@@ -13,6 +15,8 @@ Changelog
 7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
+ * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
 
 7.1 (04.08.2025)
 ~~~~~~~~~~~~~~~~
