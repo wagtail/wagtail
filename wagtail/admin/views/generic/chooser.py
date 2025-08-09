@@ -221,6 +221,28 @@ class BaseChooseView(
             columns.append(LocaleColumn(sort_key=None))
         return columns
 
+    def _get_edit_url_for_object(self, obj):
+        """
+        Get the edit URL for a given object instance.
+        """
+        return AdminURLFinder(user=self.request.user).get_edit_url(obj)
+
+    def _get_chooser_url_for_object(self, obj):
+        """
+        Get the chooser selection URL for a given object instance.
+        """
+        return self.append_preserved_url_parameters(
+            reverse(self.chosen_url_name, args=(quote(obj.pk),))
+        )
+
+    def _get_link_attributes_for_object(self, obj, parent_context):
+        """
+        Generate dynamic link attributes for chooser modal functionality.
+        """
+        attrs = {"data-chooser-modal-choice": True}
+        attrs["data-chooser-modal-choice-url"] = self._get_chooser_url_for_object(obj)
+        return attrs
+
     @property
     def title_column(self):
         if self.is_multiple_choice:
@@ -235,12 +257,8 @@ class BaseChooseView(
                 "title",
                 label=_("Title"),
                 accessor=str,
-                get_url=(
-                    lambda obj: self.append_preserved_url_parameters(
-                        reverse(self.chosen_url_name, args=(quote(obj.pk),))
-                    )
-                ),
-                link_attrs={"data-chooser-modal-choice": True},
+                get_url=self._get_edit_url_for_object,
+                link_attrs=self._get_link_attributes_for_object,
             )
 
     @property
