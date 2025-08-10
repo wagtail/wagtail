@@ -4,6 +4,7 @@ Changelog
 7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
 
