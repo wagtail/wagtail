@@ -29,6 +29,7 @@ Changelog
 7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Fix crash when the Wagtail API is accessed without `rest_framework` installed (Vijay Raj)
  * Fix: Fix failure of `FieldPanel` and `TitleFieldPanel` with `read_only=True` (Sage Abdullah)
  * Fix: Fix broken Javascript interactions on nested inline panels (Matt Westcott, Sage Abdullah)
