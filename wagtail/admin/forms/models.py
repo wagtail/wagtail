@@ -201,7 +201,7 @@ class WagtailAdminDraftStateFormMixin:
         if expire_at and expire_at < timezone.now():
             self.add_error(
                 "expire_at",
-                forms.ValidationError(_("Expiry date/time must be in the future")),
+                forms.ValidationError(_("Expiry date/time must be in the future.")),
             )
 
         # Don't allow an existing first_published_at to be unset by clearing the field
