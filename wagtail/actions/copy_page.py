@@ -104,7 +104,7 @@ class CopyPageAction:
 
                 if not destination_perms.can_publish_subpage():
                     raise CopyPagePermissionError(
-                        "You do not have permission to publish a page at the destination"
+                        "You do not have permission to publish a page at the destination."
                     )
 
     def _copy_page(
