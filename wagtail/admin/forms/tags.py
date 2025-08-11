@@ -19,7 +19,7 @@ def validate_tag_length(
             value_too_long += val
     if value_too_long:
         raise ValidationError(
-            _("Tag(s) %(value_too_long)s are over %(max_tag_length)d characters")
+            _("Tag(s) %(value_too_long)s are over %(max_tag_length)d characters.")
             % {
                 "value_too_long": value_too_long,
                 "max_tag_length": max_tag_length,

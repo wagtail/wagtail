@@ -852,12 +852,12 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             )
         elif self.locked_for_user:
             messages.error(
-                self.request, _("The page could not be saved as it is locked")
+                self.request, _("The page could not be saved as it is locked.")
             )
         else:
             messages.validation_error(
                 self.request,
-                _("The page could not be saved due to validation errors"),
+                _("The page could not be saved due to validation errors."),
                 self.form,
             )
         self.errors_debug = repr(self.form.errors) + repr(

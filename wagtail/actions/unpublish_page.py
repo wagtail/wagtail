@@ -38,7 +38,7 @@ class UnpublishPageAction(UnpublishAction):
             super().check(skip_permission_checks)
         except UnpublishPermissionError as error:
             raise UnpublishPagePermissionError(
-                "You do not have permission to unpublish this page"
+                "You do not have permission to unpublish this page."
             ) from error
 
     def _commit_unpublish(self, object):

@@ -23,7 +23,7 @@ class DeletePageAction:
             and not self.page.permissions_for_user(self.user).can_delete()
         ):
             raise DeletePagePermissionError(
-                "You do not have permission to delete this page"
+                "You do not have permission to delete this page."
             )
 
     def _delete_page(self, page, *args, **kwargs):
