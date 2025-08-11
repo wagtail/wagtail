@@ -2,7 +2,15 @@
 
 ## Language
 
-British English is preferred for user-facing text; this text should also be marked for translation (using the `django.utils.translation.gettext` function and `{% translate %}` template tag, for example). However, identifiers within code should use American English if the British or international spelling would conflict with built-in language keywords; for example, CSS code should consistently use the spelling `color` to avoid inconsistencies like `background-color: $colour-red`. American English is also the preferred spelling style when writing documentation. Learn more about our documentation writing style in [](writing_style_guide).
+British English is preferred for user-facing text; this text should also be marked for translation (using the `django.utils.translation.gettext` function and `{% translate %}` template tag, for example).
+
+User-facing errors or field validation should use a well-formed sentence with a period (full stop) at the end.
+
+However, identifiers within code should use American English if the British or international spelling would conflict with built-in language keywords; for example, CSS code should consistently use the spelling `color` to avoid inconsistencies like `background-color: $colour-red`. American English is also the preferred spelling style when writing documentation.
+
+Learn more about our documentation writing style in [](writing_style_guide).
+
+Learn more about how to make content suitable for translations in [](contributing_translations).
 
 ## File names
 
