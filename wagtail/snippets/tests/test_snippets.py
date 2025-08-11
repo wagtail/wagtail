@@ -1790,7 +1790,7 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "expire_at",
-            "Expiry date/time must be in the future",
+            "Expiry date/time must be in the future.",
         )
 
         self.assertContains(
@@ -3121,7 +3121,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         self.assertFormError(
             response.context["form"],
             "expire_at",
-            "Expiry date/time must be in the future",
+            "Expiry date/time must be in the future.",
         )
 
         self.assertContains(
