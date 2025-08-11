@@ -49,7 +49,7 @@ class TestImageFormOverride(TestCase):
         self.assertIn("tags", form.errors)
         self.assertEqual(
             form.errors["tags"][0],
-            "Tag(s) ['{val}'] are over {max_tag_length} characters".format(
+            "Tag(s) ['{val}'] are over {max_tag_length} characters.".format(
                 val=long_value,
                 max_tag_length=taggit_models.TagBase._meta.get_field("name").max_length,
             ),
