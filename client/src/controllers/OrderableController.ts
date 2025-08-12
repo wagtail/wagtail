@@ -1,6 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 import Sortable from 'sortablejs';
 
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+
 enum Direction {
   Up = 'UP',
   Down = 'DOWN',
@@ -195,36 +197,28 @@ export class OrderableController extends Controller<HTMLElement> {
       label,
     );
 
-    const formElement = this.element.closest('form');
-
-    const CSRFElement =
-      formElement &&
-      formElement.querySelector('input[name="csrfmiddlewaretoken"]');
-
-    if (CSRFElement instanceof HTMLInputElement) {
-      const CSRFToken: string = CSRFElement.value;
-      const body = new FormData();
-
-      body.append('csrfmiddlewaretoken', CSRFToken);
-
-      fetch(url, { method: 'POST', body })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-        })
-        .then(() => {
-          this.dispatch('w-messages:add', {
-            prefix: '',
-            target: window.document,
-            detail: { clear: true, text: message, type: 'success' },
-            cancelable: false,
-          });
-        })
-        .catch((error) => {
-          throw error;
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      })
+      .then(() => {
+        this.dispatch('w-messages:add', {
+          prefix: '',
+          target: window.document,
+          detail: { clear: true, text: message, type: 'success' },
+          cancelable: false,
         });
-    }
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   disconnect() {
