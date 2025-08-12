@@ -1,7 +1,17 @@
 {% load wagtailadmin_tags %}
-<a href="{{ button.url }}" class="{{ button.classname }}" {{ button.base_attrs_string }}>
-    {% if button.icon_name %}
-        {% icon name=button.icon_name %}
-    {% endif %}
-    {{ button.label }}
-</a>
+
+{% if button.url %}
+    <a href="{{ button.url }}" class="{{ button.classname }}" {{ button.base_attrs_string }}>
+        {% if button.icon_name %}
+            {% icon name=button.icon_name %}
+        {% endif %}
+        {{ button.label }}
+    </a>
+{% else %}
+    <button type="button" class="{{ button.classname }}" {{ button.base_attrs_string }}>
+        {% if button.icon_name %}
+            {% icon name=button.icon_name %}
+        {% endif %}
+        {{ button.label }}
+    </button>
+{% endif %}
