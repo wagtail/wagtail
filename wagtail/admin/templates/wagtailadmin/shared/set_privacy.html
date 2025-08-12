@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 
-<form action="{% url 'wagtailadmin_collections:set_privacy' collection.id %}" method="POST" novalidate>
+<form action="{{ action_url }}" method="POST" novalidate>
     {% csrf_token %}
     {% formattedfield field=form.restriction_type show_label=False %}
     {% if form.password is not None %}
@@ -9,5 +9,5 @@
     <div id="groups-fields">
         {% formattedfield form.groups %}
     </div>
-    <input type="submit" value="{% trans "Save" %}" class="button" />
+    <input type="submit" value="{% trans 'Save' %}" class="button" />
 </form>

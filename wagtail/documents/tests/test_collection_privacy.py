@@ -159,9 +159,11 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
 
     def test_set_shared_password_with_logged_in_user(self):
         self.login()
-        response = self.client.get(
-            reverse("wagtailadmin_collections:set_privacy", args=(self.collection.id,)),
+        url = reverse(
+            "wagtailadmin_collections:set_privacy", args=(self.collection.id,)
         )
+
+        response = self.client.get(url)
 
         input_el = self.get_soup(response.content).select_one("[data-field-input]")
         self.assertEqual(response.status_code, 200)
@@ -172,14 +174,21 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         # check that the option for password is visible
         self.assertIsNotNone(input_el)
 
+        # check template used & data
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"], self.collection)
+        self.assertEqual(response.context["action_url"], url)
+
     @override_settings(
         WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS={"SHARED_PASSWORD": False}
     )
     def test_unset_shared_password_with_logged_in_user(self):
         self.login()
-        response = self.client.get(
-            reverse("wagtailadmin_collections:set_privacy", args=(self.collection.id,)),
+        url = reverse(
+            "wagtailadmin_collections:set_privacy", args=(self.collection.id,)
         )
+
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertNotIn("password", response.context["form"].fields)
         self.assertFalse(
@@ -187,3 +196,8 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
             .fields["restriction_type"]
             .valid_value(CollectionViewRestriction.PASSWORD)
         )
+
+        # check template used & data
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"], self.collection)
+        self.assertEqual(response.context["action_url"], url)
