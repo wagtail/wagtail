@@ -16,7 +16,7 @@ const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
  * </div>
  * ```
  *
- * @example add class when count of '.item' in `.items` is above 3
+ * @example add class when count of `.item` in `.items` is above 3
  * ```html
  * <div data-controller="w-count" data-w-count-active-class="is-active" data-w-count-find-value=".items .item" data-w-count-min-value="3">
  *   <span data-w-count-target="label"></span>
