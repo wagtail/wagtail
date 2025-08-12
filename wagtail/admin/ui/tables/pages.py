@@ -78,8 +78,8 @@ class BulkActionsColumn(BulkActionsCheckboxColumn):
 
 
 class OrderingColumn(BaseColumn):
-    header_template_name = "wagtailadmin/pages/listing/_ordering_header.html"
-    cell_template_name = "wagtailadmin/pages/listing/_ordering_cell.html"
+    header_template_name = "wagtailadmin/tables/ordering_header.html"
+    cell_template_name = "wagtailadmin/tables/ordering_cell.html"
 
 
 class PageTypeColumn(Column):
