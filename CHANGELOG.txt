@@ -12,6 +12,7 @@ Changelog
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
  * Maintenance: Updated NPM packages and linting configuration (LB (Ben) Johnston)
  * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
+ * Maintenance: Migrate privacy switch modal field hiding to the Stimulus `RulesController` (LB (Ben) Johnston)
 
 
 7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
