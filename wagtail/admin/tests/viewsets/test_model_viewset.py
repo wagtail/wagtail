@@ -2029,10 +2029,17 @@ class TestReorderView(WagtailTestUtils, TestCase):
 
     def test_post_request_without_position_argument_moves_to_the_end(self):
         response = self.client.post(self.get_url(self.obj1))
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
 
-        # Ensure item order does not change because we're handling missing position differently
-        self.assertOrder([self.obj1, self.obj2, self.obj3])
+        # Item should be moved to the end
+        self.assertOrder([self.obj2, self.obj3, self.obj1])
+
+    def test_post_request_with_non_integer_position_moves_to_the_end(self):
+        response = self.client.post(self.get_url(self.obj1) + "?position=good")
+        self.assertEqual(response.status_code, 200)
+
+        # Item should be moved to the end
+        self.assertOrder([self.obj2, self.obj3, self.obj1])
 
     def test_move_position_up(self):
         # Move toy3 to the first position
