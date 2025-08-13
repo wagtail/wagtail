@@ -2,6 +2,7 @@ from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
@@ -102,11 +103,13 @@ SearchPromotionsFormSetBase = inlineformset_factory(
     can_order=True,
     can_delete=True,
     extra=0,
+    min_num=1,
+    validate_min=False,
 )
 
 
-class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
-    minimum_forms = 1
+class SearchPromotionsFormSet(BaseFormSetMixin, SearchPromotionsFormSetBase):
+    MIN_NUM_FORMS = 1
     minimum_forms_message = _(
         "Please specify at least one recommendation for this search term."
     )
@@ -114,16 +117,15 @@ class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
     def add_fields(self, form, *args, **kwargs):
         super().add_fields(form, *args, **kwargs)
 
-        # Hide delete and order fields
-        form.fields["DELETE"].widget = forms.HiddenInput()
-        form.fields["ORDER"].widget = forms.HiddenInput()
-
         # Remove query field
         del form.fields["query"]
 
     def clean(self):
-        # Search pick must have at least one recommended page to be valid
-        # Check there is at least one non-deleted form.
+        """
+        Override the built in validation to show a custom error message.
+        Search pick must have at least one recommended page to be valid,
+        and we need to check for non-empty forms.
+        """
         non_deleted_forms = self.total_form_count()
         non_empty_forms = 0
         for i in range(0, self.total_form_count()):
@@ -133,7 +135,7 @@ class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
             if not (form.instance.id is None and not form.has_changed()):
                 non_empty_forms += 1
         if (
-            non_deleted_forms < self.minimum_forms
-            or non_empty_forms < self.minimum_forms
+            non_deleted_forms < self.MIN_NUM_FORMS
+            or non_empty_forms < self.MIN_NUM_FORMS
         ):
             raise forms.ValidationError(self.minimum_forms_message)

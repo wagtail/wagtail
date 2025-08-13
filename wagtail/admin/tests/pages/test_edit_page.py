@@ -3113,7 +3113,7 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
         # there should be no "extra" forms, as the nested formset should respect the extra_form_count=0 set on WagtailAdminModelForm
         self.assertContains(
             response,
-            """<input type="hidden" name="speakers-0-awards-TOTAL_FORMS" value="1" id="id_speakers-0-awards-TOTAL_FORMS">""",
+            """<input type="hidden" name="speakers-0-awards-TOTAL_FORMS" value="1" data-w-formset-target="totalFormsInput" id="id_speakers-0-awards-TOTAL_FORMS">""",
             count=1,
             html=True,
         )
