@@ -1144,7 +1144,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "expire_at",
-            "Expiry date/time must be in the future",
+            "Expiry date/time must be in the future.",
         )
 
         self.assertContains(
@@ -1328,7 +1328,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "slug",
-            "The slug 'hello-world' is already in use within the parent page",
+            "The slug 'hello-world' is already in use within the parent page.",
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
