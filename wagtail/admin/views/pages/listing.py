@@ -405,8 +405,8 @@ class ExplorableIndexView(IndexView):
     def get_valid_orderings(self):
         valid_orderings = super().get_valid_orderings()
 
-        if not self.is_searching:
-            # ordering by page order is only available when not searching
+        if not (self.is_searching or self.is_filtering):
+            # ordering by page order is only available when not searching or filtering
             valid_orderings.append("ord")
 
         return valid_orderings
