@@ -21,7 +21,7 @@ def set_page_position(request, page_to_move_id):
         if position is not None:
             try:
                 position_page = parent_page.get_children()[int(position)]
-            except IndexError:
+            except (IndexError, ValueError):
                 pass  # No page in this position
 
         # Move page
