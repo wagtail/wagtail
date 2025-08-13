@@ -1,7 +1,10 @@
+from collections import OrderedDict
+
 from django.contrib.admin.utils import quote
+from django.utils.functional import cached_property
 from django.utils.translation import gettext, gettext_lazy
 
-from wagtail.admin.ui.tables import BaseColumn
+from wagtail.admin.ui.tables import BaseColumn, BulkActionsCheckboxColumn
 
 
 class OrderingColumn(BaseColumn):
@@ -15,6 +18,23 @@ class OrderableTableMixin:
     def __init__(self, *args, reorder_url=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.reorder_url = reorder_url
+        if self.reorder_url:
+            self._add_ordering_column()
+
+    @cached_property
+    def ordering_column(self):
+        return OrderingColumn("ordering", width="80px", sort_key="ord")
+
+    def _add_ordering_column(self):
+        self.columns = OrderedDict(
+            [(self.ordering_column.name, self.ordering_column)]
+            + [
+                (column_name, column)
+                for column_name, column in self.columns.items()
+                # Replace bulk actions column with the ordering column if it exists
+                if not isinstance(column, BulkActionsCheckboxColumn)
+            ]
+        )
 
     @property
     def attrs(self):
