@@ -24,7 +24,6 @@ from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
 )
 from wagtail.admin.ui.tables import DateColumn
-from wagtail.admin.ui.tables.orderable import OrderingColumn
 from wagtail.admin.ui.tables.pages import (
     BulkActionsColumn,
     NavigateToChildrenColumn,
@@ -438,9 +437,6 @@ class ExplorableIndexView(IndexView):
 
     def get_context_data(self, **kwargs):
         self.show_ordering_column = self.ordering == "ord"
-        if self.show_ordering_column:
-            self.columns = self.columns.copy()
-            self.columns[0] = OrderingColumn("ordering", width="80px", sort_key="ord")
         context = super().get_context_data(**kwargs)
 
         if self.is_searching:
