@@ -21,6 +21,7 @@
                 hidden
                 aria-labelledby="tab-label-account"
                 data-w-tabs-target="panel"
+                data-action="w-focus:focus->w-tabs#selectInside"
             >
                 <ul class="fields">
                     {% block fields %}
@@ -54,6 +55,7 @@
                 hidden
                 aria-labelledby="tab-label-roles"
                 data-w-tabs-target="panel"
+                data-action="w-focus:focus->w-tabs#selectInside"
             >
                 <ul class="fields">
                     <li>{% formattedfield form.is_superuser %}</li>
