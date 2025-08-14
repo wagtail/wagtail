@@ -18,7 +18,7 @@ class ViewSet(WagtailMenuRegisterable):
     """
 
     #: A special value that, when passed in a kwargs dict to construct a view, indicates that
-    #: the attribute should not be written and should instead be left as the view's initial value
+    #: the attribute should not be written and should instead be left as the view's initial value.
     UNDEFINED = object()
 
     #: A name for this viewset, used as the default URL prefix and namespace.
