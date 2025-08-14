@@ -240,6 +240,15 @@ class IndexViewOptionalFeaturesMixin:
             list_display.append(LiveStatusTagColumn())
         return list_display
 
+    def get_reorder_url(self):
+        if (
+            self.model
+            and issubclass(self.model, DraftStateMixin)
+            and not self.user_has_permission("publish")
+        ):
+            return None
+        return super().get_reorder_url()
+
 
 class CreateEditViewOptionalFeaturesMixin:
     """

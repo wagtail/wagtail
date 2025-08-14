@@ -444,6 +444,14 @@ class WorkflowHistoryDetailView(
     permission_required = "change"
 
 
+class ReorderView(generic.ReorderView):
+    @cached_property
+    def permission_required(self):
+        if issubclass(self.model, DraftStateMixin):
+            return "publish"
+        return super().permission_required
+
+
 class SnippetViewSet(ModelViewSet):
     """
     A viewset that instantiates the admin views for snippets.
@@ -504,6 +512,9 @@ class SnippetViewSet(ModelViewSet):
 
     #: The view class to use for the inspect view; must be a subclass of ``wagtail.snippets.views.snippets.InspectView``.
     inspect_view_class = InspectView
+
+    #: The view class to use for the reorder view; must be a subclass of ``wagtail.snippets.views.snippets.ReorderView``.
+    reorder_view_class = ReorderView
 
     #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippets.views.snippets.PreviewRevisionView``.
     revisions_view_class = PreviewRevisionView

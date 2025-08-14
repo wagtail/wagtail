@@ -104,7 +104,15 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
             content_type__app_label=self.obj1._meta.app_label,
             codename=get_permission_codename("view", self.obj1._meta),
         )
-        self.user.user_permissions.add(admin_permission, view_permission)
+        # Even with `change` permission, the reordering feature is not enabled
+        # because the model uses DraftStateMixin
+        change_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("change", self.obj1._meta),
+        )
+        self.user.user_permissions.add(
+            admin_permission, view_permission, change_permission
+        )
 
         index_url = reverse(self.get_url_name("list"))
         custom_ordering_url = index_url + "?ordering=sort_order"
@@ -140,7 +148,15 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
             content_type__app_label=self.obj1._meta.app_label,
             codename=get_permission_codename("change", self.obj1._meta),
         )
-        self.user.user_permissions.add(admin_permission, change_permission)
+        publish_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("publish", self.obj1._meta),
+        )
+        self.user.user_permissions.add(
+            admin_permission,
+            change_permission,
+            publish_permission,
+        )
 
         self.test_header_button_rendered()
         self.test_show_ordering_column()
@@ -257,17 +273,29 @@ class TestReorderView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertOrder([self.obj1, self.obj2, self.obj3])
 
+        # `change` permission is not enough if the model uses DraftStateMixin
+        change_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("change", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, change_permission)
+
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertOrder([self.obj1, self.obj2, self.obj3])
+
     def test_minimal_permission(self):
         self.user.is_superuser = False
         self.user.save()
         admin_permission = Permission.objects.get(
             content_type__app_label="wagtailadmin", codename="access_admin"
         )
-        change_permission = Permission.objects.get(
+        publish_permission = Permission.objects.get(
             content_type__app_label=self.obj1._meta.app_label,
-            codename=get_permission_codename("change", self.obj1._meta),
+            codename=get_permission_codename("publish", self.obj1._meta),
         )
-        self.user.user_permissions.add(admin_permission, change_permission)
+        self.user.user_permissions.add(admin_permission, publish_permission)
 
         response = self.client.post(self.get_url(self.obj1) + "?position=1")
         self.assertEqual(response.status_code, 200)
