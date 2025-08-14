@@ -88,6 +88,7 @@ from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 
+from .fields import CommentableJSONField
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
 EVENT_AUDIENCE_CHOICES = (
@@ -2676,3 +2677,13 @@ class RequiredDatePage(Page):
         TitleFieldPanel("title", classname="title"),
         FieldPanel("deadline"),
     ]
+
+
+class CommentableJSONPage(Page):
+    commentable_body = CommentableJSONField()
+    uncommentable_body = models.JSONField()
+    stream_body = StreamField(
+        [
+            ("text", CharBlock()),
+        ]
+    )

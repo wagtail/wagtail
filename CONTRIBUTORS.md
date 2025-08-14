@@ -908,6 +908,7 @@
 * Tosinibikunle
 * Lynwee
 * Andrew Selzer
+* Lasse Schmieding
 
 ## Translators
 

@@ -2691,12 +2691,12 @@ class Comment(ClusterableModel):
             # comment applies to the field as a whole
             return True
 
-        if not isinstance(field, StreamField):
-            # only StreamField supports content paths that are deeper than one level
+        # e.g. StreamField supports content paths that are deeper than one level
+        if not hasattr(field, "get_block_by_content_path"):
             return False
 
-        stream_value = getattr(page, field_name)
-        block = field.get_block_by_content_path(stream_value, remainder)
+        field_value = getattr(page, field_name)
+        block = field.get_block_by_content_path(field_value, remainder)
         # content path is valid if this returns a BoundBlock rather than None
         return bool(block)
 
