@@ -1059,7 +1059,7 @@ class SnippetViewSet(ModelViewSet):
             ),
         ]
 
-        if self.sort_order_field:
+        if self.reorder_view_enabled:
             urlpatterns += [
                 path("reorder/<str:pk>/", self.reorder_view, name="reorder")
             ]

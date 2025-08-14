@@ -1900,7 +1900,9 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
             handle = row.select_one("td button[data-w-orderable-target='handle']")
             self.assertIsNotNone(handle)
 
-    def test_reordering_disabled_without_sort_order_field(self):
+    def test_reordering_disabled_with_explicit_sort_order_field_none(self):
+        # The model has a sort_order_field, but the viewset explicitly sets
+        # sort_order_field = None
         index_url = reverse("fctoy-alt2:index")
         custom_ordering_url = index_url + "?ordering=sort_order"
         response = self.client.get(custom_ordering_url)
@@ -1920,6 +1922,29 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
         first_th = soup.select_one("main thead th:first-child")
         self.assertIsNotNone(first_th)
         self.assertEqual(first_th.text.strip(), "Feature complete toy")
+
+    def test_reordering_disabled_with_no_sort_order_field(self):
+        # This model has no sort_order_field defined on the model nor the viewset
+        JSONStreamModel.objects.create()
+        index_url = reverse("streammodel:index")
+        custom_ordering_url = index_url + "?ordering="
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Header button for enabling reordering should not be rendered
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href^='{custom_ordering_url}']"
+        )
+        self.assertIsNone(button)
+
+        # Reordering feature not enabled
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "JSON stream model")
 
     def test_reordering_disabled_with_insufficient_permission(self):
         self.user.is_superuser = False
@@ -2015,10 +2040,15 @@ class TestReorderView(WagtailTestUtils, TestCase):
         )
 
     def test_reorder_view_disabled_without_sort_order_field(self):
-        # The alt2 viewset does not have a sort_order_field,
+        # The alt2 viewset explicitly sets sort_order_field to `None`,
         # so the reorder view should not be available
         with self.assertRaises(NoReverseMatch):
             reverse("fctoy-alt2:reorder", args=(quote(self.obj1.pk),))
+
+        # This model has no sort_order_field on the model nor the viewset
+        obj = JSONStreamModel.objects.create()
+        with self.assertRaises(NoReverseMatch):
+            reverse("streammodel:reorder", args=(quote(obj.pk),))
 
     def test_get_request_does_not_alter_order(self):
         response = self.client.get(self.get_url(self.obj1))
