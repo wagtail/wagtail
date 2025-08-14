@@ -2590,6 +2590,7 @@ class FeatureCompleteToy(index.Indexed, models.Model):
     name = models.CharField(max_length=255)
     release_date = models.DateField(default=datetime.date.today)
     sort_order = models.IntegerField(null=True, blank=True)
+    sort_order_field = "sort_order"
 
     search_fields = [
         index.SearchField("name"),

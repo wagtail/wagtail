@@ -96,8 +96,11 @@ class ModelViewSet(ViewSet):
     copy_view_enabled = True
 
     #: The name of an integer field on the model to use for ordering items
-    #: in the index view.
-    sort_order_field = None
+    #: in the index view. If not set and the model has a ``sort_order_field``
+    #: attribute (e.g.
+    #: :attr:`Orderable.sort_order_field <wagtail.models.Orderable.sort_order_field>`),
+    #: that will be used instead. To disable reordering, set this to ``None``.
+    sort_order_field = ViewSet.UNDEFINED
 
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
@@ -112,7 +115,9 @@ class ModelViewSet(ViewSet):
         self.model_name = self.model_opts.model_name
 
         # Auto-detect sort_order_field from the model, e.g. from Orderable mixin
-        if not self.sort_order_field and hasattr(self.model, "sort_order_field"):
+        if self.sort_order_field is self.UNDEFINED and hasattr(
+            self.model, "sort_order_field"
+        ):
             self.sort_order_field = self.model.sort_order_field
 
     @property
@@ -126,6 +131,10 @@ class ModelViewSet(ViewSet):
         Defaults to the :attr:`~django.db.models.Options.model_name`.
         """
         return self.model_name
+
+    @cached_property
+    def reorder_view_enabled(self):
+        return self.sort_order_field not in {self.UNDEFINED, None}
 
     def get_common_view_kwargs(self, **kwargs):
         view_kwargs = super().get_common_view_kwargs(
@@ -166,7 +175,7 @@ class ModelViewSet(ViewSet):
         }
         if self.ordering:
             view_kwargs["default_ordering"] = self.ordering
-        if self.sort_order_field:
+        if self.reorder_view_enabled:
             view_kwargs["sort_order_field"] = self.sort_order_field
             view_kwargs["reorder_url_name"] = self.get_url_name("reorder")
         return view_kwargs
@@ -178,7 +187,7 @@ class ModelViewSet(ViewSet):
             "template_name": self.create_template_name,
             **kwargs,
         }
-        if self.sort_order_field:
+        if self.reorder_view_enabled:
             view_kwargs["sort_order_field"] = self.sort_order_field
         return view_kwargs
 
@@ -650,7 +659,7 @@ class ModelViewSet(ViewSet):
             path("usage/<str:pk>/", self.usage_view, name="usage"),
         ]
 
-        if self.sort_order_field:
+        if self.reorder_view_enabled:
             urlpatterns.append(
                 path("reorder/<str:pk>/", self.reorder_view, name="reorder")
             )

@@ -296,6 +296,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             exclude_form_fields=(),
             search_fields=["name"],
             search_backend_name=None,
+            sort_order_field=None,
         ),
         ModelViewSet(
             name="fctoy-alt3",
