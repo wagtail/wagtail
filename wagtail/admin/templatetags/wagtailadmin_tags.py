@@ -1344,6 +1344,7 @@ def keyboard_shortcuts_dialog(context):
                 ),
             ],
             ("actions-model", _("Actions")): [
+                (_("Open keyboard shortcut help"), "?"),
                 (_("Save changes"), f"{KEYS.MOD} + s"),
                 (_("Preview"), f"{KEYS.MOD} + p"),
                 (_("Toggle sidebar"), "["),
