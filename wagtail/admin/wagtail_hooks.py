@@ -986,7 +986,8 @@ def register_keyboard_shortcuts_menu_item():
             "role": "button",  # Ensure screen readers announce this as a button
             "data-a11y-dialog-show": "keyboard-shortcuts-dialog",
             "data-action": "w-action#noop:prevent:stop",
-            "data-controller": "w-action",
+            "data-controller": "w-kbd w-action",
+            "data-w-kbd-key-value": "?",
         },
         name="keyboard-shortcuts-trigger",
         url="#",
