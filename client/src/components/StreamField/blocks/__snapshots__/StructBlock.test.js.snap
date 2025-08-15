@@ -585,6 +585,169 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
         </section></div>"
 `;
 
+exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block it renders correctly 1`] = `
+"<div class="c-sf-help">
+          <div class="help">
+            use <strong>plenty</strong> of these
+          </div>
+        </div><div class="">
+        <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="1">
+        <div data-streamfield-stream-container=""><div>
+        <button type="button" title="Insert a block" class="c-sf-add-button">
+          <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
+        </button>
+      </div><div data-streamfield-child="" data-contentpath="struct-block-1">
+        <input type="hidden" name="the-prefix-0-deleted" value="">
+        <input type="hidden" name="the-prefix-0-order" value="0">
+        <input type="hidden" name="the-prefix-0-type" value="struct_block">
+        <input type="hidden" name="the-prefix-0-id" value="struct-block-1">
+        <section class="w-panel w-panel--nested" id="block-struct-block-1-section" aria-labelledby="block-struct-block-1-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block-struct-block-1-section" aria-labelledby="block-struct-block-1-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-struct-block-1-heading" data-panel-toggle="" aria-controls="block-struct-block-1-content" aria-expanded="true">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-struct-block-1-heading" data-panel-heading="">
+              <span class="c-sf-block__type">Heading block</span>
+              
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-0-value-inner_stream-0-value</span>
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-struct-block-1-section" aria-labelledby="block-struct-block-1-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+        <svg class="icon icon-arrow-up" aria-hidden="true">
+          <use href="#icon-arrow-up"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+        <svg class="icon icon-arrow-down" aria-hidden="true">
+          <use href="#icon-arrow-down"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+        <svg class="icon icon-copy" aria-hidden="true">
+          <use href="#icon-copy"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+        <svg class="icon icon-bin" aria-hidden="true">
+          <use href="#icon-bin"></use>
+        </svg>
+      </button></div>
+          </div>
+          <div id="block-struct-block-1-content" class="w-panel__content">
+            <div class="custom-form-template">
+          <p>here comes the first field:</p>
+          <div class="">
+        <input type="hidden" name="the-prefix-0-value-inner_stream-count" data-streamfield-stream-count="" value="1">
+        <div data-streamfield-stream-container=""><div>
+        <button type="button" title="Insert a block" class="c-sf-add-button">
+          <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
+        </button>
+      </div><div data-streamfield-child="" data-contentpath="very-nested-1">
+        <input type="hidden" name="the-prefix-0-value-inner_stream-0-deleted" value="">
+        <input type="hidden" name="the-prefix-0-value-inner_stream-0-order" value="0">
+        <input type="hidden" name="the-prefix-0-value-inner_stream-0-type" value="test_block_a">
+        <input type="hidden" name="the-prefix-0-value-inner_stream-0-id" value="very-nested-1">
+        <section class="w-panel w-panel--nested" id="block-very-nested-1-section" aria-labelledby="block-very-nested-1-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block-very-nested-1-section" aria-labelledby="block-very-nested-1-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-very-nested-1-heading" data-panel-toggle="" aria-controls="block-very-nested-1-content" aria-expanded="true">
+              <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
+                <use href="#icon-pilcrow"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-very-nested-1-heading" data-panel-heading="">
+              <span class="c-sf-block__type">Test Block A</span>
+              
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-0-value-inner_stream-0-value</span>
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-very-nested-1-section" aria-labelledby="block-very-nested-1-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+        <svg class="icon icon-arrow-up" aria-hidden="true">
+          <use href="#icon-arrow-up"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+        <svg class="icon icon-arrow-down" aria-hidden="true">
+          <use href="#icon-arrow-down"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+        <svg class="icon icon-copy" aria-hidden="true">
+          <use href="#icon-copy"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+        <svg class="icon icon-bin" aria-hidden="true">
+          <use href="#icon-bin"></use>
+        </svg>
+      </button></div>
+          </div>
+          <div id="block-very-nested-1-content" class="w-panel__content">
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-0-value-inner_stream-0-value-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-0-value-inner_stream-0-value-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-0-value-inner_stream-0-value" id="the-prefix-0-value-inner_stream-0-value">Block A Widget</p>
+          </div>
+        </div>
+      </div>
+          </div>
+        </section>
+      </div><div>
+        <button type="button" title="Insert a block" class="c-sf-add-button">
+          <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
+        </button>
+      </div></div>
+      </div>
+          <p>and here is the second:</p>
+          <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="" data-field="">
+          <div class="w-field__errors" id="the-prefix-0-value-test_block_b-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-0-value-test_block_b-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-0-value-test_block_b" id="the-prefix-0-value-test_block_b">Block A Widget</p>
+          </div>
+        </div>
+      </div>
+        </div>
+          </div>
+        </section>
+      </div><div>
+        <button type="button" title="Insert a block" class="c-sf-add-button">
+          <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
+        </button>
+      </div></div>
+      </div>"
+`;
+
 exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders correctly 1`] = `
 "<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
