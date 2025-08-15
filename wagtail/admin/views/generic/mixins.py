@@ -37,6 +37,7 @@ from wagtail.models import (
     WorkflowMixin,
     WorkflowState,
 )
+from wagtail.models.orderable import set_max_order
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -238,6 +239,15 @@ class IndexViewOptionalFeaturesMixin:
         if issubclass(self.model, DraftStateMixin):
             list_display.append(LiveStatusTagColumn())
         return list_display
+
+    def get_reorder_url(self):
+        if (
+            self.model
+            and issubclass(self.model, DraftStateMixin)
+            and not self.user_has_permission("publish")
+        ):
+            return None
+        return super().get_reorder_url()
 
 
 class CreateEditViewOptionalFeaturesMixin:
@@ -522,6 +532,15 @@ class CreateEditViewOptionalFeaturesMixin:
                 self.form.save_m2m()
         else:
             instance = self.form.save()
+
+        # Apply max order number if the model uses custom ordering and the
+        # sort_order_field is not set.
+        if (
+            self.view_name == "create"
+            and self.sort_order_field
+            and getattr(instance, self.sort_order_field) is None
+        ):
+            set_max_order(instance, self.sort_order_field)
 
         self.has_content_changes = self.view_name == "create" or self.form.has_changed()
 
