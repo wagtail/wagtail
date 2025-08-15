@@ -189,19 +189,27 @@ class TestCreateViewReordering(WagtailTestUtils, TestCase):
 class TestReorderView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
+        # We don't do any normalization, so the sort_order values may not be
+        # consecutive integers (e.g. after an item is deleted), and the update
+        # logic may cause the sort_order values to be negative or larger than
+        # the number of items in the queryset.
         self.obj1 = FullFeaturedSnippet.objects.create(text="Toy 1", sort_order=0)
         self.obj2 = FullFeaturedSnippet.objects.create(text="Toy 2", sort_order=1)
         self.obj3 = FullFeaturedSnippet.objects.create(text="Toy 3", sort_order=2)
 
-    def get_url(self, toy):
+    def get_url(self, obj):
         return reverse(
             FullFeaturedSnippet.snippet_viewset.get_url_name("reorder"),
-            args=(quote(toy.pk),),
+            args=(quote(obj.pk),),
         )
 
-    def assertOrder(self, toys):
+    def assertOrder(self, objs):
         self.assertSequenceEqual(
-            list(FullFeaturedSnippet.objects.order_by("sort_order")), toys
+            [
+                (obj, obj.sort_order)
+                for obj in FullFeaturedSnippet.objects.order_by("sort_order")
+            ],
+            objs,
         )
 
     def test_get_request_does_not_alter_order(self):
@@ -209,52 +217,58 @@ class TestReorderView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 405)
 
         # Ensure item order does not change
-        self.assertOrder([self.obj1, self.obj2, self.obj3])
+        self.assertOrder([(self.obj1, 0), (self.obj2, 1), (self.obj3, 2)])
 
     def test_post_request_without_position_argument_moves_to_the_end(self):
         response = self.client.post(self.get_url(self.obj1))
         self.assertEqual(response.status_code, 200)
 
-        # Item should be moved to the end
-        self.assertOrder([self.obj2, self.obj3, self.obj1])
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 0), (self.obj3, 1), (self.obj1, 2)])
 
     def test_post_request_with_non_integer_position_moves_to_the_end(self):
         response = self.client.post(self.get_url(self.obj1) + "?position=good")
         self.assertEqual(response.status_code, 200)
 
-        # Item should be moved to the end
-        self.assertOrder([self.obj2, self.obj3, self.obj1])
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 0), (self.obj3, 1), (self.obj1, 2)])
 
     def test_move_position_up(self):
-        # Move toy3 to the first position
+        # Move obj3 to the first position
         response = self.client.post(self.get_url(self.obj3) + "?position=0")
         self.assertEqual(response.status_code, 200)
 
-        # Check if toy3 is now the first item
-        self.assertOrder([self.obj3, self.obj1, self.obj2])
+        # Check if obj3 is now the first item by taking obj1's sort_order and
+        # incrementing sort_order of the other items after it (but before obj3's
+        # old sort_order 3) by 1
+        self.assertOrder([(self.obj3, 0), (self.obj1, 1), (self.obj2, 2)])
 
     def test_move_position_down(self):
-        # Move toy1 to the second position
+        # Move obj1 to the second position
         response = self.client.post(self.get_url(self.obj1) + "?position=1")
         self.assertEqual(response.status_code, 200)
 
-        # Check if toy1 is now the second item
-        self.assertOrder([self.obj2, self.obj1, self.obj3])
+        # Check if obj1 is now the second item by taking obj2's sort_order
+        # and decreasing sort_order of the other items before it by 1
+        self.assertOrder([(self.obj2, 0), (self.obj1, 1), (self.obj3, 2)])
 
     def test_move_position_to_same_position(self):
-        # Move toy1 to position 0 (where it already is)
+        # Move obj1 to position 0 (where it already is)
         response = self.client.post(self.get_url(self.obj1) + "?position=0")
         self.assertEqual(response.status_code, 200)
 
         # Ensure item order does not change
-        self.assertOrder([self.obj1, self.obj2, self.obj3])
+        self.assertOrder([(self.obj1, 0), (self.obj2, 1), (self.obj3, 2)])
 
     def test_move_position_with_invalid_target_position(self):
         response = self.client.post(self.get_url(self.obj1) + "?position=99")
         self.assertEqual(response.status_code, 200)
 
-        # The item will be moved to the last position
-        self.assertOrder([self.obj2, self.obj3, self.obj1])
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 0), (self.obj3, 1), (self.obj1, 2)])
 
     def test_insufficient_permission(self):
         self.user.is_superuser = False
@@ -271,7 +285,7 @@ class TestReorderView(WagtailTestUtils, TestCase):
         response = self.client.post(self.get_url(self.obj1) + "?position=1")
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
-        self.assertOrder([self.obj1, self.obj2, self.obj3])
+        self.assertOrder([(self.obj1, 0), (self.obj2, 1), (self.obj3, 2)])
 
         # `change` permission is not enough if the model uses DraftStateMixin
         change_permission = Permission.objects.get(
@@ -283,7 +297,7 @@ class TestReorderView(WagtailTestUtils, TestCase):
         response = self.client.post(self.get_url(self.obj1) + "?position=1")
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
-        self.assertOrder([self.obj1, self.obj2, self.obj3])
+        self.assertOrder([(self.obj1, 0), (self.obj2, 1), (self.obj3, 2)])
 
     def test_minimal_permission(self):
         self.user.is_superuser = False
@@ -300,5 +314,6 @@ class TestReorderView(WagtailTestUtils, TestCase):
         response = self.client.post(self.get_url(self.obj1) + "?position=1")
         self.assertEqual(response.status_code, 200)
 
-        # Check if toy1 is now the second item
-        self.assertOrder([self.obj2, self.obj1, self.obj3])
+        # Check if obj1 is now the second item by taking obj2's sort_order
+        # and decrementing sort_order of the other items before it by 1
+        self.assertOrder([(self.obj2, 0), (self.obj1, 1), (self.obj3, 2)])
