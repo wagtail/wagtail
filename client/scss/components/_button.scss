@@ -407,3 +407,59 @@
     @include focus-outline;
   }
 }
+
+.w-layout-segmented {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--w-color-surface, #fff);
+}
+
+.w-layout-segmented label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative; /* Enable positioning for pseudo-elements */
+
+  // Instead of border-left or border-right, use logical property
+  &:not(:first-child) {
+    border-inline-start: 1px solid var(--w-color-border, #d9d9df);
+  }
+}
+
+.w-layout-segmented label:first-child {
+  border-radius: 4px 0 0 4px; /* Round left edge only */
+}
+
+.w-layout-segmented label:last-child {
+  border-radius: 0 4px 4px 0; /* Round right edge only */
+}
+
+.w-layout-segmented label svg {
+  width: 22px;
+  height: 22px;
+  transition: background 0.2s; /* Smooth background transition */
+}
+
+.w-layout-segmented input[type='radio'] {
+  display: none;
+}
+
+.w-layout-segmented input[type='radio']:checked + svg {
+  background: none; /* Reset SVG background */
+}
+
+.w-layout-segmented input[type='radio']:checked + * {
+  background: var(--w-color-primary-50, #e9e7f0);
+  border-radius: inherit; /* Inherit radius from label */
+}
+
+.w-layout-segmented label:hover > * {
+  background: var(--w-color-bg-subtle, #f6f6fb);
+  border-radius: inherit; /* Inherit radius from label */
+}
+
+.w-layout-segmented label:has(input[type='radio']:checked) {
+  background: var(--w-color-primary-500, #fff); /* Strong active background */
+}
