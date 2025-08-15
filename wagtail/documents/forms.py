@@ -60,7 +60,18 @@ class BaseDocumentForm(BaseCollectionMemberForm):
         return self.instance
 
     class Meta:
-        widgets = {"tags": AdminTagWidget, "file": forms.FileInput()}
+        widgets = {
+            "tags": AdminTagWidget,
+            "file": forms.FileInput(
+                attrs={
+                    "data-controller": "w-sync",
+                    "data-w-sync-target-value": "#id_title",
+                    "data-w-sync-event-value": "wagtail:documents-upload",
+                    "data-action": "change->w-sync#prefillTitleFromFilename cut->w-sync#clear",
+                }
+            ),
+            "title": forms.TextInput(),
+        }
 
     def clean_tags(self):
         tags = self.cleaned_data["tags"]
