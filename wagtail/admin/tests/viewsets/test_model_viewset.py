@@ -2027,9 +2027,13 @@ class TestCreateViewReordering(WagtailTestUtils, TestCase):
 class TestReorderView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
-        self.obj1 = FeatureCompleteToy.objects.create(name="Toy 1", sort_order=0)
-        self.obj2 = FeatureCompleteToy.objects.create(name="Toy 2", sort_order=1)
-        self.obj3 = FeatureCompleteToy.objects.create(name="Toy 3", sort_order=2)
+        # We don't do any normalization, so the sort_order values may not be
+        # consecutive integers (e.g. after an item is deleted), and the update
+        # logic may cause the sort_order values to be negative or larger than
+        # the number of items in the queryset.
+        self.obj1 = FeatureCompleteToy.objects.create(name="Toy 1", sort_order=-3)
+        self.obj2 = FeatureCompleteToy.objects.create(name="Toy 2", sort_order=4)
+        self.obj3 = FeatureCompleteToy.objects.create(name="Toy 3", sort_order=9)
 
     def get_url(self, toy):
         return reverse("feature_complete_toy:reorder", args=(quote(toy.pk),))
