@@ -220,6 +220,9 @@ export class RulesController extends Controller<
    *
    * It will also dispatch an `effect` event that can be prevented to stop
    * it before the effect is applied.
+   *
+   * Finally, if the target is a <select> element, we will ensure that
+   * the selected value is not retained if the element is disabled/hidden.
    */
   processTarget(
     { effect, effectHandler }: { effect: Effect; effectHandler: EffectHandler },
@@ -246,6 +249,31 @@ export class RulesController extends Controller<
     }
 
     apply();
+
+    // special handling of select fields to avoid selected values from being kept as selected
+    if (!result && target instanceof HTMLOptionElement && target.selected) {
+      const select = target.closest('select');
+      if (!select) return;
+
+      const resetValue =
+        Array.from(select.options).find((option) => option.defaultSelected)
+          ?.value || '';
+
+      const currentValue = select.value;
+
+      // Do nothing if the current value is the reset value to avoid 'change' event loops
+      if (currentValue === resetValue) return;
+
+      select.value = resetValue;
+
+      // dispatch change event (on select)
+      this.dispatch('change', {
+        prefix: '',
+        target: select,
+        bubbles: true,
+        cancelable: false,
+      });
+    }
   }
 
   /**

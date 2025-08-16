@@ -1403,6 +1403,61 @@ describe('RulesController', () => {
 
         expect(getShownOptions()).toEqual(allOptions);
       });
+
+      it('should clear a selected option if it is being hidden/disabled', async () => {
+        const handleChange = jest.fn();
+
+        const continentField = document.getElementById('continent-field');
+        const countryField = document.getElementById('country-field');
+
+        countryField.addEventListener('change', handleChange);
+
+        expect(getShownOptions()).toEqual(allOptions);
+
+        countryField.value = '8'; // Turkey
+        countryField.dispatchEvent(new Event('change', { bubbles: true }));
+        expect(handleChange).toHaveBeenCalledTimes(1);
+
+        await jest.runAllTimersAsync();
+
+        expect(countryField.value).toEqual('8');
+
+        // now change the continent to an incompatible value (Africa)
+        continentField.value = '2'; // Africa
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        // check that the change event has been dispatched for the resetting of the value on the select
+        expect(handleChange).toHaveBeenCalledTimes(2);
+
+        expect(getShownOptions()).toEqual(['', '2', '7']);
+        expect(countryField.value).toEqual('');
+      });
+
+      it('should not try to change the selected value if it is already the default', async () => {
+        const handleChange = jest.fn();
+
+        const continentField = document.getElementById('continent-field');
+        const countryField = document.getElementById('country-field');
+
+        countryField.addEventListener('change', handleChange);
+
+        expect(getShownOptions()).toEqual(allOptions);
+        expect(countryField.value).toEqual('');
+
+        // now change the continent to an incompatible value (Africa)
+        continentField.value = '2'; // Africa
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        // check that the change event has not been dispatched as we should not change the value
+        expect(handleChange).toHaveBeenCalledTimes(0);
+
+        expect(getShownOptions()).toEqual(['', '2', '7']);
+        expect(countryField.value).toEqual('');
+      });
     });
   });
 });
