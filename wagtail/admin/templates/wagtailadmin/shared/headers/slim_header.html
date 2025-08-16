@@ -74,8 +74,8 @@
                         novalidate
                         role="search"
                         data-search-form
-                        data-controller="w-swap"
-                        data-action="change->w-swap#submitLazy input->w-swap#submitLazy"
+                        data-controller="w-rules w-swap"
+                        data-action="change->w-rules#resolve change->w-swap#submitLazy input->w-swap#submitLazy"
                         data-w-swap-src-value="{{ search_url }}"
                         data-w-swap-target-value="#listing-results"
                         data-w-swap-reflect-value="true"
