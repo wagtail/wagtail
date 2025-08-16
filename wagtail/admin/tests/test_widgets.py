@@ -635,18 +635,18 @@ class TestFilteredSelect(TestCase):
                 ("JP", "Japan", ["AS"]),
                 ("RU", "Russia", ["AS", "EU"]),
             ],
-            filter_field="id_continent",
+            filter_field="continent",
         )
 
         html = widget.render("country", "JP")
         self.assertHTMLEqual(
             html,
             """
-            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+            <select name="country">
                 <option value="">----</option>
-                <option value="FR" data-filter-value="EU">France</option>
-                <option value="JP" selected data-filter-value="AS">Japan</option>
-                <option value="RU" data-filter-value="AS,EU">Russia</option>
+                <option value="FR" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;EU&quot;]}" data-w-rules-target="enable show">France</option>
+                <option value="JP" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;AS&quot;]}" data-w-rules-target="enable show" selected>Japan</option>
+                <option value="RU" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;AS&quot;, &quot;EU&quot;]}" data-w-rules-target="enable show">Russia</option>
             </select>
         """,
         )
@@ -673,26 +673,26 @@ class TestFilteredSelect(TestCase):
                 ),
                 ("SK", "Slovakia", ["EU"]),
             ],
-            filter_field="id_continent",
+            filter_field="continent",
         )
 
         html = widget.render("country", "JP")
         self.assertHTMLEqual(
             html,
             """
-            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+            <select name="country">
                 <option value="">----</option>
                 <optgroup label="Big countries">
-                    <option value="FR" data-filter-value="EU">France</option>
-                    <option value="JP" selected data-filter-value="AS">Japan</option>
-                    <option value="RU" data-filter-value="AS,EU">Russia</option>
+                    <option value="FR" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;EU&quot;]}" data-w-rules-target="enable show">France</option>
+                    <option value="JP" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;AS&quot;]}" data-w-rules-target="enable show" selected>Japan</option>
+                    <option value="RU" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;AS&quot;, &quot;EU&quot;]}" data-w-rules-target="enable show">Russia</option>
                     <option value="MOON">The moon</option>
                 </optgroup>
                 <optgroup label="Small countries">
-                    <option value="AZ" data-filter-value="AS">Azerbaijan</option>
-                    <option value="LI" data-filter-value="EU">Liechtenstein</option>
+                    <option value="AZ" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;AS&quot;]}" data-w-rules-target="enable show">Azerbaijan</option>
+                    <option value="LI" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;EU&quot;]}" data-w-rules-target="enable show">Liechtenstein</option>
                 </optgroup>
-                <option value="SK" data-filter-value="EU">Slovakia</option>
+                <option value="SK" data-w-rules="{&quot;continent&quot;: [&quot;&quot;, &quot;EU&quot;]}" data-w-rules-target="enable show">Slovakia</option>
             </select>
         """,
         )
