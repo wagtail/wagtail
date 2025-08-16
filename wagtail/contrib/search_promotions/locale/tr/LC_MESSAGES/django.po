@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
@@ -10,15 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-08-16 19:29+0300\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail search promotions"
@@ -34,6 +35,15 @@ msgstr ""
 "Eşleşme için tam arama kelimelerini girin. Tanıtılan Sonuçlar için tam "
 "eşleşme olması gerekiyor, özel sembollere (wildcards) izin verilmiyor."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr "Eğer bir dış bağlantı URL'si giriyorsanız, bir dış bağlantı metni de girmeniz gerekir."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Bir sayfa veya bir dış bağlantı önermelisiniz."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Lütfen yalnızca bir sayfa seçin veya bir dış bağlantı girin."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Arama terimi için lütfen en az bir öneri belirleyin."
 
@@ -43,11 +53,39 @@ msgstr "Sorgu Günlük Tıklanması"
 msgid "page"
 msgstr "sayfa"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Bu tanıtım için bir iç sayfa seçin"
+
+#, fuzzy
+#| msgid "External link"
+msgid "External link URL"
+msgstr "Dış bağlantı"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr ""
+
 msgid "description"
 msgstr "açıklama"
 
+msgid "Applies to internal page or external link"
+msgstr "İç sayfa veya dış bağlantı için geçerlidir"
+
 msgid "search promotion"
 msgstr "arama tanıtımı"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
 
 #, python-format
 msgid "Delete %(query)s"
@@ -71,8 +109,18 @@ msgstr "Sürükle"
 msgid "Delete"
 msgstr "Sil"
 
+#, fuzzy
+#| msgid "Promoted search result"
+msgid "Recommended search result"
+msgstr "Tanıtılan arama sonucu"
+
 msgid "Promoted search results"
 msgstr "Tanıtılan arama sonuçları"
+
+#, fuzzy
+#| msgid "Add new promoted result"
+msgid "Add a recommended result"
+msgstr "Yeni tanıtılan sonuç ekle"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -86,6 +134,9 @@ msgstr ""
 "Hiçbir tanıtılan sonuç oluştuurlmadı. Neden <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">bir tane eklemiyorsunuz</a>?"
 
+msgid "No promoted results have been created."
+msgstr "Hiçbir tanıtılan sonuç oluşturulmadı."
+
 msgid "Popular search terms"
 msgstr "Yaygın arama terimleri"
 
@@ -94,6 +145,9 @@ msgstr "Ara"
 
 msgid "Terms"
 msgstr "Terimler"
+
+msgid "Views"
+msgstr "Görünümler"
 
 msgid "No results found"
 msgstr "Sonuç bulunamadı"
@@ -109,6 +163,11 @@ msgstr "Yok"
 
 msgid "Date"
 msgstr "Tarih"
+
+#, fuzzy
+#| msgid "Search term(s)"
+msgid "Search terms"
+msgstr "Arama terimi(leri)"
 
 msgid "Search term(s)"
 msgstr "Arama terimi(leri)"
