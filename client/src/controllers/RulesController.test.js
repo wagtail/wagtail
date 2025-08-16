@@ -10,6 +10,11 @@ describe('RulesController', () => {
   let application;
   let errors = [];
 
+  const eventNames = ['change', 'w-rules:effect', 'w-rules:resolved'];
+
+  const events = {};
+  const eventListeners = {};
+
   const setup = async (html) => {
     document.body.innerHTML = `<main>${html}</main>`;
 
@@ -24,10 +29,31 @@ describe('RulesController', () => {
     await jest.runAllTimersAsync();
   };
 
+  beforeAll(() => {
+    eventNames.forEach((name) => {
+      events[name] = [];
+    });
+
+    Object.keys(events).forEach((name) => {
+      const eventListener = jest.fn((event) => {
+        events[name].push(event);
+      });
+
+      document.addEventListener(name, eventListener);
+
+      eventListeners[name] = eventListener;
+    });
+  });
+
   afterEach(() => {
     application?.stop();
     jest.clearAllMocks();
     errors = [];
+
+    eventNames.forEach((name) => {
+      eventListeners[name].mockClear();
+      events[name] = [];
+    });
   });
 
   describe('the ability to parse different data-w-rules attributes', () => {
@@ -101,10 +127,7 @@ describe('RulesController', () => {
         .querySelector('form')
         .dispatchEvent(new Event('change', { bubbles: true }));
 
-      const handleEffect = jest.fn();
-      document.addEventListener('w-rules:effect', handleEffect);
-
-      expect(handleEffect).toHaveBeenCalledTimes(0);
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(0);
 
       await jest.runAllTimersAsync();
 
@@ -116,7 +139,7 @@ describe('RulesController', () => {
         ),
       ).toBe(false);
 
-      expect(handleEffect).toHaveBeenCalledTimes(0);
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(0);
     });
 
     it('should support an entries style array of key/value pairs to be used as an object', async () => {
@@ -383,10 +406,6 @@ describe('RulesController', () => {
 
   describe('the ability for the controller to avoid unnecessary resolving', () => {
     it('should not check for the form data if there are no targets', async () => {
-      const handleResolved = jest.fn();
-
-      document.addEventListener('w-rules:resolved', handleResolved);
-
       await setup(`
     <form data-controller="w-rules" data-action="change->w-rules#resolve">
       <input type="checkbox" name="ignored" />
@@ -399,26 +418,26 @@ describe('RulesController', () => {
         document.querySelector('form').getAttribute('data-controller'),
       ).toBeTruthy();
 
-      expect(handleResolved).not.toHaveBeenCalled();
+      expect(eventListeners['w-rules:resolved']).not.toHaveBeenCalled();
 
       document
         .querySelector('input')
         .dispatchEvent(new Event('change', { bubbles: true }));
       await jest.runAllTimersAsync();
 
-      expect(handleResolved).not.toHaveBeenCalled();
+      expect(eventListeners['w-rules:resolved']).not.toHaveBeenCalled();
 
       // add a target & trigger a change event
 
       noteField.setAttribute('data-w-rules-target', 'enable');
       await jest.runAllTimersAsync();
 
-      expect(handleResolved).toHaveBeenCalledTimes(1);
+      expect(eventListeners['w-rules:resolved']).toHaveBeenCalledTimes(1);
 
       noteField.dispatchEvent(new Event('change', { bubbles: true }));
       await jest.runAllTimersAsync();
 
-      expect(handleResolved).toHaveBeenCalledTimes(2);
+      expect(eventListeners['w-rules:resolved']).toHaveBeenCalledTimes(2);
 
       // now remove the target and check that the event no longer fires
 
@@ -430,18 +449,12 @@ describe('RulesController', () => {
 
       await jest.runAllTimersAsync();
 
-      expect(handleResolved).toHaveBeenCalledTimes(2);
+      expect(eventListeners['w-rules:resolved']).toHaveBeenCalledTimes(2);
     });
   });
 
   describe('conditionally enabling a target', () => {
     it('should provide a way to conditionally enable a target and dispatch events', async () => {
-      const handleResolved = jest.fn();
-      const handleEffect = jest.fn();
-
-      document.addEventListener('w-rules:effect', handleEffect);
-      document.addEventListener('w-rules:resolved', handleResolved);
-
       await setup(`
     <form data-controller="w-rules" data-action="change->w-rules#resolve">
       <input type="checkbox" id="agreement-field" name="agreement">
@@ -461,8 +474,8 @@ describe('RulesController', () => {
 
       expect(checkbox.checked).toBe(false);
       expect(button.disabled).toBe(true);
-      expect(handleResolved).toHaveBeenCalledTimes(1);
-      expect(handleEffect).toHaveBeenCalledTimes(0); // no changes actually made to elements
+      expect(eventListeners['w-rules:resolved']).toHaveBeenCalledTimes(1);
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(0); // no changes actually made to elements
 
       checkbox.click();
       checkbox.dispatchEvent(
@@ -481,9 +494,9 @@ describe('RulesController', () => {
 
       expect(checkbox.checked).toBe(false);
       expect(button.disabled).toBe(true);
-      expect(handleResolved).toHaveBeenCalledTimes(3); // rules are resolved two additional times
-      expect(handleEffect).toHaveBeenCalledTimes(2); // two changes made to elements
-      expect(handleEffect.mock.calls[0][0]).toEqual(
+      expect(eventListeners['w-rules:resolved']).toHaveBeenCalledTimes(3); // rules are resolved two additional times
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(2); // two changes made to elements
+      expect(eventListeners['w-rules:effect'].mock.calls[0][0]).toEqual(
         expect.objectContaining({
           target: document.getElementById('continue'),
           detail: {
@@ -492,7 +505,7 @@ describe('RulesController', () => {
           },
         }),
       );
-      expect(handleEffect.mock.calls[1][0]).toEqual(
+      expect(eventListeners['w-rules:effect'].mock.calls[1][0]).toEqual(
         expect.objectContaining({
           target: document.getElementById('continue'),
           detail: {
@@ -501,6 +514,59 @@ describe('RulesController', () => {
           },
         }),
       );
+    });
+
+    it('should support the ability to stop the effect from being applied by preventing the effect event', async () => {
+      await setup(`
+    <form data-controller="w-rules" data-action="change->w-rules#resolve">
+      <input type="checkbox" id="agreement-field" name="agreement">
+      <button
+        id="continue"
+        type="button"
+        disabled
+        data-w-rules-target="enable"
+        data-w-rules="${_({ agreement: 'on' })}"
+      >
+        Continue
+      </button>
+    </form>`);
+
+      const button = document.getElementById('continue');
+      const checkbox = document.getElementById('agreement-field');
+
+      expect(button.disabled).toBe(true);
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(0);
+
+      // prevent the effect event the first time it's dispatched
+
+      eventListeners['w-rules:effect'].mockImplementationOnce((event) => {
+        event.preventDefault();
+      });
+
+      // update the checkbox & dispatch change
+
+      checkbox.click();
+      checkbox.dispatchEvent(
+        new Event('change', { bubbles: true, cancelable: false }),
+      );
+
+      await jest.runAllTimersAsync();
+
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(1);
+
+      // check that the button is still disabled
+      expect(button.disabled).toBe(true);
+
+      // trigger the effect a second time
+      checkbox.dispatchEvent(
+        new Event('change', { bubbles: true, cancelable: false }),
+      );
+      await jest.runAllTimersAsync();
+
+      // assert that the event was dispatched and this time the effect has not been prevented
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(2);
+
+      expect(button.disabled).toBe(false);
     });
 
     it('should ensure that the enabled/disabled attributes sync once connected', async () => {
@@ -725,6 +791,56 @@ describe('RulesController', () => {
       await jest.runAllTimersAsync();
 
       expect(alert.hidden).toBe(false);
+    });
+
+    it('should support the ability to stop the effect from being applied by preventing the effect event', async () => {
+      await setup(`
+    <form id="form" data-controller="w-rules" data-action="change->w-rules#resolve">
+      <div
+        id="alert"
+        data-w-rules-target="show"
+        data-w-rules="${_({ email: '' })}"
+      >
+        Please enter your email before continuing.
+      </div>
+      <input type="email" id="email-field" name="email" />
+      <input type="text" id="name-field" name="name" />
+    </form>`);
+
+      const nameField = document.getElementById('name-field');
+      const emailField = document.getElementById('email-field');
+      const alert = document.getElementById('alert');
+
+      expect(alert.hidden).toBe(false);
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(0);
+
+      // prevent the effect event the first time it's dispatched
+
+      eventListeners['w-rules:effect'].mockImplementationOnce((event) => {
+        event.preventDefault();
+      });
+
+      // add a non-empty email value
+      emailField.value = 'joe@email.co';
+
+      emailField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(1);
+
+      // check the element is still hidden
+      expect(alert.hidden).toBe(false);
+
+      // trigger the effect a second time
+      emailField.dispatchEvent(
+        new Event('change', { bubbles: true, cancelable: false }),
+      );
+      await jest.runAllTimersAsync();
+
+      // assert that the event was dispatched and this time the effect has not been prevented
+      expect(eventListeners['w-rules:effect']).toHaveBeenCalledTimes(2);
+
+      expect(alert.hidden).toBe(true);
     });
 
     it('should ensure that the hidden attribute will be synced with the desired match once connected', async () => {
