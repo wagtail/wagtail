@@ -229,6 +229,31 @@ export class RulesController extends Controller<
         if (effectEvent.defaultPrevented) return;
 
         apply();
+
+        // special handling of select fields to avoid selected values from being kept as selected
+        if (!result && target instanceof HTMLOptionElement && target.selected) {
+          const select = target.closest('select');
+          if (!select) return;
+
+          const resetValue =
+            Array.from(select.options).find((option) => option.defaultSelected)
+              ?.value || '';
+
+          const currentValue = select.value;
+
+          // Do nothing if the current value is the reset value to avoid 'change' event loops
+          if (currentValue === resetValue) return;
+
+          select.value = resetValue;
+
+          // dispatch change event (on select)
+          this.dispatch('change', {
+            prefix: '',
+            target: select,
+            bubbles: true,
+            cancelable: false,
+          });
+        }
       });
     });
 

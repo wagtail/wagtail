@@ -153,6 +153,119 @@ const ShowTemplate = ({ debug = false }) => (
   </StimulusWrapper>
 );
 
+/**
+ * Example of the `show` & `enable` target usage within the RulesController for a
+ * more complex select field scenario.
+ */
+const FilteredSelectTemplate = ({ debug = false }) => {
+  const data = [
+    [
+      ['pressure', 'Pressure'],
+      [
+        ['espresso', 'Espresso'],
+        ['moka', 'Moka pot'],
+        ['aeropress', 'Aeropress'],
+      ],
+    ],
+    [
+      ['steep', 'Steeping'],
+      [
+        ['french-press', 'French press'],
+        ['vacuum-pot', 'Vacuum pot'],
+        ['bag', 'Coffee bag'],
+      ],
+    ],
+    [['boil', 'Boiling'], [['turkish', 'Turkish coffee']]],
+    [
+      ['filter', 'Filter and drip'],
+      [
+        ['chemex', 'Chemex'],
+        ['kalita', 'Kalita Wave'],
+        ['cold-drip', 'Cold drip'],
+      ],
+    ],
+  ];
+
+  const METHOD = 'method';
+
+  return (
+    <StimulusWrapper debug={debug} definitions={definitions}>
+      <form
+        method="get"
+        data-controller="w-rules"
+        // avoid accidental submissions with preventing submit
+        data-action="change->w-rules#resolve submit->w-rules#resolve:prevent"
+      >
+        <fieldset>
+          <legend>
+            An example of using both <strong>show</strong> &{' '}
+            <strong>enable</strong> targets to filter a secondary select field.
+            <br /> Also shows that invalid selections will be cleared.
+          </legend>
+          <div className="w-field__wrapper">
+            <div className="w-field w-field--select">
+              <label className="w-field__label" htmlFor="method">
+                Brewing method
+              </label>
+              <div className="w-field__input">
+                <select id="method" name={METHOD}>
+                  <option value="">--------</option>
+                  {data.map(([[group, label]]) => (
+                    <option key={group} value={group}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="w-field__wrapper">
+            <label className="w-field__label" htmlFor="style">
+              Coffee style
+            </label>
+            <div className="w-field w-field--select">
+              <div className="w-field__input">
+                <select id="style" name="style">
+                  <option value="">--------</option>
+                  {data.map(([[group], items]) =>
+                    items.map(([value, label]) => (
+                      <option
+                        key={`${group}-${value}`}
+                        value={value}
+                        data-w-rules-target="show enable"
+                        // show & enable if empty value is selected or the group
+                        data-w-rules={`{"method":["","${group}"]}`}
+                      >
+                        {label}
+                      </option>
+                    )),
+                  )}
+                  <option
+                    value="pressure"
+                    data-w-rules-target="show enable"
+                    data-w-rules={`{"method":["boil"]}`}
+                  >
+                    Turkish coffee
+                  </option>
+                  <option
+                    value="pressure"
+                    data-w-rules-target="show enable"
+                    data-w-rules={`{"method":["boil"]}`}
+                  >
+                    Turkish coffee
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </StimulusWrapper>
+  );
+};
+
 export const Enable = EnableTemplate.bind({});
 
 export const Show = ShowTemplate.bind({});
+
+export const FilteredSelect = FilteredSelectTemplate.bind({});
