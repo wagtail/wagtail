@@ -19,6 +19,11 @@ enum Match {
 
 type RuleEntry = [string, string[]];
 
+type EffectHandler = (
+  target: FormControlElement | HTMLElement,
+  result: boolean,
+) => (() => void) | null;
+
 /**
  * Form control elements that can support the `disabled` attribute.
  *
@@ -106,12 +111,32 @@ export class RulesController extends Controller<
   }
 
   /**
-   * Resolve the conditional targets based on the form data and the target(s)
-   * rule attributes and the controlled element's form data.
+   * Effect handlers to first determine if the effect needs to be applied,
+   * if it does, it will return a function to apply the effect.
    */
-  resolve() {
-    if (!this.hasEnableTarget && !this.hasShowTarget) return;
+  get effectHandlers(): Record<Effect, EffectHandler> {
+    return {
+      [Effect.Enable]: (target, result) => {
+        if (!('disabled' in target)) return null;
+        if (result === !target.disabled) return null;
+        return () => {
+          target.disabled = !result;
+        };
+      },
+      [Effect.Show]: (target, result) => {
+        if (result === !target.hidden) return null;
+        return () => {
+          target.hidden = !result;
+        };
+      },
+    };
+  }
 
+  /**
+   * Returns an object of match functions that will be used to match against
+   * the current state of the form data.
+   */
+  get matchers(): Record<Match, (rules: RuleEntry[]) => boolean> {
     const formData = new FormData(this.form);
 
     const checkFn = ([fieldName, allowedValues]) => {
@@ -122,49 +147,71 @@ export class RulesController extends Controller<
       return allowedValues.some((validValue) => values.includes(validValue));
     };
 
-    this.enableTargets.forEach((target) => {
-      const effect = Effect.Enable;
-      const { match, rules } = this.parseRules(target, effect);
+    return {
+      [Match.Any]: (rules) => rules.some(checkFn),
+      [Match.All]: (rules) => rules.every(checkFn),
+    };
+  }
 
-      const enable =
-        match === Match.Any ? rules.some(checkFn) : rules.every(checkFn);
+  /**
+   * Resolve the conditional targets based on the form data and the target(s)
+   * rule attributes and the controlled element's form data.
+   */
+  resolve() {
+    if (!this.hasEnableTarget && !this.hasShowTarget) return;
 
-      if (enable === !target.disabled) return;
+    const effectHandlers = this.effectHandlers;
+    const matchers = this.matchers;
 
-      const event = this.dispatch('effect', {
-        bubbles: true,
-        cancelable: true,
-        detail: { effect, enable },
-        target,
-      });
-
-      if (event.defaultPrevented) return;
-
-      target.disabled = !enable;
-    });
-
-    this.showTargets.forEach((target) => {
-      const effect = Effect.Show;
-      const { match, rules } = this.parseRules(target, effect);
-
-      const show =
-        match === Match.Any ? rules.some(checkFn) : rules.every(checkFn);
-
-      if (show === !target.hidden) return;
-
-      const event = this.dispatch('effect', {
-        bubbles: true,
-        cancelable: true,
-        detail: { effect, show },
-        target,
-      });
-
-      if (event.defaultPrevented) return;
-
-      target.hidden = !show;
-    });
+    this.enableTargets.forEach(
+      this.processTarget.bind(
+        this,
+        { effect: Effect.Enable, effectHandler: effectHandlers[Effect.Enable] },
+        matchers,
+      ),
+    );
+    this.showTargets.forEach(
+      this.processTarget.bind(
+        this,
+        { effect: Effect.Show, effectHandler: effectHandlers[Effect.Show] },
+        matchers,
+      ),
+    );
 
     this.dispatch('resolved', { bubbles: true, cancelable: false });
+  }
+
+  /**
+   * Processes the target for the specified effect  that will apply the
+   * effect to the target element based on the provided matcher functions
+   * that use the current state of the form data and the target's rules.
+   *
+   * It will also dispatch an `effect` event that can be prevented to stop
+   * it before the effect is applied.
+   */
+  processTarget(
+    { effect, effectHandler }: { effect: Effect; effectHandler: EffectHandler },
+    matchers: Record<Match, (rules: RuleEntry[]) => boolean>,
+    target: FormControlElement | HTMLElement,
+  ) {
+    const { match, rules } = this.parseRules(target, effect);
+    const result = matchers[match](rules);
+
+    const apply = effectHandler(target, result);
+
+    if (
+      !apply ||
+      this.dispatch('effect', {
+        bubbles: true,
+        cancelable: true,
+        detail: { effect, [effect]: result },
+        target,
+      }).defaultPrevented
+    ) {
+      return;
+    }
+
+    apply();
   }
 
   /**
