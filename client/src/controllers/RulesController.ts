@@ -12,9 +12,19 @@ enum Effect {
   Show = 'show',
 }
 
+/**
+ * Match values determine how rules are resolved from the form data
+ * to determine if the rule has been satisfied.
+ *
+ * @remarks
+ * Match values are inspired by JSON Schema's `allOf`, `anyOf`, `oneOf`, and `not` keywords,
+ * @see https://json-schema.org/understanding-json-schema/reference/combining
+ */
 enum Match {
   All = 'all', // Default
   Any = 'any',
+  Not = 'not',
+  One = 'one',
 }
 
 type RuleEntry = [string, string[]];
@@ -68,11 +78,29 @@ type FormControlElement =
  *   <input type="text" name="other-drink" data-w-rules-target="show" data-w-rules='{"fav-drink": ["other"]}'>
  * </form>
  * ```
+ *
+ * @example - Use match to apply different sets of rules
+ * <form data-controller="w-rules" data-action="change->w-rules#resolve">
+ *   <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+ *   <input type="email" id="email" name="email" required>
+ *   <output name="summary" for="file email">
+ *     <span data-w-rules='{"avatar": [""], "email": [""]}' data-w-rules-match="not" data-w-rules-target="show">Your profile details are ready.</span>
+ *     <span data-w-rules='{"avatar": [""], "email": [""]}' data-w-rules-match="any" data-w-rules-target="show">Your profile details are missing.</span>
+ *   </output>
+ * </form>
+ * ```
  */
 export class RulesController extends Controller<
   HTMLFormElement | FormControlElement
 > {
   static targets = ['enable', 'show'];
+
+  static values = {
+    match: { default: Match.All, type: String },
+  };
+
+  /** The matching strategy to use for the rules, defaults to `all` and used as the fallback if not provided. */
+  declare readonly matchValue: Match;
 
   /** Targets will be enabled if the target's rule matches the scoped form data, otherwise will be disabled. */
   declare readonly enableTargets: FormControlElement[];
@@ -84,7 +112,7 @@ export class RulesController extends Controller<
   declare readonly hasShowTarget: boolean;
 
   declare formCache: HTMLFormElement | null;
-  declare rulesCache: Record<string, { match: Match; rules: RuleEntry[] }>;
+  declare rulesCache: Record<string, RuleEntry[]>;
 
   initialize() {
     this.rulesCache = {};
@@ -148,8 +176,10 @@ export class RulesController extends Controller<
     };
 
     return {
-      [Match.Any]: (rules) => rules.some(checkFn),
       [Match.All]: (rules) => rules.every(checkFn),
+      [Match.Any]: (rules) => rules.some(checkFn),
+      [Match.Not]: (rules) => rules.filter(checkFn).length === 0,
+      [Match.One]: (rules) => rules.filter(checkFn).length === 1,
     };
   }
 
@@ -157,7 +187,7 @@ export class RulesController extends Controller<
    * Resolve the conditional targets based on the form data and the target(s)
    * rule attributes and the controlled element's form data.
    */
-  resolve() {
+  resolve(event?: Event) {
     if (!this.hasEnableTarget && !this.hasShowTarget) return;
 
     const effectHandlers = this.effectHandlers;
@@ -168,6 +198,7 @@ export class RulesController extends Controller<
         this,
         { effect: Effect.Enable, effectHandler: effectHandlers[Effect.Enable] },
         matchers,
+        event,
       ),
     );
     this.showTargets.forEach(
@@ -175,6 +206,7 @@ export class RulesController extends Controller<
         this,
         { effect: Effect.Show, effectHandler: effectHandlers[Effect.Show] },
         matchers,
+        event,
       ),
     );
 
@@ -192,9 +224,11 @@ export class RulesController extends Controller<
   processTarget(
     { effect, effectHandler }: { effect: Effect; effectHandler: EffectHandler },
     matchers: Record<Match, (rules: RuleEntry[]) => boolean>,
+    event,
     target: FormControlElement | HTMLElement,
   ) {
-    const { match, rules } = this.parseRules(target, effect);
+    const match = this.getMatchType(target, effect, event);
+    const rules = this.parseRules(target, effect);
     const result = matchers[match](rules);
 
     const apply = effectHandler(target, result);
@@ -215,6 +249,39 @@ export class RulesController extends Controller<
   }
 
   /**
+   * Get the match type for the specified target, effect or event
+   * so that the most specific match value can be used for this rules
+   * resolving.
+   *
+   * First check the event for provided params, then the target element
+   * for attributes, finally the controller's match value with default
+   * and error handling for edge cases.
+   */
+  getMatchType(
+    target: Element,
+    effect: Effect = Effect.Enable,
+    { params = {} }: { params?: { match?: Match } } = {},
+  ): Match {
+    const identifier = this.identifier;
+    const matchValues = Object.values(Match);
+    return [
+      params.match,
+      target.getAttribute(`data-${identifier}-${effect}-match`) ||
+        target.getAttribute(`data-${identifier}-match`),
+      this.matchValue,
+      Match.All, // ensure there's always a default value if all others are blank
+    ].find((value): value is Match => {
+      if (!value || typeof value !== 'string') return false;
+      if (matchValues.includes(value as Match)) return true;
+      this.context.handleError(
+        new Error(`Invalid match value: '${value}'.`),
+        `Match value must be one of: '${matchValues.join("', '")}'.`,
+      );
+      return false;
+    })!;
+  }
+
+  /**
    * Finds & parses the rules for the provided target by the rules attribute,
    * which is determined via the identifier and the provided effect name,
    * (e.g. `data-w-rules-enable`). Falling back to the generic attribute
@@ -226,13 +293,9 @@ export class RulesController extends Controller<
    * When parsing the rule, assume an `Object.entries` format or convert an
    * object to this format. Then ensure each value is an array of strings
    * for consistent comparison to FormData values.
-   *
-   * Support an override of the match value, via a rule entry with a string that
-   * is an empty string, as this will not be a valid field `name`.
    */
-  parseRules(target: Element, effect: Effect = Effect.Enable) {
-    const emptyRules = { match: Match.All, rules: [] };
-    if (!target) return emptyRules;
+  parseRules(target: Element, effect: Effect = Effect.Enable): RuleEntry[] {
+    if (!target) return [];
 
     let attribute = `data-${this.identifier}-${effect}`;
     let rulesRaw = target.getAttribute(attribute);
@@ -242,7 +305,7 @@ export class RulesController extends Controller<
       rulesRaw = target.getAttribute(attribute);
     }
 
-    if (!rulesRaw) return emptyRules;
+    if (!rulesRaw) return [];
 
     const cachedRule = this.rulesCache[rulesRaw];
     if (cachedRule) return cachedRule;
@@ -256,37 +319,22 @@ export class RulesController extends Controller<
         error,
         `Unable to parse rule at the attribute '${attribute}'.`,
       );
-      return emptyRules;
+      return [];
     }
 
     const rules = (
       Array.isArray(parsedRules) ? parsedRules : Object.entries(parsedRules)
     )
       .filter(Array.isArray)
-      .map(([fieldName = '', validValues = ''] = []) => [
-        fieldName,
-        castArray(validValues).map(String),
-      ]) as RuleEntry[];
-
-    const [, [match = Match.All] = []] =
-      rules.find(([key]) => key === '') || [];
-
-    if (!Object.values(Match).includes(match as Match)) {
-      this.context.handleError(
-        new Error(`Invalid match value: '${match}'.`),
-        `Match value must be one of: '${Object.values(Match).join("', '")}'.`,
+      .filter(([key]) => key)
+      .map(
+        ([fieldName = '', validValues = ''] = []) =>
+          [fieldName, castArray(validValues).map(String)] as RuleEntry,
       );
-      return emptyRules;
-    }
 
-    const newRules = {
-      match: match as Match,
-      rules: rules.filter(([key]) => key),
-    };
+    this.rulesCache[rulesRaw] = rules;
 
-    this.rulesCache[rulesRaw] = newRules;
-
-    return newRules;
+    return rules;
   }
 
   /* Target disconnection & reconnection */
