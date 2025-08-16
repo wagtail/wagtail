@@ -59,7 +59,7 @@ class FilteredModelChoiceIterator(django_filters.fields.ModelChoiceIterator):
     """
     A variant of Django's ModelChoiceIterator that, instead of yielding (value, label) tuples,
     returns (value, label, filter_value) so that FilteredSelect can drop filter_value into
-    the data-filter-value attribute.
+    the option's data-w-rules attribute.
     """
 
     def choice(self, obj):
@@ -103,7 +103,7 @@ class FilteredModelChoiceField(django_filters.fields.ModelChoiceField):
             elif callable(queryset):
                 queryset = queryset()
 
-        # Turn this queryset into a list of IDs that will become the 'data-filter-value' used to
+        # Turn this queryset into a list of IDs that will become the 'data-w-rules' values used to
         # filter this listing
         return queryset.values_list("pk", flat=True)
 
