@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 # Halim Turan <halim_turan_61@hotmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2015-2016
@@ -12,15 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-08-16 19:29+0300\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
+"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail documents"
@@ -44,6 +45,11 @@ msgstr "Herhangi bir belge düzenle"
 msgid "Choose"
 msgstr "Seç"
 
+#, fuzzy
+#| msgid "Delete document"
+msgid "Select documents in choosers"
+msgstr "Belge sil"
+
 msgid "title"
 msgstr "başla"
 
@@ -65,10 +71,97 @@ msgstr "belge"
 msgid "documents"
 msgstr "belgeler"
 
+#, fuzzy, python-format
+#| msgid "Add a document"
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Belge ekle"
+msgstr[1] "Belge ekle"
+
+#, fuzzy
+#| msgid "Add a document"
+msgid "Add tags to documents"
+msgstr "Belge ekle"
+
+#, fuzzy
+#| msgid "Are you sure you want to delete this document?"
+#| msgid_plural "Are you sure you want to delete these documents?"
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Bu dokümanları silmek istediğinize emin misiniz?"
+msgstr[1] "Bu dokümanları silmek istediğinize emin misiniz?"
+
+#, fuzzy
+#| msgid "You need a password to access this document."
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Bu belgeye erişebilmeniz için şifre gerekiyor."
+msgstr[1] "Bu belgeye erişebilmeniz için şifre gerekiyor."
+
+#, fuzzy
+#| msgid "Yes, delete"
+msgid "Yes, add"
+msgstr "Evet, sil"
+
+#, fuzzy
+#| msgid "No, don't delete"
+msgid "No, don't add"
+msgstr "Hayır, silme"
+
+#, fuzzy, python-format
+#| msgid "Add to collection:"
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Koleksiyona ekle:"
+msgstr[1] "Koleksiyona ekle:"
+
+#, fuzzy
+#| msgid "Add to collection:"
+msgid "Add documents to collection"
+msgstr "Koleksiyona ekle:"
+
+#, fuzzy
+#| msgid "Are you sure you want to delete this document?"
+#| msgid_plural "Are you sure you want to delete these documents?"
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] "Bu dokümanları silmek istediğinize emin misiniz?"
+msgstr[1] "Bu dokümanları silmek istediğinize emin misiniz?"
+
+#, fuzzy
+#| msgid "You haven't uploaded any documents in this collection."
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Bu koleksiyone henüz belge yüklemediniz."
+msgstr[1] "Bu koleksiyone henüz belge yüklemediniz."
+
+#, fuzzy, python-format
+#| msgid "Delete document"
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Belge sil"
+msgstr[1] "Belge sil"
+
+#, fuzzy
+#| msgid "Delete document"
+msgid "Delete documents"
+msgstr "Belge sil"
+
 msgid "Are you sure you want to delete this document?"
 msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "Bu dokümanları silmek istediğinize emin misiniz?"
 msgstr[1] "Bu dokümanları silmek istediğinize emin misiniz?"
+
+#, fuzzy
+#| msgid "You need a password to access this document."
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Bu belgeye erişebilmeniz için şifre gerekiyor."
+msgstr[1] "Bu belgeye erişebilmeniz için şifre gerekiyor."
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
@@ -79,11 +172,22 @@ msgstr "Hayır, silme"
 msgid "Latest documents"
 msgstr "En yeni belgeler"
 
+#, fuzzy, python-format
+#| msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Bu koleksiyone henüz belge yüklemediniz."
 
 msgid "You haven't uploaded any documents."
 msgstr "Hiç belge yüklemediniz."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
 
 msgid "Change document:"
 msgstr "Belgeyi değiştir:"
@@ -112,6 +216,9 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s kez kullanıldı"
 msgstr[1] "%(usage_count)s kez kullanıldı"
 
+msgid "Select all documents in listing"
+msgstr "Listelemedeki tüm belgeleri seç"
+
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
@@ -131,6 +238,14 @@ msgid ""
 msgstr ""
 "Hiç belge yüklemediniz. Neden <a "
 "href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
+
+#, python-format
+msgid ""
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Add multiple documents"
 msgstr "Birden fazla belge akle"
@@ -155,6 +270,11 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Üzgünüm, yükleme başarısız oldu."
 
+#, fuzzy
+#| msgid "Document"
+msgid "Document updated."
+msgstr "Belge"
+
 msgid "You need a password to access this document."
 msgstr "Bu belgeye erişebilmeniz için şifre gerekiyor."
 
@@ -164,11 +284,61 @@ msgstr "Belge izinleri"
 msgid "Add a document permission"
 msgstr "Bir belge izni ekle"
 
+msgid "Tags"
+msgstr "Etiketler"
+
+msgid "Tag"
+msgstr "Etiket"
+
+#, fuzzy
+#| msgid "Add multiple documents"
+msgid "Add tags to the selected documents"
+msgstr "Seçilen belgelere etiket ekle"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "%(num_parent_objects)d belgeye yeni etiketler eklendi"
+msgstr[1] "%(num_parent_objects)d belgeye yeni etiketler eklendi"
+
+#, fuzzy
+#| msgid "Add to collection:"
+msgid "Add to collection"
+msgstr "Koleksiyona ekle:"
+
+#, fuzzy
+#| msgid "Add/edit documents you own"
+msgid "Add selected documents to collection"
+msgstr "Sahip olduğunuz belgeleri ekleyin/düzenleyin"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d belge %(collection)s koleksiyonuna eklendi"
+msgstr[1] "%(num_parent_objects)d belge %(collection)s koleksiyonuna eklendi"
+
 msgid "Delete"
 msgstr "Sil"
 
+#, fuzzy
+#| msgid "Delete document"
+msgid "Delete selected documents"
+msgstr "Belge sil"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d belge silindi"
+msgstr[1] "%(num_parent_objects)d belge silindi"
+
 msgid "File"
 msgstr "Dosya"
+
+#, fuzzy
+#| msgid "created at"
+msgid "Created"
+msgstr "oluşturulma zamanı"
 
 msgid "Choose a document"
 msgstr "Belge seç"
@@ -184,6 +354,11 @@ msgstr "Belgeler"
 
 msgid "Title"
 msgstr "Başlık"
+
+#, fuzzy
+#| msgid "The document could not be saved due to errors."
+msgid "The document could not be created due to errors."
+msgstr "Hata nediyle belge kaydedilemedi."
 
 #, python-format
 msgid "Document '%(document_title)s' added."
