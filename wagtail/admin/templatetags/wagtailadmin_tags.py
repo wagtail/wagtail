@@ -1175,6 +1175,7 @@ def formattedfield(
     label_text=None,
     error_message_id=None,
     wrapper_id=None,
+    attrs=None,
 ):
     """
     Renders a form field in standard Wagtail admin layout.
@@ -1192,12 +1193,15 @@ def formattedfield(
     - `label_text` - Manually set this if the field’s HTML is hard-coded.
     - `error_message_id` - ID of the error message container element.
     - `wrapper_id` - ID of the overall wrapper element.
+    - `attrs` - Dict of additional HTML attributes to add to the field wrapper element, `data-field-wrapper` will be included by default.
     """
 
     label_for = id_for_label or (field and field.id_for_label) or ""
 
     context = {
         "classname": classname,
+        # Ensure data-field-wrapper is always present
+        "attrs": {**(attrs or {}), "data-field-wrapper": True},
         "show_label": show_label,
         "sr_only_label": sr_only_label,
         "icon": icon,
