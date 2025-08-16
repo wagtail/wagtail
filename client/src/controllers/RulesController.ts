@@ -3,6 +3,10 @@ import { Controller } from '@hotwired/stimulus';
 import { castArray } from '../utils/castArray';
 import { debounce } from '../utils/debounce';
 
+/**
+ * Enum for the different effects that can be applied to form controls,
+ * determined by the different controller targets and rules.
+ */
 enum Effect {
   Enable = 'enable',
   Show = 'show',
@@ -12,6 +16,8 @@ enum Match {
   All = 'all', // Default
   Any = 'any',
 }
+
+type RuleEntry = [string, string[]];
 
 /**
  * Form control elements that can support the `disabled` attribute.
@@ -73,10 +79,7 @@ export class RulesController extends Controller<
   declare readonly hasShowTarget: boolean;
 
   declare formCache: HTMLFormElement | null;
-  declare rulesCache: Record<
-    string,
-    { match: Match; rules: [string, string[]][] }
-  >;
+  declare rulesCache: Record<string, { match: Match; rules: RuleEntry[] }>;
 
   initialize() {
     this.rulesCache = {};
@@ -216,7 +219,7 @@ export class RulesController extends Controller<
       .map(([fieldName = '', validValues = ''] = []) => [
         fieldName,
         castArray(validValues).map(String),
-      ]) as [string, string[]][];
+      ]) as RuleEntry[];
 
     const [, [match = Match.All] = []] =
       rules.find(([key]) => key === '') || [];
