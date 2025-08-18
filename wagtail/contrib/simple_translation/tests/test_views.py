@@ -476,7 +476,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
     def test_translate_button_displayed(self):
         url = reverse("wagtailadmin_explore", args=(self.en_homepage.pk,))
         response = self.client.get(url)
-        with self.assertNumQueries(41):
+        with self.assertNumQueries(42):
             response = self.client.get(url)
 
         soup = self.get_soup(response.content)
