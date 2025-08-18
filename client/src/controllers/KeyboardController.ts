@@ -5,6 +5,12 @@ import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { forceFocus } from '../utils/forceFocus';
+
+export enum KeyboardAction {
+  CLICK = 'click',
+  FOCUS = 'focus',
+}
 
 /**
  * Adds the ability to trigger a button click event using a
@@ -40,6 +46,13 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  *   <button type="button" id="my-button" data-w-kbd-target="element">My Button</button>
  * </section>
  * ```
+ *
+ * @example - trigger a focus instead of a click
+ * ```html
+ * <input type="text" data-controller="w-kbd" data-w-kbd-action-value="focus" data-w-kbd-key-value="x">
+ *   Focus on this input with the <kbd>x</kbd> key.
+ * </input>
+ * ```
  */
 export class KeyboardController extends Controller<
   HTMLButtonElement | HTMLAnchorElement
@@ -47,17 +60,20 @@ export class KeyboardController extends Controller<
   static targets = ['element'];
 
   static values = {
+    action: { default: '', type: String },
     key: { default: '', type: String },
     scope: { default: '', type: String },
   };
 
+  /** The action to perform when the keyboard shortcut is triggered, uses `"click"` if not defined. */
+  declare actionValue: KeyboardAction;
   /** Keyboard shortcut string. */
   declare keyValue: string;
   /** Scope of the keyboard shortcut, defaults to the normal MouseTrap (non-input) scope. */
   declare scopeValue: '' | 'global';
 
   /** Allow an explicit target to be the element that the keyboard activates instead of the controlled element. */
-  declare readonly elementTargets: (HTMLButtonElement | HTMLAnchorElement)[];
+  declare readonly elementTargets: HTMLElement[];
 
   /**
    * If custom keyboard shortcuts are disabled by user in settings then controller will not be loaded.
@@ -85,15 +101,36 @@ export class KeyboardController extends Controller<
   }
 
   /**
-   * Handle the key event by preventing the default action and triggering a click on the target element.
+   * Handle the key event by preventing the default action and performing the specified action.
    */
   handleKey(event: Event) {
     if (event.preventDefault) event.preventDefault();
-    [
-      this.elementTargets.length > 0 ? this.elementTargets[0] : this.element,
-    ].forEach((target) => {
-      target.click();
-    });
+    const targetElement =
+      this.elementTargets.length > 0 ? this.elementTargets[0] : this.element;
+    if (this.actionValue === KeyboardAction.FOCUS) {
+      this.handleFocus(targetElement);
+    } else {
+      this.handleClick(targetElement);
+    }
+  }
+
+  /**
+   * Handle the click action on target element.
+   */
+  handleClick(target: HTMLElement) {
+    target.click();
+  }
+
+  /**
+   * Handle the focus action on target element. If it is an input element containing text,
+   * also selects the existing text inside the field.
+   */
+  handleFocus(target: HTMLElement) {
+    forceFocus(target);
+
+    if (target instanceof HTMLInputElement && target.value && target.select) {
+      target.select();
+    }
   }
 
   /**
