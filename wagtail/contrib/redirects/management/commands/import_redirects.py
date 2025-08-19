@@ -1,7 +1,7 @@
 import os
 
 from django.core.management.base import BaseCommand
-
+from django.core.cache import cache
 from wagtail.contrib.redirects.base_formats import Dataset
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.utils import (
@@ -191,7 +191,9 @@ class Command(BaseCommand):
 
                 form.save()
                 successes += 1
+        cache.clear()
 
+        self.stdout.write(self.style.SUCCESS("... success message ..."))
         self.stdout.write("\n")
         self.stdout.write(f"Found: {total}")
         self.stdout.write(f"Created: {successes}")
