@@ -1,8 +1,8 @@
-from django.db import models, connection
+from django.db import connection, models
 from django.test import TestCase
+
 from wagtail.search import index
 from wagtail.search.backends import get_search_backend
-from django.test.utils import CaptureQueriesContext
 
 
 class Dummy(models.Model, index.Indexed):
@@ -31,13 +31,5 @@ class HyphenSearchTest(TestCase):
 
     def test_hyphenated_numbers_index_and_search(self):
         obj = Dummy.objects.create(title="Model-123")
-
-        with CaptureQueriesContext(connection) as ctx:
-            results = list(self.backend.search("Model-123", Dummy))
-
-        print("\n--- Executed SQL ---")
-        for q in ctx.captured_queries:
-            print(q["sql"], "TIME:", q["time"])
-        print("--- End SQL ---\n")
-
+        results = list(self.backend.search("Model-123", Dummy))
         self.assertIn(obj, results)

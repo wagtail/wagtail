@@ -425,12 +425,16 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         elif isinstance(query, Boost):
             warnings.warn(
                 "The Boost query is not supported by the PostgreSQL search backend.",
-                RuntimeWarning
+                RuntimeWarning,
             )
-            return self.build_tsquery_content(query.subquery, config=config, invert=invert)
+            return self.build_tsquery_content(
+                query.subquery, config=config, invert=invert
+            )
 
         elif isinstance(query, Not):
-            return self.build_tsquery_content(query.subquery, config=config, invert=not invert)
+            return self.build_tsquery_content(
+                query.subquery, config=config, invert=not invert
+            )
 
         elif isinstance(query, (And, Or)):
             subqueries = [
@@ -449,8 +453,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         raise NotImplementedError(
             f"`{query.__class__.__name__}` is not supported by the PostgreSQL search backend."
         )
-        
-        
+
     def build_tsquery(self, query, config=None):
         return self.build_tsquery_content(query, config=config)
 
