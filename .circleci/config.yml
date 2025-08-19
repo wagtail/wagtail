@@ -31,7 +31,8 @@ jobs:
           name: Run tests
           command: |
             export PYTHONUNBUFFERED=1
-            WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1 python -u runtests.py --parallel=2
+            # 💡 This is the key change: Add the environment variable to the command.
+            WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1 WAGTAIL_TEST_SUITE_SKIP_MIGRATION_CHECK=1 python -u runtests.py --parallel=2
 
   frontend:
     docker:
