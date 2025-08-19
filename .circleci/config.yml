@@ -31,7 +31,7 @@ jobs:
           name: Run tests
           command: |
             export PYTHONUNBUFFERED=1
-            WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1 python -u runtests.py --parallel=2 --exclude test_hyphen_backend.py
+            WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1 python -u runtests.py --parallel=2 -k 'not test_hyphen_backend.py'
 
   frontend:
     docker:
