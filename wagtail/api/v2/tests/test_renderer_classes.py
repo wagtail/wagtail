@@ -6,6 +6,7 @@ from django.urls import reverse
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 
 from wagtail.api.v2.views import BaseAPIViewSet
+from wagtail.test.numberformat import ignore_numberformat
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -60,9 +61,10 @@ class TestBaseAPIViewSetRendererClasses(WagtailTestUtils, TestCase):
 
     def test_api_response_returns_html_with_html_accept_header(self):
         """Test that API returns HTML when HTML is explicitly requested via Accept header."""
-        response = self.client.get(
-            reverse("wagtailapi_v2:pages:listing"), HTTP_ACCEPT="text/html"
-        )
+        with ignore_numberformat(["rest_framework/base.html"]):
+            response = self.client.get(
+                reverse("wagtailapi_v2:pages:listing"), HTTP_ACCEPT="text/html"
+            )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
@@ -74,10 +76,11 @@ class TestBaseAPIViewSetRendererClasses(WagtailTestUtils, TestCase):
 
     def test_api_response_returns_html_with_browser_accept_header(self):
         """Test that API returns HTML when accessed with typical browser Accept headers."""
-        response = self.client.get(
-            reverse("wagtailapi_v2:pages:listing"),
-            HTTP_ACCEPT="text/html,application/xhtml+xml,application/xml;q=0.9",
-        )
+        with ignore_numberformat(["rest_framework/base.html"]):
+            response = self.client.get(
+                reverse("wagtailapi_v2:pages:listing"),
+                HTTP_ACCEPT="text/html,application/xhtml+xml,application/xml;q=0.9",
+            )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
