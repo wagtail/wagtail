@@ -377,17 +377,41 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 return self.get_search_field(sub_field_name, field.fields)
 
     def build_tsquery_content(self, query, config=None, invert=False):
+        def _lexeme_for_term(term: str, *, is_last: bool, invert_flag: bool):
+            """
+            Build a Lexeme (or combined lexeme) for possibly-hyphenated term.
+            - If the term contains hyphens, split into non-empty parts.
+            - AND the parts together (e.g., 'p-8a' → 'p' & '8a').
+            - OR with the full hyphenated term to cover cases where the token may exist intact.
+            - Use prefix matching only on the last term if configured.
+            """
+            prefix_flag = is_last and self.LAST_TERM_IS_PREFIX
+
+            if "-" not in term:
+                return Lexeme(term, invert=invert_flag, prefix=prefix_flag)
+
+            parts = [p for p in term.split("-") if p]
+            if not parts:
+                return Lexeme(term, invert=invert_flag, prefix=prefix_flag)
+
+            combined = None
+            for part in parts:
+                part_lex = Lexeme(part, invert=invert_flag, prefix=prefix_flag)
+                combined = part_lex if combined is None else (combined & part_lex)
+
+            full_lex = Lexeme(term, invert=invert_flag, prefix=prefix_flag)
+            return combined | full_lex
+
         if isinstance(query, PlainText):
             terms = query.query_string.split()
             if not terms:
                 return None
 
             last_term = terms.pop()
+            lexemes = _lexeme_for_term(last_term, is_last=True, invert_flag=invert)
 
-            lexemes = Lexeme(last_term, invert=invert, prefix=self.LAST_TERM_IS_PREFIX)
             for term in terms:
-                new_lexeme = Lexeme(term, invert=invert)
-
+                new_lexeme = _lexeme_for_term(term, is_last=False, invert_flag=invert)
                 if query.operator == "and":
                     lexemes &= new_lexeme
                 else:
@@ -399,55 +423,34 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             return SearchQuery(query.query_string, search_type="phrase", config=config)
 
         elif isinstance(query, Boost):
-            # Not supported
-            msg = "The Boost query is not supported by the PostgreSQL search backend."
-            warnings.warn(msg, RuntimeWarning)
-
-            return self.build_tsquery_content(
-                query.subquery, config=config, invert=invert
+            warnings.warn(
+                "The Boost query is not supported by the PostgreSQL search backend.",
+                RuntimeWarning
             )
+            return self.build_tsquery_content(query.subquery, config=config, invert=invert)
 
         elif isinstance(query, Not):
-            return self.build_tsquery_content(
-                query.subquery, config=config, invert=not invert
-            )
+            return self.build_tsquery_content(query.subquery, config=config, invert=not invert)
 
         elif isinstance(query, (And, Or)):
-            # If this part of the query is inverted, we swap the operator and
-            # pass down the inversion state to the child queries.
-            # This works thanks to De Morgan's law.
-            #
-            # For example, the following query:
-            #
-            #   Not(And(Term("A"), Term("B")))
-            #
-            # Is equivalent to:
-            #
-            #   Or(Not(Term("A")), Not(Term("B")))
-            #
-            # It's simpler to code it this way as we only need to store the
-            # invert status of the terms rather than all the operators.
-
-            subquery_lexemes = [
-                self.build_tsquery_content(subquery, config=config, invert=invert)
-                for subquery in query.subqueries
+            subqueries = [
+                self.build_tsquery_content(sub, config=config, invert=invert)
+                for sub in query.subqueries
             ]
-
             is_and = isinstance(query, And)
-
             if invert:
                 is_and = not is_and
 
             if is_and:
-                return reduce(lambda a, b: a & b, subquery_lexemes)
+                return reduce(lambda a, b: a & b, subqueries)
             else:
-                return reduce(lambda a, b: a | b, subquery_lexemes)
+                return reduce(lambda a, b: a | b, subqueries)
 
         raise NotImplementedError(
-            "`%s` is not supported by the PostgreSQL search backend."
-            % query.__class__.__name__
+            f"`{query.__class__.__name__}` is not supported by the PostgreSQL search backend."
         )
-
+        
+        
     def build_tsquery(self, query, config=None):
         return self.build_tsquery_content(query, config=config)
 
