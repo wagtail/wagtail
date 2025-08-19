@@ -180,13 +180,15 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.root_page.add_child(instance=event_page)
 
         orderings = {
-            "content_type": (
-                [self.new_page.id, self.old_page.id, event_page.id],
-                "-content_type",
+            "content_type__model": (
+                # SimplePage, SingleEventPage, StandardIndex
+                [self.new_page.id, event_page.id, self.old_page.id],
+                "-content_type__model",
             ),
-            "-content_type": (
-                [event_page.id, self.old_page.id, self.new_page.id],
-                "content_type",
+            "-content_type__model": (
+                # StandardIndex, SingleEventPage, SimplePage
+                [self.old_page.id, event_page.id, self.new_page.id],
+                "content_type__model",
             ),
         }
         url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
