@@ -3,8 +3,25 @@
 
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     <a class="image-choice--list" href="{% url 'wagtailimages:edit' instance.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
-        <div class="image">
+        <div class="image hover-modal-wrapper">
             {% image instance max-165x165 class="show-transparency" %}
+            <!-- Modal shown on hover -->
+            <div class="hover-modal">
+                <p><strong>Metadata</strong></p>
+                <p>Size: {{ instance.width }}x{{ instance.height }}</p>
+                {% with instance.file.name|lower as filename %}
+                    {% if filename|slice:"-4:" == "jpeg" %}
+                        <p>Format: JPEG</p>
+                    {% else %}
+                        <p>Format: {{ filename|slice:"-3:"|upper }}</p>
+                    {% endif %}
+                {% endwith %}
+                {% widthratio instance.file_size 1024 1 as filesize_kb %}
+                <p>File Size: {{ filesize_kb }} KB</p>
+                <p>Uploaded: {{ instance.created_at|date:"M d, Y" }}</p>
+                <p>Last Edited: {{ instance.updated_at|date:"M d, Y" }}</p>
+            </div>
         </div>
     </a>
 </td>
+

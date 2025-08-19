@@ -71,6 +71,7 @@
                 </div>
             </div>
             <div class="right col9">
+            <!-- Existing status messages -->
                 <p class="error-message">{% trans "Please provide an image description to comply with best practices for accessibility." %}</p>
                 <p class="status-msg success">{% trans "Upload successful. Please update this image with a more appropriate title, if necessary. You may also delete the image completely if the upload wasn't required." %}</p>
                 <p class="status-msg warning">
@@ -84,9 +85,13 @@
                 </p>
                 <p class="status-msg update-success">{% trans "Image updated." %}</p>
                 <p class="status-msg failure error_messages"></p>
+
+            <!-- ✅ New Image Metadata Section -->
+                <div class="image-meta"></div>
             </div>
         </li>
     </template>
+
 {% endblock %}
 
 {% block extra_js %}
@@ -105,4 +110,37 @@
 
     <!-- Main script -->
     <script src="{% versioned_static 'wagtailimages/js/add-multiple.js' %}"></script>
+    <script>
+        document.addEventListener("change", function (e) {
+            if (e.target.matches("input[type=file][accept^='image/']")) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const format = file.name.split('.').pop().toUpperCase();
+                const sizeKB = Math.round(file.size / 1024);
+
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    const img = new Image();
+                    img.onload = function() {
+                // ✅ Get all .image-meta elements and use the last one
+                        const metas = document.getElementsByClassName("image-meta");
+                        const metaDiv = metas[metas.length - 1]; // last .image-meta in DOM
+
+                        if (metaDiv) {
+                            metaDiv.innerHTML = `
+                    <p><strong>Format:</strong> ${format}</p>
+                    <p><strong>Size:</strong> ${sizeKB} KB</p>
+                    <p><strong>Dimensions:</strong> ${img.width} × ${img.height} px</p>
+                `;
+                        } else {
+                            console.warn("No .image-meta element found in DOM.");
+                        }
+                    };
+                    img.src = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 {% endblock %}

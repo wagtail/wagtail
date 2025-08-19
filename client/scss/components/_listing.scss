@@ -461,6 +461,30 @@ ul.listing {
   line-height: 0;
 }
 
+.hover-modal-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-modal {
+  display: none;
+  position: absolute;
+  top: 100%;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 200px;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+}
+
+.hover-modal-wrapper:hover .hover-modal {
+  display: block;
+}
+
 // stylelint-disable-next-line no-duplicate-selectors
 ul.listing {
   border-top: 1px dashed theme('colors.border-field-default');

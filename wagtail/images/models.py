@@ -275,6 +275,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     created_at = models.DateTimeField(
         verbose_name=_("created at"), auto_now_add=True, db_index=True
     )
+    updated_at = models.DateTimeField(
+        verbose_name=_("updated at"), auto_now=True, db_index=True
+    )
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("uploaded by user"),
