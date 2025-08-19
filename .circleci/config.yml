@@ -13,7 +13,6 @@ jobs:
       - run: |
           if [[ ! -e ".venv" ]]; then
               python -m venv .venv
-              source .venv/bin/activate
               python -m pip install -e .[testing,docs]
           fi
           echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
@@ -21,6 +20,11 @@ jobs:
           key: *venv-cache
           paths:
             - .venv
+      # Install PostgreSQL driver
+      - run:
+          name: Install psycopg
+          command: |
+            python -m pip install psycopg[binary]
       - run: ruff check .
       - run: ruff format --check .
       - run: semgrep --config .semgrep.yml --error .
@@ -32,8 +36,13 @@ jobs:
           command: |
             export PYTHONUNBUFFERED=1
             export WAGTAIL_TEST_SUITE_SKIP_MIGRATION_CHECK=1
-            # Use -k to exclude a single test
             python -u runtests.py --parallel=2 --postgres -k "not test_hyphenated_numbers_index_and_search"
+      - run:
+          name: Run Hyphen Search Test (serial)
+          command: |
+            export PYTHONUNBUFFERED=1
+            export WAGTAIL_TEST_SUITE_SKIP_MIGRATION_CHECK=1
+            python -u runtests.py wagtail.search.tests.test_hyphen_backend --postgres
 
   frontend:
     docker:
@@ -42,7 +51,6 @@ jobs:
       - checkout
       - restore_cache:
           key: frontend-v1-{{ checksum "package-lock.json" }}
-      # Only install if node_modules wasn’t cached.
       - run: |
           if [[ ! -e "node_modules" ]]; then
               npm install --no-save --no-optional --no-audit --no-fund --progress=false
@@ -52,7 +60,6 @@ jobs:
             - node_modules
           key: frontend-v1-{{ checksum "package-lock.json" }}
       - run: npm run build
-      # Save static files for subsequent jobs.
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -78,11 +85,9 @@ jobs:
       - run: python --version > .python_version
       - restore_cache:
           key: &ui_tests-venv-cache ui_tests-venv-v1-{{ checksum "pyproject.toml" }}-{{ checksum ".python_version" }}
-      # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
               python -m venv .venv
-              source .venv/bin/activate
               python -m pip install -e .[testing]
           fi
           echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
@@ -92,7 +97,6 @@ jobs:
             - .venv
       - restore_cache:
           key: &ui_tests-npm-cache ui_tests-npm_integration-v3-{{ checksum "client/tests/integration/package-lock.json" }}
-      # Only install if node_modules wasn’t cached.
       - run: |
           if [[ ! -e "client/tests/integration/node_modules" ]]; then
               npm --prefix ./client/tests/integration ci
@@ -101,8 +105,6 @@ jobs:
           key: *ui_tests-npm-cache
           paths:
             - client/tests/integration/node_modules
-            # Also cache the global location where Puppeteer stores browsers.
-            # https://pptr.dev/guides/configuration/#changing-the-default-cache-directory
             - ~/.cache/puppeteer
       - run: ./wagtail/test/manage.py migrate
       - run:
