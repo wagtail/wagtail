@@ -3,14 +3,14 @@ default_language_version:
   python: python3
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.9.6'
+    rev: 'v0.12.9'
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.1.0
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
         types_or: [css, scss, javascript, ts, tsx, json, yaml]
@@ -18,7 +18,7 @@ repos:
           # Keep in sync with package.json
           - prettier@3.6.2
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.56.0
+    rev: v9.33.0
     hooks:
       - id: eslint
         types: [file]
@@ -31,7 +31,7 @@ repos:
           - '@typescript-eslint/parser@6.21.0'
           - '@wagtail/eslint-config-wagtail@0.5.0'
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v15.11.0
+    rev: v16.23.1
     hooks:
       - id: stylelint
         files: \.scss$
@@ -45,11 +45,11 @@ repos:
       - id: curlylint
         args: ['--parse-only']
   - repo: https://github.com/rtts/djhtml
-    rev: 3.0.6
+    rev: 3.0.9
     hooks:
       - id: djhtml
   - repo: https://github.com/returntocorp/semgrep
-    rev: v1.40.0
+    rev: v1.89.0
     hooks:
       - id: semgrep
         files: \.py$

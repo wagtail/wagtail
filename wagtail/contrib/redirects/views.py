@@ -267,7 +267,7 @@ def start_import(request):
             % {"error_message": e},
         )
         return redirect("wagtailredirects:start_import")
-    except Exception as e:  # noqa: BLE001; pragma: no cover
+    except (OSError, ValueError) as e:
         messages.error(
             request,
             _("%(error)s encountered while trying to read file: %(filename)s")
