@@ -2,6 +2,7 @@ import datetime
 import json
 import unittest
 from unittest.mock import Mock
+from asgiref.sync import async_to_sync
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -72,6 +73,9 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.url_routing import RouteResult
+
+
+
 
 
 def get_ct(model):
@@ -348,6 +352,19 @@ class TestSiteRouting(TestCase):
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
+
+
+def test_asave_with_update_fields_none_saves_all_fields():
+    root = Page.get_first_root_node()
+    page = Page(title="Original title", slug="async-page")
+    root.add_child(instance=page)
+
+    # Call asave using async_to_sync
+    page.title = "Updated title"
+    async_to_sync(page.asave)(update_fields=None)
+
+    refreshed = Page.objects.get(id=page.id)
+    assert refreshed.title == "Updated title"
 
 class TestRouting(TestCase):
     fixtures = ["test.json"]
