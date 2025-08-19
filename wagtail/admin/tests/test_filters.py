@@ -75,7 +75,7 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
             users = FilteredModelChoiceField(
                 queryset=User.objects.order_by(User.USERNAME_FIELD),
                 filter_field="id_group",
-                filter_accessor=lambda user: user.groups.all(),
+                filter_accessor=lambda user: user.groups.all().order_by("name"),
             )
 
         form = UserForm()
@@ -83,7 +83,7 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
         expected_html = """
             <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
                 <option value="" selected>---------</option>
-                <option value="{david}" data-filter-value="{musicians},{actors}">{david_username}</option>
+                <option value="{david}" data-filter-value="{actors},{musicians}">{david_username}</option>
                 <option value="{kevin}" data-filter-value="{actors}">{kevin_username}</option>
                 <option value="{morten}" data-filter-value="{musicians}">{morten_username}</option>
             </select>
