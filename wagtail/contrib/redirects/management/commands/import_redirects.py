@@ -1,7 +1,8 @@
 import os
 
-from django.core.management.base import BaseCommand
 from django.core.cache import cache
+from django.core.management.base import BaseCommand
+
 from wagtail.contrib.redirects.base_formats import Dataset
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.utils import (

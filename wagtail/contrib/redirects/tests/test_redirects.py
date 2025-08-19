@@ -1,11 +1,11 @@
 from io import BytesIO
 
+from openpyxl.reader.excel import load_workbook
+
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from openpyxl.reader.excel import load_workbook
-from django.core.cache import cache
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.frontend_cache.tests import PURGED_URLS
