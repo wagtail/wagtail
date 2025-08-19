@@ -48,8 +48,8 @@ repos:
     rev: 3.0.6
     hooks:
       - id: djhtml
-  - repo: https://github.com/returntocorp/semgrep
-    rev: v1.40.0
+  - repo: https://github.com/semgrep/semgrep
+    rev: v1.132.0
     hooks:
       - id: semgrep
         files: \.(js|ts|tsx|html|py)$

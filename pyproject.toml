@@ -76,7 +76,7 @@ testing = [
   "doc8==1.1.2",
   "ruff==0.9.6",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.40.0",
+  "semgrep==1.132.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting
