@@ -1,5 +1,6 @@
 from django.test import TestCase
-from import_export.tmp_storages import CacheStorage
+
+from wagtail.contrib.redirects.tmp_storages import CacheStorage
 
 
 class TestCacheStorage(TestCase):
