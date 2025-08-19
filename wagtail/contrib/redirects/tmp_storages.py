@@ -24,7 +24,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-# Copied from: https://raw.githubusercontent.com/django-import-export/django-import-export/5795e114210adf250ac6e146db2fa413f38875de/import_export/tmp_storages.py
+# Copied from: https://github.com/django-import-export/django-import-export/blob/main/import_export/tmp_storages.py
 import os
 import tempfile
 from uuid import uuid4
@@ -49,6 +49,10 @@ class BaseStorage:
 
 
 class TempFolderStorage(BaseStorage):
+    """
+    Stores temporary files in the system temp folder.
+    """
+
     def open(self, mode="r"):
         if self.name:
             return open(self.get_full_path(), mode)
@@ -74,10 +78,12 @@ class TempFolderStorage(BaseStorage):
 
 class CacheStorage(BaseStorage):
     """
-    By default memcache maximum size per key is 1MB, be careful with large files.
+    Stores temporary data in Django’s cache backend.
+
+    ⚠️ By default memcache has a 1MB max size per key.
     """
 
-    CACHE_LIFETIME = 86400
+    CACHE_LIFETIME = 86400  # 24 hours
     CACHE_PREFIX = "django-import-export-"
 
     def save(self, data, mode=None):
@@ -86,13 +92,20 @@ class CacheStorage(BaseStorage):
         cache.set(self.CACHE_PREFIX + self.name, data, self.CACHE_LIFETIME)
 
     def read(self, read_mode="r"):
+        if not self.name:
+            return None
         return cache.get(self.CACHE_PREFIX + self.name)
 
     def remove(self):
-        cache.delete(self.name)
+        if self.name:
+            cache.delete(self.CACHE_PREFIX + self.name)
 
 
 class MediaStorage(BaseStorage):
+    """
+    Stores temporary data in Django’s default storage (usually MEDIA_ROOT).
+    """
+
     MEDIA_FOLDER = "django-import-export"
 
     def save(self, data, mode=None):
