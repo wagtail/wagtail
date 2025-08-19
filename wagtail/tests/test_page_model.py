@@ -3,6 +3,7 @@ import json
 import unittest
 from unittest.mock import Mock
 
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
@@ -194,6 +195,20 @@ class TestValidation(TestCase):
         homepage.add_child(instance=hello_page)
         retrieved_page = Page.objects.get(id=hello_page.id)
         self.assertEqual(retrieved_page.draft_title, "Hello world edited")
+
+
+class TestAsyncMethods(TestCase):
+    def test_asave_with_update_fields_none_saves_all_fields(self):
+        root = Page.get_first_root_node()
+        page = Page(title="Original title", slug="async-page")
+        root.add_child(instance=page)
+
+        # Call asave using async_to_sync
+        page.title = "Updated title"
+        async_to_sync(page.asave)()
+
+        refreshed = Page.objects.get(id=page.id)
+        assert refreshed.title == "Updated title"
 
 
 @override_settings(

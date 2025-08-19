@@ -739,7 +739,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Check that we are committing the slug to the database
             # Basically: If update_fields has been specified, and slug is not included, skip this step
             if not (
-                "update_fields" in kwargs and "slug" not in kwargs["update_fields"]
+                "update_fields" in kwargs
+                and kwargs["update_fields"] is not None
+                and "slug" not in kwargs["update_fields"]
             ):
                 # see if the slug has changed from the record in the db, in which case we need to
                 # update url_path of self and all descendants. Even though we might not need it,
