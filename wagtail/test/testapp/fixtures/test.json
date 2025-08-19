@@ -921,7 +921,8 @@
       "file": "original_images/missing.jpg",
       "width": 1000,
       "height": 1000,
-      "created_at": "2014-01-01T12:00:00.000Z"
+      "created_at": "2014-01-01T12:00:00.000Z",
+      "updated_at": "2014-01-01T12:00:00.000Z"
     }
   },
   {
@@ -932,7 +933,8 @@
       "file": "original_images/another.jpg",
       "width": 1000,
       "height": 1000,
-      "created_at": "2020-01-01T12:00:00.000Z"
+      "created_at": "2020-01-01T12:00:00.000Z",
+      "updated_at": "2014-01-01T12:00:00.000Z"
     }
   },
   {

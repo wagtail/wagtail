@@ -1005,6 +1005,10 @@ class Migration(migrations.Migration):
                         auto_now_add=True, db_index=True, verbose_name="created at"
                     ),
                 ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="updated at"),
+                ),
                 ("focal_point_x", models.PositiveIntegerField(blank=True, null=True)),
                 ("focal_point_y", models.PositiveIntegerField(blank=True, null=True)),
                 (
@@ -2223,6 +2227,10 @@ class Migration(migrations.Migration):
                         auto_now_add=True, db_index=True, verbose_name="created at"
                     ),
                 ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="updated at"),
+                ),
                 ("focal_point_x", models.PositiveIntegerField(blank=True, null=True)),
                 ("focal_point_y", models.PositiveIntegerField(blank=True, null=True)),
                 (
@@ -2337,6 +2345,10 @@ class Migration(migrations.Migration):
                 (
                     "created_at",
                     models.DateTimeField(auto_now_add=True, verbose_name="created at"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="updated at"),
                 ),
                 (
                     "collection",
@@ -2612,6 +2624,10 @@ class Migration(migrations.Migration):
                 (
                     "created_at",
                     models.DateTimeField(auto_now_add=True, verbose_name="created at"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="updated at"),
                 ),
                 ("file_size", models.PositiveIntegerField(editable=False, null=True)),
                 (
@@ -3856,6 +3872,10 @@ class Migration(migrations.Migration):
                         auto_now_add=True, db_index=True, verbose_name="created at"
                     ),
                 ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="updated at"),
+                ),
                 ("focal_point_x", models.PositiveIntegerField(blank=True, null=True)),
                 ("focal_point_y", models.PositiveIntegerField(blank=True, null=True)),
                 (
@@ -3927,6 +3947,10 @@ class Migration(migrations.Migration):
                 (
                     "created_at",
                     models.DateTimeField(auto_now_add=True, verbose_name="created at"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="updated at"),
                 ),
                 ("file_size", models.PositiveIntegerField(editable=False, null=True)),
                 (
@@ -4036,6 +4060,10 @@ class Migration(migrations.Migration):
                     models.DateTimeField(
                         auto_now_add=True, db_index=True, verbose_name="created at"
                     ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="updated at"),
                 ),
                 ("focal_point_x", models.PositiveIntegerField(blank=True, null=True)),
                 ("focal_point_y", models.PositiveIntegerField(blank=True, null=True)),
