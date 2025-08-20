@@ -10,6 +10,7 @@ Changelog
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
+ * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami)
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
  * Maintenance: Updated NPM packages and linting configuration (LB (Ben) Johnston)
  * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
