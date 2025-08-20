@@ -997,6 +997,10 @@ class TestFieldPanel(TestCase):
                 # Help text should still be rendered, too
                 self.assertIn("Not required if event is on a single day", result)
 
+                # No widget should be passed to telepath
+                js_widget = bound_panel.js_opts()["widget"]
+                self.assertIsNone(js_widget)
+
     def test_format_value_for_display_with_choicefield(self):
         result = self.read_only_audience_panel.format_value_for_display(
             self.event.audience
