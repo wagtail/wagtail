@@ -184,6 +184,25 @@ class GreetingsViewSet(ViewSet):
 class MiscellaneousViewSetGroup(ViewSetGroup):
     items = (CalendarViewSet, GreetingsViewSet)
     menu_label = "Miscellaneous"
+    submenu_hook = "register_submenu_greetings"
+
+
+class SubmenuHookGreetingsViewSet(ViewSet):
+    menu_label = "Submenu Hook Greetings"
+    icon = "user"
+    url_namespace = "submenu_hook_greetings"
+    url_prefix = "submenu_hook_greetingz"
+    menu_hook = "register_submenu_greetings"
+
+    def index(self, request):
+        return render(
+            request,
+            "tests/misc/greetings.html",
+            {"page_title": "Submenu Hook Greetings", "header_icon": self.icon},
+        )
+
+    def get_urlpatterns(self):
+        return [path("", self.index, name="index")]
 
 
 class JSONStreamModelViewSet(ModelViewSet):

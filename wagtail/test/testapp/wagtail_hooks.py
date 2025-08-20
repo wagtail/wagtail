@@ -42,6 +42,7 @@ from wagtail.test.testapp.views import (
     JSONModelViewSetGroup,
     MiscellaneousViewSetGroup,
     SearchTestModelViewSet,
+    SubmenuHookGreetingsViewSet,
     ToyViewSetGroup,
     advert_chooser_viewset,
     animated_advert_chooser_viewset,
@@ -255,9 +256,19 @@ def add_broken_links_summary_item(request, items):
 def register_viewsets():
     return [
         MiscellaneousViewSetGroup(),
+        # Registered on its own, but collected into MiscellaneousViewSetGroup's
+        # submenu via its `menu_hook` matching the group's `submenu_hook`.
+        SubmenuHookGreetingsViewSet(),
         JSONModelViewSetGroup(),
         SearchTestModelViewSet(name="searchtest"),
     ]
+
+
+@hooks.register("register_submenu_greetings")
+def register_submenu_greetings_menu_item():
+    # An arbitrary MenuItem (not a ViewSet) collected into the
+    # MiscellaneousViewSetGroup submenu via its `submenu_hook`.
+    return MenuItem("Submenu Hook Planner", "/admin/planner/", icon_name="edit")
 
 
 @hooks.register("register_admin_viewset")

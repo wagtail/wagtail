@@ -9,6 +9,7 @@ Changelog
 * Make `Button` component render a `<button>` element when no URL is supplied (Nayeli De Jesus, LB (Ben Johnston), Sage Abdullah)
 * Show site name in site switcher dropdown in site settings editor (Jack Morgan)
 * Improve clarity of different task states in workflow details dialog (Dan Braghis)
+* Add `submenu_hook` attribute to `ViewSetGroup` for collecting submenu items registered via a hook (Hunzlah Malik, MariyaOT, Sage Abdullah)
 * Fix: Make `SnippetChooserViewSet.widget_class` a class instead of an instance (Amrinder Singh, Sage Abdullah)
 * Fix: Prevent an error when approving a workflow that has been cancelled in a different session (Kailesh)
 * Fix: Accommodate multilingual sites in skipping the "choose parent" step when creating a new page from a flat page listing (Amrinder Singh)
