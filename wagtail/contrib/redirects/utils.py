@@ -12,7 +12,7 @@ def write_to_file_storage(import_file, input_format):
     for chunk in import_file.chunks():
         data += chunk
 
-    file_storage.save(data, input_format.get_read_mode())
+    file_storage.save(data)
     return file_storage
 
 
