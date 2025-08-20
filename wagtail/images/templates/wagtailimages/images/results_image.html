@@ -14,5 +14,33 @@
 {% endcomment %}
 
 {% load wagtailimages_tags %}
+{% load i18n l10n %}
 
-<div class="image">{% image image max-165x165 class="show-transparency" alt="" %}</div>
+
+<div class="image-wrapper">
+  <div class="image border border-gray-300 rounded-md overflow-hidden">
+    {% image image max-165x165 class="show-transparency" alt=image.title %}
+  </div>
+
+  <!-- Hover modal -->
+  <div class="metadata-modal">
+    <p><strong>Title:</strong> {{ image.title }}</p>
+    <p><strong>Size:</strong> {{ image.width|localize }} × {{ image.height|localize }} px</p>
+    {% with image.file.name|lower as filename %}
+      {% if filename|slice:"-4:" == "jpeg" %}
+        <p><strong>Format: JPEG</strong></p>
+      {% else %}
+        <p><strong>Format:</strong> {{ filename|slice:"-3:"|upper }}</p>
+      {% endif %}
+    {% endwith %}
+    {% widthratio image.file_size 1024 1 as filesize_kb %}
+    <p><strong>File Size:</strong> {{ filesize_kb|localize }} KB</p>
+    <p><strong>Created:</strong> {{ image.created_at|date:"Y-m-d H:i" }}</p>
+    <p><strong>Updated:</strong> {{ image.updated_at|date:"Y-m-d H:i" }}</p>
+    {% if image.uploaded_by_user %}
+      <p><strong>Uploaded by:</strong>
+        {{ image.uploaded_by_user.get_full_name|default:image.uploaded_by_user.username }}
+      </p>
+    {% endif %}
+  </div>
+</div>

@@ -6,6 +6,11 @@ ul.listing {
   @include unlist();
 }
 
+:root {
+  --color-surface: #fff; /* white */
+  --color-text-primary: #333; /* dark gray text */
+}
+
 .listing {
   margin-bottom: 2em;
   color: theme('colors.text-context');
@@ -483,6 +488,45 @@ ul.listing {
 
 .hover-modal-wrapper:hover .hover-modal {
   display: block;
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.metadata-modal {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  position: absolute;
+  top: 100%; /* place below the image */
+  inset-inline-start: 50%; /* replaces left: 50% */
+  transform: translate(-50%, -5px); /* slight offset upward initially */
+  margin-top: 8px;
+  width: 260px;
+  z-index: 9999;
+
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.image-wrapper:hover .metadata-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0); /* slide into place from above */
+}
+
+.metadata-modal p {
+  margin: 4px 0;
+  font-size: 14px;
 }
 
 // stylelint-disable-next-line no-duplicate-selectors
