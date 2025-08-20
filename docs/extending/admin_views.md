@@ -314,6 +314,51 @@ def register_viewset():
 
 This will result in a top-level menu item "Agenda" with the two viewsets' menu items as sub-items, e.g. "Calendar" and "Events".
 
+### Collecting sub-items via hooks in a `ViewSetGroup`
+
+In addition to explicitly listing `ViewSet`s in a {class}`~wagtail.admin.viewsets.base.ViewSetGroup`’s `items`, you can also configure a group to collect sub-items via hooks. This allows sub-items to be registered from separate modules.
+
+```{code-block} python
+from wagtail.admin.viewsets.base import ViewSetGroup
+
+...
+
+# Create a ViewSetGroup and specify a submenu hook
+class AgendaViewSetGroup(ViewSetGroup):
+    menu_icon = "date"
+    menu_label = "Agenda"
+    items = (CalendarViewSet("calendar"),)
+    submenu_hook = "register_agenda_submenu"  # hook to collect submenu items
+
+
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return AgendaViewSetGroup()
+```
+
+You can then register additional viewsets in another module, using the same `menu_hook` name to attach them to the group’s submenu:
+
+```{code-block} python
+# second_module/views.py
+class EventViewSet(ViewSet):
+    add_to_admin_menu = False
+    menu_label = "Events"
+    icon = "date"
+    name = "events"
+    menu_hook = "register_agenda_submenu"  # matches the group’s submenu_hook
+
+    ...
+
+# second_module/wagtail_hooks.py
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return EventViewSet("events")
+```
+
+With this setup, the `AgendaViewSetGroup` will appear as a top-level menu item “Agenda”, with “Calendar” and “Events” as sub-items, even though they are defined in separate modules.
+
+This approach is useful if you want to extend a `ViewSetGroup` via hooks without having to list every viewset inside the group’s `items` attribute.
+
 For further customizations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSetGroup` documentation.
 
 ## Adding links in admin views
