@@ -904,6 +904,7 @@
 * Amir Mahmoodi
 * Vijay Raj
 * Yousef Al-Hadhrami
+* Hunzlah Malik
 
 ## Translators
 
