@@ -26,6 +26,7 @@ Changelog
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Add section about closing stale pull requests to the issue tracking documentation (Thibaud Colas, Sage Abdullah, LB (Ben) Johnston)
+ * Docs: Add backporting policy for UI and accessibility fixes with updated "active support" and "security support" definitions (Thibaud Colas, Sage Abdullah, Scott Cranfill)
 
 7.1 (04.08.2025)
 ~~~~~~~~~~~~~~~~
