@@ -401,7 +401,7 @@ class FieldPanel(Panel):
             opts.update(
                 {
                     "fieldName": self.field_name,
-                    "widget": self.bound_field.field.widget,
+                    "widget": self.bound_field and self.bound_field.field.widget,
                 }
             )
             return opts
