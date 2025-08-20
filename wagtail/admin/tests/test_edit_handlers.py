@@ -2410,6 +2410,18 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         attrs = html.find("input").attrs
         self.assertEqual(attrs["data-w-sync-target-value"], "")
 
+    def test_form_with_readonly_title_field_panel(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title", read_only=True), FieldPanel("slug")]),
+            instance=EventPage(),
+        )
+
+        panel = html.select_one(".w-panel.title")
+        self.assertIsNotNone(panel)
+        input = panel.select_one("input")
+        self.assertIsNone(input)
+        self.assertIsNone(html.select_one("[data-controller~='w-sync']"))
+
     def test_not_using_apply_actions_if_live(self):
         """
         If the Page (or any model) has `live = True`, do not apply the actions by default.
