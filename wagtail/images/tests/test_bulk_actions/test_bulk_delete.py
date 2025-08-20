@@ -5,6 +5,7 @@ from django.utils.http import urlencode
 
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Collection
 from wagtail.test.testapp.models import VariousOnDeleteModel
 from wagtail.test.utils import WagtailTestUtils
 
@@ -136,3 +137,34 @@ class TestImageBulkDeleteView(WagtailTestUtils, TestCase):
 
         # Check that the image is still here
         self.assertTrue(Image.objects.filter(pk=protected.pk).exists())
+
+
+class TestImageBulkDeleteViewWithFilters(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.collection = Collection.get_first_root_node().add_child(name="Test collection")
+        cls.images = [
+            Image.objects.create(title=f"Filtered image - {i}", file=test_file, collection=cls.collection)
+            for i in range(1, 3)
+        ]
+        cls.bulk_url = reverse(
+            "wagtail_bulk_action",
+            args=(Image._meta.app_label, Image._meta.model_name, "delete"),
+        )
+        # Simulate the URL constructed by JS: next contains only the base index path,
+        # filter params are separate query params alongside selection ids.
+        cls.query_params = {
+            "next": reverse("wagtailimages:index"),
+            "collection_id": cls.collection.id,
+            "id": [item.pk for item in cls.images],
+        }
+        cls.url = cls.bulk_url + "?" + urlencode(cls.query_params, doseq=True)
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_delete_redirect_preserves_filters(self):
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 302)
+        expected_redirect = reverse("wagtailimages:index") + f"?collection_id={self.collection.id}"
+        self.assertRedirects(response, expected_redirect)

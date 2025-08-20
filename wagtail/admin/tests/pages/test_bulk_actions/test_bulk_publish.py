@@ -222,6 +222,28 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
             'name="include_descendants"',
         )
 
+    def test_publish_view_post_preserves_search_query(self):
+        """Posting publish action with a search query should redirect preserving ?q."""
+        search_query = "Hello"
+        # Construct URL similar to JS output: base action URL with next param then listing filters (q) and ids.
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "publish",
+                ),
+            )
+            + "?"
+        )
+        url += f"next={self.redirect_url}&q={search_query}&"
+        for child_page in self.pages_to_be_published:
+            url += f"id={child_page.id}&"
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.headers["Location"], f"{self.redirect_url}?q={search_query}")
+
 
 class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
     def setUp(self):

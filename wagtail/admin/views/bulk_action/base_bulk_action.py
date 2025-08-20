@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from urllib.parse import urlsplit
 
 from django import forms
 from django.db import transaction
@@ -8,7 +9,7 @@ from django.views.generic import FormView
 
 from wagtail import hooks
 from wagtail.admin import messages
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 
 
 class BulkAction(ABC, FormView):
@@ -39,6 +40,21 @@ class BulkAction(ABC, FormView):
         next_url = get_valid_next_url_from_request(request)
         if not next_url:
             next_url = request.path
+        else:
+            # If the provided next_url does not include a querystring, but the current
+            # request includes additional (non-selection) GET params (e.g. filters/search),
+            # append them so redirect preserves the original listing state.
+            parsed = urlsplit(next_url)
+            if not parsed.query:
+                extra_params = {}
+                for key in request.GET:
+                    if key in {"next", "id", "childOf"}:
+                        continue
+                    values = request.GET.getlist(key)
+                    if values:
+                        extra_params[key] = values if len(values) > 1 else values[0]
+                if extra_params:
+                    next_url = set_query_params(next_url, extra_params)
         self.next_url = next_url
         self.num_parent_objects = self.num_child_objects = 0
         if model in self.models:
