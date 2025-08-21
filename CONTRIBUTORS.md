@@ -903,7 +903,7 @@
 * Gaurav Verma
 * Amir Mahmoodi
 * Vijay Raj
-* Yousef Al-Hadhrami
+* Yousef Al-Hadhrami (Yemeni)
 * Hunzlah Malik
 
 ## Translators
