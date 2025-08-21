@@ -9,7 +9,7 @@
         {% endfragment %}
         {% block title %}
             {% if link_url %}
-                <a {% include "wagtailadmin/shared/attrs.html" with attrs=link_attrs %}>{{ title }}</a>
+                <a{% include "wagtailadmin/shared/attrs.html" with attrs=link_attrs %}>{{ title }}</a>
             {% elif label_id %}
                 <label for="{{ label_id }}">{{ title }}</label>
             {% else %}

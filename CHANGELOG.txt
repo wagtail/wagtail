@@ -19,7 +19,7 @@ Changelog
  * Maintenance: Migrate privacy switch modal field hiding to the Stimulus `RulesController` (LB (Ben) Johnston)
  * Maintenance: Add semgrep rules for inline styles and scripts (Chiemezuo Akujobi, Sage Abdullah)
  * Maintenance: Fix intermittent test failures caused by nondeterministic order in TestFilteredModelChoiceField (Sage Abdullah)
- * Maintenance: Add support for `attrs` in `formattedfield` tag (LB (Ben) Johnston)
+ * Maintenance: Add support for `attrs` in `formattedfield` tag & clean up other usages of the `attrs` template include (LB (Ben) Johnston)
 
 
 7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
