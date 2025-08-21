@@ -8,6 +8,7 @@ Changelog
  * Add usage count filter to the admin image and document listings (Joel William)
  * Fix: Use the correct method of resolving the file storage dynamically for FileField usage in images & documents (Amir Mahmoodi)
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
+ * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami)
@@ -17,6 +18,7 @@ Changelog
  * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
  * Maintenance: Migrate privacy switch modal field hiding to the Stimulus `RulesController` (LB (Ben) Johnston)
  * Maintenance: Add semgrep rules for inline styles and scripts (Chiemezuo Akujobi, Sage Abdullah)
+ * Maintenance: Fix intermittent test failures caused by nondeterministic order in TestFilteredModelChoiceField (Sage Abdullah)
 
 
 7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
