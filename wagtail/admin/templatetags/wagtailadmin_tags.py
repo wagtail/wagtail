@@ -1353,6 +1353,7 @@ def keyboard_shortcuts_dialog(context):
                 (_("Preview"), f"{KEYS.MOD} + p"),
                 (_("Toggle sidebar"), "["),
                 (_("Toggle minimap"), "]"),
+                (_("Search"), "/"),
                 (_("Add or show comments"), f"{KEYS.CTRL} + {KEYS.ALT} + m")
                 if comments_enabled
                 else None,
