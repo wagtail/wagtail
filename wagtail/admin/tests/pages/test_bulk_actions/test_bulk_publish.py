@@ -242,7 +242,9 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
             url += f"id={child_page.id}&"
         response = self.client.post(url)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.headers["Location"], f"{self.redirect_url}?q={search_query}")
+        self.assertEqual(
+            response.headers["Location"], f"{self.redirect_url}?q={search_query}"
+        )
 
 
 class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):

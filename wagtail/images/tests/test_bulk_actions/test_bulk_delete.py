@@ -142,9 +142,13 @@ class TestImageBulkDeleteView(WagtailTestUtils, TestCase):
 class TestImageBulkDeleteViewWithFilters(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.collection = Collection.get_first_root_node().add_child(name="Test collection")
+        cls.collection = Collection.get_first_root_node().add_child(
+            name="Test collection"
+        )
         cls.images = [
-            Image.objects.create(title=f"Filtered image - {i}", file=test_file, collection=cls.collection)
+            Image.objects.create(
+                title=f"Filtered image - {i}", file=test_file, collection=cls.collection
+            )
             for i in range(1, 3)
         ]
         cls.bulk_url = reverse(
@@ -166,5 +170,7 @@ class TestImageBulkDeleteViewWithFilters(WagtailTestUtils, TestCase):
     def test_delete_redirect_preserves_filters(self):
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 302)
-        expected_redirect = reverse("wagtailimages:index") + f"?collection_id={self.collection.id}"
+        expected_redirect = (
+            reverse("wagtailimages:index") + f"?collection_id={self.collection.id}"
+        )
         self.assertRedirects(response, expected_redirect)
