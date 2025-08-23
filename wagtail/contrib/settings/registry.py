@@ -62,7 +62,6 @@ class Registry(list):
 
     def register(self, model, icon="cog", **kwargs):
         from .models import BaseGenericSetting, BaseSiteSetting
-        from wagtail.models.reference_index import ReferenceIndex
 
         """
         Register a model as a setting, adding it to the wagtail admin menu
@@ -74,10 +73,6 @@ class Registry(list):
         if model in self:
             return model
         self.append(model)
-
-        # Automatically register settings models with ReferenceIndex
-        if issubclass(model, (BaseSiteSetting, BaseGenericSetting)):
-            ReferenceIndex.register_model(model)
 
         # Register a new menu item in the settings menu
         @hooks.register("register_settings_menu_item")
