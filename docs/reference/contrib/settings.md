@@ -28,11 +28,9 @@ Create a model that inherits from either:
 
 and register it using the `register_setting` decorator:
 
-**Reference Index Integration**
+**Reference index**
 
-Settings models registered with `@register_setting` are automatically tracked by Wagtail’s reference index. This ensures that references from settings to other objects (such as snippets, images, or pages) are managed correctly, and deletion of referenced objects is prevented if `on_delete=PROTECT` is used.
-
-You do not need to manually register settings models with the reference index.
+Setting models registered with `@register_setting` are tracked automatically. References to other objects (pages, snippets, images, documents, etc.) are detected so deletions of protected objects are blocked. No manual registration is required.
 
 ```python
 from django.db import models

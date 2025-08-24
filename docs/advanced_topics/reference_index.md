@@ -22,11 +22,9 @@ The reference index does not require any further configuration. However there ar
 
 A model can be registered for reference indexing by adding code to `apps.py` in the app where the model is defined:
 
-#### Settings Models and Reference Index
+#### Settings models
 
-As of Wagtail 6.4.1, any model registered as a setting (using `@register_setting` and inheriting from `BaseSiteSetting` or `BaseGenericSetting`) is automatically registered with the reference index. This means references from settings models are tracked, and attempts to delete referenced objects (with `on_delete=PROTECT`) will be blocked in the admin, with a clear error message.
-
-**Note:** Models not registered with the reference index will raise a `ProtectedError` when deleting referenced objects, and this error may not be handled gracefully in the admin UI.
+Setting models registered with `@register_setting` (subclasses of `BaseSiteSetting` or `BaseGenericSetting`) are registered automatically. Their references are tracked and deletions of protected related objects are blocked cleanly. Models not registered with the index raise a raw `ProtectedError` on deleting protected related objects.
 
 ```python
 from django.apps import AppConfig
