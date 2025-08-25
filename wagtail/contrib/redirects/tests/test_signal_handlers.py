@@ -14,6 +14,7 @@ User = get_user_model()
 
 @override_settings(
     WAGTAILREDIRECTS_AUTO_CREATE=True,
+    WAGTAILREDIRECTS_AUTO_CREATE_ON_DRAFT=True,
     WAGTAILFRONTENDCACHE={
         "dummy": {
             "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
@@ -31,7 +32,6 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
     def setUp(self):
         self.home_page = self.site.root_page
         self.event_index = EventIndex.objects.get()
-        self.other_page = Page.objects.get(url_path="/home/about-us/")
 
         PURGED_URLS.clear()
 
@@ -235,6 +235,14 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
 
     @override_settings(WAGTAILREDIRECTS_AUTO_CREATE=False)
     def test_no_redirects_created_if_disabled(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            self.trigger_page_slug_changed_signal(self.event_index)
+        self.assertFalse(Redirect.objects.exists())
+        self.assertEqual(len(PURGED_URLS), 0)
+
+    @override_settings(WAGTAILREDIRECTS_AUTO_CREATE_ON_DRAFT=False)
+    def test_no_redirects_created_if_disabled_and_draft(self):
+        self.event_index.live = False
         with self.captureOnCommitCallbacks(execute=True):
             self.trigger_page_slug_changed_signal(self.event_index)
         self.assertFalse(Redirect.objects.exists())
