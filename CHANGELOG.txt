@@ -7,6 +7,7 @@ Changelog
  * Removed support for Python 3.8 (Matt Westcott)
  * Add usage count filter to the admin image and document listings (Joel William)
  * Add keyboard shortcut (`?`) to activate the keyboard shortcuts dialog (Dhruvi Patel)
+ * Add keyboard shortcut (`/`) to activate and focus on the search input in the sidebar (Dhruvi Patel)
  * Fix: Use the correct method of resolving the file storage dynamically for FileField usage in images & documents (Amir Mahmoodi)
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
