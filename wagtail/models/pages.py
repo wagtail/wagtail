@@ -1592,14 +1592,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not parent_is_root and parent.locale_id != self.locale_id:
             return False
 
-        # if the page has a max_count_per_parent, check for a page of this type under the destination
+        # Must be able to exist under parent
+        if not self.can_exist_under(parent):
+            return False
+
+        # If the page has a max_count_per_parent, check for a page of this type under the destination
         if self.max_count_per_parent is not None:
             return (
                 parent.get_children().type(self.specific_class).not_page(self).count()
                 < self.max_count_per_parent
             )
 
-        return self.can_exist_under(parent)
+        return True
 
     @classmethod
     def get_verbose_name(cls):
