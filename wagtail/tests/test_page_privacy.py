@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
+from django.urls import reverse
 
 from wagtail.models import Page, PageViewRestriction
 from wagtail.test.utils import WagtailTestUtils
@@ -44,6 +45,19 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
             submit_url,
             {
                 "password": "wrongpassword",
+                "return_url": "/secret-plans/",
+            },
+        )
+        self.assertEqual(
+            response.templates[0].name, "wagtailcore/password_required.html"
+        )
+        self.assertContains(response, '<form action="%s"' % submit_url)
+
+        # posting a wrong password with non-ASCII characters should not crash
+        response = self.client.post(
+            submit_url,
+            {
+                "password": "ありがとう",
                 "return_url": "/secret-plans/",
             },
         )
@@ -200,6 +214,42 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
             '<input id="id_return_url" name="return_url" type="hidden" value="/alias-secret-plans/steal-underpants/" />',
             html=True,
         )
+
+    def test_non_ascii_password(self):
+        self.view_restriction.password = "ありがとう"
+        self.view_restriction.save()
+
+        submit_url = reverse(
+            "wagtailcore_authenticate_with_password",
+            args=((self.view_restriction.id, self.secret_plans_page.id)),
+        )
+
+        # posting the wrong password should redisplay the password page
+        response = self.client.post(
+            submit_url,
+            {
+                "password": "wrongpassword",
+                "return_url": "/secret-plans/",
+            },
+        )
+        self.assertEqual(
+            response.templates[0].name, "wagtailcore/password_required.html"
+        )
+        self.assertContains(response, '<form action="%s"' % submit_url)
+
+        # posting the correct password should redirect back to return_url
+        response = self.client.post(
+            submit_url,
+            {
+                "password": "ありがとう",
+                "return_url": "/secret-plans/",
+            },
+        )
+        self.assertRedirects(response, "/secret-plans/")
+
+        # now requests to /secret-plans/ should pass authentication
+        response = self.client.get("/secret-plans/")
+        self.assertEqual(response.templates[0].name, "tests/simple_page.html")
 
     def test_group_restriction_with_anonymous_user(self):
         response = self.client.get("/secret-event-editor-plans/")

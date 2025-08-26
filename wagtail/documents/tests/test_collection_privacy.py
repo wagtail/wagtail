@@ -81,6 +81,20 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         )
         self.assertContains(response, '<form action="%s"' % submit_url)
 
+        # posting a wrong password with non-ASCII characters should not crash
+        response = self.client.post(
+            submit_url,
+            {
+                "password": "🐦❤️🟢",
+                "return_url": doc_url,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.templates[0].name, "wagtaildocs/password_required.html"
+        )
+        self.assertContains(response, '<form action="%s"' % submit_url)
+
         # posting the correct password should redirect back to return_url
         response = self.client.post(
             submit_url,
@@ -128,6 +142,50 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         self.assertEqual(
             response.templates[0].name, "tests/custom_docs_password_required.html"
         )
+
+    def test_non_ascii_password(self):
+        self.view_restriction.password = "🥳🎉 🐦"
+        self.view_restriction.save()
+
+        submit_url = reverse(
+            "wagtaildocs_authenticate_with_password",
+            args=((self.view_restriction.id,)),
+        )
+        secret_document = Document.objects.create(
+            title="Test document",
+            file=self.fake_file,
+            collection=self.password_collection,
+        )
+        doc_url = reverse(
+            "wagtaildocs_serve", args=(secret_document.id, secret_document.filename)
+        )
+
+        # posting the wrong password should redisplay the password page
+        response = self.client.post(
+            submit_url,
+            {
+                "password": "wrongpassword",
+                "return_url": doc_url,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.templates[0].name, "wagtaildocs/password_required.html"
+        )
+        self.assertContains(response, '<form action="%s"' % submit_url)
+
+        # posting the correct password should redirect back to return_url
+        response = self.client.post(
+            submit_url,
+            {
+                "password": "🥳🎉 🐦",
+                "return_url": doc_url,
+            },
+        )
+        self.assertRedirects(response, doc_url)
+
+        # now requests to the documents url should pass authentication
+        self.client.get(doc_url)
 
     def test_group_restriction_with_anonymous_user(self):
         response, url = self.get_document(self.group_collection)
