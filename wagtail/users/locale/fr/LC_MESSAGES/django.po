@@ -20,14 +20,14 @@
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -161,6 +161,12 @@ msgstr "Ajusté"
 #. between elements in the user interface
 msgid "density"
 msgstr "densité"
+
+msgid "Keyboard shortcuts"
+msgstr "Raccourcis clavier"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Activer les raccourcis claviers personnalisés spécifiques à Wagtail."
 
 msgid "user profile"
 msgstr "compte utilisateur"
@@ -320,9 +326,6 @@ msgstr ""
 "Il n'y a pas de groupe configuré. Pourquoi ne pas <a "
 "href=\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"
-
 msgid "Account"
 msgstr "Compte"
 
@@ -452,9 +455,6 @@ msgstr "Admin"
 
 msgid "Access level"
 msgstr "Niveau d'accès"
-
-msgid "Status"
-msgstr "Statut"
 
 #, python-format
 msgid "More options for '%(title)s'"

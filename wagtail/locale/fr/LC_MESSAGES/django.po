@@ -17,15 +17,15 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025
 # Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:05+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Tom Dyson <tom@torchbox.com>, 2015\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -91,6 +91,9 @@ msgstr "Plan des sites Wagtail"
 
 msgid "Unknown content type"
 msgstr "Type de contenu inconnu"
+
+msgid "Date cannot be in the future."
+msgstr "La date ne peut pas être future."
 
 msgid "Password"
 msgstr "Mot de passe"
@@ -569,6 +572,12 @@ msgid ""
 msgstr ""
 "%(hostname)s est déjà configuré comme site par défaut. Vous devez modifier "
 "ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
+
+msgid "group site permission"
+msgstr "permission de site de groupe"
+
+msgid "group site permissions"
+msgstr "permissions de site de groupe"
 
 msgid "Public"
 msgstr "Publique"

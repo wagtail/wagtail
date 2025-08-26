@@ -83,7 +83,8 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
                     "role": "button",
                     "data-a11y-dialog-show": "keyboard-shortcuts-dialog",
                     "data-action": "w-action#noop:prevent:stop",
-                    "data-controller": "w-action",
+                    "data-controller": "w-kbd w-action",
+                    "data-w-kbd-key-value": "?",
                 }
             ),
             sidebar_data,

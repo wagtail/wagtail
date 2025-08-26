@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -221,14 +221,6 @@ msgstr[3] "Přidat %(counter)s obrázků do nové kolekce"
 msgid "Add images to collection"
 msgstr "Přidat obrázky do kolekce"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Použito %(usage_count)sx"
-msgstr[1] "Použito %(usage_count)sx"
-msgstr[2] "Použito %(usage_count)sx"
-msgstr[3] "Použito %(usage_count)sx"
-
 msgid "Yes, delete"
 msgstr "Ano, smazat"
 
@@ -297,6 +289,14 @@ msgstr "Soubor nenalezen"
 
 msgid "Usage"
 msgstr "Použití"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)sx"
+msgstr[1] "Použito %(usage_count)sx"
+msgstr[2] "Použito %(usage_count)sx"
+msgstr[3] "Použito %(usage_count)sx"
 
 msgid "Sort by"
 msgstr "Řadit podle"
@@ -399,6 +399,12 @@ msgstr "Velikost souboru (sestupně)"
 
 msgid "Images"
 msgstr "Obrázky"
+
+msgid "Title"
+msgstr "Název"
+
+msgid "Created"
+msgstr "Vytvořeno"
 
 msgid "The image could not be saved due to errors."
 msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."

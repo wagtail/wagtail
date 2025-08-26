@@ -54,6 +54,9 @@ msgstr "Laadimine ..."
 msgid "Missing document"
 msgstr "Puuduv dokument"
 
+msgid "No"
+msgstr "Ei"
+
 msgid "No results"
 msgstr "Tulemused puuduvad"
 
@@ -109,3 +112,6 @@ msgstr "Selle välja täitmine on kohustuslik."
 
 msgid "View child pages of '%(title)s'"
 msgstr "Kuva üksuse „%(title)s” alamlehed"
+
+msgid "Yes"
+msgstr "Jah"

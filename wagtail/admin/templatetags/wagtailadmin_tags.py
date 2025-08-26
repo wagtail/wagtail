@@ -978,28 +978,33 @@ def fragment(parser, token):
     Store a template fragment as a variable.
 
     Usage:
+
+    .. code-block:: html+django
+
         {% fragment as header_title %}
             {% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}
         {% endfragment %}
+        {% include "my/custom/header.html" with title=header_title %}
 
-    Copy-paste of slippers’ fragment template tag.
-    See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L173.
+    Adopted from `slippers' fragment template tag <https://mitchel.me/slippers/docs/template-tags-filters/#fragment>`_ with a few tweaks.
 
     To strip leading and trailing whitespace produced in the fragment, use the
-    `stripped` option. This is useful if you need to check if the resulting
+    ``stripped`` option. This is useful if you need to check if the resulting
     fragment is empty (after leading and trailing spaces are removed):
+
+    .. code-block:: html+django
 
         {% fragment stripped as recipient %}
             {{ title }} {{ first_name }} {{ last_name }}
-        {% endfragment }
+        {% endfragment %}
         {% if recipient %}
             Recipient: {{ recipient }}
         {% endif %}
 
     Note that the stripped option only strips leading and trailing spaces, unlike
-    {% blocktrans trimmed %} that also does line-by-line stripping. This is because
+    ``{% blocktrans trimmed %}`` that also does line-by-line stripping. This is because
     the fragment may contain HTML tags that are sensitive to whitespace, such as
-    <pre> and <code>.
+    ``<pre>`` and ``<code>``.
     """
     error_message = "The syntax for fragment is {% fragment as variable_name %}"
 
@@ -1170,6 +1175,7 @@ def formattedfield(
     label_text=None,
     error_message_id=None,
     wrapper_id=None,
+    attrs=None,
 ):
     """
     Renders a form field in standard Wagtail admin layout.
@@ -1187,12 +1193,15 @@ def formattedfield(
     - `label_text` - Manually set this if the field’s HTML is hard-coded.
     - `error_message_id` - ID of the error message container element.
     - `wrapper_id` - ID of the overall wrapper element.
+    - `attrs` - Dict of additional HTML attributes to add to the field wrapper element, `data-field-wrapper` will be included by default.
     """
 
     label_for = id_for_label or (field and field.id_for_label) or ""
 
     context = {
         "classname": classname,
+        # Ensure data-field-wrapper is always present
+        "attrs": {**(attrs or {}), "data-field-wrapper": True},
         "show_label": show_label,
         "sr_only_label": sr_only_label,
         "icon": icon,
@@ -1339,10 +1348,12 @@ def keyboard_shortcuts_dialog(context):
                 ),
             ],
             ("actions-model", _("Actions")): [
+                (_("Show keyboard shortcuts"), "?"),
                 (_("Save changes"), f"{KEYS.MOD} + s"),
                 (_("Preview"), f"{KEYS.MOD} + p"),
                 (_("Toggle sidebar"), "["),
                 (_("Toggle minimap"), "]"),
+                (_("Search"), "/"),
                 (_("Add or show comments"), f"{KEYS.CTRL} + {KEYS.ALT} + m")
                 if comments_enabled
                 else None,

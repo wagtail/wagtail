@@ -72,6 +72,9 @@ msgstr "遺失文件"
 msgid "More actions"
 msgstr "更多動作"
 
+msgid "No"
+msgstr "否"
+
 msgid "No results"
 msgstr "沒有結果"
 
@@ -138,3 +141,6 @@ msgstr "必要欄位"
 
 msgid "View child pages of '%(title)s'"
 msgstr "檢視 '%(title)s' 子頁面"
+
+msgid "Yes"
+msgstr "是"

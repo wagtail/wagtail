@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021,2025\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -271,8 +271,8 @@ msgstr "Nazovite vaš tijek rada"
 msgid "Add tasks to your workflow"
 msgstr "Dodajte zadatke u vaš tijek rada"
 
-msgid "Task"
-msgstr "Zadatak"
+msgid "task"
+msgstr "zadatak"
 
 msgid "1 page selected"
 msgstr "1 stranica odabrana"
@@ -551,6 +551,9 @@ msgstr "Sažetak"
 
 msgid "Close"
 msgstr "Zatvori"
+
+msgid "Task"
+msgstr "Zadatak"
 
 msgid "Changes requested at"
 msgstr "Zatražene promjene u"
@@ -1290,20 +1293,8 @@ msgstr "%(model_name)s '%(object)s' je ažuriran."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' je stvoren."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Uredi '%(title)s'"
-
 msgid "Inspect"
 msgstr "Pregledaj"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Pregledaj '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Izbriši '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -1536,34 +1527,6 @@ msgstr "Zadatak '%(object)s' je onemogućen."
 #, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Zadatak '%(task_name)s' je omogućen."
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Pregledajte skicu od '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Pogledajte verziju uživo od '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Premjesti stranicu '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopiraj stranicu '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Izbriši stranicu '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Odjavi stranicu '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Pogledaj povijest stranice '%(title)s'"
 
 msgid "Sort menu order"
 msgstr "Sortiraj poredak izbornika"

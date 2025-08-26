@@ -1,5 +1,3 @@
-/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["hidden"] }] */
-
 import { Controller } from '@hotwired/stimulus';
 
 enum RevealState {
@@ -116,9 +114,7 @@ export class RevealController extends Controller<HTMLElement> {
     }).then(() => {
       this.dispatch('ready', {
         cancelable: false,
-        detail: {
-          closed: this.closedValue,
-        },
+        detail: { closed: this.closedValue },
       });
     });
   }
@@ -174,9 +170,7 @@ export class RevealController extends Controller<HTMLElement> {
     toggles.forEach((target) => {
       this.dispatch('toggled', {
         cancelable: false,
-        detail: {
-          closed: shouldClose,
-        },
+        detail: { closed: shouldClose },
         target,
       });
     });

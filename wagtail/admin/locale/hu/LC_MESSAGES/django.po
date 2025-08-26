@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -59,6 +59,17 @@ msgstr "Zárolt oldal"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s és közzététel"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "bármennyi"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
 
 msgid "Wagtail admin"
 msgstr "Wagtail Admin"
@@ -322,8 +333,8 @@ msgstr "Munkafolyamat elnevezése"
 msgid "Add tasks to your workflow"
 msgstr "Feladatok hozzáadása a munkafolyamathoz"
 
-msgid "Task"
-msgstr "Feladat"
+msgid "task"
+msgstr "feladat"
 
 msgid "1 page selected"
 msgstr "1 oldal kiválasztva"
@@ -411,6 +422,12 @@ msgstr "Minden elem kiválasztva a listában"
 
 msgid "Can access Wagtail admin"
 msgstr "Elérheti a Wagtail admin felületét"
+
+msgid "item"
+msgstr "elem"
+
+msgid "items"
+msgstr "elem"
 
 msgid "Content"
 msgstr "Tartalom"
@@ -846,6 +863,9 @@ msgstr "Bezár"
 msgid "Your pages and snippets in a workflow"
 msgstr "Munkafolyamatban lévő oldalak és elemek"
 
+msgid "Task"
+msgstr "Feladat"
+
 msgid "Task started"
 msgstr "Feladat elindítva"
 
@@ -1195,8 +1215,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "Az oldal védelmének beállítási lehetősége ki lett kapcsolva."
 
+msgid "Scheduling…"
+msgstr "Időzítés folyamatban..."
+
 msgid "Publishing…"
 msgstr "Közzététel folyamatban..."
+
+msgid "Schedule to publish"
+msgstr "Időzített közzététel"
 
 msgid "Publish this version"
 msgstr "Verzió közzététele"
@@ -1452,14 +1478,6 @@ msgstr[0] "A törlés egyben %(translation_count)s fordítást is törölni fog.
 msgstr[1] ""
 "A törlés egyben %(descendant_count)s további gyermekoldalt is töröni fog. "
 "Ezen felül %(translation_count)s fordítás is törlésre kerül."
-
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Ez a művelet összesen <b>%(total_pages)s</b> oldalt fog törölni."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Kérjük írja be, hogy <b>%(wagtail_site_name)s</b> a megerősítéshez."
 
 msgid "Yes, delete it"
 msgstr "Igen, törlöm"
@@ -1767,6 +1785,13 @@ msgstr ""
 msgid "Choose when this page should go live and/or expire"
 msgstr "Válassza ki, hogy az oldal mikor lesz közzétéve vagy eltüntetve"
 
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Schedule to publish\" option"
+msgstr ""
+"Ez az időzítés csak akkor lép életbe, ha a mentésnél az \"Időzített "
+"közzététel\" lehetőséget választja"
+
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Bárki, akinek szerkesztési joga van, tud időzíteni"
 
@@ -1880,6 +1905,12 @@ msgstr "Még nem lett beküldve oldal/elem moderálásra"
 msgid "Completed at"
 msgstr "Befejezve: "
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s: "
+
 msgid "Clear"
 msgstr "Alapállapot"
 
@@ -1891,6 +1922,19 @@ msgstr "Morzsamenü kapcsolása"
 
 msgid "Breadcrumb"
 msgstr "Navigációs sáv"
+
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] ""
+"Ez a művelet <b>%(total_pages_formatted)s</b> oldalt fog törölni összesen."
+msgstr[1] ""
+"Ez a művelet <b>%(total_pages_formatted)s</b> oldalt fog törölni összesen."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Kérjük írja be, hogy <b>%(wagtail_site_name)s</b> a megerősítéshez."
 
 msgid "Close dialog"
 msgstr "Ablak bezárása"
@@ -2146,6 +2190,9 @@ msgstr "Érvénytelen időzítés"
 
 msgid "Go-live:"
 msgstr "Megjelenés:"
+
+msgid "Once scheduled:"
+msgstr "Ha időzített: "
 
 msgid "No publishing schedule set"
 msgstr "Nincs közzététel időzítve"
@@ -2421,11 +2468,13 @@ msgid "You haven't created any tasks."
 msgstr "Még nem hozott létre feladatot."
 
 msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
 msgstr ""
-"Miért nem <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>hoz "
-"létre egyet most</a>?"
+"Miért nem <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">hoz létre egy újat</a>?"
 
 #, python-format
 msgid ""
@@ -2535,6 +2584,15 @@ msgstr "Újra"
 msgid "Save changes"
 msgstr "Változtatások mentése"
 
+msgid "Toggle sidebar"
+msgstr "Oldalsáv kapcsolása"
+
+msgid "Toggle minimap"
+msgstr "Tartalom térkép kapcsolása"
+
+msgid "Add or show comments"
+msgstr "Megjegyzések megtekintése vagy hozzáadása"
+
 msgid "Text content"
 msgstr "Szöveges tartalom"
 
@@ -2585,6 +2643,9 @@ msgstr "Ellenőrzések"
 
 msgid "Toggle preview"
 msgstr "Előnézet kapcsolása"
+
+msgid "(blank)"
+msgstr "(üres)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2651,6 +2712,10 @@ msgstr "A kép alternatív szövegének a mintája nem megfelelő"
 
 msgid "Use meaningful text"
 msgstr "Kérjük használjon értelmes leírást"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s objektum (%(id)s)"
 
 msgid "Profile"
 msgstr "Profil"
@@ -2832,24 +2897,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' szerkesztése"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "'%(title)s' másolása"
-
 msgid "Inspect"
 msgstr "Vizsgálat"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "'%(title)s' vizsgálata"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "'%(title)s' törlése"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3185,6 +3234,9 @@ msgstr ""
 msgid "Page '%(page_title)s' moved."
 msgstr "'%(page_title)s' oldal átmozgatva."
 
+msgid "Placeholder title"
+msgstr "Helykitöltő cím"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
@@ -3376,40 +3428,8 @@ msgstr "'%(task_name)s' feladat bekapcsolva."
 msgid "Choose another"
 msgstr "Másik kiválasztása"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "'%(title)s' vázlatának előnézete"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "'%(title)s' élő változatának előnézete"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "'%(title)s' oldal mozgatása"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "'%(title)s' oldal másolása"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "'%(title)s' oldal törlése"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "'%(title)s' oldal visszavonása"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "'%(title)s' oldal története"
-
 msgid "Sort menu order"
 msgstr "Menü sorrend rendezése"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "'%(title)s' aloldalak sorrendjének megváltoztatása"
 
 msgid "Heading 1"
 msgstr "Fejléc 1"

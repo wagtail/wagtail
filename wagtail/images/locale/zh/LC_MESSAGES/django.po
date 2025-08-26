@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Adeline Link, 2022\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -101,6 +101,9 @@ msgstr "选择另外一个图片"
 
 msgid "Images"
 msgstr "图片"
+
+msgid "Title"
+msgstr "标题"
 
 msgid "The image could not be saved due to errors."
 msgstr "图片 因为有错不能被保存"

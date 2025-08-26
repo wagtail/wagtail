@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -41,10 +40,7 @@ class StreamChild extends BaseSequenceChild {
   }
 
   getDuplicatedState() {
-    return {
-      ...super.getDuplicatedState(),
-      type: this.type,
-    };
+    return { ...super.getDuplicatedState(), type: this.type };
   }
 
   setState({ type, value, id }) {
@@ -128,11 +124,7 @@ class StreamBlockMenu extends BaseInsertionControl {
         isPreviewable: blockDef.meta.isPreviewable,
       }));
 
-      return {
-        label: group || '',
-        type: group || '',
-        items: groupItems,
-      };
+      return { label: group || '', type: group || '', items: groupItems };
     });
   }
 
@@ -246,6 +238,7 @@ export class StreamBlock extends BaseSequenceBlock {
       return this.children.length;
     }
     if (!this.childBlockCounts.has(type)) {
+      // eslint-disable-next-line no-underscore-dangle
       this._updateBlockCount(type);
     }
     return this.childBlockCounts.get(type) || 0;
@@ -355,13 +348,13 @@ export class StreamBlock extends BaseSequenceBlock {
   }
 
   _createInsertionControl(placeholder, opts) {
-    // eslint-disable-next-line no-param-reassign
     opts.groupedChildBlockDefs = this.blockDef.groupedChildBlockDefs;
     return new StreamBlockMenu(placeholder, opts);
   }
 
   insert({ type, value, id }, index, opts) {
     const childBlockDef = this.blockDef.childBlockDefsByName[type];
+    // eslint-disable-next-line no-underscore-dangle
     return this._insert(childBlockDef, value, id, index, opts);
   }
 
@@ -437,6 +430,7 @@ export class StreamBlock extends BaseSequenceBlock {
 
     if (error.blockErrors) {
       // Block errors (to be propagated to child blocks)
+      // eslint-disable-next-line no-restricted-syntax
       for (const blockIndex in error.blockErrors) {
         if (hasOwn(error.blockErrors, blockIndex)) {
           this.children[blockIndex].setError(error.blockErrors[blockIndex]);

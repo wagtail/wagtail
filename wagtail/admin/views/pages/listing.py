@@ -152,7 +152,7 @@ class PageListingMixin:
             "type",
             label=_("Type"),
             accessor="page_type_display_name",
-            sort_key="content_type",
+            sort_key="content_type__model",
             width="12%",
         ),
         PageStatusColumn(

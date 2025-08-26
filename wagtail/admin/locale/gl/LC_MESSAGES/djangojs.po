@@ -1,12 +1,12 @@
 #
 # Translators:
 # Loic Teixeira, 2022
-# X Bello <xbello@gmail.com>, 2024
 # Amós Oviedo <amos.oviedo@gmail.com>, 2025
+# X Bello <xbello@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2025\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2025\n"
 "Language-Team: Galician (https://app.transifex.com/torchbox/teams/8009/gl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: gl\n"
@@ -35,6 +35,12 @@ msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s píxel"
 msgstr[1] "%(num)s píxels"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
 msgid "Actions"
 msgstr "Accións"
@@ -125,6 +131,9 @@ msgstr "Documento faltante"
 
 msgid "More actions"
 msgstr "Máis accións"
+
+msgid "No"
+msgstr "Non"
 
 msgid "No results"
 msgstr "Sen resultados"
@@ -217,6 +226,9 @@ msgstr "O mínimo número de elementos é %(min_num)d"
 msgid "This field is required."
 msgstr "Este campo é requerido."
 
+msgid "Toggle section"
+msgstr "Permutar sección"
+
 msgid "Toggle side panel"
 msgstr "Permutar panel lateral"
 
@@ -234,3 +246,6 @@ msgstr "Ver as páxinas fillas de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escribe algo ou pulsa '/' para inserir un bloque"
+
+msgid "Yes"
+msgstr "Si"

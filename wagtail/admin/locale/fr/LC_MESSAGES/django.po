@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -361,8 +361,8 @@ msgstr "Donnez un nom à votre workflow"
 msgid "Add tasks to your workflow"
 msgstr "Ajoutez des tâches à votre workflow"
 
-msgid "Task"
-msgstr "Tâche"
+msgid "task"
+msgstr "tâche"
 
 msgid "1 page selected"
 msgstr "1 page sélectionnée"
@@ -900,6 +900,9 @@ msgstr "Fermer"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Vos pages et fragments dans un workflow"
+
+msgid "Task"
+msgstr "Tâche"
 
 msgid "Task started"
 msgstr "Tâche commencée"
@@ -1537,14 +1540,6 @@ msgstr[2] ""
 "Cela supprimera également %(descendant_count)s sous-page(s) et les "
 "%(translation_count)s traductions associées."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Cette action supprimera <b>%(total_pages)s</b> pages."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Veuillez taper <b>%(wagtail_site_name)s</b> pour confirmer."
-
 msgid "Yes, delete it"
 msgstr "Oui, le supprimer"
 
@@ -2010,6 +2005,21 @@ msgstr "Afficher/masquer le fil d'Ariane"
 
 msgid "Breadcrumb"
 msgstr "Fil d'Ariane"
+
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] ""
+"Cette action supprimera <b>%(total_pages_formatted)s</b> page au total."
+msgstr[1] ""
+"Cette action supprimera <b>%(total_pages_formatted)s</b> pages au total."
+msgstr[2] ""
+"Cette action supprimera <b>%(total_pages_formatted)s</b> pages au total."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Veuillez taper <b>%(wagtail_site_name)s</b> pour confirmer."
 
 msgid "Close dialog"
 msgstr "Fermer"
@@ -2549,11 +2559,13 @@ msgid "You haven't created any tasks."
 msgstr "Vous n’avez pas encore transféré de tâches."
 
 msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
 msgstr ""
-"Pourquoi ne pas <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>en créer un</a> ?"
+"Pourquoi ne pas <a class=\"create-one-now\" href=\"#tab-new\" data-"
+"action=\"w-tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-"
+"focus-param=\"true\">en créer un(e) maintenant</a> ?"
 
 #, python-format
 msgid ""
@@ -2662,6 +2674,12 @@ msgstr "Rétablir"
 
 msgid "Save changes"
 msgstr "Enregistrer les changements"
+
+msgid "Toggle sidebar"
+msgstr "Afficher/masquer la barre latérale"
+
+msgid "Toggle minimap"
+msgstr "Activer/désactiver le sommaire"
 
 msgid "Add or show comments"
 msgstr "Ajouter ou afficher les commentaires"
@@ -2972,24 +2990,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Modifier « %(title)s »"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Copier '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspecter"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspecter « %(title)s »"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Supprimer « %(title)s »"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3533,40 +3535,8 @@ msgstr "La tâche « %(task_name)s » a été activée."
 msgid "Choose another"
 msgstr "Choisir un(e) autre"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Prévisualiser la version brouillon de « %(title)s »"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Voir la version publiée de « %(title)s »"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Déplacer la page « %(title)s »"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copier la page « %(title)s »"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Supprimer la page « %(title)s »"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Dépublier la page « %(title)s »"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Voir l'historique de la page pour « %(title)s »"
-
 msgid "Sort menu order"
 msgstr "Ordre de tri des sous-pages"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Modifier l'ordre des sous-pages de « %(title)s »"
 
 msgid "Heading 1"
 msgstr "Titre de niveau 1"

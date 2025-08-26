@@ -4,6 +4,7 @@
 #
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -88,16 +89,6 @@ msgid "Delete "
 msgstr "حذف"
 
 #, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "مستخدم %(usage_count)s مرة"
-msgstr[1] "مستخدم %(usage_count)s مرتين"
-msgstr[2] "مستخدم %(usage_count)s مرات"
-msgstr[3] "مستخدم %(usage_count)s مرة"
-msgstr[4] "مستخدم %(usage_count)s مرة"
-msgstr[5] "مستخدم %(usage_count)s مرة"
-
-#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "هل أنت متأكد أنك تريد حذف %(snippet_type_name)s هذا؟"
 
@@ -164,7 +155,7 @@ msgid "Choose"
 msgstr "اختر"
 
 msgid "Snippets"
-msgstr "قصاصات"
+msgstr "قصصات"
 
 msgid "Name"
 msgstr "اسم"

@@ -4,13 +4,13 @@
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Storm Heg <storm@stormbase.digital>, 2024
-# Loic Teixeira, 2025
 # Thijs Kramer <thijskramer@gmail.com>, 2025
+# Storm Heg <storm@stormbase.digital>, 2025
+# Loic Teixeira, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2025\n"
+"Last-Translator: Loic Teixeira, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -130,6 +130,9 @@ msgstr "Ontbrekend document"
 msgid "More actions"
 msgstr "Meer acties"
 
+msgid "No"
+msgstr "Nee"
+
 msgid "No results"
 msgstr "Geen resultaten"
 
@@ -222,6 +225,9 @@ msgstr "Het minimale aantal items is %(min_num)d"
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
 
+msgid "Toggle section"
+msgstr "Toon/verberg sectie"
+
 msgid "Toggle side panel"
 msgstr "Toon/verberg zijbalk"
 
@@ -239,3 +245,6 @@ msgstr "Toon onderliggende pagina's van '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Schrijf iets of typ ‘/’ om een nieuw blok in te voegen"
+
+msgid "Yes"
+msgstr "Ja"

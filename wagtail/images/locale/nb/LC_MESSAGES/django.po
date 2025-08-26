@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -235,12 +235,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Er du sikker på at du vil slette dette bildet?"
 msgstr[1] "Er du sikker på at du vil slette disse bildene?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Brukt %(usage_count)s gang"
-msgstr[1] "Brukt %(usage_count)s ganger"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Du har ikke tillatelse til å slette dette bildet"
@@ -286,13 +280,6 @@ msgstr "Du har ikke lastet opp noen bilder i denne samlingen."
 
 msgid "You haven't uploaded any images."
 msgstr "Du har ikke lastet opp noen bilder."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Hvorfor ikke <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>laste en opp nå</a>?"
 
 msgid "Choose a format"
 msgstr "Velg et format"
@@ -353,6 +340,12 @@ msgstr "Fil ikke funnet"
 
 msgid "Usage"
 msgstr "Bruk"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
 
 msgid "Sort by"
 msgstr "Sorter etter"
@@ -504,6 +497,12 @@ msgstr "Filstørrelse: (høy til lav)"
 
 msgid "Images"
 msgstr "Bilder"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "Created"
+msgstr "Opprettet"
 
 msgid "The image could not be saved due to errors."
 msgstr "Bildet kunne ikke lagres grunnet feil."

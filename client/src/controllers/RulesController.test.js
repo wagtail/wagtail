@@ -56,6 +56,35 @@ describe('RulesController', () => {
         '0.error.message',
         expect.stringContaining("Expected property name or '}' in JSON"),
       );
+      expect(errors).toHaveProperty(
+        '1.message',
+        expect.stringContaining(
+          "Unable to parse rule at the attribute 'data-w-rules'",
+        ),
+      );
+    });
+
+    it('should throw an error if an invalid match value is provided', async () => {
+      expect(errors.length).toBe(0);
+
+      await setup(`
+      <form data-controller="w-rules" data-action="change->w-rules#resolve">
+        <input type="text" name="title" value="bad" />
+        <input type="text" name="subtitle" data-w-rules-target="enable" data-w-rules='{"":"_INVALID_","title":""}' />
+      </form>`);
+
+      expect(errors.length).toEqual(1);
+
+      const [{ error, message }] = errors;
+
+      expect(error).toHaveProperty(
+        'message',
+        "Invalid match value: '_INVALID_'.",
+      );
+
+      expect(message).toEqual(
+        "Error Match value must be one of: 'all', 'any'.",
+      );
     });
 
     it('should gracefully handle different empty structures', async () => {
@@ -272,6 +301,34 @@ describe('RulesController', () => {
       await jest.runAllTimersAsync();
 
       expect(document.getElementById('continue').disabled).toBe(false);
+    });
+
+    it('should attempt to read the specific attribute for the effect if found', async () => {
+      await setup(`
+    <form data-controller="w-rules" data-action="change->w-rules#resolve">
+      <input type="text" name="title" value="bad" />
+      <input type="text" name="subtitle" value="good" />
+      <textarea
+        id="signature"
+        data-w-rules-target="enable"
+        data-w-rules="${_({ title: 'good' } /* should be ignored */)}"
+        data-w-rules-enable="${_({ subtitle: 'good' })}"
+        >
+      </textarea>
+    </form>
+    `);
+
+      const signature = document.getElementById('signature');
+      const subtitle = document.querySelector('[name="subtitle"]');
+
+      expect(signature.disabled).toBe(false);
+
+      subtitle.value = 'bad';
+      subtitle.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(signature.disabled).toBe(true);
     });
   });
 
@@ -582,6 +639,232 @@ describe('RulesController', () => {
       expect(widthField.disabled).toBe(true);
       expect(heightField.disabled).toBe(true);
       expect(closenessField.disabled).toBe(true);
+    });
+
+    it('should support the ability to to trigger an effect if any (not all) field rule matches', async () => {
+      await setup(`
+      <form data-controller="w-rules" data-action="change->w-rules#resolve">
+        <fieldset>
+          <legend>Enter the registration number or opt to create a new number to continue.</legend>
+          <input id="number" name="number" type="text" />
+          <input id="create" name="create" type="checkbox" />
+        </fieldset>
+        <input
+          id="continue"
+          type="button"
+          name="continue"
+          data-w-rules-target="enable"
+          data-w-rules-enable="${_({ '': 'any', 'create': ['on'], 'number': ['1701', '74656', '74913'] })}" />
+      </form>`);
+
+      const numberField = document.getElementById('number');
+      const createField = document.getElementById('create');
+      const continueButton = document.getElementById('continue');
+
+      expect(continueButton.disabled).toBe(true); // disabled by default
+
+      numberField.value = '1701';
+      numberField.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(continueButton.disabled).toBe(false);
+
+      numberField.value = '99999';
+      createField.checked = true;
+
+      numberField.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(continueButton.disabled).toBe(false);
+
+      createField.checked = false;
+
+      numberField.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(continueButton.disabled).toBe(true);
+    });
+  });
+
+  describe('conditionally showing a target', () => {
+    it('should provide a way to conditionally show a target', async () => {
+      await setup(`
+    <form id="form" data-controller="w-rules" data-action="change->w-rules#resolve">
+      <div
+        id="alert"
+        data-w-rules-target="show"
+        data-w-rules="${_({ email: '' })}"
+      >
+        Please enter your email before continuing.
+      </div>
+      <input type="email" id="email-field" name="email" />
+      <input type="text" id="name-field" name="name" />
+    </form>`);
+
+      const nameField = document.getElementById('name-field');
+      const emailField = document.getElementById('email-field');
+
+      const alert = document.getElementById('alert');
+      expect(alert.hidden).toBe(false);
+
+      // add a non-empty email value
+      emailField.value = 'joe@email.co';
+
+      emailField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(alert.hidden).toBe(true);
+
+      // reset the value to empty
+      emailField.value = '';
+
+      emailField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(alert.hidden).toBe(false);
+    });
+
+    it('should ensure that the hidden attribute will be synced with the desired match once connected', async () => {
+      await setup(`
+    <form id="form" data-controller="w-rules">
+      <fieldset>
+        <input type="password" name="password" />
+        <input type="email" name="email" />
+        <input type="checkbox" name="remember" id="remember-me-field" />
+      </fieldset>
+      <label for="">This is my device.</label>
+      <div
+        id="alert"
+        data-w-rules-target="show"
+        data-w-rules="${_({ remember: 'on' })}"
+      >
+        Cookies will be saved to this device.
+      </div>
+      <button type="button">Continue</button>
+    </form>`);
+
+      // The checkbox is not checked, #alert is also not set with hidden (in supplied DOM)
+      // Should update once connected
+      expect(document.getElementById('alert').hidden).toBe(true);
+    });
+
+    describe('using as a filtered-select', () => {
+      beforeEach(async () => {
+        await setup(`
+  <form
+    data-controller="w-rules"
+    data-action="change->w-rules#resolve"
+  >
+    <label for="continent-field">Continent</label>
+    <select id="continent-field" name="continent">
+      <option value="">--------</option>
+      <option value="1">Europe</option>
+      <option value="2">Africa</option>
+      <option value="3">Asia</option>
+    </select>
+    <label for="country-field">Country</label>
+    <select id="country-field" name="country">
+      <option value="">--------</option>
+      <option
+        value="1"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 3] })}'
+      >
+        China
+      </option>
+      <option
+        value="2"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 2] })}'
+      >
+        Egypt
+      </option>
+      <option
+        value="3"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 1] })}'
+      >
+        France
+      </option>
+      <option
+        value="4"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 1] })}'
+      >
+        Germany
+      </option>
+      <option
+        value="5"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 3] })}'
+      >
+        Japan
+      </option>
+      <option
+        value="6"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 1, 3] })}'
+      >
+        Russia
+      </option>
+      <option
+        value="7"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 2] })}'
+      >
+        South
+       Africa</option>
+      <option
+        value="8"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 1, 3] })}'
+      >
+        Turkey
+      </option>
+    </select>
+  </form>`);
+      });
+
+      const getShownOptions = () =>
+        Array.from(document.getElementById('country-field').options)
+          .filter((option) => !option.hidden)
+          .map((option) => option.value);
+
+      const allOptions = ['', '1', '2', '3', '4', '5', '6', '7', '8'];
+
+      it('it should show all options by default', async () => {
+        expect(getShownOptions()).toEqual(allOptions);
+      });
+
+      it('it should hide some options based on the selection within another field', async () => {
+        const continentField = document.getElementById('continent-field');
+
+        expect(getShownOptions()).toEqual(allOptions);
+
+        continentField.value = '2'; // Africa
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        expect(getShownOptions()).toEqual(['', '2', '7']);
+
+        continentField.value = 1; // Europe - intentionally using int
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        expect(getShownOptions()).toEqual(['', '3', '4', '6', '8']);
+
+        continentField.value = ''; // clear selection
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        expect(getShownOptions()).toEqual(allOptions);
+      });
     });
   });
 });

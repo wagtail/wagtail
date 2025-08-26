@@ -3,15 +3,16 @@ import Mousetrap from 'mousetrap';
 
 import { KeyboardController } from './KeyboardController';
 
-jest.mock('../config/wagtailConfig', () => ({
-  WAGTAIL_CONFIG: {
-    KEYBOARD_SHORTCUTS_ENABLED: true,
-  },
+jest.mock('../utils/forceFocus', () => ({
+  forceFocus: jest.fn(),
 }));
+
+import { forceFocus } from '../utils/forceFocus';
 
 describe('KeyboardController', () => {
   let app;
   const buttonClickMock = jest.fn();
+  const inputSelectMock = jest.fn();
 
   /**
    * Simulates a keydown, keypress, and keyup event for the provided key.
@@ -47,6 +48,7 @@ describe('KeyboardController', () => {
 
   beforeAll(() => {
     HTMLButtonElement.prototype.click = buttonClickMock;
+    HTMLInputElement.prototype.select = inputSelectMock;
   });
 
   afterEach(() => {
@@ -223,6 +225,60 @@ describe('KeyboardController', () => {
       simulateKey({ key: 'j' });
 
       expect(buttonClickMock).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('focus action functionality', () => {
+    it('should focus on input element when action is set to focus', async () => {
+      expect(forceFocus).not.toHaveBeenCalled();
+
+      await setup(
+        `<input id="search" type="text" data-controller="w-kbd" data-w-kbd-key-value="/" data-w-kbd-action-value="focus">`,
+      );
+
+      simulateKey({ key: '/' });
+
+      expect(forceFocus).toHaveBeenCalledTimes(1);
+      expect(forceFocus).toHaveBeenCalledWith(
+        document.getElementById('search'),
+      );
+    });
+
+    it('should focus on target element when using element target', async () => {
+      await setup(
+        `
+      <div data-controller="w-kbd" data-w-kbd-key-value="/" data-w-kbd-action-value="focus">
+        <input id="target-input" type="text" data-w-kbd-target="element">
+      </div>
+      `,
+      );
+
+      simulateKey({ key: '/' });
+
+      expect(forceFocus).toHaveBeenCalledTimes(1);
+      expect(forceFocus).toHaveBeenCalledWith(
+        document.getElementById('target-input'),
+      );
+    });
+
+    it('should select text on target element when it has value', async () => {
+      await setup(
+        `
+      <div data-controller="w-kbd" data-w-kbd-key-value="/" data-w-kbd-action-value="focus">
+        <input id="target-input" type="text" data-w-kbd-target="element">
+      </div>
+      `,
+      );
+
+      const targetInput = document.getElementById('target-input');
+      targetInput.value = 'target text';
+
+      simulateKey({ key: '/' });
+
+      expect(forceFocus).toHaveBeenCalledTimes(1);
+      expect(forceFocus).toHaveBeenCalledWith(targetInput);
+      expect(inputSelectMock).toHaveBeenCalledTimes(1);
+      expect(inputSelectMock.mock.contexts).toEqual([targetInput]);
     });
   });
 });

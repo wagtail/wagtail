@@ -8,15 +8,15 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2022
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2022
 # aw.wunderweiss, 2022
-# Ettore Atalan <atalanttore@googlemail.com>, 2023
 # Loic Teixeira, 2024
-# Stefan Hammer <stefan@hammerworxx.com>, 2024
 # Oliver Engel <codeangel@posteo.de>, 2025
 # Bohreromir, 2025
+# Stefan Hammer <stefan@hammerworxx.com>, 2025
+# Ettore Atalan <atalanttore@googlemail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Bohreromir, 2025\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, 2025\n"
 "Language-Team: German (https://app.transifex.com/torchbox/teams/8009/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
@@ -136,6 +136,9 @@ msgstr "Fehlendes Dokument"
 msgid "More actions"
 msgstr "Mehr Aktionen"
 
+msgid "No"
+msgstr "Nein"
+
 msgid "No results"
 msgstr "Keine Ergebnisse"
 
@@ -230,6 +233,9 @@ msgstr "Die minimale Anzahl an Elementen ist %(min_num)d"
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
 
+msgid "Toggle section"
+msgstr "Abschnitt ein-/ausblenden"
+
 msgid "Toggle side panel"
 msgstr "Seitenleiste ein-/ausblenden"
 
@@ -247,3 +253,6 @@ msgstr "Unterseiten von ‚%(title)s‘ anzeigen"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Schreiben Sie etwas oder geben Sie „/“ ein, um einen Block einzufügen"
+
+msgid "Yes"
+msgstr "Ja"

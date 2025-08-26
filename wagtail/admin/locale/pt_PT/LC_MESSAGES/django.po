@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -314,8 +314,8 @@ msgstr "Dar um nome ao seu fluxo de trabalho"
 msgid "Add tasks to your workflow"
 msgstr "Adicionar tarefas ao seu fluxo de trabalho"
 
-msgid "Task"
-msgstr "Tarefa"
+msgid "task"
+msgstr "tarefa"
 
 msgid "1 page selected"
 msgstr "1 página selecionada"
@@ -738,6 +738,9 @@ msgstr "Resumo do site"
 
 msgid "Close"
 msgstr "Fechar"
+
+msgid "Task"
+msgstr "Tarefa"
 
 msgid "Task started"
 msgstr "Tarefa iniciada"
@@ -1601,6 +1604,9 @@ msgstr "Desfazer"
 msgid "Redo"
 msgstr "Refazer"
 
+msgid "Toggle sidebar"
+msgstr "Alternar estado da barra lateral"
+
 msgid "Italic"
 msgstr "Itálico"
 
@@ -1723,16 +1729,8 @@ msgstr "%(model_name)s '%(object)s' atualizado"
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' criado."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Alterar '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspecionar"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Apagar '%(title)s'"
 
 msgid "Editing"
 msgstr "A alterar"
@@ -2036,40 +2034,8 @@ msgstr "Tarefa '%(object)s' desativada."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Tarefa '%(task_name)s' ativada."
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Visualizar a versão de rascunho de '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Ver a versão publicada de '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Mover página '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copiar página '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Apagar página '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Despublicar a página '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Ver histórico da página para '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Ordenar ordem de menu"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Alterar a ordem das páginas-filha de '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Cabeçalho 1"

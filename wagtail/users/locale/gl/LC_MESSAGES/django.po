@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022-2024
+# X Bello <xbello@gmail.com>, 2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -143,6 +143,12 @@ msgstr "Preto"
 #. between elements in the user interface
 msgid "density"
 msgstr "densidade"
+
+msgid "Keyboard shortcuts"
+msgstr "Atallos de teclado"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Habililitar atallos de usuario específicos de Wagtail."
 
 msgid "user profile"
 msgstr "perfil de usuario"
@@ -291,9 +297,6 @@ msgstr ""
 "Non hai grupos configurados. ¿Por qué non <a "
 "href=\"%(wagtailusers_create_group_url)s\">engadir algún</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Seguro que queres eliminar este usuario?"
-
 msgid "Account"
 msgstr "Conta"
 
@@ -416,9 +419,6 @@ msgstr "Admin"
 
 msgid "Access level"
 msgstr "Nivel de acceso"
-
-msgid "Status"
-msgstr "Estado"
 
 #, python-format
 msgid "More options for '%(title)s'"

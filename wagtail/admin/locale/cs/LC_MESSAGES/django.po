@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -288,8 +288,8 @@ msgstr "Pojmenujte tento postup"
 msgid "Add tasks to your workflow"
 msgstr "Přidejte úlohy do tohoto postupu"
 
-msgid "Task"
-msgstr "Úkol"
+msgid "task"
+msgstr "úloha"
 
 msgid "1 page selected"
 msgstr "1 stránka vybrána"
@@ -588,6 +588,9 @@ msgstr "Přehled obsahu"
 
 msgid "Close"
 msgstr "Zavřít"
+
+msgid "Task"
+msgstr "Úkol"
 
 msgid "Task started"
 msgstr "Úkol spuštěn"
@@ -1442,16 +1445,8 @@ msgstr "%(model_name)s '%(object)s' aktualizováno."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' vytvořeno."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editovat '%(title)s'"
-
 msgid "Inspect"
 msgstr "Prozkoumat"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Zrušit '%(title)s'"
 
 msgid "Editing"
 msgstr "Úprava"
@@ -1723,34 +1718,6 @@ msgstr "Úloha '%(object)s' byla zakázána."
 #, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Úloha '%(task_name)s' byla povolena."
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Prohlédnout koncept stránky '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Zobrazit publikovanou verzi '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Přesunout stránku %(title)s"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopírovat stránku '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Smazat stránku %(title)s"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Zrušit publikaci stránky %(title)s"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Zobrazit historii stránky '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Hlavička 1"

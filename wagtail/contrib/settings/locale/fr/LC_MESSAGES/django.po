@@ -7,14 +7,14 @@
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2020,2022
 # Loic Teixeira, 2020,2022
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023,2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,13 @@ msgstr ""
 
 msgid "default"
 msgstr "défaut"
+
+msgid "Sites"
+msgstr "Sites"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s permissions"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

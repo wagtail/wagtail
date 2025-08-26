@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -291,9 +291,6 @@ msgstr "به رویه کاریتان نام بدهید"
 
 msgid "Add tasks to your workflow"
 msgstr "به رویه کاریتان دستورالعمل اضافه کنید"
-
-msgid "Task"
-msgstr "دستورالعمل"
 
 msgid "1 page selected"
 msgstr "1 صفحه انتخاب شده"
@@ -744,6 +741,9 @@ msgstr "خواندن یادداشت های انتشار."
 
 msgid "Close"
 msgstr "بستن"
+
+msgid "Task"
+msgstr "دستورالعمل"
 
 msgid "Task started"
 msgstr "دستورالعمل آغاز شده"
@@ -1257,13 +1257,6 @@ msgstr "در حال ساخت..."
 msgid "Create"
 msgstr "ساختن"
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"<a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>یک مورد الآن "
-"اضافه کنید</a>"
-
 msgid "Not started"
 msgstr "شروع نشده"
 
@@ -1437,10 +1430,6 @@ msgid ""
 "for publishing."
 msgstr ""
 "نسخه %(timestamp)s از %(model_name)s '%(object)s' برای انتشار زمانبندی شد."
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "ویرایش %(title)s"
 
 msgid "Inspect"
 msgstr "بازرسی"
@@ -1644,30 +1633,6 @@ msgstr "منتظر بازنگری من"
 
 msgid "Requested By"
 msgstr "درخواست شده توسط"
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "پیش نمایش نسخه پیش نویس %(title)s"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "دیدن نسخه منتشر شده‌ی %(title)s"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "انتقال صفحه %(title)s"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "کپی صفحه %(title)s"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "حذف صفحه %(title)s"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "لغوانتشار صفحه %(title)s"
 
 msgid "Bulleted list"
 msgstr "لیست نقطه‌ای"

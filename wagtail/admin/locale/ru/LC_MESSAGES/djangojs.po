@@ -6,11 +6,11 @@
 # Eugene <eugene.mechanism@gmail.com>, 2022
 # Мирон Левицкий <miron200504@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2022
-# Влад <integration.into.society@gmail.com>, 2023
 # Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023
 # Loic Teixeira, 2024
 # Andrei Satsevich, 2024
 # 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2025
+# Влад <integration.into.society@gmail.com>, 2025
 # sergeybe <sergeybe@gmail.com>, 2025
 #
 msgid ""
@@ -143,6 +143,9 @@ msgstr "Документ отсутствует"
 msgid "More actions"
 msgstr "Больше действий"
 
+msgid "No"
+msgstr "Нет"
+
 msgid "No results"
 msgstr "Нет результатов"
 
@@ -236,6 +239,9 @@ msgstr "Минимальное количество элементов: %(min_nu
 msgid "This field is required."
 msgstr "Это поле обязательно для заполнения."
 
+msgid "Toggle section"
+msgstr "Переключить раздел"
+
 msgid "Toggle side panel"
 msgstr "Переключить боковую панель"
 
@@ -253,3 +259,6 @@ msgstr "Показать дочерние страницы '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Напишите что-нибудь или введите «/», чтобы вставить блок"
+
+msgid "Yes"
+msgstr "Да"

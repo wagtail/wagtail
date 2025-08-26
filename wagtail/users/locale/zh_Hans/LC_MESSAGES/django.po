@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:10+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 祝沙军 <zhushajun@gmail.com>, 2016-2017\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -135,6 +135,9 @@ msgstr "深色"
 
 msgid "Default"
 msgstr "默认"
+
+msgid "Keyboard shortcuts"
+msgstr "键盘快捷键"
 
 msgid "user profile"
 msgstr "用户资料"
@@ -263,9 +266,6 @@ msgid ""
 msgstr ""
 "目前还没有组。<a href=\"%(wagtailusers_create_group_url)s\">添加</a>一个？"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "确定删除此用户？"
-
 msgid "Account"
 msgstr "帐号"
 
@@ -380,9 +380,6 @@ msgstr "管理"
 
 msgid "Access level"
 msgstr "访问权限"
-
-msgid "Status"
-msgstr "状态"
 
 #, python-format
 msgid "More options for '%(title)s'"

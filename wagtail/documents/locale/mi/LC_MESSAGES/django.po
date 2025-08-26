@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -61,12 +61,6 @@ msgstr "pukapuka"
 msgid "documents"
 msgstr "Ngā pukapuka"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "I whakamahi %(usage_count)staima"
-msgstr[1] "I whakamahi %(usage_count)s taima"
-
 msgid "Yes, delete"
 msgstr "Ae, muku"
 
@@ -102,6 +96,12 @@ msgstr "Ehara i kimi te kōnae"
 
 msgid "Usage"
 msgstr "Whakamahi"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "I whakamahi %(usage_count)staima"
+msgstr[1] "I whakamahi %(usage_count)s taima"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

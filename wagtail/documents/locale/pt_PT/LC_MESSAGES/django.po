@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -127,13 +127,6 @@ msgstr[0] "Tem a certeza que quer apagar este documento?"
 msgstr[1] "Tem a certeza que quer apagar estes documentos?"
 msgstr[2] "Tem a certeza que quer apagar estes documentos?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Utilizado %(usage_count)s vez"
-msgstr[1] "Utilizado %(usage_count)s vezes"
-msgstr[2] "Utilizado %(usage_count)s vezes"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Não tem permissão para apagar este documento"
@@ -175,6 +168,13 @@ msgstr "Ficheiro não encontrado"
 
 msgid "Usage"
 msgstr "Utilização"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilizado %(usage_count)s vez"
+msgstr[1] "Utilizado %(usage_count)s vezes"
+msgstr[2] "Utilizado %(usage_count)s vezes"
 
 msgid "Select all documents in listing"
 msgstr "Selecionar todos os documentos da listagem"

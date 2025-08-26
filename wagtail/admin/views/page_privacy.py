@@ -108,10 +108,13 @@ def set_privacy(request, page_id):
     else:
         return render_modal_workflow(
             request,
-            "wagtailadmin/page_privacy/set_privacy.html",
+            "wagtailadmin/shared/set_privacy.html",
             None,
             {
-                "page": page,
+                "action_url": reverse(
+                    "wagtailadmin_pages:set_privacy", args=(page.pk,)
+                ),
+                "object": page,
                 "form": form,
             },
             json_data={"step": "set_privacy"},

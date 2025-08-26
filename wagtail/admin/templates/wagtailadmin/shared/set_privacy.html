@@ -1,0 +1,15 @@
+{% load i18n wagtailadmin_tags %}
+
+<form action="{{ action_url }}" method="POST" novalidate data-controller="w-rules" data-action="change->w-rules#resolve">
+    {% csrf_token %}
+    {% formattedfield field=form.restriction_type show_label=False %}
+    {% if form.password is not None %}
+        <div {% if form.initial.restriction_type != 'password' %}hidden{% endif %} data-w-rules-target="show" data-w-rules='{"restriction_type": "password"}'>
+            {% formattedfield form.password %}
+        </div>
+    {% endif %}
+    <div {% if form.initial.restriction_type != 'groups' %}hidden{% endif %} data-w-rules-target="show" data-w-rules='{"restriction_type": "groups"}'>
+        {% formattedfield form.groups %}
+    </div>
+    <input type="submit" value="{% trans 'Save' %}" class="button" />
+</form>

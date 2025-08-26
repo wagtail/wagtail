@@ -781,6 +781,18 @@ class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, Te
             params,
         )
 
+    def test_privacy_for_collection(self):
+        response = self.get(self.finance_collection.id)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"], self.finance_collection)
+        self.assertEqual(
+            response.context["action_url"],
+            "/admin/collections/{}/privacy/".format(self.finance_collection.id),
+        )
+
     def test_get_private_child(self):
         CollectionViewRestriction.objects.create(
             collection=self.root_collection,

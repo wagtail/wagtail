@@ -37,6 +37,12 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixel"
 
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
 msgid "Actions"
 msgstr "Akciók"
 
@@ -126,6 +132,9 @@ msgstr "Hiányzó dokumentum"
 
 msgid "More actions"
 msgstr "További akciók"
+
+msgid "No"
+msgstr "Nem"
 
 msgid "No results"
 msgstr "Nincs találat"
@@ -219,6 +228,9 @@ msgstr "Az elemek minimális száma %(min_num)d"
 msgid "This field is required."
 msgstr "Ennek a mezőnek a megadása kötelező."
 
+msgid "Toggle section"
+msgstr "Szekció kapcsolása"
+
 msgid "Toggle side panel"
 msgstr "Oldalsáv kapcsolása"
 
@@ -236,3 +248,6 @@ msgstr "'%(title)s' gyerekoldalainak megtekintése"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Írjon valamit, vagy nyomja meg a \"/\" gombot egy blokk beszúrásához"
+
+msgid "Yes"
+msgstr "Igen"

@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022-2024
+# X Bello <xbello@gmail.com>, 2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:05+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +78,9 @@ msgstr "Mapas de sitio Wagtail"
 
 msgid "Unknown content type"
 msgstr "Tipo de contido descoñecido"
+
+msgid "Date cannot be in the future."
+msgstr "A data non pode ser no futuro."
 
 msgid "Password"
 msgstr "Contrasinal"
@@ -540,6 +543,12 @@ msgid ""
 msgstr ""
 "%(hostname)s está xa configurado como sitio web por defecto. Debes "
 "desactivar iso antes de que podas establecer este sitio web por defecto."
+
+msgid "group site permission"
+msgstr "permiso do grupo para o sitio"
+
+msgid "group site permissions"
+msgstr "permisos do grupo para o sitio"
 
 msgid "Public"
 msgstr "Público"

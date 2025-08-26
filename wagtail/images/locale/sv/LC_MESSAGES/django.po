@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2021\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -235,12 +235,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Är du säker på att du vill radera denna bild?"
 msgstr[1] "Är du säker på att du vill radera dessa bilder?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Använd %(usage_count)s gång"
-msgstr[1] "Använd %(usage_count)s gånger"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Du saknar rättigheter att radera denna bild"
@@ -286,13 +280,6 @@ msgstr "Du har inte laddat upp några bilder i denna samling"
 
 msgid "You haven't uploaded any images."
 msgstr "Du har inte laddat upp några bilder."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Varför inte <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>ladda upp en nu</a>?"
 
 msgid "Choose a format"
 msgstr "Välj ett format"
@@ -354,6 +341,12 @@ msgstr "Filen hittades inte"
 
 msgid "Usage"
 msgstr "Användning"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)s gång"
+msgstr[1] "Använd %(usage_count)s gånger"
 
 msgid "Sort by"
 msgstr "Sortera efter"
@@ -517,6 +510,12 @@ msgstr "Filstorlek: (hög till låg)"
 
 msgid "Images"
 msgstr "Bilder"
+
+msgid "Title"
+msgstr "Rubrik"
+
+msgid "Created"
+msgstr "Skapad"
 
 msgid "The image could not be saved due to errors."
 msgstr "Bilden kunde inte sparas p.g.a. fel."

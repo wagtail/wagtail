@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016,2020
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016,2020
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
-# X Bello <xbello@gmail.com>, 2022
+# X Bello <xbello@gmail.com>, 2022,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022,2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,13 @@ msgstr ""
 
 msgid "default"
 msgstr "por defecto"
+
+msgid "Sites"
+msgstr "Sitios web"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "Permisos de %(model)s"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

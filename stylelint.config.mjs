@@ -1,4 +1,8 @@
-module.exports = {
+/**
+ * @see https://stylelint.io/user-guide/configure/
+ * @type {import('stylelint').Config}
+ */
+const config = {
   extends: '@wagtail/stylelint-config-wagtail',
   rules: {
     'scss/at-rule-no-unknown': [
@@ -86,3 +90,5 @@ module.exports = {
     'declaration-block-no-redundant-longhand-properties': null,
   },
 };
+
+export default config;

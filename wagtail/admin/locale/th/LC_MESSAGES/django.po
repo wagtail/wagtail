@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:07+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -886,10 +886,6 @@ msgstr "%(model_name)s '%(object)s' มีการอัปเดตและ�
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr "%(model_name)s '%(object)s' ถูกสร้างและเผยแพร่"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "แก้ไข'%(title)s'"
-
 msgid "Inspect"
 msgstr "ตรวจ"
 
@@ -1002,14 +998,6 @@ msgstr "หน้านี้กำลังถูกใช้อยู่"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "หน้า%(page_title)s ปัจจุบันนี้ไม่รอตรวจ"
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "ดูตัวอย่างเวอร์ชั่นฉบับร่างของ '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "ดูเวอร์ชั่นที่เผยแพร่ของ '%(title)s'"
 
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"

@@ -141,7 +141,6 @@ export class Userbar extends HTMLElement {
      */
     const resetItemsTabIndex = () => {
       listItems.forEach((listItem) => {
-        // eslint-disable-next-line no-param-reassign
         (listItem.firstElementChild as HTMLElement).tabIndex = -1;
       });
     };
@@ -151,7 +150,6 @@ export class Userbar extends HTMLElement {
      */
     const focusElement = (el: HTMLElement) => {
       resetItemsTabIndex();
-      // eslint-disable-next-line no-param-reassign
       el.tabIndex = 0;
       setTimeout(() => {
         el.focus();
@@ -456,7 +454,6 @@ export class Userbar extends HTMLElement {
       '[data-a11y-result-count]',
     );
     innerErrorBadges.forEach((badge) => {
-      // eslint-disable-next-line no-param-reassign
       badge.textContent = String(a11yErrorsNumber) || '0';
       badge.classList.toggle('has-errors', results.violations.length > 0);
     });

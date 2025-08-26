@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -278,14 +278,6 @@ msgstr[1] "Вы уверены, что хотите удалить эти изо
 msgstr[2] "Вы уверены, что хотите удалить эти изображения?"
 msgstr[3] "Вы уверены, что хотите удалить эти изображения?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Использовано %(usage_count)sраз"
-msgstr[1] "Использовано %(usage_count)s раз"
-msgstr[2] "Использовано %(usage_count)s раз"
-msgstr[3] "Использовано%(usage_count)s раз"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "У вас недостаточно прав для удаления этого изображения"
@@ -334,13 +326,6 @@ msgstr "Вы не загрузили ни одного изображения в
 
 msgid "You haven't uploaded any images."
 msgstr "Вы не загрузили ни одного изображения."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Почему бы не <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>загрузить один сейчас</a>?"
 
 msgid "Choose a format"
 msgstr "Выберите формат"
@@ -420,6 +405,14 @@ msgstr "Файл не найден"
 
 msgid "Usage"
 msgstr "Использование"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использовано %(usage_count)sраз"
+msgstr[1] "Использовано %(usage_count)s раз"
+msgstr[2] "Использовано %(usage_count)s раз"
+msgstr[3] "Использовано%(usage_count)s раз"
 
 msgid "Sort by"
 msgstr "Сортировать по"
@@ -597,6 +590,12 @@ msgstr "Размер файла: (от большого к меньшему)"
 
 msgid "Images"
 msgstr "Изображения"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Created"
+msgstr "Создан"
 
 msgid "The image could not be saved due to errors."
 msgstr "Это изображение не может быть сохранено из-за ошибок."

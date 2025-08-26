@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Stefano Marchetto <airbatum@gmail.com>, 2020\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -252,13 +252,6 @@ msgstr[0] "Sei sicuro di voler eliminare questa immagine"
 msgstr[1] "Sei sicuro di voler eliminare queste immagini?"
 msgstr[2] "Sei sicuro di voler eliminare queste immagini?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Usato %(usage_count)s volta"
-msgstr[1] "Usato %(usage_count)s volte"
-msgstr[2] "Usato %(usage_count)s volte"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Non hai i permessi per eliminare questa immagine"
@@ -306,13 +299,6 @@ msgstr "Non hai caricato nessuna immagine in questa raccolta."
 
 msgid "You haven't uploaded any images."
 msgstr "Non hai caricato alcuna immagine."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Perché non <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>caricarne una adesso</a>?"
 
 msgid "Choose a format"
 msgstr "Scegli un formato"
@@ -374,6 +360,13 @@ msgstr "File non trovato"
 
 msgid "Usage"
 msgstr "Utilizzo"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usato %(usage_count)s volta"
+msgstr[1] "Usato %(usage_count)s volte"
+msgstr[2] "Usato %(usage_count)s volte"
 
 msgid "Sort by"
 msgstr "Ordina per"
@@ -543,6 +536,12 @@ msgstr "Dimensione file: (decrescente)"
 
 msgid "Images"
 msgstr "Immagini"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Created"
+msgstr "Creata"
 
 msgid "The image could not be saved due to errors."
 msgstr "L'immagine non può essere salvata a causa di errori."

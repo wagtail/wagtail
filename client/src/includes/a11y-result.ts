@@ -166,7 +166,6 @@ export const renderA11yResults = (
   onClickSelector: (selectorName: string, event: MouseEvent) => void,
 ) => {
   // Reset contents ahead of rendering new results.
-  // eslint-disable-next-line no-param-reassign
   container.innerHTML = '';
 
   if (results.violations.length) {

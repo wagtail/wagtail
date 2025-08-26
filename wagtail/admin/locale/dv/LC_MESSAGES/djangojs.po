@@ -40,6 +40,9 @@ msgstr "%(title)s އެޑިޓް ކުރޭ"
 msgid "More actions"
 msgstr "އިތުރު ހަރަކާތްތައް"
 
+msgid "No"
+msgstr "ނޫން"
+
 msgid "Page"
 msgstr "ސަފްހާ"
 
@@ -75,5 +78,11 @@ msgstr "އެންމެ މަދު ތަކެތީގެ އަދަދަކީ %(min_num)d އެ
 msgid "This field is required."
 msgstr "މި ބައި ކޮންމެހެންވެސް ބޭނުންވާނެ"
 
+msgid "Toggle section"
+msgstr "ޓޮގްލް ސެކްޝަން"
+
 msgid "Toggle side panel"
 msgstr "ސައިޑް ޕެނަލް ޓޮގްލް ކޮށްލާ"
+
+msgid "Yes"
+msgstr "އާނ"

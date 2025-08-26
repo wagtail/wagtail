@@ -5,10 +5,36 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.8 (Matt Westcott)
+ * Add usage count filter to the admin image and document listings (Joel William)
+ * Add keyboard shortcut (`?`) to activate the keyboard shortcuts dialog (Dhruvi Patel)
+ * Add keyboard shortcut (`/`) to activate and focus on the search input in the sidebar (Dhruvi Patel)
+ * Fix: Use the correct method of resolving the file storage dynamically for FileField usage in images & documents (Amir Mahmoodi)
+ * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
+ * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
+ * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
+ * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
+ * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami (Yemeni))
+ * Docs: Fix incorrect import references in getting started tutorial (Hunzlah Malik)
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
+ * Maintenance: Updated NPM packages and linting configuration (LB (Ben) Johnston)
+ * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
+ * Maintenance: Migrate privacy switch modal field hiding to the Stimulus `RulesController` (LB (Ben) Johnston)
+ * Maintenance: Add semgrep rules for inline styles and scripts (Chiemezuo Akujobi, Sage Abdullah)
+ * Maintenance: Fix intermittent test failures caused by nondeterministic order in TestFilteredModelChoiceField (Sage Abdullah)
+ * Maintenance: Add support for `attrs` in `formattedfield` tag & clean up other usages of the `attrs` template include (LB (Ben) Johnston)
 
 
-7.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix crash when the Wagtail API is accessed without `rest_framework` installed (Vijay Raj)
+ * Fix: Fix failure of `FieldPanel` and `TitleFieldPanel` with `read_only=True` (Sage Abdullah)
+ * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
+ * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
+ * Docs: Add section about closing stale pull requests to the issue tracking documentation (Thibaud Colas, Sage Abdullah, LB (Ben) Johnston)
+ * Docs: Add backporting policy for UI and accessibility fixes with updated "active support" and "security support" definitions (Thibaud Colas, Sage Abdullah, Scott Cranfill)
+
+7.1 (04.08.2025)
 ~~~~~~~~~~~~~~~~
 
  * Allow configuring permissions for site settings on a per-site basis (Matt Westcott)
@@ -91,6 +117,7 @@ Changelog
  * Docs: Add experimental documentation for admin UI components and client-side code (Sage Abdullah)
  * Docs: Clean up JSDoc documentation comments, syntax, and update spelling where suitable (LB (Ben) Johnston)
  * Docs: Add more examples of all images settings and include `avif` in `WAGTAILIMAGES_EXTENSIONS` example (Thibaud Colas)
+ * Docs: Add an example of using `data-edit-form` and interacting with the editor form and preview panel (Sage Abdullah)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
@@ -105,6 +132,8 @@ Changelog
  * Maintenance: Bump minimum Willow version to v1.11.0 to use Pillow's built-in AVIF support (Sage Abdullah)
  * Maintenance: Add overridable blocks in comments and checks side panel templates (Sage Abdullah)
  * Maintenance: Rewrite Tabs component frontend to use Stimulus and TypeScript (Sai Srikar Dumpeti, LB (Ben) Johnston, Sage Abdullah)
+ * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
+ * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
 
 7.0.2 (24.07.2025)

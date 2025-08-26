@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -228,12 +228,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "بۇ سۈرەتنى راستتىنلا ئۆچۈرەمسىز؟"
 msgstr[1] "بۇ سۈرەتنى راستتىنلا ئۆچۈرەمسىز؟"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s قېتىم ئىشلىتىلدى"
-msgstr[1] "%(usage_count)s قېتىم ئىشلىتىلدى"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "بۇ  سۈرەتنى ئۆچۈرۈش ئىجازىتىڭىز يوق"
@@ -279,13 +273,6 @@ msgstr "سىز بۇ توپلامغا ھېچقانداق سۈرەت يۈكلىم�
 
 msgid "You haven't uploaded any images."
 msgstr "سىز ھېچقانداق سۈرەت يۈكلىمىدىڭىز."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"نېمىشقا <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>ھازىر بىرنى يۈكلە</a>مەيسىز؟"
 
 msgid "Choose a format"
 msgstr "پىچىم تاللىنىدۇ"
@@ -357,6 +344,12 @@ msgstr "ھۆججەت تېپىلمىدى"
 
 msgid "Usage"
 msgstr "ئىشلىتىلىشى"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s قېتىم ئىشلىتىلدى"
+msgstr[1] "%(usage_count)s قېتىم ئىشلىتىلدى"
 
 msgid "Sort by"
 msgstr "تەرتىپى"
@@ -525,6 +518,12 @@ msgstr "ھۆججەت چوڭلۇقى: (چوڭدىن كىچىككە)"
 
 msgid "Images"
 msgstr "سۈرەت"
+
+msgid "Title"
+msgstr "ماۋزۇ"
+
+msgid "Created"
+msgstr "قۇرغان ۋاقىت"
 
 msgid "The image could not be saved due to errors."
 msgstr "خاتالىق سەۋەبىدىن سۈرەتنى ساقلىغىلى بولمىدى."
