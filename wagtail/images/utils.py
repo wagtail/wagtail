@@ -3,8 +3,7 @@ import hashlib
 import hmac
 
 from django.conf import settings
-from django.utils.crypto import constant_time_compare
-from django.utils.encoding import force_str
+from django.utils.encoding import force_bytes, force_str
 
 
 # Helper functions for migrating the Rendition.filter foreign key to the filter_spec field,
@@ -95,9 +94,9 @@ def generate_signature(image_id, filter_spec, key=None):
 
 
 def verify_signature(signature, image_id, filter_spec, key=None):
-    return constant_time_compare(
-        signature, generate_signature(image_id, filter_spec, key=key)
-    )
+    signature = force_bytes(signature)
+    generated = force_bytes(generate_signature(image_id, filter_spec, key=key))
+    return hmac.compare_digest(signature, generated)
 
 
 def find_image_duplicates(image, user, permission_policy):
