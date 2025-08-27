@@ -10,7 +10,7 @@ from django.db import (
     transaction,
 )
 from django.db.models import Avg, Count, F, Manager, Q, TextField, Value
-from django.db.models.constants import LOOKUP_SEP
+from django.db.models.query_utils import LOOKUP_SEP
 from django.db.models.functions import Cast, Length
 from django.db.models.sql.subqueries import InsertQuery
 from django.utils.encoding import force_str
