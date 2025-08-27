@@ -336,7 +336,7 @@ from wagtail.search.backends.base import (
 )
 from wagtail.search.index import SearchField, RelatedFields
 from wagtail.search.utils import get_sql_weights, MUL, ADD, OR
-from django.db.models.constants import LOOKUP_SEP
+from django.db.models.query_utils import LOOKUP_SEP
 
 
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
