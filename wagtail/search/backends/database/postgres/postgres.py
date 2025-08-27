@@ -10,7 +10,7 @@ from django.db import (
     transaction,
 )
 from django.db.models import Avg, Count, F, Manager, Q, TextField, Value
-from django.db.models.query_utils import LOOKUP_SEP
+from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast, Length
 from django.db.models.sql.subqueries import InsertQuery
 from django.utils.encoding import force_str
@@ -319,26 +319,6 @@ class Index:
     def __str__(self):
         return self.name
 
-import re
-import warnings
-from functools import reduce
-from django.db.models import F, Q
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, Lexeme
-from wagtail.search.backends.base import (
-    BaseSearchQueryCompiler,
-    MatchAll,
-    PlainText,
-    Phrase,
-    Boost,
-    Not,
-    And,
-    Or,
-)
-from wagtail.search.index import SearchField, RelatedFields
-from wagtail.search.utils import get_sql_weights, MUL, ADD, OR
-# from django.db.models.query_utils import LOOKUP_SEP
-
-
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "and"
     LAST_TERM_IS_PREFIX = False
@@ -349,32 +329,23 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         super().__init__(*args, **kwargs)
 
         local_search_fields = self.get_search_fields_for_model()
+
+        # Due to a Django bug, arrays are not automatically converted
+        # when we use WEIGHTS_VALUES.
         self.sql_weights = get_sql_weights()
 
         if self.fields is None:
+            # search over the fields defined on the current model
             self.search_fields = local_search_fields
         else:
+            # build a search_fields set from the passed definition,
+            # which may involve traversing relations
             self.search_fields = {
                 field_lookup: self.get_search_field(
                     field_lookup, fields=local_search_fields
                 )
                 for field_lookup in self.fields
             }
-
-   
-    # NEW: normalize query helper
-    def _normalize_query(self, query_string: str) -> str:
-        """
-        Normalize search terms so that hyphen+digit isn't treated
-        as a negative number by PostgreSQL's websearch_to_tsquery.
-
-        Examples:
-            "p-8"   -> "p -8"
-            "-8a"   -> "-8a"
-            "9a3f7cbe-f41c" -> unchanged
-        """
-        # Replace hyphen followed by digit, only when preceded by a word char
-        return re.sub(r'(?<=\w)-(?=\d)', r' -', query_string)
 
     def get_config(self, backend):
         return backend.config
@@ -398,22 +369,33 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             ):
                 return field
 
+            # Note: Searching on a specific related field using
+            # `.search(fields=…)` is not yet supported by Wagtail.
+            # This method anticipates by already implementing it.
             if isinstance(field, RelatedFields) and field.field_name == field_lookup:
                 return self.get_search_field(sub_field_name, field.fields)
 
     def build_tsquery_content(self, query, config=None, invert=False):
         if isinstance(query, PlainText):
-            # Normalize query string here
-            qstring = self._normalize_query(query.query_string)
-
-            terms = qstring.split()
+            terms = query.query_string.split()
             if not terms:
                 return None
 
-            last_term = terms.pop()
-            lexemes = Lexeme(last_term, invert=invert, prefix=self.LAST_TERM_IS_PREFIX)
+            # normalize hyphen-number tokens (so "p-8", "-8a" work correctly)
+            normalized_terms = []
             for term in terms:
+                if "-" in term and any(ch.isdigit() for ch in term):
+                    # replace "-" with space so Postgres won't treat it as a minus
+                    normalized_terms.extend(term.split("-"))
+                else:
+                    normalized_terms.append(term)
+
+            last_term = normalized_terms.pop()
+
+            lexemes = Lexeme(last_term, invert=invert, prefix=self.LAST_TERM_IS_PREFIX)
+            for term in normalized_terms:
                 new_lexeme = Lexeme(term, invert=invert)
+
                 if query.operator == "and":
                     lexemes &= new_lexeme
                 else:
@@ -422,16 +404,13 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             return SearchQuery(lexemes, search_type="raw", config=config)
 
         elif isinstance(query, Phrase):
-            # Normalize phrase queries as well
-            return SearchQuery(
-                self._normalize_query(query.query_string),
-                search_type="phrase",
-                config=config,
-            )
+            return SearchQuery(query.query_string, search_type="phrase", config=config)
 
         elif isinstance(query, Boost):
+            # Not supported
             msg = "The Boost query is not supported by the PostgreSQL search backend."
             warnings.warn(msg, RuntimeWarning)
+
             return self.build_tsquery_content(
                 query.subquery, config=config, invert=invert
             )
@@ -442,12 +421,28 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             )
 
         elif isinstance(query, (And, Or)):
+            # If this part of the query is inverted, we swap the operator and
+            # pass down the inversion state to the child queries.
+            # This works thanks to De Morgan's law.
+            #
+            # For example, the following query:
+            #
+            #   Not(And(Term("A"), Term("B")))
+            #
+            # Is equivalent to:
+            #
+            #   Or(Not(Term("A")), Not(Term("B")))
+            #
+            # It's simpler to code it this way as we only need to store the
+            # invert status of the terms rather than all the operators.
+
             subquery_lexemes = [
                 self.build_tsquery_content(subquery, config=config, invert=invert)
                 for subquery in query.subqueries
             ]
 
             is_and = isinstance(query, And)
+
             if invert:
                 is_and = not is_and
 
@@ -471,8 +466,10 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 self.build_tsquery(query, config=config),
                 weights=self.sql_weights,
             )
+
             if boost != 1.0:
                 rank_expression *= boost
+
             return rank_expression
 
         elif isinstance(query, Boost):
@@ -508,7 +505,10 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     def get_fields_vectors(self, search_query):
         return [
             (
-                SearchVector(field_lookup, config=search_query.config),
+                SearchVector(
+                    field_lookup,
+                    config=search_query.config,
+                ),
                 search_field.boost,
             )
             for field_lookup, search_field in self.search_fields.items()
@@ -517,6 +517,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     def get_search_vectors(self, search_query):
         if self.fields is None:
             return self.get_index_vectors(search_query)
+
         else:
             return self.get_fields_vectors(search_query)
 
@@ -533,6 +534,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         return rank_expression
 
     def search(self, config, start, stop, score_field=None):
+        # TODO: Handle MatchAll nested inside other search query classes.
         if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
 
@@ -553,7 +555,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
         if self.order_by_relevance:
             queryset = queryset.order_by(rank_expression.desc(), "-pk")
+
         elif not queryset.query.order_by:
+            # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by("-pk")
             rank_expression = F("pk")
 
@@ -572,13 +576,16 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     def _connect_filters(self, filters, connector, negated):
         if connector == "AND":
             q = Q(*filters)
+
         elif connector == "OR":
             q = OR([Q(fil) for fil in filters])
+
         else:
             return
 
         if negated:
             q = ~q
+
         return q
 
 class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
