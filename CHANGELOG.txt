@@ -22,6 +22,7 @@ Changelog
  * Maintenance: Add semgrep rules for inline styles and scripts (Chiemezuo Akujobi, Sage Abdullah)
  * Maintenance: Fix intermittent test failures caused by nondeterministic order in TestFilteredModelChoiceField (Sage Abdullah)
  * Maintenance: Add support for `attrs` in `formattedfield` tag & clean up other usages of the `attrs` template include (LB (Ben) Johnston)
+ * Maintenance: Allow exempting external templates from number formatting checks (Sage Abdullah)
 
 
 7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
