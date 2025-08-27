@@ -45,7 +45,7 @@ export class ExpandingFormset {
   addForm(opts = {}) {
     const formIndex = this.formCount;
     const newFormHtml = this.emptyFormTemplate.replace(
-      /__prefix__(.*?['"])/g,
+      /__prefix__(.*?('|"|\\u0022))/g,
       formIndex + '$1',
     );
 
