@@ -26,7 +26,7 @@ Changelog
  * Maintenance: Allow exempting external templates from number formatting checks (Sage Abdullah)
 
 
-7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1.1 (28.08.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
