@@ -118,7 +118,7 @@ Changelog
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
 
-7.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0.3 (28.08.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent crash when previewing a form page with an empty field type (Sage Abdullah)
