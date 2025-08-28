@@ -154,6 +154,9 @@ describe('ExpandingFormset', () => {
   });
 
   it('should replace the __prefix__ correctly for nested formset templates', () => {
+    const handleLoadedEvent = jest.fn();
+    document.addEventListener('custom:loaded', handleLoadedEvent);
+
     const prefix = 'id_venues';
     const nestedPrefix = 'events';
 
@@ -171,6 +174,19 @@ describe('ExpandingFormset', () => {
     <input type="text" name="venues-__prefix__-events-__prefix__-name" id="id_venues-__prefix__-events-__prefix__-name">
   </fieldset>
 </template>
+    `;
+
+    const nestedScript = /* html */ `
+      <script>
+        document.dispatchEvent(
+          new CustomEvent('custom:loaded', {
+            bubbles: true,
+            detail: JSON.parse(
+              "{\\u0022prefix1\\u0022: \\u0022${prefix}-__prefix__-${nestedPrefix}-__prefix__-testelement1\\u0022, \\u0022prefix2\\u0022: \\u0022${prefix}-__prefix__-${nestedPrefix}-__prefix__-testelement2\\u0022}",
+            ),
+          }),
+        );
+      </script>
     `;
 
     document.body.innerHTML = `
@@ -199,6 +215,7 @@ describe('ExpandingFormset', () => {
           <input type="hidden" name="form_fields-__prefix__-DELETE" id="id_form_fields-__prefix__-DELETE">
         </li>
         ${nestedTemplate}
+        ${nestedScript}
       </template>
     </div>`;
 
@@ -248,6 +265,17 @@ describe('ExpandingFormset', () => {
     );
     expect(newTemplateHtml).toContain(
       '<input type="text" name="venues-2-events-__prefix__-name" id="id_venues-2-events-__prefix__-name">',
+    );
+
+    expect(handleLoadedEvent).toHaveBeenCalledTimes(1);
+    const detail = handleLoadedEvent.mock.calls[0][0].detail;
+    // Both first occurences of __prefix__ should be replaced with '2', even if
+    // they are in escaped JSON within a script tag.
+    expect(detail.prefix1).toEqual(
+      `${prefix}-2-${nestedPrefix}-__prefix__-testelement1`,
+    );
+    expect(detail.prefix2).toEqual(
+      `${prefix}-2-${nestedPrefix}-__prefix__-testelement2`,
     );
   });
 });
