@@ -93,6 +93,8 @@ class AbstractFormField(Orderable):
     field_type = models.CharField(
         verbose_name=_("field type"), max_length=16, choices=FORM_FIELD_CHOICES
     )
+    # field_type must be populated for previews to build the form field.
+    field_type.required_on_save = True
     required = models.BooleanField(verbose_name=_("required"), default=True)
     choices = models.TextField(
         verbose_name=_("choices"),
