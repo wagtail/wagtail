@@ -4,6 +4,7 @@
 #
 # Translators:
 # Basitlik İyidir, 2017
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Basitlik İyidir, 2017
@@ -11,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Basitlik İyidir, 2017\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,3 +25,9 @@ msgstr ""
 
 msgid "Wagtail search"
 msgstr "Wagtail arama"
+
+msgid "index entry"
+msgstr "indeks girişi"
+
+msgid "index entries"
+msgstr "indeks girişleri"

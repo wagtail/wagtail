@@ -5,7 +5,7 @@
 # Translators:
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
-# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
@@ -105,8 +105,40 @@ msgstr "Şimdiki zaman dilimizi seçin"
 msgid "profile picture"
 msgstr "profil resmi"
 
+msgid "System default"
+msgstr "Sistem varsayılanı"
+
+msgid "Light"
+msgstr "Açık"
+
+msgid "Dark"
+msgstr "Koyu"
+
+msgid "admin theme"
+msgstr "yönetici teması"
+
+msgid "More contrast"
+msgstr "Daha fazla kontrast"
+
+msgid "contrast"
+msgstr "kontrast"
+
 msgid "Default"
 msgstr "Varsayılan"
+
+msgid "Snug"
+msgstr "Dar"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "yoğunluk"
+
+msgid "Keyboard shortcuts"
+msgstr "Klavye kısayolları"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Wagtail'a özel özel klavye kısayollarını etkinleştir."
 
 msgid "user profile"
 msgstr "kullanıcı profili"
@@ -114,14 +146,61 @@ msgstr "kullanıcı profili"
 msgid "user profiles"
 msgstr "kullanıcı profilleri"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "1 kullanıcıya rol ata"
+msgstr[1] "%(counter)s kullanıcısına rol atandı."
+
+msgid "Assign role"
+msgstr "Rol ata"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Bu kullanıcıyı düzenleme izniniz yok"
+msgstr[1] "Bu kullanıcıları düzenleme izniniz yok"
+
+msgid "Yes, assign"
+msgstr "Evet, ata"
+
 msgid "Delete"
 msgstr "Sil"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Bu kullanıcıyı silme izniniz yok"
+msgstr[1] "Bu kullanıcıları silme izniniz yok"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
 
 msgid "No, don't delete"
 msgstr "Hayır, silme"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "1 kullanıcının etkin durumunu değiştir"
+msgstr[1] "%(counter)s kullanıcının etkin durumunu değiştir"
+
+msgid "Set active state"
+msgstr "Etkin durumu ayarla"
+
+msgid "You cannot change your own active status"
+msgstr "Kendi etkin durumunuzu değiştiremezsiniz."
+
+msgid "Yes, change state"
+msgstr "Evet, durumu değiştir"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Grup '%(group_name)s' <strong>%(group_user_count)s</strong> üyesi var."
+msgstr[1] ""
+"Grup '%(group_name)s' <strong>%(group_user_count)s</strong> üyesi var."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -142,6 +221,9 @@ msgstr "Ekle"
 
 msgid "Change"
 msgstr "Değiştir"
+
+msgid "Toggle all"
+msgstr "Tümünü değiştir"
 
 msgid "Other permissions"
 msgstr "Diğer izinler"
@@ -173,11 +255,50 @@ msgstr "Hesap"
 msgid "Roles"
 msgstr "Roller"
 
+msgid "Select all users in listing"
+msgstr "Listede tüm kullanıcıları seç"
+
+msgid "Can view"
+msgstr "Görebilir"
+
+msgid "Assign role to selected users"
+msgstr "Seçilen kullanıcılara rol ata"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d kullanıcı %(role)s olarak atandı."
+msgstr[1] "%(num_parent_objects)d kullanıcı %(role)s olarak atandı."
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d kullanıcı silindi."
+msgstr[1] "%(num_parent_objects)d kullanıcı silindi."
+
 msgid "Active"
 msgstr "Aktif"
 
 msgid "Inactive"
 msgstr "Pasif"
+
+msgid "Mark as active"
+msgstr "Aktif olarak işaretle"
+
+msgid "Change the active state for selected users"
+msgstr "Seçilen kullanıcıların aktif durumunu değiştir"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d kullanıcı aktif olarak işaretlendi."
+msgstr[1] "%(num_parent_objects)d kullanıcı aktif olarak işaretlendi."
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d kullanıcı pasif olarak işaretlendi."
+msgstr[1] "%(num_parent_objects)d kullanıcı pasif olarak işaretlendi."
 
 msgid "Groups"
 msgstr "Gruplar"
@@ -202,12 +323,18 @@ msgstr "'%(object)s' grubu güncellendi."
 msgid "The group could not be saved due to errors."
 msgstr "Hata nedeniyle grup kaydedilemedi."
 
+msgid "View users in this group"
+msgstr "Bu gruptaki kullanıcıları görüntüle"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s' grubu silindi."
 
 msgid "Delete group"
 msgstr "Grubu sil"
+
+msgid "Last login"
+msgstr "Son giriş"
 
 msgid "Add a user"
 msgstr "Kullanıcı ekle"
@@ -220,6 +347,13 @@ msgstr "Kullanıcı adı"
 
 msgid "Admin"
 msgstr "Yönetici"
+
+msgid "Access level"
+msgstr "Erişim seviyesi"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr " '%(title)s' için daha fazla seçenek"
 
 msgid "Add user"
 msgstr "Kullanıcı ekle"
