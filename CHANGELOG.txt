@@ -7,6 +7,7 @@ Changelog
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Fix crash when the Wagtail API is accessed without `rest_framework` installed (Vijay Raj)
  * Fix: Fix failure of `FieldPanel` and `TitleFieldPanel` with `read_only=True` (Sage Abdullah)
+ * Fix: Fix broken Javascript interactions on nested inline panels (Matt Westcott, Sage Abdullah)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Add section about closing stale pull requests to the issue tracking documentation (Thibaud Colas, Sage Abdullah, LB (Ben) Johnston)
