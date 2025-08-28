@@ -123,8 +123,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">ustvarili enega sedaj</a>?"
 
+msgid "Scheduling…"
+msgstr "Načrtovanje..."
+
 msgid "Publishing…"
 msgstr "Objavljanje…"
+
+msgid "Schedule to publish"
+msgstr "Načrtuj objavo"
 
 msgid "Publish this version"
 msgstr "Objavi to različico"
