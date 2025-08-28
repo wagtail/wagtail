@@ -1,6 +1,11 @@
 Changelog
 =========
 
+7.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent crash when previewing a form page with an empty field type (Sage Abdullah)
+
 7.0.2 (24.07.2025)
 ~~~~~~~~~~~~~~~~~~
 
