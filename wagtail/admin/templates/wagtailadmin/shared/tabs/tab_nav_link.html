@@ -11,7 +11,7 @@
 
 <a id="tab-label-{{ tab_id }}" href="#tab-{{ tab_id }}" class="w-tabs__tab {{ classname }}" role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">
     {{ title }}
-    <div class="w-tabs__errors" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#tab-{{ tab_id }}">
+    <div class="w-tabs__errors" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#tab-{{ tab_id }}" data-action="w-streamfield:update@window->w-count#count">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
     </div>
