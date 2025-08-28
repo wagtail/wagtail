@@ -34,6 +34,7 @@ Changelog
  * Fix: Fix failure of `FieldPanel` and `TitleFieldPanel` with `read_only=True` (Sage Abdullah)
  * Fix: Fix broken Javascript interactions on nested inline panels (Matt Westcott, Sage Abdullah)
  * Fix: Fix rendering of StructBlock with custom form templates (Sage Abdullah)
+ * Fix: Prevent crash when previewing a form page with an empty field type (Sage Abdullah)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Add section about closing stale pull requests to the issue tracking documentation (Thibaud Colas, Sage Abdullah, LB (Ben) Johnston)
