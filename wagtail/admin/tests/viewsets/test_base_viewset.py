@@ -15,6 +15,9 @@ class TestBaseViewSet(WagtailTestUtils, TestCase):
         self.assertContains(response, "Miscellaneous")
         self.assertContains(response, "The Calendar")
         self.assertContains(response, "The Greetings")
+        self.assertContains(response, "Submenu Hook Miscellaneous")
+        self.assertContains(response, "The Submenu Hook Calendar")
+        self.assertContains(response, "Submenu Hook Greetings")
 
     def test_calendar_index_view(self):
         url = reverse("calendar:index")
@@ -23,11 +26,25 @@ class TestBaseViewSet(WagtailTestUtils, TestCase):
         self.assertEqual(url, "/admin/calendar/")
         self.assertContains(response, f"{now.year} calendar")
 
+    def test_submenu_hook_calendar_view(self):
+        url = reverse("submenu_hook_calendar:index")
+        response = self.client.get(url)
+        now = timezone.now()
+        self.assertEqual(url, "/admin/submenu_hook_calendar/")
+        self.assertContains(response, f"{now.year} calendar")
+
     def test_calendar_month_view(self):
         url = reverse("calendar:month")
         response = self.client.get(url)
         now = timezone.now()
         self.assertEqual(url, "/admin/calendar/month/")
+        self.assertContains(response, f"{now.year}/{now.month} calendar")
+
+    def test_submenu_hook_calendar_month_view(self):
+        url = reverse("submenu_hook_calendar:month")
+        response = self.client.get(url)
+        now = timezone.now()
+        self.assertEqual(url, "/admin/submenu_hook_calendar/month/")
         self.assertContains(response, f"{now.year}/{now.month} calendar")
 
     def test_greetings_view(self):
@@ -38,6 +55,16 @@ class TestBaseViewSet(WagtailTestUtils, TestCase):
         response = self.client.get(url)
         self.assertEqual(url, "/admin/greetingz/")
         self.assertContains(response, "Greetings")
+        self.assertContains(response, "Welcome to this greetings page, Gordon Freeman!")
+
+    def test_submenu_hook_greetings_view(self):
+        self.user.first_name = "Gordon"
+        self.user.last_name = "Freeman"
+        self.user.save()
+        url = reverse("submenu_hook_greetings:index")
+        response = self.client.get(url)
+        self.assertEqual(url, "/admin/submenu_hook_greetingz/")
+        self.assertContains(response, "Submenu Hook Greetings")
         self.assertContains(response, "Welcome to this greetings page, Gordon Freeman!")
 
     def test_method_injection(self):
