@@ -16,9 +16,7 @@
     <script src="{% versioned_static 'wagtailsearchpromotions/js/query-chooser-modal.js' %}"></script>
 
     <script type="text/javascript">
-        {% include "wagtailsearchpromotions/includes/searchpromotions_formset.js" with formset=searchpicks_formset only  %}
         {% include "wagtailsearchpromotions/queries/chooser_field.js" only %}
-
         $(function() {
             createQueryChooser('{{ form.query_string.auto_id }}');
         });

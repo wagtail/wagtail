@@ -12,8 +12,11 @@ import { ExpandingFormset } from '../ExpandingFormset';
  * @param {boolean?} opts.canOrder
  * @param {string} opts.emptyChildFormPrefix
  * @param {number} opts.maxForms
- * @param {Function} opts.onAdd
- * @returns {object}
+ * @param {function} opts.onAdd
+ * @returns {Object}
+ *
+ * @deprecated - Will be removed in a future release once fully migrated to Stimulus.
+ * @see `client/src/controllers/FormsetController.ts` for the future (WIP) implementation.
  */
 export class InlinePanel extends ExpandingFormset {
   constructor(opts, initControls = true) {
