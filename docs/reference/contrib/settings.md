@@ -28,6 +28,10 @@ Create a model that inherits from either:
 
 and register it using the `register_setting` decorator:
 
+**Reference index**
+
+Setting models registered with `@register_setting` are tracked automatically. References to other objects (pages, snippets, images, documents, etc.) are detected so deletions of protected objects are blocked. No manual registration is required.
+
 ```python
 from django.db import models
 from wagtail.contrib.settings.models import (

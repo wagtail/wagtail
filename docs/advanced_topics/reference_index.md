@@ -22,6 +22,10 @@ The reference index does not require any further configuration. However there ar
 
 A model can be registered for reference indexing by adding code to `apps.py` in the app where the model is defined:
 
+#### Settings models
+
+Setting models registered with `@register_setting` (subclasses of `BaseSiteSetting` or `BaseGenericSetting`) are registered automatically. Their references are tracked and deletions of protected related objects are blocked cleanly. Models not registered with the index raise a raw `ProtectedError` on deleting protected related objects.
+
 ```python
 from django.apps import AppConfig
 
