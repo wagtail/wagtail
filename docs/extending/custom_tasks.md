@@ -152,6 +152,25 @@ def locked_for_user(self, obj, user):
     return user != self.user
 ```
 
+`Task.lock_class`
+
+An attribute that defines the lock class used when the task is locked for the user. Defaults to `wagtail.locks.WorkflowLock`.
+Note that 
+
+```python
+from wagtail.locks import WorkflowLock
+from wagtail.models import Task
+
+
+class MyWorkflowLock(WorkflowLock):
+    def get_message(self, user):
+        return f"{user}, you shall not pass!"
+
+    
+class UserApprovalTask(Task):
+    lock_class = MyWorkflowLock
+```
+
 `Task.get_actions(obj, user)`:
 
 This returns a list of `(action_name, action_verbose_name, action_requires_additional_data_from_modal)` tuples, corresponding to the actions available for the task in the edit view menu.
