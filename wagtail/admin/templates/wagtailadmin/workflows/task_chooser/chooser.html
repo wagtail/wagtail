@@ -16,8 +16,9 @@
                 class="w-tabs__panel"
                 role="tabpanel"
                 aria-labelledby="tab-label-new"
-                data-w-tabs-target="panel"
                 hidden
+                data-w-tabs-target="panel"
+                data-action="w-focus:focus->w-tabs#selectInside"
             >
                 {% include "wagtailadmin/workflows/task_chooser/includes/create_tab.html" %}
             </section>
@@ -26,8 +27,9 @@
                 class="w-tabs__panel"
                 role="tabpanel"
                 aria-labelledby="tab-label-existing"
-                data-w-tabs-target="panel"
                 hidden
+                data-w-tabs-target="panel"
+                data-action="w-focus:focus->w-tabs#selectInside"
             >
                 <form
                     class="task-search"
