@@ -70,7 +70,7 @@ def move_confirm(request, page_to_move_id, destination_id):
         messages.error(
             request,
             _(
-                "The slug '%(page_slug)s' is already in use at the selected parent page. Make sure the slug is unique and try again"
+                "The slug '%(page_slug)s' is already in use at the selected parent page. Make sure the slug is unique and try again."
             )
             % {"page_slug": page_to_move.slug},
         )
