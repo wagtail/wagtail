@@ -55,6 +55,7 @@ exports[`TooltipEntity #openTooltip 1`] = `
       <a
         className="Tooltip__link"
         href="https://www.example.com/"
+        onKeyDown={[Function]}
         rel="noreferrer"
         target="_blank"
         title="https://www.example.com/"
@@ -64,12 +65,14 @@ exports[`TooltipEntity #openTooltip 1`] = `
       <button
         className="button button-small Tooltip__button"
         onClick={[Function]}
+        onKeyDown={[Function]}
       >
         Edit
       </button>
       <button
         className="button button-small button-secondary no Tooltip__button"
         onClick={[Function]}
+        onKeyDown={[Function]}
       >
         Remove
       </button>
