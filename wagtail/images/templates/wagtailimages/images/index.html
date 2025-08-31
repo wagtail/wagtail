@@ -8,9 +8,6 @@
 
 {% block slim_header %}
     {% fragment as extra_form_fields %}
-        <div id="layout-toggle-button">
-            {% include "wagtailimages/images/layout_toggle_button.html" %}
-        </div>
         {% rawformattedfield label_text=_("Sort by") id_for_label="order_images_by" sr_only_label=True %}
             <select id="order_images_by" name="ordering">
                 {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
@@ -18,6 +15,9 @@
                 {% endfor %}
             </select>
         {% endrawformattedfield %}
+        <div id="layout-toggle-switcher">
+            {% include "wagtailimages/images/layout_toggle_button.html" %}
+        </div>
     {% endfragment %}
     {% include "wagtailimages/images/image_listing_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url title=header_title search_url=index_results_url search_form=search_form filters=filters buttons=header_buttons icon_name=header_icon extra_form_fields=extra_form_fields only %}
 {% endblock %}
