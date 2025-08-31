@@ -7,12 +7,20 @@ from django.core import management
 from django.db.models import Count, Q
 from django.test import TestCase, TransactionTestCase
 
-from wagtail.models import Locale, Page, PageViewRestriction, Site, Workflow
+from wagtail.models import (
+    Locale,
+    Page,
+    PageViewRestriction,
+    Site,
+    Task,
+    Workflow,
+)
 from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import (
     EventPage,
     SimplePage,
+    SimpleTask,
     SingleEventPage,
     StreamPage,
 )
@@ -1365,3 +1373,23 @@ class TestFirstCommonAncestor(TestCase):
             self.assertNotIn("body", page.__dict__)
             with self.assertNumQueries(1):
                 page.body
+
+
+class TestSpecificQueryForNonPage(TestCase):
+    def test_specific_gracefully_handles_missing_rows(self):
+        # 13376 - Check that .specific handles missing rows for Tasks
+        # when generating warnings
+
+        # Trick SpecificIteraterable.__init__() into always looking for SimpleTasks
+        with mock.patch(
+            "wagtail.query.ContentType.objects.get_for_id",
+            return_value=ContentType.objects.get_for_model(SimpleTask),
+        ):
+            with self.assertWarnsRegex(
+                RuntimeWarning,
+                "Specific versions of the following items could not be found",
+            ):
+                tasks = list(Task.objects.all().specific())
+
+            # Missing tasks should be supplemented with generic tasks
+            self.assertEqual(tasks, [Task.objects.get(name="Moderators approval")])
