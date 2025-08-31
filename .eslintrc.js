@@ -153,6 +153,7 @@ module.exports = {
         'import/first': 'off',
         'import/no-extraneous-dependencies': 'off',
         'jsx-a11y/control-has-associated-label': 'off',
+        'jsx-a11y/label-has-associated-control': 'off',
         'no-new': 'off',
         'no-unused-expressions': 'off',
         'react/function-component-definition': 'off',
