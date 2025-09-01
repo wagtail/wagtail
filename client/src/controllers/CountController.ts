@@ -1,7 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 import { ngettext } from '../utils/gettext';
 
-const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
+const DEFAULT_ERROR_SELECTOR =
+  ':not([hidden]):is(.error-message,.help-critical)';
 
 /**
  * Adds the ability for a controlled element to update the total count

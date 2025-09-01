@@ -12,6 +12,7 @@ Changelog
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
  * Fix: Prevent error from default `update_fields` parameter on `Page.asave()` (Tosinibikunle)
+ * Fix: Ignore hidden error messages in minimap & `CountController` default `findValue` (Sage Abdullah)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami (Yemeni))
