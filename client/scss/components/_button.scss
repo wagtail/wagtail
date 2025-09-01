@@ -388,13 +388,14 @@
   }
 }
 
-.w-layout-toggle-button-right{
-  border-top-left-radius: theme('borderRadius.sm');
-  border-bottom-left-radius: theme('borderRadius.sm');
+.w-layout-toggle-button-right {
+  border-start-start-radius: theme('borderRadius.sm');
+  border-end-start-radius: theme('borderRadius.sm');
 }
-.w-layout-toggle-button-left{
-  border-top-right-radius: theme('borderRadius.sm');
-  border-bottom-right-radius: theme('borderRadius.sm');
+
+.w-layout-toggle-button-left {
+  border-start-end-radius: theme('borderRadius.sm');
+  border-end-end-radius: theme('borderRadius.sm');
 }
 
 .w-layout-toggle-button {
@@ -408,7 +409,7 @@
   background-color: theme('backgroundColor.surface-header');
   border: 1px solid theme('borderColor.border-field-default');
 
-  input[type="radio"] {
+  input[type='radio'] {
     position: absolute;
     opacity: 0;
     width: 100%;
@@ -421,30 +422,35 @@
   .icon {
     width: theme('fontSize.16');
     height: theme('fontSize.16');
+    color: theme('colors.text-meta');
   }
 
   &.w-layout-toggle-button-right + .w-layout-toggle-button-left {
-    border-left: 1px solid theme('borderColor.border-field-default');
-    margin-left: -1px; 
+    border-inline-start: 1px solid theme('borderColor.border-field-default');
+    margin-inline-start: -1px;
   }
 
   &:hover {
     background-color: theme('colors.surface-field');
   }
 
-  &:has(input[type="radio"]:checked),
-  input[type="radio"]:checked + & {
+  &:has(input[type='radio']:checked),
+  input[type='radio']:checked + & {
     background-color: theme('colors.surface-field');
   }
-  &:has(input[type="radio"]:checked) .icon {
+
+  &:has(input[type='radio']:checked) .icon {
     color: theme('colors.text-link-default');
+
+    @media (prefers-color-scheme: light) {
+      color: theme('colors.primary.DEFAULT');
+    }
   }
-  
+
   &:focus {
     @include focus-outline;
     z-index: 1;
   }
-  
 }
 
 .w-layout-switch-control {
