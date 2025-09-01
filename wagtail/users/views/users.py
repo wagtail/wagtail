@@ -345,7 +345,7 @@ class HistoryView(generic.HistoryView):
 class UserViewSet(ModelViewSet):
     icon = "user"
     model = User
-    ordering = "name"
+    ordering = User.USERNAME_FIELD
     add_to_reference_index = False
     filterset_class = UserFilterSet
     menu_name = "users"
