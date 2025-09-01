@@ -2789,7 +2789,7 @@ class TestUserViewSet(TestCase):
         self.assertIs(viewset.get_form_class(for_update=False), CustomUserCreationForm)
         self.assertIs(viewset.get_form_class(for_update=True), CustomUserEditForm)
 
-    def test_get_viewset_cls_custom_and_check_properties(self):
+    def test_get_viewset_cls_custom_and_check_ordering(self):
         viewset_cls = get_viewset_cls(self.app_config, "user_viewset")
         self.assertEqual(viewset_cls.ordering, get_user_model().USERNAME_FIELD)
 
