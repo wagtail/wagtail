@@ -396,6 +396,7 @@
 .w-layout-toggle-button-left {
   border-start-end-radius: theme('borderRadius.sm');
   border-end-end-radius: theme('borderRadius.sm');
+  margin-inline-start: -1px;
 }
 
 .w-layout-toggle-button {
@@ -408,6 +409,7 @@
   display: flex;
   background-color: theme('backgroundColor.surface-header');
   border: 1px solid theme('borderColor.border-field-default');
+  transition: background-color 0.2s ease;
 
   input[type='radio'] {
     position: absolute;
@@ -423,15 +425,13 @@
     width: theme('fontSize.16');
     height: theme('fontSize.16');
     color: theme('colors.text-meta');
-  }
-
-  &.w-layout-toggle-button-right + .w-layout-toggle-button-left {
-    border-inline-start: 1px solid theme('borderColor.border-field-default');
-    margin-inline-start: -1px;
+    transition: color 0.2s ease;
   }
 
   &:hover {
     background-color: theme('colors.surface-field');
+    border-color: theme('colors.border-field-hover');
+    z-index: 2;
   }
 
   &:has(input[type='radio']:checked),
