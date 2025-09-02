@@ -214,7 +214,8 @@ export class StructBlock {
   }
 
   getTextLabel(opts) {
-    if (this.blockDef.meta.labelFormat) {
+    // Allow using the empty string for the additional text in collapsed state
+    if (typeof this.blockDef.meta.labelFormat === 'string') {
       /* use labelFormat - regexp replace any field references like '{first_name}'
       with the text label of that sub-block */
       return this.blockDef.meta.labelFormat.replace(

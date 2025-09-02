@@ -427,7 +427,8 @@ class StructBlockAdapter(Adapter):
         if block.meta.form_template:
             meta["formTemplate"] = block.render_form_template()
 
-        if block.meta.label_format:
+        # Check specifically for None to allow for empty string
+        if block.meta.label_format is not None:
             meta["labelFormat"] = block.meta.label_format
 
         return [

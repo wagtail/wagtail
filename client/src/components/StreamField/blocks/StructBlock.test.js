@@ -547,6 +547,7 @@ describe('telepath: wagtail.blocks.StructBlock with nested collapsible panel', (
 describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
   let boundBlock;
   let blockDefWithBadLabelFormat;
+  let blockDefWithEmptyLabelFormat;
 
   beforeEach(() => {
     // Create mocks for callbacks
@@ -599,6 +600,11 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
       'heading_block',
       [headingTextBlockDef, sizeBlockDef],
       { ...blockOpts, labelFormat: '{bad_variable} - {size}' },
+    );
+    blockDefWithEmptyLabelFormat = new StructBlockDefinition(
+      'heading_block',
+      [headingTextBlockDef, sizeBlockDef],
+      { ...blockOpts, labelFormat: '' },
     );
 
     // Render it
@@ -684,6 +690,19 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
       },
     );
     expect(boundBlock.getTextLabel()).toBe(' - label: the-prefix-size');
+  });
+
+  test('getTextLabel() allows empty labelFormat', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDefWithEmptyLabelFormat.render(
+      $('#placeholder'),
+      'the-prefix',
+      {
+        heading_text: 'Test heading text',
+        size: '123',
+      },
+    );
+    expect(boundBlock.getTextLabel()).toBe('');
   });
 });
 
