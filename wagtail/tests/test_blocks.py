@@ -2366,6 +2366,21 @@ class TestStructBlock(SimpleTestCase):
 
                 self.assertIs(js_args[2]["collapsed"], case)
 
+    def test_adapt_label_format(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        cases = [None, "", "{title} ({link})"]
+        for case in cases:
+            with self.subTest(label_format=case):
+                block = LinkBlock(label_format=case)
+
+                block.set_name("test_structblock")
+                js_args = StructBlockAdapter().js_args(block)
+
+                self.assertEqual(js_args[2].get("labelFormat"), case)
+
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
