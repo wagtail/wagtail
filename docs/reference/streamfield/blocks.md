@@ -536,7 +536,10 @@ The `form_attrs` keyword argument was added to all built-in structural block typ
     :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:
-     Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customized by setting a string here with block names contained in braces - for example ``label_format = "Profile for {first_name} {surname}"``
+     Determines the summary label shown after the ``label`` when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customized by setting a string here with block names contained in braces - for example ``label_format = "{surname}, {first_name}"``. If you wish to hide the summary label entirely, set this to the empty string ``""``.
+
+     .. versionchanged:: 7.1
+        The block's original ``label`` is now always shown when the block is collapsed, and the ``label_format`` string is shown after it as the summary instead of replacing the ``label``.
 
 
 .. autoclass:: wagtail.blocks.ListBlock
