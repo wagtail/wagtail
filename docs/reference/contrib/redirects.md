@@ -60,6 +60,12 @@ If you find the feature is not a good fit for your project, you can disable it b
 WAGTAILREDIRECTS_AUTO_CREATE = False
 ```
 
+By default redirects will be created even if the page is unpublished. To disable this behaviour, set:
+
+```python
+WAGTAILREDIRECTS_AUTO_CREATE_ON_DRAFT = False
+```
+
 ## Management commands
 
 ### `import_redirects`
