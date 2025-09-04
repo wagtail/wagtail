@@ -4,6 +4,7 @@ import {
   WagtailAxeConfiguration,
   addCustomChecks,
   checkImageAltText,
+  checkMetaDescription,
   getA11yReport,
 } from './a11y-result';
 
@@ -116,6 +117,48 @@ describe('checkImageAltText edge cases', () => {
     const image = document.createElement('img');
     expect(checkImageAltText(image, options)).toBe(true);
   });
+});
+
+describe('checkMetaDescription', () => {
+  afterEach(() => {
+    document.head.innerHTML = '';
+  });
+
+  const testCases = [
+    {
+      description: 'tag does not exist',
+      html: '',
+      expected: true,
+    },
+    {
+      description: 'tag has valid content',
+      html: '<meta name="description" content="A valid description.">',
+      expected: true,
+    },
+    {
+      description: 'content is an empty string',
+      html: '<meta name="description" content="">',
+      expected: false,
+    },
+    {
+      description: 'content is only whitespace',
+      html: '<meta name="description" content="   ">',
+      expected: false,
+    },
+    {
+      description: 'tag has no content attribute',
+      html: '<meta name="description">',
+      expected: false,
+    },
+  ];
+
+  test.each(testCases)(
+    'should return $expected when the meta description $description',
+    ({ html, expected }) => {
+      document.head.innerHTML = html;
+      expect(checkMetaDescription(document.documentElement)).toBe(expected);
+    },
+  );
 });
 
 jest.mock('axe-core', () => ({
