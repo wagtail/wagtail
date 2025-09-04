@@ -20,6 +20,13 @@ s3.upload_file(
     "releases.wagtail.io",
     "nightly/dist/" + f.name,
 )
+# Redundant upload to a fixed filename for ease of use with package managers
+print("Uploading latest.whl")  # noqa: T201
+s3.upload_file(
+    str(f),
+    "releases.wagtail.io",
+    "nightly/dist/latest.whl",
+)
 
 print("Updating latest.json")  # noqa: T201
 
@@ -37,8 +44,8 @@ boto3.client("cloudfront").create_invalidation(
     DistributionId="E283SZ5CB4MDM0",
     InvalidationBatch={
         "Paths": {
-            "Quantity": 1,
-            "Items": ["/nightly/latest.json"],
+            "Quantity": 2,
+            "Items": ["/nightly/latest.json", "/nightly/dist/latest.whl"],
         },
         "CallerReference": str(uuid.uuid4()),
     },
