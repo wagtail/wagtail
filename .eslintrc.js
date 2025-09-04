@@ -163,7 +163,6 @@ module.exports = {
     {
       files: [
         'wagtail/contrib/search_promotions/static_src/wagtailsearchpromotions/js/query-chooser-modal.js',
-        'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js',
         'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/queries/chooser_field.js',
         'wagtail/documents/static_src/wagtaildocs/js/add-multiple.js',
         'wagtail/embeds/static_src/wagtailembeds/js/embed-chooser-modal.js',

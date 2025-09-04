@@ -2,13 +2,13 @@
 
 {% fragment as id %}inline_child_{{ form.prefix }}{% endfragment %}
 {% fragment as panel_id %}{{ id }}-panel{% endfragment %}
-<div id="{{ id }}"{% if form.DELETE.value %} hidden {% endif %}>
+<div id="{{ id }}"{% if form.DELETE.value %} hidden data-w-formset-target="deleted"{% else %}data-w-formset-target="child"{% endif %} data-w-orderable-target="item" data-w-orderable-item-id="{{ id }}">
 
     {% fragment as header_controls %}
-        <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-up>{% icon name="arrow-up" %}{% trans "Move up" %}</button>
-        <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-down>{% icon name="arrow-down" %}{% trans "Move down" %}</button>
-        <button type="button" class="button button--icon text-replace" data-inline-panel-child-drag>{% icon name="grip" %}{% trans "Drag" %}</button>
-        <button type="button" class="button button--icon text-replace" id="{{ form.DELETE.id_for_label }}-button">{% icon name="bin" %}{% trans "Delete" %}</button>
+        <button type="button" class="button button--icon text-replace" data-w-orderable-target="up" data-action="w-orderable#up">{% icon name="arrow-up" %}{% trans "Move up" %}</button>
+        <button type="button" class="button button--icon text-replace" data-w-orderable-target="down" data-action="w-orderable#down">{% icon name="arrow-down" %}{% trans "Move down" %}</button>
+        <button type="button" class="button button--icon text-replace" data-w-orderable-target="handle" data-action="keydown.up->w-orderable#up:prevent keydown.down->w-orderable#down:prevent">{% icon name="grip" %}{% trans "Drag" %}</button>
+        <button type="button" class="button button--icon text-replace" id="{{ form.DELETE.id_for_label }}-button" data-action="w-formset#delete" data-w-formset-target="delete">{% icon name="bin" %}{% trans "Delete" %}</button>
     {% endfragment %}
 
     {% trans "Recommended search result" as heading %}
