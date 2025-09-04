@@ -2789,6 +2789,10 @@ class TestUserViewSet(TestCase):
         self.assertIs(viewset.get_form_class(for_update=False), CustomUserCreationForm)
         self.assertIs(viewset.get_form_class(for_update=True), CustomUserEditForm)
 
+    def test_get_viewset_cls_custom_and_check_ordering(self):
+        viewset_cls = get_viewset_cls(self.app_config, "user_viewset")
+        self.assertEqual(viewset_cls.ordering, get_user_model().USERNAME_FIELD)
+
     def test_get_viewset_cls_custom_form_invalid_value(self):
         with unittest.mock.patch.object(
             self.app_config, "user_viewset", new="asdfasdf"
