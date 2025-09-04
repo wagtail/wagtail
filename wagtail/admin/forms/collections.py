@@ -126,7 +126,7 @@ class CollectionForm(forms.ModelForm):
                 )
             )
             if parent.pk in old_descendants:
-                raise ValidationError(gettext_lazy("Please select another parent"))
+                raise ValidationError(gettext_lazy("Please select another parent."))
         return parent
 
 
