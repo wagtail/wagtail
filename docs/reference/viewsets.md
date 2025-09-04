@@ -13,6 +13,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
+   .. autoattribute:: UNDEFINED
    .. autoattribute:: name
    .. autoattribute:: url_prefix
    .. autoattribute:: url_namespace
@@ -87,6 +88,8 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. autoattribute:: add_to_reference_index
    .. autoattribute:: ordering
+   .. autoattribute:: sort_order_field
+      :annotation: = UNDEFINED
    .. autoattribute:: list_per_page
    .. autoattribute:: list_display
    .. autoattribute:: list_export

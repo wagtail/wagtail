@@ -6,7 +6,7 @@
 
 # Customizing admin views for snippets
 
-Additional customizations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customizations provided by `ModelViewSet` such as customizing the listing view (e.g. adding custom columns, and filters), creating a custom menu item, and more.
+Additional customizations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customizations provided by `ModelViewSet` such as [customizing the listing view](modelviewset_listing) (e.g. adding custom columns, and filters), creating a custom menu item, and more.
 
 Before proceeding, ensure that you register the snippet model using `register_snippet` as a function instead of a decorator, as described in [](wagtailsnippets_registering).
 
