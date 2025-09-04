@@ -95,12 +95,27 @@ export const checkImageAltText = (
 };
 
 /**
+ * Custom rule for checking meta description. Checks if <meta name="description"> is empty.
+ * Only raises an issue if the tag is present and empty.
+ * To be used in Axe custom checks.
+ */
+export const checkMetaDescription = (node: HTMLElement) => {
+  // node is the full HTML document
+  const metaDescription = node.querySelector('meta[name="description"]');
+
+  if (!metaDescription) return true;
+
+  const content = metaDescription?.getAttribute('content') || '';
+  return content.trim().length > 0;
+};
+
+/**
  * Defines custom Axe rules, mapping each check to its corresponding JavaScript function.
  * This object holds the custom checks that will be added to the Axe configuration.
  */
 export const customChecks = {
   'check-image-alt-text': checkImageAltText,
-  // Add other custom checks here
+  'check-meta-description': checkMetaDescription,
 };
 
 /**

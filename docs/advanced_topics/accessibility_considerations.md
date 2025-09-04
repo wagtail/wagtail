@@ -135,6 +135,7 @@ By default, the checker includes the following rules to find common accessibilit
 -   `link-name`: `<a>` link elements must always have a text label.
 -   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
 -   `alt-text-quality`: A custom rule ensures that image alt texts don't contain anti-patterns like file extensions and underscores.
+-   `meta-description`: This rule checks if the `<meta name="description">` tag is present and not empty.
 
 To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
