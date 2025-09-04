@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/tables/title_cell.html" %}
+{% load wagtailadmin_tags %}
+
+{% block title %}
+    {% if link_url %}
+        <a data-chooser-modal-choice href="{{ link_url }}">{{ value }}</a>
+    {% else %}
+        {{ value }}
+    {% endif %}
+{% endblock %}
+{% block extra %}
+    <div class="filename-wrapper">
+        <span>{{ instance.filename }}</span>
+    </div>
+{% endblock %}
