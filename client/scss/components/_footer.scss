@@ -8,7 +8,7 @@
   margin-top: $mobile-nice-padding;
   margin-inline-start: $mobile-nice-padding;
   margin-inline-end: $mobile-nice-padding;
-  z-index: 20;
+  z-index: 32;
 
   @include media-breakpoint-up(sm) {
     margin-top: 0;
