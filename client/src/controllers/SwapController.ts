@@ -28,29 +28,33 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  * @example - A single input that will update the results & the URL
  * ```html
  * <div id="results"></div>
- * <input
- *   id="search"
- *   type="text"
- *   name="q"
- *   data-controller="w-swap"
- *   data-action="input->w-swap#searchLazy"
- *   data-w-swap-src-value="path/to/search"
- *   data-w-swap-target-value="#listing-results"
- * />
+ * <form>
+ *   <input
+ *     id="search"
+ *     type="text"
+ *     name="q"
+ *     data-controller="w-swap"
+ *     data-action="input->w-swap#searchLazy"
+ *     data-w-swap-src-value="path/to/search"
+ *     data-w-swap-target-value="#results"
+ *   />
+ * </form>
  * ```
  *
  * @example - A single button that will update the results
  * ```html
  * <div id="results"></div>
- * <button
- *   id="clear"
- *   data-controller="w-swap"
- *   data-action="input->w-swap#replaceLazy"
- *   data-w-swap-src-value="path/to/results/?type=bar"
- *   data-w-swap-target-value="#results"
- * >
- *   Clear owner filter
- * </button>
+ * <form>
+ *   <button
+ *     id="clear"
+ *     data-controller="w-swap"
+ *     data-action="input->w-swap#replaceLazy"
+ *     data-w-swap-src-value="path/to/results/?type=bar"
+ *     data-w-swap-target-value="#results"
+ *   >
+ *     Clear owner filter
+ *   </button>
+ * </form>
  * ```
  */
 export class SwapController extends Controller<
@@ -61,44 +65,52 @@ export class SwapController extends Controller<
   static targets = ['input'];
 
   static values = {
+    defer: { default: false, type: Boolean },
     icon: { default: '', type: String },
+    jsonPath: { default: '', type: String },
     loading: { default: false, type: Boolean },
     reflect: { default: false, type: Boolean },
-    defer: { default: false, type: Boolean },
     src: { default: '', type: String },
-    jsonPath: { default: '', type: String },
     target: { default: '#listing-results', type: String },
     wait: { default: 200, type: Number },
   };
 
   declare readonly hasInputTarget: boolean;
+  declare readonly hasJsonPathValue: boolean;
   declare readonly hasTargetValue: boolean;
   declare readonly hasUrlValue: boolean;
-  declare readonly hasJsonPathValue: boolean;
+
+  /** Defer writing the results while there is interaction with the target container. */
+  declare readonly deferValue: boolean;
+  /** Target element to be used as the primary search field input, if not provided the controlled element will be used instead. */
   declare readonly inputTarget: HTMLInputElement;
+  /** A dotted path to the HTML string value to extract from the JSON response. */
+  declare readonly jsonPathValue: string;
+  /** If true, the URL will be updated to reflect the search params, excluding those with `w_` prefix, no browser history entry will be created. */
+  declare readonly reflectValue: boolean;
+  /** A CSS selector for the target DOM element that should have it's inner HTML swapped with the response HTML. */
+  declare readonly targetValue: string;
+  /** The duration, in milliseconds, to wait (debounce) before making the request. */
+  declare readonly waitValue: number;
 
+  /** The icon name to be used for loading states (e.g. spinner), set on connect by finding the closest svg use href. */
   declare iconValue: string;
+  /** Tracking for transitional state of loading. */
   declare loadingValue: boolean;
-  declare reflectValue: boolean;
-  /** Defer writing the results while there is interaction with the target container */
-  declare deferValue: boolean;
+  /** The URL to request for the async swap HTML content, gets set to the form's action attribute if not passed in via the controller's attributes. */
   declare srcValue: string;
-  /** A dotted path to the HTML string value to extract from the JSON response */
-  declare jsonPathValue: string;
-  declare targetValue: string;
-  declare waitValue: number;
 
-  /** Allow cancelling of in flight async request if disconnected */
+  /** Allow cancelling of in flight async request if disconnected. */
   abortController?: AbortController;
-  /** The related icon element to attach the spinner to */
+  /** The related icon element to attach the spinner to. */
   iconElement?: SVGUseElement | null;
-  /** Debounced function to request a URL and then replace the DOM with the results */
+  /** Debounced function to request a URL and then replace the DOM with the results. */
   replaceLazy?: { (...args: any[]): void; cancel(): void };
-  /** Debounced function to search results and then replace the DOM */
+  /** Debounced function to search results and then replace the DOM. */
   searchLazy?: { (...args: any[]): void; cancel(): void };
-  /** Debounced function to submit the serialized form and then replace the DOM */
+  /** Debounced function to submit the serialized form and then replace the DOM. */
   submitLazy?: { (...args: any[]): void; cancel(): void };
-  /** A function that writes the HTML to the target */
+  /** A function that writes the HTML to the target. */
   writeDeferred?: () => Promise<string>;
 
   connect() {
@@ -128,7 +140,7 @@ export class SwapController extends Controller<
   }
 
   /**
-   * Element that receives the fetch result HTML output
+   * Element that receives the fetch result HTML output.
    */
   get target() {
     const targetValue = this.targetValue;
@@ -224,10 +236,18 @@ export class SwapController extends Controller<
     });
   }
 
+  /**
+   * Find the appropriate form element, either from input target's form or
+   * the controlled element.
+   *
+   * This element is not strictly required if srcValue is used.
+   */
   get formElement() {
-    return (
-      this.hasInputTarget ? this.inputTarget.form || this.element : this.element
-    ) as HTMLFormElement;
+    const form = this.hasInputTarget
+      ? this.inputTarget.form
+      : this.element?.form || this.element;
+
+    return form as unknown as HTMLFormElement;
   }
 
   /**
@@ -250,6 +270,14 @@ export class SwapController extends Controller<
     this.replace(url, data);
   }
 
+  /**
+   * Update the current URL's search params to reflect those in the provided URL,
+   * excluding any params that start with `_w_` (Wagtail internal params) or have
+   * an empty value.
+   *
+   * This should not create a new browser history entry, it replaces the current
+   * entry.
+   */
   reflectParams(url: string) {
     const params = new URL(url, window.location.href).searchParams;
     const filteredParams = new URLSearchParams();
