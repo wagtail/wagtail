@@ -3888,6 +3888,13 @@ class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             response.content,
         )
 
+        soup = self.get_soup(response.content)
+        form = soup.select_one("main form")
+        closeness = form.select_one("input[name=closeness]")
+        self.assertIsNotNone(closeness)
+        self.assertEqual(closeness.get("min"), "0")
+        self.assertEqual(closeness.get("max"), "100")
+
     def test_get_bad_permissions(self):
         """
         This tests that the view returns a "permission denied" redirect if a user without correct
