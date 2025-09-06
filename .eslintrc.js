@@ -169,7 +169,6 @@ module.exports = {
         'wagtail/embeds/static_src/wagtailembeds/js/embed-chooser-modal.js',
         'wagtail/images/static_src/wagtailimages/js/add-multiple.js',
         'wagtail/images/static_src/wagtailimages/js/focal-point-chooser.js',
-        'wagtail/images/static_src/wagtailimages/js/image-url-generator.js',
       ],
       globals: { $: 'readonly', jQuery: 'readonly' },
     },
