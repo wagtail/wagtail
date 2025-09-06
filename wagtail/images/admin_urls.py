@@ -14,9 +14,9 @@ urlpatterns = [
         name="url_generator",
     ),
     path(
-        "<int:image_id>/generate_url/<str:filter_spec>/",
-        images.GenerateURLView.as_view(),
-        name="generate_url",
+        "<int:image_id>/generate_url/output/",
+        images.URLGeneratorView.as_view(output_only=True),
+        name="url_generator_output",
     ),
     path("<int:image_id>/preview/<str:filter_spec>/", images.preview, name="preview"),
     path("add/", images.CreateView.as_view(), name="add"),
