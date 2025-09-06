@@ -130,7 +130,7 @@ describe('SwapController', () => {
           />
         </div>
       </form>
-      <div id="results"></div>
+      <div class="results" id="results"></div>
       `;
 
       window.history.replaceState(null, '', '?');
@@ -537,12 +537,46 @@ describe('SwapController', () => {
       document.removeEventListener('w-messages:add', handleMessage);
       document.removeEventListener('w-messages:clear', handleMessage);
     });
+
+    it('should support a loading class being provided as a value', async () => {
+      const input = document.getElementById('search');
+      const targetElement = document.getElementById('results');
+
+      fetch.mockResponseSuccessText(getMockResults());
+
+      input.setAttribute('data-w-swap-loading-class', 'is-loading');
+
+      // class should be the default without aria-busy set
+      expect(targetElement.getAttribute('aria-busy')).toBeNull();
+      expect([...targetElement.classList]).toEqual(['results']);
+      expect(input.getAttribute('data-w-swap-loading-value')).toEqual('false');
+
+      // set a value and trigger an event
+      input.value = 'alpha';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+
+      jest.runAllTimers(); // update is debounced
+      await Promise.resolve(); // trigger next rendering
+
+      // visual loading state should be active & content busy
+      expect(targetElement.getAttribute('aria-busy')).toEqual('true');
+      expect([...targetElement.classList]).toEqual(['results', 'is-loading']);
+      expect(input.getAttribute('data-w-swap-loading-value')).toEqual('true');
+
+      // after all data has been resolved, check the class is back to normal
+      await jest.runAllTimersAsync();
+
+      expect(targetElement.getAttribute('aria-busy')).toEqual(null);
+      expect([...targetElement.classList]).toEqual(['results']);
+      expect(input.getAttribute('data-w-swap-loading-value')).toEqual('false');
+    });
   });
 
   describe('performing a location update via actions on a controlled form', () => {
     beforeEach(() => {
       document.body.innerHTML = `
       <form
+        id="search-form"
         class="search-form"
         action="/path/to/form/action/"
         method="get"
@@ -657,6 +691,40 @@ describe('SwapController', () => {
       expect(global.fetch).not.toHaveBeenCalled();
 
       document.removeEventListener('w-swap:begin', beginEventHandler);
+    });
+
+    it('should support a loading class being provided as a value', async () => {
+      const input = document.getElementById('search');
+      const form = document.getElementById('search-form');
+      const targetElement = document.getElementById('other-results');
+
+      fetch.mockResponseSuccessText(getMockResults());
+
+      form.setAttribute('data-w-swap-loading-class', 'is-loading !w-block');
+
+      // class should be the default without aria-busy set
+      expect(targetElement.getAttribute('aria-busy')).toBeNull();
+      expect([...targetElement.classList]).toEqual([]);
+      expect(form.getAttribute('data-w-swap-loading-value')).toEqual('false');
+
+      // set a value and trigger an event
+      input.value = 'alpha';
+      input.dispatchEvent(new CustomEvent('input', { bubbles: true }));
+
+      jest.runAllTimers(); // update is debounced
+      await Promise.resolve(); // trigger next rendering
+
+      // visual loading state should be active & content busy
+      expect(targetElement.getAttribute('aria-busy')).toEqual('true');
+      expect([...targetElement.classList]).toEqual(['is-loading', '!w-block']);
+      expect(form.getAttribute('data-w-swap-loading-value')).toEqual('true');
+
+      // after all data has been resolved, check the class is back to normal
+      await jest.runAllTimersAsync();
+
+      expect(targetElement.getAttribute('aria-busy')).toEqual(null);
+      expect([...targetElement.classList]).toEqual([]);
+      expect(form.getAttribute('data-w-swap-loading-value')).toEqual('false');
     });
   });
 
