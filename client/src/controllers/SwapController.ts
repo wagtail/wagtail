@@ -71,6 +71,19 @@ class HTTPError extends Error {
  *   data-controller="w-swap"
  *   data-action="input->w-swap#submitLazy"
  *   data-w-swap-messages-value='{"400": "There was a problem with your search input."}'
+ *   data-w-swap-target-value="#results"
+ * >
+ *   <input id="search" type="text" name="query" />
+ * </form>
+ * ```
+ *
+ * @example - A form that sets the loading class `is-loading` on the target element when a request is in progress
+ * ```html
+ * <div id="results" class="base-class"></div>
+ * <form
+ *   data-controller="w-swap"
+ *   data-action="input->w-swap#submitLazy"
+ *   data-w-swap-loading-class="is-loading"
  *   data-w-swap-src-value="path/to/search"
  *   data-w-swap-target-value="#results"
  * >
@@ -82,6 +95,8 @@ export class SwapController extends Controller<
   HTMLFormElement | HTMLInputElement | HTMLButtonElement
 > {
   static defaultClearParam = 'p';
+
+  static classes = ['loading'];
 
   static targets = ['input'];
 
@@ -105,6 +120,8 @@ export class SwapController extends Controller<
   declare readonly inputTarget: HTMLInputElement;
   /** An object of messages, where the keys are HTTP status codes, used to determine what message should show in the UI on HTTP error. */
   declare readonly messagesValue: Record<string, string>;
+  /** The loading state class(es) to apply to the element when a request is in progress. */
+  declare readonly loadingClasses: string[];
 
   /** Tracking of the active error key (e.g. 'error 400') for dispatching & clearing error messages. */
   declare errorValue: string;
@@ -228,7 +245,7 @@ export class SwapController extends Controller<
 
   /**
    * Toggle the visual spinner icon if available and ensure content about
-   * to be replaced is flagged as busy.
+   * to be replaced is flagged as busy with a toggling of the loading class.
    */
   loadingValueChanged(isLoading: boolean, isLoadingPrevious) {
     // Don't bother marking as busy and adding the spinner icon if we defer writes
@@ -237,9 +254,11 @@ export class SwapController extends Controller<
     const target = isLoadingPrevious === undefined ? null : this.target; // ensure we avoid DOM interaction before connect
     if (isLoading) {
       target?.setAttribute('aria-busy', 'true');
+      target?.classList.add(...this.loadingClasses);
       this.iconElement?.setAttribute('href', '#icon-spinner');
     } else {
       target?.removeAttribute('aria-busy');
+      target?.classList.remove(...this.loadingClasses);
       this.iconElement?.setAttribute('href', this.iconValue);
     }
   }
