@@ -1225,7 +1225,7 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_html()
-        expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
+        expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/pages/choose-page/", "parentId": {parent}}});'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id
         )
 
@@ -1247,7 +1247,7 @@ class TestPageChooserPanel(TestCase):
         result = page_chooser_panel.render_html()
 
         # the canChooseRoot flag on PageChooser should now be true
-        expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
+        expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/pages/choose-page/", "parentId": {parent}}});'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id
         )
         self.assertIn(expected_js, result)
@@ -1303,7 +1303,7 @@ class TestPageChooserPanel(TestCase):
         )
 
         result = page_chooser_panel.render_html()
-        expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
+        expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/pages/choose-page/", "parentId": {parent}}});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id
         )
 
@@ -1323,7 +1323,7 @@ class TestPageChooserPanel(TestCase):
         )
 
         result = page_chooser_panel.render_html()
-        expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": {parent}}});'.format(
+        expected_js = 'new PageChooser("{id}", {{"modelNames": ["{model}"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/pages/choose-page/", "parentId": {parent}}});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id
         )
 

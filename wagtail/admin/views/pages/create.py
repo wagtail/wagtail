@@ -371,7 +371,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             return redirect(self.next_url)
         else:
             # redirect back to the explorer
-            return redirect("wagtailadmin_explore", self.page.get_parent().id)
+            return redirect("wagtailadmin_pages:explore", self.page.get_parent().id)
 
     def redirect_and_remain(self):
         target_url = reverse("wagtailadmin_pages:edit", args=[self.page.id])

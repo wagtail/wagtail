@@ -12,7 +12,7 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
       _type: 'wagtail.widgets.PageChooser',
       // Copy of wagtailadmin/widgets/chooser.html without verbose markup. Make sure to update when making changes to the template.
       _args: [
-        `<div id="__ID__-chooser" class="chooser page-chooser blank" data-chooser-url="/admin/choose-page/">
+        `<div id="__ID__-chooser" class="chooser page-chooser blank" data-chooser-url="/admin/pages/choose-page/">
           <div class="chosen">
             <div class="chooser__preview" role="presentation"></div>
             <div class="chooser__title" data-chooser-title id="__ID__-title"></div>
@@ -51,7 +51,7 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
         <input type="hidden" name="__NAME__" id="__ID__">`,
         '__ID__',
         {
-          modalUrl: '/admin/choose-page/',
+          modalUrl: '/admin/pages/choose-page/',
           modelNames: ['wagtailcore.page'],
           canChooseRoot: false,
           userPerms: null,

@@ -516,7 +516,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
     ):
         return redirect(redirect_to)
     else:
-        return redirect("wagtailadmin_explore", page.id)
+        return redirect("wagtailadmin_pages:explore", page.id)
 
 
 class TaskTitleColumn(TitleColumn):

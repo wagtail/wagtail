@@ -374,7 +374,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Should be redirected to explorer
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=[self.root_page.id])
+            response, reverse("wagtailadmin_pages:explore", args=[self.root_page.id])
         )
 
         # Check the new file exists
@@ -1002,7 +1002,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
             # Should be redirected to explorer
             self.assertRedirects(
-                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
             # Check that the page was edited
@@ -1710,7 +1710,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Should be redirected to explorer
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # The page should have "has_unpublished_changes" flag set
@@ -2419,7 +2419,7 @@ class TestIssue197(WagtailTestUtils, TestCase):
 
         # Should be redirected to explorer
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that both tags are in the pages tag set
@@ -2565,7 +2565,7 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
 
         # Should be redirected to explorer
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Find the page and check it
@@ -2684,7 +2684,7 @@ class TestIssue3982(WagtailTestUtils, TestCase):
             follow=True,
         )
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(parent.pk,))
+            response, reverse("wagtailadmin_pages:explore", args=(parent.pk,))
         )
         page = SimplePage.objects.get()
         self.assertTrue(page.live)
@@ -2733,7 +2733,7 @@ class TestIssue3982(WagtailTestUtils, TestCase):
             follow=True,
         )
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(parent.pk,))
+            response, reverse("wagtailadmin_pages:explore", args=(parent.pk,))
         )
         page = SimplePage.objects.get(pk=page.pk)
         self.assertTrue(page.live)
@@ -2857,7 +2857,7 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
             post_data,
         )
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.events_index.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.events_index.id,))
         )
 
         created_page = EventPage.objects.get(url_path="/home/events/presidents-day/")
@@ -2938,7 +2938,7 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
             post_data,
         )
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.events_index.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.events_index.id,))
         )
         updated_page = EventPage.objects.get(id=self.christmas_page.id)
         self.assertEqual(2, updated_page.categories.count())
@@ -3177,7 +3177,7 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
             post_data,
         )
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.events_index.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.events_index.id,))
         )
 
         new_christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")

@@ -33,7 +33,7 @@ class TestLocking(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that the page is locked
@@ -69,7 +69,7 @@ class TestLocking(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that the page is still locked
@@ -103,7 +103,7 @@ class TestLocking(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that the page is locked
@@ -170,7 +170,7 @@ class TestLocking(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that the page is unlocked
@@ -206,7 +206,7 @@ class TestLocking(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that the page is still unlocked
@@ -264,7 +264,7 @@ class TestLocking(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that the page is unlocked

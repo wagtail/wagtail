@@ -101,7 +101,7 @@ class ExplorerMenuItem(MenuItem):
 def register_explorer_menu_item():
     return ExplorerMenuItem(
         _("Pages"),
-        reverse("wagtailadmin_explore_root"),
+        reverse("wagtailadmin_pages:explore_root"),
         name="explorer",
         icon_name="folder-open-inverse",
         order=100,
@@ -304,7 +304,7 @@ class PageListingDeleteButton(PageMenuItem):
             url = reverse("wagtailadmin_pages:delete", args=[self.page.id])
             if self.next_url:
                 if self.next_url == reverse(
-                    "wagtailadmin_explore", args=[self.page.id]
+                    "wagtailadmin_pages:explore", args=[self.page.id]
                 ):
                     # cannot redirect to the explore view after deleting the page
                     pass
@@ -349,7 +349,7 @@ class PageListingSortMenuOrderButton(PageMenuItem):
 
     @cached_property
     def url(self):
-        return reverse("wagtailadmin_explore", args=[self.page.id]) + "?ordering=ord"
+        return reverse("wagtailadmin_pages:explore", args=[self.page.id]) + "?ordering=ord"
 
 
 @hooks.register("register_page_listing_more_buttons")
@@ -717,18 +717,18 @@ def register_core_features(features):
                     "href": "^(http:|https:|undefined$)",
                 },
                 "chooserUrls": {
-                    "pageChooser": reverse_lazy("wagtailadmin_choose_page"),
+                    "pageChooser": reverse_lazy("wagtailadmin_pages:choose"),
                     "externalLinkChooser": reverse_lazy(
-                        "wagtailadmin_choose_page_external_link"
+                        "wagtailadmin_pages:choose_external_link"
                     ),
                     "emailLinkChooser": reverse_lazy(
-                        "wagtailadmin_choose_page_email_link"
+                        "wagtailadmin_pages:choose_email_link"
                     ),
                     "phoneLinkChooser": reverse_lazy(
-                        "wagtailadmin_choose_page_phone_link"
+                        "wagtailadmin_pages:choose_phone_link"
                     ),
                     "anchorLinkChooser": reverse_lazy(
-                        "wagtailadmin_choose_page_anchor_link"
+                        "wagtailadmin_pages:choose_anchor_link"
                     ),
                 },
             },

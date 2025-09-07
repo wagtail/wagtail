@@ -132,7 +132,7 @@ class TestPageDelete(WagtailTestUtils, TestCase):
         )
         # Should be redirected to explorer page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         # Check that the page is deleted
         self.assertFalse(SimplePage.objects.filter(id=self.child_page.id).exists())
@@ -183,7 +183,7 @@ class TestPageDelete(WagtailTestUtils, TestCase):
 
             # Should be redirected to explorer page
             self.assertRedirects(
-                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
             # treebeard should report no consistency problems with the tree
@@ -229,7 +229,7 @@ class TestPageDelete(WagtailTestUtils, TestCase):
 
             # Should be redirected to explorer page
             self.assertRedirects(
-                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
             # treebeard should report no consistency problems with the tree
@@ -277,7 +277,7 @@ class TestPageDelete(WagtailTestUtils, TestCase):
 
             # Should be redirected to explorer page
             self.assertRedirects(
-                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
             # treebeard should report no consistency problems with the tree

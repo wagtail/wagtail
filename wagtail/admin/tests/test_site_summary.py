@@ -35,7 +35,7 @@ class TestPagesSummary(WagtailTestUtils, TestCase):
         self.assertIn(content, summary)
 
     def assertSummaryContainsLinkToPage(self, page_pk):
-        self.assertSummaryContains(reverse("wagtailadmin_explore", args=[page_pk]))
+        self.assertSummaryContains(reverse("wagtailadmin_pages:explore", args=[page_pk]))
 
     def test_user_with_page_permissions_is_shown_panel(self):
         self.assertTrue(PagesSummaryItem(self.request).is_shown())

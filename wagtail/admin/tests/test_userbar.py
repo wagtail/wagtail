@@ -162,7 +162,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         self.assertIsNotNone(edit_link)
         self.assertEqual(edit_link.text.strip(), "Edit this page")
 
-        explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
+        explore_url = reverse("wagtailadmin_pages:explore", args=(self.parent_page.id,))
         explore_link = soup.select_one(
             f"a[href='{settings.WAGTAILADMIN_BASE_URL}{explore_url}']"
         )
@@ -191,7 +191,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         self.assertIsNotNone(edit_link)
         self.assertEqual(edit_link.text.strip(), "Edit this page")
 
-        explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
+        explore_url = reverse("wagtailadmin_pages:explore", args=(self.parent_page.id,))
         explore_link = soup.select_one(
             f"a[href='{settings.WAGTAILADMIN_BASE_URL}{explore_url}']"
         )
@@ -220,7 +220,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
 
         # The explore link should still be visible
         soup = self.get_soup(content)
-        explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
+        explore_url = reverse("wagtailadmin_pages:explore", args=(self.parent_page.id,))
         explore_link = soup.select_one(
             f"a[href='{settings.WAGTAILADMIN_BASE_URL}{explore_url}']"
         )
@@ -837,7 +837,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         links = soup.select("li a")
         expected_urls = [
             reverse("wagtailadmin_home"),
-            reverse("wagtailadmin_explore", args=(self.parent_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.parent_page.id,)),
             reverse("wagtailadmin_pages:edit", args=(self.homepage.id,)),
             reverse("wagtailadmin_pages:add_subpage", args=(self.homepage.id,)),
         ]

@@ -4,7 +4,7 @@
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='external' %}
 
-    <form action="{% url 'wagtailadmin_choose_page_external_link' %}{% querystring %}" method="post" novalidate>
+    <form action="{% url 'wagtailadmin_pages:choose_external_link' %}{% querystring %}" method="post" novalidate>
         {% csrf_token %}
         <ul class="fields">
             {% for field in form %}

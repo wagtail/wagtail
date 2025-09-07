@@ -94,15 +94,15 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         items = [
             {
-                "url": reverse("wagtailadmin_explore_root"),
+                "url": reverse("wagtailadmin_pages:explore_root"),
                 "label": "Root",
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+                "url": reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
                 "label": "Welcome to your new Wagtail site!",
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(self.hello_page.id,)),
+                "url": reverse("wagtailadmin_pages:explore", args=(self.hello_page.id,)),
                 "label": "Hello world! (simple page)",
             },
             {

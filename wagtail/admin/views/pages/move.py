@@ -137,7 +137,7 @@ def move_confirm(request, page_to_move_id, destination_id):
             if hasattr(result, "status_code"):
                 return result
 
-        return redirect("wagtailadmin_explore", destination.id)
+        return redirect("wagtailadmin_pages:explore", destination.id)
 
     return TemplateResponse(
         request,

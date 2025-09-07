@@ -16,7 +16,7 @@ class PageOperationViewMixin:
     def get_success_url(self):
         if self.next_url:
             return self.next_url
-        return reverse("wagtailadmin_explore", args=[self.object.get_parent().id])
+        return reverse("wagtailadmin_pages:explore", args=[self.object.get_parent().id])
 
 
 class LockView(PageOperationViewMixin, lock.LockView):

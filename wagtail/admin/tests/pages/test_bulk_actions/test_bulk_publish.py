@@ -65,7 +65,7 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
         )
         for child_page in self.pages_to_be_published:
             self.url += f"id={child_page.id}&"
-        self.redirect_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        self.redirect_url = reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
 
         self.user = self.login()
 

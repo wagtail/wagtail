@@ -13,7 +13,7 @@ from wagtail.models import Page
 
 class Unpublish(UnpublishView):
     model = Page
-    index_url_name = "wagtailadmin_explore"
+    index_url_name = "wagtailadmin_pages:explore"
     edit_url_name = "wagtailadmin_pages:edit"
     unpublish_url_name = "wagtailadmin_pages:unpublish"
     usage_url_name = "wagtailadmin_pages:usage"

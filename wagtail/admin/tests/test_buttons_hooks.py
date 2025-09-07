@@ -45,7 +45,7 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
             ),
         ):
             response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
         self.assertEqual(response.status_code, 200)
@@ -72,7 +72,7 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
             "register_page_listing_buttons", page_listing_buttons_new_signature
         ):
             response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
         self.assertEqual(response.status_code, 200)
@@ -103,7 +103,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             "register_page_listing_more_buttons", page_listing_more_buttons
         ):
             response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
         self.assertEqual(response.status_code, 200)
@@ -152,7 +152,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             ),
         ):
             response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
         self.assertEqual(response.status_code, 200)
@@ -193,7 +193,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         """
         self.child_page.save_revision()
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
@@ -218,7 +218,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         page = self.root_page
 
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
-        next_url = reverse("wagtailadmin_explore", args=[page.id])
+        next_url = reverse("wagtailadmin_pages:explore", args=[page.id])
 
         buttons = page_listing_more_buttons(page, user=self.user, next_url=next_url)
 
@@ -324,7 +324,7 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         page = self.root_page
 
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
-        next_url = reverse("wagtailadmin_explore", args=[page.id])
+        next_url = reverse("wagtailadmin_pages:explore", args=[page.id])
 
         buttons = page_header_buttons(
             page, self.user, view_name="index", next_url=next_url

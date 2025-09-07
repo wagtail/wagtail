@@ -853,7 +853,7 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_root_single_item(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:explore' url_root_name='wagtailadmin_pages:explore_root' %}
         """
         page = Page.objects.get(id=1)
         items = [{"label": "Root", "url": "/admin/pages/"}]
@@ -871,25 +871,25 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_url_name(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_choose_page_child' %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:choose_child' %}
         """
         page = Page.objects.get(id=15)
         items = [
             {
                 "label": "Root",
-                "url": "/admin/choose-page/1/",
+                "url": "/admin/pages/choose-page/1/",
             },
             {
                 "label": "Welcome to the Wagtail test site!",
-                "url": "/admin/choose-page/2/",
+                "url": "/admin/pages/choose-page/2/",
             },
             {
                 "label": "Events",
-                "url": "/admin/choose-page/3/",
+                "url": "/admin/pages/choose-page/3/",
             },
             {
                 "label": "Businessy events",
-                "url": "/admin/choose-page/15/",
+                "url": "/admin/pages/choose-page/15/",
             },
         ]
         rendered = Template(template).render(
@@ -900,7 +900,7 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_not_include_self(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' include_self=False %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:explore' url_root_name='wagtailadmin_pages:explore_root' include_self=False %}
         """
         page = Page.objects.get(id=15)
         items = [
@@ -916,7 +916,7 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_not_is_expanded(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:explore' url_root_name='wagtailadmin_pages:explore_root' %}
         """
         page = Page.objects.get(id=15)
         items = [
@@ -938,7 +938,7 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_is_expanded(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=True %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:explore' url_root_name='wagtailadmin_pages:explore_root' is_expanded=True %}
         """
         page = Page.objects.get(id=15)
         items = [
@@ -961,7 +961,7 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_querystring_value(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' querystring_value='?site=2&has_child_pages=true' %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:explore' url_root_name='wagtailadmin_pages:explore_root' querystring_value='?site=2&has_child_pages=true' %}
         """
         page = Page.objects.get(id=15)
         params = "?site=2&has_child_pages=true"
@@ -982,7 +982,7 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_trailing_breadcrumb_title(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' trailing_breadcrumb_title='New: Simple Page' %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:explore' url_root_name='wagtailadmin_pages:explore_root' trailing_breadcrumb_title='New: Simple Page' %}
         """
         page = Page.objects.get(id=15)
         items = [
@@ -1000,10 +1000,10 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_classname(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_choose_page_child' classname='my-class' %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:choose_child' classname='my-class' %}
         """
         page = Page.objects.get(id=1)
-        items = [{"label": "Root", "url": "/admin/choose-page/1/"}]
+        items = [{"label": "Root", "url": "/admin/pages/choose-page/1/"}]
         rendered = Template(template).render(
             Context({"page": page, "request": self.request})
         )
@@ -1017,7 +1017,7 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_icon_name(self):
         template = """
             {% load wagtailadmin_tags %}
-            {% page_breadcrumbs page 'wagtailadmin_explore' icon_name='site' %}
+            {% page_breadcrumbs page 'wagtailadmin_pages:explore' icon_name='site' %}
         """
         page = Page.objects.get(id=3)
         items = [

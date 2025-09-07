@@ -16,11 +16,10 @@ from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
-from wagtail.admin.views import account, chooser, dismissibles, home, tags
+from wagtail.admin.views import account, dismissibles, home, tags
 from wagtail.admin.views.bulk_action import index as bulk_actions
 from wagtail.admin.views.generic.preview import StreamFieldBlockPreview
 from wagtail.admin.views.i18n import localized_js_catalog
-from wagtail.admin.views.pages import listing
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 urlpatterns = [
@@ -28,22 +27,6 @@ urlpatterns = [
     path("test404/", TemplateView.as_view(template_name="wagtailadmin/404.html")),
     path("api/", include(api_urls)),
     path("failwhale/", home.error_test, name="wagtailadmin_error_test"),
-    # TODO: Move into wagtailadmin_pages namespace
-    path(
-        "pages/",
-        listing.ExplorableIndexView.as_view(),
-        name="wagtailadmin_explore_root",
-    ),
-    path(
-        "pages/<int:parent_page_id>/",
-        listing.ExplorableIndexView.as_view(),
-        name="wagtailadmin_explore",
-    ),
-    path(
-        "pages/<int:parent_page_id>/results/",
-        listing.ExplorableIndexView.as_view(results_only=True),
-        name="wagtailadmin_explore_results",
-    ),
     # bulk actions
     path(
         "bulk/<str:app_label>/<str:model_name>/<str:action>/",
@@ -51,43 +34,6 @@ urlpatterns = [
         name="wagtail_bulk_action",
     ),
     path("pages/", include(wagtailadmin_pages_urls, namespace="wagtailadmin_pages")),
-    # TODO: Move into wagtailadmin_pages namespace
-    path("choose-page/", chooser.BrowseView.as_view(), name="wagtailadmin_choose_page"),
-    path(
-        "choose-page/<int:parent_page_id>/",
-        chooser.BrowseView.as_view(),
-        name="wagtailadmin_choose_page_child",
-    ),
-    path(
-        "choose-page/search/",
-        chooser.SearchView.as_view(),
-        name="wagtailadmin_choose_page_search",
-    ),
-    path(
-        "choose-page/chosen-multiple/",
-        chooser.ChosenMultipleView.as_view(),
-        name="wagtailadmin_choose_page_chosen_multiple",
-    ),
-    path(
-        "choose-external-link/",
-        chooser.ExternalLinkView.as_view(),
-        name="wagtailadmin_choose_page_external_link",
-    ),
-    path(
-        "choose-email-link/",
-        chooser.EmailLinkView.as_view(),
-        name="wagtailadmin_choose_page_email_link",
-    ),
-    path(
-        "choose-phone-link/",
-        chooser.PhoneLinkView.as_view(),
-        name="wagtailadmin_choose_page_phone_link",
-    ),
-    path(
-        "choose-anchor-link/",
-        chooser.AnchorLinkView.as_view(),
-        name="wagtailadmin_choose_page_anchor_link",
-    ),
     path("tag-autocomplete/", tags.autocomplete, name="wagtailadmin_tag_autocomplete"),
     path(
         "tag-autocomplete/<slug:app_name>/<slug:model_name>/",

@@ -74,7 +74,7 @@
                 {% endif %}
                 <input type="hidden" name="next" value="{{ next }}">
                 <input type="submit" value="{% trans 'Yes, delete it' %}" class="button serious">
-                <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't delete it" %}</a>
+                <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_pages:explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't delete it" %}</a>
             </form>
         {% endif %}
 

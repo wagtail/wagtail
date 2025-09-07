@@ -303,7 +303,7 @@ class BrowseView(View):
                     active_locale_id = Locale.get_active().pk
 
                 # we are at the Root level, so get the locales from the current pages
-                choose_url = reverse("wagtailadmin_choose_page")
+                choose_url = reverse("wagtailadmin_pages:choose")
                 for locale in Locale.objects.filter(
                     pk__in=pages.values_list("locale_id")
                 ).exclude(pk=active_locale_id):
@@ -330,7 +330,7 @@ class BrowseView(View):
                     pk__in=list(locales_and_parent_pages.keys())
                 ).exclude(pk=selected_locale.pk):
                     choose_child_url = reverse(
-                        "wagtailadmin_choose_page_child",
+                        "wagtailadmin_pages:choose_child",
                         args=[locales_and_parent_pages[locale.pk]],
                     )
                     locale_options.append(

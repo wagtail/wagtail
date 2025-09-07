@@ -221,7 +221,7 @@ class AdminPageChooser(BaseChooser):
     choose_another_text = _("Choose another page")
     link_to_chosen_text = _("Edit this page")
     display_title_key = "display_title"
-    chooser_modal_url_name = "wagtailadmin_choose_page"
+    chooser_modal_url_name = "wagtailadmin_pages:choose"
     icon = "doc-empty-inverse"
     classname = "page-chooser"
     js_constructor = "PageChooser"

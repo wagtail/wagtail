@@ -20,7 +20,7 @@
 
                 <form
                     class="w-mb-12"
-                    action="{% if root_page.pk %}{% url 'wagtailadmin_explore' root_page.pk %}{% else %}{% url 'wagtailadmin_explore_root' %}{% endif %}"
+                    action="{% if root_page.pk %}{% url 'wagtailadmin_pages:explore' root_page.pk %}{% else %}{% url 'wagtailadmin_pages:explore_root' %}{% endif %}"
                     method="get"
                     novalidate
                     role="search"

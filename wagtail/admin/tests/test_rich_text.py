@@ -568,23 +568,23 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         self.assertIsNotNone(link.data.get("chooserUrls"))
         self.assertEqual(
             link.data["chooserUrls"]["pageChooser"],
-            reverse_lazy("wagtailadmin_choose_page"),
+            reverse_lazy("wagtailadmin_pages:choose"),
         )
         self.assertEqual(
             link.data["chooserUrls"]["externalLinkChooser"],
-            reverse_lazy("wagtailadmin_choose_page_external_link"),
+            reverse_lazy("wagtailadmin_pages:choose_external_link"),
         )
         self.assertEqual(
             link.data["chooserUrls"]["emailLinkChooser"],
-            reverse_lazy("wagtailadmin_choose_page_email_link"),
+            reverse_lazy("wagtailadmin_pages:choose_email_link"),
         )
         self.assertEqual(
             link.data["chooserUrls"]["phoneLinkChooser"],
-            reverse_lazy("wagtailadmin_choose_page_phone_link"),
+            reverse_lazy("wagtailadmin_pages:choose_phone_link"),
         )
         self.assertEqual(
             link.data["chooserUrls"]["anchorLinkChooser"],
-            reverse_lazy("wagtailadmin_choose_page_anchor_link"),
+            reverse_lazy("wagtailadmin_pages:choose_anchor_link"),
         )
 
     def test_lazy_chooser_urls_resolved_correctly(self):
@@ -621,7 +621,7 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         )
 
         self.assertIn(
-            '"chooserUrls": {"pageChooser": "/admin/choose-page/", "externalLinkChooser": "/admin/choose-external-link/", "emailLinkChooser": "/admin/choose-email-link/", "phoneLinkChooser": "/admin/choose-phone-link/", "anchorLinkChooser": "/admin/choose-anchor-link/"}',
+            '"chooserUrls": {"pageChooser": "/admin/pages/choose-page/", "externalLinkChooser": "/admin/pages/choose-external-link/", "emailLinkChooser": "/admin/pages/choose-email-link/", "phoneLinkChooser": "/admin/pages/choose-phone-link/", "anchorLinkChooser": "/admin/pages/choose-anchor-link/"}',
             data,
         )
 
@@ -633,7 +633,7 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         widget = DraftailRichTextArea()
         html = widget.render("test_chooserUrls", "", {})
 
-        self.assertIn("/admin/choose-page/", html)
+        self.assertIn("/admin/pages/choose-page/", html)
         self.assertIn("/admin/images/chooser/", html)
         self.assertIn("/admin/embeds/chooser/", html)
         self.assertIn("/admin/documents/chooser/", html)

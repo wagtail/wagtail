@@ -62,7 +62,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
     def test_explore(self):
-        explore_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        explore_url = reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         response = self.client.get(explore_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
@@ -102,7 +102,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_explore_results(self):
         explore_results_url = reverse(
-            "wagtailadmin_explore_results", args=(self.root_page.id,)
+            "wagtailadmin_pages:explore_results", args=(self.root_page.id,)
         )
         response = self.client.get(explore_results_url)
         self.assertEqual(response.status_code, 200)
@@ -115,7 +115,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         # the 'next' parameter should return to the explore view, NOT
         # the partial explore_results view
-        explore_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        explore_url = reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         expected_new_page_copy_url = (
             reverse("wagtailadmin_pages:copy", args=(self.new_page.id,))
             + "?"
@@ -126,7 +126,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertContains(response, "1-3 of 3")
 
     def test_explore_root(self):
-        response = self.client.get(reverse("wagtailadmin_explore_root"))
+        response = self.client.get(reverse("wagtailadmin_pages:explore_root"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
         self.assertEqual(Page.objects.get(id=1), response.context["parent_page"])
@@ -138,7 +138,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
     def test_explore_root_shows_icon(self):
-        response = self.client.get(reverse("wagtailadmin_explore_root"))
+        response = self.client.get(reverse("wagtailadmin_pages:explore_root"))
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
@@ -152,7 +152,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_ordering(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"ordering": "title"},
         )
         self.assertEqual(response.status_code, 200)
@@ -191,7 +191,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
                 "content_type__model",
             ),
         }
-        url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        url = reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         for ordering, (pages, reverse_param) in orderings.items():
             with self.subTest(ordering=ordering):
                 response = self.client.get(url, {"ordering": ordering})
@@ -213,7 +213,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_ordering_search_results_by_created_at(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"q": "page", "ordering": "latest_revision_created_at"},
         )
         self.assertEqual(response.status_code, 200)
@@ -227,7 +227,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         # Ordering search results by content_type is not currently supported,
         # but should not cause an error
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"q": "page", "ordering": "content_type"},
         )
         self.assertEqual(response.status_code, 200)
@@ -249,7 +249,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         default_order = self.root_page.__class__.admin_default_ordering
         self.root_page.__class__.admin_default_ordering = "title"
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # child pages should be ordered by title
@@ -275,7 +275,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.root_page.__class__.get_admin_default_ordering = get_default_order
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
@@ -293,7 +293,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_reverse_ordering(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"ordering": "-title"},
         )
         self.assertEqual(response.status_code, 200)
@@ -308,7 +308,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_ordering_by_last_revision_forward(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"ordering": "latest_revision_created_at"},
         )
         self.assertEqual(response.status_code, 200)
@@ -324,7 +324,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_invalid_ordering(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"ordering": "invalid_order"},
         )
         self.assertEqual(response.status_code, 200)
@@ -333,7 +333,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_reordering(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"ordering": "ord"},
         )
         self.assertEqual(response.status_code, 200)
@@ -354,7 +354,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         # that only returns pages with a slug starting with 'hello'
         # when the 'polite_pages_only' URL parameter is set
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"polite_pages_only": "yes_please"},
         )
         self.assertEqual(response.status_code, 200)
@@ -370,7 +370,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             "construct_explorer_page_queryset", set_custom_ordering
         ):
             response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
         # child pages should be ordered by according to the hook preference
@@ -394,7 +394,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             "construct_page_listing_buttons", add_dummy_button
         ):
             response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
@@ -415,7 +415,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.make_pages()
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)), {"p": 2}
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)), {"p": 2}
         )
 
         # Check response
@@ -430,7 +430,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.make_pages()
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"p": "Hello World!"},
         )
 
@@ -445,7 +445,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.make_pages()
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)), {"p": 99999}
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)), {"p": 99999}
         )
 
         # Check response
@@ -462,7 +462,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.make_pages()
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"ordering": "ord"},
         )
 
@@ -492,7 +492,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             )
         )
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         expected = 'data-object-id="1000"'
         self.assertContains(response, expected)
@@ -512,7 +512,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.root_page.add_child(instance=self.new_event)
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         self.assertEqual(response.status_code, 200)
 
@@ -536,19 +536,19 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         # show the custom title rather than the basic database one
         self.make_event_pages(count=1)
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         self.assertContains(response, "New event 0 (single event)")
 
         new_event = SingleEventPage.objects.latest("pk")
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(new_event.id,))
+            reverse("wagtailadmin_pages:explore", args=(new_event.id,))
         )
         self.assertContains(response, "New event 0 (single event)")
 
     def test_parent_page_is_specific(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.child_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.child_page.id,))
         )
         self.assertEqual(response.status_code, 200)
 
@@ -565,11 +565,11 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         admin = reverse("wagtailadmin_home")
         self.assertRedirects(
-            self.client.get(reverse("wagtailadmin_explore", args=(self.root_page.id,))),
+            self.client.get(reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))),
             admin,
         )
         self.assertRedirects(
-            self.client.get(reverse("wagtailadmin_explore_root")), admin
+            self.client.get(reverse("wagtailadmin_pages:explore_root")), admin
         )
 
     def test_explore_with_missing_page_model(self):
@@ -584,21 +584,21 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         # try to browse the listing that contains the missing model
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
         # try to browse into the page itself
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.old_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.old_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
     def test_search(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"q": "old"},
         )
         self.assertEqual(response.status_code, 200)
@@ -610,7 +610,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_search_results(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore_results", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore_results", args=(self.root_page.id,)),
             {"q": "old"},
         )
         self.assertEqual(response.status_code, 200)
@@ -621,7 +621,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertContains(response, "1-1 of 1")
 
     def test_search_searches_descendants(self):
-        response = self.client.get(reverse("wagtailadmin_explore_root"), {"q": "old"})
+        response = self.client.get(reverse("wagtailadmin_pages:explore_root"), {"q": "old"})
         self.assertEqual(response.status_code, 200)
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
@@ -634,7 +634,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         # search results should not include pages outside parent_page's descendants
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.new_page.id,)),
             {"q": "old"},
         )
         self.assertEqual(response.status_code, 200)
@@ -643,7 +643,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_search_whole_tree(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.new_page.id,)),
             {"q": "old", "search_all": "1"},
         )
         self.assertEqual(response.status_code, 200)
@@ -661,7 +661,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.new_page.add_child(instance=new_page_child)
         page_type_pk = ContentType.objects.get_for_model(SimplePage).pk
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"content_type": page_type_pk},
         )
         self.assertEqual(response.status_code, 200)
@@ -690,7 +690,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.root_page.copy_for_translation(fr_locale, copy_parents=True)
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"locale": "en", "q": "hello"},
         )
         self.assertEqual(response.status_code, 200)
@@ -712,7 +712,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.new_page.add_child(instance=new_page_child)
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"latest_revision_created_at_from": "2015-01-01"},
         )
         self.assertEqual(response.status_code, 200)
@@ -741,7 +741,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.new_page.add_child(instance=new_page_child)
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
         )
         self.assertEqual(response.status_code, 200)
         # Only users who own any pages should be listed in the filter
@@ -749,7 +749,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "Larry King")
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"owner": barry.pk},
         )
         self.assertEqual(response.status_code, 200)
@@ -782,7 +782,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"edited_by": barry.pk},
         )
         self.assertEqual(response.status_code, 200)
@@ -810,7 +810,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.new_page.add_child(instance=new_page_child)
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"site": new_site.pk},
         )
         self.assertEqual(response.status_code, 200)
@@ -831,7 +831,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.new_page.add_child(instance=new_page_child)
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"has_child_pages": "true"},
         )
         self.assertEqual(response.status_code, 200)
@@ -844,7 +844,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"has_child_pages": "false"},
         )
         self.assertEqual(response.status_code, 200)
@@ -860,7 +860,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def test_invalid_filter(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,)),
             {"has_child_pages": "unknown"},
         )
         self.assertEqual(response.status_code, 200)
@@ -877,7 +877,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
     def test_explore_custom_permissions(self):
         page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
         self.root_page.add_child(instance=page)
-        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        response = self.client.get(reverse("wagtailadmin_pages:explore", args=(page.id,)))
         self.assertEqual(response.status_code, 200)
         # Respecting PagePermissionTester.can_view_revisions(),
         # should not contain a link to the history view
@@ -895,7 +895,7 @@ class TestBreadcrumb(WagtailTestUtils, TestCase):
 
         # get the explorer view for a subpage of a SimplePage
         page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
-        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        response = self.client.get(reverse("wagtailadmin_pages:explore", args=(page.id,)))
         self.assertEqual(response.status_code, 200)
 
         # The breadcrumbs controller identifier should be present
@@ -906,11 +906,11 @@ class TestBreadcrumb(WagtailTestUtils, TestCase):
 
         # get the explorer view for a subpage of a SimplePage
         page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
-        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        response = self.client.get(reverse("wagtailadmin_pages:explore", args=(page.id,)))
 
         # The breadcrumb should pick up SimplePage's overridden get_admin_display_title method
         expected_url = reverse(
-            "wagtailadmin_explore",
+            "wagtailadmin_pages:explore",
             args=(Page.objects.get(url_path="/home/secret-plans/").id,),
         )
 
@@ -939,7 +939,7 @@ class TestPageExplorerSidePanel(WagtailTestUtils, TestCase):
 
         # get the explorer view for a subpage of a SimplePage
         page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
-        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        response = self.client.get(reverse("wagtailadmin_pages:explore", args=(page.id,)))
         self.assertEqual(response.status_code, 200)
 
         # The side panel should be present with data-form-side-explorer attribute
@@ -974,7 +974,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
 
     def test_admin_at_root(self):
         self.login(username="superuser", password="password")
-        response = self.client.get(reverse("wagtailadmin_explore_root"))
+        response = self.client.get(reverse("wagtailadmin_pages:explore_root"))
         self.assertEqual(response.status_code, 200)
         # Administrator (or user with add_site permission) should get the full message
         # about configuring sites
@@ -993,14 +993,14 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
         self.login(username="superuser", password="password")
 
         # Message about root level should not show when searching or filtering
-        response = self.client.get(reverse("wagtailadmin_explore_root"), {"q": "hello"})
+        response = self.client.get(reverse("wagtailadmin_pages:explore_root"), {"q": "hello"})
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(
             response,
             "The root level is where you can add new sites to your Wagtail installation.",
         )
         response = self.client.get(
-            reverse("wagtailadmin_explore_root"), {"has_child_pages": "true"}
+            reverse("wagtailadmin_pages:explore_root"), {"has_child_pages": "true"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(
@@ -1011,7 +1011,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
     def test_admin_at_non_site_page(self):
         self.login(username="superuser", password="password")
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.no_site_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.no_site_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         # Administrator (or user with add_site permission) should get a warning about
@@ -1032,7 +1032,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
 
         # Message about unroutable pages should not show when searching or filtering
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.no_site_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.no_site_page.id,)),
             {"q": "hello"},
         )
         self.assertEqual(response.status_code, 200)
@@ -1041,7 +1041,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
             "There is no site set up for this location.",
         )
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.no_site_page.id,)),
+            reverse("wagtailadmin_pages:explore", args=(self.no_site_page.id,)),
             {"has_child_pages": "true"},
         )
         self.assertEqual(response.status_code, 200)
@@ -1053,7 +1053,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
     def test_admin_at_site_page(self):
         self.login(username="superuser", password="password")
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.site_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.site_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
@@ -1071,7 +1071,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
             permission_type="add",
         )
         self.login(username="siteeditor", password="password")
-        response = self.client.get(reverse("wagtailadmin_explore_root"))
+        response = self.client.get(reverse("wagtailadmin_pages:explore_root"))
 
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a simple "create pages as children of the homepage" prompt
@@ -1090,7 +1090,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
         )
         self.login(username="siteeditor", password="password")
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.no_site_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.no_site_page.id,))
         )
 
         self.assertEqual(response.status_code, 200)
@@ -1106,7 +1106,7 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
     def test_nonadmin_at_site_page(self):
         self.login(username="siteeditor", password="password")
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.site_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.site_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
@@ -1118,25 +1118,25 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
     def test_bad_permissions_at_root(self):
         # 'siteeditor' does not have permission to explore the root
         self.login(username="siteeditor", password="password")
-        response = self.client.get(reverse("wagtailadmin_explore_root"))
+        response = self.client.get(reverse("wagtailadmin_pages:explore_root"))
 
         # Users without permission to explore here should be redirected to their explorable root.
         self.assertEqual(
             (response.status_code, response["Location"]),
-            (302, reverse("wagtailadmin_explore", args=(self.site_page.pk,))),
+            (302, reverse("wagtailadmin_pages:explore", args=(self.site_page.pk,))),
         )
 
     def test_bad_permissions_at_non_site_page(self):
         # 'siteeditor' does not have permission to explore no_site_page
         self.login(username="siteeditor", password="password")
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.no_site_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.no_site_page.id,))
         )
 
         # Users without permission to explore here should be redirected to their explorable root.
         self.assertEqual(
             (response.status_code, response["Location"]),
-            (302, reverse("wagtailadmin_explore", args=(self.site_page.pk,))),
+            (302, reverse("wagtailadmin_pages:explore", args=(self.site_page.pk,))),
         )
 
     def test_bad_permissions_at_site_page(self):
@@ -1147,12 +1147,12 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
         )
         self.login(username="siteeditor", password="password")
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.site_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.site_page.id,))
         )
         # Users without permission to explore here should be redirected to their explorable root.
         self.assertEqual(
             (response.status_code, response["Location"]),
-            (302, reverse("wagtailadmin_explore", args=(self.no_site_page.pk,))),
+            (302, reverse("wagtailadmin_pages:explore", args=(self.no_site_page.pk,))),
         )
 
 
@@ -1194,12 +1194,12 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
     def test_admin_can_explore_every_page(self):
         self.login(username="superman", password="password")
         for page in Page.objects.all():
-            response = self.client.get(reverse("wagtailadmin_explore", args=[page.pk]))
+            response = self.client.get(reverse("wagtailadmin_pages:explore", args=[page.pk]))
             self.assertEqual(response.status_code, 200)
 
     def test_admin_sees_root_page_as_explorer_root(self):
         self.login(username="superman", password="password")
-        response = self.client.get(reverse("wagtailadmin_explore_root"))
+        response = self.client.get(reverse("wagtailadmin_pages:explore_root"))
         self.assertEqual(response.status_code, 200)
         # Administrator should see the full list of children of the Root page.
         self.assertContains(response, "Welcome to testserver!")
@@ -1207,7 +1207,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
 
     def test_admin_sees_breadcrumbs_up_to_root_page(self):
         self.login(username="superman", password="password")
-        response = self.client.get(reverse("wagtailadmin_explore", args=[6]))
+        response = self.client.get(reverse("wagtailadmin_pages:explore", args=[6]))
         self.assertEqual(response.status_code, 200)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
@@ -1246,7 +1246,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
 
     def test_nonadmin_sees_breadcrumbs_up_to_cca(self):
         self.login(username="josh", password="password")
-        response = self.client.get(reverse("wagtailadmin_explore", args=[6]))
+        response = self.client.get(reverse("wagtailadmin_pages:explore", args=[6]))
         self.assertEqual(response.status_code, 200)
         # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
         # since it's his Closest Common Ancestor.
@@ -1275,7 +1275,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
 
     def test_nonadmin_sees_non_hidden_root(self):
         self.login(username="josh", password="password")
-        response = self.client.get(reverse("wagtailadmin_explore", args=[4]))
+        response = self.client.get(reverse("wagtailadmin_pages:explore", args=[4]))
         self.assertEqual(response.status_code, 200)
         # When Josh is viewing his visible root page, he should the page title as a non-hidden, single-item breadcrumb.
         expected = """
@@ -1322,7 +1322,7 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
 
     def test_locale_selector(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=[self.events_page.id])
+            reverse("wagtailadmin_pages:explore", args=[self.events_page.id])
         )
         html = response.content.decode()
 
@@ -1330,7 +1330,7 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
         self.assertContains(response, "Switch locales")
 
         add_translation_url = reverse(
-            "wagtailadmin_explore", args=[self.translated_events_page.id]
+            "wagtailadmin_pages:explore", args=[self.translated_events_page.id]
         )
         self.assertTagInHTML(
             f'<a href="{add_translation_url}" lang="fr">French</a>',
@@ -1341,14 +1341,14 @@ class TestLocaleSelector(WagtailTestUtils, TestCase):
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=[self.events_page.id])
+            reverse("wagtailadmin_pages:explore", args=[self.events_page.id])
         )
         html = response.content.decode()
 
         self.assertNotContains(response, "Switch locales")
 
         add_translation_url = reverse(
-            "wagtailadmin_explore", args=[self.translated_events_page.id]
+            "wagtailadmin_pages:explore", args=[self.translated_events_page.id]
         )
         self.assertTagInHTML(
             f'<a href="{add_translation_url}" lang="fr">French</a>',
@@ -1370,7 +1370,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         ).specific
         cls.christmas.save_revision()
         cls.saint_patrick.save_revision()
-        cls.url = reverse("wagtailadmin_explore", args=[cls.event_index.pk])
+        cls.url = reverse("wagtailadmin_pages:explore", args=[cls.event_index.pk])
 
     def setUp(self):
         self.user = self.login()

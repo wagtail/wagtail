@@ -42,7 +42,7 @@ class TestBulkUnpublish(WagtailTestUtils, TestCase):
         )
         for child_page in self.pages_to_be_unpublished:
             self.url += f"&id={child_page.id}"
-        self.redirect_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        self.redirect_url = reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
 
         # Login
         self.user = self.login()
@@ -248,7 +248,7 @@ class TestBulkUnpublishIncludingDescendants(WagtailTestUtils, TestCase):
         )
         for child_page in self.pages_to_be_unpublished:
             self.url += f"&id={child_page.id}"
-        self.redirect_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        self.redirect_url = reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
 
         self.user = self.login()
 

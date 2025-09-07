@@ -135,7 +135,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Get copy
@@ -204,7 +204,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Get copy
@@ -257,7 +257,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Get copy
@@ -310,7 +310,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the new parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.test_child_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.test_child_page.id,))
         )
 
         # Check that the page was copied to the correct place
@@ -389,7 +389,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.test_child_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.test_child_page.id,))
         )
 
     def test_page_copy_post_invalid_slug(self):
@@ -429,7 +429,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.test_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.test_page.id,))
         )
 
         # Get copy
@@ -486,7 +486,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Get copy
@@ -604,7 +604,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Get copy
@@ -644,7 +644,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Get copy
@@ -818,7 +818,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Get copy
@@ -852,7 +852,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Get copy

@@ -115,7 +115,7 @@ class SubmitPageTranslationView(SubmitTranslationView):
             # the newly translated page's edit view.
             return reverse("wagtailadmin_pages:edit", args=[translated_page.id])
 
-        return reverse("wagtailadmin_explore", args=[self.get_object().get_parent().id])
+        return reverse("wagtailadmin_pages:explore", args=[self.get_object().get_parent().id])
 
     def get_success_message(self, locales):
         return _(

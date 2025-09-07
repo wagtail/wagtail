@@ -29,7 +29,7 @@ class TestChooserBrowse(WagtailTestUtils, TestCase):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_choose_page"), params)
+        return self.client.get(reverse("wagtailadmin_pages:choose"), params)
 
     def test_simple(self):
         response = self.get()
@@ -104,7 +104,7 @@ class TestCanChooseRootFlag(WagtailTestUtils, TestCase):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_choose_page"), params)
+        return self.client.get(reverse("wagtailadmin_pages:choose"), params)
 
     def test_cannot_choose_root_by_default(self):
         response = self.get()
@@ -127,12 +127,12 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
     def get(self, params={}):
         return self.client.get(
-            reverse("wagtailadmin_choose_page_child", args=(self.root_page.id,)), params
+            reverse("wagtailadmin_pages:choose_child", args=(self.root_page.id,)), params
         )
 
     def get_invalid(self, params={}):
         return self.client.get(
-            reverse("wagtailadmin_choose_page_child", args=(9999999,)), params
+            reverse("wagtailadmin_pages:choose_child", args=(9999999,)), params
         )
 
     def test_simple(self):
@@ -311,7 +311,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
         # Use the child page as the chooser parent
         response = self.client.get(
-            reverse("wagtailadmin_choose_page_child", args=(self.child_page.id,)),
+            reverse("wagtailadmin_pages:choose_child", args=(self.child_page.id,)),
             params={"page_type": "wagtailcore.Page"},
         )
         self.assertEqual(response.status_code, 200)
@@ -327,7 +327,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
         # Use the leaf page as the chooser parent, so child is in the breadcrumbs
         response = self.client.get(
-            reverse("wagtailadmin_choose_page_child", args=(leaf_page.id,))
+            reverse("wagtailadmin_pages:choose_child", args=(leaf_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
@@ -335,7 +335,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         # Look for a link element in the breadcrumbs with the admin title
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold " data-w-breadcrumbs-target="content">
-                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/choose-page/{page_id}/?">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/pages/choose-page/{page_id}/?">
                     {page_title}
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -397,7 +397,7 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
         self.login()
 
     def get(self, params=None):
-        return self.client.get(reverse("wagtailadmin_choose_page_search"), params or {})
+        return self.client.get(reverse("wagtailadmin_pages:choose_search"), params or {})
 
     def test_simple(self):
         response = self.get({"q": "foobarbaz", "allow_external_link": "true"})
@@ -408,7 +408,7 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
 
         # parent page link should preserve the allow_external_link parameter
         expected_url = (
-            reverse("wagtailadmin_choose_page_child", args=[self.root_page.id])
+            reverse("wagtailadmin_pages:choose_child", args=[self.root_page.id])
             + "?allow_external_link=true"
         )
         self.assertContains(
@@ -575,7 +575,7 @@ class TestAutomaticRootPageDetection(WagtailTestUtils, TestCase):
         return event_index
 
     def get_best_root(self, params={}):
-        response = self.client.get(reverse("wagtailadmin_choose_page"), params)
+        response = self.client.get(reverse("wagtailadmin_pages:choose"), params)
         return response.context["parent_page"].specific
 
     def test_no_type_filter(self):
@@ -631,11 +631,11 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
 
     def get(self, params={}):
         return self.client.get(
-            reverse("wagtailadmin_choose_page_external_link"), params
+            reverse("wagtailadmin_pages:choose_external_link"), params
         )
 
     def post(self, post_data={}, url_params={}):
-        url = reverse("wagtailadmin_choose_page_external_link")
+        url = reverse("wagtailadmin_pages:choose_external_link")
         if url_params:
             url += "?" + urlencode(url_params)
         return self.client.post(url, post_data)
@@ -1142,10 +1142,10 @@ class TestChooserAnchorLink(WagtailTestUtils, TestCase):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_choose_page_anchor_link"), params)
+        return self.client.get(reverse("wagtailadmin_pages:choose_anchor_link"), params)
 
     def post(self, post_data={}, url_params={}):
-        url = reverse("wagtailadmin_choose_page_anchor_link")
+        url = reverse("wagtailadmin_pages:choose_anchor_link")
         if url_params:
             url += "?" + urlencode(url_params)
         return self.client.post(url, post_data)
@@ -1225,10 +1225,10 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_choose_page_email_link"), params)
+        return self.client.get(reverse("wagtailadmin_pages:choose_email_link"), params)
 
     def post(self, post_data={}, url_params={}):
-        url = reverse("wagtailadmin_choose_page_email_link")
+        url = reverse("wagtailadmin_pages:choose_email_link")
         if url_params:
             url += "?" + urlencode(url_params)
         return self.client.post(url, post_data)
@@ -1381,10 +1381,10 @@ class TestChooserPhoneLink(WagtailTestUtils, TestCase):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_choose_page_phone_link"), params)
+        return self.client.get(reverse("wagtailadmin_pages:choose_phone_link"), params)
 
     def post(self, post_data={}, url_params={}):
-        url = reverse("wagtailadmin_choose_page_phone_link")
+        url = reverse("wagtailadmin_pages:choose_phone_link")
         if url_params:
             url += "?" + urlencode(url_params)
         return self.client.post(url, post_data)
@@ -1613,18 +1613,18 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
 
     def get(self, parent_page_id):
         return self.client.get(
-            reverse("wagtailadmin_choose_page_child", args=[parent_page_id])
+            reverse("wagtailadmin_pages:choose_child", args=[parent_page_id])
         )
 
     def get_choose_page_url(self, parent_page_id=None, params=""):
         if parent_page_id is not None:
-            url = reverse("wagtailadmin_choose_page_child", args=[parent_page_id])
+            url = reverse("wagtailadmin_pages:choose_child", args=[parent_page_id])
         else:
-            url = reverse("wagtailadmin_choose_page")
+            url = reverse("wagtailadmin_pages:choose")
         return f"{url}?{params}"
 
     def test_locale_selector_present_in_root_view(self):
-        response = self.client.get(reverse("wagtailadmin_choose_page"))
+        response = self.client.get(reverse("wagtailadmin_pages:choose"))
         html = response.json().get("html")
 
         self.assertRegex(html, self.LOCALE_SELECTOR_HTML)
@@ -1673,7 +1673,7 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
 
     def test_query_params_preserved(self):
         choose_url = reverse(
-            "wagtailadmin_choose_page_child", args=[self.child_page.pk]
+            "wagtailadmin_pages:choose_child", args=[self.child_page.pk]
         )
         params = "can_choose_root=false&user_perms=copy_to&match_subclass=true"
         response = self.client.get(f"{choose_url}?{params}&p=1")
@@ -1686,7 +1686,7 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
         self.assertIn(escape(switch_to_french_url), html)
 
     def test_query_params_preserved_in_root_view(self):
-        choose_url = reverse("wagtailadmin_choose_page")
+        choose_url = reverse("wagtailadmin_pages:choose")
         params = "can_choose_root=false&user_perms=copy_to&match_subclass=true"
         response = self.client.get(f"{choose_url}?{params}&p=1")
         html = response.json().get("html")

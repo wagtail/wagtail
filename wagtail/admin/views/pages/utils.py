@@ -15,8 +15,8 @@ from wagtail.permissions import page_permission_policy
 def get_breadcrumbs_items_for_page(
     page,
     user,
-    url_name="wagtailadmin_explore",
-    root_url_name="wagtailadmin_explore_root",
+    url_name="wagtailadmin_pages:explore",
+    root_url_name="wagtailadmin_pages:explore_root",
     include_self=True,
     querystring_value="",
 ):

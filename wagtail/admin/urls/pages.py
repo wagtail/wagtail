@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from wagtail.admin.views import page_privacy
+from wagtail.admin.views import chooser, page_privacy
 from wagtail.admin.views.pages import (
     convert_alias,
     copy,
@@ -8,6 +8,7 @@ from wagtail.admin.views.pages import (
     delete,
     edit,
     history,
+    listing,
     lock,
     move,
     ordering,
@@ -21,6 +22,49 @@ from wagtail.admin.views.pages import (
 
 app_name = "wagtailadmin_pages"
 urlpatterns = [
+    path("", listing.ExplorableIndexView.as_view(), name="explore_root"),
+    path("<int:parent_page_id>/", listing.ExplorableIndexView.as_view(), name="explore"),
+    path(
+        "<int:parent_page_id>/results/",
+        listing.ExplorableIndexView.as_view(results_only=True),
+        name="explore_results",
+    ),
+    path("choose-page/", chooser.BrowseView.as_view(), name="choose"),
+    path(
+        "choose-page/<int:parent_page_id>/",
+        chooser.BrowseView.as_view(),
+        name="choose_child",
+    ),
+    path(
+        "choose-page/search/",
+        chooser.SearchView.as_view(),
+        name="choose_search",
+    ),
+    path(
+        "choose-page/chosen-multiple/",
+        chooser.ChosenMultipleView.as_view(),
+        name="choose_chosen_multiple",
+    ),
+    path(
+        "choose-external-link/",
+        chooser.ExternalLinkView.as_view(),
+        name="choose_external_link",
+    ),
+    path(
+        "choose-email-link/",
+        chooser.EmailLinkView.as_view(),
+        name="choose_email_link",
+    ),
+    path(
+        "choose-phone-link/",
+        chooser.PhoneLinkView.as_view(),
+        name="choose_phone_link",
+    ),
+    path(
+        "choose-anchor-link/",
+        chooser.AnchorLinkView.as_view(),
+        name="choose_anchor_link",
+    ),
     path(
         "add/<slug:content_type_app_name>/<slug:content_type_model_name>/<int:parent_page_id>/",
         create.CreateView.as_view(),

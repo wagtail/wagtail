@@ -41,7 +41,7 @@ class BenchPageExplorerWith50LargePages(Benchmark, WagtailTestUtils, TestCase):
 
     def bench(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check the response was good
@@ -82,7 +82,7 @@ class BenchPageExplorerWithCustomURLPages(Benchmark, WagtailTestUtils, TestCase)
 
     def bench(self):
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check the response was good

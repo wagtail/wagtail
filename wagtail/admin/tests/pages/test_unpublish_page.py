@@ -88,7 +88,7 @@ class TestPageUnpublish(WagtailTestUtils, TestCase):
 
             # Should be redirected to explorer page
             self.assertRedirects(
-                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
             # Check that the page was unpublished
@@ -230,7 +230,7 @@ class TestPageUnpublishIncludingDescendants(WagtailTestUtils, TestCase):
 
         # Should be redirected to explorer page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that the page was unpublished
@@ -253,7 +253,7 @@ class TestPageUnpublishIncludingDescendants(WagtailTestUtils, TestCase):
 
         # Should be redirected to explorer page
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         # Check that the page was unpublished

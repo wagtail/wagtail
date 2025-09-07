@@ -7,7 +7,7 @@ Navigation controls for the page listing in 'explore' mode
 <td class="{% if page.is_navigable %}children{% else %}no-children{% endif %}">
     {% if page.is_navigable %}
         <a
-            href="{% url 'wagtailadmin_explore' page.id %}"
+            href="{% url 'wagtailadmin_pages:explore' page.id %}"
             title="{% blocktrans trimmed with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}"
             aria-label="{% blocktrans trimmed with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}"
         >{% icon name="arrow-right" classname="default" %}</a>

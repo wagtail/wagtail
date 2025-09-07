@@ -394,7 +394,7 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
         This tests that the privacy indicator on the public pages explore view is set to "PUBLIC"
         """
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.public_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.public_page.id,))
         )
 
         # Check the response
@@ -416,7 +416,7 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
         This tests that the privacy indicator on the private pages explore view is set to "PRIVATE"
         """
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.private_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.private_page.id,))
         )
 
         # Check the response
@@ -438,7 +438,7 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
         This tests that the privacy indicator on the private child pages explore view is set to "PRIVATE"
         """
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.private_child_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.private_child_page.id,))
         )
 
         # Check the response
@@ -460,7 +460,7 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
         This tests that there is a padlock displayed next to the private page in the homepages explorer listing
         """
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.homepage.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.homepage.id,))
         )
 
         # Check the response
@@ -479,7 +479,7 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
         next to the private child page in the private pages explorer listing
         """
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.private_page.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.private_page.id,))
         )
 
         # Check the response

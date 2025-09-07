@@ -258,9 +258,9 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(
             [
                 {
-                    "url": reverse("wagtailadmin_explore_root")
+                    "url": reverse("wagtailadmin_pages:explore_root")
                     if page.is_root()
-                    else reverse("wagtailadmin_explore", args=(page.pk,)),
+                    else reverse("wagtailadmin_pages:explore", args=(page.pk,)),
                     "label": page.get_admin_display_title(),
                 }
                 for page in self.christmas_event.get_ancestors(inclusive=True)

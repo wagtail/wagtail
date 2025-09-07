@@ -1025,7 +1025,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             post_data,
         )
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         page = Page.objects.get(
             path__startswith=self.root_page.path, slug="promotional-page"
@@ -1192,7 +1192,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
             # Should be redirected to explorer
             self.assertRedirects(
-                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+                response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
             )
 
             self.assertEqual(page.title, post_data["title"])
@@ -1283,7 +1283,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # Should be redirected to explorer
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
 
         self.assertEqual(page.title, post_data["title"])
@@ -2045,7 +2045,7 @@ class TestSubpageBusinessRules(WagtailTestUtils, TestCase):
 
         # explorer should contain a link to 'add child page'
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.standard_index.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.standard_index.id,))
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, add_subpage_url)
@@ -2066,7 +2066,7 @@ class TestSubpageBusinessRules(WagtailTestUtils, TestCase):
 
         # explorer should contain a link to 'add child page'
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.business_index.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.business_index.id,))
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, add_subpage_url)
@@ -2086,7 +2086,7 @@ class TestSubpageBusinessRules(WagtailTestUtils, TestCase):
 
         # explorer should not contain a link to 'add child page', as this page doesn't accept subpages
         response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.business_child.id,))
+            reverse("wagtailadmin_pages:explore", args=(self.business_child.id,))
         )
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, add_subpage_url)
@@ -2275,7 +2275,7 @@ class TestInlinePanelWithTags(WagtailTestUtils, TestCase):
             post_data,
         )
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         new_page = PersonPage.objects.get(slug="mr-benn")
         self.assertEqual(new_page.addresses.first().tags.count(), 2)
@@ -2318,7 +2318,7 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
             post_data,
         )
         self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            response, reverse("wagtailadmin_pages:explore", args=(self.root_page.id,))
         )
         new_page = PersonPage.objects.get(slug="mr-benn")
         self.assertEqual(new_page.social_links.count(), 1)

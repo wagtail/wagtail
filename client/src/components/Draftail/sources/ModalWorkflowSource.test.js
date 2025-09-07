@@ -116,11 +116,11 @@ describe('ModalWorkflowSource', () => {
     const linkSource = new LinkModalWorkflowSource({
       entityType: {
         chooserUrls: {
-          pageChooser: '/admin/choose-page/',
-          emailLinkChooser: '/admin/choose-email-link/',
-          externalLinkChooser: '/admin/choose-external-link/',
-          anchorLinkChooser: '/admin/choose-anchor-link/',
-          phoneLinkChooser: 'admin/choose-phone-link/',
+          pageChooser: '/admin/pages/choose-page/',
+          emailLinkChooser: '/admin/pages/choose-email-link/',
+          externalLinkChooser: '/admin/pages/choose-external-link/',
+          anchorLinkChooser: '/admin/pages/choose-anchor-link/',
+          phoneLinkChooser: 'admin/pages/choose-phone-link/',
         },
       },
     });

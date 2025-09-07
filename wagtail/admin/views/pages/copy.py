@@ -109,7 +109,7 @@ def copy(request, page_id):
             # Redirect to explore of parent page
             if next_url:
                 return redirect(next_url)
-            return redirect("wagtailadmin_explore", parent_page.id)
+            return redirect("wagtailadmin_pages:explore", parent_page.id)
 
     return TemplateResponse(
         request,

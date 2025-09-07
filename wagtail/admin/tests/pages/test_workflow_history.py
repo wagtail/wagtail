@@ -88,19 +88,19 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
 
         items = [
             {
-                "url": reverse("wagtailadmin_explore_root"),
+                "url": reverse("wagtailadmin_pages:explore_root"),
                 "label": "Root",
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(self.site_root.id,)),
+                "url": reverse("wagtailadmin_pages:explore", args=(self.site_root.id,)),
                 "label": self.site_root.get_admin_display_title(),
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(self.events_page.id,)),
+                "url": reverse("wagtailadmin_pages:explore", args=(self.events_page.id,)),
                 "label": self.events_page.get_admin_display_title(),
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(self.christmas_event.id,)),
+                "url": reverse("wagtailadmin_pages:explore", args=(self.christmas_event.id,)),
                 "label": self.christmas_event.get_admin_display_title(),
             },
             {
@@ -225,19 +225,19 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
 
         items = [
             {
-                "url": reverse("wagtailadmin_explore_root"),
+                "url": reverse("wagtailadmin_pages:explore_root"),
                 "label": "Root",
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(self.site_root.id,)),
+                "url": reverse("wagtailadmin_pages:explore", args=(self.site_root.id,)),
                 "label": self.site_root.get_admin_display_title(),
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(self.events_page.id,)),
+                "url": reverse("wagtailadmin_pages:explore", args=(self.events_page.id,)),
                 "label": self.events_page.get_admin_display_title(),
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(self.christmas_event.id,)),
+                "url": reverse("wagtailadmin_pages:explore", args=(self.christmas_event.id,)),
                 "label": self.christmas_event.get_admin_display_title(),
             },
             {

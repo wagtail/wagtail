@@ -126,7 +126,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
             raise self.failureException(msg)
 
         if publish:
-            expected_url = reverse("wagtailadmin_explore", args=[parent.pk])
+            expected_url = reverse("wagtailadmin_pages:explore", args=[parent.pk])
         else:
             expected_url = reverse(
                 "wagtailadmin_pages:edit", args=[Page.objects.order_by("pk").last().pk]

@@ -77,7 +77,7 @@ def delete(request, page_id):
 
                 if next_url:
                     return redirect(next_url)
-                return redirect("wagtailadmin_explore", parent_id)
+                return redirect("wagtailadmin_pages:explore", parent_id)
 
     descendant_count = page.get_descendant_count()
     return TemplateResponse(
