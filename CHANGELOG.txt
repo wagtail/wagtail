@@ -32,6 +32,7 @@ Changelog
  * Maintenance: Upload redundant `latest.whl` nightly build for ease of use with package managers (Sage Abdullah)
  * Maintenance: Move MANIFEST.in settings into pyproject.toml (Pravin Kamble)
  * Maintenance: Fix linting rules B006 and B904 (Vivek Subramani, Matt Westcott)
+ * Maintenance: Remove jQuery dependency for image URL generator (LB (Ben) Johnston)
 
 
 7.2.1 (26.11.2025)
