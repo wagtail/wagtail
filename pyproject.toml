@@ -51,6 +51,7 @@ dependencies = [
   "telepath>=0.3.1,<1",
   "laces>=0.1,<0.2",
   "django-tasks>=0.8,<0.10",
+  "modelsearch@git+https://github.com/gasman/django-modelsearch.git@admin/wagtail-integration-2",
 ]
 
 [project.urls]
