@@ -151,7 +151,6 @@ INSTALLED_APPS = [
     "wagtail.test.demosite",
     "wagtail.test.snippets",
     "wagtail.test.routablepage",
-    "wagtail.test.search",
     "wagtail.test.i18n",
     "wagtail.test.streamfield_migrations",
     "wagtail.contrib.simple_translation",
