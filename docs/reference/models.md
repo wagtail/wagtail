@@ -440,7 +440,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
     .. method:: move(new_parent, pos=None)
 
         Move a page and all its descendants to a new parent.
-        See :meth:`django-treebeard <treebeard.mp_tree.MP_Node.move>` for more information.
+        See :meth:`django-treebeard <treebeard.models.Node.move>` for more information.
 
 
     .. automethod:: create_alias
