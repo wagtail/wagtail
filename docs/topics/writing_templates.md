@@ -163,7 +163,13 @@ As Wagtail does not impose any styling of its own on templates, images, and embe
 
 where `body` is a container element in your template surrounding the images.
 
-Making embedded media resizable is also possible, but typically requires custom style rules matching the media's aspect ratio. To assist in this, Wagtail provides built-in support for responsive embeds, which can be enabled by setting `WAGTAILEMBEDS_RESPONSIVE_HTML = True` in your project settings. This adds a CSS class of `responsive-object` and an inline `padding-bottom` style to the embed, to be used in conjunction with the following CSS:
+Making embedded media resizable is also possible, but typically requires custom style rules matching the media's aspect ratio. To assist in this, Wagtail provides built-in support for responsive embeds, which can be enabled by setting `WAGTAILEMBEDS_RESPONSIVE_HTML = True` in your project settings. This adds a CSS class of `responsive-object` and an inline `padding-bottom` style to the embed:
+
+```{literalinclude} ../../wagtail/embeds/templates/wagtailembeds/embed_frontend.html
+:language: html+django
+```
+
+The built-in template (`wagtailembeds/embed_frontend.html`) above is to be used in conjunction with the following CSS:
 
 ```css
 .responsive-object {
@@ -180,6 +186,8 @@ Making embedded media resizable is also possible, but typically requires custom 
     height: 100%;
 }
 ```
+
+For sites enforcing a Content Security Policy, you can override the `wagtailembeds/embed_frontend.html` template to apply the inline styles via a `<style>` tag with a `nonce` attribute.
 
 ## Internal links (tag)
 
