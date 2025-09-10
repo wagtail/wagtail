@@ -1,10 +1,11 @@
 import hashlib
 import unittest
+from io import StringIO
 from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
-from django.core import checks
+from django.core import checks, management
 from django.core.cache import caches
 from django.core.files import File
 from django.core.files.storage import Storage, default_storage, storages
@@ -1288,6 +1289,13 @@ class TestIssue613(WagtailTestUtils, TestCase):
     def setUp(self):
         self.search_backend = self.get_elasticsearch_backend()
         self.login()
+
+        management.call_command(
+            "update_index",
+            backend_name="elasticsearch",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
 
     def add_image(self, **params):
         post_data = {
