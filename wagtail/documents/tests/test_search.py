@@ -1,5 +1,7 @@
 import unittest
+from io import StringIO
 
+from django.core import management
 from django.core.files.base import ContentFile
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -24,6 +26,13 @@ class TestIssue613(WagtailTestUtils, TestCase):
     def setUp(self):
         self.search_backend = self.get_elasticsearch_backend()
         self.login()
+
+        management.call_command(
+            "update_index",
+            backend_name="elasticsearch",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
 
     def add_document(self, **params):
         # Build a fake file
