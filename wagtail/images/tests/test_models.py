@@ -1346,9 +1346,11 @@ class TestIssue613(WagtailTestUtils, TestCase):
         return image
 
     def test_issue_613_on_add(self):
-        # Reset the search index
-        self.search_backend.reset_index()
-        self.search_backend.add_type(Image)
+        # Note to future developer troubleshooting this test...
+        # This test previously started by calling self.search_backend.reset_index(), but that was evidently redundant because
+        # this was broken on Elasticsearch prior to the fix in
+        # https://github.com/wagtail/wagtailsearch/commit/53a98169bccc3cef5b234944037f2b3f78efafd4 .
+        # If this turns out to be necessary after all, you might want to compare how wagtail.tests.test_page_search.PageSearchTests does it.
 
         # Add an image with some tags
         image = self.add_image(tags="hello")
@@ -1362,9 +1364,11 @@ class TestIssue613(WagtailTestUtils, TestCase):
         self.assertEqual(results[0].id, image.id)
 
     def test_issue_613_on_edit(self):
-        # Reset the search index
-        self.search_backend.reset_index()
-        self.search_backend.add_type(Image)
+        # Note to future developer troubleshooting this test...
+        # This test previously started by calling self.search_backend.reset_index(), but that was evidently redundant because
+        # this was broken on Elasticsearch prior to the fix in
+        # https://github.com/wagtail/wagtailsearch/commit/53a98169bccc3cef5b234944037f2b3f78efafd4 .
+        # If this turns out to be necessary after all, you might want to compare how wagtail.tests.test_page_search.PageSearchTests does it.
 
         # Add an image with some tags
         image = self.edit_image(tags="hello")
