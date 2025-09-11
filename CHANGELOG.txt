@@ -19,6 +19,7 @@ Changelog
  * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami (Yemeni))
  * Docs: Fix incorrect import references in getting started tutorial (Hunzlah Malik)
  * Docs: Fix code example for `construct_wagtail_userbar` (Baptiste Mispelon)
+ * Docs: Add a note about CSP for background image position and responsive embed styles (Thibaud Colas, Chiemezuo Akujobi, Sage Abdullah)
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
  * Maintenance: Updated NPM packages and linting configuration (LB (Ben) Johnston)
  * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
