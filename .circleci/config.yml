@@ -179,7 +179,7 @@ jobs:
             DJANGO_SUPERUSER_USERNAME: admin
             DJANGO_SUPERUSER_PASSWORD: changeme
       - run:
-          command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
+          command: npm run test:wagtail-start -- --runInBand --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: reports/jest
       - run:
