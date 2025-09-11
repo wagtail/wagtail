@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow `label_format` to be set to an empty string to hide the block summary label (Sage Abdullah)
+ * Docs: Link to django-treebeard's `Node.move()` in `Page.move()` documentation (Baptiste Mispelon)
 
 
 7.1.1 (28.08.2025)
