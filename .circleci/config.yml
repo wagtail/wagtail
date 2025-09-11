@@ -211,6 +211,9 @@ workflows:
       - ui_tests:
           requires:
             - frontend
+      - wagtail_start_test:
+          requires:
+            - frontend
 
   nightly:
     jobs:
