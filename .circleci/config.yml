@@ -167,6 +167,10 @@ jobs:
             - ~/.cache/puppeteer
       - run: mkdir mysite
       - run: wagtail start mysite mysite
+      # runserver early to prevent error from tests from trying to access the server before it's ready
+      - run:
+          command: ./mysite/manage.py runserver 0:8000
+          background: true
       - run: ./mysite/manage.py migrate
       - run:
           command: ./mysite/manage.py createsuperuser --noinput
@@ -174,9 +178,6 @@ jobs:
             DJANGO_SUPERUSER_EMAIL: admin@example.com
             DJANGO_SUPERUSER_USERNAME: admin
             DJANGO_SUPERUSER_PASSWORD: changeme
-      - run:
-          command: ./mysite/manage.py runserver 0:8000
-          background: true
       - run:
           command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
           environment:
