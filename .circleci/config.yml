@@ -167,28 +167,24 @@ jobs:
             - ~/.cache/puppeteer
       - run: mkdir mysite
       - run: wagtail start mysite mysite
-      - run: ls -la
-      - run: cd mysite
-      - run: ls -la
-      - run: python -m pip install -r requirements.txt
-      - run: manage.py migrate
+      - run: ./mysite/manage.py migrate
       - run:
-          command: manage.py createsuperuser --noinput
+          command: ./mysite/manage.py createsuperuser --noinput
           environment:
             DJANGO_SUPERUSER_EMAIL: admin@example.com
             DJANGO_SUPERUSER_USERNAME: admin
             DJANGO_SUPERUSER_PASSWORD: changeme
       - run:
-          command: manage.py runserver 0:8000
+          command: ./mysite/manage.py runserver 0:8000
           background: true
       - run:
           command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: reports/jest
       - run:
-          command: manage.py collectstatic --noinput
+          command: ./mysite/manage.py collectstatic --noinput
           environment:
-            DJANGO_DEBUG: 'false'
+            # DJANGO_DEBUG: 'false'
             STATICFILES_STORAGE: manifest
       - store_test_results:
           path: ./reports/jest
