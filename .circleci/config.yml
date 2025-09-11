@@ -165,6 +165,7 @@ jobs:
             # Also cache the global location where Puppeteer stores browsers.
             # https://pptr.dev/guides/configuration/#changing-the-default-cache-directory
             - ~/.cache/puppeteer
+      - run: mkdir mysite
       - run: wagtail start mysite mysite
       - run: cd mysite
       - run: python -m pip install -r requirements.txt
