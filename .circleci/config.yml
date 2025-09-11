@@ -125,6 +125,71 @@ jobs:
       - store_test_results:
           path: ./reports/jest
 
+  # Create a new Wagtail project with the `wagtail start` command and run the integration tests against it
+  wagtail_start_test:
+    docker:
+      - image: cimg/python:3.12-browsers
+    # environment:
+    #   DJANGO_SETTINGS_MODULE: wagtail.test.settings_ui
+    #   DJANGO_DEBUG: 'true'
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run: python --version > .python_version
+      - restore_cache:
+          key: &wagtail_start_test-venv-cache wagtail_start_test-venv-v1-{{ checksum "pyproject.toml" }}-{{ checksum ".python_version" }}
+      # Only install if .venv wasn’t cached.
+      - run: |
+          if [[ ! -e ".venv" ]]; then
+              python -m venv .venv
+              source .venv/bin/activate
+              python -m pip install -e .
+          fi
+          echo "source $(pwd)/.venv/bin/activate" >> $BASH_ENV
+      - save_cache:
+          key: *wagtail_start_test-venv-cache
+          paths:
+            - .venv
+      - restore_cache:
+          key: &wagtail_start_test-npm-cache wagtail_start_test-npm_integration-v3-{{ checksum "client/tests/integration/package-lock.json" }}
+      # Only install if node_modules wasn’t cached.
+      - run: |
+          if [[ ! -e "client/tests/integration/node_modules" ]]; then
+              npm --prefix ./client/tests/integration ci
+          fi
+      - save_cache:
+          key: *wagtail_start_test-npm-cache
+          paths:
+            - client/tests/integration/node_modules
+            # Also cache the global location where Puppeteer stores browsers.
+            # https://pptr.dev/guides/configuration/#changing-the-default-cache-directory
+            - ~/.cache/puppeteer
+      - run: wagtail start mysite mysite
+      - run: cd mysite
+      - run: python -m pip install -r requirements.txt
+      - run: manage.py migrate
+      - run:
+          command: manage.py createsuperuser --noinput
+          environment:
+            DJANGO_SUPERUSER_EMAIL: admin@example.com
+            DJANGO_SUPERUSER_USERNAME: admin
+            DJANGO_SUPERUSER_PASSWORD: changeme
+      - run:
+          command: manage.py runserver 0:8000
+          background: true
+      - run:
+          command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: reports/jest
+      - run:
+          command: manage.py collectstatic --noinput
+          environment:
+            DJANGO_DEBUG: 'false'
+            STATICFILES_STORAGE: manifest
+      - store_test_results:
+          path: ./reports/jest
+
   nightly-build:
     docker:
       - image: cimg/python:3.12-node
