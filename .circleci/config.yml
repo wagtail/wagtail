@@ -130,7 +130,7 @@ jobs:
     docker:
       - image: cimg/python:3.12-browsers
     environment:
-      DJANGO_SETTINGS_MODULE: wagtail.test.settings
+      DJANGO_SETTINGS_MODULE: mysite.mysite.settings.dev
       DJANGO_DEBUG: 'true'
     steps:
       - checkout
