@@ -435,6 +435,108 @@ describe('SwapController', () => {
       // should reset the icon
       expect(icon.getAttribute('href')).toEqual('#icon-search');
     });
+
+    it('should support sending a custom message on error', async () => {
+      const handleMessage = jest.fn();
+
+      document.addEventListener('w-messages:add', handleMessage);
+      document.addEventListener('w-messages:clear', handleMessage);
+
+      const icon = document.querySelector('.icon-search use');
+      const input = document.getElementById('search');
+
+      const onErrorEvent = jest.fn();
+      document.addEventListener('w-swap:error', onErrorEvent);
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // first - check for an error without message (default behavior)
+
+      fetch.mockResponseFailure();
+      input.value = 'alpha';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      // error should be dispatched, but no messages as messages are not set
+      expect(onErrorEvent).toHaveBeenCalledTimes(1);
+      expect(handleMessage).not.toHaveBeenCalled();
+
+      // second - set the messages for specific 400 and generic errors
+
+      input.setAttribute(
+        'data-w-swap-messages-value',
+        JSON.stringify({
+          400: 'Bad request - try again.',
+          error: 'General error - something has gone wrong.',
+        }),
+      );
+
+      await Promise.resolve(); // trigger next rendering (NEEDED???)
+
+      fetch.mockResponseBadRequest();
+      input.value = 'beta';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+      await Promise.resolve(); // trigger next rendering
+
+      expect(onErrorEvent).toHaveBeenCalledTimes(2);
+      expect(handleMessage).toHaveBeenCalledTimes(1);
+      expect(handleMessage).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          type: 'w-messages:add',
+          detail: {
+            clear: true,
+            // the 400 error
+            text: 'Bad request - try again.',
+            type: 'error',
+          },
+        }),
+      );
+
+      // third - test out a different http status where the message falls back to the generic value
+
+      fetch.mockResponseFailure();
+
+      input.value = 'delta';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(onErrorEvent).toHaveBeenCalledTimes(3);
+      expect(handleMessage).toHaveBeenCalledTimes(2);
+      expect(handleMessage).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          type: 'w-messages:add',
+          detail: {
+            clear: true,
+            text: 'General error - something has gone wrong.',
+            type: 'error',
+          },
+        }),
+      );
+
+      // fourth - test that the message gets cleared when the API is successful
+
+      fetch.mockResponseSuccessText(getMockResults());
+      input.value = 'epsilon';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(onErrorEvent).toHaveBeenCalledTimes(3);
+      expect(handleMessage).toHaveBeenCalledTimes(3);
+      expect(handleMessage).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          type: 'w-messages:clear',
+        }),
+      );
+
+      document.removeEventListener('w-messages:add', handleMessage);
+      document.removeEventListener('w-messages:clear', handleMessage);
+    });
   });
 
   describe('performing a location update via actions on a controlled form', () => {
