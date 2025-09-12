@@ -53,7 +53,7 @@ Generative AI can be a useful tool for contributors, but like any tool should be
 We ask that if you use generative AI for your contribution that you include a disclaimer.
 
 > Example disclaimer:  
-> _"This pull request includes code written with the assistance of AI, this code was reviewed and verified by me."_
+> _"This pull request includes code written with the assistance of AI. This code was reviewed and verified by me."_
 
 ### Acceptable uses
 
