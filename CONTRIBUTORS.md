@@ -907,6 +907,7 @@
 * Hunzlah Malik
 * Tosinibikunle
 * Lynwee
+* Andrew Selzer
 
 ## Translators
 
