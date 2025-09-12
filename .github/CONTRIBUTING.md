@@ -56,6 +56,7 @@ We ask that if you use generative AI for your contribution that you include a di
 > _"This pull request includes code written with the assistance of AI, this code was reviewed and verified by me."_
 
 ### Acceptable uses
+
 -  Gaining understanding of the existing Wagtail code
 -  Assistance with writing comments
 -  Supplementing contributor knowledge for code, tests, and documentation
