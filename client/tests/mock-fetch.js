@@ -42,6 +42,21 @@ fetch.mockResponseFailure = () => {
   );
 };
 
+/**
+ * Helper to mock a bad request response.
+ */
+fetch.mockResponseBadRequest = () => {
+  fetch.mockImplementationOnce(() =>
+    Promise.resolve({
+      status: 400,
+      statusText: 'Bad request',
+    }),
+  );
+};
+
+/**
+ * Helper to mock a crash (network failure).
+ */
 fetch.mockResponseCrash = () => {
   fetch.mockImplementationOnce(() =>
     // eslint-disable-next-line prefer-promise-reject-errors
