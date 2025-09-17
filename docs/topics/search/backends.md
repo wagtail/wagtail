@@ -273,4 +273,4 @@ WAGTAILSEARCH_BACKENDS = {
 
 ## Rolling Your Own
 
-Wagtail search backends implement the interface defined in `wagtail/wagtail/wagtailsearch/backends/base.py`. At a minimum, the backend's `search()` method must return a collection of objects or `model.objects.none()`. For a fully-featured search backend, examine the Elasticsearch backend code in `elasticsearch.py`.
+Wagtail's search implementation is provided by the [django-modelsearch](https://github.com/kaedroho/django-modelsearch) package, and backends implement the interface defined in `modelsearch/backends/base.py`. At a minimum, the backend's `search()` method must return a collection of objects or `model.objects.none()`.
