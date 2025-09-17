@@ -138,11 +138,65 @@ If you prefer not to run an Elasticsearch server in development or production, t
 
 ### OpenSearch
 
-OpenSearch is a community-driven search engine originally created as a fork of Elasticsearch 7. Wagtail supports OpenSearch through the `wagtail.search.backends.elasticsearch7` backend and version 7.13.4 of the [Elasticsearch Python library](https://pypi.org/project/elasticsearch/). Later versions of the library only permit connecting to Elastic-branded servers, and are not compatible with OpenSearch.
+OpenSearch is a community-driven search engine originally created as a fork of Elasticsearch. OpenSearch versions 2 and 3 are supported. Use the appropriate backend for your version:
+
+-   `wagtail.search.backends.opensearch2` (OpenSearch 2.x)
+-   `wagtail.search.backends.opensearch3` (OpenSearch 3.x)
+
+Wagtail supports OpenSearch through the `wagtail.search.backends.elasticsearch7` backend and version 7.13.4 of the [Elasticsearch Python library](https://pypi.org/project/elasticsearch/). Later versions of the library only permit connecting to Elastic-branded servers, and are not compatible with OpenSearch.
+
+Prerequisites are the [OpenSearch](https://opensearch.org/downloads/) service itself and, via pip, the [opensearch-py](https://opensearch-project.github.io/opensearch-py/) package. The major version of the package must match the installed version of Elasticsearch:
+
+```sh
+pip install "opensearch-py>=2,<3"  # for OpenSearch 2.x
+```
+
+```sh
+pip install "elasticsearch>=3,<4"  # for OpenSearch 3.x
+```
+
+The backend is configured in settings:
+
+```python
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.opensearch3',
+        'URLS': ['https://localhost:9200'],
+        'INDEX': 'wagtail',
+        'TIMEOUT': 5,
+        'OPTIONS': {},
+        'INDEX_SETTINGS': {},
+    }
+}
+```
+
+The default configuration of OpenSearch has SSL enabled and certificate-based authentication. This can be configured as follows:
+
+```python
+WAGTAILSEARCH_BACKENDS = {
+    "default": {
+        "BACKEND": "wagtail.search.backends.opensearch3",
+        "INDEX": "bakerydemo",
+        "URLS": ["https://localhost:9200"],
+        "OPTIONS": {
+            "verify_certs": True,
+            "ca_certs": "/path/to/root-ca.pem",
+            "client_cert": "/path/to/user.pem",
+            "client_key": "/path/to/user-key.pem",
+        },
+    },
+}
+```
+
+If using the [demo configuration](https://docs.opensearch.org/latest/security/configuration/demo-configuration/), the certificates can be found in the Opensearch config directory (typically `/usr/share/opensearch/config/` or `/etc/opensearch/`); the client certificate and key are named `kirk.pem` and `kirk-key.pem` respectively.
+
+```{versionchanged} 7.2
+The dedicated OpenSearch backends were added. Previously it was necessary to use the Elasticsearch 7 backend in conjunction with version 7.13.4 of the client library.
+```
 
 ### Amazon AWS OpenSearch
 
-The Elasticsearch backend is compatible with [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service/), but requires additional configuration to handle IAM based authentication. This can be done with the [requests-aws4auth](https://pypi.org/project/requests-aws4auth/) package along with the following configuration:
+The OpenSearch backend is compatible with [Amazon OpenSearch Service](https://aws.amazon.com/opensearch-service/), but requires additional configuration to handle IAM based authentication. This can be done with the [requests-aws4auth](https://pypi.org/project/requests-aws4auth/) package along with the following configuration:
 
 ```python
 from elasticsearch import RequestsHttpConnection
@@ -150,7 +204,7 @@ from requests_aws4auth import AWS4Auth
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch7',
+        'BACKEND': 'wagtail.search.backends.opensearch3',
         'INDEX': 'wagtail',
         'TIMEOUT': 5,
         'HOSTS': [{
