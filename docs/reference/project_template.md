@@ -106,9 +106,10 @@ When you create a new project using `wagtail start`, there will be a set of basi
 
 These tests check:
 
--   If the _root `Page`_ (ID=1) is automatically created.
--   That the _home `Page`_ can be created as a child of the root page.
--   A placeholder test for other sub-pages, such as the `BlogIndexPage`, ready for implementation.
+- That the root `Page` (ID=1) is automatically created.
+- That a `HomePage` can be created as a child of the root page.
+- That the created `HomePage` is renderable.
+- That the created `HomePage` uses the `home/home_page.html` template.
 
 #### Running the tests
 
