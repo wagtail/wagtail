@@ -46,9 +46,16 @@ class TestImageJinja(JinjaImagesTestCase):
     def test_image(self):
         self.assertHTMLEqual(
             self.render('{{ image(myimage, "width-200") }}', {"myimage": self.image}),
-            '<img alt="Test image" src="{}" width="200" height="150">'.format(
-                get_test_image_filename(self.image, "width-200")
-            ),
+            f"""
+                <img
+                    alt="Test image"
+                    src="{get_test_image_filename(self.image, "width-200")}"
+                    width="200"
+                    height="150"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_no_image(self):
@@ -61,9 +68,17 @@ class TestImageJinja(JinjaImagesTestCase):
                 '{{ image(myimage, "width-200", alt="alternate", class="test") }}',
                 {"myimage": self.image},
             ),
-            '<img alt="alternate" src="{}" width="200" height="150" class="test">'.format(
-                get_test_image_filename(self.image, "width-200")
-            ),
+            f"""
+                <img
+                    alt="alternate"
+                    src="{get_test_image_filename(self.image, "width-200")}"
+                    width="200"
+                    height="150"
+                    class="test"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_image_assignment(self):
@@ -80,9 +95,16 @@ class TestImageJinja(JinjaImagesTestCase):
                 '{% set bg=image(myimage, "width-200") %}{{ bg }}',
                 {"myimage": self.image},
             ),
-            '<img alt="Test image" src="{}" width="200" height="150">'.format(
-                get_test_image_filename(self.image, "width-200")
-            ),
+            f"""
+                <img
+                    alt="Test image"
+                    src="{get_test_image_filename(self.image, "width-200")}"
+                    width="200"
+                    height="150"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_missing_image(self):
@@ -90,7 +112,16 @@ class TestImageJinja(JinjaImagesTestCase):
             self.render(
                 '{{ image(myimage, "width-200") }}', {"myimage": self.bad_image}
             ),
-            '<img alt="missing image" src="/media/not-found" width="0" height="0">',
+            """
+                <img
+                    alt="missing image"
+                    src="/media/not-found"
+                    width="0"
+                    height="0"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_invalid_character(self):
@@ -109,7 +140,18 @@ class TestImageJinja(JinjaImagesTestCase):
                 self.render(
                     '{{ image(myimage, "width-200") }}', {"myimage": self.bad_image}
                 ),
-                '<img alt="missing image" src="/media/not-found" width="0" height="0" decoding="async" loading="lazy">',
+                """
+                    <img
+                        alt="missing image"
+                        src="/media/not-found"
+                        width="0"
+                        height="0"
+                        decoding="async"
+                        loading="lazy"
+                        data-focus-position-x="50%"
+                        data-focus-position-y="50%"
+                    >
+                """,
             )
 
     def test_chaining_filterspecs(self):
@@ -118,8 +160,17 @@ class TestImageJinja(JinjaImagesTestCase):
                 '{{ image(myimage, "width-200|jpegquality-40") }}',
                 {"myimage": self.image},
             ),
-            '<img alt="Test image" src="{}" width="200" height="150">'.format(
-                get_test_image_filename(self.image, "width-200.jpegquality-40")
+            f"""
+                <img
+                    alt="Test image"
+                    src="{get_test_image_filename(self.image, "width-200.jpegquality-40")}"
+                    width="200"
+                    height="150"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
+        )
             ),
         )
 
@@ -161,6 +212,8 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
                 alt="Test image"
                 width="200"
                 height="150"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
         """
         self.assertHTMLEqual(rendered, expected)
@@ -220,6 +273,8 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
                 alt="missing image"
                 width="0"
                 height="0"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
         """
         self.assertHTMLEqual(rendered, expected)
@@ -253,6 +308,8 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
                     height="0"
                     decoding="async"
                     loading="lazy"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
                 >
             """
             self.assertHTMLEqual(rendered, expected)
@@ -274,6 +331,8 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
                 alt="Test image"
                 width="200"
                 height="150"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
         """
         self.assertHTMLEqual(rendered, expected)
@@ -305,6 +364,8 @@ class TestPictureJinja(JinjaImagesTestCase):
                 alt="Test image"
                 width="200"
                 height="150"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """
@@ -326,6 +387,8 @@ class TestPictureJinja(JinjaImagesTestCase):
                 alt="Test image"
                 width="640"
                 height="480"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """
@@ -398,6 +461,8 @@ class TestPictureJinja(JinjaImagesTestCase):
                     alt="missing image"
                     width="0"
                     height="0"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
                 >
             </picture>
         """
@@ -432,6 +497,8 @@ class TestPictureJinja(JinjaImagesTestCase):
                         height="0"
                         decoding="async"
                         loading="lazy"
+                        data-focus-position-x="50%"
+                        data-focus-position-y="50%"
                     >
                 </picture>
             """
@@ -456,6 +523,8 @@ class TestPictureJinja(JinjaImagesTestCase):
                 alt="Test image"
                 width="640"
                 height="480"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """

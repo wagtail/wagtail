@@ -436,6 +436,8 @@ class TestResponsiveImage(TestCase):
                     srcset="{filenames[0]} 10w, {filenames[1]} 90w"
                     width="10"
                     height="7"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
                 >
             """,
         )
@@ -525,6 +527,8 @@ class TestPicture(TestCase):
                         srcset="{filenames[0]} 10w, {filenames[1]} 90w"
                         width="10"
                         height="7"
+                        data-focus-position-x="50%"
+                        data-focus-position-y="50%"
                     >
                 </picture>
             """,

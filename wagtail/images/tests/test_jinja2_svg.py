@@ -46,7 +46,16 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
 
         self.assertHTMLEqual(
             html,
-            f'<img src="{filename}" width="200" height="150" alt="Test raster image">',
+            f"""
+                <img
+                    src="{filename}"
+                    width="200"
+                    height="150"
+                    alt="Test raster image"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_image_with_svg_without_preserve(self):
@@ -66,7 +75,16 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
 
         self.assertHTMLEqual(
             html,
-            f'<img src="{filename}" width="45.0" height="45.0" alt="Test SVG image">',
+            f"""
+                <img
+                    src="{filename}"
+                    width="45.0"
+                    height="45.0"
+                    alt="Test SVG image"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_raster_image_with_preserve_svg(self):
@@ -79,7 +97,16 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
 
         self.assertHTMLEqual(
             html,
-            f'<img src="{filename}" width="100" height="75" alt="Test raster image">',
+            f"""
+                <img
+                    src="{filename}"
+                    width="100"
+                    height="75"
+                    alt="Test raster image"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_srcset_image_with_svg_preserve(self):
@@ -94,9 +121,16 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         self.assertHTMLEqual(
             html,
             f"""
-                <img sizes="100vw" src="{filename35}"
-                    srcset="{filename35} 35.0w, {filename55} 55.0w" width="35.0" height="35.0"
-                    alt="Test SVG image">
+                <img
+                    sizes="100vw"
+                    src="{filename35}"
+                    srcset="{filename35} 35.0w, {filename55} 55.0w"
+                    width="35.0"
+                    height="35.0"
+                    alt="Test SVG image"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
             """,
         )
 
@@ -116,9 +150,16 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         self.assertHTMLEqual(
             html,
             f"""
-                <img sizes="100vw" src="{filename100}"
-                    srcset="{filename100} 100w, {filename120} 120w" width="100" height="75"
-                    alt="Test raster image">
+                <img
+                    sizes="100vw"
+                    src="{filename100}"
+                    srcset="{filename100} 100w, {filename120} 120w"
+                    width="100"
+                    height="75"
+                    alt="Test raster image"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
             """,
         )
 
@@ -133,7 +174,14 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
             html,
             f"""
                 <picture>
-                    <img src="{filename}" alt="Test SVG image" width="85.0" height="85.0">
+                    <img
+                        src="{filename}"
+                        alt="Test SVG image"
+                        width="85.0"
+                        height="85.0"
+                        data-focus-position-x="50%"
+                        data-focus-position-y="50%"
+                    >
                 </picture>
             """,
         )
@@ -156,7 +204,14 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
             f"""
                 <picture>
                     <source srcset="{filename_webp}" type="image/webp">
-                    <img src="{filename_jpeg}" alt="Test raster image" width="160" height="120">
+                    <img
+                        src="{filename_jpeg}"
+                        alt="Test raster image"
+                        width="160"
+                        height="120"
+                        data-focus-position-x="50%"
+                        data-focus-position-y="50%"
+                    >
                 </picture>
             """,
         )
@@ -172,7 +227,16 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         )
         self.assertHTMLEqual(
             html,
-            f'<img src="{filename}" alt="Test SVG image" width="100.0" height="100.0">',
+            f"""
+                <img
+                    src="{filename}"
+                    alt="Test SVG image"
+                    width="100.0"
+                    height="100.0"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_preserve_svg_with_custom_attributes(self):
@@ -185,7 +249,17 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
 
         self.assertHTMLEqual(
             html,
-            f'<img src="{filename}" class="my-image" alt="Custom alt" width="66.0" height="66.0">',
+            f"""
+                <img
+                    src="{filename}"
+                    class="my-image"
+                    alt="Custom alt"
+                    width="66.0"
+                    height="66.0"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
         )
 
     def test_picture_with_multiple_formats_and_sizes_with_raster_image(self):
@@ -210,6 +284,8 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
                 alt="Test raster image"
                 width="160"
                 height="120"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """
@@ -234,6 +310,8 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
                 alt="Test SVG image"
                 width="45.0"
                 height="45.0"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """

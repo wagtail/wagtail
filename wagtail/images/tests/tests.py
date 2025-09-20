@@ -225,8 +225,17 @@ class TestMissingImage(TestCase):
         response = self.client.get("/events/christmas/")
         self.assertContains(
             response,
-            '<img src="/media/not-found" width="0" height="0" alt="A missing image" \
-            class="feed-image">',
+            """
+                <img
+                    src="/media/not-found"
+                    width="0"
+                    height="0"
+                    alt="A missing image"
+                    class="feed-image"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
             html=True,
         )
 
@@ -235,8 +244,17 @@ class TestMissingImage(TestCase):
         response = self.client.get("/events/final-event/")
         self.assertContains(
             response,
-            '<img class="richtext-image full-width" src="/media/not-found" \
-            width="0" height="0" alt="where did my image go?">',
+            """
+                <img
+                    class="richtext-image full-width"
+                    src="/media/not-found"
+                    width="0"
+                    height="0"
+                    alt="where did my image go?"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                >
+            """,
             html=True,
         )
 
