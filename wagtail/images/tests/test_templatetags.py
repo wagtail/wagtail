@@ -244,7 +244,9 @@ class ImageTagTestCase(ImagesTestCase):
     def test_focus_style_attr(self):
         filename = self.image.get_rendition("original").url
 
-        rendered = self.render("{% image myimage original focus='style-attr' %}", {"myimage": self.image})
+        rendered = self.render(
+            "{% image myimage original focus='style-attr' %}", {"myimage": self.image}
+        )
         self.assertHTMLEqual(
             rendered,
             f"""
@@ -260,7 +262,10 @@ class ImageTagTestCase(ImagesTestCase):
     def test_focus_style_attr_with_existing_style(self):
         filename = self.image.get_rendition("original").url
 
-        rendered = self.render("{% image myimage original focus='style-attr' style='border: 4px solid orange' %}", {"myimage": self.image})
+        rendered = self.render(
+            "{% image myimage original focus='style-attr' style='border: 4px solid orange' %}",
+            {"myimage": self.image},
+        )
         self.assertHTMLEqual(
             rendered,
             f"""
@@ -276,7 +281,10 @@ class ImageTagTestCase(ImagesTestCase):
     def test_focus_unknown_type(self):
         filename = self.image.get_rendition("original").url
 
-        rendered = self.render("{% image myimage original focus='unknown-value' %}", {"myimage": self.image})
+        rendered = self.render(
+            "{% image myimage original focus='unknown-value' %}",
+            {"myimage": self.image},
+        )
         self.assertHTMLEqual(
             rendered,
             f"""

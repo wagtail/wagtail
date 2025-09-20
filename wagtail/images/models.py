@@ -1463,10 +1463,12 @@ class AbstractRendition(ImageFileMixin, models.Model):
         focus_type = attrs.pop("focus", "data-attr")
 
         if focus_type == "data-attr":
-            attrs.update({
-                "data-focus-position-x": self.background_position_x,
-                "data-focus-position-y": self.background_position_y,
-            })
+            attrs.update(
+                {
+                    "data-focus-position-x": self.background_position_x,
+                    "data-focus-position-y": self.background_position_y,
+                }
+            )
         elif focus_type == "style-attr":
             style = attrs.pop("style", "")
             if style and not style.strip().endswith(";"):
