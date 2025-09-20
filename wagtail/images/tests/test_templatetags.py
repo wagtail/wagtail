@@ -1,5 +1,3 @@
-import re
-
 from django.template import Context, Engine, TemplateSyntaxError, Variable
 from django.test import TestCase
 
@@ -273,52 +271,6 @@ class ImageTagTestCase(ImagesTestCase):
                     width="640"
                     style="border: 4px solid orange; object-position: 50% 50%;"
                 />""",
-        )
-
-    def test_focus_style_tag(self):
-        filename = self.image.get_rendition("original").url
-
-        rendered = self.render("{% image myimage original focus='style-tag' %}", {"myimage": self.image})
-
-        id_match = re.search(r'\sid="(wagtail-image-[a-z0-9]+)"', rendered)
-        self.assertIsInstance(id_match, re.Match, 'Generated HTML did not have a random "id" attribute')
-
-        image_id = id_match.group(1)
-        self.assertHTMLEqual(
-            rendered,
-            f"""
-                <img alt="Test image" height="480" src="{filename}" width="640" id="{image_id}" />
-                <style type="text/css">#{image_id} {{ object-position: 50% 50%; }}</style>
-            """,
-        )
-
-    def test_focus_nonce(self):
-        filename = self.image.get_rendition("original").url
-
-        rendered = self.render("{% image myimage original focus='nonce-abc123' %}", {"myimage": self.image})
-
-        id_match = re.search(r'\sid="(wagtail-image-[a-z0-9]+)"', rendered)
-        self.assertIsInstance(id_match, re.Match, 'Generated HTML did not have a random "id" attribute')
-
-        image_id = id_match.group(1)
-        self.assertHTMLEqual(
-            rendered,
-            f"""
-                <img alt="Test image" height="480" src="{filename}" width="640" id="{image_id}" />
-                <style type="text/css" nonce="abc123">#{image_id} {{ object-position: 50% 50%; }}</style>
-            """,
-        )
-
-    def test_focus_style_tag_with_existing_id(self):
-        filename = self.image.get_rendition("original").url
-
-        rendered = self.render("{% image myimage original focus='style-tag' id='custom-id' %}", {"myimage": self.image})
-        self.assertHTMLEqual(
-            rendered,
-            f"""
-                <img alt="Test image" height="480" src="{filename}" width="640" id="custom-id" />
-                <style type="text/css">#custom-id {{ object-position: 50% 50%; }}</style>
-            """,
         )
 
     def test_focus_unknown_type(self):

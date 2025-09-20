@@ -9,7 +9,7 @@ Focal points can be defined manually by a Wagtail user, or automatically by usin
 
 ## Using `focus` attributes on template tags
 
-When using the various image template tags, you can set the `focus` attribute to add information about the image's focal point to the output `<img>` HTML tag. There are a few different values you can supply.
+When using the various image template tags, you can set the `focus` attribute to add information about the image's focal point to the output `<img>` HTML tag. There are a few different values you can supply to control the resulting HTML.
 
 ### Using `data-focus-position-*` attributes
 
@@ -52,39 +52,23 @@ Might render HTML like:
 <img src="/media/my-image.width-1024.jpg" style="object-position: 50% 50%;">
 ```
 
-### Using `<style>` elements
+This is compatible with all major browsers, but the `style` attribute can cause problems if you are using a [content security policy][csp].
 
-Finally, you set `object-position` via a separate `<style>` element by passing `focus="style-tag"` to the template tag. For example, the template:
+### Handling CSP with `<style>` elements
 
-```html+django
-{% image page.image width-1024 focus="style-tag" %}
-```
-
-Might render HTML like:
-
-```html
-<img src="/media/my-image.width-1024.jpg" id="abc123">
-<style type="text/css">
-    #wagtail-image-abc123 { object-position: 50% 50%; }
-</style>
-```
-
-The `id` attribute will be set to a random value unless you manually pass one into the template tag.
-
-**If you are using a content security policy,** you can pass a nonce with `focus="nonce-<value>"`. For example, the template:
+If you are using a [content-security-policy][csp] to protect against XSS attacks involving CSS, you can manually set `object-position` via an inline `<style>` element with a nonce you control:
 
 ```html+django
 <meta http-equiv="Content-Security-Policy" content="style-src 'nonce-xyz456';">
 
-{% image page.image width-1024 focus="nonce-xyz456" %}
-```
-
-Might render HTML like:
-
-```html
-<img src="/media/my-image.width-1024.jpg" id="abc123">
+{% image page.image width-1024 id="my-image" %}
 <style type="text/css" nonce="xyz456">
-    #wagtail-image-abc123 { object-position: 50% 50%; }
+    #my-image {
+        {% image page.image original as image_info %}
+        object-position:
+            {{ image_info.background_position_x }}
+            {{ image_info.background_position_y }};
+    }
 </style>
 ```
 
@@ -124,3 +108,6 @@ You can access the focal point in the template by accessing the `.focal_point` a
     {% endif %}
 />
 ```
+
+
+[csp]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP

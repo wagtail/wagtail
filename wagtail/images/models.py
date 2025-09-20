@@ -5,9 +5,7 @@ import hashlib
 import itertools
 import logging
 import os.path
-import random
 import re
-import string
 import time
 from collections import OrderedDict, defaultdict, namedtuple
 from collections.abc import Iterable
@@ -67,8 +65,6 @@ IMAGE_FORMAT_EXTENSIONS = {
     "ico": ".ico",
     "heic": ".heic",
 }
-
-ALPHANUM = string.ascii_lowercase + string.digits
 
 
 class SourceImageIOError(IOError):
@@ -1455,8 +1451,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
     def set_focus_attrs(self, attrs):
         """
         Updates an image tag's ``attrs`` dict with appropriate focus-related
-        attributes and returns additional HTML (or an empty string) that should
-        be rendered alongside the image to set its focus.
+        attributes.
 
         The specific behavior depends on the value of the ``focus`` attribute,
         which will be removed from the resulting HTML:
@@ -1464,15 +1459,8 @@ class AbstractRendition(ImageFileMixin, models.Model):
           position.
         - ``"style-attr"`` adds (or updates) a ``style`` attribute on the image
           to set its ``object-position`` CSS property.
-        - ``"style-tag"`` adds a ``<style>`` element that will set the
-          ``object-position`` CSS property on the image. If the image doesn't
-          have an ``id`` attribute, a random one will be generated for it.
-        - ``"nonce-<string>"`` behaves the same as ``"style-tag"`` but sets a
-          ``nonce="<string>"`` attribute on the ``<style>`` element. This is
-          useful when a page uses a content-security-policy.
         """
         focus_type = attrs.pop("focus", "data-attr")
-        style_tag = ""
 
         if focus_type == "data-attr":
             attrs.update({
@@ -1485,23 +1473,9 @@ class AbstractRendition(ImageFileMixin, models.Model):
                 style += "; "
             style += f"object-position: {self.background_position_x} {self.background_position_y};"
             attrs["style"] = style
-        elif focus_type == "style-tag" or focus_type.startswith("nonce-"):
-            tag_id = attrs.get("id")
-            if not tag_id:
-                random_id = "".join(random.choice(ALPHANUM) for _ in range(5))
-                tag_id = f"wagtail-image-{random_id}"
-                attrs["id"] = tag_id
-
-            nonce = ""
-            if focus_type.startswith("nonce-"):
-                nonce = f" nonce=\"{focus_type[6:]}\""
-
-            style_tag = f"<style type=\"text/css\"{nonce}>#{tag_id} {{ object-position: {self.background_position_x} {self.background_position_y}; }}"
         else:
             # Unrecognized focus type; treat as if it were a normal HTML attr.
             attrs["focus"] = focus_type
-
-        return style_tag
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
@@ -1510,9 +1484,9 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
         attrs.update(extra_attributes)
 
-        style_tag = self.set_focus_attrs(attrs)
+        self.set_focus_attrs(attrs)
 
-        return mark_safe(f"<img{flatatt(attrs)}>{style_tag}")
+        return mark_safe(f"<img{flatatt(attrs)}>")
 
     def __html__(self):
         return self.img_tag()
