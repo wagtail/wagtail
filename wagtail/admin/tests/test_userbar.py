@@ -767,6 +767,13 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
     def test_render_no_request(self):
         rendered = Userbar().render_html({})
         soup = self.get_soup(rendered)
+        # Without a request provided, URLs should fall back to the
+        # WAGTAILADMIN_BASE_URL setting
+        base_url = "http://testserver"
+
+        userbar = soup.select_one("[data-wagtail-userbar]")
+        self.assertIsNotNone(userbar)
+        self.assertEqual(userbar.get("data-wagtail-userbar-origin"), base_url)
 
         items = soup.select("li")
         self.assertEqual(len(items), 2)
@@ -791,10 +798,8 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
 
         userbar = soup.select_one("[data-wagtail-userbar]")
         self.assertIsNotNone(userbar)
-        self.assertEqual(
-            userbar.get("data-wagtail-userbar-origin"),
-            settings.WAGTAILADMIN_BASE_URL,
-        )
+        # The origin should be based on the request's scheme and host information
+        self.assertEqual(userbar.get("data-wagtail-userbar-origin"), "http://localhost")
 
         items = soup.select("li")
         self.assertEqual(len(items), 2)
@@ -841,8 +846,8 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         )
 
     @override_settings(WAGTAILADMIN_BASE_URL=None)
-    def test_render_without_admin_base_url_setting(self):
-        rendered = Userbar().render_html({"request": self.request})
+    def test_render_without_request_and_admin_base_url_setting(self):
+        rendered = Userbar().render_html({})
         soup = self.get_soup(rendered)
 
         userbar = soup.select_one("[data-wagtail-userbar]")
