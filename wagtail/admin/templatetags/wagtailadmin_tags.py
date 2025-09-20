@@ -210,11 +210,14 @@ def admin_url_name(obj, action):
 def build_absolute_url(context, url):
     """
     Usage: {% build_absolute_url url %}
-    Returns the absolute URL of the given URL.
+    Returns the absolute URL of the given URL based on the request's host.
+    If the request doesn't exist in the context, falls back to
+    WAGTAILADMIN_BASE_URL as the base URL.
+    If the given URL is already absolute, returns it unchanged.
     """
     request = context.get("request")
     if not request:
-        return url
+        return urljoin(get_admin_base_url(), url)
     return request.build_absolute_uri(url)
 
 
