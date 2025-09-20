@@ -171,7 +171,56 @@ class TestImageJinja(JinjaImagesTestCase):
                 >
             """,
         )
+
+    def test_focus_style_attr(self):
+        self.assertHTMLEqual(
+            self.render(
+                '{{ image(myimage, "width-200", focus="style-attr") }}',
+                {"myimage": self.image},
             ),
+            f"""
+                <img
+                    alt="Test image"
+                    src="{get_test_image_filename(self.image, "width-200")}"
+                    width="200"
+                    height="150"
+                    style="object-position: 50% 50%;"
+                >
+            """,
+        )
+
+    def test_focus_style_attr_with_existing_style(self):
+        self.assertHTMLEqual(
+            self.render(
+                '{{ image(myimage, "width-200", focus="style-attr", style="border: 4px solid orange") }}',
+                {"myimage": self.image},
+            ),
+            f"""
+                <img
+                    alt="Test image"
+                    src="{get_test_image_filename(self.image, "width-200")}"
+                    width="200"
+                    height="150"
+                    style="border: 4px solid orange; object-position: 50% 50%;"
+                >
+            """,
+        )
+
+    def test_focus_unknown_type(self):
+        self.assertHTMLEqual(
+            self.render(
+                '{{ image(myimage, "width-200", focus="unknown-value") }}',
+                {"myimage": self.image},
+            ),
+            f"""
+                <img
+                    alt="Test image"
+                    src="{get_test_image_filename(self.image, "width-200")}"
+                    width="200"
+                    height="150"
+                    focus="unknown-value"
+                >
+            """,
         )
 
 
