@@ -778,10 +778,11 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         items = soup.select("li")
         self.assertEqual(len(items), 2)
 
+        admin_url = f"{base_url}{reverse('wagtailadmin_home')}"
         admin_item = items[0]
         admin_link = admin_item.select_one("a")
         self.assertIsNotNone(admin_link)
-        self.assertEqual(admin_link.get("href"), reverse("wagtailadmin_home"))
+        self.assertEqual(admin_link.get("href"), admin_url)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
         accessibility_item = items[-1]
@@ -790,6 +791,31 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
             "Issues found | Accessibility",
+        )
+
+        css_links = soup.select("link[rel='stylesheet']")
+        self.assertEqual(
+            [link.get("href") for link in css_links],
+            [
+                # Wagtail admin core CSS should be linked with absolute URL to
+                # ensure it works when loaded from a different domain
+                # (e.g. headless frontend)
+                f"{base_url}{versioned_static('wagtailadmin/css/core.css')}",
+                # Custom CSS must be changed appropriately if necessary
+                "/path/to/my/custom.css",
+            ],
+        )
+
+        scripts = soup.select("script[src]")
+        self.assertEqual(
+            [script.get("src") for script in scripts],
+            [
+                # Wagtail vendor and userbar JS should be linked with absolute
+                # URL to ensure it works when loaded from a different domain
+                # (e.g. headless frontend)
+                f"{base_url}{versioned_static('wagtailadmin/js/vendor.js')}",
+                f"{base_url}{versioned_static('wagtailadmin/js/userbar.js')}",
+            ],
         )
 
     def test_render_minimal(self):
@@ -859,7 +885,8 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         items = soup.select("li")
         self.assertEqual(len(items), 2)
 
-        # Becomes the root-relative URL since WAGTAILADMIN_BASE_URL is None
+        # Becomes the root-relative URL since no request is provided
+        # and WAGTAILADMIN_BASE_URL is None
         admin_url = reverse("wagtailadmin_home")
         admin_item = items[0]
         admin_link = admin_item.select_one("a")
@@ -873,4 +900,26 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
             "Issues found | Accessibility",
+        )
+
+        css_links = soup.select("link[rel='stylesheet']")
+        self.assertEqual(
+            [link.get("href") for link in css_links],
+            [
+                # Cannot build absolute URL without a request and
+                # WAGTAILADMIN_BASE_URL, so should be root-relative
+                versioned_static("wagtailadmin/css/core.css"),
+                "/path/to/my/custom.css",
+            ],
+        )
+
+        scripts = soup.select("script[src]")
+        self.assertEqual(
+            [script.get("src") for script in scripts],
+            [
+                # Cannot build absolute URL without a request and
+                # WAGTAILADMIN_BASE_URL, so should be root-relative
+                versioned_static("wagtailadmin/js/vendor.js"),
+                versioned_static("wagtailadmin/js/userbar.js"),
+            ],
         )
