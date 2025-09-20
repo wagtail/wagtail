@@ -27,8 +27,9 @@ Might render HTML like:
 
 In newer browsers, you can use the CSS `attr()` function to read these and set `object-position`. For example:
 
-{force=True}
-```css
+```{code-block} css
+:force:
+
 img {
     width: 400px;
     height: 200px;
