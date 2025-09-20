@@ -27,6 +27,7 @@ Might render HTML like:
 
 In newer browsers, you can use the CSS `attr()` function to read these and set `object-position`. For example:
 
+{force=True}
 ```css
 img {
     width: 400px;
