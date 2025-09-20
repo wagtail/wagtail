@@ -1,3 +1,5 @@
+import re
+
 from django.template import Context, Engine, TemplateSyntaxError, Variable
 from django.test import TestCase
 
@@ -162,7 +164,16 @@ class ImageTagTestCase(ImagesTestCase):
         rendered = self.render("{% image myimage width-200 %}", {"myimage": self.image})
         self.assertHTMLEqual(
             rendered,
-            f'<img alt="Test image" height="150" src="{filename_200}" width="200" />',
+            f"""
+                <img
+                    alt="Test image"
+                    height="150"
+                    src="{filename_200}"
+                    width="200"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
+                />
+            """,
         )
 
     def test_none(self):
@@ -175,7 +186,7 @@ class ImageTagTestCase(ImagesTestCase):
         )
         self.assertHTMLEqual(
             rendered,
-            '<img alt="missing image" src="/media/not-found" width="0" height="0">',
+            '<img alt="missing image" src="/media/not-found" width="0" height="0" data-focus-position-x="50%" data-focus-position-y="50%" >',
         )
 
     def test_not_an_image(self):
@@ -232,6 +243,101 @@ class ImageTagTestCase(ImagesTestCase):
                 {"myimage": self.image},
             )
 
+    def test_focus_style_attr(self):
+        filename = self.image.get_rendition("original").url
+
+        rendered = self.render("{% image myimage original focus='style-attr' %}", {"myimage": self.image})
+        self.assertHTMLEqual(
+            rendered,
+            f"""
+                <img
+                    alt="Test image"
+                    height="480"
+                    src="{filename}"
+                    width="640"
+                    style="object-position: 50% 50%;"
+                />""",
+        )
+
+    def test_focus_style_attr_with_existing_style(self):
+        filename = self.image.get_rendition("original").url
+
+        rendered = self.render("{% image myimage original focus='style-attr' style='border: 4px solid orange' %}", {"myimage": self.image})
+        self.assertHTMLEqual(
+            rendered,
+            f"""
+                <img
+                    alt="Test image"
+                    height="480"
+                    src="{filename}"
+                    width="640"
+                    style="border: 4px solid orange; object-position: 50% 50%;"
+                />""",
+        )
+
+    def test_focus_style_tag(self):
+        filename = self.image.get_rendition("original").url
+
+        rendered = self.render("{% image myimage original focus='style-tag' %}", {"myimage": self.image})
+
+        id_match = re.search(r'\sid="(wagtail-image-[a-z0-9]+)"', rendered)
+        self.assertIsInstance(id_match, re.Match, 'Generated HTML did not have a random "id" attribute')
+
+        image_id = id_match.group(1)
+        self.assertHTMLEqual(
+            rendered,
+            f"""
+                <img alt="Test image" height="480" src="{filename}" width="640" id="{image_id}" />
+                <style type="text/css">#{image_id} {{ object-position: 50% 50%; }}</style>
+            """,
+        )
+
+    def test_focus_nonce(self):
+        filename = self.image.get_rendition("original").url
+
+        rendered = self.render("{% image myimage original focus='nonce-abc123' %}", {"myimage": self.image})
+
+        id_match = re.search(r'\sid="(wagtail-image-[a-z0-9]+)"', rendered)
+        self.assertIsInstance(id_match, re.Match, 'Generated HTML did not have a random "id" attribute')
+
+        image_id = id_match.group(1)
+        self.assertHTMLEqual(
+            rendered,
+            f"""
+                <img alt="Test image" height="480" src="{filename}" width="640" id="{image_id}" />
+                <style type="text/css" nonce="abc123">#{image_id} {{ object-position: 50% 50%; }}</style>
+            """,
+        )
+
+    def test_focus_style_tag_with_existing_id(self):
+        filename = self.image.get_rendition("original").url
+
+        rendered = self.render("{% image myimage original focus='style-tag' id='custom-id' %}", {"myimage": self.image})
+        self.assertHTMLEqual(
+            rendered,
+            f"""
+                <img alt="Test image" height="480" src="{filename}" width="640" id="custom-id" />
+                <style type="text/css">#custom-id {{ object-position: 50% 50%; }}</style>
+            """,
+        )
+
+    def test_focus_unknown_type(self):
+        filename = self.image.get_rendition("original").url
+
+        rendered = self.render("{% image myimage original focus='unknown-value' %}", {"myimage": self.image})
+        self.assertHTMLEqual(
+            rendered,
+            f"""
+                <img
+                    alt="Test image"
+                    height="480"
+                    src="{filename}"
+                    width="640"
+                    focus="unknown-value"
+                />
+            """,
+        )
+
 
 class SrcsetImageTagTestCase(ImagesTestCase):
     def test_srcset_image(self):
@@ -250,6 +356,8 @@ class SrcsetImageTagTestCase(ImagesTestCase):
                 alt="Test image"
                 width="20"
                 height="15"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
         """
         self.assertHTMLEqual(rendered, expected)
@@ -307,6 +415,8 @@ class SrcsetImageTagTestCase(ImagesTestCase):
                 alt="Test image"
                 width="35"
                 height="26"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
         """
         self.assertHTMLEqual(rendered, expected)
@@ -324,6 +434,8 @@ class SrcsetImageTagTestCase(ImagesTestCase):
                 alt="missing image"
                 width="0"
                 height="0"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
         """
         self.assertHTMLEqual(rendered, expected)
@@ -355,6 +467,8 @@ class PictureTagTestCase(ImagesTestCase):
                 alt="Test image"
                 width="200"
                 height="150"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """
@@ -376,6 +490,8 @@ class PictureTagTestCase(ImagesTestCase):
                 alt="Test image"
                 width="640"
                 height="480"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """
@@ -448,6 +564,8 @@ class PictureTagTestCase(ImagesTestCase):
                     alt="missing image"
                     width="0"
                     height="0"
+                    data-focus-position-x="50%"
+                    data-focus-position-y="50%"
                 >
             </picture>
         """
@@ -481,6 +599,8 @@ class PictureTagTestCase(ImagesTestCase):
                 alt="Test image"
                 width="640"
                 height="480"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """
@@ -508,6 +628,8 @@ class PictureTagTestCase(ImagesTestCase):
                 alt="Test image"
                 width="180"
                 height="135"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """
@@ -532,6 +654,8 @@ class PictureTagTestCase(ImagesTestCase):
                 alt="Test SVG image"
                 width="40.0"
                 height="40.0"
+                data-focus-position-x="50%"
+                data-focus-position-y="50%"
             >
             </picture>
         """

@@ -7,6 +7,87 @@ This is used by the `fill` filter to focus the cropping on the subject, and avoi
 
 Focal points can be defined manually by a Wagtail user, or automatically by using face or feature detection.
 
+## Using `focus` attributes on template tags
+
+When using the various image template tags, you can set the `focus` attribute to add information about the image's focal point to the output `<img>` HTML tag. There are a few different values you can supply.
+
+### Using `data-focus-position-*` attributes
+
+By default, the focal point will be set as percentages on two `data-focus-position-{x,y}` attributes on the image. You can also set this behavior explicitly with `focus="data-attr"` on the template tag. For example, the template:
+
+```html+django
+{% image page.image width-1024 focus="data-attr" %}
+```
+
+Might render HTML like:
+
+```html
+<img src="/media/my-image.width-1024.jpg" data-focus-position-x="50%" data-focus-position-y="50%">
+```
+
+In newer browsers, you can use the CSS `attr()` function to read these and set `object-position`. For example:
+
+```css
+img {
+    width: 400px;
+    height: 200px;
+    object-fit: cover;
+    object-position:
+        attr(data-focus-position-x type(<length-percentage>), 50%)
+        attr(data-focus-position-y type(<length-percentage>), 50%);
+}
+```
+
+### Using `style` attributes
+
+You can also set `object-position` via a `style` attribute directly on the image by passing `focus="style-attr"` to the template tag. For example, the template:
+
+```html+django
+{% image page.image width-1024 focus="style-attr" %}
+```
+
+Might render HTML like:
+
+```html
+<img src="/media/my-image.width-1024.jpg" style="object-position: 50% 50%;">
+```
+
+### Using `<style>` elements
+
+Finally, you set `object-position` via a separate `<style>` element by passing `focus="style-tag"` to the template tag. For example, the template:
+
+```html+django
+{% image page.image width-1024 focus="style-tag" %}
+```
+
+Might render HTML like:
+
+```html
+<img src="/media/my-image.width-1024.jpg" id="abc123">
+<style type="text/css">
+    #wagtail-image-abc123 { object-position: 50% 50%; }
+</style>
+```
+
+The `id` attribute will be set to a random value unless you manually pass one into the template tag.
+
+**If you are using a content security policy,** you can pass a nonce with `focus="nonce-<value>"`. For example, the template:
+
+```html+django
+<meta http-equiv="Content-Security-Policy" content="style-src 'nonce-xyz456';">
+
+{% image page.image width-1024 focus="nonce-xyz456" %}
+```
+
+Might render HTML like:
+
+```html
+<img src="/media/my-image.width-1024.jpg" id="abc123">
+<style type="text/css" nonce="xyz456">
+    #wagtail-image-abc123 { object-position: 50% 50%; }
+</style>
+```
+
 (rendition_background_position_style)=
 
 ## Setting the `background-position` inline style based on the focal point
