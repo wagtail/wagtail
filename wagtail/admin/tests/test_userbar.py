@@ -8,7 +8,7 @@ from django.utils import translation
 from django.utils.translation import gettext
 
 from wagtail import hooks
-from wagtail.admin.templatetags.wagtailadmin_tags import absolute_static
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.userbar import AccessibilityItem, Userbar
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
@@ -66,7 +66,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 # Wagtail admin core CSS should be linked with absolute URL to
                 # ensure it works when loaded from a different domain
                 # (e.g. headless frontend)
-                absolute_static("wagtailadmin/css/core.css"),
+                f"http://localhost{versioned_static('wagtailadmin/css/core.css')}",
                 # Custom CSS must be changed appropriately if necessary
                 "/path/to/my/custom.css",
             ],
@@ -79,8 +79,8 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 # Wagtail vendor and userbar JS should be linked with absolute
                 # URL to ensure it works when loaded from a different domain
                 # (e.g. headless frontend)
-                absolute_static("wagtailadmin/js/vendor.js"),
-                absolute_static("wagtailadmin/js/userbar.js"),
+                f"http://localhost{versioned_static('wagtailadmin/js/vendor.js')}",
+                f"http://localhost{versioned_static('wagtailadmin/js/userbar.js')}",
             ],
         )
 
