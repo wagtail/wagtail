@@ -920,6 +920,7 @@
 * Samya Aggarwal
 * Bhavesh Sharma
 * Nick Ivons
+* Vishrut Ramraj
 
 ## Translators
 
