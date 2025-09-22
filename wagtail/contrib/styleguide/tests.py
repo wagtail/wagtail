@@ -24,6 +24,8 @@ class TestStyleGuide(WagtailTestUtils, TestCase):
 
     def test_icons(self):
         def register_icons(icons):
+            # The hook should receive the existing icons as an argument
+            self.assertIn("wagtailadmin/icons/wagtail.svg", icons)
             return icons + [
                 "tests/icons/single-quotes.svg",  # id='icon-single-quotes'
             ]
