@@ -119,6 +119,28 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
+    def get_publish_button_label(self, response):
+        soup = self.get_soup(response.content)
+        publish_button = soup.select_one('.w-dropdown-button > [name="action-publish"]')
+        if publish_button is None:
+            publish_button = soup.select_one('[name="action-publish"]')
+        self.assertIsNotNone(publish_button)
+        label = publish_button.select_one('[data-w-progress-target="label"]')
+        self.assertIsNotNone(label)
+        return label.get_text(strip=True)
+
+    def schedule_child_page(self, go_live_at):
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+        post_data = {
+            "title": self.child_page.title,
+            "content": self.child_page.content,
+            "slug": self.child_page.slug,
+            "go_live_at": submittable_timestamp(go_live_at),
+        }
+        response = self.client.post(edit_url, post_data, follow=True)
+        self.child_page.refresh_from_db(fields=["go_live_at"])
+        return edit_url
+
     def assertSchedulingDialogRendered(self, response, edit_url):
         # Should show the "Edit schedule" button
         html = response.content.decode()
@@ -219,6 +241,30 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
+
+    def test_publish_button_shows_schedule_label_for_future_go_live(self):
+        go_live_at = timezone.now() + datetime.timedelta(hours=1)
+
+        response = self.client.get(self.schedule_child_page(go_live_at))
+        self.assertEqual(response.status_code, 200)
+
+        publish_menu_item = next(item for item in response.context["action_menu"].menu_items if getattr(item, "name", "") == "action-publish")
+        publish_context = publish_menu_item.get_context_data(response.context["action_menu"].context)
+
+        self.assertTrue(publish_context["is_scheduled"])
+        self.assertEqual(self.get_publish_button_label(response), "Schedule to publish")
+
+    def test_publish_button_shows_publish_label_for_past_schedule(self):
+        go_live_at = timezone.now() - datetime.timedelta(hours=1)
+
+        response = self.client.get(self.schedule_child_page(go_live_at))
+        self.assertEqual(response.status_code, 200)
+
+        publish_menu_item = next(item for item in response.context["action_menu"].menu_items if getattr(item, "name", "") == "action-publish")
+        publish_context = publish_menu_item.get_context_data(response.context["action_menu"].context)
+
+        self.assertFalse(publish_context["is_scheduled"])
+        self.assertEqual(self.get_publish_button_label(response), "Publish")
 
     def test_construct_page_action_menu_hook_with_custom_default_button(self):
         class CustomDefaultItem(ActionMenuItem):
