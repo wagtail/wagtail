@@ -32,6 +32,7 @@ from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES,
     Advert,
     AdvertPlacement,
+    CommentableJSONPage,
     CustomPermissionPage,
     EventCategory,
     EventPage,
@@ -4107,3 +4108,73 @@ class TestCommentOutput(WagtailTestUtils, TestCase):
         comment_text = [comment["text"] for comment in comments_data["comments"]]
         comment_text.sort()
         self.assertEqual(comment_text, ["A test comment", "This is quite expensive"])
+
+    def test_comments_with_deep_contentpath_on_custom_fields(self):
+        page = CommentableJSONPage(
+            title="Commentable JSON Page",
+            slug="commentable-json-page",
+            commentable_body={
+                "header": {
+                    "title": "Comments are Welcome",
+                },
+            },
+            uncommentable_body={
+                "title": "No feedback here",
+            },
+            stream_body=[
+                {
+                    "id": "1",
+                    "type": "text",
+                    "value": "This allows comments",
+                }
+            ],
+        )
+        self.root_page.add_child(instance=page)
+
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="1. Comment on an existing JSON path in commentable JSONField",
+            contentpath="commentable_body.header.title",
+        )
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="2. Comment on a non-existing JSON path in commentable JSONField",
+            contentpath="commentable_body.header.not_valid",
+        )
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="3. Comment on an existing JSON path in base JSONField",
+            contentpath="uncommentable_body.title",
+        )
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="4. Comment on a non-existing JSON path in base JSONField",
+            contentpath="uncommentable_body.not_valid",
+        )
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="5. Comment on the top-level of a base JSONField",
+            contentpath="uncommentable_body",
+        )
+
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=[page.id]))
+        soup = self.get_soup(response.content)
+        comments_data_json = soup.select_one("#comments-data").string
+        comments_data = json.loads(comments_data_json)
+        comment_text = [comment["text"] for comment in comments_data["comments"]]
+        comment_text.sort()
+
+        self.assertEqual(
+            comment_text,
+            [
+                # Custom fields can define which paths are valid for comments
+                "1. Comment on an existing JSON path in commentable JSONField",
+                # Comments directly on the top-level (the field itself) are always valid
+                "5. Comment on the top-level of a base JSONField",
+            ],
+        )

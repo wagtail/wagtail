@@ -4,7 +4,7 @@
 #
 # Translators:
 # Basitlik İyidir, 2017
-# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
 # José Luis <alagunajs@gmail.com>, 2015,2017
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
@@ -34,6 +34,22 @@ msgstr "Başlangıç tarihi"
 
 msgid "Date to"
 msgstr "Bitiş tarihi"
+
+#, python-format
+msgid ""
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
+msgstr ""
+"Bu alan için '%(duplicate_clean_name)s' adı zaten atanmış ve değiştirilemez. "
+"Çatışan alan için lütfen farklı bir etiket girin."
+
+#, python-format
+msgid ""
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
+msgstr ""
+"Alan adı '%(duplicate_clean_name)s' başka bir alanla çakışıyor. Lütfen "
+"etiketi değiştirin."
 
 msgid "Single line text"
 msgstr "Tek satır metin"
@@ -83,6 +99,10 @@ msgstr "form teslimi"
 msgid "name"
 msgstr "isim"
 
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Form alanının güvenli adı, etiket ascii_snake_case biçimine dönüştürülmüştür."
+
 msgid "label"
 msgstr "ad (label)"
 
@@ -98,8 +118,21 @@ msgstr "gerekli"
 msgid "choices"
 msgstr "şıklar"
 
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Virgül veya yeni satır ile ayrılmış seçenekler listesi. Sadece onay "
+"kutuları, radyo düğmeleri ve açılır listelerde geçerlidir."
+
 msgid "default value"
 msgstr "varsayılan değer"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Varsayılan değer. Onay kutuları için virgül veya yeni satır ile ayrılmış "
+"değerler desteklenmektedir."
 
 msgid "help text"
 msgstr "yardım metni"
@@ -139,6 +172,11 @@ msgstr "%(title)s form verisini sil"
 
 msgid "Delete form data"
 msgstr "Form verisini sil"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Bu form iletimini silmek istediğinizden emin misiniz?"
+msgstr[1] "Bu form iletimlerini silmek istediğinizden emin misiniz?"
 
 msgid "Delete"
 msgstr "Sil"

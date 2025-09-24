@@ -906,6 +906,9 @@
 * Yousef Al-Hadhrami (Yemeni)
 * Hunzlah Malik
 * Tosinibikunle
+* Lynwee
+* Andrew Selzer
+* Lasse Schmieding
 
 ## Translators
 

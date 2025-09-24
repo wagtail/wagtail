@@ -1,4 +1,5 @@
 import datetime
+from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -21,7 +22,12 @@ from wagtail.models import (
     WorkflowState,
     WorkflowTask,
 )
-from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel, SimplePage
+from wagtail.test.testapp.models import (
+    FullFeaturedSnippet,
+    ModeratedModel,
+    SimplePage,
+    SimpleTask,
+)
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 
@@ -116,6 +122,24 @@ class TestWorkflowModels(TestCase):
         self.assertFalse(workflow_1.all_pages().filter(id=goodbye_page.id).exists())
         self.assertTrue(workflow_2.all_pages().filter(id=hello_page.id).exists())
         self.assertTrue(workflow_2.all_pages().filter(id=goodbye_page.id).exists())
+
+    def test_specific_gracefully_handles_missing_rows(self):
+        # 13376 - Check that .specific handles missing rows for Tasks
+        # when generating warnings
+
+        # Trick SpecificIteraterable.__init__() into always looking for SimpleTasks
+        with mock.patch(
+            "wagtail.query.ContentType.objects.get_for_id",
+            return_value=ContentType.objects.get_for_model(SimpleTask),
+        ):
+            with self.assertWarnsRegex(
+                RuntimeWarning,
+                "Specific versions of the following items could not be found",
+            ):
+                tasks = list(Task.objects.all().specific())
+
+            # Missing tasks should be supplemented with generic tasks
+            self.assertEqual(tasks, [Task.objects.get(name="Moderators approval")])
 
 
 class TestPageWorkflows(WagtailTestUtils, TestCase):

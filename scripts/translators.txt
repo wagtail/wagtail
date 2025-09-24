@@ -698,6 +698,7 @@ Fatih Koç koç <fatihinemaili.gmail.com>
 Halim Turan <halim_turan_61.hotmail.com>
 Halit Çelik
 José Luis <alagunajs.gmail.com>
+LB (Ben Johnston) <mail.lb.ee>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Py Data Geek <pydatageek.gmail.com>

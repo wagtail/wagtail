@@ -1331,7 +1331,24 @@ def keyboard_shortcuts_dialog(context):
 
     return {
         "shortcuts": {
-            ("actions-common", _("Common actions")): [
+            # Translators: Shortcuts for admin common shortcuts that are available across the admin
+            ("admin-common", _("Application")): [
+                (_("Show keyboard shortcuts"), "?"),
+                (_("Search"), "/"),
+                (_("Toggle sidebar"), "["),
+                (_("Toggle minimap"), "]"),
+                (_("Close modal dialogs (like this one)"), f"{KEYS.ESC}"),
+            ],
+            # Translators: Shortcuts for admin actions that can be taken while working on core models
+            ("admin-core-models", _("Actions")): [
+                (_("Save changes"), f"{KEYS.MOD} + s"),
+                (_("Preview"), f"{KEYS.MOD} + p"),
+                (_("Add or show comments"), f"{KEYS.CTRL} + {KEYS.ALT} + m")
+                if comments_enabled
+                else None,
+            ],
+            # Translators: Shortcuts for common text editing features available in all fields (even if not a rich text field)
+            ("text-editing-basic", _("Text editing")): [
                 (_("Copy"), f"{KEYS.MOD} + c"),
                 (_("Cut"), f"{KEYS.MOD} + x"),
                 (_("Paste"), f"{KEYS.MOD} + v"),
@@ -1347,25 +1364,13 @@ def keyboard_shortcuts_dialog(context):
                     f"{KEYS.MOD} + {KEYS.SHIFT} + z" if is_mac else f"{KEYS.MOD} + y",
                 ),
             ],
-            ("actions-model", _("Actions")): [
-                (_("Show keyboard shortcuts"), "?"),
-                (_("Save changes"), f"{KEYS.MOD} + s"),
-                (_("Preview"), f"{KEYS.MOD} + p"),
-                (_("Toggle sidebar"), "["),
-                (_("Toggle minimap"), "]"),
-                (_("Search"), "/"),
-                (_("Add or show comments"), f"{KEYS.CTRL} + {KEYS.ALT} + m")
-                if comments_enabled
-                else None,
-            ],
-            ("rich-text-content", _("Text content")): [
-                (_("Insert or edit a link"), f"{KEYS.MOD} + k")
-            ],
-            ("rich-text-formatting", _("Text formatting")): [
+            # Translators: Shortcuts for formatting & editing features available in rich text fields
+            ("text-editing-rich-text", _("Text formatting")): [
+                (_("Insert or edit a link"), f"{KEYS.MOD} + k"),
+                (_("Bold"), f"{KEYS.MOD} + b"),
                 (_("Italic"), f"{KEYS.MOD} + i"),
-                (_("Underline"), f"{KEYS.MOD} + u"),
                 (_("Monospace (code)"), f"{KEYS.MOD} + j"),
-                (_("Strike-through"), f"{KEYS.MOD} + x"),
+                (_("Strike-through"), f"{KEYS.MOD} + {KEYS.SHIFT} + x"),
                 (_("Superscript"), f"{KEYS.MOD} + ."),
                 (_("Subscript"), f"{KEYS.MOD} + ,"),
             ],

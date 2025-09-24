@@ -6,16 +6,16 @@
 # Translators:
 # Mitja Pagon <mitja.pagon@inueni.com>, 2021
 # Loic Teixeira, 2022
-# Andrej Marsetič, 2022
+# Andrej Marsetič, 2025
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Andrej Marsetič, 2022\n"
+"Last-Translator: Andrej Marsetič, 2025\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,14 @@ msgid ""
 msgstr ""
 "Trenutna jezikovna koda tega jezika ni podprta. Izberite nov jezik ali "
 "izbrišite ta jezik."
+
+#, python-format
+msgid "%(num_pages)d page"
+msgid_plural "%(num_pages)d pages"
+msgstr[0] "%(num_pages)d stran"
+msgstr[1] "%(num_pages)d strani"
+msgstr[2] "%(num_pages)d strani"
+msgstr[3] "%(num_pages)d strani"
 
 msgid "Locales"
 msgstr "Jeziki"

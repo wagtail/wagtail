@@ -4,7 +4,7 @@
 #
 # Translators:
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022-2023
+# Andrej Marsetič, 2022-2023,2025
 # Matej Stavanja <matej.stavanja@zfm.si>, 2019
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
+"Last-Translator: Andrej Marsetič, 2022-2023,2025\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,10 @@ msgstr "privzeto"
 
 msgid "Sites"
 msgstr "Spletna mesta"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s dovoljenja"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"
