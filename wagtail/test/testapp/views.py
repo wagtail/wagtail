@@ -171,6 +171,73 @@ class MiscellaneousViewSetGroup(ViewSetGroup):
     menu_label = "Miscellaneous"
 
 
+class SubmenuHookCalendarViewSet(ViewSet):
+    menu_label = "The Submenu Hook Calendar"
+    icon = "date"
+    name = "submenu_hook_calendar"
+    template_name = "tests/misc/calendar.html"
+
+    def __init__(self, name=None, **kwargs):
+        super().__init__(name, **kwargs)
+        self.now = timezone.now()
+
+    def index(self, request):
+        calendar_html = calendar.HTMLCalendar().formatyear(self.now.year)
+        return render(
+            request,
+            self.template_name,
+            {
+                "calendar_html": calendar_html,
+                "page_title": f"{self.now.year} calendar",
+                "header_icon": self.icon,
+            },
+        )
+
+    def month(self, request):
+        calendar_html = calendar.HTMLCalendar().formatmonth(
+            self.now.year, self.now.month
+        )
+        return render(
+            request,
+            self.template_name,
+            {
+                "calendar_html": calendar_html,
+                "page_title": f"{self.now.year}/{self.now.month} calendar",
+                "header_icon": self.icon,
+            },
+        )
+
+    def get_urlpatterns(self):
+        return [
+            path("", self.index, name="index"),
+            path("month/", self.month, name="month"),
+        ]
+
+
+class SubmenuHookGreetingsViewSet(ViewSet):
+    menu_label = "Submenu Hook Greetings"
+    icon = "user"
+    url_namespace = "submenu_hook_greetings"
+    url_prefix = "submenu_hook_greetingz"
+    menu_hook = "register_submenu_greetings"
+
+    def index(self, request):
+        return render(
+            request,
+            "tests/misc/greetings.html",
+            {"page_title": "Submenu Hook Greetings", "header_icon": self.icon},
+        )
+
+    def get_urlpatterns(self):
+        return [path("", self.index, name="index")]
+
+
+class MiscellaneousSubmenuHookViewSetGroup(ViewSetGroup):
+    menu_label = "Submenu Hook Miscellaneous"
+    items = (SubmenuHookCalendarViewSet,)
+    submenu_hook = "register_submenu_greetings"
+
+
 class JSONStreamModelViewSet(ModelViewSet):
     name = "streammodel"
     model = JSONStreamModel
