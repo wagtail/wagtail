@@ -51,7 +51,7 @@
     </template>
 
     <p class="add">
-        <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button" data-action="w-formset#add">{% icon name="plus" wrapped=1 %}{% block add_button_label %}{% endblock %}</button>
+        <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button" data-action="w-formset#add" data-w-formset-target="add">{% icon name="plus" wrapped=1 %}{% block add_button_label %}{% endblock %}</button>
     </p>
 
 {% endpanel%}
