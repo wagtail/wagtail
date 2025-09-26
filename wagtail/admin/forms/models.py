@@ -2,7 +2,7 @@ import copy
 
 from django import VERSION as DJANGO_VERSION
 from django import forms
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -169,6 +169,24 @@ class WagtailAdminModelForm(
         for field_name in self.deferred_required_fields:
             self.fields[field_name].required = True
         self.deferred_required_fields = []
+
+    def clean(self):
+        cleaned = super().clean()
+
+        for name, formset in self.formsets.items():
+            for form in formset:
+                if not form.is_bound or not form.is_valid():
+                    continue
+                instance = getattr(form, "instance", None)
+
+                if instance is None:
+                    continue
+                try:
+                    instance.validate_constraints()
+                except ValidationError as e:
+                    self.add_error(None, e)
+
+        return cleaned
 
     class Meta:
         formfield_callback = formfield_for_dbfield
