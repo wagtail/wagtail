@@ -451,13 +451,13 @@
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='basic-tab-3' title='Tab 3' %}
             </div>
             <div class="tab-content">
-                <section class="w-min-h-24 w-tabs__panel" id="tab-basic-tab-1" role="tabpanel" aria-labelledby="tab-label-basic-tab-1" data-w-tabs-target="panel">
+                <section class="w-min-h-24 w-tabs__panel" id="tab-basic-tab-1" role="tabpanel" aria-labelledby="tab-label-basic-tab-1" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
                     Tab 1 content
                 </section>
-                <section class="w-min-h-24 w-tabs__panel" id="tab-basic-tab-2" role="tabpanel" aria-labelledby="tab-label-basic-tab-2" data-w-tabs-target="panel">
+                <section class="w-min-h-24 w-tabs__panel" id="tab-basic-tab-2" role="tabpanel" aria-labelledby="tab-label-basic-tab-2" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
                     Tab 2 content
                 </section>
-                <section class="w-min-h-24 w-tabs__panel" id="tab-basic-tab-3" role="tabpanel" aria-labelledby="tab-label-basic-tab-3" data-w-tabs-target="panel">
+                <section class="w-min-h-24 w-tabs__panel" id="tab-basic-tab-3" role="tabpanel" aria-labelledby="tab-label-basic-tab-3" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
                     Tab 3 content
                 </section>
             </div>
@@ -471,12 +471,12 @@
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='errors-tab-2' title='Tab 2' %}
             </div>
             <div class="tab-content">
-                <section class="w-min-h-24" id="tab-errors-tab-1" role="tabpanel" aria-labelledby="tab-label-errors-tab-1" data-w-tabs-target="panel">
+                <section class="w-min-h-24" id="tab-errors-tab-1" role="tabpanel" aria-labelledby="tab-label-errors-tab-1" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
                     <p>Tabs can also indicate errors:</p>
                     Tab 1 content
                     <ul><li class="error-message">Single error</li></ul>
                 </section>
-                <section class="w-min-h-24" id="tab-errors-tab-2" role="tabpanel" aria-labelledby="tab-label-errors-tab-2" data-w-tabs-target="panel">
+                <section class="w-min-h-24" id="tab-errors-tab-2" role="tabpanel" aria-labelledby="tab-label-errors-tab-2" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
                     <p>Tabs can also indicate errors:</p>
                     Tab 2 content
                     <ul>
