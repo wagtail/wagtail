@@ -181,7 +181,7 @@ class SearchPromotionCreateEditMixin:
 
 class CreateView(SearchPromotionCreateEditMixin, generic.CreateView):
     success_message = gettext_lazy("Editor's picks for '%(query)s' created.")
-    error_message = gettext_lazy("Recommendations have not been created due to errors")
+    error_message = gettext_lazy("Recommendations have not been created due to errors.")
     template_name = "wagtailsearchpromotions/add.html"
     add_url_name = "wagtailsearchpromotions:add"
 
@@ -191,7 +191,7 @@ class EditView(SearchPromotionCreateEditMixin, generic.EditView):
     context_object_name = "query"
     delete_url_name = "wagtailsearchpromotions:delete"
     success_message = gettext_lazy("Editor's picks for '%(query)s' updated.")
-    error_message = gettext_lazy("Recommendations have not been saved due to errors")
+    error_message = gettext_lazy("Recommendations have not been saved due to errors.")
     template_name = "wagtailsearchpromotions/edit.html"
 
 
