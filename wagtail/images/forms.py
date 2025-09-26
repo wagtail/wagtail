@@ -44,6 +44,13 @@ class BaseImageForm(BaseCollectionMemberForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_file = self.instance.file
+        # The idea here is to dynamically set sync value target to the id of the file input
+        # Rather than hardcoding it.
+        if "title" in self.fields and "file" in self.fields:
+            bound_field = self.fields["title"].get_bound_field(self, "title")
+            self.fields["file"].widget.attrs["data-w-sync-target-value"] = (
+                f"#{bound_field.id_for_label}"
+            )
 
     def save(self, commit=True):
         if "file" in self.changed_data:
@@ -70,7 +77,15 @@ class BaseImageForm(BaseCollectionMemberForm):
         # a bit pointless here
         widgets = {
             "tags": AdminTagWidget,
-            "file": forms.FileInput(),
+            "file": forms.FileInput(
+                attrs={
+                    "data-controller": "w-sync",
+                    "data-action": "change->w-sync#apply",
+                    "data-w-sync-bubbles-param": "true",
+                    "data-w-sync-name-value": "wagtail:images-upload",
+                    "data-w-sync-normalize-value": "true",
+                }
+            ),
             "focal_point_x": forms.HiddenInput(attrs={"class": "focal_point_x"}),
             "focal_point_y": forms.HiddenInput(attrs={"class": "focal_point_y"}),
             "focal_point_width": forms.HiddenInput(
