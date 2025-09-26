@@ -221,6 +221,7 @@ class URLGeneratorForm(forms.Form):
     closeness = forms.IntegerField(
         label=_("Closeness"),
         min_value=0,
+        max_value=100,
         initial=0,
         widget=forms.NumberInput(
             attrs={
