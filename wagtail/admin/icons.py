@@ -1,5 +1,4 @@
 import hashlib
-import itertools
 import re
 from functools import lru_cache
 
@@ -13,8 +12,10 @@ icon_comment_pattern = re.compile(r"<!--.*?-->", re.DOTALL)
 
 @lru_cache(maxsize=None)
 def get_icons():
-    icon_hooks = hooks.get_hooks("register_icons")
-    all_icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
+    all_icons = []
+    for fn in hooks.get_hooks("register_icons"):
+        all_icons = fn(all_icons)
+    all_icons = sorted(all_icons)
     combined_icon_markup = ""
     for icon in all_icons:
         symbol = (
