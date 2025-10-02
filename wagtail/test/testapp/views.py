@@ -13,7 +13,13 @@ from wagtail.admin.auth import user_passes_test
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import BooleanColumn, Column, UpdatedAtColumn
-from wagtail.admin.views.generic import DeleteView, EditView, IndexView, InspectView
+from wagtail.admin.views.generic import (
+    CreateView,
+    DeleteView,
+    EditView,
+    IndexView,
+    InspectView,
+)
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
@@ -77,6 +83,14 @@ class CustomModelEditForm(forms.ModelForm):
     class Meta:
         model = ModelWithStringTypePrimaryKey
         fields = ("content",)
+
+
+class TestCreateView(CreateView):
+    model = ModelWithStringTypePrimaryKey
+    fields = ["custom_id", "content"]
+    add_url_name = "testapp_generic_create"
+    edit_url_name = "testapp_generic_edit"
+    index_url_name = "testapp_generic_index"
 
 
 class TestEditView(EditView):
