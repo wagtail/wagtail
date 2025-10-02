@@ -27,4 +27,5 @@ streamfield_migrations
 streamfield_validation
 reference_index
 headless
+security_considerations
 ```
