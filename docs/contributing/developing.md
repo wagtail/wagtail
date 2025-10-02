@@ -168,23 +168,25 @@ If you need to use different connection settings, use the following environment 
 
 It is also possible to set `DATABASE_DRIVER`, which corresponds to the `driver` value within `OPTIONS` if an SQL Server engine is used.
 
-### Testing Elasticsearch
+### Testing Elasticsearch and OpenSearch
 
-You can test Wagtail against Elasticsearch by passing the argument `--elasticsearch7` or `--elasticsearch8` (corresponding to the version of Elasticsearch you want to test against):
+You can test Wagtail against Elasticsearch or OpenSearch by passing one of the arguments `--elasticsearch7`, `--elasticsearch8`, `--elasticsearch9`, `--opensearch2`, `--opensearch3` (corresponding to the version of Elasticsearch or OpenSearch you want to test against):
 
 ```sh
 python runtests.py --elasticsearch8
 ```
 
-Wagtail will attempt to connect to a local instance of Elasticsearch
+Wagtail will attempt to connect to a local instance of Elasticsearch or OpenSearch
 (`http://localhost:9200`) and use the index `test_wagtail`.
 
-If your Elasticsearch instance is located somewhere else, you can set the
+If your instance is located somewhere else, you can set the
 `ELASTICSEARCH_URL` environment variable to point to its location:
 
 ```sh
 ELASTICSEARCH_URL=https://my-elasticsearch-instance:9200 python runtests.py --elasticsearch8
 ```
+
+Note that the environment variable `ELASTICSEARCH_URL` is used for both Elasticsearch and OpenSearch.
 
 ### Unit tests for JavaScript
 
