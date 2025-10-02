@@ -89,6 +89,7 @@ class TableInputAdapter(WidgetAdapter):
                 "A heading that identifies the overall topic of the table, and is useful for screen reader users."
             ),
             "Table": _("Table"),
+            "Select a header option": _("Select a header option"),
         }
 
         return [
