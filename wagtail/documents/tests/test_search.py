@@ -94,7 +94,7 @@ class TestIssue613(WagtailTestUtils, TestCase):
 
         # Add a document with some tags
         document = self.add_document(tags="hello")
-        self.search_backend.refresh_index()
+        self.search_backend.refresh_indexes()
 
         # Search for it by tag
         results = self.search_backend.search("hello", models.Document)
@@ -112,7 +112,7 @@ class TestIssue613(WagtailTestUtils, TestCase):
 
         # Add a document with some tags
         document = self.edit_document(tags="hello")
-        self.search_backend.refresh_index()
+        self.search_backend.refresh_indexes()
 
         # Search for it by tag
         results = self.search_backend.search("hello", models.Document)
