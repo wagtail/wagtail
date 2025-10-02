@@ -1354,7 +1354,7 @@ class TestIssue613(WagtailTestUtils, TestCase):
 
         # Add an image with some tags
         image = self.add_image(tags="hello")
-        self.search_backend.refresh_index()
+        self.search_backend.refresh_indexes()
 
         # Search for it by tag
         results = self.search_backend.search("hello", Image)
@@ -1372,7 +1372,7 @@ class TestIssue613(WagtailTestUtils, TestCase):
 
         # Add an image with some tags
         image = self.edit_image(tags="hello")
-        self.search_backend.refresh_index()
+        self.search_backend.refresh_indexes()
 
         # Search for it by tag
         results = self.search_backend.search("hello", Image)
