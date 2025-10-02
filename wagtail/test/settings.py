@@ -1,6 +1,7 @@
 import os
 
 from django.contrib.messages import constants as message_constants
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.test.numberformat import patch_number_formats
@@ -226,19 +227,19 @@ else:
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"
 
-if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
-    INSTALLED_APPS.append("django.contrib.postgres")
-    WAGTAILSEARCH_BACKENDS["postgresql"] = {
-        "BACKEND": "wagtail.search.backends.database",
-        "AUTO_UPDATE": False,
-        "SEARCH_CONFIG": "english",
-    }
-
 if "ELASTICSEARCH_URL" in os.environ:
-    if os.environ.get("ELASTICSEARCH_VERSION") == "8":
-        backend = "wagtail.search.backends.elasticsearch8"
-    elif os.environ.get("ELASTICSEARCH_VERSION") == "7":
-        backend = "wagtail.search.backends.elasticsearch7"
+    # Define an 'elasticsearch' backend alongside the default database one; this is used purely
+    # for the Elasticsearch-specific tests in wagtail.images.tests.test_models and
+    # wagtail.documents.tests.test_search. We also want to run these tests under Opensearch; for
+    # simplicity we use the backend name 'elasticsearch' in this case too.
+    if elasticsearch_version := os.environ.get("ELASTICSEARCH_VERSION"):
+        backend = f"wagtail.search.backends.elasticsearch{elasticsearch_version}"
+    elif opensearch_version := os.environ.get("OPENSEARCH_VERSION"):
+        backend = f"wagtail.search.backends.opensearch{opensearch_version}"
+    else:
+        raise ImproperlyConfigured(
+            "If ELASTICSEARCH_URL is defined, either ELASTICSEARCH_VERSION or OPENSEARCH_VERSION must be defined too"
+        )
 
     WAGTAILSEARCH_BACKENDS["elasticsearch"] = {
         "BACKEND": backend,
