@@ -6,6 +6,9 @@
     </picture>
 </h1>
 <p align="center">
+    join us for ✨ <a href="https://wagtail.org/wagtail-space-2025/">Wagtail Space 2025</a> ✨, our free online conference on October 8-10
+</p>
+<p align="center">
     <br>
     <a href="https://github.com/wagtail/wagtail/actions">
         <img src="https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg" alt="Build Status" />
