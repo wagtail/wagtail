@@ -912,6 +912,7 @@
 * Shivam Kumar
 * Pravin Kamble
 * Martin Fitzpatrick
+* arpitmak
 
 ## Translators
 
