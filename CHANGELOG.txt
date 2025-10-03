@@ -19,6 +19,7 @@ Changelog
  * Fix: Ensure starter tests in the project template pass (Lasse Schmieding)
  * Fix: Ensure fixed RichText toolbar shows under footer actions (Maciek Baron)
  * Fix: Prevent error when iterating over specific tasks with missing models (Lasse Schmieding)
+ * Fix: Better support userbar loading on multi-site through site hosts (Sage Abdullah)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami (Yemeni))
