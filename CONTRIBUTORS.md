@@ -909,6 +909,7 @@
 * Lynwee
 * Andrew Selzer
 * Lasse Schmieding
+* Shivam Kumar
 
 ## Translators
 
