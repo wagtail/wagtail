@@ -28,13 +28,13 @@ cd wagtail
 
 **With your preferred [virtualenv activated](virtual_environment_creation),** install the Wagtail package in development mode with the included testing and documentation dependencies:
 
-###For PowerShell/CMD (Windows)###
+#### For PowerShell/CMD (Windows)
 
 ```sh
 pip install -e .[testing,docs] --config-settings editable-mode=strict -U
 ```
 
-###For bash/zsh (Linux/MacOS)###
+#### For bash/zsh (Linux/MacOS)
 
 ```sh
 pip install -e ."[testing,docs]" --config-settings editable-mode=strict -U
@@ -54,13 +54,13 @@ npm run build
 
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/) as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, to install the local Wagtail development instance in your virtualenv for your Wagtail site:
 
-###For PowerShell/CMD (Windows)###
+#### For PowerShell/CMD (Windows)
 
 ```sh
 pip install -e path/to/wagtail[testing, docs] --config-settings editable-mode=strict -U
 ```
 
-###For bash/zsh (Linux/MacOS)###
+#### For bash/zsh (Linux/MacOS)
 
 ```sh
 pip install -e path/to/wagtail"[testing, docs]" --config-settings editable-mode=strict -U
