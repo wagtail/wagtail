@@ -8,8 +8,9 @@ from wagtail.coreutils import get_supported_content_language_variant
 
 def initial_locale(apps, schema_editor):
     Locale = apps.get_model("wagtailcore.Locale")
+    db = schema_editor.connection.alias
 
-    Locale.objects.create(
+    Locale.objects.using(db).create(
         language_code=get_supported_content_language_variant(settings.LANGUAGE_CODE),
     )
 

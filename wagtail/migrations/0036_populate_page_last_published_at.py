@@ -5,7 +5,8 @@ from django.db.models import F
 
 def forwards_func(apps, schema_editor):
     Page = apps.get_model("wagtailcore", "Page")
-    Page.objects.filter(has_unpublished_changes=False).update(
+    db = schema_editor.connection.alias
+    Page.objects.using(db).filter(has_unpublished_changes=False).update(
         last_published_at=F("latest_revision_created_at")
     )
 

@@ -7,20 +7,23 @@ from django.db.models.functions import Cast
 def populate_latest_revision(apps, schema_editor):
     Page = apps.get_model("wagtailcore.Page")
     Revision = apps.get_model("wagtailcore.Revision")
+    db = schema_editor.connection.alias
+
     latest_revision_id = models.Subquery(
-        Revision.objects.filter(
+        Revision.objects.using(db).filter(
             content_type_id=models.OuterRef("content_type_id"),
             object_id=Cast(models.OuterRef("pk"), models.CharField()),
         )
         .order_by("-created_at", "-id")
         .values("pk")[:1]
     )
-    Page.objects.all().update(latest_revision_id=latest_revision_id)
+    Page.objects.using(db).all().update(latest_revision_id=latest_revision_id)
 
 
 def populate_revision_object_str(apps, schema_editor):
     Revision = apps.get_model("wagtailcore.Revision")
-    Revision.objects.all().update(object_str=models.F("content__title"))
+    db = schema_editor.connection.alias
+    Revision.objects.using(db).all().update(object_str=models.F("content__title"))
 
 
 class Migration(migrations.Migration):

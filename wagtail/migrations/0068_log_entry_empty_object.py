@@ -6,15 +6,19 @@ from django.db import migrations
 def replace_empty_string_with_empty_object(apps, schema_editor):
     ModelLogEntry = apps.get_model("wagtailcore.ModelLogEntry")
     PageLogEntry = apps.get_model("wagtailcore.PageLogEntry")
-    ModelLogEntry.objects.filter(data_json='""').update(data_json="{}")
-    PageLogEntry.objects.filter(data_json='""').update(data_json="{}")
+    db = schema_editor.connection.alias
+
+    ModelLogEntry.objects.using(db).filter(data_json='""').update(data_json="{}")
+    PageLogEntry.objects.using(db).filter(data_json='""').update(data_json="{}")
 
 
 def revert_empty_object_to_empty_string(apps, schema_editor):
     ModelLogEntry = apps.get_model("wagtailcore.ModelLogEntry")
     PageLogEntry = apps.get_model("wagtailcore.PageLogEntry")
-    ModelLogEntry.objects.filter(data_json="{}").update(data_json='""')
-    PageLogEntry.objects.filter(data_json="{}").update(data_json='""')
+    db = schema_editor.connection.alias
+
+    ModelLogEntry.objects.using(db).filter(data_json="{}").update(data_json='""')
+    PageLogEntry.objects.using(db).filter(data_json="{}").update(data_json='""')
 
 
 class Migration(migrations.Migration):

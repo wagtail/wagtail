@@ -9,8 +9,9 @@ def grant_instance_level_collection_management_permissions(apps, schema_editor):
     Group = apps.get_model("auth.Group")
     GroupCollectionPermission = apps.get_model("wagtailcore.GroupCollectionPermission")
     Permission = apps.get_model("auth.Permission")
+    db = schema_editor.connection.alias
 
-    groups_w_permissions = Group.objects.filter(
+    groups_w_permissions = Group.objects.using(db).filter(
         permissions__content_type__app_label="wagtailcore",
         permissions__content_type__model="collection",
         permissions__codename__in=[
@@ -20,15 +21,15 @@ def grant_instance_level_collection_management_permissions(apps, schema_editor):
         ],
     ).values("id", "name", "permissions__id", "permissions__codename")
 
-    for root_collection in Collection.objects.filter(depth=1).all():
+    for root_collection in Collection.objects.using(db).filter(depth=1).all():
         for row in groups_w_permissions:
-            GroupCollectionPermission.objects.create(
+            GroupCollectionPermission.objects.using(db).create(
                 group_id=row["id"],
                 permission_id=row["permissions__id"],
                 collection_id=root_collection.id,
             )
     # Now remove the model-level permissions for collections
-    collection_permissions = Permission.objects.filter(
+    collection_permissions = Permission.objects.using(db).filter(
         content_type__app_label="wagtailcore",
         content_type__model="collection",
         codename__in=["add_collection", "change_collection", "delete_collection"],
@@ -43,9 +44,10 @@ def revert_to_model_level_collection_management_permissions(apps, schema_editor)
     """
     Collection = apps.get_model("wagtailcore.Collection")
     GroupCollectionPermission = apps.get_model("wagtailcore.GroupCollectionPermission")
+    db = schema_editor.connection.alias
 
-    root_collections = Collection.objects.filter(depth=1).all()
-    group_collection_permissions = GroupCollectionPermission.objects.filter(
+    root_collections = Collection.objects.using(db).filter(depth=1).all()
+    group_collection_permissions = GroupCollectionPermission.objects.using(db).filter(
         permission__content_type__app_label="wagtailcore",
         permission__content_type__model="collection",
         permission__codename__in=[

@@ -7,14 +7,14 @@ def initial_data(apps, schema_editor):
     Page = apps.get_model("wagtailcore.Page")
     Site = apps.get_model("wagtailcore.Site")
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
-
+    db = schema_editor.connection.alias
     # Create page content type
-    page_content_type, created = ContentType.objects.get_or_create(
+    page_content_type, created = ContentType.objects.using(db).get_or_create(
         model="page", app_label="wagtailcore"
     )
 
     # Create root page
-    root = Page.objects.create(
+    root = Page.objects.using(db).create(
         title="Root",
         slug="root",
         content_type=page_content_type,
@@ -25,7 +25,7 @@ def initial_data(apps, schema_editor):
     )
 
     # Create homepage
-    homepage = Page.objects.create(
+    homepage = Page.objects.using(db).create(
         title="Welcome to your new Wagtail site!",
         slug="home",
         content_type=page_content_type,
@@ -36,37 +36,37 @@ def initial_data(apps, schema_editor):
     )
 
     # Create default site
-    Site.objects.create(
+    Site.objects.using(db).create(
         hostname="localhost", root_page_id=homepage.id, is_default_site=True
     )
 
     # Create auth groups
-    moderators_group = Group.objects.create(name="Moderators")
-    editors_group = Group.objects.create(name="Editors")
+    moderators_group = Group.objects.using(db).create(name="Moderators")
+    editors_group = Group.objects.using(db).create(name="Editors")
 
     # Create group permissions
-    GroupPagePermission.objects.create(
+    GroupPagePermission.objects.using(db).create(
         group=moderators_group,
         page=root,
         permission_type="add",
     )
-    GroupPagePermission.objects.create(
+    GroupPagePermission.objects.using(db).create(
         group=moderators_group,
         page=root,
         permission_type="edit",
     )
-    GroupPagePermission.objects.create(
+    GroupPagePermission.objects.using(db).create(
         group=moderators_group,
         page=root,
         permission_type="publish",
     )
 
-    GroupPagePermission.objects.create(
+    GroupPagePermission.objects.using(db).create(
         group=editors_group,
         page=root,
         permission_type="add",
     )
-    GroupPagePermission.objects.create(
+    GroupPagePermission.objects.using(db).create(
         group=editors_group,
         page=root,
         permission_type="edit",

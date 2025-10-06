@@ -17,12 +17,13 @@ def populate_grouppagepermission_permission(apps, schema_editor):
     ContentType = apps.get_model("contenttypes.ContentType")
     Permission = apps.get_model("auth.Permission")
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
+    db = schema_editor.connection.alias
 
-    page_type = ContentType.objects.get_by_natural_key("wagtailcore", "page")
+    page_type = ContentType.objects.using(db).get_by_natural_key("wagtailcore", "page")
 
     # Normalise permission_type="edit" to permission_type="change"
     # and backfill permission from permission_type
-    GroupPagePermission.objects.filter(
+    GroupPagePermission.objects.using(db).filter(
         models.Q(permission__isnull=True) | models.Q(permission_type="edit")
     ).annotate(
         normalised_permission_type=models.Case(
@@ -30,7 +31,7 @@ def populate_grouppagepermission_permission(apps, schema_editor):
             default=models.F("permission_type"),
         )
     ).update(
-        permission=Permission.objects.filter(
+        permission=Permission.objects.using(db).filter(
             content_type=page_type,
             codename=Concat(
                 models.OuterRef("normalised_permission_type"),
@@ -44,9 +45,10 @@ def populate_grouppagepermission_permission(apps, schema_editor):
 def revert_grouppagepermission_permission(apps, schema_editor):
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
     Permission = apps.get_model("auth.Permission")
+    db = schema_editor.connection.alias
 
     permission_type = (
-        Permission.objects.filter(pk=models.OuterRef("permission"))
+        Permission.objects.using(db).filter(pk=models.OuterRef("permission"))
         .annotate(
             action=Substr(
                 models.F("codename"),
@@ -67,7 +69,7 @@ def revert_grouppagepermission_permission(apps, schema_editor):
     )
 
     # Backfill permission_type from permission foreign key and clear the foreign key
-    GroupPagePermission.objects.all().update(
+    GroupPagePermission.objects.using(db).all().update(
         permission_type=permission_type,
         permission=None,
     )

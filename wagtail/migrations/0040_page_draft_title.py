@@ -5,8 +5,9 @@ from django.db.models import F
 
 def draft_title(apps, schema_editor):
     Page = apps.get_model("wagtailcore", "Page")
+    db = schema_editor.connection.alias
 
-    Page.objects.all().update(draft_title=F("title"))
+    Page.objects.using(db).all().update(draft_title=F("title"))
 
 
 class Migration(migrations.Migration):

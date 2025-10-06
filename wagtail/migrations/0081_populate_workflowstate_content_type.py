@@ -8,15 +8,16 @@ def populate_workflowstate_content_type(apps, schema_editor):
     ContentType = apps.get_model("contenttypes.ContentType")
     WorkflowState = apps.get_model("wagtailcore.WorkflowState")
     Page = apps.get_model("wagtailcore.Page")
+    db = schema_editor.connection.alias
 
-    page_type = ContentType.objects.get(app_label="wagtailcore", model="page")
+    page_type = ContentType.objects.using(db).get(app_label="wagtailcore", model="page")
     content_type_id = models.Subquery(
-        Page.objects.filter(
+        Page.objects.using(db).filter(
             pk=Cast(models.OuterRef("object_id"), models.PositiveIntegerField())
         ).values("content_type_id")
     )
 
-    WorkflowState.objects.all().update(
+    WorkflowState.objects.using(db).all().update(
         base_content_type=page_type,
         content_type_id=content_type_id,
     )
@@ -24,7 +25,8 @@ def populate_workflowstate_content_type(apps, schema_editor):
 
 def empty_workflowstate_content_type(apps, schema_editor):
     WorkflowState = apps.get_model("wagtailcore.WorkflowState")
-    WorkflowState.objects.all().update(base_content_type=None, content_type=None)
+    db = schema_editor.connection.alias
+    WorkflowState.objects.using(db).all().update(base_content_type=None, content_type=None)
 
 
 class Migration(migrations.Migration):

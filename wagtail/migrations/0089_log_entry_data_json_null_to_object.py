@@ -6,11 +6,12 @@ from django.db import migrations, models
 def replace_json_null_with_empty_object(apps, schema_editor):
     ModelLogEntry = apps.get_model("wagtailcore.ModelLogEntry")
     PageLogEntry = apps.get_model("wagtailcore.PageLogEntry")
+    db = schema_editor.connection.alias
 
     null = models.Value(None, models.JSONField())
 
-    ModelLogEntry.objects.filter(data=null).update(data={})
-    PageLogEntry.objects.filter(data=null).update(data={})
+    ModelLogEntry.objects.using(db).filter(data=null).update(data={})
+    PageLogEntry.objects.using(db).filter(data=null).update(data={})
 
 
 class Migration(migrations.Migration):

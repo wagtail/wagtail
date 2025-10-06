@@ -22,31 +22,32 @@ def create_default_workflows(apps, schema_editor):
     WorkflowTask = apps.get_model("wagtailcore.WorkflowTask")
     Page = apps.get_model("wagtailcore.Page")
     Group = apps.get_model("auth.Group")
+    db = schema_editor.connection.alias
 
     # Get this from real page model just in case it has been overridden
     Page.steplen = RealPage.steplen
 
     # Create content type for GroupApprovalTask model
-    group_approval_content_type, __ = ContentType.objects.get_or_create(
+    group_approval_content_type, __ = ContentType.objects.using(db).get_or_create(
         model="groupapprovaltask", app_label="wagtailcore"
     )
 
-    publish_permissions = GroupPagePermission.objects.filter(permission_type="publish")
+    publish_permissions = GroupPagePermission.objects.using(db).filter(permission_type="publish")
 
     for permission in publish_permissions:
         # find groups with publish permission over this page or its ancestors (and therefore this page by descent)
         page = permission.page
-        page = Page.objects.get(pk=page.pk)
-        ancestors = Page.objects.filter(ancestor_of_q(page))
+        page = Page.objects.using(db).get(pk=page.pk)
+        ancestors = Page.objects.using(db).filter(ancestor_of_q(page))
         ancestor_permissions = publish_permissions.filter(page__in=ancestors)
-        groups = Group.objects.filter(
+        groups = Group.objects.using(db).filter(
             Q(page_permissions__in=ancestor_permissions)
             | Q(page_permissions__pk=permission.pk)
         ).distinct()
 
         # get a GroupApprovalTask with groups matching these publish permission groups (and no others)
         task = (
-            GroupApprovalTask.objects.filter(groups__id__in=groups.all())
+            GroupApprovalTask.objects.using(db).filter(groups__id__in=groups.all())
             .annotate(count=Count("groups"))
             .filter(count=groups.count())
             .filter(active=True)
@@ -55,7 +56,7 @@ def create_default_workflows(apps, schema_editor):
         if not task:
             # if no such task exists, create it
             group_names = " ".join([group.name for group in groups])
-            task = GroupApprovalTask.objects.create(
+            task = GroupApprovalTask.objects.using(db).create(
                 name=group_names + " approval",
                 content_type=group_approval_content_type,
                 active=True,
@@ -64,24 +65,24 @@ def create_default_workflows(apps, schema_editor):
 
         # get a Workflow containing only this task if it exists, otherwise create it
         workflow = (
-            Workflow.objects.annotate(task_number=Count("workflow_tasks"))
+            Workflow.objects.using(db).annotate(task_number=Count("workflow_tasks"))
             .filter(task_number=1)
             .filter(workflow_tasks__task=task)
             .filter(active=True)
             .first()
         )
         if not workflow:
-            workflow = Workflow.objects.create(name=task.name, active=True)
+            workflow = Workflow.objects.using(db).create(name=task.name, active=True)
 
-            WorkflowTask.objects.create(
+            WorkflowTask.objects.using(db).create(
                 workflow=workflow,
                 task=task,
                 sort_order=0,
             )
 
         # if the workflow is not linked by a WorkflowPage to the permission's linked page, link it by creating a new WorkflowPage now
-        if not WorkflowPage.objects.filter(workflow=workflow, page=page).exists():
-            WorkflowPage.objects.create(workflow=workflow, page=page)
+        if not WorkflowPage.objects.using(db).filter(workflow=workflow, page=page).exists():
+            WorkflowPage.objects.using(db).create(workflow=workflow, page=page)
 
 
 class Migration(migrations.Migration):

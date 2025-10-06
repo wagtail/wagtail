@@ -6,9 +6,10 @@ from django.db import migrations
 def assign_unlock_grouppagepermission(apps, schema_editor):
     # Assign Unlock permission to all groups that currently have the lock permission
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
+    db = schema_editor.connection.alias
 
-    for lock_permission in GroupPagePermission.objects.filter(permission_type="lock"):
-        GroupPagePermission.objects.create(
+    for lock_permission in GroupPagePermission.objects.using(db).filter(permission_type="lock"):
+        GroupPagePermission.objects.using(db).create(
             group=lock_permission.group,
             page=lock_permission.page,
             permission_type="unlock",

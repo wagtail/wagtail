@@ -3,9 +3,10 @@ from django.db import migrations
 
 def initial_data(apps, schema_editor):
     Collection = apps.get_model("wagtailcore.Collection")
+    db = schema_editor.connection.alias
 
     # Create root page
-    Collection.objects.create(
+    Collection.objects.using(db).create(
         name="Root",
         path="0001",
         depth=1,

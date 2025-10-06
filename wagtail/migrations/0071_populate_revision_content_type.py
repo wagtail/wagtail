@@ -8,8 +8,9 @@ from django.db.models.functions import Cast
 def populate_revision_content_type(apps, schema_editor):
     ContentType = apps.get_model("contenttypes.ContentType")
     Revision = apps.get_model("wagtailcore.Revision")
-    page_type = ContentType.objects.get(app_label="wagtailcore", model="page")
-    Revision.objects.all().update(
+    db = schema_editor.connection.alias
+    page_type = ContentType.objects.using(db).get(app_label="wagtailcore", model="page")
+    Revision.objects.using(db).all().update(
         base_content_type=page_type,
         content_type_id=Cast(
             KeyTextTransform("content_type", models.F("content")),
@@ -20,7 +21,8 @@ def populate_revision_content_type(apps, schema_editor):
 
 def empty_revision_content_type(apps, schema_editor):
     Revision = apps.get_model("wagtailcore.Revision")
-    Revision.objects.all().update(base_content_type=None, content_type=None)
+    db = schema_editor.connection.alias
+    Revision.objects.using(db).all().update(base_content_type=None, content_type=None)
 
 
 class Migration(migrations.Migration):
