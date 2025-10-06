@@ -39,6 +39,7 @@ Changelog
  * Maintenance: Allow exempting external templates from number formatting checks (Sage Abdullah)
  * Maintenance: Migrate file title generation to SyncController for CSP compliance (Aayushman Singh, Chiemezuo Akujobi, LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Remove outdated pytest configuration (Shivam Kumar)
+ * Maintenance: Avoid mutable default argument in `ImageNode` within image template tags (minusf)
 
 
 7.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
