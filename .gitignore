@@ -16,7 +16,6 @@ npm-debug.log*
 *.idea/
 /*.egg/
 /.cache/
-/.pytest_cache/
 /storybook-static
 /wagtail/tests/test-media/
 
