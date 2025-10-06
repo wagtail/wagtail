@@ -229,18 +229,26 @@ class BrowseView(View):
                 # Only show pages that can actually be selected as parents
                 # or pages that contain valid parent pages in their descendants
                 target_pages = Page.objects.filter(
-                    pk__in=[int(pk) for pk in self.request.GET.getlist("target_pages[]", []) if pk]
+                    pk__in=[
+                        int(pk)
+                        for pk in self.request.GET.getlist("target_pages[]", [])
+                        if pk
+                    ]
                 )
                 can_choose_root = self.request.GET.get("can_choose_root", False)
                 match_subclass = self.request.GET.get("match_subclass", True)
-                
+
                 valid_pages = []
                 for page in pages:
                     # Check if this page can be chosen as a parent
                     if can_choose_page(
-                        page, self.request.user, self.desired_classes, 
-                        can_choose_root, user_perm, target_pages=target_pages, 
-                        match_subclass=match_subclass
+                        page,
+                        self.request.user,
+                        self.desired_classes,
+                        can_choose_root,
+                        user_perm,
+                        target_pages=target_pages,
+                        match_subclass=match_subclass,
                     ):
                         valid_pages.append(page.pk)
                     else:
@@ -248,19 +256,23 @@ class BrowseView(View):
                         # This is crucial for the WorkPage -> WorkIndexPage scenario
                         descendants = page.get_descendants()
                         has_valid_descendants = False
-                        
+
                         for descendant in descendants:
                             if can_choose_page(
-                                descendant, self.request.user, self.desired_classes,
-                                can_choose_root, user_perm, target_pages=target_pages,
-                                match_subclass=match_subclass
+                                descendant,
+                                self.request.user,
+                                self.desired_classes,
+                                can_choose_root,
+                                user_perm,
+                                target_pages=target_pages,
+                                match_subclass=match_subclass,
                             ):
                                 has_valid_descendants = True
                                 break
-                        
+
                         if has_valid_descendants:
                             valid_pages.append(page.pk)
-                
+
                 pages = pages.filter(pk__in=valid_pages)
             else:
                 # Original logic for non-move operations
@@ -295,23 +307,29 @@ class BrowseView(View):
             user_perm = request.GET.get("user_perms", False)
             if user_perm in ["move_to", "bulk_move_to"]:
                 target_pages = Page.objects.filter(
-                    pk__in=[int(pk) for pk in request.GET.getlist("target_pages[]", []) if pk]
+                    pk__in=[
+                        int(pk)
+                        for pk in request.GET.getlist("target_pages[]", [])
+                        if pk
+                    ]
                 )
                 if target_pages.exists():
                     # Try to find a good starting point based on the page being moved
                     page_to_move = target_pages.first()
-                    
+
                     # Look for existing pages of the desired parent type
-                    potential_parents = Page.objects.all().type(*self.desired_classes).live()
-                    
+                    potential_parents = (
+                        Page.objects.all().type(*self.desired_classes).live()
+                    )
+
                     if potential_parents.exists():
                         # Find the best starting location - ideally where valid parents exist
                         # but show their parent so users can see the options
-                        
+
                         # Try to find a common ancestor of potential parents that's not too high up
                         common_ancestor = potential_parents.first_common_ancestor()
-                        
-                        # If the common ancestor is the root or very close to it, 
+
+                        # If the common ancestor is the root or very close to it,
                         # start at the first potential parent's parent instead
                         if common_ancestor.depth <= 2:
                             first_parent = potential_parents.first()
@@ -459,7 +477,7 @@ class BrowseView(View):
         page_to_move = None
         if user_perm in ["move_to", "bulk_move_to"] and target_pages.exists():
             page_to_move = target_pages.first()
-        
+
         context = shared_context(
             request,
             {
