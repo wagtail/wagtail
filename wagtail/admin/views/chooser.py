@@ -223,12 +223,50 @@ class BrowseView(View):
 
         # Filter them by page type
         if self.desired_classes != (Page,):
-            # restrict the page listing to just those pages that:
-            # - are of the given content type (taking into account class inheritance)
-            # - or can be navigated into (i.e. have children)
-            choosable_pages = pages.type(*self.desired_classes)
-            descendable_pages = pages.filter(numchild__gt=0)
-            pages = choosable_pages | descendable_pages
+            # For move operations, be more restrictive to reduce confusion
+            user_perm = self.request.GET.get("user_perms", False)
+            if user_perm in ["move_to", "bulk_move_to"]:
+                # Only show pages that can actually be selected as parents
+                # or pages that contain valid parent pages in their descendants
+                target_pages = Page.objects.filter(
+                    pk__in=[int(pk) for pk in self.request.GET.getlist("target_pages[]", []) if pk]
+                )
+                can_choose_root = self.request.GET.get("can_choose_root", False)
+                match_subclass = self.request.GET.get("match_subclass", True)
+                
+                valid_pages = []
+                for page in pages:
+                    # Check if this page can be chosen as a parent
+                    if can_choose_page(
+                        page, self.request.user, self.desired_classes, 
+                        can_choose_root, user_perm, target_pages=target_pages, 
+                        match_subclass=match_subclass
+                    ):
+                        valid_pages.append(page.pk)
+                    else:
+                        # Check if this page has descendants that could be valid parents
+                        # This is crucial for the WorkPage -> WorkIndexPage scenario
+                        descendants = page.get_descendants()
+                        has_valid_descendants = False
+                        
+                        for descendant in descendants:
+                            if can_choose_page(
+                                descendant, self.request.user, self.desired_classes,
+                                can_choose_root, user_perm, target_pages=target_pages,
+                                match_subclass=match_subclass
+                            ):
+                                has_valid_descendants = True
+                                break
+                        
+                        if has_valid_descendants:
+                            valid_pages.append(page.pk)
+                
+                pages = pages.filter(pk__in=valid_pages)
+            else:
+                # Original logic for non-move operations
+                choosable_pages = pages.type(*self.desired_classes)
+                descendable_pages = pages.filter(numchild__gt=0)
+                pages = choosable_pages | descendable_pages
 
         return pages
 
@@ -253,11 +291,54 @@ class BrowseView(View):
             # Just use the root page
             self.parent_page = Page.get_first_root_node()
         else:
-            # Find the highest common ancestor for the specific classes passed in
-            # In many cases, such as selecting an EventPage under an EventIndex,
-            # this will help the administrator find their page quicker.
-            all_desired_pages = Page.objects.all().type(*self.desired_classes)
-            self.parent_page = all_desired_pages.first_common_ancestor()
+            # For move operations, try to start closer to valid parent pages
+            user_perm = request.GET.get("user_perms", False)
+            if user_perm in ["move_to", "bulk_move_to"]:
+                target_pages = Page.objects.filter(
+                    pk__in=[int(pk) for pk in request.GET.getlist("target_pages[]", []) if pk]
+                )
+                if target_pages.exists():
+                    # Try to find a good starting point based on the page being moved
+                    page_to_move = target_pages.first()
+                    
+                    # Look for existing pages of the desired parent type
+                    potential_parents = Page.objects.all().type(*self.desired_classes).live()
+                    
+                    if potential_parents.exists():
+                        # Find the best starting location - ideally where valid parents exist
+                        # but show their parent so users can see the options
+                        
+                        # Try to find a common ancestor of potential parents that's not too high up
+                        common_ancestor = potential_parents.first_common_ancestor()
+                        
+                        # If the common ancestor is the root or very close to it, 
+                        # start at the first potential parent's parent instead
+                        if common_ancestor.depth <= 2:
+                            first_parent = potential_parents.first()
+                            parent_of_first = first_parent.get_parent()
+                            if parent_of_first and parent_of_first.depth > 1:
+                                self.parent_page = parent_of_first
+                            else:
+                                self.parent_page = first_parent
+                        else:
+                            # Start at the common ancestor to show all branches
+                            self.parent_page = common_ancestor
+                    else:
+                        # No existing parents of the desired type - start at root
+                        self.parent_page = Page.get_first_root_node()
+                else:
+                    # Fallback to common ancestor
+                    all_desired_pages = Page.objects.all().type(*self.desired_classes)
+                    if all_desired_pages.exists():
+                        self.parent_page = all_desired_pages.first_common_ancestor()
+                    else:
+                        self.parent_page = Page.get_first_root_node()
+            else:
+                # Find the highest common ancestor for the specific classes passed in
+                # In many cases, such as selecting an EventPage under an EventIndex,
+                # this will help the administrator find their page quicker.
+                all_desired_pages = Page.objects.all().type(*self.desired_classes)
+                self.parent_page = all_desired_pages.first_common_ancestor()
 
         self.parent_page = self.parent_page.specific
 
@@ -374,6 +455,11 @@ class BrowseView(View):
         )
 
         # Render
+        # Add page_to_move to context for better UI feedback
+        page_to_move = None
+        if user_perm in ["move_to", "bulk_move_to"] and target_pages.exists():
+            page_to_move = target_pages.first()
+        
         context = shared_context(
             request,
             {
@@ -392,6 +478,8 @@ class BrowseView(View):
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
                 "is_multiple_choice": self.is_multiple_choice,
+                "page_to_move": page_to_move,
+                "is_move_operation": user_perm in ["move_to", "bulk_move_to"],
             },
         )
 

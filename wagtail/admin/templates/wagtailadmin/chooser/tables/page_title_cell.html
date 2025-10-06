@@ -4,13 +4,26 @@
     <div class="title-wrapper">
         {% if page.can_choose %}
             {% if column.is_multiple_choice %}
-                <label for="chooser-modal-select-{{ page.id|unlocalize }}">{{ value }}</label>
+                <label for="chooser-modal-select-{{ page.id|unlocalize }}">
+                    {% icon name="doc-empty" classname="default" %}
+                    {{ value }}
+                </label>
             {% else %}
-                <a class="choose-page" href="#{{ page.id|unlocalize }}" data-id="{{ page.id|unlocalize }}" data-title="{{ page.title }}" data-admin-title="{{ page.get_admin_display_title }}" data-url="{% pageurl page %}" data-parent-id="{{ page.get_parent.id|unlocalize }}" data-edit-url="{% url 'wagtailadmin_pages:edit' page.id %}">{{ value }}</a>
+                <a class="choose-page" href="#{{ page.id|unlocalize }}" data-id="{{ page.id|unlocalize }}" data-title="{{ page.title }}" data-admin-title="{{ page.get_admin_display_title }}" data-url="{% pageurl page %}" data-parent-id="{{ page.get_parent.id|unlocalize }}" data-edit-url="{% url 'wagtailadmin_pages:edit' page.id %}">
+                    {% icon name="doc-empty" classname="default" %}
+                    {{ value }}
+                </a>
             {% endif %}
         {% else %}
+            {% comment %}For navigation-only pages (folders), show folder icon{% endcomment %}
+            {% if page.can_descend %}
+                {% icon name="folder" classname="default" %}
+            {% else %}
+                {% icon name="doc-empty" classname="default" %}
+            {% endif %}
             {{ value }}
         {% endif %}
+        
         {% if show_locale_labels %}
             {% status page.locale.get_display_name classname="w-status--label" %}
         {% endif %}
