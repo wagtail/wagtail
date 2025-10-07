@@ -125,6 +125,10 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
+7.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+
 
 7.0.3 (28.08.2025)
 ~~~~~~~~~~~~~~~~~~
