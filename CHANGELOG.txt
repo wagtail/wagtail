@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow `label_format` to be set to an empty string to hide the block summary label (Sage Abdullah)
+ * Fix: Better support userbar loading on multi-site through site hosts (Sage Abdullah)
  * Docs: Link to django-treebeard's `Node.move()` in `Page.move()` documentation (Baptiste Mispelon)
 
 
