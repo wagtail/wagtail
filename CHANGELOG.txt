@@ -4,7 +4,7 @@ Changelog
 7.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
-
+ * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
 
 7.0.3 (28.08.2025)
 ~~~~~~~~~~~~~~~~~~
