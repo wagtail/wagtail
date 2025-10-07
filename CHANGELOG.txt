@@ -6,6 +6,7 @@ Changelog
 
  * Fix: Allow `label_format` to be set to an empty string to hide the block summary label (Sage Abdullah)
  * Fix: Better support userbar loading on multi-site through site hosts (Sage Abdullah)
+ * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
  * Docs: Link to django-treebeard's `Node.move()` in `Page.move()` documentation (Baptiste Mispelon)
 
 
@@ -128,7 +129,7 @@ Changelog
 7.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
-
+ * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
 
 7.0.3 (28.08.2025)
 ~~~~~~~~~~~~~~~~~~
