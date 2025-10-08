@@ -123,6 +123,7 @@ Wagtail requires several Django app modules, third-party apps, and defines sever
 
 ```python
 from django.contrib import admin
+from django.urls import include, path, re_path
 
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
