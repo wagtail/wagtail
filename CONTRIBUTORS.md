@@ -911,6 +911,7 @@
 * Lasse Schmieding
 * Shivam Kumar
 * Pravin Kamble
+* Martin Fitzpatrick
 
 ## Translators
 
