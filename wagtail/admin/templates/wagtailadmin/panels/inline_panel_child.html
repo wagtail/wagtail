@@ -2,17 +2,25 @@
 
 {% fragment as id %}inline_child_{{ child.form.prefix }}{% endfragment %}
 {% fragment as panel_id %}{{ id }}-panel{% endfragment %}
-<div data-inline-panel-child id="{{ id }}" data-contentpath-disabled>
+<div id="{{ id }}" data-w-formset-target="child" data-contentpath-disabled data-w-orderable-target="item" data-w-orderable-item-id="{{ id }}">
     {% fragment as header_controls %}
         {% if can_order %}
-            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-up title="{% trans 'Move up' %}">{% icon name="arrow-up" %}</button>
-            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-down title="{% trans 'Move down' %}">{% icon name="arrow-down" %}</button>
-            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-drag title="{% trans 'Drag' %}">{% icon name="grip" %}</button>
+            <button type="button" class="button button--icon text-replace white" data-w-orderable-target="up" data-action="w-orderable#up" title="{% trans 'Move up' %}">
+                {% icon name="arrow-up" %}
+            </button>
+            <button type="button" class="button button--icon text-replace white" data-w-orderable-target="down" data-action="w-orderable#down" title="{% trans 'Move down' %}">
+                {% icon name="arrow-down" %}
+            </button>
+            <button type="button" class="button button--icon text-replace white" data-w-orderable-target="handle" title="{% trans 'Drag' %}">
+                {% icon name="grip" %}
+            </button>
         {% endif %}
-        <button type="button" class="button button--icon text-replace white" id="{{ child.form.DELETE.id_for_label }}-button" title="{% trans 'Delete' %}">{% icon name="bin" %}</button>
+        <button type="button" class="button button--icon text-replace white" data-action="w-formset#delete" data-w-formset-target="delete" title="{% trans 'Delete' %}">
+            {% icon name="bin" %}
+        </button>
     {% endfragment %}
     {% fragment as heading %}
-        {{ self.label|capfirst }}<span data-inline-panel-child-count></span>
+        {{ self.label|capfirst }}<span data-w-formset-target="count"></span>
     {% endfragment %}
     {% panel id=panel_id heading=heading heading_size="label" heading_level="3" header_controls=header_controls %}
         {% if child.form.non_field_errors %}

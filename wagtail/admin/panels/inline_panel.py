@@ -1,5 +1,4 @@
 import functools
-import json
 
 from django import forms
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
@@ -119,18 +118,31 @@ class InlinePanel(Panel):
             if self.form is None:
                 return
 
+            self.prepare_formset()
+
+        def prepare_formset(self):
+            """
+            Prepare the formset for rendering, including setting up child formsAdd commentMore actions
+            and handling any necessary widgets for deletion and ordering.
+            """
+
             self.formset = self.form.formsets[self.panel.relation_name]
             self.child_edit_handler = self.panel.child_edit_handler
 
             self.children = []
             for index, subform in enumerate(self.formset.forms):
                 # override the DELETE field to have a hidden input
-                subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
+                subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput(
+                    attrs={"data-w-formset-target": "deleteInput"}
+                )
 
                 # ditto for the ORDER field, if present
                 if self.formset.can_order:
                     subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput(
-                        attrs={"value": index + 1}
+                        attrs={
+                            "value": index + 1,
+                            "data-w-formset-target": "orderInput",
+                        }
                     )
 
                 self.children.append(
@@ -150,9 +162,23 @@ class InlinePanel(Panel):
                 )
 
             empty_form = self.formset.empty_form
-            empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
+            empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput(
+                attrs={"data-w-formset-target": "deleteInput"}
+            )
             if self.formset.can_order:
-                empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+                empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput(
+                    attrs={"data-w-formset-target": "orderInput"}
+                )
+
+            for field in self.formset.management_form:
+                if field.name.endswith(forms.formsets.TOTAL_FORM_COUNT):
+                    field.field.widget.attrs["data-w-formset-target"] = (
+                        "totalFormsInput"
+                    )
+                if field.name.endswith(forms.formsets.MIN_NUM_FORM_COUNT):
+                    field.field.widget.attrs["data-w-formset-target"] = "minFormsInput"
+                if field.name.endswith(forms.formsets.MAX_NUM_FORM_COUNT):
+                    field.field.widget.attrs["data-w-formset-target"] = "maxFormsInput"
 
             self.empty_child = self.child_edit_handler.get_bound_panel(
                 instance=empty_form.instance,
@@ -197,8 +223,27 @@ class InlinePanel(Panel):
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-            context["options_json"] = json.dumps(self.js_opts())
-            context["can_order"] = self.formset.can_order
+            can_order = self.formset.can_order
+            context["can_order"] = can_order
+
+            attrs = context["attrs"]
+            # Set data-controller, including any existing value
+            # Used by the w-formset controller (FormsetController)
+            # to add dynamic behaviour
+            attrs["data-controller"] = " ".join(
+                " ".join(
+                    [
+                        attrs.get("data-controller", ""),
+                        "w-formset",
+                        "w-orderable" if can_order else "",
+                    ]
+                ).split()
+            )
+
+            attrs["data-w-formset-deleted-class"] = (
+                "w-transition-opacity w-duration-300 w-ease-out w-opacity-0"
+            )
+            context["attrs"] = attrs
             return context
 
         def telepath_pack(self, context):

@@ -9,6 +9,7 @@ class BaseFormSetMixin:
     """
 
     deletion_widget = forms.HiddenInput(attrs={"data-w-formset-target": "deleteInput"})
+    ordering_widget = forms.HiddenInput(attrs={"data-w-formset-target": "orderInput"})
 
     @property
     def attrs(self):

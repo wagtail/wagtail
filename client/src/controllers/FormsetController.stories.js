@@ -50,7 +50,11 @@ const Template = ({ debug = false }) => (
             name="form-0-DELETE"
             data-w-formset-target="deleteInput"
           />
-          <button type="button" data-action="w-formset#delete">
+          <button
+            type="button"
+            data-action="w-formset#delete"
+            data-w-formset-target="delete"
+          >
             Delete
           </button>
         </li>
@@ -61,12 +65,20 @@ const Template = ({ debug = false }) => (
             name="form-1-DELETE"
             data-w-formset-target="deleteInput"
           />
-          <button type="button" data-action="w-formset#delete">
+          <button
+            type="button"
+            data-action="w-formset#delete"
+            data-w-formset-target="delete"
+          >
             Delete
           </button>
         </li>
       </ul>
-      <button data-action="w-formset#add" type="button">
+      <button
+        data-action="w-formset#add"
+        data-w-formset-target="add"
+        type="button"
+      >
         Add
       </button>
       <template
@@ -77,7 +89,7 @@ const Template = ({ debug = false }) => (
         <li data-w-formset-target="child">
           <input type="text" name="form-__prefix__-name" />
           <input type="hidden" name="form-__prefix__-DELETE" data-w-formset-target="deleteInput" />
-          <button type="button" data-action="w-formset#delete">Delete </button>
+          <button type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete </button>
         </li>`,
         }}
       />
