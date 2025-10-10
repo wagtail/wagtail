@@ -1,3 +1,4 @@
+import uuid
 from urllib.parse import urlparse
 
 from django.db import models
@@ -7,11 +8,12 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.models import Page, Site
 
+REDIRECT_NAMESPACE_UUID = uuid.UUID("4ccf35b6-0e63-49ec-a878-50e680f3ecfc")
+
 
 class Redirect(models.Model):
-    old_path = models.CharField(
-        verbose_name=_("redirect from"), max_length=255, db_index=True
-    )
+    old_path = models.TextField(verbose_name=_("redirect from"))
+    hash = models.UUIDField(editable=False, db_index=True)
     site = models.ForeignKey(
         "wagtailcore.Site",
         verbose_name=_("site"),
@@ -148,6 +150,9 @@ class Redirect(models.Model):
         redirect.is_permanent = is_permanent
         redirect.automatically_created = automatically_created
 
+        # Generate hash
+        redirect.hash = Redirect.get_redirect_hash(redirect.old_path)
+
         redirect.save()
 
         return redirect
@@ -204,6 +209,10 @@ class Redirect(models.Model):
 
         return path
 
+    @staticmethod
+    def get_redirect_hash(url):
+        return uuid.uuid5(REDIRECT_NAMESPACE_UUID, url)
+
     def clean(self):
         # Normalise old path
         self.old_path = Redirect.normalise_path(self.old_path)
@@ -215,7 +224,13 @@ class Redirect(models.Model):
         else:
             self.redirect_page_route_path = ""
 
+    def save(self, *args, **kwargs):
+        if not self.hash:
+            self.hash = Redirect.get_redirect_hash(self.old_path)
+
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = _("redirect")
         verbose_name_plural = _("redirects")
-        unique_together = [("old_path", "site")]
+        unique_together = [("hash", "site")]
