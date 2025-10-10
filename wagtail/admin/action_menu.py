@@ -4,6 +4,7 @@ from django.conf import settings
 from django.forms import Media
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -89,7 +90,8 @@ class PublishMenuItem(ActionMenuItem):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         page = context.get("page")
-        context["is_scheduled"] = page and page.go_live_at
+        go_live_at = getattr(page, "go_live_at", None) if page else None
+        context["is_scheduled"] = bool(go_live_at and go_live_at > timezone.now())
         context["is_revision"] = context["view"] == "revisions_revert"
         return context
 
