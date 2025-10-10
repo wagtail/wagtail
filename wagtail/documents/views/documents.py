@@ -256,7 +256,7 @@ class EditView(generic.EditView):
                 messages.error(
                     self.request,
                     _(
-                        "The file could not be found. Please change the source or delete the document"
+                        "The file could not be found. Please change the source or delete the document."
                     ),
                     buttons=[messages.button(self.get_delete_url(), _("Delete"))],
                 )

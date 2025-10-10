@@ -39,7 +39,7 @@ class PublishPageRevisionAction(PublishRevisionAction):
             and not self.object.permissions_for_user(self.user).can_publish()
         ):
             raise PublishPagePermissionError(
-                "You do not have permission to publish this page"
+                "You do not have permission to publish this page."
             )
 
     def _after_publish(self):
