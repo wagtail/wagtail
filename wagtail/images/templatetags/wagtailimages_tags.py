@@ -104,11 +104,11 @@ class ImageNode(template.Node):
         image_expr,
         filter_specs,
         output_var_name=None,
-        attrs={},
+        attrs=None,
     ):
         self.image_expr = image_expr
         self.output_var_name = output_var_name
-        self.attrs = attrs
+        self.attrs = attrs or {}
         self.filter_specs = filter_specs
 
     def get_filter(self):
