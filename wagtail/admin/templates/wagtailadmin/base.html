@@ -26,6 +26,22 @@
                                     {% icon name=level_tag classname="messages-icon" %}
                                 {% endif %}
                                 {{ message|safe }}
+                                {% if level_tag == "error" %}
+                                    {# Show a button to focus the first field/response error if available. #}
+                                    <button
+                                        type="button"
+                                        class="button button--icon text-replace !w-text-current w-invisible"
+                                        data-controller="w-count w-focus w-tooltip"
+                                        data-action="click->w-focus#focus"
+                                        data-w-count-active-class="!w-visible"
+                                        data-w-count-find-value=":not([hidden]):is(.error-message,.help-critical)"
+                                        data-w-focus-target-value=":not([hidden]):is(.error-message,.help-critical)"
+                                        data-w-tooltip-content-value="{% trans 'Go to the first error' %}"
+                                    >
+                                        {% icon name="arrow-right-full" %}
+                                        {% trans 'Go to the first error' %}
+                                    </button>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     {% endif %}
