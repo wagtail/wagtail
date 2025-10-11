@@ -151,7 +151,6 @@ INSTALLED_APPS = [
     "wagtail.test.demosite",
     "wagtail.test.snippets",
     "wagtail.test.routablepage",
-    "wagtail.test.search",
     "wagtail.test.i18n",
     "wagtail.test.streamfield_migrations",
     "wagtail.contrib.simple_translation",
@@ -248,6 +247,9 @@ if "ELASTICSEARCH_URL" in os.environ:
         "max_retries": 1,
         "AUTO_UPDATE": False,
         "INDEX_SETTINGS": {"settings": {"index": {"number_of_shards": 1}}},
+        "OPTIONS": {
+            "ca_certs": os.environ.get("ELASTICSEARCH_CA_CERTS"),
+        },
     }
 
 
