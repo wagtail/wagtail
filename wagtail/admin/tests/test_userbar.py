@@ -452,6 +452,9 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                     "id": "check-image-alt-text",
                     "options": {"pattern": "\\.[a-z]{1,4}$|_"},
                 },
+                {
+                    "id": "check-meta-description",
+                },
             ]
 
             # Add via method
@@ -494,6 +497,14 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                             "enabled": True,
                         },
                         {
+                            "id": "meta-description",
+                            "impact": "moderate",
+                            "selector": "html",
+                            "tags": ["best-practice"],
+                            "all": ["check-meta-description"],
+                            "enabled": True,
+                        },
+                        {
                             "id": "link-text-quality",
                             "impact": "serious",
                             "selector": "a",
@@ -506,6 +517,9 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                         {
                             "id": "check-image-alt-text",
                             "options": {"pattern": "\\.[a-z]{1,4}$|_"},
+                        },
+                        {
+                            "id": "check-meta-description",
                         },
                         {
                             "id": "check-link-text",

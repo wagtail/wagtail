@@ -41,7 +41,7 @@ class AccessibilityItem(BaseItem):
 
     #: A list of CSS selector(s) to test specific parts of the page.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
-    axe_include = ["body"]
+    axe_include = ["html"]
 
     #: A list of CSS selector(s) to exclude specific parts of the page from testing.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#exclude-elements-from-test>`__.
@@ -64,6 +64,7 @@ class AccessibilityItem(BaseItem):
         "link-name",
         "p-as-heading",
         "alt-text-quality",
+        "meta-description",
     ]
 
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
@@ -85,6 +86,14 @@ class AccessibilityItem(BaseItem):
             # If omitted, defaults to True and overrides configs in `axe_run_only`.
             "enabled": True,
         },
+        {
+            "id": "meta-description",
+            "impact": "moderate",
+            "selector": "html",
+            "tags": ["best-practice"],
+            "all": ["check-meta-description"],
+            "enabled": True,
+        },
     ]
 
     #: A list to add custom Axe checks or override their properties.
@@ -94,6 +103,9 @@ class AccessibilityItem(BaseItem):
         {
             "id": "check-image-alt-text",
             "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_"},
+        },
+        {
+            "id": "check-meta-description",
         },
     ]
 
@@ -136,6 +148,12 @@ class AccessibilityItem(BaseItem):
         "alt-text-quality": {
             "error_name": _("Image alt text has inappropriate pattern"),
             "help_text": _("Use meaningful text"),
+        },
+        "meta-description": {
+            "error_name": _("Meta description tag is empty"),
+            "help_text": _(
+                "Add a concise meta description for better accessibility and SEO."
+            ),
         },
     }
 
