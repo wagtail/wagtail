@@ -281,6 +281,15 @@ export class PreviewController extends Controller<HTMLElement> {
   updatePromise: Promise<boolean> | null = null;
 
   /**
+   * Promise for the current iframe reload. This is resolved when the new
+   * iframe's `load` event is fired and the scroll position has been restored.
+   */
+  reloadPromise: Promise<void> | null = null;
+
+  /** Resolver function for the current iframe reload promise. */
+  #reloadPromiseResolve: (() => void) | null = null;
+
+  /**
    * Promise for the current content checks request. This resolved when both
    * the content checks and the accessibility checks are completed. Useful for
    * queueing the checks, as Axe does not allow concurrent runs.
@@ -725,6 +734,10 @@ export class PreviewController extends Controller<HTMLElement> {
    * iframe from flashing when reloading.
    */
   reloadIframe() {
+    this.reloadPromise = new Promise<void>((resolve) => {
+      this.#reloadPromiseResolve = resolve;
+    });
+
     const loadEvent = this.dispatch('load');
     if (loadEvent.defaultPrevented) {
       // The load event is cancelled, so don't reload the iframe
@@ -971,6 +984,13 @@ export class PreviewController extends Controller<HTMLElement> {
    * @returns An `ExtractedContent` object with `lang`, `innerText`, and `innerHTML` properties.
    */
   async extractContent(options?: ContentExtractorOptions) {
+    if (!this.ready) {
+      // Preview panel likely hasn't been opened, force an update to ensure
+      // the preview iframe is loaded with the current data.
+      await this.checkAndUpdatePreview();
+      await this.reloadPromise;
+    }
+
     return getPreviewContent(options || this.contentExtractorOptions);
   }
 
@@ -999,6 +1019,10 @@ export class PreviewController extends Controller<HTMLElement> {
       this.dispatch('ready', { cancelable: false });
     }
     this.dispatch('updated', { cancelable: false });
+
+    this.#reloadPromiseResolve?.();
+    this.reloadPromise = null;
+    this.#reloadPromiseResolve = null;
   }
 
   /**

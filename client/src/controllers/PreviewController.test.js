@@ -2396,6 +2396,24 @@ describe('PreviewController', () => {
       expect(content).toEqual(mockExtractedContent);
     });
 
+    it('should not require opening the panel to do content extraction', async () => {
+      application = Application.start();
+      application.register(identifier, PreviewController);
+      await Promise.resolve();
+
+      const controller = application.getControllerForElementAndIdentifier(
+        document.querySelector('[data-controller="w-preview"]'),
+        identifier,
+      );
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      mockAxeResults();
+      const content = controller.extractContent();
+      await jest.runOnlyPendingTimersAsync();
+      await expectIframeReloaded();
+      expect(await content).toEqual(mockExtractedContent);
+    });
+
     it('should clean up event listeners on disconnect', async () => {
       mockAxeResults();
       const panel = document.querySelector('[data-side-panel="checks"]');
