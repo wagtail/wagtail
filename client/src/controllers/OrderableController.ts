@@ -13,8 +13,11 @@ enum Direction {
  * Enables the ability for drag & drop or manual re-ordering of elements
  * within a prescribed container or the controlled element.
  *
- * Once re-ordering is completed an async request will be made to the
- * provided URL to submit the update per item.
+ * If a url value is provided, the controller will submit the updated
+ * order to the server via an async POST request once re-ordering is
+ * completed (via drag & drop) or manually via calling the submit method.
+ * This allows for granular keyboard control without submitting to the server
+ * every change.
  *
  * @example
  * ```html
@@ -33,7 +36,7 @@ export class OrderableController extends Controller<HTMLElement> {
     container: { default: '', type: String },
     message: { default: '', type: String },
     name: { default: '', type: String },
-    url: String,
+    url: { default: '', type: String },
   };
 
   declare readonly handleTarget: HTMLElement;
@@ -89,7 +92,7 @@ export class OrderableController extends Controller<HTMLElement> {
         this.element.classList.add(...this.activeClasses);
       },
       onEnd: ({
-        item,
+        item: currentTarget,
         newIndex,
         oldIndex,
       }: {
@@ -99,7 +102,7 @@ export class OrderableController extends Controller<HTMLElement> {
       }) => {
         this.element.classList.remove(...this.activeClasses);
         if (oldIndex === newIndex) return;
-        this.submit({ ...this.getItemData(item), newIndex });
+        this.apply({ currentTarget }, newIndex);
       },
       setData: (dataTransfer: DataTransfer) => {
         dataTransfer.setData(
@@ -115,32 +118,79 @@ export class OrderableController extends Controller<HTMLElement> {
     return this.sortable?.toArray() ?? [];
   }
 
-  getItemData(target: EventTarget | null) {
+  /**
+   * Apply the updated ordering to the server if the url value is provided,
+   * dispatch events before & after the submission.
+   */
+  apply(
+    { currentTarget }: { currentTarget: EventTarget | null },
+    newIndexOverride?: number,
+  ) {
+    const urlValue = this.urlValue;
+    if (!urlValue) return;
+
     const identifier = this.identifier;
     const item =
-      target instanceof HTMLElement &&
-      target.closest(`[data-${identifier}-target='item']`);
+      currentTarget instanceof HTMLElement &&
+      currentTarget.closest(`[data-${identifier}-target='item']`);
 
-    if (!item) return { id: '', label: '' };
+    if (!item) return;
 
-    return {
-      id: item.getAttribute(`data-${identifier}-item-id`) || '',
-      label: item.getAttribute(`data-${identifier}-item-label`) || '',
-    };
+    const id = item.getAttribute(`data-${identifier}-item-id`) || '';
+    const label = item.getAttribute(`data-${identifier}-item-label`) || '';
+
+    const newIndex = newIndexOverride ?? this.order.indexOf(id);
+
+    this.dispatch('submitting', {
+      bubbles: true,
+      cancelable: false,
+      detail: { id, newIndex },
+    });
+
+    const url = [
+      urlValue.replace('999999', id),
+      newIndex === null ? '' : `?position=${newIndex}`,
+    ].join('');
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      })
+      .then(() => {
+        const message = (this.messageValue || '__LABEL__').replace(
+          '__LABEL__',
+          label,
+        );
+
+        this.dispatch('w-messages:add', {
+          prefix: '',
+          target: window.document,
+          detail: { clear: true, text: message, type: 'success' },
+          cancelable: false,
+        });
+      })
+      .catch((error) => {
+        throw error;
+      })
+      .finally(() => {
+        this.dispatch('submitted', {
+          bubbles: true,
+          cancelable: false,
+          detail: { id, newIndex },
+        });
+      });
   }
 
   /**
-   * Applies a manual move using up/down methods.
-   */
-  apply({ currentTarget }: Event) {
-    const { id, label } = this.getItemData(currentTarget);
-    const newIndex = this.order.indexOf(id);
-    this.submit({ id, label, newIndex });
-  }
-
-  /**
-   * Calculate a manual move either up or down and prepare the Sortable
-   * data for re-ordering.
+   * Calculate a manual move either up or down and re-order (sort) the elements
+   * without applying to the server.
    */
   move({ currentTarget }: Event, direction: Direction) {
     const identifier = this.identifier;
@@ -185,52 +235,6 @@ export class OrderableController extends Controller<HTMLElement> {
   down(event: Event) {
     this.move(event, Direction.Down);
     forceFocus(event.currentTarget as HTMLElement);
-  }
-
-  /**
-   * Submit an updated ordering to the server.
-   */
-  submit({
-    id,
-    label,
-    newIndex,
-  }: {
-    id: string;
-    label: string;
-    newIndex: number;
-  }) {
-    let url = this.urlValue.replace('999999', id);
-    if (newIndex !== null) {
-      url += '?position=' + newIndex;
-    }
-
-    const message = (this.messageValue || '__LABEL__').replace(
-      '__LABEL__',
-      label,
-    );
-
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-      })
-      .then(() => {
-        this.dispatch('w-messages:add', {
-          prefix: '',
-          target: window.document,
-          detail: { clear: true, text: message, type: 'success' },
-          cancelable: false,
-        });
-      })
-      .catch((error) => {
-        throw error;
-      });
   }
 
   disconnect() {
