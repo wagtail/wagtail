@@ -18,20 +18,20 @@ import { runInlineScripts } from '../utils/runInlineScripts';
  *     <li data-w-formset-target="child">
  *       <input type="text" name="form-0-name">
  *       <input type="hidden" name="form-0-DELETE" data-w-formset-target="deleteInput">
- *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *       <button type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
  *     </li>
  *     <li data-w-formset-target="child">
  *       <input type="text" name="form-1-name">
  *       <input type="hidden" name="form-1-DELETE" data-w-formset-target="deleteInput">
- *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *       <button type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
  *     </li>
  *   </ul>
- *   <button type="button" data-action="w-formset#add">Add</button>
+ *   <button type="button" data-action="w-formset#add" data-w-formset-target="add">Add</button>
  *   <template data-w-formset-target="template">
  *     <li data-w-formset-target="child">
  *       <input type="text" name="form-__prefix__-name">
  *       <input type="hidden" name="form-__prefix__-DELETE" data-w-formset-target="deleteInput">
- *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *       <button type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
  *     </li>
  *   </template>
  * </form>
@@ -41,7 +41,9 @@ export class FormsetController extends Controller<HTMLElement> {
   static classes = ['deleted'];
 
   static targets = [
+    'add',
     'child',
+    'delete',
     'deleted',
     'deleteInput',
     'forms',
@@ -57,8 +59,12 @@ export class FormsetController extends Controller<HTMLElement> {
     total: { default: 0, Number },
   };
 
+  /** Elements that trigger the adding of a child. */
+  declare readonly addTargets: HTMLButtonElement[];
   /** Active child form elements. */
   declare readonly childTargets: HTMLElement[];
+  /** Elements that trigger the deleting of a child. */
+  declare readonly deleteTargets: HTMLButtonElement[];
   /** Classes to append when transitioning from an active child to a deleted form. */
   declare readonly deletedClasses: string[];
   /** Tracking of deleted child form elements. */
