@@ -59,13 +59,7 @@ export class OrderableController extends Controller<HTMLElement> {
   /** Base URL template to use for submitting an updated order for a specific item. */
   declare urlValue: string;
 
-  order: string[];
   sortable: ReturnType<typeof Sortable.create>;
-
-  constructor(context) {
-    super(context);
-    this.order = [];
-  }
 
   connect() {
     const containerSelector = this.containerValue;
@@ -74,7 +68,6 @@ export class OrderableController extends Controller<HTMLElement> {
       this.element) as HTMLElement;
 
     this.sortable = Sortable.create(container, this.options);
-    this.order = this.sortable.toArray();
 
     this.dispatch('ready', {
       cancelable: false,
@@ -106,7 +99,6 @@ export class OrderableController extends Controller<HTMLElement> {
       }) => {
         this.element.classList.remove(...this.activeClasses);
         if (oldIndex === newIndex) return;
-        this.order = this.sortable.toArray();
         this.submit({ ...this.getItemData(item), newIndex });
       },
       setData: (dataTransfer: DataTransfer) => {
@@ -116,6 +108,11 @@ export class OrderableController extends Controller<HTMLElement> {
         );
       },
     };
+  }
+
+  /** The current order of item IDs as an array of strings. */
+  get order(): string[] {
+    return this.sortable?.toArray() ?? [];
   }
 
   getItemData(target: EventTarget | null) {
@@ -154,19 +151,20 @@ export class OrderableController extends Controller<HTMLElement> {
     if (!item) return;
 
     const id = item.getAttribute(`data-${identifier}-item-id`) || '';
-    const newIndex = this.order.indexOf(id);
+    const order = this.order;
+    const newIndex = order.indexOf(id);
 
-    this.order.splice(newIndex, 1);
+    order.splice(newIndex, 1);
 
     if (direction === Direction.Down) {
-      this.order.splice(newIndex + 1, 0, id);
+      order.splice(newIndex + 1, 0, id);
     } else if (direction === Direction.Up && newIndex > 0) {
-      this.order.splice(newIndex - 1, 0, id);
+      order.splice(newIndex - 1, 0, id);
     } else {
-      this.order.splice(newIndex, 0, id); // to stop at the top
+      order.splice(newIndex, 0, id); // to stop at the top
     }
 
-    this.sortable.sort(this.order, true);
+    this.sortable.sort(order, true);
   }
 
   /**
