@@ -1,5 +1,12 @@
 import { InlinePanel } from '../InlinePanel';
 
+/**
+ * Attaches behavior for a MultipleChooserPanel where multiple items can be chosen
+ * from a chooser modal and added to the formset.
+ *
+ * @deprecated - Will be removed in a future release once fully migrated to Stimulus.
+ * @see `client/src/controllers/FormsetController.ts` for the future (WIP) implementation.
+ */
 export class MultipleChooserPanel extends InlinePanel {
   constructor(opts, initControls = true) {
     super(opts);
