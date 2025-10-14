@@ -215,6 +215,20 @@ export class FormsetController extends Controller<HTMLElement> {
     if (deleteInput.value === '1') return;
 
     deleteInput.value = '1';
+
+    // Update button states after deletion
+    const activeCount = this.childTargets.length;
+    const disableAdd = activeCount >= this.maxValue;
+    const disableDelete = activeCount <= this.minValue;
+
+    this.addTargets.forEach((button) => {
+      button.disabled = disableAdd;
+    });
+
+    this.deleteTargets.forEach((button) => {
+      button.disabled = disableDelete;
+    });
+
     this.dispatch('change', {
       prefix: '',
       target: deleteInput,
@@ -225,10 +239,24 @@ export class FormsetController extends Controller<HTMLElement> {
   /**
    * When the totalValue changes, update the management fields and dispatch
    * a change event for the TOTAL_FORMS input.
+   *
+   * Disable any add or delete buttons based on the min/max values and current total,
+   * even if the total value has not changed (e.g. on initial load).
    */
   totalValueChanged(currentValue: number, previousValue: number | undefined) {
     if (currentValue === previousValue || previousValue === undefined) return;
     const totalFormsInput = this.totalFormsInputTarget;
+
+    const disableAdd = currentValue >= this.maxValue;
+    const disableDelete = currentValue <= this.minValue;
+
+    this.addTargets.forEach((button) => {
+      button.disabled = disableAdd;
+    });
+
+    this.deleteTargets.forEach((button) => {
+      button.disabled = disableDelete;
+    });
 
     if (totalFormsInput.value === `${currentValue}`) return;
 
