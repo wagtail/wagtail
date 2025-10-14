@@ -31,15 +31,24 @@ export class StructBlock {
     }
 
     if (blockDef.meta.formTemplate) {
-      let dom = $(container);
-      $(placeholder).replaceWith(dom);
-
-      if (this.blockDef.collapsible) {
-        dom = this.#initializeCollapsiblePanel(dom, prefix);
-      }
-
       const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
-      dom.append(html);
+
+      let dom;
+      if (container) {
+        // Replace the placeholder with the collapsible panel container so it's
+        // mounted to the DOM and can be initialized.
+        dom = $(container);
+        $(placeholder).replaceWith(dom);
+        // Initialize the collapsible panel and append the form template HTML
+        // to the content area of the collapsible panel.
+        dom = this.#initializeCollapsiblePanel(dom, prefix);
+        dom.append(html);
+      } else {
+        // Collapsible panel is handled by the parent block, so just
+        // replace the placeholder with the form template HTML.
+        dom = $(html);
+        $(placeholder).replaceWith(dom);
+      }
 
       const blockErrors = initialError?.blockErrors || {};
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
@@ -205,7 +214,8 @@ export class StructBlock {
   }
 
   getTextLabel(opts) {
-    if (this.blockDef.meta.labelFormat) {
+    // Allow using the empty string for the additional text in collapsed state
+    if (typeof this.blockDef.meta.labelFormat === 'string') {
       /* use labelFormat - regexp replace any field references like '{first_name}'
       with the text label of that sub-block */
       return this.blockDef.meta.labelFormat.replace(

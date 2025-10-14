@@ -739,7 +739,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Check that we are committing the slug to the database
             # Basically: If update_fields has been specified, and slug is not included, skip this step
             if not (
-                "update_fields" in kwargs and "slug" not in kwargs["update_fields"]
+                "update_fields" in kwargs
+                and kwargs["update_fields"] is not None
+                and "slug" not in kwargs["update_fields"]
             ):
                 # see if the slug has changed from the record in the db, in which case we need to
                 # update url_path of self and all descendants. Even though we might not need it,
@@ -2700,12 +2702,12 @@ class Comment(ClusterableModel):
             # comment applies to the field as a whole
             return True
 
-        if not isinstance(field, StreamField):
-            # only StreamField supports content paths that are deeper than one level
+        # e.g. StreamField supports content paths that are deeper than one level
+        if not hasattr(field, "get_block_by_content_path"):
             return False
 
-        stream_value = getattr(page, field_name)
-        block = field.get_block_by_content_path(stream_value, remainder)
+        field_value = getattr(page, field_name)
+        block = field.get_block_by_content_path(field_value, remainder)
         # content path is valid if this returns a BoundBlock rather than None
         return bool(block)
 

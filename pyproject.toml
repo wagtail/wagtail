@@ -104,11 +104,6 @@ wagtail = "wagtail.bin.wagtail:main"
 ignore = ["D001"]
 ignore_path = ["_build", "docs/_build"]
 
-[tool.pytest.ini_options]
-django_find_project = false
-python_files = ["test_*.py"]
-testpaths = ["wagtail"]
-
 [tool.setuptools.packages.find]
 include = ["wagtail*"]
 

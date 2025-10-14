@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
@@ -34,6 +35,17 @@ msgstr ""
 "Eşleşme için tam arama kelimelerini girin. Tanıtılan Sonuçlar için tam "
 "eşleşme olması gerekiyor, özel sembollere (wildcards) izin verilmiyor."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Eğer bir dış bağlantı URL'si giriyorsanız, bir dış bağlantı metni de "
+"girmeniz gerekir."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Bir sayfa veya bir dış bağlantı önermelisiniz."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Lütfen yalnızca bir sayfa seçin veya bir dış bağlantı girin."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Arama terimi için lütfen en az bir öneri belirleyin."
 
@@ -43,8 +55,14 @@ msgstr "Sorgu Günlük Tıklanması"
 msgid "page"
 msgstr "sayfa"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Bu tanıtım için bir iç sayfa seçin"
+
 msgid "description"
 msgstr "açıklama"
+
+msgid "Applies to internal page or external link"
+msgstr "İç sayfa veya dış bağlantı için geçerlidir"
 
 msgid "search promotion"
 msgstr "arama tanıtımı"
@@ -86,6 +104,9 @@ msgstr ""
 "Hiçbir tanıtılan sonuç oluştuurlmadı. Neden <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">bir tane eklemiyorsunuz</a>?"
 
+msgid "No promoted results have been created."
+msgstr "Hiçbir tanıtılan sonuç oluşturulmadı."
+
 msgid "Popular search terms"
 msgstr "Yaygın arama terimleri"
 
@@ -94,6 +115,9 @@ msgstr "Ara"
 
 msgid "Terms"
 msgstr "Terimler"
+
+msgid "Views"
+msgstr "Görünümler"
 
 msgid "No results found"
 msgstr "Sonuç bulunamadı"

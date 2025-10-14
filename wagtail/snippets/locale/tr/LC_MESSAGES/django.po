@@ -5,7 +5,7 @@
 # Translators:
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
-# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
@@ -63,6 +63,9 @@ msgstr "Wagtail blokları"
 msgid "Delete"
 msgstr "Sil"
 
+msgid "Delete selected snippets"
+msgstr "Seçilen blokları sil"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' silindi."
@@ -90,8 +93,26 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Üzgünüm, \"<em>%(search_query)s</em>\" ile eşleşen hiçbir blok bulunamadı."
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Henüz hiçbir %(snippet_type_name)s bloğu oluşturmadınız. Neden <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">şimdi bir tane oluşturmuyorsunuz</a>?"
+
 msgid "Publishing…"
 msgstr "Yayınlanıyor…"
+
+msgid "Schedule to publish"
+msgstr "Yayınlamak için zamanla"
 
 msgid "Publish this version"
 msgstr "Bu düzeltmeyi yayınla"
@@ -105,6 +126,9 @@ msgstr "Şimdiki taslağın yerine koy"
 msgid "Save draft"
 msgstr "Taslağı kaydet"
 
+msgid "Select all snippets in listing"
+msgstr "Listede tüm blokları seç"
+
 msgid "Choose"
 msgstr "Seç"
 
@@ -113,6 +137,13 @@ msgstr "Bloklar"
 
 msgid "Name"
 msgstr "Ad"
+
+msgid "Instances"
+msgstr "Örnekler"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr " '%(title)s' için daha fazla seçenek"
 
 msgid "Home"
 msgstr "Anasayfa"

@@ -725,7 +725,11 @@ class SpecificIterable(ModelIterable):
                     "This is most likely because a database migration has removed "
                     "the relevant table or record since the item was created:\n{}".format(
                         [
-                            {"id": p.id, "title": p.title, "type": p.content_type}
+                            {
+                                "id": p.id,
+                                "title": getattr(p, "title", str(p)),
+                                "type": p.content_type,
+                            }
                             for p in generic_items.values()
                         ]
                     ),
@@ -774,7 +778,8 @@ class DeferredSpecificIterable(ModelIterable):
                 warnings.warn(
                     "A specific version of the following object could not be returned "
                     "because the specific model is not present on the active "
-                    f"branch: <{obj.__class__.__name__} id='{obj.id}' title='{obj.title}' "
+                    f"branch: <{obj.__class__.__name__} id='{obj.id}' "
+                    f"title='{getattr(obj, 'title', str(obj))}' "
                     f"type='{obj.content_type}'>",
                     category=RuntimeWarning,
                 )

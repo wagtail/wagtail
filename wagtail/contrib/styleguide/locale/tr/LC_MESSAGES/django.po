@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:09+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail style guide"
 msgstr "Wagtail stil kılavuzu"
+
+msgid "Minimap"
+msgstr "Minik harita"
 
 msgid "Save"
 msgstr "Kaydet"

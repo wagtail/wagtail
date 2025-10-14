@@ -4,9 +4,11 @@
 # USE_THOUSAND_SEPARATOR = True incorrectly reformats numbers that are not intended to be
 # human-readable (such as image dimensions, or IDs within data attributes).
 
+from contextlib import contextmanager
 from decimal import Decimal
 
 import django.contrib.humanize.templatetags.humanize
+import django.template.base
 import django.template.defaultfilters
 import django.templatetags.l10n
 import django.utils.numberformat
@@ -17,6 +19,34 @@ from django.utils.translation import gettext, ngettext
 
 original_numberformat = django.utils.numberformat.format
 original_intcomma = django.contrib.humanize.templatetags.humanize.intcomma
+OriginalVariableNode = django.template.base.VariableNode
+
+
+@contextmanager
+def ignore_numberformat(template_names):
+    class VariableNode(OriginalVariableNode):
+        def render(self, context):
+            template_name = context.render_context.template.origin.template_name
+            # If the template being rendered is in the list of templates to ignore,
+            # restore the original numberformat function so the template can render
+            # normally, otherwise reinforce the patch as there might be multiple
+            # templates being rendered in the lifespan of the contextmanager.
+            if template_name in template_names:
+                django.utils.numberformat.format = original_numberformat
+            else:
+                django.utils.numberformat.format = patched_numberformat
+
+            return super().render(context)
+
+    # Within the contextmanager, use a VariableNode class that conditionally
+    # enforces the numberformat patch
+    django.template.base.VariableNode = VariableNode
+
+    try:
+        yield
+    finally:
+        # Restore VariableNode to always enforce the numberformat patch
+        django.template.base.VariableNode = OriginalVariableNode
 
 
 def patched_numberformat(*args, use_l10n=None, **kwargs):

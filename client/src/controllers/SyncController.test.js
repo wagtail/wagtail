@@ -390,4 +390,229 @@ describe('SyncController', () => {
       expect(document.getElementById('pet-select').value).toEqual('pikachu');
     });
   });
+
+  describe('value normalization', () => {
+    beforeAll(() => {
+      application?.stop();
+    });
+
+    it('should return the value as-is by default', async () => {
+      document.body.innerHTML = /* html */ `
+        <section>
+          <input
+            type="text"
+            name="title"
+            maxlength="255"
+            required
+            id="id_title"
+          />
+          <input
+            type="text"
+            name="other"
+            data-controller="w-sync"
+            data-action="change->w-sync#apply"
+            data-w-sync-normalize-value="true"
+            data-w-sync-target-value="#id_title"
+            required
+            id="id_other"
+          />
+        </section>
+      `;
+
+      application = Application.start();
+
+      application.register('w-sync', SyncController);
+
+      await Promise.resolve();
+
+      expect(document.getElementById('id_title').value).toEqual('');
+
+      const otherInput = document.getElementById('id_other');
+      otherInput.value = 'something';
+      otherInput.dispatchEvent(new Event('change'));
+
+      jest.runAllTimers();
+
+      expect(document.getElementById('id_title').value).toEqual('something');
+    });
+
+    it('should normalize file input values by removing fakepath and extension', async () => {
+      document.body.innerHTML = /* html */ `
+        <section>
+          <input
+            type="text"
+            name="title"
+            maxlength="255"
+            required
+            id="id_title"
+          />
+          <input
+            type="file"
+            name="file"
+            data-controller="w-sync"
+            data-action="change->w-sync#apply"
+            data-w-sync-normalize-value="true"
+            data-w-sync-target-value="#id_title"
+            required
+            id="id_file"
+          />
+        </section>
+      `;
+
+      application = Application.start();
+
+      application.register('w-sync', SyncController);
+
+      await Promise.resolve();
+
+      expect(document.getElementById('id_title').value).toEqual('');
+
+      const fileInput = document.getElementById('id_file');
+
+      // JSDOM does not support setting the value of a file input directly.
+      // https://github.com/jsdom/jsdom/issues/1272
+      Object.defineProperty(fileInput, 'value', {
+        value: 'C:\\fakepath\\my image.png',
+      });
+      fileInput.dispatchEvent(new Event('change'));
+
+      jest.runAllTimers();
+
+      expect(document.getElementById('id_title').value).toEqual('my image');
+    });
+  });
+
+  describe('legacy title generation customization event handling', () => {
+    let eventListener;
+
+    beforeEach(() => {
+      application?.stop();
+      document.body.innerHTML = /* html */ `
+        <form>
+          <input
+            type="text"
+            name="title"
+            maxlength="255"
+            required
+            id="id_title"
+          />
+          <input
+            type="file"
+            name="file"
+            data-controller="w-sync"
+            data-action="change->w-sync#apply"
+            data-w-sync-bubbles-param="true"
+            data-w-sync-name-value="wagtail:documents-upload"
+            data-w-sync-normalize-value="true"
+            data-w-sync-target-value="#id_title"
+            required
+            id="id_file"
+          />
+        </form>
+      `;
+    });
+
+    afterEach(() => {
+      document.removeEventListener('wagtail:documents-upload', eventListener);
+    });
+
+    it('should dispatch legacy event with mutable data.title property', async () => {
+      eventListener = (event) => {
+        expect(event.target).toBeInstanceOf(HTMLFormElement);
+        expect(event.detail.data.title).toEqual('my document');
+        expect(event.detail.maxTitleLength).toEqual(255);
+        expect(event.detail.filename).toEqual('my document.pdf');
+        const extension = (event.detail.filename.match(
+          /\.([^.]*?)(?=\?|#|$)/,
+        ) || [''])[1];
+        const newTitle = `(${extension.toUpperCase()}) ${event.detail.data.title || ''}`;
+        event.detail.data.title = newTitle;
+      };
+
+      document.addEventListener('wagtail:documents-upload', eventListener);
+
+      application = Application.start();
+      application.register('w-sync', SyncController);
+
+      await Promise.resolve();
+
+      expect(document.getElementById('id_title').value).toEqual('');
+
+      const fileInput = document.getElementById('id_file');
+
+      // JSDOM does not support setting the value of a file input directly.
+      // https://github.com/jsdom/jsdom/issues/1272
+      Object.defineProperty(fileInput, 'value', {
+        value: 'C:\\fakepath\\my document.pdf',
+      });
+      fileInput.dispatchEvent(new Event('change'));
+
+      jest.runAllTimers();
+
+      expect(document.getElementById('id_title').value).toEqual(
+        '(PDF) my document',
+      );
+    });
+
+    it('should allow cancelling the automatic title generation', async () => {
+      eventListener = (event) => {
+        expect(event.target).toBeInstanceOf(HTMLFormElement);
+        expect(event.detail.data.title).toEqual('my image');
+        expect(event.detail.maxTitleLength).toBeNull();
+        expect(event.detail.filename).toEqual('my image.png');
+        event.preventDefault();
+      };
+
+      document.addEventListener('wagtail:images-upload', eventListener);
+
+      const fileInput = document.getElementById('id_file');
+      const titleInput = document.getElementById('id_title');
+      fileInput.setAttribute('data-w-sync-name-value', 'wagtail:images-upload');
+      titleInput.removeAttribute('maxlength');
+
+      application = Application.start();
+      application.register('w-sync', SyncController);
+
+      await Promise.resolve();
+
+      expect(titleInput.value).toEqual('');
+
+      // JSDOM does not support setting the value of a file input directly.
+      // https://github.com/jsdom/jsdom/issues/1272
+      Object.defineProperty(fileInput, 'value', {
+        value: 'C:\\fakepath\\my image.png',
+      });
+      fileInput.dispatchEvent(new Event('change'));
+
+      jest.runAllTimers();
+
+      expect(titleInput.value).toEqual('');
+    });
+
+    it('should ignore unknown legacy events', async () => {
+      eventListener = jest.fn();
+      const fileInput = document.getElementById('id_file');
+      fileInput.setAttribute('data-w-sync-name-value', 'unknown:event');
+
+      document.addEventListener('unknown:event', eventListener);
+
+      application = Application.start();
+      application.register('w-sync', SyncController);
+
+      await Promise.resolve();
+
+      expect(document.getElementById('id_title').value).toEqual('');
+
+      // JSDOM does not support setting the value of a file input directly.
+      Object.defineProperty(fileInput, 'value', {
+        value: 'C:\\fakepath\\my document.pdf',
+      });
+      fileInput.dispatchEvent(new Event('change'));
+
+      jest.runAllTimers();
+
+      expect(document.getElementById('id_title').value).toEqual('my document');
+      expect(eventListener).not.toHaveBeenCalled();
+    });
+  });
 });

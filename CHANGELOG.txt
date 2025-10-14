@@ -8,13 +8,25 @@ Changelog
  * Add usage count filter to the admin image and document listings (Joel William)
  * Add keyboard shortcut (`?`) to activate the keyboard shortcuts dialog (Dhruvi Patel)
  * Add keyboard shortcut (`/`) to activate and focus on the search input in the sidebar (Dhruvi Patel)
+ * Allow deep contentpath for comments on fields other than StreamField (Lasse Schmieding, Sébastien Corbin, Joel William, Sage Abdullah)
+ * Reorganize keyboard shortcuts into better categories with an ordering from most common to most specific (Dhruvi Patel)
+ * Add `max_value` of 100 (%) for the `closeness` field in Image URL Generator form (LB (Ben) Johnston)
  * Fix: Use the correct method of resolving the file storage dynamically for FileField usage in images & documents (Amir Mahmoodi)
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
+ * Fix: Prevent error from default `update_fields` parameter on `Page.asave()` (Tosinibikunle)
+ * Fix: Ignore hidden error messages in minimap & `CountController` default `findValue` (Sage Abdullah)
+ * Fix: Change default ordering for `UserViewSet` to `User.USERNAME_FIELD` to support default ordering ordering with custom User models that may not have a `name` field (Lynwee)
+ * Fix: Ensure starter tests in the project template pass (Lasse Schmieding)
+ * Fix: Ensure fixed RichText toolbar shows under footer actions (Maciek Baron)
+ * Fix: Prevent error when iterating over specific tasks with missing models (Lasse Schmieding)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami (Yemeni))
  * Docs: Fix incorrect import references in getting started tutorial (Hunzlah Malik)
+ * Docs: Fix code example for `construct_wagtail_userbar` (Baptiste Mispelon)
+ * Docs: Add a note about CSP for background image position and responsive embed styles (Thibaud Colas, Chiemezuo Akujobi, Sage Abdullah)
+ * Docs: Add guidance for AI-led contributions to contributor docs (Andrew Selzer)
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
  * Maintenance: Updated NPM packages and linting configuration (LB (Ben) Johnston)
  * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
@@ -22,13 +34,29 @@ Changelog
  * Maintenance: Add semgrep rules for inline styles and scripts (Chiemezuo Akujobi, Sage Abdullah)
  * Maintenance: Fix intermittent test failures caused by nondeterministic order in TestFilteredModelChoiceField (Sage Abdullah)
  * Maintenance: Add support for `attrs` in `formattedfield` tag & clean up other usages of the `attrs` template include (LB (Ben) Johnston)
+ * Maintenance: Allow exempting external templates from number formatting checks (Sage Abdullah)
+ * Maintenance: Migrate file title generation to SyncController for CSP compliance (Aayushman Singh, Chiemezuo Akujobi, LB (Ben) Johnston, Sage Abdullah)
+ * Maintenance: Remove outdated pytest configuration (Shivam Kumar)
 
 
-7.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Allow `label_format` to be set to an empty string to hide the block summary label (Sage Abdullah)
+ * Fix: Better support userbar loading on multi-site through site hosts (Sage Abdullah)
+ * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
+ * Docs: Link to django-treebeard's `Node.move()` in `Page.move()` documentation (Baptiste Mispelon)
+
+
+7.1.1 (28.08.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Fix crash when the Wagtail API is accessed without `rest_framework` installed (Vijay Raj)
  * Fix: Fix failure of `FieldPanel` and `TitleFieldPanel` with `read_only=True` (Sage Abdullah)
+ * Fix: Fix broken Javascript interactions on nested inline panels (Matt Westcott, Sage Abdullah)
+ * Fix: Fix rendering of StructBlock with custom form templates (Sage Abdullah)
+ * Fix: Prevent crash when previewing a form page with an empty field type (Sage Abdullah)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Add section about closing stale pull requests to the issue tracking documentation (Thibaud Colas, Sage Abdullah, LB (Ben) Johnston)
@@ -135,6 +163,16 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
+7.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
+
+7.0.3 (28.08.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent crash when previewing a form page with an empty field type (Sage Abdullah)
+
 
 7.0.2 (24.07.2025)
 ~~~~~~~~~~~~~~~~~~
@@ -142,6 +180,7 @@ Changelog
  * Fix: Prevent error when restoring scroll position for cross-domain preview iframe (Sage Abdullah)
  * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
  * Fix: Ensure the editing of translation alias pages correctly shows links to the source page if the alias was created from a draft (Dan Braghis)
+
 
 7.0.1 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~

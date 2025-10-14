@@ -547,6 +547,7 @@ describe('telepath: wagtail.blocks.StructBlock with nested collapsible panel', (
 describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
   let boundBlock;
   let blockDefWithBadLabelFormat;
+  let blockDefWithEmptyLabelFormat;
 
   beforeEach(() => {
     // Create mocks for callbacks
@@ -599,6 +600,11 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
       'heading_block',
       [headingTextBlockDef, sizeBlockDef],
       { ...blockOpts, labelFormat: '{bad_variable} - {size}' },
+    );
+    blockDefWithEmptyLabelFormat = new StructBlockDefinition(
+      'heading_block',
+      [headingTextBlockDef, sizeBlockDef],
+      { ...blockOpts, labelFormat: '' },
     );
 
     // Render it
@@ -684,6 +690,19 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
       },
     );
     expect(boundBlock.getTextLabel()).toBe(' - label: the-prefix-size');
+  });
+
+  test('getTextLabel() allows empty labelFormat', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDefWithEmptyLabelFormat.render(
+      $('#placeholder'),
+      'the-prefix',
+      {
+        heading_text: 'Test heading text',
+        size: '123',
+      },
+    );
+    expect(boundBlock.getTextLabel()).toBe('');
   });
 });
 
@@ -816,5 +835,129 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
     expect(duplicatedStreamBlockInStruct.children[0]).not.toHaveSameBlockIdAs(
       originalStreamBlockInStruct.children[0],
     );
+  });
+});
+
+describe('telepath: wagtail.blocks.StructBlock with formTemplate in stream block', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Setup test blocks - StreamBlock[StructBlock[StreamBlock[FieldBlock], FieldBlock]]
+    const innerStreamDef = new StreamBlockDefinition(
+      'inner_stream',
+      [
+        [
+          '',
+          [
+            new FieldBlockDefinition(
+              'test_block_a',
+              new DummyWidgetDefinition('Block A Widget'),
+              {
+                label: 'Test Block A',
+                required: false,
+                icon: 'pilcrow',
+                classname:
+                  'w-field w-field--char_field w-field--admin_auto_height_text_input',
+              },
+            ),
+          ],
+        ],
+      ],
+      {},
+      {
+        label: 'Inner Stream',
+        required: false,
+        icon: 'placeholder',
+        classname: null,
+        helpText: '',
+        helpIcon: '',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    const structBlockDef = new StructBlockDefinition(
+      'struct_block',
+      [
+        innerStreamDef,
+        new FieldBlockDefinition(
+          'test_block_b',
+          new DummyWidgetDefinition('Block A Widget'),
+          {
+            label: 'Test Block B',
+            required: false,
+            icon: 'pilcrow',
+            classname: '',
+          },
+        ),
+      ],
+      {
+        label: 'Heading block',
+        required: false,
+        icon: 'title',
+        classname: 'struct-block',
+        helpText: 'use <strong>lots</strong> of these',
+        helpIcon: '<svg></svg>',
+        formTemplate: `<div class="custom-form-template">
+          <p>here comes the first field:</p>
+          <div data-structblock-child="inner_stream"></div>
+          <p>and here is the second:</p>
+          <div data-structblock-child="test_block_b"></div>
+        </div>`,
+      },
+    );
+
+    const blockDef = new StreamBlockDefinition(
+      '',
+      [['', [structBlockDef]]],
+      {},
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of these',
+        helpIcon: '<svg></svg>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        type: 'struct_block',
+        id: 'struct-block-1',
+        value: {
+          inner_stream: [
+            { type: 'test_block_a', id: 'very-nested-1', value: 'foobar' },
+          ],
+          test_block_b: 'hello, world',
+        },
+      },
+    ]);
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
   });
 });

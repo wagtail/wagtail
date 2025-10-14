@@ -895,7 +895,7 @@ class UserbarPuppyLinkItem:
 
 @hooks.register('construct_wagtail_userbar')
 def add_puppy_link_item(request, items, page):
-    return items.append( UserbarPuppyLinkItem() )
+    items.append(UserbarPuppyLinkItem())
 ```
 
 If you intend to use icons in your actions, you'll have to declare them by overriding the [userbar template](custom_icons_userbar).
