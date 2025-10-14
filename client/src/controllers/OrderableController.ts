@@ -31,6 +31,7 @@ export class OrderableController extends Controller<HTMLElement> {
     animation: { default: 200, type: Number },
     container: { default: '', type: String },
     message: { default: '', type: String },
+    name: { default: '', type: String },
     url: String,
   };
 
@@ -52,6 +53,8 @@ export class OrderableController extends Controller<HTMLElement> {
   declare containerValue: string;
   /** A translated message template for when the update is successful, replaces `__LABEL__` with item's title. */
   declare messageValue: string;
+  /** The name of the controller instance, used to provide the contextual name for the HTML5 drag events, defaults to the identifier. */
+  declare nameValue: string;
   /** Base URL template to use for submitting an updated order for a specific item. */
   declare urlValue: string;
 
@@ -104,6 +107,12 @@ export class OrderableController extends Controller<HTMLElement> {
         if (oldIndex === newIndex) return;
         this.order = this.sortable.toArray();
         this.submit({ ...this.getItemData(item), newIndex });
+      },
+      setData: (dataTransfer: DataTransfer) => {
+        dataTransfer.setData(
+          'application/vnd.wagtail.type',
+          this.nameValue || this.identifier,
+        );
       },
     };
   }
