@@ -330,3 +330,30 @@ Filling in the `path` / `numchild` / `depth` fields is necessary for tree operat
 `url_path` is another field that can cause errors in some uncommon cases if it isn't filled in.
 
 The [Treebeard docs](inv:treebeard:std:doc#mp_tree) might help in understanding how this works.
+
+#### Custom Document Form
+
+If you customize the `WAGTAILDOCS_DOCUMENT_FORM_BASE` and override the clean method, you may want to test the cleaning logic.
+
+```python
+from django.test import TestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
+from wagtail.documents import models
+from wagtail.documents.forms import get_document_form
+
+class CustomDocumentFormTest(TestCase):
+
+    def test_limit_upload_file_size(self):
+        form_data = {
+            "title": "Simple Text Document",
+            "tags": [],
+        }
+        file_data = {
+            "file": SimpleUploadedFile('simple.txt',  b'hello world'*1024*1024, content_type='text/plain'),
+        }
+        form_cls = get_document_form(models.Document)
+        form = form_cls(form_data, file_data)
+        self.assertFormError(
+            form, 'file',  [ 'The file size exceeds the configured limit (1KB).',]
+        )
+```
