@@ -49,6 +49,7 @@ export class FormsetController extends Controller<HTMLElement> {
     'forms',
     'minFormsInput',
     'maxFormsInput',
+    'orderInput',
     'template',
     'totalFormsInput',
   ];
@@ -77,6 +78,8 @@ export class FormsetController extends Controller<HTMLElement> {
   declare readonly minFormsInputTarget: HTMLInputElement;
   /** Hidden input to read for the value for max forms. */
   declare readonly maxFormsInputTarget: HTMLInputElement;
+  /** Hidden input to track a specific form's order, if ordering is enabled. */
+  declare readonly orderInputTargets: HTMLInputElement[];
   /**
    * Target element that has the template content to clone for new forms.
    * `__prefix__` will be replaced with the next formIndex value upon creation.
