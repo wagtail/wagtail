@@ -37,9 +37,13 @@ If you have disabled auto-update, you must run the [](update_index) command on a
 
 ## `ATOMIC_REBUILD`
 
-By default (when using the Elasticsearch backend), when the `update_index` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't roll back if an error occurs.
+By default (when using the Elasticsearch backend), Wagtail creates a new index when the `update_index` is run, reindexes the content into the new index then, using an alias, activates the new index. It then deletes the old index.
 
-Setting the `ATOMIC_REBUILD` setting to `True` makes Wagtail rebuild into a separate index while keeping the old index active until the new one is fully built. When the rebuild is finished, the indexes are swapped atomically and the old index is deleted.
+If creating new indexes is not an option for you, you can disable this behaviour by setting `ATOMIC_REBUILD` to `False`. This will make Wagtail delete the index then build a new one. Note that this will cause the search engine to not return results until the rebuild is complete.
+
+```{versionchanged} 7.2
+`ATOMIC_REBUILD` is now true by default.
+```
 
 ## `BACKEND`
 
