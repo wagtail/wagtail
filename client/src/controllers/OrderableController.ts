@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import Sortable from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { forceFocus } from '../utils/forceFocus';
 
 enum Direction {
   Up = 'UP',
@@ -169,19 +170,23 @@ export class OrderableController extends Controller<HTMLElement> {
   }
 
   /**
-   * Manually move up visually but do not submit to the server.
+   * Manually move up visually but do not submit to the server,
+   * keeping focus on the trigger element which may have moved around
+   * in the DOM.
    */
-  up(event: KeyboardEvent) {
+  up(event: Event) {
     this.move(event, Direction.Up);
-    (event.currentTarget as HTMLButtonElement)?.focus();
+    forceFocus(event.currentTarget as HTMLElement);
   }
 
   /**
-   * Manually move down visually but do not submit to the server.
+   * Manually move down visually but do not submit to the server,
+   * keeping focus on the trigger element which may have moved around
+   * in the DOM.
    */
-  down(event: KeyboardEvent) {
+  down(event: Event) {
     this.move(event, Direction.Down);
-    (event.currentTarget as HTMLButtonElement)?.focus();
+    forceFocus(event.currentTarget as HTMLElement);
   }
 
   /**
