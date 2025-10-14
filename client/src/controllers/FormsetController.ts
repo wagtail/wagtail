@@ -103,7 +103,18 @@ export class FormsetController extends Controller<HTMLElement> {
     this.maxValue = parseInt(this.maxFormsInputTarget.value, 10);
   }
 
+  /**
+   * Ensure that any deleted children are hidden when connected (from HTML POST response)
+   * and remove any error message elements so that it doesn't count towards the number
+   * of errors on the tab at the top of the page.
+   * @todo - check this actually works for any timing issues from w-count controller.
+   */
   connect() {
+    this.deletedTargets.forEach((target) => {
+      target.classList.add(...this.deletedClasses);
+      target.querySelectorAll('.error-message').forEach((el) => el.remove());
+    });
+
     this.dispatch('ready', {
       cancelable: false,
       detail: {
@@ -134,7 +145,7 @@ export class FormsetController extends Controller<HTMLElement> {
 
   /**
    * Find the event's target's closest child target and remove it by
-   * removing the 'child' target and adding a 'child-removed' target.
+   * adding a 'deleted' target.
    *
    * @throws {Error} If the child form target for the event target cannot be found.
    */
@@ -159,10 +170,10 @@ export class FormsetController extends Controller<HTMLElement> {
 
     const targetAttrName = `data-${this.identifier}-target`;
 
+    // Mark the form as a deleted target
     target.setAttribute(
       targetAttrName,
       (target.getAttribute(targetAttrName)?.split(' ') ?? [])
-        .filter((name) => name !== 'child')
         .concat(['deleted'])
         .join(' '),
     );
@@ -185,11 +196,24 @@ export class FormsetController extends Controller<HTMLElement> {
 
   /**
    * When removed, add the class and update the total count.
+   * Only run if the target was previously a child (non-deleted) target.
    * Also update the DELETE input for this form.
    *
    * @throws {Error} If the DELETE input target cannot be found within the removed form.
    */
-  childTargetDisconnected(target: HTMLElement) {
+  deletedTargetConnected(target: HTMLElement) {
+    if (!this.childTargets.find((child) => child === target)) return;
+
+    const targetAttrName = `data-${this.identifier}-target`;
+
+    // Unmark the form as a child target
+    target.setAttribute(
+      targetAttrName,
+      (target.getAttribute(targetAttrName)?.split(' ') ?? [])
+        .filter((name) => name !== 'child')
+        .join(' '),
+    );
+
     const deletedClasses = this.deletedClasses;
 
     target.classList.add(...deletedClasses);
