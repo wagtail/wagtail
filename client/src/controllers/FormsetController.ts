@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
+import { forceFocus } from '../utils/forceFocus';
 import { transition } from '../utils/transition';
 import { runInlineScripts } from '../utils/runInlineScripts';
 
@@ -114,7 +115,7 @@ export class FormsetController extends Controller<HTMLElement> {
   }
 
   /**
-   * Add a new child form from the template content.
+   * Add a new child form from the template content and set focus to it.
    */
   add() {
     if (this.childTargets.length >= this.maxValue) return;
@@ -128,7 +129,7 @@ export class FormsetController extends Controller<HTMLElement> {
       return;
     }
 
-    this.formsTarget.appendChild(this.newChild);
+    forceFocus(this.formsTarget.appendChild(this.newChild));
   }
 
   /**
