@@ -115,6 +115,7 @@ export class OrderableController extends Controller<HTMLElement> {
         if (oldIndex === newIndex) return;
         this.resetControls();
         this.apply({ currentTarget }, newIndex);
+        this.dispatch('ordered', { bubbles: true, cancelable: false });
       },
       setData: (dataTransfer: DataTransfer) => {
         dataTransfer.setData(
@@ -228,6 +229,7 @@ export class OrderableController extends Controller<HTMLElement> {
 
     this.sortable.sort(order, true);
     this.resetControls();
+    this.dispatch('ordered', { bubbles: true, cancelable: false });
   }
 
   /**
