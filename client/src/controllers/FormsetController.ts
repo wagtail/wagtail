@@ -82,10 +82,8 @@ export class FormsetController extends Controller<HTMLElement> {
   declare readonly maxFormsInputTarget: HTMLInputElement;
   /** Hidden input to track a specific form's order, if ordering is enabled. */
   declare readonly orderInputTargets: HTMLInputElement[];
-  /**
-   * Target element that has the template content to clone for new forms.
-   * `__prefix__` will be replaced with the next formIndex value upon creation.
-   */
+  /** Target element that has the template content to clone for new forms.
+   * `__prefix__` will be replaced with the next formIndex value upon creation. */
   declare readonly templateTarget: HTMLTemplateElement;
   /** Hidden input to track the total forms (including deleted) for POST request and initial reading. */
   declare readonly totalFormsInputTarget: HTMLInputElement;

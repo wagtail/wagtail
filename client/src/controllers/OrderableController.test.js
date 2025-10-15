@@ -164,7 +164,9 @@ describe('OrderableController', () => {
           handle: '[data-w-orderable-target="handle"]',
         }),
       );
+    });
 
+    it('should be able to register controller with different identifier', async () => {
       const [controllerWithDifferentIdentifier] = await setup(
         `<ul id="orderable" data-controller="w-something"></ul>`,
         'w-something',
