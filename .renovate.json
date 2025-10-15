@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":gitSignOff"],
+  "enabledManagers": ["pip_requirements", "pip_setup"],
+  "rangeStrategy": "widen",
+  "prConcurrentLimit": 1,
+  "packageRules": [
+    {
+      "matchPackageNames": ["Django", "Pillow", "requests"],
+      "updateTypes": ["minor", "patch"],
+      "groupName": "python-core-dependencies",
+      "labels": ["dependencies", "automated"],
+      "schedule": ["before 5am on monday"]
+    },
+    {
+      "matchPackageNames": ["Django", "Pillow", "requests"],
+      "matchUpdateTypes": ["major"],
+      "matchDepTypes": ["dependencies"],
+      "labels": ["security", "automated"],
+      "enabled": true,
+      "prPriority": 1
+    }
+  ]
+}
