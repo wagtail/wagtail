@@ -214,6 +214,7 @@ export class OrderableController extends Controller<HTMLElement> {
     if (!item) return;
 
     const id = item.getAttribute(`data-${identifier}-item-id`) || '';
+    const oldOrder = this.order;
     const order = this.order;
     const newIndex = order.indexOf(id);
 
@@ -226,6 +227,9 @@ export class OrderableController extends Controller<HTMLElement> {
     } else {
       order.splice(newIndex, 0, id); // to stop at the top
     }
+
+    // Do not re-order if the order is the same to avoid unnecessary DOM changes.
+    if (oldOrder.join(',') === order.join(',')) return;
 
     this.sortable.sort(order, true);
     this.resetControls();
