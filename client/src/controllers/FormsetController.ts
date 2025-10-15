@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
+import { debounce } from '../utils/debounce';
 import { forceFocus } from '../utils/forceFocus';
 import { transition } from '../utils/transition';
 import { runInlineScripts } from '../utils/runInlineScripts';
@@ -98,6 +99,7 @@ export class FormsetController extends Controller<HTMLElement> {
   elementPrefixRegex = /__prefix__(.*?['"])/g;
 
   initialize() {
+    this.syncOrdering = debounce(this.syncOrdering.bind(this), 50);
     this.totalValue = parseInt(this.totalFormsInputTarget.value, 10);
     this.minValue = parseInt(this.minFormsInputTarget.value, 10);
     this.maxValue = parseInt(this.maxFormsInputTarget.value, 10);
@@ -114,6 +116,8 @@ export class FormsetController extends Controller<HTMLElement> {
       target.classList.add(...this.deletedClasses);
       target.querySelectorAll('.error-message').forEach((el) => el.remove());
     });
+
+    this.syncOrdering();
 
     this.dispatch('ready', {
       cancelable: false,
@@ -180,13 +184,18 @@ export class FormsetController extends Controller<HTMLElement> {
   }
 
   /**
-   * When a new child is added, update the total count and dispatch an added event.
+   * When a new child is added, or one has been inserted after a re-ordering event,
+   * update the total count and dispatch an added event (only when it is a new one).
    */
   childTargetConnected(target: HTMLElement) {
+    this.syncOrdering();
+
     const totalFormsCount =
       this.childTargets.length + this.deletedTargets.length;
     if (totalFormsCount === this.totalValue) return;
+
     this.totalValue = totalFormsCount;
+
     this.dispatch('added', {
       target,
       cancelable: false,
@@ -258,6 +267,8 @@ export class FormsetController extends Controller<HTMLElement> {
       target: deleteInput,
       cancelable: false,
     });
+
+    this.syncOrdering();
   }
 
   /**
@@ -290,6 +301,50 @@ export class FormsetController extends Controller<HTMLElement> {
       target: totalFormsInput,
       cancelable: false,
     });
+  }
+
+  /**
+   * If the orderInputTargets are present, update the value of each input
+   * to match the current order of the child elements.
+   */
+  syncOrdering() {
+    const orderInputTargets = this.orderInputTargets;
+    if (!orderInputTargets.length) return;
+
+    let orderChanged = false;
+
+    this.childTargets.forEach((child, index) => {
+      const order = `${index + 1}`;
+
+      const orderInput = orderInputTargets.find((input) =>
+        child.contains(input),
+      );
+
+      if (!orderInput) {
+        throw new Error(
+          `Could not find "orderInput" target within form. ${child.nodeName} with id '${child.id}'.`,
+        );
+      }
+
+      if (orderInput.value === order) return;
+
+      orderChanged = true;
+
+      orderInput.value = order;
+      this.dispatch('change', {
+        bubbles: true,
+        cancelable: false,
+        prefix: '',
+        target: orderInput,
+      });
+    });
+
+    if (orderChanged) {
+      this.dispatch('ordered', {
+        bubbles: true,
+        cancelable: false,
+      });
+    }
   }
 
   /**
