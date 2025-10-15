@@ -219,12 +219,18 @@ describe('OrderableController', () => {
 
       await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...DOWN)));
 
+      // there is a debounced resetControls after dispatch, so we need to wait for it
+      await jest.runAllTimersAsync();
+
       expect(sortSpy).toHaveBeenLastCalledWith(['73', '93', '75'], true);
       expect(document.activeElement).toEqual(handle); // keep focus on the handle (after move)
 
       // it should not error when moving down beyond the last element
 
       await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...DOWN)));
+
+      // there is a debounced resetControls after dispatch, so we need to wait for it
+      await jest.runAllTimersAsync();
 
       expect(sortSpy).toHaveBeenLastCalledWith(['73', '93', '75'], true);
       expect(document.activeElement).toEqual(handle); // keep focus on the handle (after move)

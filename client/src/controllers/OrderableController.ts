@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import Sortable from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { debounce } from '../utils/debounce';
 import { forceFocus } from '../utils/forceFocus';
 
 enum Direction {
@@ -30,7 +31,7 @@ enum Direction {
  */
 export class OrderableController extends Controller<HTMLElement> {
   static classes = ['active', 'chosen', 'drag', 'ghost'];
-  static targets = ['container', 'handle', 'item'];
+  static targets = ['container', 'handle', 'item', 'up', 'down'];
   static values = {
     animation: { default: 200, type: Number },
     container: { default: '', type: String },
@@ -41,8 +42,10 @@ export class OrderableController extends Controller<HTMLElement> {
 
   declare readonly hasContainerTarget: boolean;
   declare readonly containerTarget: HTMLElement;
-  declare readonly handleTarget: HTMLElement;
-  declare readonly itemTarget: HTMLElement;
+  declare readonly handleTargets: HTMLButtonElement[];
+  declare readonly itemTargets: HTMLElement[];
+  declare readonly upTargets: HTMLButtonElement[];
+  declare readonly downTargets: HTMLButtonElement[];
 
   declare readonly activeClasses: string[];
   declare readonly chosenClass: string;
@@ -65,6 +68,10 @@ export class OrderableController extends Controller<HTMLElement> {
   declare urlValue: string;
 
   sortable: ReturnType<typeof Sortable.create>;
+
+  initialize() {
+    this.resetControls = debounce(this.resetControls.bind(this), 50);
+  }
 
   connect() {
     const containerSelector = this.containerValue;
@@ -106,6 +113,7 @@ export class OrderableController extends Controller<HTMLElement> {
       }) => {
         this.element.classList.remove(...this.activeClasses);
         if (oldIndex === newIndex) return;
+        this.resetControls();
         this.apply({ currentTarget }, newIndex);
       },
       setData: (dataTransfer: DataTransfer) => {
@@ -219,6 +227,7 @@ export class OrderableController extends Controller<HTMLElement> {
     }
 
     this.sortable.sort(order, true);
+    this.resetControls();
   }
 
   /**
@@ -239,6 +248,46 @@ export class OrderableController extends Controller<HTMLElement> {
   down(event: Event) {
     this.move(event, Direction.Down);
     forceFocus(event.currentTarget as HTMLElement);
+  }
+
+  /**
+   * Reset the controls based on the current order of the items
+   * so that any up, down or handle controls are disabled when
+   * they are at the top or bottom of the list.
+   */
+  resetControls() {
+    const handles = this.handleTargets;
+    const upTargets = this.upTargets;
+    const downTargets = this.downTargets;
+
+    this.itemTargets
+      .filter((item) => !item.hidden)
+      .map((item) => ({
+        handle: handles.find((handle) => item.contains(handle)),
+        upControls: upTargets.filter((control) => item.contains(control)),
+        downControls: downTargets.filter((control) => item.contains(control)),
+      }))
+      .forEach(({ handle, upControls, downControls }, index, targets) => {
+        if (handle) {
+          handle.disabled = targets.length === 1;
+        }
+
+        upControls.forEach((control) => {
+          control.disabled = index === 0;
+        });
+
+        downControls.forEach((control) => {
+          control.disabled = index === targets.length - 1;
+        });
+      });
+  }
+
+  itemTargetConnected() {
+    this.resetControls();
+  }
+
+  itemTargetDisconnected() {
+    this.resetControls();
   }
 
   disconnect() {
