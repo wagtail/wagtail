@@ -30,7 +30,7 @@ enum Direction {
  */
 export class OrderableController extends Controller<HTMLElement> {
   static classes = ['active', 'chosen', 'drag', 'ghost'];
-  static targets = ['handle', 'item'];
+  static targets = ['container', 'handle', 'item'];
   static values = {
     animation: { default: 200, type: Number },
     container: { default: '', type: String },
@@ -39,6 +39,8 @@ export class OrderableController extends Controller<HTMLElement> {
     url: { default: '', type: String },
   };
 
+  declare readonly hasContainerTarget: boolean;
+  declare readonly containerTarget: HTMLElement;
   declare readonly handleTarget: HTMLElement;
   declare readonly itemTarget: HTMLElement;
 
@@ -66,9 +68,11 @@ export class OrderableController extends Controller<HTMLElement> {
 
   connect() {
     const containerSelector = this.containerValue;
-    const container = ((containerSelector &&
-      this.element.querySelector(containerSelector)) ||
-      this.element) as HTMLElement;
+    const container = this.hasContainerTarget
+      ? this.containerTarget
+      : (((containerSelector &&
+          this.element.querySelector(containerSelector)) ||
+          this.element) as HTMLElement);
 
     this.sortable = Sortable.create(container, this.options);
 
