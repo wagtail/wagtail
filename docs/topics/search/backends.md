@@ -91,7 +91,7 @@ WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.elasticsearch9',
         'URLS': ['https://localhost:9200'],
-        'INDEX': 'wagtail',
+        'INDEX_PREFIX': '',
         'TIMEOUT': 5,
         'OPTIONS': {},
         'INDEX_SETTINGS': {},
@@ -100,6 +100,12 @@ WAGTAILSEARCH_BACKENDS = {
 ```
 
 Other than `BACKEND`, the keys are optional and default to the values shown. Any defined key in `OPTIONS` is passed directly to the Elasticsearch constructor as a case-sensitive keyword argument (for example `'max_retries': 1`).
+
+`INDEX_PREFIX` specifies a string such as `"mysite_"` to be used as a prefix of all index names. This allows multiple Wagtail instances to share the same Elasticsearch server. An index will be created for each model according to the format `{prefix}{app_label}_{model_name}`, for example: `mysite_wagtailcore_page`.
+
+```{versionchanged} 7.2
+The `INDEX_PREFIX` option was previously named `INDEX` and did not include the delimiting `_` character.
+```
 
 A username and password may be optionally supplied to the `URL` field to provide authentication credentials for the Elasticsearch service:
 
@@ -216,7 +222,7 @@ WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.opensearch3',
         'URLS': ['https://localhost:9200'],
-        'INDEX': 'wagtail',
+        'INDEX_PREFIX': 'wagtail_',
         'TIMEOUT': 5,
         'OPTIONS': {},
         'INDEX_SETTINGS': {},
@@ -230,7 +236,7 @@ The default configuration of OpenSearch has SSL enabled and certificate-based au
 WAGTAILSEARCH_BACKENDS = {
     "default": {
         "BACKEND": "wagtail.search.backends.opensearch3",
-        "INDEX": "bakerydemo",
+        "INDEX_PREFIX": "wagtail_",
         "URLS": ["https://localhost:9200"],
         "OPTIONS": {
             "verify_certs": True,
@@ -259,7 +265,7 @@ from requests_aws4auth import AWS4Auth
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.opensearch3',
-        'INDEX': 'wagtail',
+        'INDEX_PREFIX': 'wagtail_',
         'TIMEOUT': 5,
         'HOSTS': [{
             'host': 'YOURCLUSTER.REGION.es.amazonaws.com',

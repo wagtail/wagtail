@@ -241,7 +241,7 @@ if "ELASTICSEARCH_URL" in os.environ:
             "If ELASTICSEARCH_URL is defined, either ELASTICSEARCH_VERSION or OPENSEARCH_VERSION must be defined too"
         )
 
-    WAGTAILSEARCH_BACKENDS["elasticsearch"] = {
+    elasticsearch_opts = {
         "BACKEND": backend,
         "URLS": [os.environ["ELASTICSEARCH_URL"]],
         "TIMEOUT": 10,
@@ -251,6 +251,13 @@ if "ELASTICSEARCH_URL" in os.environ:
         "OPTIONS": {
             "ca_certs": os.environ.get("ELASTICSEARCH_CA_CERTS"),
         },
+    }
+    WAGTAILSEARCH_BACKENDS["elasticsearch"] = elasticsearch_opts
+
+    # RemovedInWagtail80Warning
+    WAGTAILSEARCH_BACKENDS["elasticsearch_with_index_option"] = {
+        **elasticsearch_opts,
+        "INDEX": "wagtailtest",  # Deprecated option
     }
 
 
