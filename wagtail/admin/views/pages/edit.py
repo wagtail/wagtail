@@ -574,7 +574,9 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_and_remain()
 
     def publish_action(self):
-        self.page = self.form.save(commit=not self.page.live)
+        self.page = self.form.save(commit=self.page.live)
+        if not self.page.live:
+            self.page.save()
         self.subscription.save()
 
         # Save revision
