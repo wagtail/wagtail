@@ -21,3 +21,25 @@ class IndexOptionMixin:
                 params["INDEX_PREFIX"] = f"{index_name}_"
 
         super().__init__(params)
+
+
+# RemovedInWagtail80Warning
+class LegacyContentTypeMatchMixin:
+    """
+    Mixin for query compilers to match content type on either the legacy 'content_type' field
+    or the current '_django_content_type' field
+    """
+
+    def get_content_type_filter(self):
+        # Query content_type using a "match" query. See comment in
+        # ElasticsearchBaseMapping.get_document for more details
+        content_type = self.mapping_class(self.queryset.model).get_content_type()
+
+        return {
+            "bool": {
+                "should": [
+                    {"match": {"_django_content_type": content_type}},
+                    {"match": {"content_type": content_type}},
+                ]
+            }
+        }
