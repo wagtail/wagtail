@@ -15,35 +15,25 @@
 {% endif %}
 
 <div id="id_{{ self.formset.prefix }}-FORMS">
-    {% comment %}
+    <div data-w-formset-target="forms" data-w-orderable-target="container">
+        {% for child in self.children %}
+            {% include "wagtailadmin/panels/inline_panel_child.html" %}
+        {% endfor %}
+    </div>
 
-    Child elements of this div will become orderable elements. Do not place additional
-    "furniture" elements here unless you intend them to be part of the child ordering.
+    <div class="w-mb-4 -w-ml-4">
+        {% block add_button %}
+            <button type="button" class="button button-small button-secondary chooser__choose-button" data-action="w-formset#add" data-w-formset-target="add">
+                {% icon name=icon|default:"plus-inverse" %}
+                {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+            </button>
+        {% endblock %}
+    </div>
 
-    {% endcomment %}
-
-    {% for child in self.children %}
-        {% include "wagtailadmin/panels/inline_panel_child.html" %}
-    {% endfor %}
-</div>
-
-<template id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
-    {% include "wagtailadmin/panels/inline_panel_child.html" with child=self.empty_child %}
-</template>
-
-{# Align with guiding line of the preceding child panel. #}
-<div class="w-mb-4 -w-ml-4">
-    {% block add_button %}
-        <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-ADD">
-            {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label %}Add {{ label }}{% endblocktrans %}
-        </button>
-    {% endblock %}
+    <template data-w-formset-target="template">
+        {% include "wagtailadmin/panels/inline_panel_child.html" with child=self.empty_child %}
+    </template>
 </div>
 
 {% block js_init %}
-    <script>
-        (function() {
-            var panel = new InlinePanel(JSON.parse("{{options_json|escapejs}}"));
-        })();
-    </script>
 {% endblock %}

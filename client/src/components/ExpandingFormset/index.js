@@ -19,7 +19,7 @@ export class ExpandingFormset {
       prefix + '-EMPTY_FORM_TEMPLATE',
     );
 
-    this.emptyFormTemplate = emptyFormElement.innerHTML;
+    this.emptyFormTemplate = emptyFormElement?.innerHTML;
 
     if (initControls) {
       if (opts.onInit) {

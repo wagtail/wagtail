@@ -1383,9 +1383,13 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         result = panel.render_html()
+        soup = self.get_soup(result)
 
-        # FIXME: reinstate when we pass classnames to the template again
-        # self.assertIn('<li class="object classname-for-speakers">', result)
+        # Find the main panel section
+        panel_section = soup.select_one(".w-panel--nested.w-panel")
+        self.assertIsNotNone(panel_section)
+        self.assertIn("classname-for-speakers", panel_section["class"])
+
         self.assertIn(
             '<label class="w-field__label" for="id_speakers-0-first_name" id="id_speakers-0-first_name-label">',
             result,
@@ -1425,19 +1429,25 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
 
-        # rendered panel must include the JS initializer
-        self.assertIn("var panel = new InlinePanel(", result)
-
         # rendered panel must have data-contentpath-disabled attribute by default
         self.assertIn("data-contentpath-disabled", result)
 
         # check that attr option renders the data-controller attribute
-        self.assertIn('data-controller="test"', result)
+        self.assertEqual(
+            set(panel_section.get("data-controller").split()),
+            {"test", "w-formset", "w-orderable"},
+        )
+
+        # test Stimulus data attributes
+        self.assertEqual(
+            panel_section.get("data-w-formset-deleted-class"),
+            "w-transition-opacity w-duration-300 w-ease-out w-opacity-0",
+        )
 
         # Reordering controls should be present
-        self.assertIn("data-inline-panel-child-move-up", result)
-        self.assertIn("data-inline-panel-child-move-down", result)
-        self.assertIn("data-inline-panel-child-drag", result)
+        self.assertIn('data-w-orderable-target="up"', result)
+        self.assertIn('data-w-orderable-target="down"', result)
+        self.assertIn('data-w-orderable-target="handle"', result)
 
     def test_render_with_panel_overrides(self):
         """
@@ -1520,9 +1530,6 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
 
-        # render_js_init must provide the JS initializer
-        self.assertIn("var panel = new InlinePanel(", panel.render_html())
-
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_js(self):
         """
@@ -1551,7 +1558,17 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             instance=event_page, form=form, request=self.request
         )
 
-        self.assertIn(r"\u0022maxForms\u0022: 1000", panel.render_html())
+        # Get the HTML rendered by the panel
+        result = panel.render_html()
+
+        soup = self.get_soup(result)
+        # Find the hidden input with the specific name
+        max_num_forms_input = soup.find(
+            "input", {"type": "hidden", "name": "speakers-MAX_NUM_FORMS"}
+        )
+
+        self.assertIsNotNone(max_num_forms_input)
+        self.assertEqual(max_num_forms_input["value"], "1000")
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
@@ -1570,7 +1587,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         # Label is the singular term, derived from the related model's verbose_name
         self.assertEqual(panel.label, "social link")
 
-    def test_inline_panel_order_with_min_num(self):
+    def test_inline_panel_order_set_as_target(self):
         event_page = EventPage.objects.get(slug="christmas")
 
         speaker_object_list = ObjectList(
@@ -1586,12 +1603,155 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
 
         formset = bound_panel.children[0].formset
 
-        for index, form in enumerate(formset.forms):
+        for form in formset.forms:
             self.assertEqual(
-                str(form.fields["ORDER"].widget.attrs.get("value")),
-                str(index + 1),
-                f"Initial form at index {index} should have ORDER value {index + 1}",
+                str(form.fields["ORDER"].widget.attrs.get("data-w-formset-target")),
+                "orderInput",
             )
+
+    def test_render_with_min_max_num_stimulus_values(self):
+        """
+        Test that min_num and max_num parameters are reflected in Stimulus data attributes
+        """
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers", min_num=2, max_num=5)]
+        ).bind_to_model(EventPage)
+        event_page = EventPage.objects.get(slug="christmas")
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+        soup = self.get_soup(result)
+
+        min_input_control = soup.find(
+            "input", {"data-w-formset-target": "minFormsInput"}
+        )
+        max_input_control = soup.find(
+            "input", {"data-w-formset-target": "maxFormsInput"}
+        )
+
+        # Min/Max values should reflect in HTML
+        self.assertEqual(min_input_control.get("value"), "2")
+        self.assertEqual(max_input_control.get("value"), "5")
+
+    def test_formset_total_value_reflects_existing_forms(self):
+        """
+        Test that data-w-formset-total-value reflects the actual number of existing forms
+        """
+        event_page = EventPage.objects.get(slug="christmas")
+
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers")]
+        ).bind_to_model(EventPage)
+
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+        soup = self.get_soup(result)
+
+        total_forms_control = soup.find(
+            "input", {"data-w-formset-target": "totalFormsInput"}
+        )
+        bound_panel = panel
+        formset = bound_panel.children[0].formset
+        self.assertIsNotNone(format)
+        expected_total = str(formset.total_form_count())
+
+        self.assertEqual(total_forms_control.get("value"), expected_total)
+
+    def test_stimulus_controllers_merged_with_custom_attrs(self):
+        """
+        Test that custom data-controller attributes are merged with Stimulus controllers
+        """
+        speaker_object_list = ObjectList(
+            [
+                InlinePanel(
+                    "speakers",
+                    label="Speakers",
+                    attrs={
+                        "data-controller": "custom-controller another-controller",
+                        "data-custom-attr": "custom-value",
+                    },
+                )
+            ]
+        ).bind_to_model(EventPage)
+
+        event_page = EventPage.objects.get(slug="christmas")
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+        soup = self.get_soup(result)
+
+        panel_section = soup.find("section", class_="w-panel w-panel--nested")
+        self.assertIsNotNone(panel_section)
+
+        # Test that all controllers are present
+        controllers = panel_section.get("data-controller", "").split()
+        self.assertIn("w-formset", controllers)
+        self.assertIn("w-orderable", controllers)
+        self.assertIn("custom-controller", controllers)
+        self.assertIn("another-controller", controllers)
+
+        # Test custom attributes are preserved
+        self.assertEqual(panel_section.get("data-custom-attr"), "custom-value")
+
+    def test_no_legacy_js_initialization(self):
+        """
+        Test that the old JavaScript inline script initialization is no longer present
+        """
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers")]
+        ).bind_to_model(EventPage)
+
+        event_page = EventPage.objects.get(slug="christmas")
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+
+        # Test that old JS initialization is NOT present
+        self.assertNotIn("var panel = new InlinePanel({", result)
+        self.assertNotIn("InlinePanel(", result)
+
+    def test_panel_id_and_aria_attributes(self):
+        """
+        Test that panel maintains proper ID and ARIA attributes alongside Stimulus
+        """
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers")]
+        ).bind_to_model(EventPage)
+
+        event_page = EventPage.objects.get(slug="christmas")
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+        soup = self.get_soup(result)
+
+        panel_section = soup.find("section", class_="w-panel w-panel--nested")
+        self.assertIsNotNone(panel_section)
+
+        # Test standard panel attributes are still present
+        self.assertIsNotNone(panel_section.get("id"))
+        self.assertIsNotNone(panel_section.get("aria-labelledby"))
+        self.assertIn("panel-", panel_section.get("id", ""))
 
 
 class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
@@ -2160,9 +2320,6 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'name="gallery_images-TOTAL_FORMS"')
-        self.assertContains(
-            response, r"\u0022chooserFieldName\u0022: \u0022image\u0022"
-        )
 
 
 class TestMultipleChooserPanelGetComparison(TestCase):

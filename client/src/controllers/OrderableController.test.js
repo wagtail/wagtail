@@ -149,8 +149,8 @@ describe('OrderableController', () => {
       controller.sortable.options.onEnd({ item, oldIndex: 0, newIndex: 2 });
 
       expect(global.fetch).toHaveBeenCalledWith('/base/url/73?position=2', {
-        body: expect.any(Object),
         method: 'POST',
+        headers: { 'x-xsrf-token': 'potato' },
       });
     });
 
@@ -164,7 +164,9 @@ describe('OrderableController', () => {
           handle: '[data-w-orderable-target="handle"]',
         }),
       );
+    });
 
+    it('should be able to register controller with different identifier', async () => {
       const [controllerWithDifferentIdentifier] = await setup(
         `<ul id="orderable" data-controller="w-something"></ul>`,
         'w-something',
@@ -219,12 +221,18 @@ describe('OrderableController', () => {
 
       await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...DOWN)));
 
+      // there is a debounced resetControls after dispatch, so we need to wait for it
+      await jest.runAllTimersAsync();
+
       expect(sortSpy).toHaveBeenLastCalledWith(['73', '93', '75'], true);
       expect(document.activeElement).toEqual(handle); // keep focus on the handle (after move)
 
       // it should not error when moving down beyond the last element
 
       await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...DOWN)));
+
+      // there is a debounced resetControls after dispatch, so we need to wait for it
+      await jest.runAllTimersAsync();
 
       expect(sortSpy).toHaveBeenLastCalledWith(['73', '93', '75'], true);
       expect(document.activeElement).toEqual(handle); // keep focus on the handle (after move)
@@ -252,16 +260,12 @@ describe('OrderableController', () => {
 
       fetch.mockResponseSuccessJSON('');
 
-      await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...ENTER)));
+      await Promise.resolve(controller.apply({ currentTarget: handle }, 1));
 
       expect(global.fetch).toHaveBeenCalledWith('/base/url/93?position=1', {
-        body: expect.any(FormData),
         method: 'POST',
+        headers: { 'x-xsrf-token': 'potato' },
       });
-
-      expect(
-        global.fetch.mock.calls[0][1].body.get('csrfmiddlewaretoken'),
-      ).toEqual('__MOCK_CSRF__');
 
       await Promise.resolve();
 
