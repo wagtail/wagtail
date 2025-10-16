@@ -1,24 +1,37 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", ":gitSignOff"],
-  "enabledManagers": ["pip_requirements", "pip_setup"],
+  "enabledManagers": ["poetry"],
   "rangeStrategy": "widen",
-  "prConcurrentLimit": 1,
+  "prConcurrentLimit": 2,
+  "dependencyDashboard": true,
+  "schedule": ["on the first day of the month"],
+
   "packageRules": [
     {
-      "matchPackageNames": ["Django", "Pillow", "requests"],
-      "updateTypes": ["minor", "patch"],
-      "groupName": "python-core-dependencies",
+      "description": "Group minor/patch updates for core production dependencies",
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "core-dependencies-minor-patch",
       "labels": ["dependencies", "automated"],
-      "schedule": ["before 5am on monday"]
+      "automerge": true,
+      "automergeType": "branch"
     },
     {
-      "matchPackageNames": ["Django", "Pillow", "requests"],
+      "description": "Group minor/patch updates for optional dependencies (testing/docs)",
+      "matchDepTypes": ["devDependencies", "optionalDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "optional-dependencies-minor-patch",
+      "labels": ["dev-dependencies", "automated"],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "description": "Handle major updates separately",
       "matchUpdateTypes": ["major"],
-      "matchDepTypes": ["dependencies"],
-      "labels": ["security", "automated"],
-      "enabled": true,
-      "prPriority": 1
+      "labels": ["breaking-change", "automated"],
+      "automerge": false,
+      "separateMajorIssue": true
     }
   ]
 }
