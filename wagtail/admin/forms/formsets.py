@@ -3,9 +3,11 @@ from django import forms
 
 class BaseFormSetMixin:
     """
-    A mixin for formsets that adds the necessary attributes for the w-formset controller.
-    So that JavaScript behavior can be added to the formset for dynamic addition and deletion of child forms.
-    See client/src/controllers/FormsetController.ts
+    A mixin for formsets that adds the necessary attributes for the w-formset and
+    w-orderable controllers. This adds JavaScript behavior to the formset for dynamic
+    addition, deletion, and reordering of child forms. See:
+    - ``client/src/controllers/FormsetController.ts``
+    - ``client/src/controllers/OrderableController.ts``
     """
 
     deletion_widget = forms.HiddenInput(attrs={"data-w-formset-target": "deleteInput"})
@@ -13,8 +15,11 @@ class BaseFormSetMixin:
 
     @property
     def attrs(self):
+        controllers = ["w-formset"]
+        if self.can_order:
+            controllers.append("w-orderable")
         return {
-            "data-controller": "w-formset",
+            "data-controller": " ".join(controllers),
             "data-w-formset-deleted-class": "w-transition-opacity w-duration-300 w-ease-out w-opacity-0",
         }
 
