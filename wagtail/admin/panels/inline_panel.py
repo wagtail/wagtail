@@ -1,12 +1,11 @@
 import functools
-import json
 
-from django import forms
-from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
+from django.forms.formsets import ORDERING_FIELD_NAME
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 
 from wagtail.admin import compare
+from wagtail.admin.forms.formsets import WagtailAdminBaseChildFormSet
 from wagtail.admin.telepath import register as register_telepath_adapter
 
 from .base import Panel, get_form_for_model
@@ -78,6 +77,7 @@ class InlinePanel(Panel):
             "max_num": self.max_num,
             "validate_max": self.max_num is not None,
             "formsets": child_form_opts.get("formsets"),
+            "formset": child_form_opts.get("formset", WagtailAdminBaseChildFormSet),
         }
 
         defer_required_on_fields = child_form_opts.get("defer_required_on_fields")
@@ -124,15 +124,6 @@ class InlinePanel(Panel):
 
             self.children = []
             for index, subform in enumerate(self.formset.forms):
-                # override the DELETE field to have a hidden input
-                subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
-
-                # ditto for the ORDER field, if present
-                if self.formset.can_order:
-                    subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput(
-                        attrs={"value": index + 1}
-                    )
-
                 self.children.append(
                     self.child_edit_handler.get_bound_panel(
                         instance=subform.instance,
@@ -150,9 +141,6 @@ class InlinePanel(Panel):
                 )
 
             empty_form = self.formset.empty_form
-            empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
-            if self.formset.can_order:
-                empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             self.empty_child = self.child_edit_handler.get_bound_panel(
                 instance=empty_form.instance,
@@ -197,8 +185,15 @@ class InlinePanel(Panel):
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-            context["options_json"] = json.dumps(self.js_opts())
-            context["can_order"] = self.formset.can_order
+            can_order = self.formset.can_order
+            context["can_order"] = can_order
+            formset_attrs = getattr(self.formset, "attrs", {})
+            controllers = {
+                *context["attrs"].pop("data-controller", "").split(),
+                *formset_attrs.pop("data-controller", "").split(),
+            }
+            context["attrs"].update(formset_attrs)
+            context["attrs"]["data-controller"] = " ".join(controllers)
             return context
 
         def telepath_pack(self, context):

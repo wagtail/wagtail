@@ -1,4 +1,5 @@
 from django import forms
+from modelcluster.forms import BaseChildFormSet
 
 
 class BaseFormSetMixin:
@@ -36,3 +37,7 @@ class BaseFormSetMixin:
                 field.field.widget.attrs["data-w-formset-target"] = "maxFormsInput"
 
         return form
+
+
+class WagtailAdminBaseChildFormSet(BaseFormSetMixin, BaseChildFormSet):
+    pass

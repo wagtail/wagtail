@@ -94,7 +94,7 @@ export class FormsetController extends Controller<HTMLElement> {
   /** Value tracking for the total amount of forms either active or deleted. */
   declare totalValue: number;
 
-  elementPrefixRegex = /__prefix__(.*?['"])/g;
+  elementPrefixRegex = /__prefix__(.*?('|"|\\u0022))/g;
 
   initialize() {
     this.syncOrdering = debounce(this.syncOrdering.bind(this), 50);
@@ -312,6 +312,8 @@ export class FormsetController extends Controller<HTMLElement> {
     let orderChanged = false;
 
     this.childTargets.forEach((child, index) => {
+      // Use 1-based index for ordering, as that's how Django does it
+      // https://github.com/django/django/blob/16ee53d7bb01819859c78a88e3fc93eda985f71a/django/forms/formsets.py#L371
       const order = `${index + 1}`;
 
       const orderInput = orderInputTargets.find((input) =>

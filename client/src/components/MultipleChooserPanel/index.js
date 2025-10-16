@@ -11,14 +11,14 @@ export class MultipleChooserPanel extends InlinePanel {
   constructor(opts, initControls = true) {
     super(opts);
 
-    this.chooserWidgetFactory = window.telepath.unpack(
-      JSON.parse(
-        document.getElementById(`${opts.formsetPrefix}-CHOOSER_WIDGET`)
-          .textContent,
-      ),
-    );
-
     if (initControls) {
+      this.chooserWidgetFactory = window.telepath.unpack(
+        JSON.parse(
+          document.getElementById(`${opts.formsetPrefix}-CHOOSER_WIDGET`)
+            .textContent,
+        ),
+      );
+
       const openModalButton = document.getElementById(
         `${opts.formsetPrefix}-OPEN_MODAL`,
       );
