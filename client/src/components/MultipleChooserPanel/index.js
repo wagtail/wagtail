@@ -9,7 +9,7 @@ import { InlinePanel } from '../InlinePanel';
  */
 export class MultipleChooserPanel extends InlinePanel {
   constructor(opts, initControls = true) {
-    super(opts);
+    super(opts, initControls);
 
     if (initControls) {
       this.chooserWidgetFactory = window.telepath.unpack(

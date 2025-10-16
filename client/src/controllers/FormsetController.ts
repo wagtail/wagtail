@@ -4,6 +4,17 @@ import { debounce } from '../utils/debounce';
 import { forceFocus } from '../utils/forceFocus';
 import { transition } from '../utils/transition';
 import { runInlineScripts } from '../utils/runInlineScripts';
+import type { Chooser, ChooserFactory } from '../components/ChooserWidget';
+
+interface AddWithDataParams {
+  data?: any;
+  prefix: string;
+  chooserFieldName: string;
+}
+
+type AddWithDataEvent = CustomEvent<AddWithDataParams> & {
+  params: AddWithDataParams;
+};
 
 /**
  * Adds the ability for a dynamic, expanding, formset leveraging the Django
@@ -49,6 +60,7 @@ export class FormsetController extends Controller<HTMLElement> {
     'deleted',
     'deleteInput',
     'forms',
+    'multipleChooserConfig',
     'minFormsInput',
     'maxFormsInput',
     'orderInput',
@@ -76,6 +88,9 @@ export class FormsetController extends Controller<HTMLElement> {
   declare readonly deleteInputTargets: HTMLInputElement[];
   /** Target element to append new child forms to. */
   declare readonly formsTarget: HTMLElement;
+  /** Element that holds the configuration for multiple chooser panel. */
+  declare readonly multipleChooserConfigTarget: HTMLElement;
+  declare readonly hasMultipleChooserConfigTarget: boolean;
   /** Hidden input to read for the value for min forms. */
   declare readonly minFormsInputTarget: HTMLInputElement;
   /** Hidden input to read for the value for max forms. */
@@ -96,11 +111,27 @@ export class FormsetController extends Controller<HTMLElement> {
 
   elementPrefixRegex = /__prefix__(.*?('|"|\\u0022))/g;
 
+  chooserFactory: ChooserFactory | null = null;
+
   initialize() {
     this.syncOrdering = debounce(this.syncOrdering.bind(this), 50);
     this.totalValue = parseInt(this.totalFormsInputTarget.value, 10);
     this.minValue = parseInt(this.minFormsInputTarget.value, 10);
     this.maxValue = parseInt(this.maxFormsInputTarget.value, 10);
+
+    if (this.hasMultipleChooserConfigTarget) {
+      const jsonScript =
+        this.multipleChooserConfigTarget.querySelector<HTMLScriptElement>(
+          'script[type="application/json"]',
+        );
+      try {
+        this.chooserFactory = window.telepath.unpack(
+          JSON.parse(jsonScript?.textContent || '{}'),
+        );
+      } catch (e) {
+        // Ignore JSON parsing errors
+      }
+    }
   }
 
   /**
@@ -143,6 +174,39 @@ export class FormsetController extends Controller<HTMLElement> {
     }
 
     forceFocus(this.formsTarget.appendChild(this.newChild));
+  }
+
+  addWithData(event?: AddWithDataEvent) {
+    const { data, prefix, chooserFieldName } = {
+      ...event?.detail,
+      ...event?.params,
+    };
+    if (!data || !prefix || !chooserFieldName) return;
+
+    this.add();
+    const formIndex = this.childTargets.length - 1;
+    const name = `${prefix}-${formIndex}-${chooserFieldName}`;
+    const form = this.childTargets[formIndex];
+    const chooser: Chooser = this.chooserFactory!.getByName(name, form);
+    chooser.setStateFromModalData(data);
+  }
+
+  addMultiple(event: AddWithDataEvent) {
+    if (!this.hasMultipleChooserConfigTarget || !this.chooserFactory) {
+      throw new Error(
+        'Multiple chooser widget configuration is not available.',
+      );
+    }
+    this.chooserFactory.openModal(
+      (result: any[]) =>
+        result.forEach((item) =>
+          this.addWithData({
+            ...event,
+            params: { ...event.params, data: item },
+          }),
+        ),
+      { multiple: true },
+    );
   }
 
   /**
