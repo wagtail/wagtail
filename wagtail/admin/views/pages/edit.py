@@ -584,7 +584,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             self.form.formsets = original_formsets
         else:
             self.page = self.form.save(commit=should_commit)
-        
+
         self.subscription.save()
 
         # Save revision
