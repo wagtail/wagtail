@@ -14,6 +14,7 @@ Changelog
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
+ * Maintenance: Add a basic set of Storybook stories for the Stimulus Autosize controller (LB (Ben) Johnston)
 
 
 7.2 (05.11.2025)
