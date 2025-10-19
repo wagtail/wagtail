@@ -1,5 +1,23 @@
 {% load wagtailadmin_tags i18n %}
+{% fragment as account_link %}<a class="w-underline" href="{% url 'wagtailadmin_account' %}">{% trans 'Account' %}</a>{% endfragment %}
 {% dialog icon_name="keyboard" classname="w-keyboard-shortcuts" id="keyboard-shortcuts-dialog" title=_("Keyboard shortcuts") %}
+    {% if keyboard_shortcuts_enabled %}
+        {% help_block status="info" %}
+            <p>
+                {% blocktrans trimmed %}
+                    Keyboard shortcuts are currently enabled, manage your {{ account_link }} to disable them.
+                {% endblocktrans %}
+            </p>
+        {% endhelp_block %}
+    {% else %}
+        {% help_block status="warning" %}
+            <p>
+                {% blocktrans trimmed %}
+                    Keyboard shortcuts are currently disabled, manage your {{ account_link }} to enable them.
+                {% endblocktrans %}
+            </p>
+        {% endhelp_block %}
+    {% endif %}
     <table class="w-w-full">
         <caption class="w-sr-only">
             {% trans "All keyboard shortcuts" %}

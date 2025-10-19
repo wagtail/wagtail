@@ -1339,12 +1339,22 @@ def keyboard_shortcuts_dialog(context):
     Note: Shortcut keys are intentionally not translated.
     """
 
+    request = context["request"]
+
+    user = getattr(context.get("request"), "user", None)
+    keyboard_shortcuts_enabled = (
+        user.wagtail_userprofile.keyboard_shortcuts
+        if hasattr(user, "wagtail_userprofile")
+        else True
+    )
+
     comments_enabled = get_comments_enabled()
-    user_agent = context["request"].headers.get("User-Agent", "")
+    user_agent = request.headers.get("User-Agent", "")
     is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
-    KEYS = get_keyboard_key_labels_from_request(context["request"])
+    KEYS = get_keyboard_key_labels_from_request(request)
 
     return {
+        "keyboard_shortcuts_enabled": keyboard_shortcuts_enabled,
         "shortcuts": {
             # Translators: Shortcuts for admin common shortcuts that are available across the admin
             ("admin-common", _("Application")): [

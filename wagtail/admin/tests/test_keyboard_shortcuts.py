@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from wagtail.admin.utils import get_keyboard_key_labels_from_request
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.users.models import UserProfile
 
 
 class TestGetKeyboardKeyLabelsFromRequestUtil(TestCase):
@@ -109,6 +110,49 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
             "All keyboard shortcuts", shortcuts_dialog.find("caption").prettify()
         )
         self.assertIn("Keyboard shortcut", shortcuts_dialog.find("thead").prettify())
+
+    def test_keyboard_shortcuts_enabled_info_message(self):
+        """
+        When keyboard shortcuts are enabled (default), show an info message about how to disable.
+        """
+        response = self.client.get(reverse("wagtailadmin_home"))
+        soup = self.get_soup(response.content)
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        self.assertIsNotNone(shortcuts_dialog)
+        self.assertIn(
+            "Keyboard shortcuts are currently enabled",
+            shortcuts_dialog.prettify(),
+        )
+        # Account link present
+        self.assertIn(
+            reverse("wagtailadmin_account"),
+            shortcuts_dialog.prettify(),
+        )
+
+    def test_keyboard_shortcuts_disabled_warning_message(self):
+        """
+        When keyboard shortcuts are disabled in the user profile, show a warning with how to enable.
+        """
+        # Fetch real user object via a new request context
+        response = self.client.get(reverse("wagtailadmin_home"))
+        request_user = response.context["request"].user
+        # Ensure a profile exists for the user
+        profile = UserProfile.get_for_user(request_user)
+        profile.keyboard_shortcuts = False
+        profile.save()
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+        soup = self.get_soup(response.content)
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        self.assertIsNotNone(shortcuts_dialog)
+        self.assertIn(
+            "Keyboard shortcuts are currently disabled",
+            shortcuts_dialog.prettify(),
+        )
+        self.assertIn(
+            reverse("wagtailadmin_account"),
+            shortcuts_dialog.prettify(),
+        )
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=True)
     def test_keyboard_shortcuts_with_comments_enabled(self):
