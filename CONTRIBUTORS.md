@@ -910,6 +910,7 @@
 * Andrew Selzer
 * Lasse Schmieding
 * Shivam Kumar
+* Pravin Kamble
 
 ## Translators
 
