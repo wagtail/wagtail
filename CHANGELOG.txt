@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Maintenance: Dropped support for Django 5.1
+ * Maintenance: Updated NPM packages (LB (Ben) Johnston)
 
 
 7.2 (xx.xx.xxxx) - IN DEVELOPMENT
