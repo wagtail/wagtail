@@ -12,6 +12,7 @@ Changelog
  * Reorganize keyboard shortcuts into better categories with an ordering from most common to most specific (Dhruvi Patel)
  * Add `max_value` of 100 (%) for the `closeness` field in Image URL Generator form (LB (Ben) Johnston)
  * Add reordering support to generic model and snippet listing views (Joey Jurjens, Sage Abdullah)
+ * Add messaging within the keyboard shortcuts dialog to indicate when keyboard shortcuts are disabled or how to disable them via user preferences (Pravin Kamble)
  * Fix: Use the correct method of resolving the file storage dynamically for FileField usage in images & documents (Amir Mahmoodi)
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
