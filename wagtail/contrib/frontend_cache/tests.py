@@ -629,7 +629,10 @@ class TestCachePurgingFunctions(TestCase):
         }
     )
     def test_invalidate_specific_location(self):
-        with self.assertLogs(level="INFO") as log_output:
+        with self.assertLogs(
+            logger="wagtail.frontendcache",
+            level="INFO",
+        ) as log_output:
             with self.captureOnCommitCallbacks(execute=True):
                 purge_url_from_cache("http://localhost/foo")
 
