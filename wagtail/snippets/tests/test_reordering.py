@@ -242,7 +242,7 @@ class TestReorderView(WagtailTestUtils, TestCase):
 
         # Check if obj3 is now the first item by taking obj1's sort_order and
         # incrementing sort_order of the other items after it (but before obj3's
-        # old sort_order 3) by 1
+        # old position) by 1
         self.assertOrder([(self.obj3, 0), (self.obj1, 1), (self.obj2, 2)])
 
     def test_move_position_down(self):
