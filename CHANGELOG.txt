@@ -18,6 +18,7 @@ Changelog
  * Update grid-list layout toggle to new design (Joel William)
  * Add readability score metric to content checks (Thibaud Colas)
  * Add explainer panel for content metrics (Thibaud Colas)
+ * Support calculating content metrics without opening the preview panel (Sage Abdullah)
  * Fix: Use the correct method of resolving the file storage dynamically for FileField usage in images & documents (Amir Mahmoodi)
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
