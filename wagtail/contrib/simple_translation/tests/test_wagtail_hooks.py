@@ -587,3 +587,187 @@ class TestDeletingTranslatedPages(Utils):
         self.assertNotIn(self.en_blog_post, en_root.get_descendants().specific())
         # The alias should no longer be in the translated tree root (fr HomePage)
         self.assertNotIn(self.fr_blog_post, fr_root.get_descendants().specific())
+
+
+@override_settings(
+    WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+)
+class TestBulkMoveTranslatedPages(Utils):
+    """Test that bulk move action correctly syncs translations when WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE is enabled."""
+
+    def test_bulk_move_execute_action_syncs_translations(self):
+        """Test that execute_action for bulk move syncs translated pages."""
+        from wagtail.admin.views.pages.bulk_actions.move import MoveBulkAction
+
+        # Create translations
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        # Create two pages to bulk move
+        en_post_1 = TestPage(title="Post 1", slug="post-1")
+        self.en_blog_index.add_child(instance=en_post_1)
+        en_post_2 = TestPage(title="Post 2", slug="post-2")
+        self.en_blog_index.add_child(instance=en_post_2)
+
+        # Create translations for both posts
+        fr_post_1 = en_post_1.copy_for_translation(self.fr_locale)
+        de_post_1 = en_post_1.copy_for_translation(self.de_locale)
+        fr_post_2 = en_post_2.copy_for_translation(self.fr_locale)
+        de_post_2 = en_post_2.copy_for_translation(self.de_locale)
+
+        # Confirm posts are under blog index
+        self.assertEqual(en_post_1.get_parent().id, self.en_blog_index.id)
+        self.assertEqual(en_post_2.get_parent().id, self.en_blog_index.id)
+        self.assertEqual(fr_post_1.get_parent().id, self.fr_blog_index.id)
+        self.assertEqual(fr_post_2.get_parent().id, self.fr_blog_index.id)
+        self.assertEqual(de_post_1.get_parent().id, self.de_blog_index.id)
+        self.assertEqual(de_post_2.get_parent().id, self.de_blog_index.id)
+
+        # Get fresh instances from database
+        en_post_1 = Page.objects.get(pk=en_post_1.pk)
+        en_post_2 = Page.objects.get(pk=en_post_2.pk)
+        en_homepage = Page.objects.get(pk=self.en_homepage.pk)
+
+        # Execute bulk move
+        result = MoveBulkAction.execute_action(
+            [en_post_1, en_post_2], destination=en_homepage, user=None
+        )
+        
+        # Check that the action was executed (return value should be (num_parent_objects, 0))
+        self.assertIsNotNone(result)
+        self.assertEqual(result[0], 2)  # 2 pages moved
+
+        # Refresh pages
+        en_post_1 = Page.objects.get(pk=en_post_1.pk)
+        en_post_2 = Page.objects.get(pk=en_post_2.pk)
+        fr_post_1 = Page.objects.get(pk=fr_post_1.pk)
+        fr_post_2 = Page.objects.get(pk=fr_post_2.pk)
+        de_post_1 = Page.objects.get(pk=de_post_1.pk)
+        de_post_2 = Page.objects.get(pk=de_post_2.pk)
+
+        # Check all pages moved to their respective homepages
+        self.assertEqual(en_post_1.get_parent().id, self.en_homepage.id)
+        self.assertEqual(en_post_2.get_parent().id, self.en_homepage.id)
+        self.assertEqual(fr_post_1.get_parent().id, self.fr_homepage.id)
+        self.assertEqual(fr_post_2.get_parent().id, self.fr_homepage.id)
+        self.assertEqual(de_post_1.get_parent().id, self.de_homepage.id)
+        self.assertEqual(de_post_2.get_parent().id, self.de_homepage.id)
+
+    def test_bulk_move_without_sync_setting(self):
+        """Test bulk move doesn't sync translations when WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE is False."""
+        from wagtail.admin.views.pages.bulk_actions.move import MoveBulkAction
+
+        with override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False):
+            # Create translations
+            self.fr_blog_index = self.en_blog_index.copy_for_translation(
+                self.fr_locale
+            )
+
+            # Create page to bulk move
+            en_post = TestPage(title="Post", slug="post")
+            self.en_blog_index.add_child(instance=en_post)
+
+            # Create translation
+            fr_post = en_post.copy_for_translation(self.fr_locale)
+
+            # Confirm posts are under blog index
+            self.assertEqual(en_post.get_parent().id, self.en_blog_index.id)
+            self.assertEqual(fr_post.get_parent().id, self.fr_blog_index.id)
+
+            # Get fresh instances from database
+            en_post = Page.objects.get(pk=en_post.pk)
+            en_homepage = Page.objects.get(pk=self.en_homepage.pk)
+
+            # Execute bulk move
+            MoveBulkAction.execute_action(
+                [en_post], destination=en_homepage, user=None
+            )
+
+            # Refresh pages
+            en_post = Page.objects.get(pk=en_post.pk)
+            fr_post = Page.objects.get(pk=fr_post.pk)
+
+            # Only English page should move
+            self.assertEqual(en_post.get_parent().id, self.en_homepage.id)
+            self.assertEqual(fr_post.get_parent().id, self.fr_blog_index.id)
+
+
+@override_settings(
+    WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+)
+class TestBulkDeleteTranslatedPages(Utils):
+    """Test that bulk delete action correctly syncs translations when WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE is enabled."""
+
+    def test_bulk_delete_execute_action_syncs_translations(self):
+        """Test that execute_action for bulk delete syncs translated pages."""
+        from wagtail.admin.views.pages.bulk_actions.delete import DeleteBulkAction
+
+        # Create translations
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        # Create two pages to bulk delete
+        en_post_1 = TestPage(title="Post 1", slug="post-1")
+        self.en_blog_index.add_child(instance=en_post_1)
+        en_post_2 = TestPage(title="Post 2", slug="post-2")
+        self.en_blog_index.add_child(instance=en_post_2)
+
+        # Create translations for both posts
+        fr_post_1 = en_post_1.copy_for_translation(self.fr_locale)
+        de_post_1 = en_post_1.copy_for_translation(self.de_locale)
+        fr_post_2 = en_post_2.copy_for_translation(self.fr_locale)
+        de_post_2 = en_post_2.copy_for_translation(self.de_locale)
+
+        # Get IDs before deletion
+        en_post_1_id = en_post_1.id
+        en_post_2_id = en_post_2.id
+        fr_post_1_id = fr_post_1.id
+        fr_post_2_id = fr_post_2.id
+        de_post_1_id = de_post_1.id
+        de_post_2_id = de_post_2.id
+
+        # Get fresh instances from database
+        en_post_1 = Page.objects.get(pk=en_post_1_id)
+        en_post_2 = Page.objects.get(pk=en_post_2_id)
+
+        # Execute bulk delete
+        DeleteBulkAction.execute_action([en_post_1, en_post_2], user=None)
+
+        # Check all pages are deleted
+        self.assertFalse(Page.objects.filter(pk=en_post_1_id).exists())
+        self.assertFalse(Page.objects.filter(pk=en_post_2_id).exists())
+        self.assertFalse(Page.objects.filter(pk=fr_post_1_id).exists())
+        self.assertFalse(Page.objects.filter(pk=fr_post_2_id).exists())
+        self.assertFalse(Page.objects.filter(pk=de_post_1_id).exists())
+        self.assertFalse(Page.objects.filter(pk=de_post_2_id).exists())
+
+    def test_bulk_delete_without_sync_setting(self):
+        """Test bulk delete doesn't sync translations when WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE is False."""
+        from wagtail.admin.views.pages.bulk_actions.delete import DeleteBulkAction
+
+        with override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False):
+            # Create translations
+            self.fr_blog_index = self.en_blog_index.copy_for_translation(
+                self.fr_locale
+            )
+
+            # Create page to bulk delete
+            en_post = TestPage(title="Post", slug="post")
+            self.en_blog_index.add_child(instance=en_post)
+
+            # Create translation
+            fr_post = en_post.copy_for_translation(self.fr_locale)
+
+            # Get IDs before deletion
+            en_post_id = en_post.id
+            fr_post_id = fr_post.id
+
+            # Get fresh instances from database
+            en_post = Page.objects.get(pk=en_post_id)
+
+            # Execute bulk delete
+            DeleteBulkAction.execute_action([en_post], user=None)
+
+            # Only English page should be deleted
+            self.assertFalse(Page.objects.filter(pk=en_post_id).exists())
+            self.assertTrue(Page.objects.filter(pk=fr_post_id).exists())
