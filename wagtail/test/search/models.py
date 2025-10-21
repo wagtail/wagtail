@@ -23,6 +23,7 @@ class Book(index.Indexed, models.Model):
     summary = models.TextField(blank=True)
     authors = models.ManyToManyField(Author, related_name="books")
     publication_date = models.DateField()
+    publication_time = models.TimeField(blank=True, null=True)
     number_of_pages = models.IntegerField()
     tags = TaggableManager()
 
@@ -34,6 +35,7 @@ class Book(index.Indexed, models.Model):
         index.FilterField("authors"),
         index.RelatedFields("authors", Author.search_fields),
         index.FilterField("publication_date"),
+        index.FilterField("publication_time"),
         index.FilterField("number_of_pages"),
         index.RelatedFields(
             "tags",

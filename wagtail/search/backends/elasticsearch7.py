@@ -1,6 +1,7 @@
 import json
 from collections import OrderedDict
 from copy import deepcopy
+from datetime import time
 from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
@@ -76,7 +77,7 @@ class Elasticsearch7Mapping:
         "SlugField": "string",
         "SmallIntegerField": "integer",
         "TextField": "string",
-        "TimeField": "date",
+        "TimeField": "keyword",
         "URLField": "string",
     }
 
@@ -270,6 +271,14 @@ class Elasticsearch7Mapping:
         edgengrams = []
         for field in self.model.get_search_fields():
             value = field.get_value(obj)
+
+            if isinstance(value, time):
+                value = value.isoformat() if value else None
+            elif isinstance(value, (list, tuple)):
+                value = [
+                    item.isoformat() if isinstance(item, time) else item
+                    for item in value
+                ]
 
             if isinstance(field, RelatedFields):
                 if isinstance(value, (models.Manager, models.QuerySet)):
