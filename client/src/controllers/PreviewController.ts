@@ -14,6 +14,8 @@ import {
   ContentExtractorOptions,
   getPreviewContent,
   getReadingTime,
+  getLIXScore,
+  getReadabilityScore,
   getWordCount,
   renderContentMetrics,
 } from '../includes/contentMetrics';
@@ -942,7 +944,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   /**
    * Runs the content checks by extracting the content from the preview iframe
-   * using an Axe plugin and calculating the word count and reading time.
+   * using an Axe plugin and calculating content metrics.
    */
   async runContentChecks() {
     const content = await this.extractContent();
@@ -953,7 +955,9 @@ export class PreviewController extends Controller<HTMLElement> {
 
     const wordCount = getWordCount(content.lang, content.innerText);
     const readingTime = getReadingTime(content.lang, wordCount);
-    const metrics = { wordCount, readingTime };
+    const lixScore = getLIXScore(content.lang, content.innerText);
+    const readabilityScore = getReadabilityScore(lixScore);
+    const metrics = { wordCount, readingTime, lixScore, readabilityScore };
 
     this.dispatch('content', { detail: { content, metrics } });
 
