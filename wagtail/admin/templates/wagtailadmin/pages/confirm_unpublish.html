@@ -3,7 +3,8 @@
 
 {% block confirmation_text %}
     <p>
-        {% trans "Are you sure you want to unpublish this page?" %}
+        {% trans "Unpublishing will remove this page from the live site, but earlier revisions will remain available for editing." %}
+
         {% if translation_count %}
             {% blocktrans trimmed with counter=translation_count translation_count=translation_count|intcomma count counter=counter %}
                 This will also unpublish one translation of the page.
