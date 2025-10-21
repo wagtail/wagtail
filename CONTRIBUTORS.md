@@ -913,6 +913,7 @@
 * Pravin Kamble
 * Martin Fitzpatrick
 * arpitmak
+* Eric Matthes
 
 ## Translators
 
