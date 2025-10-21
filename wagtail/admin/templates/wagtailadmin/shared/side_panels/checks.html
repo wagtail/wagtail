@@ -28,7 +28,7 @@
                 <h2 class="w-my-5 w-text-16 w-font-bold w-text-text-label">
                     {% trans 'Content metrics' %}
                 </h2>
-                <div class="w-flex w-flex-wrap w-gap-x-10 w-gap-y-4">
+                <div class="w-flex w-flex-wrap w-gap-x-5 w-gap-y-4">
                     {% block metrics %}
                         <div>
                             <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Words' %}</h3>
@@ -37,6 +37,10 @@
                         <div>
                             <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Reading time' %}</h3>
                             <p class="w-font-semibold w-text-text-label" data-content-reading-time>-</p>
+                        </div>
+                        <div>
+                            <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Readability' %}</h3>
+                            <p class="w-font-semibold w-text-text-label" data-content-readability-score>-</p>
                         </div>
                     {% endblock %}
                 </div>
