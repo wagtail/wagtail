@@ -2,8 +2,10 @@ from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
+from django.db import models
 from django.forms.models import modelform_factory
 from django.urls import path
+from django.urls.converters import get_converters
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 
@@ -128,6 +130,24 @@ class ModelViewSet(ViewSet):
     @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
+
+    @cached_property
+    def pk_path_converter(self):
+        """
+        :ref:`Path converter <topics/http/urls:path converters>` to use for
+        the model's primary key in URL patterns. Defaults to ``"int"`` for
+        ``IntegerField``, ``"uuid"`` for ``UUIDField``, and ``"str"`` for all
+        other types.
+
+        .. versionadded:: 7.3
+           The ``pk_path_converter`` property was added.
+        """
+        if isinstance(self.model_opts.pk, models.UUIDField):
+            return "uuid"
+        if isinstance(self.model_opts.pk, models.IntegerField):
+            return "int"
+        # Default to string if unknown
+        return "str"
 
     @cached_property
     def name(self):
@@ -649,38 +669,44 @@ class ModelViewSet(ViewSet):
         hooks.register("register_permissions", self.get_permissions_to_register)
 
     def get_urlpatterns(self):
+        conv = self.pk_path_converter
         urlpatterns = [
             path("", self.index_view, name="index"),
             path("results/", self.index_results_view, name="index_results"),
             path("new/", self.add_view, name="add"),
-            path("edit/<str:pk>/", self.edit_view, name="edit"),
-            path("delete/<str:pk>/", self.delete_view, name="delete"),
-            path("history/<str:pk>/", self.history_view, name="history"),
+            path(f"edit/<{conv}:pk>/", self.edit_view, name="edit"),
+            path(f"delete/<{conv}:pk>/", self.delete_view, name="delete"),
+            path(f"history/<{conv}:pk>/", self.history_view, name="history"),
             path(
-                "history-results/<str:pk>/",
+                f"history-results/<{conv}:pk>/",
                 self.history_results_view,
                 name="history_results",
             ),
-            path("usage/<str:pk>/", self.usage_view, name="usage"),
+            path(f"usage/<{conv}:pk>/", self.usage_view, name="usage"),
         ]
 
         if self.reorder_view_enabled:
             urlpatterns.append(
-                path("reorder/<str:pk>/", self.reorder_view, name="reorder")
+                path(f"reorder/<{conv}:pk>/", self.reorder_view, name="reorder")
             )
 
         if self.inspect_view_enabled:
             urlpatterns.append(
-                path("inspect/<str:pk>/", self.inspect_view, name="inspect")
+                path(f"inspect/<{conv}:pk>/", self.inspect_view, name="inspect")
             )
 
         if self.copy_view_enabled:
-            urlpatterns.append(path("copy/<str:pk>/", self.copy_view, name="copy"))
+            urlpatterns.append(path(f"copy/<{conv}:pk>/", self.copy_view, name="copy"))
 
         return urlpatterns
 
     def on_register(self):
         super().on_register()
+        if self.pk_path_converter not in get_converters():
+            raise ImproperlyConfigured(
+                f"{self.__class__.__name__}.pk_path_converter is not a "
+                "registered path converter"
+            )
         self.register_admin_url_finder()
         self.register_reference_index()
         self.register_permissions()
