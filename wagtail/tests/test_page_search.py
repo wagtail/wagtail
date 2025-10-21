@@ -82,7 +82,7 @@ class PageSearchTests:
                     "blah", order_by_relevance=False, backend=self.backend_name
                 )
             self.assertIn(
-                'Cannot sort search results with "OrderBy(F(last_published_at), descending=False)".',
+                'Sorting search results with "OrderBy(F(last_published_at), descending=False)" is not supported by this search backend.',
                 str(ctx.exception),
             )
 

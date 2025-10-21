@@ -227,9 +227,22 @@ else:
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"
 
+if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
+    INSTALLED_APPS.append("django.contrib.postgres")
+
+# Tests in wagtail.tests.test_page_search.PageSearchTests will be run against each backend defined
+# in WAGTAILSEARCH_BACKENDS. Define an additional one to test the FTS-enabled backend for the
+# currently active database.
+
+WAGTAILSEARCH_BACKENDS["database"] = {
+    "BACKEND": "wagtail.search.backends.database",
+    "AUTO_UPDATE": False,
+    "SEARCH_CONFIG": "english",
+}
+
 if "ELASTICSEARCH_URL" in os.environ:
-    # Define an 'elasticsearch' backend alongside the default database one; this is used purely
-    # for the Elasticsearch-specific tests in wagtail.images.tests.test_models and
+    # Define an 'elasticsearch' backend; along with wagtail.tests.test_page_search.PageSearchTests
+    # this is also used for the Elasticsearch-specific tests in wagtail.images.tests.test_models and
     # wagtail.documents.tests.test_search. We also want to run these tests under Opensearch; for
     # simplicity we use the backend name 'elasticsearch' in this case too.
     if elasticsearch_version := os.environ.get("ELASTICSEARCH_VERSION"):
