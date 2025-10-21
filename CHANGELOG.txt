@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.8 (Matt Westcott)
+ * Fix: Preserve listing view query parameters (filters, search) after completing bulk actions (redirects now retain original GET params) (Contributor)
  * Add usage count filter to the admin image and document listings (Joel William)
  * Add keyboard shortcut (`?`) to activate the keyboard shortcuts dialog (Dhruvi Patel)
  * Add keyboard shortcut (`/`) to activate and focus on the search input in the sidebar (Dhruvi Patel)
