@@ -1044,16 +1044,17 @@ class SnippetViewSet(ModelViewSet):
         )
 
     def get_urlpatterns(self):
+        conv = self.pk_path_converter
         urlpatterns = [
             path("", self.index_view, name="list"),
             path("results/", self.index_results_view, name="list_results"),
             path("add/", self.add_view, name="add"),
-            path("edit/<str:pk>/", self.edit_view, name="edit"),
-            path("delete/<str:pk>/", self.delete_view, name="delete"),
-            path("usage/<str:pk>/", self.usage_view, name="usage"),
-            path("history/<str:pk>/", self.history_view, name="history"),
+            path(f"edit/<{conv}:pk>/", self.edit_view, name="edit"),
+            path(f"delete/<{conv}:pk>/", self.delete_view, name="delete"),
+            path(f"usage/<{conv}:pk>/", self.usage_view, name="usage"),
+            path(f"history/<{conv}:pk>/", self.history_view, name="history"),
             path(
-                "history-results/<str:pk>/",
+                f"history-results/<{conv}:pk>/",
                 self.history_results_view,
                 name="history_results",
             ),
@@ -1061,22 +1062,22 @@ class SnippetViewSet(ModelViewSet):
 
         if self.reorder_view_enabled:
             urlpatterns += [
-                path("reorder/<str:pk>/", self.reorder_view, name="reorder")
+                path(f"reorder/<{conv}:pk>/", self.reorder_view, name="reorder")
             ]
 
         if self.copy_view_enabled:
-            urlpatterns += [path("copy/<str:pk>/", self.copy_view, name="copy")]
+            urlpatterns += [path(f"copy/<{conv}:pk>/", self.copy_view, name="copy")]
 
         if self.inspect_view_enabled:
             urlpatterns += [
-                path("inspect/<str:pk>/", self.inspect_view, name="inspect")
+                path(f"inspect/<{conv}:pk>/", self.inspect_view, name="inspect")
             ]
 
         if self.preview_enabled:
             urlpatterns += [
                 path("preview/", self.preview_on_add_view, name="preview_on_add"),
                 path(
-                    "preview/<str:pk>/",
+                    f"preview/<{conv}:pk>/",
                     self.preview_on_edit_view,
                     name="preview_on_edit",
                 ),
@@ -1086,7 +1087,7 @@ class SnippetViewSet(ModelViewSet):
             if self.preview_enabled:
                 urlpatterns += [
                     path(
-                        "history/<str:pk>/revisions/<int:revision_id>/view/",
+                        f"history/<{conv}:pk>/revisions/<int:revision_id>/view/",
                         self.revisions_view,
                         name="revisions_view",
                     )
@@ -1094,7 +1095,7 @@ class SnippetViewSet(ModelViewSet):
 
             urlpatterns += [
                 path(
-                    "history/<str:pk>/revisions/<int:revision_id>/revert/",
+                    f"history/<{conv}:pk>/revisions/<int:revision_id>/revert/",
                     self.revisions_revert_view,
                     name="revisions_revert",
                 ),
@@ -1108,43 +1109,43 @@ class SnippetViewSet(ModelViewSet):
         if self.draftstate_enabled:
             urlpatterns += [
                 path(
-                    "history/<str:pk>/revisions/<int:revision_id>/unschedule/",
+                    f"history/<{conv}:pk>/revisions/<int:revision_id>/unschedule/",
                     self.revisions_unschedule_view,
                     name="revisions_unschedule",
                 ),
-                path("unpublish/<str:pk>/", self.unpublish_view, name="unpublish"),
+                path(f"unpublish/<{conv}:pk>/", self.unpublish_view, name="unpublish"),
             ]
 
         if self.locking_enabled:
             urlpatterns += [
-                path("lock/<str:pk>/", self.lock_view, name="lock"),
-                path("unlock/<str:pk>/", self.unlock_view, name="unlock"),
+                path(f"lock/<{conv}:pk>/", self.lock_view, name="lock"),
+                path(f"unlock/<{conv}:pk>/", self.unlock_view, name="unlock"),
             ]
 
         if self.workflow_enabled:
             urlpatterns += [
                 path(
-                    "workflow/action/<str:pk>/<slug:action_name>/<int:task_state_id>/",
+                    f"workflow/action/<{conv}:pk>/<slug:action_name>/<int:task_state_id>/",
                     self.workflow_action_view,
                     name="workflow_action",
                 ),
                 path(
-                    "workflow/collect_action_data/<str:pk>/<slug:action_name>/<int:task_state_id>/",
+                    f"workflow/collect_action_data/<{conv}:pk>/<slug:action_name>/<int:task_state_id>/",
                     self.collect_workflow_action_data_view,
                     name="collect_workflow_action_data",
                 ),
                 path(
-                    "workflow/confirm_cancellation/<str:pk>/",
+                    f"workflow/confirm_cancellation/<{conv}:pk>/",
                     self.confirm_workflow_cancellation_view,
                     name="confirm_workflow_cancellation",
                 ),
                 path(
-                    "workflow_history/<str:pk>/",
+                    f"workflow_history/<{conv}:pk>/",
                     self.workflow_history_view,
                     name="workflow_history",
                 ),
                 path(
-                    "workflow_history/<str:pk>/detail/<int:workflow_state_id>/",
+                    f"workflow_history/<{conv}:pk>/detail/<int:workflow_state_id>/",
                     self.workflow_history_detail_view,
                     name="workflow_history_detail",
                 ),
@@ -1153,7 +1154,7 @@ class SnippetViewSet(ModelViewSet):
             if self.preview_enabled:
                 urlpatterns += [
                     path(
-                        "workflow/preview/<str:pk>/<int:task_id>/",
+                        f"workflow/preview/<{conv}:pk>/<int:task_id>/",
                         self.workflow_preview_view,
                         name="workflow_preview",
                     ),

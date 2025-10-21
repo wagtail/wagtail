@@ -7,6 +7,7 @@ Changelog
  * Resize overly large avatar images on upload (Harshit Ranjan)
  * Add natural keys for `Page` and `Collection` models (Samya Aggarwal)
  * Add Loom oEmbed provider (Nick Ivons)
+ * Add `ModelViewSet.pk_path_converter` with defaults for `IntegerField` and `UUIDField` primary keys (Seb Corbin)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
