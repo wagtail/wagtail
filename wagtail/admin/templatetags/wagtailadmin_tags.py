@@ -374,15 +374,15 @@ def querystring(context, **kwargs):
     """
     request = context["request"]
     querydict = request.GET.copy()
-    
-    for key,values in list(querydict.lists()):
-        cleaned_values=[]
+
+    for key, values in list(querydict.lists()):
+        cleaned_values = []
         for v in values:
             if v != "" and v is not None:
                 cleaned_values.append(v)
-        
+
         if cleaned_values:
-            querydict.setlist(key,cleaned_values)
+            querydict.setlist(key, cleaned_values)
         else:
             if key in querydict:
                 querydict.pop(key)
