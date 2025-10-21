@@ -7,6 +7,7 @@ Changelog
  * Fix: Allow `label_format` to be set to an empty string to hide the block summary label (Sage Abdullah)
  * Fix: Better support userbar loading on multi-site through site hosts (Sage Abdullah)
  * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
+ * Fix: Use the correct origin when computing content metrics via cross-origin communications (Sage Abdullah)
  * Docs: Link to django-treebeard's `Node.move()` in `Page.move()` documentation (Baptiste Mispelon)
 
 
