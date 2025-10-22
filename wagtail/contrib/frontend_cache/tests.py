@@ -34,7 +34,6 @@ EVENTPAGE_URLS = {
     "http://localhost/events/saint-patrick/",
     "http://localhost/events/tentative-unpublished-event/",
     "http://localhost/events/someone-elses-event/",
-    "http://localhost/events/tentative-unpublished-event/",
     "http://localhost/secret-plans/steal-underpants/",
 }
 
