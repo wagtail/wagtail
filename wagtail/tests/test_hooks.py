@@ -1,5 +1,6 @@
 from unittest import mock
 
+from django.contrib.auth.models import Group
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
@@ -108,7 +109,24 @@ class TestServeHooks(WagtailTestUtils, TestCase):
             response = serve(self.request, self.page.url)
             self.assertEqual(response.content, b"Halted")
 
-    def test_serve_chain_view_restriction(self):
+    def test_serve_chain_group_view_restriction(self):
+        restriction = PageViewRestriction.objects.create(
+            page=self.page,
+            restriction_type=PageViewRestriction.GROUPS,
+        )
+
+        restricted_group = Group.objects.create(name="restricted group")
+        restriction.groups.add(restricted_group)
+        restriction.save()
+
+        with self.register_hook("on_serve_page", check_view_restrictions):
+            response = self.client.get(self.page.url)
+            self.assertEqual(response.status_code, 302)
+            self.assertRedirects(response, f"/_util/login/?next={self.page.url}")
+
+        restriction.delete()
+
+    def test_serve_chain_password_view_restriction(self):
         restriction = PageViewRestriction.objects.create(
             page=self.page,
             restriction_type=PageViewRestriction.PASSWORD,

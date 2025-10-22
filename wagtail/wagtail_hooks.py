@@ -3,9 +3,11 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
+from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.urls import reverse
 from django.utils.cache import add_never_cache_headers
+from django.utils.module_loading import import_string
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
@@ -60,13 +62,26 @@ def check_view_restrictions(callback):
                     )
                     add_never_cache_headers(response)
                     return response
-                elif restriction.restriction_type in [
-                    PageViewRestriction.LOGIN,
-                    PageViewRestriction.GROUPS,
-                ]:
-                    response = require_wagtail_login(next=request.get_full_path())
-                    add_never_cache_headers(response)
-                    return response
+
+                elif restriction.restriction_type == PageViewRestriction.LOGIN:
+                    return require_wagtail_login(next=request.get_full_path())
+
+                elif restriction.restriction_type == PageViewRestriction.GROUPS:
+                    if not request.user.is_authenticated:
+                        response = require_wagtail_login(next=request.get_full_path())
+                        add_never_cache_headers(response)
+                        return response
+                    else:
+                        handler_path = getattr(
+                            settings,
+                            "WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER",
+                            None,
+                        )
+                        if handler_path:
+                            handler = import_string(handler_path)
+                            return handler(page, request, restriction)
+                        else:
+                            raise PermissionDenied
 
         response = callback(page, request, serve_args, serve_kwargs)
         if restrictions:
