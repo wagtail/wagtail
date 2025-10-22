@@ -192,10 +192,10 @@ def file_overwrite_check(app_configs, **kwargs):
     from django.conf import settings
 
     if DJANGO_VERSION >= (5, 1):
-        file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
+        file_storage = settings.STORAGES["default"]["BACKEND"]
     else:
         try:
-            file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
+            file_storage = settings.STORAGES["default"]["BACKEND"]
         except AttributeError:
             file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
 
