@@ -52,6 +52,7 @@ Changelog
  * Maintenance: Migrate file title generation to SyncController for CSP compliance (Aayushman Singh, Chiemezuo Akujobi, LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Remove outdated pytest configuration (Shivam Kumar)
  * Maintenance: Avoid mutable default argument in `ImageNode` within image template tags (minusf)
+ * Maintenance: Use consistent sentence format for user-facing errors (LB (Ben) Johnson)
 
 
 7.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
