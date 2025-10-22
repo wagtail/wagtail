@@ -228,6 +228,7 @@ describe('FocusController', () => {
       const focusSpy = jest.spyOn(focusTarget, 'dispatchEvent');
 
       document.querySelector('button').click();
+      expect(focusSpy).toHaveBeenCalled();
       const [event] = focusSpy.mock.calls[0];
       expect(event).toEqual(expect.objectContaining({ type: 'w-focus:focus' }));
       expect(event.target).toEqual(focusTarget);
@@ -246,6 +247,7 @@ describe('FocusController', () => {
       const focusedSpy = jest.spyOn(focusTarget, 'dispatchEvent');
 
       document.querySelector('button').click();
+      expect(focusedSpy).toHaveBeenCalled();
       const [event] = focusedSpy.mock.calls[1];
       expect(event).toEqual(
         expect.objectContaining({ type: 'w-focus:focused' }),
