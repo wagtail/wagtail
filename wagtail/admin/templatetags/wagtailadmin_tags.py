@@ -916,7 +916,7 @@ def wagtail_config(context):
     config = {
         "CSRF_TOKEN": get_token(request),
         "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(
-            getattr(settings, "CSRF_HEADER_NAME")
+            settings.CSRF_HEADER_NAME
         ),
         "ADMIN_API": {
             "PAGES": reverse("wagtailadmin_api:pages:listing"),
