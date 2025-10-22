@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import Sortable from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { gettext } from '../utils/gettext';
 
 enum Direction {
   Up = 'UP',
@@ -218,12 +219,12 @@ export class OrderableController extends Controller<HTMLElement> {
       })
       .catch((error) => {
         // Determine error message based on error type
-        let errorMessage = 'Failed to reorder items. Please try again.';
-        
+        let errorMessage = gettext('Failed to reorder items. Please try again.');
+
         if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          errorMessage = 'Network error occurred while reordering. Please check your connection and try again.';
+          errorMessage = gettext('Network error occurred while reordering. Please check your connection and try again.');
         } else if (error.message.includes('HTTP error')) {
-          errorMessage = 'Server error occurred while reordering. Please try again.';
+          errorMessage = gettext('Server error occurred while reordering. Please try again.');
         }
         
         // Show error message to user
