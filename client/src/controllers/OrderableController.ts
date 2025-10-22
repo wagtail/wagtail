@@ -2,7 +2,6 @@ import { Controller } from '@hotwired/stimulus';
 import Sortable from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
-import { gettext } from '../utils/gettext';
 
 enum Direction {
   Up = 'UP',
@@ -33,6 +32,9 @@ export class OrderableController extends Controller<HTMLElement> {
     container: { default: '', type: String },
     message: { default: '', type: String },
     url: String,
+    errorNetwork: { default: '', type: String },
+    errorServer: { default: '', type: String },
+    errorGeneric: { default: '', type: String },
   };
 
   declare readonly handleTarget: HTMLElement;
@@ -55,6 +57,12 @@ export class OrderableController extends Controller<HTMLElement> {
   declare messageValue: string;
   /** Base URL template to use for submitting an updated order for a specific item. */
   declare urlValue: string;
+  /** Error message for network failures. */
+  declare errorNetworkValue: string;
+  /** Error message for server errors. */
+  declare errorServerValue: string;
+  /** Error message for generic failures. */
+  declare errorGenericValue: string;
 
   order: string[];
   sortable: ReturnType<typeof Sortable.create>;
@@ -219,12 +227,12 @@ export class OrderableController extends Controller<HTMLElement> {
       })
       .catch((error) => {
         // Determine error message based on error type
-        let errorMessage = gettext('Failed to reorder items. Please try again.');
+        let errorMessage = this.errorGenericValue || 'Failed to reorder items. Please try again.';
 
         if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          errorMessage = gettext('Network error occurred while reordering. Please check your connection and try again.');
+          errorMessage = this.errorNetworkValue || 'Network error occurred while reordering. Please check your connection and try again.';
         } else if (error.message.includes('HTTP error')) {
-          errorMessage = gettext('Server error occurred while reordering. Please try again.');
+          errorMessage = this.errorServerValue || 'Server error occurred while reordering. Please try again.';
         }
         
         // Show error message to user
