@@ -217,7 +217,29 @@ export class OrderableController extends Controller<HTMLElement> {
         });
       })
       .catch((error) => {
-        throw error;
+        // Determine error message based on error type
+        let errorMessage = 'Failed to reorder items. Please try again.';
+        
+        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+          errorMessage = 'Network error occurred while reordering. Please check your connection and try again.';
+        } else if (error.message.includes('HTTP error')) {
+          errorMessage = 'Server error occurred while reordering. Please try again.';
+        }
+        
+        // Show error message to user
+        this.dispatch('w-messages:add', {
+          prefix: '',
+          target: window.document,
+          detail: { 
+            clear: true, 
+            text: errorMessage, 
+            type: 'error' 
+          },
+          cancelable: false,
+        });
+        
+        // Reset the visual state by reverting the sortable order
+        this.sortable.sort(this.order, true);
       });
   }
 
