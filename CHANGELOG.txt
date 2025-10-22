@@ -53,6 +53,7 @@ Changelog
  * Maintenance: Remove outdated pytest configuration (Shivam Kumar)
  * Maintenance: Avoid mutable default argument in `ImageNode` within image template tags (minusf)
  * Maintenance: Use consistent sentence format for user-facing errors (LB (Ben) Johnson)
+ * Maintenance: Update django-tasks dependency to allow 0.9, for preliminary Django 6.0 support (Sage Abdullah)
 
 
 7.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
