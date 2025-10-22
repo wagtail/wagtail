@@ -30,3 +30,5 @@ coverage/
 .vscode
 
 *.db
+
+/mysite
