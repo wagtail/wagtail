@@ -145,9 +145,7 @@ class TestSiteSettingCreateView(SiteSettingTestMixin, BaseTestSiteSettingView):
         )
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
-        self.assertEqual(
-            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
-        )
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # the field errors should indicate that two fields were required
@@ -379,9 +377,7 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
         )
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
-        self.assertEqual(
-            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
-        )
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # the field errors should indicate that two fields were required

@@ -3001,9 +3001,7 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         # the top level message should provide a go to error button
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
-        self.assertEqual(
-            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
-        )
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # the error should only appear once: against the field, not in the header message
@@ -3105,9 +3103,7 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         )
         buttons = header_messages[0].find_all("button")
         self.assertEqual(len(buttons), 1)
-        self.assertEqual(
-            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
-        )
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # the second should be a general message about the title, no go to error button

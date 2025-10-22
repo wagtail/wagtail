@@ -557,9 +557,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # the top level message should provide a go to error button
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
-        self.assertEqual(
-            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
-        )
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # Check that a form error was raised
@@ -791,9 +789,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # the top level message should provide a go to error button
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
-        self.assertEqual(
-            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
-        )
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # Check that a form error was raised
