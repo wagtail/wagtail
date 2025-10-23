@@ -34,6 +34,20 @@ class BaseCollectionManager(models.Manager):
     def get_queryset(self):
         return CollectionQuerySet(self.model).order_by("path")
 
+    def get_by_natural_key(self, *path_names):
+        """Get collection by hierarchical path"""
+        if not path_names:
+            raise ValueError("At least one path name must be provided")
+            
+       
+        current = self.get_queryset().get(depth=1, name=path_names[0])
+        
+        
+        for name in path_names[1:]:
+            current = current.get_children().get(name=name)
+        
+        return current
+
 
 CollectionManager = BaseCollectionManager.from_queryset(CollectionQuerySet)
 
@@ -117,6 +131,19 @@ class Collection(MP_Node):
             )
         # Output unicode plain-text version
         return "{}↳ {}".format(" " * 4 * display_depth, self.name)
+
+    def natural_key(self):
+        """Return the hierarchical path as the natural key"""
+        
+        path = []
+        current = self
+        # Move up until we reach the root
+        while current.get_parent() is not None:  
+            path.insert(0, current.name)
+            current = current.get_parent()
+        
+        path.insert(0, current.name)
+        return tuple(path)
 
     class Meta:
         verbose_name = _("collection")

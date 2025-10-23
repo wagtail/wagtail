@@ -139,6 +139,10 @@ class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
 
+    def get_by_natural_key(self, url_path):
+        """Get page by URL"""
+        return self.get(url_path=url_path)
+
     def first_common_ancestor_of(self, pages, include_self=False, strict=False):
         """
         This is similar to ``PageQuerySet.first_common_ancestor`` but works
@@ -2027,6 +2031,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             except AttributeError:
                 workflow = None
             return workflow
+
+    def natural_key(self):
+        """Return the URL path as the natural key"""
+        return (self.url_path,)
 
     class Meta:
         verbose_name = _("page")

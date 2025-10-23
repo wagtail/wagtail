@@ -4147,3 +4147,18 @@ class TestPageServeWithPasswordRestriction(TestCase, WagtailTestUtils):
 
         self.assertFalse("Cache-Control" in response)
         self.assertFalse("Expires" in response)
+
+    def test_page_natural_key(self):
+        """Test Page natural key implementation."""
+        # Creating a test page
+        root_page = Page.get_first_root_node()
+        home_page = Page(title="Home", slug="home")
+        root_page.add_child(instance=home_page)
+        home_page.save_revision().publish()
+        
+        natural_key = home_page.natural_key()
+        self.assertEqual(natural_key, (home_page.url_path,))
+        
+        
+        retrieved_page = Page.objects.get_by_natural_key(home_page.url_path)
+        self.assertEqual(retrieved_page, home_page)
