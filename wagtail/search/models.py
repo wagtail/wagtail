@@ -1,6 +1,9 @@
 from django.db import models
 from django.db.models import OneToOneField
-from modelsearch.abstract_models import AbstractIndexEntry, AbstractSQLiteFTSIndexEntry
+from wagtailmodelsearch.abstract_models import (
+    AbstractIndexEntry,
+    AbstractSQLiteFTSIndexEntry,
+)
 
 # We import abstract models from the modelsearch app and define concrete implementations here in the
 # wagtail.search app. This preserves backwards compatibility for existing Wagtail projects that have
