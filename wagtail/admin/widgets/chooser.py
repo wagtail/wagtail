@@ -157,8 +157,10 @@ class BaseChooser(widgets.Input):
         # so let's make sure it fails early in the process
         try:
             id_ = attrs["id"]
-        except (KeyError, TypeError):
-            raise TypeError("BaseChooser cannot be rendered without an 'id' attribute")
+        except (KeyError, TypeError) as error:
+            raise TypeError(
+                "BaseChooser cannot be rendered without an 'id' attribute"
+            ) from error
 
         value_data = self.get_value_data(value)
         widget_html = self.render_html(name, value_data, attrs)
@@ -241,12 +243,12 @@ class AdminPageChooser(BaseChooser):
             for model in target_models:
                 try:
                     cleaned_target_models.append(resolve_model_string(model))
-                except (ValueError, LookupError):
+                except (ValueError, LookupError) as error:
                     raise ImproperlyConfigured(
                         "Could not resolve %r into a model. "
                         "Model names should be in the form app_label.model_name"
                         % (model,)
-                    )
+                    ) from error
         else:
             cleaned_target_models = [Page]
 

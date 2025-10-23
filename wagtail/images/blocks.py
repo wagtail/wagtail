@@ -183,10 +183,10 @@ class ImageBlock(StructBlock):
     def clean(self, value):
         try:
             self.child_blocks["image"].clean(value)
-        except ValidationError as e:
+        except ValidationError as error:
             raise StructBlockValidationError(
-                block_errors={"image": e},
-            )
+                block_errors={"image": error},
+            ) from error
 
         if value and not value.contextual_alt_text and not value.decorative:
             raise StructBlockValidationError(

@@ -78,12 +78,12 @@ class StreamBlockStepBuilder(BaseBlockStepBuilder):
                 try:
                     i, name, *params = k.split("__", maxsplit=2)
                     key = int(i)
-                except (ValueError, TypeError):
+                except (ValueError, TypeError) as error:
                     raise InvalidDeclaration(
                         "StreamFieldFactory declarations must be of the form "
                         "<index>=<block_name>, <index>__<block_name>=value or "
                         f"<index>__<block_name>__<param>=value, got: {k}"
-                    )
+                    ) from error
                 if key in indexed_block_names and indexed_block_names[key] != name:
                     raise DuplicateDeclaration(
                         f"Multiple declarations for index {key} at this level of nesting "

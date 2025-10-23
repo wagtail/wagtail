@@ -8,9 +8,9 @@ class sdist(base_sdist):
     def compile_assets(self):
         try:
             subprocess.check_call(["npm", "run", "build"])
-        except (OSError, subprocess.CalledProcessError) as e:
-            print("Error compiling assets: " + str(e))  # noqa: T201
-            raise SystemExit(1)
+        except (OSError, subprocess.CalledProcessError) as error:
+            print("Error compiling assets: " + str(error))  # noqa: T201
+            raise SystemExit(1) from error
 
     def run(self):
         self.compile_assets()

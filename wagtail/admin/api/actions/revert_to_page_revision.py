@@ -33,10 +33,10 @@ class RevertToPageRevisionAPIAction(APIAction):
 
         try:
             new_revision = action.execute()
-        except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
-        except RevertToPageRevisionError as e:
-            raise BadRequestError(e.args[0])
+        except DjangoValidationError as error:
+            raise ValidationError(error.message_dict) from error
+        except RevertToPageRevisionError as error:
+            raise BadRequestError(error.args[0]) from error
 
         serializer = self.view.get_serializer(new_revision.as_object())
         return Response(serializer.data, status=status.HTTP_200_OK)

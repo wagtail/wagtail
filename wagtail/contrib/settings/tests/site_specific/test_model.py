@@ -80,18 +80,18 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
         # Attempt to pickle ImportantPages instance
         try:
             pickled = pickle.dumps(obj, -1)
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             raise AssertionError(
-                f"An error occurred when attempting to pickle {obj!r}: {e}"
-            )
+                f"An error occurred when attempting to pickle {obj!r}: {error}"
+            ) from error
 
         # Now unpickle the pickled ImportantPages
         try:
             unpickled = pickle.loads(pickled)
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             raise AssertionError(
-                f"An error occurred when attempting to unpickle {obj!r}: {e}"
-            )
+                f"An error occurred when attempting to unpickle {obj!r}: {error}"
+            ) from error
 
         # Using 'page_url' should create a new InvokeViaAttributeShortcut
         # instance, which should give the same result as the original

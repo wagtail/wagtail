@@ -75,8 +75,8 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
             validate = FileExtensionValidator(allowed_extensions)
             try:
                 validate(self.file)
-            except ValidationError as e:
-                raise ValidationError({"file": e.messages[0]})
+            except ValidationError as error:
+                raise ValidationError({"file": error.messages[0]}) from error
 
     def is_stored_locally(self):
         """

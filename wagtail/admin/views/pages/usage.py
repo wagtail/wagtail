@@ -46,8 +46,8 @@ class ContentTypeUseView(PageListingMixin, PermissionCheckedMixin, BaseListingVi
             content_type = ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name
             )
-        except ContentType.DoesNotExist:
-            raise Http404
+        except ContentType.DoesNotExist as error:
+            raise Http404 from error
 
         self.page_class = content_type.model_class()
 

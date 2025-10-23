@@ -27,7 +27,9 @@ class AddTagsBulkAction(ImageBulkAction):
         return {"tags": self.cleaned_form.cleaned_data["tags"].split(",")}
 
     @classmethod
-    def execute_action(cls, images, tags=[], **kwargs):
+    def execute_action(cls, images, tags=None, **kwargs):
+        if tags is None:
+            tags = []
         num_parent_objects = 0
         if not tags:
             return

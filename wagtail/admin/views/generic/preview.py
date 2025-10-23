@@ -123,8 +123,8 @@ class PreviewOnEdit(View):
 
         try:
             preview_mode = request.GET.get("mode", self.object.default_preview_mode)
-        except IndexError:
-            raise PermissionDenied
+        except IndexError as error:
+            raise PermissionDenied from error
 
         extra_attrs = self.get_extra_request_attrs()
 
@@ -171,8 +171,8 @@ class PreviewRevision(View):
             preview_mode = request.GET.get(
                 "mode", self.revision_object.default_preview_mode
             )
-        except IndexError:
-            raise PermissionDenied
+        except IndexError as error:
+            raise PermissionDenied from error
 
         return self.revision_object.make_preview_request(request, preview_mode)
 

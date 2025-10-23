@@ -109,8 +109,8 @@ class BaseAPIViewSet(GenericViewSet):
             if obj is None:
                 raise self.model.DoesNotExist
 
-        except self.model.DoesNotExist:
-            raise Http404("not found")
+        except self.model.DoesNotExist as error:
+            raise Http404("not found") from error
 
         # Generate redirect
         url = get_object_detail_url(
@@ -365,8 +365,8 @@ class BaseAPIViewSet(GenericViewSet):
         if "fields" in request.GET:
             try:
                 fields_config = parse_fields_parameter(request.GET["fields"])
-            except ValueError as e:
-                raise BadRequestError("fields error: %s" % str(e))
+            except ValueError as error:
+                raise BadRequestError("fields error: %s" % str(error)) from error
         else:
             # Use default fields
             fields_config = []
@@ -549,10 +549,10 @@ class PagesAPIViewSet(BaseAPIViewSet):
                 }
             try:
                 site = Site.objects.get(**query)
-            except Site.MultipleObjectsReturned:
+            except Site.MultipleObjectsReturned as error:
                 raise BadRequestError(
                     "Your query returned multiple sites. Try adding a port number to your site filter."
-                )
+                ) from error
         else:
             # Otherwise, find the site from the request
             site = Site.find_for_request(self.request)
@@ -579,8 +579,8 @@ class PagesAPIViewSet(BaseAPIViewSet):
         try:
             models_type = request.GET.get("type", None)
             models = models_type and page_models_from_string(models_type) or []
-        except (LookupError, ValueError):
-            raise BadRequestError("type doesn't exist")
+        except (LookupError, ValueError) as error:
+            raise BadRequestError("type doesn't exist") from error
 
         if not models:
             if self.model == Page:

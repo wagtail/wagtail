@@ -7,8 +7,8 @@ def get_custom_form(form_setting):
     """Return custom form class if defined and available"""
     try:
         return import_string(getattr(settings, form_setting))
-    except ImportError:
+    except ImportError as error:
         raise ImproperlyConfigured(
             "%s refers to a form '%s' that is not available"
             % (form_setting, getattr(settings, form_setting))
-        )
+        ) from error

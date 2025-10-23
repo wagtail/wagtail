@@ -19,7 +19,13 @@ class BaseButton(Component):
     allow_in_dropdown = False
 
     def __init__(
-        self, label="", url=None, classname="", icon_name=None, attrs={}, priority=1000
+        self,
+        label="",
+        url=None,
+        classname="",
+        icon_name=None,
+        attrs=None,
+        priority=1000,
     ):
         if label:
             self.label = label
@@ -33,7 +39,8 @@ class BaseButton(Component):
             self.icon_name = icon_name
 
         self.attrs = self.attrs.copy()
-        self.attrs.update(attrs)
+        if attrs is not None:
+            self.attrs.update(attrs)
         self.priority = priority
 
     def get_context_data(self, parent_context):
@@ -115,10 +122,12 @@ class HeaderButton(BaseButton):
         url=None,
         classname="",
         icon_name=None,
-        attrs={},
+        attrs=None,
         icon_only=False,
         **kwargs,
     ):
+        if attrs is None:
+            attrs = {}
         classname = f"{classname} w-header-button button".strip()
         attrs = attrs.copy()
         if icon_only:

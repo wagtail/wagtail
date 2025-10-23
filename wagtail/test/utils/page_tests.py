@@ -200,7 +200,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
             page, args, kwargs = site.root_page.localized.specific.route(
                 self.dummy_request, path_components
             )
-        except Http404:
+        except Http404 as error:
             msg = self._formatMessage(
                 msg,
                 'Failed to route to "%(route_path)s" for %(page_type)s "%(page)s". A Http404 was raised for path: "%(full_path)s".'
@@ -211,7 +211,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "full_path": path,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from error
 
     def assertPageIsRenderable(
         self,
@@ -257,7 +257,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 resp = self.client.get(path, data=query_data)
             else:
                 resp = self.client.post(path, **post_kwargs)
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             msg = self._formatMessage(
                 msg,
                 'Failed to render route "%(route_path)s" for %(page_type)s "%(page)s":\n%(exc)s'
@@ -265,10 +265,10 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "route_path": route_path,
                     "page_type": type(page).__name__,
                     "page": page,
-                    "exc": e,
+                    "exc": error,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from error
         finally:
             if user:
                 self.client.logout()
@@ -333,14 +333,14 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
         path = reverse("wagtailadmin_pages:edit", kwargs={"page_id": page.id})
         try:
             response = self.client.get(path)
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             self.client.logout()
             msg = self._formatMessage(
                 msg,
                 'Failed to load edit view via GET for %(page_type)s "%(page)s":\n%(exc)s'
-                % {"page_type": type(page).__name__, "page": page, "exc": e},
+                % {"page_type": type(page).__name__, "page": page, "exc": error},
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from error
         if response.status_code != 200:
             self.client.logout()
             msg = self._formatMessage(
@@ -364,13 +364,13 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
 
         try:
             self.client.post(path, data_to_post)
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             msg = self._formatMessage(
                 msg,
                 'Failed to load edit view via POST for %(page_type)s "%(page)s":\n%(exc)s'
-                % {"page_type": type(page).__name__, "page": page, "exc": e},
+                % {"page_type": type(page).__name__, "page": page, "exc": error},
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from error
         finally:
             page.save()  # undo any changes to page
             self.client.logout()
@@ -419,7 +419,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 response.content.decode(),
                 {"is_valid": True, "is_available": True},
             )
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             self.client.logout()
             msg = self._formatMessage(
                 msg,
@@ -428,14 +428,14 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "page_type": type(page).__name__,
                     "page": page,
                     "mode": mode,
-                    "exc": e,
+                    "exc": error,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from error
 
         try:
             self.client.get(preview_path, data={"mode": mode})
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             msg = self._formatMessage(
                 msg,
                 'Failed to load preview for %(page_type)s "%(page)s" with mode="%(mode)s":\n%(exc)s'
@@ -443,10 +443,10 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "page_type": type(page).__name__,
                     "page": page,
                     "mode": mode,
-                    "exc": e,
+                    "exc": error,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from error
         finally:
             self.client.logout()
 

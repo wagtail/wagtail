@@ -70,7 +70,7 @@ def resolve_model_string(model_string, default_app=None):
     if isinstance(model_string, str):
         try:
             app_label, model_name = model_string.split(".")
-        except ValueError:
+        except ValueError as error:
             if default_app is not None:
                 # If we can't split, assume a model in current app
                 app_label = default_app
@@ -80,7 +80,7 @@ def resolve_model_string(model_string, default_app=None):
                     "Can not resolve {!r} into a model. Model names "
                     "should be in the form app_label.model_name".format(model_string),
                     model_string,
-                )
+                ) from error
 
         return apps.get_model(app_label, model_name)
 
@@ -376,10 +376,10 @@ def multigetattr(item, accessor):
                     ValueError,  # invalid literal for int()
                     KeyError,  # current is a dict without `int(bit)` key
                     TypeError,  # unsubscriptable object
-                ):
+                ) as error:
                     raise AttributeError(
                         f"Failed lookup for key [{bit}] in {current!r}"
-                    )
+                    ) from error
 
         if callable(current):
             if getattr(current, "alters_data", False):

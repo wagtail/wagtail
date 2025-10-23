@@ -58,13 +58,13 @@ class InstagramOEmbedFinder(OEmbedFinder):
         # Perform request
         try:
             r = urllib_request.urlopen(request)
-        except (HTTPError, URLError) as e:
-            if isinstance(e, HTTPError) and e.code == 404:
-                raise EmbedNotFoundException
-            elif isinstance(e, HTTPError) and e.code in [400, 401, 403]:
-                raise AccessDeniedInstagramOEmbedException
+        except (HTTPError, URLError) as error:
+            if isinstance(error, HTTPError) and error.code == 404:
+                raise EmbedNotFoundException from error
+            elif isinstance(error, HTTPError) and error.code in [400, 401, 403]:
+                raise AccessDeniedInstagramOEmbedException from error
             else:
-                raise EmbedNotFoundException
+                raise EmbedNotFoundException from error
         oembed = json.loads(r.read().decode("utf-8"))
 
         # Convert photos into HTML

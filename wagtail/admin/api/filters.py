@@ -15,8 +15,10 @@ class HasChildrenFilter(BaseFilterBackend):
         if "has_children" in request.GET:
             try:
                 has_children_filter = parse_boolean(request.GET["has_children"])
-            except ValueError:
-                raise BadRequestError("has_children must be 'true' or 'false'")
+            except ValueError as error:
+                raise BadRequestError(
+                    "has_children must be 'true' or 'false'"
+                ) from error
 
             if has_children_filter is True:
                 return queryset.filter(numchild__gt=0)

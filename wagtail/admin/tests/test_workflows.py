@@ -143,7 +143,9 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         ]
         WorkflowPage.objects.bulk_create(workflow_pages)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if params is None:
+            params = {}
         return self.client.get(reverse("wagtailadmin_workflows:index"), params)
 
     def test_simple(self):
@@ -339,7 +341,9 @@ class TestWorkflowPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if params is None:
+            params = {}
         return self.client.get(reverse(self.url_name), params)
 
     def test_simple(self):
@@ -417,10 +421,14 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
             FullFeaturedSnippet
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if params is None:
+            params = {}
         return self.client.get(reverse("wagtailadmin_workflows:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(reverse("wagtailadmin_workflows:add"), post_data)
 
     def test_get(self):
@@ -676,12 +684,16 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if params is None:
+            params = {}
         return self.client.get(
             reverse("wagtailadmin_workflows:edit", args=[self.workflow.id]), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(
             reverse("wagtailadmin_workflows:edit", args=[self.workflow.id]), post_data
         )
@@ -1028,7 +1040,9 @@ class TestRemoveWorkflow(WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(
             reverse(
                 "wagtailadmin_workflows:remove", args=[self.page.id, self.workflow.id]
@@ -1082,7 +1096,9 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if params is None:
+            params = {}
         return self.client.get(reverse("wagtailadmin_workflows:task_index"), params)
 
     def test_simple(self):
@@ -1370,7 +1386,9 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="add_task"))
 
-    def get(self, url_kwargs=None, params={}):
+    def get(self, url_kwargs=None, params=None):
+        if params is None:
+            params = {}
         url_kwargs = url_kwargs or {}
         url_kwargs.setdefault("app_label", SimpleTask._meta.app_label)
         url_kwargs.setdefault("model_name", SimpleTask._meta.model_name)
@@ -1378,7 +1396,9 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             reverse("wagtailadmin_workflows:add_task", kwargs=url_kwargs), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(
             reverse(
                 "wagtailadmin_workflows:add_task",
@@ -1504,12 +1524,16 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if params is None:
+            params = {}
         return self.client.get(
             reverse("wagtailadmin_workflows:edit_task", args=[self.task.id]), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(
             reverse("wagtailadmin_workflows:edit_task", args=[self.task.id]), post_data
         )

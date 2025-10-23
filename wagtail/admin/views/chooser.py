@@ -243,8 +243,8 @@ class BrowseView(View):
 
         try:
             self.desired_classes = page_models_from_string(page_type_string)
-        except (ValueError, LookupError):
-            raise Http404
+        except (ValueError, LookupError) as error:
+            raise Http404 from error
 
         # Find parent page
         if parent_page_id:
@@ -350,8 +350,8 @@ class BrowseView(View):
         paginator = Paginator(pages, per_page=25)
         try:
             pages = paginator.page(request.GET.get("p", 1))
-        except InvalidPage:
-            raise Http404
+        except InvalidPage as error:
+            raise Http404 from error
 
         # Annotate each page with can_choose/can_descend flags
         for page in pages:
@@ -445,8 +445,8 @@ class SearchView(View):
 
         try:
             desired_classes = page_models_from_string(page_type_string)
-        except (ValueError, LookupError):
-            raise Http404
+        except (ValueError, LookupError) as error:
+            raise Http404 from error
 
         pages = Page.objects.all()
         if self.i18n_enabled:

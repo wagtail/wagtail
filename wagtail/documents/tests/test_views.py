@@ -285,8 +285,8 @@ class TestServeViewWithSendfile(TestCase):
         # django-sendfile module is not installed
         try:
             import sendfile  # noqa: F401
-        except ImportError:
-            raise unittest.SkipTest("django-sendfile not installed")
+        except ImportError as error:
+            raise unittest.SkipTest("django-sendfile not installed") from error
 
         self.document = models.Document(title="Test document")
         self.document.file.save(
@@ -367,8 +367,10 @@ class TestServeWithUnicodeFilename(TestCase):
             self.document.file.save(
                 self.filename, ContentFile("A boring example document")
             )
-        except UnicodeEncodeError:
-            raise unittest.SkipTest("Filesystem doesn't support unicode filenames")
+        except UnicodeEncodeError as error:
+            raise unittest.SkipTest(
+                "Filesystem doesn't support unicode filenames"
+            ) from error
 
     def tearDown(self):
         # delete the FieldFile directly because the TestCase does not commit

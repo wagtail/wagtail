@@ -28,10 +28,10 @@ class CloudfrontBackend(BaseBackend):
 
         try:
             self.cloudfront_distribution_id = params.pop("DISTRIBUTION_ID")
-        except KeyError:
+        except KeyError as error:
             raise ImproperlyConfigured(
                 "The setting 'WAGTAILFRONTENDCACHE' requires the object 'DISTRIBUTION_ID'."
-            )
+            ) from error
 
     def purge_batch(self, urls):
         paths_by_distribution_id = defaultdict(set)
@@ -65,12 +65,12 @@ class CloudfrontBackend(BaseBackend):
                     "CallerReference": str(uuid.uuid4()),
                 },
             )
-        except botocore.exceptions.ClientError as e:
+        except botocore.exceptions.ClientError as error:
             for path in paths:
                 logger.error(
                     "Couldn't purge path '%s' from CloudFront (DistributionId=%s). ClientError: %s %s",
                     path,
                     distribution_id,
-                    e.response["Error"]["Code"],
-                    e.response["Error"]["Message"],
+                    error.response["Error"]["Code"],
+                    error.response["Error"]["Message"],
                 )

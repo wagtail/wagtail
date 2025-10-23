@@ -55,7 +55,7 @@ class TestCollectionsIndexViewAsSuperuser(
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_simple(self):
@@ -118,7 +118,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, WagtailTestUtils, Te
         super().setUp()
         self.login(self.marketing_user, password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_marketing_user_no_permissions(self):
@@ -203,10 +203,12 @@ class TestAddCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.login()
         self.root_collection = Collection.get_first_root_node()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_get(self):
@@ -245,10 +247,12 @@ class TestAddCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase)
         super().setUp()
         self.login(self.marketing_user, password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_marketing_user_no_permissions(self):
@@ -316,7 +320,9 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
         self.l2 = self.l1.add_child(name="Level 2")
         self.l3 = self.l2.add_child(name="Level 3")
 
-    def get(self, params={}, collection_id=None):
+    def get(self, params=None, collection_id=None):
+        if params is None:
+            params = {}
         return self.client.get(
             reverse(
                 "wagtailadmin_collections:edit",
@@ -325,7 +331,9 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
             params,
         )
 
-    def post(self, post_data={}, collection_id=None):
+    def post(self, post_data=None, collection_id=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(
             reverse(
                 "wagtailadmin_collections:edit",
@@ -408,12 +416,16 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         )
         self.login(self.marketing_user, password="password")
 
-    def get(self, collection_id, params={}):
+    def get(self, collection_id, params=None):
+        if params is None:
+            params = {}
         return self.client.get(
             reverse("wagtailadmin_collections:edit", args=(collection_id,)), params
         )
 
-    def post(self, collection_id, post_data={}):
+    def post(self, collection_id, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(
             reverse("wagtailadmin_collections:edit", args=(collection_id,)), post_data
         )
@@ -598,7 +610,9 @@ class TestDeleteCollectionAsSuperuser(
         self.root_collection = Collection.get_first_root_node()
         self.collection = self.root_collection.add_child(name="Holiday snaps")
 
-    def get(self, params={}, collection_id=None):
+    def get(self, params=None, collection_id=None):
+        if params is None:
+            params = {}
         return self.client.get(
             reverse(
                 "wagtailadmin_collections:delete",
@@ -607,7 +621,9 @@ class TestDeleteCollectionAsSuperuser(
             params,
         )
 
-    def post(self, post_data={}, collection_id=None):
+    def post(self, post_data=None, collection_id=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(
             reverse(
                 "wagtailadmin_collections:delete",
@@ -703,12 +719,16 @@ class TestDeleteCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCa
         )
         self.login(self.marketing_user, password="password")
 
-    def get(self, collection_id, params={}):
+    def get(self, collection_id, params=None):
+        if params is None:
+            params = {}
         return self.client.get(
             reverse("wagtailadmin_collections:delete", args=(collection_id,)), params
         )
 
-    def post(self, collection_id, post_data={}):
+    def post(self, collection_id, post_data=None):
+        if post_data is None:
+            post_data = {}
         return self.client.post(
             reverse("wagtailadmin_collections:delete", args=(collection_id,)), post_data
         )
@@ -775,7 +795,9 @@ class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, Te
         super().setUp()
         self.login()
 
-    def get(self, collection_id, params={}):
+    def get(self, collection_id, params=None):
+        if params is None:
+            params = {}
         return self.client.get(
             reverse("wagtailadmin_collections:set_privacy", args=(collection_id,)),
             params,
