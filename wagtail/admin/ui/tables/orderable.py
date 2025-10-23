@@ -1,3 +1,4 @@
+import json
 from collections import OrderedDict
 
 from django.contrib.admin.utils import quote
@@ -44,17 +45,22 @@ class OrderableTableMixin:
     def attrs(self):
         attrs = super().attrs
         if self.reorder_url:
+            # Create messages object with all messages
+            messages = {
+                'success': str(self.get_success_message()),
+                'network': str(self.error_network_message),
+                'server': str(self.error_server_message),
+                'generic': str(self.error_generic_message),
+            }
+            
             attrs = {
                 **attrs,
                 "data-controller": "w-orderable",
                 "data-w-orderable-active-class": "w-orderable--active",
                 "data-w-orderable-chosen-class": "w-orderable__item--active",
                 "data-w-orderable-container-value": "tbody",
-                "data-w-orderable-message-value": self.get_success_message(),
+                "data-w-orderable-messages-value": json.dumps(messages),
                 "data-w-orderable-url-value": self.reorder_url,
-                "data-w-orderable-error-network-value": str(self.error_network_message),
-                "data-w-orderable-error-server-value": str(self.error_server_message),
-                "data-w-orderable-error-generic-value": str(self.error_generic_message),
             }
         return attrs
 
