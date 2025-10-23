@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1.2 (23.10.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow `label_format` to be set to an empty string to hide the block summary label (Sage Abdullah)
