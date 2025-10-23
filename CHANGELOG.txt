@@ -40,6 +40,7 @@ Changelog
  * Docs: Fix code example for `construct_wagtail_userbar` (Baptiste Mispelon)
  * Docs: Add a note about CSP for background image position and responsive embed styles (Thibaud Colas, Chiemezuo Akujobi, Sage Abdullah)
  * Docs: Add guidance for AI-led contributions to contributor docs (Andrew Selzer)
+ * Docs: Add guidance for AI agents via `AGENTS.md` (Andrew Selzer)
  * Docs: Add Windows command examples for contributing setup (Shivam Kumar)
  * Docs: Add recent third party tutorials from 2025 (LB (Ben) Johnston)
  * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
