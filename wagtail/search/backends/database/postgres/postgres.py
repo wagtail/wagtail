@@ -319,7 +319,6 @@ class Index:
     def __str__(self):
         return self.name
 
-
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "and"
     LAST_TERM_IS_PREFIX = False
@@ -382,10 +381,19 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             if not terms:
                 return None
 
-            last_term = terms.pop()
+            # normalize hyphen-number tokens (so "p-8", "-8a" work correctly)
+            normalized_terms = []
+            for term in terms:
+                if "-" in term and any(ch.isdigit() for ch in term):
+                    # replace "-" with space so Postgres won't treat it as a minus
+                    normalized_terms.extend(term.split("-"))
+                else:
+                    normalized_terms.append(term)
+
+            last_term = normalized_terms.pop()
 
             lexemes = Lexeme(last_term, invert=invert, prefix=self.LAST_TERM_IS_PREFIX)
-            for term in terms:
+            for term in normalized_terms:
                 new_lexeme = Lexeme(term, invert=invert)
 
                 if query.operator == "and":
@@ -579,7 +587,6 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             q = ~q
 
         return q
-
 
 class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
     LAST_TERM_IS_PREFIX = True
