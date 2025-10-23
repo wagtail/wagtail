@@ -12,7 +12,7 @@ Draftail supports three types of formatting:
 -   **Blocks** – To indicate the structure of the content, for example, `blockquote`, `ol`. Any given text can only be of one block type.
 -   **Entities** – To enter additional data/metadata, for example, `link` (with a URL) or `image` (with a file). Text can only have one entity applied at a time.
 
-All of these extensions are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of `mark`. Place the following in a `wagtail_hooks.py` file in any installed app:
+All of these extensions are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of `mark`. This example demonstrates the use of the `register_rich_text_features` hook, `InlineStyleFeature`, `InlineStyleElementHandler`, and the `register_editor_plugin` and `register_converter_rule` methods. Place the following in a `wagtail_hooks.py` file in any installed app:
 
 ```python
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
@@ -58,9 +58,9 @@ def register_mark_feature(features):
     features.default_features.append('mark')
 ```
 
-These steps will always be the same for all Draftail plugins. The important parts are to:
+These steps will always be the same for all Draftail plugins. The key methods are `features.register_editor_plugin()` for registering the editor functionality and `features.register_converter_rule()` for configuring HTML conversion. The important parts are to:
 
--   Consistently use the feature’s Draft.js type or Wagtail feature names where appropriate.
+-   Consistently use the feature's Draft.js type or Wagtail feature names where appropriate.
 -   Give enough information to Draftail so it knows how to make a button for the feature, and how to render it (more on this later).
 -   Configure the conversion to use the right HTML element (as they are stored in the DB).
 
@@ -74,11 +74,11 @@ For detailed configuration options, head over to the [Draftail documentation](ht
 
 In addition to the initial example, inline styles take a `style` property to define what CSS rules will be applied to text in the editor. Be sure to read the [Draftail documentation](https://www.draftail.org/docs/formatting-options) on inline styles.
 
-Finally, the DB to/from conversion uses an `InlineStyleElementHandler` to map from a given tag (`<mark>` in the example above) to a Draftail type, and the inverse mapping is done with [Draft.js exporter configuration](https://github.com/springload/draftjs_exporter) of the `style_map`.
+Finally, the DB to/from conversion uses `InlineStyleElementHandler` to map from a given tag (`<mark>` in the example above) to a Draftail type, and the inverse mapping is done with [Draft.js exporter configuration](https://github.com/springload/draftjs_exporter) using the `style_map` configuration key.
 
 ### Creating new blocks
 
-Blocks are nearly as simple as inline styles:
+Blocks are nearly as simple as inline styles, using `BlockFeature` and `BlockElementHandler` instead:
 
 ```python
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
@@ -115,8 +115,8 @@ def register_help_text_feature(features):
 Here are the main differences:
 
 -   We can configure an `element` to tell Draftail how to render those blocks in the editor.
--   We register the plugin with `BlockFeature`.
--   We set up the conversion with `BlockElementHandler` and `block_map`.
+-   We register the plugin with `draftail_features.BlockFeature`.
+-   We set up the conversion with `BlockElementHandler` and the `block_map` configuration key.
 
 Optionally, we can also define styles for the blocks with the `Draftail-block--help-text` (`Draftail-block--<block type>`) CSS class.
 
@@ -141,10 +141,10 @@ But in the meantime, consider implementing your UI through [StreamField](../topi
 
 Here are the main requirements to create a new entity feature:
 
--   As for inline styles and blocks, register an editor plugin.
+-   As for inline styles and blocks, register an editor plugin using `draftail_features.EntityFeature`.
 -   The editor plugin must define a `source`: a React component responsible for creating new entity instances in the editor, using the Draft.js API.
 -   The editor plugin also needs a `decorator` (for inline entities) or `block` (for block entities): a React component responsible for displaying entity instances within the editor.
--   Like for inline styles and blocks, set up the to/from DB conversion.
+-   Like for inline styles and blocks, set up the to/from DB conversion using `InlineEntityElementHandler` and `entity_decorators`.
 -   The conversion usually is more involved, since entities contain data that needs to be serialized to HTML.
 
 To write the React components, Wagtail exposes its own React, Draft.js, and Draftail dependencies as global variables. Read more about this in [extending client-side React components](extending_client_side_react).
@@ -164,7 +164,7 @@ Those tokens are then saved in the rich text on publish. When the news article i
 
 ![Draftail entity stock rendering](../_static/images/draftail_entity_stock_rendering.png)
 
-In order to achieve this, we start with registering the rich text feature like for inline styles and blocks:
+In order to achieve this, we start with registering the rich text feature using `draftail_features.EntityFeature` like for inline styles and blocks:
 
 ```python
 @hooks.register('register_rich_text_features')
@@ -200,7 +200,7 @@ def register_stock_feature(features):
 
 The `js` and `css` keyword arguments on `EntityFeature` can be used to specify additional JS and CSS files to load when this feature is active. Both are optional. Their values are added to a `Media` object, more documentation on these objects is available in the [Django Form Assets documentation](inv:django#topics/forms/media).
 
-Since entities hold data, the conversion to/from database format is more complicated. We have to create two handlers:
+Since entities hold data, the conversion to/from database format is more complicated. We have to create two handlers: a `stock_entity_decorator` function for converting to database HTML (using the `draftjs_exporter.dom.DOM` API), and a `StockEntityElementHandler` class extending `InlineEntityElementHandler` for converting from database HTML:
 
 ```python
 from draftjs_exporter.dom import DOM
@@ -230,9 +230,9 @@ class StockEntityElementHandler(InlineEntityElementHandler):
         return { 'stock': attrs['data-stock'] }
 ```
 
-Note how they both do similar conversions, but use different APIs. `to_database_format` is built with the [Draft.js exporter](https://github.com/springload/draftjs_exporter) components API, whereas `from_database_format` uses a Wagtail API.
+Note how they both do similar conversions, but use different APIs. The `to_database_format` configuration with `entity_decorators` is built with the [Draft.js exporter](https://github.com/springload/draftjs_exporter) components API using `draftjs_exporter.dom.DOM`, whereas the `from_database_format` configuration uses a Wagtail `InlineEntityElementHandler` subclass.
 
-The next step is to add JavaScript to define how the entities are created (the `source`), and how they are displayed (the `decorator`). Within `stock.js`, we define the source component:
+The next step is to add JavaScript to define how the entities are created (the `source`), and how they are displayed (the `decorator`). The source component will use `window.DraftJS.Modifier` and `window.DraftJS.EditorState` from the global Draft.js API. Within `stock.js`, we define the source component:
 
 ```javascript
 // Not a real React component – just creates the entities as soon as it is rendered.
@@ -304,7 +304,7 @@ const Stock = (props) => {
 
 This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript.
 
-Finally, we register the JS components of our plugin:
+Finally, we register the JS components of our plugin using `window.draftail.registerPlugin()`:
 
 ```javascript
 // Register the plugin directly on script execution so the editor loads it when initializing.
@@ -351,9 +351,9 @@ Draftail has additional APIs for more complex customizations:
 
 ### Custom toolbar controls
 
-To add an arbitrary new UI element to editor toolbars, Draftail comes with a [controls API](https://www.draftail.org/docs/arbitrary-controls). Controls can be arbitrary React components, which can get and set the editor state. Note controls update on _every keystroke_ in the editor – make sure they render fast!
+To add an arbitrary new UI element to editor toolbars, Draftail comes with a [controls API](https://www.draftail.org/docs/arbitrary-controls). Controls can be arbitrary React components, which can get and set the editor state via the `getEditorState` prop. Note controls update on _every keystroke_ in the editor – make sure they render fast!
 
-Here is an example with a simple sentence counter – first, registering the editor feature in a `wagtail_hooks.py`:
+Here is an example with a simple sentence counter using `ControlFeature` – first, registering the editor feature in a `wagtail_hooks.py`:
 
 ```python
 from wagtail.admin.rich_text.editors.draftail.features import ControlFeature
@@ -376,7 +376,7 @@ def register_sentences_counter(features):
     )
 ```
 
-Then, `draftail_sentences.js` declares a React component that will be rendered in the "meta" bottom toolbar of the editor:
+Then, `draftail_sentences.js` declares a React component that will be rendered in the "meta" bottom toolbar of the editor, and registers it using `window.draftail.registerPlugin()` with the `controls` plugin type:
 
 ```javascript
 const countSentences = (str) =>
@@ -417,14 +417,14 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 
 ### Text decorators
 
-The [decorators API](https://www.draftail.org/docs/decorators) is how Draftail / Draft.js supports highlighting text with special formatting in the editor. It uses the [CompositeDecorator](https://draftjs.org/docs/advanced-topics-decorators/#compositedecorator) API, with each entry having a `strategy` function to determine what text to target, and a `component` function to render the decoration.
+The [decorators API](https://www.draftail.org/docs/decorators) is how Draftail / Draft.js supports highlighting text with special formatting in the editor. It uses the [CompositeDecorator](https://draftjs.org/docs/advanced-topics-decorators/#compositedecorator) API, with each entry having a `strategy` function to determine what text to target, and a `component` function to render the decoration. Register decorators using `DecoratorFeature` and `window.draftail.registerPlugin()` with the `decorators` plugin type.
 
 There are two important considerations when using this API:
 
 -   Order matters: only one decorator can render per character in the editor. This includes any entities that are rendered as decorations.
 -   For performance reasons, Draft.js only re-renders decorators that are on the currently focused line of text.
 
-Here is an example with highlighting of problematic punctuation – first, registering the editor feature in a `wagtail_hooks.py`:
+Here is an example with highlighting of problematic punctuation using `DecoratorFeature` – first, registering the editor feature in a `wagtail_hooks.py`:
 
 ```python
 from wagtail.admin.rich_text.editors.draftail.features import DecoratorFeature
@@ -482,9 +482,9 @@ window.draftail.registerPlugin({
 This is an advanced feature. Please carefully consider whether you really need this.
 ```
 
-Draftail supports plugins following the [Draft.js Plugins](https://www.draft-js-plugins.com/) architecture. Such plugins are the most advanced and powerful type of extension for the editor, offering customization capabilities equal to what would be possible with a custom Draft.js editor.
+Draftail supports plugins following the [Draft.js Plugins](https://www.draft-js-plugins.com/) architecture. Such plugins are the most advanced and powerful type of extension for the editor, offering customization capabilities equal to what would be possible with a custom Draft.js editor. Plugins can implement Draft.js editor event handlers like `handlePastedText`, `handleKeyCommand`, and others.
 
-A common scenario where this API can help is to add bespoke copy-paste processing. Here is a simple example, automatically converting URL anchor hash references to links. First, let’s register the extension in Python:
+A common scenario where this API can help is to add bespoke copy-paste processing using the `handlePastedText` handler. Here is a simple example, automatically converting URL anchor hash references to links using `PluginFeature`. First, let's register the extension in Python:
 
 ```python
 @hooks.register('register_rich_text_features')
@@ -503,7 +503,7 @@ def register_anchorify(features):
     )
 ```
 
-Then, in `draftail_anchorify.js`:
+Then, in `draftail_anchorify.js`, we define the plugin with a `handlePastedText` handler and register it using `window.draftail.registerPlugin()` with the `plugins` plugin type:
 
 ```javascript
 const anchorifyPlugin = {
@@ -551,5 +551,5 @@ window.draftail.registerPlugin(anchorifyPlugin, 'plugins');
 To further customize how the Draftail widgets are integrated into the UI, there are additional extension points for CSS and JS:
 
 -   In JavaScript, use the `[data-draftail-input]` attribute selector to target the input that contains the data, and `[data-draftail-editor-wrapper]` for the element that wraps the editor.
--   The editor instance is bound to the input field for imperative access. Use `document.querySelector('[data-draftail-input]').draftailEditor`.
--   In CSS, use the classes prefixed with `Draftail-`.
+-   The editor instance is bound to the input field for imperative access via the `.draftailEditor` property. Use `document.querySelector('[data-draftail-input]').draftailEditor`.
+-   In CSS, use the classes prefixed with `Draftail-` to style editor components.
