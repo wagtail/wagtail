@@ -12,6 +12,7 @@
       "content_type": ["wagtailcore", "page"],
       "path": "0001",
       "url_path": "/",
+      "locale_id": 1,
       "slug": "root"
     }
   },
@@ -29,6 +30,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "00010001",
       "url_path": "/home/",
+      "locale_id": 1,
       "slug": "home"
     }
   },
@@ -57,6 +59,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "000100010001",
       "url_path": "/home/about-us/",
+      "locale_id": 1,
       "slug": "about-us"
     }
   },
@@ -85,6 +88,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "00010002",
       "url_path": "/example-home/",
+      "locale_id": 1,
       "slug": "example-home"
     }
   },
@@ -113,6 +117,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "000100020001",
       "url_path": "/example-home/content/",
+      "locale_id": 1,
       "slug": "content",
       "owner": 1
     }
@@ -142,6 +147,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "0001000200010001",
       "url_path": "/example-home/content/page-1/",
+      "locale_id": 1,
       "slug": "page-1",
       "owner": 1
     }
@@ -171,6 +177,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "0001000200010002",
       "url_path": "/example-home/content/page-2/",
+      "locale_id": 1,
       "slug": "page-2",
       "owner": 1
     }
@@ -200,6 +207,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "000100020002",
       "url_path": "/example-home/other-content/",
+      "locale_id": 1,
       "slug": "other-content",
       "owner": 1
     }
@@ -229,6 +237,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "00010002000100020001",
       "url_path": "/example-home/content/page-2/child-1/",
+      "locale_id": 1,
       "slug": "child-1",
       "owner": 1
     }
@@ -258,6 +267,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "00010003",
       "url_path": "/home-2/",
+      "locale_id": 1,
       "slug": "home-2"
     }
   },

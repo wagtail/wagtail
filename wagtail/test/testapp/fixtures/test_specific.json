@@ -29,6 +29,7 @@
       "content_type": ["wagtailcore", "page"],
       "path": "0001",
       "url_path": "/",
+      "locale_id": 1,
       "slug": "root"
     }
   },
@@ -46,6 +47,7 @@
       "content_type": ["wagtailcore", "page"],
       "path": "00010001",
       "url_path": "/home/",
+      "locale_id": 1,
       "slug": "home"
     }
   },
@@ -63,6 +65,7 @@
       "content_type": ["tests", "eventindex"],
       "path": "000100010001",
       "url_path": "/home/events/",
+      "locale_id": 1,
       "slug": "events"
     }
   },
@@ -87,6 +90,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "0001000100010001",
       "url_path": "/home/events/christmas/",
+      "locale_id": 1,
       "slug": "christmas",
       "owner": 1
     }
@@ -129,6 +133,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "0001000100010002",
       "url_path": "/home/events/tentative-unpublished-event/",
+      "locale_id": 1,
       "slug": "tentative-unpublished-event",
       "owner": 1
     }
@@ -159,6 +164,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "0001000100010003",
       "url_path": "/home/events/someone-elses-event/",
+      "locale_id": 1,
       "slug": "someone-elses-event",
       "owner": 1
     }
@@ -189,6 +195,7 @@
       "content_type": ["tests", "simplepage"],
       "path": "000100010002",
       "url_path": "/home/about-us/",
+      "locale_id": 1,
       "slug": "about-us"
     }
   },
@@ -213,6 +220,7 @@
       "content_type": ["tests", "simplepage"],
       "path": "000100010005",
       "url_path": "/home/other/",
+      "locale_id": 1,
       "slug": "other"
     }
   },
@@ -237,6 +245,7 @@
       "content_type": ["tests", "eventpage"],
       "path": "0001000100050001",
       "url_path": "/home/other/special-event/",
+      "locale_id": 1,
       "slug": "special-event"
     }
   },

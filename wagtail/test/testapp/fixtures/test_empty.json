@@ -27,6 +27,7 @@
       "live": true,
       "depth": 1,
       "content_type": ["wagtailcore", "page"],
+      "locale_id": 1,
       "path": "0001",
       "url_path": "/",
       "slug": "root"
@@ -44,6 +45,7 @@
       "live": true,
       "depth": 2,
       "content_type": ["wagtailcore", "page"],
+      "locale_id": 1,
       "path": "00010001",
       "url_path": "/home/",
       "slug": "home",
