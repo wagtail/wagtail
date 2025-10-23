@@ -3,16 +3,6 @@ import Sortable from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
-// add a HTTPError class for better handling of errors
-class HTTPError extends Error {
-  status: number;
-
-  constructor(status: number, ...params) {
-    super(`HTTP error! Status: ${status}`, ...params);
-    this.name = 'ResponseError';
-    this.status = status;
-  }
-}
 
 enum Direction {
   Up = 'UP',
@@ -238,7 +228,9 @@ export class OrderableController extends Controller<HTMLElement> {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new HTTPError(response.status);
+          const error = new Error(`HTTP error! Status: ${response.status}`);
+          (error as any).status = response.status;
+          throw error;
         }
       })
       .then(() => {
@@ -253,7 +245,7 @@ export class OrderableController extends Controller<HTMLElement> {
         // Determine error message based on error type
         let errorMessage = '';
 
-        if (error instanceof HTTPError) {
+        if (error.status) {
           // Try to get status-specific message, fall back to server message
           errorMessage = this.getMessage(error.status.toString()) || this.getMessage('server');
         } else if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
