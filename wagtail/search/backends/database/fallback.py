@@ -1,1 +1,1 @@
-from modelsearch.backends.database.fallback import *  # noqa: F403
+from wagtailmodelsearch.backends.database.fallback import *  # noqa: F403

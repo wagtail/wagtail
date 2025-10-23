@@ -1,1 +1,1 @@
-from modelsearch.query import *  # noqa: F403
+from wagtailmodelsearch.query import *  # noqa: F403

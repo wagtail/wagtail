@@ -1,11 +1,11 @@
-from modelsearch.backends.elasticsearch8 import *  # noqa: F403
-from modelsearch.backends.elasticsearch8 import (
+from wagtailmodelsearch.backends.elasticsearch8 import *  # noqa: F403
+from wagtailmodelsearch.backends.elasticsearch8 import (
     Elasticsearch8AutocompleteQueryCompiler as _Elasticsearch8AutocompleteQueryCompiler,
 )
-from modelsearch.backends.elasticsearch8 import (
+from wagtailmodelsearch.backends.elasticsearch8 import (
     Elasticsearch8SearchBackend as _Elasticsearch8SearchBackend,
 )
-from modelsearch.backends.elasticsearch8 import (
+from wagtailmodelsearch.backends.elasticsearch8 import (
     Elasticsearch8SearchQueryCompiler as _Elasticsearch8SearchQueryCompiler,
 )
 
