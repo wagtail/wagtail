@@ -4,6 +4,7 @@ Changelog
 7.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
 
