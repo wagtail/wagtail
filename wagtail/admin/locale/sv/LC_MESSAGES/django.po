@@ -9,6 +9,7 @@
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2020-2024
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -294,8 +295,8 @@ msgstr "Ge ditt arbetsflöde ett namn"
 msgid "Add tasks to your workflow"
 msgstr "Lägg till uppgifter till ditt arbetsflöde"
 
-msgid "Task"
-msgstr "Uppgift"
+msgid "task"
+msgstr "uppgift"
 
 msgid "1 page selected"
 msgstr "1 sida vald"
@@ -380,12 +381,6 @@ msgstr "Alla %(objects)s objekt i denna vy är valda"
 
 msgid "All items in listing selected"
 msgstr "Alla objekt i lista valda"
-
-msgid "For search engines"
-msgstr "För sökmotorer"
-
-msgid "For site menus"
-msgstr "För sajtmenyer"
 
 msgid "Content"
 msgstr "Innehåll"
@@ -651,10 +646,6 @@ msgid "No, don't delete"
 msgstr "Nej, radera inte"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Avpublicera %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Är du säker på att du vill avpublicera %(model_name)s?"
 
@@ -714,13 +705,6 @@ msgid ""
 msgstr ""
 "Förhandsgranskning kan inte visas p.g.a. valideringsfel <br /> Klicka här "
 "för att markera relevanta fält."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Jämför %(title)s"
-
-msgid "Comparing"
-msgstr "Jämför"
 
 msgid "Fields"
 msgstr "Fält"
@@ -789,8 +773,14 @@ msgstr "Sajtsammanställning"
 msgid "Read the release notes."
 msgstr "Läs release notes"
 
+msgid "Close"
+msgstr "Stäng"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Dina sidor och snuttar i arbetsflöde"
+
+msgid "Task"
+msgstr "Uppgift"
 
 msgid "Task started"
 msgstr "Uppgift påbörjad"
@@ -800,9 +790,6 @@ msgstr "Förändringar begärdes vid"
 
 msgid "Awaiting"
 msgstr "Avvaktar"
-
-msgid "Close"
-msgstr "Stäng"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1208,14 +1195,6 @@ msgid_plural "It will also delete %(translation_count)s translations."
 msgstr[0] "Den kommer även radera %(translation_count)s översättning."
 msgstr[1] "Den kommer även radera %(translation_count)s översättningar."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Denna handling kommer att radera totalt <b>%(total_pages)s</b> sidor."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Vänligen ange <b>%(wagtail_site_name)s</b> för att bekräfta."
-
 msgid "Yes, delete it"
 msgstr "Ja, ta bort"
 
@@ -1553,15 +1532,15 @@ msgstr "Slutfördes vid"
 msgid "Clear"
 msgstr "Rensa"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sida %(page_num)s av %(total_pages)s."
-
 msgid "Toggle breadcrumbs"
 msgstr "Växla sökvägsnavigering"
 
 msgid "Breadcrumb"
 msgstr "Sökvägsnavigering"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Vänligen ange <b>%(wagtail_site_name)s</b> för att bekräfta."
 
 msgid "Close dialog"
 msgstr "Stäng dialog"
@@ -1614,21 +1593,18 @@ msgstr "Besök live-sidan"
 msgid "Visible to all. Visit the live page"
 msgstr "Synlig för alla. Besök live-sidan"
 
-msgid "Private. Visit the live page"
-msgstr "Privat. Besök live-sidan"
-
 msgid "Visible to all"
 msgstr "Synlig för alla"
 
-msgid "Toggle section"
-msgstr "Växla sektion"
+msgid "Private. Visit the live page"
+msgstr "Privat. Besök live-sidan"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Ej schemalagd revision %(revision.id)s för %(title)s"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sida %(page_num)s av %(total_pages)s"
 
-msgid "Unschedule"
-msgstr "Schemalägg inte"
+msgid "Toggle section"
+msgstr "Växla sektion"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Är du säker på att du vill radera denna revision?"
@@ -1952,13 +1928,6 @@ msgstr "Ledsen, inga uppgifter matchar \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Du har inte skapat några uppgifter."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"Varför inte <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>skapa en nu</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2059,6 +2028,9 @@ msgstr "Gör om"
 msgid "Save changes"
 msgstr "Spara ändringar"
 
+msgid "Toggle sidebar"
+msgstr "Växla sidorad"
+
 msgid "Text content"
 msgstr "Textinnehåll"
 
@@ -2067,9 +2039,6 @@ msgstr "Lägg till eller redigera länk"
 
 msgid "Text formatting"
 msgstr "Textformattering"
-
-msgid "Bold"
-msgstr "Fetstil"
 
 msgid "Italic"
 msgstr "Kursiv"
@@ -2233,24 +2202,8 @@ msgstr ""
 "Version från %(timestamp)s av %(model_name)s '%(object)s' har blivit "
 "schemalagt för publicering."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redigera '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Kopiera '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspektera"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspektera '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Radera '%(title)s'"
 
 #, python-format
 msgid "Add %(model_name)s"
@@ -2281,6 +2234,9 @@ msgstr "'%(object)s' avschemalagd."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Version %(revision_id)s av \"%(object)s\" avschemalagd."
 
+msgid "Unschedule"
+msgstr "Schemalägg inte"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revision %(revision_id)s av \"%(object)s\""
@@ -2305,32 +2261,6 @@ msgstr "Instrumentpanel"
 msgid "Delete selected pages"
 msgstr "Radera valda sidor"
 
-msgid "1 page has been deleted"
-msgstr "1 sida har raderats"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 sida och %(num_child_objects)d undersida har raderats"
-msgstr[1] "1 sida och %(num_child_objects)d undersidor har raderats"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d sidor har raderats"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d sidor och %(num_child_objects)d undersida har raderats"
-msgstr[1] ""
-"%(num_parent_objects)d sidor och %(num_child_objects)d undersidor har "
-"raderats"
-
 msgid "Select a new parent page"
 msgstr "Välj ny föräldersida"
 
@@ -2346,64 +2276,8 @@ msgstr[1] "%(num_pages)d sidor har flyttats"
 msgid "Publish selected pages"
 msgstr "Publicera valda sidor"
 
-msgid "1 page has been published"
-msgstr "1 sida har blivit publicerad"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 sida och %(num_child_objects)d undersida har publicerats"
-msgstr[1] "1 sida och %(num_child_objects)d undersidor har publicerats"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d sidor har publicerats"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d sidor och %(num_child_objects)d undersida har "
-"publicerats"
-msgstr[1] ""
-"%(num_parent_objects)d sidor och %(num_child_objects)d undersidor har "
-"publicerats"
-
 msgid "Unpublish selected pages"
 msgstr "Avpublicera valda sidor"
-
-msgid "1 page has been unpublished"
-msgstr "1 sida har blivit avpublicerad"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "1 sida och %(num_child_objects)d undersida har blivit avpublicerad"
-msgstr[1] ""
-"1 sida och %(num_child_objects)d undersidor har blivit avpublicerade"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d sidor har blivit avpublicerade"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d sidor och %(num_child_objects)d undersida har blivit "
-"avpublicerad"
-msgstr[1] ""
-"%(num_parent_objects)d sidor och %(num_child_objects)d undersidor har blivit "
-"avpublicerade"
 
 msgid "Choose parent"
 msgstr "Välj förälder"
@@ -2554,9 +2428,6 @@ msgstr ""
 "Du tittar på en tidigare version av sidan från <b>%(created_at)s</b> av "
 "%(user)s"
 
-msgid "Page history"
-msgstr "Sidhistorik"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Sida '%(page_title)s' opublicerad."
@@ -2669,9 +2540,6 @@ msgstr "Ny arbetsflödesuppgift"
 msgid "Task '%(object)s' created."
 msgstr "Uppgift '%(object)s' skapad."
 
-msgid "Editing workflow task"
-msgstr "Redigerar arbetsflödesuppgift"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Uppgift '%(object)s' uppdaterad."
@@ -2694,44 +2562,26 @@ msgstr "Uppgift '%(task_name)s' aktiverad."
 msgid "Choose another"
 msgstr "Välj en annan"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Förhandsvisa utkast till version av '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Visa live-version av '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Flytta sida '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopiera sida '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Radera sida '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Avpublicera sidan '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Visa sidohistorik för '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Sortera menyordning"
 
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Ändra sortering på undersidor till '%(title)s'"
+msgid "Heading 1"
+msgstr "Rubrik 1"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Rubrik %(level)d"
+msgid "Heading 2"
+msgstr "Rubrik 2"
+
+msgid "Heading 3"
+msgstr "Rubrik 3"
+
+msgid "Heading 4"
+msgstr "Rubrik 4"
+
+msgid "Heading 5"
+msgstr "Rubrik 5"
+
+msgid "Heading 6"
+msgstr "Rubrik 6"
 
 msgid "Bulleted list"
 msgstr "Punktlista"
@@ -2741,6 +2591,9 @@ msgstr "Numrerad lista"
 
 msgid "Blockquote"
 msgstr "Blockcitat"
+
+msgid "Bold"
+msgstr "Fetstil"
 
 msgid "Link"
 msgstr "Länk"

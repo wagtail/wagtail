@@ -60,7 +60,7 @@ spelling:
 	@echo "Spellcheck complete."
 
 lint:
-	doc8 --config ../setup.cfg
+	doc8 --config ../pyproject.toml
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml

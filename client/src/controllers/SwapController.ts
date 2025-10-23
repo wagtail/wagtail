@@ -12,41 +12,46 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  * values.
  *
  * @example - A form that will update the results based on the form's input
- *  <div id="results"></div>
- *  <form
- *    data-controller="w-swap"
- *    data-action="input->w-swap#submitLazy"
- *    data-w-swap-src-value="path/to/search"
- *    data-w-swap-target-value="#results"
- *  >
- *  <input id="search" type="text" name="query" />
- *  <input id="filter" type="text" name="filter" />
+ * ```html
+ * <div id="results"></div>
+ * <form
+ *   data-controller="w-swap"
+ *   data-action="input->w-swap#submitLazy"
+ *   data-w-swap-src-value="path/to/search"
+ *   data-w-swap-target-value="#results"
+ * >
+ *   <input id="search" type="text" name="query" />
+ *   <input id="filter" type="text" name="filter" />
  * </form>
+ * ```
  *
  * @example - A single input that will update the results & the URL
- *  <div id="results"></div>
- *  <input
- *    id="search"
- *    type="text"
- *    name="q"
- *    data-controller="w-swap"
- *    data-action="input->w-swap#searchLazy"
- *    data-w-swap-src-value="path/to/search"
- *    data-w-swap-target-value="#listing-results"
- *  />
+ * ```html
+ * <div id="results"></div>
+ * <input
+ *   id="search"
+ *   type="text"
+ *   name="q"
+ *   data-controller="w-swap"
+ *   data-action="input->w-swap#searchLazy"
+ *   data-w-swap-src-value="path/to/search"
+ *   data-w-swap-target-value="#listing-results"
+ * />
+ * ```
  *
  * @example - A single button that will update the results
- *  <div id="results"></div>
- *  <button
- *    id="clear"
- *    data-controller="w-swap"
- *    data-action="input->w-swap#replaceLazy"
- *    data-w-swap-src-value="path/to/results/?type=bar"
- *    data-w-swap-target-value="#results"
- *  >
- *    Clear owner filter
- *  </button>
- *
+ * ```html
+ * <div id="results"></div>
+ * <button
+ *   id="clear"
+ *   data-controller="w-swap"
+ *   data-action="input->w-swap#replaceLazy"
+ *   data-w-swap-src-value="path/to/results/?type=bar"
+ *   data-w-swap-target-value="#results"
+ * >
+ *   Clear owner filter
+ * </button>
+ * ```
  */
 export class SwapController extends Controller<
   HTMLFormElement | HTMLInputElement | HTMLButtonElement
@@ -91,7 +96,7 @@ export class SwapController extends Controller<
   replaceLazy?: { (...args: any[]): void; cancel(): void };
   /** Debounced function to search results and then replace the DOM */
   searchLazy?: { (...args: any[]): void; cancel(): void };
-  /** Debounced function to submit the serialised form and then replace the DOM */
+  /** Debounced function to submit the serialized form and then replace the DOM */
   submitLazy?: { (...args: any[]): void; cancel(): void };
   /** A function that writes the HTML to the target */
   writeDeferred?: () => Promise<string>;
@@ -227,7 +232,7 @@ export class SwapController extends Controller<
 
   /**
    * Update the target element's content with the response from a request based on the input's form
-   * values serialised. Do not account for anything in the main location/URL, simply replace the content within
+   * values serialized. Do not account for anything in the main location/URL, simply replace the content within
    * the target element.
    */
   submit() {
@@ -235,7 +240,7 @@ export class SwapController extends Controller<
     let data: FormData | undefined = new FormData(form);
 
     let url = this.srcValue;
-    // serialise the form to a query string if it's a GET request
+    // serialize the form to a query string if it's a GET request
     if (form.getAttribute('method')?.toUpperCase() === 'GET') {
       // cast as any to avoid https://github.com/microsoft/TypeScript/issues/43797
       url += '?' + new URLSearchParams(data as any).toString();

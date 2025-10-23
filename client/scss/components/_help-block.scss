@@ -1,5 +1,6 @@
 @use 'sass:color';
 @use 'sass:map';
+@use '../tools' as *;
 // Help text formatters
 .help-block {
   padding: 1em;

@@ -21,9 +21,10 @@ from willow.optimizers.base import OptimizerBase
 from willow.registry import registry
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.ui.tables import Table
 from wagtail.images import get_image_model
 from wagtail.images.utils import generate_signature
-from wagtail.images.views.images import ImagesFilterSet
+from wagtail.images.views.images import BulkActionsColumn, ImagesFilterSet
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
@@ -132,6 +133,8 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             "-created_at",
             "file_size",
             "-file_size",
+            "usage_count",
+            "-usage_count",
         ]
         for ordering in orderings:
             response = self.get({"ordering": ordering})
@@ -398,6 +401,287 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         ]
         self.assertEqual(len(in_clauses), 0)
 
+    def test_correct_layout_is_passed_to_context(self):
+        response = self.client.get(reverse("wagtailimages:index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["layout"], "grid")
+
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["layout"], "list")
+
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["layout"], "grid")
+
+    def test_layout_when_layout_is_list(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNotNone(
+            table, "Expected a table element to be present in list layout."
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNone(
+            grid_ul,
+            "Expected no ul element with class 'listing horiz images' in list layout.",
+        )
+
+    def test_layout_when_layout_is_grid(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table, "Expected no table element with class 'listing' in grid layout."
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "Expected a ul element with class 'listing horiz images' in grid layout.",
+        )
+
+    def test_layout_when_no_layout_is_passed(self):
+        response = self.client.get(reverse("wagtailimages:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "If no layout is passed, it should default to grid layout (no table) - table found",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "If no layout is passed, it should default to grid layout (ul not found)",
+        )
+
+    def test_layout_when_layout_is_invalid(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"layout": "invalid"}
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "If invalid layout is passed, it should default to grid layout (no table) - table found",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "If invalid layout is passed, it should default to grid layout (ul not found)",
+        )
+
+    def test_image_is_present_in_image_preview_column(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        image_preview_wrapper = soup.find("td", class_="image-preview")
+        self.assertIsNotNone(
+            image_preview_wrapper,
+            "Expected a <td> with class image-preview' inside the listing table",
+        )
+
+        preview_image = image_preview_wrapper.find("img")
+        self.assertIsNotNone(
+            preview_image, "Expected an <img> element inside image-preview <td>"
+        )
+
+    def test_title_and_filename_are_present_in_title_column(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        title_and_filename_wrapper = soup.select_one("td.title.title-with-filename")
+        self.assertIsNotNone(
+            title_and_filename_wrapper,
+            "Expected a <td> with class 'title and title-with-filename' inside the listing table.",
+        )
+
+        title_wrapper_div = title_and_filename_wrapper.find(
+            "div", class_="title-wrapper"
+        )
+        self.assertIsNotNone(
+            title_wrapper_div,
+            "Expected a <div> with class 'title-wrapper' inside the title-with-filename <td>",
+        )
+
+        filename_wrapper_div = title_and_filename_wrapper.find(
+            "div", class_="filename-wrapper"
+        )
+        self.assertIsNotNone(
+            filename_wrapper_div,
+            "Expected a <div> with class 'filename-wrapper' inside the title-with-filename <td>",
+        )
+
+    def test_list_layout_contains_required_table_headers(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        headers = soup.find_all("th")
+        header_texts = [th.get_text(strip=True) for th in headers]
+
+        expected_headers = ["Preview", "Title", "Collection", "Created"]
+        for expected_header in expected_headers:
+            self.assertIn(
+                expected_header,
+                header_texts,
+                f"Expected header '{expected_header}' not found in list layout",
+            )
+
+    def test_layout_toggle_button_in_list_layout(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        layout_toggle_button = soup.find("label", class_="w-layout-toggle-button")
+        self.assertIsNotNone(
+            layout_toggle_button, "Expected layout toggle button in list layout"
+        )
+
+    def test_layout_toggle_button_in_grid_layout(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        layout_toggle_button = soup.find("label", class_="w-layout-toggle-button")
+        self.assertIsNotNone(
+            layout_toggle_button, "Expected layout toggle button in grid layout"
+        )
+
+    def test_usage_count_column(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        expected_url = reverse(
+            "wagtailimages:image_usage",
+            args=(self.kitten_image.pk,),
+        )
+        link = soup.select_one(f"a[href='{expected_url}']")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), "Used 1 time")
+
+        expected_url = reverse(
+            "wagtailimages:image_usage",
+            args=(self.puppy_image.pk,),
+        )
+        link = soup.select_one(f"a[href='{expected_url}']")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), "Used 0 times")
+
+    def test_order_by_usage_count(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+            VariousOnDeleteModel.objects.create(protected_image=self.puppy_image)
+
+        cases = {
+            "usage_count": [self.puppy_image, self.kitten_image],
+            "-usage_count": [self.kitten_image, self.puppy_image],
+        }
+        for layout in ["list", "grid"]:
+            for ordering, expected_order in cases.items():
+                with self.subTest(layout=layout, ordering=ordering):
+                    response = self.client.get(
+                        reverse("wagtailimages:index"),
+                        {"ordering": ordering, "layout": layout},
+                    )
+                    self.assertEqual(response.status_code, 200)
+                    context = response.context
+                    self.assertSequenceEqual(
+                        context["page_obj"].object_list,
+                        expected_order,
+                    )
+
+    def test_filter_by_usage_count(self):
+        unused_image = Image.objects.create(
+            title="an abandoned toy",
+            file=get_test_image_file(size=(1, 1)),
+        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+            VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+            VariousOnDeleteModel.objects.create(protected_image=self.puppy_image)
+
+        response = self.client.get(
+            reverse("wagtailimages:index"),
+            {"usage_count_min": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            response.context["page_obj"].object_list,
+            [self.kitten_image, self.puppy_image],
+        )
+
+        response = self.client.get(
+            reverse("wagtailimages:index"),
+            {"usage_count_min": "1", "usage_count_max": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            response.context["page_obj"].object_list,
+            [self.puppy_image],
+        )
+
+        response = self.client.get(
+            reverse("wagtailimages:index"),
+            {"usage_count_max": "0"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            response.context["page_obj"].object_list,
+            [unused_image],
+        )
+
+
+class TestBulkActionsColumn(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.root_collection = Collection.get_first_root_node()
+        self.test_collection = self.root_collection.add_child(name="Test Collection")
+
+    def test_get_header_context_data_with_current_collection(self):
+        column = BulkActionsColumn("bulk_actions")
+        table = Table(columns=[column], data=[])
+
+        parent_context = {
+            "table": table,
+            "current_collection": self.test_collection,
+        }
+
+        context = column.get_header_context_data(parent_context)
+
+        self.assertEqual(context["parent"], self.test_collection.id)
+
+    def test_get_header_context_data_without_current_collection(self):
+        column = BulkActionsColumn("bulk_actions")
+        table = Table(columns=[column], data=[])
+
+        parent_context = {
+            "table": table,
+            "current_collection": None,
+        }
+
+        context = column.get_header_context_data(parent_context)
+
+        self.assertNotIn("parent", context)
+
 
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
@@ -446,7 +730,7 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         answer_list = []
         for i in range(10):
             self.image = Image.objects.create(
-                title=f"{title_list[i%2]} {i}",
+                title=f"{title_list[i % 2]} {i}",
                 file=get_test_image_file(size=(1, 1)),
                 collection=child_collection[i % 2],
             )
@@ -514,6 +798,44 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         response = self.get({"tag": "one", "q": "test"})
         self.assertEqual(response.context["page_obj"].paginator.count, 2)
 
+    def test_image_search_when_layout_is_list(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"q": "A", "layout": "list"}
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNotNone(
+            table,
+            "Expected a table element to be present in list layout when searching for images.",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNone(
+            grid_ul,
+            "Expected no ul element with class 'listing horiz images' in list layout when searching for images.",
+        )
+
+    def test_image_search_when_layout_is_grid(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"q": "A", "layout": "grid"}
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "Expected no table element with class 'listing' in grid layout when searching for images.",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "Expected a ul element with class 'listing horiz images' in grid layout when searching for images.",
+        )
+
 
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
@@ -574,6 +896,25 @@ class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             ],
             response.content,
         )
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("main form")
+        self.assertIsNotNone(form)
+        title_input = form.select_one('input[type="text"][name="title"]')
+        self.assertIsNotNone(title_input)
+        self.assertEqual(title_input.get("id"), "id_title")
+        file_input = form.select_one('input[type="file"][name="file"]')
+        self.assertIsNotNone(file_input)
+        expected_attributes = {
+            "data-controller": "w-sync",
+            "data-action": "change->w-sync#apply",
+            "data-w-sync-bubbles-param": "true",
+            "data-w-sync-name-value": "wagtail:images-upload",
+            "data-w-sync-normalize-value": "true",
+            "data-w-sync-target-value": "#id_title",
+        }
+        for attr, expected_value in expected_attributes.items():
+            self.assertEqual(file_input.get(attr), expected_value)
 
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -1453,7 +1794,8 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.image)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
@@ -1476,7 +1818,8 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
         )
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.image)
         response = self.post()
         self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertTrue(Image.objects.filter(id=self.image.id).exists())
@@ -1493,18 +1836,19 @@ class TestUsage(WagtailTestUtils, TestCase):
         )
 
     def test_usage_page(self):
-        home_page = Page.objects.get(id=2)
-        home_page.add_child(
-            instance=EventPage(
-                title="Christmas",
-                slug="christmas",
-                feed_image=self.image,
-                date_from=datetime.date.today(),
-                audience="private",
-                location="Test",
-                cost="Test",
-            )
-        ).save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            home_page = Page.objects.get(id=2)
+            home_page.add_child(
+                instance=EventPage(
+                    title="Christmas",
+                    slug="christmas",
+                    feed_image=self.image,
+                    date_from=datetime.date.today(),
+                    audience="private",
+                    location="Test",
+                    cost="Test",
+                )
+            ).save_revision().publish()
 
         response = self.client.get(
             reverse("wagtailimages:image_usage", args=[self.image.id])
@@ -1521,9 +1865,10 @@ class TestUsage(WagtailTestUtils, TestCase):
         self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_no_tags(self):
-        # tags should not count towards an image's references
-        self.image.tags.add("illustration")
-        self.image.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            # tags should not count towards an image's references
+            self.image.tags.add("illustration")
+            self.image.save()
         response = self.client.get(
             reverse("wagtailimages:image_usage", args=[self.image.id])
         )
@@ -1531,18 +1876,19 @@ class TestUsage(WagtailTestUtils, TestCase):
         self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_page_with_only_change_permission(self):
-        home_page = Page.objects.get(id=2)
-        home_page.add_child(
-            instance=EventPage(
-                title="Christmas",
-                slug="christmas",
-                feed_image=self.image,
-                date_from=datetime.date.today(),
-                audience="private",
-                location="Test",
-                cost="Test",
-            )
-        ).save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            home_page = Page.objects.get(id=2)
+            home_page.add_child(
+                instance=EventPage(
+                    title="Christmas",
+                    slug="christmas",
+                    feed_image=self.image,
+                    date_from=datetime.date.today(),
+                    audience="private",
+                    location="Test",
+                    cost="Test",
+                )
+            ).save_revision().publish()
 
         # Create a user with change_image permission but not add_image
         user = self.create_user(
@@ -1621,9 +1967,32 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         # draftail should NOT be a standard JS include on this page
         self.assertNotIn("wagtailadmin/js/draftail.js", response_json["html"])
 
-        # upload file field should have accept="image/*"
+        # upload file field should have an explicit 'accept' case for image/avif
         soup = self.get_soup(response_json["html"])
-        self.assertEqual(soup.select_one('input[type="file"]').get("accept"), "image/*")
+        self.assertEqual(
+            soup.select_one('input[type="file"]').get("accept"), "image/*, image/avif"
+        )
+        form = soup.select_one("form[data-chooser-modal-creation-form]")
+        self.assertIsNotNone(form)
+        title_input = form.select_one(
+            'input[type="text"][name="image-chooser-upload-title"]'
+        )
+        self.assertIsNotNone(title_input)
+        self.assertEqual(title_input.get("id"), "id_image-chooser-upload-title")
+        file_input = form.select_one(
+            'input[type="file"][name="image-chooser-upload-file"]'
+        )
+        self.assertIsNotNone(file_input)
+        expected_attributes = {
+            "data-controller": "w-sync",
+            "data-action": "change->w-sync#apply",
+            "data-w-sync-bubbles-param": "true",
+            "data-w-sync-name-value": "wagtail:images-upload",
+            "data-w-sync-normalize-value": "true",
+            "data-w-sync-target-value": "#id_image-chooser-upload-title",
+        }
+        for attr, expected_value in expected_attributes.items():
+            self.assertEqual(file_input.get(attr), expected_value)
 
     def test_simple_with_collection_nesting(self):
         root_collection = Collection.get_first_root_node()
@@ -1644,11 +2013,23 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
-        # upload file field should have an explicit 'accept' case for image/heic
+        # upload file field should have an explicit 'accept' case for image/heic and image/avif
         soup = self.get_soup(response_json["html"])
         self.assertEqual(
-            soup.select_one('input[type="file"]').get("accept"), "image/*, image/heic"
+            soup.select_one('input[type="file"]').get("accept"),
+            "image/*, image/heic, image/avif",
         )
+
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])
+    def test_upload_field_without_avif(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "choose")
+        self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
+
+        soup = self.get_soup(response_json["html"])
+        self.assertEqual(soup.select_one('input[type="file"]').get("accept"), "image/*")
 
     def test_choose_permissions(self):
         # Create group with access to admin and Chooser permission on one Collection, but not another.
@@ -1871,6 +2252,7 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         self.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
+            description="Test description",
         )
 
     def get(self, params={}):
@@ -1885,6 +2267,12 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "chosen")
         self.assertEqual(response_json["result"]["title"], "Test image")
+        self.assertEqual(
+            set(response_json["result"]["preview"].keys()), {"url", "width", "height"}
+        )
+        self.assertEqual(
+            response_json["result"]["default_alt_text"], "Test description"
+        )
 
     def test_with_multiple_flag(self):
         # if 'multiple' is passed as a URL param, the result should be returned as a single-item list
@@ -1895,6 +2283,13 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "chosen")
         self.assertEqual(len(response_json["result"]), 1)
         self.assertEqual(response_json["result"][0]["title"], "Test image")
+        self.assertEqual(
+            set(response_json["result"][0]["preview"].keys()),
+            {"url", "width", "height"},
+        )
+        self.assertEqual(
+            response_json["result"][0]["default_alt_text"], "Test description"
+        )
 
 
 class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
@@ -1905,15 +2300,18 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.image1 = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
+            description="Test description",
         )
         self.image2 = Image.objects.create(
             title="Another test image",
             file=get_test_image_file(),
+            description="Another test description",
         )
 
         self.image3 = Image.objects.create(
             title="Unchosen test image",
             file=get_test_image_file(),
+            description="Unchosen test description",
         )
 
     def get(self, params={}):
@@ -1935,6 +2333,8 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response_json["result"]), 2)
         titles = {item["title"] for item in response_json["result"]}
         self.assertEqual(titles, {"Test image", "Another test image"})
+        alt_texts = {item["default_alt_text"] for item in response_json["result"]}
+        self.assertEqual(alt_texts, {"Test description", "Another test description"})
 
 
 class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
@@ -2423,6 +2823,14 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/multiple/add.html")
 
+        # multiple upload file field should have 'accept' attr with an explicit
+        # case for image/avif
+        soup = self.get_soup(response.content)
+        self.assertEqual(
+            soup.select_one("input[type='file'][multiple]").get("accept"),
+            "image/*, image/avif",
+        )
+
         # draftail should NOT be a standard JS include on this page
         # (see TestMultipleImageUploaderWithCustomImageModel - this confirms that form media
         # definitions are being respected)
@@ -2437,6 +2845,32 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
                 {"url": "", "label": "Add images"},
             ],
             response.content,
+        )
+
+    @override_settings(
+        WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp", "avif", "heic"]
+    )
+    def test_multiple_upload_field_accepts_heic(self):
+        response = self.client.get(reverse("wagtailimages:add_multiple"))
+
+        self.assertEqual(response.status_code, 200)
+
+        # multiple upload file field should have explicit 'accept' case for image/heic and image/avif
+        soup = self.get_soup(response.content)
+        self.assertEqual(
+            soup.select_one("input[type='file'][multiple]").get("accept"),
+            "image/*, image/heic, image/avif",
+        )
+
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])
+    def test_multiple_upload_field_without_avif(self):
+        response = self.client.get(reverse("wagtailimages:add_multiple"))
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        self.assertEqual(
+            soup.select_one("input[type='file'][multiple]").get("accept"), "image/*"
         )
 
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)
@@ -3453,6 +3887,13 @@ class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             ],
             response.content,
         )
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("main form")
+        closeness = form.select_one("input[name=closeness]")
+        self.assertIsNotNone(closeness)
+        self.assertEqual(closeness.get("min"), "0")
+        self.assertEqual(closeness.get("max"), "100")
 
     def test_get_bad_permissions(self):
         """

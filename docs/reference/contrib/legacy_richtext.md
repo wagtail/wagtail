@@ -4,7 +4,7 @@
 
 ```
 
-Provides the legacy richtext wrapper.
+Provides the legacy richtext wrapper. This causes rich text to be wrapped in a div, with the class `rich-text` applied.
 
 Place `wagtail.contrib.legacy.richtext` before `wagtail` in `INSTALLED_APPS`.
 

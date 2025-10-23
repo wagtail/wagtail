@@ -1,0 +1,59 @@
+@use '../../../scss/tools' as *;
+
+.w-combobox-preview {
+  padding: theme('spacing.5');
+  display: flex;
+  flex-direction: column;
+  gap: theme('spacing.5');
+  // Set a min-height to ensure it's big enough to be useful
+  min-height: 400px;
+  background-color: theme('colors.surface-header');
+  border-block-start: 1px solid theme('colors.border-furniture');
+  border-end-end-radius: inherit;
+  border-end-start-radius: inherit;
+  @include media-breakpoint-up(md) {
+    border-block-start: 0;
+    border-start-end-radius: inherit;
+    border-end-start-radius: 0;
+    border-inline-start: 1px solid theme('colors.border-furniture');
+  }
+}
+
+.w-combobox-preview__iframe {
+  // Take up remaining space
+  width: 100%;
+  height: 100%;
+
+  border: 1px solid theme('colors.border-furniture');
+  border-radius: theme('borderRadius.sm');
+
+  // Ensure iframe is always opaque
+  color-scheme: normal;
+  background-color: Canvas;
+
+  @include more-contrast() {
+    border-color: theme('colors.border-furniture-more-contrast');
+  }
+}
+
+.w-combobox-preview__details {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  // Use 65:35 ratio between the iframe and the details, but allow the details
+  // to grow to a minimum of 100px in case the container is very small
+  // (i.e. when there are only a few blocks)
+  min-height: max(35%, 100px);
+}
+
+.w-combobox-preview__label {
+  @apply w-label-1;
+}
+
+.w-combobox-preview__description {
+  @apply w-help-text;
+  margin-top: theme('spacing.3');
+  margin-bottom: 0;
+  overflow: auto;
+  min-height: 0;
+}

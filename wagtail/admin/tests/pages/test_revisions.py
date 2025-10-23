@@ -14,6 +14,7 @@ from wagtail.test.testapp.models import (
     SecretPage,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
@@ -35,8 +36,7 @@ class TestRevisions(WagtailTestUtils, TestCase):
         self.christmas_event.title = "This Christmas"
         self.christmas_event.date_from = "2014-12-25"
         self.christmas_event.body = (
-            "<p>This year, to save me from tears, "
-            "I'll give it to someone special</p>"
+            "<p>This year, to save me from tears, I'll give it to someone special</p>"
         )
         self.this_christmas_revision = self.christmas_event.save_revision()
         self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
@@ -119,12 +119,17 @@ class TestRevisions(WagtailTestUtils, TestCase):
         # Form should show the content of the revision, not the current draft
         self.assertContains(response, "Last Christmas I gave you my heart")
 
-        # Form should include a hidden 'revision' field
-        revision_field = (
-            """<input type="hidden" name="revision" value="%d" />"""
-            % self.last_christmas_revision.id
+        # Form should use the revisions revert URL as the action
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertEqual(
+            form.get("action"),
+            reverse(
+                "wagtailadmin_pages:revisions_revert",
+                args=(self.christmas_event.id, self.last_christmas_revision.id),
+            ),
         )
-        self.assertContains(response, revision_field)
 
         # Buttons should be relabelled
         self.assertContains(response, "Replace current draft")
@@ -199,9 +204,10 @@ class TestStreamRevisions(WagtailTestUtils, TestCase):
         )
 
 
-class TestCompareRevisions(WagtailTestUtils, TestCase):
+class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     # Actual tests for the comparison classes can be found in test_compare.py
 
+    base_breadcrumb_items = []
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -219,8 +225,7 @@ class TestCompareRevisions(WagtailTestUtils, TestCase):
         self.christmas_event.title = "This Christmas"
         self.christmas_event.date_from = "2014-12-25"
         self.christmas_event.body = (
-            "<p>This year, to save me from tears, "
-            "I'll give it to someone special</p>"
+            "<p>This year, to save me from tears, I'll give it to someone special</p>"
         )
         self.this_christmas_revision = self.christmas_event.save_revision()
         self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
@@ -245,6 +250,33 @@ class TestCompareRevisions(WagtailTestUtils, TestCase):
             '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>',
             html=True,
         )
+
+        history_url = reverse(
+            "wagtailadmin_pages:history", args=(self.christmas_event.id,)
+        )
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtailadmin_explore_root")
+                    if page.is_root()
+                    else reverse("wagtailadmin_explore", args=(page.pk,)),
+                    "label": page.get_admin_display_title(),
+                }
+                for page in self.christmas_event.get_ancestors(inclusive=True)
+            ]
+            + [
+                {"url": history_url, "label": "History"},
+                {"url": "", "label": "Compare", "sublabel": "This Christmas"},
+            ],
+            response.content,
+        )
+
+        soup = self.get_soup(response.content)
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.christmas_event.id,))
+        edit_button = soup.select_one(f"a.w-header-button[href='{edit_url}']")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(edit_button.text.strip(), "Edit")
 
     def test_compare_revisions_earliest(self):
         compare_url = reverse(
@@ -277,7 +309,7 @@ class TestCompareRevisions(WagtailTestUtils, TestCase):
     def test_compare_revisions_live(self):
         # Mess with the live version, bypassing revisions
         self.christmas_event.body = (
-            "<p>This year, to save me from tears, " "I'll just feed it to the dog</p>"
+            "<p>This year, to save me from tears, I'll just feed it to the dog</p>"
         )
         self.christmas_event.save(update_fields=["body"])
 
@@ -446,8 +478,7 @@ class TestRevisionsUnschedule(WagtailTestUtils, TestCase):
         self.christmas_event.title = "This Christmas"
         self.christmas_event.date_from = "2014-12-25"
         self.christmas_event.body = (
-            "<p>This year, to save me from tears, "
-            "I'll give it to someone special</p>"
+            "<p>This year, to save me from tears, I'll give it to someone special</p>"
         )
         self.this_christmas_revision = self.christmas_event.save_revision()
         self.this_christmas_revision.created_at = local_datetime(2014, 12, 24)

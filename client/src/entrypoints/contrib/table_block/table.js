@@ -250,7 +250,7 @@ class TableInput {
       <div class="w-field__wrapper" data-field-wrapper>
         <label class="w-field__label" for="${id}-table-header-choice">${this.strings['Table headers']}</label>
           <select id="${id}-table-header-choice" name="table-header-choice">
-            <option value="">Select a header option</option>
+            <option value="">${this.strings['Select a header option']}</option>
             <option value="row">
                 ${this.strings['Display the first row as a header']}
             </option>

@@ -13,8 +13,13 @@ from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = cls.create_test_user()
+        cls.add_url = reverse("wagtaillocales:add")
+
     def setUp(self):
-        self.login()
+        self.login(user=self.user)
 
     def get(self, params={}):
         return self.client.get(reverse("wagtaillocales:index"), params)
@@ -27,6 +32,16 @@ class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             [{"url": "", "label": "Locales"}],
             response.content,
         )
+        self.assertContains(response, self.add_url)
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English")])
+    def test_index_view_doesnt_show_add_locale_button_if_all_locales_created(self):
+        self.assertNotContains(self.get(), self.add_url)
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")])
+    def test_index_view_shows_add_locale_button_with_stale_locales(self):
+        Locale.objects.create(language_code="de")
+        self.assertContains(self.get(), self.add_url)
 
 
 class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -103,6 +118,22 @@ class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "language_code",
             ["Select a valid choice. ja is not one of the available choices."],
         )
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English")])
+    def test_create_view_no_access_if_all_locales_created(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")])
+    def test_create_view_can_access_with_stale_locales(self):
+        Locale.objects.create(language_code="de")
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaillocales/create.html")
 
 
 class TestLocaleEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

@@ -1,0 +1,37 @@
+{% load wagtailcore_tags i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+    <head>
+        {% block head %}
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="robots" content="noindex" />
+            <title>{{ page_title }}</title>
+
+            {% block css %}
+            {% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <main>
+                {% block content %}
+                    {% comment %}
+                        StreamBlock renders each child block in a `div` wrapper
+                        like the following. Since we are rendering the block
+                        directly (without a StreamBlock), add the div wrapper
+                        here in case the styles rely on the `block-` CSS class.
+                    {% endcomment %}
+                    <div class="block-{{ block_def.name }}">
+                        {% include_block bound_block %}
+                    </div>
+                {% endblock %}
+            </main>
+
+            {% block js %}
+            {% endblock %}
+        {% endblock %}
+    </body>
+</html>

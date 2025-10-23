@@ -1,4 +1,6 @@
 @use 'sass:map';
+@use '../../tools' as *;
+@use '../../settings' as *;
 
 /**
  * The field component handles form fields’ layout and ancillary elements such as error messages and help text.

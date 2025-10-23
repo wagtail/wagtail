@@ -166,14 +166,14 @@ class Command(BaseCommand):
 
                 if ask:
                     answer = get_input(
-                        "{}. Found {} -> {} Create? Y/n: ".format(
+                        "{}. Found {} -> {} Create? y/N: ".format(
                             total,
                             from_link,
                             to_link,
                         )
                     )
 
-                    if answer != "Y":
+                    if not answer.lower().startswith("y"):
                         skipped += 1
                         continue
                 else:

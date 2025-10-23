@@ -32,6 +32,7 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         "and": AND,
         "or": OR,
     }
+    HANDLES_ORDER_BY_EXPRESSIONS = True
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -55,6 +56,9 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         return models.Q(
             **{field.get_attname(self.queryset.model) + "__" + lookup: value}
         )
+
+    def _process_match_none(self):
+        return models.Q(pk__in=[])
 
     def _connect_filters(self, filters, connector, negated):
         if connector == "AND":

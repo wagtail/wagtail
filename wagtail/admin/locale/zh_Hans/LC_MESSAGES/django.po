@@ -16,11 +16,15 @@
 # Yin Guanhao <sopium@mysterious.site>, 2020
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Aosp T, 2016
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Monty NG, 2023
+# Monty NG, 2023
+# Terry Peng, 2023
 # Terry Peng, 2023
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # yi huang <yi.codeplayer@gmail.com>, 2018
 # Yin Guanhao <sopium@mysterious.site>, 2020-2021
+# Yu Cheng, 2024
 # Yu Cheng, 2024
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
 # 汇民 王 <whuim@qq.com>, 2017-2021
@@ -31,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Yu Cheng, 2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -306,7 +310,7 @@ msgstr "请给你的工作流一个名称"
 msgid "Add tasks to your workflow"
 msgstr "增加任务到你的工作流"
 
-msgid "Task"
+msgid "task"
 msgstr "任务"
 
 msgid "1 page selected"
@@ -392,12 +396,6 @@ msgstr "已选择本屏幕的所有%(objects)s 个条目"
 
 msgid "All items in listing selected"
 msgstr "已选择列表中的所有条目"
-
-msgid "For search engines"
-msgstr "用于搜索引擎"
-
-msgid "For site menus"
-msgstr "用于站点菜单"
 
 msgid "Content"
 msgstr "内容"
@@ -649,10 +647,6 @@ msgid "No, don't delete"
 msgstr "否，不删除"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "取消发布%(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "你确定要取消发布%(model_name)s吗？"
 
@@ -692,13 +686,6 @@ msgstr "更新"
 
 msgid "Preview not available"
 msgstr "预览不可用"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "比较 %(title)s"
-
-msgid "Comparing"
-msgstr "正在比较"
 
 msgid "Fields"
 msgstr "字段"
@@ -750,6 +737,12 @@ msgstr "日期"
 msgid "Site summary"
 msgstr "网站摘要"
 
+msgid "Close"
+msgstr "关闭"
+
+msgid "Task"
+msgstr "任务"
+
 msgid "Task started"
 msgstr "任务已启动"
 
@@ -758,9 +751,6 @@ msgstr "请求的更改"
 
 msgid "Awaiting"
 msgstr "等待"
-
-msgid "Close"
-msgstr "关闭"
 
 msgid "Awaiting your review"
 msgstr "等待你的审查"
@@ -1337,10 +1327,6 @@ msgstr "完成于"
 msgid "Clear"
 msgstr "清除"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "第 %(page_num)s 页，共 %(total_pages)s 页。"
-
 msgid "Toggle breadcrumbs"
 msgstr "面包屑开关"
 
@@ -1398,21 +1384,18 @@ msgstr "查看已发布的页面"
 msgid "Visible to all. Visit the live page"
 msgstr "任何人可看. 查看已发布页面"
 
-msgid "Private. Visit the live page"
-msgstr "私有. 查看已发布页"
-
 msgid "Visible to all"
 msgstr "任何人可看"
 
-msgid "Toggle section"
-msgstr "部件开关"
+msgid "Private. Visit the live page"
+msgstr "私有. 查看已发布页"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "取消%(title)s修订版本%(revision.id)s的预定发布"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "第 %(page_num)s 页，共 %(total_pages)s 页"
 
-msgid "Unschedule"
-msgstr "取消计划"
+msgid "Toggle section"
+msgstr "部件开关"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "确定要取消这个修订版本的发布计划吗？"
@@ -1675,13 +1658,6 @@ msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的任务"
 msgid "You haven't created any tasks."
 msgstr "你还没有创建任何任务。"
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"为什么不用 <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>马"
-"上创建一个</a>呢？"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -1737,8 +1713,8 @@ msgstr "撤销"
 msgid "Redo"
 msgstr "重复"
 
-msgid "Bold"
-msgstr "粗体"
+msgid "Toggle sidebar"
+msgstr "切换侧边栏"
 
 msgid "Italic"
 msgstr "斜体"
@@ -1863,16 +1839,8 @@ msgstr "%(model_name)s '%(object)s' 已更新。"
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' 已创建。"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "编辑“%(title)s”"
-
 msgid "Inspect"
 msgstr "检查"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "删除“%(title)s”"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -1895,6 +1863,9 @@ msgstr "最近的"
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' 未发布."
 
+msgid "Unschedule"
+msgstr "取消计划"
+
 msgid "Field"
 msgstr "字段"
 
@@ -1907,27 +1878,6 @@ msgstr "控制面板"
 
 msgid "Delete selected pages"
 msgstr "删除选择的页面"
-
-msgid "1 page has been deleted"
-msgstr "已删除1个页面"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "已删除1个页面和%(num_child_objects)d个子页面"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "已删除%(num_parent_objects)d个页面"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] "已删除%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
 
 msgid "Select a new parent page"
 msgstr "选择一个新的父页面"
@@ -1943,52 +1893,8 @@ msgstr[0] "已移动%(num_pages)d个页面"
 msgid "Publish selected pages"
 msgstr "发布选择的页面"
 
-msgid "1 page has been published"
-msgstr "已发布1个页面"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "已发布1个页面和%(num_child_objects)d个子页面"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "已发布%(num_parent_objects)d个页面"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] "已发布%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
-
 msgid "Unpublish selected pages"
 msgstr "取消发布选择的页面"
-
-msgid "1 page has been unpublished"
-msgstr "已取消发布1个页面"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "已取消发布1个页面和%(num_child_objects)d个子页面"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "已取消发布%(num_parent_objects)d个页面"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"已取消发布%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2118,9 +2024,6 @@ msgid ""
 msgstr ""
 "你正在查看此页面的上一版本，创建时间：<b>%(created_at)s</b> 创建人： %(user)s"
 
-msgid "Page history"
-msgstr "页面历史"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "页面'%(page_title)s'已取消发布。"
@@ -2234,9 +2137,6 @@ msgstr "新建工作流任务"
 msgid "Task '%(object)s' created."
 msgstr "任务 '%(object)s'已创建。"
 
-msgid "Editing workflow task"
-msgstr "正在编辑工作流任务"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "任务 '%(object)s' 已更新。"
@@ -2259,44 +2159,26 @@ msgstr "任务 '%(task_name)s' 已启用。"
 msgid "Choose another"
 msgstr "选择另一个"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "预览“%(title)s”的草稿版本"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "查看 '%(title)s' 的发布版本"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "移动页面“%(title)s”"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "复制页面“%(title)s”"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "删除页面“%(title)s”"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "取消发布页面“%(title)s”"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "查看“%(title)s”的页面历史"
-
 msgid "Sort menu order"
 msgstr "排序菜单顺序"
 
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "更改“%(title)s”的子页面顺序"
+msgid "Heading 1"
+msgstr "标题1"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "标题%(level)d"
+msgid "Heading 2"
+msgstr "标题2"
+
+msgid "Heading 3"
+msgstr "标题3"
+
+msgid "Heading 4"
+msgstr "标题4"
+
+msgid "Heading 5"
+msgstr "标题5"
+
+msgid "Heading 6"
+msgstr "标题6"
 
 msgid "Bulleted list"
 msgstr "项目列表"
@@ -2306,6 +2188,9 @@ msgstr "编号列表"
 
 msgid "Blockquote"
 msgstr "块引用"
+
+msgid "Bold"
+msgstr "粗体"
 
 msgid "Link"
 msgstr "链接"

@@ -1,9 +1,14 @@
 from django.conf import settings
+from django.db.models import F
 from django.test import TestCase
 
 from wagtail.models import Page
 from wagtail.search.backends import get_search_backend
-from wagtail.search.backends.base import BaseSearchQueryCompiler, BaseSearchResults
+from wagtail.search.backends.base import (
+    BaseSearchQueryCompiler,
+    BaseSearchResults,
+    OrderByFieldError,
+)
 
 
 class PageSearchTests:
@@ -40,6 +45,20 @@ class PageSearchTests:
             )
         )
 
+    def test_order_by_last_published_at_with_drafts_first(self):
+        qs = Page.objects.order_by(F("last_published_at").asc(nulls_first=True))
+        if self.backend.query_compiler_class.HANDLES_ORDER_BY_EXPRESSIONS:
+            qs.autocomplete("blah", order_by_relevance=False, backend=self.backend_name)
+        else:
+            with self.assertRaises(OrderByFieldError) as ctx:
+                qs.autocomplete(
+                    "blah", order_by_relevance=False, backend=self.backend_name
+                )
+            self.assertIn(
+                'Cannot sort search results with "OrderBy(F(last_published_at), descending=False)".',
+                str(ctx.exception),
+            )
+
     def test_search_specific_queryset(self):
         list(Page.objects.specific().search("bread", backend=self.backend_name))
 
@@ -67,7 +86,8 @@ class TestBaseSearchResults(TestCase):
     def test_get_item_no_results(self):
         # Ensure that, if there are no results, we do not attempt to get the entire search index.
         base_search_results = BaseSearchResults(
-            "BackendIrrelevant", BaseSearchQueryCompiler
+            "BackendIrrelevant",
+            BaseSearchQueryCompiler(Page.objects.none(), "query"),
         )
         obj = base_search_results[0:0]
         self.assertEqual(obj.start, 0)

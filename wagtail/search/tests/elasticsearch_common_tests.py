@@ -114,6 +114,49 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
             ],
         )
 
+    def test_search_with_numeric_term(self):
+        book = models.Book.objects.create(
+            title="Harry Potter and the 31337 Goblets of Fire",
+            publication_date=date(2009, 7, 15),
+            number_of_pages=607,
+        )
+
+        index = self.backend.get_index_for_model(models.Book)
+        index.add_item(book)
+        index.refresh()
+
+        results = self.backend.search("31337", models.Book)
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "Harry Potter and the 31337 Goblets of Fire",
+            ],
+        )
+
+        results = self.backend.autocomplete("313", models.Book)
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "Harry Potter and the 31337 Goblets of Fire",
+            ],
+        )
+
+        results = self.backend.search("31337 goblets", models.Book)
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "Harry Potter and the 31337 Goblets of Fire",
+            ],
+        )
+
+        results = self.backend.autocomplete("31337 gob", models.Book)
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "Harry Potter and the 31337 Goblets of Fire",
+            ],
+        )
+
     def test_and_operator_with_single_field(self):
         # Testing for bug #1859
         results = self.backend.search(

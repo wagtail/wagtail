@@ -4,12 +4,13 @@ import unittest
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.template import Context, Template
-from django.test import TestCase
+from django.template import Context, Origin, Template
+from django.test import SimpleTestCase, TestCase
 
 from wagtail.admin.tests.test_contentstate import content_state_equal
 from wagtail.models import PAGE_MODEL_CLASSES, Page, Site
 from wagtail.test.dummy_external_storage import DummyExternalStorage
+from wagtail.test.numberformat import ignore_numberformat
 from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessIndex,
@@ -470,12 +471,67 @@ class TestDummyExternalStorage(WagtailTestUtils, TestCase):
     settings.WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT,
     "Number formatting functions have not been patched",
 )
-class TestPatchedNumberFormat(TestCase):
+class TestPatchedNumberFormat(SimpleTestCase):
     def test_outputting_number_directly_is_disallowed(self):
         context = Context({"num": 42})
-        template = Template("the answer is {{ num }}")
-        with self.assertRaises(ImproperlyConfigured):
-            template.render(context)
+        template_name = "wagtailcore/tests/some_template.html"
+        external_template_name = "external_package/other_template.html"
+        templates = [
+            Template("the answer is {{ num }}"),
+            Template(
+                "the answer is {{ num }}",
+                origin=Origin(
+                    name=f"/some/path/{template_name}",
+                    template_name=template_name,
+                ),
+            ),
+            Template(
+                "the answer is {{ num }}",
+                origin=Origin(
+                    name=f"/some/path/{external_template_name}",
+                    template_name=external_template_name,
+                ),
+            ),
+        ]
+        for template in templates:
+            with (
+                self.subTest(template=template),
+                self.assertRaises(ImproperlyConfigured),
+            ):
+                template.render(context)
+
+    def test_ignore_numberformat(self):
+        context = Context({"num": 4815162342})
+        template_name = "external_package/some_template.html"
+        with ignore_numberformat([template_name]):
+            ignored_template = Template(
+                "the answer is {{ num }}",
+                origin=Origin(
+                    name=f"/some/path/{template_name}",
+                    template_name=template_name,
+                ),
+            )
+
+            self.assertEqual(
+                ignored_template.render(context),
+                "the answer is 4815162342",
+            )
+            with self.settings(USE_THOUSAND_SEPARATOR=True):
+                self.assertEqual(
+                    ignored_template.render(context),
+                    "the answer is 4,815,162,342",
+                )
+
+            # But other templates should still raise
+            other_template = Template(
+                "the answer is {{ num }}",
+                origin=Origin(
+                    name="/some/path/important/tests/some_template.html",
+                    template_name="important/tests/some_template.html",
+                ),
+            )
+            with self.assertRaises(ImproperlyConfigured):
+                other_template.render(context)
 
     def test_outputting_number_via_intcomma(self):
         context = Context({"num": 9000})

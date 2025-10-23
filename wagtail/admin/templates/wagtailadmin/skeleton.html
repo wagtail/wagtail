@@ -9,6 +9,7 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="noindex" />
+        <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
 
         {% block css %}{% endblock %}
 
@@ -17,9 +18,11 @@
     {% sidebar_collapsed as sidebar_collapsed %}
     {% fragment as bodyclass %}{% block bodyclass %}{% endblock %}{% endfragment %}
     <body id="wagtail" class="{% classnames bodyclass sidebar_collapsed|yesno:"sidebar-collapsed," messages|yesno:"has-messages," %}" data-controller="w-init" data-w-init-ready-class="ready">
-        <div data-sprite></div>
+        {% block icons_sprite %}
+            <div data-sprite></div>
 
-        <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% icon_sprite_url %}"></script>
+            <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% icon_sprite_url %}"></script>
+        {% endblock %}
 
         <noscript class="capabilitymessage">
             {% blocktrans trimmed %}
@@ -30,7 +33,7 @@
 
         {% block js %}{% endblock %}
 
-        <a class="skiplink button" href="#main" data-controller="w-skip-link" data-action="w-skip-link#skip">{% trans 'Skip to main content' %}</a>
+        <a class="skiplink button" href="#main" data-controller="w-focus" data-action="w-focus#focus:prevent">{% trans 'Skip to main content' %}</a>
 
         <div class="wrapper">
             {% block furniture %}{% endblock %}

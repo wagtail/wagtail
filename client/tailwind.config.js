@@ -49,7 +49,6 @@ const themeColors = Object.fromEntries(
 
 const lightThemeColors = colorThemes.light.reduce((colorTokens, category) => {
   Object.entries(category.tokens).forEach(([name, token]) => {
-    // eslint-disable-next-line no-param-reassign
     colorTokens[name] = `var(${token.cssVariable})`;
   });
   return colorTokens;
@@ -113,6 +112,8 @@ module.exports = {
           'inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
       },
       zIndex: {
+        'footer-actions': '32',
+        'minimap': '80',
         'header': '100',
         'sidebar': '110',
         'sidebar-toggle': '120',
@@ -135,9 +136,8 @@ module.exports = {
     scrollbarThin,
     /**
      * forced-colors media query for Windows High-Contrast mode support
-     * See:
-     * - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
-     * - https://github.com/tailwindlabs/tailwindcss/blob/v3.0.23/src/corePlugins.js#L168-L171
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
+     * @see https://github.com/tailwindlabs/tailwindcss/blob/v3.0.23/src/corePlugins.js#L168-L171
      */
     plugin(({ addVariant }) => {
       addVariant('forced-colors', '@media (forced-colors: active)');

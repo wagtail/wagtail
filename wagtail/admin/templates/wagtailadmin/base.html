@@ -4,7 +4,7 @@
 {% block furniture %}
     <template data-wagtail-sidebar-branding-logo>{% block branding_logo %}{% endblock %}</template>
     {% sidebar_props %}
-    <aside id="wagtail-sidebar" class="sidebar-loading" data-wagtail-sidebar aria-label="{% trans 'Sidebar' %}"></aside>
+    <aside id="wagtail-sidebar" class="sidebar-loading" aria-label="{% trans 'Sidebar' %}" data-wagtail-sidebar data-controller="w-kbd" data-w-kbd-key-value="["></aside>
     {% keyboard_shortcuts_dialog %}
     <main class="content-wrapper w-overflow-x-hidden" id="main">
         <div class="content">
@@ -26,6 +26,20 @@
                                     {% icon name=level_tag classname="messages-icon" %}
                                 {% endif %}
                                 {{ message|safe }}
+                                {% if level_tag == "error" %}
+                                    {# Show a button to focus the first field/response error if available. #}
+                                    <button
+                                        type="button"
+                                        class="button button-small button-secondary w-hidden w-ml-2.5"
+                                        data-controller="w-count w-focus"
+                                        data-action="click->w-focus#focus"
+                                        data-w-count-active-class="!w-inline-block"
+                                        data-w-count-find-value=":not([hidden]):is(.error-message,.help-critical)"
+                                        data-w-focus-target-value=":not([hidden]):is(.error-message,.help-critical)"
+                                    >
+                                        {% trans 'Go to the first error' %}
+                                    </button>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     {% endif %}

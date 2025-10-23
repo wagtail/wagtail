@@ -1,11 +1,12 @@
 import datetime
 from warnings import warn
 
+from django.db.models import OrderBy
 from django.db.models.functions.datetime import Extract as ExtractDate
 from django.db.models.functions.datetime import ExtractYear
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
-from django.db.models.sql.where import SubqueryConstraint, WhereNode
+from django.db.models.sql.where import NothingNode, WhereNode
 
 from wagtail.search.index import class_is_indexed, get_indexed_models
 from wagtail.search.query import MATCH_ALL, PlainText
@@ -35,6 +36,7 @@ class OrderByFieldError(FieldError):
 
 class BaseSearchQueryCompiler:
     DEFAULT_OPERATOR = "or"
+    HANDLES_ORDER_BY_EXPRESSIONS = False
 
     def __init__(
         self,
@@ -67,6 +69,9 @@ class BaseSearchQueryCompiler:
         return field
 
     def _process_lookup(self, field, lookup, value):
+        raise NotImplementedError
+
+    def _process_match_none(self):
         raise NotImplementedError
 
     def _connect_filters(self, filters, connector, negated):
@@ -179,10 +184,8 @@ class BaseSearchQueryCompiler:
                 field_attname, lookup, value, check_only=check_only
             )
 
-        elif isinstance(where_node, SubqueryConstraint):
-            raise FilterError(
-                "Could not apply filter on search results: Subqueries are not allowed."
-            )
+        elif isinstance(where_node, NothingNode):
+            return self._process_match_none()
 
         elif isinstance(where_node, WhereNode):
             # Get child filters
@@ -215,6 +218,17 @@ class BaseSearchQueryCompiler:
 
         for field_name in self.queryset.query.order_by:
             reverse = False
+
+            if isinstance(field_name, OrderBy):
+                if self.HANDLES_ORDER_BY_EXPRESSIONS:
+                    continue
+                else:
+                    raise OrderByFieldError(
+                        f'Cannot sort search results with "{field_name}". '
+                        "Please use a search backend that handles these "
+                        "(e.g. database backend) or specify simple fields.",
+                        field_name=field_name,
+                    )
 
             if field_name.startswith("-"):
                 reverse = True
@@ -278,6 +292,10 @@ class BaseSearchResults:
         self._results_cache = None
         self._count_cache = None
         self._score_field = None
+        # Attach the model to mimic a QuerySet so that we can inspect it after
+        # doing a search, e.g. to get the model's name in a paginator.
+        # The query_compiler may be None, e.g. when using EmptySearchResults.
+        self.model = query_compiler.queryset.model if query_compiler else None
 
     def _set_limits(self, start=None, stop=None):
         if stop is not None:

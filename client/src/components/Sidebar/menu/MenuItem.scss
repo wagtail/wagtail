@@ -1,3 +1,6 @@
+@use '../../../../scss/tools' as *;
+@use '../../../../scss/settings' as *;
+
 .sidebar-menu-item {
   $root: &;
   @include transition(border-color $menu-transition-duration ease);

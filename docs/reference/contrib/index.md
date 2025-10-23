@@ -34,7 +34,7 @@ Provides a view that generates a Google XML sitemap of your public Wagtail conte
 
 ## [](frontendcache)
 
-A module for automatically purging pages from a cache (Varnish, Squid, Cloudflare or Cloudfront) when their content is changed.
+A module for automatically purging pages from a cache (Varnish, Squid, Cloudflare or CloudFront) when their content is changed.
 
 ## [](routablepage)
 

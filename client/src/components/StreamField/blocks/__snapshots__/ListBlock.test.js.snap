@@ -10,7 +10,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
 
         <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="11111111-1111-1111-1111-111111111111">
+      </button><div data-streamfield-child="" data-contentpath="11111111-1111-1111-1111-111111111111">
         <input type="hidden" name="the-prefix-0-deleted" value="">
         <input type="hidden" name="the-prefix-0-order" value="0">
         <input type="hidden" name="the-prefix-0-type" value="">
@@ -28,9 +28,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-11111111-1111-1111-1111-111111111111-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-11111111-1111-1111-1111-111111111111-section" aria-labelledby="block-11111111-1111-1111-1111-111111111111-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -38,19 +38,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -58,7 +62,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           </div>
           <div id="block-11111111-1111-1111-1111-111111111111-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -72,7 +76,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="22222222-2222-2222-2222-222222222222">
+      </button><div data-streamfield-child="" data-contentpath="22222222-2222-2222-2222-222222222222">
         <input type="hidden" name="the-prefix-1-deleted" value="">
         <input type="hidden" name="the-prefix-1-order" value="1">
         <input type="hidden" name="the-prefix-1-type" value="">
@@ -90,9 +94,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-22222222-2222-2222-2222-222222222222-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-22222222-2222-2222-2222-222222222222-section" aria-labelledby="block-22222222-2222-2222-2222-222222222222-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -100,19 +104,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -120,7 +128,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           </div>
           <div id="block-22222222-2222-2222-2222-222222222222-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -134,7 +142,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="fake-uuid-v4-value">
+      </button><div data-streamfield-child="" data-contentpath="fake-uuid-v4-value">
         <input type="hidden" name="the-prefix-2-deleted" value="">
         <input type="hidden" name="the-prefix-2-order" value="2">
         <input type="hidden" name="the-prefix-2-type" value="">
@@ -152,9 +160,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-fake-uuid-v4-value-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-fake-uuid-v4-value-section" aria-labelledby="block-fake-uuid-v4-value-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -162,19 +170,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -182,7 +194,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           </div>
           <div id="block-fake-uuid-v4-value-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-2-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -210,7 +222,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
 
         <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="22222222-2222-2222-2222-222222222222">
+      </button><div data-streamfield-child="" data-contentpath="22222222-2222-2222-2222-222222222222">
         <input type="hidden" name="the-prefix-1-deleted" value="">
         <input type="hidden" name="the-prefix-1-order" value="0">
         <input type="hidden" name="the-prefix-1-type" value="">
@@ -228,9 +240,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-22222222-2222-2222-2222-222222222222-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-22222222-2222-2222-2222-222222222222-section" aria-labelledby="block-22222222-2222-2222-2222-222222222222-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -238,19 +250,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -258,7 +274,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
           </div>
           <div id="block-22222222-2222-2222-2222-222222222222-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -272,7 +288,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="11111111-1111-1111-1111-111111111111">
+      </button><div data-streamfield-child="" data-contentpath="11111111-1111-1111-1111-111111111111">
         <input type="hidden" name="the-prefix-0-deleted" value="">
         <input type="hidden" name="the-prefix-0-order" value="1">
         <input type="hidden" name="the-prefix-0-type" value="">
@@ -290,9 +306,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-11111111-1111-1111-1111-111111111111-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-11111111-1111-1111-1111-111111111111-section" aria-labelledby="block-11111111-1111-1111-1111-111111111111-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -300,19 +316,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -320,7 +340,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
           </div>
           <div id="block-11111111-1111-1111-1111-111111111111-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -348,7 +368,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
 
         <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="22222222-2222-2222-2222-222222222222">
+      </button><div data-streamfield-child="" data-contentpath="22222222-2222-2222-2222-222222222222">
         <input type="hidden" name="the-prefix-1-deleted" value="">
         <input type="hidden" name="the-prefix-1-order" value="0">
         <input type="hidden" name="the-prefix-1-type" value="">
@@ -366,9 +386,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-22222222-2222-2222-2222-222222222222-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-22222222-2222-2222-2222-222222222222-section" aria-labelledby="block-22222222-2222-2222-2222-222222222222-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -376,19 +396,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -396,7 +420,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
           </div>
           <div id="block-22222222-2222-2222-2222-222222222222-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -410,7 +434,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="11111111-1111-1111-1111-111111111111">
+      </button><div data-streamfield-child="" data-contentpath="11111111-1111-1111-1111-111111111111">
         <input type="hidden" name="the-prefix-0-deleted" value="">
         <input type="hidden" name="the-prefix-0-order" value="1">
         <input type="hidden" name="the-prefix-0-type" value="">
@@ -428,9 +452,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-11111111-1111-1111-1111-111111111111-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-11111111-1111-1111-1111-111111111111-section" aria-labelledby="block-11111111-1111-1111-1111-111111111111-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -438,19 +462,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -458,7 +486,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
           </div>
           <div id="block-11111111-1111-1111-1111-111111111111-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -486,7 +514,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
 
         <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="11111111-1111-1111-1111-111111111111">
+      </button><div data-streamfield-child="" data-contentpath="11111111-1111-1111-1111-111111111111">
         <input type="hidden" name="the-prefix-0-deleted" value="">
         <input type="hidden" name="the-prefix-0-order" value="0">
         <input type="hidden" name="the-prefix-0-type" value="">
@@ -504,9 +532,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-11111111-1111-1111-1111-111111111111-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-11111111-1111-1111-1111-111111111111-section" aria-labelledby="block-11111111-1111-1111-1111-111111111111-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -514,19 +542,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -534,7 +566,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           </div>
           <div id="block-11111111-1111-1111-1111-111111111111-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -548,7 +580,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath-disabled="">
+      </button><div data-streamfield-child="" data-contentpath-disabled="">
         <input type="hidden" name="the-prefix-2-deleted" value="">
         <input type="hidden" name="the-prefix-2-order" value="1">
         <input type="hidden" name="the-prefix-2-type" value="">
@@ -566,9 +598,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-undefined-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-undefined-section" aria-labelledby="block-undefined-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -576,19 +608,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -596,7 +632,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           </div>
           <div id="block-undefined-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-2-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -610,7 +646,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="22222222-2222-2222-2222-222222222222">
+      </button><div data-streamfield-child="" data-contentpath="22222222-2222-2222-2222-222222222222">
         <input type="hidden" name="the-prefix-1-deleted" value="">
         <input type="hidden" name="the-prefix-1-order" value="2">
         <input type="hidden" name="the-prefix-1-type" value="">
@@ -628,9 +664,9 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-22222222-2222-2222-2222-222222222222-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-22222222-2222-2222-2222-222222222222-section" aria-labelledby="block-22222222-2222-2222-2222-222222222222-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -638,19 +674,23 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -658,7 +698,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           </div>
           <div id="block-22222222-2222-2222-2222-222222222222-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -686,7 +726,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
 
         <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="11111111-1111-1111-1111-111111111111">
+      </button><div data-streamfield-child="" data-contentpath="11111111-1111-1111-1111-111111111111">
         <input type="hidden" name="the-prefix-0-deleted" value="">
         <input type="hidden" name="the-prefix-0-order" value="0">
         <input type="hidden" name="the-prefix-0-type" value="">
@@ -704,9 +744,9 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-11111111-1111-1111-1111-111111111111-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-11111111-1111-1111-1111-111111111111-section" aria-labelledby="block-11111111-1111-1111-1111-111111111111-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -714,19 +754,23 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -734,7 +778,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           </div>
           <div id="block-11111111-1111-1111-1111-111111111111-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -748,7 +792,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button" style="display: none;" aria-hidden="true">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="22222222-2222-2222-2222-222222222222" style="display: none;" aria-hidden="true">
+      </button><div data-streamfield-child="" data-contentpath="22222222-2222-2222-2222-222222222222" style="display: none;" aria-hidden="true">
         <input type="hidden" name="the-prefix-1-deleted" value="1">
         <input type="hidden" name="the-prefix-1-order" value="1">
         <input type="hidden" name="the-prefix-1-type" value="">
@@ -766,9 +810,9 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-22222222-2222-2222-2222-222222222222-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-22222222-2222-2222-2222-222222222222-section" aria-labelledby="block-22222222-2222-2222-2222-222222222222-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -776,19 +820,23 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -796,7 +844,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           </div>
           <div id="block-22222222-2222-2222-2222-222222222222-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -824,7 +872,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
 
         <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="11111111-1111-1111-1111-111111111111">
+      </button><div data-streamfield-child="" data-contentpath="11111111-1111-1111-1111-111111111111">
         <input type="hidden" name="the-prefix-0-deleted" value="">
         <input type="hidden" name="the-prefix-0-order" value="0">
         <input type="hidden" name="the-prefix-0-type" value="">
@@ -842,9 +890,9 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-11111111-1111-1111-1111-111111111111-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-11111111-1111-1111-1111-111111111111-section" aria-labelledby="block-11111111-1111-1111-1111-111111111111-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -852,19 +900,23 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -872,7 +924,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           </div>
           <div id="block-11111111-1111-1111-1111-111111111111-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -886,7 +938,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="22222222-2222-2222-2222-222222222222">
+      </button><div data-streamfield-child="" data-contentpath="22222222-2222-2222-2222-222222222222">
         <input type="hidden" name="the-prefix-1-deleted" value="">
         <input type="hidden" name="the-prefix-1-order" value="1">
         <input type="hidden" name="the-prefix-1-type" value="">
@@ -904,9 +956,9 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-22222222-2222-2222-2222-222222222222-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-22222222-2222-2222-2222-222222222222-section" aria-labelledby="block-22222222-2222-2222-2222-222222222222-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -914,19 +966,23 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -934,7 +990,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           </div>
           <div id="block-22222222-2222-2222-2222-222222222222-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -962,7 +1018,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
 
         <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="11111111-1111-1111-1111-111111111111">
+      </button><div data-streamfield-child="" data-contentpath="11111111-1111-1111-1111-111111111111">
         <input type="hidden" name="the-prefix-0-deleted" value="">
         <input type="hidden" name="the-prefix-0-order" value="0">
         <input type="hidden" name="the-prefix-0-type" value="">
@@ -980,9 +1036,9 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-11111111-1111-1111-1111-111111111111-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-11111111-1111-1111-1111-111111111111-section" aria-labelledby="block-11111111-1111-1111-1111-111111111111-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -990,19 +1046,23 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -1010,7 +1070,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
           </div>
           <div id="block-11111111-1111-1111-1111-111111111111-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -1024,7 +1084,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="22222222-2222-2222-2222-222222222222">
+      </button><div data-streamfield-child="" data-contentpath="22222222-2222-2222-2222-222222222222">
         <input type="hidden" name="the-prefix-1-deleted" value="">
         <input type="hidden" name="the-prefix-1-order" value="1">
         <input type="hidden" name="the-prefix-1-type" value="">
@@ -1042,9 +1102,9 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-22222222-2222-2222-2222-222222222222-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-22222222-2222-2222-2222-222222222222-section" aria-labelledby="block-22222222-2222-2222-2222-222222222222-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1052,19 +1112,23 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -1072,7 +1136,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
           </div>
           <div id="block-22222222-2222-2222-2222-222222222222-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
           <p class="error-message">Not as good as the first one.</p></div>
@@ -1100,7 +1164,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
 
         <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="11111111-1111-1111-1111-111111111111">
+      </button><div data-streamfield-child="" data-contentpath="11111111-1111-1111-1111-111111111111">
         <input type="hidden" name="the-prefix-0-deleted" value="">
         <input type="hidden" name="the-prefix-0-order" value="0">
         <input type="hidden" name="the-prefix-0-type" value="">
@@ -1118,9 +1182,9 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-11111111-1111-1111-1111-111111111111-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-11111111-1111-1111-1111-111111111111-section" aria-labelledby="block-11111111-1111-1111-1111-111111111111-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1128,19 +1192,23 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -1148,7 +1216,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           </div>
           <div id="block-11111111-1111-1111-1111-111111111111-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -1162,7 +1230,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button><div data-contentpath="22222222-2222-2222-2222-222222222222">
+      </button><div data-streamfield-child="" data-contentpath="22222222-2222-2222-2222-222222222222">
         <input type="hidden" name="the-prefix-1-deleted" value="">
         <input type="hidden" name="the-prefix-1-order" value="1">
         <input type="hidden" name="the-prefix-1-type" value="">
@@ -1180,9 +1248,9 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-22222222-2222-2222-2222-222222222222-heading" data-panel-heading="">
-              <span data-panel-heading-text="" class="c-sf-block__title"></span>
               <span class="c-sf-block__type"></span>
               <span class="w-required-mark" data-panel-required="">*</span>
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-22222222-2222-2222-2222-222222222222-section" aria-labelledby="block-22222222-2222-2222-2222-222222222222-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1190,19 +1258,23 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -1210,7 +1282,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           </div>
           <div id="block-22222222-2222-2222-2222-222222222222-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -1220,6 +1292,109 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           </div>
         </div>
       </div>
+          </div>
+        </section>
+      </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
+        <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button></div>
+      </div>"
+`;
+
+exports[`telepath: wagtail.blocks.ListBlock with StructBlock child it renders the child with a single collapsible panel 1`] = `
+"<div class="c-sf-help">
+          <div class="help">
+            use <strong>a few</strong> of these
+          </div>
+        </div><div class="">
+        <input type="hidden" name="the-prefix-count" data-streamfield-list-count="" value="1">
+
+        <div data-streamfield-list-container=""><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">
+        <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button><div data-streamfield-child="" data-contentpath="heading-block-1">
+        <input type="hidden" name="the-prefix-0-deleted" value="">
+        <input type="hidden" name="the-prefix-0-order" value="0">
+        <input type="hidden" name="the-prefix-0-type" value="heading_block">
+        <input type="hidden" name="the-prefix-0-id" value="heading-block-1">
+        <section class="w-panel w-panel--nested" id="block-heading-block-1-section" aria-labelledby="block-heading-block-1-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block-heading-block-1-section" aria-labelledby="block-heading-block-1-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-heading-block-1-heading" data-panel-toggle="" aria-controls="block-heading-block-1-content" aria-expanded="true">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block-heading-block-1-heading" data-panel-heading="">
+              <span class="c-sf-block__type">Heading block</span>
+              
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block-heading-block-1-section" aria-labelledby="block-heading-block-1-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+        <svg class="icon icon-arrow-up" aria-hidden="true">
+          <use href="#icon-arrow-up"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+        <svg class="icon icon-arrow-down" aria-hidden="true">
+          <use href="#icon-arrow-down"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+        <svg class="icon icon-grip" aria-hidden="true">
+          <use href="#icon-grip"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+        <svg class="icon icon-copy" aria-hidden="true">
+          <use href="#icon-copy"></use>
+        </svg>
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+        <svg class="icon icon-bin" aria-hidden="true">
+          <use href="#icon-bin"></use>
+        </svg>
+      </button></div>
+          </div>
+          <div id="block-heading-block-1-content" class="w-panel__content">
+            <div class="struct-block">
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-0-value-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
+          <div class="w-field__errors" id="the-prefix-0-value-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-0-value-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-0-value-heading_text" id="the-prefix-0-value-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-0-value-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
+          <div class="w-field__errors" id="the-prefix-0-value-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-0-value-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-0-value-size" id="the-prefix-0-value-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
           </div>
         </section>
       </div><button type="button" title="Add" data-streamfield-list-add="" class="c-sf-add-button">

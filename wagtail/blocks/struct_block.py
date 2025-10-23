@@ -9,7 +9,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.admin.telepath import Adapter, register
 
 from .base import (
     Block,
@@ -133,12 +133,11 @@ class BaseStructBlock(Block):
         rather than a StructValue; for consistency, we need to convert it to a StructValue
         for StructBlock to work with
         """
+        default = self._evaluate_callable(self.meta.default)
 
         return self.normalize(
             {
-                name: self.meta.default[name]
-                if name in self.meta.default
-                else block.get_default()
+                name: default[name] if name in default else block.get_default()
                 for name, block in self.child_blocks.items()
             }
         )
@@ -360,6 +359,9 @@ class BaseStructBlock(Block):
         )
         return mark_safe(render_to_string(self.meta.form_template, context))
 
+    def get_description(self):
+        return super().get_description() or getattr(self.meta, "help_text", "")
+
     def get_form_context(self, value, prefix="", errors=None):
         return {
             "children": collections.OrderedDict(
@@ -375,9 +377,14 @@ class BaseStructBlock(Block):
             ),
             "help_text": getattr(self.meta, "help_text", None),
             "classname": self.meta.form_classname,
+            "collapsed": self.meta.collapsed,
             "block_definition": self,
             "prefix": prefix,
         }
+
+    @cached_property
+    def _has_default(self):
+        return self.meta.default is not BaseStructBlock._meta_class.default
 
     class Meta:
         default = {}
@@ -385,6 +392,7 @@ class BaseStructBlock(Block):
         form_template = None
         value_class = StructValue
         label_format = None
+        collapsed = False
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
@@ -401,9 +409,14 @@ class StructBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "collapsed": block.meta.collapsed,
+            "attrs": block.meta.form_attrs or {},
         }
 
         help_text = getattr(block.meta, "help_text", None)
@@ -414,7 +427,8 @@ class StructBlockAdapter(Adapter):
         if block.meta.form_template:
             meta["formTemplate"] = block.render_form_template()
 
-        if block.meta.label_format:
+        # Check specifically for None to allow for empty string
+        if block.meta.label_format is not None:
             meta["labelFormat"] = block.meta.label_format
 
         return [

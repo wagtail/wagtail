@@ -1,11 +1,8 @@
-from warnings import warn
-
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
-from django.shortcuts import redirect
 from django.urls import path
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -20,7 +17,6 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.models import ReferenceIndex
 from wagtail.permissions import ModelPermissionPolicy
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .base import ViewSet, ViewSetGroup
 
@@ -63,8 +59,8 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the inspect view; must be a subclass of ``wagtail.admin.views.generic.InspectView``.
     inspect_view_class = generic.InspectView
 
-    # Breadcrumbs can be turned off until we have a design that can be consistently applied
-    _show_breadcrumbs = True
+    #: The view class to use for the reorder view; must be a subclass of ``wagtail.admin.views.generic.ReorderView``.
+    reorder_view_class = generic.ReorderView
 
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = ""
@@ -99,6 +95,18 @@ class ModelViewSet(ViewSet):
     #: Whether to enable the copy view. Defaults to ``True``.
     copy_view_enabled = True
 
+    sort_order_field = ViewSet.UNDEFINED
+    """
+    The name of an integer field on the model to use for ordering items
+    in the index view. If not set and the model has a ``sort_order_field``
+    attribute (e.g.
+    :attr:`Orderable.sort_order_field <wagtail.models.Orderable.sort_order_field>`),
+    that will be used instead. To disable reordering, set this to ``None``.
+
+    .. versionadded:: 7.2
+       The ``sort_order_field`` attribute was added in Wagtail 7.2.
+    """
+
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
         if not self.model:
@@ -111,6 +119,12 @@ class ModelViewSet(ViewSet):
         self.app_label = self.model_opts.app_label
         self.model_name = self.model_opts.model_name
 
+        # Auto-detect sort_order_field from the model, e.g. from Orderable mixin
+        if self.sort_order_field is self.UNDEFINED and hasattr(
+            self.model, "sort_order_field"
+        ):
+            self.sort_order_field = self.model.sort_order_field
+
     @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
@@ -122,6 +136,10 @@ class ModelViewSet(ViewSet):
         Defaults to the :attr:`~django.db.models.Options.model_name`.
         """
         return self.model_name
+
+    @cached_property
+    def reorder_view_enabled(self):
+        return self.sort_order_field not in {self.UNDEFINED, None}
 
     def get_common_view_kwargs(self, **kwargs):
         view_kwargs = super().get_common_view_kwargs(
@@ -136,7 +154,6 @@ class ModelViewSet(ViewSet):
                 "edit_url_name": self.get_url_name("edit"),
                 "delete_url_name": self.get_url_name("delete"),
                 "header_icon": self.icon,
-                "_show_breadcrumbs": self._show_breadcrumbs,
                 **kwargs,
             }
         )
@@ -163,15 +180,21 @@ class ModelViewSet(ViewSet):
         }
         if self.ordering:
             view_kwargs["default_ordering"] = self.ordering
+        if self.reorder_view_enabled:
+            view_kwargs["sort_order_field"] = self.sort_order_field
+            view_kwargs["reorder_url_name"] = self.get_url_name("reorder")
         return view_kwargs
 
     def get_add_view_kwargs(self, **kwargs):
-        return {
+        view_kwargs = {
             "panel": self._edit_handler,
             "form_class": self.get_form_class(),
             "template_name": self.create_template_name,
             **kwargs,
         }
+        if self.reorder_view_enabled:
+            view_kwargs["sort_order_field"] = self.sort_order_field
+        return view_kwargs
 
     def get_edit_view_kwargs(self, **kwargs):
         return {
@@ -214,6 +237,12 @@ class ModelViewSet(ViewSet):
     def get_copy_view_kwargs(self, **kwargs):
         return self.get_add_view_kwargs(**kwargs)
 
+    def get_reorder_view_kwargs(self, **kwargs):
+        return {
+            "sort_order_field": self.sort_order_field,
+            **kwargs,
+        }
+
     @property
     def index_view(self):
         return self.construct_view(
@@ -239,36 +268,6 @@ class ModelViewSet(ViewSet):
         return self.construct_view(
             self.delete_view_class, **self.get_delete_view_kwargs()
         )
-
-    @property
-    def redirect_to_edit_view(self):
-        def redirect_to_edit(request, pk):
-            warn(
-                (
-                    "%s's `/<pk>/` edit view URL pattern has been "
-                    "deprecated in favour of /edit/<pk>/."
-                )
-                % (self.__class__.__name__),
-                category=RemovedInWagtail70Warning,
-            )
-            return redirect(self.get_url_name("edit"), pk, permanent=True)
-
-        return redirect_to_edit
-
-    @property
-    def redirect_to_delete_view(self):
-        def redirect_to_delete(request, pk):
-            warn(
-                (
-                    "%s's `/<pk>/delete/` delete view URL pattern has been "
-                    "deprecated in favour of /delete/<pk>/."
-                )
-                % (self.__class__.__name__),
-                category=RemovedInWagtail70Warning,
-            )
-            return redirect(self.get_url_name("delete"), pk, permanent=True)
-
-        return redirect_to_delete
 
     @property
     def history_view(self):
@@ -297,6 +296,12 @@ class ModelViewSet(ViewSet):
     @property
     def copy_view(self):
         return self.construct_view(self.copy_view_class, **self.get_copy_view_kwargs())
+
+    @property
+    def reorder_view(self):
+        return self.construct_view(
+            self.reorder_view_class, **self.get_reorder_view_kwargs()
+        )
 
     def get_templates(self, name="index", fallback=""):
         """
@@ -431,7 +436,7 @@ class ModelViewSet(ViewSet):
         - An instance of the ``wagtail.admin.ui.tables.Column`` class.
 
         If the name refers to a database field, the ability to sort the listing
-        by the database column will be offerred and the field's verbose name
+        by the database column will be offered and the field's verbose name
         will be used as the column header.
 
         If the name refers to a callable or property, an ``admin_order_field``
@@ -442,9 +447,11 @@ class ModelViewSet(ViewSet):
         This list will be passed to the ``list_display`` attribute of the index
         view. If left unset, the ``list_display`` attribute of the index view
         will be used instead, which by default is defined as
-        ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
+        ``["__str__", wagtail.admin.ui.tables.LocaleColumn(), wagtail.admin.ui.tables.UpdatedAtColumn()]``.
+
+        Note that the ``LocaleColumn`` is only included if the model is translatable.
         """
-        return self.index_view_class.list_display
+        return self.UNDEFINED
 
     @cached_property
     def list_filter(self):
@@ -478,7 +485,7 @@ class ModelViewSet(ViewSet):
         If set to ``None`` and :attr:`search_backend_name` is set to use a Wagtail search backend,
         the ``search_fields`` attribute of the model will be used instead.
         """
-        return self.index_view_class.search_fields
+        return self.UNDEFINED
 
     @cached_property
     def search_backend_name(self):
@@ -657,6 +664,11 @@ class ModelViewSet(ViewSet):
             path("usage/<str:pk>/", self.usage_view, name="usage"),
         ]
 
+        if self.reorder_view_enabled:
+            urlpatterns.append(
+                path("reorder/<str:pk>/", self.reorder_view, name="reorder")
+            )
+
         if self.inspect_view_enabled:
             urlpatterns.append(
                 path("inspect/<str:pk>/", self.inspect_view, name="inspect")
@@ -665,18 +677,7 @@ class ModelViewSet(ViewSet):
         if self.copy_view_enabled:
             urlpatterns.append(path("copy/<str:pk>/", self.copy_view, name="copy"))
 
-        # RemovedInWagtail70Warning: Remove legacy URL patterns
-        urlpatterns += self._legacy_urlpatterns
-
         return urlpatterns
-
-    @cached_property
-    def _legacy_urlpatterns(self):
-        # RemovedInWagtail70Warning: Remove legacy URL patterns
-        return [
-            path("<str:pk>/", self.redirect_to_edit_view),
-            path("<str:pk>/delete/", self.redirect_to_delete_view),
-        ]
 
     def on_register(self):
         super().on_register()

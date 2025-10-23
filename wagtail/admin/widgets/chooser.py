@@ -12,10 +12,10 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import register
+from wagtail.admin.telepath.widgets import WidgetAdapter
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page
-from wagtail.telepath import register
-from wagtail.widget_adapters import WidgetAdapter
 
 
 class BaseChooser(widgets.Input):

@@ -111,7 +111,7 @@ class BookPage(Page):
     # ...
 
     content_panels = Page.content_panels + [
-        InlinePanel('advert_placements', label="Adverts"),
+        InlinePanel('advert_placements'),
         # ...
     ]
 ```

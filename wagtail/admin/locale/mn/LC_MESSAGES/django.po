@@ -9,11 +9,12 @@
 # Soft Exim, 2022
 # visual, 2022
 # visual, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -271,9 +272,6 @@ msgstr "Ажлын урсгалдаа нэр өгөх"
 msgid "Add tasks to your workflow"
 msgstr "Ажлын урсгалдаа даалгавар нэмэх"
 
-msgid "Task"
-msgstr "Даалгавар"
-
 msgid "1 page selected"
 msgstr "Сонгосон 1 хуудас"
 
@@ -449,10 +447,6 @@ msgstr "Тийм, устга"
 msgid "No, don't delete"
 msgstr "Үгүй, устгахгүй"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s нийтлэхийг болиулах"
-
 msgid "Yes, unpublish it"
 msgstr "Тийм, Нийтлэхгүй болго"
 
@@ -461,13 +455,6 @@ msgstr "Үгүй"
 
 msgid "Update"
 msgstr "Шинэчлэх"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s-г харьцуулж байна"
-
-msgid "Comparing"
-msgstr "Харьцуулж байна"
 
 msgid "Fields"
 msgstr "Талбарууд"
@@ -515,14 +502,17 @@ msgstr "Огноо"
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
 
+msgid "Close"
+msgstr "Хаах"
+
+msgid "Task"
+msgstr "Даалгавар"
+
 msgid "Changes requested at"
 msgstr "Өөрчлөлт хүссэн"
 
 msgid "Awaiting"
 msgstr "Хүлээгдэж байгаа"
-
-msgid "Close"
-msgstr "Хаах"
 
 msgid "Awaiting your review"
 msgstr "Таны хүсэлт хүлээгдэж байна"
@@ -800,10 +790,6 @@ msgstr "Үйлдэл"
 msgid "Edit this item"
 msgstr "Энэ зүйлийг засах"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
-
 msgid "Continue"
 msgstr "Үргэлжлүүлэх"
 
@@ -819,8 +805,9 @@ msgstr "Шүүлтүүр"
 msgid "History"
 msgstr "Түүх"
 
-msgid "Unschedule"
-msgstr "Төлөвлөгөөг болиулах"
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Энэ хувилбарын төлөвлөгөөг болиулахдаа итгэлтэй байна уу?"
@@ -876,9 +863,6 @@ msgstr "Буцаах"
 
 msgid "Redo"
 msgstr "Давтах"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
@@ -939,10 +923,6 @@ msgstr "%(model_name)s%(object)s шинэчлэгдлээ."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s%(object)s боллоо."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' засах"
-
 msgid "Inspect"
 msgstr "Шалгалт"
 
@@ -958,6 +938,9 @@ msgstr "Хамгийн эхний"
 
 msgid "Latest"
 msgstr "Хамгийн сүүлийн"
+
+msgid "Unschedule"
+msgstr "Төлөвлөгөөг болиулах"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1040,22 +1023,6 @@ msgstr "Ашиглаж буй хуудсууд"
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "'%(page_title)s' хуудас хянуулахаар хүлээгдэж байна."
 
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "%(title)s хуудас руу шилжих"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "%(title)s хуудсыг хуулах"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "%(title)s хуудсыг устгах"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "%(title)s хуудсыг нийтлээгүй"
-
 msgid "Bulleted list"
 msgstr "Сумтай жагсаалт"
 
@@ -1064,6 +1031,9 @@ msgstr "Дугаарласан жагсаалт"
 
 msgid "Blockquote"
 msgstr "Эшлэл"
+
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Link"
 msgstr "Холбоос"

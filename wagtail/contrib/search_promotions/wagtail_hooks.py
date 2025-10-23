@@ -44,7 +44,7 @@ def register_search_picks_menu_item():
 @hooks.register("register_reports_menu_item")
 def register_query_search_report_menu_item():
     return AdminOnlyMenuItem(
-        _("Search Terms"),
+        _("Search terms"),
         reverse("wagtailsearchpromotions:search_terms"),
         name="search-terms",
         icon_name="search",

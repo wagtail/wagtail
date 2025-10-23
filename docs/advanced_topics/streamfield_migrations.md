@@ -453,7 +453,7 @@ Note that all of these operations operate on the value of the parent block of th
 
 The following operations allow you to alter the structure of blocks in certain ways.
 
--   [](stream_children_to_list_block_operation): operates on the value of a `StreamBlock`. Combines all child blocks of type `block_name` as children of a single ListBLock which is a child of the parent `StreamBlock`.
+-   [](stream_children_to_list_block_operation): operates on the value of a `StreamBlock`. Combines all child blocks of type `block_name` as children of a single ListBlock which is a child of the parent `StreamBlock`.
 -   [](stream_children_to_stream_block_operation): operates on the value of a `StreamBlock`. Note that `block_names` here is a list of block types and not a single block type unlike `block_name` in the previous operation. Combines each child block of a type in `block_names` as children of a single `StreamBlock` which is a child of the parent `StreamBlock`.
 -   [](stream_children_to_struct_block_operation): moves each `StreamBlock` child of the given type inside a new `StructBlock`
 

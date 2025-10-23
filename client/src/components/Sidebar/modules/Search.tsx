@@ -4,6 +4,7 @@ import Tippy from '@tippyjs/react';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 import { ModuleDefinition, SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
+import { KeyboardAction } from '../../../controllers/KeyboardController';
 
 interface SearchInputProps {
   slim: boolean;
@@ -43,8 +44,15 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
       role="search"
       className="w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row w-flex-shrink-0"
       action={searchUrl}
+      aria-keyshortcuts="/"
       method="get"
       onSubmit={onSubmitForm}
+      data-controller="w-kbd"
+      // when in slim mode trigger the click action so the sidebar expands and focuses on the input,
+      // otherwise simply focus on the input as it will be visible.
+      data-w-kbd-action-value={
+        slim ? KeyboardAction.CLICK : KeyboardAction.FOCUS
+      }
     >
       <div className="w-flex w-flex-row w-items-center w-h-full">
         <Tippy
@@ -70,6 +78,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           hover:w-bg-transparent`}
             type="submit"
             aria-label={gettext('Search')}
+            data-w-kbd-target={slim ? 'element' : undefined}
             onClick={(e) => {
               if (slim) {
                 e.preventDefault();
@@ -116,6 +125,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           name="q"
           placeholder={gettext('Search')}
           ref={searchInput}
+          data-w-kbd-target={slim ? undefined : 'element'}
         />
       </div>
     </form>

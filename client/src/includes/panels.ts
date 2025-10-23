@@ -43,7 +43,7 @@ export const toggleCollapsiblePanel = (
 };
 
 /**
- * Initialises event handlers for a collapsible panel,
+ * Initializes event handlers for a collapsible panel,
  * and applies the correct initial state based on classes.
  */
 export function initCollapsiblePanel(toggle: HTMLButtonElement) {
@@ -52,7 +52,7 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
     `#${toggle.getAttribute('aria-controls')}`,
   );
 
-  // Avoid initialising the same panel twice.
+  // Avoid initializing the same panel twice.
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (!content || !panel || panel.collapsibleInitialised) {
@@ -110,7 +110,9 @@ export function initCollapsiblePanels(
  * JS-rendered elements.
  */
 export function initAnchoredPanels(
-  anchorTarget = document.getElementById(window.location.hash.slice(1)),
+  anchorTarget = window.location.hash
+    ? document.getElementById(window.location.hash.slice(1))
+    : null,
 ) {
   const target = anchorTarget?.matches('[data-panel]')
     ? anchorTarget

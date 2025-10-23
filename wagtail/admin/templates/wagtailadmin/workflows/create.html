@@ -5,7 +5,7 @@
     {{ edit_handler.render_form_content }}
 
     <div class="w-form-width">
-        {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") %}
+        {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") attrs=pages_formset.attrs %}
             {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
         {% endpanel %}
 

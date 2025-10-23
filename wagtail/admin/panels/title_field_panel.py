@@ -53,11 +53,9 @@ class TitleFieldPanel(FieldPanel):
             "keyup->w-sync#apply",
         ]
 
-        def get_context_data(self, parent_context=None):
-            field = self.bound_field.field
-            if field and not self.read_only:
-                field.widget.attrs.update(**self.get_attrs())
-            return super().get_context_data(parent_context)
+        def get_editable_context_data(self):
+            self.bound_field.field.widget.attrs.update(**self.get_attrs())
+            return super().get_editable_context_data()
 
         def get_attrs(self):
             """

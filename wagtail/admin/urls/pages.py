@@ -63,7 +63,9 @@ urlpatterns = [
         search.SearchView.as_view(results_only=True),
         name="search_results",
     ),
-    path("<int:page_to_move_id>/move/", move.move_choose_destination, name="move"),
+    path(
+        "<int:page_to_move_id>/move/", move.MoveChooseDestination.as_view(), name="move"
+    ),
     path(
         "<int:page_to_move_id>/move/<int:destination_id>/confirm/",
         move.move_confirm,
@@ -106,7 +108,7 @@ urlpatterns = [
     ),
     path(
         "<int:page_id>/revisions/<int:revision_id>/revert/",
-        revisions.revisions_revert,
+        revisions.RevisionsRevertView.as_view(),
         name="revisions_revert",
     ),
     path(

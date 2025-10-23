@@ -83,7 +83,7 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
         WAGTAIL_PASSWORD_REQUIRED_TEMPLATE="tests/custom_page_password_required.html"
     )
     def test_anonymous_user_must_authenticate_with_custom_password_required_template(
-        self
+        self,
     ):
         response = self.client.get("/secret-plans/")
 
@@ -231,3 +231,13 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
         response = self.client.get("/secret-login-plans/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<title>Secret login plans</title>")
+
+    def test_password_protected_page_headers(self):
+        response = self.client.get("/secret-plans/")
+        self.assertEqual(
+            response.templates[0].name, "wagtailcore/password_required.html"
+        )
+        self.assertIn("no-cache", response["Cache-Control"])
+        self.assertIn("no-store", response["Cache-Control"])
+        self.assertIn("must-revalidate", response["Cache-Control"])
+        self.assertIn("max-age=0", response["Cache-Control"])

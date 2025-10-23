@@ -10,6 +10,7 @@ from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
 from wagtail.coreutils import get_content_languages, get_content_type_label
+from wagtail.models import Locale
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
@@ -17,13 +18,34 @@ class DateRangePickerWidget(SuffixedMultiWidget):
     A widget allowing a start and end date to be picked.
     """
 
-    template_name = "wagtailadmin/widgets/daterange_input.html"
+    template_name = "wagtailadmin/widgets/range_input.html"
     suffixes = ["from", "to"]
 
     def __init__(self, attrs=None):
         widgets = (
             AdminDateInput(attrs={"placeholder": _("Date from")}),
             AdminDateInput(attrs={"placeholder": _("Date to")}),
+        )
+        super().__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return [value.start, value.stop]
+        return [None, None]
+
+
+class NumberRangeWidget(SuffixedMultiWidget):
+    """
+    A widget allowing a minimum and maximum usage count to be picked.
+    """
+
+    template_name = "wagtailadmin/widgets/range_input.html"
+    suffixes = ["min", "max"]
+
+    def __init__(self, attrs=None):
+        widgets = (
+            forms.NumberInput(attrs={"placeholder": _("Minimum"), "min": "0"}),
+            forms.NumberInput(attrs={"placeholder": _("Maximum"), "min": "0"}),
         )
         super().__init__(widgets, attrs)
 
@@ -93,7 +115,15 @@ class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
 class LocaleFilter(django_filters.ChoiceFilter):
     def filter(self, qs, language_code):
         if language_code:
-            return qs.filter(locale__language_code=language_code)
+            try:
+                locale_id = (
+                    Locale.objects.filter(language_code=language_code)
+                    .values_list("pk", flat=True)
+                    .get()
+                )
+            except Locale.DoesNotExist:
+                return qs.none()
+            return qs.filter(locale_id=locale_id)
         return qs
 
 
@@ -212,10 +242,10 @@ class CollectionFilter(django_filters.ModelChoiceFilter):
     field_class = CollectionChoiceField
 
 
-class PopularTagsFilter(django_filters.MultipleChoiceFilter):
-    # This uses a MultipleChoiceFilter instead of a ModelMultipleChoiceFilter
-    # because the queryset has been sliced, which means ModelMultipleChoiceFilter
-    # cannot do further queries to validate the selected tags.
+class RelatedFilterMixin:
+    # Workaround for https://github.com/wagtail/wagtail/issues/6616 by changing
+    # a filter on a related field into a filter on the primary key of instances
+    # that match the filter value.
 
     def __init__(self, *args, use_subquery=False, **kwargs):
         super().__init__(*args, **kwargs)
@@ -225,14 +255,25 @@ class PopularTagsFilter(django_filters.MultipleChoiceFilter):
         filtered = super().filter(qs, value)
         if not self.use_subquery or not value:
             return filtered
-
-        # Workaround for https://github.com/wagtail/wagtail/issues/6616
         pks = list(filtered.values_list("pk", flat=True))
         return qs.filter(pk__in=pks)
 
 
+class PopularTagsFilter(RelatedFilterMixin, django_filters.MultipleChoiceFilter):
+    # This uses a MultipleChoiceFilter instead of a ModelMultipleChoiceFilter
+    # because the queryset has been sliced, which means ModelMultipleChoiceFilter
+    # cannot do further queries to validate the selected tags.
+    pass
+
+
 class BaseMediaFilterSet(WagtailFilterSet):
     permission_policy = None
+
+    usage_count = django_filters.RangeFilter(
+        field_name="usage_count",
+        label=_("Usage count"),
+        widget=NumberRangeWidget(),
+    )
 
     def __init__(
         self, data=None, queryset=None, *, request=None, prefix=None, is_searching=None

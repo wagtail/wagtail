@@ -4,6 +4,7 @@ from io import BytesIO, StringIO
 
 from django.contrib.auth.models import Permission
 from django.core import management
+from django.db.models import F
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -19,7 +20,21 @@ from wagtail.contrib.search_promotions.models import (
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import (
     get_search_promotions,
 )
+from wagtail.log_actions import registry as log_registry
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+
+
+def _add_N_hits(query, n, date=None):
+    """
+    Add multiple daily hits to the given query
+    """
+    if n < 2:
+        raise ValueError("You must add at least 2 hits")
+    if date is None:
+        date = timezone.now().date()
+    query.add_hit(date=date)  # Make sure the associated QueryDailyHits is created
+    QueryDailyHits.objects.filter(query=query, date=date).update(hits=F("hits") + n - 1)
 
 
 class TestSearchPromotions(TestCase):
@@ -85,8 +100,7 @@ class TestSearchPromotions(TestCase):
 
     def test_get_most_popular(self):
         popularQuery = Query.get("popular")
-        for i in range(5):
-            popularQuery.add_hit()
+        _add_N_hits(popularQuery, 5)
         SearchPromotion.objects.create(
             query=Query.get("popular"),
             page_id=2,
@@ -115,8 +129,7 @@ class TestSearchPromotions(TestCase):
         FIVE_DAYS_AGO = TODAY - timedelta(days=5)
 
         popularQuery = Query.get("popular")
-        for i in range(5):
-            popularQuery.add_hit(date=FIVE_DAYS_AGO)
+        _add_N_hits(popularQuery, 5, date=FIVE_DAYS_AGO)
 
         surpriseQuery = Query.get("surprise")
         surpriseQuery.add_hit(date=TODAY)
@@ -174,7 +187,7 @@ class TestGetSearchPromotionsTemplateTag(TestCase):
         self.assertEqual(search_picks, [])
 
 
-class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
+class TestSearchPromotionsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -182,6 +195,10 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailsearchpromotions:index"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsearchpromotions/index.html")
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Promoted search results"}],
+            response.content,
+        )
 
     def test_search(self):
         response = self.client.get(
@@ -376,8 +393,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         )
 
         popularQuery = Query.get("optimal")
-        for i in range(50):
-            popularQuery.add_hit()
+        _add_N_hits(popularQuery, 50)
         SearchPromotion.objects.create(
             query=popularQuery,
             page_id=1,
@@ -386,8 +402,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         )
 
         popularQuery = Query.get("suboptimal")
-        for i in range(25):
-            popularQuery.add_hit()
+        _add_N_hits(popularQuery, 25)
         SearchPromotion.objects.create(
             query=popularQuery,
             page_id=1,
@@ -462,14 +477,24 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         self.assertIsNone(soup.select_one(f'a[href="{add_url}"]'))
 
 
-class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
+class TestSearchPromotionsAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def test_simple(self):
         response = self.client.get(reverse("wagtailsearchpromotions:add"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsearchpromotions/add.html")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtailsearchpromotions:index"),
+                    "label": "Promoted search results",
+                },
+                {"url": "", "label": "New: Promoted search result"},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         # Submit
@@ -490,6 +515,159 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
 
         # Check that the search pick was created
         self.assertTrue(Query.get("test").editors_picks.filter(page_id=1).exists())
+
+        # Ensure that only one log entry was created for the search pick
+        search_picks = list(Query.get("test").editors_picks.all())
+        self.assertEqual(len(search_picks), 1)
+        self.assertTrue(search_picks[0].page_id, 1)
+        logs = log_registry.get_logs_for_instance(search_picks[0])
+        self.assertEqual(len(logs), 1)
+        self.assertEqual(logs[0].action, "wagtail.create")
+
+    def test_with_multiple_picks(self):
+        # Submit
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Hello",
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": "",
+            "editors_picks-1-external_link_url": "https://wagtail.org",
+            "editors_picks-1-external_link_text": "Wagtail",
+            "editors_picks-1-description": "The landing page",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Check that the search pick was created
+        search_picks = list(
+            Query.get("test").editors_picks.all().order_by("description")
+        )
+        self.assertEqual(len(search_picks), 2)
+        self.assertEqual(search_picks[0].page_id, 1)
+        self.assertEqual(search_picks[0].description, "Hello")
+        self.assertEqual(search_picks[1].external_link_url, "https://wagtail.org")
+        self.assertEqual(search_picks[1].description, "The landing page")
+
+        # Ensure that only one log entry was created for each search pick
+        for search_pick in search_picks:
+            logs = log_registry.get_logs_for_instance(search_pick)
+            self.assertEqual(len(logs), 1)
+            self.assertEqual(logs[0].action, "wagtail.create")
+            self.assertEqual(logs[0].user, self.user)
+
+    def test_post_with_existing_query_string(self):
+        # Create an existing query with search picks
+        query = Query.get("test")
+        search_pick_1 = query.editors_picks.create(
+            page_id=1, sort_order=0, description="Root page"
+        )
+        search_pick_2 = query.editors_picks.create(
+            page_id=2, sort_order=1, description="Homepage"
+        )
+
+        # Submit
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 1,
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "A Django-based CMS",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Check that the submitted search pick is created
+        # and the existing ones are still there
+        self.assertEqual(
+            set(
+                Query.get("test")
+                .editors_picks.all()
+                .values_list("page_id", "external_link_url")
+            ),
+            {
+                (search_pick_1.page_id, ""),
+                (search_pick_2.page_id, ""),
+                (None, "https://wagtail.org"),
+            },
+        )
+
+    def test_post_with_invalid_query_string(self):
+        # Submit
+        post_data = {
+            "query_string": "",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+
+        self.assertFormError(
+            response.context["form"], "query_string", "This field is required."
+        )
+        # The formset should still contain the submitted data
+        self.assertEqual(len(response.context["searchpicks_formset"].forms), 1)
+        self.assertEqual(
+            response.context["searchpicks_formset"].forms[0].cleaned_data["page"].id,
+            1,
+        )
+        self.assertEqual(
+            response.context["searchpicks_formset"]
+            .forms[0]
+            .cleaned_data["description"],
+            "Hello",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, "page", [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_post_with_invalid_page(self):
+        # Submit
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 9999999999,
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            0,
+            "page",
+            "Select a valid choice. That choice is not one of the available choices.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
     def test_post_with_external_link(self):
         # Submit
@@ -550,14 +728,16 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         }
         response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
 
-        # User should be given an error
+        # User should be given an error on a specific form in the formset
         self.assertEqual(response.status_code, 200)
         self.assertFormSetError(
             response.context["searchpicks_formset"],
-            None,
+            0,
             None,
             "Please only select a page OR enter an external link.",
         )
+        # Should not raise an error on the top-level formset
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
     def test_post_missing_recommendation(self):
         post_data = {
@@ -571,14 +751,42 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         }
         response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
 
-        # User should be given an error
+        # User should be given an error on a specific form in the formset
         self.assertEqual(response.status_code, 200)
         self.assertFormSetError(
             response.context["searchpicks_formset"],
-            None,
+            0,
             None,
             "You must recommend a page OR an external link.",
         )
+        # Should not raise an error on the top-level formset
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_post_invalid_external_link(self):
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-external_link_url": "notalink",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            0,
+            "external_link_url",
+            "Enter a valid URL.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
     def test_post_missing_external_text(self):
         post_data = {
@@ -592,17 +800,55 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         }
         response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
 
-        # User should be given an error
+        # User should be given an error on the specific field in the form
         self.assertEqual(response.status_code, 200)
         self.assertFormSetError(
             response.context["searchpicks_formset"],
-            None,
-            None,
+            0,
+            "external_link_text",
             "You must enter an external link text if you enter an external link URL.",
         )
 
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
-class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
+    def test_get_with_no_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            )
+        )
+
+        response = self.client.get(reverse("wagtailsearchpromotions:add"))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_add_permission_only(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailsearchpromotions",
+                codename="add_searchpromotion",
+            ),
+        )
+
+        response = self.client.get(reverse("wagtailsearchpromotions:add"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsearchpromotions/add.html")
+
+
+class TestSearchPromotionsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -625,6 +871,17 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/searchpicks/%d/" % self.query.id
         self.assertEqual(url_finder.get_edit_url(self.search_pick), expected_url)
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtailsearchpromotions:index"),
+                    "label": "Promoted search results",
+                },
+                {"url": "", "label": "hello"},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         # Submit
@@ -656,6 +913,135 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
             SearchPromotion.objects.get(id=self.search_pick.id).description,
             "Description has changed",
         )
+
+        search_picks = list(
+            Query.get("Hello").editors_picks.all().order_by("description")
+        )
+        self.assertEqual(len(search_picks), 2)
+        self.assertEqual(search_picks[0].page_id, 1)
+        self.assertEqual(search_picks[0].description, "Description has changed")
+        self.assertEqual(search_picks[1].page_id, 2)
+        self.assertEqual(search_picks[1].description, "Homepage")
+
+        # Ensure that only one log entry was created for each search pick
+        for search_pick in search_picks:
+            logs = log_registry.get_logs_for_instance(search_pick)
+            self.assertEqual(len(logs), 1)
+            self.assertEqual(logs[0].action, "wagtail.edit")
+            self.assertEqual(logs[0].user, self.user)
+
+    def test_post_with_invalid_query_string(self):
+        # Submit
+        post_data = {
+            "query_string": "",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": 2,
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"], "query_string", "This field is required."
+        )
+        # The formset should still contain the submitted data
+        self.assertEqual(len(response.context["searchpicks_formset"].forms), 2)
+        self.assertEqual(
+            response.context["searchpicks_formset"].forms[0].cleaned_data["page"].id,
+            1,
+        )
+        self.assertEqual(
+            response.context["searchpicks_formset"]
+            .forms[0]
+            .cleaned_data["description"],
+            "Description has changed",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, "page", [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_post_with_invalid_page(self):
+        # Submit
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": 9214599,
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            1,
+            "page",
+            "Select a valid choice. That choice is not one of the available choices.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_post_change_query_string(self):
+        current_picks = set(self.query.editors_picks.all())
+        # Submit
+        post_data = {
+            "query_string": "Hello again",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": 2,
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Ensure search picks from the old query are moved to the new one
+        new_query = Query.get("Hello again")
+        self.assertEqual(set(new_query.editors_picks.all()), current_picks)
+        self.search_pick.refresh_from_db()
+        self.assertEqual(self.search_pick.query, new_query)
+        self.assertEqual(self.query.editors_picks.count(), 0)
+
+        # Check that the search pick description was edited
+        self.assertEqual(self.search_pick.description, "Description has changed")
 
     def test_post_reorder(self):
         # Check order before reordering
@@ -697,6 +1083,45 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
         # Check that the recommendations were reordered
         self.assertEqual(Query.get("Hello").editors_picks.all()[0], self.search_pick_2)
         self.assertEqual(Query.get("Hello").editors_picks.all()[1], self.search_pick)
+
+    def test_post_with_external_link(self):
+        # Submit
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 1,  # Change
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "Root page",
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 0,  # Change
+            "editors_picks-1-external_link_url": "https://djangoproject.com",
+            "editors_picks-1-external_link_text": "Django",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Check that the search pick was created
+        self.assertTrue(
+            Query.get("Hello")
+            .editors_picks.filter(external_link_url="https://wagtail.org")
+            .exists()
+        )
+        self.assertTrue(
+            Query.get("Hello")
+            .editors_picks.filter(external_link_url="https://djangoproject.com")
+            .exists()
+        )
 
     def test_post_delete_recommendation(self):
         # Submit
@@ -762,10 +1187,184 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
             "Please specify at least one recommendation for this search term.",
         )
 
+    def test_post_with_page_and_external_link(self):
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": 2,
+            "editors_picks-1-external_link_url": "https://wagtail.org",
+            "editors_picks-1-external_link_text": "Wagtail",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on a specific form in the formset
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            1,
+            None,
+            "Please only select a page OR enter an external link.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+
+    def test_post_missing_recommendation(self):
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-external_link_url": "https://wagtail.org",
+            "editors_picks-1-external_link_text": "Wagtail",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on a specific form in the formset
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            0,
+            None,
+            "You must recommend a page OR an external link.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
+
+    def test_post_invalid_external_link(self):
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-external_link_url": "notalink",
+            "editors_picks-1-external_link_text": "Wagtail",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            1,
+            "external_link_url",
+            "Enter a valid URL.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_post_missing_external_text(self):
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-external_link_url": "https://wagtail.org",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            1,
+            "external_link_text",
+            "You must enter an external link text if you enter an external link URL.",
+        )
+
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_get_with_no_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            )
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)),
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_edit_permission_only(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailsearchpromotions",
+                codename="change_searchpromotion",
+            ),
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsearchpromotions/edit.html")
+
 
 class TestSearchPromotionsDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Create a search pick to delete
         self.query = Query.get("Hello")
@@ -801,6 +1400,44 @@ class TestSearchPromotionsDeleteView(WagtailTestUtils, TestCase):
         self.assertFalse(
             SearchPromotion.objects.filter(id=self.search_pick.id).exists()
         )
+
+    def test_get_with_no_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            )
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:delete", args=(self.query.id,)),
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_edit_permission_only(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailsearchpromotions",
+                codename="delete_searchpromotion",
+            ),
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:delete", args=(self.query.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsearchpromotions/confirm_delete.html")
 
 
 class TestGarbageCollectManagementCommand(TestCase):
@@ -930,7 +1567,8 @@ class TestQueryStringNormalisation(TestCase):
     def test_different_queries(self):
         queries = [
             "HelloWorld",
-            "HelloWorld!" "  Hello  World!  ",
+            "HelloWorld!",
+            "  Hello  World  ",
             "Hello",
         ]
 
@@ -940,13 +1578,8 @@ class TestQueryStringNormalisation(TestCase):
 
 class TestQueryPopularity(TestCase):
     def test_query_popularity(self):
-        # Add 3 hits to unpopular query
-        for i in range(3):
-            Query.get("unpopular query").add_hit()
-
-        # Add 10 hits to popular query
-        for i in range(10):
-            Query.get("popular query").add_hit()
+        _add_N_hits(Query.get("unpopular query"), 3)
+        _add_N_hits(Query.get("popular query"), 10)
 
         # Get most popular queries
         popular_queries = Query.get_most_popular()
@@ -956,9 +1589,7 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[0], Query.get("popular query"))
         self.assertEqual(popular_queries[1], Query.get("unpopular query"))
 
-        # Add 5 hits to little popular query
-        for i in range(5):
-            Query.get("little popular query").add_hit()
+        _add_N_hits(Query.get("little popular query"), 5)
 
         # Check list again, little popular query should be in the middle
         self.assertEqual(popular_queries.count(), 3)
@@ -967,8 +1598,7 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[2], Query.get("unpopular query"))
 
         # Unpopular query goes viral!
-        for i in range(20):
-            Query.get("unpopular query").add_hit()
+        _add_N_hits(Query.get("unpopular query"), 20)
 
         # Unpopular query should be most popular now
         self.assertEqual(popular_queries.count(), 3)
@@ -980,24 +1610,45 @@ class TestQueryPopularity(TestCase):
 class TestQueryHitsReportView(BaseReportViewTestCase):
     url_name = "wagtailsearchpromotions:search_terms"
 
+    @classmethod
+    def setUpTestData(self):
+        self.query = Query.get("A query with three hits")
+        _add_N_hits(self.query, 3)
+        Query.get("a query with no hits")
+        Query.get("A query with one hit").add_hit()
+        query = Query.get("A query with two hits")
+        _add_N_hits(query, 2)
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
         self.assertTemplateUsed(
             response,
-            "wagtailsearchpromotions/search_terms_report_results.html",
+            "wagtailadmin/reports/base_report_results.html",
         )
         self.assertBreadcrumbs(
-            [{"url": "", "label": "Search Terms"}],
+            [{"url": "", "label": "Search terms"}],
             response.content,
         )
 
-        self.assertContains(response, "There are no results.")
-
         soup = self.get_soup(response.content)
+        trs = soup.select("main tr")
+
+        # Default ordering should be by hits descending
+        self.assertEqual(
+            [[cell.text.strip() for cell in tr.select("th,td")] for tr in trs],
+            [
+                ["Search term(s)", "Views"],
+                ["a query with three hits", "3"],
+                ["a query with two hits", "2"],
+                ["a query with one hit", "1"],
+            ],
+        )
+
+        self.assertNotContains(response, "There are no results.")
         self.assertActiveFilterNotRendered(soup)
-        self.assertPageTitle(soup, "Search Terms - Wagtail")
+        self.assertPageTitle(soup, "Search terms - Wagtail")
 
     def test_get_with_no_permissions(self):
         self.user.is_superuser = False
@@ -1016,8 +1667,16 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         response = self.get(params={"export": "csv"})
         self.assertEqual(response.status_code, 200)
 
-        data_lines = response.getvalue().decode().split("\n")
-        self.assertEqual(data_lines[0], "Search term(s),Views\r")
+        data_lines = response.getvalue().decode().splitlines()
+        self.assertEqual(
+            data_lines,
+            [
+                "Search term(s),Views",
+                "a query with three hits,3",
+                "a query with two hits,2",
+                "a query with one hit,1",
+            ],
+        )
 
     def test_xlsx_export(self):
         response = self.get(params={"export": "xlsx"})
@@ -1026,9 +1685,64 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(
-            cell_array[0],
-            ["Search term(s)", "Views"],
+            cell_array,
+            [
+                ["Search term(s)", "Views"],
+                ["a query with three hits", 3],
+                ["a query with two hits", 2],
+                ["a query with one hit", 1],
+            ],
         )
+
+    def test_ordering(self):
+        cases = {
+            "query_string": [
+                ["a query with one hit", "1"],
+                ["a query with three hits", "3"],
+                ["a query with two hits", "2"],
+            ],
+            "-query_string": [
+                ["a query with two hits", "2"],
+                ["a query with three hits", "3"],
+                ["a query with one hit", "1"],
+            ],
+            "_hits": [
+                ["a query with one hit", "1"],
+                ["a query with two hits", "2"],
+                ["a query with three hits", "3"],
+            ],
+            "-_hits": [
+                ["a query with three hits", "3"],
+                ["a query with two hits", "2"],
+                ["a query with one hit", "1"],
+            ],
+        }
+        for ordering, results in cases.items():
+            with self.subTest(ordering=ordering):
+                response = self.get(params={"ordering": ordering})
+                self.assertEqual(response.status_code, 200)
+                soup = self.get_soup(response.content)
+                trs = soup.select("main tbody tr")
+                self.assertEqual(
+                    [[cell.text.strip() for cell in tr.select("td")] for tr in trs],
+                    results,
+                )
+
+    def test_hits_column_localized(self):
+        _add_N_hits(self.query, 10_000)
+
+        def _get_hits(lang):
+            response = self.get(headers={"accept-language": lang})
+            soup = self.get_soup(response.content)
+            trs = soup.select("main tr")
+            self.assertEqual(len(trs), 4)  # 1 header + 3 body rows
+            _, hits = trs[1].select("td")
+            return hits.text.strip()
+
+        for lang, expected in [("en", "10,003"), ("fr", "10\N{NO-BREAK SPACE}003")]:
+            with self.subTest(lang=lang):
+                hits = _get_hits(lang=lang)
+                self.assertEqual(hits, expected)
 
 
 class TestFilteredQueryHitsView(BaseReportViewTestCase):
@@ -1036,14 +1750,39 @@ class TestFilteredQueryHitsView(BaseReportViewTestCase):
 
     def setUp(self):
         self.user = self.login()
-        self.query_hit = Query.get("Found")
-        self.query_hit.add_hit(timezone.now())
+        self.query_hit = Query.get("This will be found")
+        self.date = timezone.now().date()
+        self.query_hit.add_hit(date=self.date)
 
-    def test_filter_by_query_string(self):
-        response = self.get(params={"query_string": "Found"})
+    def test_search_by_query_string(self):
+        response = self.get(params={"q": "Found"})
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Found")
+        self.assertContains(response, "this will be found")
+        self.assertNotContains(response, "There are no results.")
+        self.assertActiveFilterNotRendered(self.get_soup(response.content))
 
-        response = self.get(params={"query_string": "Not found"})
+        response = self.get(params={"q": "Not found"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no results.")
+        self.assertNotContains(response, "this will be found")
+        self.assertActiveFilterNotRendered(self.get_soup(response.content))
+
+    def test_filter_by_date(self):
+        params = {
+            "hit_date_from": self.date.replace(day=1, month=1),
+        }
+        response = self.get(params=params)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "this will be found")
+        self.assertNotContains(response, "There are no results.")
+        self.assertActiveFilter(
+            self.get_soup(response.content), "hit_date_from", params["hit_date_from"]
+        )
+
+        params["hit_date_from"] = self.date.replace(year=self.date.year + 1)
+        params["hit_date_to"] = self.date.replace(year=self.date.year + 2)
+
+        response = self.get(params=params)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "There are no results.")
+        self.assertNotContains(response, "this will be found")

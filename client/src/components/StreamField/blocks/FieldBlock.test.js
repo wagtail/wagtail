@@ -19,6 +19,7 @@ let constructor = (
 let setState = (_widgetName, _state) => {};
 let getState = (_widgetName) => {};
 let getValue = (_widgetName) => {};
+let setInvalid = (_widgetName, _invalid) => {};
 let focus = (_widgetName) => {};
 
 class DummyWidgetDefinition {
@@ -59,6 +60,9 @@ class DummyWidgetDefinition {
       focus() {
         focus(widgetName);
       },
+      setInvalid(invalid) {
+        setInvalid(widgetName, invalid);
+      },
       idForLabel: id,
     };
   }
@@ -78,6 +82,7 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
     setState = jest.fn();
     getState = jest.fn();
     getValue = jest.fn();
+    setInvalid = jest.fn();
     focus = jest.fn();
 
     // Define a test block
@@ -91,6 +96,10 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
         classname: 'w-field w-field--char_field w-field--text_input',
         helpText: 'drink <em>more</em> water',
         maxLength: 1000,
+        attrs: {
+          'data-controller': 'w-custom',
+          'data-action': 'click->w-custom#doSomething',
+        },
       },
     );
 
@@ -171,6 +180,17 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
       ],
     });
     expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError() calls widget.setInvalid()', () => {
+    boundBlock.setError({
+      messages: ['Field shall not pass.', 'Field must not be suspicious.'],
+    });
+    expect(setInvalid).toHaveBeenCalledTimes(1);
+    expect(setInvalid).toHaveBeenCalledWith('The widget', true);
+    boundBlock.setError();
+    expect(setInvalid).toHaveBeenCalledTimes(2);
+    expect(setInvalid).toHaveBeenCalledWith('The widget', false);
   });
 });
 

@@ -230,7 +230,7 @@ Wagtail does not allow deforming or stretching images. Image dimension ratios wi
 
 Wagtail provides two shortcuts to give greater control over the `img` element:
 
-### 1. Adding attributes to the {% image %} tag
+### 1. Adding attributes to the `{% image %}` tag
 
 Extra attributes can be specified with the syntax `attribute="value"`:
 
@@ -298,7 +298,7 @@ Image height after resizing.
 
 ### `alt`
 
-Alternative text for the image, typically taken from the image title.
+Alternative text for the image, contextual alt text or `default_alt_text` if not.
 
 ### `attrs`
 
@@ -537,7 +537,7 @@ See [](image_renditions).
 Wagtail supports the use of Scalable Vector Graphics alongside raster images. To allow Wagtail users to upload and use SVG images, add "svg" to the list of allowed image extensions by configuring `WAGTAILIMAGES_EXTENSIONS`:
 
 ```python
-WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
+WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
 ```
 
 SVG images can be included in templates via the `image` template tag, as with raster images. However, operations that require SVG images to be rasterized are not currently supported. This includes direct format conversion, e.g. `format-webp`, and `bgcolor` directives. Crop and resize operations do not require rasterization, so may be used freely (see [](available_resizing_methods)).
@@ -556,6 +556,10 @@ In this example, any of the image objects that are SVGs will only have the `fill
 
 ### Security considerations
 
+```{warning}
+Any system that allows user-uploaded files is a potential security risk.
+```
+
 Wagtail's underlying image library, Willow, is configured to mitigate known XML parser exploits (e.g. billion laughs, quadratic blowup) by rejecting suspicious files.
 
 When including SVG images in templates via the `image` tag, they will be rendered as HTML `img` elements. In this case, `script` elements in SVGs will not be executed, mitigating XSS attacks.
@@ -565,7 +569,7 @@ If a user navigates directly to the URL of the SVG file embedded scripts may be 
 -   setting `Content-Security-Policy: default-src 'none'` will prevent scripts from being loaded or executed (as well as other resources - a more relaxed policy of `script-src 'none'` may also be suitable); and
 -   setting `Content-Disposition: attachment` will cause the file to be downloaded rather than being immediately rendered in the browser, meaning scripts will not be executed (note: this will not prevent scripts from running if a user downloads and subsequently opens the SVG file in their browser).
 
-The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed.
+The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed. For the built-in [](using_images_outside_wagtail), a Content-Security-Policy header is automatically set for you.
 
 (heic_heif_images)=
 

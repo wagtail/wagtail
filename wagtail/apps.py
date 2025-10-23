@@ -19,5 +19,3 @@ class WagtailAppConfig(AppConfig):
         from wagtail.signal_handlers import register_signal_handlers
 
         register_signal_handlers()
-
-        from wagtail import widget_adapters  # noqa: F401

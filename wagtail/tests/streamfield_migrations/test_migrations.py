@@ -7,7 +7,10 @@ from django.db.models.functions import Cast
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail.blocks.migrations.operations import RenameStreamChildrenOperation
+from wagtail.blocks.migrations.operations import (
+    RenameStreamChildrenOperation,
+    StreamChildrenToListBlockOperation,
+)
 from wagtail.test.streamfield_migrations import factories, models
 from wagtail.test.streamfield_migrations.testutils import MigrationTestMixin
 
@@ -250,3 +253,45 @@ class TestNullStreamField(BaseMigrationTest):
         self.assert_null_content()
         self.apply_migration()
         self.assert_null_content()
+
+
+class StreamChildrenToListBlockOperationTestCase(BaseMigrationTest):
+    model = models.SamplePage
+    factory = factories.SamplePageFactory
+    has_revisions = True
+    app_name = "streamfield_migration_tests"
+
+    def _get_test_instances(self):
+        return self.factory.create_batch(
+            size=3,
+            # Each content stream field has a single char block instance.
+            content__0__char1__value="Char Block 1",
+        )
+
+    def test_state_not_shared_across_instances(self):
+        """
+        StreamChildrenToListBlockOperation doesn't share state across model instances.
+
+        As a single operation instance is used to transform the data of multiple model
+        instances, we should not store model instance state on the operation instance.
+        See https://github.com/wagtail/wagtail/issues/12391.
+        """
+
+        self.apply_migration(
+            operations_and_block_paths=[
+                (
+                    StreamChildrenToListBlockOperation(
+                        block_name="char1", list_block_name="list1"
+                    ),
+                    "",
+                )
+            ]
+        )
+        for instance in self.model.objects.all().annotate(
+            raw_content=Cast(F("content"), JSONField())
+        ):
+            new_block = instance.raw_content[0]
+            self.assertEqual(new_block["type"], "list1")
+            self.assertEqual(len(new_block["value"]), 1)
+            self.assertEqual(new_block["value"][0]["type"], "item")
+            self.assertEqual(new_block["value"][0]["value"], "Char Block 1")

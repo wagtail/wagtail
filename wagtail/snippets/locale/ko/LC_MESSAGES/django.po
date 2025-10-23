@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -46,9 +46,6 @@ msgstr "워크플로우 취소"
 msgid "Unpublish"
 msgstr "게시 해제"
 
-msgid "Delete"
-msgstr "삭제"
-
 msgid "Save"
 msgstr "저장"
 
@@ -62,6 +59,9 @@ msgstr "%(label)s 그리고 게시"
 msgid "Wagtail snippets"
 msgstr "웨그테일 스니펫"
 
+msgid "Delete"
+msgstr "삭제"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' 삭제됨."
@@ -72,11 +72,6 @@ msgstr "%(snippet_type_name)s 삭제"
 
 msgid "Delete "
 msgstr "삭제"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s번 사용"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"

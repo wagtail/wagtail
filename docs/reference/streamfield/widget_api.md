@@ -6,11 +6,15 @@ For the StreamField editing interface to dynamically create form fields, any Dja
 
 This implementation can be driven by [Stimulus](extending_client_side_stimulus) or for deeper integrations you can leverage telepath.
 
-The [telepath](https://wagtail.github.io/telepath/) library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of `wagtail.widget_adapters.WidgetAdapter` and register it with `wagtail.telepath.register`.
+The [telepath](https://wagtail.github.io/telepath/) library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of `wagtail.widget_adapters.WidgetAdapter` and register it with `wagtail.admin.telepath.register`.
+
+```{versionchanged} 7.1
+The `register` function should now be imported from `wagtail.admin.telepath` rather than `wagtail.telepath`, and `WidgetAdapter` should be imported from `wagtail.admin.telepath.widgets` rather than `wagtail.widget_adapters`.
+```
 
 ```python
-from wagtail.telepath import register
-from wagtail.widget_adapters import WidgetAdapter
+from wagtail.admin.telepath import register
+from wagtail.admin.telepath.widgets import WidgetAdapter
 
 class FancyInputAdapter(WidgetAdapter):
     # Identifier matching the one registered on the client side
@@ -20,10 +24,9 @@ class FancyInputAdapter(WidgetAdapter):
     def js_args(self, widget):
         return [
             # Arguments typically include the widget's HTML representation
-            # and label ID rendered with __NAME__ and __ID__ placeholders,
-            # for use in the client-side render() method
+            # rendered with __NAME__ and __ID__ placeholders, for use in the
+            # client-side render() method
             widget.render('__NAME__', None, attrs={'id': '__ID__'}),
-            widget.id_for_label('__ID__'),
             widget.extra_options,
         ]
 
@@ -36,7 +39,7 @@ class FancyInputAdapter(WidgetAdapter):
 register(FancyInputAdapter(), FancyInput)
 ```
 
-The JavaScript object associated with a widget instance should provide a single method:
+The JavaScript object associated with a widget instance should provide the following methods:
 
 ```{eval-rst}
 .. js:function:: render(placeholder, name, id, initialState)
@@ -50,7 +53,22 @@ The JavaScript object associated with a widget instance should provide a single 
 
 A widget's state will often be the same as the form field's value, but may contain additional data beyond what is processed in the form submission. For example, a page chooser widget consists of a hidden form field containing the page ID, and a read-only label showing the page title: in this case, the page ID by itself does not provide enough information to render the widget, and so the state is defined as a dictionary with `id` and `title` items.
 
-The value returned by ``render`` is a 'bound widget' object allowing this widget instance's data to be accessed. This object should implement the following attributes and methods:
+.. js:function:: getByName(name, container)
+
+   Return an object representing an existing instance of this widget that has already been rendered on the page. Raises ``InputNotFoundError`` if a matching widget instance cannot be found.
+
+   :param name: The ``name`` attribute of the widget to search for
+   :param container: An HTML DOM element in which to search; the widget's HTML must be present as a descendant of this element, or the element itself.
+```
+
+```{versionadded} 7.1
+The `getByName` method was added to the API.
+```
+
+(bound_widget_api)=
+
+```{eval-rst}
+The value returned by ``render`` and ``getByName`` is a 'bound widget' object allowing this widget instance's data to be accessed. This object should implement the following attributes and methods:
 
 .. js:attribute:: idForLabel
 

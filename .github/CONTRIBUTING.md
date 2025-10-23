@@ -45,3 +45,23 @@ Please submit any new or improved translations through [Transifex](https://explo
 ## Accessibility testing
 
 We’d love to get feedback on the accessibility of Wagtail. Get in touch with our [accessibility team](https://github.com/wagtail/wagtail/wiki/Accessibility-team) if you are testing Wagtail and want to report your findings, or have a look at our [backlog of accessibility issues and improvements](https://github.com/wagtail/wagtail/projects/5). We also document our [testing targets and known issues](https://docs.wagtail.org/en/latest/contributing/developing.html#accessibility-targets).
+
+## Generative AI
+
+We recognize generative AI can be a useful tool for contributors, but like any tool should be used with critical thinking and good judgement when creating issues and pull requests.
+
+We ask that if you use generative AI for your contribution, you include a disclaimer, for example:
+
+> _"This pull request includes code written with the assistance of AI. This code was reviewed and verified by me."_
+
+### Acceptable uses
+
+-  Gaining understanding of the existing Wagtail code
+-  Assistance with writing comments
+-  Supplementing contributor knowledge for code, tests, and documentation
+
+### Unacceptable uses
+
+- Entire work (code changes, documentation update, pull request descriptions) are LLM-generated
+
+We will close those pull requests and issues that are unproductive, so we can focus our limited maintainer capacity elsewhere.

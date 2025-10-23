@@ -17,13 +17,13 @@ describe('generateColorVariables', () => {
   });
 
   /**
-   * If this test breaks, it means we’ve either changed our color palette, or changed how we make each of the colors customisable.
-   * If the change is intentional, we will then need to update our `custom_user_interface_colours` documentation.
-   * - Open Storybook’s color customisation story in a browser
+   * If this test breaks, it means we’ve either changed our color palette, or changed how we make each of the colors customizable.
+   * If the change is intentional, we will then need to update our `custom_user_interface_colors` documentation.
+   * - Open Storybook’s color customization story in a browser
    * - Use your browser’s DevTools to copy the relevant story markup to our Markdown documentation.
    * - Leave the copied content exactly as-is when pasting, to avoid any Markdown formatting issues.
    */
-  it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
+  it('is stable (update custom_user_interface_colors documentation when this changes)', () => {
     const colorVariables = generateColorVariables(staticColors);
     expect(colorVariables).toMatchInlineSnapshot(`
       {
@@ -157,7 +157,7 @@ describe('generateColorVariables', () => {
 });
 
 describe('transparencies', () => {
-  it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
+  it('is stable (update custom_user_interface_colors documentation when this changes)', () => {
     expect(transparencies).toMatchInlineSnapshot(`
       {
         "--w-color-black-10": "rgba(0, 0, 0, 0.10)",
@@ -193,7 +193,7 @@ describe('generateThemeColorVariables', () => {
     ]);
   });
 
-  it('light theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
+  it('light theme is stable (update custom_user_interface_colors documentation when this changes)', () => {
     expect(generateThemeColorVariables(colorThemes.light))
       .toMatchInlineSnapshot(`
       {
@@ -250,7 +250,7 @@ describe('generateThemeColorVariables', () => {
     `);
   });
 
-  it('dark theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
+  it('dark theme is stable (update custom_user_interface_colors documentation when this changes)', () => {
     expect(generateThemeColorVariables(colorThemes.dark))
       .toMatchInlineSnapshot(`
       {

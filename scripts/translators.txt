@@ -4,6 +4,7 @@ Jaco du Plessis <jaco.jacoduplessis.co.za>
 
 Arabic - ar
 -----
+Abdullah Bamuhrez <bamuhrez.gmail.com>
 Ahmad Kiswani <kiswani.ahmad.gmail.com>
 Ahmed Miske Sidi Med <boutien321.gmail.com>
 Amr Awad <amro.khir.gmail.com>
@@ -18,6 +19,7 @@ Mohamed Mayla <mohamed.mayla.gmail.com>
 Mohammed Abdul gadir <weekmo.aol.com>
 Oumayma el bez
 ROGER MICHAEL ASHLEY ALLEN <rogermaallen.gmail.com>
+Tarek Berkane
 Waseem Kntar
 Younes Oumakhou
 abdulaziz alfuhigi <abajall.gmail.com>
@@ -167,12 +169,14 @@ Coen van der Kamp <cvanderkamp.gmail.com>
 Franklin Kingma <franklin.statix.net>
 Harmen <sigmo.sigmo.nl>
 Huib Keemink <huib.creativedutchmen.com>
+Joeri Vlekken
 Kees Hink <keeshink.gmail.com>
 Loic Teixeira
 Maarten Kling <kling.maarten.gmail.com>
 Matt Westcott <matthew.torchbox.com>
 Meteor0id
 Michael van Tellingen <michaelvantellingen.gmail.com>
+Michel Vuijlsteke
 Ramon de Jezus <rdejezus.leukeleu.nl>
 Richard Voorhorst
 Rob Moorman <rob.moori.nl>
@@ -225,6 +229,7 @@ Christophe CHAUVET <christophe.chauvet.gmail.com>
 Dominique PERETTI <dperetti.gmail.com>
 Fabien Le Frapper <contact.fabienlefrapper.me>
 Loic Teixeira
+Lucie Laporte
 Léo <leo.naeka.fr>
 Matt Westcott <matthew.torchbox.com>
 Renaud Kern <renaud.kern.gmail.com>
@@ -254,6 +259,7 @@ German - de
 Benedikt Willi <ben.willi.gmail.com>
 Benjamin Kaspar <bennykaspar.gmail.com>
 Bohreromir
+Christian González <christian.gonzalez.nerdocs.at>
 Daniel Manser <me.danielmanser.com>
 Donald Buczek
 Ettore Atalan <atalanttore.googlemail.com>
@@ -334,6 +340,7 @@ Istvan Farkas <istvan.farkas.gmail.com>
 Kornel Novak Mergulhão <nkornel.gmail.com>
 Laszlo Molnar <lazlowmiller.gmail.com>
 Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
 Patrik Radics
 aaao <aron.santa.gmail.com>
 
@@ -410,6 +417,7 @@ Kyungil Choi <hanpama.gmail.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 mirusu400
+sl kim <vizuan.gmail.com>
 
 Latvian - lv
 -----
@@ -423,6 +431,7 @@ Lithuanian - lt
 -----
 Loic Teixeira
 Matas Dailyda <matas.dailyda.com>
+Matt Westcott <matthew.torchbox.com>
 Naglis Jonaitis
 
 Mongolian - mn
@@ -446,6 +455,7 @@ Norwegian Bokmål - nb
 Eirik Krogstad <eirikkr.gmail.com>
 Jonathan D
 Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
 Ole Kristian Losvik <ole.losol.no>
 Robin Skahjem-Eriksen <robinds.student.matnat.uio.no>
 Stein Strindhaug <stein.strindhaug.gmail.com>
@@ -506,6 +516,7 @@ LB (Ben Johnston) <mail.lb.ee>
 Loic Teixeira
 Luiz Boaretto <lboaretto.gmail.com>
 Marcio Mazza <marciomazza.gmail.com>
+Matt Westcott <matthew.torchbox.com>
 Rodrigo Sottomaior Macedo <sottomaiormacedotec.sottomaiormacedo.tech>
 Thiago Cangussu <cangussu.thg.gmail.com>
 Thiago Cangussu <cng.thg.gmail.com>
@@ -526,6 +537,7 @@ Hugo Cachitas
 Jose Lourenco <jose.lourenco.ws>
 Loic Teixeira
 Luís Tiago Favas <traducoes.favas.eu>
+Matt Westcott <matthew.torchbox.com>
 Nuno Matos <tugassoft.gmail.com>
 Rui Martins <rmartins16.gmail.com>
 Thiago Cangussu <cangussu.thg.gmail.com>
@@ -539,6 +551,7 @@ Dan Braghis
 Julian C <jcuotpc.gmail.com>
 Loic Teixeira
 Madalin Popa
+Matt Westcott <matthew.torchbox.com>
 zerolab
 
 Russian - ru
@@ -677,6 +690,7 @@ Walaksawan Vervoort <nula_wala.yahoo.com>
 
 Turkish - tr
 -----
+Abdullah Bamuhrez <bamuhrez.gmail.com>
 Ahmet Sarıcan <asarican.gmail.com>
 Basitlik İyidir
 Cihad GÜNDOĞDU <cihadgundogdu.gmail.com>
@@ -684,6 +698,7 @@ Fatih Koç koç <fatihinemaili.gmail.com>
 Halim Turan <halim_turan_61.hotmail.com>
 Halit Çelik
 José Luis <alagunajs.gmail.com>
+LB (Ben Johnston) <mail.lb.ee>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Py Data Geek <pydatageek.gmail.com>
@@ -715,6 +730,7 @@ Ukrainian - uk
 Anastasiia La
 Ivan Tyshchenko <iv.tihon.gmail.com>
 Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
 Mykola Zamkovoi <nickzam.gmail.com>
 Sergiy Shkodenko <shkodenkosergiy.gmail.com>
 Viktor Shytiuk <VicHunting.yandex.ua>

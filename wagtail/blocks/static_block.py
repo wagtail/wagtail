@@ -4,7 +4,7 @@ from django.utils.safestring import SafeString
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.admin.telepath import Adapter, register
 
 from .base import Block
 
@@ -58,6 +58,10 @@ class StaticBlockAdapter(Adapter):
                 text_or_html: admin_text,
                 "icon": block.meta.icon,
                 "label": block.label,
+                "description": block.get_description(),
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
+                "attrs": block.meta.form_attrs or {},
             },
         ]
 

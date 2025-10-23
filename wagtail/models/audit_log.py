@@ -97,7 +97,7 @@ class BaseLogEntryManager(models.Manager):
         return LogEntryQuerySet(self.model, using=self._db)
 
     def get_instance_title(self, instance):
-        return str(instance)
+        return str(instance) or f"{instance.__class__.__name__} object ({instance.pk})"
 
     def log_action(self, instance, action, **kwargs):
         """

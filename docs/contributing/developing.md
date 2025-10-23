@@ -29,7 +29,13 @@ cd wagtail
 **With your preferred [virtualenv activated](virtual_environment_creation),** install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 ```sh
-pip install -e ."[testing,docs]" -U
+pip install -e ."[testing,docs]" --config-settings editable-mode=strict -U
+```
+
+Or, on Windows
+
+```doscon
+pip install -e .[testing,docs] --config-settings editable-mode=strict -U
 ```
 
 Install the tool chain for building static assets:
@@ -47,7 +53,13 @@ npm run build
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/) as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, to install the local Wagtail development instance in your virtualenv for your Wagtail site:
 
 ```sh
-pip install -e path/to/wagtail"[testing, docs]" -U
+pip install -e path/to/wagtail"[testing,docs]" --config-settings editable-mode=strict -U
+```
+
+Or, on Windows
+
+```doscon
+pip install -e path/to/wagtail[testing,docs] --config-settings editable-mode=strict -U
 ```
 
 Here, `path/to/wagtail` is the path to your local Wagtail copy.
@@ -206,14 +218,14 @@ Wagtail is meant to be used on a wide variety of devices and browsers. Supported
 
 | Browser       | Device/OS  | Version(s)         |
 | ------------- | ---------- | ------------------ |
-| Mobile Safari | iOS Phone  | Last 2: 16, 17     |
-| Mobile Safari | iOS Tablet | Last 2: 16, 17     |
+| Mobile Safari | iOS Phone  | Last 2: 17, 18     |
+| Mobile Safari | iOS Tablet | Last 2: 17, 18     |
 | Chrome        | Android    | Last 2             |
 | Chrome        | Desktop    | Last 2             |
 | MS Edge       | Windows    | Last 2             |
 | Firefox       | Desktop    | Latest             |
-| Firefox ESR   | Desktop    | Latest             |
-| Safari        | macOS      | Last 3: 15, 16, 17 |
+| Firefox ESR   | Desktop    | Latest: 140        |
+| Safari        | macOS      | Last 3: 16, 17, 18 |
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
 
@@ -232,9 +244,9 @@ We want to make Wagtail accessible for users of a wide variety of assistive tech
 -   [NVDA](https://www.nvaccess.org/download/) on Windows with Firefox ESR
 -   [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on macOS with Safari
 -   [Windows Magnifier](https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier) and macOS Zoom
--   Windows Speech Recognition and macOS Dictation
--   Mobile [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on iOS, or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
--   Windows [High-contrast mode](https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696)
+-   [Windows voice access](https://support.microsoft.com/en-gb/topic/use-voice-access-to-control-your-pc-author-text-with-your-voice-4dcd23ee-f1b9-4fd1-bacc-862ab611f55d) and [macOS Voice Control](https://support.apple.com/en-gb/102225)
+-   [iOS VoiceOver](https://support.apple.com/en-gb/guide/iphone/iph3e2e415f/ios), or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
+-   [Windows Contrast themes](https://support.microsoft.com/en-us/windows/change-color-contrast-in-windows-fedc744c-90ac-69df-aed5-c8a90125e696)
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialized training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
 
@@ -267,6 +279,8 @@ This must be done after every change to the source files. To watch the source fi
 npm start
 ```
 
+(pattern_library)=
+
 ## Using the pattern library
 
 Wagtail’s UI component library is built with [Storybook](https://storybook.js.org/) and [django-pattern-library](https://github.com/torchbox/django-pattern-library). To run it locally,
@@ -291,7 +305,7 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 # Starting from the wagtail root directory:
 
 # Install the documentation dependencies
-pip install -e .[docs]
+pip install -e .[docs] --config-settings editable-mode=strict
 # or if using zsh as your shell:
 #    pip install -e '.[docs]' -U
 # Compile the docs
@@ -353,12 +367,12 @@ Sometimes it may be necessary to install Wagtail from a fork. For example your s
 
 The Wagtail release process includes steps for static asset building and translations updated which means you cannot update your requirements file to point a particular git commit in the main repository.
 
-To install from your fork, from the root of your Wagtail git checkout (and assuming the tooling for building the static assets has previously been installed using `npm install`), run:
+To install from your fork, ensure you have installed `build` (`python -m pip install build`) and the tooling for building the static assets (`npm install`). Then, from the root of your Wagtail git checkout, run:
 
 ```sh
-python ./setup.py sdist
+python -m build
 ```
 
-This will create a `.tar.gz` package within `dist/,` which can be installed with `pip`.
+This will create a `.tar.gz` and `.whl` packages within `dist/,` which can be installed with `pip`.
 
 For remote deployments, it's usually most convenient to upload this to a public URL somewhere and place that URL in your project's requirements in place of the standard `wagtail` line.

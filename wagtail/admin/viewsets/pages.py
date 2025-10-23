@@ -31,7 +31,6 @@ class PageListingViewSet(ViewSet):
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
-                "_show_breadcrumbs": True,
                 "header_icon": self.icon,
                 "model": self.model,
                 "index_url_name": self.get_url_name("index"),

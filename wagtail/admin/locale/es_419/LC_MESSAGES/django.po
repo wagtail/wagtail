@@ -4,11 +4,12 @@
 #
 # Translators:
 # Rodrigo Yanez, 2023
+# Rodrigo Yanez, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
@@ -283,9 +284,6 @@ msgstr "Ponle un nombre a tu flujo de trabajo"
 msgid "Add tasks to your workflow"
 msgstr "Añade tareas a tu flujo de trabajo"
 
-msgid "Task"
-msgstr "Tarea"
-
 msgid "1 page selected"
 msgstr "1 página seleccionada"
 
@@ -369,12 +367,6 @@ msgstr "Todos los %(objects)s elementos en esta pantalla seleccionados"
 
 msgid "All items in listing selected"
 msgstr "Todos los elementos en la lista seleccionados"
-
-msgid "For search engines"
-msgstr "Para motores de búsqueda"
-
-msgid "For site menus"
-msgstr "Para los menús de la página"
 
 msgid "Content"
 msgstr "Contenido"
@@ -622,6 +614,9 @@ msgstr "Esta colección no se puede borrar, porque no está vacía. Contiene:"
 
 msgid "Account"
 msgstr "Cuenta"
+
+msgid "Task"
+msgstr "Tarea"
 
 msgid "Saving…"
 msgstr "Guardando..."

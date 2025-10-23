@@ -58,15 +58,18 @@ class TestServeView(TestCase):
             f'inline; filename="{self.pdf_document.filename}"',
         )
 
+    def test_content_security_policy(self):
+        self.assertEqual(self.get()["Content-Security-Policy"], "default-src 'none'")
+
+        with self.settings(WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT=False):
+            self.assertNotIn("Content-Security-Policy", self.get().headers)
+
+    def test_no_sniff_content_type(self):
+        self.assertEqual(self.get()["X-Content-Type-Options"], "nosniff")
+
     @mock.patch("wagtail.documents.views.serve.hooks")
     @mock.patch("wagtail.documents.views.serve.get_object_or_404")
-    def test_non_local_filesystem_content_disposition_header(
-        self, mock_get_object_or_404, mock_hooks
-    ):
-        """
-        Tests the 'Content-Disposition' header in a response when using a
-        storage backend that doesn't expose filesystem paths.
-        """
+    def test_non_local_filesystem_headers(self, mock_get_object_or_404, mock_hooks):
         # Create a mock document with no local file to hit the correct code path
         mock_doc = mock.Mock()
         mock_doc.filename = self.document.filename
@@ -90,16 +93,14 @@ class TestServeView(TestCase):
                 urllib.parse.quote(self.document.filename)
             ),
         )
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
+        self.assertEqual(response["X-Content-Type-Options"], "nosniff")
 
     @mock.patch("wagtail.documents.views.serve.hooks")
     @mock.patch("wagtail.documents.views.serve.get_object_or_404")
-    def test_non_local_filesystem_inline_content_disposition_header(
+    def test_non_local_filesystem_inline_headers(
         self, mock_get_object_or_404, mock_hooks
     ):
-        """
-        Tests the 'Content-Disposition' header in a response when using a
-        storage backend that doesn't expose filesystem paths.
-        """
         # Create a mock document with no local file to hit the correct code path
         mock_doc = mock.Mock()
         mock_doc.filename = self.pdf_document.filename
@@ -118,6 +119,8 @@ class TestServeView(TestCase):
         self.assertEqual(response.status_code, 200)
 
         self.assertEqual(response["Content-Disposition"], "inline")
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
+        self.assertEqual(response["X-Content-Type-Options"], "nosniff")
 
     def test_content_length_header(self):
         self.assertEqual(self.get()["Content-Length"], "25")
@@ -345,6 +348,12 @@ class TestServeViewWithSendfile(TestCase):
             response["X-Accel-Redirect"],
             os.path.join(settings.MEDIA_URL, self.document.file.name),
         )
+
+    def test_content_security_policy(self):
+        self.assertEqual(self.get()["Content-Security-Policy"], "default-src 'none'")
+
+    def test_no_sniff_content_type(self):
+        self.assertEqual(self.get()["X-Content-Type-Options"], "nosniff")
 
 
 @override_settings(WAGTAILDOCS_SERVE_METHOD=None)

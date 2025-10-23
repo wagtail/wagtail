@@ -1,3 +1,5 @@
+import itertools
+
 from django import forms
 from django.test import TestCase
 
@@ -6,6 +8,7 @@ from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
     ExtendedFormField,
+    FormBuilderWithCustomWidget,
     FormField,
     FormPage,
     FormPageWithCustomFormBuilder,
@@ -221,88 +224,118 @@ class TestFormBuilder(TestCase):
         self.assertIn(get_field_clean_name(unsaved_field_1.label), fb.formfields)
         self.assertIn(get_field_clean_name(unsaved_field_2.label), fb.formfields)
 
-    def test_newline_value_separation_in_choices_and_default_value_fields(self):
-        """Ensure that the new line present between input choices or values gets formatted into choices or value list
-        respectively as an alternative to commas.
+    def test_newline_value_separation_in_choices(self):
         """
-        multiselect_field = FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your favorite colours",
-            field_type="multiselect",
-            required=True,
-            choices="red\r\nblue\r\ngreen",
-        )
-        self.form_page.form_fields.add(multiselect_field)
+        Ensure that choices can be separated either by newlines or by commas.
+        """
+        field_types = ["multiselect", "dropdown", "checkboxes", "radio"]
+        testdata = [
+            ("red\ngreen\nblue", ["red", "green", "blue"]),
+            ("red\rgreen\rblue", ["red", "green", "blue"]),
+            ("red\r\ngreen\r\nblue", ["red", "green", "blue"]),
+            ("red\r\ngreen\nblue", ["red", "green", "blue"]),
+            ("red\ngreen\nblue\n", ["red", "green", "blue"]),
+            ("\nred\ngreen\nblue", ["red", "green", "blue"]),
+            ("red,\ngreen \n blue", ["red", "green", "blue"]),
+            ("red  ,\ngreen \n blue", ["red", "green", "blue"]),
+            ("  red  \ngreen\nblue", ["red", "green", "blue"]),
+            ("red\n,green\nblue", ["red", ",green", "blue"]),
+            ("red\ngreen, blue\nyellow", ["red", "green, blue", "yellow"]),
+        ]
+        for field_type, (choices, expected) in itertools.product(field_types, testdata):
+            field = FormField(field_type=field_type, choices=choices, label="test")
+            builder = FormBuilder([field])
+            form_field = builder.formfields["test"]
+            with self.subTest(field_type=field_type, choices=choices):
+                self.assertEqual(
+                    [choice for choice, _ in form_field.choices],
+                    expected,
+                )
 
-        dropdown_field = FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Pick your next destination",
-            field_type="dropdown",
-            required=True,
-            choices="hawaii\r\nparis\r\nabuja",
-        )
-        self.form_page.form_fields.add(dropdown_field)
+    def test_newline_value_separation_in_default_value(self):
+        """
+        Ensure that default values can be separated by newlines.
+        """
+        for choices, default_value, expected in [
+            ("a\nb\nc", "a", ["a"]),
+            ("a\nb\nc", "a\nc", ["a", "c"]),
+            ("a\rb\rc", "a\rc", ["a", "c"]),
+            ("a\r\nb\r\nc", "a\r\nc", ["a", "c"]),
+            ("a\nb\nc", "a\r\nc", ["a", "c"]),
+            ("a\nb\rc", "a\r\nc", ["a", "c"]),
+            ("a\nb\nc", "a\nd", ["a", "d"]),
+        ]:
+            field = FormField(
+                label="test",
+                field_type="checkboxes",
+                choices=choices,
+                default_value=default_value,
+            )
+            builder = FormBuilder([field])
+            form_field = builder.formfields["test"]
+            with self.subTest(choices=choices, default_value=default_value):
+                self.assertEqual(form_field.initial, expected)
 
-        checkboxes_field = FormField.objects.create(
-            page=self.form_page,
-            sort_order=3,
-            label="Do you possess these attributes",
-            field_type="checkboxes",
-            required=False,
-            choices="good, kind and gentle.\r\nstrong, bold and brave.",
-        )
-        self.form_page.form_fields.add(checkboxes_field)
-
-        radio_field = FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your favorite animal",
-            help_text="Choose one",
-            field_type="radio",
-            required=True,
-            choices="cat\r\ndog\r\nbird",
-        )
-        self.form_page.form_fields.add(radio_field)
-
-        checkboxes_field_with_default_value = FormField.objects.create(
-            page=self.form_page,
-            sort_order=3,
-            label="Choose the correct answer",
-            field_type="checkboxes",
-            required=False,
-            choices="a\r\nb\r\nc",
-            default_value="a\r\nc",
-        )
-        self.form_page.form_fields.add(checkboxes_field_with_default_value)
-
-        fb = FormBuilder(self.form_page.get_form_fields())
-        form_class = fb.get_form_class()
-
-        self.assertEqual(
-            [("red", "red"), ("blue", "blue"), ("green", "green")],
-            form_class.base_fields["your_favorite_colours"].choices,
-        )
-        self.assertEqual(
-            [("cat", "cat"), ("dog", "dog"), ("bird", "bird")],
-            form_class.base_fields["your_favorite_animal"].choices,
-        )
-        self.assertEqual(
-            [
-                ("good, kind and gentle.", "good, kind and gentle."),
-                ("strong, bold and brave.", "strong, bold and brave."),
-            ],
-            form_class.base_fields["do_you_possess_these_attributes"].choices,
-        )
-        self.assertEqual(
-            [("hawaii", "hawaii"), ("paris", "paris"), ("abuja", "abuja")],
-            form_class.base_fields["pick_your_next_destination"].choices,
-        )
-        self.assertEqual(
-            ["a", "c"],
-            form_class.base_fields["choose_the_correct_answer"].initial,
-        )
+    def test_custom_widget(self):
+        """
+        All builtin field types should be able to receive a custom widget
+        """
+        self.form_page.form_builder = FormBuilderWithCustomWidget
+        form = self.form_page.get_form(auto_id=None)
+        for fieldname, expected_render in [
+            (
+                "your_name",
+                '<input type="text" name="your_name" maxlength="255" class="custom">',
+            ),
+            ("your_message", '<input type="text" name="your_message" class="custom">'),
+            (
+                "your_birthday",
+                '<input type="text" name="your_birthday" class="custom">',
+            ),
+            (
+                "your_birthtime",
+                '<input type="text" name="your_birthtime" class="custom">',
+            ),
+            (
+                "your_email",
+                '<input type="text" name="your_email" maxlength="320" class="custom">',
+            ),
+            (
+                "your_homepage",
+                '<input type="text" name="your_homepage" class="custom">',
+            ),
+            (
+                "your_favourite_number",
+                '<input type="text" name="your_favourite_number" class="custom">',
+            ),
+            (
+                "your_favourite_text_editors",
+                '<input type="text" name="your_favourite_text_editors" class="custom">',
+            ),
+            (
+                "your_favourite_python_ides",
+                '<input type="text" name="your_favourite_python_ides" class="custom">',
+            ),
+            (
+                "u03a5our_favourite_u03a1ython_ixd0e",
+                '<input type="text" name="u03a5our_favourite_u03a1ython_ixd0e" class="custom">',
+            ),
+            (
+                "your_choices",
+                '<input type="text" name="your_choices" value="[\'\']" class="custom">',
+            ),
+            (
+                "i_agree_to_the_terms_of_use",
+                '<input type="text" name="i_agree_to_the_terms_of_use" class="custom">',
+            ),
+            (
+                "a_hidden_field",
+                '<input type="text" name="a_hidden_field" class="custom">',
+            ),
+        ]:
+            with self.subTest(field=fieldname):
+                form.fields[fieldname].required = False  # makes testing easier
+                self.assertHTMLEqual(form[fieldname].as_widget(), expected_render)
 
 
 class TestCustomFormBuilder(TestCase):

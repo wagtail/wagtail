@@ -2,14 +2,16 @@
 
 /* global $ */
 
-import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
+import Sortable from 'sortablejs';
 import { escapeHtml as h } from '../../../utils/text';
 import {
   initCollapsiblePanel,
   toggleCollapsiblePanel,
 } from '../../../includes/panels';
 import { range } from '../../../utils/range';
+import { CollapsiblePanel } from './CollapsiblePanel';
+import { StructBlockDefinition } from './StructBlock';
 
 class ActionButton {
   constructor(sequenceChild) {
@@ -21,9 +23,7 @@ class ActionButton {
       this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
 
     this.dom = $(`
-      <button type="button" class="button button--icon text-replace white" title="${h(
-        label,
-      )}">
+      <button type="button" class="button button--icon text-replace white" data-streamfield-action="${this.labelIdentifier}" title="${h(label)}">
         <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
           <use href="#icon-${h(this.icon)}"></use>
         </svg>
@@ -38,13 +38,13 @@ class ActionButton {
     $(container).append(this.dom);
 
     if (this.enableEvent) {
-      this.sequenceChild.on(this.enableEvent, () => {
+      this.sequenceChild.addEventListener(this.enableEvent, () => {
         this.enable();
       });
     }
 
     if (this.disableEvent) {
-      this.sequenceChild.on(this.disableEvent, () => {
+      this.sequenceChild.addEventListener(this.disableEvent, () => {
         this.disable();
       });
     }
@@ -87,6 +87,14 @@ class MoveDownButton extends ActionButton {
   }
 }
 
+class DragButton extends ActionButton {
+  enableEvent = 'enableDrag';
+  disableEvent = 'disableDrag';
+  initiallyDisabled = false;
+  icon = 'grip';
+  labelIdentifier = 'DRAG';
+}
+
 class DuplicateButton extends ActionButton {
   enableEvent = 'enableDuplication';
   disableEvent = 'disableDuplication';
@@ -107,7 +115,7 @@ class DeleteButton extends ActionButton {
   }
 }
 
-export class BaseSequenceChild extends EventEmitter {
+export class BaseSequenceChild extends EventTarget {
   constructor(
     blockDef,
     placeholder,
@@ -136,9 +144,17 @@ export class BaseSequenceChild extends EventEmitter {
     const contentId = `block-${id}-content`;
     const blockTypeIcon = h(this.blockDef.meta.icon);
     const blockTypeLabel = h(this.blockDef.meta.label);
+    const collapsiblePanel = new CollapsiblePanel({
+      panelId,
+      headingId,
+      contentId,
+      blockDef,
+      blockTypeIcon,
+      blockTypeLabel,
+    }).render();
 
     const dom = $(`
-      <div ${
+      <div data-streamfield-child ${
         this.id
           ? `data-contentpath="${h(this.id)}"`
           : 'data-contentpath-disabled'
@@ -151,39 +167,7 @@ export class BaseSequenceChild extends EventEmitter {
         <input type="hidden" name="${this.prefix}-id" value="${h(
           this.id || '',
         )}">
-        <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" data-panel>
-          <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" data-panel-anchor>
-              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
-                <use href="#icon-link"></use>
-              </svg>
-            </a>
-            <button class="w-panel__toggle" type="button" aria-label="${'Toggle section'}" aria-describedby="${headingId}" data-panel-toggle aria-controls="${contentId}" aria-expanded="true">
-              <svg class="icon icon-${blockTypeIcon} w-panel__icon" aria-hidden="true">
-                <use href="#icon-${blockTypeIcon}"></use>
-              </svg>
-            </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
-              <span data-panel-heading-text class="c-sf-block__title"></span>
-              <span class="c-sf-block__type">${blockTypeLabel}</span>
-              ${
-                blockDef.meta.required
-                  ? '<span class="w-required-mark" data-panel-required>*</span>'
-                  : ''
-              }
-            </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#${panelId}" aria-labelledby="${headingId}">
-              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
-                <use href="#icon-link"></use>
-              </svg>
-            </a>
-            <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls></div>
-          </div>
-          <div id="${contentId}" class="w-panel__content">
-            <div data-streamfield-block></div>
-          </div>
-        </section>
+        ${collapsiblePanel.outerHTML}
       </div>
     `);
 
@@ -198,6 +182,7 @@ export class BaseSequenceChild extends EventEmitter {
 
     this.addActionButton(new MoveUpButton(this));
     this.addActionButton(new MoveDownButton(this));
+    this.addActionButton(new DragButton(this));
     this.addActionButton(new DuplicateButton(this));
     this.addActionButton(new DeleteButton(this));
 
@@ -218,6 +203,12 @@ export class BaseSequenceChild extends EventEmitter {
       getBlockMax: this.sequence.getBlockMax.bind(this.sequence),
     });
 
+    // StructBlock is collapsible by default, but if it's also a sequence child,
+    // we want to control the collapsible rendering from here instead.
+    if (this.blockDef instanceof StructBlockDefinition) {
+      this.blockDef.collapsible = false;
+    }
+
     this.block = this.blockDef.render(
       blockElement,
       this.prefix + '-value',
@@ -233,12 +224,12 @@ export class BaseSequenceChild extends EventEmitter {
     }
 
     this.toggleElement.addEventListener('wagtail:panel-toggle', () => {
-      const label = this.getTextLabel({ maxLength: 50 });
+      const label = this.getTextLabel({ maxLength: 70 });
       this.titleElement.text(label || '');
     });
 
     // Set in initialisation regardless of block state for screen reader users.
-    const textLabel = this.getTextLabel({ maxLength: 50 });
+    const textLabel = this.getTextLabel({ maxLength: 70 });
     this.titleElement.text(textLabel || '');
 
     if (animate) {
@@ -246,12 +237,12 @@ export class BaseSequenceChild extends EventEmitter {
       setTimeout(() => {
         dom.slideDown();
         if (focus) {
-          // focus this field if we can do so without obtrusive UI behaviour
+          // focus this field if we can do so without obtrusive UI behavior
           this.block.focus({ soft: true });
         }
       }, 10);
     } else if (focus) {
-      // focus this field if we can do so without obtrusive UI behaviour
+      // focus this field if we can do so without obtrusive UI behavior
       this.block.focus({ soft: true });
     }
   }
@@ -301,14 +292,14 @@ export class BaseSequenceChild extends EventEmitter {
   }
 
   enableDuplication() {
-    this.emit('enableDuplication');
+    this.dispatchEvent(new Event('enableDuplication'));
     if (this.block && this.block.setCapabilityOptions) {
       this.block.setCapabilityOptions('duplicate', { enabled: true });
     }
   }
 
   disableDuplication() {
-    this.emit('disableDuplication');
+    this.dispatchEvent(new Event('disableDuplication'));
     if (this.block && this.block.setCapabilityOptions) {
       this.block.setCapabilityOptions('duplicate', { enabled: false });
     }
@@ -327,19 +318,19 @@ export class BaseSequenceChild extends EventEmitter {
   }
 
   enableMoveUp() {
-    this.emit('enableMoveUp');
+    this.dispatchEvent(new Event('enableMoveUp'));
   }
 
   disableMoveUp() {
-    this.emit('disableMoveUp');
+    this.dispatchEvent(new Event('disableMoveUp'));
   }
 
   enableMoveDown() {
-    this.emit('enableMoveDown');
+    this.dispatchEvent(new Event('enableMoveDown'));
   }
 
   disableMoveDown() {
-    this.emit('disableMoveDown');
+    this.dispatchEvent(new Event('disableMoveDown'));
   }
 
   setIndex(newIndex) {
@@ -578,6 +569,25 @@ export class BaseSequenceBlock {
     }
 
     this.blockCountChanged();
+  }
+
+  initDragNDrop() {
+    this.sortable = Sortable.create(this.sequenceContainer.get(0), {
+      handle: '[data-streamfield-action="DRAG"]',
+      animation: 200,
+      // Only drag blocks, not insertion controls.
+      draggable: '[data-streamfield-child]',
+      onEnd: (e) => {
+        // Only consider StreamField blocks, not the insertion controls.
+        const { oldDraggableIndex, newDraggableIndex } = e;
+        if (oldDraggableIndex !== newDraggableIndex) {
+          this.moveBlock(oldDraggableIndex, newDraggableIndex);
+        }
+      },
+      setData: (dataTransfer) => {
+        dataTransfer.setData('application/vnd.wagtail.type', 'sf-block');
+      },
+    });
   }
 
   moveBlock(oldIndex, newIndex) {

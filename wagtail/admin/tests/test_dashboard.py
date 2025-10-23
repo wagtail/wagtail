@@ -16,6 +16,7 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.users.models import UserProfile
 
 
 class TestRecentEditsPanel(WagtailTestUtils, TestCase):
@@ -402,3 +403,27 @@ class WorkflowObjectsToModerateQueryCount(WagtailTestUtils, TestCase):
         ]
         titles = [e.get_text(strip=True) for e in soup.select(".title-wrapper a")]
         self.assertEqual(titles, expected_titles)
+
+
+class CommonAdminBaseTemplate(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def test_common_admin_base_template(self):
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/skeleton.html")
+        self.assertTemplateUsed(response, "wagtailadmin/admin_base.html")
+
+    def test_meta_color_scheme(self):
+        profile = UserProfile.get_for_user(self.user)
+        profile.theme = "dark"
+        profile.save()
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        meta_tag = soup.find("meta", attrs={"name": "color-scheme"})
+
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark")

@@ -1,4 +1,4 @@
-(overview)=
+(documents_overview)=
 
 # Documents overview
 
@@ -69,7 +69,7 @@ This allows you to select a document file when creating or editing a page, and l
 
 Here's an example template to access the document field and render it:
 
-```html
+```html+django
 {% extends "base.html" %}
 {% block content %}
     {% if page.document %}
@@ -138,7 +138,7 @@ class BlogPage(Page):
 
 In `blog_page.html`, add the following block of code to display the document link in the page:
 
-```html
+```html+django
 {% for block in page.documents %}
     <a href="{{ block.value.url }}">{{ block.value.title }}</a>
 {% endfor %}
@@ -177,7 +177,7 @@ class PageWithCollection(Page):
 
 Here’s an example template to access the document collection and render it:
 
-```html
+```html+django
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 

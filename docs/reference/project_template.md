@@ -16,6 +16,7 @@ mysite/
                 home_page.html
         __init__.py
         models.py
+        tests.py
     search/
         templates/
             search/
@@ -96,6 +97,29 @@ The Django settings files are split up into `base.py`, `dev.py`, `production.py`
 ```{note}
 On production servers, we recommend that you only store secrets in ``local.py`` (such as API keys and passwords). This can save you headaches in the future if you are ever trying to debug why a server is behaving badly. If you are using multiple servers which need different settings then we recommend that you create a different ``production.py`` file for each one.
 ```
+
+(project_templates_testing)=
+
+### Writing and running tests
+
+When you create a new project using `wagtail start`, there will be a set of basic tests included in the `home/tests.py` file.
+
+These tests check:
+
+- That the root `Page` (ID=1) is automatically created.
+- That a `HomePage` can be created as a child of the root page.
+- That the created `HomePage` is renderable.
+- That the created `HomePage` uses the `home/home_page.html` template.
+
+#### Running the tests
+
+To run the tests, navigate to your project folder and run:
+
+```sh
+python manage.py test
+```
+
+For more about testing within Django see [Writing tests with Django](inv:django#topics/testing/overview), or Wagtail specific unit testing utils, see [Testing your Wagtail site](/advanced_topics/testing).
 
 ### Dockerfile
 

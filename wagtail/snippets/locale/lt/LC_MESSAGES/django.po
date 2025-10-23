@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -32,9 +32,6 @@ msgstr "Pateikti moderavimui"
 msgid "Unpublish"
 msgstr "Nebepublikuoti"
 
-msgid "Delete"
-msgstr "Ištrinti"
-
 msgid "Save"
 msgstr "Išsaugoti"
 
@@ -48,6 +45,9 @@ msgstr "%(label)s ir publikuoti"
 msgid "Wagtail snippets"
 msgstr "Wagtail nuokarpos"
 
+msgid "Delete"
+msgstr "Ištrinti"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' ištrinta."
@@ -58,14 +58,6 @@ msgstr "Ištrinti %(snippet_type_name)s"
 
 msgid "Delete "
 msgstr "Ištrinti"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Panaudota %(usage_count)s kartą"
-msgstr[1] "Panaudota %(usage_count)s kartus"
-msgstr[2] "Panaudota %(usage_count)s kartų"
-msgstr[3] "Panaudota %(usage_count)s kartų"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"

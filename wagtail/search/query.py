@@ -50,11 +50,17 @@ class Phrase(SearchQuery):
 
 
 class Fuzzy(SearchQuery):
-    def __init__(self, query_string: str):
+    OPERATORS = ["and", "or"]
+    DEFAULT_OPERATOR = "or"
+
+    def __init__(self, query_string: str, operator: str = DEFAULT_OPERATOR):
         self.query_string = query_string
+        self.operator = operator.lower()
+        if self.operator not in self.OPERATORS:
+            raise ValueError("`operator` must be either 'or' or 'and'.")
 
     def __repr__(self):
-        return f"<Fuzzy {repr(self.query_string)}>"
+        return f"<Fuzzy {repr(self.query_string)} operator={repr(self.operator)}>"
 
 
 class MatchAll(SearchQuery):

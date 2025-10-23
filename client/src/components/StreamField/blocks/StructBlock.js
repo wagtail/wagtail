@@ -6,6 +6,9 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import { CollapsiblePanel } from './CollapsiblePanel';
+import { initCollapsiblePanel } from '../../../includes/panels';
+import { setAttrs } from '../../../utils/attrs';
 
 export class StructBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -15,10 +18,38 @@ export class StructBlock {
 
     this.childBlocks = {};
 
+    let container = '';
+    if (this.blockDef.collapsible) {
+      container = new CollapsiblePanel({
+        panelId: prefix + '-section',
+        headingId: prefix + '-heading',
+        contentId: prefix + '-content',
+        blockTypeIcon: h(blockDef.meta.icon),
+        blockTypeLabel: h(blockDef.meta.label),
+        collapsed: blockDef.meta.collapsed,
+      }).render().outerHTML;
+    }
+
     if (blockDef.meta.formTemplate) {
       const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
-      const dom = $(html);
-      $(placeholder).replaceWith(dom);
+
+      let dom;
+      if (container) {
+        // Replace the placeholder with the collapsible panel container so it's
+        // mounted to the DOM and can be initialized.
+        dom = $(container);
+        $(placeholder).replaceWith(dom);
+        // Initialize the collapsible panel and append the form template HTML
+        // to the content area of the collapsible panel.
+        dom = this.#initializeCollapsiblePanel(dom, prefix);
+        dom.append(html);
+      } else {
+        // Collapsible panel is handled by the parent block, so just
+        // replace the placeholder with the form template HTML.
+        dom = $(html);
+        $(placeholder).replaceWith(dom);
+      }
+
       const blockErrors = initialError?.blockErrors || {};
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
         const childBlockElement = dom
@@ -34,11 +65,16 @@ export class StructBlock {
       });
       this.container = dom;
     } else {
-      const dom = $(`
+      let dom = $(`
         <div class="${h(this.blockDef.meta.classname || '')}">
         </div>
       `);
+      dom.append(container);
       $(placeholder).replaceWith(dom);
+
+      if (this.blockDef.collapsible) {
+        dom = this.#initializeCollapsiblePanel(dom, prefix);
+      }
 
       if (this.blockDef.meta.helpText) {
         // help text is left unescaped as per Django conventions
@@ -52,13 +88,25 @@ export class StructBlock {
       }
 
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
-        const childDom = $(`
-        <div data-contentpath="${childBlockDef.name}">
-          <label class="w-field__label">${h(childBlockDef.meta.label)}${
+        const isStructBlock =
+          // Cannot use `instanceof StructBlockDefinition` here as it is defined
+          // later in this file. Compare our own blockDef constructor instead.
+          childBlockDef instanceof this.blockDef.constructor;
+
+        // Struct blocks are collapsible and thus have their own header,
+        // so only add the label if this is not a struct block.
+        let label = '';
+        if (!isStructBlock) {
+          label = `<label class="w-field__label">${h(childBlockDef.meta.label)}${
             childBlockDef.meta.required
               ? '<span class="w-required-mark">*</span>'
               : ''
-          }</label>
+          }</label>`;
+        }
+
+        const childDom = $(`
+        <div data-contentpath="${childBlockDef.name}">
+          ${label}
             <div data-streamfield-block></div>
           </div>
         `);
@@ -83,10 +131,32 @@ export class StructBlock {
       });
       this.container = dom;
     }
+
+    // Set in initialisation regardless of block state for screen reader users.
+    if (this.blockDef.collapsible) {
+      this.setTextLabel();
+    }
+
+    setAttrs(this.container[0], this.blockDef.meta.attrs || {});
+  }
+
+  #initializeCollapsiblePanel(dom, prefix) {
+    const collapsibleToggle = dom.find('[data-panel-toggle]')[0];
+    const collapsibleTitle = dom.find('[data-panel-heading-text]')[0];
+    initCollapsiblePanel(collapsibleToggle);
+    this.setTextLabel = () => {
+      const label = this.getTextLabel({ maxLength: 50 });
+      collapsibleTitle.textContent = label || '';
+    };
+    collapsibleToggle.addEventListener(
+      'wagtail:panel-toggle',
+      this.setTextLabel,
+    );
+    return dom.find(`#${prefix}-content`);
   }
 
   setState(state) {
-    // eslint-disable-next-line guard-for-in
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const name in state) {
       this.childBlocks[name].setState(state[name]);
     }
@@ -103,6 +173,7 @@ export class StructBlock {
     }
 
     if (error.blockErrors) {
+      // eslint-disable-next-line no-restricted-syntax
       for (const blockName in error.blockErrors) {
         if (hasOwn(error.blockErrors, blockName)) {
           this.childBlocks[blockName].setError(error.blockErrors[blockName]);
@@ -113,7 +184,7 @@ export class StructBlock {
 
   getState() {
     const state = {};
-    // eslint-disable-next-line guard-for-in
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const name in this.childBlocks) {
       state[name] = this.childBlocks[name].getState();
     }
@@ -122,7 +193,7 @@ export class StructBlock {
 
   getDuplicatedState() {
     const state = {};
-    // eslint-disable-next-line guard-for-in
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const name in this.childBlocks) {
       const block = this.childBlocks[name];
       state[name] =
@@ -135,7 +206,7 @@ export class StructBlock {
 
   getValue() {
     const value = {};
-    // eslint-disable-next-line guard-for-in
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const name in this.childBlocks) {
       value[name] = this.childBlocks[name].getValue();
     }
@@ -143,7 +214,8 @@ export class StructBlock {
   }
 
   getTextLabel(opts) {
-    if (this.blockDef.meta.labelFormat) {
+    // Allow using the empty string for the additional text in collapsed state
+    if (typeof this.blockDef.meta.labelFormat === 'string') {
       /* use labelFormat - regexp replace any field references like '{first_name}'
       with the text label of that sub-block */
       return this.blockDef.meta.labelFormat.replace(
@@ -187,6 +259,11 @@ export class StructBlockDefinition {
     this.name = name;
     this.childBlockDefs = childBlockDefs;
     this.meta = meta;
+
+    // Always collapsible by default, but can be overridden e.g. when used in a
+    // StreamBlock or ListBlock, in which case the collapsible behavior is
+    // controlled by the parent block.
+    this.collapsible = true;
   }
 
   render(placeholder, prefix, initialState, initialError) {

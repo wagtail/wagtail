@@ -102,6 +102,30 @@ depth: 1
 ---
 ```
 
+## Appearance
+
+Hooks for modifying the display and appearance of basic CMS features and furniture.
+
+(get_avatar_url)=
+
+### `get_avatar_url`
+
+Specify a custom user avatar to be displayed in the Wagtail admin. The callable passed to this hook should accept a `user` object and a `size` parameter that can be used in any resize or thumbnail processing you might need to do.
+
+```python
+from datetime import datetime
+
+@hooks.register('get_avatar_url')
+def get_profile_avatar(user, size):
+    today = datetime.now()
+    is_christmas_day = today.month == 12 and today.day == 25
+
+    if is_christmas_day:
+      return '/static/images/santa.png'
+
+    return None
+```
+
 ## Admin modules
 
 Hooks for building new areas of the admin interface (alongside pages, images, documents, and so on).
@@ -416,19 +440,28 @@ This hook takes two parameters:
 -   `user`: The user object to generate the button for
 -   `request_user`: The currently logged-in user
 
-This example will add a simple button to the listing if the currently logged-in user is a superuser:
+This example will add a button inside the "More" dropdown and a top-level button in the listing if the currently logged-in user is a superuser:
 
 ```python
-from wagtail.users.widgets import UserListingButton
+from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register("register_user_listing_buttons")
 def user_listing_external_profile(user, request_user):
     if request_user.is_superuser:
-        yield UserListingButton(
+        yield wagtailadmin_widgets.Button(
             "Show profile",
             f"/goes/to/a/url/{user.pk}",
             priority=30,
         )
+        yield wagtailadmin_widgets.ListingButton(
+            "Impersonate",
+            f"/goes/to/another/url/{user.pk}",
+            priority=10,
+        )
+```
+
+```{versionchanged} 7.0
+The `wagtail.users.widgets.UserListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
 ```
 
 (filter_form_submissions_for_user)=
@@ -490,7 +523,9 @@ def global_admin_css():
 
 ### `insert_editor_js`
 
-Add additional JavaScript files or code snippets to the page editor.
+Add additional JavaScript files or code snippets to page, snippets and ModelViewSet editing and creation views. This hook's output is also included in the [](styleguide) view to better test editing customizations.
+
+See [](extending_client_side) for more details about how to integrate these kinds of customizations.
 
 ```python
 # wagtail_hooks.py
@@ -538,6 +573,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 ### `insert_global_admin_js`
 
 Add additional JavaScript files or code snippets to all admin pages.
+
+See [](extending_client_side) for more details about how to integrate these kinds of customizations.
 
 ```python
 from django.utils.html import format_html
@@ -846,7 +883,7 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object and a list of menu objects, `items`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the user bar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
 
 ```python
 from wagtail import hooks
@@ -857,9 +894,11 @@ class UserbarPuppyLinkItem:
             + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
 
 @hooks.register('construct_wagtail_userbar')
-def add_puppy_link_item(request, items):
-    return items.append( UserbarPuppyLinkItem() )
+def add_puppy_link_item(request, items, page):
+    items.append(UserbarPuppyLinkItem())
 ```
+
+If you intend to use icons in your actions, you'll have to declare them by overriding the [userbar template](custom_icons_userbar).
 
 ## Admin workflow
 
@@ -1020,7 +1059,7 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
 def page_listing_buttons(page, user, next_url=None):
-    yield wagtailadmin_widgets.PageListingButton(
+    yield wagtailadmin_widgets.ListingButton(
         'A page listing button',
         '/goes/to/a/url/',
         priority=10
@@ -1034,6 +1073,10 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
+
+```{versionchanged} 7.0
+The `PageListingButton` class is deprecated in favor of `ListingButton`.
+```
 
 (register_page_listing_more_buttons)=
 
@@ -1103,7 +1146,7 @@ The template for the dropdown button can be customized by overriding `wagtailadm
 
 ### `construct_page_listing_buttons`
 
-Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `PageListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
+Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `ListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
 
 ```python
 @hooks.register('construct_page_listing_buttons')
@@ -1130,6 +1173,42 @@ def block_googlebot(page, request, serve_args, serve_kwargs):
     if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
         return HttpResponse("<h1>bad googlebot no cookie</h1>")
 ```
+
+(on_serve_page)=
+
+### `on_serve_page`
+
+Called when Wagtail is serving a page, after `before_serve_page` but before the page's `serve()` method is called. Unlike `before_serve_page`, this hook allows you to modify the serving chain rather than just returning an alternative response.
+
+The callable passed to this hook must accept a function as its argument and return a new function that will be used in its place. The passed-in function will be the next callable in the serving chain.
+
+For example, to add custom cache headers to the response:
+
+```python
+from wagtail import hooks
+
+@hooks.register('on_serve_page')
+def add_custom_headers(next_serve_page):
+    def wrapper(page, request, args, kwargs):
+        response = next_serve_page(page, request, args, kwargs)
+        response['Custom-Header'] = 'value'
+        return response
+    return wrapper
+```
+
+Parameters passed to the function:
+
+-   `page` - the Page object being served
+-   `request` - the request object
+-   `args` - positional arguments that will be passed to the page's serve method
+-   `kwargs` - keyword arguments that will be passed to the page's serve method
+
+This hook is particularly useful for:
+
+-   Adding/modifying response headers
+-   Implementing access restrictions
+-   Modifying the response content
+-   Adding logging or monitoring
 
 ## Document serving
 
@@ -1303,15 +1382,20 @@ def make_delete_default_action(menu_items, request, context):
 
 Add buttons to the actions list for a snippet in the snippets listing. This is useful when adding custom actions to the listing, such as translations or a complex workflow.
 
-This example will add a simple button to the listing:
+This example will add a button inside the "More" dropdown and a top-level button in the listing:
 
 ```python
-from wagtail.snippets import widgets as wagtailsnippets_widgets
+from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_snippet_listing_buttons')
 def snippet_listing_buttons(snippet, user, next_url=None):
-    yield wagtailsnippets_widgets.SnippetListingButton(
-        'A page listing button',
+    yield wagtailadmin_widgets.Button(
+        'A snippet listing button inside the "More" dropdown',
+        '/goes/to/a/url/',
+        priority=90
+    )
+    yield wagtailadmin_widgets.ListingButton(
+        'A top-level snippet listing button',
         '/goes/to/a/url/',
         priority=10
     )
@@ -1325,11 +1409,15 @@ The arguments passed to the hook are as follows:
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
 
+```{versionchanged} 7.0
+The `wagtail.snippets.widgets.SnippetListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
+```
+
 (construct_snippet_listing_buttons)=
 
 ### `construct_snippet_listing_buttons`
 
-Modify the final list of snippet listing buttons. The callable passed to this hook receives a list of `SnippetListingButton` objects, the snippet object and a user, and should modify the list of menu items in-place.
+Modify the final list of snippet listing buttons in the "More" dropdown menu. The callable passed to this hook receives a list of `Button` objects, the snippet object and a user, and should modify the list of menu items in-place.
 
 ```python
 @hooks.register('construct_snippet_listing_buttons')

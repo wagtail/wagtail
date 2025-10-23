@@ -2,6 +2,9 @@
 
 $logo-size: 110px;
 
+@use '../../../../scss/tools' as *;
+@use '../../../../scss/settings' as *;
+
 // Wagging animation
 @keyframes tail-wag {
   from {

@@ -14,7 +14,7 @@
 
         <form
             id="page-edit-form"
-            action="{% url 'wagtailadmin_pages:edit' page.id %}"
+            action="{{ action_url }}"
             method="POST"
             novalidate
             {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
@@ -30,10 +30,6 @@
 
             <input type="hidden" name="next" value="{{ next }}">
             {{ edit_handler.render_form_content }}
-
-            {% if is_revision %}
-                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
-            {% endif %}
 
             {% block footer %}
                 {{ block.super }}

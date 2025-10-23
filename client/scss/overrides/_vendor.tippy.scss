@@ -1,5 +1,5 @@
 // stylelint-disable selector-attribute-name-disallowed-list
-@import '../../../node_modules/tippy.js/dist/tippy';
+@use '../../../node_modules/tippy.js/dist/tippy';
 
 .tippy-box {
   // Special font size 12px for tooltips

@@ -27,6 +27,14 @@ StandaloneHTMLBuilder.supported_image_types = ["image/gif", "image/png"]
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 
+# Relative path to the root of the documentation, used for linking to the
+# Typedoc-generated sub-docs. RTD allows optional language and version.
+base_path = ""
+if rtd_lang := os.environ.get("READTHEDOCS_LANGUAGE", ""):
+    base_path += f"/{rtd_lang}"
+if rtd_version := os.environ.get("READTHEDOCS_VERSION", ""):
+    base_path += f"/{rtd_version}"
+
 html_theme = "sphinx_wagtail_theme"
 html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
 
@@ -72,8 +80,7 @@ autodoc_type_aliases = {
 nitpick_ignore = [
     # Sphinx currently cannot resolve type hint names, warns "target not found":
     ("py:class", "wagtail.images.models.Filter"),
-    ("py:class", "HttpRequest"),
-    ("py:class", "RouteResult"),
+    ("py:class", "wagtail.url_routing.RouteResult"),
     ("py:class", "wagtail.blocks.base.Block"),
     ("py:class", "wagtail.blocks.field_block.BaseChoiceBlock"),
     ("py:class", "wagtail.blocks.field_block.ChooserBlock"),
@@ -191,7 +198,27 @@ myst_url_schemes = {
     "https": None,
     "http": None,
     "mailto": None,
+    "client": {
+        "url": "%s/reference/ui/client/{{path}}.html#{{fragment}}" % base_path,
+        "title": "{{path}}",
+        "classes": ["pre"],
+    },
+    "controller": {
+        "url": (
+            "%s/reference/ui/client/classes/controllers_{{path}}.{{path}}.html#{{fragment}}"
+            % base_path
+        ),
+        "title": "{{path}}",
+        "classes": ["pre"],
+    },
 }
+
+myst_enable_extensions = [
+    # To support the `.external` link modifier. See:
+    # https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#customising-external-url-resolution
+    # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-inline
+    "attrs_inline",
+]
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -400,3 +427,9 @@ def setup(app):
         rolename="lookup",
         indextemplate="pair: %s; field lookup type",
     )
+
+    # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
+    # type annotations - see https://github.com/wagtail/wagtail/pull/12777
+    from django.http import HttpRequest
+
+    HttpRequest.__module__ = "django.http"

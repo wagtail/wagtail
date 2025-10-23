@@ -232,6 +232,11 @@ class AccountView(WagtailAdminTemplateMixin, TemplateView):
     page_title = gettext_lazy("Account")
     header_icon = "user"
 
+    def get_breadcrumbs_items(self):
+        return super().get_breadcrumbs_items() + [
+            {"url": "", "label": self.get_page_title()}
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         panels = self.get_panels()
@@ -414,7 +419,9 @@ class LoginView(auth_views.LoginView):
 
 
 class LogoutView(auth_views.LogoutView):
-    next_page = "wagtailadmin_login"
+    @property
+    def next_page(self):
+        return getattr(settings, "WAGTAILADMIN_LOGIN_URL", "wagtailadmin_login")
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)

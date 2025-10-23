@@ -4,15 +4,15 @@
 #
 # Translators:
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022,2024
 # Andrej Marsetič, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Andrej Marsetič, 2024\n"
+"Last-Translator: Andrej Marsetič, 2022,2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"

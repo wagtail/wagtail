@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.conf import settings
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -14,7 +12,6 @@ from wagtail.documents.models import document_served
 from wagtail.forms import PasswordViewRestrictionForm
 from wagtail.models import CollectionViewRestriction
 from wagtail.utils import sendfile_streaming_backend
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.sendfile import sendfile
 
 
@@ -90,7 +87,7 @@ def serve(request, document_id, document_filename):
             # Fallback to streaming backend if user hasn't specified SENDFILE_BACKEND
             sendfile_opts["backend"] = sendfile_streaming_backend.sendfile
 
-        return sendfile(request, local_path, **sendfile_opts)
+        response = sendfile(request, local_path, **sendfile_opts)
 
     else:
         # We are using a storage backend which does not expose filesystem paths
@@ -107,7 +104,14 @@ def serve(request, document_id, document_filename):
         # FIXME: storage backends are not guaranteed to implement 'size'
         response["Content-Length"] = doc.file.size
 
-        return response
+    # Add a CSP header to prevent inline execution
+    if getattr(settings, "WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT", True):
+        response["Content-Security-Policy"] = "default-src 'none'"
+
+    # Prevent browsers from auto-detecting the content-type of a document
+    response["X-Content-Type-Options"] = "nosniff"
+
+    return response
 
 
 def authenticate_with_password(request, restriction_id):
@@ -141,18 +145,6 @@ def authenticate_with_password(request, restriction_id):
         "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE",
         "wagtaildocs/password_required.html",
     )
-
-    if hasattr(settings, "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE"):
-        warn(
-            "The `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE` instead.",
-            category=RemovedInWagtail70Warning,
-        )
-
-        password_required_template = getattr(
-            settings,
-            "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
-            password_required_template,
-        )
 
     context = {"form": form, "action_url": action_url}
     return TemplateResponse(request, password_required_template, context)

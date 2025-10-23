@@ -2,10 +2,13 @@ import axe, { AxePlugin } from 'axe-core';
 
 /**
  * Axe plugin registry for interaction between the page editor and the live preview.
+ *
+ * @remarks
  * Compared to other aspects of Axe and other plugins,
  * - The parent frame only triggers execution of the plugin’s logic in the one frame.
  * - The preview frame only executes the plugin’s logic, it doesn’t go through its own frames.
- * See https://github.com/dequelabs/axe-core/blob/master/doc/plugins.md.
+ *
+ * @see https://github.com/dequelabs/axe-core/blob/master/doc/plugins.md
  */
 export const wagtailPreviewPlugin: AxePlugin = {
   id: 'wagtailPreview',

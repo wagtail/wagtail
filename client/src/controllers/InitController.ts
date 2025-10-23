@@ -6,19 +6,25 @@ import { debounce } from '../utils/debounce';
  * add or remove classes when ready to be interacted with.
  *
  * @example - Dynamic classes when ready
+ * ```html
  * <div class="keep-me hide-me" data-controller="w-init" data-w-init-remove-class="hide-me" data-w-init-ready-class="loaded">
  *   When the DOM is ready, this div will have the class 'loaded' added and 'hide-me' removed.
  * </div>
+ * ```
  *
  * @example - Custom event dispatching
+ * ```html
  * <div class="keep-me hide-me" data-controller="w-init" data-w-init-event-value="custom:event other-custom:event">
  *   When the DOM is ready, two additional custom events will be dispatched; `custom:event` and `other-custom:event`.
  * </div>
+ * ```
  *
  * @example - Detail dispatching
+ * ```html
  * <article data-controller="w-init" data-w-init-detail-value='{"status": "success", "message": "Article has entered the room"}'>
  *  When the DOM is ready, the detail with value of a JSON object above will be dispatched.
  * </article>
+ * ```
  */
 export class InitController extends Controller<HTMLElement> {
   static classes = ['ready', 'remove'];

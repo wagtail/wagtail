@@ -16,7 +16,7 @@ class TestSiteSwitchFromSiteOrdering(TestCase):
             hostname="bravo.com", root_page=self.root_page, is_default_site=True
         )
         site_3 = Site.objects.create(hostname="alfa.com", root_page=self.root_page)
-        form = SiteSwitchForm(site_1, TestSiteSetting)
+        form = SiteSwitchForm(site_1, TestSiteSetting, sites=Site.objects.all())
         expected_choices = [
             (f"/admin/settings/tests/testsitesetting/{site_3.id}/", "alfa.com"),
             (

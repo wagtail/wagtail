@@ -205,6 +205,57 @@ class PersonBlock(blocks.StructBlock):
 
 For a list of icons available out of the box, see our [icons overview](icons). Project-specific icons are also displayed in the [styleguide](styleguide).
 
+(block_grouping)=
+
+### Grouping blocks
+
+When a `StreamField` has a large number of different block types, the block picker menu can become long and difficult to scan. To help with this, you can organize related blocks into groups by passing the `group` option as a keyword argument or as an attribute on a `Meta` class. Grouped block types will show after all of the ungrouped (common) types, those with no `group` specified.
+
+Any blocks that share the same `group` name will be clustered together under that name as a heading in the menu, making the interface cleaner and more efficient for content authors.
+
+```{code-block} python
+:emphasize-lines: 16, 17, 18
+
+from django.utils.translation import gettext_lazy as _
+from wagtail.fields import StreamField
+from wagtail import blocks
+from wagtail.models import Page
+
+class BlogPage(Page):
+    body = StreamField([
+        # Standard blocks (will appear first, ungrouped)
+        ('heading', blocks.CharBlock(icon='title')),
+        ('paragraph', blocks.RichTextBlock()),
+
+        # "Call to action" blocks, grouped together
+        ('cta_button', blocks.StructBlock([
+            ('button_text', blocks.CharBlock()),
+            ('button_link', blocks.URLBlock()),
+        ], icon='link', group=_('Call to action'))),
+        ('signup_form', blocks.StructBlock([], icon='form', group=_('Call to action'))),
+        ('featured_section', blocks.PageChooserBlock(group=_('Call to action'))),
+    ])
+```
+
+This will render a block picker menu where the `cta_button`, `signup_form`, and `featured_section` blocks all appear together under a "Call to action" heading.
+
+You can also define the group within a block's `Meta` class, which is useful when creating reusable block classes. A `group` passed as a keyword argument will always override any `group` defined on the block’s `Meta` class.
+
+```{code-block} python
+:emphasize-lines: 8
+
+from django.utils.translation import gettext_lazy as _
+
+class CallToActionButtonBlock(blocks.StructBlock):
+    button_text = blocks.CharBlock()
+    button_link = blocks.URLBlock()
+
+    class Meta:
+        group = _('Call to action')
+        icon = 'link'
+        template = 'blocks/cta_button.html'
+```
+
 ### ListBlock
 
 `ListBlock` defines a repeating block, allowing content authors to insert as many instances of a particular block type as they like. For example, a 'gallery' block consisting of multiple images can be defined as follows:
@@ -494,7 +545,142 @@ class EventBlock(blocks.StructBlock):
 
 In this example, the variable `is_happening_today` will be made available within the block template. The `parent_context` keyword argument is available when the block is rendered through an `{% include_block %}` tag, and is a dict of variables passed from the calling template.
 
+(streamfield_get_template)=
+
+Similarly, a `get_template` method can be defined to dynamically select a template based on the block value:
+
+```python
+import datetime
+
+class EventBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    date = blocks.DateBlock()
+
+    def get_template(self, value, context=None):
+        if value["date"] > datetime.date.today():
+            return "myapp/blocks/future_event.html"
+        else:
+            return "myapp/blocks/event.html"
+```
+
 All block types, not just `StructBlock`, support the `template` property. However, for blocks that handle basic Python data types, such as `CharBlock` and `IntegerBlock`, there are some limitations on where the template will take effect. For further details, see [](boundblocks_and_values).
+
+(configuring_block_previews)=
+
+## Configuring block previews
+
+StreamField blocks can have previews that will be shown inside the block picker when you add a block in the editor. To enable this feature, you must configure the preview value and template. You can also add a description to help users pick the right block for their content.
+
+You can do so by [passing the keyword arguments](block_preview_arguments) `preview_value`, `preview_template`, and `description` when instantiating a block:
+
+```{code-block} python
+:emphasize-lines: 6-8
+
+("quote", blocks.StructBlock(
+    [
+        ("text", blocks.TextBlock()),
+        ("source", blocks.CharBlock()),
+    ],
+    preview_value={"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"},
+    preview_template="myapp/previews/blocks/quote.html",
+    description="A quote with attribution to the source, rendered as a blockquote.",
+))
+```
+
+You can also set `preview_value`, `preview_template`, and `description` as attributes in the `Meta` class of the block. For example:
+
+```{code-block} python
+:emphasize-lines: 6-8
+
+class QuoteBlock(blocks.StructBlock):
+    text = blocks.TextBlock()
+    source = blocks.CharBlock()
+
+    class Meta:
+        preview_value = {"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"}
+        preview_template = "myapp/previews/blocks/quote.html"
+        description = "A quote with attribution to the source, rendered as a blockquote."
+```
+
+For more details on the preview options, see the corresponding {meth}`~wagtail.blocks.Block.get_preview_value`, {meth}`~wagtail.blocks.Block.get_preview_template`, and {meth}`~wagtail.blocks.Block.get_description` methods, as well as the {meth}`~wagtail.blocks.Block.get_preview_context` method.
+
+In particular, the `get_preview_value()` method can be overridden to provide a dynamic preview value, such as from the database:
+
+```python
+from myapp.models import Quote
+
+
+class QuoteBlock(blocks.StructBlock):
+    ...
+
+    def get_preview_value(self, value):
+        quote = Quote.objects.first()
+        return {"text": quote.text, "source": quote.source}
+```
+
+Alternatively, the `preview_value` can be defined as a callable.
+
+```{code-block} python
+:emphasize-lines: 9
+from django.utils import timezone
+from wagtail.blocks import DateBlock, StreamBlock
+
+
+class MyStreamBlock(StreamBlock):
+    # ... other blocks
+    date_block = DateBlock(
+        icon="calendar",
+        preview_value=timezone.now,
+        preview_template="blocks/date_block_preview.html",
+    )
+```
+
+```{versionadded} 7.1
+The `preview_value` can now be defined as a callable.
+```
+
+(streamfield_global_preview_template)=
+
+### Overriding the global preview template
+
+In many cases, you likely want to use the block's real template that you already configure via `template` or `get_template` as described in [](streamfield_per_block_templates). However, such templates are only an HTML fragment for the block, whereas the preview requires a complete HTML document as the template.
+
+To avoid having to specify `preview_template` for each block, Wagtail provides a default preview template for all blocks. This template makes use of the `{% include_block %}` tag (as described in [](streamfield_template_rendering)), which will reuse your block's specific template.
+
+Note that the default preview template does not include any static assets that may be necessary to render your blocks properly. If you only need to add static assets to the default preview template, you can skip specifying `preview_template` for each block and instead override the default template globally. You can do so by creating a `wagtailcore/shared/block_preview.html` template inside one of your `templates` directories (with a higher precedence than the `wagtail` app) with the following content:
+
+```html+django
+{% extends "wagtailcore/shared/block_preview.html" %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/my-styles.css' %}">
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/my-script.js' %}"></script>
+{% endblock %}
+```
+
+For more details on overriding templates, see Django's guide on [](inv:django#howto/overriding-templates).
+
+The global `wagtailcore/shared/block_preview.html` override will be used for all blocks by default. If you want to use a different template for a particular block, you can still specify `preview_template`, which will take precedence.
+
+(turning_off_block_previews)=
+
+### Turning off previews for a specific block
+
+To turn off previews for a block, set {attr}`is_previewable = False <wagtail.blocks.Block.is_previewable>` on the block class.
+
+```{code-block} python
+:emphasize-lines: 3
+
+class ConfigBlock(blocks.StructBlock):
+    ...
+    is_previewable = False
+```
 
 ## Customizations
 

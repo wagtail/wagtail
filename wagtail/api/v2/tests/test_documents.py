@@ -252,7 +252,7 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            content, {"message": "cannot order by 'random' (unknown field)"}
+            content, {"message": "cannot order by '-random' (unknown field)"}
         )
 
     def test_ordering_by_random_with_offset_gives_error(self):
@@ -605,11 +605,13 @@ class TestDocumentCacheInvalidation(TestCase):
         signal_handlers.unregister_signal_handlers()
 
     def test_resave_document_purges(self, purge):
-        get_document_model().objects.get(id=5).save()
+        with self.captureOnCommitCallbacks(execute=True):
+            get_document_model().objects.get(id=5).save()
 
         purge.assert_any_call("http://api.example.com/api/main/documents/5/")
 
     def test_delete_document_purges(self, purge):
-        get_document_model().objects.get(id=5).delete()
+        with self.captureOnCommitCallbacks(execute=True):
+            get_document_model().objects.get(id=5).delete()
 
         purge.assert_any_call("http://api.example.com/api/main/documents/5/")

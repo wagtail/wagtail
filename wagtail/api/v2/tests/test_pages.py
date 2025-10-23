@@ -909,7 +909,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            content, {"message": "cannot order by 'random' (unknown field)"}
+            content, {"message": "cannot order by '-random' (unknown field)"}
         )
 
     def test_ordering_by_random_with_offset_gives_error(self):
@@ -994,25 +994,11 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
         page_id_list = self.get_page_id_list(content)
         expected_order = [
-            15,
-            10,
-            6,
-            17,
-            20,
-            13,
-            2,
-            4,
-            9,
-            8,
-            14,
-            12,
-            18,
-            16,
-            5,
-            23,
-            19,
-            22,
             21,
+            22,
+            19,
+            23,
+            5,
         ]
         self.assertEqual(page_id_list[:5], expected_order[:5])
 
@@ -1781,6 +1767,19 @@ class TestPageFind(TestCase):
             fetch_redirect_response=False,
         )
 
+    def test_find_by_html_path_with_fields(self):
+        response = self.get_response(
+            html_path="/events-index/event-1/", fields="_,id,type"
+        )
+
+        self.assertRedirects(
+            response,
+            "http://localhost"
+            + reverse("wagtailapi_v2:pages:detail", args=[8])
+            + "?fields=_,id,type",
+            fetch_redirect_response=False,
+        )
+
     def test_find_by_html_path_nonexistent(self):
         response = self.get_response(html_path="/foo")
 
@@ -1886,22 +1885,26 @@ class TestPageCacheInvalidation(TestCase):
         signal_handlers.unregister_signal_handlers()
 
     def test_republish_page_purges(self, purge):
-        Page.objects.get(id=2).specific.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).specific.save_revision().publish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
     def test_unpublish_page_purges(self, purge):
-        Page.objects.get(id=2).unpublish()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).unpublish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
     def test_delete_page_purges(self, purge):
-        Page.objects.get(id=16).delete()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=16).delete()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/16/")
 
     def test_save_draft_doesnt_purge(self, purge):
-        Page.objects.get(id=2).specific.save_revision()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).specific.save_revision()
 
         purge.assert_not_called()
 

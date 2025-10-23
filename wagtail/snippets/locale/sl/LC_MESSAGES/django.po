@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -48,9 +48,6 @@ msgstr "Prekliči potek dela"
 msgid "Unpublish"
 msgstr "Umakni iz objave"
 
-msgid "Delete"
-msgstr "Izbriši"
-
 msgid "Save"
 msgstr "Shrani"
 
@@ -63,6 +60,9 @@ msgstr "%(label)s in Objavi"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail delci"
+
+msgid "Delete"
+msgstr "Izbriši"
 
 msgid "Delete selected snippets"
 msgstr "Izbriši izbrane delčke"
@@ -85,14 +85,6 @@ msgstr "Izbriši %(snippet_type_name)s"
 
 msgid "Delete "
 msgstr "Izbriši"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Uporabljeno %(usage_count)s krat"
-msgstr[1] "Uporabljeno %(usage_count)s krat"
-msgstr[2] "Uporabljeno %(usage_count)s krat"
-msgstr[3] "Uporabljeno %(usage_count)s krat"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -131,8 +123,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">ustvarili enega sedaj</a>?"
 
+msgid "Scheduling…"
+msgstr "Načrtovanje..."
+
 msgid "Publishing…"
 msgstr "Objavljanje…"
+
+msgid "Schedule to publish"
+msgstr "Načrtuj objavo"
 
 msgid "Publish this version"
 msgstr "Objavi to različico"
@@ -167,14 +165,6 @@ msgstr "Število"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Več možnosti za '%(title)s'"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Uredi ta %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "Zgodovina %(model_name)s"
 
 msgid "Home"
 msgstr "Domov"

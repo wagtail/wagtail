@@ -6,14 +6,15 @@
 # Amawalee Combe <dang@getsalebox.com>, 2019
 # Jon Combe <jon@naremit.com>, 2019
 # Siramol Khunchai, 2024
+# Siramol Khunchai, 2024
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Siramol Khunchai, 2024\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -394,10 +395,6 @@ msgstr ""
 "ลบ"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "ยกเลิกการเผยแพร่ %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "คุณแน่ใจว่าต้องการจะยุติการเผยแพร่ %(model_name)s นี้หรือไม่?"
 
@@ -421,13 +418,6 @@ msgstr "คุณยังต้องการจะเผยแพร่ %(mod
 
 msgid "Update"
 msgstr "ล่าสุด"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "กำลังเปรียบเทียบ %(title)s"
-
-msgid "Comparing"
-msgstr "กำลังเปรียบเทียบ"
 
 msgid "Fields"
 msgstr "หัวข้อ"
@@ -706,11 +696,6 @@ msgstr "เลื่อนขึ้น"
 msgid "Move down"
 msgstr "เลื่อนลง"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr "กำหนดการเผยแพร่นี้จะมีผลหลังจากที่คุณเลือก \"เผยแพร่\" แล้วเท่านั้น"
-
 msgid "Set publishing schedule"
 msgstr "ตั้งกำหนดการเผยแพร่"
 
@@ -738,10 +723,6 @@ msgstr "ชื่อ"
 msgid "Edit this item"
 msgstr "แก้ไขชิ้นนี้"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "หน้า %(page_num)s ของ%(total_pages)s."
-
 msgid "Continue"
 msgstr "ต่อ,ต่อเนื่อง"
 
@@ -755,11 +736,8 @@ msgid "Visit the live page"
 msgstr "ไปยังหน้าที่เผยแพร่"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "ยกเลิกการแก้ไขตาราง %(revision.id)s สำหรับ %(title)s"
-
-msgid "Unschedule"
-msgstr "ยกเลิกตาราง"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "หน้า %(page_num)s ของ%(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "คุณแน่ใจว่าคุณอยากจะยกเลิกการแก้ไขนี้"
@@ -791,9 +769,6 @@ msgstr "การใช้"
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
-
-msgid "Once published:"
-msgstr "เผยแพร่แล้ว:"
 
 msgid "No publishing schedule set"
 msgstr "ไม่ได้ตั้งกำหนดการเผยแพร่"
@@ -840,9 +815,6 @@ msgstr "ถอยหลัง"
 
 msgid "Redo"
 msgstr "ทำใหม่"
-
-msgid "Bold"
-msgstr "ตัวอักษรหนา"
 
 msgid "Italic"
 msgstr "ตัวอักษรเอียง"
@@ -914,10 +886,6 @@ msgstr "%(model_name)s '%(object)s' มีการอัปเดตและ�
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr "%(model_name)s '%(object)s' ถูกสร้างและเผยแพร่"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "แก้ไข'%(title)s'"
-
 msgid "Inspect"
 msgstr "ตรวจ"
 
@@ -929,6 +897,9 @@ msgstr "ที่เก่าแก่ที่สุด"
 
 msgid "Latest"
 msgstr "ล่าสุด"
+
+msgid "Unschedule"
+msgstr "ยกเลิกตาราง"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1028,19 +999,14 @@ msgstr "หน้านี้กำลังถูกใช้อยู่"
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "หน้า%(page_title)s ปัจจุบันนี้ไม่รอตรวจ"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "ดูตัวอย่างเวอร์ชั่นฉบับร่างของ '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "ดูเวอร์ชั่นที่เผยแพร่ของ '%(title)s'"
-
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"
 
 msgid "Numbered list"
 msgstr "รายการตัวเลข"
+
+msgid "Bold"
+msgstr "ตัวอักษรหนา"
 
 msgid "Link"
 msgstr "ลิงค์"

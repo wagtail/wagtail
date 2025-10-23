@@ -94,15 +94,17 @@ $(function () {
 
     /**
      * Allow a custom title to be defined by an event handler for this form.
-     * If event.preventDefault is called, the original behaviour of using the raw
+     * If event.preventDefault is called, the original behavior of using the raw
      * filename (with extension) as the title is preserved.
      *
      * @example
+     * ```js
      * document.addEventListener('wagtail:images-upload', function(event) {
      *   // remove file extension
      *   var newTitle = (event.detail.data.title || '').replace(/\.[^.]+$/, '');
      *   event.detail.data.title = newTitle;
      * });
+     * ```
      *
      * @param {HtmlElement[]} form
      * @returns {{name: 'string', value: *}[]}
@@ -123,7 +125,7 @@ $(function () {
         }),
       );
 
-      // default behaviour (title is just file name)
+      // default behavior (title is just file name)
       return event
         ? form.serializeArray().concat({ name: 'title', value: data.title })
         : form.serializeArray();

@@ -16,6 +16,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
+# Stefan Hammer <stefan@hammerworxx.com>, 2022,2025
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>, 2015\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022,2025\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -45,11 +46,20 @@ msgstr "Datum bis"
 
 #, python-format
 msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
 msgstr ""
-"Es gibt ein weiteres Feld mit der Bezeichnung %(label_name)s, bitte ändern "
-"Sie eines der beiden."
+"Der Name „%(duplicate_clean_name)s“ ist diesem Feld bereits zugewiesen und "
+"kann nicht geändert werden. Geben Sie für das in Konflikt stehende Feld eine "
+"andere Bezeichnung ein."
+
+#, python-format
+msgid ""
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
+msgstr ""
+"Der Feldname „%(duplicate_clean_name)s“ steht im Konflikt mit einem anderen "
+"Feld. Bitte ändern Sie die Bezeichnung."
 
 msgid "Single line text"
 msgstr "Einzeiliger Text"

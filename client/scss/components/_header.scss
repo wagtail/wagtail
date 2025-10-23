@@ -1,5 +1,7 @@
 @use 'sass:math';
 @use 'sass:color';
+@use '../tools' as *;
+@use '../settings' as *;
 
 .w-header {
   @apply w-text-text-label;

@@ -64,7 +64,7 @@ class PublishRevisionAction:
             and not self.permission_policy.user_has_permission(self.user, "publish")
         ):
             raise PublishPermissionError(
-                "You do not have permission to publish this object"
+                "You do not have permission to publish this object."
             )
 
     def log_scheduling_action(self):

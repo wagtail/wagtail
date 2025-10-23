@@ -88,4 +88,27 @@ Now, you want to display your search across your site. One way to do this is to 
 </header>
 ```
 
+You can now run searches and view results. However, the search currently only returns results for words found in the page title. To make other fields searchable, it is necessary to add them to the search index - see [](wagtailsearch_indexing). In `blog/models.py`, add the code below:
+
+```python
+# Add to the existing imports:
+from wagtail.search import index
+
+class BlogPage(Page):
+    # Keep the existing parent_page_types, fields, methods and content_panels definitions, and add:
+
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+    ]
+```
+
+Now run the following command to rebuild the search index, now with the `body` field of `BlogPage` included:
+
+```sh
+python manage.py update_index
+```
+
+Searching will now return results for words found within the body text.
+
 Well done! You now have a fully deployable portfolio site. The next section of this tutorial will walk you through how to deploy your site.

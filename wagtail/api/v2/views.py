@@ -1,10 +1,12 @@
 from collections import OrderedDict
 
+from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import path, reverse
+from django.utils.functional import classproperty
 from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
@@ -35,7 +37,16 @@ from .utils import (
 
 
 class BaseAPIViewSet(GenericViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    @classproperty
+    def renderer_classes(cls):
+        renderers = [JSONRenderer]
+
+        # Only add BrowsableAPIRenderer if rest_framework is installed
+        # (which provides the necessary templates and static files)
+        if apps.is_installed("rest_framework"):
+            renderers.append(BrowsableAPIRenderer)
+
+        return renderers
 
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
@@ -56,6 +67,7 @@ class BaseAPIViewSet(GenericViewSet):
             "format",
         ]
     )
+    find_query_parameters = frozenset(["id"])
     body_fields = ["id"]
     meta_fields = ["type", "detail_url"]
     listing_default_fields = ["id", "type", "detail_url"]
@@ -113,7 +125,12 @@ class BaseAPIViewSet(GenericViewSet):
                 )
             )
 
-        return redirect(url)
+        # Retain all query parameters except ones only used to find the object
+        query = request.GET.copy()
+        for param in self.find_query_parameters:
+            query.pop(param, None)
+
+        return redirect(f"{url}?{query.urlencode()}")
 
     def find_object(self, queryset, request):
         """
@@ -305,10 +322,10 @@ class BaseAPIViewSet(GenericViewSet):
                 child_endpoint_class = (
                     child_endpoint_class[1] if child_endpoint_class else BaseAPIViewSet
                 )
-                child_serializer_classes[
-                    field_name
-                ] = child_endpoint_class._get_serializer_class(
-                    router, child_model, child_sub_fields, nested=True
+                child_serializer_classes[field_name] = (
+                    child_endpoint_class._get_serializer_class(
+                        router, child_model, child_sub_fields, nested=True
+                    )
                 )
 
             else:
@@ -433,6 +450,11 @@ class PagesAPIViewSet(BaseAPIViewSet):
             "translation_of",
             "locale",
             "site",
+        ]
+    )
+    find_query_parameters = BaseAPIViewSet.find_query_parameters.union(
+        [
+            "html_path",
         ]
     )
     body_fields = BaseAPIViewSet.body_fields + [

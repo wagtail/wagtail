@@ -18,12 +18,14 @@ from wagtail.admin.ui.tables import (
     DownloadColumn,
     Table,
     TitleColumn,
+    UsageCountColumn,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
+from wagtail.models import ReferenceIndex
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 Document = get_document_model()
@@ -79,9 +81,16 @@ class IndexView(generic.IndexView):
 
     def get_base_queryset(self):
         # Get documents (filtered by user permission)
-        return self.permission_policy.instances_user_has_any_permission_for(
+        documents = self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["change", "delete"]
         ).select_related("collection")
+
+        # Annotate with usage count from the ReferenceIndex
+        documents = documents.annotate(
+            usage_count=ReferenceIndex.usage_count_subquery(self.model)
+        )
+
+        return documents
 
     @cached_property
     def current_collection(self):
@@ -104,7 +113,12 @@ class IndexView(generic.IndexView):
                 "created_at",
                 label=_("Created"),
                 sort_key="created_at",
+            ),
+            UsageCountColumn(
+                "usage_count",
+                label=_("Usage"),
                 width="16%",
+                sort_key="usage_count",
             ),
         ]
         if self.filters and "collection_id" in self.filters.filters:
@@ -162,7 +176,6 @@ class CreateView(generic.CreateView):
     error_message = gettext_lazy("The document could not be created due to errors.")
     template_name = "wagtaildocs/documents/add.html"
     header_icon = "doc-full-inverse"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -197,7 +210,6 @@ class EditView(generic.EditView):
     delete_url_name = "wagtaildocs:delete"
     header_icon = "doc-full-inverse"
     context_object_name = "document"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -244,7 +256,7 @@ class EditView(generic.EditView):
                 messages.error(
                     self.request,
                     _(
-                        "The file could not be found. Please change the source or delete the document"
+                        "The file could not be found. Please change the source or delete the document."
                     ),
                     buttons=[messages.button(self.get_delete_url(), _("Delete"))],
                 )
@@ -253,6 +265,7 @@ class EditView(generic.EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["usage_count_val"] = self.object.get_usage().count()
         context["filesize"] = self.object.get_file_size()
         context["next"] = self.next_url
         return context

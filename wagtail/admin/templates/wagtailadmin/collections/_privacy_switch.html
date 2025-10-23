@@ -7,7 +7,14 @@
     {% dialog icon_name='view' id='set-privacy' data_url=privacy_url title=_("Change privacy") message_status='info' message_heading=_("Privacy settings determine who is able to view documents in this collection.") %}
     {% enddialog %}
 
-    <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
+    <div
+        class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}"
+        data-controller="w-zone"
+        data-action="w-privacy:changed@document->w-zone#switch"
+        data-w-zone-active-class="public"
+        data-w-zone-inactive-class="private"
+        data-w-zone-switch-key-value="isPublic"
+    >
         {% trans "Privacy" %}
         <button type="button" data-a11y-dialog-show="set-privacy" class="button button-small button-secondary">
             {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}

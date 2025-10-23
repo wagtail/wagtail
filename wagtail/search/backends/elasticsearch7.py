@@ -4,8 +4,9 @@ from copy import deepcopy
 from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
+from django.db.models import Subquery
 from django.db.models.sql import Query
-from django.db.models.sql.constants import MULTI
+from django.db.models.sql.constants import MULTI, SINGLE
 from django.utils.crypto import get_random_string
 from elasticsearch import VERSION as ELASTICSEARCH_VERSION
 from elasticsearch import Elasticsearch, NotFoundError
@@ -505,6 +506,14 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                     }
                 }
             else:
+                if isinstance(value, (Query, Subquery)):
+                    db_alias = self.queryset._db or DEFAULT_DB_ALIAS
+                    query = value.query if isinstance(value, Subquery) else value
+                    value = query.get_compiler(db_alias).execute_sql(result_type=SINGLE)
+                    # The result is either a tuple with one element or None
+                    if value:
+                        value = value[0]
+
                 return {
                     "term": {
                         column_name: value,
@@ -552,9 +561,10 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             }
 
         if lookup == "in":
-            if isinstance(value, Query):
+            if isinstance(value, (Query, Subquery)):
                 db_alias = self.queryset._db or DEFAULT_DB_ALIAS
-                resultset = value.get_compiler(db_alias).execute_sql(result_type=MULTI)
+                query = value.query if isinstance(value, Subquery) else value
+                resultset = query.get_compiler(db_alias).execute_sql(result_type=MULTI)
                 value = [row[0] for chunk in resultset for row in chunk]
 
             elif not isinstance(value, list):
@@ -564,6 +574,9 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                     column_name: value,
                 }
             }
+
+    def _process_match_none(self):
+        return {"bool": {"mustNot": {"match_all": {}}}}
 
     def _connect_filters(self, filters, connector, negated):
         if filters:
@@ -605,6 +618,10 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             "query": query.query_string,
             "fuzziness": "AUTO",
         }
+
+        if query.operator != "or":
+            match_query["operator"] = query.operator
+
         if len(fields) == 1:
             if fields[0].boost != 1.0:
                 match_query["boost"] = fields[0].boost
@@ -1137,13 +1154,13 @@ class Elasticsearch7SearchBackend(BaseSearchBackend):
                 "analyzer": {
                     "ngram_analyzer": {
                         "type": "custom",
-                        "tokenizer": "lowercase",
-                        "filter": ["asciifolding", "ngram"],
+                        "tokenizer": "standard",
+                        "filter": ["asciifolding", "lowercase", "ngram"],
                     },
                     "edgengram_analyzer": {
                         "type": "custom",
-                        "tokenizer": "lowercase",
-                        "filter": ["asciifolding", "edgengram"],
+                        "tokenizer": "standard",
+                        "filter": ["asciifolding", "lowercase", "edgengram"],
                     },
                 },
                 "tokenizer": {

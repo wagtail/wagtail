@@ -171,3 +171,12 @@ When adding or updating an icon,
 5. Add the icon to Wagtail’s own implementation of the `register_icons` hook, in alphabetical order.
 6. Go to the styleguide and copy the Wagtail icons table according to instructions in the template, pasting the result in `wagtail_icons_table.txt`.
 7. If the icon requires [right-to-left mirroring](https://rtlstyling.com/posts/rtl-styling#bidirectional-icons), add the `class="icon--directional"` attribute.
+
+## Images
+
+Images in Wagtail's admin interface are displayed using a consistent set of patterns and components. We use the [`{% image %}` template tag](image_tag) for rendering images with automatic resizing.
+
+-   Always use `max-` resize rules for consistent image sizes. In the CMS, we only use `max-165x165` and `max-800x600` to improve performance. Further resizing can be done with CSS.
+-   Add the `loading="lazy"` attribute where appropriate, in particular when a view would display more than one image.
+-   Avoid manually setting an `alt` attribute, so the image tag defaults to using the image description or title.
+-   Use the `show-transparency` CSS class so users can visualize any transparent area of the visuals.

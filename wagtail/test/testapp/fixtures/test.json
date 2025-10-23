@@ -1027,5 +1027,12 @@
     "fields": {
       "content": "non-url-safe pk modelwithstringtypeprimarykey model"
     }
+  },
+  {
+    "pk": "web_407269_1",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "unquote-sensitive modelwithstringtypeprimarykey model"
+    }
   }
 ]

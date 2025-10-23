@@ -64,7 +64,7 @@ describe('MaxLength', () => {
   });
 });
 
-// Make sure count here matches result in TestRichTextMaxLengthValidator.test_count_characters
+// Make sure count here matches result in TestRichTextLengthValidators.test_count_characters
 test.each([
   // Embed blocks should be ignored.
   [['Plain text'], 'Plain text', 10],
@@ -88,7 +88,7 @@ test.each([
   expect(countCharacters(text)).toBe(count);
 });
 
-// Make sure count here matches result in TestRichTextMaxLengthValidator.test_count_characters
+// Make sure count here matches result in TestRichTextLengthValidators.test_count_characters
 describe.each`
   text         | result | segmenterLength
   ${'123456'}  | ${6}   | ${6}

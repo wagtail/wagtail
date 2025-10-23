@@ -152,7 +152,7 @@ There are no tabs on non-Page model editing within InlinePanels.""".format(
                 class_name, panel_name
             )
         else:
-            error_hint = """Ensure that {} uses `panels` instead of `{}`\
+            error_hint = """Ensure that {} uses `panels` instead of `{}` \
 or set up an `edit_handler` if you want a tabbed editing interface.
 There are no default tabs on non-Page models so there will be no \
 {} tab for the {} to render in.""".format(
@@ -177,7 +177,8 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
             Warning(
                 "The WAGTAILADMIN_BASE_URL setting is not defined",
                 hint="This should be the base URL used to access the Wagtail admin site. "
-                "Without this, URLs in notification emails will not display correctly.",
+                "Without this, admin URLs outside of the admin (e.g. notification "
+                "emails and the user bar) will not display correctly.",
                 id="wagtailadmin.W003",
             )
         )
@@ -191,10 +192,10 @@ def file_overwrite_check(app_configs, **kwargs):
     from django.conf import settings
 
     if DJANGO_VERSION >= (5, 1):
-        file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
+        file_storage = settings.STORAGES["default"]["BACKEND"]
     else:
         try:
-            file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
+            file_storage = settings.STORAGES["default"]["BACKEND"]
         except AttributeError:
             file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
 

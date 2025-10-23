@@ -25,7 +25,6 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
     template_name = "wagtaildocs/multiple/add.html"
     header_icon = "doc-full-inverse"
     page_title = gettext_lazy("Add documents")
-    _show_breadcrumbs = True
 
     index_url_name = "wagtaildocs:index"
     edit_object_url_name = "wagtaildocs:edit_multiple"

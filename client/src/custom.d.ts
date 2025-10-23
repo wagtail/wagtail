@@ -1,4 +1,6 @@
 export interface WagtailConfig {
+  /** For editing models that can be translated, the target locale's language code will be provided. */
+  ACTIVE_CONTENT_LOCALE?: string;
   ADMIN_API: {
     PAGES: string;
     DOCUMENTS: string;
@@ -8,6 +10,7 @@ export interface WagtailConfig {
   ADMIN_URLS: {
     DISMISSIBLES: string;
     PAGES: string;
+    BLOCK_PREVIEW: string;
   };
   CSRF_HEADER_NAME: string;
   CSRF_TOKEN: string;
@@ -16,6 +19,7 @@ export interface WagtailConfig {
     code: string;
     display_name: string;
   }[];
+  KEYBOARD_SHORTCUTS_ENABLED: boolean;
 }
 
 declare global {

@@ -1,12 +1,12 @@
 #
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2022
-# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2025\n"
 "Language-Team: Mongolian (https://app.transifex.com/torchbox/teams/8009/"
 "mn/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +48,9 @@ msgstr "Хуудас"
 
 msgid "Pages"
 msgstr "Хуудсууд"
+
+msgid "Preview"
+msgstr "Урдчилж харах"
 
 msgid "Reload saved content"
 msgstr "Хадгалагдсан контентыг дахин ачааллах"

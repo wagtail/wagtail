@@ -32,6 +32,7 @@ from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES,
     Advert,
     AdvertPlacement,
+    CommentableJSONPage,
     CustomPermissionPage,
     EventCategory,
     EventPage,
@@ -289,7 +290,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertEqual(len(actions), 0)
 
     def test_usage_count_information_shown(self):
-        PageChooserModel.objects.create(page=self.event_page)
+        with self.captureOnCommitCallbacks(execute=True):
+            PageChooserModel.objects.create(page=self.event_page)
 
         # Tests that the edit page loads
         response = self.client.get(
@@ -546,6 +548,89 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
 
+    def test_required_field_validation_skipped_when_saving_draft(self):
+        post_data = {
+            "title": "Hello unpublished world! edited",
+            "content": "",
+            "slug": "hello-unpublished-world-edited",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+        )
+        self.unpublished_page.refresh_from_db()
+        self.assertEqual(self.unpublished_page.content, "")
+
+    def test_required_field_validation_enforced_on_publish(self):
+        post_data = {
+            "title": "Hello unpublished world! edited",
+            "content": "",
+            "slug": "hello-unpublished-world-edited",
+            "action-publish": "Publish",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
+
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        post_data = {
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "",
+            "cost": "Free",
+            "signup_link": "Not a valid URL",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:edit",
+                args=[self.event_page.id],
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Empty fields should not cause a validation error, but the invalid URL should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a valid URL.", count=1)
+
+        # Asterisks should still show against required fields
+        soup = self.get_soup(response.content)
+        self.assertTrue(
+            soup.select_one('label[for="id_date_from"] > span.w-required-mark')
+        )
+        self.assertTrue(
+            soup.select_one('label[for="id_location"] > span.w-required-mark')
+        )
+
     def test_page_edit_post_when_locked(self):
         # Tests that trying to edit a locked page results in an error
 
@@ -614,10 +699,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             ).exists()
         )
 
-        # Should show the draft go_live_at and expire_at under the "Once published" label
+        # Should show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -638,7 +723,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            'This publishing schedule will only take effect after you select the "Publish" option',
+            'This publishing schedule will only take effect after you select the "Schedule to publish" option',
         )
 
     def test_edit_post_scheduled_custom_timezone(self):
@@ -691,11 +776,11 @@ class TestPageEdit(WagtailTestUtils, TestCase):
                 ).exists()
             )
 
-        # Should show the draft go_live_at under the "Once published" label
+        # Should show the draft go_live_at under the "Once scheduled" label
         # and should be in the user's timezone
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -718,7 +803,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            'This publishing schedule will only take effect after you select the "Publish" option',
+            'This publishing schedule will only take effect after you select the "Schedule to publish" option',
         )
 
     def test_schedule_panel_without_publish_permission(self):
@@ -799,7 +884,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "expire_at",
-            "Expiry date/time must be in the future",
+            "Expiry date/time must be in the future.",
         )
 
         self.assertContains(
@@ -847,10 +932,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # No new revision should have been created
         self.assertEqual(child_page_new.latest_revision_id, latest_revision.pk)
 
-        # Should not show the draft go_live_at and expire_at under the "Once published" label
+        # Should not show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertNotContains(
@@ -1036,10 +1121,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -1200,10 +1285,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -1383,10 +1468,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             count=1,
         )
 
-        # Should also show the draft go_live_at and expire_at under the "Once published" label
+        # Should also show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -1477,10 +1562,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             html=True,
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -1581,10 +1666,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             count=1,
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -1665,7 +1750,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "slug",
-            "The slug 'hello-world' is already in use within the parent page",
+            "The slug 'hello-world' is already in use within the parent page.",
         )
 
     def test_preview_on_edit(self):
@@ -1841,8 +1926,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value maxlength="255" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" required id="id_slug">'
-        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value maxlength="255" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" required id="id_slug" />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" required id="id_slug">'
+        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" required id="id_slug" />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -1867,8 +1952,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value maxlength="255" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" required id="id_slug" />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value maxlength="255" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" required id="id_slug" />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" required id="id_slug" />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" required id="id_slug" />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -2055,6 +2140,31 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             html=True,
         )
 
+    def test_edit_alias_page_from_draft_page(self):
+        # Ensure we have at least one revision. This is what happens when creating
+        # a page via the admin. It is stored as latest_revision
+        self.unpublished_page.save_revision()
+        alias_page = self.unpublished_page.create_alias(update_slug="an-alias-page")
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=[alias_page.id])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
+
+        self.assertNotContains(response, 'id="status-sidebar-live"')
+
+        # Check the edit_alias.html template was used instead
+        self.assertTemplateUsed(response, "wagtailadmin/pages/edit_alias.html")
+        original_page_edit_url = reverse(
+            "wagtailadmin_pages:edit", args=[self.unpublished_page.id]
+        )
+        self.assertContains(
+            response,
+            f'<a class="button button-secondary" href="{original_page_edit_url}">Edit original page</a>',
+            html=True,
+        )
+
     def test_post_edit_alias_page(self):
         alias_page = self.child_page.create_alias(update_slug="new-child-page")
 
@@ -2139,7 +2249,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # as when running it within the full test suite
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(35):
+        with self.assertNumQueries(36):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -2152,7 +2262,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Warm up the cache as above.
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(39):
+        with self.assertNumQueries(41):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -2352,6 +2462,8 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
         # Response should include an advert_placements formset labelled Adverts
         self.assertContains(response, "Adverts")
         self.assertContains(response, "id_advert_placements-TOTAL_FORMS")
+        # Expecting the add-button
+        self.assertContains(response, "Add advert")
 
     def test_post_create_form(self):
         post_data = {
@@ -2395,6 +2507,7 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
             "advert_placements-0-advert": "1",
             "advert_placements-0-colour": "",  # should fail as colour is a required field
             "advert_placements-0-id": "",
+            "action-publish": "Publish",
         }
         response = self.client.post(
             reverse(
@@ -2429,6 +2542,8 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
             '<input type="hidden" name="advert_placements-0-advert" value="1" id="id_advert_placements-0-advert">',
             html=True,
         )
+        # Expecting the add-button
+        self.assertContains(response, "Add advert")
 
     def test_post_edit_form(self):
         post_data = {
@@ -2872,12 +2987,31 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(
-            response, "The page could not be saved due to validation errors"
+        soup = self.get_soup(response.content)
+
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be saved
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The page could not be saved due to validation errors", message.get_text()
         )
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
         # the error should only appear once: against the field, not in the header message
-        self.assertContains(response, "error-message", count=1)
-        self.assertContains(response, "This field is required", count=1)
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 1)
+        error_message = error_messages[0]
+        self.assertEqual(
+            error_message.parent["id"], "panel-child-content-child-title-errors"
+        )
+        self.assertIn("This field is required", error_message.get_text())
 
     def test_non_field_error(self):
         """Non-field errors should be shown in the header message"""
@@ -2956,19 +3090,43 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(
-            response, "The page could not be saved due to validation errors"
+        soup = self.get_soup(response.content)
+
+        # there should be top level messages should indicate that the page could not be saved alongside other messages
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+        self.assertEqual(len(header_messages), 3)
+
+        # the first header message should indicate that the page could not be saved & contain a go to error button
+        self.assertIn(
+            "The page could not be saved due to validation errors",
+            header_messages[0].get_text(),
         )
-        self.assertContains(
-            response, "<li>The end date must be after the start date</li>", count=1
+        buttons = header_messages[0].find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
+        # the second should be a general message about the title, no go to error button
+        self.assertIn(
+            "Title: This field is required",
+            header_messages[1].get_text(),
+        )
+        self.assertEqual(len(header_messages[1].find_all("button")), 0)
+
+        # the third header message should be the non-field error
+        self.assertIn(
+            "The end date must be after the start date",
+            header_messages[2].get_text(),
         )
 
         # Error on title shown against the title field
-        self.assertContains(response, "error-message", count=1)
-        # Error on title shown in the header message
-        self.assertContains(
-            response, "<li>Title: This field is required.</li>", count=1
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 1)
+        error_message = error_messages[0]
+        self.assertEqual(
+            error_message.parent["id"], "panel-child-content-child-title-errors"
         )
+        self.assertIn("This field is required.", error_message.get_text())
 
 
 class TestNestedInlinePanel(WagtailTestUtils, TestCase):
@@ -3993,3 +4151,73 @@ class TestCommentOutput(WagtailTestUtils, TestCase):
         comment_text = [comment["text"] for comment in comments_data["comments"]]
         comment_text.sort()
         self.assertEqual(comment_text, ["A test comment", "This is quite expensive"])
+
+    def test_comments_with_deep_contentpath_on_custom_fields(self):
+        page = CommentableJSONPage(
+            title="Commentable JSON Page",
+            slug="commentable-json-page",
+            commentable_body={
+                "header": {
+                    "title": "Comments are Welcome",
+                },
+            },
+            uncommentable_body={
+                "title": "No feedback here",
+            },
+            stream_body=[
+                {
+                    "id": "1",
+                    "type": "text",
+                    "value": "This allows comments",
+                }
+            ],
+        )
+        self.root_page.add_child(instance=page)
+
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="1. Comment on an existing JSON path in commentable JSONField",
+            contentpath="commentable_body.header.title",
+        )
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="2. Comment on a non-existing JSON path in commentable JSONField",
+            contentpath="commentable_body.header.not_valid",
+        )
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="3. Comment on an existing JSON path in base JSONField",
+            contentpath="uncommentable_body.title",
+        )
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="4. Comment on a non-existing JSON path in base JSONField",
+            contentpath="uncommentable_body.not_valid",
+        )
+        Comment.objects.create(
+            page=page,
+            user=self.user,
+            text="5. Comment on the top-level of a base JSONField",
+            contentpath="uncommentable_body",
+        )
+
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=[page.id]))
+        soup = self.get_soup(response.content)
+        comments_data_json = soup.select_one("#comments-data").string
+        comments_data = json.loads(comments_data_json)
+        comment_text = [comment["text"] for comment in comments_data["comments"]]
+        comment_text.sort()
+
+        self.assertEqual(
+            comment_text,
+            [
+                # Custom fields can define which paths are valid for comments
+                "1. Comment on an existing JSON path in commentable JSONField",
+                # Comments directly on the top-level (the field itself) are always valid
+                "5. Comment on the top-level of a base JSONField",
+            ],
+        )

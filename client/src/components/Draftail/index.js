@@ -10,8 +10,10 @@ import {
 } from 'draftail';
 import { Provider } from 'react-redux';
 
+import { setAttrs } from '../../utils/attrs';
 import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
+import { InputNotFoundError } from '../Widget/index';
 
 import {
   ModalWorkflowSource,
@@ -32,6 +34,8 @@ import ComboBox, {
 import CommentableEditor, {
   splitState,
 } from './CommentableEditor/CommentableEditor';
+import { DraftailInsertBlockCommand } from './commands/InsertBlock';
+import { DraftailSplitCommand } from './commands/Split';
 
 export { default as Link, onPasteLink } from './decorators/Link';
 export { default as Document } from './decorators/Document';
@@ -122,9 +126,9 @@ export const wrapWagtailIcon = (type) => {
 };
 
 /**
- * Initialises the DraftailEditor for a given field.
+ * Initializes the DraftailEditor for a given field.
  * @param {string} selector
- * @param {Object} originalOptions
+ * @param {object} originalOptions
  * @param {Element} currentScript
  */
 const initEditor = (selector, originalOptions, currentScript) => {
@@ -189,7 +193,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
       ...type,
     }));
 
-    // Only initialise the character count / max length on fields explicitly requiring it.
+    // Only initialize the character count / max length on fields explicitly requiring it.
     if (field.hasAttribute('maxlength')) {
       const maxLengthID = `${field.id}-length`;
       ariaDescribedBy = maxLengthID;
@@ -303,11 +307,199 @@ const initEditor = (selector, originalOptions, currentScript) => {
   return [options, setOptions];
 };
 
+class BoundDraftailWidget {
+  constructor(input, options, parentCapabilities, shouldInitEditor) {
+    this.input = input;
+    this.capabilities = new Map(parentCapabilities);
+    this.options = options;
+
+    if (shouldInitEditor) {
+      const [, setOptions] = initEditor(
+        '#' + this.input.id,
+        this.getFullOptions(),
+        document.currentScript,
+      );
+      this.setDraftailOptions = setOptions;
+    } else {
+      this.setDraftailOptions = null;
+    }
+  }
+
+  getValue() {
+    return this.input.value;
+  }
+
+  getState() {
+    return this.input.draftailEditor.getEditorState();
+  }
+
+  setState(editorState) {
+    this.input.draftailEditor.onChange(editorState);
+  }
+
+  setInvalid(invalid) {
+    if (invalid) {
+      this.input.setAttribute('aria-invalid', 'true');
+    } else {
+      this.input.removeAttribute('aria-invalid');
+    }
+  }
+
+  getTextLabel(opts) {
+    const maxLength = opts && opts.maxLength;
+    if (!this.input.value) return '';
+    const value = JSON.parse(this.input.value);
+    if (!value || !value.blocks) return '';
+
+    let result = '';
+    for (const block of value.blocks) {
+      if (block.text) {
+        result += result ? ' ' + block.text : block.text;
+        if (maxLength && result.length > maxLength) {
+          return result.substring(0, maxLength - 1) + '…';
+        }
+      }
+    }
+    return result;
+  }
+
+  focus() {
+    setTimeout(() => {
+      this.input.draftailEditor.focus();
+    }, 50);
+  }
+
+  setCapabilityOptions(capability, capabilityOptions) {
+    if (!this.setDraftailOptions) {
+      throw new Error(
+        'setCapabilityOptions is only supported on Draftail widgets rendered via DraftailRichTextArea.render',
+      );
+    }
+    const newCapability = Object.assign(
+      this.capabilities.get(capability),
+      capabilityOptions,
+    );
+    this.capabilities.set(capability, newCapability);
+    this.setDraftailOptions(this.getFullOptions());
+  }
+
+  /**
+   * Given a mapping of the capabilities supported by this widget's container,
+   * return the options overrides that enable additional widget functionality
+   * (e.g. splitting or adding additional blocks).
+   * Non-context-dependent Draftail options are available here as this.options.
+   */
+  getCapabilityOptions(parentCapabilities) {
+    const options = {};
+    const capabilities = parentCapabilities;
+    const split = capabilities.get('split');
+    const addSibling = capabilities.get('addSibling');
+    let blockCommands = [];
+    if (split) {
+      const blockGroups =
+        addSibling && addSibling.enabled && split.enabled
+          ? addSibling.blockGroups
+          : [];
+      // Create commands for splitting + inserting a block. This requires both the split
+      // and addSibling capabilities to be available and enabled
+      blockCommands = blockGroups.map(([group, blocks]) => {
+        const blockControls = blocks.map(
+          (blockDef) =>
+            new DraftailInsertBlockCommand(this, blockDef, addSibling, split),
+        );
+        return {
+          label: group || gettext('Blocks'),
+          type: `streamfield-${group}`,
+          items: blockControls,
+        };
+      });
+
+      if (split.enabled) {
+        blockCommands.push({
+          label: gettext('Actions'),
+          type: 'custom-actions',
+          items: [new DraftailSplitCommand(this, split)],
+        });
+      }
+    }
+
+    options.commands = [
+      {
+        type: 'blockTypes',
+      },
+      {
+        type: 'entityTypes',
+      },
+      ...blockCommands,
+    ];
+
+    return options;
+  }
+
+  getFullOptions() {
+    return {
+      ...this.options,
+      ...this.getCapabilityOptions(this.capabilities),
+    };
+  }
+}
+
+class DraftailRichTextArea {
+  constructor(options) {
+    this.options = options;
+  }
+
+  render(container, name, id, initialState, parentCapabilities, options = {}) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.id = id;
+    input.name = name;
+
+    if (typeof options?.attributes === 'object') {
+      setAttrs(input, options.attributes);
+    }
+    // If the initialState is an EditorState, rather than serialized rawContentState, it's
+    // easier for us to initialize the widget blank and then setState to the correct state
+    const initialiseBlank = !!initialState.getCurrentContent;
+    input.value = initialiseBlank ? 'null' : initialState;
+    container.appendChild(input);
+
+    const boundDraftail = new BoundDraftailWidget(
+      input,
+      { ...this.options, ...options },
+      parentCapabilities,
+      true, // shouldInitEditor
+    );
+
+    if (initialiseBlank) {
+      boundDraftail.setState(initialState);
+    }
+
+    return boundDraftail;
+  }
+
+  getByName(name, container) {
+    const selector = `input[name="${name}"]`;
+    let input;
+    if (container.matches(selector)) {
+      input = container;
+    } else {
+      input = container.querySelector(selector);
+    }
+    if (!input) {
+      throw new InputNotFoundError(name);
+    }
+
+    return new BoundDraftailWidget(input, this.options, null, false);
+  }
+}
+
 export default {
   initEditor,
   splitState,
   registerPlugin,
   DraftUtils,
+  DraftailRichTextArea,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,
   ImageModalWorkflowSource,

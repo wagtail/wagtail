@@ -5,15 +5,15 @@
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2024
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
-# Matt Westcott <matthew@torchbox.com>, 2018
-# saevarom <saevar@saevar.is>, 2015,2017-2024
+# Matt Westcott <matthew@torchbox.com>, 2018,2025
+# saevarom <saevar@saevar.is>, 2015,2017-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2024\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -55,6 +55,17 @@ msgstr "Síða læst"
 msgid "%(label)s and Publish"
 msgstr "%(label)s og setja í birtingu"
 
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "ótilgreint"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
+
 msgid "Wagtail admin"
 msgstr "Stjórnborð Wagtail"
 
@@ -87,6 +98,13 @@ msgstr "Merking"
 
 msgid "Filter by up to ten most popular tags."
 msgstr "Sía út frá tíu vinsælustu merkingunum"
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "Nota tungumál vefþjóns: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "Nota tímabelti vefþjóns"
 
 msgid "Preferred language"
 msgstr "Valið tungumál"
@@ -311,8 +329,8 @@ msgstr "Gefðu vinnuflæðinu nafn"
 msgid "Add tasks to your workflow"
 msgstr "Bæta skrefum við vinnuflæði"
 
-msgid "Task"
-msgstr "Skref"
+msgid "task"
+msgstr "verkefni"
 
 msgid "1 page selected"
 msgstr "1 síða valin"
@@ -401,11 +419,11 @@ msgstr "Allir hlutir valdir"
 msgid "Can access Wagtail admin"
 msgstr "Hefur aðgang að stjórnkerfi Wagtail"
 
-msgid "For search engines"
-msgstr "Fyrir leitarvélar"
+msgid "item"
+msgstr "færsla"
 
-msgid "For site menus"
-msgstr "Fyrir valmyndir"
+msgid "items"
+msgstr "færslur"
 
 msgid "Content"
 msgstr "Efni"
@@ -671,10 +689,6 @@ msgid "No, don't delete"
 msgstr "Nei, ekki eyða"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Taka %(title)s úr loftinu"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Ertu viss um að þú viljir taka %(model_name)s úr loftinu?"
 
@@ -741,13 +755,6 @@ msgid ""
 msgstr ""
 "Ekki hægt að forskoða vegna þess að villur komu upp. <br /> Smelltu á vista "
 "til að sýna reitina sem eru að valda villum."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Bera saman %(title)s"
-
-msgid "Comparing"
-msgstr "Ber saman"
 
 msgid "Fields"
 msgstr "Reitir"
@@ -845,8 +852,14 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lestu útgáfu tilkynninguna."
 
+msgid "Close"
+msgstr "Loka"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Þínar síður og snifsi í vinnuflæði"
+
+msgid "Task"
+msgstr "Skref"
 
 msgid "Task started"
 msgstr "Skref hófst"
@@ -856,9 +869,6 @@ msgstr "Breytingar umbeðnar "
 
 msgid "Awaiting"
 msgstr "Í bið"
-
-msgid "Close"
-msgstr "Loka"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1188,8 +1198,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "Lokað er fyrir aðgengisstillingar þessarar síðu."
 
+msgid "Scheduling…"
+msgstr "Vista tímasetningu"
+
 msgid "Publishing…"
 msgstr "Set í birtingu..."
+
+msgid "Schedule to publish"
+msgstr "Tímasetja birtingu"
 
 msgid "Publish this version"
 msgstr "Setja þessa útgáfu í birtingu"
@@ -1441,15 +1457,6 @@ msgstr[0] ""
 msgstr[1] ""
 "Þetta mun einnig eyða %(descendant_count)s undirsíðum og "
 "%(translation_count)s þýðingum af þessari síðu."
-
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Þessi aðgerð mun eyða samtals <b>%(total_pages)s</b> síðum."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr ""
-"Vinsamlegast sláðu inn <b>%(wagtail_site_name)s</b> til þess að staðfesta."
 
 msgid "Yes, delete it"
 msgstr "Já, eyddu því"
@@ -1759,10 +1766,10 @@ msgstr ""
 
 msgid ""
 "This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"\"Schedule to publish\" option"
 msgstr ""
-"Þessi útgáfu tímastilling mun aðeins fara að virka þegar búið er að velja "
-"\"Setja í loftið\""
+"Þessi tímasetta birting mun aðeins taka gildi eftir að þú velur „Tímasetja "
+"birtingu“ valkostinn"
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Allir sem eru með leyfi til breytinga get búið til tímastillingar"
@@ -1875,12 +1882,14 @@ msgstr "Engar síður/snifsi hafa verið send inn til yfirferðar ennþá"
 msgid "Completed at"
 msgstr "Lokið"
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s:"
+
 msgid "Clear"
 msgstr "Hreinsa"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Síða %(page_num)s af %(total_pages)s."
 
 msgid "Edit account avatar"
 msgstr "Breyta táknmynd notanda"
@@ -1890,6 +1899,11 @@ msgstr "Sýna/fela brauðmolaslóð"
 
 msgid "Breadcrumb"
 msgstr "Brauðmolar"
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr ""
+"Vinsamlegast sláðu inn <b>%(wagtail_site_name)s</b> til þess að staðfesta."
 
 msgid "Close dialog"
 msgstr "Loka glugga"
@@ -2002,21 +2016,18 @@ msgstr "Skoða birta útgáfu síðunnar"
 msgid "Visible to all. Visit the live page"
 msgstr "Sýnilegt öllum. Skoða birta síðu"
 
-msgid "Private. Visit the live page"
-msgstr "Læst. Skoða birta síðu"
-
 msgid "Visible to all"
 msgstr "Sýnilegt öllum"
 
-msgid "Toggle section"
-msgstr "Sýna/fela síðuhluta"
+msgid "Private. Visit the live page"
+msgstr "Læst. Skoða birta síðu"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hætta við tímasetta birtingu útgáfu %(revision.id)s fyrir %(title)s"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Síða %(page_num)s af %(total_pages)s"
 
-msgid "Unschedule"
-msgstr "Hætta við tímasetta birtingu"
+msgid "Toggle section"
+msgstr "Sýna/fela síðuhluta"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ertu viss um að þú viljir hætta við birtingu á þessari útgáfu?"
@@ -2145,8 +2156,8 @@ msgstr "Ógild tímastilling"
 msgid "Go-live:"
 msgstr "Setja í loftið:"
 
-msgid "Once published:"
-msgstr "Þegar hún er komin í loftið:"
+msgid "Once scheduled:"
+msgstr "Eftir tímasetningu:"
 
 msgid "No publishing schedule set"
 msgstr "Engar tímastillingar vistaðar"
@@ -2421,13 +2432,6 @@ msgstr "Því miður, engin skref passa við \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Þú hefur ekki búið til nein skref."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"Af hverju ekki <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>búa til nýtt núna</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2536,6 +2540,12 @@ msgstr "Endurgera"
 msgid "Save changes"
 msgstr "Vista breytingar"
 
+msgid "Toggle sidebar"
+msgstr "Hliðarstika af/á"
+
+msgid "Add or show comments"
+msgstr "Bæta við eða sýna athugasemdir"
+
 msgid "Text content"
 msgstr "Innihald texta"
 
@@ -2544,9 +2554,6 @@ msgstr "Bæta við eða breyta hlekk"
 
 msgid "Text formatting"
 msgstr "Aðlaga texta"
-
-msgid "Bold"
-msgstr "Feitletrun"
 
 msgid "Italic"
 msgstr "Skáletrun"
@@ -2589,6 +2596,9 @@ msgstr "Athuganir"
 
 msgid "Toggle preview"
 msgstr "Sýna/fela forskoðun"
+
+msgid "(blank)"
+msgstr "(eyða)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2652,6 +2662,10 @@ msgstr "Lýsitexti myndar fylgir ekki réttu mynstri"
 
 msgid "Use meaningful text"
 msgstr "Notaðu skýran og viðeigandi texta"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s object (%(id)s)"
 
 msgid "Profile"
 msgstr "Prófíll"
@@ -2835,24 +2849,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Breyta '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Afrita '%(title)s'"
-
 msgid "Inspect"
 msgstr "Skoða"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Skoða '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Eyða '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2887,6 +2885,9 @@ msgstr "%(model_name)s '%(object)s' eytt."
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Ertu viss um að þú viljir eyða þessu %(model_name)s?"
 
+msgid "Compare"
+msgstr "Bera saman"
+
 msgid "Earliest"
 msgstr "Fyrsta"
 
@@ -2901,9 +2902,16 @@ msgstr "'%(object)s' tekið úr loftinu."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Útgáfa %(revision_id)s af \"%(object)s\" tekin úr tímastillingu."
 
+msgid "Unschedule"
+msgstr "Hætta við tímasetta birtingu"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "útgáfa %(revision_id)s af \"%(object)s\""
+
+#, python-format
+msgid "Preview for %(block_label)s (%(block_type)s)"
+msgstr "Sýnishorn fyrir %(block_label)s (%(block_type)s)"
 
 msgid "If you confirm deletion"
 msgstr "Ef þú staðfestir eyðingu"
@@ -2944,32 +2952,17 @@ msgstr "Stillingar erfast frá yfirsíðu - %(ancestor_page)s"
 msgid "Delete selected pages"
 msgstr "Eyða völdum síðu"
 
-msgid "1 page has been deleted"
-msgstr "1 síðu hefur verið eytt"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been deleted"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been deleted"
+msgstr "%(parent_pages)s og %(child_pages)s hefur verið eytt"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 síðu og %(num_child_objects)d undirsíðu hefur verið eytt"
-msgstr[1] "1 síðu og %(num_child_objects)d undirsíðum hefur verið eytt"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d síðum hefur verið eytt"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d síðum og %(num_child_objects)d undirsíðu hefur verið "
-"eytt"
-msgstr[1] ""
-"%(num_parent_objects)d síðum og %(num_child_objects)d undirsíðum hefur verið "
-"eytt"
+msgid "%(num_parent_objects)d page has been deleted"
+msgid_plural "%(num_parent_objects)d pages have been deleted"
+msgstr[0] "%(num_parent_objects)d síðu hefur verið eytt"
+msgstr[1] "%(num_parent_objects)d síðum hefur verið eytt"
 
 msgid "Select a new parent page"
 msgstr "Veldu nýja yfirsíðu"
@@ -2983,70 +2976,47 @@ msgid_plural "%(num_pages)d pages have been moved"
 msgstr[0] "%(num_pages)d síða hefur verið færð"
 msgstr[1] "%(num_pages)d síður hafa verið færðar"
 
+#, python-format
+msgid "%(num_parent_objects)d page"
+msgid_plural "%(num_parent_objects)d pages"
+msgstr[0] "%(num_parent_objects)d síða"
+msgstr[1] "%(num_parent_objects)d síður"
+
+#, python-format
+msgid "%(num_child_objects)d child page"
+msgid_plural "%(num_child_objects)d child pages"
+msgstr[0] "%(num_child_objects)d undirsíða"
+msgstr[1] "%(num_child_objects)d undirsíður"
+
 msgid "Publish selected pages"
 msgstr "Setja valdar síður í lofti"
 
-msgid "1 page has been published"
-msgstr "1 síða hefur verið sett í loftið"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been published"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been published"
+msgstr "%(parent_pages)s og %(child_pages)s hafa verið settar í loftið"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] ""
-"1 síða og %(num_child_objects)d undirsíða hafa verið settar í loftið"
-msgstr[1] ""
-"1 síða og %(num_child_objects)d undirsíður hafa verið settar í loftið"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d síður hafa verið settar í loftið"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d síður og %(num_child_objects)d undirsíða hafa verið "
-"settar í loftið"
-msgstr[1] ""
-"%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
-"settar í loftið"
+msgid "%(num_parent_objects)d page has been published"
+msgid_plural "%(num_parent_objects)d pages have been published"
+msgstr[0] "%(num_parent_objects)d síða hefur verið sett í loftið"
+msgstr[1] "%(num_parent_objects)d síður hafa verið settar í loftið"
 
 msgid "Unpublish selected pages"
 msgstr "Taka valdar síður úr loftinu"
 
-msgid "1 page has been unpublished"
-msgstr "1 síða hefur verið tekin úr loftinu"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been unpublished"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been unpublished"
+msgstr "%(parent_pages)s og %(child_pages)s hafa verið teknar úr loftinu"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] ""
-"1 síða og %(num_child_objects)d undirsíða hafa verið teknar úr loftinu"
-msgstr[1] ""
-"1 síða og %(num_child_objects)d undirsíður hafa verið teknar úr loftinu"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d síður hafa verið teknar úr loftin"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
-"teknar úr loftinu"
-msgstr[1] ""
-"%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
-"teknar úr loftinu"
+msgid "%(num_parent_objects)d page has been unpublished"
+msgid_plural "%(num_parent_objects)d pages have been unpublished"
+msgstr[0] "%(num_parent_objects)d síða hefur verið tekin úr loftinu"
+msgstr[1] "%(num_parent_objects)d síður hafa verið teknar úr loftinu"
 
 msgid "Choose parent"
 msgstr "Veldu yfirsíðu"
@@ -3218,6 +3188,9 @@ msgstr ""
 msgid "Page '%(page_title)s' moved."
 msgstr "Síða '%(page_title)s' færð."
 
+msgid "Placeholder title"
+msgstr "Án titils"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
@@ -3225,9 +3198,6 @@ msgid ""
 msgstr ""
 "Þú ert að skoða eldri útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
 "%(user)s"
-
-msgid "Page history"
-msgstr "Saga síðu"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -3370,9 +3340,6 @@ msgstr "Nýtt skref í vinnuflæði"
 msgid "Task '%(object)s' created."
 msgstr "Skref '%(object)s' búið til."
 
-msgid "Editing workflow task"
-msgstr "Breyti skrefi vinnuflæðis"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Skref '%(object)s' uppfært."
@@ -3413,44 +3380,26 @@ msgstr "Skref '%(task_name)s' virkt."
 msgid "Choose another"
 msgstr "Veldu aðra"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Forskoða uppkastsútgáfu af '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Skoða birta útgáfu af '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Færa síðu '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Afrita síðu '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Eyða síðu '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Taka '%(title)s' úr loftinu"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Skoða sögu síðunnar '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Röðun undirsíðna"
 
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Breyta röðun undirsíðna '%(title)s'"
+msgid "Heading 1"
+msgstr "Fyrirsögn 1"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Fyrirsögn %(level)d"
+msgid "Heading 2"
+msgstr "Fyrirsögn 2"
+
+msgid "Heading 3"
+msgstr "Fyrirsögn 3"
+
+msgid "Heading 4"
+msgstr "Fyrirsögn 4"
+
+msgid "Heading 5"
+msgstr "Fyrirsögn 5"
+
+msgid "Heading 6"
+msgstr "Fyrirsögn 6"
 
 msgid "Bulleted list"
 msgstr "Ónúmeraður listi"
@@ -3460,6 +3409,9 @@ msgstr "Númeraður listi"
 
 msgid "Blockquote"
 msgstr "Inndregin textablokk"
+
+msgid "Bold"
+msgstr "Feitletrun"
 
 msgid "Link"
 msgstr "Hlekkur"

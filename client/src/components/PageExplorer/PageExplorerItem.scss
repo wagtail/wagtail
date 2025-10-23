@@ -1,3 +1,5 @@
+@use '../../../scss/tools' as *;
+
 .c-page-explorer__item {
   @apply w-flex w-flex-row w-flex-nowrap w-border-0 w-border-b w-border-solid w-border-surface-menus w-divide-x w-divide-solid w-divide-surface-menus w-divide-y-0;
 }

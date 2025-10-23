@@ -1,8 +1,13 @@
+@use '../tools' as *;
+
 .w-a11y-result__row {
-  @include box;
-  padding: theme('spacing.4');
   display: flex;
   justify-content: space-between;
+  background-color: theme('colors.surface-page');
+  padding: theme('spacing.4');
+  border-radius: theme('borderRadius.DEFAULT');
+  color: theme('colors.text-context');
+  border: 1px solid theme('colors.border-furniture');
 
   // Shows additional details within the CMS only.
   .form-side--checks & {

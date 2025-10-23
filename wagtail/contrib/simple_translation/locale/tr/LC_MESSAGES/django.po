@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# LB (Ben Johnston) <mail@lb.ee>, 2025
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: LB (Ben Johnston) <mail@lb.ee>, 2025\n"
+"Language-Team: Turkish (https://app.transifex.com/torchbox/teams/8009/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail basit çeviri"
+
+msgid "Select all"
+msgstr "Tümünü seç"
+
+msgid "Locales"
+msgstr "Yerelleştirmeler"
+
+msgid "All child pages will be created."
+msgstr "Tüm alt sayfalar oluşturulacaktır."
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Alt ağaç dahil et (%(descendant_count)s sayfa)"
+msgstr[1] "Alt ağaç dahil et (%(descendant_count)s sayfa)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Bir yerelleştirme, bir üst sayfa çevrilmediği için devre dışı bırakıldı."
+msgstr[1] ""
+"Bazı yerelleştirmeler, bazı üst sayfalar çevrilmediği için devre dışı "
+"bırakıldı."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Üst sayfayı çevir."
+msgstr[1] "Üst sayfaları çevir."
+
+msgid "Can submit translations"
+msgstr "Çevirileri gönderebilir"
+
+msgid "Submit"
+msgstr "Gönder"
+
+msgid "Translate"
+msgstr "Çevir"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s yerelleştirme"
+
+msgid "Translate page"
+msgstr "Sayfayı çevir"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "Sayfa '%(page_title)s' başarıyla %(locales)s oluşturuldu."
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Çevir %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Başarıyla %(locales)s oluşturuldu %(model_name)s '%(object)s' için"
+
+msgid "Translate this page"
+msgstr "Bu sayfayı çevir"

@@ -187,12 +187,12 @@ class CollectionPermissionPolicy(
         permission to perform any of the given actions
         """
         if not (user.is_active and user.is_authenticated):
-            return self.model.objects.none()
+            return self.model._default_manager.none()
         elif user.is_superuser:
-            return self.model.objects.all()
+            return self.model._default_manager.all()
         else:
             # filter to just the collections with this permission
-            return self.model.objects.filter(
+            return self.model._default_manager.filter(
                 collection__in=list(self._collections_with_perm(user, actions))
             )
 
@@ -299,9 +299,9 @@ class CollectionOwnershipPermissionPolicy(
         if user.is_active and user.is_superuser:
             # active superusers can perform any action (including unrecognised ones)
             # on any instance
-            return self.model.objects.all()
+            return self.model._default_manager.all()
         elif not user.is_authenticated:
-            return self.model.objects.none()
+            return self.model._default_manager.none()
         elif known_actions:
             # if "change" or "delete" in actions, return instances which are:
             #   - in (a descendant of) a collection for which they have "change" permission
@@ -322,12 +322,12 @@ class CollectionOwnershipPermissionPolicy(
                     collection__in=self._collections_with_perm(user, ["add"])
                 ) & Q(**{self.owner_field_name: user})
 
-            return self.model.objects.filter(perm_filter)
+            return self.model._default_manager.filter(perm_filter)
         else:
             # action is either not recognised, or is the 'add' action which is
             # not meaningful for existing instances. As such, non-superusers
             # cannot perform it on any existing instances.
-            return self.model.objects.none()
+            return self.model._default_manager.none()
 
     def users_with_any_permission_for_instance(self, actions, instance):
         known_actions = set(actions) & {"choose", "change"}

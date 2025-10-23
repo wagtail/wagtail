@@ -1,6 +1,6 @@
 import unittest
-
 import zoneinfo
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -19,6 +19,7 @@ from wagtail.admin.localization import (
 from wagtail.admin.views.account import AccountView, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -116,6 +117,25 @@ class TestAuthentication(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the login page
         self.assertRedirects(response, reverse("wagtailadmin_login"))
+
+        # Check that the user was logged out
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    @override_settings(WAGTAILADMIN_LOGIN_URL="fallback")
+    def test_logout_redirect_with_custom_login_url(self):
+        """
+        This tests that if the WAGTAILADMIN_LOGIN_URL setting is customized,
+        the user will be redirected to that URL when logging out of the admin.
+        """
+        # Login
+        self.login()
+
+        # Get logout page
+        response = self.client.post(reverse("wagtailadmin_logout"))
+
+        # Check that the user was redirected to the URL set for the
+        # WAGTAILADMIN_LOGIN_URL setting
+        self.assertRedirects(response, reverse("fallback"))
 
         # Check that the user was logged out
         self.assertNotIn("_auth_user_id", self.client.session)
@@ -233,12 +253,15 @@ class TestAccountSectionUtilsMixin:
             "theme-theme": "dark",
             "theme-density": "default",
             "theme-contrast": "system",
+            "keyboard-shortcuts": "true",
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse("wagtailadmin_account"), post_data)
 
 
-class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
+class TestAccountSection(
+    AdminTemplateTestUtils, TestAccountSectionUtilsMixin, WagtailTestUtils, TestCase
+):
     """
     This tests that the accounts section is working
     """
@@ -281,6 +304,14 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
         # Check if the default title exists
         self.assertContains(response, "Name and Email")
+
+        soup = self.get_soup(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Account"}], response.content
+        )
+        heading = soup.select_one("main h2")
+        self.assertIsNotNone(heading)
+        self.assertEqual(heading.text.strip(), "Account")
 
     def test_change_name_post(self):
         response = self.post_form(
@@ -521,6 +552,17 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
             get_available_admin_languages(), WAGTAILADMIN_PROVIDED_LANGUAGES
         )
 
+    @override_settings(LANGUAGE_CODE="id")
+    def test_default_language_follows_server_setting(self):
+        response = self.client.get(reverse("wagtailadmin_account"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        option = soup.select_one(
+            'select[name="locale-preferred_language"] option[value=""]'
+        )
+        self.assertIsNotNone(option)
+        self.assertEqual(option.text.strip(), "Use server language: Bahasa Indonesia")
+
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[("en", "English")])
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.get(reverse("wagtailadmin_account"))
@@ -575,6 +617,22 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.assertListEqual(
             get_available_admin_time_zones(),
             sorted(zoneinfo.available_timezones()),
+        )
+
+        response = self.client.get(reverse("wagtailadmin_account"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        select = soup.select_one('select[name="locale-current_time_zone"]')
+        self.assertIsNotNone(select)
+        self.assertEqual(select.get("data-controller"), "w-init w-locale")
+        self.assertEqual(
+            select.get("data-action"),
+            "w-init:ready->w-locale#localizeTimeZoneOptions",
+        )
+        self.assertEqual(
+            select.get("data-w-locale-server-time-zone-param"),
+            settings.TIME_ZONE,
         )
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
@@ -650,6 +708,23 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         AccountView.as_view()(request)
         self.assertTrue(hasattr(request, "sensitive_post_parameters"))
         self.assertEqual(request.sensitive_post_parameters, "__ALL__")
+
+    def test_change_keyboard_shortcut_preference(self):
+        response = self.post_form(
+            {
+                "keyboard_shortcuts": "false",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(
+            get_user_model().objects.get(pk=self.user.pk)
+        )
+
+        # Check that the keyboard shortcut preferences are as submitted
+        self.assertFalse(profile.keyboard_shortcuts)
 
 
 class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):

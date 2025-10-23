@@ -408,7 +408,11 @@ class SearchView(View):
     @property
     def columns(self):
         cols = [
-            PageTitleColumn("title", label=_("Title")),
+            PageTitleColumn(
+                "title",
+                label=_("Title"),
+                is_multiple_choice=self.is_multiple_choice,
+            ),
             ParentPageColumn("parent", label=_("Parent")),
             DateColumn(
                 "updated",

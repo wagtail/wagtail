@@ -1,9 +1,11 @@
-const baseConfig = require('./client/tailwind.config');
+import baseConfig from './client/tailwind.config';
 
 /**
  * Tailwind config file for Wagtail itself.
+ * @see https://v3.tailwindcss.com/docs/configuration
+ * @type {import('tailwindcss').Config}
  */
-module.exports = {
+const config = {
   presets: [baseConfig],
   content: [
     './wagtail/**/*.{py,html,ts,tsx}',
@@ -21,3 +23,5 @@ module.exports = {
     preflight: false,
   },
 };
+
+export default config;

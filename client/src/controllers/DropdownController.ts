@@ -9,6 +9,7 @@ import { hideTooltipOnEsc } from './TooltipController';
 const hideTooltipOnBreadcrumbsChange = {
   name: 'hideTooltipOnBreadcrumbAndCollapse',
   fn({ hide }: Instance) {
+    /** Hides the tooltip when breadcrumbs expand or collapse. */
     function onBreadcrumbExpandAndCollapse() {
       hide();
     }
@@ -86,10 +87,12 @@ type TippyTheme = 'dropdown' | 'drilldown' | 'dropdown-button';
  * A Tippy.js tooltip with interactive "dropdown" options.
  *
  * @example
+ * ```html
  * <div data-controller="w-dropdown" data-w-dropdown-hide-on-click-value-"true">
- *  <button type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
- *  <div data-w-dropdown-target="content">[…]</div>
+ *   <button type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
+ *   <div data-w-dropdown-target="content">[…]</div>
  * </div>
+ * ```
  */
 export class DropdownController extends Controller<HTMLElement> {
   static targets = ['toggle', 'content'];
@@ -100,8 +103,10 @@ export class DropdownController extends Controller<HTMLElement> {
     theme: { default: 'dropdown' as TippyTheme, type: String },
   };
 
-  // Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
-  // option for outside clicks that defaults to true and we don't yet expose it.
+  /**
+   * Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
+   * option for outside clicks that defaults to true and we don't yet expose it.
+   */
   declare readonly hideOnClickValue: boolean;
   declare readonly keepMountedValue: boolean;
   declare readonly offsetValue: [number, number];
@@ -307,6 +312,13 @@ export class DropdownController extends Controller<HTMLElement> {
   }
 
   disconnect() {
-    this.tippy?.destroy();
+    if (this.tippy) {
+      // Re-add the popper content to the DOM so it can be re-instantiated later if needed.
+      // This is required to support moving elements on the page.
+      this.element?.append(this.tippy.popper);
+      this.tippy.popper.hidden = true;
+      // Then destroy the tippy instance.
+      this.tippy.destroy();
+    }
   }
 }

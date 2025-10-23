@@ -6,7 +6,6 @@ from django.urls import include, path, re_path
 from django.views.decorators.cache import never_cache
 from django.views.defaults import page_not_found
 from django.views.generic import TemplateView
-from django.views.i18n import JavaScriptCatalog
 
 from wagtail import hooks
 from wagtail.admin.api import urls as api_urls
@@ -19,6 +18,8 @@ from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
 from wagtail.admin.views import account, chooser, dismissibles, home, tags
 from wagtail.admin.views.bulk_action import index as bulk_actions
+from wagtail.admin.views.generic.preview import StreamFieldBlockPreview
+from wagtail.admin.views.i18n import localized_js_catalog
 from wagtail.admin.views.pages import listing
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
@@ -118,6 +119,11 @@ urlpatterns = [
             namespace="wagtailadmin_editing_sessions",
         ),
     ),
+    path(
+        "block-preview/",
+        StreamFieldBlockPreview.as_view(),
+        name="wagtailadmin_block_preview",
+    ),
 ]
 
 
@@ -141,7 +147,7 @@ urlpatterns += [
     # JS translation catalog
     path(
         "jsi18n/",
-        JavaScriptCatalog.as_view(packages=["wagtail.admin"]),
+        localized_js_catalog,
         name="wagtailadmin_javascript_catalog",
     ),
 ]

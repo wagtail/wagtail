@@ -1,4 +1,7 @@
 @use 'sass:map';
+@use '../tools' as *;
+@use '../settings' as *;
+
 // free tagging tags from taggit
 .tag {
   border-radius: 2px;
@@ -37,16 +40,16 @@ a.tag:hover {
 
 .tagfilter {
   legend {
-    @include media-breakpoint-up(sm) {
-      @include column(2);
-      padding-inline-start: 0;
-    }
-
     font-weight: 700;
     color: theme('colors.text-context');
     font-size: 1.1em;
     display: block;
     padding: 0 0 0.8em;
+
+    @include media-breakpoint-up(sm) {
+      @include column(2);
+      padding-inline-start: 0;
+    }
   }
 
   a {

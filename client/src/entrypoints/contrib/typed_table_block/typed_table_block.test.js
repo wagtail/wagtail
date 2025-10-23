@@ -265,6 +265,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBloc
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
           DELETE: 'Delete',
           DUPLICATE: 'Duplicate',
           ADD: 'Add',
@@ -317,6 +318,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBloc
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
           DELETE: 'Delete',
           DUPLICATE: 'Duplicate',
           ADD: 'Add',

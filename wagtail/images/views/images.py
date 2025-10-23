@@ -15,6 +15,14 @@ from django.views import View
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
+from wagtail.admin.ui.tables import (
+    BaseColumn,
+    BulkActionsCheckboxColumn,
+    Column,
+    DateColumn,
+    TitleColumn,
+    UsageCountColumn,
+)
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.images import get_image_model
@@ -23,7 +31,7 @@ from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
-from wagtail.models import Site
+from wagtail.models import ReferenceIndex, Site
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -48,6 +56,8 @@ class IndexView(generic.IndexView):
         "-title": gettext_lazy("Title: (Z -> A)"),
         "file_size": gettext_lazy("File size: (low to high)"),
         "-file_size": gettext_lazy("File size: (high to low)"),
+        "usage_count": gettext_lazy("Usage count: (low to high)"),
+        "-usage_count": gettext_lazy("Usage count: (high to low)"),
     }
     default_ordering = "-created_at"
     context_object_name = "images"
@@ -65,7 +75,6 @@ class IndexView(generic.IndexView):
     edit_url_name = "wagtailimages:edit"
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
-    columns = []
 
     def get_paginate_by(self, queryset):
         return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
@@ -82,6 +91,12 @@ class IndexView(generic.IndexView):
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
+
+        # Annotate with usage count from the ReferenceIndex
+        images = images.annotate(
+            usage_count=ReferenceIndex.usage_count_subquery(self.model)
+        )
+
         return images
 
     @cached_property
@@ -117,10 +132,72 @@ class IndexView(generic.IndexView):
                 "current_collection": self.current_collection,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
+                "layout": self.layout,
             }
         )
 
         return context
+
+    @cached_property
+    def layout(self):
+        return self.request.GET.get("layout", "grid")
+
+    @cached_property
+    def columns(self):
+        if self.layout == "grid":
+            return []
+        else:
+            columns = [
+                BulkActionsColumn("bulk_actions"),
+                ImagePreviewColumn(
+                    "preview",
+                    label=_("Preview"),
+                    accessor="image",
+                    classname="image-preview",
+                ),
+                TitleColumnWithFilename(
+                    "title",
+                    label=_("Title"),
+                    sort_key="title",
+                    get_url=self.get_edit_url,
+                    width="35%",
+                    classname="title-with-filename",
+                ),
+                Column("collection", label=_("Collection"), accessor="collection.name"),
+                DateColumn(
+                    "created_at",
+                    label=_("Created"),
+                    sort_key="created_at",
+                ),
+                UsageCountColumn(
+                    "usage_count",
+                    label=_("Usage"),
+                    sort_key="usage_count",
+                    width="16%",
+                ),
+            ]
+
+            return columns
+
+
+class BulkActionsColumn(BulkActionsCheckboxColumn):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, obj_type="image", **kwargs)
+
+    def get_header_context_data(self, parent_context):
+        context = super().get_header_context_data(parent_context)
+        parent = parent_context.get("current_collection")
+        if parent:
+            context["parent"] = parent.id
+        return context
+
+
+class ImagePreviewColumn(BaseColumn):
+    cell_template_name = "wagtailimages/images/image_preview_column_cell.html"
+
+
+class TitleColumnWithFilename(TitleColumn):
+    cell_template_name = "wagtailimages/images/title_column_cell.html"
 
 
 class EditView(generic.EditView):
@@ -134,7 +211,6 @@ class EditView(generic.EditView):
     url_generator_url_name = "wagtailimages:url_generator"
     header_icon = "image"
     context_object_name = "image"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -186,6 +262,7 @@ class EditView(generic.EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["next"] = self.next_url
+        context["usage_count_val"] = self.object.get_usage().count()
 
         try:
             context["filesize"] = self.object.get_file_size()
@@ -212,7 +289,6 @@ class URLGeneratorView(generic.InspectView):
     template_name = "wagtailimages/images/url_generator.html"
     index_url_name = "wagtailimages:index"
     edit_url_name = "wagtailimages:edit"
-    _show_breadcrumbs = True
 
     def get_page_subtitle(self):
         return self.object.title
@@ -346,7 +422,6 @@ class CreateView(generic.CreateView):
     error_message = gettext_lazy("The image could not be created due to errors.")
     template_name = "wagtailimages/images/add.html"
     header_icon = "image"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):

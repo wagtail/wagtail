@@ -4,6 +4,7 @@
 #
 # Translators:
 # A S <basitlikiyidir@gmail.com>, 2020
+# A S <basitlikiyidir@gmail.com>, 2020
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
 # A S <basitlikiyidir@gmail.com>, 2020
@@ -11,7 +12,7 @@
 # Halim Turan <halim_turan_61@hotmail.com>, 2020
 # José Luis <alagunajs@gmail.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2015
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020,2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2015-2016
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Umut Bektaş <info@umutbektas.com>, 2019\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -371,10 +372,6 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s yayından kaldır"
-
 msgid "Yes, unpublish it"
 msgstr "Evet, yayından kaldır"
 
@@ -386,13 +383,6 @@ msgstr "Eylemler"
 
 msgid "Update"
 msgstr "Güncelle"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s karşılaştırılıyor"
-
-msgid "Comparing"
-msgstr "Karşılaştırılıyor"
 
 msgid "Fields"
 msgstr "Alanlar"
@@ -667,10 +657,6 @@ msgstr "Kullanıcı"
 msgid "Edit this item"
 msgstr "Bu elemanı düzenle"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sayfa %(page_num)s / %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "İçerik haritası"
 
@@ -693,11 +679,8 @@ msgid "Visit the live page"
 msgstr "Yayındaki sayfayı gör"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s için %(revision.id)s değişiklik planını kaldır."
-
-msgid "Unschedule"
-msgstr "Planı kaldır"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sayfa %(page_num)s / %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Bu değişiklik planını kaldırmak istediğinizden emin misiniz?"
@@ -760,9 +743,6 @@ msgstr "Geri al"
 
 msgid "Redo"
 msgstr "Yeniden"
-
-msgid "Bold"
-msgstr "Kalın"
 
 msgid "Italic"
 msgstr "Yatay"
@@ -845,10 +825,6 @@ msgstr "%(model_name)s '%(object)s' güncellendi."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' oluşturuldu."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' düzenle"
-
 msgid "Inspect"
 msgstr "Denetle"
 
@@ -864,6 +840,9 @@ msgstr "En eski"
 
 msgid "Latest"
 msgstr "En yeni"
+
+msgid "Unschedule"
+msgstr "Planı kaldır"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -965,33 +944,23 @@ msgstr "Kullanan sayfalar"
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Sayfa '%(page_title)s' şuan kontrol edilmek üzere beklemiyor."
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "'%(title)s' sayfasının taslak sürümünü önizle"
+msgid "Heading 1"
+msgstr "Başlık 1"
 
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "'%(title)s' sayfasının canlı sürümünü gör"
+msgid "Heading 2"
+msgstr "Başlık 2"
 
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "'%(title)s' sayfasını taşı"
+msgid "Heading 3"
+msgstr "Başlık 3"
 
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "'%(title)s' sayfasını kopyala"
+msgid "Heading 4"
+msgstr "Başlık 4"
 
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "'%(title)s' sayfasını sil"
+msgid "Heading 5"
+msgstr "Başlık 5"
 
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "'%(title)s' sayfasını yayından kaldır"
-
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Başlık %(level)d"
+msgid "Heading 6"
+msgstr "Başlık 6"
 
 msgid "Bulleted list"
 msgstr "Numarasız liste"
@@ -1001,6 +970,9 @@ msgstr "Numaralı liste"
 
 msgid "Blockquote"
 msgstr "Alıntı"
+
+msgid "Bold"
+msgstr "Kalın"
 
 msgid "Link"
 msgstr "Bağlantı"

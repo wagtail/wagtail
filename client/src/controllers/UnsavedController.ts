@@ -1,11 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 import { debounce } from '../utils/debounce';
-import { domReady } from '../utils/domReady';
 
 declare global {
   interface Window {
     comments: { commentApp: { selectors: any; store: any } };
-    enableDirtyFormCheck: any;
   }
 }
 
@@ -21,6 +19,7 @@ const DEFAULT_DURATIONS = {
  * are about to move away from the page with potentially unsaved changes.
  *
  * @example - Warn the user when there are unsaved edits
+ * ```html
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
@@ -29,8 +28,10 @@ const DEFAULT_DURATIONS = {
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
  * </form>
+ * ```
  *
  * @example - Watch comments for changes in addition to edits (default is edits only)
+ * ```html
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
@@ -40,8 +41,10 @@ const DEFAULT_DURATIONS = {
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
  * </form>
+ * ```
  *
  * @example - Force the confirmation dialog
+ * ```html
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
@@ -51,8 +54,10 @@ const DEFAULT_DURATIONS = {
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
  * </form>
+ * ```
  *
  * @example - Force the confirmation dialog without watching for edits/comments
+ * ```html
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
@@ -63,6 +68,7 @@ const DEFAULT_DURATIONS = {
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
  * </form>
+ * ```
  */
 export class UnsavedController extends Controller<HTMLFormElement> {
   static values = {
@@ -334,69 +340,5 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     if (this.observer) {
       this.observer.disconnect();
     }
-  }
-
-  /**
-   * Ensure we have backwards compatibility for any window global calls to
-   * `window.enableDirtyFormCheck`.
-   *
-   * @deprecated RemovedInWagtail70
-   */
-  static afterLoad(identifier: string) {
-    /**
-     * Support a basic form of the legacy "dirty form check" global initialisation function.
-     *
-     * @param {string} formSelector - A CSS selector to select the form to apply this check to.
-     * @param {Object} options
-     * @param {boolean} options.alwaysDirty - When set to true the form will always be considered dirty
-     * @param {string} options.confirmationMessage - The message to display in the prompt.
-     *
-     * @deprecated RemovedInWagtail70
-     */
-    const enableDirtyFormCheck = (
-      formSelector: string,
-      { alwaysDirty = false, confirmationMessage = '' },
-    ) => {
-      domReady().then(() => {
-        const form = document.querySelector(
-          `${formSelector}:not([data-controller~='${identifier}'])`,
-        );
-
-        if (!(form instanceof HTMLFormElement)) return;
-
-        [
-          [
-            'data-w-unsaved-confirmation-value',
-            `${!!confirmationMessage || true}`,
-          ],
-          ['data-w-unsaved-force-value', `${alwaysDirty || false}`],
-          ['data-w-unsaved-watch-value', 'edits comments'],
-        ].forEach(([key, value]) => {
-          form.setAttribute(key, value);
-        });
-
-        form.setAttribute(
-          'data-action',
-          [
-            form.getAttribute('data-action') || '',
-            'w-unsaved#submit',
-            'beforeunload@window->w-unsaved#confirm',
-            'change->w-unsaved#check',
-            'keyup->w-unsaved#check',
-          ]
-            .filter(Boolean)
-            .join(' '),
-        );
-
-        form.setAttribute(
-          'data-controller',
-          [form.getAttribute('data-controller') || '', identifier]
-            .filter(Boolean)
-            .join(' '),
-        );
-      });
-    };
-
-    window.enableDirtyFormCheck = enableDirtyFormCheck;
   }
 }
