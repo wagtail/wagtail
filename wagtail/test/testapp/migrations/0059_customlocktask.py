@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("tests", "0057_featurecompletetoy_sort_order"),
+        ("tests", "0058_featurecompletetoy_sort_order"),
     ]
 
     operations = [
