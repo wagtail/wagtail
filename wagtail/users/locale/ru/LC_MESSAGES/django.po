@@ -20,6 +20,7 @@
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Twixxik, 2025
 # Vassily <zuber.kg@gmail.com>, 2017
 # Vassily <zuber.kg@gmail.com>, 2017
 # Влад <integration.into.society@gmail.com>, 2022
@@ -34,7 +35,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Никита Викторович <hnknta@gmail.com>, 2014\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -171,6 +172,9 @@ msgstr "плотность"
 
 msgid "Keyboard shortcuts"
 msgstr "Горячие клавиши"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Включить пользовательские сочетания клавиш для Wagtail."
 
 msgid "user profile"
 msgstr "профиль пользователя"

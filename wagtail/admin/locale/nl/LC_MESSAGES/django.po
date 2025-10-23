@@ -38,7 +38,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Richard Voorhorst, 2024-2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -79,6 +79,17 @@ msgstr "Pagina is vergrendeld"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s en publiceren"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "alles"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -619,7 +630,7 @@ msgid ""
 msgstr ""
 "Door het omzetten naar een interne link naar %(page)s wordt de link "
 "automatisch aangepast als de URL van de onderliggende pagina wijzigt. Wil je "
-"deze link omzetten naar een interne link?"
+"deze link omzetten?"
 
 msgid "Use external link"
 msgstr "Gebruik externe link"
@@ -890,7 +901,7 @@ msgstr "In afwachting"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
-msgstr "Dingen in Wagtail %(version)s zijn veranderd!"
+msgstr "Er zijn dingen veranderd in Wagtail %(version)s!"
 
 #, python-format
 msgid ""
@@ -1913,6 +1924,12 @@ msgstr "Er zijn nog geen pagina's/snippets ingediend ter goedkeuring"
 msgid "Completed at"
 msgstr "Afgerond op"
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s:"
+
 msgid "Clear"
 msgstr "Leegmaken"
 
@@ -1924,6 +1941,15 @@ msgstr "Toon/verberg kruimelpad"
 
 msgid "Breadcrumb"
 msgstr "Kruimelpad"
+
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] "Deze actie zal <b>%(total_pages_formatted)s</b> pagina verwijderen."
+msgstr[1] ""
+"Deze actie zal in totaal <b>%(total_pages_formatted)s</b> pagina's "
+"verwijderen."
 
 #, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
@@ -2183,6 +2209,9 @@ msgstr "Publicatieschema is niet geldig"
 
 msgid "Go-live:"
 msgstr "Live-gang:"
+
+msgid "Once scheduled:"
+msgstr "Eenmaal ingepland:"
 
 msgid "No publishing schedule set"
 msgstr "Geen schema voor publicatie vastgesteld"
@@ -2458,6 +2487,15 @@ msgstr "Helaas, geen taken komen overeen met \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Je hebt nog geen taken aangemaakt."
 
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
+msgstr ""
+"Waarom <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">maak je er niet een aan</a>?"
+
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2567,6 +2605,12 @@ msgstr "Wijzigingen opslaan"
 msgid "Toggle sidebar"
 msgstr "Toon/verberg zijbalk"
 
+msgid "Toggle minimap"
+msgstr "Toon/verberg minimap"
+
+msgid "Add or show comments"
+msgstr "Toon of voeg opmerkingen toe"
+
 msgid "Text content"
 msgstr "Binnen een tekstvak"
 
@@ -2617,6 +2661,9 @@ msgstr "Checks"
 
 msgid "Toggle preview"
 msgstr "Toon/verberg voorvertoning"
+
+msgid "(blank)"
+msgstr "(leeg)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2683,6 +2730,10 @@ msgstr "Afbeelding alt tekst bevat een verdacht patroon"
 
 msgid "Use meaningful text"
 msgstr "Gebruik betekenisvolle tekst"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s object (%(id)s)"
 
 msgid "Profile"
 msgstr "Profiel"
@@ -3200,6 +3251,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Pagina '%(page_title)s' is verplaatst."
+
+msgid "Placeholder title"
+msgstr "Tijdelijke titel"
 
 #, python-format
 msgid ""
