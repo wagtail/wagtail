@@ -25,10 +25,7 @@ lint-server:
 	semgrep --config .semgrep.yml --error .
 
 lint-client:
-	npm run lint:css --silent
-	npm run lint:js --silent
-	npm run lint:format --silent
-	npm run lint:project
+	npm run lint --loglevel silent
 
 lint-docs:
 	doc8 docs
