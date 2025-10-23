@@ -1,1 +1,1 @@
-from modelsearch.backends.database.mysql.query import *  # noqa: F403
+from wagtailmodelsearch.backends.database.mysql.query import *  # noqa: F403
