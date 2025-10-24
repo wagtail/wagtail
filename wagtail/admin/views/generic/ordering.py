@@ -78,15 +78,16 @@ class ReorderView(PermissionCheckedMixin, View):
                 with connection.cursor() as cursor:
                     # Django does not handle 'UPDATE ... FROM' queries so go raw
                     compiler = subquery.query.get_compiler(connection=connection)
-                    quote = compiler.quote_name_unless_alias
+                    qn = compiler.quote_name_unless_alias
+                    qn2 = connection.ops.quote_name
                     subquery_sql, subquery_params = subquery.query.as_sql(
                         compiler, connection
                     )
                     sql = f"""
-                        UPDATE {quote(self.model._meta.db_table)} AS U1
-                        SET {quote(self.sort_order_field)} = U0._new_sort_order
+                        UPDATE {qn(self.model._meta.db_table)} AS U1
+                        SET {qn2(self.sort_order_field)} = {qn("U0")}.{qn2("_new_sort_order")}
                         FROM ({subquery_sql}) AS U0
-                        WHERE U1.{quote(self.model._meta.pk.name)} = U0.{quote(self.model._meta.pk.name)}
+                        WHERE {qn("U1")}.{qn2(self.model._meta.pk.name)} = {qn("U0")}.{qn2(self.model._meta.pk.name)}
                     """
                     cursor.execute(sql, subquery_params)
                 # Set the item's position to new position
