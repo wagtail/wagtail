@@ -51,7 +51,7 @@ dependencies = [
   "telepath>=0.3.1,<1",
   "laces>=0.1,<0.2",
   "django-tasks>=0.8,<0.10",
-  "modelsearch@https://releases.wagtail.io/modelsearch/modelsearch-1.1b0-py3-none-any.whl",
+  "modelsearch==1.1rc1",
 ]
 
 [project.urls]
