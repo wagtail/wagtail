@@ -61,10 +61,6 @@ A widget's state will often be the same as the form field's value, but may conta
    :param container: An HTML DOM element in which to search; the widget's HTML must be present as a descendant of this element, or the element itself.
 ```
 
-```{versionadded} 7.1
-The `getByName` method was added to the API.
-```
-
 (bound_widget_api)=
 
 ```{eval-rst}

@@ -635,10 +635,6 @@ class MyStreamBlock(StreamBlock):
     )
 ```
 
-```{versionadded} 7.1
-The `preview_value` can now be defined as a callable.
-```
-
 (streamfield_global_preview_template)=
 
 ### Overriding the global preview template
