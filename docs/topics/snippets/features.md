@@ -121,10 +121,6 @@ The default `GenericRelation` does not have a {attr}`~django.contrib.contenttype
 
 For more details, see the default `GenericRelation` {attr}`~wagtail.models.RevisionMixin._revisions` and the property {attr}`~wagtail.models.RevisionMixin.revisions`.
 
-```{versionadded} 7.1
-The default `GenericRelation` {attr}`~wagtail.models.RevisionMixin._revisions` was added.
-```
-
 For example, the `Advert` snippet could be made revisable as follows:
 
 ```python
@@ -300,10 +296,6 @@ The mixin defines a `workflow_states` property that gives you a queryset of all 
 The default `GenericRelation` does not have a {attr}`~django.contrib.contenttypes.fields.GenericRelation.related_query_name`, so it does not give you the ability to query and filter from the `WorkflowState` model back to the snippet model. If you would like this feature, you can define your own `GenericRelation` with a custom `related_query_name`.
 
 For more details, see the default `GenericRelation` {attr}`~wagtail.models.WorkflowMixin._workflow_states` and the property {attr}`~wagtail.models.WorkflowMixin.workflow_states`.
-
-```{versionadded} 7.1
-The default `GenericRelation` {attr}`~wagtail.models.WorkflowMixin._workflow_states` was added.
-```
 
 For example, workflows (with locking) can be enabled for the `Advert` snippet by defining it as follows:
 
