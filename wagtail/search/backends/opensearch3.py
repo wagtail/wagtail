@@ -1,11 +1,11 @@
-from wagtailmodelsearch.backends.opensearch3 import *  # noqa: F403
-from wagtailmodelsearch.backends.opensearch3 import (
+from modelsearch.backends.opensearch3 import *  # noqa: F403
+from modelsearch.backends.opensearch3 import (
     OpenSearch3AutocompleteQueryCompiler as _OpenSearch3AutocompleteQueryCompiler,
 )
-from wagtailmodelsearch.backends.opensearch3 import (
+from modelsearch.backends.opensearch3 import (
     OpenSearch3SearchBackend as _OpenSearch3SearchBackend,
 )
-from wagtailmodelsearch.backends.opensearch3 import (
+from modelsearch.backends.opensearch3 import (
     OpenSearch3SearchQueryCompiler as _OpenSearch3SearchQueryCompiler,
 )
 
