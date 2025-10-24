@@ -12,6 +12,7 @@ Changelog
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
+ * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
