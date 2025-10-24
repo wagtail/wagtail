@@ -109,3 +109,16 @@ class TestCollectionTreeOperations(TestCase):
             ),
             [self.evil_plans_collection],
         )
+
+    def test_collection_natural_key(self):
+        """Test Collection and natural key implementation"""
+        
+        natural_key = self.holiday_photos_collection.natural_key()
+        expected_path = (self.root_collection.name, "Holiday photos")
+        self.assertEqual(natural_key, expected_path)
+        
+        
+        retrieved_collection = Collection.objects.get_by_natural_key(
+            self.root_collection.name, "Holiday photos"
+        )
+        self.assertEqual(retrieved_collection, self.holiday_photos_collection)
