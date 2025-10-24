@@ -23,12 +23,12 @@ def get_image_model():
     model_string = get_image_model_string()
     try:
         return apps.get_model(model_string, require_ready=False)
-    except ValueError:
+    except ValueError as error:
         raise ImproperlyConfigured(
             "WAGTAILIMAGES_IMAGE_MODEL must be of the form 'app_label.model_name'"
-        )
-    except LookupError:
+        ) from error
+    except LookupError as error:
         raise ImproperlyConfigured(
             "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed"
             % model_string
-        )
+        ) from error

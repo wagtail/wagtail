@@ -72,8 +72,8 @@ def unregister_image_format(format_name):
     try:
         del FORMATS_BY_NAME[format_name]
         FORMATS = [fmt for fmt in FORMATS if fmt.name != format_name]
-    except KeyError:
-        raise KeyError("Image format '%s' is not registered" % format_name)
+    except KeyError as error:
+        raise KeyError("Image format '%s' is not registered" % format_name) from error
 
 
 def get_image_formats():

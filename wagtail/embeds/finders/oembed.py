@@ -61,8 +61,8 @@ class OEmbedFinder(EmbedFinder):
                 endpoint, params=params, headers={"User-agent": "Mozilla/5.0"}
             )
             oembed = r.json()
-        except requests.RequestException:
-            raise EmbedNotFoundException
+        except requests.RequestException as error:
+            raise EmbedNotFoundException from error
 
         # Convert photos into HTML
         if oembed["type"] == "photo":

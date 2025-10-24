@@ -651,8 +651,8 @@ class CreateTask(CreateView):
             content_type = ContentType.objects.get_by_natural_key(
                 self.kwargs["app_label"], self.kwargs["model_name"]
             )
-        except (ContentType.DoesNotExist, AttributeError):
-            raise Http404
+        except (ContentType.DoesNotExist, AttributeError) as error:
+            raise Http404 from error
 
         # Get class
         model = content_type.model_class()

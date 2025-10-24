@@ -27,9 +27,11 @@ class SlugInput(widgets.TextInput):
                     str | None,
                 ],
             ]
-        ) = [],
+        ) = None,
         locale: object | None = None,
     ):
+        if formatters is None:
+            formatters = []
         default_attrs = {
             "data-controller": "w-slug",
             "data-action": "blur->w-slug#slugify w-sync:check->w-slug#compare w-sync:apply->w-slug#urlify:prevent",

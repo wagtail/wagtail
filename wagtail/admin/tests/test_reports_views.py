@@ -60,7 +60,9 @@ class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}, **kwargs):
+    def get(self, params=None, **kwargs):
+        if params is None:
+            params = {}
         if self.results_only:
             params["_w_filter_fragment"] = "true"
         return self.client.get(self.url, params, **kwargs)

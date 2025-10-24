@@ -181,18 +181,18 @@ class TestInvokeViaAttributeShortcut(SimpleTestCase):
     def test_pickleability(self):
         try:
             pickled = pickle.dumps(self.test_object, -1)
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             raise AssertionError(
                 "An error occurred when attempting to pickle %r: %s"
-                % (self.test_object, e)
-            )
+                % (self.test_object, error)
+            ) from error
         try:
             self.test_object = pickle.loads(pickled)
-        except Exception as e:  # noqa: BLE001
+        except Exception as error:  # noqa: BLE001
             raise AssertionError(
                 "An error occurred when attempting to unpickle %r: %s"
-                % (self.test_object, e)
-            )
+                % (self.test_object, error)
+            ) from error
 
         # Confirm unpickled object works the same
         self.target_object = self.test_object.obj
@@ -296,11 +296,11 @@ class TestGetContentLanguages(TestCase):
         ],
     )
     def test_must_be_subset_of_django_languages(self):
-        with self.assertRaises(ImproperlyConfigured) as e:
+        with self.assertRaises(ImproperlyConfigured) as error:
             get_content_languages()
 
         self.assertEqual(
-            e.exception.args,
+            error.exception.args,
             (
                 "The language zh is specified in WAGTAIL_CONTENT_LANGUAGES but not LANGUAGES. WAGTAIL_CONTENT_LANGUAGES must be a subset of LANGUAGES.",
             ),

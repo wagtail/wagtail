@@ -13,14 +13,14 @@ class Operation:
         # Check arguments
         try:
             inspect.getcallargs(self.construct, *args)
-        except TypeError as e:
-            raise InvalidFilterSpecError(e)
+        except TypeError as error:
+            raise InvalidFilterSpecError(error) from error
 
         # Call construct
         try:
             self.construct(*args)
-        except ValueError as e:
-            raise InvalidFilterSpecError(e)
+        except ValueError as error:
+            raise InvalidFilterSpecError(error) from error
 
     def construct(self, *args):
         raise NotImplementedError

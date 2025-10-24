@@ -18,10 +18,10 @@ class AzureBaseBackend(BaseBackend):
         self._subscription_id = params.pop("SUBSCRIPTION_ID", None)
         try:
             self._resource_group_name = params.pop("RESOURCE_GROUP_NAME")
-        except KeyError:
+        except KeyError as error:
             raise ImproperlyConfigured(
                 "The setting 'WAGTAILFRONTENDCACHE' requires 'RESOURCE_GROUP_NAME' to be specified."
-            )
+            ) from error
         self._custom_headers = params.pop("CUSTOM_HEADERS", None)
 
     def purge_batch(self, urls):
@@ -124,10 +124,10 @@ class AzureFrontDoorBackend(AzureBaseBackend):
         super().__init__(params)
         try:
             self._front_door_name = params.pop("FRONT_DOOR_NAME")
-        except KeyError:
+        except KeyError as error:
             raise ImproperlyConfigured(
                 "The setting 'WAGTAILFRONTENDCACHE' requires 'FRONT_DOOR_NAME' to be specified."
-            )
+            ) from error
         self._front_door_service_url = params.pop("FRONT_DOOR_SERVICE_URL", None)
 
     def _get_client_class(self):
@@ -154,10 +154,10 @@ class AzureCdnBackend(AzureBaseBackend):
         try:
             self._cdn_profile_name = params.pop("CDN_PROFILE_NAME")
             self._cdn_endpoint_name = params.pop("CDN_ENDPOINT_NAME")
-        except KeyError:
+        except KeyError as error:
             raise ImproperlyConfigured(
                 "The setting 'WAGTAILFRONTENDCACHE' requires 'CDN_PROFILE_NAME' and 'CDN_ENDPOINT_NAME' to be specified."
-            )
+            ) from error
         self._cdn_service_url = params.pop("CDN_SERVICE_URL", None)
 
     def _get_client_class(self):

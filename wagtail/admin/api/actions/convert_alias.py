@@ -21,10 +21,10 @@ class ConvertAliasPageAPIAction(APIAction):
 
         try:
             new_page = action.execute()
-        except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
-        except ConvertAliasPageError as e:
-            raise BadRequestError(e.args[0])
+        except DjangoValidationError as error:
+            raise ValidationError(error.message_dict) from error
+        except ConvertAliasPageError as error:
+            raise BadRequestError(error.args[0]) from error
 
         serializer = self.view.get_serializer(new_page)
         return Response(serializer.data, status=status.HTTP_200_OK)

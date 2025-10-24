@@ -232,8 +232,8 @@ def chooser(request, get_results=False):
     paginator = Paginator(queries, per_page=10)
     try:
         queries = paginator.page(request.GET.get("p", 1))
-    except InvalidPage:
-        raise Http404
+    except InvalidPage as error:
+        raise Http404 from error
 
     # Render
     if get_results:

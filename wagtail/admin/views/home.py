@@ -312,7 +312,9 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
 
         return {**context, **site_details}
 
-    def get_media(self, panels=[]):
+    def get_media(self, panels=None):
+        if panels is None:
+            panels = []
         media = Media()
 
         for panel in panels:

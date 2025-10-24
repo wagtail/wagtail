@@ -42,10 +42,10 @@ class CopyForTranslationAPIAction(APIAction):
 
         try:
             translated_page = action.execute()
-        except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
-        except ParentNotTranslatedError as e:
-            raise BadRequestError(e.args[0])
+        except DjangoValidationError as error:
+            raise ValidationError(error.message_dict) from error
+        except ParentNotTranslatedError as error:
+            raise BadRequestError(error.args[0]) from error
 
         serializer = self.view.get_serializer(translated_page)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

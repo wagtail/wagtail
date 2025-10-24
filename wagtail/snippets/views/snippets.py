@@ -58,8 +58,8 @@ def get_snippet_model_from_url_params(app_name, model_name):
     """
     try:
         model = apps.get_model(app_name, model_name)
-    except LookupError:
-        raise Http404
+    except LookupError as error:
+        raise Http404 from error
     if model not in get_snippet_models():
         # don't allow people to hack the URL to edit content types that aren't registered as snippets
         raise Http404

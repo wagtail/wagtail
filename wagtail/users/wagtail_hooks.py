@@ -13,10 +13,10 @@ from wagtail.users.views.bulk_actions import (
 def get_viewset_cls(app_config, viewset_name):
     try:
         viewset_cls = import_string(getattr(app_config, viewset_name))
-    except (AttributeError, ImportError) as e:
+    except (AttributeError, ImportError) as error:
         raise ImproperlyConfigured(
-            f"Invalid setting for {app_config.__class__.__name__}.{viewset_name}: {e}"
-        )
+            f"Invalid setting for {app_config.__class__.__name__}.{viewset_name}: {error}"
+        ) from error
     return viewset_cls
 
 

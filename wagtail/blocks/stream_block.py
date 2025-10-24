@@ -270,11 +270,11 @@ class BaseStreamBlock(Block):
             # StreamField value: a list of (block_name, value) tuples
             try:
                 [None for (x, y) in value]
-            except (TypeError, ValueError) as exc:
+            except (TypeError, ValueError) as error:
                 # Give up trying to make sense of the value
                 raise TypeError(
                     f"Cannot handle {value!r} (type {type(value)!r}) as a value of a StreamBlock"
-                ) from exc
+                ) from error
 
             # Test succeeded, so return as a StreamValue-ified version of that value
             return StreamValue(
@@ -812,10 +812,10 @@ class StreamValue(MutableSequence):
     def __reduce__(self):
         try:
             stream_field = self._stream_field
-        except AttributeError:
+        except AttributeError as error:
             raise PickleError(
                 "StreamValue can only be pickled if it is associated with a StreamField"
-            )
+            ) from error
 
         return (
             self._deserialize_pickle_value,

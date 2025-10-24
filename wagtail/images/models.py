@@ -141,10 +141,10 @@ def get_rendition_storage():
             try:
                 module = import_string(storage)
                 storage = module()
-            except ImportError:
+            except ImportError as error:
                 raise ImproperlyConfigured(
                     "WAGTAILIMAGES_RENDITION_STORAGE must be either a valid storage alias or dotted module path."
-                )
+                ) from error
 
     return storage
 
@@ -165,13 +165,13 @@ class ImageFileMixin:
         if self.file_size is None:
             try:
                 self.file_size = self.file.size
-            except Exception as e:  # noqa: BLE001
+            except Exception as error:  # noqa: BLE001
                 # File not found
                 #
                 # Have to catch everything, because the exception
                 # depends on the file subclass, and therefore the
                 # storage being used.
-                raise SourceImageIOError(str(e))
+                raise SourceImageIOError(str(error)) from error
 
             self.save(update_fields=["file_size"])
 
@@ -195,10 +195,10 @@ class ImageFileMixin:
                     image_file = storage.open(self.file.name, "rb")
 
                 close_file = True
-        except OSError as e:
+        except OSError as error:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
-            raise SourceImageIOError(str(e))
+            raise SourceImageIOError(str(error)) from error
 
         # Seek to beginning
         image_file.seek(0)
@@ -576,8 +576,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         try:
             return self.find_existing_renditions(filter)[filter]
-        except KeyError:
-            raise Rendition.DoesNotExist
+        except KeyError as error:
+            raise Rendition.DoesNotExist from error
 
     def create_rendition(self, filter: Filter) -> AbstractRendition:
         """
@@ -1448,7 +1448,9 @@ class AbstractRendition(ImageFileMixin, models.Model):
         else:
             return "50%"
 
-    def img_tag(self, extra_attributes={}):
+    def img_tag(self, extra_attributes=None):
+        if extra_attributes is None:
+            extra_attributes = {}
         attrs = self.attrs_dict.copy()
 
         attrs.update(apps.get_app_config("wagtailimages").default_attrs)

@@ -15,16 +15,16 @@ class WagtailPagination(BasePagination):
             offset = int(request.GET.get("offset", 0))
             if offset < 0:
                 raise ValueError()
-        except ValueError:
-            raise BadRequestError("offset must be a positive integer")
+        except ValueError as error:
+            raise BadRequestError("offset must be a positive integer") from error
 
         try:
             limit_default = 20 if not limit_max else min(20, limit_max)
             limit = int(request.GET.get("limit", limit_default))
             if limit < 0:
                 raise ValueError()
-        except ValueError:
-            raise BadRequestError("limit must be a positive integer")
+        except ValueError as error:
+            raise BadRequestError("limit must be a positive integer") from error
 
         if limit_max and limit > limit_max:
             raise BadRequestError("limit cannot be higher than %d" % limit_max)

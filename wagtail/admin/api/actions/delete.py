@@ -20,7 +20,7 @@ class DeletePageAPIAction(APIAction):
 
         try:
             action.execute()
-        except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
+        except DjangoValidationError as error:
+            raise ValidationError(error.message_dict) from error
 
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -45,8 +45,8 @@ class MovePageAPIAction(APIAction):
 
         try:
             action.execute()
-        except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
+        except DjangoValidationError as error:
+            raise ValidationError(error.message_dict) from error
 
         instance.refresh_from_db()
         serializer = self.view.get_serializer(instance)
