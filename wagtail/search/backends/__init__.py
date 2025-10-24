@@ -6,7 +6,7 @@ from importlib import import_module
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
-from modelsearch.backends import *  # noqa: F403
+from wagtailmodelsearch.backends import *  # noqa: F403
 
 
 class InvalidSearchBackendError(ImproperlyConfigured):
