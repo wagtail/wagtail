@@ -516,7 +516,7 @@ class ChosenViewMixin(ModelLookupMixin):
 
     def get(self, request, pk):
         try:
-            item = self.get_object(unquote(pk))
+            item = self.get_object(unquote(str(pk)))
         except ObjectDoesNotExist:
             raise Http404
 
