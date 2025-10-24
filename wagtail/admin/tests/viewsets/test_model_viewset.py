@@ -2081,6 +2081,31 @@ class TestReorderView(WagtailTestUtils, TestCase):
         # of the last item, and the sort_order of the other items updated by -1
         self.assertOrder([(self.obj2, 3), (self.obj3, 8), (self.obj1, 9)])
 
+    def test_post_request_with_unset_self_position_sets_default_value(self):
+        self.obj1.sort_order = None
+        self.obj1.save()
+        response = self.client.post(self.get_url(self.obj1) + "?position=2")
+        self.assertEqual(response.status_code, 200)
+
+        # The item will have the sort_order set to 0
+        # and the other items are unaffected
+        self.assertOrder([(self.obj1, 2), (self.obj2, 4), (self.obj3, 9)])
+
+    def test_post_request_with_unset_other_positions_sets_default_value(self):
+        FeatureCompleteToy.objects.all().update(sort_order=None)
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 200)
+
+        # The item will have the sort_order set to the position value
+        # and the other items are unaffected
+        self.assertEqual(FeatureCompleteToy.objects.get(pk=self.obj1.pk).sort_order, 1)
+        self.assertEqual(
+            FeatureCompleteToy.objects.get(pk=self.obj2.pk).sort_order, None
+        )
+        self.assertEqual(
+            FeatureCompleteToy.objects.get(pk=self.obj3.pk).sort_order, None
+        )
+
     def test_move_position_up(self):
         # Move obj3 to the first position
         response = self.client.post(self.get_url(self.obj3) + "?position=0")

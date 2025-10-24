@@ -52,7 +52,12 @@ class ReorderView(PermissionCheckedMixin, View):
         sort_order_at_position = items[new_position][self.sort_order_field]
 
         with transaction.atomic():
-            if new_position < current_position:
+            if current_sort_order is None or sort_order_at_position is None:
+                # If either value is not set, we can't reliably reorder other items.
+                # This likely happens if the field has not been prepopulated.
+                # Use the desired position as the new sort_order_field value.
+                sort_order_at_position = new_position
+            elif new_position < current_position:
                 # We are moving the item up in the list, so we need to push down
                 # the items from the new position and below.
                 queryset.filter(
