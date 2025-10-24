@@ -1,1 +1,1 @@
-from wagtailmodelsearch.backends.database.sqlite.utils import *  # noqa: F403
+from modelsearch.backends.database.sqlite.utils import *  # noqa: F403
