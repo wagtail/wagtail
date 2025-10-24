@@ -4,6 +4,8 @@ Changelog
 7.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Maintenance: Dropped support for Django 5.1
+
 
 7.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
