@@ -1,6 +1,7 @@
 from django.contrib.admin.utils import unquote
-from django.db import transaction
-from django.db.models import F
+from django.db import connection, transaction
+from django.db.models import Case, F, When, Window
+from django.db.models.functions import RowNumber
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
@@ -55,7 +56,40 @@ class ReorderView(PermissionCheckedMixin, View):
             if current_sort_order is None or sort_order_at_position is None:
                 # If either value is not set, we can't reliably reorder other items.
                 # This likely happens if the field has not been prepopulated.
-                # Use the desired position as the new sort_order_field value.
+                # Use respective row number to initialize values across the table.
+                subquery = (
+                    queryset.alias(
+                        _row_number=Window(RowNumber(), order_by=self.sort_order_field)
+                    )
+                    .annotate(
+                        # RowNumber start at 1
+                        _new_sort_order=Case(
+                            When(
+                                _row_number__gte=new_position + 1,
+                                then=F("_row_number"),
+                            ),
+                            default=F("_row_number") - 1,
+                        )
+                    )
+                    # Treat our item after
+                    .exclude(pk=item_to_move.pk)
+                    .values("pk", "_new_sort_order")
+                )
+                with connection.cursor() as cursor:
+                    # Django does not handle 'UPDATE ... FROM' queries so go raw
+                    compiler = subquery.query.get_compiler(connection=connection)
+                    quote = compiler.quote_name_unless_alias
+                    subquery_sql, subquery_params = subquery.query.as_sql(
+                        compiler, connection
+                    )
+                    sql = f"""
+                        UPDATE {quote(self.model._meta.db_table)} AS U1
+                        SET {quote(self.sort_order_field)} = U0._new_sort_order
+                        FROM ({subquery_sql}) AS U0
+                        WHERE U1.{quote(self.model._meta.pk.name)} = U0.{quote(self.model._meta.pk.name)}
+                    """
+                    cursor.execute(sql, subquery_params)
+                # Set the item's position to new position
                 sort_order_at_position = new_position
             elif new_position < current_position:
                 # We are moving the item up in the list, so we need to push down
