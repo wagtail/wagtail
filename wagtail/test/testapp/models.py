@@ -88,6 +88,7 @@ from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 
+from ...locks import WorkflowLock
 from .fields import CommentableJSONField
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
@@ -2448,6 +2449,18 @@ class UserApprovalTask(Task):
     @classmethod
     def get_description(cls):
         return "Only a specific user can approve this task"
+
+
+class CustomWorkflowLock(WorkflowLock):
+    def get_message(self, user):
+        return "If there is a door, there must be a key"
+
+
+class CustomLockTask(Task):
+    lock_class = CustomWorkflowLock
+
+    def locked_for_user(self, obj, user):
+        return True
 
 
 # StreamField media definitions must not be evaluated at startup (e.g. during system checks) -

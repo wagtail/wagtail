@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Wagtail API v2"
 msgstr ""
 
-#: apps.py:8
+#: apps.py:10
 msgid "Wagtail core"
 msgstr ""
 
@@ -211,7 +211,7 @@ msgid "Currently locked and will go live on the scheduled date"
 msgstr ""
 
 #: models/audit_log.py:191 models/pages.py:298 models/workflows.py:49
-#: models/workflows.py:656 models/workflows.py:996
+#: models/workflows.py:656 models/workflows.py:998
 msgid "content type"
 msgstr ""
 
@@ -249,7 +249,7 @@ msgstr ""
 msgid "model log entries"
 msgstr ""
 
-#: models/draft_state.py:14 models/draft_state.py:92 models/workflows.py:1361
+#: models/draft_state.py:14 models/draft_state.py:92 models/workflows.py:1363
 msgid "live"
 msgstr ""
 
@@ -277,23 +277,23 @@ msgstr ""
 msgid "expiry date/time"
 msgstr ""
 
-#: models/draft_state.py:42 models/draft_state.py:81 models/workflows.py:1346
+#: models/draft_state.py:42 models/draft_state.py:81 models/workflows.py:1348
 msgid "expired"
 msgstr ""
 
-#: models/draft_state.py:83 models/workflows.py:1348
+#: models/draft_state.py:83 models/workflows.py:1350
 msgid "scheduled"
 msgstr ""
 
-#: models/draft_state.py:85 models/workflows.py:1352
+#: models/draft_state.py:85 models/workflows.py:1354
 msgid "draft"
 msgstr ""
 
-#: models/draft_state.py:88 models/workflows.py:1355
+#: models/draft_state.py:88 models/workflows.py:1357
 msgid "live + scheduled"
 msgstr ""
 
-#: models/draft_state.py:90 models/workflows.py:1359
+#: models/draft_state.py:90 models/workflows.py:1361
 msgid "live + draft"
 msgstr ""
 
@@ -334,11 +334,11 @@ msgstr ""
 msgid "collections"
 msgstr ""
 
-#: models/media.py:164 models/pages.py:2068 models/sites.py:287
+#: models/media.py:164 models/pages.py:2066 models/sites.py:287
 msgid "group"
 msgstr ""
 
-#: models/media.py:175 models/pages.py:2080 models/sites.py:298
+#: models/media.py:175 models/pages.py:2078 models/sites.py:298
 msgid "permission"
 msgstr ""
 
@@ -473,72 +473,72 @@ msgstr ""
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
+"'%(parent_url_path)s'."
 msgstr ""
 
-#: models/pages.py:2034 models/pages.py:2074 models/pages.py:2387
-#: models/pages.py:2454
+#: models/pages.py:2032 models/pages.py:2072 models/pages.py:2385
+#: models/pages.py:2452
 msgid "page"
 msgstr ""
 
-#: models/pages.py:2035
+#: models/pages.py:2033
 msgid "pages"
 msgstr ""
 
-#: models/pages.py:2093
+#: models/pages.py:2091
 msgid "group page permission"
 msgstr ""
 
-#: models/pages.py:2094
+#: models/pages.py:2092
 msgid "group page permissions"
 msgstr ""
 
-#: models/pages.py:2395
+#: models/pages.py:2393
 msgid "page view restriction"
 msgstr ""
 
-#: models/pages.py:2396
+#: models/pages.py:2394
 msgid "page view restrictions"
 msgstr ""
 
-#: models/pages.py:2462 models/workflows.py:57 models/workflows.py:129
+#: models/pages.py:2460 models/workflows.py:57 models/workflows.py:129
 #: models/workflows.py:614
 msgid "workflow"
 msgstr ""
 
-#: models/pages.py:2487
+#: models/pages.py:2485
 msgid "workflow page"
 msgstr ""
 
-#: models/pages.py:2488
+#: models/pages.py:2486
 msgid "workflow pages"
 msgstr ""
 
-#: models/pages.py:2555
+#: models/pages.py:2553
 msgid "page log entry"
 msgstr ""
 
-#: models/pages.py:2556
+#: models/pages.py:2554
 msgid "page log entries"
 msgstr ""
 
-#: models/pages.py:2574
+#: models/pages.py:2572
 msgid "Draft saved"
 msgstr ""
 
-#: models/pages.py:2622
+#: models/pages.py:2620
 msgid "comment"
 msgstr ""
 
-#: models/pages.py:2623
+#: models/pages.py:2621
 msgid "comments"
 msgstr ""
 
-#: models/pages.py:2718
+#: models/pages.py:2716
 msgid "comment reply"
 msgstr ""
 
-#: models/pages.py:2719
+#: models/pages.py:2717
 msgid "comment replies"
 msgstr ""
 
@@ -610,7 +610,7 @@ msgstr ""
 msgid "approved go live at"
 msgstr ""
 
-#: models/revisions.py:234 models/workflows.py:966
+#: models/revisions.py:234 models/workflows.py:968
 msgid "revision"
 msgstr ""
 
@@ -712,7 +712,7 @@ msgid ""
 "has this password will be able to view the content."
 msgstr ""
 
-#: models/view_restrictions.py:36 models/workflows.py:820
+#: models/view_restrictions.py:36 models/workflows.py:822
 msgid "groups"
 msgstr ""
 
@@ -724,11 +724,11 @@ msgstr ""
 msgid "view restrictions"
 msgstr ""
 
-#: models/workflows.py:107 models/workflows.py:950
+#: models/workflows.py:107 models/workflows.py:952
 msgid "In progress"
 msgstr ""
 
-#: models/workflows.py:108 models/workflows.py:951 wagtail_hooks.py:155
+#: models/workflows.py:108 models/workflows.py:953 wagtail_hooks.py:155
 msgid "Approved"
 msgstr ""
 
@@ -736,11 +736,11 @@ msgstr ""
 msgid "Needs changes"
 msgstr ""
 
-#: models/workflows.py:110 models/workflows.py:954
+#: models/workflows.py:110 models/workflows.py:956
 msgid "Cancelled"
 msgstr ""
 
-#: models/workflows.py:134 models/workflows.py:977
+#: models/workflows.py:134 models/workflows.py:979
 msgid "status"
 msgstr ""
 
@@ -793,7 +793,7 @@ msgstr ""
 msgid "workflow_tasks"
 msgstr ""
 
-#: models/workflows.py:633 models/workflows.py:813 models/workflows.py:972
+#: models/workflows.py:633 models/workflows.py:815 models/workflows.py:974
 msgid "task"
 msgstr ""
 
@@ -811,82 +811,82 @@ msgid ""
 "it from existing workflows."
 msgstr ""
 
-#: models/workflows.py:814
+#: models/workflows.py:816
 msgid "tasks"
 msgstr ""
 
-#: models/workflows.py:822
+#: models/workflows.py:824
 msgid ""
 "Pages/snippets at this step in a workflow will be moderated or approved by "
 "these groups of users"
 msgstr ""
 
-#: models/workflows.py:881
+#: models/workflows.py:883
 msgid "Request changes"
 msgstr ""
 
-#: models/workflows.py:882 wagtail_hooks.py:155
+#: models/workflows.py:884 wagtail_hooks.py:155
 msgid "Approve"
 msgstr ""
 
-#: models/workflows.py:883
+#: models/workflows.py:885
 msgid "Approve with comment"
 msgstr ""
 
-#: models/workflows.py:896
+#: models/workflows.py:898
 msgid "Members of the chosen Wagtail Groups can approve this task"
 msgstr ""
 
-#: models/workflows.py:900
+#: models/workflows.py:902
 msgid "Group approval task"
 msgstr ""
 
-#: models/workflows.py:901
+#: models/workflows.py:903
 msgid "Group approval tasks"
 msgstr ""
 
-#: models/workflows.py:952 wagtail_hooks.py:156
+#: models/workflows.py:954 wagtail_hooks.py:156
 msgid "Rejected"
 msgstr ""
 
-#: models/workflows.py:953
+#: models/workflows.py:955
 msgid "Skipped"
 msgstr ""
 
-#: models/workflows.py:960
+#: models/workflows.py:962
 msgid "workflow state"
 msgstr ""
 
-#: models/workflows.py:981
+#: models/workflows.py:983
 msgid "started at"
 msgstr ""
 
-#: models/workflows.py:983
+#: models/workflows.py:985
 msgid "finished at"
 msgstr ""
 
-#: models/workflows.py:987
+#: models/workflows.py:989
 msgid "finished by"
 msgstr ""
 
-#: models/workflows.py:1016
+#: models/workflows.py:1018
 #, python-format
 msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
 msgstr ""
 
-#: models/workflows.py:1157
+#: models/workflows.py:1159
 msgid "Task state"
 msgstr ""
 
-#: models/workflows.py:1158
+#: models/workflows.py:1160
 msgid "Task states"
 msgstr ""
 
-#: models/workflows.py:1350
+#: models/workflows.py:1352
 msgid "in moderation"
 msgstr ""
 
-#: models/workflows.py:1357
+#: models/workflows.py:1359
 msgid "live + in moderation"
 msgstr ""
 

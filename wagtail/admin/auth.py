@@ -143,7 +143,9 @@ def require_admin_access(view_func):
                 return permission_denied(request)
 
         if not request.headers.get("x-requested-with") == "XMLHttpRequest":
-            messages.error(request, _("You do not have permission to access the admin"))
+            messages.error(
+                request, _("You do not have permission to access the admin.")
+            )
 
         return reject_request(request)
 

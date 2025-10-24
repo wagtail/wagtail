@@ -127,6 +127,9 @@ msgstr "Tmavé"
 msgid "Default"
 msgstr "Default(ní)"
 
+msgid "Keyboard shortcuts"
+msgstr "Klávesové zkratky"
+
 msgid "user profile"
 msgstr "uživatelský profile"
 

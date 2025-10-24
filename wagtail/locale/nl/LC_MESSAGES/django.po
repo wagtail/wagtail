@@ -9,7 +9,7 @@
 # Maarten Kling <kling.maarten@gmail.com>, 2023
 # Matt Westcott <matthew@torchbox.com>, 2023
 # Meteor0id, 2018,2021
-# Storm Heg <storm@stormbase.digital>, 2021-2024
+# Storm Heg <storm@stormbase.digital>, 2021-2025
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,9 @@ msgstr "Wagtail sitemaps"
 
 msgid "Unknown content type"
 msgstr "Onbekend content type"
+
+msgid "Date cannot be in the future."
+msgstr "Datum kan niet in de toekomst liggen."
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -548,6 +551,12 @@ msgid ""
 msgstr ""
 "%(hostname)s is al geconfigureerd als de default site. Deze moet worden "
 "aangepast voordat deze site als default kan worden aangemerkt."
+
+msgid "group site permission"
+msgstr "groep site machtiging"
+
+msgid "group site permissions"
+msgstr "groep site machtigingen"
 
 msgid "Public"
 msgstr "Publiek"

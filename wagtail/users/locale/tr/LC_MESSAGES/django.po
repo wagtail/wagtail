@@ -6,6 +6,7 @@
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
+# Ertuğrul Keremoğlu, 2025
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
+"Last-Translator: Ertuğrul Keremoğlu, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,10 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail kullanıcılar"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Zorunlu. Sadece harfler, rakamlar ve @/./+/-/_ karakterleri kullanılabilir."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Bu değer sadece harf, sayı ya da @/./+/-/_ karakterlerinden oluşur."
@@ -89,6 +94,16 @@ msgstr "reddedilen bildirimler"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Düzenlediğiniz sayfa reddedildiğinde bildirim alın"
+
+msgid "updated comments notifications"
+msgstr "güncellenen yorum bildirimleri"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Abone olduğunuz bir sayfada yorum oluşturulduğunda, çözüldüğünde veya "
+"silindiğinde bildirim alın"
 
 msgid "preferred language"
 msgstr "tercih edilen dil"
@@ -155,6 +170,9 @@ msgstr[1] "%(counter)s kullanıcısına rol atandı."
 msgid "Assign role"
 msgstr "Rol ata"
 
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Bu rolü bu kullanıcılara atamak istediğinizden emin misiniz?"
+
 msgid "You don't have permission to edit this user"
 msgid_plural "You don't have permission to edit these users"
 msgstr[0] "Bu kullanıcıyı düzenleme izniniz yok"
@@ -163,8 +181,20 @@ msgstr[1] "Bu kullanıcıları düzenleme izniniz yok"
 msgid "Yes, assign"
 msgstr "Evet, ata"
 
+msgid "No, don't assign"
+msgstr "Hayır, atama yapma"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "1 kullanıcı sil"
+msgstr[1] "%(counter)s kullanıcı sil"
+
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Bu kullanıcıları silmek istediğinizden emin misiniz?"
 
 msgid "You don't have permission to delete this user"
 msgid_plural "You don't have permission to delete these users"
@@ -181,16 +211,23 @@ msgstr "Hayır, silme"
 msgid "Change active state for 1 user"
 msgid_plural "Change active state for %(counter)s users"
 msgstr[0] "1 kullanıcının etkin durumunu değiştir"
-msgstr[1] "%(counter)s kullanıcının etkin durumunu değiştir"
+msgstr[1] "%(counter)s kullanıcının aktiflik durumunu değiştir"
 
 msgid "Set active state"
-msgstr "Etkin durumu ayarla"
+msgstr "Aktiflik durumunu ayarla"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Bu kullanıcıların aktiflik durumunu değiştirmek istediğinizden emin misiniz?"
 
 msgid "You cannot change your own active status"
-msgstr "Kendi etkin durumunuzu değiştiremezsiniz."
+msgstr "Kendi aktiflik durumunuzu değiştiremezsiniz"
 
 msgid "Yes, change state"
 msgstr "Evet, durumu değiştir"
+
+msgid "No, don't change state"
+msgstr "Hayır, durumu değiştirme"
 
 #, python-format
 msgid ""
@@ -222,8 +259,23 @@ msgstr "Ekle"
 msgid "Change"
 msgstr "Değiştir"
 
+msgid "Custom permissions"
+msgstr "Özel izinler"
+
 msgid "Toggle all"
 msgstr "Tümünü değiştir"
+
+msgid "Toggle all add permissions"
+msgstr "Tüm ekleme izinlerini etkinleştir/devre dışı bırak"
+
+msgid "Toggle all change permissions"
+msgstr "Tüm değişiklik izinlerini etkinleştir/devre dışı bırak"
+
+msgid "Toggle all delete permissions"
+msgstr "Tüm silme izinlerini etkinleştir/devre dışı bırak"
+
+msgid "Toggle all custom permissions"
+msgstr "Tüm özel izinleri etkinleştir/devre dışı bırak"
 
 msgid "Other permissions"
 msgstr "Diğer izinler"
@@ -258,8 +310,23 @@ msgstr "Roller"
 msgid "Select all users in listing"
 msgstr "Listede tüm kullanıcıları seç"
 
+msgid "Sorry, no users match your query"
+msgstr "Sorgunuza uyan kullanıcı bulunamadı"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Hiç kullanıcı yapılandırılmamış. Bir kullanıcı <a "
+"href=\"%(wagtailusers_add_url)s\">eklemeyi</a> deneyin."
+
 msgid "Can view"
 msgstr "Görebilir"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "Kullanıcı %(id)s (silinmiş)"
 
 msgid "Assign role to selected users"
 msgstr "Seçilen kullanıcılara rol ata"
@@ -336,6 +403,9 @@ msgstr "Grubu sil"
 msgid "Last login"
 msgstr "Son giriş"
 
+msgid "Group"
+msgstr "Grup"
+
 msgid "Add a user"
 msgstr "Kullanıcı ekle"
 
@@ -354,6 +424,10 @@ msgstr "Erişim seviyesi"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr " '%(title)s' için daha fazla seçenek"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Kullanıcı '%(object)s' oluşturuldu."
 
 msgid "Add user"
 msgstr "Kullanıcı ekle"

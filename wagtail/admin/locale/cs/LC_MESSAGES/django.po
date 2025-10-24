@@ -8,6 +8,7 @@
 # IT Management <hudan@itmanagement.cz>, 2018,2020,2023
 # IT Management <hudan@itmanagement.cz>, 2020
 # Ivan Pomykacz <mist@alastify.cz>, 2015
+# Jan Zelený <janzeleny@outlook.com>, 2025
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
 # Marek Turnovec <aesculap@gmail.com>, 2016,2020,2022
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
+"Last-Translator: Jan Zelený <janzeleny@outlook.com>, 2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -461,6 +462,10 @@ msgstr "Vložit externí odkaz"
 
 msgid "Add a phone link"
 msgstr "Vložit telefonní odkaz"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Vybrat %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -1064,6 +1069,9 @@ msgstr "Zpět"
 msgid "History"
 msgstr "Historie"
 
+msgid "Keyboard shortcuts"
+msgstr "Klávesové zkratky"
+
 msgid "Current page status:"
 msgstr "Aktuální stav stránky:"
 
@@ -1167,6 +1175,9 @@ msgstr "Tato stránka zatím nebyla uložena k posouzení"
 
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
+
+msgid "Warnings"
+msgstr "Varování"
 
 msgid "Add a child page"
 msgstr "Přidat podstránku"
@@ -1327,11 +1338,20 @@ msgstr "před %(time_period)s"
 msgid "Log out"
 msgstr "Odhlásit"
 
+msgid "Cut"
+msgstr "Vyjmout"
+
+msgid "Paste"
+msgstr "Vložit"
+
 msgid "Undo"
 msgstr "Vrátit zpět"
 
 msgid "Redo"
 msgstr "Opakovat"
+
+msgid "Save changes"
+msgstr "Uložit změny"
 
 msgid "Italic"
 msgstr "Šikmé"
@@ -1760,6 +1780,10 @@ msgstr "Kód"
 
 msgid "Reports"
 msgstr "Výkazy"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Co je nového ve Wagtail %(version)s"
 
 msgid "Help"
 msgstr "Nápověda"

@@ -47,10 +47,6 @@ All block definitions accept the following optional keyword arguments or `Meta` 
 -   `group`
     -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
-```{versionadded} 7.1
-The `default` can now be defined as a callable.
-```
-
 (block_preview_arguments)=
 
 [StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following options:
@@ -61,10 +57,6 @@ The `default` can now be defined as a callable.
     -   The template that is used to render the preview. See {meth}`~wagtail.blocks.Block.get_preview_template` for more details.
 -   `description`
     -   The description of the block to be shown to editors. See {meth}`~wagtail.blocks.Block.get_description` for more details.
-
-```{versionadded} 7.1
-The `preview_value` can now be defined as a callable.
-```
 
 All block definitions have the following methods and properties that can be overridden:
 
@@ -104,10 +96,6 @@ All block definitions have the following methods and properties that can be over
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
     :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
-
-
-.. versionadded:: 7.1
-   The ``form_attrs`` keyword argument was added to all built-in field block types.
 
 
 .. autoclass:: wagtail.blocks.TextBlock
@@ -444,10 +432,6 @@ All block definitions have the following methods and properties that can be over
 
 ## Structural block types
 
-```{versionadded} 7.1
-The `form_attrs` keyword argument was added to all built-in structural block types.
-```
-
 ```{eval-rst}
 .. autoclass:: wagtail.blocks.StaticBlock
     :show-inheritance:
@@ -537,9 +521,6 @@ The `form_attrs` keyword argument was added to all built-in structural block typ
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:
      Determines the summary label shown after the ``label`` when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customized by setting a string here with block names contained in braces - for example ``label_format = "{surname}, {first_name}"``. If you wish to hide the summary label entirely, set this to the empty string ``""``.
-
-     .. versionchanged:: 7.1
-        The block's original ``label`` is now always shown when the block is collapsed, and the ``label_format`` string is shown after it as the summary instead of replacing the ``label``.
 
 
 .. autoclass:: wagtail.blocks.ListBlock
