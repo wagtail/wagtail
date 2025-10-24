@@ -32,6 +32,7 @@ from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES,
     Advert,
     AdvertPlacement,
+    ArticlePage,
     CommentableJSONPage,
     CustomPermissionPage,
     EventCategory,
@@ -44,6 +45,7 @@ from wagtail.test.testapp.models import (
     SingleEventPage,
     StandardIndex,
     StreamPage,
+    Tag,
     TaggedPage,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -4220,4 +4222,63 @@ class TestCommentOutput(WagtailTestUtils, TestCase):
                 # Comments directly on the top-level (the field itself) are always valid
                 "5. Comment on the top-level of a base JSONField",
             ],
+        )
+
+
+class InlinePanelIntegrityTest(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+        self.root = Page.get_first_root_node()
+
+        self.page = self.root.add_child(
+            instance=ArticlePage(title="Article", slug="article")
+        )
+        self.page.save_revision().publish()
+
+    def test_unpublish_resave_causes_integrity_error(self):
+        tag = Tag.objects.create(title="Demo", slug="demo")
+
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+            {
+                "title": "Article",
+                "slug": "article",
+                "tags-TOTAL_FORMS": "1",
+                "tags-INITIAL_FORMS": "0",
+                "tags-MIN_NUM_FORMS": "0",
+                "tags-MAX_NUM_FORMS": "1000",
+                "tags-0-id": "",
+                "tags-0-tag": tag.id,
+                "action-publish": "Publish",
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+
+        self.client.post(
+            reverse("wagtailadmin_pages:unpublish", args=(self.page.id,)),
+            {"action-unpublish": "Unpublish"},
+        )
+
+        tagged_item = self.page.tags.first()
+
+        self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+            {
+                "title": "Article",
+                "slug": "article",
+                "tags-TOTAL_FORMS": "1",
+                "tags-INITIAL_FORMS": "1",
+                "tags-MIN_NUM_FORMS": "0",
+                "tags-MAX_NUM_FORMS": "1000",
+                "tags-0-id": str(tagged_item.id),
+                "tags-0-tag": tag.id,
+                "tags-0-ORDER": "1",
+                "action-publish": "Publish",
+            },
+        )
+
+        self.assertEqual(
+            self.page.tags.count(),
+            1,
+            "Tag should not duplicate after unpublishing + resaving",
         )
