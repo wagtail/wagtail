@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,7 +178,7 @@ msgstr ""
 msgid "Choose"
 msgstr ""
 
-#: views/snippets.py:87 views/snippets.py:864 wagtail_hooks.py:38
+#: views/snippets.py:87 views/snippets.py:875 wagtail_hooks.py:38
 msgid "Snippets"
 msgstr ""
 
@@ -195,7 +195,7 @@ msgstr ""
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/snippets.py:856
+#: views/snippets.py:867
 msgid "Home"
 msgstr ""
 

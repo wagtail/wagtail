@@ -1181,9 +1181,6 @@ class WorkflowMixin(models.Model):
     to this model. If the feature is desired, subclasses can define their own
     ``GenericRelation`` to ``WorkflowState`` with a custom
     ``related_query_name``.
-
-    .. versionadded:: 7.1
-        The default ``GenericRelation`` :attr:`~wagtail.models.WorkflowMixin._workflow_states` was added.
     """
 
     class Meta:

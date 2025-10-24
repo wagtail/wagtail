@@ -23,9 +23,10 @@
                     id="tab-{{ identifier }}"
                     class="{% classnames "w-tabs__panel" child.classes %}"
                     role="tabpanel"
-                    data-w-tabs-target="panel"
                     aria-labelledby="tab-label-{{ identifier }}"
                     hidden
+                    data-w-tabs-target="panel"
+                    data-action="w-focus:focus->w-tabs#selectInside"
                 >
                     {{ child.render_html }}
                 </section>

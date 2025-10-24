@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,7 +216,7 @@ msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
 #: views/settings.py:184
-msgid "Recommendations have not been created due to errors"
+msgid "Recommendations have not been created due to errors."
 msgstr ""
 
 #: views/settings.py:193
@@ -225,7 +225,7 @@ msgid "Editor's picks for '%(query)s' updated."
 msgstr ""
 
 #: views/settings.py:194
-msgid "Recommendations have not been saved due to errors"
+msgid "Recommendations have not been saved due to errors."
 msgstr ""
 
 #: views/settings.py:203

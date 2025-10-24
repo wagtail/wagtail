@@ -39,15 +39,15 @@ describe('TabsController', () => {
         </a>
       </div>
       <div class="tab-content">
-        <section class="panel" id="tab-panel-1" role="tabpanel" aria-labelledby="tab-1" data-w-tabs-target="panel">
-          All about cheese
+        <section class="panel" id="tab-panel-1" role="tabpanel" aria-labelledby="tab-1" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
+          All about <a href="/cheese">cheese</a>.
           <a href="#tab-panel-3" id="extra-trigger-inside" type="button" data-action="w-tabs#select:prevent" data-w-tabs-focus-param="true" data-w-tabs-target="trigger">Inside tab trigger for Tab 3 as link</a>
         </section>
-        <section class="panel" id="tab-panel-2" role="tabpanel" aria-labelledby="tab-2" data-w-tabs-target="panel">
-          All about chocolate
+        <section class="panel" id="tab-panel-2" role="tabpanel" aria-labelledby="tab-2" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
+          All about <a href="/chocolate">chocolate</a>.
         </section>
-        <section class="panel" id="tab-panel-3" role="tabpanel" aria-labelledby="tab-3" data-w-tabs-target="panel">
-          All about coffee
+        <section class="panel" id="tab-panel-3" role="tabpanel" aria-labelledby="tab-3" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
+          All about <a href="/coffee">coffee</a>.
         </section>
       </div>
       <button id="extra-trigger" type="button" data-action="w-tabs#select" data-w-tabs-target="trigger" data-w-tabs-focus-param="true" data-w-tabs-id-param="tab-panel-2">Outside trigger for Tab 2 as button</button>
@@ -352,6 +352,38 @@ describe('TabsController', () => {
         document.getElementById('tab-1').getAttribute('aria-selected'),
       ).toBe('true');
       expect(document.getElementById('tab-panel-1').hidden).toBeFalsy();
+    });
+
+    it('should support selection via an event dispatched from inside the tab panel', async () => {
+      await setup();
+
+      const [tab1, tab2, tab3] = document.querySelectorAll('[role="tab"]');
+      const [tab1Panel, tab2Panel, tab3Panel] =
+        document.querySelectorAll('section');
+
+      expect(tab1.getAttribute('aria-selected')).toBe('true');
+
+      // dispatch an event from inside the third tab panel to select the third tab
+      tab3Panel
+        .querySelector('a')
+        .dispatchEvent(new CustomEvent('w-focus:focus', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(tab1.getAttribute('aria-selected')).toBe(null);
+      expect(tab2.getAttribute('aria-selected')).toBe(null);
+      expect(tab3.getAttribute('aria-selected')).toBe('true');
+
+      // dispatch an event from inside the second tab panel to select the second tab
+      tab2Panel
+        .querySelector('a')
+        .dispatchEvent(new CustomEvent('w-focus:focus', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(tab1.getAttribute('aria-selected')).toBe(null);
+      expect(tab2.getAttribute('aria-selected')).toBe('true');
+      expect(tab3.getAttribute('aria-selected')).toBe(null);
     });
 
     it('should gracefully handle adding panel/trigger targets', async () => {
