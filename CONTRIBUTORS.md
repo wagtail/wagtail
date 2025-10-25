@@ -915,6 +915,7 @@
 * arpitmak
 * Eric Matthes
 * Heric Libong
+* Harshit Ranjan
 
 ## Translators
 
