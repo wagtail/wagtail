@@ -12,7 +12,11 @@ from wagtail.admin.localization import (
 )
 from wagtail.admin.widgets import SwitchInput
 from wagtail.permissions import page_permission_policy
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from wagtail.users.models import UserProfile
+from PIL import Image
+import io
+from wagtail.images.image_operations import ImageTransform
 
 User = get_user_model()
 
@@ -125,27 +129,54 @@ class AvatarPreferencesForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self._original_avatar = self.instance.avatar
 
+    def clean_avatar(self):
+        file = self.cleaned_data.get('avatar')
+        if not file:
+            return None
+
+        image = Image.open(file)
+        width, height = image.size
+
+        if width <= 400 and height <= 400:
+            return file 
+
+        transform = ImageTransform(size=(width, height))
+        new_transform = transform.resize((400, 400))
+
+        resized_image = image.resize(new_transform.size)
+
+        output = io.BytesIO()
+        resized_image.save(output, format=image.format)
+        output.seek(0)
+
+        new_file = InMemoryUploadedFile(
+            file=output,
+            field_name=file.field_name,
+            name=file.name,
+            content_type=file.content_type,
+            size=output.getbuffer().nbytes,
+            charset=file.charset
+        )
+
+        return new_file
+
     def save(self, commit=True):
         if (
             commit
             and self._original_avatar
             and (self._original_avatar != self.cleaned_data["avatar"])
         ):
-            # Call delete() on the storage backend directly, as calling self._original_avatar.delete()
-            # will clear the now-updated field on self.instance too
             try:
                 self._original_avatar.storage.delete(self._original_avatar.name)
             except OSError:
-                # failure to delete the old avatar shouldn't prevent us from continuing
                 warnings.warn(
                     "Failed to delete old avatar file: %s" % self._original_avatar.name
                 )
-        super().save(commit=commit)
+        return super().save(commit=commit)
 
     class Meta:
         model = UserProfile
         fields = ["avatar"]
-
 
 class ThemePreferencesForm(forms.ModelForm):
     class Meta:
