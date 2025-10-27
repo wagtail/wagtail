@@ -77,10 +77,15 @@ class ReorderView(PermissionCheckedMixin, View):
                 objs = list(query)
                 for obj in objs:
                     setattr(obj, self.sort_order_field, obj._new_sort_order)
-                self.model.objects.bulk_update(objs, [self.sort_order_field])
                 # Set the item's position to new position
-                sort_order_at_position = new_position
-            elif new_position < current_position:
+                setattr(item_to_move, self.sort_order_field, new_position)
+                objs.append(item_to_move)
+                # Save all positions
+                self.model.objects.bulk_update(objs, [self.sort_order_field])
+
+                return JsonResponse({"success": True})
+
+            if new_position < current_position:
                 # We are moving the item up in the list, so we need to push down
                 # the items from the new position and below.
                 queryset.filter(
