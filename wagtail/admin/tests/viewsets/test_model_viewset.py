@@ -2088,17 +2088,18 @@ class TestReorderView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # The item will have the sort_order set to 2, others will be reindexed
-        self.assertOrder([(self.obj2, 0), (self.obj3, 1), (self.obj1, 2)])
+        self.assertEqual(FeatureCompleteToy.objects.get(pk=self.obj2.pk).sort_order, 0)
+        self.assertEqual(FeatureCompleteToy.objects.get(pk=self.obj3.pk).sort_order, 1)
+        self.assertEqual(FeatureCompleteToy.objects.get(pk=self.obj1.pk).sort_order, 2)
 
     def test_post_request_with_unset_other_positions_sets_default_value(self):
         FeatureCompleteToy.objects.all().update(sort_order=None)
         response = self.client.post(self.get_url(self.obj1) + "?position=1")
         self.assertEqual(response.status_code, 200)
 
-        # The item will have the sort_order set to the position value
-        # and the other items are unaffected
-        self.assertEqual(FeatureCompleteToy.objects.get(pk=self.obj1.pk).sort_order, 1)
+        # The item will have the sort_order set to 1, others will be reindexed
         self.assertEqual(FeatureCompleteToy.objects.get(pk=self.obj2.pk).sort_order, 0)
+        self.assertEqual(FeatureCompleteToy.objects.get(pk=self.obj1.pk).sort_order, 1)
         self.assertEqual(FeatureCompleteToy.objects.get(pk=self.obj3.pk).sort_order, 2)
 
     def test_move_position_up(self):
