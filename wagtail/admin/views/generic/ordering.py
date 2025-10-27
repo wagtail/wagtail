@@ -1,5 +1,5 @@
 from django.contrib.admin.utils import unquote
-from django.db import connection, transaction
+from django.db import transaction
 from django.db.models import Case, F, When, Window
 from django.db.models.functions import RowNumber
 from django.http import JsonResponse
@@ -57,7 +57,7 @@ class ReorderView(PermissionCheckedMixin, View):
                 # If either value is not set, we can't reliably reorder other items.
                 # This likely happens if the field has not been prepopulated.
                 # Use respective row number to initialize values across the table.
-                subquery = (
+                query = (
                     queryset.alias(
                         _row_number=Window(RowNumber(), order_by=self.sort_order_field)
                     )
@@ -73,23 +73,11 @@ class ReorderView(PermissionCheckedMixin, View):
                     )
                     # Treat our item after
                     .exclude(pk=item_to_move.pk)
-                    .values("pk", "_new_sort_order")
                 )
-                with connection.cursor() as cursor:
-                    # Django does not handle 'UPDATE ... FROM' queries so go raw
-                    compiler = subquery.query.get_compiler(connection=connection)
-                    qn = compiler.quote_name_unless_alias
-                    qn2 = connection.ops.quote_name
-                    subquery_sql, subquery_params = subquery.query.as_sql(
-                        compiler, connection
-                    )
-                    sql = f"""
-                        UPDATE {qn(self.model._meta.db_table)} AS U1
-                        SET {qn2(self.sort_order_field)} = {qn("U0")}.{qn2("_new_sort_order")}
-                        FROM ({subquery_sql}) AS U0
-                        WHERE {qn("U1")}.{qn2(self.model._meta.pk.name)} = {qn("U0")}.{qn2(self.model._meta.pk.name)}
-                    """
-                    cursor.execute(sql, subquery_params)
+                objs = list(query)
+                for obj in objs:
+                    setattr(obj, self.sort_order_field, obj._new_sort_order)
+                self.model.objects.bulk_update(objs, [self.sort_order_field])
                 # Set the item's position to new position
                 sort_order_at_position = new_position
             elif new_position < current_position:
