@@ -374,26 +374,12 @@ def querystring(context, **kwargs):
     """
     request = context["request"]
     querydict = request.GET.copy()
-
-    for key, values in list(querydict.lists()):
-        cleaned_values = []
-        for v in values:
-            if v != "" and v is not None:
-                cleaned_values.append(v)
-
-        if cleaned_values:
-            querydict.setlist(key, cleaned_values)
-        else:
-            if key in querydict:
-                querydict.pop(key)
-
     # Can't do querydict.update(kwargs), because QueryDict.update() appends to
     # the list of values, instead of replacing the values.
     for key, value in kwargs.items():
         if value is None:
             # Remove the key if the value is None
-            if key in querydict:
-                querydict.pop(key, None)
+            querydict.pop(key, None)
         else:
             # Set the key otherwise
             querydict[key] = str(value)
