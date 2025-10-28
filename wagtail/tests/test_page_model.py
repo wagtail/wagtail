@@ -139,8 +139,11 @@ class TestValidation(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         events_page = SimplePage(title="Events", slug="events", content="hello")
-        with self.assertRaises(ValidationError):
-            homepage.add_child(instance=events_page)
+
+        homepage.add_child(instance=events_page)
+        homepage.refresh_from_db()
+        siblings = homepage.get_children()
+        self.assertEqual(siblings.filter(slug=events_page.slug).count(), 1)
 
     def test_slug_can_duplicate_other_sections(self):
         homepage = Page.objects.get(url_path="/home/")

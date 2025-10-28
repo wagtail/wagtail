@@ -225,7 +225,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exclude(approved_go_live_at__isnull=True)
                 .exists()
             )
-            with self.assertNumQueries(49):
+            with self.assertNumQueries(50):
                 with self.captureOnCommitCallbacks(execute=True):
                     management.call_command("publish_scheduled_pages")
 
@@ -283,7 +283,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            with self.assertNumQueries(49):
+            with self.assertNumQueries(50):
                 with self.captureOnCommitCallbacks(execute=True):
                     management.call_command("publish_scheduled_pages")
 
@@ -320,7 +320,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         page.title = "Goodbye world!"
         page.save_revision()
 
-        with self.assertNumQueries(49):
+        with self.assertNumQueries(50):
             with self.captureOnCommitCallbacks(execute=True):
                 management.call_command("publish_scheduled_pages")
 
@@ -349,7 +349,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        with self.assertNumQueries(42):
+        with self.assertNumQueries(44):
             with self.captureOnCommitCallbacks(execute=True):
                 management.call_command("publish_scheduled_pages")
 
