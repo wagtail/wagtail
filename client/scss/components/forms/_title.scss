@@ -40,7 +40,9 @@
     }
 
     // Avoid calling attention to the field _unless_ it’s in one of those states.
-    &:not(:hover, :focus, :placeholder-shown, [aria-invalid='true']) {
+    &:not(:hover, :focus, :placeholder-shown, [aria-invalid='true'],
+    :has(~ :is(.w-field__comment-button:hover, .w-field__comment-button:focus-within, .w-field__comment-button--focused, .w-field__comment-button--add:hover, .w-field__comment-button--reveal:hover))
+    ) {
       // Hide w/ transparency to preserve border size and show it in forced-colors mode.
       border-color: transparent;
     }
