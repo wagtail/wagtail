@@ -1,6 +1,6 @@
 import io
-import warnings
 import os
+import warnings
 
 from django import forms
 from django.conf import settings
@@ -136,7 +136,7 @@ class AvatarPreferencesForm(forms.ModelForm):
 
         image = Image.open(file)
         width, height = image.size
-        
+
         if width <= 400 and height <= 400:
             return file
 

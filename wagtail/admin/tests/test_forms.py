@@ -1,11 +1,7 @@
-import io
 
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.forms.fields import CharField
 from django.test import SimpleTestCase, TestCase
-from PIL import Image
 
-from wagtail.admin.forms.account import AvatarPreferencesForm
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.test.testapp.models import Advert
@@ -71,6 +67,3 @@ class TestDeferRequiredFields(TestCase):
         form.defer_required_fields()
         form.restore_required_fields()
         self.assertFalse(form.is_valid())
-
-
-

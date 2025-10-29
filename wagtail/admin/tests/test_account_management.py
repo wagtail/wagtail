@@ -1,8 +1,6 @@
+import io
 import unittest
 import zoneinfo
-from PIL import Image
-import io
-
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -13,7 +11,9 @@ from django.core import mail
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
+from PIL import Image
 
+from wagtail.admin.forms.account import AvatarPreferencesForm
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES,
     get_available_admin_languages,
@@ -22,7 +22,6 @@ from wagtail.admin.localization import (
 from wagtail.admin.views.account import AccountView, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.admin.forms.account import AvatarPreferencesForm
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
@@ -736,14 +735,15 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         self.user = self.login()
         self.avatar = get_test_image_file()
         self.other_avatar = get_test_image_file()
-        
+
     def create_image_file(self, size=(800, 800), color="red", name="test.png"):
-        
         img = Image.new("RGB", size, color=color)
         img_byte_arr = io.BytesIO()
         img.save(img_byte_arr, format="PNG")
         img_byte_arr.seek(0)
-        return SimpleUploadedFile(name=name, content=img_byte_arr.read(), content_type="image/png")
+        return SimpleUploadedFile(
+            name=name, content=img_byte_arr.read(), content_type="image/png"
+        )
 
     def test_account_view(self):
         """
@@ -830,8 +830,7 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         # Check the avatar was changed
         profile.refresh_from_db()
         self.assertTrue(profile.avatar)
-        
-        
+
     def test_avatar_resize_large_image(self):
         """Ensure that large uploaded images are resized to a maximum of 400x400."""
         uploaded_file = self.create_image_file(size=(800, 800), name="large_image.jpg")
