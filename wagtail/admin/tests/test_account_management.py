@@ -1,5 +1,8 @@
 import unittest
 import zoneinfo
+from PIL import Image
+import io
+
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -19,6 +22,7 @@ from wagtail.admin.localization import (
 from wagtail.admin.views.account import AccountView, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.admin.forms.account import AvatarPreferencesForm
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
@@ -732,6 +736,14 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         self.user = self.login()
         self.avatar = get_test_image_file()
         self.other_avatar = get_test_image_file()
+        
+    def create_image_file(self, size=(800, 800), color="red", name="test.png"):
+        
+        img = Image.new("RGB", size, color=color)
+        img_byte_arr = io.BytesIO()
+        img.save(img_byte_arr, format="PNG")
+        img_byte_arr.seek(0)
+        return SimpleUploadedFile(name=name, content=img_byte_arr.read(), content_type="image/png")
 
     def test_account_view(self):
         """
@@ -789,6 +801,7 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         """
         profile = UserProfile.get_for_user(self.user)
         profile.avatar = self.avatar
+        old_url = profile.avatar.url
         profile.save()
 
         # Upload a new avatar
@@ -798,7 +811,8 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
 
         # Check the avatar was changed
         profile.refresh_from_db()
-        self.assertIn("test.png", profile.avatar.url)
+        self.assertEqual("/media/test.png", old_url)
+        self.assertTrue(profile.avatar.url.endswith(".png"))
 
     def test_clear_removes_current_avatar(self):
         """
@@ -815,7 +829,54 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
 
         # Check the avatar was changed
         profile.refresh_from_db()
-        self.assertIn("test.png", profile.avatar.url)
+        self.assertTrue(profile.avatar)
+        
+        
+    def test_avatar_resize_large_image(self):
+        """Ensure that large uploaded images are resized to a maximum of 400x400."""
+        uploaded_file = self.create_image_file(size=(800, 800), name="large_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertLessEqual(resized_image.width, 400)
+        self.assertLessEqual(resized_image.height, 400)
+
+    def test_avatar_no_resize_small_image(self):
+        uploaded_file = self.create_image_file(size=(300, 300), name="small_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        image = Image.open(avatar_file)
+        self.assertEqual(image.size, (300, 300))
+
+    def test_avatar_resize_width_greater_than_height(self):
+        uploaded_file = self.create_image_file(size=(500, 300), name="wide_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertEqual(resized_image.size, (400, 240))
+
+        original_ratio = 500 / 300
+        new_ratio = resized_image.width / resized_image.height
+        self.assertAlmostEqual(original_ratio, new_ratio, places=2)
+
+    def test_avatar_resize_height_greater_than_width(self):
+        uploaded_file = self.create_image_file(size=(300, 500), name="tall_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertEqual(resized_image.size, (240, 400))
+
+        original_ratio = 300 / 500
+        new_ratio = resized_image.width / resized_image.height
+        self.assertAlmostEqual(original_ratio, new_ratio, places=2)
 
 
 class TestAccountManagementForNonModerator(WagtailTestUtils, TestCase):

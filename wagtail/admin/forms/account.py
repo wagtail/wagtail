@@ -1,5 +1,6 @@
 import io
 import warnings
+import os
 
 from django import forms
 from django.conf import settings
@@ -131,18 +132,16 @@ class AvatarPreferencesForm(forms.ModelForm):
     def clean_avatar(self):
         file = self.cleaned_data.get("avatar")
         if not file:
-            return None
+            return self._original_avatar
 
         image = Image.open(file)
         width, height = image.size
-
-        # If the image is already small enough, keep it
+        
         if width <= 400 and height <= 400:
             return file
 
         target_size = 400
 
-        # Maintain aspect ratio, scale so the largest dimension becomes 400
         if width > height:
             new_width = target_size
             new_height = int(height * (target_size / width))
@@ -156,13 +155,16 @@ class AvatarPreferencesForm(forms.ModelForm):
         resized_image.save(output, format=image.format)
         output.seek(0)
 
+        content_type = "image/png"
+        filename = os.path.splitext(file.name)[0] + ".png"
+
         new_file = InMemoryUploadedFile(
             file=output,
-            field_name=file.field_name,
-            name=file.name,
-            content_type=file.content_type,
+            field_name="avatar",
+            name=filename,
+            content_type=content_type,
             size=output.getbuffer().nbytes,
-            charset=file.charset,
+            charset=None,
         )
 
         return new_file
