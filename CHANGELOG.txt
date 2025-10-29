@@ -4,7 +4,10 @@ Changelog
 7.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Maintenance: Dropped support for Django 5.1
+ * Maintenance: Updated NPM packages (LB (Ben) Johnston)
+ * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
 
 
 7.2 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -33,7 +36,7 @@ Changelog
  * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
  * Fix: Prevent error from default `update_fields` parameter on `Page.asave()` (Tosinibikunle)
  * Fix: Ignore hidden error messages in minimap & `CountController` default `findValue` (Sage Abdullah)
- * Fix: Change default ordering for `UserViewSet` to `User.USERNAME_FIELD` to support default ordering ordering with custom User models that may not have a `name` field (Lynwee)
+ * Fix: Change default ordering for `UserViewSet` to `User.USERNAME_FIELD` to support default ordering with custom User models that may not have a `name` field (Lynwee)
  * Fix: Ensure starter tests in the project template pass (Lasse Schmieding)
  * Fix: Ensure fixed RichText toolbar shows under footer actions (Maciek Baron)
  * Fix: Prevent error when iterating over specific tasks with missing models (Lasse Schmieding)

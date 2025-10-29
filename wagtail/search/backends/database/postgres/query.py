@@ -1,1 +1,1 @@
-from wagtailmodelsearch.backends.database.postgres.query import *  # noqa: F403
+from modelsearch.backends.database.postgres.query import *  # noqa: F403
