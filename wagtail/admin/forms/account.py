@@ -1,10 +1,13 @@
+import io
 import warnings
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import get_language_info
 from django.utils.translation import gettext_lazy as _
+from PIL import Image
 
 from wagtail.admin.localization import (
     get_available_admin_languages,
@@ -12,11 +15,7 @@ from wagtail.admin.localization import (
 )
 from wagtail.admin.widgets import SwitchInput
 from wagtail.permissions import page_permission_policy
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from wagtail.users.models import UserProfile
-from PIL import Image
-import io
-from wagtail.images.image_operations import ImageTransform
 
 User = get_user_model()
 
@@ -130,20 +129,28 @@ class AvatarPreferencesForm(forms.ModelForm):
         self._original_avatar = self.instance.avatar
 
     def clean_avatar(self):
-        file = self.cleaned_data.get('avatar')
+        file = self.cleaned_data.get("avatar")
         if not file:
             return None
 
         image = Image.open(file)
         width, height = image.size
 
+        # If the image is already small enough, keep it
         if width <= 400 and height <= 400:
-            return file 
+            return file
 
-        transform = ImageTransform(size=(width, height))
-        new_transform = transform.resize((400, 400))
+        target_size = 400
 
-        resized_image = image.resize(new_transform.size)
+        # Maintain aspect ratio, scale so the largest dimension becomes 400
+        if width > height:
+            new_width = target_size
+            new_height = int(height * (target_size / width))
+        else:
+            new_height = target_size
+            new_width = int(width * (target_size / height))
+
+        resized_image = image.resize((new_width, new_height))
 
         output = io.BytesIO()
         resized_image.save(output, format=image.format)
@@ -155,7 +162,7 @@ class AvatarPreferencesForm(forms.ModelForm):
             name=file.name,
             content_type=file.content_type,
             size=output.getbuffer().nbytes,
-            charset=file.charset
+            charset=file.charset,
         )
 
         return new_file
@@ -177,6 +184,7 @@ class AvatarPreferencesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ["avatar"]
+
 
 class ThemePreferencesForm(forms.ModelForm):
     class Meta:
