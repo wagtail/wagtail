@@ -456,6 +456,14 @@ WAGTAILIMAGES_HEIC_QUALITY = 60
 
 Change the global default for HEIC image encoding quality (default: 80).
 
+### `WAGTAILIMAGES_FORMAT_CONVERSIONS`
+
+```python
+WAGTAILIMAGES_FORMAT_CONVERSIONS = {}
+```
+
+See [](customizing_output_formats).
+
 ## Documents
 
 ### `WAGTAILDOCS_DOCUMENT_MODEL`
