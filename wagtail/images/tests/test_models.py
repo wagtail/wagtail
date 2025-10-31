@@ -179,6 +179,50 @@ class TestImage(TestCase):
         )
         self.assertIsNone(image.get_suggested_focal_point())
 
+    @mock.patch(f"{Image.__module__}.{Image.__name__}.get_willow_image")
+    def test_get_suggested_focal_point_faces_detected(self, mock_get_willow):
+        # Create a test PNG image
+        image = Image.objects.create(
+            title="Test image with face",
+            file=get_test_image_file(),
+        )
+
+        # Mock Willow to simulate 1 face detection
+        mock_willow = mock.MagicMock()
+        mock_willow.detect_faces.return_value = [(100, 100, 200, 200)]
+        mock_get_willow.return_value.__enter__.return_value = mock_willow
+
+        # Execute method
+        result = image.get_suggested_focal_point()
+
+        # Assertions
+        assert result is not None, "Should return a Rect when faces are detected"
+        assert isinstance(result, Rect), "Result should be a Rect object"
+        mock_willow.detect_faces.assert_called_once()
+        assert result.width >= 100, "Width should be at least 100"
+        assert result.height >= 100, "Height should be at least 100"
+
+    @mock.patch(f"{Image.__module__}.{Image.__name__}.get_willow_image")
+    def test_get_suggested_focal_point_no_faces_no_features(self, mock_get_willow):
+        # Create a test PNG image
+        image = Image.objects.create(
+            title="Test image without features",
+            file=get_test_image_file(),
+        )
+
+        # Mock Willow to simulate no detections
+        mock_willow = mock.MagicMock()
+        mock_willow.detect_faces.return_value = []
+        mock_willow.detect_features.return_value = []
+        mock_get_willow.return_value.__enter__.return_value = mock_willow
+
+        result = image.get_suggested_focal_point()
+
+        assert result is None, "Should return None when no detections"
+        mock_willow.detect_faces.assert_called_once()
+        mock_willow.detect_features.assert_called_once()
+
+
     def test_default_with_description(self):
         # Primary default should be description
         image = Image.objects.create(
