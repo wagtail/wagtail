@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {
   DraftailEditor,
@@ -131,6 +132,38 @@ export const wrapWagtailIcon = (type) => {
  * @param {object} originalOptions
  * @param {Element} currentScript
  */
+
+const useHidePlaceholder = (wrapperRef) => {
+  useEffect(() => {
+    const editorRoot = wrapperRef.current?.querySelector('.DraftEditor-root');
+    if (!editorRoot) return;
+
+    const hidePlaceholder = () => {
+      editorRoot
+        .querySelectorAll('.Draftail-block--unstyled')
+        .forEach((block) => block.classList.remove('Draftail-block--empty'));
+    };
+
+    const showPlaceholder = () => {
+      editorRoot
+        .querySelectorAll('.Draftail-block--unstyled')
+        .forEach((block) => {
+          if (block.innerText.trim() === '') {
+            block.classList.add('Draftail-block--empty');
+          }
+        });
+    };
+
+    editorRoot.addEventListener('compositionstart', hidePlaceholder);
+    editorRoot.addEventListener('compositionend', showPlaceholder);
+
+    return () => {
+      editorRoot.removeEventListener('compositionstart', hidePlaceholder);
+      editorRoot.removeEventListener('compositionend', showPlaceholder);
+    };
+  }, [wrapperRef]);
+};
+
 const initEditor = (selector, originalOptions, currentScript) => {
   // document.currentScript is not available in IE11. Use a fallback instead.
   const context = currentScript ? currentScript.parentNode : document.body;
@@ -293,16 +326,24 @@ const initEditor = (selector, originalOptions, currentScript) => {
     return editor;
   };
 
-  ReactDOM.render(
-    <EditorFallback field={field}>
-      <DynamicOptionsEditorWrapper
-        initialOptions={originalOptions}
-        contentPath={window.comments?.getContentPath(field) || ''}
-        commentApp={window.comments?.commentApp}
-      />
-    </EditorFallback>,
-    editorWrapper,
-  );
+  const EditorWrapper = () => {
+    const wrapperRef = React.useRef(null);
+    useHidePlaceholder(wrapperRef);
+
+    return (
+      <div ref={wrapperRef}>
+        <EditorFallback field={field}>
+          <DynamicOptionsEditorWrapper
+            initialOptions={originalOptions}
+            contentPath={window.comments?.getContentPath(field) || ''}
+            commentApp={window.comments?.commentApp}
+          />
+        </EditorFallback>
+      </div>
+    );
+  };
+
+  ReactDOM.render(<EditorWrapper />, editorWrapper);
 
   return [options, setOptions];
 };
