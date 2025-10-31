@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {
   DraftailEditor,
@@ -136,7 +135,7 @@ export const wrapWagtailIcon = (type) => {
 const useHidePlaceholder = (wrapperRef) => {
   useEffect(() => {
     const editorRoot = wrapperRef.current?.querySelector('.DraftEditor-root');
-    if (!editorRoot) return;
+    if (!editorRoot) return undefined;
 
     const hidePlaceholder = () => {
       editorRoot
