@@ -739,16 +739,16 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
     def create_image_file(self, size=(800, 800), color="red", name="test.png"):
         img = Image.new("RGB", size, color=color)
         img_byte_arr = io.BytesIO()
-        
-        ext = name.split('.')[-1].upper()
+
+        ext = name.split(".")[-1].upper()
         if ext == "JPG":
             ext = "JPEG"
-        
+
         img.save(img_byte_arr, format=ext)
         img_byte_arr.seek(0)
-        
+
         content_type = f"image/{ext.lower()}" if ext != "JPEG" else "image/jpeg"
-        
+
         return SimpleUploadedFile(
             name=name, content=img_byte_arr.read(), content_type=content_type
         )
@@ -886,7 +886,6 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         self.assertAlmostEqual(original_ratio, new_ratio, places=2)
 
     def test_avatar_preserves_original_format(self):
-        
         # Test JPG format
         jpg_file = self.create_image_file(size=(500, 500), name="test.jpg")
         form = AvatarPreferencesForm(files={"avatar": jpg_file})

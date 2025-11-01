@@ -150,16 +150,18 @@ class AvatarPreferencesForm(forms.ModelForm):
             new_width = int(width * (target_size / height))
 
         resized_image = image.resize((new_width, new_height))
-        
+
         orig_format = image.format or "JPEG"
 
         output = io.BytesIO()
         resized_image.save(output, format=image.format)
         output.seek(0)
 
-        new_ext = "jpg" if orig_format.upper() in ("JPEG", "JPG") else orig_format.lower()
+        new_ext = (
+            "jpg" if orig_format.upper() in ("JPEG", "JPG") else orig_format.lower()
+        )
         content_type = f"image/{'jpeg' if new_ext == 'jpg' else new_ext}"
-        
+
         base_name, _ = os.path.splitext(file.name)
         filename = f"{base_name}.{new_ext}"
 
