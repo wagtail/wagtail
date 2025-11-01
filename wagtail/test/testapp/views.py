@@ -14,7 +14,13 @@ from wagtail.admin.auth import user_passes_test
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import BooleanColumn, Column, UpdatedAtColumn
-from wagtail.admin.views.generic import DeleteView, EditView, IndexView, InspectView
+from wagtail.admin.views.generic import (
+    CreateView,
+    DeleteView,
+    EditView,
+    IndexView,
+    InspectView,
+)
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
@@ -78,6 +84,14 @@ class CustomModelEditForm(forms.ModelForm):
     class Meta:
         model = ModelWithStringTypePrimaryKey
         fields = ("content",)
+
+
+class TestCreateView(CreateView):
+    model = ModelWithStringTypePrimaryKey
+    fields = ["custom_id", "content"]
+    add_url_name = "testapp_generic_create"
+    edit_url_name = "testapp_generic_edit"
+    index_url_name = "testapp_generic_index"
 
 
 class TestEditView(EditView):
@@ -232,6 +246,7 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     # search_fields derived from the model
     inspect_view_enabled = True
     inspect_view_fields = ["strid", "release_date"]
+    sort_order_field = "sort_order"
 
     panels = [
         FieldPanel("name"),
@@ -252,7 +267,7 @@ class FCToyAlt1ViewSet(ModelViewSet):
     menu_label = "FC Toys Alt 1"
     inspect_view_class = FCToyAlt1InspectView
     inspect_view_enabled = True
-    inspect_view_fields_exclude = ["strid", "release_date"]
+    inspect_view_fields_exclude = ["strid", "release_date", "sort_order"]
     copy_view_enabled = False
 
     def get_index_view_kwargs(self, **kwargs):
@@ -281,6 +296,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             exclude_form_fields=(),
             search_fields=["name"],
             search_backend_name=None,
+            sort_order_field=None,
         ),
         ModelViewSet(
             name="fctoy-alt3",

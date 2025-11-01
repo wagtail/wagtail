@@ -15,6 +15,7 @@
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # sergeybe <sergeybe@gmail.com>, 2020
 # sergeybe <sergeybe@gmail.com>, 2020
+# Twixxik, 2025
 # Zhdan Parfenov, 2022
 # Zhdan Parfenov, 2022
 # Влад <integration.into.society@gmail.com>, 2022
@@ -24,7 +25,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +41,10 @@ msgstr "по умолчанию"
 
 msgid "Sites"
 msgstr "Сайты"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s разрешения"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

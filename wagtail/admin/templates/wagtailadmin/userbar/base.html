@@ -5,7 +5,8 @@
     <aside {% if request.in_preview_panel %}hidden{% endif %}>
         <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar data-wagtail-userbar-origin="{{ origin|default:"" }}" part="userbar">
             {% block css %}
-                <link rel="stylesheet" href="{% absolute_static 'wagtailadmin/css/core.css' %}">
+                {% versioned_static 'wagtailadmin/css/core.css' as core_css_url %}
+                <link rel="stylesheet" href="{% build_absolute_url core_css_url %}">
                 {# For headless userbar: the contents of the hook also need absolute URLs #}
                 {% hook_output 'insert_global_admin_css' %}
             {% endblock %}
@@ -44,7 +45,9 @@
 </template>
 <wagtail-userbar></wagtail-userbar>
 {% block js %}
-    <script src="{% absolute_static 'wagtailadmin/js/vendor.js' %}"></script>
-    <script src="{% absolute_static 'wagtailadmin/js/userbar.js' %}"></script>
+    {% versioned_static 'wagtailadmin/js/vendor.js' as vendor_js_url %}
+    {% versioned_static 'wagtailadmin/js/userbar.js' as userbar_js_url %}
+    <script src="{% build_absolute_url vendor_js_url %}"></script>
+    <script src="{% build_absolute_url userbar_js_url %}"></script>
 {% endblock %}
 <!-- end Wagtail user bar embed code -->

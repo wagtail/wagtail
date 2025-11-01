@@ -132,6 +132,7 @@ Eva Mikesova <eva.mikesova.tul.cz>
 IT Management <hudan.itmanagement.cz>
 Ivan Pomykacz <mist.alastify.cz>
 Jan Feřtek
+Jan Zelený <janzeleny.outlook.com>
 Jiri Stepanek <stepiiicz.gmail.com>
 Kryštof Pilnáček <krystof.pilnacek.rossum.ai>
 Loic Teixeira
@@ -372,6 +373,7 @@ Carlo Miron <carlo.miron.it>
 Claudio Bantaloukas <rockdreamer.gmail.com>
 Edd <edd.baldry.googlemail.com>
 Edd Baldry <edd.baldry.gmail.com>
+Fabio Piras
 Giacomo Ghizzani <giacomo.ghz.gmail.com>
 Guglielmo Celata <guglielmo.celata.gmail.com>
 LB (Ben Johnston) <mail.lb.ee>
@@ -577,6 +579,7 @@ Rustam Mirzaev <mirus.2x2.pw>
 Sergey Khalymon <sergiykhalimon.gmail.com>
 Sergey Komarov <sjkomarov.gmail.com>
 Tatsiana Tsygan <art.tatsiana.gmail.com>
+Twixxik
 Vassily <zuber.kg.gmail.com>
 Zhdan Parfenov
 ajk
@@ -694,6 +697,7 @@ Abdullah Bamuhrez <bamuhrez.gmail.com>
 Ahmet Sarıcan <asarican.gmail.com>
 Basitlik İyidir
 Cihad GÜNDOĞDU <cihadgundogdu.gmail.com>
+Ertuğrul Keremoğlu
 Fatih Koç koç <fatihinemaili.gmail.com>
 Halim Turan <halim_turan_61.hotmail.com>
 Halit Çelik

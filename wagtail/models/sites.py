@@ -156,7 +156,7 @@ class Site(models.Model):
 
         if not hasattr(request, "_wagtail_site"):
             site = Site._find_for_request(request)
-            setattr(request, "_wagtail_site", site)
+            request._wagtail_site = site
         return request._wagtail_site
 
     @staticmethod

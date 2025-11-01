@@ -24,10 +24,9 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Framework :: Django",
   "Framework :: Django :: 4.2",
-  "Framework :: Django :: 5.0",
-  "Framework :: Django :: 5.1",
   "Framework :: Django :: 5.2",
   "Framework :: Wagtail",
   "Topic :: Internet :: WWW/HTTP :: Site Management",
@@ -49,7 +48,8 @@ dependencies = [
   "anyascii>=0.1.5",
   "telepath>=0.3.1,<1",
   "laces>=0.1,<0.2",
-  "django-tasks>=0.8,<0.9",
+  "django-tasks>=0.8,<0.10",
+  "modelsearch==1.1rc1",
 ]
 
 [project.urls]
@@ -103,11 +103,6 @@ wagtail = "wagtail.bin.wagtail:main"
 [tool.doc8]
 ignore = ["D001"]
 ignore_path = ["_build", "docs/_build"]
-
-[tool.pytest.ini_options]
-django_find_project = false
-python_files = ["test_*.py"]
-testpaths = ["wagtail"]
 
 [tool.setuptools.packages.find]
 include = ["wagtail*"]

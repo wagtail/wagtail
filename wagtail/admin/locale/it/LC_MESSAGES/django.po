@@ -7,6 +7,7 @@
 # andrea tagliazucchi <andreatagliazucchi@gmail.com>, 2015
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
+# Fabio Piras, 2025
 # gcm, 2021
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # gcm, 2021
@@ -25,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2025\n"
+"Last-Translator: Fabio Piras, 2025\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -2701,7 +2702,7 @@ msgstr "Ultimi"
 
 #, python-format
 msgid "'%(object)s' unpublished."
-msgstr "'%(object)s' sbubblicato."
+msgstr "'%(object)s' spubblicato."
 
 msgid "Unschedule"
 msgstr "Annulla programmazione"

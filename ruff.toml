@@ -6,7 +6,7 @@ exclude = [
   "migrations",
 ]
 line-length = 88
-target-version = "py39" # minimum target version
+target-version = "py310" # minimum target version
 
 [lint]
 # D100: Missing docstring in public module

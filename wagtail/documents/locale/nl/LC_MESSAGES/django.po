@@ -165,6 +165,15 @@ msgstr "Je hebt nog geen documenten aan deze collectie toegevoegd."
 msgid "You haven't uploaded any documents."
 msgstr "Je hebt nog geen documenten geüpload."
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"Waarom <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload je er niet eentje</a>?"
+
 msgid "Change document:"
 msgstr "Wijzig document:"
 

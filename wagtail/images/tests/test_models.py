@@ -1,10 +1,11 @@
 import hashlib
 import unittest
+from io import StringIO
 from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
-from django.core import checks
+from django.core import checks, management
 from django.core.cache import caches
 from django.core.files import File
 from django.core.files.storage import Storage, default_storage, storages
@@ -1289,6 +1290,13 @@ class TestIssue613(WagtailTestUtils, TestCase):
         self.search_backend = self.get_elasticsearch_backend()
         self.login()
 
+        management.call_command(
+            "update_index",
+            backend_name="elasticsearch",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
+
     def add_image(self, **params):
         post_data = {
             "title": "Test image",
@@ -1338,13 +1346,15 @@ class TestIssue613(WagtailTestUtils, TestCase):
         return image
 
     def test_issue_613_on_add(self):
-        # Reset the search index
-        self.search_backend.reset_index()
-        self.search_backend.add_type(Image)
+        # Note to future developer troubleshooting this test...
+        # This test previously started by calling self.search_backend.reset_index(), but that was evidently redundant because
+        # this was broken on Elasticsearch prior to the fix in
+        # https://github.com/wagtail/wagtailsearch/commit/53a98169bccc3cef5b234944037f2b3f78efafd4 .
+        # If this turns out to be necessary after all, you might want to compare how wagtail.tests.test_page_search.PageSearchTests does it.
 
         # Add an image with some tags
         image = self.add_image(tags="hello")
-        self.search_backend.refresh_index()
+        self.search_backend.refresh_indexes()
 
         # Search for it by tag
         results = self.search_backend.search("hello", Image)
@@ -1354,13 +1364,15 @@ class TestIssue613(WagtailTestUtils, TestCase):
         self.assertEqual(results[0].id, image.id)
 
     def test_issue_613_on_edit(self):
-        # Reset the search index
-        self.search_backend.reset_index()
-        self.search_backend.add_type(Image)
+        # Note to future developer troubleshooting this test...
+        # This test previously started by calling self.search_backend.reset_index(), but that was evidently redundant because
+        # this was broken on Elasticsearch prior to the fix in
+        # https://github.com/wagtail/wagtailsearch/commit/53a98169bccc3cef5b234944037f2b3f78efafd4 .
+        # If this turns out to be necessary after all, you might want to compare how wagtail.tests.test_page_search.PageSearchTests does it.
 
         # Add an image with some tags
         image = self.edit_image(tags="hello")
-        self.search_backend.refresh_index()
+        self.search_backend.refresh_indexes()
 
         # Search for it by tag
         results = self.search_backend.search("hello", Image)

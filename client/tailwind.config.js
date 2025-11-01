@@ -112,6 +112,7 @@ module.exports = {
           'inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
       },
       zIndex: {
+        'footer-actions': '32',
         'minimap': '80',
         'header': '100',
         'sidebar': '110',

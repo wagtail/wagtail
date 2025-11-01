@@ -383,7 +383,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
     def form_invalid(self, form):
         messages.validation_error(
             self.request,
-            _("The page could not be created due to validation errors"),
+            _("The page could not be created due to validation errors."),
             self.form,
         )
         self.has_unsaved_changes = True

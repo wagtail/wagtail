@@ -364,10 +364,15 @@ class Userbar(Component):
             # Remove any unrendered items
             rendered_items = [item for item in rendered_items if item]
 
+            if request:
+                origin = f"{request.scheme}://{request.get_host()}"
+            else:
+                origin = get_admin_base_url() or ""
+
             # Render the userbar items
             return {
                 "request": request,
-                "origin": get_admin_base_url(),
+                "origin": origin,
                 "items": rendered_items,
                 "position": self.position,
                 "page": self.object,

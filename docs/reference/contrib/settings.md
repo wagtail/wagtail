@@ -109,10 +109,6 @@ class MySettings(BaseGenericSetting):
 
 Settings are editable by superusers, and any users who have been granted "change" permission on the setting model. Additionally, for models extending `BaseSiteSetting`, permissions can be assigned for individual sites through the Groups area of the admin, under Settings.
 
-```{versionadded} 7.1
-The ability to assign permissions for individual sites was added.
-```
-
 ## Appearance
 
 You can change the label used in the menu by changing the
@@ -442,8 +438,4 @@ class SiteSpecificSocialMediaSettings(PreviewableMixin, BaseSiteSetting):
     def get_preview_template(self, request, mode_name):
         # Reuse the Page model's template for the preview
         return self._models_for_preview[mode_name].template
-```
-
-```{versionadded} 7.1
-The ability to enable previews for settings was added.
 ```

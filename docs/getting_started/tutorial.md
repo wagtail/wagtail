@@ -359,7 +359,7 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 
-# keep the definition of BlogIndexPage model, and add the BlogPage model:
+# Keep the BlogIndexPage model code as is, and add the BlogPage model:
 
 class BlogPage(Page):
     date = models.DateField("Post date")
@@ -404,7 +404,7 @@ URL of the blog this post is a part of.
 Now, go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) and create a few blog posts as children of `BlogIndexPage` by following these steps:
 
 1.  Click **Pages** from the Wagtail [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar), and then click **Home**
-2.  Hover on **Blog** and click **Add child page**.
+2.  Hover over **Blog**, click the three-dot menu (⋯), then select **Add child page**.
 
 ![Page listing for Home page with the "Add Child Page" button highlighted in red](../_static/images/tutorial/tutorial_4a.png)
 

@@ -986,6 +986,8 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. attribute:: sort_order
 
         (number)
+
+    .. autoattribute:: sort_order_field
 ```
 
 ## `Workflow`

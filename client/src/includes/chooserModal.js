@@ -69,6 +69,11 @@ const submitCreationForm = (modal, form, { errorContainerSelector }) => {
   });
 };
 
+/**
+ * Legacy function, no longer used, this has been migrated to SyncController instead.
+ *
+ * @deprecated RemovedInWagtail80
+ */
 const initPrefillTitleFromFilename = (
   modal,
   { fileFieldSelector, titleFieldSelector, eventName },
@@ -256,7 +261,14 @@ class ChooserModalOnloadHandlerFactory {
       return false;
     });
 
-    /* If this form has a file and title field, set up the title to be prefilled from the title */
+    /**
+     * If this form has a file and title field, set up the title to be prefilled from the title
+     *
+     * The code below is no longer used for image and document choosers, keeping until we remove
+     * in a future major release.
+     *
+     * @deprecated RemovedInWagtail80
+     */
     if (
       this.creationFormFileFieldSelector &&
       this.creationFormTitleFieldSelector

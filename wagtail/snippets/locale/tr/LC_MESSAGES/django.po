@@ -6,6 +6,7 @@
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
+# Ertuğrul Keremoğlu, 2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
+"Last-Translator: Ertuğrul Keremoğlu, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -69,6 +70,12 @@ msgstr "Seçilen blokları sil"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' silindi."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s silindi."
+msgstr[1] "%(count)d %(model_name)s silindi."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"

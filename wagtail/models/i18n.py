@@ -471,16 +471,14 @@ def get_translatable_models(include_subclasses=False):
 
 @receiver(pre_save)
 def set_locale_on_new_instance(sender, instance, **kwargs):
+    if kwargs["raw"]:
+        # When loading fixtures, don't add a locale since it may not exist
+        return
+
     if not isinstance(instance, TranslatableMixin):
         return
 
     if instance.locale_id is not None:
-        return
-
-    # If this is a fixture load, use the global default Locale
-    # as the page tree is probably in flux
-    if kwargs["raw"]:
-        instance.locale = Locale.get_default()
         return
 
     instance.locale = instance.get_default_locale()

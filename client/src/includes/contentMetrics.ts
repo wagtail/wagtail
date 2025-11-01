@@ -1,5 +1,5 @@
 import axe from 'axe-core';
-import { ngettext } from '../utils/gettext';
+import { ngettext, gettext } from '../utils/gettext';
 
 export const getWordCount = (lang: string, text: string): number => {
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });
@@ -41,9 +41,60 @@ export const getReadingTime = (lang: string, wordCount: number): number => {
   return readingTime;
 };
 
+/**
+ * Calculate LIX (läsbarhetsindex) score for a given text.
+ * LIX = (Number of Words / Number of Sentences) + (Number of Long Words * 100 / Number of Words)
+ * Long words = more than 6 letters.
+ */
+export const getLIXScore = (lang: string, text: string): number => {
+  const segmenter = new Intl.Segmenter(lang, { granularity: 'sentence' });
+  const sentences = Array.from(segmenter.segment(text)).length;
+
+  const wordSegmenter = new Intl.Segmenter(lang, { granularity: 'word' });
+  let words = 0;
+  let longWords = 0;
+  for (const { segment, isWordLike } of wordSegmenter.segment(text)) {
+    if (isWordLike) {
+      words += 1;
+      if (segment.length > 6) {
+        longWords += 1;
+      }
+    }
+  }
+
+  // If 0 or too little content is found, return 0.
+  // Readability scoring is not relevant on very short content.
+  if (sentences === 0 || words < 10) {
+    return 0;
+  }
+
+  const avgWordsPerSentence = words / sentences;
+  const percentLongWords = (longWords / words) * 100;
+
+  return avgWordsPerSentence + percentLongWords;
+};
+
+/**
+ * Lenient interpretation of standard LIX score ranges.
+ */
+export const getReadabilityScore = (lixScore: number): string => {
+  if (lixScore < 35) {
+    return gettext('Good');
+  }
+  if (lixScore < 45) {
+    // Translators: denotes the readability of an average text.
+    return gettext('Fair');
+  }
+
+  // Avoid a direct value judgement on the worst scores.
+  // Translators: denotes the readability of a difficult text.
+  return gettext('Complex');
+};
+
 export interface ContentMetrics {
   wordCount: number;
   readingTime: number;
+  readabilityScore: string;
 }
 
 /** Options for extracting page content from the preview iframe. */
@@ -111,12 +162,16 @@ export const getPreviewContent = (
 export const renderContentMetrics = ({
   wordCount,
   readingTime,
+  readabilityScore,
 }: ContentMetrics) => {
   const wordCountContainer = document.querySelector<HTMLElement>(
     '[data-content-word-count]',
   );
   const readingTimeContainer = document.querySelector<HTMLElement>(
     '[data-content-reading-time]',
+  );
+  const readabilityScoreContainer = document.querySelector<HTMLElement>(
+    '[data-content-readability-score]',
   );
 
   if (!wordCountContainer || !readingTimeContainer) return;
@@ -127,4 +182,8 @@ export const renderContentMetrics = ({
     '%(num)s mins',
     readingTime,
   ).replace('%(num)s', `${readingTime}`);
+
+  if (readabilityScoreContainer) {
+    readabilityScoreContainer.textContent = readabilityScore.toString();
+  }
 };

@@ -47,6 +47,7 @@ const TEST_STRINGS = {
   'A heading that identifies the overall topic of the table, and is useful for screen reader users.':
     'A heading that identifies the overall topic of the table, and is useful for screen reader users.',
   'Table': 'Table',
+  'Select a header option': 'Select a header option',
 };
 
 const TEST_VALUE = {
@@ -176,6 +177,7 @@ describe('telepath: wagtail.widgets.TableInput', () => {
       'A heading that identifies the overall topic of the table, and is useful for screen reader users.':
         "Un en-tête qui identifie le sujet général du tableau et qui est utile pour les utilisateurs de lecteurs d'écran",
       'Table': 'Tableau',
+      'Select a header option': "Sélectionnez une option d'en-tête",
     };
     render();
     expect(document.body.innerHTML).toMatchSnapshot();

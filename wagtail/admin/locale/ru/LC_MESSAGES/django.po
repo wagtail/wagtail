@@ -32,6 +32,7 @@
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
+# Twixxik, 2025
 # Vassily <zuber.kg@gmail.com>, 2019
 # Влад <integration.into.society@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
@@ -50,7 +51,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 16:20+0200\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2015,2020,2025\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -93,6 +94,11 @@ msgstr "Страница заблокирована"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s и Опубликовать"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "любое"
 
 msgid "Wagtail admin"
 msgstr "Wagtail админ"
@@ -453,6 +459,12 @@ msgstr "Все элементы в списке выбраны"
 
 msgid "Can access Wagtail admin"
 msgstr "Доступ к панели управления Wagtail"
+
+msgid "item"
+msgstr "элемент"
+
+msgid "items"
+msgstr "элементы"
 
 msgid "Content"
 msgstr "Содержимое"
@@ -1232,8 +1244,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "Изменение конфиденциальности для этой страницы было отключено."
 
+msgid "Scheduling…"
+msgstr "Планирование…"
+
 msgid "Publishing…"
 msgstr "Публикуется..."
+
+msgid "Schedule to publish"
+msgstr "Запланировать публикацию"
 
 msgid "Publish this version"
 msgstr "Опубликовать эту версию"
@@ -1907,6 +1925,13 @@ msgid "Choose when this page should go live and/or expire"
 msgstr ""
 "Выберите, когда эта страница должна стать активной и/или снятой с публикации"
 
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Schedule to publish\" option"
+msgstr ""
+"Этот график публикации вступит в силу только после того, как вы выберете "
+"«Запланировать публикацию»"
+
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Любой, у кого есть права на редактирование, может создавать расписания"
 
@@ -2029,6 +2054,17 @@ msgstr "Переключить хлебные крошки"
 
 msgid "Breadcrumb"
 msgstr "Путь по сайту"
+
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] ""
+"Это действие удалит всего <b>%(total_pages_formatted)s</b> страницу."
+msgstr[1] ""
+"Это действие удалит всего <b>%(total_pages_formatted)s</b> страницы."
+msgstr[2] "Это действие удалит всего <b>%(total_pages_formatted)s</b> страниц."
+msgstr[3] "Это действие удалит всего <b>%(total_pages_formatted)s</b> страниц."
 
 #, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
@@ -2288,6 +2324,9 @@ msgstr "Неверное расписание"
 
 msgid "Go-live:"
 msgstr "Запустить:"
+
+msgid "Once scheduled:"
+msgstr "Запланировано:"
 
 msgid "No publishing schedule set"
 msgstr "График публикации не установлен"
@@ -2574,6 +2613,15 @@ msgstr ""
 msgid "You haven't created any tasks."
 msgstr "Вы еще не создали ни одной задачи."
 
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
+msgstr ""
+"Почему бы не <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">создать один сейчас</a>?"
+
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2684,6 +2732,12 @@ msgstr "Сохранить изменения"
 
 msgid "Toggle sidebar"
 msgstr "Переключить боковую панель"
+
+msgid "Toggle minimap"
+msgstr "Переключить мини-карту"
+
+msgid "Add or show comments"
+msgstr "Добавить или показать комментарии"
 
 msgid "Text content"
 msgstr "Содержание текста"
@@ -3327,6 +3381,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Страница '%(page_title)s' перемещена."
+
+msgid "Placeholder title"
+msgstr "Заголовок"
 
 #, python-format
 msgid ""

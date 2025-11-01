@@ -67,7 +67,7 @@ class CommentForm(WagtailAdminModelForm):
 
     def save(self, *args, **kwargs):
         if self.cleaned_data.get("resolved", False):
-            if not getattr(self.instance, "resolved_at"):
+            if not self.instance.resolved_at:
                 self.instance.resolved_at = now()
                 self.instance.resolved_by = self.for_user
         else:

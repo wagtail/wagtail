@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,27 +27,27 @@ msgstr ""
 msgid "Collection"
 msgstr ""
 
-#: forms.py:144
+#: forms.py:161
 msgid "Add"
 msgstr ""
 
-#: forms.py:144
+#: forms.py:161
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:145
+#: forms.py:162
 msgid "Edit"
 msgstr ""
 
-#: forms.py:145
+#: forms.py:162
 msgid "Edit any document"
 msgstr ""
 
-#: forms.py:146
+#: forms.py:163
 msgid "Choose"
 msgstr ""
 
-#: forms.py:146
+#: forms.py:163
 msgid "Select documents in choosers"
 msgstr ""
 
@@ -203,11 +203,11 @@ msgstr ""
 msgid "Add a document"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:45 views/chooser.py:187
+#: templates/wagtaildocs/documents/add.html:11 views/chooser.py:187
 msgid "Uploading…"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:48 views/chooser.py:186
+#: templates/wagtaildocs/documents/add.html:14 views/chooser.py:186
 msgid "Upload"
 msgstr ""
 
@@ -403,7 +403,7 @@ msgstr ""
 
 #: views/documents.py:259
 msgid ""
-"The file could not be found. Please change the source or delete the document"
+"The file could not be found. Please change the source or delete the document."
 msgstr ""
 
 #: views/documents.py:283
