@@ -60,6 +60,7 @@ class OEmbedFinder(EmbedFinder):
             r = requests.get(
                 endpoint, params=params, headers={"User-agent": "Mozilla/5.0"}
             )
+            r.raise_for_status()
             oembed = r.json()
         except requests.RequestException:
             raise EmbedNotFoundException
