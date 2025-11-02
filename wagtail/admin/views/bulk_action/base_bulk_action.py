@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from urllib.parse import urlsplit
 
 from django import forms
 from django.db import transaction
@@ -8,7 +9,7 @@ from django.views.generic import FormView
 
 from wagtail import hooks
 from wagtail.admin import messages
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 
 
 class BulkAction(ABC, FormView):
@@ -39,6 +40,21 @@ class BulkAction(ABC, FormView):
         next_url = get_valid_next_url_from_request(request)
         if not next_url:
             next_url = request.path
+        else:
+            parsed = urlsplit(next_url)
+            if not parsed.query:
+                params = {}
+                for i in request.GET:
+                    if i in {"next", "id"}:
+                        continue
+                    values = request.GET.getlist(i)
+                    if values:
+                        if len(values) == 1:
+                            params[i] = values[0]
+                        else:
+                            params[i] = values
+                if params:
+                    next_url = set_query_params(next_url, params)
         self.next_url = next_url
         self.num_parent_objects = self.num_child_objects = 0
         if model in self.models:
