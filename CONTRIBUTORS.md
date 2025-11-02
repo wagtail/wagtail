@@ -918,6 +918,7 @@
 * Harshit Ranjan
 * Paul Souders
 * Samya-Agg
+* Bhavesh Sharma
 
 ## Translators
 
