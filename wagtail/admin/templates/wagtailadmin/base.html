@@ -32,7 +32,7 @@
                                         type="button"
                                         class="button button-small button-secondary w-hidden w-ml-2.5"
                                         data-controller="w-count w-focus"
-                                        data-action="click->w-focus#focus"
+                                        data-action="click->w-focus#focus wagtail:panel-init@document->w-count#count"
                                         data-w-count-active-class="!w-inline-block"
                                         data-w-count-find-value=":not([hidden]):is(.error-message,.help-critical)"
                                         data-w-focus-target-value=":not([hidden]):is(.error-message,.help-critical)"
