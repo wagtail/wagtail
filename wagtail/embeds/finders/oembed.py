@@ -65,6 +65,10 @@ class OEmbedFinder(EmbedFinder):
 
         except ValueError as e:
             raise EmbedNotFoundException(f"Response content is not valid JSON: {e}")
+        # Check if 'type' is missing
+        if "type" not in oembed:
+            raise EmbedNotFoundException("Missing 'type' in response")
+
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
