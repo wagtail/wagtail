@@ -54,15 +54,17 @@ class OEmbedFinder(EmbedFinder):
             params["maxwidth"] = max_width
         if max_height:
             params["maxheight"] = max_height
-
         # Perform request
         try:
-            r = requests.get(
-                endpoint, params=params, headers={"User-agent": "Mozilla/5.0"}
-            )
+            r = requests.get(endpoint, params=params, headers={"User-agent": "Mozilla/5.0"})
+            r.raise_for_status()
             oembed = r.json()
-        except requests.RequestException:
-            raise EmbedNotFoundException
+
+        except requests.RequestException as e:
+            raise EmbedNotFoundException(f"Request failed: {e}")
+
+        except ValueError as e:
+            raise EmbedNotFoundException(f"Response content is not valid JSON: {e}")
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
