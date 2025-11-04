@@ -81,7 +81,6 @@ class OEmbedFinder(EmbedFinder):
             "height": oembed.get("height"),
             "html": html,
         }
-
         try:
             cache_age = int(oembed["cache_age"])
         except (KeyError, TypeError, ValueError):
