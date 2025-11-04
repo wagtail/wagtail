@@ -916,6 +916,7 @@
 * Eric Matthes
 * Heric Libong
 * Harshit Ranjan
+* Paul Souders
 
 ## Translators
 
