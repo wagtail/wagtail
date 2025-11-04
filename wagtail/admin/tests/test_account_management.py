@@ -739,10 +739,18 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
     def create_image_file(self, size=(800, 800), color="red", name="test.png"):
         img = Image.new("RGB", size, color=color)
         img_byte_arr = io.BytesIO()
-        img.save(img_byte_arr, format="PNG")
+
+        ext = name.split(".")[-1].upper()
+        if ext == "JPG":
+            ext = "JPEG"
+
+        img.save(img_byte_arr, format=ext)
         img_byte_arr.seek(0)
+
+        content_type = f"image/{ext.lower()}" if ext != "JPEG" else "image/jpeg"
+
         return SimpleUploadedFile(
-            name=name, content=img_byte_arr.read(), content_type="image/png"
+            name=name, content=img_byte_arr.read(), content_type=content_type
         )
 
     def test_account_view(self):
@@ -876,6 +884,24 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         original_ratio = 300 / 500
         new_ratio = resized_image.width / resized_image.height
         self.assertAlmostEqual(original_ratio, new_ratio, places=2)
+
+    def test_avatar_preserves_original_format(self):
+        # Test JPG format
+        jpg_file = self.create_image_file(size=(500, 500), name="test.jpg")
+        form = AvatarPreferencesForm(files={"avatar": jpg_file})
+        self.assertTrue(form.is_valid())
+        avatar_file = form.clean_avatar()
+        self.assertTrue(avatar_file.name.endswith(".jpg"))
+
+        # Test PNG format
+        png_file = self.create_image_file(size=(500, 500), name="test.png")
+        form = AvatarPreferencesForm(files={"avatar": png_file})
+        self.assertTrue(form.is_valid())
+        avatar_file = form.clean_avatar()
+        self.assertTrue(avatar_file.name.endswith(".png"))
+
+        resized_image = Image.open(avatar_file)
+        self.assertIsNotNone(resized_image.format)
 
 
 class TestAccountManagementForNonModerator(WagtailTestUtils, TestCase):
