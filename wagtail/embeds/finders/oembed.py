@@ -64,6 +64,10 @@ class OEmbedFinder(EmbedFinder):
             oembed = r.json()
         except requests.RequestException:
             raise EmbedNotFoundException
+        
+        # Check if 'type' is missing
+        if "type" not in oembed:
+            raise EmbedNotFoundException("Missing 'type' in response")
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
