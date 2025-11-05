@@ -14,7 +14,7 @@ Changelog
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
 
 
-7.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.2 (05.11.2025)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Python 3.14 (Sage Abdullah)
