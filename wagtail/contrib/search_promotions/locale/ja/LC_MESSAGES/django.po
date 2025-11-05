@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -124,15 +124,9 @@ msgstr "提案された検索結果"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "'%(query)s'に対する提案が作成されました。"
 
-msgid "Recommendations have not been created due to errors"
-msgstr "提案はエラーにより作成されませんでした。"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "'%(query)s'に対する提案が更新されました。"
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "提案はエラーにより保存されませんでした。"
 
 msgid "Editor's picks deleted."
 msgstr "提案は削除されました。"

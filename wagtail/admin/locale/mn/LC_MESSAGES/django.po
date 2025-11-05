@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -63,9 +63,6 @@ msgstr "Админ панел"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Танд энэ хэсэгт хандах эрх алга."
-
-msgid "You do not have permission to access the admin"
-msgstr "Та админ панел руу нэвтрэх эрхгүй"
 
 msgid "None"
 msgstr "Хоосон"
@@ -136,9 +133,6 @@ msgid ""
 msgstr ""
 "Байршлын дарааллыг сонгох. Жич: колекцыг хүү эсвэл удамшуулах боломжгүй."
 
-msgid "Please select another parent"
-msgstr "Өөр эцэг төрслийг сонгоно уу"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Нэг цуглуулганд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
 
@@ -165,9 +159,6 @@ msgstr "Та өөр хэрэглэгчийн сэтгэгдлийг засах �
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Нийтлэх өдөр/цаг нь хаагдах цаг/өдрөөсөө өмнө байх ёстой"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Хаагдах өдөр/цаг нь ирээдүй цагт байх ёстой"
 
 msgid "New title"
 msgstr "Шинэ гарчиг"
@@ -235,20 +226,11 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Дэд хуудсуудтай хуулж байгаа үед өөрийн дэд хуудас руу хуулах боломжгүй"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "%(page_slug)s ийм нэртэй холбоос эцэг хуудсанд ашиглагдаж байна."
-
 msgid "Select a new parent for this page."
 msgstr "Энэ хуудасны эцгийг шинээр сонгох"
 
 msgid "Parent page"
 msgstr "Эцэг хуудас"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr ""
-"Таг нь %(max_tag_length)d тэмдэгтийн урттай байхаас %(value_too_long)s байна."
 
 msgid "Visibility"
 msgstr "Харагдац"
@@ -425,9 +407,6 @@ msgstr "Гадаад холбоос оруулах"
 
 msgid "You can edit the privacy settings on:"
 msgstr "Нууцлалын тохиргоог өөрчлөх боломжтой:"
-
-msgid "Save"
-msgstr "Хадгалах"
 
 msgid "Change privacy"
 msgstr "Нууцлалыг өөрлчөх"
@@ -723,15 +702,6 @@ msgstr "'%(title)s'-ын дэд хуудсуудыг харах"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s'-д дэд хуудас нэмэх"
 
-msgid "Drag"
-msgstr "Чирэх"
-
-msgid "Disable ordering of child pages"
-msgstr "Дэд хуудсуудын эрэмбийг болиулах"
-
-msgid "Enable ordering of child pages"
-msgstr "Дэд хуудсуудыг эрэмбэлэх"
-
 msgid "Sites menu"
 msgstr "Сайтын цэс"
 
@@ -765,6 +735,9 @@ msgstr "Дээш зөөх"
 
 msgid "Move down"
 msgstr "Доош зөөх"
+
+msgid "Drag"
+msgstr "Чирэх"
 
 msgid "Type"
 msgstr "Төрөл"
@@ -821,6 +794,9 @@ msgstr "Үгүй, төлөвлөгөөг болиулахгүй"
 msgid "Other searches"
 msgstr "Бусад хайлтууд"
 
+msgid "Save"
+msgstr "Хадгалах"
+
 msgid "Unlocked"
 msgstr "Түгжигдээгүй"
 
@@ -863,6 +839,9 @@ msgstr "Буцаах"
 
 msgid "Redo"
 msgstr "Давтах"
+
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
@@ -976,9 +955,6 @@ msgstr "'%(page_title)s' хуудас үүсч, нийтлэгдлээ."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "'%(page_title)s' хуудас үүсч, хянуулахаар илгээгдлээ."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Баталгаажуулалтын алдаанаас болж хуудас үүсгэж чадсангүй"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "'%(page_title)s' хуудас устлаа."
@@ -994,12 +970,6 @@ msgstr "'%(page_title)s' хуудас нийтлэгдлээ."
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "'%(page_title)s' хуудас хянуулахаар илгээгдлээ."
-
-msgid "The page could not be saved as it is locked"
-msgstr "Түгжигдсэн хуудсыг засах хадгалах боломжгүй"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Баталгаажуулалтын алдаанаас болж хуудас хадгалагдсангүй"
 
 msgid "Site"
 msgstr "Сайт"
@@ -1031,9 +1001,6 @@ msgstr "Дугаарласан жагсаалт"
 
 msgid "Blockquote"
 msgstr "Эшлэл"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Link"
 msgstr "Холбоос"

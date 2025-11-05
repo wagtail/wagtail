@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,9 +88,6 @@ msgstr "واجهة إدارة Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "عذرًا، ليس لديك صلاحية للوصول إلى هذه المنطقة."
-
-msgid "You do not have permission to access the admin"
-msgstr "ليس لديك صلاحية للوصول لواجهة الإدارة"
 
 msgid "None"
 msgstr "لا شيء"
@@ -177,9 +174,6 @@ msgstr ""
 "اختر الموقع الهرمي. ملاحظة: لا يمكن أن تصبح الرزمة فرعًا لنفسها أو لأحد "
 "فروعها."
 
-msgid "Please select another parent"
-msgstr "الرجاء اختيار أصل آخر"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "لا يمكن أن يكون لديك سجلات صلاحيات متعددة لنفس الرزمة."
 
@@ -206,9 +200,6 @@ msgstr "لا يمكنك تحرير تعليق مستخدم آخر."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "يجب أن يكون تاريخ/وقت النشر المباشر قبل تاريخ/وقت الانتهاء"
-
-msgid "Expiry date/time must be in the future"
-msgstr "يجب أن يكون تاريخ/وقت الانتهاء في المستقبل"
 
 msgid "New title"
 msgstr "عنوان جديد"
@@ -283,10 +274,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "لا يمكنك نسخ صفحة إلى نفسها عند نسخ الصفحات الفرعية"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "الرابط (slug) '%(page_slug)s' مستخدم بالفعل في الصفحة الأصل"
-
 msgid "Select a new parent for this page."
 msgstr "اختر صفحة أصل جديدة لهذه الصفحة."
 
@@ -307,10 +294,6 @@ msgstr "لا يمكنك إنشاء صفحة من نوع \"%(page_type)s\" تحت
 
 msgid "Search…"
 msgstr "بحث..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "الوسوم %(value_too_long)s تتجاوز %(max_tag_length)d حرفًا"
 
 msgid "Visibility"
 msgstr "الرؤية"
@@ -663,9 +646,6 @@ msgstr "تم جعل هذه الرزمة خاصة بواسطة مجموعة أص�
 msgid "You can edit the privacy settings on:"
 msgstr "يمكنك تحرير إعدادات الخصوصية على:"
 
-msgid "Save"
-msgstr "حفظ"
-
 msgid "Change privacy"
 msgstr "تغيير إعدادات الخصوصية"
 
@@ -754,6 +734,8 @@ msgstr "هل ما زلت ترغب في نشر %(model_name)s هذا؟"
 msgid "Cancel"
 msgstr "إلغاء"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "الإجراءات"
 
@@ -1854,22 +1836,6 @@ msgstr "استكشاف الصفحات الفرعية لـ '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "إضافة صفحة فرعية إلى '%(title)s'"
 
-msgid "Drag"
-msgstr "سحب"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "العنصر %(index)s من %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "تعطيل ترتيب الصفحات الفرعية"
-
-msgid "Sort"
-msgstr "ترتيب"
-
-msgid "Enable ordering of child pages"
-msgstr "تمكين ترتيب الصفحات الفرعية"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)s من %(items_count)s عبر الموقع بأكمله"
@@ -1954,6 +1920,9 @@ msgstr "نقل لأعلى"
 
 msgid "Move down"
 msgstr "نقل لأسفل"
+
+msgid "Drag"
+msgstr "سحب"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -2256,6 +2225,9 @@ msgstr "لا، لا تلغ الجدولة"
 msgid "Other searches"
 msgstr "عمليات بحث أخرى"
 
+msgid "Save"
+msgstr "حفظ"
+
 msgid "Minimap"
 msgstr "الخريطة المصغرة"
 
@@ -2496,6 +2468,13 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "تخطي إلى المحتوى الرئيسي"
+
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "العنصر %(index)s من %(total)s"
+
+msgid "Sort"
+msgstr "ترتيب"
 
 msgid "View Wagtail quick actions"
 msgstr "عرض إجراءات Wagtail السريعة"
@@ -2745,8 +2724,17 @@ msgstr "تم الإرسال إلى %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "الإجراءات الشائعة"
+msgid "Toggle sidebar"
+msgstr "تبديل الشريط الجانبي"
+
+msgid "Toggle minimap"
+msgstr "تبديل الخريطة المصغرة"
+
+msgid "Save changes"
+msgstr "حفظ التغييرات"
+
+msgid "Add or show comments"
+msgstr "إضافة أو عرض التعليقات"
 
 msgid "Cut"
 msgstr "قص"
@@ -2766,32 +2754,19 @@ msgstr "تراجع"
 msgid "Redo"
 msgstr "أعد"
 
-msgid "Save changes"
-msgstr "حفظ التغييرات"
-
-msgid "Toggle sidebar"
-msgstr "تبديل الشريط الجانبي"
-
-msgid "Toggle minimap"
-msgstr "تبديل الخريطة المصغرة"
-
-msgid "Add or show comments"
-msgstr "إضافة أو عرض التعليقات"
-
-msgid "Text content"
-msgstr "محتوى النص"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "تنسيق النص"
 
 msgid "Insert or edit a link"
 msgstr "إدراج أو تحرير رابط"
 
-msgid "Text formatting"
-msgstr "تنسيق النص"
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
-
-msgid "Underline"
-msgstr "تسطير"
 
 msgid "Monospace (code)"
 msgstr "أحادي المسافة (كود)"
@@ -2843,6 +2818,17 @@ msgstr "فرز حسب '%(label)s' بترتيب تصاعدي."
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "فرز حسب '%(label)s' بترتيب تنازلي."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "تم نقل '%(page_title)s' بنجاح."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"ركز على زر السحب واضغط على الأسهم لأعلى أو لأسفل لتحريك العنصر، ثم اضغط على "
+"Enter لإرسال التغيير."
 
 #, python-format
 msgid ""
@@ -3307,9 +3293,6 @@ msgstr "صفحة '%(page_title)s' تم إنشاؤها ونشرها."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "صفحة '%(page_title)s' تم إنشاؤها وتقديمها للإشراف."
 
-msgid "The page could not be created due to validation errors"
-msgstr "لا يمكن إنشاء الصفحة بسبب أخطاء التحقق من الصحة"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "الصفحة '%(page_title)s' محذوفة."
@@ -3367,12 +3350,6 @@ msgstr "الصفحة '%(page_title)s' تم تقديمها للإشراف."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "تم إعادة تشغيل سير العمل على الصفحة '%(page_title)s'."
 
-msgid "The page could not be saved as it is locked"
-msgstr "لا يمكن حفظ الصفحة لأنها مقفلة"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "لا يمكن حفظ الصفحة بسبب أخطاء التحقق من الصحة"
-
 msgid "Is commenting action"
 msgstr "إجراء التعليق"
 
@@ -3403,28 +3380,9 @@ msgstr "نوع الصفحة"
 msgid "Exploring"
 msgstr "استكشاف"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"ركز على زر السحب واضغط على الأسهم لأعلى أو لأسفل لتحريك العنصر، ثم اضغط على "
-"Enter لإرسال التغيير."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "تم نقل '%(page_title)s' بنجاح."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "الصفحة '%(page_title)s' غير مقفلة الآن."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"الرابط '%(page_slug)s' مستخدم بالفعل في الصفحة الأصل المحددة. تأكد من أن "
-"الرابط فريد وحاول مرة أخرى"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3677,9 +3635,6 @@ msgstr "قائمة مرقمة"
 
 msgid "Blockquote"
 msgstr "اقتباس"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Link"
 msgstr "رابط"

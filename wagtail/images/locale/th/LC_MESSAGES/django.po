@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -271,6 +271,9 @@ msgstr "เพิ่มการอนุญาตรูปภาพ"
 msgid "Delete"
 msgstr "ลบ"
 
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
+
 msgid "Choose an image"
 msgstr "เลือกรูปภาพ"
 
@@ -279,9 +282,6 @@ msgstr "แก้ไขรูปภาพนี้"
 
 msgid "Images"
 msgstr "รูปภาพ"
-
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
 
 msgid "The image could not be saved due to errors."
 msgstr "รูปภาพไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"

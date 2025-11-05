@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ertuğrul Keremoğlu, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -84,8 +84,8 @@ msgstr "Wagtail Yönetim"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Üzgünüm, bu alana erişim yetkiniz yok."
 
-msgid "You do not have permission to access the admin"
-msgstr "Yönetici bölümüne erişim yetkiniz yok"
+msgid "You do not have permission to access the admin."
+msgstr "Yönetim paneline erişim izniniz yok."
 
 msgid "None"
 msgstr "Yok"
@@ -96,11 +96,20 @@ msgstr "Başlangıç tarihi"
 msgid "Date to"
 msgstr "Bitiş tarihi"
 
+msgid "Minimum"
+msgstr "Minimum"
+
+msgid "Maximum"
+msgstr "Maximum"
+
 msgid "Locale"
 msgstr "Yerel"
 
 msgid "All"
 msgstr "Hepsi"
+
+msgid "Usage count"
+msgstr "Kullanım sayısı"
 
 msgid "Collection"
 msgstr "Koleksiyon"
@@ -172,8 +181,8 @@ msgstr ""
 "Hiyerarşik konumu seçin. Not: bir koleksiyon kendisinin veya torunlarından "
 "birinin çocuğu olamaz."
 
-msgid "Please select another parent"
-msgstr "Başka bir ebeveyn seç"
+msgid "Please select another parent."
+msgstr "Lütfen başka bir üst öğe seçin."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Aynı kolleksiyon için birden fazla yetkiye sahip olamazsınız."
@@ -202,8 +211,8 @@ msgstr "Başka bir kullanıcının yorumunu düzenleyemezsiniz."
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Yayın başlangıç tarih/saati bitiş tarih/saatinden öncesinde olmalı"
 
-msgid "Expiry date/time must be in the future"
-msgstr "Bitiş tarihi ileri bir tarih olmalı"
+msgid "Expiry date/time must be in the future."
+msgstr "Son kullanma tarihi/zamanı gelecekte olmalıdır."
 
 msgid "New title"
 msgstr "Yeni başlık"
@@ -270,8 +279,8 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Alt sayfaları kopyalarken bir sayfayı kendi içine kopyalayamazsınız"
 
 #, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "'%(page_slug)s' slug'ı üst sayfada zaten kullanılıyor"
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "'%(page_slug)s' URL tanımlayıcısı, bu üst sayfada zaten kullanılıyor."
 
 msgid "Select a new parent for this page."
 msgstr "Bu sayfa için yeni bir üst sayfa seçin"
@@ -295,12 +304,6 @@ msgstr ""
 
 msgid "Search…"
 msgstr "Ara..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr ""
-"Etiket(ler) %(value_too_long)s maksimum %(max_tag_length)d karakter sayısı "
-"sınırını aşıyor"
 
 msgid "Visibility"
 msgstr "Görünürlük"
@@ -515,6 +518,9 @@ msgstr "Bir profil resmi yükle"
 msgid "Sidebar"
 msgstr "Yan panel"
 
+msgid "Go to the first error"
+msgstr "İlk hataya git"
+
 msgid "Go back"
 msgstr "Geri dön"
 
@@ -637,9 +643,6 @@ msgstr "Bu koleksiyon bir üst koleksiyon tarafından gizli yapıldı."
 msgid "You can edit the privacy settings on:"
 msgstr "Gizlilik ayarlarını düzenleyebilirsiniz:"
 
-msgid "Save"
-msgstr "Kaydet"
-
 msgid "Change privacy"
 msgstr "Gizliliği değiştir"
 
@@ -730,6 +733,8 @@ msgstr "Bu %(model_name)s'yi yayımlamak istiyor musunuz?"
 msgid "Cancel"
 msgstr "İptal"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Eylemler"
 
@@ -762,6 +767,12 @@ msgstr "Alanlar"
 
 msgid "Changes"
 msgstr "Değişiklikler"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "1 aşağı taşındı."
+msgstr[1] "%(counter)s aşağı taşındı."
 
 #, python-format
 msgid "Moved up 1 place."
@@ -1383,18 +1394,6 @@ msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' sayfasına alt sayfa ekleyin"
 
-msgid "Drag"
-msgstr "Sürükle"
-
-msgid "Disable ordering of child pages"
-msgstr "Alt sayfaların sıralamasını etkisizleştir"
-
-msgid "Sort"
-msgstr "Sırala"
-
-msgid "Enable ordering of child pages"
-msgstr "Alt sayfaların sıralamasını etkinleştir"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)s / %(items_count)s"
@@ -1465,6 +1464,9 @@ msgstr "Yukarı taşı"
 
 msgid "Move down"
 msgstr "Aşağı taşı"
+
+msgid "Drag"
+msgstr "Sürükle"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -1692,6 +1694,9 @@ msgstr "Hayır, planı kaldırma"
 msgid "Other searches"
 msgstr "Diğer aramalar"
 
+msgid "Save"
+msgstr "Kaydet"
+
 msgid "Minimap"
 msgstr "Minik Harita"
 
@@ -1876,6 +1881,9 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Ana içeriğe atla"
 
+msgid "Sort"
+msgstr "Sırala"
+
 msgid "View Wagtail quick actions"
 msgstr "Wagtail hızlı eylemlerini görüntüle"
 
@@ -2034,6 +2042,15 @@ msgstr "Değişiklikler istendi %(finished_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
+msgid "Toggle sidebar"
+msgstr "Yan menüyü aç/kapa"
+
+msgid "Toggle minimap"
+msgstr "Minik haritayı aç/kapa"
+
+msgid "Add or show comments"
+msgstr "Yorum ekle veya göster"
+
 msgid "Cut"
 msgstr "Kes"
 
@@ -2052,23 +2069,16 @@ msgstr "Geri al"
 msgid "Redo"
 msgstr "Yeniden"
 
-msgid "Toggle sidebar"
-msgstr "Yan menüyü aç/kapa"
-
-msgid "Toggle minimap"
-msgstr "Minik haritayı aç/kapa"
-
-msgid "Add or show comments"
-msgstr "Yorum ekle veya göster"
-
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
 msgid "Text formatting"
 msgstr "Metin biçimlendirme"
 
+msgid "Bold"
+msgstr "Kalın"
+
 msgid "Italic"
 msgstr "İtalik"
-
-msgid "Underline"
-msgstr "Altı çizili"
 
 msgid "Monospace (code)"
 msgstr "Monospace (kod)"
@@ -2096,6 +2106,13 @@ msgstr "Önizlemeyi aç/kapa"
 
 msgid "(blank)"
 msgstr "(boş)"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Sürükle butonuna odaklanın ve öğeyi taşımak için yukarı veya aşağı ok "
+"tuşlarına basın, ardından değişikliği göndermek için enter tuşuna basın."
 
 #, python-format
 msgid ""
@@ -2391,9 +2408,6 @@ msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr ""
 "Sayfa '%(page_title)s' oluşturuldu ve kontrol edilmek üzere gönderildi."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Sayfa, doğrulama hataları nedeniyle oluşturulamadı"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Sayfa '%(page_title)s' silindi."
@@ -2414,12 +2428,6 @@ msgstr "Sayfa '%(page_title)s' yayınlandı."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Sayfa '%(page_title)s' kontrol için gönderildi."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Sayfa kilitli olduğu için kaydedilemedi"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Sayfa doğrulama hatalarından dolayı kaydedilemedi"
-
 msgid "Is commenting action"
 msgstr "Yorum yapma eylemi"
 
@@ -2435,24 +2443,12 @@ msgstr "Herhangi bir"
 msgid "Yes"
 msgstr "Evet"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Sürükle butonuna odaklanın ve öğeyi taşımak için yukarı veya aşağı ok "
-"tuşlarına basın, ardından değişikliği göndermek için enter tuşuna basın."
+msgid "Page type"
+msgstr "Sayfa türü"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sayfa '%(page_title)s' şuan kilitli değil."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Başlık url'si '%(page_slug)s' seçili üst sayfada zaten kullanılıyor. Özgün "
-"bir başlık url'si girerek tekrar deneyin"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2600,9 +2596,6 @@ msgstr "Numaralı liste"
 
 msgid "Blockquote"
 msgstr "Alıntı"
-
-msgid "Bold"
-msgstr "Kalın"
 
 msgid "Link"
 msgstr "Bağlantı"

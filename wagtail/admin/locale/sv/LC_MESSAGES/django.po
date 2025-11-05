@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -68,9 +68,6 @@ msgstr "Wagtail administration"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
-
-msgid "You do not have permission to access the admin"
-msgstr "Du har inte rättighet att tillträda admin"
 
 msgid "None"
 msgstr "Inget"
@@ -148,9 +145,6 @@ msgstr ""
 "Välj hierarkisk position. Obs: en samling kan inte bli en undersamling av "
 "sig själv eller dess härstammande samlingar."
 
-msgid "Please select another parent"
-msgstr "Vänligen välj en annan föräldersida"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma samling"
 
@@ -177,9 +171,6 @@ msgstr "Du kan inte editera andra användares kommentarer"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Publicera vid datum/-tid måste ske före utgångsdatum/-tid"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Utgångsdatum/-tid måste ske i framtiden"
 
 msgid "New title"
 msgstr "Ny rubrik"
@@ -244,10 +235,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan inte kopiera en sida till sig själv när du kopierar undersidor"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Sluggen '%(page_slug)s' används redan inom föräldersidan"
-
 msgid "Select a new parent for this page."
 msgstr "Välj ny föräldersida"
 
@@ -259,10 +246,6 @@ msgstr "Den nya sidan kommer bli en undersidan av vald föräldersida."
 
 msgid "Search…"
 msgstr "Sök…"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Tagg(ar) %(value_too_long)s har fler än %(max_tag_length)d tecken"
 
 msgid "Visibility"
 msgstr "Synlighet"
@@ -592,9 +575,6 @@ msgstr "Denna samling har gjorts privat p.g.a. en huvudsamling."
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan redigera sekretessinställningarna på:"
 
-msgid "Save"
-msgstr "Spara"
-
 msgid "Change privacy"
 msgstr "Ändra sekretess"
 
@@ -687,6 +667,8 @@ msgstr "Vill du fortfarande publicera denna %(model_name)s?"
 msgid "Cancel"
 msgstr "Avbryt"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Handlingar"
 
@@ -1343,22 +1325,6 @@ msgstr "Utforska undersidor till '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lägg till en undersida till '%(title)s'"
 
-msgid "Drag"
-msgstr "Dra"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Object %(index)s av %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Inaktivera sortering av undersidor"
-
-msgid "Sort"
-msgstr "Sortera"
-
-msgid "Enable ordering of child pages"
-msgstr "Aktivera sortering av undersidor"
-
 msgid "No results across entire site."
 msgstr "Det finns inga träffar på sajten."
 
@@ -1423,6 +1389,9 @@ msgstr "Flytta upp"
 
 msgid "Move down"
 msgstr "Flytta ner"
+
+msgid "Drag"
+msgstr "Dra"
 
 msgid "Choose when this page should go live and/or expire"
 msgstr "Välj när denna sida ska publiceras och/eller utgå"
@@ -1618,6 +1587,9 @@ msgstr "Nej, behåll schemaläggning"
 msgid "Other searches"
 msgstr "Andra sökningar"
 
+msgid "Save"
+msgstr "Spara"
+
 msgid "Toggle side panel"
 msgstr "Växla sidopanel"
 
@@ -1787,6 +1759,13 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
+
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Object %(index)s av %(total)s"
+
+msgid "Sort"
+msgstr "Sortera"
 
 msgid "View Wagtail quick actions"
 msgstr "Se Wagtail snabbhandlingar"
@@ -2007,8 +1986,11 @@ msgstr "Skickad till %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "Vanliga handlingar"
+msgid "Toggle sidebar"
+msgstr "Växla sidorad"
+
+msgid "Save changes"
+msgstr "Spara ändringar"
 
 msgid "Cut"
 msgstr "Klipp ut"
@@ -2025,26 +2007,19 @@ msgstr "Ångra"
 msgid "Redo"
 msgstr "Gör om"
 
-msgid "Save changes"
-msgstr "Spara ändringar"
-
-msgid "Toggle sidebar"
-msgstr "Växla sidorad"
-
-msgid "Text content"
-msgstr "Textinnehåll"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Textformattering"
 
 msgid "Insert or edit a link"
 msgstr "Lägg till eller redigera länk"
 
-msgid "Text formatting"
-msgstr "Textformattering"
+msgid "Bold"
+msgstr "Fetstil"
 
 msgid "Italic"
 msgstr "Kursiv"
-
-msgid "Underline"
-msgstr "Understrykning"
 
 msgid "Monospace (code)"
 msgstr "Monospace (kod)"
@@ -2316,9 +2291,6 @@ msgstr "Sida '%(page_title)s' skapad och publicerad."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Sida '%(page_title)s' skapad och inlämnad för moderering."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Sidan kunde ej bli skapad p.g.a. valideringsfel"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Sida '%(page_title)s' raderad."
@@ -2380,12 +2352,6 @@ msgstr "Sida '%(page_title)s' har blivit inlämnad för moderering."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Arbetsflödet på sidan '%(page_title)s' har startats om."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Sidan kunde inte sparas eftersom den är låst"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
-
 msgid "Owner"
 msgstr "Ägare"
 
@@ -2407,14 +2373,6 @@ msgstr "Sidtyp"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sida '%(page_title)s' är nu olåst."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"URL-fragmenten '%(page_slug)s' är redan i användning av den valda "
-"huvudsidan. Se till att URL-fragmentet är unik och försök igen."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2591,9 +2549,6 @@ msgstr "Numrerad lista"
 
 msgid "Blockquote"
 msgstr "Blockcitat"
-
-msgid "Bold"
-msgstr "Fetstil"
 
 msgid "Link"
 msgstr "Länk"

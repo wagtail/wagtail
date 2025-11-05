@@ -79,6 +79,10 @@ msgstr "Alles samenvouwen"
 msgid "Comment"
 msgstr "Opmerking"
 
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Moeilijk"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -112,8 +116,15 @@ msgstr "Fout tijdens het versturen van voorvertoning-data"
 msgid "Expand all"
 msgstr "Alles uitvouwen"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Redelijk"
+
 msgid "Focus comment"
 msgstr "Focus opmerking"
+
+msgid "Good"
+msgstr "Goed"
 
 msgid "Horizontal line"
 msgstr "Horizontale lijn"

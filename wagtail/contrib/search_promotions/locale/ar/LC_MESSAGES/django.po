@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -183,15 +183,9 @@ msgstr "نتيجة البحث المروجة"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "تم إنشاء اختيارات المحرر لـ '%(query)s'."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "لم يتم إنشاء التوصيات بسبب وجود أخطاء"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "تم تحديث اختيارات المحرر لـ '%(query)s'."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "لم يتم حفظ التوصيات بسبب وجود أخطاء"
 
 msgid "Editor's picks deleted."
 msgstr "تم حذف اختيارات المحرر."

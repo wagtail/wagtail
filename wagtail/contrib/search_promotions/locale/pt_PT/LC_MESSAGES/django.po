@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -134,15 +134,9 @@ msgstr "Resultado de pesquisa promovido"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Escolhas do editor para '%(query)s' criadas."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "As recomendações não foram criadas devido a erros."
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Escolhas do editor para '%(query)s' atualizadas."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "As recomendações não foram guardadas devido a erros."
 
 msgid "Editor's picks deleted."
 msgstr "Escolhas do editor apagadas."

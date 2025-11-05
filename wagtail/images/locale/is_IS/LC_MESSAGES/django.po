@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2019-2022,2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -493,6 +493,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d mynd hefur verið eytt"
 msgstr[1] "%(num_parent_objects)d myndum hefur verið eytt"
 
+msgid "Title"
+msgstr "Titill"
+
+msgid "Created"
+msgstr "Bjó til"
+
 msgid "Choose an image"
 msgstr "Veldu mynd"
 
@@ -522,12 +528,6 @@ msgstr "Skráarstærð: (stórar fyrst)"
 
 msgid "Images"
 msgstr "Myndir"
-
-msgid "Title"
-msgstr "Titill"
-
-msgid "Created"
-msgstr "Bjó til"
 
 msgid "The image could not be saved due to errors."
 msgstr "Ekki var hægt að vista myndina þar sem hún stóðst ekki villuprófanir"
