@@ -308,6 +308,28 @@ class StreamBlockComparison(BaseSequenceBlockComparison):
     def get_block_comparisons(self):
         return self.get_block_comparisons_by_id()
 
+    def htmlvalue(self, val):
+        htmlvalues = []
+
+        for stream_child in self.get_blocks_from_value(val):
+            block = stream_child.block
+            label = block.label
+            comparison_class = get_comparison_class_for_block(block)
+
+            htmlvalues.append(
+                (
+                    label,
+                    comparison_class(
+                        block, True, True, stream_child.value, stream_child.value
+                    ).htmlvalue(stream_child.value),
+                )
+            )
+
+        return format_html(
+            "<dl>\n{}\n</dl>",
+            format_html_join("\n", "    <dt>{}</dt>\n    <dd>{}</dd>", htmlvalues),
+        )
+
 
 class ListBlockComparison(BaseSequenceBlockComparison):
     @staticmethod
