@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -68,9 +68,6 @@ msgstr "ادمین وگتیل"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "متاسفانه مجوز لازم برای دسترسی به این بخش را ندارید."
-
-msgid "You do not have permission to access the admin"
-msgstr "مجوز لازم برای دسترسی به ادمین را ندارید"
 
 msgid "None"
 msgstr "خالی"
@@ -150,9 +147,6 @@ msgstr ""
 "سلسله جایگاه را انتخاب کنید. توجه: یک مجموعه نمی تواند زیر مجموعه خود یا یکی "
 "از زیر مجموعه هایش شود."
 
-msgid "Please select another parent"
-msgstr "لطفا یک والد دیگر انتخاب نمایید"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "برای یک مجموعه نمی‌توانید چندین مجوز انتخاب کنید."
 
@@ -179,9 +173,6 @@ msgstr "نمی توانید نظر کاربر دیگری را ویرایش کن�
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "تاریخ/ساعت زنده شدن باید پیش از تاریخ/ساعت انقضا باشد"
-
-msgid "Expiry date/time must be in the future"
-msgstr "تاریخ/ساعت انقضا باید در آینده باشد"
 
 msgid "New title"
 msgstr "عنوان جدید"
@@ -247,10 +238,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "هنگامی که صفحه ها کپی میشوند نمی‌توان یک صفحه را به داخل خودش کپی کرد"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "اسلاگ '%(page_slug)s' از قبل در صفحه والد استفاده شده است"
-
 msgid "Select a new parent for this page."
 msgstr "انتخاب یک والد جدید برای این صفحه."
 
@@ -266,10 +253,6 @@ msgstr "شما اجازه ساخت صفحه در زیر شاخه صفحه%(page_
 
 msgid "Search…"
 msgstr "جستجو..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "برچسب(های) %(value_too_long)s بیشتر از %(max_tag_length)d حرف دارند"
 
 msgid "Visibility"
 msgstr "وضوح"
@@ -585,9 +568,6 @@ msgstr "این مجموعه توسط یک مجموعه والد خصوصی شد�
 msgid "You can edit the privacy settings on:"
 msgstr "تنظیمات حریم را می‌توانید اینجا ویرایش کنید:"
 
-msgid "Save"
-msgstr "ذخیره"
-
 msgid "Change privacy"
 msgstr "تغییر حریم خصوصی"
 
@@ -656,6 +636,8 @@ msgstr "آیا هنوز مایل به انتشار %(model_name)s هستید؟"
 msgid "Cancel"
 msgstr "لغو"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "اعمال"
 
@@ -1033,18 +1015,6 @@ msgstr "کاوش زیرصفحه های «%(title)s»"
 msgid "Add a child page to '%(title)s'"
 msgstr "افزودن زیرصفحه به «%(title)s»"
 
-msgid "Drag"
-msgstr "کشیدن"
-
-msgid "Disable ordering of child pages"
-msgstr "غیرفعال سازی ترتیب زیرصفحه ها"
-
-msgid "Sort"
-msgstr "مرتب‌سازی"
-
-msgid "Enable ordering of child pages"
-msgstr "فعال سازی ترتیب زیرصفحه ها"
-
 msgid "Sites menu"
 msgstr "منوی سایت‌ها"
 
@@ -1081,6 +1051,9 @@ msgstr "حرکت به بالا"
 
 msgid "Move down"
 msgstr "حرکت به پایین"
+
+msgid "Drag"
+msgstr "کشیدن"
 
 msgid "Add a collection permission"
 msgstr "افزودن مجوز مجموعه"
@@ -1164,6 +1137,9 @@ msgstr "نه، زمان بندی را حذف نکن"
 msgid "Other searches"
 msgstr "جستجوهای دیگر"
 
+msgid "Save"
+msgstr "ذخیره"
+
 msgid "Unlocked"
 msgstr "گشوده"
 
@@ -1232,6 +1208,9 @@ msgstr "%(action)s در <b>%(at)s</b>"
 #, python-format
 msgid "%(action)s by <b>%(who)s</b>"
 msgstr "%(action)s به وسیله <b>%(who)s</b>"
+
+msgid "Sort"
+msgstr "مرتب‌سازی"
 
 msgid "Add a child page"
 msgstr "افزودن صفحه فرزند"
@@ -1520,9 +1499,6 @@ msgstr "صفحه '%(page_title)s' ایجاد و انتشار یافت."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "صفحه '%(page_title)s' ایجاد و برای نظارت فرستاده شد."
 
-msgid "The page could not be created due to validation errors"
-msgstr "به دلیل بروز خطا صفحه ایجاد نشد."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "صفحه '%(page_title)s' حذف شد."
@@ -1569,12 +1545,6 @@ msgstr "صفحه '%(page_title)s' انتشار یافت."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "صفحه '%(page_title)s' برای نظارت فرستاده شد."
 
-msgid "The page could not be saved as it is locked"
-msgstr "بدلیل قفل بودن صفحه امکان ذخیره وجود ندارد"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "صفحه به دلیل وجود خطاهای معتبرسازی ذخیره نمی‌شود"
-
 msgid "Site"
 msgstr "سایت"
 
@@ -1584,14 +1554,6 @@ msgstr "بله"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "صفحه '%(page_title)s' باز شده است."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"اسلاگ %(page_slug)s در حال حاضر توسط صفحه‌ی والد درحال استفاده است. لطفا "
-"مطمئن شوید اسلاگ یکتاست و دوباره امتحان کنید"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."

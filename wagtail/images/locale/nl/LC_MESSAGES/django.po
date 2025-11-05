@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -264,6 +264,9 @@ msgstr "Nee, niet verwijderen"
 msgid "Popular tags"
 msgstr "Populaire tags"
 
+msgid "Layout"
+msgstr "Weergave"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -412,8 +415,11 @@ msgstr ""
 "Er zijn nog geen afbeeldingen toegevoegd. Waarom <a "
 "href=\"%(wagtailimages_add_image_url)s\">upload je er niet nu een</a>?"
 
-msgid "Toggle layout"
-msgstr "Wijzig layout"
+msgid "Grid layout"
+msgstr "Grid"
+
+msgid "List layout"
+msgstr "Lijst"
 
 msgid "Preview"
 msgstr "Voorbeeld"
@@ -528,6 +534,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d afbeelding is verwijderd"
 msgstr[1] "%(num_parent_objects)d afbeeldingen zijn verwijderd"
 
+msgid "Title"
+msgstr "Titel"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
 
@@ -563,12 +575,6 @@ msgstr "Aantal keer gebruikt (vaak tot weinig)"
 
 msgid "Images"
 msgstr "Afbeeldingen"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Created"
-msgstr "Aangemaakt"
 
 msgid "The image could not be saved due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."

@@ -6,14 +6,14 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2020-2021
-# Sébastien Corbin <seb.corbin@gmail.com>, 2024
+# Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -62,3 +62,6 @@ msgstr ""
 
 msgid "Table"
 msgstr "Tableau"
+
+msgid "Select a header option"
+msgstr "Sélectionner une option d'entête"

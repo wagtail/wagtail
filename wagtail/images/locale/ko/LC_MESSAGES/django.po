@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -323,6 +323,12 @@ msgstr "컬렉션에 추가"
 msgid "Delete"
 msgstr "삭제"
 
+msgid "Title"
+msgstr "제목"
+
+msgid "Created"
+msgstr "생성일"
+
 msgid "Choose an image"
 msgstr "이미지 선택"
 
@@ -340,12 +346,6 @@ msgstr "오래된순"
 
 msgid "Images"
 msgstr "이미지"
-
-msgid "Title"
-msgstr "제목"
-
-msgid "Created"
-msgstr "생성일"
 
 msgid "The image could not be saved due to errors."
 msgstr "에러로 인해 이미지를 저장할 수 없습니다."

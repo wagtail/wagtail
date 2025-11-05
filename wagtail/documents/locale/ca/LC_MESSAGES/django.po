@@ -6,14 +6,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # Matt Westcott <matthew@torchbox.com>, 2024
-# Roger Pons <rogerpons@gmail.com>, 2017,2022-2024
+# Roger Pons <rogerpons@gmail.com>, 2017,2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2024\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -342,8 +342,8 @@ msgid "Document '%(document_title)s' updated"
 msgstr "Document '%(document_title)s' actualitzat"
 
 msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "No s'ha trobat el fitxer. Canvieu l'origen o elimineu el document."
+"The file could not be found. Please change the source or delete the document."
+msgstr "No s'ha trobat el fitxer. Canvieu la font o suprimiu el document."
 
 msgid "Delete document"
 msgstr "Esborra el document"

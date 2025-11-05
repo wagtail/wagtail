@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -97,7 +97,7 @@ msgstr "Wagtail admin"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sorry, je hebt geen toegang tot dit gedeelte."
 
-msgid "You do not have permission to access the admin"
+msgid "You do not have permission to access the admin."
 msgstr "Je hebt geen toegang tot de administratoropties."
 
 msgid "None"
@@ -109,11 +109,20 @@ msgstr "Datum vanaf"
 msgid "Date to"
 msgstr "Datum tot"
 
+msgid "Minimum"
+msgstr "Minimaal"
+
+msgid "Maximum"
+msgstr "Maximaal"
+
 msgid "Locale"
 msgstr "Taalregio"
 
 msgid "All"
 msgstr "Alle"
+
+msgid "Usage count"
+msgstr "Aantal keer gebruikt"
 
 msgid "Collection"
 msgstr "Collectie"
@@ -186,8 +195,8 @@ msgstr ""
 "Selecteer een plek in de hiërarchie. Let op: een collectie kan niet aan "
 "zichzelf of aan onderliggende collecties worden toegevoegd."
 
-msgid "Please select another parent"
-msgstr "Selecteer een ander bovenliggend item"
+msgid "Please select another parent."
+msgstr "Kies alsjeblieft een ander bovenliggend item."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -218,8 +227,8 @@ msgstr "Je kunt opmerkingen van een andere gebruiker niet wijzigen."
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
 
-msgid "Expiry date/time must be in the future"
-msgstr "Vervaldatum moet in de toekomst liggen"
+msgid "Expiry date/time must be in the future."
+msgstr "Vervaldatum moet in de toekomst liggen."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -290,10 +299,10 @@ msgstr ""
 "van onderliggende pagina's"
 
 #, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
 msgstr ""
-"Er is al een andere pagina op dit niveau dat de slug '%(page_slug)s' "
-"gebruikt."
+"De slug '%(page_slug)s' is al in gebruik door een andere pagina op dit "
+"niveau in in de paginaboom."
 
 msgid "Select a new parent for this page."
 msgstr "Kies een nieuwe bovenliggende pagina"
@@ -319,10 +328,10 @@ msgid "Search…"
 msgstr "Zoeken…"
 
 #, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
 msgstr ""
 "De volgende tag(s) zijn langer dan %(max_tag_length)d tekens: "
-"%(value_too_long)s"
+"%(value_too_long)s."
 
 msgid "Visibility"
 msgstr "Zichtbaarheid"
@@ -541,6 +550,9 @@ msgstr "Upload een profiel foto:"
 msgid "Sidebar"
 msgstr "Zijbalk"
 
+msgid "Go to the first error"
+msgstr "Ga naar eerste fout"
+
 msgid "Go back"
 msgstr "Ga terug"
 
@@ -664,9 +676,6 @@ msgstr "Deze collectie is privé gemaakt door een bovenliggende collectie."
 msgid "You can edit the privacy settings on:"
 msgstr "Je kunt de zichtbaarheid wijzigen op de pagina:"
 
-msgid "Save"
-msgstr "Opslaan"
-
 msgid "Change privacy"
 msgstr "Wijzig zichtbaarheid"
 
@@ -759,6 +768,8 @@ msgstr "Wil je %(model_name)s nog steeds publiceren?"
 msgid "Cancel"
 msgstr "Annuleren"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Acties"
 
@@ -1700,22 +1711,6 @@ msgstr "Bekijk de onderliggende pagina's van '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 
-msgid "Drag"
-msgstr "Sleep"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Item %(index)s van %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Schakel ordening van onderliggende pagina's uit"
-
-msgid "Sort"
-msgstr "Sorteer"
-
-msgid "Enable ordering of child pages"
-msgstr "Schakel ordening van onderliggende pagina's in"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)s van %(items_count)s over de hele site."
@@ -1797,6 +1792,9 @@ msgstr "Verplaats naar boven"
 
 msgid "Move down"
 msgstr "Verplaats naar beneden"
+
+msgid "Drag"
+msgstr "Sleep"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -2047,8 +2045,19 @@ msgstr "Terug"
 msgid "History"
 msgstr "Geschiedenis"
 
+msgid "account"
+msgstr "account"
+
 msgid "Keyboard shortcuts"
 msgstr "Sneltoetsen"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently disabled; manage your %(account_link)s to "
+"enable them."
+msgstr ""
+"Sneltoetsen zijn uitgeschakeld; ga naar je %(account_link)s om sneltoetsen "
+"in te schakelen."
 
 msgid "All keyboard shortcuts"
 msgstr "Alle sneltoetsen"
@@ -2058,6 +2067,14 @@ msgstr "Sectie"
 
 msgid "Keyboard shortcut"
 msgstr "Sneltoets"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
+"disable them."
+msgstr ""
+"Sneltoetsen zijn ingeschakeld; ga naar je %(account_link)s om ze uit te "
+"schakelen."
 
 msgid "Current page status:"
 msgstr "Huidige paginastatus:"
@@ -2093,6 +2110,9 @@ msgstr "Nee, niet stoppen met plannen"
 msgid "Other searches"
 msgstr "Andere zoekacties"
 
+msgid "Save"
+msgstr "Opslaan"
+
 msgid "Minimap"
 msgstr "Minimap"
 
@@ -2116,6 +2136,45 @@ msgstr "Woorden"
 
 msgid "Reading time"
 msgstr "Geschatte leestijd"
+
+msgid "Readability"
+msgstr "Leesbaarheid"
+
+msgid "This data explained"
+msgstr "Deze data uitgelegd"
+
+msgid "How we calculate our metrics"
+msgstr "Hoe we tot deze meetwaarden komen"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"We halen de hoofdinhoud uit de voorbeeldpagina, verwijderen alle opmaak en "
+"tellen het aantal woorden."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"We berekenen de leestijd op basis van het aantal woorden, met verschillende "
+"leessnelheden voor verschillende talen."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"We gebruiken een leesbaarheidsformule die is gebaseerd op de lengte van "
+"woorden en zinnen. Lange zinnen en woorden leiden tot een lagere "
+"leesbaarheidsscore."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Zie de <a href=\"%(guide_link)s\" target=\"_blank\">gids voor "
+"contentcontroles</a> voor meer informatie over hoe de controles werken."
 
 msgid "Issues found"
 msgstr "Problemen gevonden"
@@ -2335,6 +2394,19 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Ga naar de inhoud"
+
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Item %(index)s van %(total)s"
+
+msgid "Disable custom ordering"
+msgstr "Speciale sortering uitschakelen"
+
+msgid "Sort"
+msgstr "Sorteer"
+
+msgid "Enable custom ordering"
+msgstr "Speciale sortering inschakelen"
 
 msgid "View Wagtail quick actions"
 msgstr "Bekijk Wagtail snel acties"
@@ -2578,8 +2650,33 @@ msgstr "Verstuurd naar %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
 
-msgid "Common actions"
-msgstr "Veel gebruikte acties"
+#. Translators: Shortcuts for admin common shortcuts that are available across
+#. the admin
+msgid "Application"
+msgstr "Applicatie"
+
+msgid "Show keyboard shortcuts"
+msgstr "Toon sneltoetsen"
+
+msgid "Toggle sidebar"
+msgstr "Toon/verberg zijbalk"
+
+msgid "Toggle minimap"
+msgstr "Toon/verberg minimap"
+
+msgid "Close modal dialogs (like this one)"
+msgstr "Sluit pop-up dialogen (zoals deze)"
+
+msgid "Save changes"
+msgstr "Wijzigingen opslaan"
+
+msgid "Add or show comments"
+msgstr "Toon of voeg opmerkingen toe"
+
+#. Translators: Shortcuts for common text editing features available in all
+#. fields (even if not a rich text field)
+msgid "Text editing"
+msgstr "Tekst bewerken"
 
 msgid "Cut"
 msgstr "Knippen"
@@ -2599,32 +2696,19 @@ msgstr "Ongedaan maken"
 msgid "Redo"
 msgstr "Opnieuw doen"
 
-msgid "Save changes"
-msgstr "Wijzigingen opslaan"
-
-msgid "Toggle sidebar"
-msgstr "Toon/verberg zijbalk"
-
-msgid "Toggle minimap"
-msgstr "Toon/verberg minimap"
-
-msgid "Add or show comments"
-msgstr "Toon of voeg opmerkingen toe"
-
-msgid "Text content"
-msgstr "Binnen een tekstvak"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Tekst opmaken"
 
 msgid "Insert or edit a link"
 msgstr "Link invoegen of wijzigen"
 
-msgid "Text formatting"
-msgstr "Tekst opmaken"
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
-
-msgid "Underline"
-msgstr "Onderstrepen"
 
 msgid "Monospace (code)"
 msgstr "Monospace (code)"
@@ -2672,6 +2756,18 @@ msgstr "Sorteer '%(label)s' op oplopende volgorde."
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Sorteer '%(label)s' op aflopende volgorde."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' is met success verplaatst."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Focus de versleep-knop en gebruik de pijltje omhoog en omlaag toetsen om het "
+"item de verplaatsen. Druk vervolgens op de entertoets om de wijziging op te "
+"slaan."
 
 #, python-format
 msgid ""
@@ -2914,6 +3010,9 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s%(field_label)s"
 
+msgid "Sort item order"
+msgstr "Pas item volgorde aan"
+
 msgid "Inspect"
 msgstr "Inspecteer"
 
@@ -3126,7 +3225,7 @@ msgstr "Pagina '%(page_title)s' aangemaakt en gepubliceerd."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Pagina '%(page_title)s' aangemaakt en ingediend voor controle."
 
-msgid "The page could not be created due to validation errors"
+msgid "The page could not be created due to validation errors."
 msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
 
 #, python-format
@@ -3188,11 +3287,11 @@ msgstr "Pagina '%(page_title)s' is ter goedkeuring ingediend."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Workflow van pagina '%(page_title)s' is opnieuw gestart."
 
-msgid "The page could not be saved as it is locked"
+msgid "The page could not be saved as it is locked."
 msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 
-msgid "The page could not be saved due to validation errors"
-msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
+msgid "The page could not be saved due to validation errors."
+msgstr "De pagina kon niet worden opgeslagen vanwege validatiefouten."
 
 msgid "Is commenting action"
 msgstr "Actie is commentaar"
@@ -3224,18 +3323,6 @@ msgstr "Pagina type"
 msgid "Exploring"
 msgstr "Verkennen"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Focus de versleep-knop en gebruik de pijltje omhoog en omlaag toetsen om het "
-"item de verplaatsen. Druk vervolgens op de entertoets om de wijziging op te "
-"slaan."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s' is met success verplaatst."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Pagina '%(page_title)s' is nu geopend."
@@ -3243,10 +3330,10 @@ msgstr "Pagina '%(page_title)s' is nu geopend."
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
+"sure the slug is unique and try again."
 msgstr ""
-"De slug '%(page_slug)s' is al in gebruik bij de geselecteerde bovenliggende "
-"pagina. Zorg dat de slug uniek is en probeer het opnieuw."
+"De slug '%(page_slug)s' is al gebruik op deze plek in de paginaboom. Pas de "
+"slug aan of kies een andere bovenliggende pagina."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3476,9 +3563,6 @@ msgstr "Genummerde lijst"
 
 msgid "Blockquote"
 msgstr "Blokquote"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Link"
 msgstr "Link"

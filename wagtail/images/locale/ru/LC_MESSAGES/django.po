@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -451,9 +451,6 @@ msgstr ""
 "Вы не загрузили ни одного изображения. Почему бы <a "
 "href=\"%(wagtailimages_add_image_url)s\">не загрузить сейчас</a>?"
 
-msgid "Toggle layout"
-msgstr "Изменить макет"
-
 msgid "Preview"
 msgstr "Превью"
 
@@ -574,6 +571,12 @@ msgstr[1] "%(num_parent_objects)d изображений было удалено
 msgstr[2] "%(num_parent_objects)d изображений было удалено"
 msgstr[3] "%(num_parent_objects)d  изображений было удалено"
 
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Created"
+msgstr "Создан"
+
 msgid "Choose an image"
 msgstr "Выберите изображение"
 
@@ -609,12 +612,6 @@ msgstr "Количество использований: (по убыванию)
 
 msgid "Images"
 msgstr "Изображения"
-
-msgid "Title"
-msgstr "Заголовок"
-
-msgid "Created"
-msgstr "Создан"
 
 msgid "The image could not be saved due to errors."
 msgstr "Это изображение не может быть сохранено из-за ошибок."

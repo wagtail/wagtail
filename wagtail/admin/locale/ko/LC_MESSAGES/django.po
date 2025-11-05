@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -65,9 +65,6 @@ msgstr "웨그테일 관리자"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "죄송합니다, 해당 영역에 접근할 권한이 없습니다."
-
-msgid "You do not have permission to access the admin"
-msgstr "관리자에 접근할 권한이 없습니다"
 
 msgid "None"
 msgstr "없음"
@@ -147,9 +144,6 @@ msgstr ""
 "단계적 위치를 선택합니다. 참고: 컬렉션은 자체 또는 하위 컬렉션 중 하나가 될 "
 "수 없습니다."
 
-msgid "Please select another parent"
-msgstr "다른 부모를 선택하세요"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없습니다."
 
@@ -176,9 +170,6 @@ msgstr "당신은 타인의 댓글을 수정할 수 없습니다."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
-
-msgid "Expiry date/time must be in the future"
-msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
 
 msgid "New title"
 msgstr "새로운 제목"
@@ -246,10 +237,6 @@ msgstr "상위 페이지"
 
 msgid "Search…"
 msgstr "검색..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "태그(들)가%(value_too_long)s가 %(max_tag_length)d자를 초과합니다"
 
 msgid "Visibility"
 msgstr "보임"
@@ -539,9 +526,6 @@ msgstr "이 모음은 상위 모음에 의해 비공개로 설정되었습니다
 msgid "You can edit the privacy settings on:"
 msgstr "공개 범위 바꾸기:"
 
-msgid "Save"
-msgstr "저장"
-
 msgid "Change privacy"
 msgstr "공개 범위 변경"
 
@@ -591,6 +575,8 @@ msgstr "아니요, 게시를 해제하지 않습니다"
 msgid "Cancel"
 msgstr "취소"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "액션"
 
@@ -1163,18 +1149,6 @@ msgstr "'%(title)s' 의 하위 페이지 탐색"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' 에 대한 하위 페이지 추가"
 
-msgid "Drag"
-msgstr "끌기"
-
-msgid "Disable ordering of child pages"
-msgstr "하위 페이지들 순서 변경 기능 비활성화"
-
-msgid "Sort"
-msgstr "정렬"
-
-msgid "Enable ordering of child pages"
-msgstr "하위 페이지들 순서 변경 기능 활성화"
-
 msgid "Sites menu"
 msgstr "사이트 메뉴"
 
@@ -1224,6 +1198,9 @@ msgstr "위로 이동"
 
 msgid "Move down"
 msgstr "아래로 이동"
+
+msgid "Drag"
+msgstr "끌기"
 
 msgid "Collection management permissions"
 msgstr "수집 관리 권한"
@@ -1385,6 +1362,9 @@ msgstr "아니요, 취소하지 않습니다"
 msgid "Other searches"
 msgstr "다른 검색결과들"
 
+msgid "Save"
+msgstr "저장"
+
 msgid "Toggle side panel"
 msgstr "사이드 패널 전환"
 
@@ -1504,6 +1484,9 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "메인 컨텐츠로 이동"
+
+msgid "Sort"
+msgstr "정렬"
 
 msgid "View Wagtail quick actions"
 msgstr "워그테일의 빠른 엑션 보기"
@@ -1687,6 +1670,12 @@ msgstr "%(time_period)s 전"
 msgid "Log out"
 msgstr "로그아웃"
 
+msgid "Toggle sidebar"
+msgstr "사이드 전환"
+
+msgid "Save changes"
+msgstr "변경점 저장"
+
 msgid "Cut"
 msgstr "잘라내기"
 
@@ -1699,17 +1688,11 @@ msgstr "실행취소"
 msgid "Redo"
 msgstr "재실행"
 
-msgid "Save changes"
-msgstr "변경점 저장"
-
-msgid "Toggle sidebar"
-msgstr "사이드 전환"
+msgid "Bold"
+msgstr "굵게"
 
 msgid "Italic"
 msgstr "기울임꼴"
-
-msgid "Underline"
-msgstr "밑줄"
 
 msgid "Superscript"
 msgstr "위첨자"
@@ -1916,9 +1899,6 @@ msgstr "'%(page_title)s' 페이지가 생성 및 게시되었습니다"
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "'%(page_title)s' 페이지가 생성되고 검토에 의해 제출되었습니다"
 
-msgid "The page could not be created due to validation errors"
-msgstr "이 페이지는 오류에 의해 생성될 수 없습니다"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "'%(page_title)s' 페이지가 삭제되었습니다"
@@ -1974,12 +1954,6 @@ msgstr "'%(page_title)s' 페이지를 검토할 수 있도록 제출했습니다
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "'%(page_title)s'페이지에 워크플로우가 재시작됨"
 
-msgid "The page could not be saved as it is locked"
-msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
-
 msgid "Owner"
 msgstr "소유자"
 
@@ -1992,14 +1966,6 @@ msgstr "예"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "'%(page_title)s' 페이지의 잠금을 풀었습니다."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"'%(page_slug)s' 슬러그는 이미 선택된 상위 페이지가 사용중입니다. 슬러그가 유"
-"일한지 확인 후 다시 시도하십시오"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2165,9 +2131,6 @@ msgstr "숫자 목록"
 
 msgid "Blockquote"
 msgstr "인용"
-
-msgid "Bold"
-msgstr "굵게"
 
 msgid "Link"
 msgstr "링크"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -209,18 +209,6 @@ msgstr "Ailgyfeiriad '%(redirect_title)s' wedi'i ychwanegu."
 
 msgid "Search redirects"
 msgstr "Chwilio ailgyfeiriadau"
-
-#, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "Ni chefnogir fformat ffeil o'r math \"%(extension)s\"."
-
-#, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "Mae gan ffeil a fewnforiwyd amgodio anghywir: %(error_message)s"
-
-#, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s dod ar eu traws wrth geisio darllen ffeil: %(filename)s"
 
 #, python-format
 msgid "Imported %(total)d redirect"

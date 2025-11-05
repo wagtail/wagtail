@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -440,9 +440,6 @@ msgstr ""
 "لم تقم برفع أي صور. لماذا لا <a "
 "href=\"%(wagtailimages_add_image_url)s\">ترفع واحدة الآن</a>؟"
 
-msgid "Toggle layout"
-msgstr "تبديل التصميم"
-
 msgid "Preview"
 msgstr "معاينة"
 
@@ -564,6 +561,12 @@ msgstr[3] "تم حذف %(num_parent_objects)d صور"
 msgstr[4] "تم حذف %(num_parent_objects)d صورة"
 msgstr[5] "تم حذف %(num_parent_objects)d صورتين"
 
+msgid "Title"
+msgstr "العنوان"
+
+msgid "Created"
+msgstr "تاريخ الإنشاء"
+
 msgid "Choose an image"
 msgstr "اختر صورة"
 
@@ -599,12 +602,6 @@ msgstr "عدد مرات الاستخدام : (من الأعلى إلى الأق�
 
 msgid "Images"
 msgstr "الصور"
-
-msgid "Title"
-msgstr "العنوان"
-
-msgid "Created"
-msgstr "تاريخ الإنشاء"
 
 msgid "The image could not be saved due to errors."
 msgstr "تعذر حفظ الصورة بسبب أخطاء."

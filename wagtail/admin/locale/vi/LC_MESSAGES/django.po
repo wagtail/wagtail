@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: stdpi, 2024\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
@@ -61,9 +61,6 @@ msgstr "Quản trị viên Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Bạn không có quyền truy cập vào khu vực này."
-
-msgid "You do not have permission to access the admin"
-msgstr "Bạn không có quyền truy cập trang quản trị"
 
 msgid "None"
 msgstr "Không có"
@@ -142,9 +139,6 @@ msgid ""
 msgstr ""
 "Chọn vị trí chỉ định. Tập này không thể nằm trong các tập của nó và chính nó."
 
-msgid "Please select another parent"
-msgstr "Hãy chọn tập khác"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Không thể có nhiều mục quyền hạn trong cùng một tập."
 
@@ -171,9 +165,6 @@ msgstr "Không thể sửa bình luận người khác"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Thời hạn đăng phải trước thời điểm hết hạn"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Thời điểm hết hạn phải ở tương lai"
 
 msgid "New title"
 msgstr "Tiêu đề mới"
@@ -233,10 +224,6 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Bạn không thể sao chép một trang vào chính trang đó khi sao chép các trang "
 "con"
-
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Đường dẫn \"%(page_slug)s\" đã được sử dụng bởi trang cha"
 
 msgid "Select a new parent for this page."
 msgstr "Chọn trang cha mới."
@@ -317,9 +304,6 @@ msgstr "Chọn"
 msgid "Choose a page"
 msgstr "Chọn một trang"
 
-msgid "Save"
-msgstr "Lưu"
-
 msgid "Public"
 msgstr "Công khai"
 
@@ -393,6 +377,9 @@ msgstr "Tải CSV"
 
 msgid "Add comment"
 msgstr "Thêm bình luận"
+
+msgid "Save"
+msgstr "Lưu"
 
 msgid "Unlocked"
 msgstr "Đã được mở khóa"

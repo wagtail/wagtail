@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -489,6 +489,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d سۈرەت ئۆچۈرۈلدى"
 msgstr[1] "%(num_parent_objects)d سۈرەت ئۆچۈرۈلدى"
 
+msgid "Title"
+msgstr "ماۋزۇ"
+
+msgid "Created"
+msgstr "قۇرغان ۋاقىت"
+
 msgid "Choose an image"
 msgstr "سۈرەت تاللىنىدۇ"
 
@@ -518,12 +524,6 @@ msgstr "ھۆججەت چوڭلۇقى: (چوڭدىن كىچىككە)"
 
 msgid "Images"
 msgstr "سۈرەت"
-
-msgid "Title"
-msgstr "ماۋزۇ"
-
-msgid "Created"
-msgstr "قۇرغان ۋاقىت"
 
 msgid "The image could not be saved due to errors."
 msgstr "خاتالىق سەۋەبىدىن سۈرەتنى ساقلىغىلى بولمىدى."

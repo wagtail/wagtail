@@ -18,14 +18,14 @@
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2024
+# Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -390,9 +390,9 @@ msgid "Document '%(document_title)s' updated"
 msgstr "Document « %(document_title)s » mis à jour"
 
 msgid ""
-"The file could not be found. Please change the source or delete the document"
+"The file could not be found. Please change the source or delete the document."
 msgstr ""
-"Le fichier n'a pas été trouvé. Veuillez changer la source ou supprimer le "
+"Le fichier n'a pas été trouvé. Veuillez modifier la source ou supprimer le "
 "document."
 
 msgid "Delete document"

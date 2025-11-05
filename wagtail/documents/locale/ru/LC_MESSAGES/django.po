@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -394,12 +394,6 @@ msgstr "Документ не может быть сохранен из-за о�
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Документ '%(document_title)s' обновлен"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
-"документ"
 
 msgid "Delete document"
 msgstr "Удалить документ"
