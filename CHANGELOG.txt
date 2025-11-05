@@ -5,7 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Resize overly large avatar images on upload (Harshit Ranjan)
- * Add natural keys for `Page` and `Collection` models (Samya-Agg)
+ * Add natural keys for `Page` and `Collection` models (Samya Aggarwal)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)

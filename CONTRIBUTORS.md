@@ -917,7 +917,7 @@
 * Heric Libong
 * Harshit Ranjan
 * Paul Souders
-* Samya-Agg
+* Samya Aggarwal
 * Bhavesh Sharma
 
 ## Translators
