@@ -83,6 +83,10 @@ msgstr "Tout replier"
 msgid "Comment"
 msgstr "Commenter"
 
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Complexe"
+
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -117,8 +121,15 @@ msgstr ""
 msgid "Expand all"
 msgstr "Tout déplier"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Juste"
+
 msgid "Focus comment"
 msgstr "Mettre le commentaire au premier-plan"
+
+msgid "Good"
+msgstr "Bon"
 
 msgid "Horizontal line"
 msgstr "Ligne horizontale"

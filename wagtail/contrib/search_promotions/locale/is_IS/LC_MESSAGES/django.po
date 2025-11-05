@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023,2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -184,15 +184,9 @@ msgstr "Meðmæltar leitar niðurstöður"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Val ritstjóra fyrir  '%(query)s' búin til."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Ekki tókst að búa til meðmæli þar sem það stóðst ekki villuprófanir"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Val ritstjóra fyrir '%(query)s' uppfært."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Ekki tókst að vista meðmæli þar sem það stóðst ekki villuprófanir"
 
 msgid "Editor's picks deleted."
 msgstr "Vali ritstjóra eytt."

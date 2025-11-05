@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Yin Guanhao <sopium@mysterious.site>, 2021\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -193,18 +193,6 @@ msgstr "重定向 '%(redirect_title)s'已增加"
 
 msgid "Search redirects"
 msgstr "搜索重定向"
-
-#, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "不支持“%(extension)s”类型的文件格式"
-
-#, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "导入的文件编码错误：%(error_message)s"
-
-#, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "尝试读取文件%(filename)s时遇到%(error)s个错误："
 
 #, python-format
 msgid "Imported %(total)d redirect"

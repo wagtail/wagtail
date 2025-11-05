@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -84,9 +84,6 @@ msgstr "Wagtail 管理"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "对不起， 你没有权限访问。"
-
-msgid "You do not have permission to access the admin"
-msgstr "你没有访问后台管理的权限"
 
 msgid "None"
 msgstr "无"
@@ -164,9 +161,6 @@ msgid ""
 "itself or one of its descendants."
 msgstr "选择层级位置。注意：一个集合不能成为它自己或它的一个后代的子节点。"
 
-msgid "Please select another parent"
-msgstr "请选择另一个父结点"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
 
@@ -193,9 +187,6 @@ msgstr "你不能编辑另一个用户的评论。"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "发布日期/时间必须早于过期日期/时间"
-
-msgid "Expiry date/time must be in the future"
-msgstr "过期日期/时间必须是未来时间。"
 
 msgid "New title"
 msgstr "新标题"
@@ -254,10 +245,6 @@ msgstr "此缩略名在其父页面\"%(parent_page_title)s\"上下文中已被�
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在复制子页面时不能复制当前页面本身"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "标题链接 '%(page_slug)s' 已经被父页面使用"
-
 msgid "Select a new parent for this page."
 msgstr "为此页选择一个新的父页面"
 
@@ -275,10 +262,6 @@ msgstr "您无法在“%(page_title)s”下创建“%(page_type)s”类型页面
 
 msgid "Search…"
 msgstr "搜索…"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "标签长度 %(value_too_long)s 超过 %(max_tag_length)d 个字符"
 
 msgid "Visibility"
 msgstr "是否可见"
@@ -597,9 +580,6 @@ msgstr "这个集合已经被父集合设为私有。"
 msgid "You can edit the privacy settings on:"
 msgstr "你可以在这里修改此隐私设置："
 
-msgid "Save"
-msgstr "保存"
-
 msgid "Change privacy"
 msgstr "变更隐私设置"
 
@@ -675,6 +655,8 @@ msgstr "您还想发布这个 %(model_name)s 吗？"
 msgid "Cancel"
 msgstr "取消"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "动作"
 
@@ -1171,18 +1153,6 @@ msgstr "查看'%(title)s'的子页面"
 msgid "Add a child page to '%(title)s'"
 msgstr "为'%(title)s'添加子页面"
 
-msgid "Drag"
-msgstr "拖曳"
-
-msgid "Disable ordering of child pages"
-msgstr "禁用子页面排序"
-
-msgid "Sort"
-msgstr "排序"
-
-msgid "Enable ordering of child pages"
-msgstr "启用子页面排序"
-
 msgid "Search the whole site"
 msgstr "搜索整个网站"
 
@@ -1226,6 +1196,9 @@ msgstr "上移"
 
 msgid "Move down"
 msgstr "下移"
+
+msgid "Drag"
+msgstr "拖曳"
 
 msgid "Set publishing schedule"
 msgstr "设置发布计划"
@@ -1409,6 +1382,9 @@ msgstr "否，不取消发布计划"
 msgid "Other searches"
 msgstr "其它搜索"
 
+msgid "Save"
+msgstr "保存"
+
 msgid "Minimap"
 msgstr "小地图"
 
@@ -1544,6 +1520,9 @@ msgstr "此页面尚未提交审核"
 
 msgid "Skip to main content"
 msgstr "跳到主要内容"
+
+msgid "Sort"
+msgstr "排序"
 
 msgid "View Wagtail quick actions"
 msgstr "查看Wagtail快捷动作"
@@ -1707,14 +1686,17 @@ msgstr "%(time_period)s 之前"
 msgid "Log out"
 msgstr "注销"
 
+msgid "Toggle sidebar"
+msgstr "切换侧边栏"
+
 msgid "Undo"
 msgstr "撤销"
 
 msgid "Redo"
 msgstr "重复"
 
-msgid "Toggle sidebar"
-msgstr "切换侧边栏"
+msgid "Bold"
+msgstr "粗体"
 
 msgid "Italic"
 msgstr "斜体"
@@ -1930,9 +1912,6 @@ msgstr "页面'%(page_title)s'已创建并发布。"
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "页面 '%(page_title)s' 已创建并提交审核。"
 
-msgid "The page could not be created due to validation errors"
-msgstr "验证错误，页面无法创建。"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "页面'%(page_title)s'已删除"
@@ -1987,12 +1966,6 @@ msgstr "页面 '%(page_title)s' 已经提交进行审核。"
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "页面'%(page_title)s'上的工作流已重启。"
 
-msgid "The page could not be saved as it is locked"
-msgstr "页面无法保存，已被锁定。"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "页面无法保存。出现验证错误。"
-
 msgid "Owner"
 msgstr "所有者"
 
@@ -2005,13 +1978,6 @@ msgstr "是"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "页面 '%(page_title)s'已解锁。"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"简称 '%(page_slug)s' 已经被选中的父页面使用。请确保简称的唯一性，然后重试"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2188,9 +2154,6 @@ msgstr "编号列表"
 
 msgid "Blockquote"
 msgstr "块引用"
-
-msgid "Bold"
-msgstr "粗体"
 
 msgid "Link"
 msgstr "链接"

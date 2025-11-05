@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2025\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -79,9 +79,6 @@ msgstr "Administrativni vmesnik Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Žal nimate dovoljenja za dostop do tega območja."
-
-msgid "You do not have permission to access the admin"
-msgstr "Nimate dovoljenja za dostop do administracije"
 
 msgid "None"
 msgstr "Brez"
@@ -169,9 +166,6 @@ msgstr ""
 "Izberite hierarhični položaj. Opomba: zbirka ne more postati podrejena sama "
 "sebi ali enemu od svojih potomcev."
 
-msgid "Please select another parent"
-msgstr "Prosim izberite drugega starša"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Za isto zbirko ne morate imeti več kot enega zapisa dovoljenj."
 
@@ -198,9 +192,6 @@ msgstr "Ne morete urejati komentarja drugega uporabnika."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Datum začetka objave mora biti pred datumom poteka."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum poteka objave mora biti v prihodnosti"
 
 msgid "New title"
 msgstr "Nov naziv"
@@ -272,10 +263,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Pri kopiranju podstrani strani ne morete kopirate same vase"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Ključ '%(page_slug)s'  je že v uporabi na nadrejeni strani"
-
 msgid "Select a new parent for this page."
 msgstr "Izberite novega starša za to stran."
 
@@ -298,10 +285,6 @@ msgstr ""
 
 msgid "Search…"
 msgstr "Iskanje…"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Značka(e) %(value_too_long)s so preko %(max_tag_length)dznakov "
 
 msgid "Visibility"
 msgstr "Vidnost"
@@ -643,9 +626,6 @@ msgstr "To zbirko je nadrejena zbirka naredila zasebno."
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavitve zasebnosti lahko uredite tukaj:"
 
-msgid "Save"
-msgstr "Shrani"
-
 msgid "Change privacy"
 msgstr "Spremeni zasebnost"
 
@@ -735,6 +715,8 @@ msgstr "Bi še vedno želeli objaviti ta %(model_name)s?"
 msgid "Cancel"
 msgstr "Prekliči"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Dejanja"
 
@@ -1388,22 +1370,6 @@ msgstr "Razišči podrejene strani od '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj podrejeno stran v '%(title)s'"
 
-msgid "Drag"
-msgstr "Povleci"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Element %(index)s od %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Izklopi sortiranje podrejenih strani"
-
-msgid "Sort"
-msgstr "Razvrsti"
-
-msgid "Enable ordering of child pages"
-msgstr "Vklopi sortiranje podrejenih strani"
-
 msgid "No results across entire site."
 msgstr "Na celotnem spletnem mestu ni rezultatov."
 
@@ -1474,6 +1440,9 @@ msgstr "Premakni navzgor"
 
 msgid "Move down"
 msgstr "Premakni navzdol"
+
+msgid "Drag"
+msgstr "Povleci"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -1743,6 +1712,9 @@ msgstr "Ne, načrtuj"
 msgid "Other searches"
 msgstr "Ostala iskanja"
 
+msgid "Save"
+msgstr "Shrani"
+
 msgid "Minimap"
 msgstr "Minimap"
 
@@ -1969,6 +1941,13 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Preskoči na glavno vsebino"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Element %(index)s od %(total)s"
+
+msgid "Sort"
+msgstr "Razvrsti"
+
 msgid "View Wagtail quick actions"
 msgstr "Oglejte si hitra dejanja Wagtail"
 
@@ -2186,8 +2165,17 @@ msgstr "Poslano na %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "Pogosti ukrepi"
+msgid "Toggle sidebar"
+msgstr "Preklopi stransko vrstico"
+
+msgid "Toggle minimap"
+msgstr "Preklopite mini-zemljevid"
+
+msgid "Save changes"
+msgstr "Shrani spremembe"
+
+msgid "Add or show comments"
+msgstr "Dodaj ali prikaži komentarje"
 
 msgid "Cut"
 msgstr "Izreži"
@@ -2207,32 +2195,19 @@ msgstr "Razveljavi"
 msgid "Redo"
 msgstr "Ponovi"
 
-msgid "Save changes"
-msgstr "Shrani spremembe"
-
-msgid "Toggle sidebar"
-msgstr "Preklopi stransko vrstico"
-
-msgid "Toggle minimap"
-msgstr "Preklopite mini-zemljevid"
-
-msgid "Add or show comments"
-msgstr "Dodaj ali prikaži komentarje"
-
-msgid "Text content"
-msgstr "Vsebina besedila"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Oblikovanje besedila"
 
 msgid "Insert or edit a link"
 msgstr "Vstavljanje ali urejanje povezave"
 
-msgid "Text formatting"
-msgstr "Oblikovanje besedila"
+msgid "Bold"
+msgstr "Krepko"
 
 msgid "Italic"
 msgstr "Ležeče"
-
-msgid "Underline"
-msgstr "Podčrtovanje"
 
 msgid "Monospace (code)"
 msgstr "Monospace (koda)"
@@ -2282,6 +2257,18 @@ msgstr "Razvrsti po '%(label)s' v naraščajočem vrstnem redu."
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Razvrsti po '%(label)s' v padajočem vrstnem redu."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s'  je bil uspešno premaknjen."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Osredotočite se na gumb za vlečenje in pritisnite puščici navzgor ali "
+"navzdol, da premaknete element, nato pa pritisnite enter, da pošljete "
+"spremembo."
 
 #, python-format
 msgid ""
@@ -2619,9 +2606,6 @@ msgstr "Stran '%(page_title)s' ustvarjena in objavljena."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Stran '%(page_title)s' ustvarjena in oddana v potrditev."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Stran '%(page_title)s' izbrisana."
@@ -2658,12 +2642,6 @@ msgstr "Stran '%(page_title)s' je bila oddana v potrditev."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Delovni tok na strani '%(page_title)s' se je ponovno začel."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Strani ni bilo možno shraniti, ker je zaklenjena"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno shraniti"
-
 msgid "Is commenting action"
 msgstr "Ali je akcija komentiranja"
 
@@ -2694,29 +2672,9 @@ msgstr "Vrsta strani"
 msgid "Exploring"
 msgstr "Raziskovanje"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Osredotočite se na gumb za vlečenje in pritisnite puščici navzgor ali "
-"navzdol, da premaknete element, nato pa pritisnite enter, da pošljete "
-"spremembo."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s'  je bil uspešno premaknjen."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Stran '%(page_title)s' je sedaj odklenjena."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Ključ '%(page_slug)s' je že v uporabi na izbrani nadrejeni strani. "
-"Prepričajte se, da je ključ edinstven in poskusite znova"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2949,9 +2907,6 @@ msgstr "Oštevilčen seznam"
 
 msgid "Blockquote"
 msgstr "Blockquote"
-
-msgid "Bold"
-msgstr "Krepko"
 
 msgid "Link"
 msgstr "Povezava"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -339,13 +339,6 @@ msgstr "en son oluşturulan revizyon zamanı"
 msgid "For search engines"
 msgstr "Arama motorları için"
 
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"Slug '%(page_slug)s' zaten '%(parent_url_path)s' alt sayfasında kullanılıyor."
-
 msgid "page"
 msgstr "sayfa"
 
@@ -657,6 +650,9 @@ msgstr[1] "%(count)s alt koleksiyonlar"
 
 msgid "Create"
 msgstr "Oluştur"
+
+msgid "Created"
+msgstr "Oluşturulma zamanı"
 
 msgid "Edited"
 msgstr "Düzenlendi"

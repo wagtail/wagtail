@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -127,15 +127,9 @@ msgstr "Reklaamitud otsingutulemus"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Toimetaja valikud '%(query)s' jaoks loodi."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Soovitusi ei loodud vigade tõttu."
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Toimetaja valikud '%(query)s' jaoks uuendati."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Soovitusi ei salvestatud vigade tõttu."
 
 msgid "Editor's picks deleted."
 msgstr " Toimetaja valikud kustutatud."

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Stefano Marchetto <airbatum@gmail.com>, 2020\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -507,6 +507,12 @@ msgstr[0] "%(num_parent_objects)d immagine è stata eliminata"
 msgstr[1] "%(num_parent_objects)d immagini sono state eliminate"
 msgstr[2] "%(num_parent_objects)d immagini sono state eliminate"
 
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Created"
+msgstr "Creata"
+
 msgid "Choose an image"
 msgstr "Scegli una immagine"
 
@@ -536,12 +542,6 @@ msgstr "Dimensione file: (decrescente)"
 
 msgid "Images"
 msgstr "Immagini"
-
-msgid "Title"
-msgstr "Titolo"
-
-msgid "Created"
-msgstr "Creata"
 
 msgid "The image could not be saved due to errors."
 msgstr "L'immagine non può essere salvata a causa di errori."

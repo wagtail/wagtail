@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -265,6 +265,9 @@ msgstr "Tambahkan izin gambar"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "Title"
+msgstr "Judul"
+
 msgid "Choose an image"
 msgstr "Pilih sebuah gambar"
 
@@ -273,9 +276,6 @@ msgstr "Ubah gambar ini"
 
 msgid "Images"
 msgstr "Gambar"
-
-msgid "Title"
-msgstr "Judul"
 
 msgid "The image could not be saved due to errors."
 msgstr "Gambar tidak dapat disimpan karena suatu kesalahan."

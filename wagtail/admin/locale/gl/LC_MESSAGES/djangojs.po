@@ -75,6 +75,10 @@ msgstr "Colapsar todo"
 msgid "Comment"
 msgstr "Comentario"
 
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Complexo"
+
 msgid "Dashboard"
 msgstr "Panel de control"
 
@@ -108,8 +112,15 @@ msgstr "Erro mentras se enviaban os datos de previsualización."
 msgid "Expand all"
 msgstr "Expandir todo"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Intermedio"
+
 msgid "Focus comment"
 msgstr "Enfocar comentario"
+
+msgid "Good"
+msgstr "Bo"
 
 msgid "Horizontal line"
 msgstr "Liña horizontal"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -191,18 +191,6 @@ msgstr "'%(redirect_title)s' yönlendirmesi eklendi."
 
 msgid "Search redirects"
 msgstr "Arama yönlendirmeleri"
-
-#, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "Dosya formatı türü \"%(extension)s\" desteklenmiyor"
-
-#, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "İçe aktarılan dosyanın yanlış bir kodlaması var: %(error_message)s"
-
-#, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s dosyayı okumaya çalışırken karşılaşıldı: %(filename)s"
 
 #, python-format
 msgid "Imported %(total)d redirect"

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Yu Cheng, 2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -448,6 +448,12 @@ msgid "%(num_parent_objects)d image has been deleted"
 msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "已删除%(num_parent_objects)d个图片"
 
+msgid "Title"
+msgstr "标题"
+
+msgid "Created"
+msgstr "已创建"
+
 msgid "Choose an image"
 msgstr "选择一个图片"
 
@@ -474,12 +480,6 @@ msgstr "文件大小：（从大到小）"
 
 msgid "Images"
 msgstr "图片"
-
-msgid "Title"
-msgstr "标题"
-
-msgid "Created"
-msgstr "已创建"
 
 msgid "The image could not be saved due to errors."
 msgstr "图片无法保存。出现错误。"

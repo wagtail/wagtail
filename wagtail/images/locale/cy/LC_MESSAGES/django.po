@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -513,6 +513,9 @@ msgstr[1] "%(num_parent_objects)d lluniau wedi'i dileu"
 msgstr[2] "%(num_parent_objects)d lluniau wedi'i dileu"
 msgstr[3] "%(num_parent_objects)d lluniau wedi'i dileu"
 
+msgid "Title"
+msgstr "Teitl"
+
 msgid "Choose an image"
 msgstr "Dewis delwedd"
 
@@ -542,9 +545,6 @@ msgstr "Maint ffeil: (uchel i isel)"
 
 msgid "Images"
 msgstr "Delweddau"
-
-msgid "Title"
-msgstr "Teitl"
 
 msgid "The image could not be saved due to errors."
 msgstr "Ni fu modd cadw'r llun oherwydd gwallau."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Orangle Liu <orangleliu@gmail.com>, 2017\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -30,9 +30,6 @@ msgstr "提交审核"
 
 msgid "Unpublish"
 msgstr "取消发布"
-
-msgid "You do not have permission to access the admin"
-msgstr "您没有进入后台的权限"
 
 msgid "None"
 msgstr "没有"
@@ -135,9 +132,6 @@ msgstr "添加一个外部链接"
 
 msgid "Explore"
 msgstr "浏览"
-
-msgid "Save"
-msgstr "保存"
 
 msgid "Yes, delete"
 msgstr "是的，删除"
@@ -272,15 +266,6 @@ msgstr "复制"
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
 
-msgid "Drag"
-msgstr "拖动"
-
-msgid "Disable ordering of child pages"
-msgstr "禁止自页面的顺序"
-
-msgid "Enable ordering of child pages"
-msgstr "开启子页面顺序"
-
 msgid "Previous"
 msgstr "向前"
 
@@ -299,6 +284,9 @@ msgstr "向上移动"
 msgid "Move down"
 msgstr "向下移动"
 
+msgid "Drag"
+msgstr "拖动"
+
 msgid "Type"
 msgstr "类型"
 
@@ -308,6 +296,9 @@ msgstr "名字"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "第%(page_num)s页 共%(total_pages)s页"
+
+msgid "Save"
+msgstr "保存"
 
 msgid "Edited"
 msgstr "已编辑"
@@ -346,9 +337,6 @@ msgstr "第 '%(page_title)s' 页已创建。"
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "第 '%(page_title)s' 页已删除"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "这页无法保存，因为页面发生验证错误"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
