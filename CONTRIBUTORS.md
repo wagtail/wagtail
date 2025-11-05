@@ -929,6 +929,7 @@
 * Akhil Muraleedharan
 * Lee Hart
 * Biswajeet Yadav
+* Taras Panasiuk
 
 ## Translators
 
