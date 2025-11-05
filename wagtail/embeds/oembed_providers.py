@@ -291,6 +291,13 @@ kinomap = {
     ],
 }
 
+loom = {
+    "endpoint": "https://www.loom.com/v1/oembed",
+    "urls": [
+        r"^https?://(?:www\.)?loom\.com/share/.+$",
+    ],
+}
+
 major_league_gaming = {
     "endpoint": "http://tv.majorleaguegaming.com/oembed",
     "urls": [
@@ -667,6 +674,7 @@ all_providers = [
     justin_tv,
     kickstarter,
     kinomap,
+    loom,
     major_league_gaming,
     meetup,
     minoto,

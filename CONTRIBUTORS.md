@@ -919,6 +919,7 @@
 * Paul Souders
 * Samya Aggarwal
 * Bhavesh Sharma
+* Nick Ivons
 
 ## Translators
 
