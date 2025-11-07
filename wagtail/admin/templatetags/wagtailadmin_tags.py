@@ -213,11 +213,23 @@ def build_absolute_url(context, url):
     Returns the absolute URL of the given URL based on the request's host.
     If the request doesn't exist in the context, falls back to
     WAGTAILADMIN_BASE_URL as the base URL.
-    If the given URL is already absolute, returns it unchanged.
+    If the given URL is already absolute, or the request is a dummy preview
+    request, returns it unchanged.
     """
     request = context.get("request")
+    # If request is not found in the context, e.g. in notification emails,
+    # fall back to WAGTAILADMIN_BASE_URL.
     if not request:
         return urljoin(get_admin_base_url(), url)
+    # With a dummy preview request, the host has been overwritten to be the page
+    # Site's host, which may not have been configured correctly. We don't want
+    # to fall back to WAGTAILADMIN_BASE_URL either, as that may be different
+    # from the original request's host in multi-site instances and may result in
+    # users having to log in again. So we just return the URL unchanged.
+    if getattr(request, "is_dummy", False):
+        return url
+    # Rewrite relative URLs to absolute URLs based on the request's host, but
+    # leave absolute URLs unchanged.
     return request.build_absolute_uri(url)
 
 
