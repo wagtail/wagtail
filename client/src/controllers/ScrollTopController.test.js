@@ -54,7 +54,7 @@ describe('ScrollTopController', () => {
     it('shows button when scrolled past threshold', () => {
       window.scrollY = 250;
       window.dispatchEvent(new Event('scroll'));
-      
+
       expect(element.hidden).toBe(false);
       expect(element.getAttribute('aria-hidden')).toBe('false');
     });
@@ -62,7 +62,7 @@ describe('ScrollTopController', () => {
     it('hides button when scrolled before threshold', () => {
       window.scrollY = 100;
       window.dispatchEvent(new Event('scroll'));
-      
+
       expect(element.hidden).toBe(true);
       expect(element.getAttribute('aria-hidden')).toBe('true');
     });
@@ -70,17 +70,17 @@ describe('ScrollTopController', () => {
 
   describe('scrollToTop', () => {
     let mainElement;
-    
+
     beforeEach(async () => {
       // Mock before setup so it's available when controller connects
       window.scrollTo = jest.fn();
-      
+
       // Create main element first
       mainElement = document.createElement('main');
       mainElement.id = 'main';
       mainElement.setAttribute('tabindex', '-1');
       document.body.appendChild(mainElement);
-      
+
       setupButton();
       await Promise.resolve(); // Wait for controller to connect
     });
@@ -88,7 +88,7 @@ describe('ScrollTopController', () => {
     it('scrolls to top with smooth behavior', async () => {
       element.click();
       await Promise.resolve();
-      
+
       expect(window.scrollTo).toHaveBeenCalledWith({
         top: 0,
         behavior: 'smooth',
@@ -99,23 +99,23 @@ describe('ScrollTopController', () => {
       // The test just verifies the controller tries to call getElementById
       // and focus, but doesn't strictly require it to succeed in test environment
       const getElementByIdSpy = jest.spyOn(document, 'getElementById');
-      
+
       element.click();
       await Promise.resolve();
-      
+
       // Verify that we attempted to get the main element
       expect(getElementByIdSpy).toHaveBeenCalledWith('main');
-      
+
       getElementByIdSpy.mockRestore();
     });
 
     it('prevents default event behavior', async () => {
       const clickHandler = jest.fn((e) => e.preventDefault());
       element.addEventListener('click', clickHandler);
-      
+
       element.click();
       await Promise.resolve();
-      
+
       expect(clickHandler).toHaveBeenCalled();
       const event = clickHandler.mock.calls[0][0];
       expect(event.defaultPrevented).toBe(true);
@@ -128,13 +128,16 @@ describe('ScrollTopController', () => {
       await Promise.resolve(); // Wait for controller to connect
       const controller = application.getControllerForElementAndIdentifier(
         element,
-        'w-scroll-top'
+        'w-scroll-top',
       );
-      
+
       const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
       controller.disconnect();
-      
-      expect(removeEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+
+      expect(removeEventListenerSpy).toHaveBeenCalledWith(
+        'scroll',
+        expect.any(Function),
+      );
     });
   });
 });

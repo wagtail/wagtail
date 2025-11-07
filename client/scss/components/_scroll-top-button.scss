@@ -1,10 +1,8 @@
 // =============================================================================
 // Scroll to top button
 // =============================================================================
-//
 // A floating button that appears when users scroll down the page and allows
 // them to quickly return to the top. Improves navigation on long pages.
-//
 // Accessibility features:
 // - Hidden with aria-hidden when not visible
 // - Proper focus styles for keyboard navigation
@@ -12,8 +10,9 @@
 // - Supports high contrast mode
 // - Focuses main content after scrolling for screen reader users
 // - RTL-aware positioning using inset-inline-end
-//
 // =============================================================================
+
+@use '../tools/mixins.breakpoints' as *;
 
 .w-scroll-top-button {
   position: fixed;
@@ -37,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   // Respect user's motion preferences
   @media (prefers-reduced-motion: reduce) {
     transition: none;
@@ -79,7 +78,7 @@
 }
 
 // Responsive adjustments for smaller screens
-@media (max-width: 768px) {
+@include media-breakpoint-down(sm) {
   .w-scroll-top-button {
     width: 2.5rem;
     height: 2.5rem;
