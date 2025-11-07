@@ -137,7 +137,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "slug": self.child_page.slug,
             "go_live_at": submittable_timestamp(go_live_at),
         }
-        response = self.client.post(edit_url, post_data, follow=True)
+        self.client.post(edit_url, post_data, follow=True)
         self.child_page.refresh_from_db(fields=["go_live_at"])
         return edit_url
 
@@ -248,8 +248,14 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response = self.client.get(self.schedule_child_page(go_live_at))
         self.assertEqual(response.status_code, 200)
 
-        publish_menu_item = next(item for item in response.context["action_menu"].menu_items if getattr(item, "name", "") == "action-publish")
-        publish_context = publish_menu_item.get_context_data(response.context["action_menu"].context)
+        publish_menu_item = next(
+            item
+            for item in response.context["action_menu"].menu_items
+            if getattr(item, "name", "") == "action-publish"
+        )
+        publish_context = publish_menu_item.get_context_data(
+            response.context["action_menu"].context
+        )
 
         self.assertTrue(publish_context["is_scheduled"])
         self.assertEqual(self.get_publish_button_label(response), "Schedule to publish")
@@ -260,8 +266,14 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response = self.client.get(self.schedule_child_page(go_live_at))
         self.assertEqual(response.status_code, 200)
 
-        publish_menu_item = next(item for item in response.context["action_menu"].menu_items if getattr(item, "name", "") == "action-publish")
-        publish_context = publish_menu_item.get_context_data(response.context["action_menu"].context)
+        publish_menu_item = next(
+            item
+            for item in response.context["action_menu"].menu_items
+            if getattr(item, "name", "") == "action-publish"
+        )
+        publish_context = publish_menu_item.get_context_data(
+            response.context["action_menu"].context
+        )
 
         self.assertFalse(publish_context["is_scheduled"])
         self.assertEqual(self.get_publish_button_label(response), "Publish")
