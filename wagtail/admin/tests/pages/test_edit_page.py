@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.action_menu import ActionMenuItem
+from wagtail.admin.action_menu import ActionMenuItem, PublishMenuItem
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
@@ -2103,11 +2103,14 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertIsNotNone(publish_button)
 
     def test_override_publish_action_menu_item_label(self):
+        class CustomPublishMenuItem(PublishMenuItem):
+            label = "Foobar"
+
         def hook_func(menu_items, request, context):
-            for item in menu_items:
-                if item.name == "action-publish":
-                    item.label = "Foobar"
-                    break
+            menu_items[:] = [
+                CustomPublishMenuItem() if item.name == "action-publish" else item
+                for item in menu_items
+            ]
 
         with self.register_hook("construct_page_action_menu", hook_func):
             response = self.client.get(
