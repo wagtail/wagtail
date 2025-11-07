@@ -43,20 +43,24 @@ class TestBulkActionDispatcher(WagtailTestUtils, TestCase):
         draft2.save_revision()
 
         filters = {
-            "content_type": draft1.content_type_id,  
-            "q": "draft",                            
-            "status": "draft",                      
-            "p": "3",                              
+            "content_type": draft1.content_type_id,
+            "q": "draft",
+            "status": "draft",
+            "p": "3",
         }
 
         query = (
-            f"id={draft1.id}&id={draft2.id}"         
-            f"&action=publish"                       
-            f"&next=/admin/pages/"                   
-            + "".join(f"&{key}={value}" for key, value in filters.items())  
+            f"id={draft1.id}&id={draft2.id}"
+            f"&action=publish"
+            f"&next=/admin/pages/"
+            + "".join(f"&{key}={value}" for key, value in filters.items())
         )
 
-        url = reverse("wagtail_bulk_action", args=("wagtailcore", "page", "publish")) + "?" + query
+        url = (
+            reverse("wagtail_bulk_action", args=("wagtailcore", "page", "publish"))
+            + "?"
+            + query
+        )
         response = self.client.post(url, follow=True)
 
         final_url = response.redirect_chain[-1][0]
@@ -67,6 +71,3 @@ class TestBulkActionDispatcher(WagtailTestUtils, TestCase):
         self.assertNotIn("id=", final_url)
         self.assertNotIn("action=", final_url)
         self.assertNotIn("next=", final_url)
-
-        
-        

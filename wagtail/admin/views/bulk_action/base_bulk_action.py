@@ -37,17 +37,15 @@ class BulkAction(ABC, FormView):
     def __init__(self, request, model):
         self.request = request
         next_url = get_valid_next_url_from_request(request) or request.path
-        
-        query_params = request.GET.copy()
-        query_params.pop('id', None)    
-        query_params.pop('action', None)
-        query_params.pop('next', None)
 
-        
+        query_params = request.GET.copy()
+        query_params.pop("id", None)
+        query_params.pop("action", None)
+        query_params.pop("next", None)
+
         if query_params:
             next_url = f"{next_url}?{query_params.urlencode()}"
-        
-     
+
         self.next_url = next_url
         self.num_parent_objects = self.num_child_objects = 0
         if model in self.models:
