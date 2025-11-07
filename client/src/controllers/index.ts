@@ -23,6 +23,7 @@ import { PreviewController } from './PreviewController';
 import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
 import { RulesController } from './RulesController';
+import { ScrollTopController } from './ScrollTopController';
 import { SessionController } from './SessionController';
 import { SubmitController } from './SubmitController';
 import { SwapController } from './SwapController';
@@ -65,6 +66,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: RevealController, identifier: 'w-breadcrumbs' },
   { controllerConstructor: RevealController, identifier: 'w-reveal' },
   { controllerConstructor: RulesController, identifier: 'w-rules' },
+  { controllerConstructor: ScrollTopController, identifier: 'w-scroll-top' },
   { controllerConstructor: SessionController, identifier: 'w-session' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
   { controllerConstructor: SwapController, identifier: 'w-swap' },

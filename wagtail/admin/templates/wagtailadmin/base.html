@@ -58,4 +58,17 @@
             {% block content %}{% endblock %}
         </div>
     </main>
+
+    {# Scroll to top button #}
+    <button
+        type="button"
+        class="w-scroll-top-button"
+        data-controller="w-scroll-top"
+        data-w-scroll-top-threshold-value="300"
+        data-action="click->w-scroll-top#scrollToTop"
+        aria-label="{% trans 'Scroll to top' %}"
+        hidden
+    >
+        {% icon name="arrow-up" classname="w-scroll-top-icon" %}
+    </button>
 {% endblock %}

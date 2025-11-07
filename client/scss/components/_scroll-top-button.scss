@@ -1,0 +1,94 @@
+// =============================================================================
+// Scroll to top button
+// =============================================================================
+//
+// A floating button that appears when users scroll down the page and allows
+// them to quickly return to the top. Improves navigation on long pages.
+//
+// Accessibility features:
+// - Hidden with aria-hidden when not visible
+// - Proper focus styles for keyboard navigation
+// - Respects prefers-reduced-motion for users who prefer less animation
+// - Supports high contrast mode
+// - Focuses main content after scrolling for screen reader users
+// - RTL-aware positioning using inset-inline-end
+//
+// =============================================================================
+
+.w-scroll-top-button {
+  position: fixed;
+  bottom: 2rem;
+  // Position from the right (LTR) or left (RTL)
+  inset-inline-end: 2rem;
+  z-index: 1000;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--w-color-primary);
+  color: var(--w-color-white);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  // Respect user's motion preferences
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover {
+    background-color: var(--w-color-primary-200);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 20%);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--w-color-primary);
+    outline-offset: 2px;
+  }
+
+  // Hidden state
+  &[hidden] {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+  }
+
+  // High contrast mode adjustments
+  @media (prefers-contrast: more) {
+    border: 2px solid currentColor;
+  }
+}
+
+.w-scroll-top-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+
+// Responsive adjustments for smaller screens
+@media (max-width: 768px) {
+  .w-scroll-top-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    bottom: 1.5rem;
+    inset-inline-end: 1.5rem;
+  }
+
+  .w-scroll-top-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
