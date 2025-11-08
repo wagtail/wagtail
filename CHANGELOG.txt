@@ -15,6 +15,7 @@ Changelog
  * Fix: Skip revisions that are missing the specified field in StreamField migrations (Joshua Munn)
  * Fix: Preserve listing search and filter parameters when redirecting from bulk actions (Sage Abdullah)
  * Fix: Ensure that object references within `TypedTableBlock` are counted in the reference index (Aman Bora)
+ * Fix: Fix slug auto-generation when slug field is omitted from page edit form (Pravin Kamble)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
