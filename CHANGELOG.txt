@@ -23,6 +23,12 @@ Changelog
  * Maintenance: Add unit test for `SubmitController` error handling (LB (Ben) Johnston)
 
 
+7.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
+
+
 7.2 (05.11.2025)
 ~~~~~~~~~~~~~~~~
 
