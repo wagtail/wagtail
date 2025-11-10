@@ -59,6 +59,12 @@ Changelog
  * Maintenance: Fix linting issues B009, B010, B033 (minusf)
 
 
+7.1.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
+
+
 7.1.2 (23.10.2025)
 ~~~~~~~~~~~~~~~~~~
 
