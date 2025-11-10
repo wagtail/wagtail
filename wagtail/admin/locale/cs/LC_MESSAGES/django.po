@@ -8,6 +8,7 @@
 # IT Management <hudan@itmanagement.cz>, 2018,2020,2023
 # IT Management <hudan@itmanagement.cz>, 2020
 # Ivan Pomykacz <mist@alastify.cz>, 2015
+# Jan Zelený <janzeleny@outlook.com>, 2025
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
 # Marek Turnovec <aesculap@gmail.com>, 2016,2020,2022
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
+"Last-Translator: Jan Zelený <janzeleny@outlook.com>, 2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -71,9 +72,6 @@ msgstr "Wagtail admin"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Promiňte, ale na přístup k této části nemáte oprávnění."
-
-msgid "You do not have permission to access the admin"
-msgstr "Nemáte oprávnění k přístupu do redakčního systému"
 
 msgid "None"
 msgstr "Nic"
@@ -147,9 +145,6 @@ msgstr ""
 "Nastavte umístění. Poznámka: Kolekce nemůže být potomkem sebe sama nebo "
 "některého z vlastních potomků."
 
-msgid "Please select another parent"
-msgstr "Prosím, zvolte jiného předka"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
 
@@ -176,9 +171,6 @@ msgstr "Nemůžete změnit komentář jiného uživatele."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Datum/čas publikování musí být dřívější než datum/čas expirace"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/čas expirace musí být v budoucnosti"
 
 msgid "New title"
 msgstr "Nový název"
@@ -258,10 +250,6 @@ msgstr "Zvolte novou nadřazenou stránku pro tuto stránku."
 
 msgid "Parent page"
 msgstr "Nadřazená stránka"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Tag(y) %(value_too_long)s mají více než %(max_tag_length)d znaků"
 
 msgid "Visibility"
 msgstr "Viditelnost"
@@ -463,6 +451,10 @@ msgid "Add a phone link"
 msgstr "Vložit telefonní odkaz"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "Vybrat %(title)s"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "Prozkoumat podstránky '%(title)s'"
 
@@ -474,9 +466,6 @@ msgstr "Tato kolekce byla nastavena jako soukromá nadřazenou kolekcí."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavení viditelnosti můžete změnit zde:"
-
-msgid "Save"
-msgstr "Uložit"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -524,6 +513,8 @@ msgstr "Ne, nerušit publikaci"
 msgid "Cancel"
 msgstr "Storno"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Akce"
 
@@ -924,18 +915,6 @@ msgstr "Zobrazit podstránky '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Přidat podstránku pod '%(title)s'"
 
-msgid "Drag"
-msgstr "Přetáhnout myší"
-
-msgid "Disable ordering of child pages"
-msgstr "Vypnout řazení podstránek"
-
-msgid "Sort"
-msgstr "Třídění"
-
-msgid "Enable ordering of child pages"
-msgstr "Zapnout řazení podstránek"
-
 msgid "Sites menu"
 msgstr "Seznam webů"
 
@@ -976,6 +955,9 @@ msgstr "Posunout nahoru"
 
 msgid "Move down"
 msgstr "Posunout dolů"
+
+msgid "Drag"
+msgstr "Přetáhnout myší"
 
 msgid "Last published"
 msgstr "Naposledy publikováno"
@@ -1064,6 +1046,9 @@ msgstr "Zpět"
 msgid "History"
 msgstr "Historie"
 
+msgid "Keyboard shortcuts"
+msgstr "Klávesové zkratky"
+
 msgid "Current page status:"
 msgstr "Aktuální stav stránky:"
 
@@ -1088,6 +1073,9 @@ msgstr "Ne, ponechat ke zveřejnění"
 
 msgid "Other searches"
 msgstr "Další hledání"
+
+msgid "Save"
+msgstr "Uložit"
 
 msgid "Side panels"
 msgstr "Postranní panely"
@@ -1167,6 +1155,12 @@ msgstr "Tato stránka zatím nebyla uložena k posouzení"
 
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
+
+msgid "Sort"
+msgstr "Třídění"
+
+msgid "Warnings"
+msgstr "Varování"
 
 msgid "Add a child page"
 msgstr "Přidat podstránku"
@@ -1327,11 +1321,23 @@ msgstr "před %(time_period)s"
 msgid "Log out"
 msgstr "Odhlásit"
 
+msgid "Save changes"
+msgstr "Uložit změny"
+
+msgid "Cut"
+msgstr "Vyjmout"
+
+msgid "Paste"
+msgstr "Vložit"
+
 msgid "Undo"
 msgstr "Vrátit zpět"
 
 msgid "Redo"
 msgstr "Opakovat"
+
+msgid "Bold"
+msgstr "Tučné"
 
 msgid "Italic"
 msgstr "Šikmé"
@@ -1505,9 +1511,6 @@ msgstr "Stránka '%(page_title)s' byla vytvořena a publikována."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Stránka '%(page_title)s' byla vytvořena a odeslána ke schválení."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Stránku nelze vytvořit, zkontrolujte správné vyplnění polí"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Stránka '%(page_title)s' byla smazána."
@@ -1568,12 +1571,6 @@ msgstr "Stránka '%(page_title)s' byla uložena ke schválení."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Postup na stránce '%(page_title)s' byl obnoven."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Stránku nelze uložit, protože je uzamčena"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
-
 msgid "Site"
 msgstr "Web"
 
@@ -1583,14 +1580,6 @@ msgstr "Ano"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Stránka '%(page_title)s' je nyní odemknuta."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Slug (identifikátor) '%(page_slug)s' je už použit v nadřazené stránce. "
-"Použijte unikátní identifikátor a zkuste to znova"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1746,9 +1735,6 @@ msgstr "Číslovaný seznam"
 msgid "Blockquote"
 msgstr "Blockquote (Zvýrazněný blok)"
 
-msgid "Bold"
-msgstr "Tučné"
-
 msgid "Link"
 msgstr "Odkaz"
 
@@ -1760,6 +1746,10 @@ msgstr "Kód"
 
 msgid "Reports"
 msgstr "Výkazy"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Co je nového ve Wagtail %(version)s"
 
 msgid "Help"
 msgstr "Nápověda"

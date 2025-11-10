@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -73,8 +73,8 @@ msgstr "Administrador de Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Síntoo, non tes permiso para acceder a esta área."
 
-msgid "You do not have permission to access the admin"
-msgstr "Non tes permiso para acceder ao administrador"
+msgid "You do not have permission to access the admin."
+msgstr "Non tes permiso para acceder ó administrador."
 
 msgid "None"
 msgstr "Ningún"
@@ -85,11 +85,20 @@ msgstr "Data dende"
 msgid "Date to"
 msgstr "Data ata"
 
+msgid "Minimum"
+msgstr "Mínimo"
+
+msgid "Maximum"
+msgstr "Máximo"
+
 msgid "Locale"
 msgstr "Rexión"
 
 msgid "All"
 msgstr "Todos"
+
+msgid "Usage count"
+msgstr "Cantidade de uso"
 
 msgid "Collection"
 msgstr "Colección"
@@ -163,8 +172,8 @@ msgstr ""
 "Selecciona posición xerárquica. Nota: unha colección non pode converterse en "
 "filla de si mesma ou un dos seus descendentes."
 
-msgid "Please select another parent"
-msgstr "Por favor, elixe outra nai"
+msgid "Please select another parent."
+msgstr "Por favor, elixe outra nai."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
@@ -194,8 +203,8 @@ msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "A data/tempo de por en vivo debe ser anterior á data/tempo de expiración"
 
-msgid "Expiry date/time must be in the future"
-msgstr "A data/tempo de expiración debe ser no futuro"
+msgid "Expiry date/time must be in the future."
+msgstr "A data/tempo de expiración debe ser no futuro."
 
 msgid "New title"
 msgstr "Novo título"
@@ -264,8 +273,8 @@ msgstr ""
 "Non podes copiar unha páxina dentro de si mesma cando copias subpáxinas"
 
 #, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "O slug '%(page_slug)s' xa se está usando dentro da páxina nai"
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "O slug '%(page_slug)s' xa se está usando dentro da páxina nai."
 
 msgid "Select a new parent for this page."
 msgstr "Elixe outra nai para esta páxina."
@@ -290,7 +299,7 @@ msgid "Search…"
 msgstr "Busca..."
 
 #, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
 msgstr ""
 "A(s) etiquetas(s) %(value_too_long)s teñen máis de %(max_tag_length)d "
 "caracteres."
@@ -513,6 +522,9 @@ msgstr "Sube unha foto do perfil:"
 msgid "Sidebar"
 msgstr "Barra lateral"
 
+msgid "Go to the first error"
+msgstr "Ir ó primeiro erro"
+
 msgid "Go back"
 msgstr "Ir atrás"
 
@@ -634,9 +646,6 @@ msgstr "Esta colección fíxose privada por unha colección nai."
 msgid "You can edit the privacy settings on:"
 msgstr "Podes editar a configuración de privacidade en:"
 
-msgid "Save"
-msgstr "Gardar"
-
 msgid "Change privacy"
 msgstr "Cambiar privacidade"
 
@@ -728,6 +737,8 @@ msgstr "Aínda quererías publicar este %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Accións"
 
@@ -1659,22 +1670,6 @@ msgstr "Explorar páxinas fillas de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Engadir páxina filla a '%(title)s'"
 
-msgid "Drag"
-msgstr "Levar"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Elemento %(index)s de %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Deshabilitar organización de páxinas fillas"
-
-msgid "Sort"
-msgstr "Ordenar"
-
-msgid "Enable ordering of child pages"
-msgstr "Habilitar organización de páxinas fillas"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)sde %(items_count)s en todo o sitio."
@@ -1755,6 +1750,9 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Baixar"
+
+msgid "Drag"
+msgstr "Levar"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -2002,8 +2000,19 @@ msgstr "Atrás"
 msgid "History"
 msgstr "Historial"
 
+msgid "account"
+msgstr "conta"
+
 msgid "Keyboard shortcuts"
 msgstr "Atallos de teclado"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently disabled; manage your %(account_link)s to "
+"enable them."
+msgstr ""
+"Os atallos de teclado están deshabilitados; axusta a túa %(account_link)s "
+"pasa habilitalos."
 
 msgid "All keyboard shortcuts"
 msgstr "Tódolos atallos de teclado"
@@ -2013,6 +2022,14 @@ msgstr "Sección"
 
 msgid "Keyboard shortcut"
 msgstr "Atallo de teclado"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
+"disable them."
+msgstr ""
+"Os atallos de teclado están habilitados; axusta a túa %(account_link)s pasa "
+"deshabilitalos."
 
 msgid "Current page status:"
 msgstr "Estado actual da páxina: "
@@ -2048,6 +2065,9 @@ msgstr "Non, non desadiar"
 msgid "Other searches"
 msgstr "Outras procuras"
 
+msgid "Save"
+msgstr "Gardar"
+
 msgid "Minimap"
 msgstr "Minimapa"
 
@@ -2071,6 +2091,44 @@ msgstr "Palabras"
 
 msgid "Reading time"
 msgstr "Tempo de lectura"
+
+msgid "Readability"
+msgstr "Lexibilidade"
+
+msgid "This data explained"
+msgstr "Explicación destes datos"
+
+msgid "How we calculate our metrics"
+msgstr "Cómo calculamos as métricas"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Extraemos o contido principal da previsualización, eliminamos todo o "
+"formato, e calculamos o número de palabras."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Calculamos o tempo de lectura a partir do número de palabras, usando "
+"velocidades de lectura diferentes para cada lingua."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Usamos una fórmula de lexibilidade basada no lonxitude de palabras e frases. "
+"As palabras e frases largas teñen unha puntuación de lexibilidade peor."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Revise o nosa <a href=\"%(guide_link)s\" target=\"_blank\">guía de chequeo "
+"de contidos</a> para ter máis información de cómo se calculan as métricas."
 
 msgid "Issues found"
 msgstr "Problemas atopados"
@@ -2287,6 +2345,19 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Ir ó contido principal"
+
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Elemento %(index)s de %(total)s"
+
+msgid "Disable custom ordering"
+msgstr "Deshabilitar ordenamento personalizado"
+
+msgid "Sort"
+msgstr "Ordenar"
+
+msgid "Enable custom ordering"
+msgstr "Habilitar ordenamento personalizado"
 
 msgid "View Wagtail quick actions"
 msgstr "Ver accións rápidas de Wagtail"
@@ -2533,8 +2604,33 @@ msgstr "Enviado a %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "Accións comúns"
+#. Translators: Shortcuts for admin common shortcuts that are available across
+#. the admin
+msgid "Application"
+msgstr "Aplicación"
+
+msgid "Show keyboard shortcuts"
+msgstr "Mostrar atallos de teclado"
+
+msgid "Toggle sidebar"
+msgstr "Permutar barra lateral"
+
+msgid "Toggle minimap"
+msgstr "Cambiar minimapa"
+
+msgid "Close modal dialogs (like this one)"
+msgstr "Pechar diálogos modais (coma este)"
+
+msgid "Save changes"
+msgstr "Gardar cambios"
+
+msgid "Add or show comments"
+msgstr "Engadir ou mostrar comentarios"
+
+#. Translators: Shortcuts for common text editing features available in all
+#. fields (even if not a rich text field)
+msgid "Text editing"
+msgstr "Editado de texto"
 
 msgid "Cut"
 msgstr "Cortar"
@@ -2554,32 +2650,19 @@ msgstr "Desfacer"
 msgid "Redo"
 msgstr "Refacer"
 
-msgid "Save changes"
-msgstr "Gardar cambios"
-
-msgid "Toggle sidebar"
-msgstr "Permutar barra lateral"
-
-msgid "Toggle minimap"
-msgstr "Cambiar minimapa"
-
-msgid "Add or show comments"
-msgstr "Engadir ou mostrar comentarios"
-
-msgid "Text content"
-msgstr "Contido de texto"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Formatear texto"
 
 msgid "Insert or edit a link"
 msgstr "Insertar ou editar un enlace"
 
-msgid "Text formatting"
-msgstr "Formatear texto"
+msgid "Bold"
+msgstr "Grosa"
 
 msgid "Italic"
 msgstr "Cursiva"
-
-msgid "Underline"
-msgstr "Subliñar"
 
 msgid "Monospace (code)"
 msgstr "Monoespacio (código)"
@@ -2627,6 +2710,17 @@ msgstr "Ordear por '%(label)s' en orde ascendente"
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Ordear por '%(label)s' por orde descendente"
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' moveuse correctamente."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Enfoca no botón de arrastre e pulsa as frechas arriba ou abaixo para mover o "
+"elemento, despóis pulsa Intro para gardar o cambio."
 
 #, python-format
 msgid ""
@@ -2867,6 +2961,9 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s%(field_label)s"
 
+msgid "Sort item order"
+msgstr "Axustar orde dos elementos"
+
 msgid "Inspect"
 msgstr "Inspeccionar"
 
@@ -3075,8 +3172,8 @@ msgstr "Páxina '%(page_title)s' creada e publicada."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Páxina '%(page_title)s' creada e enviada para ser moderada."
 
-msgid "The page could not be created due to validation errors"
-msgstr "A páxina non pudo ser creada debido a errores de validación"
+msgid "The page could not be created due to validation errors."
+msgstr "A páxina non se pudo crear debido a errores de validación."
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -3138,11 +3235,11 @@ msgstr "A páxina '%(page_title)s' enviouse para ser moderada."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Reiniciouse o fluxo de traballo na páxina '%(page_title)s'."
 
-msgid "The page could not be saved as it is locked"
-msgstr "A páxina non pudo ser gardada xa que está bloqueada"
+msgid "The page could not be saved as it is locked."
+msgstr "A páxina non se pudo gardar xa que está bloqueada."
 
-msgid "The page could not be saved due to validation errors"
-msgstr "A páxina non puido ser gardada debido a erros de validación"
+msgid "The page could not be saved due to validation errors."
+msgstr "A páxina non se pudo gardar debido a errores de validación."
 
 msgid "Is commenting action"
 msgstr "É acción de comentar"
@@ -3174,17 +3271,6 @@ msgstr "Tipo de páxina"
 msgid "Exploring"
 msgstr "Explorando"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Enfoca no botón de arrastre e pulsa as frechas arriba ou abaixo para mover o "
-"elemento, despóis pulsa Intro para gardar o cambio."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s' moveuse correctamente."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "A páxina '%(page_title)s' está agora desbloqueada."
@@ -3192,10 +3278,10 @@ msgstr "A páxina '%(page_title)s' está agora desbloqueada."
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
+"sure the slug is unique and try again."
 msgstr ""
 "O slug '%(page_slug)s' xa se está usando na páxina nai seleccionada. "
-"Asegúrate de que o slug é único e tenta de novo"
+"Asegúrate de que o slug é único e tenta de novo."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3426,9 +3512,6 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Cita en bloque"
-
-msgid "Bold"
-msgstr "Grosa"
 
 msgid "Link"
 msgstr "Enlace"

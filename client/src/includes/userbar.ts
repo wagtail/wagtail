@@ -32,6 +32,7 @@ export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
   declare dialog: A11yDialog;
   declare dialogBody: HTMLElement;
+  /** Target origin for cross-domain `window.postMessage` calls. */
   declare origin: string;
   declare axeConfig: WagtailAxeConfiguration | null;
 
@@ -61,8 +62,16 @@ export class Userbar extends HTMLElement {
       return;
     }
 
+    const inCrossOriginIframe = this.inCrossOriginIframe;
+
+    // Get the origin from the data attribute only if we are in a cross-origin
+    // iframe, as it's only needed in that case. Using the data attribute in a
+    // same-origin iframe will cause issues if it is not set to the correct
+    // value, which can happen in page previews if the page's site root host is
+    // different from the host where the admin is accessed.
     this.origin =
-      userbar.getAttribute('data-wagtail-userbar-origin') ||
+      (inCrossOriginIframe &&
+        userbar.getAttribute('data-wagtail-userbar-origin')) ||
       window.location.origin;
 
     const listItems = list.querySelectorAll('li');
@@ -318,7 +327,7 @@ export class Userbar extends HTMLElement {
 
     // If we are in a cross-origin iframe, request the parent to restore the
     // scroll position of the preview panel's previous iframe to this one.
-    if (this.inCrossOriginIframe) {
+    if (inCrossOriginIframe) {
       window.addEventListener('message', this.handleMessage);
     }
 

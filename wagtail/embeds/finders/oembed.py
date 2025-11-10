@@ -60,9 +60,14 @@ class OEmbedFinder(EmbedFinder):
             r = requests.get(
                 endpoint, params=params, headers={"User-agent": "Mozilla/5.0"}
             )
+            r.raise_for_status()
             oembed = r.json()
-        except requests.RequestException:
-            raise EmbedNotFoundException
+        except requests.RequestException as e:
+            raise EmbedNotFoundException(f"Request failed: {e}") from e
+
+        # Check if 'type' is missing
+        if "type" not in oembed:
+            raise EmbedNotFoundException("Missing 'type' in response")
 
         # Convert photos into HTML
         if oembed["type"] == "photo":

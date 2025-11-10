@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -61,9 +61,6 @@ msgstr "Gweinyddiaeth Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr ""
 "Mae'n ddrwg gennym, nid oes gennych ganiatâd i gael mynediad i'r ardal hon."
-
-msgid "You do not have permission to access the admin"
-msgstr "Nid oes gennych ganiatâd i gael mynediad i'r weinyddiaeth"
 
 msgid "None"
 msgstr "Ddim"
@@ -132,9 +129,6 @@ msgstr ""
 "Dewiswch safle hierarchaidd. Sylwch: ni all casgliad ddod yn blentyn iddo'i "
 "hun nac yn un o'i ddisgynyddion."
 
-msgid "Please select another parent"
-msgstr "Dwiswch rhiant arall os gwelwch yn dda"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Ni allwch gael cofnodion caniatâd lluosog ar gyfer yr un casgliad."
 
@@ -161,9 +155,6 @@ msgstr "Ni allwch olygu sylw defnyddiwr arall."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Rhaid i'r dyddiad/amser mynd yn fyw fod cyn y dyddiad/amser dod i ben"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Rhaid i'r dyddiad/amser dod i ben fod yn y dyfodol"
 
 msgid "New title"
 msgstr "Teitl newydd"
@@ -299,9 +290,6 @@ msgstr "Dewisiwch tudalen"
 msgid "Select %(title)s"
 msgstr "Dewis %(title)s"
 
-msgid "Save"
-msgstr "Cadw"
-
 msgid "Privacy"
 msgstr "Preifatrwydd"
 
@@ -314,6 +302,8 @@ msgstr "Na, peidiwch a ddileu"
 msgid "Cancel"
 msgstr "Canslo"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Gweithredoedd"
 
@@ -436,6 +426,9 @@ msgstr "Yn ol"
 
 msgid "History"
 msgstr "Hanes"
+
+msgid "Save"
+msgstr "Cadw"
 
 msgid "Minimap"
 msgstr "Map fychan"

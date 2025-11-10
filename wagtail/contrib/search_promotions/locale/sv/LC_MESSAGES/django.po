@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020,2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -141,15 +141,9 @@ msgstr "Premierat sökresultat"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Redaktörens val för '%(query)s' skapad. "
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Rekommendationer kunde inte läggas till p.g.a. fel"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Redaktörens val för '%(query)s' uppdaterad. "
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Rekommendationer kunde inte sparas p.g.a. fel"
 
 msgid "Editor's picks deleted."
 msgstr "Redaktörens val togs bort."

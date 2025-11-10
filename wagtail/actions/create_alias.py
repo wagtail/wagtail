@@ -90,7 +90,7 @@ class CreatePageAliasAction:
             and not parent.permissions_for_user(self.user).can_publish_subpage()
         ):
             raise CreatePageAliasPermissionError(
-                "You do not have permission to publish a page at the destination"
+                "You do not have permission to publish a page at the destination."
             )
 
     def _create_alias(

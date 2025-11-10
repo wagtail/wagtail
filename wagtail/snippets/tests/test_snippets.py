@@ -999,11 +999,32 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
     def test_create_invalid(self):
         response = self.post(post_data={"foo": "bar"})
-        self.assertContains(response, "The advert could not be created due to errors.")
-        self.assertContains(response, "error-message", count=1)
-        self.assertContains(response, "This field is required", count=1)
 
         soup = self.get_soup(response.content)
+
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # there should be one header message that indicates the issue and has a go to error button
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The advert could not be created due to errors.", message.get_text()
+        )
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
+        # field specific error should be shown
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 1)
+        error_message = error_messages[0]
+        self.assertEqual(error_message.parent["id"], "panel-child-text-errors")
+        self.assertIn("This field is required", error_message.get_text())
 
         # Should have the unsaved controller set up
         editor_form = soup.select_one("#w-editor-form")
@@ -1773,7 +1794,7 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "expire_at",
-            "Expiry date/time must be in the future",
+            "Expiry date/time must be in the future.",
         )
 
         self.assertContains(
@@ -1992,11 +2013,33 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
-        self.assertContains(response, "The advert could not be saved due to errors.")
-        self.assertContains(response, "error-message", count=1)
-        self.assertContains(response, "This field is required", count=1)
-
         soup = self.get_soup(response.content)
+
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be saved
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The advert could not be saved due to errors.", message.get_text()
+        )
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
+        # the error should only appear once: against the field, not in the header message
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 1)
+        error_message = error_messages[0]
+        self.assertEqual(error_message.parent["id"], "panel-child-text-errors")
+        self.assertIn("This field is required", error_message.get_text())
 
         # Should have the unsaved controller set up
         editor_form = soup.select_one("#w-editor-form")
@@ -3086,7 +3129,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         self.assertFormError(
             response.context["form"],
             "expire_at",
-            "Expiry date/time must be in the future",
+            "Expiry date/time must be in the future.",
         )
 
         self.assertContains(
@@ -5972,11 +6015,33 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_edit_invalid(self):
         response = self.post(self.snippet_a, post_data={"foo": "bar"})
-        self.assertContains(
-            response,
+        soup = self.get_soup(response.content)
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be saved
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
             "The standard snippet with custom primary key could not be saved due to errors.",
+            message.get_text(),
         )
-        self.assertContains(response, "This field is required.")
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
+        # the errors should appear against the fields with issues
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 2)
+        error_message = error_messages[0]
+        self.assertEqual(error_message.parent["id"], "panel-child-snippet_id-errors")
+        self.assertIn("This field is required", error_message.get_text())
 
     def test_edit(self):
         response = self.post(

@@ -72,7 +72,7 @@ For detailed configuration options, head over to the [Draftail documentation](ht
 
 ### Creating new inline styles
 
-In addition to the initial example, inline styles take a `style` property to define what CSS rules will be applied to text in the editor. Be sure to read the [Draftail documentation](https://www.draftail.org/docs/formatting-options) on inline styles.
+As noted in the initial example, the configuration passed to `InlineStyleFeature` can include a `style` property to define what CSS rules will be applied to text in the editor. Be sure to read the [Draftail documentation](https://www.draftail.org/docs/formatting-options) on inline styles.
 
 Finally, the DB to/from conversion uses an `InlineStyleElementHandler` to map from a given tag (`<mark>` in the example above) to a Draftail type, and the inverse mapping is done with [Draft.js exporter configuration](https://github.com/springload/draftjs_exporter) of the `style_map`.
 
@@ -304,7 +304,7 @@ const Stock = (props) => {
 
 This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript.
 
-Finally, we register the JS components of our plugin:
+Finally, we call `registerPlugin` on the Draftail global to register the JS components of our plugin:
 
 ```javascript
 // Register the plugin directly on script execution so the editor loads it when initializing.

@@ -26,6 +26,7 @@
                     hidden
                     aria-labelledby="tab-label-{{ tab.name|cautious_slugify }}"
                     data-w-tabs-target="panel"
+                    data-action="w-focus:focus->w-tabs#selectInside"
                 >
                     {% for panel in panels %}
                         {% panel id=panel.name heading=panel.title heading_size="label" %}
@@ -45,6 +46,7 @@
                     hidden
                     aria-labelledby="tab-label-actions"
                     data-w-tabs-target="panel"
+                    data-action="w-focus:focus->w-tabs#selectInside"
                 >
                     <ul class="listing">
                         {% for item in menu_items %}

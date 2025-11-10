@@ -5,15 +5,15 @@
 # Translators:
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2019
 # Maarten Kling <kling.maarten@gmail.com>, 2018
-# Storm Heg <storm@stormbase.digital>, 2021,2024
+# Storm Heg <storm@stormbase.digital>, 2021,2024-2025
 # Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2016\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021,2024-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -61,3 +61,6 @@ msgstr ""
 
 msgid "Table"
 msgstr "Tabel"
+
+msgid "Select a header option"
+msgstr "Selecteer een header-optie"

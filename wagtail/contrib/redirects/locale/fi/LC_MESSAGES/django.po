@@ -7,15 +7,15 @@
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
 # Eetu Häivälä, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023,2025
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023,2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -188,16 +188,12 @@ msgid "Search redirects"
 msgstr "Hae uudelleenohjauksia"
 
 #, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "Tiedostomuoto tyyppiä' \"%(extension)s\" ei ole tuettu"
+msgid "File format of type \"%(extension)s\" is not supported."
+msgstr "Tyyppiä \"%(extension)s\" oleva tiedostomuoto ei ole tuettu."
 
 #, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "Tuodulla tiedostolla on väärä merkistökoodaus: %(error_message)s"
-
-#, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s kohdattu kun yritettiin lukea tiedostoa: %(filename)s"
+msgid "Imported file has a wrong encoding: %(error_message)s."
+msgstr "Tuodussa tiedostossa on väärä merkistökoodaus: %(error_message)s."
 
 #, python-format
 msgid "Imported %(total)d redirect"

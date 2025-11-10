@@ -63,7 +63,7 @@ class SlugInput(widgets.TextInput):
         if locale is not None:
             # Attempt to resolve a non-empty locale string from a `Locale` instance or the string itself.
             # If no locale can be found, use 'und' - as per ISO639-2 standard, 'und' represents 'undetermined'.
-            # If the attribute is not set, the input will fall back to the ``ACTIVE_LOCALE`` or document lang within the CleanController.
+            # If the attribute is not set, the input will fall back to the ``ACTIVE_CONTENT_LOCALE`` or document lang within the CleanController.
             default_attrs["data-w-slug-locale-value"] = (
                 getattr(locale, "language_code", locale) or "und"
             )

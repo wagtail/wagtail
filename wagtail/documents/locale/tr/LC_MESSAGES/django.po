@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -64,6 +64,12 @@ msgstr "belge"
 
 msgid "documents"
 msgstr "belgeler"
+
+msgid "Yes, add"
+msgstr "Evet, ekle"
+
+msgid "No, don't add"
+msgstr "Hayır, ekleme"
 
 msgid "Are you sure you want to delete this document?"
 msgid_plural "Are you sure you want to delete these documents?"
@@ -189,6 +195,9 @@ msgid_plural "New tags have been added to %(num_parent_objects)d documents"
 msgstr[0] "%(num_parent_objects)d belgeye yeni etiketler eklendi"
 msgstr[1] "%(num_parent_objects)d belgeye yeni etiketler eklendi"
 
+msgid "Add to collection"
+msgstr "Koleksiyona ekle"
+
 #, python-format
 msgid "%(num_parent_objects)d document has been added to %(collection)s"
 msgid_plural ""
@@ -207,6 +216,9 @@ msgstr[1] "%(num_parent_objects)d belge silindi"
 
 msgid "File"
 msgstr "Dosya"
+
+msgid "Created"
+msgstr "Oluşturulma zamanı"
 
 msgid "Choose a document"
 msgstr "Belge seç"
@@ -233,10 +245,6 @@ msgstr "Hata nediyle belge kaydedilemedi."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "'%(document_title)s' belgesi güncellendi"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
 
 msgid "Delete document"
 msgstr "Belge sil"

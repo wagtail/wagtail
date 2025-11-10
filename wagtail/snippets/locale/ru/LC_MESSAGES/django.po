@@ -12,6 +12,7 @@
 # sergeybe <sergeybe@gmail.com>, 2020
 # sergeybe <sergeybe@gmail.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Twixxik, 2025
 # Vassily <zuber.kg@gmail.com>, 2017
 # Vassily <zuber.kg@gmail.com>, 2017
 # Виктор Виктор <spam.vitek@gmail.com>, 2020-2021
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -132,8 +133,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">создать сейчас</a>?,"
 
+msgid "Scheduling…"
+msgstr "Планирование…"
+
 msgid "Publishing…"
 msgstr "Публикуется..."
+
+msgid "Schedule to publish"
+msgstr "Запланировать публикацию"
 
 msgid "Publish this version"
 msgstr "Опубликовать эту версию"

@@ -88,6 +88,7 @@ from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 
+from ...locks import WorkflowLock
 from .fields import CommentableJSONField
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
@@ -1302,6 +1303,7 @@ class FullFeaturedSnippet(
     LockableMixin,
     RevisionMixin,
     TranslatableMixin,
+    Orderable,
     index.Indexed,
     models.Model,
 ):
@@ -2449,6 +2451,18 @@ class UserApprovalTask(Task):
         return "Only a specific user can approve this task"
 
 
+class CustomWorkflowLock(WorkflowLock):
+    def get_message(self, user):
+        return "If there is a door, there must be a key"
+
+
+class CustomLockTask(Task):
+    lock_class = CustomWorkflowLock
+
+    def locked_for_user(self, obj, user):
+        return True
+
+
 # StreamField media definitions must not be evaluated at startup (e.g. during system checks) -
 # these may fail if e.g. ManifestStaticFilesStorage is in use and collectstatic has not been run.
 # Check this with a media definition that deliberately errors; if media handling is not set up
@@ -2588,6 +2602,8 @@ class FeatureCompleteToy(index.Indexed, models.Model):
     )
     name = models.CharField(max_length=255)
     release_date = models.DateField(default=datetime.date.today)
+    sort_order = models.IntegerField(null=True, blank=True)
+    sort_order_field = "sort_order"
 
     search_fields = [
         index.SearchField("name"),

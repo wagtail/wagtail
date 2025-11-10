@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -63,9 +63,6 @@ msgstr "Wagtail admin"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke tilgang på dette området."
-
-msgid "You do not have permission to access the admin"
-msgstr "Du har ikke tilgang på admin sidene"
 
 msgid "None"
 msgstr "Ingen"
@@ -140,9 +137,6 @@ msgstr ""
 "Velg en hierarkisk posisjon. Merk: En samling kan ikke være overordnet seg "
 "selv eller en av dens underkategorier."
 
-msgid "Please select another parent"
-msgstr "Vennligst velg en annen overordnet"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme samling."
 
@@ -169,9 +163,6 @@ msgstr "Du kan ikke redigere en annen brukers kommentar."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
 
 msgid "New title"
 msgstr "Ny tittel"
@@ -238,19 +229,11 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan ikke kopiere en side inn i seg selv når du kopierer undersider"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Slug-en '%(page_slug)s' er allerede i bruk innenfor foreldersiden"
-
 msgid "Select a new parent for this page."
 msgstr "Velg en ny forelderside for denne siden."
 
 msgid "Parent page"
 msgstr "Foreldreside"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Merkelapp(ene) %(value_too_long)s er over %(max_tag_length)d tegn"
 
 msgid "Visibility"
 msgstr "Synlighet"
@@ -576,9 +559,6 @@ msgstr "Denne samlingen har blitt gjort privat av en overordnet samling."
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan endre sidevernsinnstillingene på:"
 
-msgid "Save"
-msgstr "Lagre"
-
 msgid "Change privacy"
 msgstr "Endre personvern"
 
@@ -661,6 +641,8 @@ msgstr "Vil du fortsatt publisere denne %(model_name)s?"
 msgid "Cancel"
 msgstr "Avbryt"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Handlinger"
 
@@ -986,18 +968,6 @@ msgstr "Utforsk undersider av \"%(title)s\""
 msgid "Add a child page to '%(title)s'"
 msgstr "Legg en underside til \"%(title)s\""
 
-msgid "Drag"
-msgstr "Dra"
-
-msgid "Disable ordering of child pages"
-msgstr "Skru av rekkefølge på undersider"
-
-msgid "Sort"
-msgstr "Sorter"
-
-msgid "Enable ordering of child pages"
-msgstr "Skru på rekkefølge på undersider"
-
 msgid "Sites menu"
 msgstr "Nettsteder-meny"
 
@@ -1034,6 +1004,9 @@ msgstr "Flytt opp"
 
 msgid "Move down"
 msgstr "Flytt ned"
+
+msgid "Drag"
+msgstr "Dra"
 
 msgid "Type"
 msgstr "Type"
@@ -1116,6 +1089,9 @@ msgstr "Nei, ikke avbryt"
 msgid "Other searches"
 msgstr "Andre søk"
 
+msgid "Save"
+msgstr "Lagre"
+
 msgid "Unlocked"
 msgstr "Ulåst"
 
@@ -1136,6 +1112,9 @@ msgstr[1] "Brukt %(usage_count)s ganger"
 
 msgid "Edited"
 msgstr "Redigert"
+
+msgid "Sort"
+msgstr "Sorter"
 
 msgid "Add a child page"
 msgstr "Legg til en underside"
@@ -1167,6 +1146,9 @@ msgstr "Angre"
 
 msgid "Redo"
 msgstr "Gjør om"
+
+msgid "Bold"
+msgstr "Fet"
 
 msgid "Italic"
 msgstr "Kursiv"
@@ -1315,9 +1297,6 @@ msgstr "Siden \"%(page_title)s\" er opprettet og publisert."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Siden \"%(page_title)s\" er opprettet og sendt til godkjenning."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Siden \"%(page_title)s\" er slettet."
@@ -1338,12 +1317,6 @@ msgstr "Siden \"%(page_title)s\" er publisert."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Siden \"%(page_title)s\" er sendt til godkjenning."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Siden kunne ikke lagres fordi den er låst"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
-
 msgid "Owner"
 msgstr "Eier"
 
@@ -1353,14 +1326,6 @@ msgstr "Nettsted"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Siden \"%(page_title)s\" er nå ulåst."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Permalenken '%(page_slug)s' finnes allerede under den valgte foreldersiden. "
-"Sørg for at permalenken er unik og prøv igjen"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1403,9 +1368,6 @@ msgstr "Nummerert liste"
 
 msgid "Blockquote"
 msgstr "Blokksitat"
-
-msgid "Bold"
-msgstr "Fet"
 
 msgid "Link"
 msgstr "Lenke"

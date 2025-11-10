@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -71,9 +71,6 @@ msgstr "Stjórnborð Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
-
-msgid "You do not have permission to access the admin"
-msgstr "Þú ert ekki með réttindi til þess að skoða umsjónarsvæðið"
 
 msgid "None"
 msgstr "Ekkert"
@@ -161,9 +158,6 @@ msgstr ""
 "Veldu staðsetningu í tré. ATH: safn getur ekki verið undir sjálfu sér eða "
 "einhverju af undirsöfnum sínum."
 
-msgid "Please select another parent"
-msgstr "Vinsamlegast veldu annað yfirsafn"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
 
@@ -192,9 +186,6 @@ msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Dags/tímasetningin þegar síðan fer í loftið þarf að vera á undan þegar hún á "
 "að fara úr loftinu"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 msgid "New title"
 msgstr "Titill"
@@ -264,11 +255,6 @@ msgstr ""
 "Ekki er hægt að afrita síðu inn undir sjálfa sig þegar verið er að afrita "
 "undirsíður"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr ""
-"Vefslóðarhlutinn '%(page_slug)s' er þegar í notkun undir þessari yfirsíðu"
-
 msgid "Select a new parent for this page."
 msgstr "Veldu nýja yfirsíðu fyrir þessa síðu."
 
@@ -292,10 +278,6 @@ msgstr ""
 
 msgid "Search…"
 msgstr "Leita..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Merki %(value_too_long)s eru yfir %(max_tag_length)d stafir að lengd"
 
 msgid "Visibility"
 msgstr "Sýnileiki"
@@ -638,9 +620,6 @@ msgstr "Þetta safn er með takmarkað aðgengi vegna stillinga yfirflokks."
 msgid "You can edit the privacy settings on:"
 msgstr "Þú getur breytt aðgengisstilligum á:"
 
-msgid "Save"
-msgstr "Vista"
-
 msgid "Change privacy"
 msgstr "Breyta aðgengi"
 
@@ -729,6 +708,8 @@ msgstr "Viltu samt setja %(model_name)s í loftið?"
 msgid "Cancel"
 msgstr "Hætta við"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Aðgerðir"
 
@@ -1656,22 +1637,6 @@ msgstr "Skoða undirsíður '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Bæta undirsíðu við '%(title)s'"
 
-msgid "Drag"
-msgstr "Draga"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Atriði %(index)s af %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Óvirkja röðun á undirsíðum"
-
-msgid "Sort"
-msgstr "Raða"
-
-msgid "Enable ordering of child pages"
-msgstr "Virkja röðun á undirsíðum"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)s af %(items_count)s yfir alla síðuna."
@@ -1753,6 +1718,9 @@ msgstr "Færa upp"
 
 msgid "Move down"
 msgstr "Færa niður"
+
+msgid "Drag"
+msgstr "Draga"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -2041,6 +2009,9 @@ msgstr "Nei, ekki hætta við"
 msgid "Other searches"
 msgstr "Aðrar leitir"
 
+msgid "Save"
+msgstr "Vista"
+
 msgid "Minimap"
 msgstr "Yfirlit"
 
@@ -2281,6 +2252,13 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Hoppa yfir í aðal efni"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Atriði %(index)s af %(total)s"
+
+msgid "Sort"
+msgstr "Raða"
+
 msgid "View Wagtail quick actions"
 msgstr "Skoða flýtivalmynd Wagtail"
 
@@ -2516,8 +2494,14 @@ msgstr "Sent til %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "Algengar aðgerðir"
+msgid "Toggle sidebar"
+msgstr "Hliðarstika af/á"
+
+msgid "Save changes"
+msgstr "Vista breytingar"
+
+msgid "Add or show comments"
+msgstr "Bæta við eða sýna athugasemdir"
 
 msgid "Cut"
 msgstr "Klippa"
@@ -2537,29 +2521,19 @@ msgstr "Bakka"
 msgid "Redo"
 msgstr "Endurgera"
 
-msgid "Save changes"
-msgstr "Vista breytingar"
-
-msgid "Toggle sidebar"
-msgstr "Hliðarstika af/á"
-
-msgid "Add or show comments"
-msgstr "Bæta við eða sýna athugasemdir"
-
-msgid "Text content"
-msgstr "Innihald texta"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Aðlaga texta"
 
 msgid "Insert or edit a link"
 msgstr "Bæta við eða breyta hlekk"
 
-msgid "Text formatting"
-msgstr "Aðlaga texta"
+msgid "Bold"
+msgstr "Feitletrun"
 
 msgid "Italic"
 msgstr "Skáletrun"
-
-msgid "Underline"
-msgstr "Undirstrika"
 
 msgid "Monospace (code)"
 msgstr "Jafnstafaletur/monospace (kóði)"
@@ -2607,6 +2581,17 @@ msgstr "Raða eftir '%(label)s' í hækkandi röð"
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Raða eftir '%(label)s' í lækkandi röð"
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "Tókst að færa '%(page_title)s' ."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Fókusaðu á draghnappinn og ýttu á upp og niður örvarnar til þess að færa, "
+"ýttu svo á enter til að senda breytinguna."
 
 #, python-format
 msgid ""
@@ -3061,9 +3046,6 @@ msgstr "Síða '%(page_title)s' vistuð og birt."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Síða '%(page_title)s' vistuð og send til samþykkis."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Síðu '%(page_title)s' eytt."
@@ -3125,12 +3107,6 @@ msgstr "Síða '%(page_title)s' hefur verið send inn til samþykkis."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Vinnuflæði á síðu '%(page_title)s' hefur verið endurræst."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Ekki var hægt að vista síðuna, hún er læst"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
-
 msgid "Is commenting action"
 msgstr "Er að gera athugasemd"
 
@@ -3161,28 +3137,9 @@ msgstr "Tegund síðu"
 msgid "Exploring"
 msgstr "Skoðar"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Fókusaðu á draghnappinn og ýttu á upp og niður örvarnar til þess að færa, "
-"ýttu svo á enter til að senda breytinguna."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "Tókst að færa '%(page_title)s' ."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Síða '%(page_title)s' er nú ólæst."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Vefslóðin '%(page_slug)s' er þegar í notkun. Breyttu slóðinni svo hún sé "
-"einkvæm og reyndu aftur."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3409,9 +3366,6 @@ msgstr "Númeraður listi"
 
 msgid "Blockquote"
 msgstr "Inndregin textablokk"
-
-msgid "Bold"
-msgstr "Feitletrun"
 
 msgid "Link"
 msgstr "Hlekkur"

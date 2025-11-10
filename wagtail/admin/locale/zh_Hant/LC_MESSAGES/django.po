@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -65,9 +65,6 @@ msgstr "Wagtail 管理"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "對不起， 你沒有權限訪問。"
-
-msgid "You do not have permission to access the admin"
-msgstr "您沒有後台管理權限"
 
 msgid "None"
 msgstr "無"
@@ -142,9 +139,6 @@ msgid ""
 "itself or one of its descendants."
 msgstr "選取層級。注意：一個集合無法成為其本身的子集合或是任何子階級。"
 
-msgid "Please select another parent"
-msgstr "請選擇其它上級"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "對於同一個集合你不能設置多重權限"
 
@@ -171,9 +165,6 @@ msgstr "無法編輯其它使用者的評論"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "上線時間須早於截止期限"
-
-msgid "Expiry date/time must be in the future"
-msgstr "過期日期/時間必須是未來時間。"
 
 msgid "New title"
 msgstr "新增標題"
@@ -472,9 +463,6 @@ msgstr "此集合已經被上階集合設為隱蔽。"
 msgid "You can edit the privacy settings on:"
 msgstr "你可以在此修改隱蔽設置："
 
-msgid "Save"
-msgstr "儲存"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "隱蔽設置可檢視此文件集合之使用者。"
@@ -520,6 +508,8 @@ msgstr "否，不取消發佈"
 msgid "Cancel"
 msgstr "取消"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "操作"
 
@@ -928,18 +918,6 @@ msgstr "查看'%(title)s'的子頁面"
 msgid "Add a child page to '%(title)s'"
 msgstr "為'%(title)s'新增子頁面"
 
-msgid "Drag"
-msgstr "拖曳"
-
-msgid "Disable ordering of child pages"
-msgstr "禁用子頁面排序"
-
-msgid "Sort"
-msgstr "排序"
-
-msgid "Enable ordering of child pages"
-msgstr "啟用子頁面排序"
-
 msgid "Sites menu"
 msgstr "網站選單"
 
@@ -976,6 +954,9 @@ msgstr "上移"
 
 msgid "Move down"
 msgstr "下移"
+
+msgid "Drag"
+msgstr "拖曳"
 
 msgid "Save schedule"
 msgstr "儲存排程"
@@ -1077,6 +1058,9 @@ msgstr "否，不取消預定發佈"
 msgid "Other searches"
 msgstr "其它搜索"
 
+msgid "Save"
+msgstr "儲存"
+
 msgid "Locale: "
 msgstr "語系："
 
@@ -1153,6 +1137,9 @@ msgstr "已核准作業"
 
 msgid "Skip to main content"
 msgstr "略過至主要內容"
+
+msgid "Sort"
+msgstr "排序"
 
 msgid "Add a child page"
 msgstr "新增子頁面"
@@ -1260,6 +1247,9 @@ msgstr "復原"
 
 msgid "Redo"
 msgstr "取消復原"
+
+msgid "Bold"
+msgstr "粗體"
 
 msgid "Italic"
 msgstr "斜體"
@@ -1421,9 +1411,6 @@ msgstr "頁面'%(page_title)s'已創建並發佈。"
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "頁面 '%(page_title)s' 已創建並提交審核。"
 
-msgid "The page could not be created due to validation errors"
-msgstr "驗證錯誤，頁面無法創建。"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "頁面'%(page_title)s'已刪除"
@@ -1455,12 +1442,6 @@ msgstr "頁面 '%(page_title)s' 已提交審核。"
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "已重啟頁面  '%(page_title)s' 之工作流程"
-
-msgid "The page could not be saved as it is locked"
-msgstr "頁面已被鎖定，無法儲存。"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "驗證錯誤，無法儲存頁面。"
 
 msgid "Site"
 msgstr "網站"
@@ -1595,9 +1576,6 @@ msgstr "編號列表"
 
 msgid "Blockquote"
 msgstr "區塊引言"
-
-msgid "Bold"
-msgstr "粗體"
 
 msgid "Link"
 msgstr "超連接"

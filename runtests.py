@@ -21,6 +21,9 @@ def make_parser():
     parser.add_argument("--postgres", action="store_true")
     parser.add_argument("--elasticsearch7", action="store_true")
     parser.add_argument("--elasticsearch8", action="store_true")
+    parser.add_argument("--elasticsearch9", action="store_true")
+    parser.add_argument("--opensearch2", action="store_true")
+    parser.add_argument("--opensearch3", action="store_true")
     parser.add_argument("--emailuser", action="store_true")
     parser.add_argument("--disabletimezone", action="store_true")
     parser.add_argument("--bench", action="store_true")
@@ -59,13 +62,21 @@ def runtests():
     if args.postgres:
         os.environ["DATABASE_ENGINE"] = "django.db.backends.postgresql"
 
-    elif args.elasticsearch7:
+    if args.elasticsearch7:
         os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
         os.environ.setdefault("ELASTICSEARCH_VERSION", "7")
     elif args.elasticsearch8:
         os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
         os.environ.setdefault("ELASTICSEARCH_VERSION", "8")
-
+    elif args.elasticsearch9:
+        os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
+        os.environ.setdefault("ELASTICSEARCH_VERSION", "9")
+    elif args.opensearch2:
+        os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
+        os.environ.setdefault("OPENSEARCH_VERSION", "2")
+    elif args.opensearch3:
+        os.environ.setdefault("ELASTICSEARCH_URL", "http://localhost:9200")
+        os.environ.setdefault("OPENSEARCH_VERSION", "3")
     elif "ELASTICSEARCH_URL" in os.environ:
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ["ELASTICSEARCH_URL"]

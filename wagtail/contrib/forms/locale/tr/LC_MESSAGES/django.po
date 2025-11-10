@@ -5,6 +5,7 @@
 # Translators:
 # Basitlik İyidir, 2017
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
+# Ertuğrul Keremoğlu, 2025
 # José Luis <alagunajs@gmail.com>, 2015,2017
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Basitlik İyidir, 2017\n"
+"Last-Translator: Ertuğrul Keremoğlu, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +96,9 @@ msgstr "gönderilme zamanı"
 
 msgid "form submission"
 msgstr "form teslimi"
+
+msgid "form submissions"
+msgstr "form gönderimleri"
 
 msgid "name"
 msgstr "isim"
@@ -198,6 +202,9 @@ msgstr "Son ileti"
 msgid "Submissions of %(form_title)s"
 msgstr "%(form_title)s iletileri"
 
+msgid "Page type"
+msgstr "Sayfa türü"
+
 msgid "Forms"
 msgstr "Formlar"
 
@@ -215,3 +222,6 @@ msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] "Bir ileti silindi."
 msgstr[1] "%(count)d ileti silindi."
+
+msgid "Form data"
+msgstr "Form verileri"

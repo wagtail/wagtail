@@ -1,10 +1,14 @@
+import io
+import os
 import warnings
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import get_language_info
 from django.utils.translation import gettext_lazy as _
+from PIL import Image
 
 from wagtail.admin.localization import (
     get_available_admin_languages,
@@ -125,6 +129,53 @@ class AvatarPreferencesForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self._original_avatar = self.instance.avatar
 
+    def clean_avatar(self):
+        file = self.cleaned_data.get("avatar")
+        if not file:
+            return self._original_avatar
+
+        image = Image.open(file)
+        width, height = image.size
+
+        if width <= 400 and height <= 400:
+            return file
+
+        target_size = 400
+
+        if width > height:
+            new_width = target_size
+            new_height = int(height * (target_size / width))
+        else:
+            new_height = target_size
+            new_width = int(width * (target_size / height))
+
+        resized_image = image.resize((new_width, new_height))
+
+        orig_format = image.format or "JPEG"
+
+        output = io.BytesIO()
+        resized_image.save(output, format=image.format)
+        output.seek(0)
+
+        new_ext = (
+            "jpg" if orig_format.upper() in ("JPEG", "JPG") else orig_format.lower()
+        )
+        content_type = f"image/{'jpeg' if new_ext == 'jpg' else new_ext}"
+
+        base_name, _ = os.path.splitext(file.name)
+        filename = f"{base_name}.{new_ext}"
+
+        new_file = InMemoryUploadedFile(
+            file=output,
+            field_name="avatar",
+            name=filename,
+            content_type=content_type,
+            size=output.getbuffer().nbytes,
+            charset=None,
+        )
+
+        return new_file
+
     def save(self, commit=True):
         if (
             commit
@@ -140,7 +191,7 @@ class AvatarPreferencesForm(forms.ModelForm):
                 warnings.warn(
                     "Failed to delete old avatar file: %s" % self._original_avatar.name
                 )
-        super().save(commit=commit)
+        return super().save(commit=commit)
 
     class Meta:
         model = UserProfile

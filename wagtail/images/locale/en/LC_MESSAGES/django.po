@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "Wagtail images"
 msgstr ""
 
-#: blocks.py:72 blocks.py:83 forms.py:162
+#: blocks.py:72 blocks.py:83 forms.py:176
 msgid "Image is decorative"
 msgstr ""
 
-#: blocks.py:74 blocks.py:86 forms.py:164
+#: blocks.py:74 blocks.py:86 forms.py:178
 msgid "Alt text"
 msgstr ""
 
-#: blocks.py:196 forms.py:177
+#: blocks.py:196 forms.py:191
 msgid "Please add some alt text for your image or mark it as decorative"
 msgstr ""
 
@@ -88,75 +88,76 @@ msgstr ""
 msgid "Right-aligned"
 msgstr ""
 
-#: forms.py:31 views/bulk_actions/add_to_collection.py:13 views/images.py:166
+#: forms.py:31 views/bulk_actions/add_to_collection.py:13 views/chooser.py:175
+#: views/images.py:166
 msgid "Collection"
 msgstr ""
 
-#: forms.py:157
+#: forms.py:171
 msgid "Format"
 msgstr ""
 
-#: forms.py:185
+#: forms.py:199
 msgid "Filter"
 msgstr ""
 
-#: forms.py:187
+#: forms.py:201
 msgid "Original size"
 msgstr ""
 
-#: forms.py:188
+#: forms.py:202
 msgid "Resize to width"
 msgstr ""
 
-#: forms.py:189
+#: forms.py:203
 msgid "Resize to height"
 msgstr ""
 
-#: forms.py:190
+#: forms.py:204
 msgid "Resize to min"
 msgstr ""
 
-#: forms.py:191
+#: forms.py:205
 msgid "Resize to max"
 msgstr ""
 
-#: forms.py:192
+#: forms.py:206
 msgid "Resize to fill"
 msgstr ""
 
-#: forms.py:196
+#: forms.py:210
 msgid "Width"
 msgstr ""
 
-#: forms.py:209
+#: forms.py:223
 msgid "Height"
 msgstr ""
 
-#: forms.py:222
+#: forms.py:236
 msgid "Closeness"
 msgstr ""
 
-#: forms.py:238
+#: forms.py:253
 msgid "Add"
 msgstr ""
 
-#: forms.py:238
+#: forms.py:253
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:239
+#: forms.py:254
 msgid "Edit"
 msgstr ""
 
-#: forms.py:239
+#: forms.py:254
 msgid "Edit any image"
 msgstr ""
 
-#: forms.py:240
+#: forms.py:255
 msgid "Choose"
 msgstr ""
 
-#: forms.py:240
+#: forms.py:255
 msgid "Select images in choosers"
 msgstr ""
 
@@ -292,8 +293,12 @@ msgstr ""
 msgid "No, don't delete"
 msgstr ""
 
-#: templates/wagtailimages/chooser/chooser.html:12
+#: templates/wagtailimages/chooser/chooser.html:13
 msgid "Popular tags"
+msgstr ""
+
+#: templates/wagtailimages/chooser/chooser.html:21
+msgid "Layout"
 msgstr ""
 
 #: templates/wagtailimages/chooser/confirm_duplicate_upload.html:6
@@ -322,20 +327,20 @@ msgstr ""
 msgid "Latest images"
 msgstr ""
 
-#: templates/wagtailimages/chooser/results.html:14
+#: templates/wagtailimages/chooser/results.html:17
 #, python-format
 msgid "Select %(title)s"
 msgstr ""
 
-#: templates/wagtailimages/chooser/results.html:32
+#: templates/wagtailimages/chooser/results.html:36
 msgid "You haven't uploaded any images in this collection."
 msgstr ""
 
-#: templates/wagtailimages/chooser/results.html:34
+#: templates/wagtailimages/chooser/results.html:38
 msgid "You haven't uploaded any images."
 msgstr ""
 
-#: templates/wagtailimages/chooser/results.html:37
+#: templates/wagtailimages/chooser/results.html:41
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
 "tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
@@ -367,13 +372,13 @@ msgstr ""
 msgid "Add an image"
 msgstr ""
 
-#: templates/wagtailimages/images/add.html:45 views/chooser.py:53
-#: views/chooser.py:320
+#: templates/wagtailimages/images/add.html:11 views/chooser.py:61
+#: views/chooser.py:384
 msgid "Uploading…"
 msgstr ""
 
-#: templates/wagtailimages/images/add.html:48 views/chooser.py:52
-#: views/chooser.py:319
+#: templates/wagtailimages/images/add.html:14 views/chooser.py:60
+#: views/chooser.py:383
 msgid "Upload"
 msgstr ""
 
@@ -427,7 +432,8 @@ msgstr ""
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:65 views/images.py:174
+#: templates/wagtailimages/images/edit.html:65 views/chooser.py:182
+#: views/images.py:174
 msgid "Usage"
 msgstr ""
 
@@ -438,7 +444,7 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtailimages/images/index.html:14
+#: templates/wagtailimages/images/index.html:11
 msgid "Sort by"
 msgstr ""
 
@@ -465,12 +471,17 @@ msgid ""
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 
+#: templates/wagtailimages/images/layout_toggle_button.html:5
+msgid "Grid layout"
+msgstr ""
+
 #: templates/wagtailimages/images/layout_toggle_button.html:9
-msgid "Toggle layout"
+msgid "List layout"
 msgstr ""
 
 #: templates/wagtailimages/images/url_generator.html:16
-#: templates/wagtailimages/images/url_generator.html:20 views/images.py:154
+#: templates/wagtailimages/images/url_generator.html:20 views/chooser.py:164
+#: views/images.py:154
 msgid "Preview"
 msgstr ""
 
@@ -604,15 +615,23 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/chooser.py:318 widgets.py:13
+#: views/chooser.py:170 views/images.py:160
+msgid "Title"
+msgstr ""
+
+#: views/chooser.py:178 views/images.py:169
+msgid "Created"
+msgstr ""
+
+#: views/chooser.py:382 widgets.py:13
 msgid "Choose an image"
 msgstr ""
 
-#: views/chooser.py:321
+#: views/chooser.py:385
 msgid "Choose another image"
 msgstr ""
 
-#: views/chooser.py:322 widgets.py:15
+#: views/chooser.py:386 widgets.py:15
 msgid "Edit this image"
 msgstr ""
 
@@ -650,14 +669,6 @@ msgstr ""
 
 #: views/images.py:70 wagtail_hooks.py:52 wagtail_hooks.py:160
 msgid "Images"
-msgstr ""
-
-#: views/images.py:160
-msgid "Title"
-msgstr ""
-
-#: views/images.py:169
-msgid "Created"
 msgstr ""
 
 #: views/images.py:206

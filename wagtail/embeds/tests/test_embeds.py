@@ -664,6 +664,41 @@ class TestOembed(TestCase):
         result = OEmbedFinder().find_embed("https://vimeo.com/217403396")
         self.assertEqual(result["type"], "video")
 
+    @responses.activate
+    def test_oembed_non_200_response(self):
+        responses.get(
+            url="https://www.youtube.com/oembed",
+            match=[
+                matchers.query_param_matcher(
+                    {"url": "https://www.youtube.com/watch/", "format": "json"}
+                ),
+            ],
+            json={"error": "not found"},
+            status=403,
+        )
+
+        with self.assertRaises(EmbedNotFoundException):
+            OEmbedFinder().find_embed("https://www.youtube.com/watch/")
+
+    @responses.activate
+    def test_oembed_missing_type_field(self):
+        responses.get(
+            url="https://www.youtube.com/oembed",
+            match=[
+                matchers.query_param_matcher(
+                    {"url": "https://www.youtube.com/watch/", "format": "json"}
+                ),
+            ],
+            json={  # valid JSON but missing 'type'
+                "title": "Video without type",
+                "url": "http://example.com/video",
+            },
+            status=200,
+        )
+
+        with self.assertRaises(EmbedNotFoundException):
+            OEmbedFinder().find_embed("https://www.youtube.com/watch/")
+
 
 class TestInstagramOEmbed(TestCase):
     def setUp(self):

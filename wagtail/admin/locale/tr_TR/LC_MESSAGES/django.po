@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -53,9 +53,6 @@ msgstr "Wagtail Yönetim"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Üzgünüm, bu alana erişim yetkiniz yok."
-
-msgid "You do not have permission to access the admin"
-msgstr "Yönetici bölümüne erişim yetkiniz yok"
 
 msgid "None"
 msgstr "Yok"
@@ -133,9 +130,6 @@ msgstr "Sil"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Yayın başlangıç tarih/saati bitiş tarih/saatinden öncesinde olmalı"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Bitiş tarihi ileri bir tarih olmalı"
 
 msgid "New title"
 msgstr "Yeni başlık"
@@ -331,9 +325,6 @@ msgstr "Bu koleksiyon bir üst koleksiyon tarafından gizli yapıldı."
 msgid "You can edit the privacy settings on:"
 msgstr "Gizlilik ayarlarını düzenleyebilirsiniz:"
 
-msgid "Save"
-msgstr "Kaydet"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -378,6 +369,8 @@ msgstr "Evet, yayından kaldır"
 msgid "No, don't unpublish"
 msgstr "Hayır, yayından kaldırma"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Eylemler"
 
@@ -578,18 +571,6 @@ msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' sayfasına alt sayfa ekleyin"
 
-msgid "Drag"
-msgstr "Sürükle"
-
-msgid "Disable ordering of child pages"
-msgstr "Alt sayfaların sıralamasını etkisizleştir"
-
-msgid "Sort"
-msgstr "Sırala"
-
-msgid "Enable ordering of child pages"
-msgstr "Alt sayfaların sıralamasını etkinleştir"
-
 msgid "Sites menu"
 msgstr "Siteler menüsü"
 
@@ -623,6 +604,9 @@ msgstr "Yukarı taşı"
 
 msgid "Move down"
 msgstr "Aşağı taşı"
+
+msgid "Drag"
+msgstr "Sürükle"
 
 msgid "Type"
 msgstr "Tip"
@@ -694,6 +678,9 @@ msgstr "Hayır, planı kaldırma"
 msgid "Other searches"
 msgstr "Diğer aramalar"
 
+msgid "Save"
+msgstr "Kaydet"
+
 msgid "Unlocked"
 msgstr "Kilitsiz"
 
@@ -715,6 +702,9 @@ msgstr[1] "%(usage_count)s kez kullanıldı"
 
 msgid "Edited"
 msgstr "Düzenlendi"
+
+msgid "Sort"
+msgstr "Sırala"
 
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"
@@ -743,6 +733,9 @@ msgstr "Geri al"
 
 msgid "Redo"
 msgstr "Yeniden"
+
+msgid "Bold"
+msgstr "Kalın"
 
 msgid "Italic"
 msgstr "Yatay"
@@ -882,9 +875,6 @@ msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr ""
 "Sayfa '%(page_title)s' oluşturuldu ve kontrol edilmek üzere gönderildi."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Sayfa, doğrulama hataları nedeniyle oluşturulamadı"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Sayfa '%(page_title)s' silindi."
@@ -905,12 +895,6 @@ msgstr "Sayfa '%(page_title)s' yayınlandı."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Sayfa '%(page_title)s' kontrol için gönderildi."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Sayfa kilitli olduğu için kaydedilemedi"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Sayfa doğrulama hatalarından dolayı kaydedilemedi"
-
 msgid "Owner"
 msgstr "Sahip"
 
@@ -920,14 +904,6 @@ msgstr "Site"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sayfa '%(page_title)s' şuan kilitli değil."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Başlık url'si '%(page_slug)s' seçili üst sayfada zaten kullanılıyor. Özgün "
-"bir başlık url'si girerek tekrar deneyin"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -970,9 +946,6 @@ msgstr "Numaralı liste"
 
 msgid "Blockquote"
 msgstr "Alıntı"
-
-msgid "Bold"
-msgstr "Kalın"
 
 msgid "Link"
 msgstr "Bağlantı"

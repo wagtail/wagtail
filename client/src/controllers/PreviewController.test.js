@@ -154,6 +154,7 @@ describe('PreviewController', () => {
       </template>
       <h3>Word count: <span data-content-word-count>-</span></h3>
       <h3>Reading time: <span data-content-reading-time>-</span></h3>
+      <h3>Readability: <span data-content-readability-score>-</span></h3>
       <h3>Issues found: <span data-a11y-result-count>-</span></h3>
       <div data-checks-panel></div>
     </div>
@@ -2168,6 +2169,11 @@ describe('PreviewController', () => {
       const readingTime = document.querySelector('[data-content-reading-time]');
       expect(readingTime.textContent.trim()).toEqual('1 min');
 
+      const readabilityScore = document.querySelector(
+        '[data-content-readability-score]',
+      );
+      expect(readabilityScore.textContent.trim()).toEqual('Complex');
+
       const panelCounter = document.querySelector('[data-a11y-result-count]');
       expect(panelCounter.textContent.trim()).toEqual('2');
 
@@ -2178,7 +2184,12 @@ describe('PreviewController', () => {
       expect(events.content).toHaveLength(1);
       expect(events.content[0].detail).toEqual({
         content: mockExtractedContent,
-        metrics: { wordCount: 201, readingTime: 1 },
+        metrics: {
+          wordCount: 201,
+          readingTime: 1,
+          lixScore: expect.any(Number),
+          readabilityScore: 'Complex',
+        },
       });
 
       // Note: The sorting algorithm does not work on the preview panel because
@@ -2383,6 +2394,24 @@ describe('PreviewController', () => {
       mockAxeResults();
       const content = await controller.extractContent();
       expect(content).toEqual(mockExtractedContent);
+    });
+
+    it('should not require opening the panel to do content extraction', async () => {
+      application = Application.start();
+      application.register(identifier, PreviewController);
+      await Promise.resolve();
+
+      const controller = application.getControllerForElementAndIdentifier(
+        document.querySelector('[data-controller="w-preview"]'),
+        identifier,
+      );
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      mockAxeResults();
+      const content = controller.extractContent();
+      await jest.runOnlyPendingTimersAsync();
+      await expectIframeReloaded();
+      expect(await content).toEqual(mockExtractedContent);
     });
 
     it('should clean up event listeners on disconnect', async () => {

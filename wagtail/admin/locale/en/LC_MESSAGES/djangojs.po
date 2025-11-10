@@ -16,19 +16,19 @@ msgid "(New)"
 msgstr ""
 
 #: src/components/Minimap/MinimapItem.tsx:38
-#: src/controllers/CountController.ts:63
+#: src/controllers/CountController.ts:72
 msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/includes/contentMetrics.ts:125
+#: src/includes/contentMetrics.ts:180
 msgid "%(num)s min"
 msgid_plural "%(num)s mins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/includes/sidePanel.js:164
+#: src/includes/sidePanel.js:162
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] ""
@@ -92,6 +92,11 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+#. Translators: denotes the readability of a difficult text.
+#: src/includes/contentMetrics.ts:91
+msgid "Complex"
+msgstr ""
+
 #: src/components/Sidebar/modules/WagtailBranding.tsx:46
 #: src/components/Sidebar/modules/WagtailBranding.tsx:91
 msgid "Dashboard"
@@ -137,7 +142,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/controllers/PreviewController.ts:1017
+#: src/controllers/PreviewController.ts:1045
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -145,9 +150,18 @@ msgstr ""
 msgid "Expand all"
 msgstr ""
 
+#. Translators: denotes the readability of an average text.
+#: src/includes/contentMetrics.ts:86
+msgid "Fair"
+msgstr ""
+
 #: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:522
-#: src/entrypoints/admin/comments.js:101
+#: src/entrypoints/admin/comments.js:108
 msgid "Focus comment"
+msgstr ""
+
+#: src/includes/contentMetrics.ts:82
+msgid "Good"
 msgstr ""
 
 #: src/components/Draftail/index.js:165
@@ -263,10 +277,10 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: src/components/Sidebar/modules/Search.tsx:117
-#: src/components/Sidebar/modules/Search.tsx:52
-#: src/components/Sidebar/modules/Search.tsx:72
-#: src/components/Sidebar/modules/Search.tsx:92
+#: src/components/Sidebar/modules/Search.tsx:101
+#: src/components/Sidebar/modules/Search.tsx:126
+#: src/components/Sidebar/modules/Search.tsx:60
+#: src/components/Sidebar/modules/Search.tsx:80
 msgid "Search"
 msgstr ""
 
@@ -301,14 +315,14 @@ msgid "The editor just crashed. Content has been reset to the last saved version
 msgstr ""
 
 #: src/components/StreamField/blocks/ListBlock.js:205
-#: src/components/StreamField/blocks/StreamBlock.js:281
-#: src/components/StreamField/blocks/StreamBlock.js:305
+#: src/components/StreamField/blocks/StreamBlock.js:274
+#: src/components/StreamField/blocks/StreamBlock.js:298
 msgid "The maximum number of items is %(max_num)d"
 msgstr ""
 
 #: src/components/StreamField/blocks/ListBlock.js:216
-#: src/components/StreamField/blocks/StreamBlock.js:289
-#: src/components/StreamField/blocks/StreamBlock.js:319
+#: src/components/StreamField/blocks/StreamBlock.js:282
+#: src/components/StreamField/blocks/StreamBlock.js:312
 msgid "The minimum number of items is %(min_num)d"
 msgstr ""
 
@@ -320,7 +334,7 @@ msgstr ""
 msgid "Toggle section"
 msgstr ""
 
-#: src/components/Minimap/Minimap.tsx:224
+#: src/components/Minimap/Minimap.tsx:223
 msgid "Toggle side panel"
 msgstr ""
 
@@ -329,7 +343,7 @@ msgstr ""
 msgid "Toggle sidebar"
 msgstr ""
 
-#: src/entrypoints/admin/comments.js:96
+#: src/entrypoints/admin/comments.js:103
 msgid "Unfocus comment"
 msgstr ""
 

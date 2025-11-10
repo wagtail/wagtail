@@ -21,6 +21,7 @@
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Twixxik, 2025
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
@@ -31,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +101,9 @@ msgstr "Карта сайта Wagtail"
 
 msgid "Unknown content type"
 msgstr "Неизвестный тип контента."
+
+msgid "Date cannot be in the future."
+msgstr "Дата не может быть из будущего"
 
 msgid "Password"
 msgstr "Пароль"
@@ -398,14 +402,6 @@ msgstr "Для поисковых систем"
 msgid "For site menus"
 msgstr "Для меню сайта"
 
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"Слаг '%(page_slug)s' уже используется на родительской странице по адресу "
-"'%(parent_url_path)s'"
-
 msgid "page"
 msgstr "страница"
 
@@ -564,6 +560,12 @@ msgid ""
 msgstr ""
 "%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала отключить "
 "эту настройку у него, прежде, чем вы можете сохранить этот сайт по умолчанию."
+
+msgid "group site permission"
+msgstr "Разрешение группы на сайт"
+
+msgid "group site permissions"
+msgstr "Разрешения группы на сайт"
 
 msgid "Public"
 msgstr "Публично"

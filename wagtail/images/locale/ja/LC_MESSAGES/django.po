@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -291,6 +291,12 @@ msgstr "タグ"
 msgid "Delete"
 msgstr "削除"
 
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Created"
+msgstr "作成"
+
 msgid "Choose an image"
 msgstr "画像を選択"
 
@@ -302,12 +308,6 @@ msgstr "画像を編集"
 
 msgid "Images"
 msgstr "画像"
-
-msgid "Title"
-msgstr "タイトル"
-
-msgid "Created"
-msgstr "作成"
 
 msgid "The image could not be saved due to errors."
 msgstr "この画像はエラーにより保存されませんでした。"

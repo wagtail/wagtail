@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.action_menu import ActionMenuItem
+from wagtail.admin.action_menu import ActionMenuItem, PublishMenuItem
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
@@ -119,6 +119,28 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
+    def get_publish_button_label(self, response):
+        soup = self.get_soup(response.content)
+        publish_button = soup.select_one('.w-dropdown-button > [name="action-publish"]')
+        if publish_button is None:
+            publish_button = soup.select_one('[name="action-publish"]')
+        self.assertIsNotNone(publish_button)
+        label = publish_button.select_one('[data-w-progress-target="label"]')
+        self.assertIsNotNone(label)
+        return label.get_text(strip=True)
+
+    def schedule_child_page(self, go_live_at):
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+        post_data = {
+            "title": self.child_page.title,
+            "content": self.child_page.content,
+            "slug": self.child_page.slug,
+            "go_live_at": submittable_timestamp(go_live_at),
+        }
+        self.client.post(edit_url, post_data, follow=True)
+        self.child_page.refresh_from_db(fields=["go_live_at"])
+        return edit_url
+
     def assertSchedulingDialogRendered(self, response, edit_url):
         # Should show the "Edit schedule" button
         html = response.content.decode()
@@ -219,6 +241,42 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
+
+    def test_publish_button_shows_schedule_label_for_future_go_live(self):
+        go_live_at = timezone.now() + datetime.timedelta(hours=1)
+
+        response = self.client.get(self.schedule_child_page(go_live_at))
+        self.assertEqual(response.status_code, 200)
+
+        publish_menu_item = next(
+            item
+            for item in response.context["action_menu"].menu_items
+            if getattr(item, "name", "") == "action-publish"
+        )
+        publish_context = publish_menu_item.get_context_data(
+            response.context["action_menu"].context
+        )
+
+        self.assertTrue(publish_context["is_scheduled"])
+        self.assertEqual(self.get_publish_button_label(response), "Schedule to publish")
+
+    def test_publish_button_shows_publish_label_for_past_schedule(self):
+        go_live_at = timezone.now() - datetime.timedelta(hours=1)
+
+        response = self.client.get(self.schedule_child_page(go_live_at))
+        self.assertEqual(response.status_code, 200)
+
+        publish_menu_item = next(
+            item
+            for item in response.context["action_menu"].menu_items
+            if getattr(item, "name", "") == "action-publish"
+        )
+        publish_context = publish_menu_item.get_context_data(
+            response.context["action_menu"].context
+        )
+
+        self.assertFalse(publish_context["is_scheduled"])
+        self.assertEqual(self.get_publish_button_label(response), "Publish")
 
     def test_construct_page_action_menu_hook_with_custom_default_button(self):
         class CustomDefaultItem(ActionMenuItem):
@@ -884,7 +942,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "expire_at",
-            "Expiry date/time must be in the future",
+            "Expiry date/time must be in the future.",
         )
 
         self.assertContains(
@@ -1750,7 +1808,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "slug",
-            "The slug 'hello-world' is already in use within the parent page",
+            "The slug 'hello-world' is already in use within the parent page.",
         )
 
     def test_preview_on_edit(self):
@@ -2103,11 +2161,14 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertIsNotNone(publish_button)
 
     def test_override_publish_action_menu_item_label(self):
+        class CustomPublishMenuItem(PublishMenuItem):
+            label = "Foobar"
+
         def hook_func(menu_items, request, context):
-            for item in menu_items:
-                if item.name == "action-publish":
-                    item.label = "Foobar"
-                    break
+            menu_items[:] = [
+                CustomPublishMenuItem() if item.name == "action-publish" else item
+                for item in menu_items
+            ]
 
         with self.register_hook("construct_page_action_menu", hook_func):
             response = self.client.get(
@@ -2987,12 +3048,31 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(
-            response, "The page could not be saved due to validation errors"
+        soup = self.get_soup(response.content)
+
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be saved
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The page could not be saved due to validation errors", message.get_text()
         )
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
         # the error should only appear once: against the field, not in the header message
-        self.assertContains(response, "error-message", count=1)
-        self.assertContains(response, "This field is required", count=1)
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 1)
+        error_message = error_messages[0]
+        self.assertEqual(
+            error_message.parent["id"], "panel-child-content-child-title-errors"
+        )
+        self.assertIn("This field is required", error_message.get_text())
 
     def test_non_field_error(self):
         """Non-field errors should be shown in the header message"""
@@ -3071,19 +3151,43 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(
-            response, "The page could not be saved due to validation errors"
+        soup = self.get_soup(response.content)
+
+        # there should be top level messages should indicate that the page could not be saved alongside other messages
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+        self.assertEqual(len(header_messages), 3)
+
+        # the first header message should indicate that the page could not be saved & contain a go to error button
+        self.assertIn(
+            "The page could not be saved due to validation errors",
+            header_messages[0].get_text(),
         )
-        self.assertContains(
-            response, "<li>The end date must be after the start date</li>", count=1
+        buttons = header_messages[0].find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
+        # the second should be a general message about the title, no go to error button
+        self.assertIn(
+            "Title: This field is required",
+            header_messages[1].get_text(),
+        )
+        self.assertEqual(len(header_messages[1].find_all("button")), 0)
+
+        # the third header message should be the non-field error
+        self.assertIn(
+            "The end date must be after the start date",
+            header_messages[2].get_text(),
         )
 
         # Error on title shown against the title field
-        self.assertContains(response, "error-message", count=1)
-        # Error on title shown in the header message
-        self.assertContains(
-            response, "<li>Title: This field is required.</li>", count=1
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 1)
+        error_message = error_messages[0]
+        self.assertEqual(
+            error_message.parent["id"], "panel-child-content-child-title-errors"
         )
+        self.assertIn("This field is required.", error_message.get_text())
 
 
 class TestNestedInlinePanel(WagtailTestUtils, TestCase):

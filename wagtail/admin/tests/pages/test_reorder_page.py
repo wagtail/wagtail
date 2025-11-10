@@ -70,6 +70,17 @@ class TestPageReorder(WagtailTestUtils, TestCase):
         child_slugs = self.index_page.get_children().values_list("slug", flat=True)
         self.assertListEqual(list(child_slugs), ["child-2", "child-3", "child-1"])
 
+    def test_page_set_page_position_non_integer_position_moves_it_to_the_end(self):
+        response = self.client.post(
+            reverse("wagtailadmin_pages:set_page_position", args=(self.child_1.id,))
+            + "?position=good"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # check if child_1 is the last child page:
+        child_slugs = self.index_page.get_children().values_list("slug", flat=True)
+        self.assertListEqual(list(child_slugs), ["child-2", "child-3", "child-1"])
+
     def test_page_move_page_position_up(self):
         """Moves child 3 to the first position."""
         response = self.client.post(

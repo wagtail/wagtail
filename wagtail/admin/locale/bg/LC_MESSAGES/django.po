@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -115,9 +115,6 @@ msgstr "Добави външен линк"
 
 msgid "Explore"
 msgstr "Мениджър"
-
-msgid "Save"
-msgstr "Запази"
 
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
@@ -237,15 +234,6 @@ msgstr "Сигурен ли сте, че искате да отмените пу
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавете дъщерна страница към '%(title)s'"
 
-msgid "Drag"
-msgstr "Плъзнете"
-
-msgid "Disable ordering of child pages"
-msgstr "Отменете подредбата на дъщерни страници"
-
-msgid "Enable ordering of child pages"
-msgstr "Позволете подредба на дъщерни страници"
-
 msgid "Previous"
 msgstr "Предишно"
 
@@ -264,6 +252,9 @@ msgstr "Нагоре"
 msgid "Move down"
 msgstr "Надолу"
 
+msgid "Drag"
+msgstr "Плъзнете"
+
 msgid "Type"
 msgstr "Вид"
 
@@ -273,6 +264,9 @@ msgstr "Име"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "Страница %(page_num)s от %(total_pages)s"
+
+msgid "Save"
+msgstr "Запази"
 
 msgid "New"
 msgstr "Ново"
@@ -308,9 +302,6 @@ msgstr "Страница '%(page_title)s' е създадена."
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Страница '%(page_title)s' е изтрита."
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."

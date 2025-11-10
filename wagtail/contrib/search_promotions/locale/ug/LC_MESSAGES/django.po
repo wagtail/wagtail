@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -176,15 +176,9 @@ msgstr "ئالىي نەتىجە"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "«%(query)s» ئۈچۈن تەھرىرلىگۈچ خىللىغانلىرى قۇرۇلدى."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "خاتالىق سەۋەبىدىن تەۋسىيەنى قۇرغىلى بولمىدى"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "«%(query)s» ئۈچۈن تەھرىرلىگۈچ خىللىغانلىرى يېڭىلاندى."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "خاتالىق سەۋەبىدىن تەۋسىيەنى ساقلىغىلى بولمىدى"
 
 msgid "Editor's picks deleted."
 msgstr "تەھرىرلىگۈچنىڭ خىللىغانلىرى ئۆچۈرۈلدى."

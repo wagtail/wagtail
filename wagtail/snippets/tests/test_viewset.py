@@ -33,6 +33,8 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import (
     Advert,
+    AdvertTag,
+    AdvertWithCustomUUIDPrimaryKey,
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
@@ -56,6 +58,21 @@ class TestIncorrectRegistration(SimpleTestCase):
         self.assertIn("ModelViewSet", message)
         self.assertIn(
             "must define a `model` attribute or pass a `model` argument",
+            message,
+        )
+
+
+class TestIncorrectConverter(SimpleTestCase):
+    def test_unknown_converter(self):
+        class BadViewSet(SnippetViewSet):
+            model = AdvertTag
+            pk_path_converter = "foo"
+
+        with self.assertRaises(ImproperlyConfigured) as cm:
+            register_snippet(BadViewSet)
+        message = str(cm.exception)
+        self.assertEqual(
+            "BadViewSet.pk_path_converter is not a registered path converter",
             message,
         )
 
@@ -382,6 +399,20 @@ class TestAdminURLs(BaseSnippetViewSetTests):
             reverse(viewset.chooser_viewset.get_url_name("choose")),
             expected_choose_url,
         )
+
+    def test_cannot_reverse_mismatched_converter_value(self):
+        viewset = AdvertWithCustomUUIDPrimaryKey.snippet_viewset
+        with self.assertRaises(NoReverseMatch):
+            reverse(viewset.get_url_name("edit"), kwargs={"pk": 123})
+
+    def test_404_on_mismatched_converter_value(self):
+        viewsets = [
+            AdvertWithCustomUUIDPrimaryKey.snippet_viewset,
+            FullFeaturedSnippet.snippet_viewset,
+        ]
+        for viewset in viewsets:
+            response = self.client.get(f"/admin/{viewset.url_prefix}/edit/123abc/")
+            self.assertEqual(response.status_code, 404)
 
 
 class TestPagination(BaseSnippetViewSetTests):

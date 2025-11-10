@@ -275,9 +275,6 @@ class RevisionMixin(models.Model):
     so it cannot be used for reverse-related queries from ``Revision`` back to
     this model. If the feature is desired, subclasses can define their own
     ``GenericRelation`` to ``Revision`` with a custom ``related_query_name``.
-
-    .. versionadded:: 7.1
-        The default ``GenericRelation`` :attr:`~wagtail.models.RevisionMixin._revisions` was added.
     """
 
     # An array of additional field names that will not be included when the object is copied.

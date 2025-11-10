@@ -134,9 +134,31 @@ class TestSiteSettingCreateView(SiteSettingTestMixin, BaseTestSiteSettingView):
 
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
-        self.assertContains(response, "The setting could not be saved due to errors.")
-        self.assertContains(response, "error-message", count=2)
-        self.assertContains(response, "This field is required", count=2)
+        soup = self.get_soup(response.content)
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # there should be one header message that indicates the issue and has a go to error button
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The setting could not be saved due to errors.", message.get_text()
+        )
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
+        # the field errors should indicate that two fields were required
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 2)
+        self.assertIn("This field is required.", error_messages[0].get_text())
+        self.assertEqual(error_messages[0].parent["id"], "panel-child-title-errors")
+        self.assertIn("This field is required.", error_messages[1].get_text())
+        self.assertEqual(error_messages[1].parent["id"], "panel-child-email-errors")
 
     def test_edit(self):
         response = self.post(
@@ -348,9 +370,29 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
 
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
-        self.assertContains(response, "The setting could not be saved due to errors.")
-        self.assertContains(response, "error-message", count=2)
-        self.assertContains(response, "This field is required", count=2)
+        soup = self.get_soup(response.content)
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # there should be one header message that indicates the issue and has a go to error button
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The setting could not be saved due to errors.", message.get_text()
+        )
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
+        # the field errors should indicate that two fields were required
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 2)
+        self.assertIn("This field is required.", error_messages[0].get_text())
+        self.assertIn("This field is required.", error_messages[1].get_text())
 
     def test_edit(self):
         response = self.post(

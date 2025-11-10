@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Michel Vuijlsteke, 2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "Ondersteunde bestandsformaten: %(supported_formats)s."
 #, python-format
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
-"Geen ondersteund afbeeldingsformaat. ondersteunde formaten: "
+"Geen ondersteund afbeeldingsformaat. Ondersteunde formaten: "
 "%(supported_formats)s."
 
 #, python-format
@@ -79,8 +79,9 @@ msgid ""
 "This file has too many pixels (%(num_pixels)s). Maximum pixels "
 "%(max_pixels_count)s."
 msgstr ""
-"Dit bestand bevat teveel pixels (%(num_pixels)s). Het maximum aantal "
-"toegestane pixels is %(max_pixels_count)s."
+"Deze afbeelding bevat teveel pixels (%(num_pixels)s). Het maximum aantal "
+"toegestane pixels is %(max_pixels_count)s. Snij de afbeelding bij of verlaag "
+"de resolutie en probeer het opnieuw."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %(max_filesize)s."
@@ -129,7 +130,7 @@ msgid "Height"
 msgstr "Hoogte"
 
 msgid "Closeness"
-msgstr "Nabijheid"
+msgstr "Uitsnijdingsniveau rondom focusgebied"
 
 msgid "Add"
 msgstr "Toevoegen"
@@ -168,7 +169,7 @@ msgid "created at"
 msgstr "gemaakt op"
 
 msgid "uploaded by user"
-msgstr "geupload door gebruiker"
+msgstr "geüpload door gebruiker"
 
 msgid "tags"
 msgstr "tags"
@@ -263,12 +264,16 @@ msgstr "Nee, niet verwijderen"
 msgid "Popular tags"
 msgstr "Populaire tags"
 
+msgid "Layout"
+msgstr "Weergave"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
 msgstr ""
-"Upload is geslaagd. Echter lijkt je nieuwe afbeelding een dubbeling van een "
-"bestaande afbeelding te zijn. Je kunt deze indien nodig verwijderen."
+"Upload is geslaagd. Maar je nieuwe afbeelding lijkt op een dubbeling van een "
+"bestaande afbeelding. Misschien was de upload niet nodig en kun je deze "
+"afbeelding verwijderen?"
 
 msgid "Existing"
 msgstr "Bestaand"
@@ -294,6 +299,15 @@ msgstr "Je hebt nog geen afbeelding geüpload naar deze collectie."
 
 msgid "You haven't uploaded any images."
 msgstr "Je hebt nog geen afbeeldingen geüpload."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"Waarom <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload je er niet eentje</a>?"
 
 msgid "Choose a format"
 msgstr "Kies een formaat"
@@ -381,7 +395,9 @@ msgstr "Selecteer alle afbeeldingen in lijst"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "Sorry, geen afbeelding overeenkomst \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen enkele afbeelding komt overeen met je zoekopdracht: "
+"<em>%(query_string)s</em>"
 
 #, python-format
 msgid ""
@@ -398,6 +414,12 @@ msgid ""
 msgstr ""
 "Er zijn nog geen afbeeldingen toegevoegd. Waarom <a "
 "href=\"%(wagtailimages_add_image_url)s\">upload je er niet nu een</a>?"
+
+msgid "Grid layout"
+msgstr "Grid"
+
+msgid "List layout"
+msgstr "Lijst"
 
 msgid "Preview"
 msgstr "Voorbeeld"
@@ -448,14 +470,15 @@ msgid ""
 "Upload successful. However, your new image seems to be a duplicate of this "
 "existing image. You may delete it if it wasn't required."
 msgstr ""
-"Upload is geslaagd. Echter lijkt je nieuwe afbeelding een dubbeling van deze "
-"bestaande afbeelding te zijn. Je kunt deze indien nodig verwijderen."
+"Upload is geslaagd. Maar je nieuwe afbeelding lijkt een dubbeling van deze "
+"bestaande afbeelding te zijn. Je kunt je net geüploade afbeelding "
+"verwijderen indien nodig"
 
 msgid "Sorry, upload failed."
-msgstr "Sorry, upload ging fout."
+msgstr "Sorry, de upload is mislukt"
 
 msgid "Server Error"
-msgstr "Server error"
+msgstr "Serverfout"
 
 msgid ""
 "Report this error to your website administrator with the following "
@@ -511,6 +534,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d afbeelding is verwijderd"
 msgstr[1] "%(num_parent_objects)d afbeeldingen zijn verwijderd"
 
+msgid "Title"
+msgstr "Titel"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
 
@@ -538,14 +567,14 @@ msgstr "Bestandsgrootte: (klein naar groot)"
 msgid "File size: (high to low)"
 msgstr "Bestandsgrootte: (groot naar klein)"
 
+msgid "Usage count: (low to high)"
+msgstr "Aantal keer gebruikt (weinig tot vaak)"
+
+msgid "Usage count: (high to low)"
+msgstr "Aantal keer gebruikt (vaak tot weinig)"
+
 msgid "Images"
 msgstr "Afbeeldingen"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Created"
-msgstr "Aangemaakt"
 
 msgid "The image could not be saved due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."
@@ -558,7 +587,7 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
-"Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
+"Het bronbestand van de afbeelding kon niet worden gevonden. Upload een nieuw "
 "bronbestand of verwijder de afbeelding."
 
 msgid "Generate URL"

@@ -1,33 +1,70 @@
 Changelog
 =========
 
-7.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * Removed support for Python 3.8 (Matt Westcott)
+ * Resize overly large avatar images on upload (Harshit Ranjan)
+ * Add natural keys for `Page` and `Collection` models (Samya Aggarwal)
+ * Add Loom oEmbed provider (Nick Ivons)
+ * Add `ModelViewSet.pk_path_converter` with defaults for `IntegerField` and `UUIDField` primary keys (Seb Corbin)
+ * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
+ * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
+ * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
+ * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
+ * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
+ * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
+ * Maintenance: Dropped support for Django 5.1
+ * Maintenance: Updated NPM packages (LB (Ben) Johnston)
+ * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
+ * Maintenance: Add a basic set of Storybook stories for the Stimulus Autosize controller (LB (Ben) Johnston)
+ * Maintenance: Remove use of `_WAGTAILSEARCH_FORCE_AUTO_UPDATE` in search tests (Matt Westcott)
+ * Maintenance: Add unit test for `SubmitController` error handling (LB (Ben) Johnston)
+
+
+7.2 (05.11.2025)
+~~~~~~~~~~~~~~~~
+
+ * Added support for Python 3.14 (Sage Abdullah)
  * Add usage count filter to the admin image and document listings (Joel William)
  * Add keyboard shortcut (`?`) to activate the keyboard shortcuts dialog (Dhruvi Patel)
  * Add keyboard shortcut (`/`) to activate and focus on the search input in the sidebar (Dhruvi Patel)
  * Allow deep contentpath for comments on fields other than StreamField (Lasse Schmieding, Sébastien Corbin, Joel William, Sage Abdullah)
  * Reorganize keyboard shortcuts into better categories with an ordering from most common to most specific (Dhruvi Patel)
  * Add `max_value` of 100 (%) for the `closeness` field in Image URL Generator form (LB (Ben) Johnston)
+ * Add reordering support to generic model and snippet listing views (Joey Jurjens, Sage Abdullah)
+ * Add messaging within the keyboard shortcuts dialog to indicate when keyboard shortcuts are disabled or how to disable them via user preferences (Pravin Kamble)
+ * Allow defining a custom `WorkflowLock` subclass via `Task.lock_class` in a custom task (Dan Braghis)
+ * Add new toggle from grid to list layout for image choosers (Joel William)
+ * Update grid-list layout toggle to new design (Joel William)
+ * Add readability score metric to content checks (Thibaud Colas)
+ * Add explainer panel for content metrics (Thibaud Colas)
+ * Add a button to jump to the first validation error in header messages (Srishti Jaiswal, Sage Abdullah, LB (Ben) Johnston)
+ * Support calculating content metrics without opening the preview panel (Sage Abdullah)
+ * Update project template settings to use pathlib Path object (Eric Matthes)
+ * Migrate to django-modelsearch library, providing Elasticsearch 9 and OpenSearch backends (Karl Hobley, Matt Westcott)
  * Fix: Use the correct method of resolving the file storage dynamically for FileField usage in images & documents (Amir Mahmoodi)
  * Fix: Ensure the add comment keyboard shortcut is disabled when keyboard shortcuts are disabled in user preferences (Dhruvi Patel)
  * Fix: Use model name when ordering by page type in page listings (Sage Abdullah)
  * Fix: Prevent error from default `update_fields` parameter on `Page.asave()` (Tosinibikunle)
  * Fix: Ignore hidden error messages in minimap & `CountController` default `findValue` (Sage Abdullah)
- * Fix: Change default ordering for `UserViewSet` to `User.USERNAME_FIELD` to support default ordering ordering with custom User models that may not have a `name` field (Lynwee)
+ * Fix: Change default ordering for `UserViewSet` to `User.USERNAME_FIELD` to support default ordering with custom User models that may not have a `name` field (Lynwee)
  * Fix: Ensure starter tests in the project template pass (Lasse Schmieding)
  * Fix: Ensure fixed RichText toolbar shows under footer actions (Maciek Baron)
  * Fix: Prevent error when iterating over specific tasks with missing models (Lasse Schmieding)
+ * Fix: Ensure `TableBlock` header dropdown default option can be translated (arpitmak)
+ * Fix: Fix missing cache key prefix when removing cached redirect files (Heric Libong)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami (Yemeni))
- * Docs: Fix incorrect import references in getting started tutorial (Hunzlah Malik)
+ * Docs: Fix incorrect import references and update steps for clarity in getting started tutorial (Hunzlah Malik, Pravin Kamble)
  * Docs: Fix code example for `construct_wagtail_userbar` (Baptiste Mispelon)
  * Docs: Add a note about CSP for background image position and responsive embed styles (Thibaud Colas, Chiemezuo Akujobi, Sage Abdullah)
  * Docs: Add guidance for AI-led contributions to contributor docs (Andrew Selzer)
- * Maintenance: Test against Python 3.14 prerelease (Sage Abdullah)
+ * Docs: Add guidance for AI agents via `AGENTS.md` (Andrew Selzer)
+ * Docs: Add Windows command examples for contributing setup (Shivam Kumar)
+ * Docs: Add recent third party tutorials from 2025 (LB (Ben) Johnston)
+ * Maintenance: Removed support for Python 3.9 (Matt Westcott)
  * Maintenance: Updated NPM packages and linting configuration (LB (Ben) Johnston)
  * Maintenance: Added linting script to keep package.json and pre-commit package versions in sync (LB (Ben) Johnston)
  * Maintenance: Migrate privacy switch modal field hiding to the Stimulus `RulesController` (LB (Ben) Johnston)
@@ -37,14 +74,19 @@ Changelog
  * Maintenance: Allow exempting external templates from number formatting checks (Sage Abdullah)
  * Maintenance: Migrate file title generation to SyncController for CSP compliance (Aayushman Singh, Chiemezuo Akujobi, LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Remove outdated pytest configuration (Shivam Kumar)
+ * Maintenance: Avoid mutable default argument in `ImageNode` within image template tags (minusf)
+ * Maintenance: Use consistent sentence format for user-facing errors (LB (Ben) Johnson)
+ * Maintenance: Update django-tasks dependency to allow 0.9, for preliminary Django 6.0 support (Sage Abdullah)
+ * Maintenance: Fix linting issues B009, B010, B033 (minusf)
 
 
-7.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1.2 (23.10.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow `label_format` to be set to an empty string to hide the block summary label (Sage Abdullah)
  * Fix: Better support userbar loading on multi-site through site hosts (Sage Abdullah)
  * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
+ * Fix: Use the correct origin when computing content metrics via cross-origin communications (Sage Abdullah)
  * Docs: Link to django-treebeard's `Node.move()` in `Page.move()` documentation (Baptiste Mispelon)
 
 

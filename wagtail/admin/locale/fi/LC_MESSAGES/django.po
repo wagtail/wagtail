@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2025
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2025
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -66,9 +66,6 @@ msgstr "Wagtailin hallinta"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Pahoittelut, mutta sinulla ei ole pääsyä tähän osioon."
 
-msgid "You do not have permission to access the admin"
-msgstr "Sinulla ei ole oikeuksia käyttää hallintaa"
-
 msgid "None"
 msgstr "Ei mitään"
 
@@ -89,6 +86,13 @@ msgstr "Kokoelma"
 
 msgid "Tag"
 msgstr "Tunniste"
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "Käytä palvelimen kieltä: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "Käytä palvelimen aikavyöhykettä"
 
 msgid "Preferred language"
 msgstr "Ensisijainen kieli"
@@ -138,9 +142,6 @@ msgstr "Kaikki kokoelmat"
 msgid "Parent"
 msgstr "Isäntä"
 
-msgid "Please select another parent"
-msgstr "Valitse toinen isäntä"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
 
@@ -167,9 +168,6 @@ msgstr "Et voi muokata toisen käyttäjän kommenttia."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Julkaisuajankohdan täytyy olla ennen julkaisun päättymisajankohtaa."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
 
 msgid "New title"
 msgstr "Uusi otsikko"
@@ -521,9 +519,6 @@ msgstr "Tämä kokoelma on yksityinen, koska sen isäntäkin on."
 msgid "You can edit the privacy settings on:"
 msgstr "Voit muokata yksityisyysasetuksia:"
 
-msgid "Save"
-msgstr "Tallenna"
-
 msgid "Change privacy"
 msgstr "Muuta yksityisyyttä"
 
@@ -587,6 +582,8 @@ msgstr "Julkaise %(model_name)s"
 msgid "Cancel"
 msgstr "Peruuta"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Toimet"
 
@@ -1080,22 +1077,6 @@ msgstr "Selaa sivun %(title)s alasivuja"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisää alasivu sivulle '%(title)s'"
 
-msgid "Drag"
-msgstr "Vedä"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Tietue %(index)s/%(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Estä alasivujen uudelleenjärjestäminen"
-
-msgid "Sort"
-msgstr "Järjestä"
-
-msgid "Enable ordering of child pages"
-msgstr "Salli alasivujen uudelleenjärjestäminen"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)s/%(items_count)s koko sivustolla."
@@ -1160,6 +1141,9 @@ msgstr "Siirrä ylös"
 
 msgid "Move down"
 msgstr "Siirrä alas"
+
+msgid "Drag"
+msgstr "Vedä"
 
 msgid "Choose when this page should go live and/or expire"
 msgstr "Valitse milloin tämän sivun tulee mennä liveksi tai vanhentua"
@@ -1378,6 +1362,9 @@ msgstr "Ei, älä poista ajastusta"
 msgid "Other searches"
 msgstr "Muut haut"
 
+msgid "Save"
+msgstr "Tallenna"
+
 msgid "Minimap"
 msgstr "Pienoiskartta"
 
@@ -1576,6 +1563,13 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Siirry pääsisältöön"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Tietue %(index)s/%(total)s"
+
+msgid "Sort"
+msgstr "Järjestä"
+
 msgid "View Wagtail quick actions"
 msgstr "Näytä Wagtailin pikatoiminnot"
 
@@ -1759,8 +1753,11 @@ msgstr "%(time_period)s sitten"
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
-msgid "Common actions"
-msgstr "Yleiset toiminnot"
+msgid "Toggle sidebar"
+msgstr "Sivupalkki päälle/pois"
+
+msgid "Save changes"
+msgstr "Tallenna muutokset"
 
 msgid "Cut"
 msgstr "Leikkaa"
@@ -1780,26 +1777,19 @@ msgstr "Kumoa"
 msgid "Redo"
 msgstr "Tee uudestaan"
 
-msgid "Save changes"
-msgstr "Tallenna muutokset"
-
-msgid "Toggle sidebar"
-msgstr "Sivupalkki päälle/pois"
-
-msgid "Text content"
-msgstr "Tekstisisältö"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Tekstin muotoilu"
 
 msgid "Insert or edit a link"
 msgstr "Lisää linkki tai muokkaa sitä"
 
-msgid "Text formatting"
-msgstr "Tekstin muotoilu"
+msgid "Bold"
+msgstr "Lihavointi"
 
 msgid "Italic"
 msgstr "Kursiivi"
-
-msgid "Underline"
-msgstr "Alleviivaus"
 
 msgid "Monospace (code)"
 msgstr "Tasalevyinen (koodi)"
@@ -1821,6 +1811,10 @@ msgstr[1] "Viitattu %(count)s kertaa"
 
 msgid "Comments"
 msgstr "Kommentit"
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' on siirretty."
 
 #, python-format
 msgid ""
@@ -1968,6 +1962,9 @@ msgstr "%(model_name)s '%(object)s' poistettu."
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Haluatko varmasti poistaa tämän %(model_name)s?"
 
+msgid "Compare"
+msgstr "Vertaa"
+
 msgid "Earliest"
 msgstr "Aikaisin"
 
@@ -2050,9 +2047,6 @@ msgstr "Sivu '%(page_title)s' luotu ja julkaistu."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Sivu '%(page_title)s' luotu ja lähetetty tarkastettavaksi."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Sivu '%(page_title)s' poistettu."
@@ -2100,12 +2094,6 @@ msgstr "Sivu '%(page_title)s' on lähetetty tarkastettavaksi."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Työnkulku sivulla '%(page_title)s' on käynnistetty uudelleen."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Sivua ei voitu tallentaa validointivirheiden vuoksi"
-
 msgid "Owner"
 msgstr "Omistaja"
 
@@ -2119,20 +2107,8 @@ msgid "Page type"
 msgstr "Sivutyyppi"
 
 #, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s' on siirretty."
-
-#, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sivu '%(page_title)s' ei ole enää lukittu."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Lyhytnimi '%(page_slug)s' on jo käytössä tällä isäntäsivulla. Valitse "
-"lyhytnimi, joka ei ole käytössä"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2290,9 +2266,6 @@ msgstr "Numeroitu luettelo"
 
 msgid "Blockquote"
 msgstr "Lainaus"
-
-msgid "Bold"
-msgstr "Lihavointi"
 
 msgid "Link"
 msgstr "Linkki"

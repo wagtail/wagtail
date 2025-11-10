@@ -91,6 +91,19 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
         self.assertNotContains(response, reverse("blockcounts_streammodel:index"))
 
 
+class TestAdminURLs(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def test_cannot_reverse_mismatched_converter_value(self):
+        with self.assertRaises(NoReverseMatch):
+            reverse("streammodel:edit", kwargs={"pk": "123abc"})
+
+    def test_404_on_mismatched_converter_value(self):
+        response = self.client.get("/admin/streammodel/edit/123abc/")
+        self.assertEqual(response.status_code, 404)
+
+
 class TestTemplateConfiguration(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
@@ -1828,3 +1841,325 @@ class TestHeaderButtons(WagtailTestUtils, TestCase):
             [(a.text.strip(), a.get("href")) for a in header_buttons],
             expected_buttons,
         )
+
+
+class TestIndexViewReordering(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.obj1 = FeatureCompleteToy.objects.create(name="Toy 1", sort_order=0)
+        self.obj2 = FeatureCompleteToy.objects.create(name="Toy 2", sort_order=1)
+        self.obj3 = FeatureCompleteToy.objects.create(name="Toy 3", sort_order=2)
+
+    def test_header_button_rendered(self):
+        index_url = reverse("feature_complete_toy:index")
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(index_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href='{custom_ordering_url}']"
+        )
+        self.assertIsNotNone(button)
+        self.assertEqual(button.text.strip(), "Sort item order")
+
+        # Reordering feature disabled when not sorting by sort_order
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "Name")
+
+    def test_show_ordering_column(self):
+        index_url = reverse("feature_complete_toy:index")
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # The table should have the w-orderable controller
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertEqual(table.get("data-controller"), "w-orderable")
+        self.assertEqual(
+            table.get("data-w-orderable-message-value"),
+            "'__LABEL__' has been moved successfully.",
+        )
+        self.assertEqual(
+            table.get("data-w-orderable-url-value"),
+            reverse("feature_complete_toy:reorder", args=[999999]),
+        )
+
+        # The ordering column added as the first column
+        first_th = table.select_one("thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "Sort")
+
+        # All rows have the corresponding attributes for reordering
+        rows = table.select("tbody tr")
+        self.assertEqual(len(rows), 3)
+        expected = [
+            {
+                "id": f"item_{quote(toy.pk)}",
+                "data-w-orderable-item-id": quote(toy.pk),
+                "data-w-orderable-item-label": str(toy),
+                "data-w-orderable-target": "item",
+            }
+            for toy in [self.obj1, self.obj2, self.obj3]
+        ]
+        for row, expected_attrs in zip(rows, expected):
+            for attr, value in expected_attrs.items():
+                self.assertEqual(row.get(attr), value)
+            handle = row.select_one("td button[data-w-orderable-target='handle']")
+            self.assertIsNotNone(handle)
+
+    def test_reordering_disabled_with_explicit_sort_order_field_none(self):
+        # The model has a sort_order_field, but the viewset explicitly sets
+        # sort_order_field = None
+        index_url = reverse("fctoy-alt2:index")
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Header button for enabling reordering should not be rendered
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href='{custom_ordering_url}']"
+        )
+        self.assertIsNone(button)
+
+        # Reordering feature not enabled
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "Feature complete toy")
+
+    def test_reordering_disabled_with_no_sort_order_field(self):
+        # This model has no sort_order_field defined on the model nor the viewset
+        JSONStreamModel.objects.create()
+        index_url = reverse("streammodel:index")
+        custom_ordering_url = index_url + "?ordering="
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Header button for enabling reordering should not be rendered
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href^='{custom_ordering_url}']"
+        )
+        self.assertIsNone(button)
+
+        # Reordering feature not enabled
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "JSON stream model")
+
+    def test_reordering_disabled_with_insufficient_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        view_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("view", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        index_url = reverse("feature_complete_toy:index")
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Header button for enabling reordering should not be rendered
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href='{custom_ordering_url}']"
+        )
+        self.assertIsNone(button)
+
+        # Reordering feature not enabled
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "Name")
+
+    def test_minimal_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        change_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("change", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, change_permission)
+
+        self.test_header_button_rendered()
+        self.test_show_ordering_column()
+
+
+class TestCreateViewReordering(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        FeatureCompleteToy.objects.bulk_create(
+            [
+                FeatureCompleteToy(name="Toy 1", sort_order=0),
+                FeatureCompleteToy(name="Toy 2", sort_order=1),
+                FeatureCompleteToy(name="Toy 3", sort_order=2),
+            ]
+        )
+
+    def test_create_sets_max_sort_order(self):
+        response = self.client.post(
+            reverse("feature_complete_toy:add"),
+            data={"name": "New Toy", "release_date": "2025-08-17"},
+        )
+        self.assertRedirects(response, reverse("feature_complete_toy:index"))
+        new_toy = FeatureCompleteToy.objects.get(name="New Toy")
+        self.assertEqual(new_toy.sort_order, 3)
+
+    def test_create_does_not_set_max_sort_order_without_sort_order_field(self):
+        response = self.client.post(
+            reverse("fctoy-alt2:add"),
+            data={"name": "New Toy", "release_date": "2025-08-17", "strid": "foo"},
+        )
+        self.assertRedirects(response, reverse("fctoy-alt2:index"))
+        new_toy = FeatureCompleteToy.objects.get(name="New Toy")
+        self.assertIsNone(new_toy.sort_order)
+
+
+class TestReorderView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        # We don't do any normalization, so the sort_order values may not be
+        # consecutive integers (e.g. after an item is deleted), and the update
+        # logic may cause the sort_order values to be negative or larger than
+        # the number of items in the queryset.
+        self.obj1 = FeatureCompleteToy.objects.create(name="Toy 1", sort_order=-3)
+        self.obj2 = FeatureCompleteToy.objects.create(name="Toy 2", sort_order=4)
+        self.obj3 = FeatureCompleteToy.objects.create(name="Toy 3", sort_order=9)
+
+    def get_url(self, obj):
+        return reverse("feature_complete_toy:reorder", args=(quote(obj.pk),))
+
+    def assertOrder(self, objs):
+        self.assertSequenceEqual(
+            [
+                (obj, obj.sort_order)
+                for obj in FeatureCompleteToy.objects.order_by("sort_order")
+            ],
+            objs,
+        )
+
+    def test_reorder_view_disabled_without_sort_order_field(self):
+        # The alt2 viewset explicitly sets sort_order_field to `None`,
+        # so the reorder view should not be available
+        with self.assertRaises(NoReverseMatch):
+            reverse("fctoy-alt2:reorder", args=(quote(self.obj1.pk),))
+
+        # This model has no sort_order_field on the model nor the viewset
+        obj = JSONStreamModel.objects.create()
+        with self.assertRaises(NoReverseMatch):
+            reverse("streammodel:reorder", args=(quote(obj.pk),))
+
+    def test_get_request_does_not_alter_order(self):
+        response = self.client.get(self.get_url(self.obj1))
+        self.assertEqual(response.status_code, 405)
+
+        # Ensure item order does not change
+        self.assertOrder([(self.obj1, -3), (self.obj2, 4), (self.obj3, 9)])
+
+    def test_post_request_without_position_argument_moves_to_the_end(self):
+        response = self.client.post(self.get_url(self.obj1))
+        self.assertEqual(response.status_code, 200)
+
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 3), (self.obj3, 8), (self.obj1, 9)])
+
+    def test_post_request_with_non_integer_position_moves_to_the_end(self):
+        response = self.client.post(self.get_url(self.obj1) + "?position=good")
+        self.assertEqual(response.status_code, 200)
+
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 3), (self.obj3, 8), (self.obj1, 9)])
+
+    def test_move_position_up(self):
+        # Move obj3 to the first position
+        response = self.client.post(self.get_url(self.obj3) + "?position=0")
+        self.assertEqual(response.status_code, 200)
+
+        # Check if obj3 is now the first item by taking obj1's sort_order and
+        # incrementing sort_order of the other items after it by 1
+        self.assertOrder([(self.obj3, -3), (self.obj1, -2), (self.obj2, 5)])
+
+    def test_move_position_down(self):
+        # Move obj1 to the second position
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 200)
+
+        # Check if obj1 is now the second item by taking obj2's sort_order
+        # and decrementing sort_order of the other items before it by 1
+        self.assertOrder([(self.obj2, 3), (self.obj1, 4), (self.obj3, 9)])
+
+    def test_move_position_to_same_position(self):
+        # Move obj1 to position 0 (where it already is)
+        response = self.client.post(self.get_url(self.obj1) + "?position=0")
+        self.assertEqual(response.status_code, 200)
+
+        # Ensure item order does not change
+        self.assertOrder([(self.obj1, -3), (self.obj2, 4), (self.obj3, 9)])
+
+    def test_move_position_with_invalid_target_position(self):
+        response = self.client.post(self.get_url(self.obj1) + "?position=99")
+        self.assertEqual(response.status_code, 200)
+
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 3), (self.obj3, 8), (self.obj1, 9)])
+
+    def test_insufficient_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        view_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("view", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertOrder([(self.obj1, -3), (self.obj2, 4), (self.obj3, 9)])
+
+    def test_minimal_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        change_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("change", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, change_permission)
+
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 200)
+
+        # Check if obj1 is now the second item by taking obj2's sort_order
+        # and decrementing sort_order of the other items before it by 1
+        self.assertOrder([(self.obj2, 3), (self.obj1, 4), (self.obj3, 9)])

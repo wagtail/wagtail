@@ -1,6 +1,7 @@
 import os
 
 from django.contrib.messages import constants as message_constants
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.test.numberformat import patch_number_formats
@@ -151,7 +152,6 @@ INSTALLED_APPS = [
     "wagtail.test.demosite",
     "wagtail.test.snippets",
     "wagtail.test.routablepage",
-    "wagtail.test.search",
     "wagtail.test.i18n",
     "wagtail.test.streamfield_migrations",
     "wagtail.contrib.simple_translation",
@@ -229,25 +229,48 @@ else:
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
     INSTALLED_APPS.append("django.contrib.postgres")
-    WAGTAILSEARCH_BACKENDS["postgresql"] = {
-        "BACKEND": "wagtail.search.backends.database",
-        "AUTO_UPDATE": False,
-        "SEARCH_CONFIG": "english",
-    }
+
+# Tests in wagtail.tests.test_page_search.PageSearchTests will be run against each backend defined
+# in WAGTAILSEARCH_BACKENDS. Define an additional one to test the FTS-enabled backend for the
+# currently active database.
+
+WAGTAILSEARCH_BACKENDS["database"] = {
+    "BACKEND": "wagtail.search.backends.database",
+    "AUTO_UPDATE": False,
+    "SEARCH_CONFIG": "english",
+}
 
 if "ELASTICSEARCH_URL" in os.environ:
-    if os.environ.get("ELASTICSEARCH_VERSION") == "8":
-        backend = "wagtail.search.backends.elasticsearch8"
-    elif os.environ.get("ELASTICSEARCH_VERSION") == "7":
-        backend = "wagtail.search.backends.elasticsearch7"
+    # Define an 'elasticsearch' backend; along with wagtail.tests.test_page_search.PageSearchTests
+    # this is also used for the Elasticsearch-specific tests in wagtail.images.tests.test_models and
+    # wagtail.documents.tests.test_search. We also want to run these tests under Opensearch; for
+    # simplicity we use the backend name 'elasticsearch' in this case too.
+    if elasticsearch_version := os.environ.get("ELASTICSEARCH_VERSION"):
+        backend = f"wagtail.search.backends.elasticsearch{elasticsearch_version}"
+    elif opensearch_version := os.environ.get("OPENSEARCH_VERSION"):
+        backend = f"wagtail.search.backends.opensearch{opensearch_version}"
+    else:
+        raise ImproperlyConfigured(
+            "If ELASTICSEARCH_URL is defined, either ELASTICSEARCH_VERSION or OPENSEARCH_VERSION must be defined too"
+        )
 
-    WAGTAILSEARCH_BACKENDS["elasticsearch"] = {
+    elasticsearch_opts = {
         "BACKEND": backend,
         "URLS": [os.environ["ELASTICSEARCH_URL"]],
         "TIMEOUT": 10,
         "max_retries": 1,
         "AUTO_UPDATE": False,
         "INDEX_SETTINGS": {"settings": {"index": {"number_of_shards": 1}}},
+        "OPTIONS": {
+            "ca_certs": os.environ.get("ELASTICSEARCH_CA_CERTS"),
+        },
+    }
+    WAGTAILSEARCH_BACKENDS["elasticsearch"] = elasticsearch_opts
+
+    # RemovedInWagtail80Warning
+    WAGTAILSEARCH_BACKENDS["elasticsearch_with_index_option"] = {
+        **elasticsearch_opts,
+        "INDEX": "wagtailtest",  # Deprecated option
     }
 
 

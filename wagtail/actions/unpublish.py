@@ -38,7 +38,7 @@ class UnpublishAction:
             and not self.object.permissions_for_user(self.user).can_unpublish()
         ):
             raise UnpublishPermissionError(
-                "You do not have permission to unpublish this object"
+                "You do not have permission to unpublish this object."
             )
 
     def _commit_unpublish(self, object):

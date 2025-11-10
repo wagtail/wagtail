@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -432,6 +432,12 @@ msgstr[0] "%(num_parent_objects)dimagem foi apagada"
 msgstr[1] "%(num_parent_objects)dimagens foram apagadas"
 msgstr[2] "%(num_parent_objects)dimagens foram apagadas"
 
+msgid "Title"
+msgstr "Título"
+
+msgid "Created"
+msgstr "Criada"
+
 msgid "Choose an image"
 msgstr "Escolher uma imagem"
 
@@ -443,12 +449,6 @@ msgstr "Alterar esta imagem"
 
 msgid "Images"
 msgstr "Imagens"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "Created"
-msgstr "Criada"
 
 msgid "The image could not be saved due to errors."
 msgstr "A imagem não pôde ser guardada devido a erros."

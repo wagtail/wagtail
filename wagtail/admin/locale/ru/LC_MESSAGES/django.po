@@ -32,6 +32,7 @@
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
+# Twixxik, 2025
 # Vassily <zuber.kg@gmail.com>, 2019
 # Влад <integration.into.society@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
@@ -48,9 +49,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2015,2020,2025\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -94,14 +95,16 @@ msgstr "Страница заблокирована"
 msgid "%(label)s and Publish"
 msgstr "%(label)s и Опубликовать"
 
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "любое"
+
 msgid "Wagtail admin"
 msgstr "Wagtail админ"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Извините, но у вас нет доступа в эту область."
-
-msgid "You do not have permission to access the admin"
-msgstr "У вас нет прав для доступа в админ-панель"
 
 msgid "None"
 msgstr "Ничего"
@@ -189,9 +192,6 @@ msgstr ""
 "Выберите положение в иерархии. Примечание: коллекция не может стать дочерним "
 "элементом самой себя или одного из своих потомков."
 
-msgid "Please select another parent"
-msgstr "Пожалуйста выберите другого родителя"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Вы не можете иметь несколько записей с правами доступа к одной и той же "
@@ -221,9 +221,6 @@ msgstr "Вы не можете редактировать комментарии
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Дата/время публикации должно быть раньше даты/времени снятия с публикации."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Дата/время снятия с публикации должно быть в будущем."
 
 msgid "New title"
 msgstr "Новый заголовок"
@@ -301,10 +298,6 @@ msgstr ""
 "Вы не можете скопировать страницу саму в себя, когда выбрана опция "
 "\"Копировать подстраницы\""
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Слаг '%(page_slug)s' уже используется на родительской странице"
-
 msgid "Select a new parent for this page."
 msgstr "Выбрать нового родителя для этой страницы"
 
@@ -327,10 +320,6 @@ msgstr ""
 
 msgid "Search…"
 msgstr "Поиск..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Длина тега(ов) %(value_too_long)s превышает %(max_tag_length)dсимволов"
 
 msgid "Visibility"
 msgstr "Видимость"
@@ -453,6 +442,12 @@ msgstr "Все элементы в списке выбраны"
 
 msgid "Can access Wagtail admin"
 msgstr "Доступ к панели управления Wagtail"
+
+msgid "item"
+msgstr "элемент"
+
+msgid "items"
+msgstr "элементы"
 
 msgid "Content"
 msgstr "Содержимое"
@@ -672,9 +667,6 @@ msgstr "Коллекция приватна в соответствии с ро�
 msgid "You can edit the privacy settings on:"
 msgstr "Вы можете редактировать настройки приватности на:"
 
-msgid "Save"
-msgstr "Сохранить"
-
 msgid "Change privacy"
 msgstr "Изменить приватность"
 
@@ -766,6 +758,8 @@ msgstr "Вы все еще хотите опубликовать %(model_name)s?
 msgid "Cancel"
 msgstr "Отмена"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Действия"
 
@@ -1232,8 +1226,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "Изменение конфиденциальности для этой страницы было отключено."
 
+msgid "Scheduling…"
+msgstr "Планирование…"
+
 msgid "Publishing…"
 msgstr "Публикуется..."
+
+msgid "Schedule to publish"
+msgstr "Запланировать публикацию"
 
 msgid "Publish this version"
 msgstr "Опубликовать эту версию"
@@ -1800,22 +1800,6 @@ msgstr "Обзор дочерних для '%(title)s' страниц"
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавить дочернюю страницу к '%(title)s'"
 
-msgid "Drag"
-msgstr "Перетянуть"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "%(index)s из %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Отключить упорядочение дочерних страниц"
-
-msgid "Sort"
-msgstr "Порядок"
-
-msgid "Enable ordering of child pages"
-msgstr "Включить упорядочение дочерних страниц"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)s из %(items_count)s по всему сайту."
@@ -1899,6 +1883,9 @@ msgstr "Двигать наверх"
 msgid "Move down"
 msgstr "Двигать вниз"
 
+msgid "Drag"
+msgstr "Перетянуть"
+
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
 msgstr "Выберите, когда этот %(model_name)s начнёт действовать и/или истечёт"
@@ -1906,6 +1893,13 @@ msgstr "Выберите, когда этот %(model_name)s начнёт дей
 msgid "Choose when this page should go live and/or expire"
 msgstr ""
 "Выберите, когда эта страница должна стать активной и/или снятой с публикации"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Schedule to publish\" option"
+msgstr ""
+"Этот график публикации вступит в силу только после того, как вы выберете "
+"«Запланировать публикацию»"
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Любой, у кого есть права на редактирование, может создавать расписания"
@@ -2029,6 +2023,17 @@ msgstr "Переключить хлебные крошки"
 
 msgid "Breadcrumb"
 msgstr "Путь по сайту"
+
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] ""
+"Это действие удалит всего <b>%(total_pages_formatted)s</b> страницу."
+msgstr[1] ""
+"Это действие удалит всего <b>%(total_pages_formatted)s</b> страницы."
+msgstr[2] "Это действие удалит всего <b>%(total_pages_formatted)s</b> страниц."
+msgstr[3] "Это действие удалит всего <b>%(total_pages_formatted)s</b> страниц."
 
 #, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
@@ -2172,6 +2177,9 @@ msgstr "Нет, не отменять публикацию по расписан
 msgid "Other searches"
 msgstr "Другие поиски"
 
+msgid "Save"
+msgstr "Сохранить"
+
 msgid "Minimap"
 msgstr "Миникарта"
 
@@ -2288,6 +2296,9 @@ msgstr "Неверное расписание"
 
 msgid "Go-live:"
 msgstr "Запустить:"
+
+msgid "Once scheduled:"
+msgstr "Запланировано:"
 
 msgid "No publishing schedule set"
 msgstr "График публикации не установлен"
@@ -2414,6 +2425,13 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Пропустить главный контент"
+
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "%(index)s из %(total)s"
+
+msgid "Sort"
+msgstr "Порядок"
 
 msgid "View Wagtail quick actions"
 msgstr "Просмотр быстрых действий"
@@ -2574,6 +2592,15 @@ msgstr ""
 msgid "You haven't created any tasks."
 msgstr "Вы еще не создали ни одной задачи."
 
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
+msgstr ""
+"Почему бы не <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">создать один сейчас</a>?"
+
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2658,8 +2685,17 @@ msgstr "Отправлено в %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr " Распространенные действия"
+msgid "Toggle sidebar"
+msgstr "Переключить боковую панель"
+
+msgid "Toggle minimap"
+msgstr "Переключить мини-карту"
+
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+msgid "Add or show comments"
+msgstr "Добавить или показать комментарии"
 
 msgid "Cut"
 msgstr "Вырезать"
@@ -2679,26 +2715,19 @@ msgstr "Отмена изменения"
 msgid "Redo"
 msgstr "Повтор изменения"
 
-msgid "Save changes"
-msgstr "Сохранить изменения"
-
-msgid "Toggle sidebar"
-msgstr "Переключить боковую панель"
-
-msgid "Text content"
-msgstr "Содержание текста"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Форматирование текста"
 
 msgid "Insert or edit a link"
 msgstr "Вставка или изменение ссылки"
 
-msgid "Text formatting"
-msgstr "Форматирование текста"
+msgid "Bold"
+msgstr "Жирный"
 
 msgid "Italic"
 msgstr "Наклонный"
-
-msgid "Underline"
-msgstr "Подчеркивание"
 
 msgid "Monospace (code)"
 msgstr "Моноширинный шрифт (код)"
@@ -2745,6 +2774,17 @@ msgstr "Сортировка по %(label)s в порядке возрастан
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Сортировка по '%(label)s' в порядке убывания."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' был успешно перемещен."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Наведите курсор на кнопку перетаскивания и нажмите стрелки вверх или вниз, "
+"чтобы переместить элемент, затем нажмите Enter, чтобы применить изменение."
 
 #, python-format
 msgid ""
@@ -3202,9 +3242,6 @@ msgstr "Страница '%(page_title)s' создана и опубликова
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Страница '%(page_title)s' создана и отправлена на модерацию."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Эта страница не может быть создана из-за ошибок при проверке"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Страница '%(page_title)s' удалена."
@@ -3265,12 +3302,6 @@ msgstr "Страница '%(page_title)s' была отправлена на м�
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Рабочий процесс на странице '%(page_title)s' перезапущен."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Страница не может быть сохранена, так как она заблокирована"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Страница не может быть сохранена из-за ошибок при проверке"
-
 msgid "Is commenting action"
 msgstr "Является комментарием "
 
@@ -3301,32 +3332,16 @@ msgstr "Тип страницы"
 msgid "Exploring"
 msgstr "Исследование"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Наведите курсор на кнопку перетаскивания и нажмите стрелки вверх или вниз, "
-"чтобы переместить элемент, затем нажмите Enter, чтобы применить изменение."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s' был успешно перемещен."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Страница '%(page_title)s' разблокирована."
 
 #, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Слаг '%(page_slug)s' уже используется в выбранной родительской странице. "
-"Убедитесь что слаг уникален и попробуйте заново"
-
-#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Страница '%(page_title)s' перемещена."
+
+msgid "Placeholder title"
+msgstr "Заголовок"
 
 #, python-format
 msgid ""
@@ -3568,9 +3583,6 @@ msgstr "Нумерованный список"
 
 msgid "Blockquote"
 msgstr "Цитата"
-
-msgid "Bold"
-msgstr "Жирный"
 
 msgid "Link"
 msgstr "Ссылка"
