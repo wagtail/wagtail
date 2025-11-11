@@ -35,3 +35,11 @@ class TestCustomListing(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, "Event pages")
         self.assertNotContains(response, "Christmas")
         self.assertContains(response, "Saint Patrick")
+
+        # Should render bulk action buttons
+        soup = self.get_soup(response.content)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
