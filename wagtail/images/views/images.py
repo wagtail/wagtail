@@ -80,7 +80,13 @@ class IndexView(generic.IndexView):
         return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 
     def get_valid_orderings(self):
-        return self.ORDERING_OPTIONS
+        orderings = self.ORDERING_OPTIONS.copy()
+        if self.is_searching:
+            # Ordering by usage count not currently available when searching,
+            # due to https://github.com/wagtail/django-modelsearch/issues/51
+            orderings.pop("usage_count", None)
+            orderings.pop("-usage_count", None)
+        return orderings.keys()
 
     def get_base_queryset(self):
         # Get images (filtered by user permission)
@@ -172,7 +178,9 @@ class IndexView(generic.IndexView):
                 UsageCountColumn(
                     "usage_count",
                     label=_("Usage"),
-                    sort_key="usage_count",
+                    # Ordering by usage count not currently available when searching,
+                    # due to https://github.com/wagtail/django-modelsearch/issues/51
+                    sort_key="usage_count" if not self.is_searching else None,
                     width="16%",
                 ),
             ]
