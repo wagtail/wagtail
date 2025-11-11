@@ -27,6 +27,7 @@ from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets.button import Button, ButtonWithDropdown, ListingButton
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
@@ -509,6 +510,20 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             """,
             html=True,
         )
+
+    def test_bulk_action_rendered(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # Should render bulk actions markup
+        bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
+        soup = self.get_soup(response.content)
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
