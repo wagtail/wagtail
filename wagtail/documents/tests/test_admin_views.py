@@ -495,6 +495,31 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
                 self.assertIn("ordering", response.context)
                 self.assertEqual(response.context["ordering"], ordering)
 
+    def test_order_by_usage_count_disabled_when_searching(self):
+        # Ordering by usage count not currently available when searching,
+        # due to https://github.com/wagtail/django-modelsearch/issues/51
+        doc1 = models.Document.objects.create(title="Used twice document")
+        doc2 = models.Document.objects.create(title="Used once document")
+        VariousOnDeleteModel.objects.create(protected_document=doc1)
+        VariousOnDeleteModel.objects.create(protected_document=doc1)
+        VariousOnDeleteModel.objects.create(protected_document=doc2)
+
+        response = self.client.get(
+            reverse("wagtaildocs:index"),
+            {"q": "used", "ordering": "-usage_count"},
+        )
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        # Will fall back to default ordering (by title)
+        self.assertSequenceEqual(context["page_obj"].object_list, [doc2, doc1])
+
+        soup = self.get_soup(response.content)
+        ths = soup.select("main table th")
+        self.assertTrue(ths)
+        usage_count_th = ths[-1]
+        self.assertEqual(usage_count_th.text.strip(), "Usage")
+        self.assertIsNone(usage_count_th.select_one("a"))
+
 
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):

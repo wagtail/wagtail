@@ -836,6 +836,32 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
             "Expected a ul element with class 'listing horiz images' in grid layout when searching for images.",
         )
 
+    def test_order_by_usage_count_disabled_when_searching(self):
+        # Ordering by usage count not currently available when searching,
+        # due to https://github.com/wagtail/django-modelsearch/issues/51
+        VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+        VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+        VariousOnDeleteModel.objects.create(protected_image=self.puppy_image)
+
+        response = self.client.get(
+            reverse("wagtailimages:index"),
+            {"q": "cute", "ordering": "-usage_count", "layout": "list"},
+        )
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        # Will fall back to default ordering (by -created_at)
+        self.assertSequenceEqual(
+            context["page_obj"].object_list,
+            [self.puppy_image, self.kitten_image],
+        )
+
+        soup = self.get_soup(response.content)
+        ths = soup.select("main table th")
+        self.assertTrue(ths)
+        usage_count_th = ths[-1]
+        self.assertEqual(usage_count_th.text.strip(), "Usage")
+        self.assertIsNone(usage_count_th.select_one("a"))
+
 
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
