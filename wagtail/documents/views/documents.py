@@ -118,7 +118,9 @@ class IndexView(generic.IndexView):
                 "usage_count",
                 label=_("Usage"),
                 width="16%",
-                sort_key="usage_count",
+                # Ordering by usage count not currently available when searching,
+                # due to https://github.com/wagtail/django-modelsearch/issues/51
+                sort_key="usage_count" if not self.is_searching else None,
             ),
         ]
         if self.filters and "collection_id" in self.filters.filters:
