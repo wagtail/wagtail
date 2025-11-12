@@ -1,32 +1,12 @@
-from django import forms
-
+from django.forms.formsets import BaseFormSet
 
 class BaseFormSetMixin:
-    """
-    A mixin for formsets that adds the necessary attributes for the w-formset controller.
-    So that JavaScript behavior can be added to the formset for dynamic addition and deletion of child forms.
-    See client/src/controllers/FormsetController.ts
-    """
+    def should_delete(self, form):
+        return hasattr(form, "cleaned_data") and form.cleaned_data.get("DELETE")
 
-    deletion_widget = forms.HiddenInput(attrs={"data-w-formset-target": "deleteInput"})
+    def should_ignore(self, form):
+        return hasattr(form, "cleaned_data") and not form.has_changed()
 
-    @property
-    def attrs(self):
-        return {
-            "data-controller": "w-formset",
-            "data-w-formset-deleted-class": "w-transition-opacity w-duration-300 w-ease-out w-opacity-0",
-        }
+class BaseFormSetWithFormTracking(BaseFormSet, BaseFormSetMixin):
+    pass
 
-    @property
-    def management_form(self):
-        form = super().management_form
-
-        for field in form:
-            if field.name.endswith(forms.formsets.TOTAL_FORM_COUNT):
-                field.field.widget.attrs["data-w-formset-target"] = "totalFormsInput"
-            if field.name.endswith(forms.formsets.MIN_NUM_FORM_COUNT):
-                field.field.widget.attrs["data-w-formset-target"] = "minFormsInput"
-            if field.name.endswith(forms.formsets.MAX_NUM_FORM_COUNT):
-                field.field.widget.attrs["data-w-formset-target"] = "maxFormsInput"
-
-        return form
