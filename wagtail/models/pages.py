@@ -1904,6 +1904,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             "wagtailcore/password_required.html",
         )
 
+        # Ensuring preview attributes exist
+        if not hasattr(request, "is_preview"):
+            request.is_preview = False
+        if not hasattr(request, "preview_mode"):
+            request.preview_mode = None
+
         context = self.get_context(request)
         context["form"] = form
         context["action_url"] = action_url
