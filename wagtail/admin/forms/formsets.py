@@ -2,11 +2,7 @@ from django import forms
 
 
 class BaseFormSetMixin:
-    """
-    A mixin for formsets that adds the necessary attributes for the w-formset controller.
-    So that JavaScript behavior can be added to the formset for dynamic addition and deletion of child forms.
-    See client/src/controllers/FormsetController.ts
-    """
+ 
 
     deletion_widget = forms.HiddenInput(attrs={"data-w-formset-target": "deleteInput"})
 
