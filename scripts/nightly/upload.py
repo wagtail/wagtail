@@ -1,6 +1,7 @@
 import json
 import pathlib
 import sys
+import uuid
 
 import boto3
 
@@ -28,4 +29,17 @@ boto3.resource("s3").Object("releases.wagtail.io", "nightly/latest.json").put(
             "url": "https://releases.wagtail.org/nightly/dist/" + f.name,
         }
     ),
+)
+
+print("Purging cache")  # noqa: T201
+
+boto3.client("cloudfront").create_invalidation(
+    DistributionId="E283SZ5CB4MDM0",
+    InvalidationBatch={
+        "Paths": {
+            "Quantity": 1,
+            "Items": ["/nightly/latest.json"],
+        },
+        "CallerReference": str(uuid.uuid4()),
+    },
 )
