@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -401,14 +401,6 @@ msgstr "Для поисковых систем"
 
 msgid "For site menus"
 msgstr "Для меню сайта"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"Слаг '%(page_slug)s' уже используется на родительской странице по адресу "
-"'%(parent_url_path)s'"
 
 msgid "page"
 msgstr "страница"

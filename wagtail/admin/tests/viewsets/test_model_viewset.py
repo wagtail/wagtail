@@ -91,6 +91,19 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
         self.assertNotContains(response, reverse("blockcounts_streammodel:index"))
 
 
+class TestAdminURLs(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def test_cannot_reverse_mismatched_converter_value(self):
+        with self.assertRaises(NoReverseMatch):
+            reverse("streammodel:edit", kwargs={"pk": "123abc"})
+
+    def test_404_on_mismatched_converter_value(self):
+        response = self.client.get("/admin/streammodel/edit/123abc/")
+        self.assertEqual(response.status_code, 404)
+
+
 class TestTemplateConfiguration(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()

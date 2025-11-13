@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Dan Braghis, 2016,2019-2020,2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -181,15 +181,9 @@ msgstr "Rezultat de căutare promovat"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Selecțiile editoriale pentru '%(query)s' au fost create."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Recomandările nu au fost create din cauza erorilor."
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Selecțiile editoriale pentru '%(query)s' au fost actualizate."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Recomandările nu au fost salvate din cauza erorilor."
 
 msgid "Editor's picks deleted."
 msgstr "Selecțiile editoriale au fost șterse"

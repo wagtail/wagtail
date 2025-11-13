@@ -6,14 +6,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2023-2024
+# Roger Pons <rogerpons@gmail.com>, 2017,2023-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: David Llop, 2014\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2023-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -209,17 +209,16 @@ msgid "Search redirects"
 msgstr "Cercar redireccions"
 
 #, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "No s'admet el tipus de format de fitxer \"%(extension)s\""
+msgid "File format of type \"%(extension)s\" is not supported."
+msgstr "El tipus de format de fitxer \"%(extension)s\" no està admès."
 
 #, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "El fitxer importat té una codificació incorrecta: %(error_message)s"
+msgid "Imported file has a wrong encoding: %(error_message)s."
+msgstr "El fitxer importat té una codificació errònia: %(error_message)s."
 
 #, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr ""
-"S'ha trobat %(error)s mentre s'intentava llegir el fitxer: %(filename)s"
+msgid "%(error)s encountered while trying to read file: %(filename)s."
+msgstr "%(error)s trobat durant la lectura del fitxer: %(filename)s."
 
 #, python-format
 msgid "Imported %(total)d redirect"

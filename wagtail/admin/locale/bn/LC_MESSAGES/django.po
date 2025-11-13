@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MA Rahman <ugikot@gmail.com>, 2020\n"
 "Language-Team: Bengali (http://app.transifex.com/torchbox/wagtail/language/"
@@ -55,9 +55,6 @@ msgstr "Wagtail অ্যাডমিন"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "দুঃখিত, আপনার এই এলাকায় প্রবেশ করার অনুমতি নেই।"
-
-msgid "You do not have permission to access the admin"
-msgstr "অ্যাডমিন অ্যাক্সেস করার অনুমতি আপনার নেই"
 
 msgid "None"
 msgstr "কোনটিই নয়"
@@ -114,9 +111,6 @@ msgstr ""
 "অনুক্রমিক অবস্থান নির্বাচন করুন। দ্রষ্টব্য: একটি সংগ্রহ নিজের বা তার বংশধরদের মধ্যে "
 "একটি হতে পারে না।"
 
-msgid "Please select another parent"
-msgstr "অন্য জনক নির্বাচন করুন"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "আপনার একই সংগ্রহের জন্য একাধিক অনুমতি রেকর্ড থাকতে পারে না।"
 
@@ -143,9 +137,6 @@ msgstr "আপনি অন্য ব্যবহারকারীর মন্
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "লাইভ তারিখ/সময় মেয়াদ শেষ হওয়ার তারিখ/সময়ের আগে হতে হবে"
-
-msgid "Expiry date/time must be in the future"
-msgstr "মেয়াদ শেষ হওয়ার তারিখ/সময় ভবিষ্যতে হতে হবে"
 
 msgid "New title"
 msgstr "নতুন শিরোনাম"
@@ -189,9 +180,6 @@ msgstr "প্রচার করুন"
 msgid "Settings"
 msgstr "সেটিংস "
 
-msgid "Save"
-msgstr "সংরক্ষণ"
-
 msgid "Privacy"
 msgstr "গোপনীয়তা"
 
@@ -200,6 +188,9 @@ msgstr "আনলক"
 
 msgid "Saving…"
 msgstr "সংরক্ষিত হচ্ছে..."
+
+msgid "Save"
+msgstr "সংরক্ষণ"
 
 msgid "Lock"
 msgstr "লক করুন "

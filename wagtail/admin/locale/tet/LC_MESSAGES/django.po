@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -47,9 +47,6 @@ msgstr "Administrasaun Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Deskulpa, ita boot laiha permisaun atu assesu ba area ida nee."
-
-msgid "You do not have permission to access the admin"
-msgstr "It boot laiha permisaun atu assesu ba administrasaun"
 
 msgid "None"
 msgstr "Mamuk"
@@ -125,9 +122,6 @@ msgstr "Hamoos"
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Ita tenki hatama tempu no loron publika molok tempu no loron expirasuan "
-
-msgid "Expiry date/time must be in the future"
-msgstr "Ita boot tenki hatama tempu no loron expirasuan iha futuru"
 
 msgid "New title"
 msgstr "Titlu foun"
@@ -317,9 +311,6 @@ msgstr "Koleksaun nee halo privadu ona husi koleksaun inan-aman"
 msgid "You can edit the privacy settings on:"
 msgstr "Ita boot bele troka konfigurasaun privado iha:"
 
-msgid "Save"
-msgstr "Rai"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -365,6 +356,8 @@ msgstr "Sin, subar"
 msgid "No, don't unpublish"
 msgstr "Lae, la subar"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Asaun sira"
 
@@ -551,18 +544,6 @@ msgstr "Esplora pajina iha '%(title)s' nia okos"
 msgid "Add a child page to '%(title)s'"
 msgstr "Aumenta pajina iha '%(title)s' okos"
 
-msgid "Drag"
-msgstr "Rasta"
-
-msgid "Disable ordering of child pages"
-msgstr "Xavi orden pajina"
-
-msgid "Sort"
-msgstr "Orden"
-
-msgid "Enable ordering of child pages"
-msgstr "Loke pajina orden"
-
 msgid "Sites menu"
 msgstr "Munu situs"
 
@@ -596,6 +577,9 @@ msgstr "Muda ba leten"
 
 msgid "Move down"
 msgstr "Muda ba kraik"
+
+msgid "Drag"
+msgstr "Rasta"
 
 msgid "Type"
 msgstr "Tipu"
@@ -646,6 +630,9 @@ msgstr "Lae, la hamoos"
 msgid "Other searches"
 msgstr "Buka seluk"
 
+msgid "Save"
+msgstr "Rai"
+
 msgid "Unlocked"
 msgstr "Loke tiha ona"
 
@@ -665,6 +652,9 @@ msgstr[0] "Uza dala %(usage_count)s"
 
 msgid "Edited"
 msgstr "Hadia tiha ona"
+
+msgid "Sort"
+msgstr "Orden"
 
 msgid "Add a child page"
 msgstr "Hatama pajina oan"

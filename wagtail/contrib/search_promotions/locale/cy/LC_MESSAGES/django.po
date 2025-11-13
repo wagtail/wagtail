@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -182,15 +182,9 @@ msgstr "Canlyniad chwilio wedi'i hyrwyddo"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Dewisiadau'r golygydd ar gyfer '%(query)s' wedi'i creu."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Nid yw argymhellion wedi'u creu oherwydd gwallau"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Dewisiadau'r golygydd ar gyfer '%(query)s' wedi'i diweddaru."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Nid yw argymhellion wedi'u cadw oherwydd gwallau"
 
 msgid "Editor's picks deleted."
 msgstr "Dewisiadau'r golygydd wedi'u dileu."

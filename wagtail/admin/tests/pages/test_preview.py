@@ -414,6 +414,36 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+        soup = self.get_soup(response.content)
+        userbar = soup.select_one("wagtail-userbar")
+        self.assertIsNotNone(userbar)
+        template = soup.select_one("#wagtail-userbar-template")
+        self.assertIsNotNone(template)
+
+        # Previews use a dummy request object, so the userbar should use
+        # relative URLs to avoid using the wrong host.
+        admin_url = reverse("wagtailadmin_home")
+        admin_link = template.select_one(f'a[href$="{admin_url}"]')
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link["href"], admin_url)
+
+        css_links = soup.select("link[rel='stylesheet']")
+        self.assertEqual(
+            [link.get("href") for link in css_links],
+            [
+                versioned_static("wagtailadmin/css/core.css"),
+                "/path/to/my/custom.css",
+            ],
+        )
+        scripts = soup.select("script[src]")
+        self.assertEqual(
+            [script.get("src") for script in scripts],
+            [
+                versioned_static("wagtailadmin/js/vendor.js"),
+                versioned_static("wagtailadmin/js/userbar.js"),
+            ],
+        )
+
     def test_preview_on_edit_with_valid_then_invalid_data(self):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -71,9 +71,6 @@ msgstr "Адміністрування Wagtail "
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Вибачте, ви не маєте дозволів для доступу у цей розділ."
-
-msgid "You do not have permission to access the admin"
-msgstr "У Вас не вистачає прав для доступу до адмінпанелі"
 
 msgid "None"
 msgstr "Нічого"
@@ -152,9 +149,6 @@ msgstr ""
 "Виберіть положення в ієрархії. Примітка: колекція не може стати дочірнім "
 "елементом самої себе або одного зі своїх нащадків."
 
-msgid "Please select another parent"
-msgstr "Будь ласка, виберіть іншого предка"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
@@ -182,9 +176,6 @@ msgstr "Ви не можете проредагувати коментар ін�
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Дата/час наживо має знаходитись перед датою/часом закінчення"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Дата/час закінчення має бути у майбутньому"
 
 msgid "New title"
 msgstr "Новий заголовок"
@@ -536,9 +527,6 @@ msgstr "Батьківська колекція зробила цю колекц
 msgid "You can edit the privacy settings on:"
 msgstr "Ви можете редагувати налаштування приватності для:"
 
-msgid "Save"
-msgstr "Зберегти"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -607,6 +595,8 @@ msgstr "Ви все ще хочете опублікувати цю %(model_name
 msgid "Cancel"
 msgstr "Скасувати"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Дії"
 
@@ -1136,18 +1126,6 @@ msgstr "Переглянути дочірні сторінки для '%(title)s
 msgid "Add a child page to '%(title)s'"
 msgstr "Додати дочірню сторінку для'%(title)s'"
 
-msgid "Drag"
-msgstr "Перетягнути"
-
-msgid "Disable ordering of child pages"
-msgstr "Вимкнути впорядковування дочірніх сторінок"
-
-msgid "Sort"
-msgstr "Сортувати"
-
-msgid "Enable ordering of child pages"
-msgstr "Увімкнути впорядковування дочірніх сторінок"
-
 msgid "Search the whole site"
 msgstr "Шукати по всьому сайту"
 
@@ -1195,6 +1173,9 @@ msgstr "Пересунути вгору"
 
 msgid "Move down"
 msgstr "Пересунути вниз"
+
+msgid "Drag"
+msgstr "Перетягнути"
 
 msgid "Choose when this page should go live and/or expire"
 msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
@@ -1389,6 +1370,9 @@ msgstr "Ні, не знімати з розкладу"
 msgid "Other searches"
 msgstr "Інші пошуки"
 
+msgid "Save"
+msgstr "Зберегти"
+
 msgid "Comment notifications"
 msgstr "Сповіщення про коментарі"
 
@@ -1508,6 +1492,9 @@ msgstr "Цю сторінку ще не надіслано на модераці
 
 msgid "Skip to main content"
 msgstr "Перейти до основного вмісту "
+
+msgid "Sort"
+msgstr "Сортувати"
 
 msgid "View Wagtail quick actions"
 msgstr "Переглянути швидкі дії Wagtail "
@@ -1684,6 +1671,9 @@ msgstr "Відмінити"
 
 msgid "Redo"
 msgstr "Повторити"
+
+msgid "Bold"
+msgstr "Жирний"
 
 msgid "Italic"
 msgstr "Курсив"
@@ -1914,9 +1904,6 @@ msgstr "Сторінку '%(page_title)s' створено і опубліков
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Сторінку '%(page_title)s' створено і направлено на модерацію."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Цю сторінку не можна створити через помилки валідації"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Сторінку '%(page_title)s' видалено."
@@ -1977,12 +1964,6 @@ msgstr "Сторінку '%(page_title)s' надіслано на модерац
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Робочий процес на сторінці '%(page_title)s' перезапущений."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Сторінку не можна зберегти, бо вона заблокована"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Сторінку не можна зберегти через помилки валідації"
-
 msgid "Owner"
 msgstr "Власник"
 
@@ -1998,14 +1979,6 @@ msgstr "Так"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Сторінку '%(page_title)s' розблоковано."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Коротка назва '%(page_slug)s' вже використовується у обраних батьківських "
-"сторінках. Переконайтеся, що коротка назва унікальна і спробуйте ще раз."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2164,9 +2137,6 @@ msgstr "Пронумерований список"
 
 msgid "Blockquote"
 msgstr "Цитата"
-
-msgid "Bold"
-msgstr "Жирний"
 
 msgid "Link"
 msgstr "Посилання"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2021\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -481,6 +481,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d bild har raderats"
 msgstr[1] "%(num_parent_objects)d bilder har raderats"
 
+msgid "Title"
+msgstr "Rubrik"
+
+msgid "Created"
+msgstr "Skapad"
+
 msgid "Choose an image"
 msgstr "Välj en bild"
 
@@ -510,12 +516,6 @@ msgstr "Filstorlek: (hög till låg)"
 
 msgid "Images"
 msgstr "Bilder"
-
-msgid "Title"
-msgstr "Rubrik"
-
-msgid "Created"
-msgstr "Skapad"
 
 msgid "The image could not be saved due to errors."
 msgstr "Bilden kunde inte sparas p.g.a. fel."

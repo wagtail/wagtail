@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -174,10 +174,6 @@ msgstr "Алдаанаас шалтгаалж файл хадгалагдсан�
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "'%(document_title)s' файл шинэчлэгдлээ"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл устгана уу"
 
 msgid "Delete document"
 msgstr "Файл устгах"

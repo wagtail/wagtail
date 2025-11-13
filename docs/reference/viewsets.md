@@ -87,6 +87,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
       :attr:`~django.db.models.Options.verbose_name_plural`.
 
    .. autoattribute:: add_to_reference_index
+   .. autoattribute:: pk_path_converter
    .. autoattribute:: ordering
    .. autoattribute:: sort_order_field
       :annotation: = UNDEFINED

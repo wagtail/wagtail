@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2024
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2025
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Rauli Laine <rauli.laine@iki.fi>, 2016
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -251,6 +251,9 @@ msgstr "Ei, älä poista"
 msgid "Popular tags"
 msgstr "Suositut tunnisteet"
 
+msgid "Layout"
+msgstr "Asettelu"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -390,6 +393,12 @@ msgstr ""
 "Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a "
 "href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
+msgid "Grid layout"
+msgstr "Ruudukkoasettelu"
+
+msgid "List layout"
+msgstr "Lista-asettelu"
+
 msgid "Preview"
 msgstr "Esikatsele"
 
@@ -502,6 +511,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d kuva on poistettu"
 msgstr[1] "%(num_parent_objects)d kuvaa on poistettu"
 
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "Created"
+msgstr "Luotu"
+
 msgid "Choose an image"
 msgstr "Valitse kuva"
 
@@ -531,12 +546,6 @@ msgstr "Tiedostokoko: (suurimmasta pienimpään)"
 
 msgid "Images"
 msgstr "Kuvat"
-
-msgid "Title"
-msgstr "Otsikko"
-
-msgid "Created"
-msgstr "Luotu"
 
 msgid "The image could not be saved due to errors."
 msgstr "Kuvaa ei voitu tallentaa virheiden vuoksi."

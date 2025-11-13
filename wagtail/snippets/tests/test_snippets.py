@@ -1013,6 +1013,10 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
         self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # field specific error should be shown
@@ -2024,6 +2028,10 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
         self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # the error should only appear once: against the field, not in the header message
@@ -6022,6 +6030,10 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         buttons = message.find_all("button")
         self.assertEqual(len(buttons), 1)
         self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
         self.assertIn("Go to the first error", buttons[0].get_text())
 
         # the errors should appear against the fields with issues

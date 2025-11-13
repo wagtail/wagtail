@@ -916,6 +916,11 @@
 * Eric Matthes
 * Heric Libong
 * Harshit Ranjan
+* Paul Souders
+* Samya Aggarwal
+* Bhavesh Sharma
+* Nick Ivons
+* Vishrut Ramraj
 
 ## Translators
 

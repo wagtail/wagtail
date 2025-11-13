@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -282,6 +282,9 @@ msgstr "Non, ne pas supprimer"
 msgid "Popular tags"
 msgstr "Mots-clés populaires"
 
+msgid "Layout"
+msgstr "Mise en page"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -430,8 +433,11 @@ msgstr ""
 "Vous n'avez pas encore transféré d'image. Pourquoi ne pas <a "
 "href=\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</a> ?"
 
-msgid "Toggle layout"
-msgstr "Changer la mise en page"
+msgid "Grid layout"
+msgstr "Disposition en grille"
+
+msgid "List layout"
+msgstr "Disposition en liste"
 
 msgid "Preview"
 msgstr "Prévisualisation"
@@ -558,6 +564,12 @@ msgstr[0] "%(num_parent_objects)d image a été supprimée"
 msgstr[1] "%(num_parent_objects)d images ont été supprimées"
 msgstr[2] "%(num_parent_objects)d images ont été supprimées"
 
+msgid "Title"
+msgstr "Titre"
+
+msgid "Created"
+msgstr "Créé(e)"
+
 msgid "Choose an image"
 msgstr "Choisir une image"
 
@@ -593,12 +605,6 @@ msgstr "Nombre d'utilisations (descendant)"
 
 msgid "Images"
 msgstr "Images"
-
-msgid "Title"
-msgstr "Titre"
-
-msgid "Created"
-msgstr "Créé(e)"
 
 msgid "The image could not be saved due to errors."
 msgstr "L'image ne peut être enregistrée du fait d'erreurs."

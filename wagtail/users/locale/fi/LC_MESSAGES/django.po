@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2025
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -146,6 +146,9 @@ msgstr "tiiviys"
 
 msgid "Keyboard shortcuts"
 msgstr "Pikanäppäimet"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Käytä mukautettuja, Wagtailille ominaisia näppäimistön pikanäppäimiä."
 
 msgid "user profile"
 msgstr "käyttäjäprofiili"

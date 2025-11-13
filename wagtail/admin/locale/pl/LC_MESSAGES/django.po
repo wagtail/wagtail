@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -73,9 +73,6 @@ msgstr "Admin Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Przepraszamy, ale nie posiadasz uprawnień dostępu do tego miejsca."
-
-msgid "You do not have permission to access the admin"
-msgstr "Nie posiadasz uprawnień dostępu do części administracyjnej"
 
 msgid "None"
 msgstr "Brak"
@@ -156,9 +153,6 @@ msgstr ""
 "Wybierz pozycję w hierarchii. Pamiętaj: kolekcja nie może zostać podkolekcją "
 "swoją lub swoich podkolekcji."
 
-msgid "Please select another parent"
-msgstr "Proszę wybierz innego rodzica"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
 
@@ -185,9 +179,6 @@ msgstr "Nie możesz zmieniać komentarza innego użytkownika."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Data/czas publikacji musi być wcześniejszy niż data wykończenia"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/czas wykończenia musi znajdować się w przyszłości."
 
 msgid "New title"
 msgstr "Nowy tytuł"
@@ -263,10 +254,6 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Nie możesz skopiować strony do siebie samej kiedy kopiujesz strony podrzędne"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Slug '%(page_slug)s' został już użyty w ramach strony rodzica"
-
 msgid "Select a new parent for this page."
 msgstr "Wybierz nową stronę nadrzędną."
 
@@ -288,10 +275,6 @@ msgstr ""
 
 msgid "Search…"
 msgstr "Szukaj…"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Tag %(value_too_long)s jest %(max_tag_length)d znaki za długi"
 
 msgid "Visibility"
 msgstr "Widoczność"
@@ -633,9 +616,6 @@ msgstr "Ta kolekcja została ustawiona jako prywatna przez kolekcję nadrzędną
 msgid "You can edit the privacy settings on:"
 msgstr "Możesz zmieniać ustawienia prywatności na:"
 
-msgid "Save"
-msgstr "Zapisz"
-
 msgid "Change privacy"
 msgstr "Zmień prywatność"
 
@@ -727,6 +707,8 @@ msgstr "Czy w dalszym ciągu chcesz opublikować ten %(model_name)s?"
 msgid "Cancel"
 msgstr "Anuluj"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Akcje"
 
@@ -1610,22 +1592,6 @@ msgstr "Przeglądaj strony pochodne '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj stronę podrzędną do '%(title)s'"
 
-msgid "Drag"
-msgstr "Przeciągnij"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Pozycja %(index)s z %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Wyłącz sortowanie stron podrzędnych"
-
-msgid "Sort"
-msgstr "Sortuj"
-
-msgid "Enable ordering of child pages"
-msgstr "Włącz sortowanie stron podrzędnych"
-
 msgid "No results across entire site."
 msgstr "Brak wyników dla całego serwisu."
 
@@ -1692,6 +1658,9 @@ msgstr "Przesuń w górę"
 
 msgid "Move down"
 msgstr "Przesuń w dół"
+
+msgid "Drag"
+msgstr "Przeciągnij"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -1950,6 +1919,9 @@ msgstr "Nie, nie wyłączaj z planu"
 msgid "Other searches"
 msgstr "Inne wyszukiwania"
 
+msgid "Save"
+msgstr "Zapisz"
+
 msgid "Minimap"
 msgstr "Mini strona"
 
@@ -2181,6 +2153,13 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Pomiń do głównej zawartości"
+
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Pozycja %(index)s z %(total)s"
+
+msgid "Sort"
+msgstr "Sortuj"
 
 msgid "View Wagtail quick actions"
 msgstr "Wyświetl szybkie akcje Wagtail"
@@ -2422,8 +2401,11 @@ msgstr "Zmiany zażądane o %(finished_at)s"
 msgid "Sent to %(task_name)s %(started_at)s"
 msgstr "Wyślij do %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "Częste akcje"
+msgid "Toggle sidebar"
+msgstr "Rozszerzanie bocznej nawigacji"
+
+msgid "Save changes"
+msgstr "Zapisz zmiany"
 
 msgid "Cut"
 msgstr "Wytnij"
@@ -2443,26 +2425,19 @@ msgstr "Cofnij"
 msgid "Redo"
 msgstr "Ponów"
 
-msgid "Save changes"
-msgstr "Zapisz zmiany"
-
-msgid "Toggle sidebar"
-msgstr "Rozszerzanie bocznej nawigacji"
-
-msgid "Text content"
-msgstr "Treść tekstowa"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Format tekstu"
 
 msgid "Insert or edit a link"
 msgstr "Dodaj lub edytuj link"
 
-msgid "Text formatting"
-msgstr "Format tekstu"
+msgid "Bold"
+msgstr "Pogrubienie"
 
 msgid "Italic"
 msgstr "Kursywa"
-
-msgid "Underline"
-msgstr "Podkreślenie"
 
 msgid "Monospace (code)"
 msgstr "Czcionka stałej szerokości (kod)"
@@ -2778,9 +2753,6 @@ msgstr "Strona '%(page_title)s' została utworzona i opublikowana."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Strona '%(page_title)s' utworzona i przekazana do moderacji."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Ta strona nie mogła zostać utworzona ze względu na błędy walidacji."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Usunięto stronę '%(page_title)s'."
@@ -2841,12 +2813,6 @@ msgstr "Strona '%(page_title)s' została przekazana do przeglądu."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Proces na stronie '%(page_title)s' został zrestartowany."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Nie można zapisać zmian zablokownej strony"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
-
 msgid "Date updated"
 msgstr "Data aktualizacji"
 
@@ -2877,14 +2843,6 @@ msgstr "Przeglądaj"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Strona '%(page_title)s' jest teraz odblokowana."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Slug '%(page_slug)s' jest już wykorzystywany w wybranej stronie nadrzędnej. "
-"Upewnij się, że slug jest unikalny i spróbuj ponownie."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3121,9 +3079,6 @@ msgstr "Lista numeryczna"
 
 msgid "Blockquote"
 msgstr "Cytat"
-
-msgid "Bold"
-msgstr "Pogrubienie"
 
 msgid "Link"
 msgstr "Link"

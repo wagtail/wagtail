@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -249,6 +249,9 @@ msgstr "Non, non eliminar."
 msgid "Popular tags"
 msgstr "Etiquetas populares"
 
+msgid "Layout"
+msgstr "Deseño"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -393,8 +396,11 @@ msgstr ""
 "Non subiches ningunha imaxe. ¿Por que non <a "
 "href=\"%(wagtailimages_add_image_url)s\">subes unha agora</a>?"
 
-msgid "Toggle layout"
-msgstr "Cambiar deseño"
+msgid "Grid layout"
+msgstr "Deseño de grilla"
+
+msgid "List layout"
+msgstr "Deseño de lista"
 
 msgid "Preview"
 msgstr "Previsualizar"
@@ -509,6 +515,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "Eliminouse %(num_parent_objects)d imaxe"
 msgstr[1] "Elimináronse %(num_parent_objects)d imaxes"
 
+msgid "Title"
+msgstr "Título"
+
+msgid "Created"
+msgstr "Creado"
+
 msgid "Choose an image"
 msgstr "Seleccionar unha imaxe"
 
@@ -544,12 +556,6 @@ msgstr "Veces usado: (de maior a menor)"
 
 msgid "Images"
 msgstr "Imaxes"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "Created"
-msgstr "Creado"
 
 msgid "The image could not be saved due to errors."
 msgstr "A imaxe non puido ser gardada debido a erros"

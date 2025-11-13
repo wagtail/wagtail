@@ -1,30 +1,22 @@
 import unittest
 from io import StringIO
 
+from django.conf import settings
 from django.core import management
 from django.core.files.base import ContentFile
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.documents import models
+from wagtail.search.backends import get_search_backend
 from wagtail.test.utils import WagtailTestUtils
 
 
-@override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=["elasticsearch"])
 class TestIssue613(WagtailTestUtils, TestCase):
-    def get_elasticsearch_backend(self):
-        from django.conf import settings
-
-        from wagtail.search.backends import get_search_backend
-
+    def setUp(self):
         if "elasticsearch" not in settings.WAGTAILSEARCH_BACKENDS:
             raise unittest.SkipTest("No elasticsearch backend active")
 
-        return get_search_backend("elasticsearch")
-
-    def setUp(self):
-        self.search_backend = self.get_elasticsearch_backend()
         self.login()
 
         management.call_command(
@@ -92,16 +84,27 @@ class TestIssue613(WagtailTestUtils, TestCase):
         # https://github.com/wagtail/wagtailsearch/commit/53a98169bccc3cef5b234944037f2b3f78efafd4 .
         # If this turns out to be necessary after all, you might want to compare how wagtail.tests.test_page_search.PageSearchTests does it.
 
-        # Add a document with some tags
-        document = self.add_document(tags="hello")
-        self.search_backend.refresh_indexes()
+        backend_conf = settings.WAGTAILSEARCH_BACKENDS["elasticsearch"].copy()
+        backend_conf["AUTO_UPDATE"] = True
+        with self.settings(
+            WAGTAILSEARCH_BACKENDS={
+                "elasticsearch": backend_conf,
+            }
+        ):
+            search_backend = get_search_backend("elasticsearch")
 
-        # Search for it by tag
-        results = self.search_backend.search("hello", models.Document)
+            # Add a document with some tags
+            document = self.add_document(tags="hello")
 
-        # Check
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0].id, document.id)
+            # TODO: remove this when https://github.com/kaedroho/django-modelsearch/pull/40 is merged and released
+            search_backend.refresh_indexes()
+
+            # Search for it by tag
+            results = search_backend.search("hello", models.Document)
+
+            # Check
+            self.assertEqual(len(results), 1)
+            self.assertEqual(results[0].id, document.id)
 
     def test_issue_613_on_edit(self):
         # Note to future developer troubleshooting this test...
@@ -110,13 +113,24 @@ class TestIssue613(WagtailTestUtils, TestCase):
         # https://github.com/wagtail/wagtailsearch/commit/53a98169bccc3cef5b234944037f2b3f78efafd4 .
         # If this turns out to be necessary after all, you might want to compare how wagtail.tests.test_page_search.PageSearchTests does it.
 
-        # Add a document with some tags
-        document = self.edit_document(tags="hello")
-        self.search_backend.refresh_indexes()
+        backend_conf = settings.WAGTAILSEARCH_BACKENDS["elasticsearch"].copy()
+        backend_conf["AUTO_UPDATE"] = True
+        with self.settings(
+            WAGTAILSEARCH_BACKENDS={
+                "elasticsearch": backend_conf,
+            }
+        ):
+            search_backend = get_search_backend("elasticsearch")
 
-        # Search for it by tag
-        results = self.search_backend.search("hello", models.Document)
+            # Add a document with some tags
+            document = self.edit_document(tags="hello")
 
-        # Check
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0].id, document.id)
+            # TODO: remove this when https://github.com/kaedroho/django-modelsearch/pull/40 is merged and released
+            search_backend.refresh_indexes()
+
+            # Search for it by tag
+            results = search_backend.search("hello", models.Document)
+
+            # Check
+            self.assertEqual(len(results), 1)
+            self.assertEqual(results[0].id, document.id)

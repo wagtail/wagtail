@@ -15,13 +15,14 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:20+0200\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -221,16 +222,16 @@ msgid "Search redirects"
 msgstr "Rechercher une règle de redirection"
 
 #, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "Le format de fichier « %(extension)s » n'est pas supporté"
+msgid "File format of type \"%(extension)s\" is not supported."
+msgstr "Le format de fichier \"%(extension)s\" n'est pas supporté."
 
 #, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "L'encodage du fichier importé est incorrect : %(error_message)s"
+msgid "Imported file has a wrong encoding: %(error_message)s."
+msgstr "L'encodage du fichier importé est incorrect : %(error_message)s."
 
 #, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s erreurs lors de la lecture du fichier : %(filename)s"
+msgid "%(error)s encountered while trying to read file: %(filename)s."
+msgstr "%(error)s erreurs lors de la lecture du fichier : %(filename)s."
 
 #, python-format
 msgid "Imported %(total)d redirect"
