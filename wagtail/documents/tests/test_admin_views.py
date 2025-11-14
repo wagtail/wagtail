@@ -569,7 +569,7 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIsNotNone(file_input)
         expected_attributes = {
             "data-controller": "w-sync",
-            "data-action": "change->w-sync#apply",
+            "data-action": "input->w-sync#apply",
             "data-w-sync-bubbles-param": "true",
             "data-w-sync-name-value": "wagtail:documents-upload",
             "data-w-sync-normalize-value": "true",
@@ -1914,7 +1914,7 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(file_input)
         expected_attributes = {
             "data-controller": "w-sync",
-            "data-action": "change->w-sync#apply",
+            "data-action": "input->w-sync#apply",
             "data-w-sync-bubbles-param": "true",
             "data-w-sync-name-value": "wagtail:documents-upload",
             "data-w-sync-normalize-value": "true",
