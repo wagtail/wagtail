@@ -223,17 +223,17 @@
                 });
             }
             // Events.
-            // Custom patch to handle pasting of multiple tags.
             this.tagInput.bind('paste', function (event) {
-                // Set short timeout so .val() will have a value
-                setTimeout(function () {
-                    var tagArray = that.tagInput.val().split(/[\n,]+/);
-                    if (tagArray.length > 1) {
-                        for (var i = 0; i < tagArray.length; i++) {
-                            that.createTag(tagArray[i]);
-                        }
+                // Custom patch to handle pasting of multiple tags.
+                var pastedText = (event.originalEvent || event).clipboardData.getData('text');
+                var tagArray = pastedText.split(/[\n,]+/);
+                
+                if (tagArray.length > 1) {
+                    event.preventDefault();
+                    for (var i = 0; i < tagArray.length; i++) {
+                        that.createTag(tagArray[i]);
                     }
-                }, 100);
+                }
             });
             this.tagInput
                 .on('keydown', function(event) {
