@@ -223,6 +223,7 @@
                 });
             }
             // Events.
+            // Custom patch to handle pasting of multiple tags.
             this.tagInput.bind('paste', function (event) {
                 // Set short timeout so .val() will have a value
                 setTimeout(function () {
