@@ -107,5 +107,32 @@ ignore_path = ["_build", "docs/_build"]
 [tool.setuptools.packages.find]
 include = ["wagtail*"]
 
+
+[tool.setuptools.package-data]
+# https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+
+"wagtail" = ["**/*"]
+"*" = [ ".dockerignore",]
+
+[tool.setuptools.data-files]
+"." = [
+  "AGENTS.md",
+  "CHANGELOG.txt",
+  "CODE_OF_CONDUCT.md",
+  "CONTRIBUTORS.md",
+  "SPONSORS.md",
+]
+
+[tool.setuptools.exclude-package-data]
+"wagtail" = [
+    "*.md",
+    "*.stories.js",
+    "*.stories.tsx",
+    "*.py[co]",
+    "static_src/**",
+    "**/static_src/**"
+]
+
+
 [tool.setuptools.dynamic]
 version = { attr = "wagtail.__version__" }
