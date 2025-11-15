@@ -17,10 +17,49 @@
 </header>
 <main class="main">
     <div class="figure">
-        <svg class="figure-space" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true">
-            <path class="egg" fill="currentColor" d="M150 250c-42.741 0-75-32.693-75-90s42.913-110 75-110c32.088 0 75 52.693 75 110s-32.258 90-75 90z"/>
+        <svg class="figure-space" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+            <g class="egg">
+                <path class="egg-top"
+                    d="
+                        M150 50
+                        C110 50, 75 100, 75 160
+
+                        L78 165
+                        L110 150
+                        L140 165
+                        L160 150
+                        L190 165
+                        L222 150
+
+                        L225 160
+                        C225 100, 190 50, 150 50
+                        Z
+                    " />
+
+                <path class="egg-bottom"
+                    d="
+                        M75 160
+
+                        L78 165
+                        L110 150
+                        L140 165
+                        L160 150
+                        L190 165
+                        L222 150
+
+                        L225 160
+                        C225 220, 190 250, 150 250
+                        C110 250, 75 220, 75 160
+                        Z
+                    " />
+
+            </g>
             <ellipse fill="#ddd" cx="150" cy="270" rx="40" ry="7"/>
         </svg>
+
+        <div class="egg-message" aria-hidden="true">
+            Version {% templatetag openblock %} wagtail_version {% templatetag closeblock %}
+        </div>
     </div>
     <div class="main-text">
         <h1>{% templatetag openblock %} trans "Welcome to your new Wagtail site!" {% templatetag closeblock %}</h1>
@@ -50,3 +89,21 @@
         </div>
     </a>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const egg = document.querySelector('.egg');
+    const eggMessage = document.querySelector('.egg-message');
+    const figure = document.querySelector('.figure-space');
+
+    let cracked = false;
+
+    const crackEgg = () => {
+        cracked = !cracked;
+
+        egg.classList.toggle('egg--cracked', cracked);
+        eggMessage?.classList.toggle('egg-message--visible', cracked);
+    };
+
+    figure?.addEventListener('click', crackEgg);
+});
+</script>
