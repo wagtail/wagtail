@@ -38,7 +38,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index"), params)
 
     def test_simple(self):
@@ -412,7 +412,7 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         Collection.add_root(name="Root")
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index"), params)
 
     def make_docs(self):
@@ -541,7 +541,7 @@ class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
         Collection.add_root(name="Root")
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index_results"), params)
 
     def test_search(self):
@@ -1079,7 +1079,7 @@ class TestDocumentEditViewWithCustomDocumentModel(WagtailTestUtils, TestCase):
 
         self.storage = self.document.file.storage
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtaildocs:edit", args=(self.document.id,)), params
         )

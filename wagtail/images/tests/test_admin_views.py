@@ -61,7 +61,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             file=get_test_image_file(size=(1, 1)),
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:index"), params)
 
     def test_simple(self):
@@ -718,7 +718,7 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.puppy_image.created_at = local_datetime(2022, 2, 2)
         self.puppy_image.save()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:index"), params)
 
     def test_search(self):
@@ -884,7 +884,7 @@ class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:index_results"), params)
 
     def test_search(self):
@@ -906,10 +906,10 @@ class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailimages:add"), post_data)
 
     def test_get(self):
@@ -1288,10 +1288,10 @@ class TestImageAddViewWithLimitedCollectionPermissions(WagtailTestUtils, TestCas
 
         self.login(username="moriarty", password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailimages:add"), post_data)
 
     def test_get(self):
@@ -1356,12 +1356,12 @@ class TestImageEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def update_from_db(self):
         self.image = Image.objects.get(pk=self.image.pk)
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailimages:edit", args=(self.image.id,)), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailimages:edit", args=(self.image.id,)), post_data
         )
@@ -1747,7 +1747,7 @@ class TestImageEditViewWithCustomImageModel(WagtailTestUtils, TestCase):
 
         self.storage = self.image.file.storage
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailimages:edit", args=(self.image.id,)), params
         )
@@ -1776,10 +1776,10 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
 
         self.delete_url = reverse("wagtailimages:delete", args=(self.image.id,))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.delete_url, params)
 
-    def post(self, post_data={}, **kwargs):
+    def post(self, post_data=None, **kwargs):
         return self.client.post(self.delete_url, post_data, **kwargs)
 
     def test_simple(self):
@@ -1995,7 +1995,7 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages_chooser:choose"), params)
 
     def test_simple(self):
@@ -2260,7 +2260,7 @@ class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages_chooser:choose"), params)
 
     def test_construct_queryset_hook_search(self):
@@ -2296,7 +2296,7 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
             description="Test description",
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailimages_chooser:chosen", args=(self.image.id,)), params
         )
@@ -2355,7 +2355,7 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
             description="Unchosen test description",
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             "%s?id=%d&id=%d"
             % (
@@ -2388,13 +2388,13 @@ class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
             file=get_test_image_file(),
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
             params,
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
             post_data,
@@ -2477,7 +2477,7 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages_chooser:create"), params)
 
     def test_simple(self):

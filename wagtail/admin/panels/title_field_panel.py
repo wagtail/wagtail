@@ -28,9 +28,11 @@ class TitleFieldPanel(FieldPanel):
         apply_if_live=False,
         classname="title",
         placeholder=True,
-        targets=["slug"],
+        targets=None,
         **kwargs,
     ):
+        if targets is None:
+            targets = ["slug"]
         kwargs["classname"] = classname
         self.apply_if_live = apply_if_live
         self.placeholder = placeholder

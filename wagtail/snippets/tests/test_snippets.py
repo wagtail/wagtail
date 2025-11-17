@@ -103,7 +103,7 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailsnippets:index"), params)
 
     def test_get_with_limited_permissions(self):
@@ -183,7 +183,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         user_model = get_user_model()
         self.user = user_model.objects.get()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailsnippets_tests_advert:list"), params)
 
     def test_simple(self):
@@ -825,7 +825,7 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
         self.snippet_b = SearchableSnippet.objects.create(text="World")
         self.snippet_c = SearchableSnippet.objects.create(text="Hello World")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailsnippets_snippetstests_searchablesnippet:list"),
             params,
@@ -899,7 +899,7 @@ class TestSnippetListViewWithNonAutocompleteSearchableSnippet(
             text="Hello World"
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse(
                 "wagtailsnippets_snippetstests_nonautocompletesearchablesnippet:list"
@@ -924,12 +924,12 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}, model=Advert):
+    def get(self, params=None, model=Advert):
         return self.client.get(
             reverse(model.snippet_viewset.get_url_name("add")), params
         )
 
-    def post(self, post_data={}, model=Advert):
+    def post(self, post_data=None, model=Advert):
         return self.client.post(
             reverse(model.snippet_viewset.get_url_name("add")), post_data
         )
@@ -1385,7 +1385,7 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
     def get(self):
         return self.client.get(reverse("wagtailsnippets_tests_draftstatemodel:add"))
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailsnippets_tests_draftstatemodel:add"),
             post_data,
@@ -1867,10 +1867,10 @@ class BaseTestSnippetEditView(WagtailTestUtils, TestCase):
         args = [quote(snippet.pk)]
         return reverse(snippet.snippet_viewset.get_url_name("edit"), args=args)
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_edit_url(), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(self.get_edit_url(), post_data)
 
     def setUp(self):
@@ -4730,7 +4730,7 @@ class TestSnippetOrdering(TestCase):
 class TestSnippetHistory(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, snippet, params={}):
+    def get(self, snippet, params=None):
         return self.client.get(self.get_url(snippet, "history"), params)
 
     def get_url(self, snippet, url_name, args=None):
@@ -4907,7 +4907,7 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
     def get(self):
         return self.client.get(self.revert_url)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(self.revert_url, post_data)
 
     def get_url(self, url_name, args=None):
@@ -5968,7 +5968,7 @@ class TestSnippetListViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             snippet_id="snippet/03", text="Hello"
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse(
                 "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:list"
@@ -6001,21 +6001,21 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
             snippet_id="abc_407269_1", text="Goodbye"
         )
 
-    def get(self, snippet, params={}):
+    def get(self, snippet, params=None):
         args = [quote(snippet.pk)]
         return self.client.get(
             reverse(snippet.snippet_viewset.get_url_name("edit"), args=args),
             params,
         )
 
-    def post(self, snippet, post_data={}):
+    def post(self, snippet, post_data=None):
         args = [quote(snippet.pk)]
         return self.client.post(
             reverse(snippet.snippet_viewset.get_url_name("edit"), args=args),
             post_data,
         )
 
-    def create(self, snippet, post_data={}, model=Advert):
+    def create(self, snippet, post_data=None, model=Advert):
         return self.client.post(
             reverse(snippet.snippet_viewset.get_url_name("add")),
             post_data,

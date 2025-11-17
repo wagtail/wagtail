@@ -60,11 +60,11 @@ class TestGenericSettingMenu(WagtailTestUtils, TestCase):
 
 
 class BaseTestGenericSettingView(WagtailTestUtils, TestCase):
-    def get(self, params={}, setting=TestGenericSetting):
+    def get(self, params=None, setting=TestGenericSetting):
         url = self.edit_url(setting=setting)
         return self.client.get(url, params)
 
-    def post(self, post_data={}, setting=TestGenericSetting):
+    def post(self, post_data=None, setting=TestGenericSetting):
         url = self.edit_url(setting=setting)
         return self.client.post(url, post_data)
 

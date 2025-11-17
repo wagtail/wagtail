@@ -79,7 +79,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:index"), params)
 
     def test_simple(self):
@@ -487,7 +487,7 @@ class TestUserIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCas
         )
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:index_results"), params)
 
     def test_simple(self):
@@ -518,10 +518,10 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                 }
             )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:add"), params)
 
-    def post(self, post_data={}, follow=False):
+    def post(self, post_data=None, follow=False):
         return self.client.post(
             reverse("wagtailusers_users:add"), post_data, follow=follow
         )
@@ -782,12 +782,12 @@ class TestUserDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.current_user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), params
         )
 
-    def post(self, post_data={}, follow=False):
+    def post(self, post_data=None, follow=False):
         return self.client.post(
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)),
             post_data,
@@ -1044,13 +1044,13 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Login
         self.current_user = self.login()
 
-    def get(self, params={}, user_id=None):
+    def get(self, params=None, user_id=None):
         return self.client.get(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             params,
         )
 
-    def post(self, post_data={}, user_id=None, follow=False):
+    def post(self, post_data=None, user_id=None, follow=False):
         return self.client.post(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             post_data,
@@ -1647,7 +1647,7 @@ class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_groups:index"), params)
 
     def test_simple(self):
@@ -1680,7 +1680,7 @@ class TestGroupIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCa
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_groups:index_results"), params)
 
     def test_simple(self):
@@ -1706,10 +1706,10 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             content_type__app_label="wagtaildocs", codename="change_document"
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_groups:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         post_defaults = {
             "page_permissions-TOTAL_FORMS": ["0"],
             "page_permissions-MAX_NUM_FORMS": ["1000"],
@@ -2094,14 +2094,14 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
-    def get(self, params={}, group_id=None):
+    def get(self, params=None, group_id=None):
         return self.client.get(
             reverse("wagtailusers_groups:edit", args=(group_id or self.test_group.pk,)),
             params,
         )
 
-    def post(self, post_data={}, group_id=None):
-        post_defaults = {
+    def post(self, post_data=None, group_id=None):
+        post_data_final = {
             "name": "test group",
             "permissions": [self.existing_permission.pk],
             "page_permissions-TOTAL_FORMS": ["1"],
@@ -2121,11 +2121,11 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "collection_permissions-MAX_NUM_FORMS": ["1000"],
             "collection_permissions-INITIAL_FORMS": ["0"],
         }
-        for k, v in post_defaults.items():
-            post_data[k] = post_data.get(k, v)
+        if post_data:
+            post_data_final.update(post_data)
         return self.client.post(
             reverse("wagtailusers_groups:edit", args=(group_id or self.test_group.pk,)),
-            post_data,
+            post_data_final,
         )
 
     def add_non_registered_perm(self):
@@ -2849,7 +2849,7 @@ class TestAuthorisationIndexView(WagtailTestUtils, TestCase):
         self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
         self.login(username="auth_user", password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:index"))
 
     def test_simple(self):
@@ -2896,10 +2896,10 @@ class TestAuthorisationCreateView(WagtailTestUtils, TestCase):
                 }
             )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailusers_users:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailusers_users:add"), post_data)
 
     def gain_permissions(self):
@@ -2973,13 +2973,13 @@ class TestAuthorisationEditView(WagtailTestUtils, TestCase):
                 }
             )
 
-    def get(self, params={}, user_id=None):
+    def get(self, params=None, user_id=None):
         return self.client.get(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             params,
         )
 
-    def post(self, post_data={}, user_id=None):
+    def post(self, post_data=None, user_id=None):
         return self.client.post(
             reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
             post_data,
@@ -3040,12 +3040,12 @@ class TestAuthorisationDeleteView(WagtailTestUtils, TestCase):
             password="password",
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), post_data
         )

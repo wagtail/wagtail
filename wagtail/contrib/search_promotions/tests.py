@@ -1501,7 +1501,7 @@ class TestQueryChooserView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get("/admin/searchpicks/queries/chooser/", params)
 
     def test_simple(self):

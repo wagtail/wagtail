@@ -1448,12 +1448,13 @@ class AbstractRendition(ImageFileMixin, models.Model):
         else:
             return "50%"
 
-    def img_tag(self, extra_attributes={}):
+    def img_tag(self, extra_attributes=None):
         attrs = self.attrs_dict.copy()
 
         attrs.update(apps.get_app_config("wagtailimages").default_attrs)
 
-        attrs.update(extra_attributes)
+        if extra_attributes:
+            attrs.update(extra_attributes)
 
         return mark_safe(f"<img{flatatt(attrs)}>")
 
