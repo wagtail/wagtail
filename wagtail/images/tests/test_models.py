@@ -1356,7 +1356,6 @@ class TestIssue613(WagtailTestUtils, TestCase):
             # Add an image with some tags
             image = self.add_image(tags="hello")
 
-            # TODO: remove this when https://github.com/kaedroho/django-modelsearch/pull/40 is merged and released
             search_backend.refresh_indexes()
 
             # Search for it by tag
@@ -1385,7 +1384,6 @@ class TestIssue613(WagtailTestUtils, TestCase):
             # Add an image with some tags
             image = self.edit_image(tags="hello")
 
-            # TODO: remove this when https://github.com/kaedroho/django-modelsearch/pull/40 is merged and released
             search_backend.refresh_indexes()
 
             # Search for it by tag
