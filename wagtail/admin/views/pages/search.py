@@ -91,15 +91,15 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         if "content_type" in request.GET:
             try:
                 app_label, model_name = request.GET["content_type"].split(".")
-            except ValueError:
-                raise Http404
+            except ValueError as e:
+                raise Http404 from e
 
             try:
                 self.selected_content_type = ContentType.objects.get_by_natural_key(
                     app_label, model_name
                 )
-            except ContentType.DoesNotExist:
-                raise Http404
+            except ContentType.DoesNotExist as e:
+                raise Http404 from e
 
         else:
             self.selected_content_type = None

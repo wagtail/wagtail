@@ -25,4 +25,5 @@ ignore = ["D100", "D101", "D102", "D103", "D105", "N806", "E501"]
 # BLE: flake8-blind-except
 # C4: flake8-comprehensions
 # B006: Do not use mutable data structures for argument defaults
-select = ["E", "F", "I", "T20", "BLE", "C4", "B006"]
+# B904: Within an `except` clause, raise exceptions with `raise ... from err`
+select = ["E", "F", "I", "T20", "BLE", "C4", "B006", "B904"]

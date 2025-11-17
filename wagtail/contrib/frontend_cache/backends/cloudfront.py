@@ -28,10 +28,10 @@ class CloudfrontBackend(BaseBackend):
 
         try:
             self.cloudfront_distribution_id = params.pop("DISTRIBUTION_ID")
-        except KeyError:
+        except KeyError as e:
             raise ImproperlyConfigured(
                 "The setting 'WAGTAILFRONTENDCACHE' requires the object 'DISTRIBUTION_ID'."
-            )
+            ) from e
 
     def purge_batch(self, urls):
         paths_by_distribution_id = defaultdict(set)

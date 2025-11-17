@@ -1029,9 +1029,9 @@ def fragment(parser, token):
         tag_name, *options, target_var = token.split_contents()
         nodelist = parser.parse(("endfragment",))
         parser.delete_first_token()
-    except ValueError:
+    except ValueError as e:
         if settings.DEBUG:
-            raise template.TemplateSyntaxError(error_message)
+            raise template.TemplateSyntaxError(error_message) from e
         return ""
 
     stripped = "stripped" in options
