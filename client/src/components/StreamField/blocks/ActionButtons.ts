@@ -10,12 +10,12 @@ export abstract class ActionButton {
   declare labelIdentifier: string;
   declare label: string;
 
-  declare sequenceChild: BaseSequenceChild;
+  declare sequenceChild?: BaseSequenceChild;
   declare dom: JQuery<HTMLElement>;
 
   abstract onClick?(): void;
 
-  constructor(sequenceChild: BaseSequenceChild) {
+  constructor(sequenceChild?: BaseSequenceChild) {
     this.sequenceChild = sequenceChild;
   }
 
@@ -36,13 +36,13 @@ export abstract class ActionButton {
     $(container).append(this.dom);
 
     if (this.enableEvent) {
-      this.sequenceChild.addEventListener(this.enableEvent, () => {
+      this.sequenceChild!.addEventListener(this.enableEvent, () => {
         this.enable();
       });
     }
 
     if (this.disableEvent) {
-      this.sequenceChild.addEventListener(this.disableEvent, () => {
+      this.sequenceChild!.addEventListener(this.disableEvent, () => {
         this.disable();
       });
     }
@@ -70,7 +70,7 @@ export class MoveUpButton extends ActionButton {
   label = gettext('Move up');
 
   onClick() {
-    this.sequenceChild.moveUp();
+    this.sequenceChild!.moveUp();
   }
 }
 
@@ -83,7 +83,7 @@ export class MoveDownButton extends ActionButton {
   label = gettext('Move down');
 
   onClick() {
-    this.sequenceChild.moveDown();
+    this.sequenceChild!.moveDown();
   }
 }
 
@@ -105,7 +105,7 @@ export class DuplicateButton extends ActionButton {
   label = gettext('Duplicate');
 
   onClick() {
-    this.sequenceChild.duplicate({ animate: true });
+    this.sequenceChild!.duplicate({ animate: true });
   }
 }
 
@@ -115,6 +115,68 @@ export class DeleteButton extends ActionButton {
   label = gettext('Delete');
 
   onClick() {
-    this.sequenceChild.delete({ animate: true });
+    this.sequenceChild!.delete({ animate: true });
+  }
+}
+
+export class SettingsButton extends ActionButton {
+  icon = 'cog';
+  labelIdentifier = 'SETTINGS';
+  label = gettext('Settings');
+
+  constructor(public settingsPanel: HTMLElement) {
+    // Normally, ActionButton subclasses expect a BaseSequenceChild instance.
+    // However, SettingsButton doesn't need it, as it can work with any object
+    // that has the collapsible panel.
+    super();
+  }
+
+  render(container: any): void {
+    super.render(container);
+    const { id } = this.settingsPanel;
+    this.dom.attr('aria-expanded', 'false');
+    this.dom.attr('aria-controls', id);
+    this.dom.append(/* html */ `
+      <div
+        class="w-badge w-badge--critical w-hidden"
+        data-controller="w-count"
+        data-w-count-active-class="!w-flex"
+        data-w-count-container-value="#${id}"
+      >
+        <span aria-hidden="true" data-w-count-target="total"></span>
+        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
+      </div>
+    `);
+    this.settingsPanel.addEventListener('beforematch', () => this.toggle(true));
+  }
+
+  toggle(open?: boolean) {
+    const parentPanel = this.settingsPanel.closest('[data-panel]')!;
+    const parentToggle = parentPanel.querySelector<HTMLButtonElement>(
+      '[data-panel-toggle]',
+    )!;
+
+    let isExpanding = open ?? this.dom.attr('aria-expanded') === 'false';
+    if (parentToggle.getAttribute('aria-expanded') === 'false') {
+      // If the parent panel is currently collapsed, we cannot see the effect of
+      // toggling settings visibility, so first expand the panel.
+      parentToggle.click();
+      // However, if the settings were previously shown, toggling its visibility
+      // will now hide it, which could be confusing, so just force it to show.
+      isExpanding = true;
+    }
+
+    if (isExpanding) {
+      this.dom.attr('aria-expanded', 'true');
+      this.settingsPanel.removeAttribute('hidden');
+    } else {
+      this.dom.attr('aria-expanded', 'false');
+      const hidden = 'onbeforematch' in document.body ? 'until-found' : '';
+      this.settingsPanel.setAttribute('hidden', hidden);
+    }
+  }
+
+  onClick() {
+    this.toggle();
   }
 }

@@ -9,14 +9,268 @@ import {
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { initCollapsiblePanel } from '../../../includes/panels';
 import { setAttrs } from '../../../utils/attrs';
+import { SettingsButton } from './ActionButtons';
+
+/**
+ * Common options for both `StructBlock.Meta` and `BlockGroup`.
+ */
+export interface BaseGroupOpts {
+  icon: string;
+  classname: string;
+  attrs: Record<string, string>;
+  helpText?: string;
+  labelFormat?: string;
+}
+
+/**
+ * A rendered group of blocks within a `StructBlock`, typically within a
+ * collapsible panel.
+ */
+export class BlockGroup {
+  /** The StructBlock's Meta class for the root BlockGroup, otherwise the BlockGroup's properties. */
+  declare readonly opts: StructBlockDefinitionMeta | BlockGroupDefinitionOpts;
+  /** The main content part within the group's collapsible panel. */
+  declare container: JQuery;
+  /** The group's collapsible panel toggle. */
+  declare toggle?: HTMLButtonElement;
+  /** Element that holds the extra text when the panel is collapsed. */
+  declare collapsedLabel?: HTMLElement;
+  /** The rendered children blocks, which may contain block or BlockGroup instances. */
+  declare children: Array<BlockGroup | any>;
+  /** The rendered settings blocks, which may contain block or BlockGroup instances. */
+  declare settings: Array<BlockGroup | any>;
+  /** The settings button instance for toggling the visibility of the settings blocks. */
+  declare settingsButton?: SettingsButton;
+
+  constructor(
+    public structBlock: StructBlock,
+    public groupDef: BlockGroupDefinition,
+    container: JQuery,
+    prefix: string,
+  ) {
+    this.setCollapsedLabelText = this.setCollapsedLabelText.bind(this);
+
+    // For the root BlockGroup, options like label, icon, etc. come from the
+    // StructBlock's Meta class. For nested BlockGroup, we use its own opts.
+    this.opts =
+      this.groupDef === this.structBlock.blockDef.meta.formLayout
+        ? this.structBlock.blockDef.meta
+        : this.groupDef.opts;
+
+    this.container = this.render(container, prefix);
+    this.setCollapsedLabelText();
+  }
+
+  initializeCollapsiblePanel(dom: JQuery, prefix: string) {
+    this.toggle = dom.find<HTMLButtonElement>('[data-panel-toggle]')[0];
+    this.collapsedLabel = dom.find('[data-panel-heading-text]')[0];
+    initCollapsiblePanel(this.toggle!);
+    this.toggle!.addEventListener(
+      'wagtail:panel-toggle',
+      this.setCollapsedLabelText,
+    );
+    return dom.find(`#${prefix}-content`);
+  }
+
+  render(container: JQuery, prefix: string) {
+    const { opts } = this;
+    const isRoot = 'formLayout' in opts;
+    const hasCustomTemplate = isRoot && !!opts.formTemplate;
+
+    let dom: JQuery;
+    if (hasCustomTemplate) {
+      dom = $(opts.formTemplate!.replace(/__PREFIX__/g, prefix));
+    } else {
+      dom = $(/* html */ `
+        <div class="${h(opts.classname || '')}">
+        </div>
+      `);
+    }
+
+    // If it's a nested BlockGroup, always wrap in a collapsible panel. If it's
+    // the root BlockGroup, we wrap in a collapsible panel only if it's not
+    // already handled by the parent block.
+    let groupContainer: JQuery | null = null;
+    if (!isRoot || this.structBlock.blockDef.collapsible) {
+      const panel = new CollapsiblePanel({
+        panelId: `${prefix}-section`,
+        headingId: `${prefix}-heading`,
+        contentId: `${prefix}-content`,
+        blockTypeIcon: h(opts.icon),
+        blockTypeLabel: h(isRoot ? opts.label : opts.heading),
+        collapsed: isRoot ? opts.collapsed : dom.hasClass('collapsed'),
+      }).render().outerHTML;
+      groupContainer = $(panel);
+      if (!hasCustomTemplate) {
+        dom.append(groupContainer);
+        groupContainer = dom;
+      }
+    }
+
+    // For the root BlockGroup, we need to replace the placeholder element
+    // rendered by the server, otherwise we just append to the container.
+    if (isRoot) {
+      $(container).replaceWith(groupContainer ?? dom);
+    } else {
+      container.append(groupContainer!);
+    }
+
+    if (groupContainer) {
+      const content = this.initializeCollapsiblePanel(groupContainer, prefix);
+      if (hasCustomTemplate) {
+        content.append(dom);
+      }
+      dom = content;
+    }
+
+    if (!hasCustomTemplate && opts.helpText) {
+      // help text is left unescaped as per Django conventions
+      dom.append(`
+          <div class="c-sf-help">
+            <div class="help">
+              ${opts.helpText}
+            </div>
+          </div>
+        `);
+    }
+
+    // Children and settings are always defined in the BlockGroup, and never in
+    // the StructBlock's Meta, so we use `this.groupDef.opts` instead of `this.opts`.
+    const { children, settings } = this.groupDef.opts;
+
+    this.settings = [];
+    if (settings.length > 0) {
+      let blockSettings: JQuery;
+
+      const hidden = 'onbeforematch' in document.body ? 'until-found' : '';
+      if (hasCustomTemplate) {
+        blockSettings = dom.find('[data-block-settings]');
+        blockSettings.attr('id', `${prefix}-settings`);
+        blockSettings.attr('hidden', hidden);
+      } else {
+        blockSettings = $(/* html */ `
+          <div id="${prefix}-settings" data-block-settings hidden="${hidden}">
+          </div>
+        `);
+        dom.append(blockSettings);
+      }
+
+      const panel = dom.closest('[data-panel]');
+      const controls = panel.find('[data-panel-controls]').get(0);
+      this.settingsButton = new SettingsButton(blockSettings.get(0)!);
+      this.settingsButton.render(controls);
+
+      this.settings = settings.map(([entry, id]) =>
+        this.renderChild(
+          entry,
+          blockSettings,
+          `${prefix}-${id}`,
+          hasCustomTemplate,
+        ),
+      );
+    }
+
+    this.children = children.map(([entry, id]) =>
+      this.renderChild(entry, dom, `${prefix}-${id}`, hasCustomTemplate),
+    );
+
+    setAttrs(dom[0], opts.attrs || {});
+
+    return dom;
+  }
+
+  getTextLabel(opts?: { maxLength?: number }) {
+    const { labelFormat } = this.opts;
+
+    // Allow using the empty string for the additional text in collapsed state
+    if (typeof labelFormat === 'string') {
+      /* use labelFormat - regexp replace any field references like '{first_name}'
+      with the text label of that sub-block */
+      return labelFormat.replace(/\{(\w+)\}/g, (_, blockName) => {
+        const block = this.structBlock.childBlocks[blockName];
+        if (block && block.getTextLabel) {
+          /* to be strictly correct, we should be adjusting opts.maxLength to account for the overheads
+          in the format string, and dividing the remainder across all the placeholders in the string,
+          rather than just passing opts on to the child. But that would get complicated, and this is
+          better than nothing... */
+          return block.getTextLabel(opts);
+        }
+        return '';
+      });
+    }
+
+    /* if no labelFormat specified, just try each child block in turn until we find one that provides a label */
+    for (const child of this.children.concat(this.settings)) {
+      if (
+        child.getTextLabel &&
+        // Only use labels from child blocks within the current container.
+        // Structural blocks have a `container` property (JQuery object),
+        // while field blocks have an `element` property (DOM element).
+        this.container[0].contains(child.container?.[0] || child.element)
+      ) {
+        const val = child.getTextLabel(opts);
+        if (val) return val;
+      }
+    }
+    // no usable label found
+    return null;
+  }
+
+  setCollapsedLabelText() {
+    // The collapsible panel is handled by the parent block.
+    if (!this.collapsedLabel) return;
+
+    const label = this.getTextLabel({ maxLength: 50 });
+    this.collapsedLabel.textContent = label || '';
+  }
+
+  renderChild(
+    child: string | BlockGroupDefinition,
+    container: JQuery,
+    prefix: string,
+    hasCustomTemplate = false,
+  ) {
+    if (typeof child === 'string') {
+      // it's a block name, delegate the rendering to the StructBlock
+      return this.structBlock.renderChildBlockDef(
+        child,
+        container,
+        hasCustomTemplate,
+        // We don't pass prefix here because the StructBlock will render the
+        // child block using its own prefix and the block name. As far as form
+        // elements are concerned (e.g. for `name` attributes), BlockGroups are
+        // invisible, and child blocks are flatly rendered inside the StructBlock.
+      );
+    }
+    // it's a BlockGroupDefinition, render with a collapsible panel, with
+    // additional prefix to ensure unique IDs for collapsible panel furniture of
+    // adjacent BlockGroups that have the same headings.
+    return new BlockGroup(this.structBlock, child, container, prefix);
+  }
+}
+
+/** Properties of `BlockGroup`. */
+export interface BlockGroupDefinitionOpts extends BaseGroupOpts {
+  readonly children: Array<[entry: string | BlockGroupDefinition, id: string]>;
+  readonly settings: Array<[entry: string | BlockGroupDefinition, id: string]>;
+  readonly heading: string;
+  readonly cleanName: string;
+}
+
+/** An unpacked `BlockGroup` definition from Telepath. */
+export class BlockGroupDefinition {
+  constructor(public readonly opts: BlockGroupDefinitionOpts) {
+    this.opts = opts;
+  }
+}
 
 export class StructBlock {
   declare blockDef: StructBlockDefinition;
   declare type: string;
   declare prefix: string;
+  declare layout: BlockGroup;
   declare container: JQuery;
   declare childBlocks: Record<string, any>;
-  declare setTextLabel: () => void;
 
   #initialState: Record<string, any>;
   #initialError: Record<string, any>;
@@ -35,81 +289,20 @@ export class StructBlock {
     this.#initialError = initialError;
 
     this.childBlocks = {};
-
-    let container = '';
-    if (this.blockDef.collapsible) {
-      container = new CollapsiblePanel({
-        panelId: prefix + '-section',
-        headingId: prefix + '-heading',
-        contentId: prefix + '-content',
-        blockTypeIcon: h(blockDef.meta.icon),
-        blockTypeLabel: h(blockDef.meta.label),
-        collapsed: blockDef.meta.collapsed,
-      }).render().outerHTML;
-    }
-
-    if (blockDef.meta.formTemplate) {
-      const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
-
-      let dom;
-      if (container) {
-        // Replace the placeholder with the collapsible panel container so it's
-        // mounted to the DOM and can be initialized.
-        dom = $(container);
-        $(placeholder).replaceWith(dom);
-        // Initialize the collapsible panel and append the form template HTML
-        // to the content area of the collapsible panel.
-        dom = this.#initializeCollapsiblePanel(dom, prefix);
-        dom.append(html);
-      } else {
-        // Collapsible panel is handled by the parent block, so just
-        // replace the placeholder with the form template HTML.
-        dom = $(html);
-        $(placeholder).replaceWith(dom);
-      }
-
-      this.blockDef.childBlockDefs.forEach((childBlockDef) => {
-        this.renderChildBlockDef(childBlockDef.name, dom, true);
-      });
-      this.container = dom;
-    } else {
-      let dom = $(`
-        <div class="${h(this.blockDef.meta.classname || '')}">
-        </div>
-      `);
-      dom.append(container);
-      $(placeholder).replaceWith(dom);
-
-      if (this.blockDef.collapsible) {
-        dom = this.#initializeCollapsiblePanel(dom, prefix);
-      }
-
-      if (this.blockDef.meta.helpText) {
-        // help text is left unescaped as per Django conventions
-        dom.append(`
-          <div class="c-sf-help">
-            <div class="help">
-              ${this.blockDef.meta.helpText}
-            </div>
-          </div>
-        `);
-      }
-
-      this.blockDef.childBlockDefs.forEach((childBlockDef) => {
-        this.renderChildBlockDef(childBlockDef.name, dom);
-      });
-      this.container = dom;
-    }
-
-    // Set in initialisation regardless of block state for screen reader users.
-    if (this.blockDef.collapsible) {
-      this.setTextLabel();
-    }
-
-    setAttrs(this.container[0], this.blockDef.meta.attrs || {});
+    this.layout = new BlockGroup(
+      this,
+      blockDef.meta.formLayout,
+      placeholder,
+      prefix,
+    );
+    this.container = this.layout.container;
   }
 
-  renderChildBlockDef(name, container, hasCustomTemplate = false) {
+  renderChildBlockDef(
+    name: string,
+    container: JQuery,
+    hasCustomTemplate = false,
+  ) {
     const childBlockDef = this.blockDef.childBlockDefsByName[name];
     const blockErrors = this.#initialError?.blockErrors || {};
 
@@ -143,12 +336,13 @@ export class StructBlock {
       }</label>`;
     }
 
-    const childDom = $(`
-        <div data-contentpath="${childBlockDef.name}">
+    const childDom = $(
+      `<div data-contentpath="${childBlockDef.name}">
           ${label}
             <div data-streamfield-block></div>
           </div>
-        `);
+        `,
+    );
     container.append(childDom);
     const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
     const labelElement = childDom.find('label').get(0);
@@ -166,21 +360,6 @@ export class StructBlock {
     }
 
     return childBlock;
-  }
-
-  #initializeCollapsiblePanel(dom, prefix) {
-    const collapsibleToggle = dom.find('[data-panel-toggle]')[0];
-    const collapsibleTitle = dom.find('[data-panel-heading-text]')[0];
-    initCollapsiblePanel(collapsibleToggle);
-    this.setTextLabel = () => {
-      const label = this.getTextLabel({ maxLength: 50 });
-      collapsibleTitle.textContent = label || '';
-    };
-    collapsibleToggle.addEventListener(
-      'wagtail:panel-toggle',
-      this.setTextLabel,
-    );
-    return dom.find(`#${prefix}-content`);
   }
 
   setState(state) {
@@ -242,36 +421,7 @@ export class StructBlock {
   }
 
   getTextLabel(opts) {
-    // Allow using the empty string for the additional text in collapsed state
-    if (typeof this.blockDef.meta.labelFormat === 'string') {
-      /* use labelFormat - regexp replace any field references like '{first_name}'
-      with the text label of that sub-block */
-      return this.blockDef.meta.labelFormat.replace(
-        /\{(\w+)\}/g,
-        (_, blockName) => {
-          const block = this.childBlocks[blockName];
-          if (block && block.getTextLabel) {
-            /* to be strictly correct, we should be adjusting opts.maxLength to account for the overheads
-          in the format string, and dividing the remainder across all the placeholders in the string,
-          rather than just passing opts on to the child. But that would get complicated, and this is
-          better than nothing... */
-            return block.getTextLabel(opts);
-          }
-          return '';
-        },
-      );
-    }
-
-    /* if no labelFormat specified, just try each child block in turn until we find one that provides a label */
-    for (const childDef of this.blockDef.childBlockDefs) {
-      const child = this.childBlocks[childDef.name];
-      if (child.getTextLabel) {
-        const val = child.getTextLabel(opts);
-        if (val) return val;
-      }
-    }
-    // no usable label found
-    return null;
+    return this.layout.getTextLabel(opts);
   }
 
   focus(opts) {
@@ -282,14 +432,29 @@ export class StructBlock {
   }
 }
 
+export interface StructBlockDefinitionMeta extends BaseGroupOpts {
+  required: boolean;
+  label: string;
+  description: string;
+  blockDefId: string;
+  isPreviewable: boolean;
+  collapsed: boolean;
+  formLayout: BlockGroupDefinition;
+  formTemplate?: string;
+}
+
 export class StructBlockDefinition {
   declare name: string;
   declare childBlockDefs: any[];
-  declare meta: Record<string, any>;
+  declare meta: StructBlockDefinitionMeta;
   declare childBlockDefsByName: Record<string, any>;
   declare collapsible: boolean;
 
-  constructor(name: string, childBlockDefs: any[], meta: Record<string, any>) {
+  constructor(
+    name: string,
+    childBlockDefs: any[],
+    meta: StructBlockDefinitionMeta,
+  ) {
     this.name = name;
     this.childBlockDefs = childBlockDefs;
     this.childBlockDefsByName = childBlockDefs.reduce((map, blockDef) => {
