@@ -119,14 +119,6 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -341,14 +333,6 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       helpText: 'use <strong>a few</strong> of these',
       helpIcon: '<svg></svg>',
       maxNum: 3,
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -478,14 +462,6 @@ describe('telepath: wagtail.blocks.ListBlock with minNum set', () => {
       helpText: 'use <strong>a few</strong> of these',
       helpIcon: '<svg></svg>',
       minNum: 2,
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -584,14 +560,6 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
           maxNum: null,
           minNum: null,
           blockCounts: {},
-          strings: {
-            MOVE_UP: 'Move up',
-            MOVE_DOWN: 'Move down',
-            DRAG: 'Drag',
-            DELETE: 'Delete',
-            DUPLICATE: 'Duplicate',
-            ADD: 'Add',
-          },
         },
       ),
       null,
@@ -601,14 +569,6 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -667,14 +627,6 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -692,14 +644,6 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -782,14 +726,6 @@ describe('telepath: wagtail.blocks.ListBlock with StructBlock child', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
