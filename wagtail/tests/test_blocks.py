@@ -23,7 +23,11 @@ from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.blocks.list_block import ListBlockAdapter, ListBlockValidationError
 from wagtail.blocks.static_block import StaticBlockAdapter
 from wagtail.blocks.stream_block import StreamBlockAdapter, StreamBlockValidationError
-from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
+from wagtail.blocks.struct_block import (
+    BlockGroup,
+    StructBlockAdapter,
+    StructBlockValidationError,
+)
 from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
@@ -2144,6 +2148,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
             },
         )
 
@@ -2178,6 +2183,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2256,6 +2262,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2313,6 +2320,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2343,6 +2351,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2365,6 +2374,28 @@ class TestStructBlock(SimpleTestCase):
                 js_args = StructBlockAdapter().js_args(block)
 
                 self.assertIs(js_args[2]["collapsed"], case)
+
+    def test_adapt_with_settings_blocks(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=["title"],
+                    settings=["link"],
+                )
+
+        block = LinkBlock()
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        # The form_layout is still a BlockGroup instance,
+        # which will be adapted on its own
+        form_layout = js_args[2]["formLayout"]
+        self.assertIsInstance(form_layout, BlockGroup)
+        self.assertEqual(form_layout, block.meta.form_layout)
 
     def test_adapt_label_format(self):
         class LinkBlock(blocks.StructBlock):

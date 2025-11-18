@@ -3,7 +3,7 @@ import * as uuid from 'uuid';
 import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
 import { ListBlockDefinition } from './ListBlock';
 import { StreamBlockDefinition } from './StreamBlock';
-import { StructBlockDefinition } from './StructBlock';
+import { BlockGroupDefinition, StructBlockDefinition } from './StructBlock';
 
 // Mock uuid for consistent snapshot results
 jest.mock('uuid');
@@ -717,6 +717,13 @@ describe('telepath: wagtail.blocks.ListBlock with StructBlock child', () => {
           classname: 'struct-block',
           helpText: 'use <strong>lots</strong> of these',
           helpIcon: '<svg></svg>',
+          formLayout: new BlockGroupDefinition({
+            children: [
+              ['heading_text', 'heading_text'],
+              ['size', 'size'],
+            ],
+            settings: [],
+          }),
         },
       ),
       null,
