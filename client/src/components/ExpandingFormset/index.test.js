@@ -269,7 +269,7 @@ describe('ExpandingFormset', () => {
 
     expect(handleLoadedEvent).toHaveBeenCalledTimes(1);
     const detail = handleLoadedEvent.mock.calls[0][0].detail;
-    // Both first occurences of __prefix__ should be replaced with '2', even if
+    // Both first occurrences of __prefix__ should be replaced with '2', even if
     // they are in escaped JSON within a script tag.
     expect(detail.prefix1).toEqual(
       `${prefix}-2-${nestedPrefix}-__prefix__-testelement1`,
