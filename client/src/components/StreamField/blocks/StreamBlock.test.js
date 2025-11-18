@@ -118,14 +118,6 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -371,14 +363,6 @@ describe('telepath: wagtail.blocks.StreamBlock with nested stream block', () => 
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -396,14 +380,6 @@ describe('telepath: wagtail.blocks.StreamBlock with nested stream block', () => 
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -489,14 +465,6 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete & kill with fire',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -569,14 +537,6 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
       maxNum: 3,
       minNum: null,
       blockCounts: {},
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete & kill with fire',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -805,14 +765,6 @@ describe('telepath: wagtail.blocks.StreamBlock with minNum set', () => {
       maxNum: null,
       minNum: 2,
       blockCounts: {},
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete & kill with fire',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -957,14 +909,6 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
         test_block_a: {
           max_num: 2,
         },
-      },
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete & kill with fire',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
       },
     },
   );
@@ -1194,14 +1138,6 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.min_num set', ()
           min_num: 2,
         },
       },
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete & kill with fire',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -1316,14 +1252,6 @@ describe('telepath: wagtail.blocks.StreamBlock with unique block type', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -1423,14 +1351,6 @@ describe('telepath: wagtail.blocks.StreamBlock with StructBlock child', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 

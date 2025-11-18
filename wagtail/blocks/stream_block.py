@@ -845,14 +845,6 @@ class StreamBlockAdapter(Adapter):
             "minNum": block.meta.min_num,
             "blockCounts": block.meta.block_counts,
             "collapsed": block.meta.collapsed,
-            "strings": {
-                "MOVE_UP": _("Move up"),
-                "MOVE_DOWN": _("Move down"),
-                "DRAG": _("Drag"),
-                "DUPLICATE": _("Duplicate"),
-                "DELETE": _("Delete"),
-                "ADD": _("Add"),
-            },
         }
         help_text = getattr(block.meta, "help_text", None)
         if help_text:
