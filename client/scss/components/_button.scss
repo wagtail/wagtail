@@ -259,6 +259,8 @@
       text-align: center;
       height: inherit;
       width: inherit;
+      // Allow overflow for an error badge
+      overflow: visible;
 
       &:hover {
         color: theme('colors.icon-secondary-hover');
