@@ -1,3 +1,5 @@
+import warnings
+
 from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _
 
@@ -52,17 +54,22 @@ class Format:
 
 FORMATS = []
 FORMATS_BY_NAME = {}
+FALLBACK_FORMAT = None
 
 
-def register_image_format(format):
+def register_image_format(format, is_fallback=False):
     if format.name in FORMATS_BY_NAME:
         raise KeyError("Image format '%s' is already registered" % format.name)
     FORMATS_BY_NAME[format.name] = format
     FORMATS.append(format)
 
+    if is_fallback:
+        global FALLBACK_FORMAT
+        FALLBACK_FORMAT = format.name
+
 
 def unregister_image_format(format_name):
-    global FORMATS
+    global FORMATS, FALLBACK_FORMAT
     # handle being passed a format object rather than a format name string
     try:
         format_name = format_name.name
@@ -72,6 +79,11 @@ def unregister_image_format(format_name):
     try:
         del FORMATS_BY_NAME[format_name]
         FORMATS = [fmt for fmt in FORMATS if fmt.name != format_name]
+
+        # Check if the removed format was the fallback format
+        if FALLBACK_FORMAT == format_name:
+            FALLBACK_FORMAT = None
+
     except KeyError:
         raise KeyError("Image format '%s' is not registered" % format_name)
 
@@ -83,7 +95,15 @@ def get_image_formats():
 
 def get_image_format(name):
     search_for_image_formats()
-    return FORMATS_BY_NAME[name]
+    if name in FORMATS_BY_NAME:
+        return FORMATS_BY_NAME[name]
+    elif FALLBACK_FORMAT:
+        warnings.warn(
+            f"Using fallback image format '{FALLBACK_FORMAT}' for '{name}'", UserWarning
+        )
+        return FORMATS_BY_NAME[FALLBACK_FORMAT]
+    else:
+        raise KeyError("Image format '%s' not found and no fallback format set" % name)
 
 
 _searched_for_image_formats = False
@@ -98,7 +118,8 @@ def search_for_image_formats():
 
 # Define default image formats
 register_image_format(
-    Format("fullwidth", _("Full width"), "richtext-image full-width", "width-800")
+    Format("fullwidth", _("Full width"), "richtext-image full-width", "width-800"),
+    is_fallback=True,
 )
 register_image_format(
     Format("left", _("Left-aligned"), "richtext-image left", "width-500")
