@@ -2144,6 +2144,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "settingsBlocks": [],
             },
         )
 
@@ -2178,6 +2179,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "settingsBlocks": [],
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2256,6 +2258,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "settingsBlocks": [],
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2313,6 +2316,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "settingsBlocks": [],
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2343,6 +2347,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "settingsBlocks": [],
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2365,6 +2370,21 @@ class TestStructBlock(SimpleTestCase):
                 js_args = StructBlockAdapter().js_args(block)
 
                 self.assertIs(js_args[2]["collapsed"], case)
+
+    def test_adapt_with_settings_blocks(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                settings_blocks = ["link"]
+
+        block = LinkBlock()
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2]["settingsBlocks"], ["link"])
 
     def test_adapt_label_format(self):
         class LinkBlock(blocks.StructBlock):

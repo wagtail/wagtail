@@ -9,32 +9,34 @@ import {
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { initCollapsiblePanel } from '../../../includes/panels';
 import { setAttrs } from '../../../utils/attrs';
+import { SettingsButton } from './ActionButton';
 
 export class StructBlock {
+  #initialState;
+  #initialError;
+
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
-    const state = initialState || {};
     this.blockDef = blockDef;
     this.type = blockDef.name;
+    this.prefix = prefix;
+    this.#initialState = initialState || {};
+    this.#initialError = initialError;
 
     this.childBlocks = {};
-
-    let container = '';
-    if (this.blockDef.collapsible) {
-      container = new CollapsiblePanel({
-        panelId: prefix + '-section',
-        headingId: prefix + '-heading',
-        contentId: prefix + '-content',
-        blockTypeIcon: h(blockDef.meta.icon),
-        blockTypeLabel: h(blockDef.meta.label),
-        collapsed: blockDef.meta.collapsed,
-      }).render().outerHTML;
-    }
 
     if (blockDef.meta.formTemplate) {
       const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
 
       let dom;
-      if (container) {
+      if (this.blockDef.collapsible) {
+        const container = new CollapsiblePanel({
+          panelId: prefix + '-section',
+          headingId: prefix + '-heading',
+          contentId: prefix + '-content',
+          blockTypeIcon: h(blockDef.meta.icon),
+          blockTypeLabel: h(blockDef.meta.label),
+          collapsed: blockDef.meta.collapsed,
+        }).render().outerHTML;
         // Replace the placeholder with the collapsible panel container so it's
         // mounted to the DOM and can be initialized.
         dom = $(container);
@@ -58,78 +60,14 @@ export class StructBlock {
         const childBlock = childBlockDef.render(
           childBlockElement,
           prefix + '-' + childBlockDef.name,
-          state[childBlockDef.name],
+          this.#initialState[childBlockDef.name],
           blockErrors[childBlockDef.name],
         );
         this.childBlocks[childBlockDef.name] = childBlock;
       });
       this.container = dom;
     } else {
-      let dom = $(`
-        <div class="${h(this.blockDef.meta.classname || '')}">
-        </div>
-      `);
-      dom.append(container);
-      $(placeholder).replaceWith(dom);
-
-      if (this.blockDef.collapsible) {
-        dom = this.#initializeCollapsiblePanel(dom, prefix);
-      }
-
-      if (this.blockDef.meta.helpText) {
-        // help text is left unescaped as per Django conventions
-        dom.append(`
-          <div class="c-sf-help">
-            <div class="help">
-              ${this.blockDef.meta.helpText}
-            </div>
-          </div>
-        `);
-      }
-
-      this.blockDef.childBlockDefs.forEach((childBlockDef) => {
-        const isStructBlock =
-          // Cannot use `instanceof StructBlockDefinition` here as it is defined
-          // later in this file. Compare our own blockDef constructor instead.
-          childBlockDef instanceof this.blockDef.constructor;
-
-        // Struct blocks are collapsible and thus have their own header,
-        // so only add the label if this is not a struct block.
-        let label = '';
-        if (!isStructBlock) {
-          label = `<label class="w-field__label">${h(childBlockDef.meta.label)}${
-            childBlockDef.meta.required
-              ? '<span class="w-required-mark">*</span>'
-              : ''
-          }</label>`;
-        }
-
-        const childDom = $(`
-        <div data-contentpath="${childBlockDef.name}">
-          ${label}
-            <div data-streamfield-block></div>
-          </div>
-        `);
-        dom.append(childDom);
-        const childBlockElement = childDom
-          .find('[data-streamfield-block]')
-          .get(0);
-        const labelElement = childDom.find('label').get(0);
-        const blockErrors = initialError?.blockErrors || {};
-        const childBlock = childBlockDef.render(
-          childBlockElement,
-          prefix + '-' + childBlockDef.name,
-          state[childBlockDef.name],
-          blockErrors[childBlockDef.name],
-          new Map(),
-        );
-
-        this.childBlocks[childBlockDef.name] = childBlock;
-        if (childBlock.idForLabel) {
-          labelElement.setAttribute('for', childBlock.idForLabel);
-        }
-      });
-      this.container = dom;
+      this.container = this.renderGroup(this.blockDef, placeholder, prefix);
     }
 
     // Set in initialisation regardless of block state for screen reader users.
@@ -144,15 +82,138 @@ export class StructBlock {
     const collapsibleToggle = dom.find('[data-panel-toggle]')[0];
     const collapsibleTitle = dom.find('[data-panel-heading-text]')[0];
     initCollapsiblePanel(collapsibleToggle);
-    this.setTextLabel = () => {
-      const label = this.getTextLabel({ maxLength: 50 });
+    const setTextLabel = () => {
+      const label = this.getTextLabel({ maxLength: 50 }, dom[0]);
       collapsibleTitle.textContent = label || '';
     };
-    collapsibleToggle.addEventListener(
-      'wagtail:panel-toggle',
-      this.setTextLabel,
-    );
+    collapsibleToggle.addEventListener('wagtail:panel-toggle', setTextLabel);
+    if (!this.setTextLabel) {
+      this.setTextLabel = setTextLabel;
+    }
     return dom.find(`#${prefix}-content`);
+  }
+
+  renderChildBlockDef(childBlockDef, container) {
+    const isStructBlock =
+      // Cannot use `instanceof StructBlockDefinition` here as it is defined
+      // later in this file. Compare our own blockDef constructor instead.
+      childBlockDef instanceof this.blockDef.constructor;
+
+    // Struct blocks are collapsible and thus have their own header,
+    // so only add the label if this is not a struct block.
+    let label = '';
+    if (!isStructBlock) {
+      label = `<label class="w-field__label">${h(childBlockDef.meta.label)}${
+        childBlockDef.meta.required
+          ? '<span class="w-required-mark">*</span>'
+          : ''
+      }</label>`;
+    }
+
+    const childDom = $(`
+        <div data-contentpath="${childBlockDef.name}">
+          ${label}
+            <div data-streamfield-block></div>
+          </div>
+        `);
+    container.append(childDom);
+    const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+    const labelElement = childDom.find('label').get(0);
+    const blockErrors = this.#initialError?.blockErrors || {};
+    const childBlock = childBlockDef.render(
+      childBlockElement,
+      this.prefix + '-' + childBlockDef.name,
+      this.#initialState[childBlockDef.name],
+      blockErrors[childBlockDef.name],
+      new Map(),
+    );
+
+    this.childBlocks[childBlockDef.name] = childBlock;
+    if (childBlock.idForLabel) {
+      labelElement.setAttribute('for', childBlock.idForLabel);
+    }
+  }
+
+  renderGroup(group, container, prefix) {
+    const isBlockDef = group === this.blockDef;
+    const opts = isBlockDef ? this.blockDef.meta : group.opts;
+
+    let dom = $(`
+      <div class="${h(opts.classname || '')}">
+      </div>
+    `);
+
+    // For the StructBlock definition itself, we need to replace the placeholder
+    // element rendered by the server, otherwise we just append to the container.
+    if (isBlockDef) {
+      $(container).replaceWith(dom);
+    } else {
+      container.append(dom);
+    }
+
+    // If it's a BlockGroup, always wrap in a collapsible panel. If it's the
+    // StructBlock defintion itself, we wrap in a collapsible panel only if it's
+    // not already handled by the parent block.
+    if (!isBlockDef || this.blockDef.collapsible) {
+      const groupContainer = new CollapsiblePanel({
+        panelId: `${prefix}-section`,
+        headingId: `${prefix}-heading`,
+        contentId: `${prefix}-content`,
+        blockTypeIcon: h(opts.icon),
+        blockTypeLabel: h(opts.heading),
+        collapsed: dom.hasClass('collapsed'),
+      }).render().outerHTML;
+      dom.append(groupContainer);
+      dom = this.#initializeCollapsiblePanel(dom, prefix);
+    }
+
+    if (opts.helpText) {
+      // help text is left unescaped as per Django conventions
+      dom.append(`
+        <div class="c-sf-help">
+          <div class="help">
+            ${opts.helpText}
+          </div>
+        </div>
+      `);
+    }
+
+    const { children, settings } = isBlockDef
+      ? this.blockDef.meta.formLayout.opts
+      : opts;
+
+    if (settings.length > 0) {
+      dom.append(/* html */ `
+        <div id="${prefix}-settings" data-block-settings hidden="until-found"></div>
+      `);
+
+      const panel = dom.closest('[data-panel]');
+      const controls = panel.find('[data-panel-controls]').get(0);
+      const settingsButton = new SettingsButton({ element: dom.get(0) });
+      settingsButton.render(controls);
+
+      const blockSettings = dom.find('[data-block-settings]');
+      settings.forEach(([entry, id]) =>
+        this.#renderLayoutEntry(entry, blockSettings, `${prefix}-${id}`),
+      );
+    }
+
+    children.forEach(([entry, id]) =>
+      this.#renderLayoutEntry(entry, dom, `${prefix}-${id}`),
+    );
+
+    return dom;
+  }
+
+  #renderLayoutEntry(layoutEntry, container, prefix) {
+    if (typeof layoutEntry === 'string') {
+      // it's a block name, render the block
+      const childBlockDef = this.blockDef.childBlockDefsMap[layoutEntry];
+      this.renderChildBlockDef(childBlockDef, container);
+      return;
+    }
+    // it's a BlockGroup, render with a collapsible panel
+    this.renderGroup(layoutEntry, container, prefix);
   }
 
   setState(state) {
@@ -176,7 +237,14 @@ export class StructBlock {
       // eslint-disable-next-line no-restricted-syntax
       for (const blockName in error.blockErrors) {
         if (hasOwn(error.blockErrors, blockName)) {
-          this.childBlocks[blockName].setError(error.blockErrors[blockName]);
+          const block = this.childBlocks[blockName];
+          block.setError(error.blockErrors[blockName]);
+
+          // Trigger a 'beforematch' event on the errored block to ensure it's
+          // expanded if it's within any level of collapsible panels, including
+          // settings panels.
+          const element = block.element || block.container?.[0];
+          element.dispatchEvent(new Event('beforematch', { bubbles: true }));
         }
       }
     }
@@ -213,7 +281,7 @@ export class StructBlock {
     return value;
   }
 
-  getTextLabel(opts) {
+  getTextLabel(opts, container = null) {
     // Allow using the empty string for the additional text in collapsed state
     if (typeof this.blockDef.meta.labelFormat === 'string') {
       /* use labelFormat - regexp replace any field references like '{first_name}'
@@ -237,6 +305,13 @@ export class StructBlock {
     /* if no labelFormat specified, just try each child block in turn until we find one that provides a label */
     for (const childDef of this.blockDef.childBlockDefs) {
       const child = this.childBlocks[childDef.name];
+      if (
+        container &&
+        !container.contains(child.container?.[0] || child.element)
+      ) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
       if (child.getTextLabel) {
         const val = child.getTextLabel(opts);
         if (val) return val;
@@ -254,10 +329,20 @@ export class StructBlock {
   }
 }
 
+export class BlockGroupDefinition {
+  constructor(opts) {
+    this.opts = opts;
+  }
+}
+
 export class StructBlockDefinition {
   constructor(name, childBlockDefs, meta) {
     this.name = name;
     this.childBlockDefs = childBlockDefs;
+    this.childBlockDefsMap = childBlockDefs.reduce((map, blockDef) => {
+      map[blockDef.name] = blockDef;
+      return map;
+    }, {});
     this.meta = meta;
 
     // Always collapsible by default, but can be overridden e.g. when used in a

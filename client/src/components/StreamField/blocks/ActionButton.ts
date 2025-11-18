@@ -118,3 +118,70 @@ export class DeleteButton extends ActionButton {
     this.sequenceChild.delete({ animate: true });
   }
 }
+
+export class SettingsButton extends ActionButton {
+  icon = 'cog';
+  labelIdentifier = 'SETTINGS';
+  label = gettext('Settings');
+
+  render(container: any): void {
+    super.render(container);
+    const panel = this.dom.closest('[data-panel]');
+    const settings = panel.find('[data-block-settings]');
+    this.dom.attr('aria-expanded', 'false');
+    this.dom.attr('aria-controls', settings.attr('id')!);
+    this.dom.append(/* html */ `
+      <div
+        class="w-badge w-badge--critical w-hidden"
+        data-controller="w-count"
+        data-w-count-active-class="!w-flex"
+        data-w-count-container-value="#${settings.attr('id')}"
+      >
+        <span aria-hidden="true" data-w-count-target="total"></span>
+        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
+      </div>
+    `);
+    settings.on('beforematch', () => this.toggle(true));
+  }
+
+  toggle(open?: boolean) {
+    const element = this.sequenceChild.element;
+    if (!element) return;
+
+    const settings = element.querySelector<HTMLElement>(
+      '[data-block-settings]',
+    );
+    if (!settings) return;
+
+    const parentPanel = element.closest<HTMLElement>('[data-panel]')!;
+    const parentToggle = parentPanel.querySelector<HTMLButtonElement>(
+      '[data-panel-toggle]',
+    )!;
+
+    let isExpanding = open ?? this.dom.attr('aria-expanded') === 'false';
+    if (parentToggle.getAttribute('aria-expanded') === 'false') {
+      // If the parent panel is currently collapsed, we cannot see the effect of
+      // toggling settings visibility, so first expand the panel.
+      parentToggle.click();
+      // However, if the settings were previously shown, toggling its visibility
+      // will now hide it, which could be confusing, so just force it to show.
+      isExpanding = true;
+    }
+
+    if (isExpanding) {
+      this.dom.attr('aria-expanded', isExpanding ? 'true' : 'false');
+      settings.removeAttribute('hidden');
+    } else {
+      this.dom.attr('aria-expanded', isExpanding ? 'true' : 'false');
+      if ('onbeforematch' in document.body) {
+        settings.setAttribute('hidden', 'until-found');
+      } else {
+        settings.setAttribute('hidden', '');
+      }
+    }
+  }
+
+  onClick() {
+    this.toggle();
+  }
+}
