@@ -3006,14 +3006,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "classname": None,
                 "attrs": {},
                 "collapsed": False,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -3043,14 +3035,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "collapsed": False,
                 "minNum": 2,
                 "maxNum": 5,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -3228,14 +3212,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "classname": "special-list-class",
                 "attrs": {},
                 "collapsed": False,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -3266,14 +3242,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "classname": "custom-list-class",
                 "attrs": {},
                 "collapsed": False,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -3939,14 +3907,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "minNum": None,
                 "blockCounts": {},
                 "required": True,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -4716,14 +4676,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "required": True,
                 "classname": "rocket-section",
                 "attrs": {},
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -4823,14 +4775,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "required": True,
                 "classname": "profile-block-large",
                 "attrs": {},
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 

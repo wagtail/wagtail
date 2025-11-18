@@ -742,14 +742,6 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -792,14 +784,6 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -874,14 +858,6 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate in stream block
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -930,14 +906,6 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate in stream block
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
