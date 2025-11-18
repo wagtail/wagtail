@@ -12,6 +12,7 @@ import {
 import { range } from '../../../utils/range';
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { StructBlockDefinition } from './StructBlock';
+import { gettext } from '../../../utils/gettext';
 
 class ActionButton {
   constructor(sequenceChild) {
@@ -19,11 +20,8 @@ class ActionButton {
   }
 
   render(container) {
-    const label =
-      this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
-
     this.dom = $(`
-      <button type="button" class="button button--icon text-replace white" data-streamfield-action="${this.labelIdentifier}" title="${h(label)}">
+      <button type="button" class="button button--icon text-replace white" data-streamfield-action="${this.labelIdentifier}" title="${h(this.label)}">
         <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
           <use href="#icon-${h(this.icon)}"></use>
         </svg>
@@ -69,6 +67,7 @@ class MoveUpButton extends ActionButton {
   initiallyDisabled = true;
   icon = 'arrow-up';
   labelIdentifier = 'MOVE_UP';
+  label = gettext('Move up');
 
   onClick() {
     this.sequenceChild.moveUp();
@@ -81,6 +80,7 @@ class MoveDownButton extends ActionButton {
   initiallyDisabled = true;
   icon = 'arrow-down';
   labelIdentifier = 'MOVE_DOWN';
+  label = gettext('Move down');
 
   onClick() {
     this.sequenceChild.moveDown();
@@ -93,6 +93,7 @@ class DragButton extends ActionButton {
   initiallyDisabled = false;
   icon = 'grip';
   labelIdentifier = 'DRAG';
+  label = gettext('Drag');
 }
 
 class DuplicateButton extends ActionButton {
@@ -100,6 +101,7 @@ class DuplicateButton extends ActionButton {
   disableEvent = 'disableDuplication';
   icon = 'copy';
   labelIdentifier = 'DUPLICATE';
+  label = gettext('Duplicate');
 
   onClick() {
     this.sequenceChild.duplicate({ animate: true });
@@ -109,6 +111,7 @@ class DuplicateButton extends ActionButton {
 class DeleteButton extends ActionButton {
   icon = 'bin';
   labelIdentifier = 'DELETE';
+  label = gettext('Delete');
 
   onClick() {
     this.sequenceChild.delete({ animate: true });
@@ -137,7 +140,6 @@ export class BaseSequenceChild extends EventTarget {
     const animate = opts && opts.animate;
     const focus = opts && opts.focus;
     const collapsed = opts && opts.collapsed;
-    this.strings = (opts && opts.strings) || {};
 
     const panelId = `block-${id}-section`;
     const headingId = `block-${id}-heading`;
@@ -442,7 +444,6 @@ export class BaseSequenceBlock {
         onRequestInsert: (newIndex, opts) => {
           this._onRequestInsert(newIndex, opts);
         },
-        strings: this.blockDef.meta.strings,
       }),
     ];
 
@@ -504,7 +505,6 @@ export class BaseSequenceBlock {
         animate,
         focus,
         collapsed,
-        strings: this.blockDef.meta.strings,
       },
     );
     this.children.splice(index, 0, child);
@@ -514,7 +514,6 @@ export class BaseSequenceBlock {
       onRequestInsert: (newIndex, inserterOpts) => {
         this._onRequestInsert(newIndex, inserterOpts);
       },
-      strings: this.blockDef.meta.strings,
       animate,
     });
     this.inserters.splice(index + 1, 0, inserter);
