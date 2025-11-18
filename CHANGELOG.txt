@@ -26,6 +26,7 @@ Changelog
  * Maintenance: Improve nightly release upload scripts (Jake Howard)
  * Maintenance: Upload redundant `latest.whl` nightly build for ease of use with package managers (Sage Abdullah)
  * Maintenance: Move MANIFEST.in settings into pyproject.toml (Pravin Kamble)
+ * Maintenance: Fix linting rules B006 and B904 (Vivek Subramani, Matt Westcott)
 
 
 7.2.1 (xx.xx.xxxx) - IN DEVELOPMENT

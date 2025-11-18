@@ -921,6 +921,7 @@
 * Bhavesh Sharma
 * Nick Ivons
 * Vishrut Ramraj
+* Vivek Subramani
 
 ## Translators
 
