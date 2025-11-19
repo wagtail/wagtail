@@ -283,7 +283,23 @@ cd docs/
 make livehtml
 ```
 
-## Automatically lint and code format on commits
+(linting_and_formatting)=
+## Linting and formatting
+
+Wagtail makes use of various tools to ensure consistency and readability across the codebase:
+
+- [Ruff](https://github.com/astral-sh/ruff) for formatting and linting Python code, including enforcing [PEP8](https://peps.python.org/pep-0008/) and [isort](https://pycqa.github.io/isort/) rules
+- [djhtml](https://github.com/rtts/djhtml) and [Curlylint](https://www.curlylint.org/) for formatting and linting HTML templates
+- [Prettier](https://prettier.io/), [Stylelint](https://stylelint.io/) and [ESLint](https://eslint.org/) for formatting and linting JavaScript and CSS code
+
+All contributions should follow these standards, and you are encouraged to run these tools locally to avoid delays in your contributions being accepted. Here are the available commands:
+
+-   `make lint` will run all linting, `make lint-server` lints Python and template code, and `make lint-client` lints JS/CSS.
+-   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
+
+Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
+
+### Automatically lint and code format on commits
 
 [pre-commit](https://pre-commit.com/) is configured to automatically run code linting and formatting checks with every commit. To install pre-commit into your git hooks run:
 
