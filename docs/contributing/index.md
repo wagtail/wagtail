@@ -76,7 +76,6 @@ documentation_guidelines
 documentation_modes
 translations
 security
-styleguide
 issue_tracking
 committing
 ```
