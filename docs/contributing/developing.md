@@ -1,6 +1,6 @@
 (developing_for_wagtail)=
 
-# Development
+# Setting up a development environment
 
 Setting up a local copy of [the Wagtail git repository](https://github.com/wagtail/wagtail) is slightly more involved than running a release package of Wagtail, as it requires [Node.js](https://nodejs.org/) and npm for building JavaScript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
