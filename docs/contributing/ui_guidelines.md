@@ -7,15 +7,6 @@ Wagtail’s user interface is built with:
 -   **JavaScript** with [TypeScript](https://www.typescriptlang.org/)
 -   **SVG** for our icons, minified with [SVGO](https://jakearchibald.github.io/svgomg/)
 
-## Linting and formatting
-
-Here are the available commands:
-
--   `make lint` will run all linting, `make lint-server` lints templates, and `make lint-client` lints JS/CSS.
--   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
-
-Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
-
 ## Browser and device support
 
 Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
@@ -69,7 +60,7 @@ The audit also states which parts of Wagtail have and haven’t been tested, how
 
 ## HTML guidelines
 
-We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](https://www.curlylint.org/) for linting.
+We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](https://www.curlylint.org/) for linting. See [](linting_and_formatting).
 
 -   Write [valid](https://validator.w3.org/nu/), [semantic](https://html5doctor.com/element-index/) HTML.
 -   Follow [ARIA authoring practices](https://w3c.github.io/aria-practices/), in particular, [No ARIA is better than Bad ARIA](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria).
@@ -79,7 +70,7 @@ We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](h
 
 ## CSS guidelines
 
-We use [Prettier](https://prettier.io/) for formatting and [Stylelint](https://stylelint.io/) for linting.
+We use [Prettier](https://prettier.io/) for formatting and [Stylelint](https://stylelint.io/) for linting. See [](linting_and_formatting).
 
 -   We follow [BEM](https://getbem.com/) and [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), with a large amount of utilities created with [Tailwind](https://tailwindcss.com/).
 -   Familiarise yourself with our [stylelint-config-wagtail](https://github.com/wagtail/stylelint-config-wagtail) configuration, which details our preferred code style.
@@ -143,7 +134,7 @@ Also known as Windows High Contrast mode, or Contrast Themes. This is a feature 
 
 ## JavaScript guidelines
 
-We use [Prettier](https://prettier.io/) for formatting and [ESLint](https://eslint.org/) for linting.
+We use [Prettier](https://prettier.io/) for formatting and [ESLint](https://eslint.org/) for linting. See [](linting_and_formatting).
 
 -   We follow a somewhat relaxed version of the [Airbnb styleguide](https://github.com/airbnb/javascript).
 -   Familiarise yourself with our [eslint-config-wagtail](https://github.com/wagtail/eslint-config-wagtail) configuration, which details our preferred code style.
