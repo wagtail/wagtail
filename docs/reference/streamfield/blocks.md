@@ -9,7 +9,7 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 ```
 
 ```{eval-rst}
-.. class:: wagtail.fields.StreamField(blocks, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
+.. class:: wagtail.fields.StreamField(block_types, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
    A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield_topic`.
 
