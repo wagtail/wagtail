@@ -14,11 +14,7 @@ The easiest way to contribute to Wagtail is to tell us how to improve it! First,
 
 If your bug report is a security issue, **do not** report it with an issue. Please read our guide to [reporting security issues](security).
 
-```{toctree}
-:maxdepth: 2
-
-issue_tracking
-```
+For further information about how issues are handled, see [](issue_tracking).
 
 ## Pull requests
 
@@ -27,13 +23,6 @@ If you are just getting started with development and have never contributed to a
 We welcome all contributions, whether they solve problems that are specific to you or they address existing issues. If you're stuck for ideas, pick something from the [issue list](https://github.com/wagtail/wagtail/issues?q=is%3Aopen), or email us directly at [hello@wagtail.org](mailto:hello@wagtail.org) if you'd like us to suggest something!
 
 For large-scale changes, we'd generally recommend breaking them down into smaller pull requests that achieve a single well-defined task and can be reviewed individually. If this isn't possible, we recommend opening a pull request on the [Wagtail RFCs](https://github.com/wagtail/rfcs/) repository, so that there's a chance for the community to discuss the change before it gets implemented.
-
-```{toctree}
-:maxdepth: 2
-
-first_contribution_guide
-developing
-```
 
 ## Translations
 
@@ -78,7 +67,8 @@ You can also find a curated list of awesome packages, articles, and other cool r
 ```{toctree}
 :maxdepth: 2
 
-styleguide
+first_contribution_guide
+developing
 general_guidelines
 python_guidelines
 ui_guidelines
@@ -86,5 +76,7 @@ documentation_guidelines
 documentation_modes
 translations
 security
+styleguide
+issue_tracking
 committing
 ```
