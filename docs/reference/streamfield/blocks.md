@@ -13,7 +13,7 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 
    A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield_topic`.
 
-   :param blocks: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
+   :param block_types: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
    :param blank: When false (the default), at least one block must be provided for the field to be considered valid.
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
