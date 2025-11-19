@@ -254,3 +254,21 @@ At present the styleguide is static: new UI components must be added to it manua
 We hope to support specific styleguide hooks in the future.
 
 The styleguide doesn't currently provide examples of all the core interface components; notably the Page, Document, Image and Snippet chooser interfaces are not currently represented.
+
+(pattern_library)=
+
+## Using the pattern library
+
+Wagtail’s UI component library is built with [Storybook](https://storybook.js.org/) and [django-pattern-library](https://github.com/torchbox/django-pattern-library). To run it locally,
+
+```sh
+export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
+# Assumes the current environment contains a valid installation of Wagtail for local development.
+./wagtail/test/manage.py migrate
+./wagtail/test/manage.py createcachetable
+./wagtail/test/manage.py runserver 0:8000
+# In a separate terminal:
+npm run storybook
+```
+
+The last command will start Storybook at `http://localhost:6006/`. It will proxy specific requests to Django at `http://localhost:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port for Django: `TEST_ORIGIN=http://localhost:9000 npm run storybook`.
