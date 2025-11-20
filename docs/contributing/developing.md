@@ -1,6 +1,6 @@
 (developing_for_wagtail)=
 
-# Development
+# Setting up a development environment
 
 Setting up a local copy of [the Wagtail git repository](https://github.com/wagtail/wagtail) is slightly more involved than running a release package of Wagtail, as it requires [Node.js](https://nodejs.org/) and npm for building JavaScript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
@@ -214,56 +214,6 @@ npm run test:integration
 
 Integration tests target `http://127.0.0.1:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port, or test a remote Wagtail instance: `TEST_ORIGIN=http://127.0.0.1:9000 npm run test:integration`.
 
-### Browser and device support
-
-Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
-
-| Browser       | Device/OS  | Version(s)         |
-| ------------- | ---------- | ------------------ |
-| Mobile Safari | iOS Phone  | Last 2: 17, 18     |
-| Mobile Safari | iOS Tablet | Last 2: 17, 18     |
-| Chrome        | Android    | Last 2             |
-| Chrome        | Desktop    | Last 2             |
-| MS Edge       | Windows    | Last 2             |
-| Firefox       | Desktop    | Latest             |
-| Firefox ESR   | Desktop    | Latest: 140        |
-| Safari        | macOS      | Last 3: 16, 17, 18 |
-
-We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
-
-**Unsupported browsers / devices include:**
-
-| Browser       | Device/OS | Version(s) |
-| ------------- | --------- | ---------- |
-| Stock browser | Android   | All        |
-| IE            | Desktop   | All        |
-| Safari        | Windows   | All        |
-
-### Accessibility targets
-
-We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is [WCAG2.1](https://www.w3.org/TR/WCAG21/), AA level. Here are specific assistive technologies we aim to test for, and ultimately support:
-
--   [NVDA](https://www.nvaccess.org/download/) on Windows with Firefox ESR
--   [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on macOS with Safari
--   [Windows Magnifier](https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier) and macOS Zoom
--   [Windows voice access](https://support.microsoft.com/en-gb/topic/use-voice-access-to-control-your-pc-author-text-with-your-voice-4dcd23ee-f1b9-4fd1-bacc-862ab611f55d) and [macOS Voice Control](https://support.apple.com/en-gb/102225)
--   [iOS VoiceOver](https://support.apple.com/en-gb/guide/iphone/iph3e2e415f/ios), or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
--   [Windows Contrast themes](https://support.microsoft.com/en-us/windows/change-color-contrast-in-windows-fedc744c-90ac-69df-aed5-c8a90125e696)
-
-We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialized training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
-
--   [@wordpress/jest-puppeteer-axe](https://github.com/WordPress/gutenberg/tree/trunk/packages/jest-puppeteer-axe) running Axe checks as part of integration tests.
--   [Axe](https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd) Chrome extension for more comprehensive automated tests of a given page.
--   [Accessibility Insights for Web](https://accessibilityinsights.io/docs/en/web/overview) Chrome extension for semi-automated tests, and manual audits.
-
-### Known accessibility issues
-
-Wagtail’s administration interface isn’t fully accessible at the moment. We actively work on fixing issues both as part of ongoing maintenance and bigger overhauls. To learn about known issues, check out:
-
--   The [WCAG2.1 AA for CMS admin](https://github.com/wagtail/wagtail/projects/5) issues backlog.
--   Our [2021 accessibility audit](https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit).
-
-The audit also states which parts of Wagtail have and haven’t been tested, how issues affect WCAG 2.1 compliance, and the likely impact on users.
 
 ## Compiling static assets
 
@@ -280,24 +230,6 @@ This must be done after every change to the source files. To watch the source fi
 ```sh
 npm start
 ```
-
-(pattern_library)=
-
-## Using the pattern library
-
-Wagtail’s UI component library is built with [Storybook](https://storybook.js.org/) and [django-pattern-library](https://github.com/torchbox/django-pattern-library). To run it locally,
-
-```sh
-export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
-# Assumes the current environment contains a valid installation of Wagtail for local development.
-./wagtail/test/manage.py migrate
-./wagtail/test/manage.py createcachetable
-./wagtail/test/manage.py runserver 0:8000
-# In a separate terminal:
-npm run storybook
-```
-
-The last command will start Storybook at `http://localhost:6006/`. It will proxy specific requests to Django at `http://localhost:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port for Django: `TEST_ORIGIN=http://localhost:9000 npm run storybook`.
 
 ## Compiling the documentation
 
@@ -351,7 +283,23 @@ cd docs/
 make livehtml
 ```
 
-## Automatically lint and code format on commits
+(linting_and_formatting)=
+## Linting and formatting
+
+Wagtail makes use of various tools to ensure consistency and readability across the codebase:
+
+- [Ruff](https://github.com/astral-sh/ruff) for formatting and linting Python code, including enforcing [PEP8](https://peps.python.org/pep-0008/) and [isort](https://pycqa.github.io/isort/) rules
+- [djhtml](https://github.com/rtts/djhtml) and [Curlylint](https://www.curlylint.org/) for formatting and linting HTML templates
+- [Prettier](https://prettier.io/), [Stylelint](https://stylelint.io/) and [ESLint](https://eslint.org/) for formatting and linting JavaScript and CSS code
+
+All contributions should follow these standards, and you are encouraged to run these tools locally to avoid delays in your contributions being accepted. Here are the available commands:
+
+-   `make lint` will run all linting, `make lint-server` lints Python and template code, and `make lint-client` lints JS/CSS.
+-   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
+
+Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
+
+### Automatically lint and code format on commits
 
 [pre-commit](https://pre-commit.com/) is configured to automatically run code linting and formatting checks with every commit. To install pre-commit into your git hooks run:
 
