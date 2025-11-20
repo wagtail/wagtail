@@ -324,6 +324,43 @@ class BaseTypedTableBlock(Block):
 
         return content
 
+    def extract_references(self, value):
+        """
+        Extract references from all cells in the typed table block.
+        
+        This method scans all table cells and yields any references found in blocks
+        that support reference extraction (e.g., RichTextBlock with embedded images,
+        PageChooserBlock, etc.).
+        """
+        if not value:
+            return
+
+        for row_index, row in enumerate(value.row_data):
+            for col_index, (column, cell_value) in enumerate(
+                zip(value.columns, row["values"])
+            ):
+                block = column["block"]
+                for (
+                    model,
+                    object_id,
+                    model_path,
+                    content_path,
+                ) in block.extract_references(cell_value):
+                    # Format paths to include table structure information
+                    # model_path describes the field structure (for migrations/schema)
+                    # content_path describes the specific instance location
+                    model_path = (
+                        f"rows.item.values.{col_index}.{model_path}"
+                        if model_path
+                        else f"rows.item.values.{col_index}"
+                    )
+                    content_path = (
+                        f"rows.{row_index}.values.{col_index}.{content_path}"
+                        if content_path
+                        else f"rows.{row_index}.values.{col_index}"
+                    )
+                    yield model, object_id, model_path, content_path
+
     class Meta:
         default = None
         icon = "table"
