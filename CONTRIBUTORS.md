@@ -922,6 +922,7 @@
 * Nick Ivons
 * Vishrut Ramraj
 * Vivek Subramani
+* Aman Bora
 
 ## Translators
 

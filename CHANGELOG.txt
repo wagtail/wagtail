@@ -14,6 +14,7 @@ Changelog
  * Fix: Pass accumulated icons to each `register_icons` hook (Joey Jurjens, Sage Abdullah)
  * Fix: Skip revisions that are missing the specified field in StreamField migrations (Joshua Munn)
  * Fix: Preserve listing search and filter parameters when redirecting from bulk actions (Sage Abdullah)
+ * Fix: Ensure that object references within `TypedTableBlock` are counted in the reference index (Aman Bora)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
