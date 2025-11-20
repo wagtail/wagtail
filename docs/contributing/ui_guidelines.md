@@ -32,6 +32,7 @@ We aim for Wagtail to work in those environments. Our development standards ensu
 | IE            | Desktop   | All        |
 | Safari        | Windows   | All        |
 
+(accessibility_targets)=
 ## Accessibility targets
 
 We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is [WCAG2.1](https://www.w3.org/TR/WCAG21/), AA level. Here are specific assistive technologies we aim to test for, and ultimately support:
