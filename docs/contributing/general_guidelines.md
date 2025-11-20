@@ -1,5 +1,25 @@
 # General coding guidelines
 
+## Use of generative AI
+
+We recognize generative AI can be a useful tool for contributors, but like any tool should be used with critical thinking and good judgement when creating issues and pull requests.
+
+We ask that if you use generative AI for your contribution, you include a disclaimer, for example:
+
+> _"This pull request includes code written with the assistance of AI. This code was reviewed and verified by me."_
+
+### Acceptable uses
+
+-  Gaining understanding of the existing Wagtail code
+-  Assistance with writing comments
+-  Supplementing contributor knowledge for code, tests, and documentation
+
+### Unacceptable uses
+
+- Entire work (code changes, documentation update, pull request descriptions) are LLM-generated
+
+We will close those pull requests and issues that are unproductive, so we can focus our limited maintainer capacity elsewhere.
+
 ## Language
 
 British English is preferred for user-facing text; this text should also be marked for translation (using the `django.utils.translation.gettext` function and `{% translate %}` template tag, for example).
