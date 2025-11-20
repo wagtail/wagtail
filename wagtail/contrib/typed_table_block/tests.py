@@ -379,9 +379,13 @@ class TestTableBlock(TestCase):
 
         # Create actual test pages for the PageChooserBlock
         root_page = Page.objects.get(depth=1)
-        test_page_1 = SimplePage(title="Test Page 1", slug="test-page-1", content="test")
+        test_page_1 = SimplePage(
+            title="Test Page 1", slug="test-page-1", content="test"
+        )
         root_page.add_child(instance=test_page_1)
-        test_page_2 = SimplePage(title="Test Page 2", slug="test-page-2", content="test")
+        test_page_2 = SimplePage(
+            title="Test Page 2", slug="test-page-2", content="test"
+        )
         root_page.add_child(instance=test_page_2)
 
         # Create a block with RichTextBlock and PageChooserBlock columns
@@ -417,7 +421,9 @@ class TestTableBlock(TestCase):
         # 3. Page from PageChooserBlock in row 1, column 1
 
         # Check that we got at least some references
-        self.assertGreater(len(references), 0,  "Expected at least some references to be extracted")
+        self.assertGreater(
+            len(references), 0, "Expected at least some references to be extracted"
+        )
 
         # Extract and verify page references (these should definitely work)
         page_refs = [
@@ -470,9 +476,7 @@ class TestTableBlock(TestCase):
         self.assertEqual(references, [])
 
         # Test with empty table
-        empty_table = block.to_python(
-            {"columns": [], "rows": [], "caption": ""}
-        )
+        empty_table = block.to_python({"columns": [], "rows": [], "caption": ""})
         references = list(block.extract_references(empty_table))
         self.assertEqual(references, [])
 

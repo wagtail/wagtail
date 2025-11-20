@@ -327,7 +327,7 @@ class BaseTypedTableBlock(Block):
     def extract_references(self, value):
         """
         Extract references from all cells in the typed table block.
-        
+
         This method scans all table cells and yields any references found in blocks
         that support reference extraction (e.g., RichTextBlock with embedded images,
         PageChooserBlock, etc.).
