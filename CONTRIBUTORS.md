@@ -923,6 +923,7 @@
 * Vishrut Ramraj
 * Vivek Subramani
 * Aman Bora
+* Shivam Kumar
 
 ## Translators
 

@@ -20,6 +20,7 @@ Changelog
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
  * Docs: Fix StreamField param name (Baptiste Mispelon)
+ * Docs: Clarify that `before_delete_page` and similar hooks only trigger on the individual page view, not bulk actions (Shivam Kumar)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
