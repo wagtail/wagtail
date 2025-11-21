@@ -1,5 +1,41 @@
+
+# This stage installs build dependencies and compiles Python packages.
+# It will be discarded in the final image, keeping only the compiled packages.
+FROM python:3.12-slim-bookworm AS builder
+
+# Install system packages required to build Python packages.
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    libmariadb-dev \
+    libjpeg62-turbo-dev \
+    zlib1g-dev \
+    libwebp-dev \
+ && rm -rf /var/lib/apt/lists/* \
+ && python -m venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install the project requirements.
+COPY requirements.txt /
+RUN pip install -r /requirements.txt
+
+# Install the application server.
+RUN pip install "gunicorn==20.0.4"
+
+
+# RUNTIME STAGE
 # Use an official Python runtime based on Debian 12 "bookworm" as a parent image.
-FROM python:3.12-slim-bookworm
+FROM python:3.12-slim-bookworm AS runtime
+
+# Install runtime system packages required by Wagtail and Django.
+# These are the runtime libraries needed by the compiled Python packages.
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    libpq5 \
+    libmariadb3 \
+    libjpeg62-turbo \
+    libwebp7 \
+ && rm -rf /var/lib/apt/lists/*
 
 # Add user that will be used in the container.
 RUN useradd wagtail
@@ -11,25 +47,15 @@ EXPOSE 8000
 # 1. Force Python stdout and stderr streams to be unbuffered.
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
 #    command.
+# 3. Add the virtual environment to PATH.
 ENV PYTHONUNBUFFERED=1 \
-    PORT=8000
+    PORT=8000 \
+    PATH="/opt/venv/bin:$PATH"
 
-# Install system packages required by Wagtail and Django.
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
-    build-essential \
-    libpq-dev \
-    libmariadb-dev \
-    libjpeg62-turbo-dev \
-    zlib1g-dev \
-    libwebp-dev \
- && rm -rf /var/lib/apt/lists/*
 
-# Install the application server.
-RUN pip install "gunicorn==20.0.4"
 
-# Install the project requirements.
-COPY requirements.txt /
-RUN pip install -r /requirements.txt
+# Copy the virtual environment from the builder stage.
+COPY --from=builder /opt/venv /opt/venv
 
 # Use /app folder as a directory where the source code is stored.
 WORKDIR /app
