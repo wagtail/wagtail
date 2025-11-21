@@ -755,6 +755,8 @@ Called after unpublish action in "unpublish" view passing in the request and the
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
+This hook runs only while unpublishing through “unpublish” view. It will not run when publishing pages through other routes, such as bulk actions (see [Bulk actions](https://docs.wagtail.org/en/stable/reference/hooks.html#bulk-actions) for implementing such hook for bulk actions). If you wish to perform some action on any page published, regardless of how the publication was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/5.2/ref/signals/#signals).
+
 (before_unpublish_page)=
 
 ### `before_unpublish_page`
@@ -762,6 +764,8 @@ The function does not have to return anything, but if an object with a `status_c
 Called before unpublish action in "unpublish" view passing in the request and the page object.
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+This hook runs only while unpublishing through “unpublish” view. It will not run when publishing pages through other routes, such as bulk actions (see [Bulk actions](https://docs.wagtail.org/en/stable/reference/hooks.html#bulk-actions) for implementing such hook for bulk actions). If you wish to perform some action on any page published, regardless of how the publication was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/5.2/ref/signals/#signals).
 
 (after_copy_page)=
 
@@ -783,6 +787,8 @@ Uses the same behavior as `before_create_page`.
 
 Do something with a `Page` object after it has been moved passing in the request and page object. Uses the same behavior as `after_create_page`.
 
+This hook runs only while page moved through “move page” view. It will not run when publishing pages through other routes, such as bulk actions (see [Bulk actions](https://docs.wagtail.org/en/stable/reference/hooks.html#bulk-actions) for implementing such hook for bulk actions). If you wish to perform some action on any page published, regardless of how the publication was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/5.2/ref/signals/#signals).
+
 (before_move_page)=
 
 ### `before_move_page`
@@ -790,6 +796,8 @@ Do something with a `Page` object after it has been moved passing in the request
 Called at the beginning of the "move page" view passing in the request, the page object, and the destination page object.
 
 Uses the same behavior as `before_create_page`.
+
+This hook runs only at the beginning of the “move page” view. It will not run when publishing pages through other routes, such as bulk actions (see [Bulk actions](https://docs.wagtail.org/en/stable/reference/hooks.html#bulk-actions) for implementing such hook for bulk actions). If you wish to perform some action on any page published, regardless of how the publication was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/5.2/ref/signals/#signals).
 
 (before_convert_alias_page)=
 
