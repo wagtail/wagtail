@@ -2,7 +2,7 @@ from urllib.parse import urlparse
 
 from django import http
 from django.utils.deprecation import MiddlewareMixin
-from django.utils.encoding import uri_to_iri
+from django.utils.encoding import iri_to_uri, uri_to_iri
 
 from wagtail.contrib.redirects import models
 from wagtail.models import Site
@@ -29,6 +29,12 @@ def get_redirect(request, path):
     if not redirect:
         # try unencoding the path
         redirect = _get_redirect(request, uri_to_iri(path))
+    if not redirect:
+        # try encoding the path - this handles the case where the redirect
+        # is stored with URL-encoded unicode but the request has decoded unicode
+        # We also need to normalize through decode-encode cycle to handle case differences
+        # in hex encoding (e.g., %eb vs %EB)
+        redirect = _get_redirect(request, iri_to_uri(uri_to_iri(path)))
     return redirect
 
 
