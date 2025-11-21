@@ -1,4 +1,5 @@
 import collections
+from typing import Union
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -10,6 +11,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
+from wagtail.coreutils import safe_snake_case
 
 from .base import (
     Block,
@@ -21,6 +23,7 @@ from .base import (
 )
 
 __all__ = [
+    "BlockGroup",
     "BaseStructBlock",
     "StructBlock",
     "StructValue",
@@ -68,6 +71,62 @@ class StructBlockValidationError(ValidationError):
                 for (name, error) in self.block_errors.items()
             }
         return result
+
+
+@register
+class BlockGroup:
+    def __init__(
+        self,
+        children: list[Union[str, "BlockGroup"]],
+        settings: list[Union[str, "BlockGroup"]] = None,
+        heading="",
+        classname="",
+        help_text="",
+        icon="placeholder",
+        attrs=None,
+    ):
+        self.children = children
+        self.settings = settings or []
+        self.heading = heading
+        self.clean_name = safe_snake_case(heading) or "block_group"
+        self.classname = classname
+        self.help_text = help_text
+        self.icon = icon
+        self.attrs = attrs or {}
+
+    telepath_adapter_name = "wagtail.blocks.BlockGroup"
+
+    def get_child_identifiers(self, children):
+        # Ensure unique identifiers for each child in the case of nested
+        # BlockGroups, which can have headings that are the same.
+        used_names = set()
+        result = []
+        for child in children:
+            base_name = child.clean_name if isinstance(child, BlockGroup) else child
+            candidate_name = base_name
+            suffix = 0
+            while candidate_name in used_names:
+                suffix += 1
+                candidate_name = "%s%d" % (base_name, suffix)
+
+            result.append(candidate_name)
+            used_names.add(candidate_name)
+        return result
+
+    def js_opts(self):
+        return {
+            "children": zip(self.children, self.get_child_identifiers(self.children)),
+            "settings": zip(self.settings, self.get_child_identifiers(self.settings)),
+            "heading": self.heading,
+            "cleanName": self.clean_name,
+            "classname": self.classname,
+            "helpText": self.help_text,
+            "icon": self.icon,
+            "attrs": self.attrs,
+        }
+
+    def telepath_pack(self, context):
+        return (self.telepath_adapter_name, [self.js_opts()])
 
 
 class StructValue(collections.OrderedDict):
@@ -393,6 +452,7 @@ class BaseStructBlock(Block):
         value_class = StructValue
         label_format = None
         collapsed = False
+        form_layout: BlockGroup | list[Union[str, "BlockGroup"]] | None = None
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
@@ -418,6 +478,13 @@ class StructBlockAdapter(Adapter):
             "collapsed": block.meta.collapsed,
             "attrs": block.meta.form_attrs or {},
         }
+
+        form_layout = block.meta.form_layout
+        if not form_layout:
+            form_layout = BlockGroup(list(block.child_blocks.keys()))
+        if isinstance(form_layout, list):
+            form_layout = BlockGroup(form_layout)
+        meta["formLayout"] = form_layout
 
         help_text = getattr(block.meta, "help_text", None)
         if help_text:
