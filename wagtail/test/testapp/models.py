@@ -209,6 +209,10 @@ class SimplePage(Page):
         return "%s (simple page)" % super().get_admin_display_title()
 
 
+class NoPromotePage(Page):
+    promote_panels = []
+
+
 class MultiPreviewModesPage(Page):
     preview_templates = {
         "original": "tests/simple_page.html",

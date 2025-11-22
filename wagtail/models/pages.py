@@ -641,7 +641,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Set default values for core fields (slug, draft_title, locale) that need to be
         in place before validating or saving
         """
-        if not self.slug:
+        if (not self.slug) and self.path:
             # Try to auto-populate slug from title
             allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
             base_slug = slugify(self.title, allow_unicode=allow_unicode)
