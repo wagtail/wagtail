@@ -551,20 +551,21 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
-        # Save revision
-        revision = self.page.save_revision(
-            user=self.request.user,
-            log_action=True,  # Always log the new revision on edit
-            previous_revision=self.previous_revision,
-            clean=False,
-        )
+        # Only save revision if there are content changes
+        if self.has_content_changes:
+            revision = self.page.save_revision(
+                user=self.request.user,
+                log_action=True,  # Always log the new revision on edit
+                previous_revision=self.previous_revision,
+                clean=False,
+            )
+
+            if "comments" in self.form.formsets:
+                changes = self.get_commenting_changes()
+                self.log_commenting_changes(changes, revision)
+                self.send_commenting_notifications(changes)
 
         self.add_save_confirmation_message()
-
-        if self.has_content_changes and "comments" in self.form.formsets:
-            changes = self.get_commenting_changes()
-            self.log_commenting_changes(changes, revision)
-            self.send_commenting_notifications(changes)
 
         response = self.run_hook("after_edit_page", self.request, self.page)
         if response:

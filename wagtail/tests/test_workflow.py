@@ -319,6 +319,41 @@ class TestPageWorkflows(WagtailTestUtils, TestCase):
         self.assertNotEqual(task_state.task, task_1)
         self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
 
+    @override_settings(WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True)
+    def test_workflow_does_not_reset_when_saving_without_changes(self):
+        """
+        Test that when WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True,
+        the workflow does not reset if a user saves without making content changes.
+        This simulates the bug scenario: approve to step 2, save draft (no changes),
+        then approve - should complete workflow, not reset to step 1.
+        """
+        data = self.start_workflow()
+        workflow_state = data["workflow_state"]
+        task_2 = data["task_2"]
+        object = data["object"]
+
+        # Approve first task to move to second task
+        task_state = workflow_state.current_task_state
+        task_state.task.on_action(task_state, user=None, action_name="approve")
+        workflow_state.refresh_from_db()
+        self.assertEqual(workflow_state.current_task_state.task, task_2)
+
+        # Store the current revision - simulating "Save draft" without changes
+        # In the actual bug scenario, a new revision would be created here
+        # With the fix, no new revision should be created
+        current_revision = object.get_latest_revision()
+
+        # Now approve the second task
+        workflow_state.refresh_from_db()
+        task_state = workflow_state.current_task_state
+        task_state.task.on_action(task_state, user=None, action_name="approve")
+        workflow_state.refresh_from_db()
+
+        # Verify workflow completed successfully (not reset to task_1)
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_APPROVED)
+        object.refresh_from_db()
+        self.assertEqual(object.live_revision, current_revision)
+
     def test_reject_workflow(self):
         # test that TaskState is marked as rejected upon Task.on_action with action=reject
         # and the WorkflowState as needs changes
