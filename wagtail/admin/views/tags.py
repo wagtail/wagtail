@@ -9,8 +9,8 @@ def autocomplete(request, app_name=None, model_name=None):
     if app_name and model_name:
         try:
             content_type = ContentType.objects.get_by_natural_key(app_name, model_name)
-        except ContentType.DoesNotExist:
-            raise Http404
+        except ContentType.DoesNotExist as e:
+            raise Http404 from e
 
         tag_model = content_type.model_class()
         if not issubclass(tag_model, TagBase):

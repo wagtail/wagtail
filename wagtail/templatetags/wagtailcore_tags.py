@@ -177,10 +177,10 @@ def include_block(parser, token):
     try:
         tag_name = tokens.pop(0)
         block_var_token = tokens.pop(0)
-    except IndexError:
+    except IndexError as e:
         raise template.TemplateSyntaxError(
             "%r tag requires at least one argument" % tag_name
-        )
+        ) from e
 
     block_var = parser.compile_filter(block_var_token)
 

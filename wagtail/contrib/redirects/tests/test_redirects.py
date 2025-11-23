@@ -608,7 +608,7 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailredirects:index"), params)
 
     def test_simple(self):
@@ -789,10 +789,10 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
         self.login()
         PURGED_URLS.clear()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailredirects:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailredirects:add"), post_data)
 
     def test_simple(self):
@@ -977,13 +977,13 @@ class TestRedirectsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         PURGED_URLS.clear()
 
-    def get(self, params={}, redirect_id=None):
+    def get(self, params=None, redirect_id=None):
         return self.client.get(
             reverse("wagtailredirects:edit", args=(redirect_id or self.redirect.id,)),
             params,
         )
 
-    def post(self, post_data={}, redirect_id=None):
+    def post(self, post_data=None, redirect_id=None):
         return self.client.post(
             reverse("wagtailredirects:edit", args=(redirect_id or self.redirect.id,)),
             post_data,
@@ -1144,7 +1144,7 @@ class TestRedirectsDeleteView(WagtailTestUtils, TestCase):
 
         PURGED_URLS.clear()
 
-    def get(self, params={}, redirect_id=None):
+    def get(self, params=None, redirect_id=None):
         return self.client.get(
             reverse("wagtailredirects:delete", args=(redirect_id or self.redirect.id,)),
             params,

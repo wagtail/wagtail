@@ -89,11 +89,11 @@ class TestSiteSettingMenu(SiteSettingTestMixin, WagtailTestUtils, TestCase):
 
 
 class BaseTestSiteSettingView(WagtailTestUtils, TestCase):
-    def get(self, site_pk=1, params={}, setting=TestSiteSetting):
+    def get(self, site_pk=1, params=None, setting=TestSiteSetting):
         url = self.edit_url(setting=setting, site_pk=site_pk)
         return self.client.get(url, params)
 
-    def post(self, site_pk=1, post_data={}, setting=TestSiteSetting):
+    def post(self, site_pk=1, post_data=None, setting=TestSiteSetting):
         url = self.edit_url(setting=setting, site_pk=site_pk)
         return self.client.post(url, post_data)
 

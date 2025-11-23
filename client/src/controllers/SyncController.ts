@@ -233,6 +233,8 @@ export class SyncController extends Controller<HTMLInputElement> {
         // always prevent default on the original event so that we can change the approach
         event.preventDefault();
 
+        if (target.value) return;
+
         const data = { title: value };
 
         const adaptedEvent = new CustomEvent(name, {

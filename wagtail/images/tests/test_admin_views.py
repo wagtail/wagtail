@@ -21,6 +21,7 @@ from willow.optimizers.base import OptimizerBase
 from willow.registry import registry
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.tables import Table
 from wagtail.images import get_image_model
 from wagtail.images.utils import generate_signature
@@ -60,7 +61,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             file=get_test_image_file(size=(1, 1)),
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:index"), params)
 
     def test_simple(self):
@@ -649,6 +650,20 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             [unused_image],
         )
 
+    def test_bulk_action_rendered(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # Should render bulk actions markup
+        bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
+        soup = self.get_soup(response.content)
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
+
 
 class TestBulkActionsColumn(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -703,7 +718,7 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.puppy_image.created_at = local_datetime(2022, 2, 2)
         self.puppy_image.save()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:index"), params)
 
     def test_search(self):
@@ -836,6 +851,32 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
             "Expected a ul element with class 'listing horiz images' in grid layout when searching for images.",
         )
 
+    def test_order_by_usage_count_disabled_when_searching(self):
+        # Ordering by usage count not currently available when searching,
+        # due to https://github.com/wagtail/django-modelsearch/issues/51
+        VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+        VariousOnDeleteModel.objects.create(protected_image=self.kitten_image)
+        VariousOnDeleteModel.objects.create(protected_image=self.puppy_image)
+
+        response = self.client.get(
+            reverse("wagtailimages:index"),
+            {"q": "cute", "ordering": "-usage_count", "layout": "list"},
+        )
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        # Will fall back to default ordering (by -created_at)
+        self.assertSequenceEqual(
+            context["page_obj"].object_list,
+            [self.puppy_image, self.kitten_image],
+        )
+
+        soup = self.get_soup(response.content)
+        ths = soup.select("main table th")
+        self.assertTrue(ths)
+        usage_count_th = ths[-1]
+        self.assertEqual(usage_count_th.text.strip(), "Usage")
+        self.assertIsNone(usage_count_th.select_one("a"))
+
 
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
@@ -843,7 +884,7 @@ class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:index_results"), params)
 
     def test_search(self):
@@ -865,10 +906,10 @@ class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailimages:add"), post_data)
 
     def test_get(self):
@@ -907,7 +948,7 @@ class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIsNotNone(file_input)
         expected_attributes = {
             "data-controller": "w-sync",
-            "data-action": "change->w-sync#apply",
+            "data-action": "input->w-sync#apply",
             "data-w-sync-bubbles-param": "true",
             "data-w-sync-name-value": "wagtail:images-upload",
             "data-w-sync-normalize-value": "true",
@@ -1247,10 +1288,10 @@ class TestImageAddViewWithLimitedCollectionPermissions(WagtailTestUtils, TestCas
 
         self.login(username="moriarty", password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailimages:add"), post_data)
 
     def test_get(self):
@@ -1315,12 +1356,12 @@ class TestImageEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def update_from_db(self):
         self.image = Image.objects.get(pk=self.image.pk)
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailimages:edit", args=(self.image.id,)), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailimages:edit", args=(self.image.id,)), post_data
         )
@@ -1706,7 +1747,7 @@ class TestImageEditViewWithCustomImageModel(WagtailTestUtils, TestCase):
 
         self.storage = self.image.file.storage
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailimages:edit", args=(self.image.id,)), params
         )
@@ -1735,10 +1776,10 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
 
         self.delete_url = reverse("wagtailimages:delete", args=(self.image.id,))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.delete_url, params)
 
-    def post(self, post_data={}, **kwargs):
+    def post(self, post_data=None, **kwargs):
         return self.client.post(self.delete_url, post_data, **kwargs)
 
     def test_simple(self):
@@ -1954,7 +1995,7 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages_chooser:choose"), params)
 
     def test_simple(self):
@@ -1985,7 +2026,7 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(file_input)
         expected_attributes = {
             "data-controller": "w-sync",
-            "data-action": "change->w-sync#apply",
+            "data-action": "input->w-sync#apply",
             "data-w-sync-bubbles-param": "true",
             "data-w-sync-name-value": "wagtail:images-upload",
             "data-w-sync-normalize-value": "true",
@@ -2219,7 +2260,7 @@ class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages_chooser:choose"), params)
 
     def test_construct_queryset_hook_search(self):
@@ -2255,7 +2296,7 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
             description="Test description",
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailimages_chooser:chosen", args=(self.image.id,)), params
         )
@@ -2314,7 +2355,7 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
             description="Unchosen test description",
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             "%s?id=%d&id=%d"
             % (
@@ -2347,13 +2388,13 @@ class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
             file=get_test_image_file(),
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
             params,
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
             post_data,
@@ -2436,7 +2477,7 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailimages_chooser:create"), params)
 
     def test_simple(self):

@@ -12,6 +12,7 @@ from django.utils.http import urlencode
 from django.utils.text import capfirst
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.documents import get_document_model, models
 from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.models import (
@@ -37,7 +38,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index"), params)
 
     def test_simple(self):
@@ -391,13 +392,27 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             [doc3],
         )
 
+    def test_bulk_action_rendered(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # Should render bulk actions markup
+        bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
+        soup = self.get_soup(response.content)
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
+
 
 class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index"), params)
 
     def make_docs(self):
@@ -495,13 +510,38 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
                 self.assertIn("ordering", response.context)
                 self.assertEqual(response.context["ordering"], ordering)
 
+    def test_order_by_usage_count_disabled_when_searching(self):
+        # Ordering by usage count not currently available when searching,
+        # due to https://github.com/wagtail/django-modelsearch/issues/51
+        doc1 = models.Document.objects.create(title="Used twice document")
+        doc2 = models.Document.objects.create(title="Used once document")
+        VariousOnDeleteModel.objects.create(protected_document=doc1)
+        VariousOnDeleteModel.objects.create(protected_document=doc1)
+        VariousOnDeleteModel.objects.create(protected_document=doc2)
+
+        response = self.client.get(
+            reverse("wagtaildocs:index"),
+            {"q": "used", "ordering": "-usage_count"},
+        )
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        # Will fall back to default ordering (by title)
+        self.assertSequenceEqual(context["page_obj"].object_list, [doc2, doc1])
+
+        soup = self.get_soup(response.content)
+        ths = soup.select("main table th")
+        self.assertTrue(ths)
+        usage_count_th = ths[-1]
+        self.assertEqual(usage_count_th.text.strip(), "Usage")
+        self.assertIsNone(usage_count_th.select_one("a"))
+
 
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaildocs:index_results"), params)
 
     def test_search(self):
@@ -569,7 +609,7 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIsNotNone(file_input)
         expected_attributes = {
             "data-controller": "w-sync",
-            "data-action": "change->w-sync#apply",
+            "data-action": "input->w-sync#apply",
             "data-w-sync-bubbles-param": "true",
             "data-w-sync-name-value": "wagtail:documents-upload",
             "data-w-sync-normalize-value": "true",
@@ -1039,7 +1079,7 @@ class TestDocumentEditViewWithCustomDocumentModel(WagtailTestUtils, TestCase):
 
         self.storage = self.document.file.storage
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtaildocs:edit", args=(self.document.id,)), params
         )
@@ -1914,7 +1954,7 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(file_input)
         expected_attributes = {
             "data-controller": "w-sync",
-            "data-action": "change->w-sync#apply",
+            "data-action": "input->w-sync#apply",
             "data-w-sync-bubbles-param": "true",
             "data-w-sync-name-value": "wagtail:documents-upload",
             "data-w-sync-normalize-value": "true",

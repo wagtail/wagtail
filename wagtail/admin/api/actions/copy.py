@@ -59,9 +59,9 @@ class CopyPageAPIAction(APIAction):
         try:
             new_page = action.execute()
         except DjangoValidationError as e:
-            raise ValidationError(e.message_dict)
+            raise ValidationError(e.message_dict) from e
         except CopyPageIntegrityError as e:
-            raise BadRequestError(e.args[0])
+            raise BadRequestError(e.args[0]) from e
 
         serializer = self.view.get_serializer(new_page)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

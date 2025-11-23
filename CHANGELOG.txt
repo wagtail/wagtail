@@ -13,9 +13,12 @@ Changelog
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
  * Fix: Pass accumulated icons to each `register_icons` hook (Joey Jurjens, Sage Abdullah)
  * Fix: Skip revisions that are missing the specified field in StreamField migrations (Joshua Munn)
+ * Fix: Preserve listing search and filter parameters when redirecting from bulk actions (Sage Abdullah)
+ * Fix: Ensure that object references within `TypedTableBlock` are counted in the reference index (Aman Bora)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
+ * Docs: Fix StreamField param name (Baptiste Mispelon)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
@@ -24,12 +27,16 @@ Changelog
  * Maintenance: Add unit test for `SubmitController` error handling (LB (Ben) Johnston)
  * Maintenance: Improve nightly release upload scripts (Jake Howard)
  * Maintenance: Upload redundant `latest.whl` nightly build for ease of use with package managers (Sage Abdullah)
+ * Maintenance: Move MANIFEST.in settings into pyproject.toml (Pravin Kamble)
+ * Maintenance: Fix linting rules B006 and B904 (Vivek Subramani, Matt Westcott)
 
 
 7.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
+ * Fix: Disable usage count ordering when searching on documents and images listing views, to prevent unsupported search query (Sage Abdullah)
+ * Fix: Do not replace existing document or image title when uploading a new file (Sage Abdullah)
  * Maintenance: Remove use of `_WAGTAILSEARCH_FORCE_AUTO_UPDATE` in search tests (Matt Westcott)
 
 7.2 (05.11.2025)
@@ -94,6 +101,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
+ * Fix: Disable usage count ordering when searching on documents and images listing views, to prevent unsupported search query (Sage Abdullah)
 
 
 7.1.2 (23.10.2025)
