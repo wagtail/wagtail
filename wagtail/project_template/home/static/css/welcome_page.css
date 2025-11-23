@@ -124,48 +124,6 @@ svg:not(:root) {
     transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-.egg--cracked {
-    animation: none !important;
-}
-
-.egg--cracked .egg-top {
-    transform: translateY(-40px) scale(1.05);
-    opacity: 0;
-}
-
-.egg--cracked .egg-bottom {
-    transform: translateY(40px) scale(1.05);
-    opacity: 0;
-}
-
-.egg-shell {
-    transition: filter 0.3s ease;
-}
-
-.egg-crack {
-    fill: none;
-    stroke: #1f6464;
-    stroke-width: 4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 300;
-    stroke-dashoffset: 300;
-    opacity: 0;
-}
-
-.egg--cracked .egg-crack {
-    animation: crack 0.8s ease-in-out forwards;
-    opacity: 1;
-}
-
-.egg--cracked {
-    animation: none;
-}
-
-.egg--cracked .egg-shell {
-    animation: egg-break 0.9s ease-in-out forwards;
-}
-
 .egg-message {
     position: absolute;
     inset: 0;
@@ -181,29 +139,29 @@ svg:not(:root) {
     pointer-events: none;
 }
 
-.egg-message--visible {
-    opacity: 1;
-    transform: scale(1);
+
+#egg-crack-toggle:checked ~ #egg-svg-container .egg {
+    animation: none;
 }
 
-@keyframes crack {
-    0%, 40% {
-        stroke-dashoffset: 62;
-        opacity: 0;
-    }
-    50%, 70% {
-        stroke-dashoffset: 0;
-        opacity: 1;
-    }
-    100% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
+#egg-crack-toggle:checked ~ #egg-svg-container .egg-top {
+    transform: translateY(-40px) scale(1.05);
+    opacity: 0;
 }
 
-.egg--cracked ~ ellipse {
+#egg-crack-toggle:checked ~ #egg-svg-container .egg-bottom {
+    transform: translateY(40px) scale(1.05);
+    opacity: 0;
+}
+
+#egg-crack-toggle:checked ~ #egg-svg-container ellipse {
     opacity: 0;
     transition: opacity 0.6s ease;
+}
+
+#egg-crack-toggle:checked ~ .egg-message {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .main-text {

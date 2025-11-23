@@ -17,47 +17,51 @@
 </header>
 <main class="main">
     <div class="figure">
-        <svg class="figure-space" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
-            <g class="egg">
-                <path class="egg-top"
-                    d="
-                        M150 50
-                        C110 50, 75 100, 75 160
+        <input type="checkbox" id="egg-crack-toggle" class="egg-toggle" hidden>
 
-                        L78 165
-                        L110 150
-                        L140 165
-                        L160 150
-                        L190 165
-                        L222 150
+        <label for="egg-crack-toggle" id="egg-svg-container">
+            <svg class="figure-space" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true">
+                <g class="egg">
+                    <path class="egg-top"
+                        d="
+                            M150 50
+                            C110 50, 75 100, 75 160
 
-                        L225 160
-                        C225 100, 190 50, 150 50
-                        Z
-                    " />
+                            L78 165
+                            L110 150
+                            L140 165
+                            L160 150
+                            L190 165
+                            L222 150
 
-                <path class="egg-bottom"
-                    d="
-                        M75 160
+                            L225 160
+                            C225 100, 190 50, 150 50
+                            Z
+                        " />
 
-                        L78 165
-                        L110 150
-                        L140 165
-                        L160 150
-                        L190 165
-                        L222 150
+                    <path class="egg-bottom"
+                        d="
+                            M75 160
 
-                        L225 160
-                        C225 220, 190 250, 150 250
-                        C110 250, 75 220, 75 160
-                        Z
-                    " />
+                            L78 165
+                            L110 150
+                            L140 165
+                            L160 150
+                            L190 165
+                            L222 150
 
-            </g>
-            <ellipse fill="#ddd" cx="150" cy="270" rx="40" ry="7"/>
-        </svg>
+                            L225 160
+                            C225 220, 190 250, 150 250
+                            C110 250, 75 220, 75 160
+                            Z
+                        " />
 
-        <div class="egg-message" aria-hidden="true">
+                </g>
+                <ellipse fill="#ddd" cx="150" cy="270" rx="40" ry="7"/>
+            </svg>
+        </label>
+
+        <div class="egg-message" role="status">
             Version {% templatetag openblock %} wagtail_version {% templatetag closeblock %}
         </div>
     </div>
@@ -89,21 +93,3 @@
         </div>
     </a>
 </footer>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const egg = document.querySelector('.egg');
-    const eggMessage = document.querySelector('.egg-message');
-    const figure = document.querySelector('.figure-space');
-
-    let cracked = false;
-
-    const crackEgg = () => {
-        cracked = !cracked;
-
-        egg.classList.toggle('egg--cracked', cracked);
-        eggMessage?.classList.toggle('egg-message--visible', cracked);
-    };
-
-    figure?.addEventListener('click', crackEgg);
-});
-</script>
