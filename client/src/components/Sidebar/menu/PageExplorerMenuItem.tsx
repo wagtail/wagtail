@@ -70,6 +70,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
   const className =
     'sidebar-menu-item sidebar-page-explorer-item' +
     (isActive ? ' sidebar-menu-item--active' : '') +
+    (isOpen ? ' sidebar-sub-menu-item--open' : '') +
     (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '');
 
   const sidebarTriggerIconClassName =

@@ -925,6 +925,7 @@
 * Aman Bora
 * Ishtpreet Singh
 * Jashvirsingh Taak
+* Vignesh Shivhare
 
 ## Translators
 
