@@ -51,6 +51,9 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertContains(response, "Hello document")
         self.assertContains(response, "Bonjour document")
 
+        with self.assertNumQueries(12):
+            self.get()
+
     def make_docs(self):
         for i in range(50):
             document = models.Document(title="Test " + str(i))
@@ -340,7 +343,11 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             "-usage_count": [doc1, doc2],
         }
         for ordering, expected_order in cases.items():
-            with self.subTest(ordering=ordering):
+            response = self.client.get(
+                reverse("wagtaildocs:index"),
+                {"ordering": ordering},
+            )
+            with self.subTest(ordering=ordering), self.assertNumQueries(11):
                 response = self.client.get(
                     reverse("wagtaildocs:index"),
                     {"ordering": ordering},

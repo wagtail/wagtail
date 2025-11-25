@@ -100,11 +100,6 @@ class BaseImageChooseView(BaseChooseView):
             .prefetch_renditions("max-165x165")
         )
 
-        # Annotate with usage count from the ReferenceIndex
-        images = images.annotate(
-            usage_count=ReferenceIndex.usage_count_subquery(self.model)
-        )
-
         return images
 
     def filter_object_list(self, objects):
@@ -132,6 +127,14 @@ class BaseImageChooseView(BaseChooseView):
         self.model = get_image_model()
         return super().get(request)
 
+    def get_usage_counts(self, results):
+        # Use a separate, more efficient query that only gets usage counts for
+        # objects on the current page
+        # See https://github.com/wagtail/wagtail/issues/13561
+        if self.layout == "grid":
+            return {}
+        return ReferenceIndex.get_count_references_to_in_bulk(list(results))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         chosen_url_name = (
@@ -140,10 +143,12 @@ class BaseImageChooseView(BaseChooseView):
             else "wagtailimages_chooser:chosen"
         )
 
+        counts = self.get_usage_counts(context["results"])
         for image in context["results"]:
             image.chosen_url = self.append_preserved_url_parameters(
                 reverse(chosen_url_name, args=(image.id,))
             )
+            image.usage_count = counts.get(image, 0)
 
         context["collections"] = self.collections
         context["layout"] = self.layout

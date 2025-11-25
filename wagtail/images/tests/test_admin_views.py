@@ -360,7 +360,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.get()
 
         # Initial number of queries.
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(13):
             self.get()
 
         # Add 5 images.
@@ -370,11 +370,11 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
                 file=get_test_image_file(size=(1, 1)),
             )
 
-        with self.assertNumQueries(32):
+        with self.assertNumQueries(33):
             # The renditions needed don't exist yet. We have 20 = 5 * 4 additional queries.
             self.get()
 
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(13):
             # No extra additional queries since renditions exist and are saved in
             # the prefetched objects cache.
             self.get()
@@ -597,7 +597,14 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         }
         for layout in ["list", "grid"]:
             for ordering, expected_order in cases.items():
-                with self.subTest(layout=layout, ordering=ordering):
+                response = self.client.get(
+                    reverse("wagtailimages:index"),
+                    {"ordering": ordering, "layout": layout},
+                )
+                with (
+                    self.subTest(layout=layout, ordering=ordering),
+                    self.assertNumQueries(22),
+                ):
                     response = self.client.get(
                         reverse("wagtailimages:index"),
                         {"ordering": ordering, "layout": layout},
@@ -2214,6 +2221,38 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], image)
 
+    def test_list_mode(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+            uploaded_by_user=self.user,
+        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=image)
+
+        response = self.get({"layout": "list"})
+        with self.assertNumQueries(16):
+            response = self.get({"layout": "list"})
+
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "choose")
+        self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
+
+        soup = self.get_soup(response_json["html"])
+        table = soup.select_one("table")
+        self.assertIsNotNone(table)
+        ths = table.select("th")
+        self.assertEqual(
+            [th.text.strip() for th in ths],
+            ["Preview", "Title", "Collection", "Created", "Usage"],
+        )
+        tds = table.select("td")
+        self.assertEqual(
+            [td.get_text(separator="\n", strip=True) for td in tds],
+            ["", f"Test image\n{image.filename}", "Root", "Just now", "Used 1 time"],
+        )
+
     @override_settings(
         CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
     )
@@ -2237,6 +2276,10 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
             # No extra additional queries since renditions exist and are saved in
             # the prefetched objects cache.
             self.get()
+
+        with self.assertNumQueries(11):
+            # One additional query to get the usage count when displaying in list mode.
+            self.get({"layout": "list"})
 
 
 class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
