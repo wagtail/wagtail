@@ -75,5 +75,13 @@ class SnippetChooserViewSet(ChooserViewSet):
     create_view_class = SnippetCreateView
 
     @cached_property
-    def widget_class(self):
-        return AdminSnippetChooser(model=self.model, icon=self.icon)
+    
+   def widget_class(self):
+    return type(
+        f"{self.model.__name__}AdminSnippetChooser",
+        (AdminSnippetChooser,),
+        {
+            "model": self.model,
+            "icon": self.icon,
+        },
+    )
