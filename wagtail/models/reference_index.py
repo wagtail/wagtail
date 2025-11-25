@@ -205,6 +205,16 @@ class ReferenceIndex(models.Model):
                 "content_path_hash",
             )
         ]
+        indexes = [
+            models.Index(
+                name="referenceindex_source_object",
+                fields=["base_content_type", "object_id"],
+            ),
+            models.Index(
+                name="referenceindex_target_object",
+                fields=["to_content_type", "to_object_id"],
+            ),
+        ]
 
     @classmethod
     def _get_base_content_type(cls, model_or_object):
