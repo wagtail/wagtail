@@ -77,11 +77,13 @@ class SnippetChooserViewSet(ChooserViewSet):
     @cached_property
     
    def widget_class(self):
-    return type(
-        f"{self.model.__name__}AdminSnippetChooser",
-        (AdminSnippetChooser,),
-        {
-            "model": self.model,
-            "icon": self.icon,
-        },
-    )
+   def widget_class(self):
+    widget = super().widget_class
+
+    # If it's already a class, return it directly
+    if isinstance(widget, type):
+        return widget
+
+    # If it's a function or lambda, call it
+    return widget()
+
