@@ -622,6 +622,22 @@ class ReferenceIndex(models.Model):
         return cls.objects.filter(condition)
 
     @classmethod
+    def get_count_references_to_in_bulk(cls, objects):
+        references = cls.get_references_to_in_bulk(objects)
+        qs = references.values("to_content_type", "to_object_id").annotate(
+            count=Count("pk")
+        )
+        counts = {}
+        for entry in qs:
+            counts[(entry["to_content_type"], entry["to_object_id"])] = entry["count"]
+        return {
+            object: counts.get(
+                (cls._get_base_content_type(object).pk, str(object.pk)), 0
+            )
+            for object in objects
+        }
+
+    @classmethod
     def get_grouped_references_to(cls, object):
         """
         Returns all inbound references for the given object, grouped by the object

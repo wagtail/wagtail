@@ -85,12 +85,20 @@ class IndexView(generic.IndexView):
             self.request.user, ["change", "delete"]
         ).select_related("collection")
 
-        # Annotate with usage count from the ReferenceIndex
-        documents = documents.annotate(
-            usage_count=ReferenceIndex.usage_count_subquery(self.model)
-        )
+        if self.needs_usage_count_subquery:
+            # Annotate usage_count on the whole queryset to allow ordering/filtering
+            # (On some databases, this can be slow when there are many objects)
+            documents = documents.annotate(
+                usage_count=ReferenceIndex.usage_count_subquery(self.model)
+            )
 
         return documents
+
+    @cached_property
+    def needs_usage_count_subquery(self):
+        return self.ordering in ["usage_count", "-usage_count"] or (
+            self.is_filtering and "usage_count" in self.filters.form.cleaned_data
+        )
 
     @cached_property
     def current_collection(self):
@@ -164,9 +172,25 @@ class IndexView(generic.IndexView):
         kwargs["is_searching"] = self.is_searching
         return kwargs
 
+    def decorate_paginated_queryset(self, object_list):
+        if self.needs_usage_count_subquery:
+            # Already annotated in get_base_queryset
+            return object_list
+
+        # Use a separate, more efficient query that only gets usage counts for
+        # objects on the current page
+        # See https://github.com/wagtail/wagtail/issues/13561
+        counts = ReferenceIndex.get_count_references_to_in_bulk(list(object_list))
+        for obj in object_list:
+            obj.usage_count = counts.get(obj, 0)
+        return object_list
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_collection"] = self.current_collection
+        context["object_list"] = self.decorate_paginated_queryset(
+            context["object_list"]
+        )
         return context
 
 
