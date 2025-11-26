@@ -39,7 +39,16 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-0-value-settings">
+        <svg class="icon icon-cog" aria-hidden="true">
+          <use href="#icon-cog"></use>
+        </svg>
+      
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-0-value-settings">
+        <span aria-hidden="true" data-w-count-target="total"></span>
+        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
+      </div>
+    </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
@@ -59,16 +68,7 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-0-value-settings">
-        <svg class="icon icon-cog" aria-hidden="true">
-          <use href="#icon-cog"></use>
-        </svg>
-      
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-0-value-settings">
-        <span aria-hidden="true" data-w-count-target="total"></span>
-        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
-      </div>
-    </button></div>
+      </button></div>
           </div>
           <div id="block-struct-block-1-content" class="w-panel__content">
             <div class="struct-block">
