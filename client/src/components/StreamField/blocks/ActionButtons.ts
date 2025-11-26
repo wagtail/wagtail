@@ -19,7 +19,7 @@ export abstract class ActionButton {
     this.sequenceChild = sequenceChild;
   }
 
-  render(container) {
+  render(container, position = 'after') {
     this.dom = $(`
       <button type="button" class="button button--icon text-replace white" data-streamfield-action="${this.labelIdentifier}" title="${h(this.label)}">
         <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
@@ -33,7 +33,11 @@ export abstract class ActionButton {
       return false; // don't propagate to header's onclick event (which collapses the block)
     });
 
-    $(container).append(this.dom);
+    if (position === 'after') {
+      $(container).append(this.dom);
+    } else {
+      $(container).prepend(this.dom);
+    }
 
     if (this.enableEvent) {
       this.sequenceChild.addEventListener(this.enableEvent, () => {
@@ -124,8 +128,8 @@ export class SettingsButton extends ActionButton {
   labelIdentifier = 'SETTINGS';
   label = gettext('Settings');
 
-  render(container: any): void {
-    super.render(container);
+  render(container: any, position = 'before'): void {
+    super.render(container, position);
     const panel = this.dom.closest('[data-panel]');
     const settings = panel.find('[data-block-settings]');
     this.dom.attr('aria-expanded', 'false');
