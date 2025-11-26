@@ -11,7 +11,19 @@ import { initCollapsiblePanel } from '../../../includes/panels';
 import { setAttrs } from '../../../utils/attrs';
 
 export class StructBlock {
-  constructor(blockDef, placeholder, prefix, initialState, initialError) {
+  declare blockDef: StructBlockDefinition;
+  declare type: string;
+  declare container: JQuery;
+  declare childBlocks: Record<string, any>;
+  declare setTextLabel: () => void;
+
+  constructor(
+    blockDef: StructBlockDefinition,
+    placeholder: JQuery,
+    prefix: string,
+    initialState,
+    initialError,
+  ) {
     const state = initialState || {};
     this.blockDef = blockDef;
     this.type = blockDef.name;
@@ -126,7 +138,7 @@ export class StructBlock {
 
         this.childBlocks[childBlockDef.name] = childBlock;
         if (childBlock.idForLabel) {
-          labelElement.setAttribute('for', childBlock.idForLabel);
+          labelElement!.setAttribute('for', childBlock.idForLabel);
         }
       });
       this.container = dom;
@@ -220,7 +232,7 @@ export class StructBlock {
       with the text label of that sub-block */
       return this.blockDef.meta.labelFormat.replace(
         /\{(\w+)\}/g,
-        (tag, blockName) => {
+        (_, blockName) => {
           const block = this.childBlocks[blockName];
           if (block && block.getTextLabel) {
             /* to be strictly correct, we should be adjusting opts.maxLength to account for the overheads
@@ -255,7 +267,12 @@ export class StructBlock {
 }
 
 export class StructBlockDefinition {
-  constructor(name, childBlockDefs, meta) {
+  declare name: string;
+  declare childBlockDefs: any[];
+  declare meta: Record<string, any>;
+  declare collapsible: boolean;
+
+  constructor(name: string, childBlockDefs: any[], meta: Record<string, any>) {
     this.name = name;
     this.childBlockDefs = childBlockDefs;
     this.meta = meta;
@@ -266,7 +283,12 @@ export class StructBlockDefinition {
     this.collapsible = true;
   }
 
-  render(placeholder, prefix, initialState, initialError) {
+  render(
+    placeholder: JQuery,
+    prefix: string,
+    initialState: Record<string, any>,
+    initialError: Record<string, any>,
+  ) {
     return new StructBlock(
       this,
       placeholder,
