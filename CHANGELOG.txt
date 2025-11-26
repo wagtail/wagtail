@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.2.1 (26.11.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
