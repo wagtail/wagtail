@@ -6,7 +6,7 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
--   [HTML and Wagtail CMS quickstart guide](https://jackwhitworth.com/blog/htmx-and-wagtail-cms-quickstart/) (28 August 2025)
+-   [HTMX and Wagtail CMS quickstart guide](https://jackwhitworth.com/blog/htmx-and-wagtail-cms-quickstart/) (28 August 2025)
 -   [PostgreSQL Tutorial: Install Wagtail and connect it to your service using OVHcloud](https://support.us.ovhcloud.com/hc/en-us/articles/21458794389139-PostgreSQL-Tutorial-Install-Wagtail-and-connect-it-to-your-service) (17 July 2025)
 -   [Efficient parent/child page querying in Wagtail](https://jackwhitworth.com/blog/efficient-wagtail-page-querying/) (17 July 2025)
 -   [Writing a Minimal Wagtail, Poetry & Node Dockerfile](https://jackwhitworth.com/blog/writing-a-minimal-wagtail-poetry-node-dockerfile/) (8 April 2025)
