@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2024
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2025
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2018,2025
 # saevarom <saevar@saevar.is>, 2015,2017-2025
@@ -13,7 +13,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2025\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +73,9 @@ msgstr "Stjórnborð Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
 
+msgid "You do not have permission to access the admin."
+msgstr "Þú ert ekki með réttindi til þess að skoða umsjónarsvæðið"
+
 msgid "None"
 msgstr "Ekkert"
 
@@ -81,11 +85,20 @@ msgstr "Dagsetning frá"
 msgid "Date to"
 msgstr "Dagsetning til"
 
+msgid "Minimum"
+msgstr "Minnst"
+
+msgid "Maximum"
+msgstr "Mest"
+
 msgid "Locale"
 msgstr "Þýðing"
 
 msgid "All"
 msgstr "Allt"
+
+msgid "Usage count"
+msgstr "Notkun"
 
 msgid "Collection"
 msgstr "Safn"
@@ -158,6 +171,9 @@ msgstr ""
 "Veldu staðsetningu í tré. ATH: safn getur ekki verið undir sjálfu sér eða "
 "einhverju af undirsöfnum sínum."
 
+msgid "Please select another parent."
+msgstr "Vinsamlegast veldu aðra yfirsíðu."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
 
@@ -186,6 +202,9 @@ msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Dags/tímasetningin þegar síðan fer í loftið þarf að vera á undan þegar hún á "
 "að fara úr loftinu"
+
+msgid "Expiry date/time must be in the future."
+msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 msgid "New title"
 msgstr "Titill"
@@ -255,6 +274,11 @@ msgstr ""
 "Ekki er hægt að afrita síðu inn undir sjálfa sig þegar verið er að afrita "
 "undirsíður"
 
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr ""
+"Vefslóðarhlutinn '%(page_slug)s' er þegar í notkun undir þessari yfirsíðu"
+
 msgid "Select a new parent for this page."
 msgstr "Veldu nýja yfirsíðu fyrir þessa síðu."
 
@@ -278,6 +302,11 @@ msgstr ""
 
 msgid "Search…"
 msgstr "Leita..."
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
+msgstr ""
+"Merki %(value_too_long)s eru meira en %(max_tag_length)d stafir að lengd"
 
 msgid "Visibility"
 msgstr "Sýnileiki"
@@ -497,6 +526,9 @@ msgstr "Hlaða upp prófílmynd:"
 
 msgid "Sidebar"
 msgstr "Hliðarstika"
+
+msgid "Go to the first error"
+msgstr "Sýna fyrstu villu"
 
 msgid "Go back"
 msgstr "Til baka"
@@ -1869,6 +1901,14 @@ msgid "Breadcrumb"
 msgstr "Brauðmolar"
 
 #, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] "Þessi aðgerð mun eyða <b>%(total_pages_formatted)s</b> síðu."
+msgstr[1] ""
+"Þessi aðgerð mun eyða samtals <b>%(total_pages_formatted)s</b> síðum."
+
+#, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
 msgstr ""
 "Vinsamlegast sláðu inn <b>%(wagtail_site_name)s</b> til þess að staðfesta."
@@ -1963,8 +2003,19 @@ msgstr "Til baka"
 msgid "History"
 msgstr "Saga"
 
+msgid "account"
+msgstr "reikningur"
+
 msgid "Keyboard shortcuts"
 msgstr "Lyklaborðs flýtileiðir"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently disabled; manage your %(account_link)s to "
+"enable them."
+msgstr ""
+"Lyklaborðs flýtileiðir eru óvirkar, breyttu stillingum %(account_link)s til "
+"að virkja þær."
 
 msgid "All keyboard shortcuts"
 msgstr "Allar lyklaborðs flýtileiðir"
@@ -1974,6 +2025,14 @@ msgstr "Kafli"
 
 msgid "Keyboard shortcut"
 msgstr "Lyklaborðs flýtileið"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
+"disable them."
+msgstr ""
+"Lyklaborðs flýtileiðir eru virkar, breyttu stillingum %(account_link)s til "
+"að afvirkja þær."
 
 msgid "Current page status:"
 msgstr "Núverandi staða síðu:"
@@ -2035,6 +2094,44 @@ msgstr "Orð"
 
 msgid "Reading time"
 msgstr "Lestími"
+
+msgid "Readability"
+msgstr "Lesanleiki"
+
+msgid "This data explained"
+msgstr "Útskýring á gögnum"
+
+msgid "How we calculate our metrics"
+msgstr "Hvernig við reiknum út einkunnina."
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Við grípum efnið úr forskoðuninni, fjarlægjum alla stíla og reiknum út "
+"orðafjölda."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Við reiknum lestíma út frá fjölda orða, með því að notast við mismunandi "
+"leshraða fyrir mismunandi tungumál."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Við notum lesanleika formúlu sem byggir á lengd orða og setninga. Langar "
+"setningar og orð valda lækkun á lesanleika einkunn."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Skoðaðu <a href=\"%(guide_link)s\" target=\"_blank\">leiðbeiningarnar</"
+"a>fyrir frekari upplýsingar um hvernig einkunnir eru reiknaðar."
 
 msgid "Issues found"
 msgstr "Atriði fundust"
@@ -2256,8 +2353,14 @@ msgstr "Hoppa yfir í aðal efni"
 msgid "Item %(index)s of %(total)s"
 msgstr "Atriði %(index)s af %(total)s"
 
+msgid "Disable custom ordering"
+msgstr "Afvirkja sérsniðna röðun"
+
 msgid "Sort"
 msgstr "Raða"
+
+msgid "Enable custom ordering"
+msgstr "Virkja sérsniðna röðun"
 
 msgid "View Wagtail quick actions"
 msgstr "Skoða flýtivalmynd Wagtail"
@@ -2410,6 +2513,14 @@ msgstr "Því miður, engin skref passa við \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Þú hefur ekki búið til nein skref."
 
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
+msgstr ""
+"Af hverju ekki <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>búa til eitt núna</a>?"
+
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2494,14 +2605,33 @@ msgstr "Sent til %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
+#. Translators: Shortcuts for admin common shortcuts that are available across
+#. the admin
+msgid "Application"
+msgstr "Kerfi"
+
+msgid "Show keyboard shortcuts"
+msgstr "Sýna lyklaborðs flýtileiðir"
+
 msgid "Toggle sidebar"
 msgstr "Hliðarstika af/á"
+
+msgid "Toggle minimap"
+msgstr "Kveikja/slökkva á yfirliti"
+
+msgid "Close modal dialogs (like this one)"
+msgstr "Loka yfirlags gluggum (eins og þessum)"
 
 msgid "Save changes"
 msgstr "Vista breytingar"
 
 msgid "Add or show comments"
 msgstr "Bæta við eða sýna athugasemdir"
+
+#. Translators: Shortcuts for common text editing features available in all
+#. fields (even if not a rich text field)
+msgid "Text editing"
+msgstr "Breyta texta"
 
 msgid "Cut"
 msgstr "Klippa"
@@ -2834,6 +2964,9 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
+msgid "Sort item order"
+msgstr "Röðun"
+
 msgid "Inspect"
 msgstr "Skoða"
 
@@ -3046,6 +3179,9 @@ msgstr "Síða '%(page_title)s' vistuð og birt."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Síða '%(page_title)s' vistuð og send til samþykkis."
 
+msgid "The page could not be created due to validation errors."
+msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
+
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Síðu '%(page_title)s' eytt."
@@ -3107,6 +3243,12 @@ msgstr "Síða '%(page_title)s' hefur verið send inn til samþykkis."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Vinnuflæði á síðu '%(page_title)s' hefur verið endurræst."
 
+msgid "The page could not be saved as it is locked."
+msgstr "Ekki var hægt að vista síðuna, þar sem hún er læst"
+
+msgid "The page could not be saved due to validation errors."
+msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
+
 msgid "Is commenting action"
 msgstr "Er að gera athugasemd"
 
@@ -3140,6 +3282,14 @@ msgstr "Skoðar"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Síða '%(page_title)s' er nú ólæst."
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again."
+msgstr ""
+"Vefslóðarhlutinn '%(page_slug)s' er þegar í notkun undir þessari yfirsíðu. "
+"Breyttu slóðinni svo hún sé einkvæm og reyndu aftur."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."

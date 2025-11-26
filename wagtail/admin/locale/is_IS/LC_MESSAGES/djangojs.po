@@ -1,12 +1,12 @@
 #
 # Translators:
 # Loic Teixeira, 2024
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2025
 # saevarom <saevar@saevar.is>, 2025
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: saevarom <saevar@saevar.is>, 2025\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2025\n"
 "Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/teams/"
 "8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +36,12 @@ msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixill"
 msgstr[1] "%(num)s pixlar"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
 msgid "Actions"
 msgstr "Aðgerðir"

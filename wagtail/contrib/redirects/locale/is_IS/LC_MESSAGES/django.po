@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020-2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020-2022,2025
 # saevarom <saevar@saevar.is>, 2015,2019,2022
 # saevarom <saevar@saevar.is>, 2015,2019,2022
 msgid ""
@@ -12,7 +12,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2019,2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2016,2018,2020-2022,2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -207,6 +208,18 @@ msgstr "Tilvísun '%(redirect_title)s' var bætt við."
 
 msgid "Search redirects"
 msgstr "Leita í tilvísunum"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported."
+msgstr "Skráarsniðið \"%(extension)s\" er ekki stutt."
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s."
+msgstr "Innlesin skrá er vitlaust stafakóðuð: %(error_message)s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s."
+msgstr "%(error)s villur fundust við að lesa skrána: %(filename)s."
 
 #, python-format
 msgid "Imported %(total)d redirect"
