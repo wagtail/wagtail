@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2024
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2025
 # saevarom <saevar@saevar.is>, 2015,2019-2022,2024
 msgid ""
 msgstr ""
@@ -11,7 +11,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2019-2022,2024\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2021-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -245,6 +246,9 @@ msgstr "Nei, ekki eyða"
 msgid "Popular tags"
 msgstr "Vinsæl merki"
 
+msgid "Layout"
+msgstr "Útlit"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -276,6 +280,15 @@ msgstr "Þú hefur ekki hlaðið neinum myndum inn í þetta safn."
 
 msgid "You haven't uploaded any images."
 msgstr "Þú hefur ekki hlaðið inn neinum myndum."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"Af hverju ekki að <a class=\"upload-one-now\" href=\"#tab-upload\" data-"
+"action=\"w-tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-"
+"focus-param=\"true\">hlaða einni upp núna</a>?"
 
 msgid "Choose a format"
 msgstr "Veldu snið"
@@ -380,6 +393,12 @@ msgid ""
 msgstr ""
 "Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a "
 "href=\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+
+msgid "Grid layout"
+msgstr "Töflusýn"
+
+msgid "List layout"
+msgstr "Listasýn"
 
 msgid "Preview"
 msgstr "Forskoðun"
@@ -525,6 +544,12 @@ msgstr "Skráarstærð: (litlar fyrst)"
 
 msgid "File size: (high to low)"
 msgstr "Skráarstærð: (stórar fyrst)"
+
+msgid "Usage count: (low to high)"
+msgstr "Notkun: (lítil fyrst)"
+
+msgid "Usage count: (high to low)"
+msgstr "Notkun: (mikil fyrst)"
 
 msgid "Images"
 msgstr "Myndir"
