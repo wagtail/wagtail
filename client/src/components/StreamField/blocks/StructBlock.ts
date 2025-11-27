@@ -13,9 +13,13 @@ import { setAttrs } from '../../../utils/attrs';
 export class StructBlock {
   declare blockDef: StructBlockDefinition;
   declare type: string;
+  declare prefix: string;
   declare container: JQuery;
   declare childBlocks: Record<string, any>;
   declare setTextLabel: () => void;
+
+  #initialState: Record<string, any>;
+  #initialError: Record<string, any>;
 
   constructor(
     blockDef: StructBlockDefinition,
@@ -24,9 +28,11 @@ export class StructBlock {
     initialState,
     initialError,
   ) {
-    const state = initialState || {};
     this.blockDef = blockDef;
     this.type = blockDef.name;
+    this.prefix = prefix;
+    this.#initialState = initialState || {};
+    this.#initialError = initialError;
 
     this.childBlocks = {};
 
@@ -62,18 +68,8 @@ export class StructBlock {
         $(placeholder).replaceWith(dom);
       }
 
-      const blockErrors = initialError?.blockErrors || {};
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
-        const childBlockElement = dom
-          .find('[data-structblock-child="' + childBlockDef.name + '"]')
-          .get(0);
-        const childBlock = childBlockDef.render(
-          childBlockElement,
-          prefix + '-' + childBlockDef.name,
-          state[childBlockDef.name],
-          blockErrors[childBlockDef.name],
-        );
-        this.childBlocks[childBlockDef.name] = childBlock;
+        this.renderChildBlockDef(childBlockDef.name, dom, true);
       });
       this.container = dom;
     } else {
@@ -100,46 +96,7 @@ export class StructBlock {
       }
 
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
-        const isStructBlock =
-          // Cannot use `instanceof StructBlockDefinition` here as it is defined
-          // later in this file. Compare our own blockDef constructor instead.
-          childBlockDef instanceof this.blockDef.constructor;
-
-        // Struct blocks are collapsible and thus have their own header,
-        // so only add the label if this is not a struct block.
-        let label = '';
-        if (!isStructBlock) {
-          label = `<label class="w-field__label">${h(childBlockDef.meta.label)}${
-            childBlockDef.meta.required
-              ? '<span class="w-required-mark">*</span>'
-              : ''
-          }</label>`;
-        }
-
-        const childDom = $(`
-        <div data-contentpath="${childBlockDef.name}">
-          ${label}
-            <div data-streamfield-block></div>
-          </div>
-        `);
-        dom.append(childDom);
-        const childBlockElement = childDom
-          .find('[data-streamfield-block]')
-          .get(0);
-        const labelElement = childDom.find('label').get(0);
-        const blockErrors = initialError?.blockErrors || {};
-        const childBlock = childBlockDef.render(
-          childBlockElement,
-          prefix + '-' + childBlockDef.name,
-          state[childBlockDef.name],
-          blockErrors[childBlockDef.name],
-          new Map(),
-        );
-
-        this.childBlocks[childBlockDef.name] = childBlock;
-        if (childBlock.idForLabel) {
-          labelElement!.setAttribute('for', childBlock.idForLabel);
-        }
+        this.renderChildBlockDef(childBlockDef.name, dom);
       });
       this.container = dom;
     }
@@ -150,6 +107,65 @@ export class StructBlock {
     }
 
     setAttrs(this.container[0], this.blockDef.meta.attrs || {});
+  }
+
+  renderChildBlockDef(name, container, hasCustomTemplate = false) {
+    const childBlockDef = this.blockDef.childBlockDefsByName[name];
+    const blockErrors = this.#initialError?.blockErrors || {};
+
+    if (hasCustomTemplate) {
+      const childBlockElement = container
+        .find('[data-structblock-child="' + childBlockDef.name + '"]')
+        .get(0);
+      const childBlock = childBlockDef.render(
+        childBlockElement,
+        this.prefix + '-' + childBlockDef.name,
+        this.#initialState[childBlockDef.name],
+        blockErrors[childBlockDef.name],
+      );
+      this.childBlocks[childBlockDef.name] = childBlock;
+      return childBlock;
+    }
+
+    const isStructBlock =
+      // Cannot use `instanceof StructBlockDefinition` here as it is defined
+      // later in this file. Compare our own blockDef constructor instead.
+      childBlockDef instanceof this.blockDef.constructor;
+
+    // Struct blocks are collapsible and thus have their own header,
+    // so only add the label if this is not a struct block.
+    let label = '';
+    if (!isStructBlock) {
+      label = `<label class="w-field__label">${h(childBlockDef.meta.label)}${
+        childBlockDef.meta.required
+          ? '<span class="w-required-mark">*</span>'
+          : ''
+      }</label>`;
+    }
+
+    const childDom = $(`
+        <div data-contentpath="${childBlockDef.name}">
+          ${label}
+            <div data-streamfield-block></div>
+          </div>
+        `);
+    container.append(childDom);
+    const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+    const labelElement = childDom.find('label').get(0);
+    const childBlock = childBlockDef.render(
+      childBlockElement,
+      this.prefix + '-' + childBlockDef.name,
+      this.#initialState[childBlockDef.name],
+      blockErrors[childBlockDef.name],
+      new Map(),
+    );
+
+    this.childBlocks[childBlockDef.name] = childBlock;
+    if (childBlock.idForLabel) {
+      labelElement!.setAttribute('for', childBlock.idForLabel);
+    }
+
+    return childBlock;
   }
 
   #initializeCollapsiblePanel(dom, prefix) {
@@ -270,11 +286,16 @@ export class StructBlockDefinition {
   declare name: string;
   declare childBlockDefs: any[];
   declare meta: Record<string, any>;
+  declare childBlockDefsByName: Record<string, any>;
   declare collapsible: boolean;
 
   constructor(name: string, childBlockDefs: any[], meta: Record<string, any>) {
     this.name = name;
     this.childBlockDefs = childBlockDefs;
+    this.childBlockDefsByName = childBlockDefs.reduce((map, blockDef) => {
+      map[blockDef.name] = blockDef;
+      return map;
+    }, {});
     this.meta = meta;
 
     // Always collapsible by default, but can be overridden e.g. when used in a
