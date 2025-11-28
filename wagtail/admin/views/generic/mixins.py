@@ -5,6 +5,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.db import models, transaction
 from django.forms import Media
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -881,3 +882,18 @@ class RevisionsRevertMixin:
         context["revision"] = self.revision
         context["action_url"] = self.get_revisions_revert_url()
         return context
+
+
+class JsonPostResponseMixin:
+    """
+    Helper methods for create/edit views that return JSON responses when POSTed to with an
+    Accepts: application/json header, rather than the usual "redirect on success, HTML form
+    on failure" behaviour.
+    """
+
+    @cached_property
+    def expects_json_response(self):
+        return not self.request.accepts("text/html")
+
+    def json_error_response(self, message):
+        return JsonResponse({"error": message}, status=400)
