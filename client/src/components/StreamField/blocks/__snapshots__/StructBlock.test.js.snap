@@ -456,7 +456,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -474,7 +474,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" hidden="">
+          <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
