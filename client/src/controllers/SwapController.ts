@@ -8,7 +8,7 @@ class HTTPError extends Error {
 
   constructor(status: number, ...params) {
     super(`HTTP error! Status: ${status}`, ...params);
-    this.name = 'ResponseError';
+    this.name = 'HTTPError';
     this.status = status;
   }
 }

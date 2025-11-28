@@ -4110,7 +4110,7 @@ class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_get_with_bad_search_params(self):
         """
-        This tests that the view responds with a 400 error when the search params
+        This tests how the view responds when the search params
         result in an invalid filter spec.
         """
         # Get
@@ -4170,7 +4170,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
-        result_url = soup.find("textarea", {"id": "result-url"}).getText()
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
         preview_url = soup.find("img")["src"]
 
         expected_url = (
@@ -4265,7 +4265,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # check the result URL from the textarea
-        result_url = soup.find("textarea", {"id": "result-url"}).getText()
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
         expected_url = (
             "http://localhost/images/%(signature)s/%(image_id)d/original/"
             % {
@@ -4297,7 +4297,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # check the result URL from the textarea
-        result_url = soup.find("textarea", {"id": "result-url"}).getText()
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
         expected_url = (
             "http://localhost/images/%(signature)s/%(image_id)d/width-800/"
             % {
@@ -4329,7 +4329,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # check the result URL from the textarea
-        result_url = soup.find("textarea", {"id": "result-url"}).getText()
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
         expected_url = (
             "http://localhost/images/%(signature)s/%(image_id)d/height-320/"
             % {
@@ -4365,7 +4365,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # check the result URL from the textarea
-        result_url = soup.find("textarea", {"id": "result-url"}).getText()
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
         expected_url = (
             "http://localhost/images/%(signature)s/%(image_id)d/fill-640x480/"
             % {
@@ -4401,7 +4401,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # check the result URL from the textarea
-        result_url = soup.find("textarea", {"id": "result-url"}).getText()
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
         expected_url = (
             "http://localhost/images/%(signature)s/%(image_id)d/min-640x480/"
             % {
@@ -4437,7 +4437,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # check the result URL from the textarea
-        result_url = soup.find("textarea", {"id": "result-url"}).getText()
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
         expected_url = (
             "http://localhost/images/%(signature)s/%(image_id)d/max-640x480/"
             % {
@@ -4468,7 +4468,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # check the result URL from the textarea
-        result_url = soup.find("textarea", {"id": "result-url"}).getText()
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
         expected_url = (
             "http://localhost/images/%(signature)s/%(image_id)d/fill-320x120-c20/"
             % {
