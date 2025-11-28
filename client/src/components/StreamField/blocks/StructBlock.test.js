@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { FieldBlockDefinition } from './FieldBlock';
 import { StreamBlockDefinition } from './StreamBlock';
-import { StructBlockDefinition } from './StructBlock';
+import { BlockGroupDefinition, StructBlockDefinition } from './StructBlock';
 
 window.$ = $;
 
@@ -102,6 +102,13 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
         classname: 'struct-block',
         helpText: 'use <strong>lots</strong> of these',
         helpIcon: '<svg></svg>',
+        formLayout: new BlockGroupDefinition({
+          children: [
+            ['heading_text', 'heading_text'],
+            ['size', 'size'],
+          ],
+          settings: [],
+        }),
       },
     );
 
@@ -229,6 +236,13 @@ describe('telepath: wagtail.blocks.StructBlock with collapsible panel', () => {
         helpText: 'configure how the block is <strong>displayed</strong>',
         helpIcon: '<svg></svg>',
         collapsed,
+        formLayout: new BlockGroupDefinition({
+          children: [
+            ['accent_color', 'accent_color'],
+            ['font_size', 'font_size'],
+          ],
+          settings: [],
+        }),
       },
     );
 
@@ -397,6 +411,13 @@ describe('telepath: wagtail.blocks.StructBlock with nested collapsible panel', (
         helpText: 'configure how the block is <strong>displayed</strong>',
         helpIcon: '<svg></svg>',
         collapsed: true, // Initially collapsed
+        formLayout: new BlockGroupDefinition({
+          children: [
+            ['accent_color', 'accent_color'],
+            ['font_size', 'font_size'],
+          ],
+          settings: [],
+        }),
       },
     );
 
@@ -432,6 +453,14 @@ describe('telepath: wagtail.blocks.StructBlock with nested collapsible panel', (
         classname: 'struct-block',
         helpText: 'use <strong>lots</strong> of these',
         helpIcon: '<svg></svg>',
+        formLayout: new BlockGroupDefinition({
+          children: [
+            ['heading_text', 'heading_text'],
+            ['size', 'size'],
+            ['settings', 'settings'],
+          ],
+          settings: [],
+        }),
       },
     );
 
@@ -569,6 +598,13 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
         <div data-structblock-child="size"></div>
       </div>`,
       labelFormat: '{heading_text} - {size}',
+      formLayout: new BlockGroupDefinition({
+        children: [
+          ['heading_text', 'heading_text'],
+          ['size', 'size'],
+        ],
+        settings: [],
+      }),
     };
     const headingTextBlockDef = new FieldBlockDefinition(
       'heading_text',
@@ -742,14 +778,6 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -775,6 +803,13 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         classname: 'struct-block',
         helpText: 'use <strong>lots</strong> of these',
         helpIcon: '<svg></svg>',
+        formLayout: new BlockGroupDefinition({
+          children: [
+            ['inner_stream', 'inner_stream'],
+            ['test_block_b', 'test_block_b'],
+          ],
+          settings: [],
+        }),
       },
     );
 
@@ -792,14 +827,6 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -874,14 +901,6 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate in stream block
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -913,6 +932,13 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate in stream block
           <p>and here is the second:</p>
           <div data-structblock-child="test_block_b"></div>
         </div>`,
+        formLayout: new BlockGroupDefinition({
+          children: [
+            ['inner_stream', 'inner_stream'],
+            ['test_block_b', 'test_block_b'],
+          ],
+          settings: [],
+        }),
       },
     );
 
@@ -930,14 +956,6 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate in stream block
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 

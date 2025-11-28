@@ -1042,8 +1042,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with StructBlock child it renders 
             <div class="help">
               use <strong>lots</strong> of these
             </div>
-          </div>
-        <div data-contentpath="heading_text">
+          </div><div data-contentpath="heading_text">
           <label class="w-field__label" for="the-prefix-0-value-heading_text">Heading text<span class="w-required-mark">*</span></label>
             <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
