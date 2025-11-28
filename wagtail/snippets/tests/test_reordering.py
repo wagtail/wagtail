@@ -56,8 +56,10 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
         table = soup.select_one("main table")
         self.assertIsNotNone(table)
         self.assertEqual(table.get("data-controller"), "w-orderable")
+        import json
+        messages = json.loads(table.get("data-w-orderable-messages-value", "{}"))
         self.assertEqual(
-            table.get("data-w-orderable-message-value"),
+            messages.get("success"),
             "'__LABEL__' has been moved successfully.",
         )
         self.assertEqual(

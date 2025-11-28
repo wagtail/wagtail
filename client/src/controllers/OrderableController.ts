@@ -3,6 +3,7 @@ import Sortable from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
+
 enum Direction {
   Up = 'UP',
   Down = 'DOWN',
@@ -30,7 +31,8 @@ export class OrderableController extends Controller<HTMLElement> {
   static values = {
     animation: { default: 200, type: Number },
     container: { default: '', type: String },
-    message: { default: '', type: String },
+    // remove message, add messages
+    messages: { default: {}, type: Object },
     url: String,
   };
 
@@ -50,8 +52,11 @@ export class OrderableController extends Controller<HTMLElement> {
   declare animationValue: number;
   /** A selector to determine the container that will be the parent of the orderable elements. */
   declare containerValue: string;
-  /** A translated message template for when the update is successful, replaces `__LABEL__` with item's title. */
-  declare messageValue: string;
+  /**
+   * An object of messages, where the keys are HTTP status codes or error keys, used to determine what message should show in the UI on HTTP error or success.
+   * Messages should be translated values, where the string `__LABEL__` will be replaced with item's title.
+   */
+  declare readonly messagesValue: Record<string, string>;
   /** Base URL template to use for submitting an updated order for a specific item. */
   declare urlValue: string;
 
@@ -120,6 +125,19 @@ export class OrderableController extends Controller<HTMLElement> {
       id: item.getAttribute(`data-${identifier}-item-id`) || '',
       label: item.getAttribute(`data-${identifier}-item-label`) || '',
     };
+  }
+
+  /**
+   * Get a message by key, with optional label replacement.
+   */
+  getMessage(
+    key: string,
+    { label = '', placeholder = '__LABEL__' } = {},
+  ): string {
+    return (
+      this.messagesValue[key]?.replace(placeholder, label) ||
+      (key === 'success' ? label : '')
+    );
   }
 
   /**
@@ -192,10 +210,15 @@ export class OrderableController extends Controller<HTMLElement> {
       url += '?position=' + newIndex;
     }
 
-    const message = (this.messageValue || '__LABEL__').replace(
-      '__LABEL__',
-      label,
-    );
+    // Clear any existing messages before starting new request
+    this.dispatch('w-messages:clear', {
+      prefix: '',
+      target: window.document,
+      detail: {},
+      cancelable: false,
+    });
+
+    const message = this.getMessage('success', { label });
 
     fetch(url, {
       method: 'POST',
@@ -205,7 +228,9 @@ export class OrderableController extends Controller<HTMLElement> {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          const error = new Error(`HTTP error! Status: ${response.status}`);
+          (error as any).status = response.status;
+          throw error;
         }
       })
       .then(() => {
@@ -217,7 +242,36 @@ export class OrderableController extends Controller<HTMLElement> {
         });
       })
       .catch((error) => {
-        throw error;
+        // Determine error message based on error type
+        let errorMessage = '';
+
+        if (error.status) {
+          // Try to get status-specific message, fall back to server message
+          errorMessage = this.getMessage(error.status.toString()) || this.getMessage('server');
+        } else if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+          // Network error
+          errorMessage = this.getMessage('network');
+        } else {
+          // Generic error
+          errorMessage = this.getMessage('generic');
+        }
+
+        // Only show error message if we have one (no fallback to untranslated values)
+        if (errorMessage) {
+          this.dispatch('w-messages:add', {
+            prefix: '',
+            target: window.document,
+            detail: { 
+              clear: true, 
+              text: errorMessage, 
+              type: 'error' 
+            },
+            cancelable: false,
+          });
+        }
+        
+        // Reset the visual state by reverting the sortable order
+        this.sortable.sort(this.order, true);
       });
   }
 
