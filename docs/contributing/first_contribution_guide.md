@@ -39,10 +39,10 @@ Below is a checklist. There are many like these you can copy for yourself as you
 ```
 
 ```markdown
--   [ ] Read the Zen of Wagtail
--   [ ] Read the Django Overview
--   [ ] Search online for one or two articles that 'compare Wordpress to Wagtail' or 'top ten open source CMS' and read about the CMS landscape
--   [ ] Read some of the Wagtail Guide
+-   [ ] Read the Zen of Wagtail.
+-   [ ] Read the Django Overview.
+-   [ ] Search online for one or two articles that 'compare Wordpress to Wagtail' or 'top ten open source CMS' and read about the CMS landscape.
+-   [ ] Read some of the Wagtail Guide.
 ```
 
 ### 2. Joining the community
@@ -54,14 +54,14 @@ You may also want to join StackOverflow and [follow the Wagtail tag](https://sta
 #### Checklist
 
 ```markdown
--   [ ] Read the community guidelines
--   [ ] Join GitHub
--   [ ] Add your preferred name and image to your GitHub profile
--   [ ] Join Slack
--   [ ] Add your preferred name, timezone and image to your Slack profile
--   [ ] Introduce yourself in `#new-contributors` in Slack
--   [ ] Join the `#support` channel in Slack
--   [ ] _Optional_ Join StackOverflow
+-   [ ] Read the community guidelines.
+-   [ ] Join GitHub.
+-   [ ] Add your preferred name and image to your GitHub profile.
+-   [ ] Join Slack.
+-   [ ] Add your preferred name, timezone and image to your Slack profile.
+-   [ ] Introduce yourself in `#new-contributors` in Slack.
+-   [ ] Join the `#support` channel in Slack.
+-   [ ] _Optional_ Join StackOverflow.
 ```
 
 ### 3. Before contributing code
