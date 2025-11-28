@@ -107,10 +107,6 @@ export class BlockGroup {
         collapsed: isRoot ? opts.collapsed : dom.hasClass('collapsed'),
       }).render().outerHTML;
       groupContainer = $(panel);
-      if (!hasCustomTemplate) {
-        dom.append(groupContainer);
-        groupContainer = dom;
-      }
     }
 
     // For the root BlockGroup, we need to replace the placeholder element
@@ -123,21 +119,17 @@ export class BlockGroup {
 
     if (groupContainer) {
       const content = this.initializeCollapsiblePanel(groupContainer, prefix);
-      if (hasCustomTemplate) {
-        content.append(dom);
-      }
-      dom = content;
+      content.append(dom);
     }
 
     if (!hasCustomTemplate && opts.helpText) {
       // help text is left unescaped as per Django conventions
-      dom.append(`
+      dom.append(/* html */ `
           <div class="c-sf-help">
             <div class="help">
               ${opts.helpText}
             </div>
-          </div>
-        `);
+          </div>`);
     }
 
     // Children and settings are always defined in the BlockGroup, and never in
@@ -338,13 +330,12 @@ export class StructBlock {
       }</label>`;
     }
 
-    const childDom = $(
-      `<div data-contentpath="${childBlockDef.name}">
+    const childDom = $(/* html */ `
+      <div data-contentpath="${childBlockDef.name}">
           ${label}
             <div data-streamfield-block></div>
           </div>
-        `,
-    );
+        `);
     container.append(childDom);
     const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
     const labelElement = childDom.find('label').get(0);
