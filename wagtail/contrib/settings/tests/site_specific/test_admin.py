@@ -1,4 +1,5 @@
 from django.contrib.auth.models import Group, Permission
+from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -20,6 +21,11 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class SiteSettingTestMixin:
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.default_site = Site.objects.get(is_default_site=True)
+
     def login_only_admin(self):
         """Log in with a user that only has permission to access the admin"""
         user = self.create_user(username="test", password="password")
@@ -39,7 +45,7 @@ class SiteSettingTestMixin:
         site_owners = Group.objects.create(name="Site Owners")
         GroupSitePermission.objects.create(
             group=site_owners,
-            site=Site.objects.get(is_default_site=True),
+            site=self.default_site,
             permission=Permission.objects.get_by_natural_key(
                 app_label="tests",
                 model="testsitesetting",
@@ -166,13 +172,14 @@ class TestSiteSettingCreateView(SiteSettingTestMixin, BaseTestSiteSettingView):
         )
         self.assertEqual(response.status_code, 302)
 
-        default_site = Site.objects.get(is_default_site=True)
-        setting = TestSiteSetting.objects.get(site=default_site)
+        setting = TestSiteSetting.objects.get(site=self.default_site)
         self.assertEqual(setting.title, "Edited site title")
         self.assertEqual(setting.email, "test@example.com")
 
         url_finder = AdminURLFinder(self.user)
-        expected_url = "/admin/settings/tests/testsitesetting/%d/" % default_site.pk
+        expected_url = (
+            "/admin/settings/tests/testsitesetting/%d/" % self.default_site.pk
+        )
         self.assertEqual(url_finder.get_edit_url(setting), expected_url)
 
     def test_edit_without_permission(self):
@@ -192,8 +199,7 @@ class TestSiteSettingCreateView(SiteSettingTestMixin, BaseTestSiteSettingView):
             post_data={"title": "Edited site title", "email": "test@example.com"}
         )
         self.assertEqual(response.status_code, 302)
-        default_site = Site.objects.get(is_default_site=True)
-        setting = TestSiteSetting.objects.get(site=default_site)
+        setting = TestSiteSetting.objects.get(site=self.default_site)
         self.assertEqual(setting.title, "Edited site title")
         self.assertEqual(setting.email, "test@example.com")
 
@@ -317,11 +323,71 @@ class TestSiteSettingCreateView(SiteSettingTestMixin, BaseTestSiteSettingView):
         self.assertEqual(settings.title, "test")
         self.assertEqual(settings.sensitive_email, "test@example.com")
 
+    def test_before_edit_setting_hook_get(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.title, "")
+            self.assertEqual(instance.email, "")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_edit_setting", hook_func):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_edit_setting_hook_post(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.title, "")
+            self.assertEqual(instance.email, "")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_edit_setting", hook_func):
+            response = self.post(
+                post_data={
+                    "title": "Setting title",
+                    "email": "email@example.com",
+                }
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was updated
+        self.assertEqual(TestSiteSetting.for_site(self.default_site).title, "")
+        self.assertEqual(TestSiteSetting.for_site(self.default_site).email, "")
+
+    def test_after_edit_setting_hook(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsNotNone(instance.pk)
+            self.assertEqual(instance.title, "Setting title")
+            self.assertEqual(instance.email, "email@example.com")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("after_edit_setting", hook_func):
+            response = self.post(
+                post_data={
+                    "title": "Setting title",
+                    "email": "email@example.com",
+                }
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was updated
+        self.assertEqual(
+            TestSiteSetting.for_site(self.default_site).title, "Setting title"
+        )
+        self.assertEqual(
+            TestSiteSetting.for_site(self.default_site).email, "email@example.com"
+        )
+
 
 class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
     def setUp(self):
-        self.default_site = Site.objects.get(is_default_site=True)
-
         self.test_setting = TestSiteSetting()
         self.test_setting.title = "Site title"
         self.test_setting.email = "initial@example.com"
@@ -400,8 +466,7 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
         )
         self.assertEqual(response.status_code, 302)
 
-        default_site = Site.objects.get(is_default_site=True)
-        setting = TestSiteSetting.objects.get(site=default_site)
+        setting = TestSiteSetting.objects.get(site=self.default_site)
         self.assertEqual(setting.title, "Edited site title")
         self.assertEqual(setting.email, "test@example.com")
 
@@ -447,11 +512,10 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
 
     def test_get_redirect_to_relevant_instance(self):
         url = reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
-        default_site = Site.objects.get(is_default_site=True)
 
         response = self.client.get(url)
         self.assertRedirects(
-            response, status_code=302, expected_url=f"{url}{default_site.pk}/"
+            response, status_code=302, expected_url=f"{url}{self.default_site.pk}/"
         )
 
     def test_get_redirect_to_relevant_instance_invalid(self):
@@ -605,7 +669,6 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
 )
 class TestMultiSite(SiteSettingTestMixin, BaseTestSiteSettingView):
     def setUp(self):
-        self.default_site = Site.objects.get(is_default_site=True)
         self.other_site = Site.objects.create(
             hostname="example.com", root_page=Page.objects.get(pk=2)
         )
