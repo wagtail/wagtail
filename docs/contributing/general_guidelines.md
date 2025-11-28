@@ -4,6 +4,8 @@
 
 We recognize generative AI can be a useful tool for contributors, but like any tool should be used with critical thinking and good judgement when creating issues and pull requests.
 
+Any AI-generated code that you submit must be reviewed and tested by you. You are expected to understand the code, and take final accountability for it.
+
 We ask that if you use generative AI for your contribution, you include a disclaimer, for example:
 
 > _"This pull request includes code written with the assistance of AI. This code was reviewed and verified by me."_
@@ -16,7 +18,7 @@ We ask that if you use generative AI for your contribution, you include a discla
 
 ### Unacceptable uses
 
-- Entire work (code changes, documentation update, pull request descriptions) are LLM-generated
+- Entire work (code changes, documentation update, pull request descriptions) are LLM-generated and submitted without human oversight
 
 We will close those pull requests and issues that are unproductive, so we can focus our limited maintainer capacity elsewhere.
 
