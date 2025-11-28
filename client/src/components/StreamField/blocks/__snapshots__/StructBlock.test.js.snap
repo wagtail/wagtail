@@ -636,7 +636,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -654,7 +654,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" hidden="">
+          <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
           <div class="c-sf-help">
@@ -752,6 +752,260 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
           </div>
         </div>
       </div>
+          </div></div></div>
+        </section>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any level of nested panels to reveal errors 1`] = `
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+              <span class="c-sf-block__type">Hero</span>
+              
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="true" aria-controls="the-prefix-settings">
+        <svg class="icon icon-cog" aria-hidden="true">
+          <use href="#icon-cog"></use>
+        </svg>
+      
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-settings">
+        <span aria-hidden="true" data-w-count-target="total"></span>
+        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
+      </div>
+    </button></div>
+          </div>
+          <div id="the-prefix-content" class="w-panel__content">
+            
+          <div class="struct-block">
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div id="the-prefix-settings" data-block-settings="">
+          <section class="w-panel w-panel--nested collapsed" id="the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-theme-heading" data-panel-toggle="" aria-controls="the-prefix-theme-content" aria-expanded="true">
+              <svg class="icon icon-cogs w-panel__icon" aria-hidden="true">
+                <use href="#icon-cogs"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-theme-heading" data-panel-heading="">
+              <span class="c-sf-block__type">Theme</span>
+              
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="true" aria-controls="the-prefix-theme-settings">
+        <svg class="icon icon-cog" aria-hidden="true">
+          <use href="#icon-cog"></use>
+        </svg>
+      
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-theme-settings">
+        <span aria-hidden="true" data-w-count-target="total"></span>
+        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
+      </div>
+    </button></div>
+          </div>
+          <div id="the-prefix-theme-content" class="w-panel__content">
+            
+          <div class="theme-group collapsed">
+        <div id="the-prefix-theme-settings" data-block-settings="">
+          <div data-contentpath="shown">
+          <label class="w-field__label" for="the-prefix-shown">Shown</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--boolean_field w-field--checkbox_input w-field--error" data-field="">
+          <div class="w-field__errors" id="the-prefix-shown-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+          <p class="error-message">This must be checked.</p></div>
+          <div class="w-field__help" id="the-prefix-shown-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-shown" id="the-prefix-shown">Shown widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div><div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-accent_color" id="the-prefix-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-font_size" id="the-prefix-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div></div>
+        </section></div><section class="w-panel w-panel--nested collapsed" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-main_content-heading" data-panel-toggle="" aria-controls="the-prefix-main_content-content" aria-expanded="true">
+              <svg class="icon icon-doc-full w-panel__icon" aria-hidden="true">
+                <use href="#icon-doc-full"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-main_content-heading" data-panel-heading="">
+              <span class="c-sf-block__type">Main content</span>
+              
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-main_content-settings">
+        <svg class="icon icon-cog" aria-hidden="true">
+          <use href="#icon-cog"></use>
+        </svg>
+      
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-main_content-settings">
+        <span aria-hidden="true" data-w-count-target="total"></span>
+        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
+      </div>
+    </button></div>
+          </div>
+          <div id="the-prefix-main_content-content" class="w-panel__content">
+            
+          <div class="main-content collapsed">
+        <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
+          <div data-contentpath="url">
+          <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--url_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-url-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-url-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-url" id="the-prefix-url">Link</p>
+          </div>
+        </div>
+      </div>
+          </div></div><div data-contentpath="text">
+          <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input w-field--error" data-field="">
+          <div class="w-field__errors" id="the-prefix-text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+          <p class="error-message">This is not long enough.</p></div>
+          <div class="w-field__help" id="the-prefix-text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-text" id="the-prefix-text">Text content</p>
+          </div>
+        </div>
+      </div>
+          </div></div></div>
+        </section><div data-contentpath="captioned_image">
+          
+            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="the-prefix-captioned_image-content" aria-expanded="true">
+              <svg class="icon icon-image w-panel__icon" aria-hidden="true">
+                <use href="#icon-image"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-captioned_image-heading" data-panel-heading="">
+              <span class="c-sf-block__type">Captioned image</span>
+              
+              <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-captioned_image-image</span>
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-captioned_image-content" class="w-panel__content">
+            
+          <div class="captioned-image-block">
+          <div class="c-sf-help">
+            <div class="help">
+              image with a required <strong>caption</strong>
+            </div>
+          </div>
+        <div data-contentpath="image">
+          <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--model_choice_field w-field--admin_image_chooser" data-field="">
+          <div class="w-field__errors" id="the-prefix-captioned_image-image-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-captioned_image-image-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-captioned_image-image" id="the-prefix-captioned_image-image">Image widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="caption">
+          <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-captioned_image-caption-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-captioned_image-caption-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-captioned_image-caption" id="the-prefix-captioned_image-caption">Caption widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div></div>
+        </section>
           </div></div></div>
         </section>"
 `;
