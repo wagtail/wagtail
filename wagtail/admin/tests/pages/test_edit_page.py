@@ -556,6 +556,87 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
 
+    def test_page_edit_post_with_overwrite_revision_and_json_response(self):
+        self.child_page.title = "A changed title"
+        revision = self.child_page.save_revision(user=self.user)
+        self.assertEqual(self.child_page.revisions.count(), 2)
+
+        post_data = {
+            "title": "I've been edited again!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "overwrite_revision_id": revision.id,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 200 OK JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(response.json(), {"success": True})
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+
+        # Page fields should still be from the published version
+        self.assertEqual(child_page_new.title, "Hello world!")
+
+        # The draft_title should have a new title
+        self.assertEqual(child_page_new.draft_title, "I've been edited again!")
+
+        # There should still be only two revisions, but the latest one should be overwritten
+        self.assertEqual(self.child_page.revisions.count(), 2)
+        self.assertEqual(self.child_page.get_latest_revision().id, revision.id)
+        revision.refresh_from_db()
+        self.assertEqual(revision.content["title"], "I've been edited again!")
+
+    def test_overwrite_non_latest_revision(self):
+        self.child_page.title = "A changed title"
+        user_revision = self.child_page.save_revision(user=self.user)
+        self.child_page.title = "Someone else's changed title"
+        later_revision = self.child_page.save_revision()
+        self.assertEqual(self.child_page.revisions.count(), 3)
+
+        post_data = {
+            "title": "I've been edited again!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "overwrite_revision_id": user_revision.id,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "error": "Cannot overwrite a revision that is not the latest for this page"
+            },
+        )
+
+        # Page fields should still be from the published version
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.title, "Hello world!")
+
+        # The passed revision for overwriting, and the actual latest revision, should both be unchanged
+        self.assertEqual(self.child_page.revisions.count(), 3)
+        user_revision.refresh_from_db()
+        self.assertEqual(user_revision.content["title"], "A changed title")
+        later_revision.refresh_from_db()
+        self.assertEqual(
+            later_revision.content["title"], "Someone else's changed title"
+        )
+        self.assertEqual(self.child_page.get_latest_revision().id, later_revision.id)
+
     def test_page_edit_post_unpublished_page(self):
         # Based on test_page_edit_post(), but tests changes on a draft page vs. live page.
         post_data = {

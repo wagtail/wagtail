@@ -4,6 +4,7 @@ from urllib.parse import quote
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.db.models import Prefetch, Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -39,6 +40,7 @@ from wagtail.models import (
     CommentReply,
     Page,
     PageSubscription,
+    Revision,
     WorkflowState,
     get_default_page_content_type,
 )
@@ -460,7 +462,6 @@ class EditView(
             for_user=self.request.user,
         )
         self.has_unsaved_changes = False
-        self.page_for_status = self.get_page_for_status()
 
         return self.render_to_response(self.get_context_data())
 
@@ -559,16 +560,40 @@ class EditView(
         return self.action_method()
 
     def save_action(self):
-        self.page = self.form.save(commit=not self.page.live)
-        self.subscription.save()
+        try:
+            with transaction.atomic():
+                self.page = self.form.save(commit=not self.page.live)
+                self.subscription.save()
 
-        # Save revision
-        revision = self.page.save_revision(
-            user=self.request.user,
-            log_action=True,  # Always log the new revision on edit
-            previous_revision=self.previous_revision,
-            clean=False,
-        )
+                overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
+                if overwrite_revision_id is not None:
+                    try:
+                        overwrite_revision = self.page.revisions.get(
+                            pk=overwrite_revision_id
+                        )
+                    except Revision.DoesNotExist as e:
+                        raise PermissionDenied(
+                            "Cannot overwrite a revision that does not exist"
+                        ) from e
+                else:
+                    overwrite_revision = None
+
+                # Save revision
+                revision = self.page.save_revision(
+                    user=self.request.user,
+                    log_action=True,  # Always log the new revision on edit
+                    previous_revision=self.previous_revision,
+                    overwrite_revision=overwrite_revision,
+                    clean=False,
+                )
+        except PermissionDenied as e:
+            # The revision passed to overwrite_revision was not valid
+            if self.expects_json_response:
+                return self.json_error_response(str(e))
+            else:
+                messages.error(self.request, str(e))
+                self.has_unsaved_changes = True
+                return self.render_to_response(self.get_context_data())
 
         if not self.expects_json_response:
             self.add_save_confirmation_message()
@@ -902,8 +927,6 @@ class EditView(
         )
         self.has_unsaved_changes = True
 
-        self.page_for_status = self.get_page_for_status()
-
         return self.render_to_response(self.get_context_data())
 
     def get_preview_url(self):
@@ -989,7 +1012,7 @@ class EditView(
         context.update(
             {
                 "page": self.page,
-                "page_for_status": self.page_for_status,
+                "page_for_status": self.get_page_for_status(),
                 "content_type": self.page_content_type,
                 "edit_handler": bound_panel,
                 "edit_handler_data": edit_handler_data,
