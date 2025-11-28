@@ -259,7 +259,9 @@ class CreateView(
         self.set_default_privacy_setting()
 
         # Save revision
-        self.page.save_revision(user=self.request.user, log_action=True, clean=False)
+        revision = self.page.save_revision(
+            user=self.request.user, log_action=True, clean=False
+        )
 
         # Save subscription settings
         self.subscription.page = self.page
@@ -286,7 +288,9 @@ class CreateView(
                 return response
 
         if self.expects_json_response:
-            return JsonResponse({"success": True})
+            return JsonResponse(
+                {"success": True, "pk": self.page.pk, "revision_id": revision.pk}
+            )
         else:
             # remain on edit page for further edits
             return self.redirect_and_remain()

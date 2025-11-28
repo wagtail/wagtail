@@ -659,7 +659,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
-        self.assertEqual(response.json(), {"success": True})
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], page.pk)
+        self.assertEqual(response_json["revision_id"], page.get_latest_revision().pk)
 
         self.assertEqual(page.title, post_data["title"])
         self.assertEqual(page.draft_title, post_data["title"])
@@ -2058,7 +2061,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         # hook response is ignored, since it's not a JSON response
-        self.assertEqual(response.json(), {"success": True})
+        self.assertEqual(response.json()["success"], True)
 
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())

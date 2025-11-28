@@ -542,7 +542,11 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should be a 200 OK JSON response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
-        self.assertEqual(response.json(), {"success": True})
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.child_page.pk)
+        revision = self.child_page.revisions.get(pk=response_json["revision_id"])
+        self.assertEqual(revision.content["title"], "I've been edited!")
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -576,7 +580,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should be a 200 OK JSON response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
-        self.assertEqual(response.json(), {"success": True})
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.child_page.pk)
+        self.assertEqual(response_json["revision_id"], revision.pk)
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -2349,7 +2356,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         # hook response is ignored, since it's not a JSON response
-        self.assertEqual(response.json(), {"success": True})
+        self.assertEqual(response.json()["success"], True)
 
         # page should be edited
         self.assertEqual(
