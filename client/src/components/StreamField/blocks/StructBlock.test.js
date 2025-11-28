@@ -1183,6 +1183,78 @@ describe('telepath: wagtail.blocks.StructBlock with formLayout', () => {
     delete document.body.onbeforematch;
   });
 
+  test('it expands any level of nested panels to reveal errors', () => {
+    setup({
+      // group(root):
+      //   children:
+      //     - group(main_content):
+      //         children: [text]
+      //         settings: [url]
+      //     - captioned_image
+      //   settings:
+      //     - group(theme):
+      //         children: [accent_color, font_size]
+      //         settings: [shown]
+      formLayout: new BlockGroupDefinition({
+        children: [
+          [
+            new BlockGroupDefinition({
+              children: [['text', 'text']],
+              settings: [['url', 'url']],
+              heading: 'Main content',
+              classname: 'main-content collapsed',
+              icon: 'doc-full',
+            }),
+            'main_content',
+          ],
+          ['captioned_image', 'captioned_image'],
+        ],
+        settings: [
+          [
+            new BlockGroupDefinition({
+              children: [
+                ['accent_color', 'accent_color'],
+                ['font_size', 'font_size'],
+              ],
+              settings: [['shown', 'shown']],
+              heading: 'Theme',
+              classname: 'theme-group collapsed',
+              icon: 'cogs',
+            }),
+            'theme',
+          ],
+        ],
+      }),
+    });
+
+    // Set errors on fields inside nested groups (this is normally done via the
+    // parent StreamBlock, but we're testing the StructBlock directly here)
+    boundBlock.setError({
+      blockErrors: {
+        text: { messages: ['This is not long enough.'] },
+        shown: { messages: ['This must be checked.'] },
+      },
+    });
+
+    expect(document.body.innerHTML).toMatchSnapshot();
+
+    // Fields with errors are not descendants of a hidden element
+    const textInput = document.querySelector('[data-contentpath="text"]');
+    expect(textInput).toBeTruthy();
+    expect(textInput.closest('[hidden]')).toBeNull();
+
+    const shownInput = document.querySelector('[data-contentpath="shown"]');
+    expect(shownInput).toBeTruthy();
+    expect(shownInput.closest('[hidden]')).toBeNull();
+
+    // Field without errors that is inside a collapsed panel remains hidden
+    const urlInput = document.querySelector('[data-contentpath="url"]');
+    expect(urlInput).toBeTruthy();
+    const hidden = urlInput.closest('[hidden]');
+    expect(hidden).toBeTruthy();
+    expect(hidden.hasAttribute('data-block-settings')).toBe(true);
+  });
+
   test('it supports custom formTemplate', () => {
     setup(
       {

@@ -374,7 +374,17 @@ export class StructBlock {
       // eslint-disable-next-line no-restricted-syntax
       for (const blockName in error.blockErrors) {
         if (hasOwn(error.blockErrors, blockName)) {
-          this.childBlocks[blockName].setError(error.blockErrors[blockName]);
+          const block = this.childBlocks[blockName];
+          block.setError(error.blockErrors[blockName]);
+
+          // Structural blocks have a `container` property (JQuery object),
+          // while field blocks have an `element` property (DOM element).
+          const element = block.container?.[0] || block.element;
+
+          // Trigger a 'beforematch' event on the errored block to ensure it's
+          // expanded if it's within any level of collapsible panels, including
+          // settings panels.
+          element.dispatchEvent(new Event('beforematch', { bubbles: true }));
         }
       }
     }
