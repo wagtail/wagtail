@@ -340,11 +340,8 @@ class URLGeneratorView(generic.InspectView):
 
     def get_template_names(self):
         if self.output_only:
-            if isinstance(self.output_template_name, (list, tuple)):
-                return self.output_template_name
-            return [self.output_template_name]
-        else:
-            return super().get_template_names()
+            self.template_name = self.output_template_name
+        return super().get_template_names()
 
     def get(self, request, image_id, *args, **kwargs):
         self.object = get_object_or_404(self.model, id=image_id)
@@ -414,19 +411,20 @@ class URLGeneratorView(generic.InspectView):
         return context
 
     def get_filter_spec(self, filter_method, width, height, closeness):
-        filter_spec = filter_method  # Default to 'original'
-
-        if filter_method == "width":
-            filter_spec += f"-{width}"
-        elif filter_method == "height":
-            filter_spec += f"-{height}"
-        elif filter_method in ["min", "max", "fill"]:
-            filter_spec += f"-{width}x{height}"
-            # Default closeness is 0 - avoid adding if not needed
-            if filter_method == "fill" and closeness != "0":
-                filter_spec += f"-c{closeness}"
-
-        return filter_spec
+        match filter_method:
+            case "width":
+                return f"{filter_method}-{width}"
+            case "height":
+                return f"{filter_method}-{height}"
+            case "min" | "max":
+                return f"{filter_method}-{width}x{height}"
+            case "fill":
+                spec = f"{filter_method}-{width}x{height}"
+                if closeness != "0":
+                    spec += f"-c{closeness}"
+                return spec
+            case _:
+                return filter_method
 
 
 def preview(request, image_id, filter_spec):
