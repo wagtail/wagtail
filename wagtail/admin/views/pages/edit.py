@@ -617,7 +617,9 @@ class EditView(
 
         # Just saving - remain on edit page for further edits
         if self.expects_json_response:
-            return JsonResponse({"success": True})
+            return JsonResponse(
+                {"success": True, "pk": self.page.pk, "revision_id": revision.pk}
+            )
         else:
             return self.redirect_and_remain()
 
