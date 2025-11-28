@@ -146,11 +146,11 @@ class ListBlock(Block):
         super().__init__(**kwargs)
         self.search_index = search_index
         self.max_depth = max_depth
-        
+
         # Store the original reference for lazy resolution
         self._child_block_ref = child_block
         self._resolved = False
-        
+
         # Temporarily use a placeholder for string/callable references
         if isinstance(child_block, (str, type)) or callable(child_block):
             # Delay instantiation for lazy references
@@ -161,6 +161,7 @@ class ListBlock(Block):
             else:
                 # It's a string reference or callable, use placeholder
                 from .field_block import CharBlock
+
                 self.child_block = CharBlock()
         else:
             # It's already a block instance
@@ -181,9 +182,10 @@ class ListBlock(Block):
             # Check for recursion cycles
             if self._child_block_ref in ListBlock._resolving_references:
                 from .static_block import StaticBlock
+
                 self.child_block = StaticBlock(
                     admin_text=f"Self-reference to {self._child_block_ref}",
-                    label=f"Nested {self.label or 'item'}"
+                    label=f"Nested {self.label or 'item'}",
                 )
                 self._resolved = True
                 return
@@ -194,6 +196,7 @@ class ListBlock(Block):
             try:
                 # Try to resolve from globals first
                 import sys
+
                 frame = sys._getframe(1)
                 child_block = None
                 while frame:
@@ -201,12 +204,13 @@ class ListBlock(Block):
                         child_block = frame.f_globals[self._child_block_ref]
                         break
                     frame = frame.f_back
-                
+
                 if child_block is None:
                     # Fall back to importing
                     import importlib
-                    if '.' in self._child_block_ref:
-                        module_name, class_name = self._child_block_ref.rsplit('.', 1)
+
+                    if "." in self._child_block_ref:
+                        module_name, class_name = self._child_block_ref.rsplit(".", 1)
                         module = importlib.import_module(module_name)
                         child_block = getattr(module, class_name)
                     else:
@@ -228,7 +232,9 @@ class ListBlock(Block):
             finally:
                 ListBlock._resolving_references.discard(self._child_block_ref)
 
-        elif callable(self._child_block_ref) and not isinstance(self._child_block_ref, type):
+        elif callable(self._child_block_ref) and not isinstance(
+            self._child_block_ref, type
+        ):
             self.child_block = self._child_block_ref()
             self._resolved = True
 
@@ -508,21 +514,21 @@ class ListBlock(Block):
 
     def check(self, **kwargs):
         errors = super().check(**kwargs)
-        
+
         # Check cycle detection for Django's system checks
         if isinstance(self._child_block_ref, str):
             if self._child_block_ref in ListBlock._checking_references:
                 # Circular reference detected, skip to avoid infinite loop
                 return errors
             ListBlock._checking_references.add(self._child_block_ref)
-        
+
         try:
             self._resolve_child_block()
             errors.extend(self.child_block.check(**kwargs))
         finally:
             if isinstance(self._child_block_ref, str):
                 ListBlock._checking_references.discard(self._child_block_ref)
-        
+
         return errors
 
     def deconstruct_with_lookup(self, lookup):
@@ -559,7 +565,7 @@ class ListBlockAdapter(Adapter):
     def js_args(self, block):
         # Resolve the child block first
         block._resolve_child_block()
-        
+
         meta = {
             "label": block.label,
             "description": block.get_description(),
@@ -595,38 +601,38 @@ class ListBlockAdapter(Adapter):
             block.child_block.get_form_state(block.child_block.get_default()),
             meta,
         ]
-    
+
     def build_node(self, block, context):
         # Resolve the child block first
         block._resolve_child_block()
-        
+
         # Create identifier based on child block type
         from .struct_block import StructBlock
+
         if isinstance(block.child_block, StructBlock):
             child_block_id = f"{block.child_block.__class__.__module__}.{block.child_block.__class__.__name__}"
         else:
             child_block_id = type(block.child_block).__name__
-        
+
         # Use context to track depth (context is fresh per serialization)
-        if not hasattr(context, '_lazy_block_depths'):
+        if not hasattr(context, "_lazy_block_depths"):
             context._lazy_block_depths = {}
-        
+
         # Get current depth for this block type
         current_depth = context._lazy_block_depths.get(child_block_id, 0)
-        max_depth = getattr(block, 'max_depth', 2)
-        
+        max_depth = getattr(block, "max_depth", 2)
+
         # Check if we've exceeded maximum depth
         if current_depth >= max_depth:
             # Create a placeholder block and build its node
             from telepath import ObjectNode
 
             from .static_block import StaticBlock
-            
+
             placeholder_child = StaticBlock(
-                admin_text=f"Nested {block.label}",
-                label=f"Child {block.label}"
+                admin_text=f"Nested {block.label}", label=f"Child {block.label}"
             )
-            
+
             # Build metadata for the placeholder
             meta = {
                 "label": block.label,
@@ -642,7 +648,7 @@ class ListBlockAdapter(Adapter):
                     "ADD": _("Add"),
                 },
             }
-            
+
             # Build the ObjectNode manually with placeholder
             constructor = self.js_constructor
             args = [
@@ -651,14 +657,12 @@ class ListBlockAdapter(Adapter):
                 placeholder_child.get_form_state(placeholder_child.get_default()),
                 meta,
             ]
-            
-            return ObjectNode(
-                constructor, [context.build_node(arg) for arg in args]
-            )
-        
+
+            return ObjectNode(constructor, [context.build_node(arg) for arg in args])
+
         # Increment depth and build normally
         context._lazy_block_depths[child_block_id] = current_depth + 1
-        
+
         try:
             # Use the parent's build_node which calls pack() -> js_args()
             return super().build_node(block, context)
