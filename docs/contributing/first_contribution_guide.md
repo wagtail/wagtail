@@ -79,10 +79,10 @@ Take the time to **read** the issue and links before adding new comments or ques
 #### Checklist
 
 ```
-- [ ] Do the Wagtail tutorial
-- [ ] Look at the Wagtail organization on GitHub, take note of any interesting projects
-- [ ] Read through the Issue Tracking section in the docs
-- [ ] Give a go at a non-code contribution
+- [ ] Do the Wagtail tutorial.
+- [ ] Look at the Wagtail organization on GitHub, take note of any interesting projects.
+- [ ] Read through the Issue Tracking section in the docs.
+- [ ] Give a go at a non-code contribution.
 ```
 
 ### 4. Setting up your development environment
@@ -108,12 +108,12 @@ When developing, it's recommended that you always read the `latest` version of t
 #### Checklist
 
 ```
-- [ ] Install `git` (if not on your machine)
-- [ ] Install a code editor/IDE (we recommend VSCode)
-- [ ] Install the dependencies set out in the development guide
-- [ ] Follow the development guide
-- [ ] Make a change to the `wagtail/admin/templates/wagtailadmin/home.html` template file and confirm you can see the changes on the Wagtail dashboard (home) page
-- [ ] Add a `console.log` statement to `client/src/entrypoints/admin/wagtailadmin.js` and confirm you can see the logging in the browser
+- [ ] Install `git` (if not on your machine).
+- [ ] Install a code editor/IDE (we recommend VSCode).
+- [ ] Install the dependencies set out in the development guide.
+- [ ] Follow the development guide.
+- [ ] Make a change to the `wagtail/admin/templates/wagtailadmin/home.html` template file and confirm you can see the changes on the Wagtail dashboard (home) page.
+- [ ] Add a `console.log` statement to `client/src/entrypoints/admin/wagtailadmin.js` and confirm you can see the logging in the browser.
 ```
 
 #### Aside: Understanding Git and GitHub
@@ -149,9 +149,9 @@ Finally, before 'claiming' check you can do the following;
 #### Checklist (for a candidate issue)
 
 ```markdown
--   [ ] Confirm that there is not someone actively working on it (no recent PR or comments in the last ~2 months)
--   [ ] Ensure you can reproduce the problem/scenario in your local version of Wagtail
--   [ ] Ensure that you feel confident to write a unit test (if it's a code change) to validate that the solution **is** implemented
+-   [ ] Confirm that there is not someone actively working on it (no recent PR or comments in the last ~2 months).
+-   [ ] Ensure you can reproduce the problem/scenario in your local version of Wagtail.
+-   [ ] Ensure that you feel confident to write a unit test (if it's a code change) to validate that the solution **is** implemented.
 ```
 
 ### 6. Contributing a solution
@@ -211,10 +211,10 @@ A pull request that just adds unit tests to some core functionality that does no
 #### Checklist
 
 ```
-- [ ] After feeling confident about a solution, add a comment to the issue
-- [ ] Create a new branch off `main` to track your work separate from the main branch
-- [ ] Keep the changes focused towards your goal, asking questions on the issue if direction is needed
-- [ ] Write unit tests
+- [ ] After feeling confident about a solution, add a comment to the issue.
+- [ ] Create a new branch off `main` to track your work separate from the main branch.
+- [ ] Keep the changes focused towards your goal, asking questions on the issue if direction is needed.
+- [ ] Write unit tests.
 ```
 
 ### 7. Submitting a pull request
