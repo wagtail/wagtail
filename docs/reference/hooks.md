@@ -1441,6 +1441,43 @@ def remove_snippet_listing_button_item(buttons, snippet, user):
     buttons.pop()  # Removes the 'delete' button
 ```
 
+## Settings
+
+Hooks for working with registered [Settings](./contrib/settings).
+
+(after_edit_setting)=
+
+### `after_edit_setting`
+
+Called when a Setting is edited. The callable passed into the hook will receive the model instance, the request object. If the callable returns an `HttpResponse`, that response will be returned immediately to the user, and Wagtail will not proceed to call `redirect()` to the listing view.
+
+```python
+from django.http import HttpResponse
+
+from wagtail import hooks
+
+@hooks.register('after_edit_setting')
+def after_setting_update(request, instance):
+    return HttpResponse(f"Congrats on editing a setting with id {instance.pk}", content_type="text/plain")
+```
+
+(before_edit_setting)=
+
+### `before_edit_setting`
+
+Called at the beginning of the edit setting view. The callable passed into the hook will receive the model instance, the request object. If the callable returns an `HttpResponse`, that response will be returned immediately to the user, and Wagtail will not proceed to call `redirect()` to the listing view.
+
+```python
+from django.http import HttpResponse
+
+from wagtail import hooks
+
+@hooks.register('before_edit_setting')
+def block_setting_edit(request, instance):
+    if isinstance(instance, RestrictedSetting) and instance.prevent_edit:
+        return HttpResponse("Sorry, you can't edit this setting", content_type="text/plain")
+```
+
 ## Bulk actions
 
 Hooks for registering and customizing bulk actions. See [](custom_bulk_actions) on how to write custom bulk actions.

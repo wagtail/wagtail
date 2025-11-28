@@ -112,6 +112,13 @@ class EditView(generic.EditView):
         self.permission_policy = self.model.get_permission_policy()
         self.pk = kwargs.get(self.pk_url_kwarg)
         super().setup(request, app_name, model_name, *args, **kwargs)
+        self.object = self.get_object()
+
+    def run_before_hook(self):
+        return self.run_hook("before_edit_setting", self.request, self.object)
+
+    def run_after_hook(self):
+        return self.run_hook("after_edit_setting", self.request, self.object)
 
     def get_header_icon(self):
         return registry._model_icons.get(self.model)

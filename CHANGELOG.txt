@@ -9,6 +9,7 @@ Changelog
  * Add Loom oEmbed provider (Nick Ivons)
  * Add `ModelViewSet.pk_path_converter` with defaults for `IntegerField` and `UUIDField` primary keys (Seb Corbin)
  * Improve accessibility for sidebar menu with visual active (expanded) menu item indicators (Vignesh Shivhare)
+ * Add `before_edit_setting` / `after_edit_setting` hooks (Baptiste Mispelon)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
