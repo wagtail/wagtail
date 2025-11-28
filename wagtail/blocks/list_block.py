@@ -224,7 +224,7 @@ class ListBlock(Block):
             except (ImportError, AttributeError) as e:
                 raise ValueError(
                     f"Could not resolve block reference '{self._child_block_ref}': {e}"
-                )
+                ) from e
             finally:
                 ListBlock._resolving_references.discard(self._child_block_ref)
 
@@ -618,8 +618,9 @@ class ListBlockAdapter(Adapter):
         # Check if we've exceeded maximum depth
         if current_depth >= max_depth:
             # Create a placeholder block and build its node
-            from .static_block import StaticBlock
             from telepath import ObjectNode
+
+            from .static_block import StaticBlock
             
             placeholder_child = StaticBlock(
                 admin_text=f"Nested {block.label}",
