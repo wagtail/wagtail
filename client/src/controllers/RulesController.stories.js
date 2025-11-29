@@ -14,6 +14,9 @@ const definitions = [
   { identifier: 'w-rules', controllerConstructor: RulesController },
 ];
 
+/**
+ * Example of the `enable` target usage within the RulesController.
+ */
 const EnableTemplate = ({ debug = false }) => (
   <StimulusWrapper debug={debug} definitions={definitions}>
     <form
@@ -22,30 +25,38 @@ const EnableTemplate = ({ debug = false }) => (
       // avoid accidental submissions with preventing submit
       data-action="change->w-rules#resolve submit->w-rules#resolve:prevent"
     >
-      <div className="w-field__wrapper">
-        <label className="w-field__label" htmlFor="link-field">
-          Enter a link:
+      <fieldset>
+        <legend>
+          An example of <strong>enabling</strong> secondary fields based on the
+          primary fields having a value entered. Add a value to the email field
+          to disable the link label or add a value to the link field to disable
+          the email subject.
+        </legend>
+        <div className="w-field__wrapper">
+          <label className="w-field__label" htmlFor="link-field">
+            Enter a link:
+          </label>
           <div className="w-field">
             <div className="w-field__input">
               <input type="url" name="link" id="link-field" />
             </div>
           </div>
-        </label>
-      </div>
-      <div className="w-field__wrapper">
-        <label className="w-field__label" htmlFor="email-field">
-          Or enter an Email address:
+        </div>
+        <div className="w-field__wrapper">
+          <label className="w-field__label" htmlFor="email-field">
+            <strong>Or</strong> enter an Email address:
+          </label>
           <div className="w-field">
             <div className="w-field__input">
               <input type="email" name="email" id="email-field" />
             </div>
           </div>
-        </label>
-      </div>
-      <hr />
-      <div>
-        <label className="w-field__label" htmlFor="drink">
-          Enter an email subject:
+        </div>
+        <hr />
+        <div className="w-field__wrapper">
+          <label className="w-field__label" htmlFor="drink">
+            Enter an email subject:
+          </label>
           <div className="w-field">
             <div className="w-field__input">
               <input
@@ -57,11 +68,11 @@ const EnableTemplate = ({ debug = false }) => (
               />
             </div>
           </div>
-        </label>
-      </div>
-      <div className="w-field__wrapper">
-        <label className="w-field__label" htmlFor="subject-field">
-          Enter a link label:
+        </div>
+        <div className="w-field__wrapper">
+          <label className="w-field__label" htmlFor="subject-field">
+            Enter a link label:
+          </label>
           <div className="w-field">
             <div className="w-field__input">
               <input
@@ -73,12 +84,27 @@ const EnableTemplate = ({ debug = false }) => (
               />
             </div>
           </div>
-        </label>
+        </div>
+      </fieldset>
+      <div>
+        <p>Enter either a link or an email address, not both.</p>
+        {/* Additional example of using match values, only ONE field should be blank to submit. */}
+        <button
+          type="submit"
+          data-w-rules-target="enable"
+          data-w-rules={JSON.stringify({ link: '', email: '' })}
+          data-w-rules-match="one"
+        >
+          Submit
+        </button>
       </div>
     </form>
   </StimulusWrapper>
 );
 
+/**
+ * Example of the `show` target usage within the RulesController.
+ */
 const ShowTemplate = ({ debug = false }) => (
   <StimulusWrapper debug={debug} definitions={definitions}>
     <form
@@ -87,10 +113,16 @@ const ShowTemplate = ({ debug = false }) => (
       // avoid accidental submissions with preventing submit
       data-action="change->w-rules#resolve submit->w-rules#resolve:prevent"
     >
-      <div className="w-field__wrapper">
-        <label className="w-field__label" htmlFor="drink">
-          Choose your favorite drink:
-          <div className="w-field w-field--choice_field w-field--select">
+      <fieldset>
+        <legend>
+          An example of <strong>showing</strong> a second field based on the
+          value of the first field.
+        </legend>
+        <div className="w-field__wrapper">
+          <label className="w-field__label" htmlFor="drink">
+            Choose your favorite drink:
+          </label>
+          <div className="w-field w-field--select">
             <div className="w-field__input">
               <select className="w-min-w-full" name="drink">
                 <option value="">-------</option>
@@ -101,22 +133,22 @@ const ShowTemplate = ({ debug = false }) => (
               </select>
             </div>
           </div>
-        </label>
-      </div>
-      <div
-        className="w-field__wrapper"
-        data-w-rules-target="show"
-        data-w-rules='{"drink":"other"}'
-      >
-        <label className="w-field__label" htmlFor="other">
-          Other
-          <div className="w-field w-field--choice_field w-field--select">
+        </div>
+        <div
+          className="w-field__wrapper"
+          data-w-rules-target="show"
+          data-w-rules='{"drink":"other"}'
+        >
+          <label className="w-field__label" htmlFor="other">
+            Other
+          </label>
+          <div className="w-field w-field--select">
             <div className="w-field__input">
               <input type="text" name="other" />
             </div>
           </div>
-        </label>
-      </div>
+        </div>
+      </fieldset>
     </form>
   </StimulusWrapper>
 );
