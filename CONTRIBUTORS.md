@@ -926,6 +926,7 @@
 * Ishtpreet Singh
 * Jashvirsingh Taak
 * Vignesh Shivhare
+* Akhil Muraleedharan
 
 ## Translators
 
