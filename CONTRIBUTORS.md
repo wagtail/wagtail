@@ -978,6 +978,7 @@
 * Nayeli De Jesus
 * Sahil Kumar
 * Rob Brackett
+* Jack Morgan
 
 ## Translators
 

@@ -90,7 +90,20 @@ class TestSiteOrdering(TestCase):
             [site_3.id, site_2.id, site_1.id],
         )
 
-    def test_site_order_by_hostname_site_name_irrelevant(self):
+    def test_site_order_by_site_name(self):
+        """Named sites are ordered by site_name, not hostname."""
+        site_1 = Site.objects.create(
+            hostname="zulu.com", site_name="Alpha", root_page=self.root_page
+        )
+        site_2 = Site.objects.create(
+            hostname="alfa.com", site_name="Zulu", root_page=self.root_page
+        )
+        self.assertEqual(
+            list(Site.objects.all().values_list("id", flat=True)),
+            [site_1.id, site_2.id],
+        )
+
+    def test_site_order_by_site_name_falls_back_to_hostname(self):
         site_1 = Site.objects.create(
             hostname="charly.com", site_name="X-ray", root_page=self.root_page
         )
@@ -102,7 +115,65 @@ class TestSiteOrdering(TestCase):
         )
         self.assertEqual(
             list(Site.objects.all().values_list("id", flat=True)),
-            [site_3.id, site_2.id, site_1.id],
+            [site_1.id, site_2.id, site_3.id],
+        )
+
+    def test_site_order_by_site_name_case_insensitive(self):
+        """site_name ordering is case-insensitive."""
+        site_1 = Site.objects.create(
+            hostname="c.com", site_name="alpha", root_page=self.root_page
+        )
+        site_2 = Site.objects.create(
+            hostname="b.com", site_name="Bravo", root_page=self.root_page
+        )
+        site_3 = Site.objects.create(
+            hostname="a.com", site_name="CHARLIE", root_page=self.root_page
+        )
+        self.assertEqual(
+            list(Site.objects.all().values_list("id", flat=True)),
+            [site_1.id, site_2.id, site_3.id],
+        )
+
+    def test_site_order_named_and_nameless_interleaved(self):
+        """Named and nameless sites are interleaved alphabetically."""
+        site_1 = Site.objects.create(
+            hostname="zulu.com", site_name="Alfa", root_page=self.root_page
+        )
+        site_2 = Site.objects.create(hostname="bravo.com", root_page=self.root_page)
+        site_3 = Site.objects.create(
+            hostname="alfa.com", site_name="Charlie", root_page=self.root_page
+        )
+        self.assertEqual(
+            list(Site.objects.all().values_list("id", flat=True)),
+            [site_1.id, site_2.id, site_3.id],
+        )
+
+    def test_site_order_site_name_hostname_tiebreaker(self):
+        """Sites with the same site_name are ordered by hostname."""
+        site_1 = Site.objects.create(
+            hostname="alpha.com", site_name="Shared Name", root_page=self.root_page
+        )
+        site_2 = Site.objects.create(
+            hostname="zulu.com", site_name="Shared Name", root_page=self.root_page
+        )
+        self.assertEqual(
+            list(Site.objects.all().values_list("id", flat=True)),
+            [site_1.id, site_2.id],
+        )
+
+    def test_site_order_site_name_prefix_collision_with_hostname(self):
+        """
+        A site_name that is a prefix of another site's hostname produces a
+        deterministic order. This is the case where Concat('site_name', 'hostname')
+        would generate identical sort keys for two different sites.
+        """
+        site_1 = Site.objects.create(
+            hostname="ar.com", site_name="be", root_page=self.root_page
+        )
+        site_2 = Site.objects.create(hostname="bear.com", root_page=self.root_page)
+        self.assertEqual(
+            list(Site.objects.all().values_list("id", flat=True)),
+            [site_1.id, site_2.id],
         )
 
 

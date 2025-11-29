@@ -7,6 +7,7 @@ Changelog
 * Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
 * Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
 * Make `Button` component render a `<button>` element when no URL is supplied (Nayeli De Jesus, LB (Ben Johnston), Sage Abdullah)
+* Show site name in site switcher dropdown in site settings editor (Jack Morgan)
 * Fix: Make `SnippetChooserViewSet.widget_class` a class instead of an instance (Amrinder Singh, Sage Abdullah)
 * Fix: Prevent an error when approving a workflow that has been cancelled in a different session (Kailesh)
 * Fix: Accommodate multilingual sites in skipping the "choose parent" step when creating a new page from a flat page listing (Amrinder Singh)
