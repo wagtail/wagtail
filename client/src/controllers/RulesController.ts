@@ -12,9 +12,19 @@ enum Effect {
   Show = 'show',
 }
 
+/**
+ * Match values determine how rules are resolved from the form data
+ * to determine if the rule has been satisfied.
+ *
+ * @remarks
+ * Match values are inspired by JSON Schema's `allOf`, `anyOf`, `oneOf`, and `not` keywords,
+ * @see https://json-schema.org/understanding-json-schema/reference/combining
+ */
 enum Match {
   All = 'all', // Default
   Any = 'any',
+  Not = 'not',
+  One = 'one',
 }
 
 type RuleEntry = [string, string[]];
@@ -66,6 +76,17 @@ type FormControlElement =
  *     <option value="other">Other</option>
  *   </select>
  *   <input type="text" name="other-drink" data-w-rules-target="show" data-w-rules='{"fav-drink": ["other"]}'>
+ * </form>
+ * ```
+ *
+ * @example - Use match to apply different sets of rules
+ * <form data-controller="w-rules" data-action="change->w-rules#resolve">
+ *   <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+ *   <input type="email" id="email" name="email" required>
+ *   <output name="summary" for="file email">
+ *     <span data-w-rules='{"avatar": [""], "email": [""]}' data-w-rules-match="not" data-w-rules-target="show">Your profile details are ready.</span>
+ *     <span data-w-rules='{"avatar": [""], "email": [""]}' data-w-rules-match="any" data-w-rules-target="show">Your profile details are missing.</span>
+ *   </output>
  * </form>
  * ```
  */
@@ -165,6 +186,8 @@ export class RulesController extends Controller<
     return {
       [Match.All]: (rules) => rules.every(checkFn),
       [Match.Any]: (rules) => rules.some(checkFn),
+      [Match.Not]: (rules) => rules.filter(checkFn).length === 0,
+      [Match.One]: (rules) => rules.filter(checkFn).length === 1,
     };
   }
 
