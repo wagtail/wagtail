@@ -27,8 +27,9 @@ def _get_redirect(request, path):
 def get_redirect(request, path):
     redirect = _get_redirect(request, path)
     if not redirect:
-        # try unencoding the path
-        redirect = _get_redirect(request, uri_to_iri(path))
+        decoded_path = uri_to_iri(path)
+        if decoded_path != path:
+            redirect = _get_redirect(request, decoded_path)
     return redirect
 
 
@@ -39,8 +40,11 @@ class RedirectMiddleware(MiddlewareMixin):
         if response.status_code != 404:
             return response
 
-        # Get the path
-        path = models.Redirect.normalise_path(request.get_full_path())
+        # Normalise the path, but without decoding unicode characters. get_redirect() will take care of that
+        # if it cannot find a match for the path that was actually requested.
+        path = models.Redirect.normalise_path(
+            request.get_full_path(), decode_unicode=False
+        )
 
         # Find redirect
         redirect = get_redirect(request, path)
