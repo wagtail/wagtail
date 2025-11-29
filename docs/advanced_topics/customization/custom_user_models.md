@@ -11,6 +11,7 @@ The custom user model must at minimum inherit from {class}`~django.contrib.auth.
 ```python
 # myapp/models.py
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 class User(AbstractUser):
     country = models.CharField(verbose_name='country', max_length=255)
@@ -61,7 +62,7 @@ class CustomUserCreationForm(UserCreationForm):
 ## Extending the create and edit templates
 
 Extend the Wagtail user 'create' and 'edit' templates. These extended templates should be placed in a
-template directory `wagtailusers/users`.
+template directory `wagtailusers/users` in your project folder (which will be the package containing the top-level settings and urls modules).
 Using a custom template directory is possible and will be explained later.
 
 Template create.html:
