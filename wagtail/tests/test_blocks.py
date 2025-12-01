@@ -2205,7 +2205,7 @@ class TestStructBlock(SimpleTestCase):
 
             class Meta:
                 form_layout = BlockGroup(
-                    children=["title", "link"],
+                    children=["link", "title"],
                     settings=["open_in_new_tab"],
                 )
 
@@ -2227,9 +2227,10 @@ class TestStructBlock(SimpleTestCase):
         self.assertEqual(len(children), 2)
         self.assertIsInstance(children["title"], blocks.BoundBlock)
         self.assertIsInstance(children["link"], blocks.BoundBlock)
+        # Should respect the order defined in the form layout
         self.assertEqual(
             [child.value for child in children.values()],
-            ["Django", "http://djangoproject.com"],
+            ["http://djangoproject.com", "Django"],
         )
 
         settings = context["settings"]
@@ -2589,6 +2590,40 @@ class TestStructBlock(SimpleTestCase):
         self.assertEqual(form_layout.children[0], "link")
         self.assertIsInstance(form_layout.children[1], BlockGroup)
         self.assertEqual(form_layout.children[1].children, ["title", "description"])
+
+    def test_with_missing_blocks_in_form_layout(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+            description = blocks.TextBlock()
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=["link"],
+                    settings=["title"],
+                )
+
+        block = LinkBlock()
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        form_layout = js_args[2]["formLayout"]
+        self.assertIsInstance(form_layout, BlockGroup)
+
+        # The form_layout remains as defined, even if some fields are missing
+        self.assertEqual(form_layout, block.meta.form_layout)
+        self.assertEqual(form_layout.children, ["link"])
+        self.assertEqual(form_layout.settings, ["title"])
+
+        # However, it's still in block.child_blocks, appended to the end. This
+        # ensures any code that relies on block.child_blocks to find all blocks
+        # still works, even if the form_layout isn't configured properly.
+        self.assertEqual(
+            list(block.child_blocks.keys()),
+            ["link", "title", "description"],
+        )
+        self.assertIsInstance(block.child_blocks["description"], blocks.TextBlock)
 
     def test_adapt_with_get_form_layout(self):
         class LinkBlock(blocks.StructBlock):

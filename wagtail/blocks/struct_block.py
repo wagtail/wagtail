@@ -122,6 +122,19 @@ class BlockGroup:
         settings = group_with_unique_names(self.settings)
         return children, settings
 
+    def get_sorted_block_names(self):
+        """
+        Return a flat list of all block names in this BlockGroup and any nested
+        BlockGroups in the group's list order.
+        """
+        block_names = []
+        for child in self.children + self.settings:
+            if isinstance(child, BlockGroup):
+                block_names.extend(child.get_sorted_block_names())
+            else:
+                block_names.append(child)
+        return block_names
+
     def js_opts(self):
         children, settings = self.unique_children_and_settings
         return {
@@ -190,6 +203,15 @@ class BaseStructBlock(Block):
                 self.child_blocks[name] = block
 
         self.meta.form_layout = self.get_form_layout()
+
+        # Reorder child_blocks to match form_layout, appending any missing
+        # blocks to the end
+        sorted_block_names = self.meta.form_layout.get_sorted_block_names()
+        missing_block_names = self.child_blocks.keys() - set(sorted_block_names)
+        self.child_blocks = collections.OrderedDict(
+            (name, self.child_blocks[name])
+            for name in (sorted_block_names + list(missing_block_names))
+        )
 
     @classmethod
     def construct_from_lookup(cls, lookup, child_blocks, **kwargs):
