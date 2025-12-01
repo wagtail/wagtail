@@ -189,10 +189,7 @@ class BaseStructBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
-        if self.meta.form_layout is None:
-            self.meta.form_layout = BlockGroup(list(self.child_blocks.keys()))
-        elif isinstance(self.meta.form_layout, list):
-            self.meta.form_layout = BlockGroup(self.meta.form_layout)
+        self.meta.form_layout = self.get_form_layout()
 
     @classmethod
     def construct_from_lookup(cls, lookup, child_blocks, **kwargs):
@@ -481,6 +478,13 @@ class BaseStructBlock(Block):
             "prefix": prefix,
         }
         return context
+
+    def get_form_layout(self) -> BlockGroup:
+        if (form_layout := self.meta.form_layout) is None:
+            return BlockGroup(list(self.child_blocks.keys()))
+        if isinstance(form_layout, list):
+            return BlockGroup(form_layout)
+        return form_layout
 
     @cached_property
     def _has_default(self):
