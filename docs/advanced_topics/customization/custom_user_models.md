@@ -61,13 +61,12 @@ class CustomUserCreationForm(UserCreationForm):
 
 ## Extending the create and edit templates
 
-Extend the Wagtail user 'create' and 'edit' templates. These extended templates should be placed in a
-template directory `wagtailusers/users` in your project folder (which will be the package containing the top-level settings and urls modules).
-Using a custom template directory is possible and will be explained later.
+Extend the Wagtail user 'create' and 'edit' templates. These extended templates should be placed in `wagtailusers/users/` within any valid template location - for example, `myapp/templates/wagtailusers/users/`.
 
 Template create.html:
 
 ```html+django
+# myapp/templates/wagtailusers/users/create.html
 {% extends "wagtailusers/users/create.html" %}
 
 {% block extra_fields %}
@@ -79,6 +78,7 @@ Template create.html:
 Template edit.html:
 
 ```html+django
+# myapp/templates/wagtailusers/users/edit.html
 {% extends "wagtailusers/users/edit.html" %}
 
 {% block extra_fields %}
