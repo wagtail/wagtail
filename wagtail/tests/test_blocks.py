@@ -2590,6 +2590,58 @@ class TestStructBlock(SimpleTestCase):
         self.assertIsInstance(form_layout.children[1], BlockGroup)
         self.assertEqual(form_layout.children[1].children, ["title", "description"])
 
+    def test_adapt_with_get_form_layout(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=[
+                        "link",
+                        BlockGroup(
+                            children=["title"],
+                            heading="Details",
+                        ),
+                    ]
+                )
+
+        class LinkBlockWithDescription(LinkBlock):
+            description = blocks.TextBlock()
+
+            def get_form_layout(self):
+                # Create a deep copy of the parent's form layout to include the
+                # new 'description' field without mutating the parent's form layout
+                form_layout = copy.deepcopy(super().get_form_layout())
+                form_layout.children[1].children.append("description")
+                return form_layout
+
+        block = LinkBlock()
+        sub_block = LinkBlockWithDescription()
+
+        block.set_name("test_structblock")
+        sub_block.set_name("test_structblockwithdescription")
+        js_args = StructBlockAdapter().js_args(block)
+        sub_js_args = StructBlockAdapter().js_args(sub_block)
+
+        form_layout = js_args[2]["formLayout"]
+        self.assertIsInstance(form_layout, BlockGroup)
+        self.assertEqual(form_layout, block.meta.form_layout)
+        self.assertEqual(form_layout.children[0], "link")
+        self.assertIsInstance(form_layout.children[1], BlockGroup)
+        self.assertEqual(form_layout.children[1].children, ["title"])
+
+        # Different instances (including nested BlockGroups), to allow subclassing
+        # without mutating parent class's form layout
+        sub_form_layout = sub_js_args[2]["formLayout"]
+        self.assertIsInstance(sub_form_layout, BlockGroup)
+        self.assertNotEqual(form_layout, sub_form_layout)
+        self.assertEqual(sub_form_layout, sub_block.meta.form_layout)
+        self.assertEqual(sub_form_layout.children[0], "link")
+        self.assertIsInstance(sub_form_layout.children[1], BlockGroup)
+        self.assertNotEqual(form_layout.children[1], sub_form_layout.children[1])
+        self.assertEqual(sub_form_layout.children[1].children, ["title", "description"])
+
     def test_adapt_label_format(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
