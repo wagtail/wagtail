@@ -516,6 +516,38 @@ describe('SyncController', () => {
       document.removeEventListener('wagtail:documents-upload', eventListener);
     });
 
+    it('should not replace the title if there is an existing value', async () => {
+      eventListener = jest.fn();
+
+      document.addEventListener('wagtail:documents-upload', eventListener);
+
+      application = Application.start();
+      application.register('w-sync', SyncController);
+
+      await Promise.resolve();
+
+      const titleInput = document.getElementById('id_title');
+      titleInput.value = 'existing title';
+
+      expect(titleInput.value).toEqual('existing title');
+
+      const fileInput = document.getElementById('id_file');
+
+      // JSDOM does not support setting the value of a file input directly.
+      // https://github.com/jsdom/jsdom/issues/1272
+      Object.defineProperty(fileInput, 'value', {
+        value: 'C:\\fakepath\\my document.pdf',
+      });
+      fileInput.dispatchEvent(new Event('change'));
+
+      jest.runAllTimers();
+
+      expect(document.getElementById('id_title').value).toEqual(
+        'existing title',
+      );
+      expect(eventListener).not.toHaveBeenCalled();
+    });
+
     it('should dispatch legacy event with mutable data.title property', async () => {
       eventListener = (event) => {
         expect(event.target).toBeInstanceOf(HTMLFormElement);

@@ -18,8 +18,8 @@ def view_draft(request, page_id):
 
     try:
         preview_mode = request.GET.get("mode", page.default_preview_mode)
-    except IndexError:
-        raise PermissionDenied
+    except IndexError as e:
+        raise PermissionDenied from e
 
     return page.make_preview_request(request, preview_mode)
 
@@ -82,8 +82,8 @@ class PreviewOnCreate(PreviewOnEdit):
             content_type = ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name
             )
-        except ContentType.DoesNotExist:
-            raise Http404
+        except ContentType.DoesNotExist as e:
+            raise Http404 from e
 
         page = content_type.model_class()()
         parent_page = get_object_or_404(Page, id=parent_page_id).specific

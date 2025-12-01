@@ -3689,10 +3689,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         value = block.to_python([{"type": "paragraph", "value": "Hello"}])
         try:
             block.clean(value)
-        except blocks.StreamBlockValidationError:
+        except blocks.StreamBlockValidationError as e:
             raise self.failureException(
                 "%s was raised" % blocks.StreamBlockValidationError
-            )
+            ) from e
 
     def test_not_required_does_not_raise_an_exception_if_empty(self):
         block = blocks.StreamBlock([("paragraph", blocks.CharBlock())], required=False)
@@ -3700,10 +3700,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         try:
             block.clean(value)
-        except blocks.StreamBlockValidationError:
+        except blocks.StreamBlockValidationError as e:
             raise self.failureException(
                 "%s was raised" % blocks.StreamBlockValidationError
-            )
+            ) from e
 
     def test_required_by_default(self):
         block = blocks.StreamBlock([("paragraph", blocks.CharBlock())])

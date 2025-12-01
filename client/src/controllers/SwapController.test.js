@@ -130,7 +130,7 @@ describe('SwapController', () => {
           />
         </div>
       </form>
-      <div id="results"></div>
+      <div class="results" id="results"></div>
       `;
 
       window.history.replaceState(null, '', '?');
@@ -435,12 +435,148 @@ describe('SwapController', () => {
       // should reset the icon
       expect(icon.getAttribute('href')).toEqual('#icon-search');
     });
+
+    it('should support sending a custom message on error', async () => {
+      const handleMessage = jest.fn();
+
+      document.addEventListener('w-messages:add', handleMessage);
+      document.addEventListener('w-messages:clear', handleMessage);
+
+      const icon = document.querySelector('.icon-search use');
+      const input = document.getElementById('search');
+
+      const onErrorEvent = jest.fn();
+      document.addEventListener('w-swap:error', onErrorEvent);
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // first - check for an error without message (default behavior)
+
+      fetch.mockResponseFailure();
+      input.value = 'alpha';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      // error should be dispatched, but no messages as messages are not set
+      expect(onErrorEvent).toHaveBeenCalledTimes(1);
+      expect(handleMessage).not.toHaveBeenCalled();
+
+      // second - set the messages for specific 400 and generic errors
+
+      input.setAttribute(
+        'data-w-swap-messages-value',
+        JSON.stringify({
+          400: 'Bad request - try again.',
+          error: 'General error - something has gone wrong.',
+        }),
+      );
+
+      await Promise.resolve(); // trigger next rendering (NEEDED???)
+
+      fetch.mockResponseBadRequest();
+      input.value = 'beta';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+      await Promise.resolve(); // trigger next rendering
+
+      expect(onErrorEvent).toHaveBeenCalledTimes(2);
+      expect(handleMessage).toHaveBeenCalledTimes(1);
+      expect(handleMessage).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          type: 'w-messages:add',
+          detail: {
+            clear: true,
+            // the 400 error
+            text: 'Bad request - try again.',
+            type: 'error',
+          },
+        }),
+      );
+
+      // third - test out a different http status where the message falls back to the generic value
+
+      fetch.mockResponseFailure();
+
+      input.value = 'delta';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(onErrorEvent).toHaveBeenCalledTimes(3);
+      expect(handleMessage).toHaveBeenCalledTimes(2);
+      expect(handleMessage).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          type: 'w-messages:add',
+          detail: {
+            clear: true,
+            text: 'General error - something has gone wrong.',
+            type: 'error',
+          },
+        }),
+      );
+
+      // fourth - test that the message gets cleared when the API is successful
+
+      fetch.mockResponseSuccessText(getMockResults());
+      input.value = 'epsilon';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(onErrorEvent).toHaveBeenCalledTimes(3);
+      expect(handleMessage).toHaveBeenCalledTimes(3);
+      expect(handleMessage).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          type: 'w-messages:clear',
+        }),
+      );
+
+      document.removeEventListener('w-messages:add', handleMessage);
+      document.removeEventListener('w-messages:clear', handleMessage);
+    });
+
+    it('should support a loading class being provided as a value', async () => {
+      const input = document.getElementById('search');
+      const targetElement = document.getElementById('results');
+
+      fetch.mockResponseSuccessText(getMockResults());
+
+      input.setAttribute('data-w-swap-loading-class', 'is-loading');
+
+      // class should be the default without aria-busy set
+      expect(targetElement.getAttribute('aria-busy')).toBeNull();
+      expect([...targetElement.classList]).toEqual(['results']);
+      expect(input.getAttribute('data-w-swap-loading-value')).toEqual('false');
+
+      // set a value and trigger an event
+      input.value = 'alpha';
+      input.dispatchEvent(new CustomEvent('keyup', { bubbles: true }));
+
+      jest.runAllTimers(); // update is debounced
+      await Promise.resolve(); // trigger next rendering
+
+      // visual loading state should be active & content busy
+      expect(targetElement.getAttribute('aria-busy')).toEqual('true');
+      expect([...targetElement.classList]).toEqual(['results', 'is-loading']);
+      expect(input.getAttribute('data-w-swap-loading-value')).toEqual('true');
+
+      // after all data has been resolved, check the class is back to normal
+      await jest.runAllTimersAsync();
+
+      expect(targetElement.getAttribute('aria-busy')).toEqual(null);
+      expect([...targetElement.classList]).toEqual(['results']);
+      expect(input.getAttribute('data-w-swap-loading-value')).toEqual('false');
+    });
   });
 
   describe('performing a location update via actions on a controlled form', () => {
     beforeEach(() => {
       document.body.innerHTML = `
       <form
+        id="search-form"
         class="search-form"
         action="/path/to/form/action/"
         method="get"
@@ -555,6 +691,40 @@ describe('SwapController', () => {
       expect(global.fetch).not.toHaveBeenCalled();
 
       document.removeEventListener('w-swap:begin', beginEventHandler);
+    });
+
+    it('should support a loading class being provided as a value', async () => {
+      const input = document.getElementById('search');
+      const form = document.getElementById('search-form');
+      const targetElement = document.getElementById('other-results');
+
+      fetch.mockResponseSuccessText(getMockResults());
+
+      form.setAttribute('data-w-swap-loading-class', 'is-loading !w-block');
+
+      // class should be the default without aria-busy set
+      expect(targetElement.getAttribute('aria-busy')).toBeNull();
+      expect([...targetElement.classList]).toEqual([]);
+      expect(form.getAttribute('data-w-swap-loading-value')).toEqual('false');
+
+      // set a value and trigger an event
+      input.value = 'alpha';
+      input.dispatchEvent(new CustomEvent('input', { bubbles: true }));
+
+      jest.runAllTimers(); // update is debounced
+      await Promise.resolve(); // trigger next rendering
+
+      // visual loading state should be active & content busy
+      expect(targetElement.getAttribute('aria-busy')).toEqual('true');
+      expect([...targetElement.classList]).toEqual(['is-loading', '!w-block']);
+      expect(form.getAttribute('data-w-swap-loading-value')).toEqual('true');
+
+      // after all data has been resolved, check the class is back to normal
+      await jest.runAllTimersAsync();
+
+      expect(targetElement.getAttribute('aria-busy')).toEqual(null);
+      expect([...targetElement.classList]).toEqual([]);
+      expect(form.getAttribute('data-w-swap-loading-value')).toEqual('false');
     });
   });
 

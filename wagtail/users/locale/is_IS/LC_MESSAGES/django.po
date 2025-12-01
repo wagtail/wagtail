@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2024
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2025
 # saevarom <saevar@saevar.is>, 2017-2024
 msgid ""
 msgstr ""
@@ -11,7 +11,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2017-2024\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -144,6 +145,9 @@ msgstr "Þéttleiki"
 
 msgid "Keyboard shortcuts"
 msgstr "Lyklaborðs flýtileiðir"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Virkja sérsniðnar lyklaborðs flýtileiðir fyrir Wagtail."
 
 msgid "user profile"
 msgstr "uppsetning notanda"

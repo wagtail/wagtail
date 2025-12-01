@@ -475,7 +475,7 @@ class TestPagination(BaseSnippetViewSetTests):
 class TestFilterSetClass(BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -601,7 +601,7 @@ class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
             FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -642,7 +642,7 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
         self.date = now()
         self.date_str = self.date.isoformat()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -777,7 +777,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         cls.model.objects.create(text="From Indonesia", country_code="ID")
         cls.model.objects.create(text="From the UK", country_code="UK")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def test_custom_columns(self):
@@ -1122,7 +1122,7 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
             text="Python is a programming-bas, uh, language",
         )
 
-    def get(self, params={}, url_name="list"):
+    def get(self, params=None, url_name="list"):
         return self.client.get(self.get_url(url_name), params)
 
     def test_simple(self):

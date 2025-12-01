@@ -921,6 +921,10 @@
 * Bhavesh Sharma
 * Nick Ivons
 * Vishrut Ramraj
+* Vivek Subramani
+* Aman Bora
+* Ishtpreet Singh
+* Jashvirsingh Taak
 
 ## Translators
 
