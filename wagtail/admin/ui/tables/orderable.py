@@ -2,6 +2,7 @@ import json
 from collections import OrderedDict
 
 from django.contrib.admin.utils import quote
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.translation import gettext, gettext_lazy
 
@@ -14,10 +15,8 @@ class OrderingColumn(BaseColumn):
 
 
 class OrderableTableMixin:
-    success_message = gettext_lazy("'%(page_title)s' has been moved successfully.")
-    error_network_message = gettext_lazy("Network error occurred while reordering. Please check your connection and try again.")
-    error_server_message = gettext_lazy("Server error occurred while reordering. Please try again.")
-    error_generic_message = gettext_lazy("Failed to reorder items. Please try again.")
+    success_message = gettext_lazy("'%(page_title)s' has been updated!")
+    error_message = gettext_lazy("Failed to reorder items. Please try again.")
 
     def __init__(self, *args, sort_order_field=None, reorder_url=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -45,27 +44,26 @@ class OrderableTableMixin:
     def attrs(self):
         attrs = super().attrs
         if self.reorder_url:
-            # Create messages object with all messages
-            messages = {
-                'success': str(self.get_success_message()),
-                'network': str(self.error_network_message),
-                'server': str(self.error_server_message),
-                'generic': str(self.error_generic_message),
-            }
-            
             attrs = {
                 **attrs,
                 "data-controller": "w-orderable",
                 "data-w-orderable-active-class": "w-orderable--active",
                 "data-w-orderable-chosen-class": "w-orderable__item--active",
                 "data-w-orderable-container-value": "tbody",
-                "data-w-orderable-messages-value": json.dumps(messages),
+                "data-w-orderable-messages-value": self.get_messages(),
                 "data-w-orderable-url-value": self.reorder_url,
             }
         return attrs
 
     def get_success_message(self):
         return self.success_message % {"page_title": "__LABEL__"}
+
+    def get_messages(self):
+        """Return a JSON string containing both success and error messages."""
+        return json.dumps({
+            "success": force_str(self.get_success_message()),
+            "error": force_str(self.error_message),
+        })
 
     def get_row_attrs(self, instance):
         attrs = super().get_row_attrs(instance)

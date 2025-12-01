@@ -31,8 +31,7 @@ export class OrderableController extends Controller<HTMLElement> {
   static values = {
     animation: { default: 200, type: Number },
     container: { default: '', type: String },
-    // remove message, add messages
-    messages: { default: {}, type: Object },
+    messages: { default: '{}', type: String },
     url: String,
   };
 
@@ -52,23 +51,32 @@ export class OrderableController extends Controller<HTMLElement> {
   declare animationValue: number;
   /** A selector to determine the container that will be the parent of the orderable elements. */
   declare containerValue: string;
-  /**
-   * An object of messages, where the keys are HTTP status codes or error keys, used to determine what message should show in the UI on HTTP error or success.
-   * Messages should be translated values, where the string `__LABEL__` will be replaced with item's title.
-   */
-  declare readonly messagesValue: Record<string, string>;
+  /** JSON string containing success and error messages. */
+  declare messagesValue: string;
   /** Base URL template to use for submitting an updated order for a specific item. */
   declare urlValue: string;
 
   order: string[];
   sortable: ReturnType<typeof Sortable.create>;
+  messages: { success: string; error: string };
 
   constructor(context) {
     super(context);
     this.order = [];
+    this.messages = { success: '__LABEL__', error: 'Failed to reorder items. Please try again.' };
   }
 
   connect() {
+    try {
+      const parsed = JSON.parse(this.messagesValue || '{}');
+      this.messages = {
+        success: parsed.success || '__LABEL__',
+        error: parsed.error || 'Failed to reorder items. Please try again.',
+      };
+    } catch {
+      this.messages = { success: '__LABEL__', error: 'Failed to reorder items. Please try again.' };
+    }
+
     const containerSelector = this.containerValue;
     const container = ((containerSelector &&
       this.element.querySelector(containerSelector)) ||
@@ -210,15 +218,11 @@ export class OrderableController extends Controller<HTMLElement> {
       url += '?position=' + newIndex;
     }
 
-    // Clear any existing messages before starting new request
-    this.dispatch('w-messages:clear', {
-      prefix: '',
-      target: window.document,
-      detail: {},
-      cancelable: false,
-    });
-
-    const message = this.getMessage('success', { label });
+    const successTemplate = this.messages?.success || '__LABEL__';
+    const successMessage = successTemplate.replace(
+      '__LABEL__',
+      label || 'item',
+    );
 
     fetch(url, {
       method: 'POST',
@@ -237,40 +241,24 @@ export class OrderableController extends Controller<HTMLElement> {
         this.dispatch('w-messages:add', {
           prefix: '',
           target: window.document,
-          detail: { clear: true, text: message, type: 'success' },
+          detail: { clear: true, text: successMessage, type: 'success' },
           cancelable: false,
         });
       })
-      .catch((error) => {
-        // Determine error message based on error type
-        let errorMessage = '';
-
-        if (error.status) {
-          // Try to get status-specific message, fall back to server message
-          errorMessage = this.getMessage(error.status.toString()) || this.getMessage('server');
-        } else if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          // Network error
-          errorMessage = this.getMessage('network');
-        } else {
-          // Generic error
-          errorMessage = this.getMessage('generic');
-        }
-
-        // Only show error message if we have one (no fallback to untranslated values)
-        if (errorMessage) {
-          this.dispatch('w-messages:add', {
-            prefix: '',
-            target: window.document,
-            detail: { 
-              clear: true, 
-              text: errorMessage, 
-              type: 'error' 
-            },
-            cancelable: false,
-          });
-        }
+      .catch(() => {
+        const errorMessage = this.messages?.error || 'Failed to reorder items. Please try again.';
         
-        // Reset the visual state by reverting the sortable order
+        this.dispatch('w-messages:add', {
+          prefix: '',
+          target: window.document,
+          detail: { 
+            clear: true, 
+            text: errorMessage, 
+            type: 'error' 
+          },
+          cancelable: false,
+        });
+        
         this.sortable.sort(this.order, true);
       });
   }
