@@ -72,15 +72,16 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
           </div>
           <div id="block-struct-block-1-content" class="w-panel__content">
             <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              use <strong>lots</strong> of these
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>lots</strong> of these
           </div>
-        <div id="the-prefix-0-value-settings" data-block-settings="" hidden="">
+        </div>
+      <div id="the-prefix-0-value-settings" data-block-settings="" hidden="">
           <div data-contentpath="test_block_b">
-          <label class="w-field__label" for="the-prefix-0-value-test_block_b">Test Block B</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-0-value-test_block_b">Test Block B</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="" data-field="">
           <div class="w-field__errors" id="the-prefix-0-value-test_block_b-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -91,9 +92,9 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
           </div>
         </div>
       </div>
-          </div></div><div data-contentpath="inner_stream">
-          <label class="w-field__label">Inner Stream</label>
-            <div class="">
+      </div></div><div data-contentpath="inner_stream">
+        <label class="w-field__label">Inner Stream</label>
+        <div class="">
         <input type="hidden" name="the-prefix-0-value-inner_stream-count" data-streamfield-stream-count="" value="1">
         <div data-streamfield-stream-container=""><div>
         <button type="button" title="Insert a block" class="c-sf-add-button">
@@ -169,7 +170,7 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
         </button>
       </div></div>
       </div>
-          </div></div>
+      </div></div>
           </div>
         </section>
       </div><div>
@@ -209,14 +210,15 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
-          <div class="c-sf-help">
-            <div class="help">
-              use <strong>lots</strong> of these
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>lots</strong> of these
           </div>
-        <div data-contentpath="heading_text">
-          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="heading_text">
+        <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -227,9 +229,9 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
           </div>
         </div>
       </div>
-          </div><div data-contentpath="size">
-          <label class="w-field__label" for="the-prefix-size">Size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="size">
+        <label class="w-field__label" for="the-prefix-size">Size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -240,7 +242,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -273,14 +275,15 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
-          <div class="c-sf-help">
-            <div class="help">
-              use <strong>lots</strong> of these
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>lots</strong> of these
           </div>
-        <div data-contentpath="heading_text">
-          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="heading_text">
+        <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -291,9 +294,9 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
           </div>
         </div>
       </div>
-          </div><div data-contentpath="size">
-          <label class="w-field__label" for="the-prefix-size">Size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="size">
+        <label class="w-field__label" for="the-prefix-size">Size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select w-field--error" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
@@ -304,7 +307,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -337,14 +340,15 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing"><p class="help-block help-critical">This is just generally wrong.</p>
-          <div class="c-sf-help">
-            <div class="help">
-              use <strong>lots</strong> of these
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>lots</strong> of these
           </div>
-        <div data-contentpath="heading_text">
-          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="heading_text">
+        <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -355,9 +359,9 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
           </div>
         </div>
       </div>
-          </div><div data-contentpath="size">
-          <label class="w-field__label" for="the-prefix-size">Size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="size">
+        <label class="w-field__label" for="the-prefix-size">Size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -368,7 +372,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -401,14 +405,15 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           <div id="the-prefix-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -419,9 +424,9 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -432,7 +437,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -465,14 +470,15 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -483,9 +489,9 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -496,7 +502,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -529,14 +535,15 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -547,9 +554,9 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -560,7 +567,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -593,14 +600,15 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           <div id="the-prefix-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -611,9 +619,9 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -624,7 +632,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -657,14 +665,15 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -675,9 +684,9 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select w-field--error" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
@@ -688,7 +697,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -721,14 +730,15 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
           <div id="the-prefix-content" class="w-panel__content" hidden="">
             
           <div class="struct-block"><p class="help-block help-critical">This is just generally wrong.</p>
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -739,9 +749,9 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -752,7 +762,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -794,12 +804,13 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div id="the-prefix-settings" data-block-settings="">
+        </div>
+      <div id="the-prefix-settings" data-block-settings="">
           <section class="w-panel w-panel--nested collapsed" id="the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel-anchor="">
@@ -839,8 +850,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           <div class="theme-group collapsed">
         <div id="the-prefix-theme-settings" data-block-settings="">
           <div data-contentpath="shown">
-          <label class="w-field__label" for="the-prefix-shown">Shown</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-shown">Shown</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--boolean_field w-field--checkbox_input w-field--error" data-field="">
           <div class="w-field__errors" id="the-prefix-shown-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
@@ -851,9 +862,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           </div>
         </div>
       </div>
-          </div></div><div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div></div><div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -864,9 +875,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -877,7 +888,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section></div><section class="w-panel w-panel--nested collapsed" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
@@ -917,8 +928,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           <div class="main-content collapsed">
         <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
           <div data-contentpath="url">
-          <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--url_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-url-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -929,9 +940,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           </div>
         </div>
       </div>
-          </div></div><div data-contentpath="text">
-          <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div></div><div data-contentpath="text">
+        <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input w-field--error" data-field="">
           <div class="w-field__errors" id="the-prefix-text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
@@ -942,10 +953,10 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section><div data-contentpath="captioned_image">
-          
-            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+        
+        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -973,14 +984,15 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           <div id="the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="captioned-image-block">
-          <div class="c-sf-help">
-            <div class="help">
-              image with a required <strong>caption</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            image with a required <strong>caption</strong>
           </div>
-        <div data-contentpath="image">
-          <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="image">
+        <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--model_choice_field w-field--admin_image_chooser" data-field="">
           <div class="w-field__errors" id="the-prefix-captioned_image-image-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -991,9 +1003,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           </div>
         </div>
       </div>
-          </div><div data-contentpath="caption">
-          <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="caption">
+        <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-captioned_image-caption-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1004,9 +1016,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -1048,15 +1060,16 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div id="the-prefix-settings" data-block-settings="" hidden="">
+        </div>
+      <div id="the-prefix-settings" data-block-settings="" hidden="">
           <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1067,9 +1080,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1080,9 +1093,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div><div data-contentpath="shown">
-          <label class="w-field__label" for="the-prefix-shown">Shown</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="shown">
+        <label class="w-field__label" for="the-prefix-shown">Shown</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field="">
           <div class="w-field__errors" id="the-prefix-shown-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1093,7 +1106,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div></div><section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
+      </div></div><section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1132,8 +1145,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           <div class="">
         <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
           <div data-contentpath="url">
-          <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--url_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-url-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1144,9 +1157,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div></div><div data-contentpath="text">
-          <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div></div><div data-contentpath="text">
+        <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1157,10 +1170,10 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section><div data-contentpath="captioned_image">
-          
-            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+        
+        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1188,14 +1201,15 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           <div id="the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="captioned-image-block">
-          <div class="c-sf-help">
-            <div class="help">
-              image with a required <strong>caption</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            image with a required <strong>caption</strong>
           </div>
-        <div data-contentpath="image">
-          <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="image">
+        <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--model_choice_field w-field--admin_image_chooser" data-field="">
           <div class="w-field__errors" id="the-prefix-captioned_image-image-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1206,9 +1220,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div><div data-contentpath="caption">
-          <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="caption">
+        <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-captioned_image-caption-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1219,9 +1233,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -1263,15 +1277,16 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div id="the-prefix-settings" data-block-settings="" hidden="">
+        </div>
+      <div id="the-prefix-settings" data-block-settings="" hidden="">
           <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1282,9 +1297,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1295,9 +1310,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div><div data-contentpath="shown">
-          <label class="w-field__label" for="the-prefix-shown">Shown</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="shown">
+        <label class="w-field__label" for="the-prefix-shown">Shown</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field="">
           <div class="w-field__errors" id="the-prefix-shown-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1308,9 +1323,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div><div data-contentpath="text">
-          <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div></div><div data-contentpath="text">
+        <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1321,9 +1336,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div><div data-contentpath="url">
-          <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="url">
+        <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--url_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-url-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1334,9 +1349,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div><div data-contentpath="captioned_image">
-          
-            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+      </div><div data-contentpath="captioned_image">
+        
+        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1364,14 +1379,15 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           <div id="the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="captioned-image-block">
-          <div class="c-sf-help">
-            <div class="help">
-              image with a required <strong>caption</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            image with a required <strong>caption</strong>
           </div>
-        <div data-contentpath="image">
-          <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="image">
+        <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--model_choice_field w-field--admin_image_chooser" data-field="">
           <div class="w-field__errors" id="the-prefix-captioned_image-image-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1382,9 +1398,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div><div data-contentpath="caption">
-          <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="caption">
+        <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-captioned_image-caption-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1395,9 +1411,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -1439,12 +1455,13 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div id="the-prefix-settings" data-block-settings="" hidden="">
+        </div>
+      <div id="the-prefix-settings" data-block-settings="" hidden="">
           <section class="w-panel w-panel--nested collapsed" id="the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel-anchor="">
@@ -1474,8 +1491,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
             
           <div class="theme-group collapsed">
         <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1486,9 +1503,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1499,10 +1516,10 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section><div data-contentpath="shown">
-          <label class="w-field__label" for="the-prefix-shown">Shown</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-shown">Shown</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field="">
           <div class="w-field__errors" id="the-prefix-shown-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1513,7 +1530,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div><section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
+      </div></div><section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1550,15 +1567,16 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           <div id="the-prefix-main_content-content" class="w-panel__content">
             
           <div class="main-content" data-example="value">
-          <div class="c-sf-help">
-            <div class="help">
-              This is the <strong>main content</strong> area.
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            This is the <strong>main content</strong> area.
           </div>
-        <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
+        </div>
+      <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
           <div data-contentpath="url">
-          <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--url_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-url-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1569,9 +1587,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div><div data-contentpath="text">
-          <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div></div><div data-contentpath="text">
+        <label class="w-field__label" for="the-prefix-text">Text content<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1582,10 +1600,10 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section><div data-contentpath="captioned_image">
-          
-            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+        
+        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1613,14 +1631,15 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           <div id="the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="captioned-image-block">
-          <div class="c-sf-help">
-            <div class="help">
-              image with a required <strong>caption</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            image with a required <strong>caption</strong>
           </div>
-        <div data-contentpath="image">
-          <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="image">
+        <label class="w-field__label" for="the-prefix-captioned_image-image">Image<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--model_choice_field w-field--admin_image_chooser" data-field="">
           <div class="w-field__errors" id="the-prefix-captioned_image-image-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1631,9 +1650,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div><div data-contentpath="caption">
-          <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="caption">
+        <label class="w-field__label" for="the-prefix-captioned_image-caption">Caption<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-captioned_image-caption-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -1644,9 +1663,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -2081,14 +2100,15 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              use <strong>lots</strong> of these
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>lots</strong> of these
           </div>
-        <div data-contentpath="heading_text">
-          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="heading_text">
+        <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2099,9 +2119,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div><div data-contentpath="size">
-          <label class="w-field__label" for="the-prefix-size">Size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="size">
+        <label class="w-field__label" for="the-prefix-size">Size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2112,9 +2132,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div><div data-contentpath="settings">
-          
-            <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+      </div><div data-contentpath="settings">
+        
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2142,14 +2162,15 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2160,9 +2181,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2173,9 +2194,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -2208,14 +2229,15 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           <div id="the-prefix-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              use <strong>lots</strong> of these
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>lots</strong> of these
           </div>
-        <div data-contentpath="heading_text">
-          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="heading_text">
+        <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2226,9 +2248,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div><div data-contentpath="size">
-          <label class="w-field__label" for="the-prefix-size">Size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="size">
+        <label class="w-field__label" for="the-prefix-size">Size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2239,9 +2261,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div><div data-contentpath="settings">
-          
-            <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+      </div><div data-contentpath="settings">
+        
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2269,14 +2291,15 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2287,9 +2310,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2300,9 +2323,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -2335,14 +2358,15 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              use <strong>lots</strong> of these
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>lots</strong> of these
           </div>
-        <div data-contentpath="heading_text">
-          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="heading_text">
+        <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2353,9 +2377,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div><div data-contentpath="size">
-          <label class="w-field__label" for="the-prefix-size">Size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="size">
+        <label class="w-field__label" for="the-prefix-size">Size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select w-field--error" data-field="">
           <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
@@ -2366,9 +2390,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div><div data-contentpath="settings">
-          
-            <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+      </div><div data-contentpath="settings">
+        
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2396,14 +2420,15 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2414,9 +2439,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2427,9 +2452,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
 
@@ -2462,14 +2487,15 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           <div id="the-prefix-content" class="w-panel__content">
             
           <div class="struct-block"><p class="help-block help-critical">This is just generally wrong.</p>
-          <div class="c-sf-help">
-            <div class="help">
-              use <strong>lots</strong> of these
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>lots</strong> of these
           </div>
-        <div data-contentpath="heading_text">
-          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="heading_text">
+        <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2480,9 +2506,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div><div data-contentpath="size">
-          <label class="w-field__label" for="the-prefix-size">Size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="size">
+        <label class="w-field__label" for="the-prefix-size">Size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2493,9 +2519,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div><div data-contentpath="settings">
-          
-            <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+      </div><div data-contentpath="settings">
+        
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2523,14 +2549,15 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
-          <div class="c-sf-help">
-            <div class="help">
-              configure how the block is <strong>displayed</strong>
-            </div>
+        
+        <div class="c-sf-help">
+          <div class="help">
+            configure how the block is <strong>displayed</strong>
           </div>
-        <div data-contentpath="accent_color">
-          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+        </div>
+      <div data-contentpath="accent_color">
+        <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2541,9 +2568,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div><div data-contentpath="font_size">
-          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
-            <div class="w-field__wrapper" data-field-wrapper="">
+      </div><div data-contentpath="font_size">
+        <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+        <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--choice_field w-field--select" data-field="">
           <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -2554,8 +2581,8 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div></div></div>
+      </div></div></div>
         </section>
-          </div></div></div>
+      </div></div></div>
         </section>"
 `;
