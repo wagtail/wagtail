@@ -27,7 +27,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="the-prefix-content" class="w-panel__content" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
             
           
           <div class="c-sf-help">
@@ -92,7 +92,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="the-prefix-content" class="w-panel__content" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
             
           
           <div class="c-sf-help">
@@ -157,7 +157,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content"><p class="help-block help-critical">This is just generally wrong.</p>
+          <div id="the-prefix-content" class="w-panel__content" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing"><p class="help-block help-critical">This is just generally wrong.</p>
             
           
           <div class="c-sf-help">
