@@ -102,6 +102,10 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
         classname: 'struct-block',
         helpText: 'use <strong>lots</strong> of these',
         helpIcon: '<svg></svg>',
+        attrs: {
+          'data-controller': 'w-customstruct',
+          'data-action': 'click->w-customstruct#doAnotherThing',
+        },
       },
     );
 
