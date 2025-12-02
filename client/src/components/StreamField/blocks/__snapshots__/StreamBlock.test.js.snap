@@ -1037,7 +1037,6 @@ exports[`telepath: wagtail.blocks.StreamBlock with StructBlock child it renders 
           </div>
           <div id="block-fake-uuid-v4-value-content" class="w-panel__content">
             <div class="struct-block">
-        
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
