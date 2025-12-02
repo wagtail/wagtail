@@ -18,7 +18,7 @@ We ask that if you use generative AI for your contribution, you include a discla
 
 ### Unacceptable uses
 
-- Entire work (code changes, documentation update, pull request descriptions) are LLM-generated and submitted without human oversight
+- Entire work (code changes, documentation update, pull request descriptions) are LLM-generated without there being a clear understanding of the solution implementation from the contributor.
 
 We will close those pull requests and issues that are unproductive, so we can focus our limited maintainer capacity elsewhere.
 

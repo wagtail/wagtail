@@ -15,6 +15,7 @@ Please review the [contributing guidelines](https://docs.wagtail.org/en/latest/c
 - For new user-facing or developer-facing features, the documentation should be updated. See [Compiling the documentation](https://docs.wagtail.org/en/latest/contributing/developing.html#compiling-the-documentation) and [Documentation guidelines](https://docs.wagtail.org/en/latest/contributing/documentation_guidelines.html).
 - Ensure that your code follows Wagtail's [linting and formatting](https://docs.wagtail.org/en/latest/contributing/developing.html#linting-and-formatting) standards.
 - For front-end changes, mention which browsers (or other assistive technologies) you have tested against. See [Browser and device support](https://docs.wagtail.org/en/latest/contributing/ui_guidelines.html#browser-and-device-support).
+- For changes that affect Wagtail's appearance or behavior, please include screenshots in the pull request description.
 
 ## Reporting bugs and feature requests
 
