@@ -72,7 +72,6 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
           </div>
           <div id="block-struct-block-1-content" class="w-panel__content">
             <div class="struct-block">
-        
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
@@ -182,8 +181,7 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -208,9 +206,9 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
+          <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
@@ -242,13 +240,12 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to children 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -273,9 +270,9 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
+          <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
@@ -307,13 +304,12 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -338,9 +334,9 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing"><p class="help-block help-critical">This is just generally wrong.</p>
+          <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing"><p class="help-block help-critical">This is just generally wrong.</p>
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
@@ -372,13 +368,12 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially collapsed state 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -405,7 +400,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
           <div id="the-prefix-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -437,13 +432,12 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially collapsed state 2`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -470,7 +464,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
           <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -502,13 +496,12 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially expanded state 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -535,7 +528,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
           <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -567,13 +560,12 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially expanded state 2`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -600,7 +592,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
           <div id="the-prefix-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -632,13 +624,12 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError passes error messages to children 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -665,7 +656,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
           </div>
           <div id="the-prefix-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -697,13 +688,12 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError shows non-block errors 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -728,9 +718,9 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" hidden=""><p class="help-block help-critical">This is just generally wrong.</p>
+          <div id="the-prefix-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block"><p class="help-block help-critical">This is just generally wrong.</p>
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -762,13 +752,12 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the parent group when the settings panel is expanded 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -804,7 +793,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
           <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -850,8 +839,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div></div><div class="">
-        <section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
+          </div></div><section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -887,7 +875,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
           <div id="the-prefix-main_content-content" class="w-panel__content">
             
-          <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
+          <div class="">
+        <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
           <div data-contentpath="url">
           <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
             <div class="w-field__wrapper" data-field-wrapper="">
@@ -914,11 +903,10 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div><div data-contentpath="captioned_image">
+          </div></div></div>
+        </section><div data-contentpath="captioned_image">
           
-            <div class="captioned-image-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -945,7 +933,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
           <div id="the-prefix-captioned_image-content" class="w-panel__content">
             
-          
+          <div class="captioned-image-block">
           <div class="c-sf-help">
             <div class="help">
               image with a required <strong>caption</strong>
@@ -977,15 +965,14 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correctly with flat children and settings 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1021,7 +1008,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
           <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -1095,8 +1082,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
       </div>
           </div><div data-contentpath="captioned_image">
           
-            <div class="captioned-image-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1123,7 +1109,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
           <div id="the-prefix-captioned_image-content" class="w-panel__content">
             
-          
+          <div class="captioned-image-block">
           <div class="c-sf-help">
             <div class="help">
               image with a required <strong>caption</strong>
@@ -1155,15 +1141,14 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correctly with nested children and settings 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1199,15 +1184,14 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
           <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
             </div>
           </div>
         <div id="the-prefix-settings" data-block-settings="" hidden="">
-          <div class="theme-group collapsed">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel="">
+          <section class="w-panel w-panel--nested collapsed" id="the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1234,7 +1218,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
           <div id="the-prefix-theme-content" class="w-panel__content" hidden="">
             
-          <div data-contentpath="accent_color">
+          <div class="theme-group collapsed">
+        <div data-contentpath="accent_color">
           <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
             <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
@@ -1260,8 +1245,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div><div data-contentpath="shown">
+          </div></div></div>
+        </section><div data-contentpath="shown">
           <label class="w-field__label" for="the-prefix-shown">Shown</label>
             <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field="">
@@ -1274,8 +1259,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div><div class="main-content">
-        <section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
+          </div></div><section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1309,9 +1293,9 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-main_content-content" class="w-panel__content" data-example="value">
+          <div id="the-prefix-main_content-content" class="w-panel__content">
             
-          
+          <div class="main-content" data-example="value">
           <div class="c-sf-help">
             <div class="help">
               This is the <strong>main content</strong> area.
@@ -1344,11 +1328,10 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div><div data-contentpath="captioned_image">
+          </div></div></div>
+        </section><div data-contentpath="captioned_image">
           
-            <div class="captioned-image-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1375,7 +1358,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
           <div id="the-prefix-captioned_image-content" class="w-panel__content">
             
-          
+          <div class="captioned-image-block">
           <div class="c-sf-help">
             <div class="help">
               image with a required <strong>caption</strong>
@@ -1407,10 +1390,10 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom formTemplate 1`] = `
@@ -1816,8 +1799,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it renders correctly 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1844,7 +1826,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
           <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
@@ -1878,8 +1860,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
       </div>
           </div><div data-contentpath="settings">
           
-            <div class="struct-block">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+            <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1906,7 +1887,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
           <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -1938,15 +1919,14 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it renders correctly 2`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -1973,7 +1953,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
           <div id="the-prefix-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
@@ -2007,8 +1987,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
       </div>
           </div><div data-contentpath="settings">
           
-            <div class="struct-block">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+            <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2035,7 +2014,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
           <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -2067,15 +2046,14 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setError passes error messages to children 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2102,7 +2080,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
           <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
@@ -2136,8 +2114,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
       </div>
           </div><div data-contentpath="settings">
           
-            <div class="struct-block">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+            <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2164,7 +2141,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
           <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -2196,15 +2173,14 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>
+          </div></div></div>
+        </section>"
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setError shows non-block errors 1`] = `
-"<div class="struct-block">
-        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2229,9 +2205,9 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content"><p class="help-block help-critical">This is just generally wrong.</p>
+          <div id="the-prefix-content" class="w-panel__content">
             
-          
+          <div class="struct-block"><p class="help-block help-critical">This is just generally wrong.</p>
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
@@ -2265,8 +2241,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
       </div>
           </div><div data-contentpath="settings">
           
-            <div class="struct-block">
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+            <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
@@ -2293,7 +2268,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
           <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
             
-          
+          <div class="struct-block">
           <div class="c-sf-help">
             <div class="help">
               configure how the block is <strong>displayed</strong>
@@ -2325,8 +2300,8 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
           </div>
         </div>
       </div>
-          </div></div>
-        </section></div>
-          </div></div>
-        </section></div>"
+          </div></div></div>
+        </section>
+          </div></div></div>
+        </section>"
 `;

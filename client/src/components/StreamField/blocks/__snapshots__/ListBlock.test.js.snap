@@ -1362,7 +1362,6 @@ exports[`telepath: wagtail.blocks.ListBlock with StructBlock child it renders th
           </div>
           <div id="block-heading-block-1-content" class="w-panel__content">
             <div class="struct-block">
-        
           <div class="c-sf-help">
             <div class="help">
               use <strong>lots</strong> of these
