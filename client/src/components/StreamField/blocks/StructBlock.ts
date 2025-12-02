@@ -118,12 +118,13 @@ export class BlockGroup {
 
     if (!hasCustomTemplate && opts.helpText) {
       // help text is left unescaped as per Django conventions
-      dom.append(/* html */ `  <div class="c-sf-help">
-            <div class="help">
-              ${opts.helpText}
-            </div>
+      dom.append(/* html */ `
+        <div class="c-sf-help">
+          <div class="help">
+            ${opts.helpText}
           </div>
-        `);
+        </div>
+      `);
     }
 
     // Children and settings are always defined in the BlockGroup, and never in
@@ -330,10 +331,10 @@ export class StructBlock {
 
     const childDom = $(/* html */ `
       <div data-contentpath="${childBlockDef.name}">
-          ${label}
-            <div data-streamfield-block></div>
-          </div>
-        `);
+        ${label}
+        <div data-streamfield-block></div>
+      </div>
+    `);
     container.append(childDom);
     const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
     const labelElement = childDom.find('label').get(0);
