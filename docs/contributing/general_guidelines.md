@@ -13,7 +13,7 @@ We ask that if you use generative AI for your contribution, you include a discla
 ### Acceptable uses
 
 -  Gaining understanding of the existing Wagtail code
--  Assistance with writing comments
+-  Assistance with written English for code comments, documentation and pull request descriptions
 -  Supplementing contributor knowledge for code, tests, and documentation
 
 ### Unacceptable uses
