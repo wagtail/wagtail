@@ -36,7 +36,7 @@ Translation work should be submitted through [Transifex](https://explore.transif
 
 ## Code reviews
 
-We welcome code reviews from everyone. There's always a list of pull requests tagged [status:Needs Review](https://github.com/wagtail/wagtail/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc+label%3A%22status%3ANeeds+Review%22).
+We welcome code reviews from everyone, although a core team member will need to do at least one review for the pull request to be merged. There's always a list of pull requests tagged [status:Needs Review](https://github.com/wagtail/wagtail/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc+label%3A%22status%3ANeeds+Review%22).
 
 ## Triaging issues
 
