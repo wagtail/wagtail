@@ -76,6 +76,12 @@ class StructBlockValidationError(ValidationError):
 
 @register
 class BlockGroup:
+    """
+    A grouping of blocks within a :class:`StructBlock`'s form layout in the
+    editing interface. Can be used directly as the ``form_layout`` in
+    :class:`StructBlock`.Meta, or nested within another ``BlockGroup``.
+    """
+
     def __init__(
         self,
         children: list[Union[str, "BlockGroup"]],
@@ -84,9 +90,49 @@ class BlockGroup:
         classname="",
         help_text="",
         icon="placeholder",
-        attrs=None,
-        label_format=None,
+        attrs: dict | None = None,
+        label_format: str | None = None,
     ):
+        """
+        :param children: A list of block names or nested ``BlockGroup`` that will be
+            rendered in the main content area.
+        :type children: list[str | BlockGroup]
+
+        :param settings: A list of block names or nested ``BlockGroup`` that will be
+            rendered in the collapsible "settings" area that is hidden by default.
+        :type settings: list[str | BlockGroup]
+
+        The following attributes are only used when the ``BlockGroup`` is nested within
+        another ``BlockGroup``. For the top-level ``BlockGroup`` used as
+        ``Meta.form_layout`` in a :class:`StructBlock`, these attributes are ignored in
+        favor of the corresponding attributes on ``StructBlock.Meta``.
+
+        :param heading: The heading label of the collapsible panel for this block
+            group. For a top-level group, the ``StructBlock``'s ``label`` will be
+            used instead.
+        :type heading: str
+
+        :param classname: Additional CSS class name(s) to add to the block group's main
+            content area.
+        :type classname: str
+
+        :param help_text: Help text to display below the block group's heading.
+        :type help_text: str
+
+        :param icon: The name of the icon to display alongside the block group's heading.
+        :type icon: str
+
+        :param attrs: A dictionary of HTML attributes to add to the block group's main content area.
+        :type attrs: dict
+
+        :param label_format: The summary label shown after the ``heading`` when the
+            block is collapsed in the editing interface. By default, the value of the
+            first child block is shown, but this can be customized by setting a string
+            here with block names contained in braces - for example ``label_format = "
+            {surname}, {first_name}"``. If you wish to hide the summary label entirely,
+            set this to the empty string ``""``.
+        :type label_format: str | None
+        """
         self.children = children
         self.settings = settings or []
         self.heading = heading
@@ -124,8 +170,8 @@ class BlockGroup:
 
     def get_sorted_block_names(self):
         """
-        Return a flat list of all block names in this BlockGroup and any nested
-        BlockGroups in the group's list order.
+        Return a flat list of all block names in this ``BlockGroup`` and any
+        nested ``BlockGroups`` in the group's list order.
         """
         block_names = []
         for child in self.children + self.settings:
@@ -502,6 +548,10 @@ class BaseStructBlock(Block):
         return context
 
     def get_form_layout(self) -> BlockGroup:
+        """
+        Return the :class:`BlockGroup` representing the form layout for this
+        ``StructBlock``.
+        """
         if (form_layout := self.meta.form_layout) is None:
             return BlockGroup(list(self.child_blocks.keys()))
         if isinstance(form_layout, list):
