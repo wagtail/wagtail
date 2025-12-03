@@ -897,3 +897,7 @@ class JsonPostResponseMixin:
 
     def json_error_response(self, message):
         return JsonResponse({"error": message}, status=400)
+
+    @staticmethod
+    def response_is_json(response):
+        return response.headers.get("Content-Type") == "application/json"

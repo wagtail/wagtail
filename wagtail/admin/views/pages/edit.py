@@ -374,10 +374,7 @@ class EditView(
 
         response = self.run_hook("before_edit_page", self.request, self.page)
         if response:
-            if (
-                self.expects_json_response
-                and response.headers.get("Content-Type") != "application/json"
-            ):
+            if self.expects_json_response and not self.response_is_json(response):
                 # Hook response is not suitable for a JSON response, so construct our own error response
                 return self.json_error_response(
                     "Request to edit page was blocked by hook"
@@ -605,10 +602,7 @@ class EditView(
 
         response = self.run_hook("after_edit_page", self.request, self.page)
         if response:
-            if (
-                self.expects_json_response
-                and response.headers.get("Content-Type") != "application/json"
-            ):
+            if self.expects_json_response and not self.response_is_json(response):
                 # Hook response is not suitable for a JSON response, so ignore it and just use
                 # the standard one
                 pass
