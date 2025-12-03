@@ -23,7 +23,7 @@ class PersonBlock(blocks.StructBlock):
 You can then provide custom CSS for this block, targeted at the specified classname, by using the [](insert_global_admin_css) hook.
 
 ```{note}
-Wagtail's editor styling has some built-in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
+If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`. You may need to include the default `struct-block` class if you have custom code or use a third-party package that relies on it.
 ```
 
 If you want to add custom attributes other than `class` on a `StructBlock` in the page editor, you can specify a `form_attrs` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to add any additional attributes.
