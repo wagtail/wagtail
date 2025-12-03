@@ -17,6 +17,9 @@ from wagtail.rich_text import RichText
 from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomUUIDPrimaryKey,
+    Book,
+    BookCategory,
+    BookRelationShip,
     EventPage,
     EventPageCarouselItem,
     EventPageRelatedLink,
@@ -26,6 +29,7 @@ from wagtail.test.testapp.models import (
     GenericSnippetPage,
     HeadCountRelatedModelUsingPK,
     ModelWithNullableParentalKey,
+    SimplePage,
     VariousOnDeleteModel,
 )
 
@@ -316,6 +320,33 @@ class TestDescribeOnDelete(TestCase):
 
     @classmethod
     def setUpTestData(cls):
+        cls.simple_page = SimplePage(
+            title="Book page",
+            path="path/",
+            slug="book-page",
+            depth=1,
+            content="Book page content"
+        )
+        cls.simple_page.save()
+        cls.book_category = BookCategory(
+            name="Thriller"
+        )
+        cls.book_category.save()
+
+        cls.book = Book(
+            name="The book",
+            page=cls.simple_page,
+            category=cls.book_category,
+        )
+        cls.book.save()
+
+        cls.book_relationship = BookRelationShip(
+            name="The book relationship",
+            book=cls.book,
+            page=cls.simple_page,
+        )
+        cls.book_relationship.save()
+
         management.call_command("rebuild_references_index", stdout=StringIO())
 
     def setUp(self):
@@ -566,6 +597,14 @@ class TestDescribeOnDelete(TestCase):
         )
         with self.assertRaises(FieldDoesNotExist):
             reference.describe_source_field()
+
+    def test_multiple_many_to_one_rel_fields(self):
+        references = ReferenceIndex.objects.filter(
+            model_path='books.item.book_relationship.item.page',
+            to_content_type=ContentType.objects.get(model='page')
+        )
+        self.assertEqual(references.count(), 1)
+        self.assertEqual(references[0].describe_source_field(), "Book relation ship → Page")
 
 
 class TestBulkFetch(TestCase):
