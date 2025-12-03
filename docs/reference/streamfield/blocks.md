@@ -513,7 +513,7 @@ All block definitions have the following methods and properties that can be over
 
     The following additional options are available as either keyword arguments or Meta class attributes:
 
-    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface. Defaults to ``struct-block``; note that the admin interface has CSS styles defined on this class, so it is advised to include ``struct-block`` in this value when overriding. See :ref:`custom_editing_interfaces_for_structblock`.
+    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface, defaults to ``struct-block``. When overriding, you may need to include the default ``struct-block`` class if you have custom code or use a third-party package that relies on it. See :ref:`custom_editing_interfaces_for_structblock`.
     :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface. See :ref:`custom_editing_interfaces_for_structblock`.
     :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
     :param collapsed: When true and the block is within another ``StructBlock``, the block is initially collapsed. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. See :ref:`custom_editing_interfaces_for_structblock`.
