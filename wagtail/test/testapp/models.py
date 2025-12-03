@@ -15,6 +15,7 @@ from django.db import models
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
+from django_extensions.db.models import TimeStampedModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -2707,3 +2708,24 @@ class CommentableJSONPage(Page):
             ("text", CharBlock()),
         ]
     )
+
+@register_snippet
+class Book(ClusterableModel, TimeStampedModel):
+    name = models.CharField(default="Book Name", max_length=255)
+    page = models.ForeignKey(SimplePage, on_delete=models.CASCADE, null=True, blank=True, related_name="+")
+    category = ParentalKey("BookCategory", related_name="books", on_delete=models.CASCADE, blank=True, null=True, default=None)
+
+
+@register_snippet
+class BookRelationShip(models.Model):
+    name = models.CharField(default="Book Name", max_length=255)
+    book = ParentalKey(
+        Book, related_name="book_relationship", on_delete=models.CASCADE
+    )
+    page = models.ForeignKey(
+        SimplePage, blank=True, null=True, on_delete=models.CASCADE
+    )
+
+@register_snippet
+class BookCategory(ClusterableModel):
+    name = models.CharField(default="Book Category", max_length=255)
