@@ -23,7 +23,7 @@
     opacity: 0.15;
   }
 
-  > ul > li > a {
+  >ul>li>a {
     // Need !important to override body.ready class
     // stylelint-disable-next-line declaration-no-important
     transition: padding $menu-transition-duration ease !important;
@@ -39,18 +39,18 @@
   // stylelint-disable-next-line declaration-no-important
   transition: width $menu-transition-duration ease !important; // Override body.ready
 
-  > ul,
-  ul > li {
+  >ul,
+  ul>li {
     margin: 0;
     padding: 0;
     list-style-type: none;
   }
 
-  ul > li {
+  ul>li {
     position: relative;
   }
 
-  > ul {
+  >ul {
     @include transition(max-height $menu-transition-duration ease);
     visibility: hidden;
 
@@ -62,10 +62,22 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
+    .sidebar-menu-item--active {
+      @apply w-bg-surface-menu-item-active;
+      text-shadow: -1px -1px 0 theme('colors.black-35');
+
+      a {
+        color: theme('colors.text-label-menus-active');
+      }
+    }
   }
 
   &__account {
     @include show-focus-outline-inside();
+    // Need !important to override w-border-0 Tailwind utility class on the button element
+    // stylelint-disable-next-line declaration-no-important
+    border-inline-start: 2px solid transparent !important;
 
     &-toggle {
       @apply w-pl-2 w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
@@ -93,10 +105,24 @@
   }
 
   &--open {
-    > ul {
+    .sidebar-footer__account {
+      // Need !important to override w-border-0 Tailwind utility class
+      // stylelint-disable-next-line declaration-no-important
+      border-inline-start-color: theme('colors.border-interactive-more-contrast-dark-bg-hover') !important;
+    }
+
+    >ul {
       $footer-submenu-height: 85px;
       max-height: $footer-submenu-height;
       visibility: visible;
+    }
+  }
+
+  &:not(&--open):has(.sidebar-menu-item--active) {
+    .sidebar-footer__account {
+      // Need !important to override w-border-0 Tailwind utility class
+      // stylelint-disable-next-line declaration-no-important
+      border-inline-start-color: theme('colors.border-button-outline-default') !important;
     }
   }
 }
