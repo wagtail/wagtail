@@ -513,14 +513,21 @@ All block definitions have the following methods and properties that can be over
 
     The following additional options are available as either keyword arguments or Meta class attributes:
 
-    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface, defaults to ``struct-block``. When overriding, you may need to include the default ``struct-block`` class if you have custom code or use a third-party package that relies on it. See :ref:`custom_editing_interfaces_for_structblock`.
-    :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface. See :ref:`custom_editing_interfaces_for_structblock`.
-    :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
-    :param collapsed: When true and the block is within another ``StructBlock``, the block is initially collapsed. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. See :ref:`custom_editing_interfaces_for_structblock`.
+    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface, defaults to ``struct-block``. When overriding, you may need to include the default ``struct-block`` class if you have custom code or use a third-party package that relies on it. See :ref:`structblock_custom_classes_and_attributes`.
+    :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface. See :ref:`structblock_custom_classes_and_attributes`.
+    :param form_template: Path to a Django template to use to render this block's form. See :ref:`structblock_custom_template`.
+    :param collapsed: When true and the block is within another ``StructBlock``, the block is initially collapsed. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. See :ref:`structblock_initial_collapsible`.
     :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:
      Determines the summary label shown after the ``label`` when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customized by setting a string here with block names contained in braces - for example ``label_format = "{surname}, {first_name}"``. If you wish to hide the summary label entirely, set this to the empty string ``""``.
+    :param form_layout:
+     A list of block names or ``BlockGroup`` instances to determine the order in which sub-blocks are displayed in the editing interface. Alternatively, a ``BlockGroup`` instance can be provided instead of a list, to define a group of ``children`` and ``settings`` blocks. See :ref:`structblock_custom_order_and_grouping` and :class:`BlockGroup` for more details.
+
+    .. automethod:: get_form_layout
+
+    .. versionadded:: 7.3
+        The ``form_layout`` option and the ``get_form_layout`` method were added.
 
 
 .. autoclass:: wagtail.blocks.ListBlock
@@ -638,4 +645,22 @@ All block definitions have the following methods and properties that can be over
 
             class Meta:
                 form_classname = 'event-promotions'
+```
+
+## Supporting components
+
+### `BlockGroup`
+
+```{versionadded} 7.3
+The `BlockGroup` class was added.
+```
+
+```{eval-rst}
+.. autoclass:: wagtail.blocks.BlockGroup
+    :class-doc-from: both
+
+    Methods
+    =======
+
+    .. automethod:: get_sorted_block_names
 ```
