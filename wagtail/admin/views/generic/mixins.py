@@ -780,6 +780,7 @@ class CreateEditViewOptionalFeaturesMixin:
     def is_valid(self, form):
         # Make sure object is not locked
         if self.locked_for_user:
+            self.produced_error_code = "locked"
             self.produced_error_message = capfirst(
                 _("The %(model_name)s could not be saved as it is locked")
                 % {"model_name": self.model._meta.verbose_name}

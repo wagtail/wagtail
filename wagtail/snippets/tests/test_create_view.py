@@ -5,7 +5,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -35,14 +35,16 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params=None, model=Advert):
+    def get(self, params=None, model=Advert, headers=None):
         return self.client.get(
-            reverse(model.snippet_viewset.get_url_name("add")), params
+            reverse(model.snippet_viewset.get_url_name("add")), params, headers=headers
         )
 
-    def post(self, post_data=None, model=Advert):
+    def post(self, post_data=None, model=Advert, headers=None):
         return self.client.post(
-            reverse(model.snippet_viewset.get_url_name("add")), post_data
+            reverse(model.snippet_viewset.get_url_name("add")),
+            post_data,
+            headers=headers,
         )
 
     def test_get_with_limited_permissions(self):
@@ -178,6 +180,21 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
 
+    def test_create_invalid_with_json_response(self):
+        response = self.post(
+            post_data={"foo": "bar"}, headers={"Accept": "application/json"}
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "validation_error",
+                "errorMessage": "The advert could not be created due to errors.",
+            },
+        )
+
     def test_create(self):
         response = self.post(
             post_data={"text": "test_advert", "url": "http://www.example.com/"}
@@ -187,6 +204,23 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         snippets = Advert.objects.filter(text="test_advert")
         self.assertEqual(snippets.count(), 1)
         self.assertEqual(snippets.first().url, "http://www.example.com/")
+
+    def test_create_with_json_response(self):
+        response = self.post(
+            post_data={"text": "test_advert", "url": "http://www.example.com/"},
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+
+        snippets = Advert.objects.filter(text="test_advert")
+        self.assertEqual(snippets.count(), 1)
+        snippet = snippets.first()
+        self.assertEqual(snippet.url, "http://www.example.com/")
+
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], snippet.pk)
 
     def test_create_with_tags(self):
         tags = ["hello", "world"]
@@ -258,6 +292,32 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+    def test_before_create_snippet_hook_get_with_json_response(self):
+        def non_json_hook_func(request, model):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(model, Advert)
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, model):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(model, Advert)
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_create_snippet", non_json_hook_func):
+            response = self.get(headers={"Accept": "application/json"})
+            self.assertEqual(
+                response.json(),
+                {
+                    "success": False,
+                    "errorCode": "blocked_by_hook",
+                    "errorMessage": "Request to create advert was blocked by hook",
+                },
+            )
+
+        with self.register_hook("before_create_snippet", json_hook_func):
+            response = self.get(headers={"Accept": "application/json"})
+            self.assertEqual(response.json(), {"status": "purple"})
+
     def test_before_create_snippet_hook_post(self):
         def hook_func(request, model):
             self.assertIsInstance(request, HttpRequest)
@@ -270,6 +330,50 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was created
+        self.assertFalse(Advert.objects.exists())
+
+    def test_before_create_snippet_hook_post_with_json_response(self):
+        def non_json_hook_func(request, model):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(model, Advert)
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, model):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(model, Advert)
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_create_snippet", non_json_hook_func):
+            post_data = {"text": "Hook test", "url": "http://www.example.com/"}
+            response = self.post(
+                post_data=post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to create advert was blocked by hook",
+            },
+        )
+
+        # Request intercepted before advert was created
+        self.assertFalse(Advert.objects.exists())
+
+        with self.register_hook("before_create_snippet", json_hook_func):
+            post_data = {"text": "Hook test", "url": "http://www.example.com/"}
+            response = self.post(
+                post_data=post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
 
         # Request intercepted before advert was created
         self.assertFalse(Advert.objects.exists())
@@ -290,6 +394,47 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         # Request intercepted after advert was created
         self.assertTrue(Advert.objects.exists())
+
+    def test_after_create_snippet_hook_post_with_json_response(self):
+        def non_json_hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, "Hook test")
+            self.assertEqual(instance.url, "http://www.example.com/")
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, "Another hook test")
+            self.assertEqual(instance.url, "http://www.example.com/")
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("after_create_snippet", non_json_hook_func):
+            post_data = {"text": "Hook test", "url": "http://www.example.com/"}
+            response = self.post(
+                post_data=post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        # hook response is ignored, since it's not a JSON response
+        self.assertEqual(response.json()["success"], True)
+
+        # Request intercepted after advert was created
+        self.assertTrue(Advert.objects.filter(text="Hook test").exists())
+
+        with self.register_hook("after_create_snippet", json_hook_func):
+            post_data = {"text": "Another hook test", "url": "http://www.example.com/"}
+            response = self.post(
+                post_data=post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        # hook response is used, since it's a JSON response
+        self.assertEqual(response.json(), {"status": "purple"})
+
+        # Request intercepted after advert was created
+        self.assertTrue(Advert.objects.filter(text="Another hook test").exists())
 
     def test_register_snippet_action_menu_item(self):
         class TestSnippetActionMenuItem(ActionMenuItem):

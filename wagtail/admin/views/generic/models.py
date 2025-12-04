@@ -8,7 +8,7 @@ from django.core.exceptions import (
 from django.db import models, transaction
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -55,7 +55,13 @@ from wagtail.models.orderable import set_max_order
 from wagtail.search.index import class_is_indexed
 
 from .base import BaseListingView, WagtailAdminTemplateMixin
-from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
+from .mixins import (
+    BeforeAfterHookMixin,
+    HookResponseMixin,
+    JsonPostResponseMixin,
+    LocaleMixin,
+    PanelMixin,
+)
 from .permissions import PermissionCheckedMixin
 
 
@@ -468,6 +474,7 @@ class CreateView(
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
+    JsonPostResponseMixin,
     BaseCreateView,
 ):
     model = None
@@ -513,6 +520,7 @@ class CreateView(
         """
         result = form.is_valid()
         if not result:
+            self.produced_error_code = "validation_error"
             self.produced_error_message = self.get_error_message()
         return result
 
@@ -673,15 +681,18 @@ class CreateView(
         return instance
 
     def save_action(self):
-        success_message = self.get_success_message(self.object)
-        success_buttons = self.get_success_buttons()
-        if success_message is not None:
-            messages.success(
-                self.request,
-                success_message,
-                buttons=success_buttons,
-            )
-        return redirect(self.get_success_url())
+        if self.expects_json_response:
+            return JsonResponse({"success": True, "pk": self.object.pk})
+        else:
+            success_message = self.get_success_message(self.object)
+            success_buttons = self.get_success_buttons()
+            if success_message is not None:
+                messages.success(
+                    self.request,
+                    success_message,
+                    buttons=success_buttons,
+                )
+            return redirect(self.get_success_url())
 
     def form_valid(self, form):
         self.form = form
@@ -698,6 +709,13 @@ class CreateView(
 
     def form_invalid(self, form):
         self.form = form
+
+        if self.expects_json_response:
+            return self.json_error_response(
+                getattr(self, "produced_error_code", "internal_error"),
+                self.produced_error_message or "",
+            )
+
         if self.produced_error_message is not None:
             messages.validation_error(self.request, self.produced_error_message, form)
         return super().form_invalid(form)
@@ -723,6 +741,7 @@ class EditView(
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
+    JsonPostResponseMixin,
     BaseUpdateView,
 ):
     model = None
@@ -771,6 +790,7 @@ class EditView(
         """
         result = form.is_valid()
         if not result:
+            self.produced_error_code = "validation_error"
             self.produced_error_message = self.get_error_message()
         return result
 
@@ -949,15 +969,18 @@ class EditView(
         return instance
 
     def save_action(self):
-        success_message = self.get_success_message()
-        success_buttons = self.get_success_buttons()
-        if success_message is not None:
-            messages.success(
-                self.request,
-                success_message,
-                buttons=success_buttons,
-            )
-        return redirect(self.get_success_url())
+        if self.expects_json_response:
+            return JsonResponse({"success": True, "pk": self.object.pk})
+        else:
+            success_message = self.get_success_message()
+            success_buttons = self.get_success_buttons()
+            if success_message is not None:
+                messages.success(
+                    self.request,
+                    success_message,
+                    buttons=success_buttons,
+                )
+            return redirect(self.get_success_url())
 
     def get_success_message(self):
         if self.success_message is None:
@@ -999,6 +1022,13 @@ class EditView(
 
     def form_invalid(self, form):
         self.form = form
+
+        if self.expects_json_response:
+            return self.json_error_response(
+                getattr(self, "produced_error_code", "internal_error"),
+                self.produced_error_message or "",
+            )
+
         if self.produced_error_message is not None:
             messages.validation_error(self.request, self.produced_error_message, form)
         return super().form_invalid(form)

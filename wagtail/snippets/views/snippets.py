@@ -235,10 +235,26 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
     template_name = "wagtailsnippets/snippets/create.html"
 
     def run_before_hook(self):
-        return self.run_hook("before_create_snippet", self.request, self.model)
+        response = self.run_hook("before_create_snippet", self.request, self.model)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    f"Request to create {self.model._meta.verbose_name} was blocked by hook",
+                )
+            else:
+                return response
 
     def run_after_hook(self):
-        return self.run_hook("after_create_snippet", self.request, self.object)
+        response = self.run_hook("after_create_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                return None
+            else:
+                return response
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
@@ -276,15 +292,34 @@ class CopyView(generic.CopyViewMixin, CreateView):
     pass
 
 
-class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
+class EditView(
+    generic.CreateEditViewOptionalFeaturesMixin,
+    generic.EditView,
+):
     view_name = "edit"
     template_name = "wagtailsnippets/snippets/edit.html"
 
     def run_before_hook(self):
-        return self.run_hook("before_edit_snippet", self.request, self.object)
+        response = self.run_hook("before_edit_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    f"Request to edit {self.model._meta.verbose_name} was blocked by hook",
+                )
+            else:
+                return response
 
     def run_after_hook(self):
-        return self.run_hook("after_edit_snippet", self.request, self.object)
+        response = self.run_hook("after_edit_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                return None
+            else:
+                return response
 
     def _get_action_menu(self):
         return SnippetActionMenu(
