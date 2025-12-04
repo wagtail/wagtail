@@ -458,14 +458,6 @@ class ListBlockAdapter(Adapter):
             "classname": block.meta.form_classname,
             "attrs": block.meta.form_attrs or {},
             "collapsed": block.meta.collapsed,
-            "strings": {
-                "MOVE_UP": _("Move up"),
-                "MOVE_DOWN": _("Move down"),
-                "DRAG": _("Drag"),
-                "DUPLICATE": _("Duplicate"),
-                "DELETE": _("Delete"),
-                "ADD": _("Add"),
-            },
         }
         help_text = getattr(block.meta, "help_text", None)
         if help_text:
