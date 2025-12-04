@@ -45,10 +45,16 @@
 
 .tippy-box[data-theme='drilldown'] {
   @apply w-rounded w-bg-surface-page w-text-inherit w-shadow-md;
-  width: 300px;
+  // Let the dropdown grow to the width of its content.
+  max-width: none !important;
 
   .tippy-content {
     @apply w-p-0;
+  }
+
+  .w-dropdown__content {
+    width: fit-content;
+    min-width: 100%;
   }
 }
 

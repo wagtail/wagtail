@@ -1,6 +1,8 @@
 .w-drilldown__contents {
   max-height: min(480px, 70vh);
   overflow-y: auto;
+  width: auto !important;
+  min-width: 300px;
 }
 
 .w-drilldown .w-drilldown__toggle {
@@ -64,13 +66,17 @@
   // and reduce the default margin-bottom.
   margin-top: theme('spacing.2');
   margin-bottom: theme('spacing.2');
-  // Force fields to stay within the width of the drilldown.
-  max-width: calc(260px - theme('spacing.4'));
 }
 
 .w-drilldown__submenu .w-field__label {
   @apply w-label-1;
   margin-bottom: theme('spacing.3');
+}
+
+.w-drilldown__submenu select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box; /* Prevents padding from triggering scrollbars */
 }
 
 .w-drilldown__count {
