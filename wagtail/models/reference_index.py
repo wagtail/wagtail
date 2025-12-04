@@ -802,11 +802,17 @@ class ReferenceIndex(models.Model):
         if isinstance(field, models.ManyToOneRel):
             label = ""
             idx = 2
-            child_field = field.related_model._meta.get_field(model_path_components[idx])
+            child_field = field.related_model._meta.get_field(
+                model_path_components[idx]
+            )
             while isinstance(child_field, models.ManyToOneRel):
-                label += self.get_label(child_field.related_model._meta.verbose_name, idx)
+                label += self.get_label(
+                    child_field.related_model._meta.verbose_name, idx
+                )
                 idx += 2
-                child_field = field.related_model._meta.get_field(model_path_components[idx])
+                child_field = field.related_model._meta.get_field(
+                    model_path_components[idx]
+                )
             label += self.get_label(child_field.verbose_name, idx)
             return label
         elif isinstance(field, StreamField):
