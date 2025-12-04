@@ -37,6 +37,7 @@ Changelog
  * Maintenance: Move MANIFEST.in settings into pyproject.toml (Pravin Kamble)
  * Maintenance: Fix linting rules B006 and B904 (Vivek Subramani, Matt Westcott)
  * Maintenance: Remove jQuery dependency for image URL generator (LB (Ben) Johnston)
+ * Maintenance: Upgrade to django-modelcluster 6.4.1 for Django 6.0 compatibility (Matt Westcott)
 
 
 7.2.1 (26.11.2025)
