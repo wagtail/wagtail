@@ -361,7 +361,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.get()
 
         # Initial number of queries.
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(13):
             self.get()
 
         # Add 5 images.
@@ -371,11 +371,11 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
                 file=get_test_image_file(size=(1, 1)),
             )
 
-        with self.assertNumQueries(32):
+        with self.assertNumQueries(33):
             # The renditions needed don't exist yet. We have 20 = 5 * 4 additional queries.
             self.get()
 
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(13):
             # No extra additional queries since renditions exist and are saved in
             # the prefetched objects cache.
             self.get()
@@ -598,7 +598,14 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         }
         for layout in ["list", "grid"]:
             for ordering, expected_order in cases.items():
-                with self.subTest(layout=layout, ordering=ordering):
+                response = self.client.get(
+                    reverse("wagtailimages:index"),
+                    {"ordering": ordering, "layout": layout},
+                )
+                with (
+                    self.subTest(layout=layout, ordering=ordering),
+                    self.assertNumQueries(22),
+                ):
                     response = self.client.get(
                         reverse("wagtailimages:index"),
                         {"ordering": ordering, "layout": layout},
@@ -2229,6 +2236,38 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], image)
 
+    def test_list_mode(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+            uploaded_by_user=self.user,
+        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=image)
+
+        response = self.get({"layout": "list"})
+        with self.assertNumQueries(16):
+            response = self.get({"layout": "list"})
+
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "choose")
+        self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
+
+        soup = self.get_soup(response_json["html"])
+        table = soup.select_one("table")
+        self.assertIsNotNone(table)
+        ths = table.select("th")
+        self.assertEqual(
+            [th.text.strip() for th in ths],
+            ["Preview", "Title", "Collection", "Created", "Usage"],
+        )
+        tds = table.select("td")
+        self.assertEqual(
+            [td.get_text(separator="\n", strip=True) for td in tds],
+            ["", f"Test image\n{image.filename}", "Root", "Just now", "Used 1 time"],
+        )
+
     @override_settings(
         CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
     )
@@ -2252,6 +2291,10 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
             # No extra additional queries since renditions exist and are saved in
             # the prefetched objects cache.
             self.get()
+
+        with self.assertNumQueries(11):
+            # One additional query to get the usage count when displaying in list mode.
+            self.get({"layout": "list"})
 
 
 class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
@@ -3915,8 +3958,46 @@ class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/url_generator.html")
+        self.assertTemplateUsed(
+            response, "wagtailimages/images/url_generator_output.html"
+        )
         self.assertTemplateUsed(response, "wagtailadmin/generic/base.html")
 
+        # Check form defaults are based on image with correct defaults are provided to context
+        self.assertEqual(response.context["form"].initial["width"], self.image.width)
+        self.assertEqual(response.context["form"].initial["height"], self.image.height)
+        self.assertEqual(response.context["form"].initial["filter_method"], "original")
+        self.assertEqual(response.context["form"].initial["closeness"], "0")
+
+        # Check the attributes on the root form for swap usage
+        soup = self.get_soup(response.content)
+        form = soup.find("form", {"id": "image-url-generator-form"})
+        self.assertIsNotNone(form)
+        self.assertIn("w-swap", form["data-controller"])
+        self.assertEqual(form["data-w-swap-loading-class"], "loading")
+        self.assertEqual(
+            form["data-w-swap-messages-value"],
+            '{"400": "The filter options you have selected are not valid."}',
+        )
+        self.assertEqual(
+            form["data-w-swap-src-value"],
+            reverse("wagtailimages:url_generator_output", args=(self.image.id,)),
+        )
+        self.assertEqual(
+            form["data-w-swap-target-value"], "output[form='image-url-generator-form']"
+        )
+
+        # Check that the correct URLs are provided to context to show the result and preview on initial load
+        self.assertTrue(
+            response.context["preview_url"].endswith(
+                f"/images/{self.image.id}/preview/original/"
+            )
+        )
+        self.assertTrue(
+            response.context["result_url"].endswith(f"/{self.image.id}/original/")
+        )
+
+        # Check that the breadcrumbs are correct
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": reverse("wagtailimages:index"), "label": "Images"},
@@ -3935,6 +4016,75 @@ class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIsNotNone(closeness)
         self.assertEqual(closeness.get("min"), "0")
         self.assertEqual(closeness.get("max"), "100")
+
+    def test_get_with_search_params(self):
+        """
+        This tests that the view responds correctly with support for search params to override
+        the form initial values & generated preview/result URLs when partial params are provided.
+        """
+        # Get
+        response = self.client.get(
+            reverse("wagtailimages:url_generator", args=(self.image.id,))
+            + "?filter_method=max&closeness=5"
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check form defaults are based based on the search params & image sizes
+        self.assertEqual(response.context["form"].initial["width"], self.image.width)
+        self.assertEqual(response.context["form"].initial["height"], self.image.height)
+        self.assertEqual(response.context["form"].initial["filter_method"], "max")
+        self.assertEqual(response.context["form"].initial["closeness"], "5")
+
+        # Check that the correct URLs are provided to context to show the result based on the search params
+        # -c5 should not be included as it's not part of that filter spec
+        filter_spec = "max-640x480"
+
+        self.assertTrue(
+            response.context["preview_url"].endswith(
+                f"/images/{self.image.id}/preview/{filter_spec}/"
+            ),
+            f"`{response.context['preview_url']}` does not end with `/images/{self.image.id}/preview/{filter_spec}/`",
+        )
+        self.assertTrue(
+            response.context["result_url"].endswith(f"/{self.image.id}/{filter_spec}/"),
+            f"`{response.context['result_url']}` does not end with `/{self.image.id}/{filter_spec}/`",
+        )
+
+    def test_get_with_all_search_params(self):
+        """
+        This tests that the view responds correctly with support for search params to override
+        the form initial values & generated preview/result URLs.
+        """
+        # Get
+        response = self.client.get(
+            reverse("wagtailimages:url_generator", args=(self.image.id,))
+            + "?filter_method=fill&width=75&height=50&closeness=5"
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check form defaults are based based on the search params
+        self.assertEqual(response.context["form"].initial["width"], "75")
+        self.assertEqual(response.context["form"].initial["height"], "50")
+        self.assertEqual(response.context["form"].initial["filter_method"], "fill")
+        self.assertEqual(response.context["form"].initial["closeness"], "5")
+
+        # Check that the correct URLs are provided to context to show the result based on the search params
+        filter_spec = "fill-75x50-c5"
+
+        self.assertTrue(
+            response.context["preview_url"].endswith(
+                f"/images/{self.image.id}/preview/{filter_spec}/"
+            ),
+            f"`{response.context['preview_url']}` does not end with `/images/{self.image.id}/preview/{filter_spec}/`",
+        )
+        self.assertTrue(
+            response.context["result_url"].endswith(f"/{self.image.id}/{filter_spec}/"),
+            f"`{response.context['result_url']}` does not end with `/{self.image.id}/{filter_spec}/`",
+        )
 
     def test_get_bad_permissions(self):
         """
@@ -3958,8 +4108,33 @@ class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Check response
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
+    def test_get_with_bad_search_params(self):
+        """
+        This tests how the view responds when the search params
+        result in an invalid filter spec.
+        """
+        # Get
+        response = self.client.get(
+            reverse("wagtailimages:url_generator", args=(self.image.id,))
+            + "?filter_method=bad&width=75&height=50&closeness=5"
+        )
 
-class TestGenerateURLView(WagtailTestUtils, TestCase):
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check message provided
+        messages = [m.message for m in response.context["messages"]]
+        self.assertEqual(len(messages), 1)
+        self.assertIn(
+            "The filter options you have selected are not valid.", messages[0]
+        )
+
+
+class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
+    """
+    Test the output partial HTML response for swapping into the image URL generator page.
+    """
+
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -3976,17 +4151,27 @@ class TestGenerateURLView(WagtailTestUtils, TestCase):
         """
         # Get
         response = self.client.get(
-            reverse("wagtailimages:generate_url", args=(self.image.id, "fill-800x600"))
+            reverse(
+                "wagtailimages:url_generator_output",
+                args=(self.image.id,),
+            )
+            + "?filter_method=fill&width=800&height=600"
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "application/json")
 
-        # Check JSON
-        content_json = json.loads(response.content.decode())
+        # should only use the 'output' template
+        self.assertTemplateNotUsed(response, "wagtailimages/images/url_generator.html")
+        self.assertTemplateUsed(
+            response, "wagtailimages/images/url_generator_output.html"
+        )
+        self.assertTemplateNotUsed(response, "wagtailadmin/generic/base.html")
 
-        self.assertEqual(set(content_json.keys()), {"url", "preview_url"})
+        soup = self.get_soup(response.content)
+
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
+        preview_url = soup.find("img")["src"]
 
         expected_url = (
             "http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/"
@@ -3998,12 +4183,12 @@ class TestGenerateURLView(WagtailTestUtils, TestCase):
                 "image_id": self.image.id,
             }
         )
-        self.assertEqual(content_json["url"], expected_url)
+        self.assertEqual(result_url, expected_url)
 
         expected_preview_url = reverse(
             "wagtailimages:preview", args=(self.image.id, "fill-800x600")
         )
-        self.assertEqual(content_json["preview_url"], expected_preview_url)
+        self.assertEqual(preview_url, expected_preview_url)
 
     def test_get_bad_permissions(self):
         """
@@ -4020,21 +4205,18 @@ class TestGenerateURLView(WagtailTestUtils, TestCase):
 
         # Get
         response = self.client.get(
-            reverse("wagtailimages:generate_url", args=(self.image.id, "fill-800x600"))
+            reverse(
+                "wagtailimages:url_generator_output",
+                args=(self.image.id,),
+            )
+            + "?filter_method=fill&width=800&height=600"
         )
 
         # Check response
         self.assertEqual(response.status_code, 403)
-        self.assertEqual(response["Content-Type"], "application/json")
-
-        # Check JSON
-        self.assertJSONEqual(
+        self.assertEqual(
             response.content.decode(),
-            json.dumps(
-                {
-                    "error": "You do not have permission to generate a URL for this image.",
-                }
-            ),
+            "You do not have permission to generate a URL for this image.",
         )
 
     def test_get_bad_image(self):
@@ -4044,23 +4226,14 @@ class TestGenerateURLView(WagtailTestUtils, TestCase):
         # Get
         response = self.client.get(
             reverse(
-                "wagtailimages:generate_url", args=(self.image.id + 1, "fill-800x600")
+                "wagtailimages:url_generator_output",
+                args=(self.image.id + 1,),
             )
+            + "?filter_method=fill&width=800&height=600"
         )
 
         # Check response
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response["Content-Type"], "application/json")
-
-        # Check JSON
-        self.assertJSONEqual(
-            response.content.decode(),
-            json.dumps(
-                {
-                    "error": "Cannot find image.",
-                }
-            ),
-        )
 
     def test_get_bad_filter_spec(self):
         """
@@ -4069,23 +4242,251 @@ class TestGenerateURLView(WagtailTestUtils, TestCase):
         # Get
         response = self.client.get(
             reverse(
-                "wagtailimages:generate_url", args=(self.image.id, "bad-filter-spec")
+                "wagtailimages:url_generator_output",
+                args=(self.image.id,),
             )
+            + "?filter_method=bad-filter-spec"
         )
 
         # Check response
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response["Content-Type"], "application/json")
-
-        # Check JSON
-        self.assertJSONEqual(
+        self.assertEqual(
             response.content.decode(),
-            json.dumps(
-                {
-                    "error": "Invalid filter spec.",
-                }
-            ),
+            "Invalid filter spec: `bad-filter-spec`. Unrecognised operation: bad.",
         )
+
+    def test_get_with_default_filter_spec(self):
+        response = self.client.get(
+            reverse("wagtailimages:url_generator_output", args=(self.image.id,))
+        )
+
+        # check response and find key values
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # check the result URL from the textarea
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
+        expected_url = (
+            "http://localhost/images/%(signature)s/%(image_id)d/original/"
+            % {
+                "signature": urllib.parse.quote(
+                    generate_signature(self.image.id, "original"),
+                    safe=urlquote_safechars,
+                ),
+                "image_id": self.image.id,
+            }
+        )
+        self.assertEqual(result_url, expected_url)
+
+        # check the preview URL from the image
+        preview_url = soup.find("img")["src"]
+        expected_preview_url = reverse(
+            "wagtailimages:preview", args=(self.image.id, "original")
+        )
+        self.assertEqual(preview_url, expected_preview_url)
+
+    def test_get_with_width_filter_spec(self):
+        response = self.client.get(
+            reverse("wagtailimages:url_generator_output", args=(self.image.id,))
+            + "?filter_method=width&width=800&height=300"
+            # height should be ignored as it's not part of the width filter spec values
+        )
+
+        # check response and find key values
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # check the result URL from the textarea
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
+        expected_url = (
+            "http://localhost/images/%(signature)s/%(image_id)d/width-800/"
+            % {
+                "signature": urllib.parse.quote(
+                    generate_signature(self.image.id, "width-800"),
+                    safe=urlquote_safechars,
+                ),
+                "image_id": self.image.id,
+            }
+        )
+        self.assertEqual(result_url, expected_url)
+
+        # check the preview URL from the image
+        preview_url = soup.find("img")["src"]
+        expected_preview_url = reverse(
+            "wagtailimages:preview", args=(self.image.id, "width-800")
+        )
+        self.assertEqual(preview_url, expected_preview_url)
+
+    def test_get_with_height_filter_spec(self):
+        response = self.client.get(
+            reverse("wagtailimages:url_generator_output", args=(self.image.id,))
+            + "?filter_method=height&width=800&height=320&closeness=20"
+            # width & closeness should be ignored as it's not part of the height filter spec values
+        )
+
+        # check response and find key values
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # check the result URL from the textarea
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
+        expected_url = (
+            "http://localhost/images/%(signature)s/%(image_id)d/height-320/"
+            % {
+                "signature": urllib.parse.quote(
+                    generate_signature(self.image.id, "height-320"),
+                    safe=urlquote_safechars,
+                ),
+                "image_id": self.image.id,
+            }
+        )
+        self.assertEqual(result_url, expected_url)
+
+        # check the preview URL from the image
+        preview_url = soup.find("img")["src"]
+        expected_preview_url = reverse(
+            "wagtailimages:preview", args=(self.image.id, "height-320")
+        )
+        self.assertEqual(preview_url, expected_preview_url)
+
+    def test_get_with_fill_with_defaults_filter_spec(self):
+        """
+        When only the `fill` filter spec is provided on its own, it should
+        resolve default width & height values from the image size.
+        """
+
+        response = self.client.get(
+            reverse("wagtailimages:url_generator_output", args=(self.image.id,))
+            + "?filter_method=fill"
+        )
+
+        # check response and find key values
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # check the result URL from the textarea
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
+        expected_url = (
+            "http://localhost/images/%(signature)s/%(image_id)d/fill-640x480/"
+            % {
+                "signature": urllib.parse.quote(
+                    generate_signature(self.image.id, "fill-640x480"),
+                    safe=urlquote_safechars,
+                ),
+                "image_id": self.image.id,
+            }
+        )
+        self.assertEqual(result_url, expected_url)
+
+        # check the preview URL from the image
+        preview_url = soup.find("img")["src"]
+        expected_preview_url = reverse(
+            "wagtailimages:preview", args=(self.image.id, "fill-640x480")
+        )
+        self.assertEqual(preview_url, expected_preview_url)
+
+    def test_get_with_min_with_defaults_filter_spec(self):
+        """
+        When only the `min` filter spec is provided on its own, it should
+        resolve default width & height values from the image size.
+        """
+
+        response = self.client.get(
+            reverse("wagtailimages:url_generator_output", args=(self.image.id,))
+            + "?filter_method=min"
+        )
+
+        # check response and find key values
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # check the result URL from the textarea
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
+        expected_url = (
+            "http://localhost/images/%(signature)s/%(image_id)d/min-640x480/"
+            % {
+                "signature": urllib.parse.quote(
+                    generate_signature(self.image.id, "min-640x480"),
+                    safe=urlquote_safechars,
+                ),
+                "image_id": self.image.id,
+            }
+        )
+        self.assertEqual(result_url, expected_url)
+
+        # check the preview URL from the image
+        preview_url = soup.find("img")["src"]
+        expected_preview_url = reverse(
+            "wagtailimages:preview", args=(self.image.id, "min-640x480")
+        )
+        self.assertEqual(preview_url, expected_preview_url)
+
+    def test_get_with_max_with_defaults_filter_spec(self):
+        """
+        When only the `max` filter spec is provided on its own, it should
+        resolve default width & height values from the image size.
+        """
+
+        response = self.client.get(
+            reverse("wagtailimages:url_generator_output", args=(self.image.id,))
+            + "?filter_method=max"
+        )
+
+        # check response and find key values
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # check the result URL from the textarea
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
+        expected_url = (
+            "http://localhost/images/%(signature)s/%(image_id)d/max-640x480/"
+            % {
+                "signature": urllib.parse.quote(
+                    generate_signature(self.image.id, "max-640x480"),
+                    safe=urlquote_safechars,
+                ),
+                "image_id": self.image.id,
+            }
+        )
+        self.assertEqual(result_url, expected_url)
+
+        # check the preview URL from the image
+        preview_url = soup.find("img")["src"]
+        expected_preview_url = reverse(
+            "wagtailimages:preview", args=(self.image.id, "max-640x480")
+        )
+        self.assertEqual(preview_url, expected_preview_url)
+
+    def test_get_with_fill_with_all_values_filter_spec(self):
+        response = self.client.get(
+            reverse("wagtailimages:url_generator_output", args=(self.image.id,))
+            + "?filter_method=fill&width=320&height=120&closeness=20"
+        )
+
+        # check response and find key values
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # check the result URL from the textarea
+        result_url = soup.find("textarea", {"id": "result-url"}).get_text()
+        expected_url = (
+            "http://localhost/images/%(signature)s/%(image_id)d/fill-320x120-c20/"
+            % {
+                "signature": urllib.parse.quote(
+                    generate_signature(self.image.id, "fill-320x120-c20"),
+                    safe=urlquote_safechars,
+                ),
+                "image_id": self.image.id,
+            }
+        )
+        self.assertEqual(result_url, expected_url)
+
+        # check the preview URL from the image
+        preview_url = soup.find("img")["src"]
+        expected_preview_url = reverse(
+            "wagtailimages:preview", args=(self.image.id, "fill-320x120-c20")
+        )
+        self.assertEqual(preview_url, expected_preview_url)
 
 
 class TestPreviewView(WagtailTestUtils, TestCase):
