@@ -107,8 +107,6 @@ jobs:
             experimental: true
             install_extras: |
               pip install "django-tasks>=0.9,<0.10"
-              pip uninstall -y django-modelcluster
-              pip install "git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster"
           - python: '3.14'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
@@ -117,8 +115,6 @@ jobs:
             parallel: '--parallel'
             install_extras: |
               pip install "django-tasks>=0.9,<0.10"
-              pip uninstall -y django-modelcluster
-              pip install "git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster"
     services:
       postgres:
         image: ${{ matrix.postgres || 'postgres:12' }}
