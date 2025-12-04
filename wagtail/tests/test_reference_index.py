@@ -325,12 +325,10 @@ class TestDescribeOnDelete(TestCase):
             path="path/",
             slug="book-page",
             depth=1,
-            content="Book page content"
+            content="Book page content",
         )
         cls.simple_page.save()
-        cls.book_category = BookCategory(
-            name="Thriller"
-        )
+        cls.book_category = BookCategory(name="Thriller")
         cls.book_category.save()
 
         cls.book = Book(
@@ -600,11 +598,13 @@ class TestDescribeOnDelete(TestCase):
 
     def test_multiple_many_to_one_rel_fields(self):
         references = ReferenceIndex.objects.filter(
-            model_path='books.item.book_relationship.item.page',
-            to_content_type=ContentType.objects.get(model='page')
+            model_path="books.item.book_relationship.item.page",
+            to_content_type=ContentType.objects.get(model="page"),
         )
         self.assertEqual(references.count(), 1)
-        self.assertEqual(references[0].describe_source_field(), "Book relation ship → Page")
+        self.assertEqual(
+            references[0].describe_source_field(), "Book relation ship → Page"
+        )
 
 
 class TestBulkFetch(TestCase):
