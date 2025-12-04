@@ -345,6 +345,34 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Check that the snippet is not edited
         self.assertEqual(self.snippet.text, "I'm a lockable snippet!")
 
+    def test_edit_post_locked_with_json_response(self):
+        # Lock the snippet
+        self.lock_snippet(self.create_user("user2"))
+
+        # Try to edit the snippet
+        response = self.client.post(
+            self.get_url("edit"),
+            {"text": "Edited while locked"},
+            headers={"Accept": "application/json"},
+        )
+        self.refresh_snippet()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "locked",
+                "errorMessage": f"The {self.model_name} could not be saved as it is locked",
+            },
+        )
+
+        # Check that the snippet is still locked
+        self.assertTrue(self.snippet.locked)
+
+        # Check that the snippet is not edited
+        self.assertEqual(self.snippet.text, "I'm a lockable snippet!")
+
     def test_edit_post_locked_by_self(self):
         """A user can edit a snippet that is locked by themselves."""
         # Lock the snippet

@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -48,11 +48,11 @@ class BaseTestSnippetEditView(WagtailTestUtils, TestCase):
         args = [quote(snippet.pk)]
         return reverse(snippet.snippet_viewset.get_url_name("edit"), args=args)
 
-    def get(self, params=None):
-        return self.client.get(self.get_edit_url(), params)
+    def get(self, params=None, headers=None):
+        return self.client.get(self.get_edit_url(), params, headers=headers)
 
-    def post(self, post_data=None):
-        return self.client.post(self.get_edit_url(), post_data)
+    def post(self, post_data=None, headers=None):
+        return self.client.post(self.get_edit_url(), post_data, headers=headers)
 
     def setUp(self):
         self.user = self.login()
@@ -263,6 +263,22 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
 
+    def test_edit_invalid_with_json_response(self):
+        response = self.post(
+            post_data={"foo": "bar"},
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "validation_error",
+                "errorMessage": "The advert could not be saved due to errors.",
+            },
+        )
+
     def test_edit(self):
         response = self.post(
             post_data={
@@ -275,6 +291,26 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         snippets = Advert.objects.filter(text="edited_test_advert")
         self.assertEqual(snippets.count(), 1)
         self.assertEqual(snippets.first().url, "http://www.example.com/edited")
+
+    def test_edit_with_json_response(self):
+        response = self.post(
+            post_data={
+                "text": "edited_test_advert",
+                "url": "http://www.example.com/edited",
+            },
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+
+        snippets = Advert.objects.filter(text="edited_test_advert")
+        self.assertEqual(snippets.count(), 1)
+        snippet = snippets.first()
+        self.assertEqual(snippet.url, "http://www.example.com/edited")
+
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], snippet.pk)
 
     def test_edit_with_tags(self):
         tags = ["hello", "world"]
@@ -307,6 +343,44 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+    def test_before_edit_snippet_hook_get_with_json_response(self):
+        def non_json_hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, "test_advert")
+            self.assertEqual(instance.url, "http://www.example.com")
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, "test_advert")
+            self.assertEqual(instance.url, "http://www.example.com")
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_edit_snippet", non_json_hook_func):
+            response = self.get(
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to edit advert was blocked by hook",
+            },
+        )
+
+        with self.register_hook("before_edit_snippet", json_hook_func):
+            response = self.get(
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
     def test_before_edit_snippet_hook_post(self):
         def hook_func(request, instance):
             self.assertIsInstance(request, HttpRequest)
@@ -324,6 +398,60 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was updated
+        self.assertEqual(Advert.objects.get().text, "test_advert")
+
+    def test_before_edit_snippet_hook_post_with_json_response(self):
+        def non_json_hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, "test_advert")
+            self.assertEqual(instance.url, "http://www.example.com")
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, "test_advert")
+            self.assertEqual(instance.url, "http://www.example.com")
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_edit_snippet", non_json_hook_func):
+            post_data = {
+                "text": "Edited and runs hook",
+                "url": "http://www.example.com/hook-enabled-edited",
+            }
+            response = self.post(
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to edit advert was blocked by hook",
+            },
+        )
+
+        # Request intercepted before advert was updated
+        self.assertEqual(Advert.objects.get().text, "test_advert")
+
+        with self.register_hook("before_edit_snippet", json_hook_func):
+            post_data = {
+                "text": "Edited and runs hook",
+                "url": "http://www.example.com/hook-enabled-edited",
+            }
+            response = self.post(
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
 
         # Request intercepted before advert was updated
         self.assertEqual(Advert.objects.get().text, "test_advert")
@@ -348,6 +476,54 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         # Request intercepted after advert was updated
         self.assertEqual(Advert.objects.get().text, "Edited and runs hook")
+
+    def test_after_edit_snippet_hook_with_json_response(self):
+        def non_json_hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, "Edited and runs hook")
+            self.assertEqual(instance.url, "http://www.example.com/hook-enabled-edited")
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, "Edited and runs hook x2")
+            self.assertEqual(instance.url, "http://www.example.com/hook-enabled-edited")
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("after_edit_snippet", non_json_hook_func):
+            post_data = {
+                "text": "Edited and runs hook",
+                "url": "http://www.example.com/hook-enabled-edited",
+            }
+            response = self.post(
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        # hook response is ignored, since it's not a JSON response
+        self.assertEqual(response.json()["success"], True)
+
+        # Request intercepted after advert was updated
+        self.assertEqual(Advert.objects.get().text, "Edited and runs hook")
+
+        with self.register_hook("after_edit_snippet", json_hook_func):
+            post_data = {
+                "text": "Edited and runs hook x2",
+                "url": "http://www.example.com/hook-enabled-edited",
+            }
+            response = self.post(
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
+        # Request intercepted after advert was updated
+        self.assertEqual(Advert.objects.get().text, "Edited and runs hook x2")
 
     def test_register_snippet_action_menu_item(self):
         class TestSnippetActionMenuItem(ActionMenuItem):
