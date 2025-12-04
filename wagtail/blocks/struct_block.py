@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
@@ -135,8 +136,8 @@ class BlockGroup:
         """
         self.children = children
         self.settings = settings or []
-        self.heading = heading
-        self.clean_name = safe_snake_case(heading) or "block_group"
+        self.heading = heading or _("Group")
+        self.clean_name = safe_snake_case(self.heading)
         self.classname = classname
         self.help_text = help_text
         self.icon = icon
