@@ -2,6 +2,7 @@ from urllib.parse import urlparse
 
 from django.db import models
 from django.urls import Resolver404
+from django.utils.encoding import iri_to_uri, uri_to_iri
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -160,8 +161,17 @@ class Redirect(models.Model):
         # Parse url
         url_parsed = urlparse(url)
 
-        # Path must start with / but not end with /
         path = url_parsed.path
+
+        # Normalize percent-encoding to use uppercase hex (e.g., %eb -> %EB) if the path
+        # is already percent-encoded. We do this by checking if the path contains % signs.
+        # If it does, we decode and re-encode to get canonical uppercase form.
+        # If it doesn't, we leave Unicode characters as-is.
+        if "%" in path:
+            # Path is percent-encoded, normalize to uppercase hex
+            path = iri_to_uri(uri_to_iri(path))
+
+        # Path must start with / but not end with /
         if not path.startswith("/"):
             path = "/" + path
 
@@ -214,6 +224,12 @@ class Redirect(models.Model):
             )
         else:
             self.redirect_page_route_path = ""
+
+    def save(self, *args, **kwargs):
+        # Ensure old_path is normalized before saving
+        # This handles cases where save() is called without full_clean()
+        self.old_path = Redirect.normalise_path(self.old_path)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("redirect")

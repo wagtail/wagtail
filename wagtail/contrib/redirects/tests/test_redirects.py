@@ -545,6 +545,24 @@ class TestRedirects(TestCase):
             response, "/redirectto", status_code=301, fetch_redirect_response=False
         )
 
+    def test_redirect_with_encoded_unicode_to_decoded_request(self):
+        # Test the bug scenario: redirect stored with URL-encoded unicode,
+        # but user navigates to the decoded version
+        # This uses Korean characters (로스트아크 = Lost Ark)
+        redirect = models.Redirect(
+            old_path="/games/%eb%a1%9c%ec%8a%a4%ed%8a%b8%ec%95%84%ed%81%ac",
+            redirect_link="/lost-ark",
+        )
+        redirect.save()
+
+        # Navigate using the decoded unicode URL
+        response = self.client.get("/games/로스트아크/")
+
+        # Should successfully redirect even though stored path is encoded
+        self.assertRedirects(
+            response, "/lost-ark", status_code=301, fetch_redirect_response=False
+        )
+
     def test_reject_null_characters(self):
         response = self.client.get("/test%00test/")
         self.assertEqual(response.status_code, 404)
