@@ -114,7 +114,8 @@ class BlockGroup:
         :type heading: str
 
         :param classname: Additional CSS class name(s) to add to the block group's main
-            content area.
+            content area. To set the group to be initially collapsed, include the
+            ``collapsed`` class here.
         :type classname: str
 
         :param help_text: Help text to display below the block group's heading.

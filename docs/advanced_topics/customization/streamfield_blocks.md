@@ -163,7 +163,7 @@ class PersonBlock(blocks.StructBlock):
         )
 ```
 
-You can nest `BlockGroup`s to group multiple blocks inside a collapsible panel. In addition to `children` and `settings` arguments, nested `BlockGroup`s also accept `heading`, `classname`, `help_text`, `icon`, `attrs`, and `label_format` arguments, which are used to customize the appearance of the group in the editing interface.
+You can nest `BlockGroup`s to group multiple blocks inside a collapsible panel. In addition to `children` and `settings` arguments, nested `BlockGroup`s also accept `heading`, `classname`, `help_text`, `icon`, `attrs`, and `label_format` arguments, which are used to customize the appearance of the group in the editing interface. To set a group to be initially collapsed, add the `collapsed` class to the `classname` argument.
 
 ```python
 class PersonBlock(blocks.StructBlock):
