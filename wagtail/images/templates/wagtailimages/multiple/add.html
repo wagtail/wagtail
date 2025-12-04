@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block main_content %}
+    <p>{{ form_media.css }}</p>
     <div
         class="drop-zone w-mt-8"
         data-controller="w-zone"
@@ -50,6 +51,19 @@
                 {% endrawformattedfield %}
             {% endif %}
         </form>
+    </div>
+
+    <div class="w-mt-8 w-p-4 w-bg-grey-50">
+        <h2 class="w-mb-2">{% trans "Or add from URLs" %}</h2>
+        <p>{% trans "Paste one image URL per line." %}</p>
+        <textarea id="url-input-area" class="w-w-full" rows="5"></textarea>
+        <button
+            id="fetch-urls-button"
+            class="button w-mt-2"
+            data-url="{% url 'wagtailimages:add_from_url' %}"
+        >
+            {% trans "Fetch images" %}
+        </button>
     </div>
 
     <div id="overall-progress" class="progress progress-secondary">
