@@ -31,7 +31,7 @@ export class OrderableController extends Controller<HTMLElement> {
   static values = {
     animation: { default: 200, type: Number },
     container: { default: '', type: String },
-    messages: { default: '{}', type: String },
+    messages: { default: {}, type: Object },
     url: String,
   };
 
@@ -46,37 +46,26 @@ export class OrderableController extends Controller<HTMLElement> {
   declare readonly hasChosenClass: boolean;
   declare readonly hasDragClass: boolean;
   declare readonly hasGhostClass: boolean;
+  declare readonly hasMessagesValue: boolean;
 
   /** Transition animation duration for re-ordering. */
   declare animationValue: number;
   /** A selector to determine the container that will be the parent of the orderable elements. */
   declare containerValue: string;
-  /** JSON string containing success and error messages. */
-  declare messagesValue: string;
+  /** Object containing success and error messages. */
+  declare messagesValue: { success: string; error: string };
   /** Base URL template to use for submitting an updated order for a specific item. */
   declare urlValue: string;
 
   order: string[];
   sortable: ReturnType<typeof Sortable.create>;
-  messages: { success: string; error: string };
 
   constructor(context) {
     super(context);
     this.order = [];
-    this.messages = { success: '__LABEL__', error: 'Failed to reorder items. Please try again.' };
   }
 
   connect() {
-    try {
-      const parsed = JSON.parse(this.messagesValue || '{}');
-      this.messages = {
-        success: parsed.success || '__LABEL__',
-        error: parsed.error || 'Failed to reorder items. Please try again.',
-      };
-    } catch {
-      this.messages = { success: '__LABEL__', error: 'Failed to reorder items. Please try again.' };
-    }
-
     const containerSelector = this.containerValue;
     const container = ((containerSelector &&
       this.element.querySelector(containerSelector)) ||
@@ -218,11 +207,10 @@ export class OrderableController extends Controller<HTMLElement> {
       url += '?position=' + newIndex;
     }
 
-    const successTemplate = this.messages?.success || '__LABEL__';
-    const successMessage = successTemplate.replace(
-      '__LABEL__',
-      label || 'item',
-    );
+    const successTemplate = this.messagesValue?.success;
+    const successMessage = successTemplate
+      ? successTemplate.replace('__LABEL__', label || 'item')
+      : null;
 
     fetch(url, {
       method: 'POST',
@@ -238,26 +226,30 @@ export class OrderableController extends Controller<HTMLElement> {
         }
       })
       .then(() => {
-        this.dispatch('w-messages:add', {
-          prefix: '',
-          target: window.document,
-          detail: { clear: true, text: successMessage, type: 'success' },
-          cancelable: false,
-        });
+        if (successMessage) {
+          this.dispatch('w-messages:add', {
+            prefix: '',
+            target: window.document,
+            detail: { clear: true, text: successMessage, type: 'success' },
+            cancelable: false,
+          });
+        }
       })
       .catch(() => {
-        const errorMessage = this.messages?.error || 'Failed to reorder items. Please try again.';
-        
-        this.dispatch('w-messages:add', {
-          prefix: '',
-          target: window.document,
-          detail: { 
-            clear: true, 
-            text: errorMessage, 
-            type: 'error' 
-          },
-          cancelable: false,
-        });
+        if (this.messagesValue?.error) {
+          const errorMessage = this.messagesValue.error;
+          
+          this.dispatch('w-messages:add', {
+            prefix: '',
+            target: window.document,
+            detail: { 
+              clear: true, 
+              text: errorMessage, 
+              type: 'error' 
+            },
+            cancelable: false,
+          });
+        }
         
         this.sortable.sort(this.order, true);
       });
