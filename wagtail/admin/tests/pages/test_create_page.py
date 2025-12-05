@@ -592,7 +592,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(
             response.json(),
             {
-                "error": "The page could not be created due to validation errors.",
+                "success": False,
+                "errorCode": "validation_error",
+                "errorMessage": "The page could not be created due to validation errors.",
             },
         )
 
@@ -1890,7 +1892,12 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            response.json(), {"error": "Request to create page was blocked by hook"}
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to create page was blocked by hook",
+            },
         )
 
         with self.register_hook("before_create_page", json_hook_func):
@@ -1965,7 +1972,12 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            response.json(), {"error": "Request to create page was blocked by hook"}
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to create page was blocked by hook",
+            },
         )
 
         # page should not be created

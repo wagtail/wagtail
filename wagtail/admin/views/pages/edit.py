@@ -377,7 +377,7 @@ class EditView(
             if self.expects_json_response and not self.response_is_json(response):
                 # Hook response is not suitable for a JSON response, so construct our own error response
                 return self.json_error_response(
-                    "Request to edit page was blocked by hook"
+                    "blocked_by_hook", "Request to edit page was blocked by hook"
                 )
             else:
                 return response
@@ -586,7 +586,7 @@ class EditView(
         except PermissionDenied as e:
             # The revision passed to overwrite_revision was not valid
             if self.expects_json_response:
-                return self.json_error_response(str(e))
+                return self.json_error_response("invalid_revision", str(e))
             else:
                 messages.error(self.request, str(e))
                 self.has_unsaved_changes = True
@@ -897,7 +897,7 @@ class EditView(
         elif self.locked_for_user:
             if self.expects_json_response:
                 return self.json_error_response(
-                    "The page could not be saved as it is locked."
+                    "locked", _("The page could not be saved as it is locked.")
                 )
             else:
                 messages.error(
@@ -906,7 +906,8 @@ class EditView(
         else:
             if self.expects_json_response:
                 return self.json_error_response(
-                    "The page could not be saved due to validation errors."
+                    "validation_error",
+                    _("The page could not be saved due to validation errors."),
                 )
             else:
                 messages.validation_error(

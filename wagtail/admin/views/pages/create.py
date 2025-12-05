@@ -115,7 +115,7 @@ class CreateView(
             if self.expects_json_response and not self.response_is_json(response):
                 # Hook response is not suitable for a JSON response, so construct our own error response
                 return self.json_error_response(
-                    "Request to create page was blocked by hook"
+                    "blocked_by_hook", "Request to create page was blocked by hook"
                 )
             else:
                 return response
@@ -404,7 +404,8 @@ class CreateView(
     def form_invalid(self, form):
         if self.expects_json_response:
             return self.json_error_response(
-                "The page could not be created due to validation errors."
+                "validation_error",
+                _("The page could not be created due to validation errors."),
             )
         else:
             messages.validation_error(
