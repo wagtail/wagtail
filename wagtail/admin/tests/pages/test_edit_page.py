@@ -626,7 +626,9 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertEqual(
             response.json(),
             {
-                "error": "Cannot overwrite a revision that is not the latest for this page"
+                "success": False,
+                "errorCode": "invalid_revision",
+                "errorMessage": "Cannot overwrite a revision that is not the latest for this page",
             },
         )
 
@@ -852,7 +854,12 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            response.json(), {"error": "The page could not be saved as it is locked."}
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "locked",
+                "errorMessage": "The page could not be saved as it is locked.",
+            },
         )
 
         # The page shouldn't have "has_unpublished_changes" flag set
@@ -2204,7 +2211,12 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            response.json(), {"error": "Request to edit page was blocked by hook"}
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to edit page was blocked by hook",
+            },
         )
 
         with self.register_hook("before_edit_page", json_hook_func):
@@ -2268,7 +2280,12 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            response.json(), {"error": "Request to edit page was blocked by hook"}
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to edit page was blocked by hook",
+            },
         )
 
         # page should not be edited
@@ -3407,7 +3424,11 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
             response.json(),
-            {"error": "The page could not be saved due to validation errors."},
+            {
+                "success": False,
+                "errorCode": "validation_error",
+                "errorMessage": "The page could not be saved due to validation errors.",
+            },
         )
 
     def test_non_field_error(self):

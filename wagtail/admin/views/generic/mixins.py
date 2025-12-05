@@ -895,8 +895,11 @@ class JsonPostResponseMixin:
     def expects_json_response(self):
         return not self.request.accepts("text/html")
 
-    def json_error_response(self, message):
-        return JsonResponse({"error": message}, status=400)
+    def json_error_response(self, error_code, error_message):
+        return JsonResponse(
+            {"success": False, "errorCode": error_code, "errorMessage": error_message},
+            status=400,
+        )
 
     @staticmethod
     def response_is_json(response):
