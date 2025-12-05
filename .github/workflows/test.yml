@@ -49,7 +49,7 @@ jobs:
       matrix:
         include:
           - python: '3.13'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             check_template_number_format: '1'
             parallel: '--parallel'
 
@@ -94,14 +94,14 @@ jobs:
             experimental: false
             parallel: '--parallel'
           - python: '3.14'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             notz: notz
             experimental: false
             parallel: '--parallel'
           - python: '3.14'
-            django: 'git+https://github.com/django/django.git@stable/6.0.x#egg=Django'
+            django: 'Django>=6.0,<6.1'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
@@ -191,12 +191,12 @@ jobs:
             experimental: false
             mysql: 'mariadb:10.5'
           - python: '3.12'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             experimental: false
             mysql: 'mariadb:11.4'
             emailuser: emailuser
           - python: '3.12'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             experimental: false
             mysql: 'mysql:8.4'
             emailuser: emailuser
@@ -252,7 +252,7 @@ jobs:
       matrix:
         include:
           - python: '3.14'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits
