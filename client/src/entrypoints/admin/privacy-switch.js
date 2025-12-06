@@ -1,32 +1,49 @@
-/* global ModalWorkflow */
+import { domReady } from '../../utils/domReady';
+import { encodeForm } from '../../utils/encodeForm';
 
-import $ from 'jquery';
+/**
+ * Initializes the privacy switch functionality.
+ * Attaches event listeners to privacy trigger buttons to open the ModalWorkflow.
+ */
+function initPrivacySwitch() {
+  const privacyTriggers = document.querySelectorAll(
+    '[data-a11y-dialog-show="set-privacy"]',
+  );
 
-$(() => {
-  /* Interface to set permissions from the explorer / editor */
-  $('[data-a11y-dialog-show="set-privacy"]').on('click', function setPrivacy() {
-    ModalWorkflow({
-      dialogId: 'set-privacy',
-      url: this.getAttribute('data-url'),
-      onload: {
-        set_privacy(modal) {
-          $('form', modal.body).on('submit', function handleSubmit() {
-            modal.postForm(this.action, $(this).serialize());
-            return false;
-          });
+  privacyTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      const url = trigger.getAttribute('data-url');
+
+      window.ModalWorkflow({
+        dialogId: 'set-privacy',
+        url,
+        onload: {
+          set_privacy(modal) {
+            const form = modal.body.querySelector('form');
+            if (form) {
+              form.addEventListener('submit', (submitEvent) => {
+                submitEvent.preventDefault();
+                // Use getAttribute('action') to preserve relative URLs if needed, falling back to property
+                const actionUrl = form.getAttribute('action') || form.action;
+                modal.postForm(actionUrl, encodeForm(form));
+              });
+            }
+          },
+          set_privacy_done(modal, { is_public: isPublic }) {
+            document.dispatchEvent(
+              new CustomEvent('w-privacy:changed', {
+                bubbles: true,
+                cancelable: false,
+                detail: { isPublic },
+              }),
+            );
+            modal.close();
+          },
         },
-        set_privacy_done(modal, { is_public: isPublic }) {
-          document.dispatchEvent(
-            new CustomEvent('w-privacy:changed', {
-              bubbles: true,
-              cancelable: false,
-              detail: { isPublic },
-            }),
-          );
-          modal.close();
-        },
-      },
+      });
     });
-    return false;
   });
-});
+}
+
+domReady().then(initPrivacySwitch);
