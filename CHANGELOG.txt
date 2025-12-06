@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Maintenance: Ignore `cached_property` deprecation in project template tests on Django 6.2+ (Sage Abdullah)
+ * Maintenance: Remove jQuery usage in the privacy switch (Naman Khandelwal, Sage Abdullah)
 
 
 8.1 (xx.xx.xxxx) - IN DEVELOPMENT

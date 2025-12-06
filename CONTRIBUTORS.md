@@ -1022,6 +1022,7 @@
 * Dexx-tech
 * Roee Sivan
 * Beth Parnell
+* Naman Khandelwal
 
 ## Translators
 
