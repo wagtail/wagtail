@@ -1,19 +1,30 @@
-/* global ModalWorkflow */
+import { domReady } from '../../utils/domReady';
+import { encodeForm } from '../../utils/encodeForm';
 
-import $ from 'jquery';
+/**
+ * Initializes the privacy switch functionality.
+ * Attaches event listeners to privacy trigger buttons to open the ModalWorkflow.
+ */
+function initPrivacySwitch() {
+  function setPrivacy(event) {
+    event.preventDefault();
+    const trigger = event.currentTarget;
+    const url = trigger.getAttribute('data-url');
 
-$(() => {
-  /* Interface to set permissions from the explorer / editor */
-  function setPrivacy() {
-    ModalWorkflow({
+    window.ModalWorkflow({
       dialogId: 'set-privacy',
-      url: this.getAttribute('data-url'),
+      url,
       onload: {
         set_privacy(modal) {
-          $('form', modal.body).on('submit', function handleSubmit() {
-            modal.postForm(this.action, $(this).serialize());
-            return false;
-          });
+          const form = modal.body.querySelector('form');
+          if (form) {
+            form.addEventListener('submit', (submitEvent) => {
+              submitEvent.preventDefault();
+              // Use getAttribute('action') to preserve relative URLs if needed, falling back to property
+              const actionUrl = form.getAttribute('action') || form.action;
+              modal.postForm(actionUrl, encodeForm(form));
+            });
+          }
         },
         set_privacy_done(modal, { is_public: isPublic }) {
           document.dispatchEvent(
@@ -27,13 +38,25 @@ $(() => {
         },
       },
     });
-    return false;
   }
 
-  $('[data-a11y-dialog-show="set-privacy"]').on('click', setPrivacy);
+  function bindPrivacySwitch() {
+    const privacyTriggers = document.querySelectorAll(
+      '[data-a11y-dialog-show="set-privacy"]',
+    );
+
+    privacyTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', setPrivacy);
+    });
+  }
+
+  bindPrivacySwitch();
 
   // Re-bind after side panel content is refreshed e.g. via autosave
-  $(document).on('w-autosave:success', () => {
-    $('[data-a11y-dialog-show="set-privacy"]').on('click', setPrivacy);
+  document.addEventListener('w-autosave:success', () => {
+    bindPrivacySwitch();
   });
-});
+}
+
+domReady().then(initPrivacySwitch);
+
