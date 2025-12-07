@@ -2,7 +2,15 @@
  * Encodes form data into a URL-encoded string (application/x-www-form-urlencoded).
  * Replacement for jQuery's $(form).serialize()
  */
-export const encodeForm = (form: HTMLFormElement): string => {
+export function encodeForm(form: HTMLFormElement): string {
   const formData = new FormData(form);
-  return new URLSearchParams(formData as any).toString();
-};
+  const params = new URLSearchParams();
+
+  Array.from(formData.entries()).forEach(([key, value]) => {
+    const valueString =
+      typeof value === 'string' ? value : (value as File)?.name || '';
+    params.append(key, valueString);
+  });
+
+  return params.toString();
+}
