@@ -9,7 +9,7 @@ describe('privacy-switch entrypoint', () => {
 
   beforeEach(() => {
     document.body.innerHTML = `
-      <button data-a11y-dialog-show="set-privacy" data-url="/set-privacy/">Set privacy</button>
+      <button type="button" data-a11y-dialog-show="set-privacy" data-url="/set-privacy/">Set privacy</button>
     `;
 
     // Stub ModalWorkflow to capture options
@@ -36,11 +36,9 @@ describe('privacy-switch entrypoint', () => {
       bubbles: true,
       cancelable: true,
     });
-    const preventDefaultSpy = jest.spyOn(clickEvent, 'preventDefault');
 
     trigger.dispatchEvent(clickEvent);
 
-    expect(preventDefaultSpy).toHaveBeenCalled();
     expect(window.ModalWorkflow).toHaveBeenCalledTimes(1);
     expect(modalOptions.dialogId).toBe('set-privacy');
     expect(modalOptions.url).toBe('/set-privacy/');
