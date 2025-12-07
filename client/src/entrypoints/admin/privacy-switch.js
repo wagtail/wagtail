@@ -5,14 +5,13 @@ import { encodeForm } from '../../utils/encodeForm';
  * Initializes the privacy switch functionality.
  * Attaches event listeners to privacy trigger buttons to open the ModalWorkflow.
  */
-function initPrivacySwitch() {
+domReady().then(() => {
   const privacyTriggers = document.querySelectorAll(
     '[data-a11y-dialog-show="set-privacy"]',
   );
 
   privacyTriggers.forEach((trigger) => {
-    trigger.addEventListener('click', (event) => {
-      event.preventDefault();
+    trigger.addEventListener('click', () => {
       const url = trigger.getAttribute('data-url');
 
       window.ModalWorkflow({
@@ -24,7 +23,6 @@ function initPrivacySwitch() {
             if (form) {
               form.addEventListener('submit', (submitEvent) => {
                 submitEvent.preventDefault();
-                // Use getAttribute('action') to preserve relative URLs if needed, falling back to property
                 const actionUrl = form.getAttribute('action') || form.action;
                 modal.postForm(actionUrl, encodeForm(form));
               });
@@ -44,6 +42,4 @@ function initPrivacySwitch() {
       });
     });
   });
-}
-
-domReady().then(initPrivacySwitch);
+});
