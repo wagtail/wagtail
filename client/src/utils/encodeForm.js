@@ -5,6 +5,6 @@ export function encodeForm(form) {
   for (const [key, value] of formData.entries()) {
     params.append(key, value);
   }
-  
+
   return params.toString();
 }

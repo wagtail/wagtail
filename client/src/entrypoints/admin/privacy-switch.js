@@ -15,6 +15,8 @@ function openPrivacyModal(url) {
           event.preventDefault();
 
           const action = form.getAttribute('action');
+
+          
           if (!action) return;
 
           const body = encodeForm(form);

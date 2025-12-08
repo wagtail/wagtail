@@ -17,6 +17,7 @@ describe('encodeForm utility', () => {
     countInput.name = 'count';
     countInput.value = '10';
     form.appendChild(countInput);
+    
 
     const result = encodeForm(form);
     const params = new URLSearchParams(result);
