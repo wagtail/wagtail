@@ -812,10 +812,10 @@ class StreamValue(MutableSequence):
     def __reduce__(self):
         try:
             stream_field = self._stream_field
-        except AttributeError:
+        except AttributeError as e:
             raise PickleError(
                 "StreamValue can only be pickled if it is associated with a StreamField"
-            )
+            ) from e
 
         return (
             self._deserialize_pickle_value,

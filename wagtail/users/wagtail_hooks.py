@@ -16,7 +16,7 @@ def get_viewset_cls(app_config, viewset_name):
     except (AttributeError, ImportError) as e:
         raise ImproperlyConfigured(
             f"Invalid setting for {app_config.__class__.__name__}.{viewset_name}: {e}"
-        )
+        ) from e
     return viewset_cls
 
 

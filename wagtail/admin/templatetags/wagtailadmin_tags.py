@@ -19,7 +19,6 @@ from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.formats import get_format
 from django.utils.html import avoid_wrapping, json_script
-from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
@@ -40,7 +39,6 @@ from wagtail.admin.utils import (
     get_keyboard_key_labels_from_request,
     get_latest_str,
     get_user_display_name,
-    get_valid_next_url_from_request,
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
@@ -213,11 +211,23 @@ def build_absolute_url(context, url):
     Returns the absolute URL of the given URL based on the request's host.
     If the request doesn't exist in the context, falls back to
     WAGTAILADMIN_BASE_URL as the base URL.
-    If the given URL is already absolute, returns it unchanged.
+    If the given URL is already absolute, or the request is a dummy preview
+    request, returns it unchanged.
     """
     request = context.get("request")
+    # If request is not found in the context, e.g. in notification emails,
+    # fall back to WAGTAILADMIN_BASE_URL.
     if not request:
         return urljoin(get_admin_base_url(), url)
+    # With a dummy preview request, the host has been overwritten to be the page
+    # Site's host, which may not have been configured correctly. We don't want
+    # to fall back to WAGTAILADMIN_BASE_URL either, as that may be different
+    # from the original request's host in multi-site instances and may result in
+    # users having to log in again. So we just return the URL unchanged.
+    if getattr(request, "is_dummy", False):
+        return url
+    # Rewrite relative URLs to absolute URLs based on the request's host, but
+    # leave absolute URLs unchanged.
     return request.build_absolute_uri(url)
 
 
@@ -497,18 +507,14 @@ def bulk_action_choices(context, app_label, model_name):
     bulk_action_more_list = bulk_actions_list[4:]
     bulk_actions_list = bulk_actions_list[:4]
 
-    next_url = get_valid_next_url_from_request(context["request"])
-    if not next_url:
-        next_url = context["request"].path
-
+    # These buttons are not re-rendered after AJAX search and filters are applied,
+    # so don't include a 'next' parameter and let the JS construct it later.
     bulk_action_buttons = [
         ListingButton(
             action.display_name,
             reverse(
                 "wagtail_bulk_action", args=[app_label, model_name, action.action_type]
-            )
-            + "?"
-            + urlencode({"next": next_url}),
+            ),
             attrs={"aria-label": action.aria_label, "data-bulk-action-button": ""},
             priority=action.action_priority,
             classname=" ".join(action.classes | {"bulk-action-btn"}),
@@ -527,9 +533,7 @@ def bulk_action_choices(context, app_label, model_name):
                     url=reverse(
                         "wagtail_bulk_action",
                         args=[app_label, model_name, action.action_type],
-                    )
-                    + "?"
-                    + urlencode({"next": next_url}),
+                    ),
                     attrs={
                         "aria-label": action.aria_label,
                         "data-bulk-action-button": "",
@@ -1025,9 +1029,9 @@ def fragment(parser, token):
         tag_name, *options, target_var = token.split_contents()
         nodelist = parser.parse(("endfragment",))
         parser.delete_first_token()
-    except ValueError:
+    except ValueError as e:
         if settings.DEBUG:
-            raise template.TemplateSyntaxError(error_message)
+            raise template.TemplateSyntaxError(error_message) from e
         return ""
 
     stripped = "stripped" in options

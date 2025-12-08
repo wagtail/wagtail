@@ -205,6 +205,16 @@ class ReferenceIndex(models.Model):
                 "content_path_hash",
             )
         ]
+        indexes = [
+            models.Index(
+                name="referenceindex_source_object",
+                fields=["base_content_type", "object_id"],
+            ),
+            models.Index(
+                name="referenceindex_target_object",
+                fields=["to_content_type", "to_object_id"],
+            ),
+        ]
 
     @classmethod
     def _get_base_content_type(cls, model_or_object):
@@ -620,6 +630,22 @@ class ReferenceIndex(models.Model):
                 to_object_id__in=[str(obj.pk) for obj in objs],
             )
         return cls.objects.filter(condition)
+
+    @classmethod
+    def get_count_references_to_in_bulk(cls, objects):
+        references = cls.get_references_to_in_bulk(objects)
+        qs = references.values("to_content_type", "to_object_id").annotate(
+            count=Count("pk")
+        )
+        counts = {}
+        for entry in qs:
+            counts[(entry["to_content_type"], entry["to_object_id"])] = entry["count"]
+        return {
+            object: counts.get(
+                (cls._get_base_content_type(object).pk, str(object.pk)), 0
+            )
+            for object in objects
+        }
 
     @classmethod
     def get_grouped_references_to(cls, object):

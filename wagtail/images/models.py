@@ -141,10 +141,10 @@ def get_rendition_storage():
             try:
                 module = import_string(storage)
                 storage = module()
-            except ImportError:
+            except ImportError as e:
                 raise ImproperlyConfigured(
                     "WAGTAILIMAGES_RENDITION_STORAGE must be either a valid storage alias or dotted module path."
-                )
+                ) from e
 
     return storage
 
@@ -171,7 +171,7 @@ class ImageFileMixin:
                 # Have to catch everything, because the exception
                 # depends on the file subclass, and therefore the
                 # storage being used.
-                raise SourceImageIOError(str(e))
+                raise SourceImageIOError(str(e)) from e
 
             self.save(update_fields=["file_size"])
 
@@ -198,7 +198,7 @@ class ImageFileMixin:
         except OSError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
-            raise SourceImageIOError(str(e))
+            raise SourceImageIOError(str(e)) from e
 
         # Seek to beginning
         image_file.seek(0)
@@ -576,8 +576,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         try:
             return self.find_existing_renditions(filter)[filter]
-        except KeyError:
-            raise Rendition.DoesNotExist
+        except KeyError as e:
+            raise Rendition.DoesNotExist from e
 
     def create_rendition(self, filter: Filter) -> AbstractRendition:
         """
@@ -1448,12 +1448,13 @@ class AbstractRendition(ImageFileMixin, models.Model):
         else:
             return "50%"
 
-    def img_tag(self, extra_attributes={}):
+    def img_tag(self, extra_attributes=None):
         attrs = self.attrs_dict.copy()
 
         attrs.update(apps.get_app_config("wagtailimages").default_attrs)
 
-        attrs.update(extra_attributes)
+        if extra_attributes:
+            attrs.update(extra_attributes)
 
         return mark_safe(f"<img{flatatt(attrs)}>")
 

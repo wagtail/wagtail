@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023-2024
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023-2025
 # saevarom <saevar@saevar.is>, 2019-2025
 msgid ""
 msgstr ""
@@ -11,7 +11,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2019-2025\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2021,2023-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -76,6 +77,9 @@ msgstr "Wagtail sitemaps"
 
 msgid "Unknown content type"
 msgstr "Óþekkt efnistegund"
+
+msgid "Date cannot be in the future."
+msgstr "Dagsetning má ekki vera í framtíðinni."
 
 msgid "Password"
 msgstr "Lylkilorð"
@@ -370,6 +374,14 @@ msgstr "Fyrir leitarvélar"
 msgid "For site menus"
 msgstr "Fyrir valmyndir"
 
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"Vefslóðarhlutinn '%(page_slug)s' er þegar í notkun undir yfirsíðunni "
+"'%(parent_url_path)s'"
+
 msgid "page"
 msgstr "síða"
 
@@ -528,6 +540,12 @@ msgid ""
 msgstr ""
 "%(hostname)s er þegar stillt sem sjálfgefna síðan. Þú verður að afhaka við "
 "þá síðu áður en þú getur gert þessa að sjálfgefinni."
+
+msgid "group site permission"
+msgstr "vefsíðuheimild hóps"
+
+msgid "group site permissions"
+msgstr "vefsíðuheimildir hóps"
 
 msgid "Public"
 msgstr "Í birtingu"

@@ -641,7 +641,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Set default values for core fields (slug, draft_title, locale) that need to be
         in place before validating or saving
         """
-        if not self.slug:
+
+        # If path is unset, then this cleaning step must be happening in advance of the
+        # final save, and there is no point trying to auto-generate a slug yet, as we
+        # don't know the set of sibling pages to de-duplicate against. In this case,
+        # this method will be called again as part of the call to `save()` after the
+        # path is populated, and we will auto-generate the slug at that point if
+        # necessary.
+        if (not self.slug) and self.path:
             # Try to auto-populate slug from title
             allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
             base_slug = slugify(self.title, allow_unicode=allow_unicode)
@@ -907,8 +914,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 # And update = False
                 subpage._cached_parent_obj = self
 
-            except Page.DoesNotExist:
-                raise Http404
+            except Page.DoesNotExist as e:
+                raise Http404 from e
 
             return subpage.specific.route(request, remaining_components)
 
@@ -1907,6 +1914,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
             "wagtailcore/password_required.html",
         )
+
+        # Ensuring preview attributes exist
+        if not hasattr(request, "is_preview"):
+            request.is_preview = False
+        if not hasattr(request, "preview_mode"):
+            request.preview_mode = None
 
         context = self.get_context(request)
         context["form"] = form

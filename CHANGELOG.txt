@@ -8,18 +8,47 @@ Changelog
  * Add natural keys for `Page` and `Collection` models (Samya Aggarwal)
  * Add Loom oEmbed provider (Nick Ivons)
  * Add `ModelViewSet.pk_path_converter` with defaults for `IntegerField` and `UUIDField` primary keys (Seb Corbin)
+ * Improve accessibility for sidebar menu with visual active (expanded) menu item indicators (Vignesh Shivhare)
+ * Add `before_edit_setting` / `after_edit_setting` hooks (Baptiste Mispelon)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
+ * Fix: Pass accumulated icons to each `register_icons` hook (Joey Jurjens, Sage Abdullah)
+ * Fix: Skip revisions that are missing the specified field in StreamField migrations (Joshua Munn)
+ * Fix: Preserve listing search and filter parameters when redirecting from bulk actions (Sage Abdullah)
+ * Fix: Ensure that object references within `TypedTableBlock` are counted in the reference index (Aman Bora)
+ * Fix: Fix slug auto-generation when slug field is omitted from page edit form (Pravin Kamble)
+ * Fix: Ensure `request.is_preview` and `request.preview_mode` are set for password-required responses (Ishtpreet Singh)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
+ * Docs: Fix StreamField param name (Baptiste Mispelon)
+ * Docs: Clarify that `before_delete_page` and similar hooks only trigger on the individual page view, not bulk actions (Shivam Kumar)
+ * Docs: Clarify template location in custom user model documentation (Akhil Muraleedharan)
+ * Docs: Improve signposting for contributor docs (Matt Westcott)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
  * Maintenance: Add a basic set of Storybook stories for the Stimulus Autosize controller (LB (Ben) Johnston)
  * Maintenance: Remove use of `_WAGTAILSEARCH_FORCE_AUTO_UPDATE` in search tests (Matt Westcott)
  * Maintenance: Add unit test for `SubmitController` error handling (LB (Ben) Johnston)
+ * Maintenance: Improve nightly release upload scripts (Jake Howard)
+ * Maintenance: Upload redundant `latest.whl` nightly build for ease of use with package managers (Sage Abdullah)
+ * Maintenance: Move MANIFEST.in settings into pyproject.toml (Pravin Kamble)
+ * Maintenance: Fix linting rules B006 and B904 (Vivek Subramani, Matt Westcott)
+ * Maintenance: Remove jQuery dependency for image URL generator (LB (Ben) Johnston)
+ * Maintenance: Upgrade to django-modelcluster 6.4.1 for Django 6.0 compatibility (Matt Westcott)
+
+
+7.2.1 (26.11.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
+ * Fix: Disable usage count ordering when searching on documents and images listing views, to prevent unsupported search query (Sage Abdullah)
+ * Fix: Do not replace existing document or image title when uploading a new file (Sage Abdullah)
+ * Fix: Use a more efficient query for fetching usage counts on image and document listings when not ordering by usage count (Sage Abdullah)
+ * Fix: Add composite indexes to improve reference index performance (Sage Abdullah)
+ * Maintenance: Remove use of `_WAGTAILSEARCH_FORCE_AUTO_UPDATE` in search tests (Matt Westcott)
 
 
 7.2 (05.11.2025)
@@ -78,6 +107,13 @@ Changelog
  * Maintenance: Use consistent sentence format for user-facing errors (LB (Ben) Johnson)
  * Maintenance: Update django-tasks dependency to allow 0.9, for preliminary Django 6.0 support (Sage Abdullah)
  * Maintenance: Fix linting issues B009, B010, B033 (minusf)
+
+
+7.1.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
+ * Fix: Disable usage count ordering when searching on documents and images listing views, to prevent unsupported search query (Sage Abdullah)
 
 
 7.1.2 (23.10.2025)
@@ -314,12 +350,6 @@ Changelog
  * Maintenance: Remove deprecated `wagtailadmin/shared/ajax_pagination_nav.html` template (Sage Abdullah)
  * Maintenance: Formally deprecate support for listing views with no breadcrumbs (Sage Abdullah)
  * Maintenance: Update `django-tasks` to 0.7.x (Jake Howard)
-
-
-6.4.3 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~
-
- * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
 
 
 6.4.2 (12.06.2025)

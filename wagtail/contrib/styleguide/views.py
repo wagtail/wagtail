@@ -1,4 +1,3 @@
-import itertools
 import os
 import re
 from collections import defaultdict
@@ -150,10 +149,10 @@ class IndexView(WagtailAdminTemplateMixin, TemplateView):
         return context
 
     def get_icons(self):
-        icon_hooks = hooks.get_hooks("register_icons")
-        registered_icons = itertools.chain.from_iterable(
-            hook([]) for hook in icon_hooks
-        )
+        registered_icons = []
+        for fn in hooks.get_hooks("register_icons"):
+            registered_icons = fn(registered_icons)
+        registered_icons = sorted(registered_icons)
         all_icons = defaultdict(list)
         for icon_path in registered_icons:
             folder, filename = os.path.split(icon_path)

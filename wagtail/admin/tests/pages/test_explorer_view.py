@@ -93,12 +93,16 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             count=3,
         )
 
+        # Should render bulk actions markup
         bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
-        self.assertContains(
-            response,
-            f'<script defer src="{bulk_actions_js}"></script>',
-            html=True,
-        )
+        soup = self.get_soup(response.content)
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
 
     def test_explore_results(self):
         explore_results_url = reverse(

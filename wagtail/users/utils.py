@@ -27,7 +27,7 @@ def user_can_delete_user(current_user, user_to_delete):
     return True
 
 
-def get_gravatar_url(email, size=50, default_params={"d": "mp"}):
+def get_gravatar_url(email, size=50, default_params=None):
     """
     See https://gravatar.com/site/implement/images/ for Gravatar image options.
 
@@ -49,6 +49,9 @@ def get_gravatar_url(email, size=50, default_params={"d": "mp"}):
         If any parameter in ``default_params`` also exists in the provider URL,
         it will be overridden by the provider URL's query parameter.
     """
+
+    if default_params is None:
+        default_params = {"d": "mp"}
 
     gravatar_provider_url = getattr(
         settings, "WAGTAIL_GRAVATAR_PROVIDER_URL", "//www.gravatar.com/avatar"

@@ -4159,3 +4159,45 @@ class TestPageNaturalKey(TestCase):
 
         retrieved_page = Page.objects.get_by_natural_key("/home/")
         self.assertEqual(retrieved_page, self.home_page)
+
+
+class TestPageCreationWithoutPromotePanels(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.root_page = Page.objects.get(url_path="/home/")
+
+    def _submit_page_form(self, model_name, title):
+        url = reverse(
+            "wagtailadmin_pages:add", args=("tests", model_name, self.root_page.id)
+        )
+
+        get_response = self.client.get(url)
+        self.assertEqual(get_response.status_code, 200)
+
+        form = get_response.context["form"]
+        post_data = form.data.copy()
+
+        for key, value in list(post_data.items()):
+            if value is None:
+                post_data[key] = ""
+
+        post_data.update(
+            {
+                "title": title,
+                "action-save": "Save draft",
+            }
+        )
+
+        post_response = self.client.post(url, post_data)
+        return post_response
+
+    def test_create_simple_page_with_auto_slug(self):
+        response_1 = self._submit_page_form("nopromotepage", "New York")
+        self.assertEqual(response_1.status_code, 302)
+        self.assertTrue(Page.objects.filter(title="New York", slug="new-york").exists())
+
+        response_2 = self._submit_page_form("nopromotepage", "New York")
+        self.assertEqual(response_2.status_code, 302)
+        self.assertTrue(
+            Page.objects.filter(title="New York", slug="new-york-2").exists()
+        )

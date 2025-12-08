@@ -9,7 +9,7 @@ from wagtail.test.utils import WagtailTestUtils
 class TestGenericIndexView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("testapp_generic_index"), params)
 
     def test_non_integer_primary_key(self):
@@ -28,7 +28,7 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
 class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("testapp_generic_index_without_model"), params)
 
     def test_non_integer_primary_key(self):
@@ -41,7 +41,7 @@ class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
 class TestGenericCreateView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("testapp_generic_create"), params)
 
     def test_get_create_view(self):
@@ -74,7 +74,7 @@ class TestGenericCreateView(WagtailTestUtils, TestCase):
 class TestGenericEditView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, object_pk, params={}):
+    def get(self, object_pk, params=None):
         return self.client.get(
             reverse("testapp_generic_edit", args=(object_pk,)), params
         )
@@ -120,7 +120,7 @@ class TestGenericEditView(WagtailTestUtils, TestCase):
 class TestGenericDeleteView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, object_pk, params={}):
+    def get(self, object_pk, params=None):
         return self.client.get(
             reverse("testapp_generic_edit", args=(object_pk,)), params
         )

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022,2024
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022,2024-2025
 # saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023,2025
 msgid ""
 msgstr ""
@@ -11,7 +11,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023,2025\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2016,2022,2024-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -184,9 +185,15 @@ msgstr "Meðmæltar leitar niðurstöður"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Val ritstjóra fyrir  '%(query)s' búin til."
 
+msgid "Recommendations have not been created due to errors."
+msgstr "Ekki tókst að búa til meðmæli þar sem þau stóðust ekki villuprófanir."
+
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Val ritstjóra fyrir '%(query)s' uppfært."
+
+msgid "Recommendations have not been saved due to errors."
+msgstr "Ekki tókst að vista meðmæli þar sem þau stóðust ekki villuprófanir"
 
 msgid "Editor's picks deleted."
 msgstr "Vali ritstjóra eytt."
