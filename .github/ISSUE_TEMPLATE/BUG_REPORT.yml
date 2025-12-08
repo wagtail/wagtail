@@ -1,0 +1,77 @@
+name: 🐞 Bug report
+description: Found a bug? Let us know so we can fix it 👍
+labels: ['type:Bug', 'status:Unconfirmed']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Issue summary
+      description: A summary of the issue.
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Please provide detailed steps to reproduce the issue.
+      value: |
+        1. Start a new project with `wagtail start myproject`
+        2. Edit models.py as follows...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional information
+      description: Any other relevant information. For example, why do you consider this a bug and what did you expect to happen instead?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: reproducibility
+    attributes:
+      label: Can be reproduced
+      description: Have you confirmed this issue on a fresh Wagtail project or the [bakerydemo](https://github.com/wagtail/bakerydemo)?
+      options:
+        - Not confirmed
+        - Yes, on a fresh Wagtail project
+        - Yes, on the bakerydemo
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-details
+    attributes:
+      label: Technical details
+      description: Please provide version information to help us diagnose the issue.
+      value: |
+        - Python version: Run `python --version`.
+        - Django version: Look in your requirements.txt, or run `pip show django | grep Version`.
+        - Wagtail version: Look at the bottom of the Settings menu in the Wagtail admin, or run `pip show wagtail | grep Version:`.
+        - Browser version: You can use https://www.whatsmybrowser.org/ to find this out.
+    validations:
+      required: false
+
+  - type: textarea
+    id: working-on-this
+    attributes:
+      label: Working on this
+      description: |
+        Do you have thoughts on skills needed?
+        Are you keen to work on this yourself once the issue has been accepted?
+        Please let us know here.
+      value: |
+        If you would like to contribute to this issue, follow these steps:
+        - Confirm that the issue is reproducible, either on a fresh Wagtail project or the [bakerydemo](https://github.com/wagtail/bakerydemo).
+        - Once confirmed, view our [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html), add a comment to the issue once you're ready to start.
+    validations:
+      required: false
