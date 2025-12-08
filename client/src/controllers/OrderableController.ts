@@ -3,7 +3,6 @@ import Sortable from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
-
 enum Direction {
   Up = 'UP',
   Down = 'DOWN',
@@ -238,19 +237,19 @@ export class OrderableController extends Controller<HTMLElement> {
       .catch(() => {
         if (this.messagesValue?.error) {
           const errorMessage = this.messagesValue.error;
-          
+
           this.dispatch('w-messages:add', {
             prefix: '',
             target: window.document,
-            detail: { 
-              clear: true, 
-              text: errorMessage, 
-              type: 'error' 
+            detail: {
+              clear: true,
+              text: errorMessage,
+              type: 'error',
             },
             cancelable: false,
           });
         }
-        
+
         this.sortable.sort(this.order, true);
       });
   }

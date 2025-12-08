@@ -60,10 +60,12 @@ class OrderableTableMixin:
 
     def get_messages(self):
         """Return a JSON string containing both success and error messages."""
-        return json.dumps({
-            "success": force_str(self.get_success_message()),
-            "error": force_str(self.error_message),
-        })
+        return json.dumps(
+            {
+                "success": force_str(self.get_success_message()),
+                "error": force_str(self.error_message),
+            }
+        )
 
     def get_row_attrs(self, instance):
         attrs = super().get_row_attrs(instance)
