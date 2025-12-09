@@ -730,6 +730,105 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         self.assertEqual(log_entries.count(), 1)
         self.assertEqual(log_entries.first().revision, revision)
 
+    def test_overwrite_revision_with_json_response(self):
+        self.test_snippet.text = "Initial revision"
+        revision = self.test_snippet.save_revision(user=self.user)
+        self.assertEqual(self.test_snippet.revisions.count(), 1)
+        response = self.post(
+            post_data={
+                "text": "Updated revision",
+                "overwrite_revision_id": revision.pk,
+            },
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 200 OK JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(response.json(), {"success": True, "pk": self.test_snippet.pk})
+
+        self.assertEqual(self.test_snippet.revisions.count(), 1)
+        revision.refresh_from_db()
+        self.assertEqual(revision.content["text"], "Updated revision")
+
+    def test_overwrite_non_latest_revision(self):
+        self.test_snippet.text = "Initial revision"
+        user_revision = self.test_snippet.save_revision(user=self.user)
+        self.test_snippet.text = "Someone else's changed text"
+        later_revision = self.test_snippet.save_revision()
+        self.assertEqual(self.test_snippet.revisions.count(), 2)
+
+        post_data = {
+            "text": "Updated revision",
+            "overwrite_revision_id": user_revision.id,
+        }
+        response = self.post(
+            post_data=post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "invalid_revision",
+                "errorMessage": "Cannot overwrite a revision that is not the latest for this object",
+            },
+        )
+
+        # Live DB record should be unchanged
+        # (neither save_revision nor the failed form post should have updated it)
+        self.test_snippet.refresh_from_db()
+        self.assertEqual(self.test_snippet.text, "foo")
+
+        # The passed revision for overwriting, and the actual latest revision, should both be unchanged
+        self.assertEqual(self.test_snippet.revisions.count(), 2)
+        user_revision.refresh_from_db()
+        self.assertEqual(user_revision.content["text"], "Initial revision")
+        later_revision.refresh_from_db()
+        self.assertEqual(later_revision.content["text"], "Someone else's changed text")
+        self.assertEqual(self.test_snippet.get_latest_revision().id, later_revision.id)
+
+    def test_overwrite_nonexistent_revision(self):
+        self.test_snippet.text = "Initial revision"
+        user_revision = self.test_snippet.save_revision(user=self.user)
+        self.assertEqual(self.test_snippet.revisions.count(), 1)
+
+        post_data = {
+            "text": "Updated revision",
+            "overwrite_revision_id": 999999,
+        }
+        response = self.post(
+            post_data=post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "invalid_revision",
+                "errorMessage": "Cannot overwrite a revision that does not exist",
+            },
+        )
+
+        # Live DB record should be unchanged
+        # (neither save_revision nor the failed form post should have updated it)
+        self.test_snippet.refresh_from_db()
+        self.assertEqual(self.test_snippet.text, "foo")
+
+        # The latest revision should be unchanged
+        self.assertEqual(self.test_snippet.revisions.count(), 1)
+        latest_revision = self.test_snippet.get_latest_revision()
+        self.assertEqual(latest_revision.id, user_revision.id)
+        self.assertEqual(latest_revision.content["text"], "Initial revision")
+
 
 class TestEditDraftStateSnippet(BaseTestSnippetEditView):
     STATUS_TOGGLE_BADGE_REGEX = (
