@@ -680,9 +680,12 @@ class CreateView(
         log(instance=instance, action="wagtail.create", content_changed=True)
         return instance
 
+    def get_success_json(self):
+        return {"success": True, "pk": self.object.pk}
+
     def save_action(self):
         if self.expects_json_response:
-            return JsonResponse({"success": True, "pk": self.object.pk})
+            return JsonResponse(self.get_success_json())
         else:
             success_message = self.get_success_message(self.object)
             success_buttons = self.get_success_buttons()
@@ -968,9 +971,12 @@ class EditView(
 
         return instance
 
+    def get_success_json(self):
+        return {"success": True, "pk": self.object.pk}
+
     def save_action(self):
         if self.expects_json_response:
-            return JsonResponse({"success": True, "pk": self.object.pk})
+            return JsonResponse(self.get_success_json())
         else:
             success_message = self.get_success_message()
             success_buttons = self.get_success_buttons()
