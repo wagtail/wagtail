@@ -491,6 +491,31 @@ class CreateView(
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
 
+    def post(self, request, *args, **kwargs):
+        # BaseCreateView.post() would set self.object here, but some subclasses need
+        # to do that during setup() instead, so only do that if it hasn't already been set.
+        if not hasattr(self, "object"):
+            self.object = None
+
+        form = self.get_form()
+        if self.is_valid(form):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def is_valid(self, form):
+        """
+        Validate the form, setting the produced_error_message attribute if validation fails.
+
+        Subclasses that require extra validation conditions not handled by
+        form.is_valid() (such as formsets, or a locked status on the model) should
+        override this method.
+        """
+        result = form.is_valid()
+        if not result:
+            self.produced_error_message = self.get_error_message()
+        return result
+
     def get_action(self, request):
         for action in self.get_available_actions():
             if request.POST.get(f"action-{action}"):
@@ -568,6 +593,9 @@ class CreateView(
         return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
+        """
+        Return the top-level error message to be shown when the form is invalid.
+        """
         if self.error_message is None:
             return None
         return capfirst(
@@ -670,9 +698,8 @@ class CreateView(
 
     def form_invalid(self, form):
         self.form = form
-        error_message = self.get_error_message()
-        if error_message is not None:
-            messages.validation_error(self.request, error_message, form)
+        if self.produced_error_message is not None:
+            messages.validation_error(self.request, self.produced_error_message, form)
         return super().form_invalid(form)
 
 
@@ -721,6 +748,31 @@ class EditView(
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
+
+    def post(self, request, *args, **kwargs):
+        # BaseUpdateView.post() would set self.object here, but some subclasses need
+        # to do that during setup() instead, so only do that if it hasn't already been set.
+        if not hasattr(self, "object"):
+            self.object = self.get_object()
+
+        form = self.get_form()
+        if self.is_valid(form):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def is_valid(self, form):
+        """
+        Validate the form, setting the produced_error_message attribute if validation fails.
+
+        Subclasses that require extra validation conditions not handled by
+        form.is_valid() (such as formsets, or a locked status on the model) should
+        override this method.
+        """
+        result = form.is_valid()
+        if not result:
+            self.produced_error_message = self.get_error_message()
+        return result
 
     @cached_property
     def object_pk(self):
@@ -922,6 +974,9 @@ class EditView(
         return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
+        """
+        Return the top-level error message to be displayed when form validation fails.
+        """
         if self.error_message is None:
             return None
         return capfirst(
@@ -944,9 +999,8 @@ class EditView(
 
     def form_invalid(self, form):
         self.form = form
-        error_message = self.get_error_message()
-        if error_message is not None:
-            messages.validation_error(self.request, error_message, form)
+        if self.produced_error_message is not None:
+            messages.validation_error(self.request, self.produced_error_message, form)
         return super().form_invalid(form)
 
     @cached_property

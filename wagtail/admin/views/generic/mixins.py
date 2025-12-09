@@ -447,16 +447,6 @@ class CreateEditViewOptionalFeaturesMixin:
             self.confirm_workflow_cancellation_url_name, args=[quote(self.object.pk)]
         )
 
-    def get_error_message(self):
-        if self.action == "cancel-workflow":
-            return None
-        if self.locked_for_user:
-            return capfirst(
-                _("The %(model_name)s could not be saved as it is locked")
-                % {"model_name": self.model._meta.verbose_name}
-            )
-        return super().get_error_message()
-
     def get_success_message(self, instance=None):
         object = instance or self.object
 
@@ -634,8 +624,10 @@ class CreateEditViewOptionalFeaturesMixin:
         return response
 
     def form_invalid(self, form):
-        # Even if the object is locked due to not having permissions,
-        # the original submitter can still cancel the workflow
+        # Even if the form is invalid, a cancel-workflow action can still proceed. This accommodates
+        # the typical case for a lockable model, where the object is locked to the submitter at the
+        # point of submission (and thus the lock would make the form submission invalid) - but also
+        # applies to other error conditions such as actual validation errors.
         if self.action == "cancel-workflow":
             self.cancel_workflow_action()
             messages.success(
@@ -646,6 +638,10 @@ class CreateEditViewOptionalFeaturesMixin:
             # Refresh the lock object as now WorkflowLock no longer applies
             self.lock = self.get_lock()
             self.locked_for_user = self.lock and self.lock.for_user(self.request.user)
+            # Unset whichever error message was set by is_valid() (most likely "this X could not be
+            # saved as it is locked") so that we just show the success message.
+            self.produced_error_message = None
+
         return super().form_invalid(form)
 
     def get_last_updated_info(self):
@@ -781,25 +777,24 @@ class CreateEditViewOptionalFeaturesMixin:
         context["editing_sessions"] = self.get_editing_sessions()
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-
+    def is_valid(self, form):
         # Make sure object is not locked
         if self.locked_for_user:
-            return self.form_invalid(form)
+            self.produced_error_message = capfirst(
+                _("The %(model_name)s could not be saved as it is locked")
+                % {"model_name": self.model._meta.verbose_name}
+            )
+            return False
 
         # If saving as draft, do not enforce full validation
         if self.saving_as_draft and isinstance(form, WagtailAdminModelForm):
             form.defer_required_fields()
-            form_is_valid = form.is_valid()
+            result = super().is_valid(form)
             form.restore_required_fields()
         else:
-            form_is_valid = form.is_valid()
+            result = super().is_valid(form)
 
-        if form_is_valid:
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return result
 
 
 class RevisionsRevertMixin:
