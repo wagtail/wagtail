@@ -745,7 +745,10 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         # Should be a 200 OK JSON response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
-        self.assertEqual(response.json(), {"success": True, "pk": self.test_snippet.pk})
+        self.assertEqual(
+            response.json(),
+            {"success": True, "pk": self.test_snippet.pk, "revision_id": revision.pk},
+        )
 
         self.assertEqual(self.test_snippet.revisions.count(), 1)
         revision.refresh_from_db()

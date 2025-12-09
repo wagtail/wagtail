@@ -646,6 +646,12 @@ class CreateEditViewOptionalFeaturesMixin:
 
         return response
 
+    def get_success_json(self):
+        data = super().get_success_json()
+        if self.revision_enabled:
+            data["revision_id"] = self.new_revision and self.new_revision.id
+        return data
+
     def form_invalid(self, form):
         # Even if the form is invalid, a cancel-workflow action can still proceed. This accommodates
         # the typical case for a lockable model, where the object is locked to the submitter at the
