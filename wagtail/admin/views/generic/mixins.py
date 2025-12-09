@@ -3,6 +3,7 @@ import json
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
 from django.forms import Media
 from django.http import JsonResponse
@@ -33,6 +34,7 @@ from wagtail.models import (
     Locale,
     LockableMixin,
     PreviewableMixin,
+    Revision,
     RevisionMixin,
     TranslatableMixin,
     WorkflowMixin,
@@ -538,8 +540,23 @@ class CreateEditViewOptionalFeaturesMixin:
         # Save revision if the model inherits from RevisionMixin
         self.new_revision = None
         if self.revision_enabled:
+            overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
+            if overwrite_revision_id is not None:
+                try:
+                    overwrite_revision = instance.revisions.get(
+                        pk=overwrite_revision_id
+                    )
+                except Revision.DoesNotExist as e:
+                    raise PermissionDenied(
+                        "Cannot overwrite a revision that does not exist"
+                    ) from e
+            else:
+                overwrite_revision = None
+
             self.new_revision = instance.save_revision(
-                user=self.request.user, clean=not self.saving_as_draft
+                user=self.request.user,
+                clean=not self.saving_as_draft,
+                overwrite_revision=overwrite_revision,
             )
 
         log(
@@ -608,8 +625,14 @@ class CreateEditViewOptionalFeaturesMixin:
 
     def form_valid(self, form):
         self.form = form
-        with transaction.atomic():
-            self.object = self.save_instance()
+        try:
+            with transaction.atomic():
+                self.object = self.save_instance()
+        except PermissionDenied as e:
+            # The revision passed to overwrite_revision was not valid
+            self.produced_error_code = "invalid_revision"
+            self.produced_error_message = str(e)
+            return self.form_invalid(form)
 
         response = self.run_action_method()
         if response is not None:
