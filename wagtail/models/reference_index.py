@@ -783,10 +783,10 @@ class ReferenceIndex(models.Model):
         # the on_delete attribute is stored.
         return self.related_field.remote_field
 
-    def get_label(self, field_name, index):
-        if index > 2:
-            return f" → {capfirst(field_name)}"
-        return capfirst(field_name)
+    # def get_label(self, field_name, index):
+    #     if index > 2:
+    #         return f" → {capfirst(field_name)}"
+    #     return capfirst(field_name)
 
     def describe_source_field(self):
         """
