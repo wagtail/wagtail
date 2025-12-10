@@ -783,10 +783,10 @@ class ReferenceIndex(models.Model):
         # the on_delete attribute is stored.
         return self.related_field.remote_field
 
-    # def get_label(self, field_name, index):
-    #     if index > 2:
-    #         return f" → {capfirst(field_name)}"
-    #     return capfirst(field_name)
+    def get_label(self, field_name, index):
+        if index > 2:
+            return f" → {capfirst(field_name)}"
+        return capfirst(field_name)
 
     def describe_source_field(self):
         """
@@ -800,23 +800,21 @@ class ReferenceIndex(models.Model):
 
         # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name. So get the name of the child field instead
         if isinstance(field, models.ManyToOneRel):
-            child_field = field.related_model._meta.get_field(model_path_components[2])
-            return capfirst(child_field.verbose_name)
-            # label = ""
-            # idx = 2
-            # child_field = field.related_model._meta.get_field(
-            #     model_path_components[idx]
-            # )
-            # while isinstance(child_field, models.ManyToOneRel):
-            #     label += self.get_label(
-            #         child_field.related_model._meta.verbose_name, idx
-            #     )
-            #     idx += 2
-            #     child_field = field.related_model._meta.get_field(
-            #         model_path_components[idx]
-            #     )
-            # label += self.get_label(child_field.verbose_name, idx)
-            # return label
+            label = ""
+            idx = 2
+            child_field = field.related_model._meta.get_field(
+                model_path_components[idx]
+            )
+            while isinstance(child_field, models.ManyToOneRel):
+                label += self.get_label(
+                    child_field.related_model._meta.verbose_name, idx
+                )
+                idx += 2
+                child_field = field.related_model._meta.get_field(
+                    model_path_components[idx]
+                )
+            label += self.get_label(child_field.verbose_name, idx)
+            return label
         elif isinstance(field, StreamField):
             label = f"{capfirst(field.verbose_name)}"
             block = field.stream_block
