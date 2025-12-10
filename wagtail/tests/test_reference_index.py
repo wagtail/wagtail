@@ -17,8 +17,8 @@ from wagtail.rich_text import RichText
 from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomUUIDPrimaryKey,
-    BookCategory,
     Book,
+    BookCategory,
     BookRelationShip,
     EventPage,
     EventPageCarouselItem,
