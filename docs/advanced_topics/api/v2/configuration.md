@@ -76,6 +76,20 @@ class PostPagesAPIViewSet(PagesAPIViewSet):
 api_router.register_endpoint("posts", PostPagesAPIViewSet)
 ```
 
+You can use `body_fields` (for content fields at the top level of the API response) and `meta_fields` (for fields within the response's `meta` section) to control which fields are included. By default, fields added here only appear in the detail view.
+
+To make a field appear when the model is used in a nested context (e.g. as a related item), you must **also** add it to `nested_default_fields`. Note that the field must already be present in `body_fields` or `meta_fields`.
+
+For example, `seo_title` is included in `meta_fields` by default. To make it visible in nested views:
+
+```python
+class CustomFieldsAPIViewSet(PagesAPIViewSet):
+    nested_default_fields = PagesAPIViewSet.nested_default_fields + ["seo_title"]
+    name = "pages"
+
+api_router.register_endpoint("pages", CustomFieldsAPIViewSet)
+```
+
 Additionally, there is a base endpoint class you can use for adding different
 content types to the API: `wagtail.api.v2.views.BaseAPIViewSet`
 

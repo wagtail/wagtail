@@ -940,6 +940,7 @@
 * Wenli Tsai
 * Tian Jie Wong
 * Kacper Walęga
+* Deepanshu Tevathiya
 
 ## Translators
 
