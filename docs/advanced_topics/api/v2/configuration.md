@@ -76,6 +76,16 @@ class PostPagesAPIViewSet(PagesAPIViewSet):
 api_router.register_endpoint("posts", PostPagesAPIViewSet)
 ```
 
+Or determining which fields are exposed when the model is used in a nested context (e.g. inside a StreamField or as a related item) by overriding `nested_default_fields`:
+
+```python
+class CustomNestedFieldsAPIViewSet(PagesAPIViewSet):
+    nested_default_fields = PagesAPIViewSet.nested_default_fields + ["title"]
+    name = "pages"
+
+api_router.register_endpoint("pages", CustomNestedFieldsAPIViewSet)
+```
+
 Additionally, there is a base endpoint class you can use for adding different
 content types to the API: `wagtail.api.v2.views.BaseAPIViewSet`
 
