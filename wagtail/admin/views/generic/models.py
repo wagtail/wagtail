@@ -8,7 +8,7 @@ from django.core.exceptions import (
 from django.db import models, transaction
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -55,7 +55,13 @@ from wagtail.models.orderable import set_max_order
 from wagtail.search.index import class_is_indexed
 
 from .base import BaseListingView, WagtailAdminTemplateMixin
-from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
+from .mixins import (
+    BeforeAfterHookMixin,
+    HookResponseMixin,
+    JsonPostResponseMixin,
+    LocaleMixin,
+    PanelMixin,
+)
 from .permissions import PermissionCheckedMixin
 
 
@@ -468,6 +474,7 @@ class CreateView(
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
+    JsonPostResponseMixin,
     BaseCreateView,
 ):
     model = None
@@ -490,6 +497,32 @@ class CreateView(
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
+
+    def post(self, request, *args, **kwargs):
+        # BaseCreateView.post() would set self.object here, but some subclasses need
+        # to do that during setup() instead, so only do that if it hasn't already been set.
+        if not hasattr(self, "object"):
+            self.object = None
+
+        form = self.get_form()
+        if self.is_valid(form):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def is_valid(self, form):
+        """
+        Validate the form, setting the produced_error_message attribute if validation fails.
+
+        Subclasses that require extra validation conditions not handled by
+        form.is_valid() (such as formsets, or a locked status on the model) should
+        override this method.
+        """
+        result = form.is_valid()
+        if not result:
+            self.produced_error_code = "validation_error"
+            self.produced_error_message = self.get_error_message()
+        return result
 
     def get_action(self, request):
         for action in self.get_available_actions():
@@ -568,6 +601,9 @@ class CreateView(
         return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
+        """
+        Return the top-level error message to be shown when the form is invalid.
+        """
         if self.error_message is None:
             return None
         return capfirst(
@@ -644,16 +680,22 @@ class CreateView(
         log(instance=instance, action="wagtail.create", content_changed=True)
         return instance
 
+    def get_success_json(self):
+        return {"success": True, "pk": self.object.pk}
+
     def save_action(self):
-        success_message = self.get_success_message(self.object)
-        success_buttons = self.get_success_buttons()
-        if success_message is not None:
-            messages.success(
-                self.request,
-                success_message,
-                buttons=success_buttons,
-            )
-        return redirect(self.get_success_url())
+        if self.expects_json_response:
+            return JsonResponse(self.get_success_json())
+        else:
+            success_message = self.get_success_message(self.object)
+            success_buttons = self.get_success_buttons()
+            if success_message is not None:
+                messages.success(
+                    self.request,
+                    success_message,
+                    buttons=success_buttons,
+                )
+            return redirect(self.get_success_url())
 
     def form_valid(self, form):
         self.form = form
@@ -670,9 +712,15 @@ class CreateView(
 
     def form_invalid(self, form):
         self.form = form
-        error_message = self.get_error_message()
-        if error_message is not None:
-            messages.validation_error(self.request, error_message, form)
+
+        if self.expects_json_response:
+            return self.json_error_response(
+                getattr(self, "produced_error_code", "internal_error"),
+                self.produced_error_message or "",
+            )
+
+        if self.produced_error_message is not None:
+            messages.validation_error(self.request, self.produced_error_message, form)
         return super().form_invalid(form)
 
 
@@ -696,6 +744,7 @@ class EditView(
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
+    JsonPostResponseMixin,
     BaseUpdateView,
 ):
     model = None
@@ -721,6 +770,32 @@ class EditView(
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
+
+    def post(self, request, *args, **kwargs):
+        # BaseUpdateView.post() would set self.object here, but some subclasses need
+        # to do that during setup() instead, so only do that if it hasn't already been set.
+        if not hasattr(self, "object"):
+            self.object = self.get_object()
+
+        form = self.get_form()
+        if self.is_valid(form):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def is_valid(self, form):
+        """
+        Validate the form, setting the produced_error_message attribute if validation fails.
+
+        Subclasses that require extra validation conditions not handled by
+        form.is_valid() (such as formsets, or a locked status on the model) should
+        override this method.
+        """
+        result = form.is_valid()
+        if not result:
+            self.produced_error_code = "validation_error"
+            self.produced_error_message = self.get_error_message()
+        return result
 
     @cached_property
     def object_pk(self):
@@ -896,16 +971,22 @@ class EditView(
 
         return instance
 
+    def get_success_json(self):
+        return {"success": True, "pk": self.object.pk}
+
     def save_action(self):
-        success_message = self.get_success_message()
-        success_buttons = self.get_success_buttons()
-        if success_message is not None:
-            messages.success(
-                self.request,
-                success_message,
-                buttons=success_buttons,
-            )
-        return redirect(self.get_success_url())
+        if self.expects_json_response:
+            return JsonResponse(self.get_success_json())
+        else:
+            success_message = self.get_success_message()
+            success_buttons = self.get_success_buttons()
+            if success_message is not None:
+                messages.success(
+                    self.request,
+                    success_message,
+                    buttons=success_buttons,
+                )
+            return redirect(self.get_success_url())
 
     def get_success_message(self):
         if self.success_message is None:
@@ -922,6 +1003,9 @@ class EditView(
         return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
+        """
+        Return the top-level error message to be displayed when form validation fails.
+        """
         if self.error_message is None:
             return None
         return capfirst(
@@ -944,9 +1028,15 @@ class EditView(
 
     def form_invalid(self, form):
         self.form = form
-        error_message = self.get_error_message()
-        if error_message is not None:
-            messages.validation_error(self.request, error_message, form)
+
+        if self.expects_json_response:
+            return self.json_error_response(
+                getattr(self, "produced_error_code", "internal_error"),
+                self.produced_error_message or "",
+            )
+
+        if self.produced_error_message is not None:
+            messages.validation_error(self.request, self.produced_error_message, form)
         return super().form_invalid(form)
 
     @cached_property
