@@ -11,10 +11,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
-from wagtail.admin.action_menu import ActionMenuItem
+from wagtail.admin.action_menu import ActionMenuItem, LockedMenuItem, SaveMenuItem
 from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 from wagtail.snippets.permissions import get_permission_name
-from wagtail.admin.action_menu import LockedMenuItem, SaveMenuItem
+
 
 class PublishMenuItem(ActionMenuItem):
     name = "action-publish"

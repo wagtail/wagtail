@@ -22,6 +22,7 @@ from freezegun import freeze_time
 from taggit.models import Tag
 
 from wagtail import hooks
+from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.forms.search import SearchForm
@@ -33,7 +34,6 @@ from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
-from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.snippets.action_menu import get_base_snippet_action_menu_items
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
