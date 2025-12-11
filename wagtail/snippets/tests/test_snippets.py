@@ -33,10 +33,8 @@ from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
-from wagtail.snippets.action_menu import (
-    ActionMenuItem,
-    get_base_snippet_action_menu_items,
-)
+from wagtail.admin.action_menu import ActionMenuItem
+from wagtail.snippets.action_menu import get_base_snippet_action_menu_items
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_models_for_index_view

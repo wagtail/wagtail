@@ -7,73 +7,14 @@ from django.contrib.admin.utils import quote
 from django.forms import Media
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
-from wagtail.admin.ui.components import Component
+from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 from wagtail.snippets.permissions import get_permission_name
-
-
-class ActionMenuItem(Component):
-    """Defines an item in the actions drop-up on the snippet creation/edit view"""
-
-    order = 100  # default order index if one is not specified on init
-    template_name = "wagtailsnippets/snippets/action_menu/menu_item.html"
-
-    label = ""
-    name = None
-    classname = ""
-    icon_name = ""
-
-    def __init__(self, order=None):
-        if order is not None:
-            self.order = order
-
-    def is_shown(self, context):
-        """
-        Whether this action should be shown on this request; permission checks etc should go here.
-
-        request = the current request object
-
-        context = dictionary containing at least:
-            'view' = 'create' or 'edit'
-            'model' = the model of the snippet being created/edited
-            'instance' (if view = 'edit') = the snippet being edited
-        """
-        return not context.get("locked_for_user")
-
-    def get_context_data(self, parent_context):
-        """Defines context for the template, overridable to use more data"""
-        context = parent_context.copy()
-        url = self.get_url(parent_context)
-
-        instance = parent_context.get("instance")
-        is_scheduled = (
-            parent_context.get("draftstate_enabled")
-            and instance
-            and instance.go_live_at
-            and instance.go_live_at > timezone.now()
-        )
-        context.update(
-            {
-                "label": self.label,
-                "url": url,
-                "name": self.name,
-                "classname": self.classname,
-                "icon_name": self.icon_name,
-                "request": parent_context["request"],
-                "is_scheduled": is_scheduled,
-                "is_revision": parent_context["view"] == "revisions_revert",
-            }
-        )
-        return context
-
-    def get_url(self, parent_context):
-        return None
-
+from wagtail.admin.action_menu import LockedMenuItem, SaveMenuItem
 
 class PublishMenuItem(ActionMenuItem):
     name = "action-publish"
@@ -220,22 +161,6 @@ class UnpublishMenuItem(ActionMenuItem):
         instance = context["instance"]
         url_name = instance.snippet_viewset.get_url_name("unpublish")
         return reverse(url_name, args=[quote(instance.pk)])
-
-
-class SaveMenuItem(ActionMenuItem):
-    name = "action-save"
-    label = _("Save")
-    icon_name = "download"
-    template_name = "wagtailsnippets/snippets/action_menu/save.html"
-
-
-class LockedMenuItem(ActionMenuItem):
-    name = "action-locked"
-    label = _("Locked")
-    template_name = "wagtailsnippets/snippets/action_menu/locked.html"
-
-    def is_shown(self, context):
-        return context.get("locked_for_user")
 
 
 @lru_cache(maxsize=None)

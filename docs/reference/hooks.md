@@ -1351,7 +1351,7 @@ The `get_url`, `is_shown`, `get_context_data`, and `render_html` methods all acc
 
 ```python
 from wagtail import hooks
-from wagtail.snippets.action_menu import ActionMenuItem
+from wagtail.admin.action_menu import ActionMenuItem
 
 class GuacamoleMenuItem(ActionMenuItem):
     name = 'action-guacamole'
