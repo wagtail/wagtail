@@ -1,4 +1,4 @@
-"""Handles rendering of the list of actions in the footer of the page create/edit views."""
+"""Handles rendering of the list of actions in the footer of the page/snippet create/edit views."""
 
 from django.conf import settings
 from django.forms import Media
@@ -13,10 +13,10 @@ from wagtail.admin.ui.components import Component
 
 
 class ActionMenuItem(Component):
-    """Defines an item in the actions drop-up on the page creation/edit view"""
+    """Defines an item in the actions drop-up on the page/snippet creation/edit view"""
 
     order = 100  # default order index if one is not specified on init
-    template_name = "wagtailadmin/pages/action_menu/menu_item.html"
+    template_name = "wagtailadmin/shared/action_menu/menu_item.html"
 
     label = ""
     name = None
@@ -35,24 +35,33 @@ class ActionMenuItem(Component):
     def is_shown(self, context):
         """
         Whether this action should be shown on this request; permission checks etc should go here.
-        By default, actions are shown for unlocked pages, hidden for locked pages
+        By default, actions are shown for unlocked pages/snippets, hidden for locked ones
 
         context = dictionary containing at least:
             'request' = the current request object
             'view' = 'create', 'edit' or 'revisions_revert'
-            'page' (if view = 'edit' or 'revisions_revert') = the page being edited
-            'parent_page' (if view = 'create') = the parent page of the page being created
+            For pages:
+                'page' (if view = 'edit' or 'revisions_revert') = the page being edited
+                'parent_page' (if view = 'create') = the parent page of the page being created
+            For snippets:
+                'model' = the model of the snippet being created/edited
+                'instance' (if view = 'edit') = the snippet being edited
             'lock' = a Lock object if the page is locked, otherwise None
-            'locked_for_user' = True if the lock prevents the current user from editing the page
+            'locked_for_user' = True if the lock prevents the current user from editing
             may also contain:
             'user_page_permissions_tester' = a PagePermissionTester for the current user and page
         """
-        return context["view"] == "create" or not context["locked_for_user"]
+        return context.get("view") == "create" or not context.get("locked_for_user")
 
     def get_context_data(self, parent_context):
         """Defines context for the template, overridable to use more data"""
         context = parent_context.copy()
         url = self.get_url(parent_context)
+
+        instance = parent_context.get("page") or parent_context.get("instance")
+        is_scheduled = False
+        if instance and hasattr(instance, "go_live_at"):
+            is_scheduled = instance.go_live_at and instance.go_live_at > timezone.now()
 
         context.update(
             {
@@ -62,6 +71,8 @@ class ActionMenuItem(Component):
                 "classname": self.classname,
                 "icon_name": self.icon_name,
                 "request": parent_context["request"],
+                "is_scheduled": is_scheduled,
+                "is_revision": parent_context.get("view") == "revisions_revert",
             }
         )
         return context
@@ -212,29 +223,50 @@ class UnpublishMenuItem(ActionMenuItem):
         return reverse("wagtailadmin_pages:unpublish", args=(context["page"].id,))
 
 
-class SaveDraftMenuItem(ActionMenuItem):
+class SaveMenuItem(ActionMenuItem):
+    """Generic save menu item for both pages (as draft) and snippets"""
+
+    name = "action-save"
+    label = _("Save")
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["is_revision"] = context.get("view") == "revisions_revert"
+        return context
+
+
+class SaveDraftMenuItem(SaveMenuItem):
+    """Page-specific save draft menu item"""
+
     name = "action-save-draft"
     label = _("Save Draft")
     template_name = "wagtailadmin/pages/action_menu/save_draft.html"
 
+
+class LockedMenuItem(ActionMenuItem):
+    """Generic locked menu item for both pages and snippets"""
+
+    name = "action-locked"
+    label = _("Locked")
+
+    def is_shown(self, context):
+        return context.get("locked_for_user")
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
-        context["is_revision"] = context["view"] == "revisions_revert"
+        context["is_revision"] = context.get("view") == "revisions_revert"
         return context
 
 
-class PageLockedMenuItem(ActionMenuItem):
+class PageLockedMenuItem(LockedMenuItem):
+    """Page-specific locked menu item (for backwards compatibility)"""
+
     name = "action-page-locked"
     label = _("Page locked")
     template_name = "wagtailadmin/pages/action_menu/page_locked.html"
 
     def is_shown(self, context):
-        return "page" in context and context["locked_for_user"]
-
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        context["is_revision"] = context["view"] == "revisions_revert"
-        return context
+        return "page" in context and context.get("locked_for_user")
 
 
 BASE_PAGE_ACTION_MENU_ITEMS = None
