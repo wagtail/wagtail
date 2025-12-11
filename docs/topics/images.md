@@ -524,6 +524,18 @@ Note that this will not affect PNG or GIF files. If you want all images to be lo
 {% image page.photo width-400 format-jpeg jpegquality-40 %}
 {% image page.photo width-400 format-webp webpquality-50 %}
 ```
+### Recommended quality settings
+
+For many Wagtail sites, slightly lower quality values can significantly reduce file sizes while maintaining acceptable visual quality. The table below gives some common starting points for different use cases:
+
+| Intended use                  | JPEG quality | AVIF quality | WebP quality |
+| ----------------------------- | ------------ | ------------ | ------------ |
+| Full‑size photography         | 90           | 70           | 85           |
+| General‑purpose web content   | 80           | 60           | 75           |
+| Thumbnails                    | 70           | 50           | 65           |
+
+These values aim to balance perceived image quality with performance. AVIF is more efficient than JPEG, so a lower quality value can often achieve a similar result, and WebP typically sits between the two. Site implementers should test with their own content (for example using tools like Squoosh) and adjust as needed.
+
 
 ## Generating image renditions in Python
 
