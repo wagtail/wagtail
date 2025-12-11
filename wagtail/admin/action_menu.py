@@ -61,9 +61,7 @@ class ActionMenuItem(Component):
         instance = parent_context.get("page") or parent_context.get("instance")
         is_scheduled = False
         if instance and hasattr(instance, "go_live_at"):
-            is_scheduled = (
-                instance.go_live_at and instance.go_live_at > timezone.now()
-            )
+            is_scheduled = instance.go_live_at and instance.go_live_at > timezone.now()
 
         context.update(
             {
