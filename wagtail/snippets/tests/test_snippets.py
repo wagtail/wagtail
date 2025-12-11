@@ -6072,9 +6072,9 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
         snippets = StandardSnippetWithCustomPrimaryKey.objects.all()
         self.assertEqual(snippets.count(), 3)
-        self.assertEqual(
-            snippets.order_by("snippet_id").last().snippet_id, "snippet_id_edited"
-        )
+        # Saving with a new primary key creates a new instance
+        self.assertTrue(snippets.filter(snippet_id="snippet_id_edited").exists())
+        self.assertTrue(snippets.filter(snippet_id="snippet/01").exists())
 
     def test_create(self):
         response = self.create(
