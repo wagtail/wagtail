@@ -1,15 +1,19 @@
 import collections
+from typing import Union
 
 from django import forms
+from django.core import checks
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
+from wagtail.coreutils import safe_snake_case
 
 from .base import (
     Block,
@@ -21,6 +25,7 @@ from .base import (
 )
 
 __all__ = [
+    "BlockGroup",
     "BaseStructBlock",
     "StructBlock",
     "StructValue",
@@ -68,6 +73,132 @@ class StructBlockValidationError(ValidationError):
                 for (name, error) in self.block_errors.items()
             }
         return result
+
+
+@register
+class BlockGroup:
+    """
+    A grouping of blocks within a :class:`StructBlock`'s form layout in the
+    editing interface. Can be used directly as the ``form_layout`` in
+    :class:`StructBlock`.Meta, or nested within another ``BlockGroup``.
+    """
+
+    def __init__(
+        self,
+        children: list[Union[str, "BlockGroup"]],
+        settings: list[Union[str, "BlockGroup"]] = None,
+        heading="",
+        classname="",
+        help_text="",
+        icon="placeholder",
+        attrs: dict | None = None,
+        label_format: str | None = None,
+    ):
+        """
+        :param children: A list of block names or nested ``BlockGroup`` that will be
+            rendered in the main content area.
+        :type children: list[str | BlockGroup]
+
+        :param settings: A list of block names or nested ``BlockGroup`` that will be
+            rendered in the collapsible "settings" area that is hidden by default.
+        :type settings: list[str | BlockGroup]
+
+        The following attributes are only used when the ``BlockGroup`` is nested within
+        another ``BlockGroup``. For the top-level ``BlockGroup`` used as
+        ``Meta.form_layout`` in a :class:`StructBlock`, these attributes are ignored in
+        favor of the corresponding attributes on ``StructBlock.Meta``.
+
+        :param heading: The heading label of the collapsible panel for this block
+            group. For a top-level group, the ``StructBlock``'s ``label`` will be
+            used instead.
+        :type heading: str
+
+        :param classname: Additional CSS class name(s) to add to the block group's main
+            content area. To set the group to be initially collapsed, include the
+            ``collapsed`` class here.
+        :type classname: str
+
+        :param help_text: Help text to display below the block group's heading.
+        :type help_text: str
+
+        :param icon: The name of the icon to display alongside the block group's heading.
+        :type icon: str
+
+        :param attrs: A dictionary of HTML attributes to add to the block group's main content area.
+        :type attrs: dict
+
+        :param label_format: The summary label shown after the ``heading`` when the
+            block is collapsed in the editing interface. By default, the value of the
+            first child block is shown, but this can be customized by setting a string
+            here with block names contained in braces - for example ``label_format = "
+            {surname}, {first_name}"``. If you wish to hide the summary label entirely,
+            set this to the empty string ``""``.
+        :type label_format: str | None
+        """
+        self.children = children
+        self.settings = settings or []
+        self.heading = heading or _("Group")
+        self.clean_name = safe_snake_case(self.heading)
+        self.classname = classname
+        self.help_text = help_text
+        self.icon = icon
+        self.attrs = attrs or {}
+        self.label_format = label_format
+
+    telepath_adapter_name = "wagtail.blocks.BlockGroup"
+
+    @cached_property
+    def unique_children_and_settings(self):
+        # Ensure unique identifiers in the case of multiple BlockGroups with the
+        # same headings on the same level, either in children or settings.
+        used_names = set()
+
+        def group_with_unique_names(group):
+            results = []
+            for child in group:
+                base_name = child.clean_name if isinstance(child, BlockGroup) else child
+                candidate_name = base_name
+                suffix = 0
+                while candidate_name in used_names:
+                    suffix += 1
+                    candidate_name = "%s%d" % (base_name, suffix)
+                results.append((child, candidate_name))
+                used_names.add(candidate_name)
+            return results
+
+        children = group_with_unique_names(self.children)
+        settings = group_with_unique_names(self.settings)
+        return children, settings
+
+    def get_sorted_block_names(self):
+        """
+        Return a flat list of all block names in this ``BlockGroup`` and any
+        nested ``BlockGroups`` in the group's list order.
+        """
+        block_names = []
+        for child in self.children + self.settings:
+            if isinstance(child, BlockGroup):
+                block_names.extend(child.get_sorted_block_names())
+            else:
+                block_names.append(child)
+        return block_names
+
+    def js_opts(self):
+        children, settings = self.unique_children_and_settings
+        return {
+            "children": children,
+            "settings": settings,
+            "heading": self.heading,
+            "cleanName": self.clean_name,
+            "classname": self.classname,
+            "helpText": self.help_text,
+            "icon": self.icon,
+            "attrs": self.attrs,
+            "labelFormat": self.label_format,
+        }
+
+    def telepath_pack(self, context):
+        return (self.telepath_adapter_name, [self.js_opts()])
 
 
 class StructValue(collections.OrderedDict):
@@ -118,6 +249,17 @@ class BaseStructBlock(Block):
             for name, block in local_blocks:
                 block.set_name(name)
                 self.child_blocks[name] = block
+
+        self.meta.form_layout = self.get_form_layout()
+
+        # Reorder child_blocks to match form_layout, appending any missing
+        # blocks to the end
+        sorted_block_names = self.meta.form_layout.get_sorted_block_names()
+        missing_block_names = self.child_blocks.keys() - set(sorted_block_names)
+        self.child_blocks = collections.OrderedDict(
+            (name, self.child_blocks[name])
+            for name in (sorted_block_names + list(missing_block_names))
+        )
 
     @classmethod
     def construct_from_lookup(cls, lookup, child_blocks, **kwargs):
@@ -335,8 +477,26 @@ class BaseStructBlock(Block):
         for name, child_block in self.child_blocks.items():
             errors.extend(child_block.check(**kwargs))
             errors.extend(child_block._check_name(**kwargs))
+        errors.extend(self._check_form_layout())
 
         return errors
+
+    def _check_form_layout(self):
+        if self.meta.form_template and any(
+            isinstance(name, BlockGroup)
+            for name in (
+                self.meta.form_layout.children + self.meta.form_layout.settings
+            )
+        ):
+            return [
+                checks.Error(
+                    f"{self.__class__.__name__}.Meta.form_layout cannot have "
+                    "nested BlockGroups when using a custom form_template.",
+                    obj=self,
+                    id="wagtailcore.E007",
+                )
+            ]
+        return []
 
     def render_basic(self, value, context=None):
         return format_html(
@@ -363,24 +523,42 @@ class BaseStructBlock(Block):
         return super().get_description() or getattr(self.meta, "help_text", "")
 
     def get_form_context(self, value, prefix="", errors=None):
-        return {
-            "children": collections.OrderedDict(
-                [
-                    (
-                        name,
-                        PlaceholderBoundBlock(
-                            block, value.get(name), prefix=f"{prefix}-{name}"
-                        ),
-                    )
-                    for name, block in self.child_blocks.items()
-                ]
-            ),
+        children = collections.OrderedDict(
+            [
+                (
+                    name,
+                    PlaceholderBoundBlock(
+                        block, value.get(name), prefix=f"{prefix}-{name}"
+                    ),
+                )
+                for name, block in self.child_blocks.items()
+            ]
+        )
+        # Move settings blocks into a separate dict for easier access in templates
+        settings = collections.OrderedDict(
+            [(name, children.pop(name)) for name in self.meta.form_layout.settings]
+        )
+        context = {
+            "children": children,
+            "settings": settings,
             "help_text": getattr(self.meta, "help_text", None),
             "classname": self.meta.form_classname,
             "collapsed": self.meta.collapsed,
             "block_definition": self,
             "prefix": prefix,
         }
+        return context
+
+    def get_form_layout(self) -> BlockGroup:
+        """
+        Return the :class:`BlockGroup` representing the form layout for this
+        ``StructBlock``.
+        """
+        if (form_layout := self.meta.form_layout) is None:
+            return BlockGroup(list(self.child_blocks.keys()))
+        if isinstance(form_layout, list):
+            return BlockGroup(form_layout)
+        return form_layout
 
     @cached_property
     def _has_default(self):
@@ -393,6 +571,7 @@ class BaseStructBlock(Block):
         value_class = StructValue
         label_format = None
         collapsed = False
+        form_layout: BlockGroup | list[Union[str, "BlockGroup"]] | None = None
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
@@ -417,6 +596,7 @@ class StructBlockAdapter(Adapter):
             "classname": block.meta.form_classname,
             "collapsed": block.meta.collapsed,
             "attrs": block.meta.form_attrs or {},
+            "formLayout": block.meta.form_layout,
         }
 
         help_text = getattr(block.meta, "help_text", None)

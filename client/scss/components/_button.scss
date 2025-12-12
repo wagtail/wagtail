@@ -259,6 +259,8 @@
       text-align: center;
       height: inherit;
       width: inherit;
+      position: relative;
+      overflow: visible;
 
       &:hover {
         color: theme('colors.icon-secondary-hover');
