@@ -11,7 +11,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
-from wagtail.admin.action_menu import ActionMenuItem, LockedMenuItem, SaveMenuItem
+from wagtail.admin.action_menu import ActionMenuItem, SaveMenuItem
 from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 from wagtail.snippets.permissions import get_permission_name
 
@@ -22,6 +22,15 @@ class SaveDraftMenuItem(SaveMenuItem):
     name = "action-save"
     label = _("Save draft")
     template_name = "wagtailsnippets/snippets/action_menu/save.html"
+
+
+class LockedMenuItem(ActionMenuItem):
+    name = "action-locked"
+    label = _("Locked")
+    template_name = "wagtailsnippets/snippets/action_menu/locked.html"
+
+    def is_shown(self, context):
+        return context.get("locked_for_user")
 
 
 class PublishMenuItem(ActionMenuItem):
@@ -178,8 +187,6 @@ def get_base_snippet_action_menu_items(model):
     which may then be customised on a per-request basis
     """
     menu_items = []
-    
-    # Use SaveDraftMenuItem for draft-enabled models, SaveMenuItem otherwise
     if issubclass(model, DraftStateMixin):
         menu_items.append(SaveDraftMenuItem(order=0))
     else:

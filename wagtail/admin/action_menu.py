@@ -243,30 +243,18 @@ class SaveDraftMenuItem(SaveMenuItem):
     template_name = "wagtailadmin/pages/action_menu/save_draft.html"
 
 
-class LockedMenuItem(ActionMenuItem):
-    """Generic locked menu item for both pages and snippets"""
-
-    name = "action-locked"
-    label = _("Locked")
-
-    def is_shown(self, context):
-        return context.get("locked_for_user")
-
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        context["is_revision"] = context.get("view") == "revisions_revert"
-        return context
-
-
-class PageLockedMenuItem(LockedMenuItem):
-    """Page-specific locked menu item (for backwards compatibility)"""
-
+class PageLockedMenuItem(ActionMenuItem):
     name = "action-page-locked"
     label = _("Page locked")
     template_name = "wagtailadmin/pages/action_menu/page_locked.html"
 
     def is_shown(self, context):
         return "page" in context and context.get("locked_for_user")
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["is_revision"] = context.get("view") == "revisions_revert"
+        return context
 
 
 BASE_PAGE_ACTION_MENU_ITEMS = None
