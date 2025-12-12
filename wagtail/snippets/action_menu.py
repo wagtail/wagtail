@@ -16,6 +16,14 @@ from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 from wagtail.snippets.permissions import get_permission_name
 
 
+class SaveDraftMenuItem(SaveMenuItem):
+    """Snippet-specific save draft menu item"""
+
+    name = "action-save"
+    label = _("Save draft")
+    template_name = "wagtailsnippets/snippets/action_menu/save.html"
+
+
 class PublishMenuItem(ActionMenuItem):
     name = "action-publish"
     label = _("Publish")
@@ -169,9 +177,14 @@ def get_base_snippet_action_menu_items(model):
     Retrieve the global list of menu items for the snippet action menu,
     which may then be customised on a per-request basis
     """
-    menu_items = [
-        SaveMenuItem(order=0),
-    ]
+    menu_items = []
+    
+    # Use SaveDraftMenuItem for draft-enabled models, SaveMenuItem otherwise
+    if issubclass(model, DraftStateMixin):
+        menu_items.append(SaveDraftMenuItem(order=0))
+    else:
+        menu_items.append(SaveMenuItem(order=0))
+    
     if issubclass(model, DraftStateMixin):
         menu_items += [
             UnpublishMenuItem(order=20),
