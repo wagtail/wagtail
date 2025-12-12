@@ -28,6 +28,7 @@ Changelog
  * Docs: Clarify that `before_delete_page` and similar hooks only trigger on the individual page view, not bulk actions (Shivam Kumar)
  * Docs: Clarify template location in custom user model documentation (Akhil Muraleedharan)
  * Docs: Improve signposting for contributor docs (Matt Westcott)
+ * Docs: Add mention of novalidate attribute in form builder docs (Thibaud Colas)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
