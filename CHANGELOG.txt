@@ -4,6 +4,7 @@ Changelog
 7.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add support for Django 6.0
  * Resize overly large avatar images on upload (Harshit Ranjan)
  * Add natural keys for `Page` and `Collection` models (Samya Aggarwal)
  * Add Loom oEmbed provider (Nick Ivons)
@@ -39,6 +40,7 @@ Changelog
  * Maintenance: Remove jQuery dependency for image URL generator (LB (Ben) Johnston)
  * Maintenance: Upgrade to django-modelcluster 6.4.1 for Django 6.0 compatibility (Matt Westcott)
  * Maintenance: Refactor CreateView/EditView validation logic to support non-form validation (Matt Westcott)
+ * Maintenance: Formalized support for Django 6.0 (Pravin Kamble)
 
 
 7.2.1 (26.11.2025)
