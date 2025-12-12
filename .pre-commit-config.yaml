@@ -26,10 +26,11 @@ repos:
         args: [--report-unused-disable-directives]
         additional_dependencies:
           # Keep in sync with package.json
-          - eslint@8.57.0
+          - eslint@8.57.1
           - '@typescript-eslint/eslint-plugin@6.21.0'
           - '@typescript-eslint/parser@6.21.0'
           - '@wagtail/eslint-config-wagtail@0.5.0'
+          - 'eslint-plugin-no-jquery@^3.1.1'
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
     rev: v15.11.0
     hooks:
