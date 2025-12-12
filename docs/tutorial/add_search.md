@@ -2,7 +2,7 @@
 
 Using the Wagtail `start` command to start your project gives you a built-in search app. This built-in search app provides a simple search functionality for your site.
 
-However, you can customize your search template to suit your portfolio site. To customize your search template, go to your `search/templates/search.html` file and modify it as follows:
+However, you can customize your search template to suit your portfolio site. To customize your search template, go to your `search/templates/search/search.html` file and modify it as follows:
 
 ```html+django
 {% extends "base.html" %}
