@@ -927,6 +927,7 @@
 * Jashvirsingh Taak
 * Vignesh Shivhare
 * Akhil Muraleedharan
+* Lee Hart
 
 ## Translators
 
