@@ -8,6 +8,73 @@
 
 Wagtail provides several generic views for handling common tasks such as creating / editing model instances and chooser modals. For convenience, these views are bundled in [viewsets](viewsets_reference).
 
+## Generic reordering support
+
+Wagtail provides generic reordering support to allow editors to change the display order of items that are not part of a `Page` hierarchy. This is useful for sortable models such as snippets, galleries, related items, or any list where order matters.
+
+### When to use generic reordering
+
+Use this feature when:
+
+- Your model represents a list of items in a specific order.
+- Editors should be able to reorder items through the Wagtail admin UI.
+- You want to avoid writing custom admin views for drag-and-drop ordering.
+
+### Required model setup
+
+Your model needs a field that stores the order:
+
+```python
+from django.db import models
+
+class GalleryImage(models.Model):
+    image = models.ForeignKey('images.Image', on_delete=models.CASCADE)
+    caption = models.CharField(max_length=255, blank=True)
+    sort_order = models.IntegerField(default=0, db_index=True)
+```
+
+### Enabling reordering
+
+To enable generic reordering:
+
+1. Ensure your view or snippet listing can receive reordered IDs.
+2. Update the model’s order field after a reorder operation.
+
+Example logic:
+
+```python
+def reorder_items(request):
+    ordered_ids = request.POST.getlist('order[]')  # e.g., ['3', '1', '2']
+
+    for position, item_id in enumerate(ordered_ids, start=1):
+        GalleryImage.objects.filter(pk=item_id).update(sort_order=position)
+
+    return JsonResponse({'status': 'ok'})
+```
+
+### Handling unpopulated order fields (from #13485)
+
+An issue can occur when existing objects have no value in the order field.
+
+To avoid this:
+
+- Always provide a default value (e.g., `default=0`).
+- Run a one-time data migration to populate order fields.
+
+Example migration:
+
+```python
+for index, item in enumerate(GalleryImage.objects.order_by('id'), start=1):
+    item.sort_order = index
+    item.save(update_fields=['sort_order'])
+```
+
+### Tips for testing
+
+- Write tests to confirm that the reordered order persists.
+- Validate behaviour when two items have the same `sort_order` value.
+- Ensure empty or missing order values are handled safely.
+
 (modelviewset)=
 
 ## ModelViewSet
