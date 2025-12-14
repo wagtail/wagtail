@@ -928,6 +928,7 @@
 * Vignesh Shivhare
 * Akhil Muraleedharan
 * Lee Hart
+* Biswajeet Yadav
 
 ## Translators
 

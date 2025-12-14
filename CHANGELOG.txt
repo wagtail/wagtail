@@ -31,6 +31,7 @@ Changelog
  * Docs: Add mention of novalidate attribute in form builder docs (Thibaud Colas)
  * Docs: Fix formatting for `PageQuerySet.prefetch_related` performance note (Lasse Schmieding)
  * Docs: Fix path to `search.html` in tutorial (Lee Hart)
+ * Docs: Grammar fixes to contributor guidelines (Biswajeet Yadav)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
