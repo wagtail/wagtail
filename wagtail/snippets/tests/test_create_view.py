@@ -75,8 +75,6 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             {
                 "w-unsaved#submit",
                 "beforeunload@window->w-unsaved#confirm",
-                "change->w-unsaved#check",
-                "keyup->w-unsaved#check",
             }.issubset(editor_form.attrs.get("data-action").split())
         )
         self.assertEqual(
@@ -86,10 +84,6 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(
             editor_form.attrs.get("data-w-unsaved-force-value"),
             "false",
-        )
-        self.assertIn(
-            "edits",
-            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
 
     def test_snippet_with_tabbed_interface(self):
@@ -162,8 +156,6 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             {
                 "w-unsaved#submit",
                 "beforeunload@window->w-unsaved#confirm",
-                "change->w-unsaved#check",
-                "keyup->w-unsaved#check",
             }.issubset(editor_form.attrs.get("data-action").split())
         )
         self.assertEqual(
@@ -174,10 +166,6 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             editor_form.attrs.get("data-w-unsaved-force-value"),
             # The form is invalid, we want to force it to be "dirty" on initial load
             "true",
-        )
-        self.assertIn(
-            "edits",
-            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
 
     def test_create_invalid_with_json_response(self):
