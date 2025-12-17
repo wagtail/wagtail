@@ -23,15 +23,16 @@ concurrency:
 # - django 4.2, python 3.10, postgres:12, psycopg 2, parallel
 # - django 4.2, python 3.10, mysql:8.0
 # - django 4.2, python 3.11, mariadb:10.5
-# - django 5.2, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
-# - django 5.2, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
+# - django 6.0, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
+# - django 6.0, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
 # - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
-# - django 5.2, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
-# - django stable/5.2.x, python 3.14, postgres:15, psycopg 3 (allow failures)
+# - django 6.0, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - django 6.0, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
+# - django stable/6.0.x, python 3.14, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
 # - elasticsearch 7, django 4.2, python 3.10, postgres:latest, psycopg 2
 # - opensearch 2, django 5.2, python 3.10, sqlite
-# - elasticsearch 8, django 5.2, python 3.14, sqlite, USE_EMAIL_USER_MODEL=yes
+# - elasticsearch 8, django 6.0, python 3.14, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
 # When running tests in parallel, some errors cannot be pickled and result in
@@ -50,6 +51,10 @@ jobs:
         include:
           - python: '3.13'
             django: 'Django>=5.2,<5.3'
+            check_template_number_format: '1'
+            parallel: '--parallel'
+          - python: '3.13'
+            django: 'Django>=6.0,<6.1'
             check_template_number_format: '1'
             parallel: '--parallel'
 
@@ -94,7 +99,7 @@ jobs:
             experimental: false
             parallel: '--parallel'
           - python: '3.14'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             notz: notz
@@ -191,12 +196,12 @@ jobs:
             experimental: false
             mysql: 'mariadb:10.5'
           - python: '3.12'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             experimental: false
             mysql: 'mariadb:11.4'
             emailuser: emailuser
           - python: '3.12'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             experimental: false
             mysql: 'mysql:8.4'
             emailuser: emailuser
@@ -252,7 +257,7 @@ jobs:
       matrix:
         include:
           - python: '3.14'
-            django: 'Django>=5.2,<5.3'
+            django: 'Django>=6.0,<6.1'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits

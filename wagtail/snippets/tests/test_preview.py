@@ -480,7 +480,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_show_preview_panel_on_edit_with_single_mode(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         new_tab_url = preview_url + "?mode="
         response = self.client.get(edit_url)
@@ -574,7 +574,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_custom_auto_update_interval(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         response = self.client.get(edit_url)
 
@@ -603,7 +603,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_disable_auto_update_using_zero_interval(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         response = self.client.get(edit_url)
 
