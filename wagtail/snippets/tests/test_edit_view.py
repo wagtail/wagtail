@@ -157,8 +157,6 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             {
                 "w-unsaved#submit",
                 "beforeunload@window->w-unsaved#confirm",
-                "change->w-unsaved#check",
-                "keyup->w-unsaved#check",
             }.issubset(editor_form.attrs.get("data-action").split())
         )
         self.assertEqual(
@@ -169,10 +167,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             editor_form.attrs.get("data-w-unsaved-force-value"),
             "false",
         )
-        self.assertIn(
-            "edits",
-            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
-        )
+
         self.assertIsNone(editor_form.select_one("input[name='loaded_revision_id']"))
         self.assertIsNone(
             editor_form.select_one("input[name='loaded_revision_created_at']")
@@ -249,8 +244,6 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             {
                 "w-unsaved#submit",
                 "beforeunload@window->w-unsaved#confirm",
-                "change->w-unsaved#check",
-                "keyup->w-unsaved#check",
             }.issubset(editor_form.attrs.get("data-action").split())
         )
         self.assertEqual(
@@ -261,10 +254,6 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             editor_form.attrs.get("data-w-unsaved-force-value"),
             # The form is invalid, we want to force it to be "dirty" on initial load
             "true",
-        )
-        self.assertIn(
-            "edits",
-            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
 
     def test_edit_invalid_with_json_response(self):

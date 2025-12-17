@@ -64,7 +64,8 @@ export const debounce = <A extends any[], R = any>(
   return debounced;
 };
 
-export type DebouncedFunction<A extends any[], R = any> = {
+/** A function that has been debounced. */
+export type DebouncedFunction<A extends any[] = [], R = void> = {
   (...args: A): Promise<R>;
   cancel(): void;
   restore(): (...args: A) => R | Promise<R>;

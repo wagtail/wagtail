@@ -30,33 +30,19 @@ describe('UnsavedController', () => {
     });
   });
 
-  beforeEach(() => {
-    // Mock FormData.entries
-    // https://github.com/jsdom/jsdom/blob/main/lib/jsdom/living/xhr/FormData.webidl
-
-    const mockEntries = jest
-      .fn()
-      .mockReturnValueOnce(['name', 'John'])
-      .mockReturnValue([['name', 'Joe']]);
-
-    global.FormData = class FormData {
-      entries() {
-        return mockEntries();
-      }
-    };
-  });
-
   const setup = async (
-    html = `
+    html = /* html */ `
   <section>
     <form
       id="form"
       data-controller="w-unsaved"
-      data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
+      data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
       data-w-unsaved-confirmation-value="true"
     >
-      <input type="text" id="name" value="John" />
-      <button>Submit</submit>
+      <input type="text" id="name" name="name" value="John" />
+      <input type="hidden" name="csrfmiddlewaretoken" value="potatoken" />
+      <input type="hidden" name="next" value="/next/url/" />
+      <button>Submit</button>
     </form>
   </section>`,
     identifier = 'w-unsaved',
@@ -73,7 +59,10 @@ describe('UnsavedController', () => {
 
     application.start();
 
-    await jest.runAllTimersAsync();
+    // Wait for the initial delay of setting up the initial form data
+    await jest.runOnlyPendingTimersAsync();
+    // Trigger the first check interval
+    await jest.runOnlyPendingTimersAsync();
 
     return [
       ...document.querySelectorAll(`[data-controller~="${identifier}"]`),
@@ -109,14 +98,40 @@ describe('UnsavedController', () => {
       expect(events['w-unsaved:add']).toHaveLength(0);
 
       document.getElementById('name').value = 'Joe';
-      document
-        .getElementById('name')
-        .dispatchEvent(new CustomEvent('change', { bubbles: true }));
 
-      await jest.runAllTimersAsync();
+      // The change has not been detected
+      const form = document.querySelector('form');
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'false',
+      );
 
+      // Wait for 500ms to trigger the check
+      await jest.advanceTimersByTimeAsync(500);
+
+      // Now the change should be detected
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
+
+      // But the event should not have fired yet due to the debounce
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      // Wait for more than 500ms to trigger another check, but less than the
+      // debounced notify time of 30ms
+      await jest.advanceTimersByTimeAsync(510);
+
+      // The event should still not have fired
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      // Now advance time to trigger the debounced notify
+      await jest.advanceTimersByTimeAsync(20);
+
+      // Now the event should have fired
       expect(events['w-unsaved:add']).toHaveLength(1);
       expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
     });
 
     it('should allow checking for when an input is removed', async () => {
@@ -131,7 +146,10 @@ describe('UnsavedController', () => {
 
       input.remove();
 
-      await jest.runAllTimersAsync();
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
 
       expect(events['w-unsaved:add']).toHaveLength(1);
       expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
@@ -150,7 +168,31 @@ describe('UnsavedController', () => {
       paragraph.textContent = 'This is a new paragraph'; // Add some content for clarity
       document.getElementsByTagName('form')[0].appendChild(paragraph); // paragraph is added
 
-      await jest.runAllTimersAsync();
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      // Assert (verify no events were fired)
+      expect(events['w-unsaved:add']).toHaveLength(0);
+    });
+
+    it('should ignore excluded field names', async () => {
+      expect(events['w-unsaved:add']).toHaveLength(0); // Ensure no initial events
+
+      await setup();
+
+      expect(events['w-unsaved:add']).toHaveLength(0); // Verify no events after setup
+
+      const csrf = document.querySelector('input[name="csrfmiddlewaretoken"]');
+      csrf.value = 'tomatoken';
+      const next = document.querySelector('input[name="next"]');
+      next.value = '/another/url/';
+
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
 
       // Assert (verify no events were fired)
       expect(events['w-unsaved:add']).toHaveLength(0);
@@ -166,10 +208,13 @@ describe('UnsavedController', () => {
       // Act (simulate adding a textarea with value)
       const textarea = document.createElement('textarea');
       textarea.value = 'Some initial content';
-      textarea.id = 'taName';
+      textarea.name = 'taName';
       document.getElementsByTagName('form')[0].appendChild(textarea);
 
-      await jest.runAllTimersAsync(); // Allow any timers to trigger
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
 
       // Assert (verify event was fired)
       expect(events['w-unsaved:add']).toHaveLength(1);
@@ -187,7 +232,7 @@ describe('UnsavedController', () => {
       // Act
       const div = document.createElement('div');
       const select = document.createElement('select');
-      select.id = 'mySelect';
+      select.name = 'mySelect';
 
       const option1 = document.createElement('option');
       option1.value = 'option1';
@@ -202,11 +247,104 @@ describe('UnsavedController', () => {
       div.appendChild(select);
       document.body.getElementsByTagName('form')[0].appendChild(div);
 
-      await jest.runAllTimersAsync();
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
 
       // Assert
       expect(events['w-unsaved:add']).toHaveLength(1);
       expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+    });
+
+    it('should detect changes to file inputs', async () => {
+      const files = {
+        multiple: [
+          new File(['file contents'], 'test.txt', {
+            type: 'text/plain',
+          }),
+        ],
+        single: [],
+      };
+
+      // JSDOM does not yet support setting File inputs programmatically,
+      // see https://github.com/jsdom/jsdom/issues/1272.
+      // Mock FormData instead of the input element, as JSDOM's FormData uses
+      // the underlying HTMLInputElement-Impl and ignores modifications to
+      // HTMLInputElement.files.
+      class MockFormData extends FormData {
+        get(key) {
+          return key in files ? files[key][0] : super.get(key);
+        }
+
+        getAll(key) {
+          return key in files ? files[key] : super.getAll(key);
+        }
+      }
+      const formDataSpy = jest
+        .spyOn(window, 'FormData')
+        .mockImplementation((form) => new MockFormData(form));
+
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      await setup(/* html */ `
+        <section>
+          <form
+            id="form"
+            data-controller="w-unsaved"
+            data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
+            data-w-unsaved-confirmation-value="true"
+          >
+            <input type="file" multiple id="multiple" name="multiple" />
+            <input type="file" id="single" name="single" />
+            <button>Submit</button>
+          </form>
+        </section>
+      `);
+
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      files.multiple.push(
+        new File(['another file'], 'example.png', {
+          type: 'image/png',
+        }),
+      );
+
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+
+      files.single.push(
+        new File(['single file'], 'document.pdf', {
+          type: 'application/pdf',
+        }),
+      );
+
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(events['w-unsaved:add']).toHaveLength(2);
+      expect(events['w-unsaved:add'][1]).toHaveProperty('detail.type', 'edits');
+
+      // Should also detect removing files
+      files.multiple = [];
+      files.single = [];
+
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(events['w-unsaved:add']).toHaveLength(3);
+      expect(events['w-unsaved:add'][2]).toHaveProperty('detail.type', 'edits');
+
+      formDataSpy.mockRestore();
     });
   });
 
@@ -229,16 +367,16 @@ describe('UnsavedController', () => {
     });
 
     it('should show a confirmation message if forced', async () => {
-      await setup(`
+      await setup(/* html */ `
       <section>
         <form
           data-controller="w-unsaved"
-          data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
+          data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
           data-w-unsaved-confirmation-value="true"
           data-w-unsaved-force-value="true"
         >
-          <input type="text" id="name" value="John" />
-          <button>Submit</submit>
+          <input type="text" id="name" name="name" value="John" />
+          <button>Submit</button>
         </form>
       </section>`);
 
@@ -266,7 +404,10 @@ describe('UnsavedController', () => {
       input.value = 'James Sunderland';
       input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
 
-      await jest.runAllTimersAsync();
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
 
       expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
         'true',
@@ -275,16 +416,16 @@ describe('UnsavedController', () => {
     });
 
     it('should not show a confirmation message if forced but confirmation value is false', async () => {
-      await setup(`
+      await setup(/* html */ `
       <section>
         <form
           data-controller="w-unsaved"
-          data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
+          data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
           data-w-unsaved-confirmation-value="false"
           data-w-unsaved-force-value="true"
         >
           <input type="text" id="name" value="John" />
-          <button>Submit</submit>
+          <button>Submit</button>
         </form>
       </section>`);
 
@@ -312,7 +453,7 @@ describe('UnsavedController', () => {
       input.value = 'James Sunderland';
       input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
 
-      await jest.runAllTimersAsync();
+      await jest.runOnlyPendingTimersAsync();
 
       expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
         'true',
@@ -323,11 +464,9 @@ describe('UnsavedController', () => {
     it('should allow a confirmation message to show before the browser closes', async () => {
       await setup();
 
-      document
-        .getElementById('name')
-        .dispatchEvent(new CustomEvent('change', { bubbles: true }));
+      document.getElementById('name').value = 'Changed person';
 
-      await jest.runAllTimersAsync();
+      await jest.runOnlyPendingTimersAsync();
 
       const result = await mockBrowserClose();
 
@@ -338,14 +477,12 @@ describe('UnsavedController', () => {
     it('should not show a confirmation message if there are edits but the form is being submitted', async () => {
       await setup();
 
-      document
-        .getElementById('name')
-        .dispatchEvent(new CustomEvent('change', { bubbles: true }));
+      document.getElementById('name').value = 'Changed cat';
+
+      await jest.runOnlyPendingTimersAsync();
 
       // mock submitting the form
       document.getElementById('form').dispatchEvent(new Event('submit'));
-
-      await jest.runAllTimersAsync();
 
       const result = await mockBrowserClose();
 
@@ -360,11 +497,9 @@ describe('UnsavedController', () => {
       document.addEventListener('w-unsaved:confirm', preventConfirm);
       await setup();
 
-      document
-        .getElementById('name')
-        .dispatchEvent(new CustomEvent('change', { bubbles: true }));
+      document.getElementById('name').value = 'Changed doggo';
 
-      await jest.runAllTimersAsync();
+      await jest.runOnlyPendingTimersAsync();
 
       const result = await mockBrowserClose();
 
@@ -373,6 +508,56 @@ describe('UnsavedController', () => {
       expect(events['w-unsaved:confirm'][0].defaultPrevented).toEqual(true);
       expect(preventConfirm).toHaveBeenCalledTimes(1);
       document.removeEventListener('w-unsaved:confirm', preventConfirm);
+    });
+  });
+
+  describe('clearing tracked changes and messages', () => {
+    it('should allow clearing via events', async () => {
+      await setup();
+
+      expect(events['w-unsaved:ready']).toHaveLength(1);
+      expect(events['w-unsaved:add']).toHaveLength(0);
+      expect(events['w-unsaved:clear']).toHaveLength(1);
+
+      const form = document.querySelector('form');
+      const button = document.createElement('button');
+      const input = document.getElementById('name');
+      button.type = 'button';
+      button.setAttribute('data-action', 'w-unsaved#clear');
+      form.appendChild(button);
+
+      input.value = 'Changed person';
+
+      await jest.runOnlyPendingTimersAsync();
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:clear']).toHaveLength(1);
+
+      // Click the clear button
+      button.click();
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'false',
+      );
+      await jest.runOnlyPendingTimersAsync();
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:clear']).toHaveLength(2);
+
+      input.value = 'Changed person again';
+
+      await jest.runOnlyPendingTimersAsync();
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
+      expect(events['w-unsaved:add']).toHaveLength(2);
+      expect(events['w-unsaved:clear']).toHaveLength(2);
     });
   });
 });
