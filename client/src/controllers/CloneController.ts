@@ -86,6 +86,8 @@ export class CloneController extends Controller<HTMLElement> {
    * added custom text inside the added element.
    */
   add(event?: CustomEvent<AddOptions> & { params?: AddOptions }) {
+    if (event?.defaultPrevented) return;
+
     const {
       clear = false,
       text = '',

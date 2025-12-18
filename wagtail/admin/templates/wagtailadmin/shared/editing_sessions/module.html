@@ -31,16 +31,27 @@
     data-w-action-url-value="{{ release_url }}"
     data-w-session-interval-value="{{ ping_interval|unlocalize }}"
     data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
-    data-action="w-session:ping->w-swap#submit visibilitychange@document->w-session#dispatchVisibilityState w-session:visible->w-session#ping w-session:visible->w-session#addInterval w-session:hidden->w-session#clearInterval w-session:hidden->w-action#sendBeacon w-unsaved:add@document->w-session#setUnsavedChanges w-unsaved:clear@document->w-session#setUnsavedChanges w-swap:json->w-session#updateSessionData"
+    data-action="
+                 w-session:ping->w-swap#submit
+                 visibilitychange@document->w-session#dispatchVisibilityState
+                 w-session:visible->w-session#ping
+                 w-session:visible->w-session#addInterval
+                 w-session:hidden->w-session#clearInterval
+                 w-session:hidden->w-action#sendBeacon
+                 w-unsaved:add@document->w-session#setUnsavedChanges
+                 w-unsaved:clear@document->w-session#setUnsavedChanges
+                 w-swap:json->w-session#updateSessionData
+                 w-autosave:success@document->w-session#updateSessionData
+                "
 >
     <input type="checkbox" name="is_editing" value="1" data-w-session-target="unsavedChanges" hidden />
     {% if revision_id %}
         {# The ID of the revision that is being edited #}
-        <input type="hidden" name="revision_id" value="{{ revision_id|unlocalize }}" />
+        <input type="hidden" name="revision_id" value="{{ revision_id|unlocalize }}" data-w-session-target="revisionId" />
     {% endif %}
     {% if revision_created_at %}
         {# The created_at of the revision that is being edited #}
-        <input type="hidden" name="revision_created_at" value="{{ revision_created_at }}" />
+        <input type="hidden" name="revision_created_at" value="{{ revision_created_at }}" data-w-session-target="revisionCreatedAt" />
     {% endif %}
     <div id="w-editing-sessions">
         {% component sessions_list %}

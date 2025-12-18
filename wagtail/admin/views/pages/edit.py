@@ -606,7 +606,7 @@ class EditView(
                 self.subscription.save()
 
                 overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
-                if overwrite_revision_id is not None:
+                if overwrite_revision_id:
                     try:
                         overwrite_revision = self.page.revisions.get(
                             pk=overwrite_revision_id
@@ -1088,6 +1088,7 @@ class EditView(
                 and user_perms.can_unlock(),
                 "locale": self.locale,
                 "media": media,
+                "autosave_enabled": True,
                 "editing_sessions": self.get_editing_sessions(),
                 "loaded_revision_created_at": self.latest_revision_created_at,
             }

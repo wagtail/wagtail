@@ -231,7 +231,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
       return;
     }
 
-    this.dispatch('add', { cancelable: false, detail: { type: 'edits' } });
+    this.dispatch('add', { cancelable: true, detail: { type: 'edits' } });
   };
 
   /**
