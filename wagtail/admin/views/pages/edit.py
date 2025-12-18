@@ -563,7 +563,7 @@ class EditView(
                 self.subscription.save()
 
                 overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
-                if overwrite_revision_id is not None:
+                if overwrite_revision_id:
                     try:
                         overwrite_revision = self.page.revisions.get(
                             pk=overwrite_revision_id

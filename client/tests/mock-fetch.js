@@ -45,9 +45,10 @@ fetch.mockResponseFailure = () => {
 /**
  * Helper to mock a bad request response.
  */
-fetch.mockResponseBadRequest = () => {
+fetch.mockResponseBadRequest = (json) => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
+      json: () => Promise.resolve(JSON.parse(json)),
       ok: false,
       status: 400,
       statusText: 'Bad Request',

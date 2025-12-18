@@ -3,8 +3,9 @@ import { DialogController } from './DialogController';
 import { SwapController } from './SwapController';
 import { ActionController } from './ActionController';
 import { setOptionalInterval } from '../utils/interval';
+import { AutosaveSuccessResponse } from './AutosaveController';
 
-interface PingResponse {
+export interface PingResponse {
   session_id: string;
   ping_url: string;
   release_url: string;
@@ -59,12 +60,15 @@ export class SessionController extends Controller<HTMLElement> {
 
   static outlets = ['w-dialog'];
 
-  static targets = ['unsavedChanges', 'reload'];
+  static targets = ['unsavedChanges', 'revisionId', 'reload'];
 
   declare readonly hasUnsavedChangesTarget: boolean;
+  declare readonly hasRevisionIdTarget: boolean;
   declare readonly hasWDialogOutlet: boolean;
   /** The checkbox input to indicate unsaved changes */
   declare readonly unsavedChangesTarget: HTMLInputElement;
+  /** The hidden input to store the current revision ID */
+  declare readonly revisionIdTarget: HTMLInputElement;
   /** Reload buttons in the sessions' popups */
   declare readonly reloadTargets: HTMLButtonElement[];
   /** The confirmation dialog for overwriting changes made by another user */
@@ -283,24 +287,27 @@ export class SessionController extends Controller<HTMLElement> {
   updateSessionData(event: CustomEvent) {
     const { detail } = event;
     if (!detail || !detail.data) return;
-    const data: PingResponse = detail.data;
+    const data: PingResponse | AutosaveSuccessResponse = detail.data;
 
     // Update the ping and release URLs in case the session ID has changed
     // e.g. when the user has been inactive for too long and resumed their session.
     // Modify the values via the controllers directly instead of setting the data
     // attributes so we get type checking.
     const swapController = this.swapController;
-    if (swapController && data.ping_url) {
+    if (swapController && 'ping_url' in data && data.ping_url) {
       swapController.srcValue = data.ping_url;
     }
     const actionController = this.actionController;
-    if (actionController && data.release_url) {
+    if (actionController && 'release_url' in data && data.release_url) {
       actionController.urlValue = data.release_url;
+    }
+    if ('revision_id' in data && this.hasRevisionIdTarget) {
+      this.revisionIdTarget.value = `${data.revision_id}`;
     }
 
     // Set the interceptValue to true if any of the other sessions have a
     // revision ID (assumed to be newer than the one we have loaded)
-    if (!data.other_sessions) return;
+    if (!('other_sessions' in data && data.other_sessions)) return;
     this.interceptValue = data.other_sessions.some(
       (session) => session.revision_id,
     );
