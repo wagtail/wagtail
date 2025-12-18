@@ -76,7 +76,7 @@ To easily identify the most relevant changes to users, items are grouped togethe
 -   Minor enhancements (no prefix) - other improvements to the developer or end user experience
 -   Bug fixes (prefixed with "Fix:") - things that address broken behavior from previous releases
 -   Documentation (prefixed with "Docs:") - changes to documentation that do not accompany a specific code change; reorganizations, tutorials, recipes and so on
--   Maintenance (prefixed with "Maintenance:") - cleanup, refactoring and other changes to code or tooling that are not intended to have a visible effect on developers or end users
+-   Maintenance (prefixed with "Maintenance:") - cleanup, refactoring and other changes to code or tooling that do not affect the developer or end user experience
 
 The name of the contributor should be added at the end of the summary, in brackets.
 For example:
