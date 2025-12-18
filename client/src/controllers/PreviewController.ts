@@ -93,7 +93,7 @@ export class PreviewController extends Controller<HTMLElement> {
   static targets = ['iframe', 'mode', 'newTab', 'size', 'spinner'];
 
   static values = {
-    autoUpdateInterval: { default: 500, type: Number },
+    autoUpdate: { default: true, type: Boolean },
     deviceLocalStorageKey: {
       default: 'wagtail:preview-panel-device',
       type: String,
@@ -151,10 +151,10 @@ export class PreviewController extends Controller<HTMLElement> {
   // Values
 
   /**
-   * Interval in milliseconds when the form is checked for changes.
-   * Also used as the debounce duration for the update request.
+   * Whether the preview should auto-update when the form changes.
+   * Auto-update only happens while the preview panel or the checks panel is visible.
    */
-  declare readonly autoUpdateIntervalValue: number;
+  declare readonly autoUpdateValue: boolean;
   /** Key for storing the last selected device size in localStorage. */
   declare readonly deviceLocalStorageKeyValue: string;
   /** CSS property for setting the device width. */
@@ -306,10 +306,14 @@ export class PreviewController extends Controller<HTMLElement> {
     return url;
   }
 
+  /**
+   * Whether the preview should auto-update, taking into account the visibility
+   * of the preview panel and the checks side panel.
+   */
   get shouldAutoUpdate() {
     return (
       // Auto-update is enabled
-      this.autoUpdateIntervalValue > 0 &&
+      this.autoUpdateValue &&
       // And either the preview panel or the checks side panel (if enabled) is visible
       (!this.sidePanelContainer.hidden ||
         (this.checksSidePanel && !this.checksSidePanel.hidden))

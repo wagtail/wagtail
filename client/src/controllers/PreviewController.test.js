@@ -196,7 +196,7 @@ describe('PreviewController', () => {
           data-w-preview-proxy-class="w-preview__proxy"
           data-w-preview-selected-size-class="w-preview__size-button--selected"
           data-w-preview-url-value="${url}"
-          data-w-preview-auto-update-interval-value="0"
+          data-w-preview-auto-update-value="false"
           data-w-preview-w-progress-outlet="[data-controller='w-preview'] [data-controller='w-progress']"
         >
           <label>
@@ -1212,7 +1212,7 @@ describe('PreviewController', () => {
 
     it('should behave correctly with auto-update', async () => {
       const element = document.querySelector('[data-controller="w-preview"]');
-      element.setAttribute('data-w-preview-auto-update-interval-value', '500');
+      element.setAttribute('data-w-preview-auto-update-value', 'true');
 
       // Trigger the next check interval
       await jest.runOnlyPendingTimersAsync();
@@ -1411,12 +1411,12 @@ describe('PreviewController', () => {
       });
     });
 
-    it('should not auto-update when auto-update interval is set to 0', async () => {
+    it('should not auto-update when auto-update value is set to false', async () => {
       const element = document.querySelector('[data-controller="w-preview"]');
-      // The test setup sets the auto-update interval to 0 (disabled)
-      expect(
-        element.getAttribute('data-w-preview-auto-update-interval-value'),
-      ).toBe('0');
+      // The test setup sets the auto-update value to false (disabled)
+      expect(element.getAttribute('data-w-preview-auto-update-value')).toBe(
+        'false',
+      );
 
       // Trigger the next check interval
       await jest.runOnlyPendingTimersAsync();
@@ -1720,10 +1720,7 @@ describe('PreviewController', () => {
       beforeEach(async () => {
         // Initialize the preview panel normally
         const element = document.querySelector('[data-controller="w-preview"]');
-        element.setAttribute(
-          'data-w-preview-auto-update-interval-value',
-          '200',
-        );
+        element.setAttribute('data-w-preview-auto-update-value', 'true');
         element.setAttribute(
           'data-w-preview-render-url-value',
           'https://headless.site/$preview/foo/7/',
@@ -2469,7 +2466,7 @@ describe('PreviewController', () => {
       // Wait for the UnsavedController's delayed setup
       await jest.runOnlyPendingTimersAsync();
       const element = document.querySelector('[data-controller="w-preview"]');
-      element.setAttribute('data-w-preview-auto-update-interval-value', '500');
+      element.setAttribute('data-w-preview-auto-update-value', 'true');
 
       // Close the preview panel
       const sidePanelContainer = document.querySelector(

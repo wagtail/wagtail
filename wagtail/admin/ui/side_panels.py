@@ -373,5 +373,5 @@ class PreviewSidePanel(BaseSidePanel):
         context = super().get_context_data(parent_context)
         context["preview_url"] = self.preview_url
         context["has_multiple_modes"] = len(self.object.preview_modes) > 1
-        context["auto_update_interval"] = self.auto_update_interval
+        context["auto_update"] = self.auto_update_interval > 0
         return context
