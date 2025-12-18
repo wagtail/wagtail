@@ -19,8 +19,13 @@
             novalidate
             {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
             data-edit-form
-            data-controller="w-init w-unsaved"
-            data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
+            data-controller="w-init w-unsaved w-autosave"
+            data-action="
+                         w-unsaved#submit
+                         beforeunload@window->w-unsaved#confirm
+                         w-unsaved:add->w-autosave#submit:prevent
+                         w-autosave:success->w-unsaved#clear
+                        "
             data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
             data-w-unsaved-confirmation-value="true"
             data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"

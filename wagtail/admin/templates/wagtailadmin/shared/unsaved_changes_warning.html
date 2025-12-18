@@ -3,7 +3,7 @@
     class="footer__container footer__container--hidden"
     aria-live="polite"
     data-controller="w-messages"
-    data-action="w-unsaved:add@document->w-messages#add w-unsaved:clear@document->w-messages#clear"
+    data-action="w-unsaved:add@document->w-messages#add w-unsaved:clear@document->w-messages#clear w-autosave:error@document->w-messages#add"
     data-w-messages-clear-delay-value="1024"
     data-w-messages-clear-param="true"
     data-w-messages-hide-class="footer__container--hidden"
