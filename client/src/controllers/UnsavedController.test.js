@@ -348,6 +348,83 @@ describe('UnsavedController', () => {
     });
   });
 
+  describe('changing the check interval value', () => {
+    it('should update the check interval when the value changes', async () => {
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      await setup();
+
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      document.getElementById('name').value = 'Joe';
+
+      // The change has not been detected
+      const form = document.querySelector('form');
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'false',
+      );
+
+      // Wait for 400ms to simulate some time passing but before the default
+      // 500ms check interval
+      await jest.advanceTimersByTimeAsync(400);
+
+      // The change should still not be detected
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'false',
+      );
+
+      form.setAttribute('data-w-unsaved-check-interval-value', '1_945');
+
+      // The change should still not be detected
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'false',
+      );
+
+      // Wait for 1600ms to far exceed the original 500ms check interval and
+      // additional 30ms notify delay, but still before the new 1,945ms interval
+      await jest.advanceTimersByTimeAsync(1_600);
+
+      // The change should still not be detected
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'false',
+      );
+      // And no event should have fired yet
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      // Wait the remaining time to trigger the new check interval
+      await jest.advanceTimersByTimeAsync(345);
+
+      // The change should now be detected
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
+
+      // But the event should not have fired yet due to the debounce
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      // Wait for the next check interval in case of consecutive changes
+      await jest.advanceTimersByTimeAsync(1_945);
+
+      // The form is still marked as dirty
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
+
+      // But the event should not have fired yet due to the debounce
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      // Wait for additional 30ms to trigger the debounced notify
+      await jest.advanceTimersByTimeAsync(30);
+
+      // Now the event should have fired
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
+    });
+  });
+
   describe('showing a confirmation message when exiting the browser tab', () => {
     const mockBrowserClose = () =>
       new Promise((resolve) => {
