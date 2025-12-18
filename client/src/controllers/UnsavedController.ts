@@ -41,16 +41,24 @@ export type Durations = typeof DEFAULT_DURATIONS;
  */
 export class UnsavedController extends Controller<HTMLFormElement> {
   static values = {
+    checkInterval: { default: 500, type: Number },
     confirmation: { default: false, type: Boolean },
-    durations: { default: DEFAULT_DURATIONS, type: Object },
     force: { default: false, type: Boolean },
     hasEdits: { default: false, type: Boolean },
   };
 
+  /**
+   * Initial delay before setting up the check interval to allow other
+   * initializations to complete, in milliseconds.
+   */
+  static initialDelayValue = 2_000;
+  /** Delay before notifying about changes, in milliseconds. */
+  static notifyDelayValue = 30;
+
+  /** Duration between change checks, in milliseconds. */
+  declare checkIntervalValue: number;
   /** Whether to show the browser confirmation dialog. */
   declare confirmationValue: boolean;
-  /** Configurable duration values. */
-  declare durationsValue: Durations;
   /**
    * When set to `true`, the initial form will always be considered dirty.
    * Useful for when the user just submitted an invalid form, in which case we
@@ -69,8 +77,6 @@ export class UnsavedController extends Controller<HTMLFormElement> {
   previousFormData?: string;
   /** Interval ID for periodic change checks. */
   checkInterval: ReturnType<typeof setOptionalInterval> = null;
-
-  declare setInitialFormDataLazy: DebouncedFunction<[], void>;
 
   initialize() {
     this.check = this.check.bind(this);
@@ -138,54 +144,34 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     if (this.hasChanges()) this.notify();
   }
 
-  durationsValueChanged(newDurations: Durations, oldDurations?: Durations) {
+  checkIntervalValueChanged(newInterval: number) {
     if (this.forceValue) {
       this.hasEditsValue = true;
       return;
     }
 
-    if (
-      !this.initialFormData &&
-      newDurations.initial !== oldDurations?.initial
-    ) {
+    if (!this.initialFormData) {
       // Set up the initial form data with the initial delay to allow other
-      // initializations to complete first. We do this in durationsValueChanged
-      // to allow other code to change the delay value before the initial setup.
-
-      // Cancel any debounced calls and set up a new one with the new delay
-      if (this.setInitialFormDataLazy) {
-        this.setInitialFormDataLazy.cancel();
-      }
-      this.setInitialFormDataLazy = debounce(
-        this.setInitialFormData,
-        newDurations.initial,
-      );
-
-      this.setInitialFormDataLazy();
+      // initializations to complete first.
+      debounce(this.setInitialFormData, UnsavedController.initialDelayValue)();
     }
 
-    if (newDurations.check !== oldDurations?.check) {
-      // Reset the check interval with the new check duration
-      if (this.checkInterval) {
-        clearInterval(this.checkInterval);
-      }
-      this.checkInterval = setOptionalInterval(this.check, newDurations.check);
+    // Reset the check interval with the new value
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval);
     }
+    this.checkInterval = setOptionalInterval(this.check, newInterval);
 
     // Ensure we wait until at least the next check interval, so we only
     // notify if there are no further consecutive changes.
-    const newNotifyDuration = newDurations.notify + newDurations.check;
-    const oldNotifyDuration =
-      (oldDurations?.notify || 0) + (oldDurations?.check || 0);
+    const newNotifyDuration = newInterval + UnsavedController.notifyDelayValue;
 
-    if (newNotifyDuration !== oldNotifyDuration) {
-      // Reset the debounced notify with the new duration
-      if ('restore' in this.notify) {
-        this.notify.cancel();
-        this.notify = this.notify.restore();
-      }
-      this.notify = debounce(this.notify, newNotifyDuration);
+    // Reset the debounced notify with the new duration
+    if ('restore' in this.notify) {
+      this.notify.cancel();
+      this.notify = this.notify.restore();
     }
+    this.notify = debounce(this.notify, newNotifyDuration);
   }
 
   /**
