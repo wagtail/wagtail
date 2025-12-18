@@ -7,7 +7,7 @@
     data-w-preview-has-errors-class="w-preview--has-errors"
     data-w-preview-proxy-class="w-preview__proxy"
     data-w-preview-selected-size-class="w-preview__size-button--selected"
-    data-w-preview-auto-update-interval-value="{{ auto_update_interval|unlocalize }}"
+    data-w-preview-auto-update-value="{{ auto_update|yesno:'true,false' }}"
     data-w-preview-url-value="{{ preview_url }}"
     data-w-preview-w-progress-outlet="[data-controller='w-preview'] [data-controller='w-progress']"
 >
@@ -38,7 +38,7 @@
         {% endblock %}
     </div>
 
-    {% if auto_update_interval %}
+    {% if auto_update %}
         <div class="w-preview__spinner" data-w-preview-target="spinner" hidden>
             {% icon name="spinner" classname="default" %}
             <span class="w-sr-only">{% trans 'Loading'%}</span>
