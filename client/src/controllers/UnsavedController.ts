@@ -88,7 +88,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/File
    */
   get formData() {
-    const exclude = ['csrfmiddlewaretoken', 'next'];
+    const exclude = ['overwrite_revision_id', 'csrfmiddlewaretoken', 'next'];
     const formData = new FormData(this.element);
     exclude.forEach((key) => formData.delete(key));
 
@@ -229,7 +229,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
       return;
     }
 
-    this.dispatch('add', { cancelable: false, detail: { type: 'edits' } });
+    this.dispatch('add', { cancelable: true, detail: { type: 'edits' } });
   };
 
   /**

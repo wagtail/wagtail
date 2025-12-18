@@ -541,7 +541,7 @@ class CreateEditViewOptionalFeaturesMixin:
         self.new_revision = None
         if self.revision_enabled:
             overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
-            if overwrite_revision_id is not None:
+            if overwrite_revision_id:
                 try:
                     overwrite_revision = instance.revisions.get(
                         pk=overwrite_revision_id
