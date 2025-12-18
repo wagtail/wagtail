@@ -828,9 +828,9 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         self.assertIsNotNone(controller)
         self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
-        # Should have a default interval of 500ms and should render the hidden spinner
-        interval_value = controller.get("data-w-preview-auto-update-interval-value")
-        self.assertEqual(interval_value, "500")
+        # Should use auto-update by default and should render the hidden spinner
+        auto_update_value = controller.get("data-w-preview-auto-update-value")
+        self.assertEqual(auto_update_value, "true")
         spinner = controller.select_one('[data-w-preview-target="spinner"]')
         self.assertIsNotNone(spinner)
         self.assertIsNotNone(spinner.get("hidden"))
@@ -909,8 +909,8 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         controller = soup.select_one('[data-controller="w-preview"]')
         self.assertIsNotNone(controller)
         self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
-        interval_value = controller.get("data-w-preview-auto-update-interval-value")
-        self.assertEqual(interval_value, "12345")
+        auto_update_value = controller.get("data-w-preview-auto-update-value")
+        self.assertEqual(auto_update_value, "true")
 
         # Should render the spinner
         spinner = controller.select_one('[data-w-preview-target="spinner"]')
@@ -936,8 +936,8 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         controller = soup.select_one('[data-controller="w-preview"]')
         self.assertIsNotNone(controller)
         self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
-        interval_value = controller.get("data-w-preview-auto-update-interval-value")
-        self.assertEqual(interval_value, "0")
+        auto_update_value = controller.get("data-w-preview-auto-update-value")
+        self.assertEqual(auto_update_value, "false")
 
         # Should not render the spinner
         spinner = controller.select_one('[data-w-preview-target="spinner"]')
