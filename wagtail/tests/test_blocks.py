@@ -4187,11 +4187,14 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             [
                 (
                     "heading",
-                    blocks.CharBlock(template="tests/blocks/heading_with_id_block.html"),
+                    blocks.CharBlock(
+                        template="tests/blocks/heading_with_id_block.html"
+                    ),
                 ),
             ]
         )
         import uuid
+
         test_id = str(uuid.uuid4())
         value = block.to_python([{"type": "heading", "value": "Hello", "id": test_id}])
         html = value[0].render_as_block()

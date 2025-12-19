@@ -544,7 +544,7 @@ class StreamValue(MutableSequence):
             else:
                 context = dict(context)
             if self.id is not None:
-                context['block_id'] = self.id
+                context["block_id"] = self.id
             return super().render_as_block(context=context)
 
     class RawDataView(MutableSequence):
