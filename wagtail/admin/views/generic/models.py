@@ -681,7 +681,7 @@ class CreateView(
         return instance
 
     def get_success_json(self):
-        return {"success": True, "pk": self.object.pk}
+        return {"success": True, "pk": self.object.pk, "url": self.get_edit_url()}
 
     def save_action(self):
         if self.expects_json_response:

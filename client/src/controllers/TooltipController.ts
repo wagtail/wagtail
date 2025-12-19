@@ -60,12 +60,12 @@ export class TooltipController extends Controller<HTMLElement> {
   }
 
   contentValueChanged(newValue: string, oldValue: string) {
-    if (!oldValue || oldValue === newValue) return;
+    if (oldValue === newValue) return;
     this.tippy?.setProps(this.options);
   }
 
   placementValueChanged(newValue: string, oldValue: string) {
-    if (!oldValue || oldValue === newValue) return;
+    if (oldValue === newValue) return;
     this.tippy?.setProps(this.options);
   }
 
@@ -75,6 +75,15 @@ export class TooltipController extends Controller<HTMLElement> {
 
   show() {
     this.tippy?.show();
+  }
+
+  setContentValue(
+    event?: CustomEvent<{ content?: string }> & {
+      params?: { content: string };
+    },
+  ) {
+    const { content = '' } = { ...event?.detail, ...event?.params };
+    this.contentValue = content;
   }
 
   get options(): Partial<Props> {
