@@ -42,6 +42,7 @@
                  w-unsaved:clear@document->w-session#setUnsavedChanges
                  w-swap:json->w-session#updateSessionData
                  w-autosave:success@document->w-session#updateSessionData
+                 w-autosave:deactivated@document->w-session#ping
                 "
 >
     <input type="checkbox" name="is_editing" value="1" data-w-session-target="unsavedChanges" hidden />

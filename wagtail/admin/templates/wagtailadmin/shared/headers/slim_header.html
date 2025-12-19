@@ -115,6 +115,12 @@
             {% endblock %}
 
             <div class="w-w-full w-overflow-auto sm:w-w-min w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-0 sm:w-py-0 w-px-2 sm:w-pr-4 sm:w-justify-end">
+                {% block autosave_indicator %}
+                    {% if autosave_indicator %}
+                        {% component autosave_indicator %}
+                    {% endif %}
+                {% endblock %}
+
                 {% block editing_sessions %}
                     {% if editing_sessions %}
                         {% component editing_sessions %}
