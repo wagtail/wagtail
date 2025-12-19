@@ -535,6 +535,18 @@ class StreamValue(MutableSequence):
             else:
                 return (self.block.name, self.value)
 
+        def render_as_block(self, context=None):
+            """
+            Render the block with the block_id available in the template context.
+            """
+            if context is None:
+                context = {}
+            else:
+                context = dict(context)
+            if self.id is not None:
+                context['block_id'] = self.id
+            return super().render_as_block(context=context)
+
     class RawDataView(MutableSequence):
         """
         Internal helper class to present the stream data in raw JSONish format. For backwards
