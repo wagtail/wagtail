@@ -1,6 +1,8 @@
+import json
 from collections import OrderedDict
 
 from django.contrib.admin.utils import quote
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.translation import gettext, gettext_lazy
 
@@ -13,7 +15,8 @@ class OrderingColumn(BaseColumn):
 
 
 class OrderableTableMixin:
-    success_message = gettext_lazy("'%(page_title)s' has been moved successfully.")
+    success_message = gettext_lazy("'%(page_title)s' has been updated!")
+    error_message = gettext_lazy("Failed to reorder items. Please try again.")
 
     def __init__(self, *args, sort_order_field=None, reorder_url=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -47,13 +50,22 @@ class OrderableTableMixin:
                 "data-w-orderable-active-class": "w-orderable--active",
                 "data-w-orderable-chosen-class": "w-orderable__item--active",
                 "data-w-orderable-container-value": "tbody",
-                "data-w-orderable-message-value": self.get_success_message(),
+                "data-w-orderable-messages-value": self.get_messages(),
                 "data-w-orderable-url-value": self.reorder_url,
             }
         return attrs
 
     def get_success_message(self):
         return self.success_message % {"page_title": "__LABEL__"}
+
+    def get_messages(self):
+        """Return a JSON string containing both success and error messages."""
+        return json.dumps(
+            {
+                "success": force_str(self.get_success_message()),
+                "error": force_str(self.error_message),
+            }
+        )
 
     def get_row_attrs(self, instance):
         attrs = super().get_row_attrs(instance)
