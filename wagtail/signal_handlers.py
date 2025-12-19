@@ -82,6 +82,8 @@ def remove_reference_index_on_delete(instance, **kwargs):
 
     with transaction.atomic():
         ReferenceIndex.remove_for_object(instance)
+        ReferenceIndex.remove_references_to(instance)
+        ReferenceIndex.remove_references_to(instance)
 
 
 def connect_reference_index_signal_handlers_for_model(model):
