@@ -33,6 +33,8 @@
             {% if autosave_enabled %}
                 w-unsaved:add->w-autosave#submit:prevent
                 w-autosave:success->w-unsaved#clear
+                w-autosave:success->w-autosave#updateRevisionId
+                w-session:revision@document->w-autosave#updateRevisionId
             {% endif %}
         "
         data-w-unsaved-confirmation-value="true"

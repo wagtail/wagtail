@@ -25,6 +25,8 @@
                 beforeunload@window->w-unsaved#confirm
                 w-unsaved:add->w-autosave#submit:prevent
                 w-autosave:success->w-unsaved#clear
+                w-autosave:success->w-autosave#updateRevisionId
+                w-session:revision@document->w-autosave#updateRevisionId
             "
             data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
             data-w-unsaved-confirmation-value="true"
