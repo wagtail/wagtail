@@ -16,6 +16,7 @@ from django.views.generic.base import View
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.telepath import JSContext
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     ChecksSidePanel,
@@ -507,6 +508,7 @@ class CreateView(
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "locale": self.locale,
                 "media": media,
+                "autosave_indicator": AutosaveIndicator(),
             }
         )
 

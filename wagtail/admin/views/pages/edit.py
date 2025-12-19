@@ -21,6 +21,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.models import EditingSession
 from wagtail.admin.telepath import JSContext
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.side_panels import (
@@ -1038,6 +1039,7 @@ class EditView(
                 and user_perms.can_unlock(),
                 "locale": self.locale,
                 "media": media,
+                "autosave_indicator": AutosaveIndicator(),
                 "editing_sessions": self.get_editing_sessions(),
             }
         )

@@ -27,7 +27,7 @@
         {% if form_is_multipart or form.is_multipart %} enctype="multipart/form-data"{% endif %}
         data-edit-form
         data-controller="w-unsaved {% if revision_enabled %}w-autosave{% endif %}"
-        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm {% if revision_enabled %}w-unsaved:add->w-autosave#submit:prevent w-autosave:success->w-unsaved#clear{% endif %}"
+        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm {% if revision_enabled %}w-unsaved:add->w-autosave#submit:prevent w-autosave:success->w-unsaved#clear w-autosave:success->w-autosave#updateRevisionId w-session:revision@document->w-autosave#updateRevisionId{% endif %}"
         data-w-unsaved-confirmation-value="true"
         data-w-unsaved-force-value="{{ has_unsaved_changes|yesno:'true,false' }}"
     >

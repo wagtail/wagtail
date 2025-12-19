@@ -301,6 +301,10 @@ export class SessionController extends Controller<HTMLElement> {
     if (actionController && 'release_url' in data && data.release_url) {
       actionController.urlValue = data.release_url;
     }
+
+    // An autosave success event for this session would contain a revision_id,
+    // update our current revision ID with the autosave revision ID so we don't
+    // consider it to be a revision conflict from another window.
     if ('revision_id' in data && this.hasRevisionIdTarget) {
       this.revisionIdTarget.value = `${data.revision_id}`;
     }
@@ -308,9 +312,19 @@ export class SessionController extends Controller<HTMLElement> {
     // Set the interceptValue to true if any of the other sessions have a
     // revision ID (assumed to be newer than the one we have loaded)
     if (!('other_sessions' in data && data.other_sessions)) return;
-    this.interceptValue = data.other_sessions.some(
-      (session) => session.revision_id,
-    );
+    this.interceptValue = data.other_sessions.some((session) => {
+      if (session.revision_id) {
+        // A new revision ID is found, dispatch an event so the AutosaveController
+        // can update its revision ID too.
+        // TODO: This means if the same user has multiple sessions, they will
+        // be able to overwrite their own changes from another session. If this
+        // is undesired, we have to keep track of the "initial" revision ID too.
+        this.dispatch('revision', {
+          detail: { revisionId: session.revision_id },
+        });
+      }
+      return Boolean(session.revision_id);
+    });
   }
 
   disconnect(): void {

@@ -10,11 +10,37 @@
 >
     <div class="footer__save-warning footer__emphasise-span-tags" data-w-messages-target="container"></div>
     {% block message_templates %}
-        {% trans 'Save your changes before leaving' as generic_save_message %}
-        <template data-w-messages-target="template" data-type="edits">
+        {% blocktranslate trimmed asvar generic_save_message %}
+            Autosave is <span>paused</span>
+        {% endblocktranslate %}
+        <template data-w-messages-target="template" data-type="invalid_revision">
             <div>
-                <b>{% blocktrans trimmed %}You have <span>unsaved changes</span>{% endblocktrans %}</b>
-                <p>{{ generic_save_message }}</p>
+                <b>{{ generic_save_message }}</b>
+                <p>
+                    {% blocktranslate trimmed %}
+                        Saving will overwrite a newer version
+                    {% endblocktranslate %}
+                </p>
+            </div>
+        </template>
+        <template data-w-messages-target="template" data-type="validation_error">
+            <div>
+                <b>{{ generic_save_message }}</b>
+                <p>
+                    {% blocktranslate trimmed %}
+                        There are validation errors – click save to highlight them
+                    {% endblocktranslate %}
+                </p>
+            </div>
+        </template>
+        <template data-w-messages-target="template" data-type="locked">
+            <div>
+                <b>{{ generic_save_message }}</b>
+                <p>
+                    {% blocktranslate trimmed %}
+                        The content is currently locked
+                    {% endblocktranslate %}
+                </p>
             </div>
         </template>
     {% endblock %}
