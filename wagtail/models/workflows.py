@@ -1347,6 +1347,17 @@ class WorkflowMixin(models.Model):
                 return _("scheduled")
             elif self.workflow_in_progress:
                 return _("in moderation")
+            elif self.first_published_at:
+                try:
+                    revisions_count = self.revisions.filter(
+                        created_at__gt=self.last_published_at
+                        ).count()
+                    if revisions_count > 1:
+                        return _("draft (unpublished)")
+                except (ValueError, TypeError):
+                    pass
+                    
+                return _("unpublished")
             else:
                 return _("draft")
         else:
