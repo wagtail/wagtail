@@ -607,7 +607,7 @@ class ChoiceBlock(BaseChoiceBlock):
         if blank_choice is None:
             blank_choice = not (self._default and self._required)
         return super()._get_callable_choices(choices, blank_choice=blank_choice)
-    
+
     def to_python(self, value):
         """
         Convert the value back to the original choice key type after JSON
