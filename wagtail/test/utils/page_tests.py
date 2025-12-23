@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 from unittest import mock
 
 from django.conf import settings
@@ -174,8 +174,8 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
     def assertPageIsRoutable(
         self,
         page: Page,
-        route_path: Optional[str] = "/",
-        msg: Optional[str] = None,
+        route_path: str | None = "/",
+        msg: str | None = None,
     ):
         """
         Asserts that ``page`` can be routed to without raising a ``Http404`` error.
@@ -200,7 +200,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
             page, args, kwargs = site.root_page.localized.specific.route(
                 self.dummy_request, path_components
             )
-        except Http404:
+        except Http404 as e:
             msg = self._formatMessage(
                 msg,
                 'Failed to route to "%(route_path)s" for %(page_type)s "%(page)s". A Http404 was raised for path: "%(full_path)s".'
@@ -211,18 +211,18 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "full_path": path,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
 
     def assertPageIsRenderable(
         self,
         page: Page,
-        route_path: Optional[str] = "/",
-        query_data: Optional[dict[str, Any]] = None,
-        post_data: Optional[dict[str, Any]] = None,
-        user: Optional[AbstractBaseUser] = None,
-        accept_404: Optional[bool] = False,
-        accept_redirect: Optional[bool] = False,
-        msg: Optional[str] = None,
+        route_path: str | None = "/",
+        query_data: dict[str, Any] | None = None,
+        post_data: dict[str, Any] | None = None,
+        user: AbstractBaseUser | None = None,
+        accept_404: bool | None = False,
+        accept_redirect: bool | None = False,
+        msg: str | None = None,
     ):
         """
         Asserts that ``page`` can be rendered without raising a fatal error.
@@ -268,7 +268,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "exc": e,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
         finally:
             if user:
                 self.client.logout()
@@ -297,9 +297,9 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
     def assertPageIsEditable(
         self,
         page: Page,
-        post_data: Optional[dict[str, Any]] = None,
-        user: Optional[AbstractBaseUser] = None,
-        msg: Optional[str] = None,
+        post_data: dict[str, Any] | None = None,
+        user: AbstractBaseUser | None = None,
+        msg: str | None = None,
     ):
         """
         Asserts that the page edit view works for ``page`` without raising a fatal error.
@@ -340,7 +340,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 'Failed to load edit view via GET for %(page_type)s "%(page)s":\n%(exc)s'
                 % {"page_type": type(page).__name__, "page": page, "exc": e},
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
         if response.status_code != 200:
             self.client.logout()
             msg = self._formatMessage(
@@ -370,7 +370,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                 'Failed to load edit view via POST for %(page_type)s "%(page)s":\n%(exc)s'
                 % {"page_type": type(page).__name__, "page": page, "exc": e},
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
         finally:
             page.save()  # undo any changes to page
             self.client.logout()
@@ -378,10 +378,10 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
     def assertPageIsPreviewable(
         self,
         page: Page,
-        mode: Optional[str] = "",
-        post_data: Optional[dict[str, Any]] = None,
-        user: Optional[AbstractBaseUser] = None,
-        msg: Optional[str] = None,
+        mode: str | None = "",
+        post_data: dict[str, Any] | None = None,
+        user: AbstractBaseUser | None = None,
+        msg: str | None = None,
     ):
         """
         Asserts that the page preview view can be loaded for ``page`` without raising a fatal error.
@@ -431,7 +431,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "exc": e,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
 
         try:
             self.client.get(preview_path, data={"mode": mode})
@@ -446,7 +446,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
                     "exc": e,
                 },
             )
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
         finally:
             self.client.logout()
 

@@ -45,7 +45,7 @@ urlpatterns = [
     ),
     path("sitemap-<str:section>.xml", sitemaps_views.sitemap, name="sitemap"),
     path("testapp/", include(testapp_urls)),
-    path("fallback/", lambda: HttpResponse("ok"), name="fallback"),
+    path("fallback/", lambda request: HttpResponse("ok"), name="fallback"),
 ]
 
 if apps.is_installed("pattern_library"):

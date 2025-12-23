@@ -4,6 +4,7 @@
 #
 # Translators:
 # bayside kent, 2022
+# bayside kent, 2022
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # Hiroki Sawano, 2021
 # Hiroki Sawano, 2021
@@ -13,6 +14,7 @@
 # kojikojikojikoji, 2021
 # Matt Westcott <matthew@torchbox.com>, 2023
 # kojikojikojikoji, 2021
+# okosama star, 2023
 # okosama star, 2023
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # shuhei hirota, 2019
@@ -26,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: okosama star, 2023\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -75,9 +77,6 @@ msgstr "Wagtail管理"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "アクセス権がありません。"
-
-msgid "You do not have permission to access the admin"
-msgstr "管理画面へアクセスする権限がありません"
 
 msgid "None"
 msgstr "存在しない"
@@ -169,9 +168,6 @@ msgstr "他ユーザーのコメントは編集できません。"
 msgid "Go live date/time must be before expiry date/time"
 msgstr "公開予定日は削除予定日よりも前に設定されていなければなりません。"
 
-msgid "Expiry date/time must be in the future"
-msgstr "削除予定日を過ぎています。"
-
 msgid "New title"
 msgstr "新規タイトル"
 
@@ -258,14 +254,8 @@ msgstr "ワークフローに名前をつけてください"
 msgid "Add tasks to your workflow"
 msgstr "ワークフローにタスクを追加"
 
-msgid "Task"
+msgid "task"
 msgstr "タスク"
-
-msgid "For search engines"
-msgstr "検索エンジンのため"
-
-msgid "For site menus"
-msgstr "サイトメニューのため"
 
 msgid "Content"
 msgstr "コンテンツ"
@@ -402,9 +392,6 @@ msgstr "このコレクションは親ページにより非公開に設定され
 msgid "You can edit the privacy settings on:"
 msgstr "公開設定を編集："
 
-msgid "Save"
-msgstr "保存"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -445,10 +432,6 @@ msgstr "はい、削除します"
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)sを非公開に設定"
-
 msgid "Yes, unpublish it"
 msgstr "はい、非公開に設定します。"
 
@@ -458,6 +441,8 @@ msgstr "いいえ、非公開にしません"
 msgid "Cancel"
 msgstr "キャンセル"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "操作"
 
@@ -466,13 +451,6 @@ msgstr "コメント"
 
 msgid "Update"
 msgstr "アップデート"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)sを比較"
-
-msgid "Comparing"
-msgstr "比較"
 
 msgid "Fields"
 msgstr "フィールド"
@@ -520,6 +498,12 @@ msgstr "日付"
 msgid "Site summary"
 msgstr "サイトの概要"
 
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Task"
+msgstr "タスク"
+
 msgid "Task started"
 msgstr "タスク開始時刻"
 
@@ -528,9 +512,6 @@ msgstr "修正依頼"
 
 msgid "Awaiting"
 msgstr "待機中"
-
-msgid "Close"
-msgstr "閉じる"
 
 msgid "Awaiting your review"
 msgstr "あなたのレビューの待機中"
@@ -729,18 +710,6 @@ msgstr "%(title)sの子ページを閲覧"
 msgid "Add a child page to '%(title)s'"
 msgstr "%(title)sに子ページを追加"
 
-msgid "Drag"
-msgstr "ドラッグ"
-
-msgid "Disable ordering of child pages"
-msgstr "子ページの序列を無効化"
-
-msgid "Sort"
-msgstr "分類する"
-
-msgid "Enable ordering of child pages"
-msgstr "子ページに順番をつける"
-
 msgid "Sites menu"
 msgstr "サイトメニュー"
 
@@ -777,6 +746,9 @@ msgstr "上に移動"
 
 msgid "Move down"
 msgstr "下に移動"
+
+msgid "Drag"
+msgstr "ドラッグ"
 
 msgid "Add a collection permission"
 msgstr "コレクションの権限を追加"
@@ -820,10 +792,6 @@ msgstr "開始時刻"
 msgid "Completed at"
 msgstr "完了時刻"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(total_pages)sページ中%(page_num)sページ目"
-
 msgid "Breadcrumb"
 msgstr "パンくず"
 
@@ -855,11 +823,8 @@ msgid "Visit the live page"
 msgstr "ライブページを訪れる。"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)sのリビジョン%(revision.id)sのスケジュールを解除"
-
-msgid "Unschedule"
-msgstr "予定外"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(total_pages)sページ中%(page_num)sページ目"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "この改定を予定外のものにしますか？"
@@ -872,6 +837,9 @@ msgstr "いいえ、予定外にしないです"
 
 msgid "Other searches"
 msgstr "他の検索結果"
+
+msgid "Save"
+msgstr "保存"
 
 msgid "Comment notifications"
 msgstr "コメント通知"
@@ -895,6 +863,9 @@ msgstr[0] "%(usage_count)s回使用"
 
 msgid "Edited"
 msgstr "編集"
+
+msgid "Sort"
+msgstr "分類する"
 
 msgid "Add a child page"
 msgstr "子ページを追加"
@@ -1005,10 +976,6 @@ msgstr "予定された公開を取り消す"
 msgid "Workflow history"
 msgstr "ワークフローの履歴"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s'を編集します"
-
 msgid "Inspect"
 msgstr "詳細"
 
@@ -1020,6 +987,9 @@ msgstr "最も早い"
 
 msgid "Latest"
 msgstr "最新"
+
+msgid "Unschedule"
+msgstr "予定外"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1069,9 +1039,6 @@ msgstr "ページ：'%(page_title)s' が作成され、公開されました。"
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "'%(page_title)s' が作成され、承認待ちです。"
 
-msgid "The page could not be created due to validation errors"
-msgstr "このページはエラーにより作成できませんでした。"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "ページ：'%(page_title)s' が削除されました。"
@@ -1092,12 +1059,6 @@ msgstr "ページ：'%(page_title)s' が公開されました。"
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "ページ：'%(page_title)s' が調整のために提出されました。"
 
-msgid "The page could not be saved as it is locked"
-msgstr "このページはロックされているため、保存できませんでした。"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "このページはエラーにより保存できませんでした。"
-
 msgid "Owner"
 msgstr "所有者"
 
@@ -1109,19 +1070,8 @@ msgid "Page '%(page_title)s' is now unlocked."
 msgstr "ページ：'%(page_title)s' のロックが解除されました。"
 
 #, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"スラッグ '%(page_slug)s' は既に選択した親ページで使用されています。 スラッグ"
-"が重複しないことを確認したのち、再度操作を行ってください。"
-
-#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "ページ：'%(page_title)s' が除去されました。"
-
-msgid "Page history"
-msgstr "ページの履歴"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -1173,9 +1123,6 @@ msgstr "ページ '%(page_title)s'から削除されたワークフロー"
 
 msgid "New workflow task"
 msgstr "ワークフローの新規タスク"
-
-msgid "Editing workflow task"
-msgstr "ワークフローのタスクを編集"
 
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"

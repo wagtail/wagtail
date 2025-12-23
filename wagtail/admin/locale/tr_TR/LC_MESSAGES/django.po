@@ -4,6 +4,7 @@
 #
 # Translators:
 # A S <basitlikiyidir@gmail.com>, 2020
+# A S <basitlikiyidir@gmail.com>, 2020
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
 # A S <basitlikiyidir@gmail.com>, 2020
@@ -11,7 +12,7 @@
 # Halim Turan <halim_turan_61@hotmail.com>, 2020
 # José Luis <alagunajs@gmail.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2015
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020,2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2015-2016
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Umut Bektaş <info@umutbektas.com>, 2019\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -52,9 +53,6 @@ msgstr "Wagtail Yönetim"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Üzgünüm, bu alana erişim yetkiniz yok."
-
-msgid "You do not have permission to access the admin"
-msgstr "Yönetici bölümüne erişim yetkiniz yok"
 
 msgid "None"
 msgstr "Yok"
@@ -132,9 +130,6 @@ msgstr "Sil"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Yayın başlangıç tarih/saati bitiş tarih/saatinden öncesinde olmalı"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Bitiş tarihi ileri bir tarih olmalı"
 
 msgid "New title"
 msgstr "Yeni başlık"
@@ -330,9 +325,6 @@ msgstr "Bu koleksiyon bir üst koleksiyon tarafından gizli yapıldı."
 msgid "You can edit the privacy settings on:"
 msgstr "Gizlilik ayarlarını düzenleyebilirsiniz:"
 
-msgid "Save"
-msgstr "Kaydet"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -371,28 +363,19 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s yayından kaldır"
-
 msgid "Yes, unpublish it"
 msgstr "Evet, yayından kaldır"
 
 msgid "No, don't unpublish"
 msgstr "Hayır, yayından kaldırma"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Eylemler"
 
 msgid "Update"
 msgstr "Güncelle"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s karşılaştırılıyor"
-
-msgid "Comparing"
-msgstr "Karşılaştırılıyor"
 
 msgid "Fields"
 msgstr "Alanlar"
@@ -588,18 +571,6 @@ msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' sayfasına alt sayfa ekleyin"
 
-msgid "Drag"
-msgstr "Sürükle"
-
-msgid "Disable ordering of child pages"
-msgstr "Alt sayfaların sıralamasını etkisizleştir"
-
-msgid "Sort"
-msgstr "Sırala"
-
-msgid "Enable ordering of child pages"
-msgstr "Alt sayfaların sıralamasını etkinleştir"
-
 msgid "Sites menu"
 msgstr "Siteler menüsü"
 
@@ -634,6 +605,9 @@ msgstr "Yukarı taşı"
 msgid "Move down"
 msgstr "Aşağı taşı"
 
+msgid "Drag"
+msgstr "Sürükle"
+
 msgid "Type"
 msgstr "Tip"
 
@@ -667,10 +641,6 @@ msgstr "Kullanıcı"
 msgid "Edit this item"
 msgstr "Bu elemanı düzenle"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sayfa %(page_num)s / %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "İçerik haritası"
 
@@ -693,11 +663,8 @@ msgid "Visit the live page"
 msgstr "Yayındaki sayfayı gör"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s için %(revision.id)s değişiklik planını kaldır."
-
-msgid "Unschedule"
-msgstr "Planı kaldır"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sayfa %(page_num)s / %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Bu değişiklik planını kaldırmak istediğinizden emin misiniz?"
@@ -710,6 +677,9 @@ msgstr "Hayır, planı kaldırma"
 
 msgid "Other searches"
 msgstr "Diğer aramalar"
+
+msgid "Save"
+msgstr "Kaydet"
 
 msgid "Unlocked"
 msgstr "Kilitsiz"
@@ -732,6 +702,9 @@ msgstr[1] "%(usage_count)s kez kullanıldı"
 
 msgid "Edited"
 msgstr "Düzenlendi"
+
+msgid "Sort"
+msgstr "Sırala"
 
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"
@@ -845,10 +818,6 @@ msgstr "%(model_name)s '%(object)s' güncellendi."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' oluşturuldu."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' düzenle"
-
 msgid "Inspect"
 msgstr "Denetle"
 
@@ -864,6 +833,9 @@ msgstr "En eski"
 
 msgid "Latest"
 msgstr "En yeni"
+
+msgid "Unschedule"
+msgstr "Planı kaldır"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -903,9 +875,6 @@ msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr ""
 "Sayfa '%(page_title)s' oluşturuldu ve kontrol edilmek üzere gönderildi."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Sayfa, doğrulama hataları nedeniyle oluşturulamadı"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Sayfa '%(page_title)s' silindi."
@@ -926,12 +895,6 @@ msgstr "Sayfa '%(page_title)s' yayınlandı."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Sayfa '%(page_title)s' kontrol için gönderildi."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Sayfa kilitli olduğu için kaydedilemedi"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Sayfa doğrulama hatalarından dolayı kaydedilemedi"
-
 msgid "Owner"
 msgstr "Sahip"
 
@@ -941,14 +904,6 @@ msgstr "Site"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sayfa '%(page_title)s' şuan kilitli değil."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Başlık url'si '%(page_slug)s' seçili üst sayfada zaten kullanılıyor. Özgün "
-"bir başlık url'si girerek tekrar deneyin"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -965,33 +920,23 @@ msgstr "Kullanan sayfalar"
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Sayfa '%(page_title)s' şuan kontrol edilmek üzere beklemiyor."
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "'%(title)s' sayfasının taslak sürümünü önizle"
+msgid "Heading 1"
+msgstr "Başlık 1"
 
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "'%(title)s' sayfasının canlı sürümünü gör"
+msgid "Heading 2"
+msgstr "Başlık 2"
 
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "'%(title)s' sayfasını taşı"
+msgid "Heading 3"
+msgstr "Başlık 3"
 
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "'%(title)s' sayfasını kopyala"
+msgid "Heading 4"
+msgstr "Başlık 4"
 
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "'%(title)s' sayfasını sil"
+msgid "Heading 5"
+msgstr "Başlık 5"
 
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "'%(title)s' sayfasını yayından kaldır"
-
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Başlık %(level)d"
+msgid "Heading 6"
+msgstr "Başlık 6"
 
 msgid "Bulleted list"
 msgstr "Numarasız liste"

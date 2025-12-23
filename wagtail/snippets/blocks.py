@@ -15,6 +15,10 @@ class SnippetChooserBlock(ChooserBlock):
     def __init__(self, target_model, **kwargs):
         super().__init__(**kwargs)
         self._target_model = target_model
+        self.has_explicit_icon = self.meta.icon is not None
+        if not self.has_explicit_icon:
+            # Use the default snippet icon until the model is available
+            self.set_meta_options({"icon": "snippet"})
 
     @cached_property
     def target_model(self):
@@ -25,15 +29,18 @@ class SnippetChooserBlock(ChooserBlock):
         from wagtail.snippets.widgets import AdminSnippetChooser
 
         try:
-            icon = self.target_model.snippet_viewset.icon
+            snippet_viewset = self.target_model.snippet_viewset
         except AttributeError as e:
             raise ImproperlyConfigured(
                 f"Cannot use SnippetChooserBlock with non-snippet model {self.target_model}"
             ) from e
 
-        # Override the default icon with the icon for the target model
-        self.set_meta_options({"icon": icon})
+        if not self.has_explicit_icon:
+            # Pick up the icon from the snippet_viewset
+            self.set_meta_options({"icon": snippet_viewset.icon})
+
         return AdminSnippetChooser(self.target_model, icon=self.meta.icon)
 
     class Meta:
-        icon = "snippet"
+        # If no explicit icon is set on the block, we will use the one from the snippet_viewset
+        icon = None

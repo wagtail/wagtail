@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # Benoît Vogel <contact@spicy-informatique.com>, 2017,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # Christophe CHAUVET <christophe.chauvet@gmail.com>, 2024
@@ -17,14 +18,14 @@
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2024
+# Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -166,13 +167,6 @@ msgstr[0] "Êtes-vous sûr(e) de vouloir supprimer ce document ?"
 msgstr[1] "Êtes-vous sûr(e) de vouloir supprimer ces documents ?"
 msgstr[2] "Êtes-vous sûr(e) de vouloir supprimer ces documents ?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Utilisé(e) %(usage_count)s fois"
-msgstr[1] "Utilisé(e) %(usage_count)s fois"
-msgstr[2] "Utilisé(e) %(usage_count)s fois"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Vous n’avez pas l’autorisation de supprimer ce document"
@@ -199,11 +193,13 @@ msgid "You haven't uploaded any documents."
 msgstr "Vous n’avez pas encore transféré de document."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"Pourquoi ne pas <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>en transférer un</a> ?"
+"Pourquoi ne pas <a class=\"upload-one-now\" href=\"#tab-upload\" data-"
+"action=\"w-tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-"
+"focus-param=\"true\">en transférer un(e) maintenant</a> ?"
 
 msgid "Change document:"
 msgstr "Modifier le document :"
@@ -225,6 +221,13 @@ msgstr "Fichier non trouvé"
 
 msgid "Usage"
 msgstr "Utilisation"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilisé(e) %(usage_count)s fois"
+msgstr[1] "Utilisé(e) %(usage_count)s fois"
+msgstr[2] "Utilisé(e) %(usage_count)s fois"
 
 msgid "Select all documents in listing"
 msgstr "Sélectionner tous les documents dans la liste"
@@ -387,9 +390,9 @@ msgid "Document '%(document_title)s' updated"
 msgstr "Document « %(document_title)s » mis à jour"
 
 msgid ""
-"The file could not be found. Please change the source or delete the document"
+"The file could not be found. Please change the source or delete the document."
 msgstr ""
-"Le fichier n'a pas été trouvé. Veuillez changer la source ou supprimer le "
+"Le fichier n'a pas été trouvé. Veuillez modifier la source ou supprimer le "
 "document."
 
 msgid "Delete document"

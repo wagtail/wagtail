@@ -2,7 +2,7 @@
 
 {% fragment as id %}inline_child_{{ form.prefix }}{% endfragment %}
 {% fragment as panel_id %}{{ id }}-panel{% endfragment %}
-<div id="{{ id }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+<div id="{{ id }}"{% if form.DELETE.value %} hidden {% endif %}>
 
     {% fragment as header_controls %}
         <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-up>{% icon name="arrow-up" %}{% trans "Move up" %}</button>

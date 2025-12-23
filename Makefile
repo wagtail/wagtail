@@ -14,7 +14,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 develop: clean-pyc
-	pip install -e .[testing,docs]
+	pip install -e .[testing,docs] --config-settings editable-mode=strict
 	npm install --no-save && npm run build
 
 lint-server:
@@ -25,9 +25,7 @@ lint-server:
 	semgrep --config .semgrep.yml --error .
 
 lint-client:
-	npm run lint:css --silent
-	npm run lint:js --silent
-	npm run lint:format --silent
+	npm run lint --loglevel silent
 
 lint-docs:
 	doc8 docs

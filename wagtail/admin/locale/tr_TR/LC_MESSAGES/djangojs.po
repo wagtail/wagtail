@@ -2,17 +2,21 @@
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
-# Py Data Geek <pydatageek@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Ragıp Ünal <ragip@ragipunal.com>, 2025
+# Py Data Geek <pydatageek@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
-"Language-Team: Turkish (Turkey) (https://app.transifex.com/torchbox/"
-"teams/8009/tr_TR/)\n"
+"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2025\n"
+"Language-Team: Turkish (Turkey) (https://app.transifex.com/torchbox/teams/"
+"8009/tr_TR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Actions"
+msgstr "Eylemler"
 
 msgid "Alt text"
 msgstr "Alt metin"
@@ -58,6 +62,9 @@ msgstr "Sayfa bulucu"
 
 msgid "Pages"
 msgstr "Sayfalar"
+
+msgid "Preview"
+msgstr "Önizleme"
 
 msgid "Reload saved content"
 msgstr "Kayıtlı içeriği yeniden yükle"

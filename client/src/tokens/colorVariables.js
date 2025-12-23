@@ -45,7 +45,7 @@ const calcHSLDifference = (refVariable, refValue, value, unit = '') => {
  *
  */
 const generateColorVariables = (colors) => {
-  /* eslint-disable no-param-reassign, id-length */
+  /* eslint-disable id-length */
   const colorVariables = Object.values(colors).reduce((root, hues) => {
     // Use the DEFAULT hue as a reference to derive others from, or the darkest if there is no defined default.
     const darkestHue = Object.keys(hues).sort((a, b) => b - a)[0];

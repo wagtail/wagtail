@@ -179,7 +179,7 @@ class WorkflowContentTypeForm(forms.Form):
 
     def __init__(self, *args, workflow=None, **kwargs):
         self.workflow = workflow
-        if workflow and "initial" not in kwargs:
+        if workflow and workflow.pk and "initial" not in kwargs:
             kwargs["initial"] = {"content_types": workflow.workflow_content_types.all()}
 
         super().__init__(*args, **kwargs)
@@ -206,7 +206,10 @@ class WorkflowContentTypeForm(forms.Form):
         existing_assignments = WorkflowContentType.objects.filter(
             content_type__in=content_types,
             workflow__active=True,
-        ).exclude(workflow=self.workflow)
+        )
+        if self.workflow.pk:
+            existing_assignments = existing_assignments.exclude(workflow=self.workflow)
+
         for assignment in existing_assignments:
             self.add_error(
                 "content_types",
@@ -307,7 +310,7 @@ def get_workflow_edit_handler():
                 FieldPanel("task", widget=AdminTaskChooser(show_clear_link=False)),
             ],
             heading=_("Add tasks to your workflow"),
-            label=_("Task"),
+            label=_("task"),
             icon="thumbtack",
         ),
     ]

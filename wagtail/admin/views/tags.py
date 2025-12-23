@@ -2,13 +2,15 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, JsonResponse
 from taggit.models import Tag, TagBase
 
+TAGS_AUTOCOMPLETE_LIMIT = 10
+
 
 def autocomplete(request, app_name=None, model_name=None):
     if app_name and model_name:
         try:
             content_type = ContentType.objects.get_by_natural_key(app_name, model_name)
-        except ContentType.DoesNotExist:
-            raise Http404
+        except ContentType.DoesNotExist as e:
+            raise Http404 from e
 
         tag_model = content_type.model_class()
         if not issubclass(tag_model, TagBase):
@@ -22,7 +24,7 @@ def autocomplete(request, app_name=None, model_name=None):
         tags = (
             tag_model.objects.filter(name__istartswith=term)
             .order_by("name")
-            .values_list("name", flat=True)[:10]
+            .values_list("name", flat=True)[:TAGS_AUTOCOMPLETE_LIMIT]
         )
     else:
         tags = tag_model.objects.none()

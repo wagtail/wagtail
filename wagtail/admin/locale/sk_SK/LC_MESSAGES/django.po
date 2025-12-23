@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
+"Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -43,9 +43,6 @@ msgstr "Stránka je uzamknutá"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
-
-msgid "You do not have permission to access the admin"
-msgstr "Na prístup do administrácie nemáte práva."
 
 msgid "None"
 msgstr "Nič"
@@ -114,9 +111,6 @@ msgstr "Vymazať"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Dátum publikácie musí byť pred dátumom expirácie"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Dátum expirácie musí byť v budúcnosti"
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -288,9 +282,6 @@ msgstr "Táto kolekcia bola zmenená na súkromnú svojou rodičovskou kolekciou
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavenie súkromia môžete zmeniť na:"
 
-msgid "Save"
-msgstr "Uložiť"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -323,28 +314,19 @@ msgstr "Áno, zmazať"
 msgid "No, don't delete"
 msgstr "Nie, nezmazať"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odpublikovať %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Áno, odpublikovať"
 
 msgid "No, don't unpublish"
 msgstr "Nie, nepublikovať"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Akcie"
 
 msgid "Update"
 msgstr "Aktualizovať"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Porovnať %(title)s"
-
-msgid "Comparing"
-msgstr "Porovnať"
 
 msgid "Fields"
 msgstr "Polia"
@@ -524,15 +506,6 @@ msgstr "Prehliadajte podstránky '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Pridajte podstránku do '%(title)s'"
 
-msgid "Drag"
-msgstr "Potiahnuť"
-
-msgid "Disable ordering of child pages"
-msgstr "Zakázať usporiadanie podstránok"
-
-msgid "Enable ordering of child pages"
-msgstr "Povoliť usporiadanie child stránok"
-
 msgid "Sites menu"
 msgstr "Menu sídiel"
 
@@ -557,6 +530,9 @@ msgstr "Posunúť vyššie"
 msgid "Move down"
 msgstr "Posunúť nižšie"
 
+msgid "Drag"
+msgstr "Potiahnuť"
+
 msgid "Type"
 msgstr "Typ"
 
@@ -578,10 +554,6 @@ msgstr "Používateľ"
 msgid "Edit this item"
 msgstr "Upraviť položku"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Strana %(page_num)s z %(total_pages)s."
-
 msgid "Continue"
 msgstr "Pokračovať"
 
@@ -591,8 +563,15 @@ msgstr "Stiahnuť CSV"
 msgid "Filter"
 msgstr "Filter"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Strana %(page_num)s z %(total_pages)s"
+
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
+
+msgid "Save"
+msgstr "Uložiť"
 
 msgid "Minimap"
 msgstr "Minimapa"
@@ -676,10 +655,6 @@ msgstr "Živá verzia"
 msgid "Current draft"
 msgstr "Aktuálny koncept"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Upraviť '%(title)s'"
-
 msgid "Inspect"
 msgstr "Skontrolovať"
 
@@ -731,9 +706,6 @@ msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr ""
 "Stránka '%(page_title)s' bola úspešne vytvorená a odoslaná na moderáciu."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Stránka '%(page_title)s' bola zmazaná."
@@ -753,12 +725,6 @@ msgstr "Stránka '%(page_title)s' bola publikovaná."
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Stránka '%(page_title)s' bola odoslaná na moderáciu."
-
-msgid "The page could not be saved as it is locked"
-msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
 
 msgid "Owner"
 msgstr "Vlastník"

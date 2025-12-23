@@ -1,13 +1,20 @@
 import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { legacy_createStore as createStore } from 'redux';
 
 import type { Annotation } from './utils/annotation';
 import { LayoutController } from './utils/layout';
 import { getOrDefault } from './utils/maps';
 import { getNextCommentId, getNextReplyId } from './utils/sequences';
 import { Store, reducer } from './state';
-import { Comment, newCommentReply, newComment, Author } from './state/comments';
+import {
+  Comment,
+  newCommentReply,
+  newComment,
+  Author,
+  INITIAL_STATE as INITIAL_COMMENTS_STATE,
+} from './state/comments';
+import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from './state/settings';
 import {
   addComment,
   addReply,
@@ -27,7 +34,6 @@ import {
 } from './selectors';
 import CommentComponent from './components/Comment';
 import { CommentFormSetComponent } from './components/Form';
-import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from './state/settings';
 
 // This is done as this is serialized pretty directly from the Django model
 export interface InitialCommentReply {
@@ -168,8 +174,9 @@ export class CommentApp {
 
   constructor() {
     this.store = createStore(reducer, {
+      comments: INITIAL_COMMENTS_STATE,
       settings: INITIAL_SETTINGS_STATE,
-    });
+    } as any);
     this.layout = new LayoutController();
   }
 

@@ -11,6 +11,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.views.generic import TemplateView, View
 
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.blocks.base import Block
 from wagtail.models import PreviewableMixin, RevisionMixin
@@ -77,10 +78,15 @@ class PreviewOnEdit(View):
             post_data = ""
         return QueryDict(post_data)
 
+    def validate_form(self, form):
+        if isinstance(form, WagtailAdminModelForm):
+            form.defer_required_fields()
+        return form.is_valid()
+
     def post(self, request, *args, **kwargs):
         self.remove_old_preview_data()
         form = self.get_form(request.POST)
-        is_valid = form.is_valid()
+        is_valid = self.validate_form(form)
 
         if is_valid:
             # TODO: Handle request.FILES.
@@ -89,7 +95,7 @@ class PreviewOnEdit(View):
         else:
             # Check previous data in session to determine preview availability
             form = self.get_form(self._get_data_from_session())
-            is_available = form.is_valid()
+            is_available = self.validate_form(form)
 
         return JsonResponse({"is_valid": is_valid, "is_available": is_available})
 
@@ -100,24 +106,27 @@ class PreviewOnEdit(View):
             {"object": self.object},
         )
 
+    def get_extra_request_attrs(self):
+        return {
+            "in_preview_panel": self.request.GET.get("in_preview_panel") == "true",
+            "is_editing": True,
+        }
+
     @method_decorator(xframe_options_sameorigin_override)
     def get(self, request, *args, **kwargs):
         form = self.get_form(self._get_data_from_session())
 
-        if not form.is_valid():
+        if not self.validate_form(form):
             return self.error_response()
 
         form.save(commit=False)
 
         try:
             preview_mode = request.GET.get("mode", self.object.default_preview_mode)
-        except IndexError:
-            raise PermissionDenied
+        except IndexError as e:
+            raise PermissionDenied from e
 
-        extra_attrs = {
-            "in_preview_panel": request.GET.get("in_preview_panel") == "true",
-            "is_editing": True,
-        }
+        extra_attrs = self.get_extra_request_attrs()
 
         return self.object.make_preview_request(request, preview_mode, extra_attrs)
 
@@ -162,8 +171,8 @@ class PreviewRevision(View):
             preview_mode = request.GET.get(
                 "mode", self.revision_object.default_preview_mode
             )
-        except IndexError:
-            raise PermissionDenied
+        except IndexError as e:
+            raise PermissionDenied from e
 
         return self.revision_object.make_preview_request(request, preview_mode)
 
@@ -197,6 +206,8 @@ class StreamFieldBlockPreview(TemplateView):
     def base_context(self):
         # Do NOT use the name `block` in the context, as it will conflict with
         # the current block inside a template {% block %} tag.
+        # If any changes are made here that needs to be publicly documented,
+        # make sure to update the docs for `Block.get_preview_context`.
         return {
             "request": self.request,
             "block_def": self.block_def,

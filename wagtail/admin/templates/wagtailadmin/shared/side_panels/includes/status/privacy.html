@@ -2,8 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block content %}
-    {% if page.id %}{% test_page_is_public page as is_public %}{% else %}{% test_page_is_public parent_page as is_public %}{% endif %}
-
+    {% if page.id %}{% test_page_is_public page as is_public %}{% endif %}
     {# The swap between public and private text is done using JS inside of privacy-switch.js when the response from the modal comes back #}
     <div
         class="{% if not is_public %}w-hidden{% endif %}"

@@ -14,6 +14,7 @@ type ToggleAllOptions = ToggleOptions & {
  * Adds the ability to collectively toggle a set of (non-disabled) checkboxes.
  *
  * @example - Basic usage
+ * ```html
  * <div data-controller="w-bulk">
  *   <input type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all">
  *   <div>
@@ -26,6 +27,7 @@ type ToggleAllOptions = ToggleOptions & {
  * </div>
  *
  * @example - Showing and hiding an actions container
+ * ```html
  * <div data-controller="w-bulk" data-w-bulk-action-inactive-class="w-invisible">
  *   <div class="w-invisible" data-w-bulk-target="action" id="inner-actions">
  *     <button type="button">Some action</button>
@@ -37,8 +39,10 @@ type ToggleAllOptions = ToggleOptions & {
  *     <input data-action="w-bulk#toggle" data-w-bulk-target="item" type="checkbox" />
  *   </div>
  * </div>
+ * ```
  *
  * @example - Using groups to allow toggles to be controlled separately or together
+ * ```html
  * <table data-controller="w-bulk">
  *   <thead>
  *     <tr>
@@ -74,7 +78,7 @@ type ToggleAllOptions = ToggleOptions & {
  *     </td>
  *    </tfoot>
  * </table>
- *
+ * ```
  */
 export class BulkController extends Controller<HTMLElement> {
   static classes = ['actionInactive'];
@@ -179,7 +183,6 @@ export class BulkController extends Controller<HTMLElement> {
 
       activeItems.forEach((target, index) => {
         if (index >= start && index <= end) {
-          // eslint-disable-next-line no-param-reassign
           target.checked = !!activeItems[lastClickedIndex].checked;
           this.dispatch('change', { target, bubbles: true });
         }
@@ -194,7 +197,6 @@ export class BulkController extends Controller<HTMLElement> {
     const isAllChecked = totalCheckedItems === activeItems.length;
 
     this.getValidTargets(group, this.allTargets).forEach((target) => {
-      // eslint-disable-next-line no-param-reassign
       target.checked = isAllChecked;
     });
 
@@ -216,10 +218,7 @@ export class BulkController extends Controller<HTMLElement> {
   toggleAll(
     event: CustomEvent<ToggleAllOptions> & { params?: ToggleAllOptions },
   ) {
-    const { force = null, group = null } = {
-      ...event.detail,
-      ...event.params,
-    };
+    const { force = null, group = null } = { ...event.detail, ...event.params };
 
     this.lastChanged = null;
 
@@ -238,7 +237,6 @@ export class BulkController extends Controller<HTMLElement> {
 
     this.getValidTargets(group).forEach((target) => {
       if (target.checked !== isChecked) {
-        // eslint-disable-next-line no-param-reassign
         target.checked = isChecked;
         target.dispatchEvent(new Event('change', { bubbles: true }));
       }

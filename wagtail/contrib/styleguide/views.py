@@ -1,4 +1,3 @@
-import itertools
 import os
 import re
 from collections import defaultdict
@@ -23,6 +22,7 @@ from wagtail.admin.widgets import (
     AdminTimeInput,
     SwitchInput,
 )
+from wagtail.compat import URLField
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
 from wagtail.models import Page
@@ -72,7 +72,7 @@ class ExampleForm(forms.Form):
     text = forms.CharField(required=True, help_text="help text")
     auto_height_text = forms.CharField(required=True)
     default_rich_text = forms.CharField(required=True)
-    url = forms.URLField(required=True)
+    url = URLField(required=True)
     email = forms.EmailField(max_length=254)
     date = forms.DateField()
     time = forms.TimeField()
@@ -149,10 +149,10 @@ class IndexView(WagtailAdminTemplateMixin, TemplateView):
         return context
 
     def get_icons(self):
-        icon_hooks = hooks.get_hooks("register_icons")
-        registered_icons = itertools.chain.from_iterable(
-            hook([]) for hook in icon_hooks
-        )
+        registered_icons = []
+        for fn in hooks.get_hooks("register_icons"):
+            registered_icons = fn(registered_icons)
+        registered_icons = sorted(registered_icons)
         all_icons = defaultdict(list)
         for icon_path in registered_icons:
             folder, filename = os.path.split(icon_path)

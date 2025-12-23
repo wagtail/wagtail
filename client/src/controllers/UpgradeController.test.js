@@ -223,6 +223,52 @@ describe('UpgradeController', () => {
     ).toEqual('5.2.9');
   });
 
+  it('should not show the message if the last dismissed version is not the latest but the current version is', async () => {
+    const data = {
+      version: '6.4.2',
+      url: 'https://docs.wagtail.org/latest/url',
+      minorUrl: 'https://docs.wagtail.org/latest-minor/url',
+      lts: {
+        version: '6.3.4',
+        url: 'https://docs.wagtail.org/lts/url',
+        minorUrl: 'https://docs.wagtail.org/lts-minor/url',
+      },
+    };
+
+    fetch.mockResponseSuccessJSON(JSON.stringify(data));
+
+    expect(global.fetch).not.toHaveBeenCalled();
+    const panel = document.getElementById('panel');
+    const dismissButton = document.createElement('button');
+    dismissButton.setAttribute('data-w-upgrade-target', 'dismiss');
+    panel.appendChild(dismissButton);
+
+    // Last dismissed version is 6.4.1
+    dismissButton.setAttribute('data-w-dismissible-value-param', '6.4.1');
+    // Current installed version is 6.4.2
+    panel.setAttribute('data-w-upgrade-current-version-value', '6.4.2');
+
+    // start application
+    application = Application.start();
+    application.register('w-upgrade', UpgradeController);
+
+    // trigger next browser render cycle
+    await Promise.resolve();
+
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://releases.wagtail.org/mock.txt',
+      { referrerPolicy: 'strict-origin-when-cross-origin' },
+    );
+
+    expect(document.getElementById('panel').hidden).toBe(true);
+
+    await new Promise(requestAnimationFrame);
+
+    // should keep the hidden class on success,
+    // because the installed version is already the latest
+    expect(document.getElementById('panel').hidden).toBe(true);
+  });
+
   it('should use the latest URL if the currently installed version is at the same minor version', async () => {
     const data = {
       version: '6.2.6',

@@ -69,7 +69,7 @@
             {% trans "You haven't created any tasks." %}
             {% if can_create %}
                 {% blocktrans trimmed %}
-                    Why not <a class="create-one-now" href="#tab-new" data-tab-trigger>create one now</a>?
+                    Why not <a class="create-one-now" href="#tab-new" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" data-w-tabs-focus-param="true">create one now</a>?
                 {% endblocktrans %}
             {% endif %}
         </p>

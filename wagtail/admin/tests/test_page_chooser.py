@@ -28,7 +28,7 @@ class TestChooserBrowse(WagtailTestUtils, TestCase):
 
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_choose_page"), params)
 
     def test_simple(self):
@@ -103,7 +103,7 @@ class TestCanChooseRootFlag(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_choose_page"), params)
 
     def test_cannot_choose_root_by_default(self):
@@ -125,12 +125,12 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
 
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_choose_page_child", args=(self.root_page.id,)), params
         )
 
-    def get_invalid(self, params={}):
+    def get_invalid(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_choose_page_child", args=(9999999,)), params
         )
@@ -574,7 +574,7 @@ class TestAutomaticRootPageDetection(WagtailTestUtils, TestCase):
         )
         return event_index
 
-    def get_best_root(self, params={}):
+    def get_best_root(self, params=None):
         response = self.client.get(reverse("wagtailadmin_choose_page"), params)
         return response.context["parent_page"].specific
 
@@ -629,12 +629,12 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
         self.internal_page = SimplePage(title="About", content="About Foo")
         Page.objects.get(pk=2).add_child(instance=self.internal_page)
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_choose_page_external_link"), params
         )
 
-    def post(self, post_data={}, url_params={}):
+    def post(self, post_data=None, url_params=None):
         url = reverse("wagtailadmin_choose_page_external_link")
         if url_params:
             url += "?" + urlencode(url_params)
@@ -997,7 +997,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
     def test_convert_external_link_with_query_parameters_to_internal_link_with_serve_path(
-        self
+        self,
     ):
         # https://github.com/wagtail/wagtail/issues/11996
         # New behaviour: when using a non-root serve path, entering a full
@@ -1067,7 +1067,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
 
     @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="")
     def test_no_conversion_external_to_internal_link_when_disabled_with_serve_path(
-        self
+        self,
     ):
         url = f"http://localhost/{self.prefix}about/"
         title = "about"
@@ -1141,10 +1141,10 @@ class TestChooserAnchorLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_choose_page_anchor_link"), params)
 
-    def post(self, post_data={}, url_params={}):
+    def post(self, post_data=None, url_params=None):
         url = reverse("wagtailadmin_choose_page_anchor_link")
         if url_params:
             url += "?" + urlencode(url_params)
@@ -1224,10 +1224,10 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_choose_page_email_link"), params)
 
-    def post(self, post_data={}, url_params={}):
+    def post(self, post_data=None, url_params=None):
         url = reverse("wagtailadmin_choose_page_email_link")
         if url_params:
             url += "?" + urlencode(url_params)
@@ -1380,10 +1380,10 @@ class TestChooserPhoneLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_choose_page_phone_link"), params)
 
-    def post(self, post_data={}, url_params={}):
+    def post(self, post_data=None, url_params=None):
         url = reverse("wagtailadmin_choose_page_phone_link")
         if url_params:
             url += "?" + urlencode(url_params)

@@ -14,11 +14,15 @@
 
 {% block items_with_access %}
     {% if items %}
-        <p>{% trans "Are you sure you want to delete these users?" %}</p>
+        {% if not is_protected %}
+            <p>{% trans "Are you sure you want to delete these users?" %}</p>
+        {% endif %}
         <ul>
             {% for user in items %}
                 <li>
                     <a href="{% url 'wagtailusers_users:edit' user.item.pk %}" target="_blank" rel="noreferrer">{{user.item|user_display_name }}</a>
+
+                    {% include "wagtailadmin/shared/usage_summary.html" with model_opts=model_opts usage_url=user.usage_url usage_count=user.usage_count is_protected=user.is_protected %}
                 </li>
             {% endfor %}
         </ul>
@@ -33,7 +37,7 @@
 {% endblock items_with_no_access %}
 
 {% block form_section %}
-    {% if items %}
+    {% if items and not is_protected %}
         {% trans 'Yes, delete' as action_button_text %}
         {% trans "No, don't delete" as no_action_button_text %}
         {% include 'wagtailadmin/bulk_actions/confirmation/form.html' with action_button_class="serious" %}

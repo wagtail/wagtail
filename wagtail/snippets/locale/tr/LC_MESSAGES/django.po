@@ -5,7 +5,8 @@
 # Translators:
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
-# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
+# Ertuğrul Keremoğlu, 2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
+"Last-Translator: Ertuğrul Keremoğlu, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -47,9 +48,6 @@ msgstr " İş akışını iptal et"
 msgid "Unpublish"
 msgstr "Yayından kaldır"
 
-msgid "Delete"
-msgstr "Sil"
-
 msgid "Save"
 msgstr "Kaydet"
 
@@ -63,9 +61,21 @@ msgstr "%(label)s ve yayınla"
 msgid "Wagtail snippets"
 msgstr "Wagtail blokları"
 
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Delete selected snippets"
+msgstr "Seçilen blokları sil"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' silindi."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s silindi."
+msgstr[1] "%(count)d %(model_name)s silindi."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -73,12 +83,6 @@ msgstr "%(snippet_type_name)s sil"
 
 msgid "Delete "
 msgstr "Sil "
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s kez kullanıldı"
-msgstr[1] "%(usage_count)s kez kullanıldı"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -96,8 +100,26 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Üzgünüm, \"<em>%(search_query)s</em>\" ile eşleşen hiçbir blok bulunamadı."
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Henüz hiçbir %(snippet_type_name)s bloğu oluşturmadınız. Neden <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">şimdi bir tane oluşturmuyorsunuz</a>?"
+
 msgid "Publishing…"
 msgstr "Yayınlanıyor…"
+
+msgid "Schedule to publish"
+msgstr "Yayınlamak için zamanla"
 
 msgid "Publish this version"
 msgstr "Bu düzeltmeyi yayınla"
@@ -111,6 +133,9 @@ msgstr "Şimdiki taslağın yerine koy"
 msgid "Save draft"
 msgstr "Taslağı kaydet"
 
+msgid "Select all snippets in listing"
+msgstr "Listede tüm blokları seç"
+
 msgid "Choose"
 msgstr "Seç"
 
@@ -119,6 +144,13 @@ msgstr "Bloklar"
 
 msgid "Name"
 msgstr "Ad"
+
+msgid "Instances"
+msgstr "Örnekler"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr " '%(title)s' için daha fazla seçenek"
 
 msgid "Home"
 msgstr "Anasayfa"

@@ -20,20 +20,19 @@ concurrency:
 # - test runs with USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 
 # Current configuration:
-# - django 4.2, python 3.9, postgres:12, psycopg 2, parallel
+# - django 4.2, python 3.10, postgres:12, psycopg 2, parallel
 # - django 4.2, python 3.10, mysql:8.0
 # - django 4.2, python 3.11, mariadb:10.5
-# - django 5.0, python 3.11, sqlite, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
-# - django 5.1, python 3.12, mysql:8.4, parallel, USE_EMAIL_USER_MODEL=yes
-# - django 5.1, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
-# - django 5.1, python 3.13, sqlite, parallel, USE_EMAIL_USER_MODEL=yes
-# - django 5.1, python 3.13, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
-# - django stable/5.1.x, python 3.11, postgres:15, psycopg 3 (allow failures)
-# - django stable/5.2.x, python 3.12, postgres:15, psycopg 3 (allow failures)
-# - django main, python 3.13, postgres:latest, psycopg 3, parallel (allow failures)
-# - elasticsearch 7, django 4.2, python 3.9, postgres:latest, psycopg 2
-# - opensearch 2, django 5.0, python 3.10, sqlite
-# - elasticsearch 8, django 5.1, python 3.13, sqlite, USE_EMAIL_USER_MODEL=yes
+# - django 6.0, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
+# - django 6.0, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
+# - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - django 6.0, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - django 6.0, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
+# - django stable/6.0.x, python 3.14, postgres:15, psycopg 3 (allow failures)
+# - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
+# - elasticsearch 7, django 4.2, python 3.10, postgres:latest, psycopg 2
+# - opensearch 2, django 5.2, python 3.10, sqlite
+# - elasticsearch 8, django 6.0, python 3.14, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
 # When running tests in parallel, some errors cannot be pickled and result in
@@ -50,12 +49,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.11'
-            django: 'Django>=5.0,<5.1'
-            check_template_number_format: '1'
           - python: '3.13'
-            django: 'Django>=5.1,<5.2'
-            emailuser: emailuser
+            django: 'Django>=5.2,<5.3'
+            check_template_number_format: '1'
+            parallel: '--parallel'
+          - python: '3.13'
+            django: 'Django>=6.0,<6.1'
+            check_template_number_format: '1'
             parallel: '--parallel'
 
     steps:
@@ -93,37 +93,33 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.9'
+          - python: '3.10'
             django: 'Django>=4.2,<4.3'
             psycopg: 'psycopg2>=2.6'
             experimental: false
             parallel: '--parallel'
-          - python: '3.13'
-            django: 'Django>=5.0,<5.1'
+          - python: '3.14'
+            django: 'Django>=6.0,<6.1'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             notz: notz
             experimental: false
             parallel: '--parallel'
-          - python: '3.11'
-            django: 'git+https://github.com/django/django.git@stable/5.1.x#egg=Django'
+          - python: '3.14'
+            django: 'git+https://github.com/django/django.git@stable/6.0.x#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
-          - python: '3.12'
-            django: 'git+https://github.com/django/django.git@stable/5.2.x#egg=Django'
-            psycopg: 'psycopg>=3.1.8'
-            postgres: 'postgres:15'
-            experimental: true
-          - python: '3.13'
+            install_extras: |
+              pip install "django-tasks>=0.9,<0.10"
+          - python: '3.14'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
             install_extras: |
-              pip uninstall -y django-modelcluster
-              pip install "git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster"
+              pip install "django-tasks>=0.9,<0.10"
     services:
       postgres:
         image: ${{ matrix.postgres || 'postgres:12' }}
@@ -141,6 +137,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+          allow-prereleases: true
           cache: 'pip'
       - name: Install dependencies
         run: |
@@ -176,11 +173,10 @@ jobs:
           tee -a testproject/settings/local.py << EOF
           from warnings import filterwarnings
           SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
-          # Remove when all experimental jobs use Django >= 6.0
+          # Remove when https://github.com/wagtail/Willow/issues/166 is resolved
           filterwarnings(
-              "ignore", "The FORMS_URLFIELD_ASSUME_HTTPS transitional setting is deprecated."
+              "ignore", "The AVIF support in this library is marked as deprecated"
           )
-          FORMS_URLFIELD_ASSUME_HTTPS = True
           EOF
           python manage.py makemigrations --check --dry-run
           python manage.py migrate
@@ -200,14 +196,13 @@ jobs:
             experimental: false
             mysql: 'mariadb:10.5'
           - python: '3.12'
-            django: 'Django>=5.1,<5.2'
+            django: 'Django>=6.0,<6.1'
             experimental: false
             mysql: 'mariadb:11.4'
             emailuser: emailuser
           - python: '3.12'
-            django: 'Django>=5.1,<5.2'
+            django: 'Django>=6.0,<6.1'
             experimental: false
-            parallel: '--parallel'
             mysql: 'mysql:8.4'
             emailuser: emailuser
     services:
@@ -235,7 +230,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install "mysqlclient>=1.4,<2"
+          pip install mysqlclient
           pip install -e '.[testing]' --config-settings editable_mode=strict
           pip install "${{ matrix.django }}"
       - name: Test
@@ -261,8 +256,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.13'
-            django: 'Django>=5.1,<5.2'
+          - python: '3.14'
+            django: 'Django>=6.0,<6.1'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits
@@ -296,7 +291,7 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch8
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.documents wagtail.images wagtail.tests.test_page_search --elasticsearch8
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
@@ -313,7 +308,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.9'
+          - python: '3.10'
             django: 'Django>=4.2,<4.3'
             experimental: false
 
@@ -355,7 +350,7 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.documents wagtail.images wagtail.tests.test_page_search --elasticsearch7
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
@@ -376,7 +371,7 @@ jobs:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=5.0,<5.1'
+            django: 'Django>=5.2,<5.3'
             experimental: false
 
     steps:
@@ -402,11 +397,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e '.[testing]' --config-settings editable_mode=strict
           pip install "${{ matrix.django }}"
-          pip install "elasticsearch==7.13.4"
+          pip install "opensearch-py>=2,<3"
           pip install certifi
       - name: Test
         run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.documents wagtail.images wagtail.tests.test_page_search --opensearch2
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
@@ -465,7 +460,7 @@ jobs:
           include-hidden-files: true
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           flags: backend
           token: ${{ secrets.CODECOV_TOKEN }}

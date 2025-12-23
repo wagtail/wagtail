@@ -113,6 +113,8 @@ def clear_page_url_from_cache_on_move(sender, **kwargs):
 pre_page_move.connect(clear_old_page_urls_from_cache)
 ```
 
+(page_slug_changed)=
+
 ## `page_slug_changed`
 
 This signal is emitted from a `Page` when a change to its slug is published.
@@ -123,7 +125,7 @@ The following arguments are emitted by this signal:
 -   `instance` - The updated (and saved), specific `Page` instance.
 -   `instance_before` - A copy of the specific `Page` instance from **before** the changes were saved.
 
-## workflow_submitted
+## `workflow_submitted`
 
 This signal is emitted from a `WorkflowState` when a page is submitted to a workflow.
 
@@ -132,7 +134,7 @@ This signal is emitted from a `WorkflowState` when a page is submitted to a work
 -   `user` - The user who submitted the workflow
 -   `kwargs` - Any other arguments passed to `workflow_submitted.send()`
 
-## workflow_rejected
+## `workflow_rejected`
 
 This signal is emitted from a `WorkflowState` when a page is rejected from a workflow.
 
@@ -141,7 +143,7 @@ This signal is emitted from a `WorkflowState` when a page is rejected from a wor
 -   `user` - The user who rejected the workflow
 -   `kwargs` - Any other arguments passed to `workflow_rejected.send()`
 
-## workflow_approved
+## `workflow_approved`
 
 This signal is emitted from a `WorkflowState` when a page's workflow completes successfully
 
@@ -150,7 +152,7 @@ This signal is emitted from a `WorkflowState` when a page's workflow completes s
 -   `user` - The user who last approved the workflow
 -   `kwargs` - Any other arguments passed to `workflow_approved.send()`
 
-## workflow_cancelled
+## `workflow_cancelled`
 
 This signal is emitted from a `WorkflowState` when a page's workflow is canceled
 
@@ -159,7 +161,7 @@ This signal is emitted from a `WorkflowState` when a page's workflow is canceled
 -   `user` - The user who canceled the workflow
 -   `kwargs` - Any other arguments passed to `workflow_cancelled.send()`
 
-## task_submitted
+## `task_submitted`
 
 This signal is emitted from a `TaskState` when a page is submitted to a task.
 
@@ -168,7 +170,7 @@ This signal is emitted from a `TaskState` when a page is submitted to a task.
 -   `user` - The user who submitted the page to the task
 -   `kwargs` - Any other arguments passed to `task_submitted.send()`
 
-## task_rejected
+## `task_rejected`
 
 This signal is emitted from a `TaskState` when a page is rejected from a task.
 
@@ -177,7 +179,7 @@ This signal is emitted from a `TaskState` when a page is rejected from a task.
 -   `user` - The user who rejected the task
 -   `kwargs` - Any other arguments passed to `task_rejected.send()`
 
-## task_approved
+## `task_approved`
 
 This signal is emitted from a `TaskState` when a page's task is approved
 
@@ -186,7 +188,7 @@ This signal is emitted from a `TaskState` when a page's task is approved
 -   `user` - The user who approved the task
 -   `kwargs` - Any other arguments passed to `task_approved.send()`
 
-## task_cancelled
+## `task_cancelled`
 
 This signal is emitted from a `TaskState` when a page's task is canceled.
 
@@ -195,7 +197,7 @@ This signal is emitted from a `TaskState` when a page's task is canceled.
 -   `user` - The user who canceled the task
 -   `kwargs` - Any other arguments passed to `task_cancelled.send()`
 
-## copy_for_translation_done
+## `copy_for_translation_done`
 
 This signal is emitted from `CopyForTranslationAction` or `CopyPageForTranslationAction` when a translatable model or page is copied to a new locale (translated).
 
@@ -204,3 +206,29 @@ A translatable model is a model that implements the [TranslatableMixin](wagtail.
 -   `sender` - `CopyForTranslationAction` or `CopyPageForTranslationAction`
 -   `source_obj` - The source object
 -   `target_obj` - The copy of the source object in the new locale
+
+(init_new_page_signal)=
+
+## `init_new_page`
+
+This signal is emitted from a `CreateView` when a new page is initialized in the admin interface. In other words, it's emitted when a user navigates to a form to create a new page.
+
+It's useful for pre-populating the page form programmatically when default values are not sufficient.
+
+-   `sender` - `CreateView`
+-   `page` - The new page instance
+-   `parent_page` - The parent page of the new page
+
+Here's an example of how to use this signal to pre-populate a new page's title using the page's parent's title as a prefix:
+
+```python
+from wagtail.signals import init_new_page
+
+def prepopulate_page(sender, page, parent, **kwargs):
+    if parent:
+        page.title = f"{parent.title}: New Page Title"
+
+init_new_page.connect(prepopulate_page)
+```
+
+For more complex customizations of the page creation and editing forms, see [](custom_edit_handler_forms).

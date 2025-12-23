@@ -1,11 +1,7 @@
-import json
 import re
 from datetime import timedelta
-from urllib import request as urllib_request
-from urllib.error import URLError
-from urllib.parse import urlencode
-from urllib.request import Request
 
+import requests
 from django.utils import timezone
 
 from wagtail.embeds.exceptions import EmbedNotFoundException
@@ -60,13 +56,18 @@ class OEmbedFinder(EmbedFinder):
             params["maxheight"] = max_height
 
         # Perform request
-        request = Request(endpoint + "?" + urlencode(params))
-        request.add_header("User-agent", "Mozilla/5.0")
         try:
-            r = urllib_request.urlopen(request)
-            oembed = json.loads(r.read().decode("utf-8"))
-        except (URLError, json.decoder.JSONDecodeError):
-            raise EmbedNotFoundException
+            r = requests.get(
+                endpoint, params=params, headers={"User-agent": "Mozilla/5.0"}
+            )
+            r.raise_for_status()
+            oembed = r.json()
+        except requests.RequestException as e:
+            raise EmbedNotFoundException(f"Request failed: {e}") from e
+
+        # Check if 'type' is missing
+        if "type" not in oembed:
+            raise EmbedNotFoundException("Missing 'type' in response")
 
         # Convert photos into HTML
         if oembed["type"] == "photo":

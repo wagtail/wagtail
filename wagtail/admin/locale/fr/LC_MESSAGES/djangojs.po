@@ -5,12 +5,12 @@
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
-# Loic Teixeira, 2024
-# Sébastien Corbin <seb.corbin@gmail.com>, 2024
+# Loic Teixeira, 2025
+# Sébastien Corbin <seb.corbin@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2025\n"
 "Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -44,6 +44,15 @@ msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixels"
 msgstr[2] "%(num)s pixels"
 
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s : %(localized_time_zone_label)s"
+
+msgid "Actions"
+msgstr "Actions"
+
 msgid "Add a comment"
 msgstr "Ajouter un commentaire"
 
@@ -73,6 +82,10 @@ msgstr "Tout replier"
 
 msgid "Comment"
 msgstr "Commenter"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Complexe"
 
 msgid "Dashboard"
 msgstr "Tableau de bord"
@@ -108,8 +121,15 @@ msgstr ""
 msgid "Expand all"
 msgstr "Tout déplier"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Juste"
+
 msgid "Focus comment"
 msgstr "Mettre le commentaire au premier-plan"
+
+msgid "Good"
+msgstr "Bon"
 
 msgid "Horizontal line"
 msgstr "Ligne horizontale"
@@ -132,6 +152,9 @@ msgstr "Document manquant"
 msgid "More actions"
 msgstr "Plus d'actions"
 
+msgid "No"
+msgstr "Non"
+
 msgid "No results"
 msgstr "Aucun résultat"
 
@@ -146,6 +169,9 @@ msgstr "Pages"
 
 msgid "Pin toolbar"
 msgstr "Épingler la barre d'outils"
+
+msgid "Preview"
+msgstr "Prévisualiser"
 
 msgid "Reload saved content"
 msgstr "Recharger le contenu enregistré"
@@ -222,6 +248,9 @@ msgstr "Le nombre minimum d'éléments est %(min_num)d"
 msgid "This field is required."
 msgstr "Ce champ est requis."
 
+msgid "Toggle section"
+msgstr "Afficher/masquer la section"
+
 msgid "Toggle side panel"
 msgstr "Afficher/masquer le panneau latéral"
 
@@ -239,3 +268,6 @@ msgstr "Voir les sous-pages de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Écrivez quelque chose ou tapez « / » pour insérer un bloc"
+
+msgid "Yes"
+msgstr "Oui"

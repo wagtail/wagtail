@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import FieldError
 from django.db import models
 from django.shortcuts import get_object_or_404
 from rest_framework.filters import BaseFilterBackend
@@ -44,7 +45,7 @@ class FieldsFilter(BaseFilterBackend):
                     raise BadRequestError(
                         "field filter error. '%s' is not a valid value for %s (%s)"
                         % (value, field_name, str(e))
-                    )
+                    ) from e
 
                 if "\x00" in str(value):
                     raise BadRequestError(
@@ -78,49 +79,37 @@ class OrderingFilter(BaseFilterBackend):
         And random ordering
         Eg: ?order=random
         """
-        if "order" in request.GET:
-            order_by_list = request.GET["order"].split(",")
+        order_param = request.GET.get("order")
+        if not order_param:
+            return queryset
 
-            # Random ordering
-            if "random" in order_by_list:
-                if len(order_by_list) > 1:
-                    raise BadRequestError(
-                        "random ordering cannot be combined with other fields"
-                    )
-                # Prevent ordering by random with offset
-                if "offset" in request.GET:
-                    raise BadRequestError(
-                        "random ordering with offset is not supported"
-                    )
+        order_by_list = order_param.split(",")
 
-                return queryset.order_by("?")
+        # Handle random ordering separately
+        if "random" in order_by_list:
+            if len(order_by_list) > 1:
+                raise BadRequestError(
+                    "random ordering cannot be combined with other fields"
+                )
+            if "offset" in request.GET:
+                raise BadRequestError("random ordering with offset is not supported")
+            return queryset.order_by("?")
 
-            order_by_fields = []
-            for order_by in order_by_list:
-                # Check if reverse ordering is set
-                if order_by.startswith("-"):
-                    reverse_order = True
-                    order_by = order_by[1:]
-                else:
-                    reverse_order = False
+        allowed_fields = view.get_available_fields(queryset.model, db_fields_only=True)
+        validated_fields = []
 
-                # Add ordering
-                if order_by in view.get_available_fields(queryset.model):
-                    order_by_fields.append(order_by)
-                else:
-                    # Unknown field
-                    raise BadRequestError(
-                        "cannot order by '%s' (unknown field)" % order_by
-                    )
+        for field in order_by_list:
+            field_name = field.lstrip("-")
+            if field_name not in allowed_fields:
+                raise BadRequestError(f"cannot order by '{field}' (unknown field)")
+            validated_fields.append(field)
 
-            # Apply ordering to the queryset
-            queryset = queryset.order_by(*order_by_fields)
-
-            # Reverse order if needed
-            if reverse_order:
-                queryset = queryset.reverse()
-
-        return queryset
+        try:
+            return queryset.order_by(*validated_fields)
+        except FieldError as e:
+            raise BadRequestError(
+                f"cannot order by '{order_param}' (invalid field)"
+            ) from e
 
 
 class SearchFilter(BaseFilterBackend):
@@ -158,13 +147,13 @@ class SearchFilter(BaseFilterBackend):
                     "cannot filter by '{}' while searching (field is not indexed)".format(
                         e.field_name
                     )
-                )
+                ) from e
             except OrderByFieldError as e:
                 raise BadRequestError(
                     "cannot order by '{}' while searching (field is not indexed)".format(
                         e.field_name
                     )
-                )
+                ) from e
 
         return queryset
 
@@ -183,13 +172,13 @@ class ChildOfFilter(BaseFilterBackend):
                     raise ValueError()
 
                 parent_page = view.get_base_queryset().get(id=parent_page_id)
-            except ValueError:
+            except ValueError as e:
                 if request.GET["child_of"] == "root":
                     parent_page = view.get_root_page()
                 else:
-                    raise BadRequestError("child_of must be a positive integer")
-            except Page.DoesNotExist:
-                raise BadRequestError("parent page doesn't exist")
+                    raise BadRequestError("child_of must be a positive integer") from e
+            except Page.DoesNotExist as e:
+                raise BadRequestError("parent page doesn't exist") from e
 
             queryset = queryset.child_of(parent_page)
 
@@ -215,10 +204,10 @@ class AncestorOfFilter(BaseFilterBackend):
                     raise ValueError()
 
                 descendant_page = view.get_base_queryset().get(id=descendant_page_id)
-            except ValueError:
-                raise BadRequestError("ancestor_of must be a positive integer")
-            except Page.DoesNotExist:
-                raise BadRequestError("descendant page doesn't exist")
+            except ValueError as e:
+                raise BadRequestError("ancestor_of must be a positive integer") from e
+            except Page.DoesNotExist as e:
+                raise BadRequestError("descendant page doesn't exist") from e
 
             queryset = queryset.ancestor_of(descendant_page)
 
@@ -243,13 +232,15 @@ class DescendantOfFilter(BaseFilterBackend):
                     raise ValueError()
 
                 parent_page = view.get_base_queryset().get(id=parent_page_id)
-            except ValueError:
+            except ValueError as e:
                 if request.GET["descendant_of"] == "root":
                     parent_page = view.get_root_page()
                 else:
-                    raise BadRequestError("descendant_of must be a positive integer")
-            except Page.DoesNotExist:
-                raise BadRequestError("ancestor page doesn't exist")
+                    raise BadRequestError(
+                        "descendant_of must be a positive integer"
+                    ) from e
+            except Page.DoesNotExist as e:
+                raise BadRequestError("ancestor page doesn't exist") from e
 
             queryset = queryset.descendant_of(parent_page)
 
@@ -270,13 +261,15 @@ class TranslationOfFilter(BaseFilterBackend):
                     raise ValueError()
 
                 page = view.get_base_queryset().get(id=page_id)
-            except ValueError:
+            except ValueError as e:
                 if request.GET["translation_of"] == "root":
                     page = view.get_root_page()
                 else:
-                    raise BadRequestError("translation_of must be a positive integer")
-            except Page.DoesNotExist:
-                raise BadRequestError("translation_of page doesn't exist")
+                    raise BadRequestError(
+                        "translation_of must be a positive integer"
+                    ) from e
+            except Page.DoesNotExist as e:
+                raise BadRequestError("translation_of page doesn't exist") from e
 
             _filtered_by_child_of = getattr(queryset, "_filtered_by_child_of", None)
 

@@ -13,10 +13,15 @@ from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = cls.create_test_user()
+        cls.add_url = reverse("wagtaillocales:add")
 
-    def get(self, params={}):
+    def setUp(self):
+        self.login(user=self.user)
+
+    def get(self, params=None):
         return self.client.get(reverse("wagtaillocales:index"), params)
 
     def test_simple(self):
@@ -27,6 +32,16 @@ class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             [{"url": "", "label": "Locales"}],
             response.content,
         )
+        self.assertContains(response, self.add_url)
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English")])
+    def test_index_view_doesnt_show_add_locale_button_if_all_locales_created(self):
+        self.assertNotContains(self.get(), self.add_url)
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")])
+    def test_index_view_shows_add_locale_button_with_stale_locales(self):
+        Locale.objects.create(language_code="de")
+        self.assertContains(self.get(), self.add_url)
 
 
 class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -34,10 +49,10 @@ class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login()
         self.english = Locale.objects.get()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaillocales:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtaillocales:add"), post_data)
 
     def test_default_language(self):
@@ -103,6 +118,22 @@ class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "language_code",
             ["Select a valid choice. ja is not one of the available choices."],
         )
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English")])
+    def test_create_view_no_access_if_all_locales_created(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")])
+    def test_create_view_can_access_with_stale_locales(self):
+        Locale.objects.create(language_code="de")
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaillocales/create.html")
 
 
 class TestLocaleEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -223,13 +254,13 @@ class TestLocaleDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login()
         self.english = Locale.objects.get()
 
-    def get(self, params={}, locale=None):
+    def get(self, params=None, locale=None):
         locale = locale or self.english
         return self.client.get(
             reverse("wagtaillocales:delete", args=[locale.id]), params
         )
 
-    def post(self, post_data={}, locale=None):
+    def post(self, post_data=None, locale=None):
         locale = locale or self.english
         return self.client.post(
             reverse("wagtaillocales:delete", args=[locale.id]), post_data

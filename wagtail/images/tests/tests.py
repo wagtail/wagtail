@@ -29,7 +29,6 @@ from wagtail.images.utils import generate_signature, verify_signature
 from wagtail.images.views.serve import ServeView
 from wagtail.test.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.test.utils import WagtailTestUtils, disconnect_signal_receiver
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .utils import (
     Image,
@@ -311,11 +310,6 @@ class TestFormat(WagtailTestUtils, TestCase):
         register_image_format(self.format)
         result = get_image_format("test name")
         self.assertEqual(result, self.format)
-
-    def test_deprecated_classnames_property_access(self):
-        with self.assertWarns(RemovedInWagtail70Warning):
-            classname = self.format.classnames
-        self.assertEqual(classname, "test is-primary")
 
 
 class TestSignatureGeneration(TestCase):

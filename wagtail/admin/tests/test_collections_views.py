@@ -55,7 +55,7 @@ class TestCollectionsIndexViewAsSuperuser(
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_simple(self):
@@ -118,7 +118,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, WagtailTestUtils, Te
         super().setUp()
         self.login(self.marketing_user, password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_marketing_user_no_permissions(self):
@@ -203,10 +203,10 @@ class TestAddCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.login()
         self.root_collection = Collection.get_first_root_node()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_get(self):
@@ -245,10 +245,10 @@ class TestAddCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase)
         super().setUp()
         self.login(self.marketing_user, password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_marketing_user_no_permissions(self):
@@ -316,7 +316,7 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
         self.l2 = self.l1.add_child(name="Level 2")
         self.l3 = self.l2.add_child(name="Level 3")
 
-    def get(self, params={}, collection_id=None):
+    def get(self, params=None, collection_id=None):
         return self.client.get(
             reverse(
                 "wagtailadmin_collections:edit",
@@ -325,7 +325,7 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
             params,
         )
 
-    def post(self, post_data={}, collection_id=None):
+    def post(self, post_data=None, collection_id=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_collections:edit",
@@ -408,12 +408,12 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         )
         self.login(self.marketing_user, password="password")
 
-    def get(self, collection_id, params={}):
+    def get(self, collection_id, params=None):
         return self.client.get(
             reverse("wagtailadmin_collections:edit", args=(collection_id,)), params
         )
 
-    def post(self, collection_id, post_data={}):
+    def post(self, collection_id, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_collections:edit", args=(collection_id,)), post_data
         )
@@ -598,7 +598,7 @@ class TestDeleteCollectionAsSuperuser(
         self.root_collection = Collection.get_first_root_node()
         self.collection = self.root_collection.add_child(name="Holiday snaps")
 
-    def get(self, params={}, collection_id=None):
+    def get(self, params=None, collection_id=None):
         return self.client.get(
             reverse(
                 "wagtailadmin_collections:delete",
@@ -607,7 +607,7 @@ class TestDeleteCollectionAsSuperuser(
             params,
         )
 
-    def post(self, post_data={}, collection_id=None):
+    def post(self, post_data=None, collection_id=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_collections:delete",
@@ -703,12 +703,12 @@ class TestDeleteCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCa
         )
         self.login(self.marketing_user, password="password")
 
-    def get(self, collection_id, params={}):
+    def get(self, collection_id, params=None):
         return self.client.get(
             reverse("wagtailadmin_collections:delete", args=(collection_id,)), params
         )
 
-    def post(self, collection_id, post_data={}):
+    def post(self, collection_id, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_collections:delete", args=(collection_id,)), post_data
         )
@@ -775,10 +775,22 @@ class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, Te
         super().setUp()
         self.login()
 
-    def get(self, collection_id, params={}):
+    def get(self, collection_id, params=None):
         return self.client.get(
             reverse("wagtailadmin_collections:set_privacy", args=(collection_id,)),
             params,
+        )
+
+    def test_privacy_for_collection(self):
+        response = self.get(self.finance_collection.id)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"], self.finance_collection)
+        self.assertEqual(
+            response.context["action_url"],
+            "/admin/collections/{}/privacy/".format(self.finance_collection.id),
         )
 
     def test_get_private_child(self):
@@ -810,3 +822,63 @@ class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, Te
             args=(self.root_collection.pk,),
         )
         self.assertEqual(link.get("href"), parent_edit_url)
+
+
+class TestCollectionPrivacyStatusLabels(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+        self.root_collection = Collection.get_first_root_node()
+        self.public_collection = self.root_collection.add_child(name="Public_photos1")
+        self.private_collection = self.root_collection.add_child(name="Private_photos1")
+        CollectionViewRestriction.objects.create(
+            collection=self.private_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+        self.root_collection.refresh_from_db()
+        self.private_collection.refresh_from_db()
+        self.public_collection.refresh_from_db()
+
+        self.sub_private_collection = self.private_collection.add_child(
+            name="Sub_private_photos1"
+        )
+
+        self.sub_public_collection = self.public_collection.add_child(
+            name="Sub_public_photos1"
+        )
+
+    def test_admin_displays_private_tag_for_private_base_collections(self):
+        request = self.client.get(
+            reverse("wagtailadmin_collections:edit", args=[self.private_collection.pk])
+        )
+
+        self.assertTrue('class="privacy-indicator private"' in str(request.content))
+        self.assertFalse('class="privacy-indicator "' in str(request.content))
+
+    def test_admin_displays_private_tag_for_private_sub_collections(self):
+        request = self.client.get(
+            reverse(
+                "wagtailadmin_collections:edit", args=[self.sub_private_collection.pk]
+            )
+        )
+
+        self.assertTrue('class="privacy-indicator private"' in str(request.content))
+        self.assertFalse('class="privacy-indicator public"' in str(request.content))
+
+    def test_admin_displays_public_tag_for_public_base_collections(self):
+        request = self.client.get(
+            reverse("wagtailadmin_collections:edit", args=[self.public_collection.pk])
+        )
+
+        self.assertTrue('class="privacy-indicator public"' in str(request.content))
+        self.assertFalse('class="privacy-indicator private"' in str(request.content))
+
+    def test_admin_displays_public_tag_for_public_sub_collections(self):
+        request = self.client.get(
+            reverse(
+                "wagtailadmin_collections:edit", args=[self.sub_public_collection.pk]
+            )
+        )
+
+        self.assertTrue('class="privacy-indicator public"' in str(request.content))
+        self.assertFalse('class="privacy-indicator private"' in str(request.content))

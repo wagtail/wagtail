@@ -12,13 +12,17 @@ declare global {
 /**
  * Attach the jQuery tagit UI to the controlled element.
  *
- * See https://github.com/aehlke/tag-it
+ * @see https://github.com/aehlke/tag-it
  *
  * @example
+ * ```html
  * <input id="id_tags" type="text" name="tags" data-controller="w-tag" data-w-tag-url-value="/admin/tag-autocomplete/" />
+ * ```
  *
- * @example - with delay
+ * @example - With delay
+ * ```html
  * <input id="id_tags" type="text" name="tags" data-controller="w-tag" data-w-tag-delay-value="300" data-w-tag-url-value="/admin/tag-autocomplete/" />
+ * ```
  */
 export class TagController extends Controller {
   static values = {

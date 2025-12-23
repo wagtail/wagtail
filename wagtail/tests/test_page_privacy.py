@@ -28,6 +28,11 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
             response.templates[0].name, "wagtailcore/password_required.html"
         )
 
+        # test that preview attributes are set on the request
+        request = response.context["request"]
+        self.assertFalse(request.is_preview)
+        self.assertIsNone(request.preview_mode)
+
         submit_url = "/_util/authenticate_with_password/%d/%d/" % (
             self.view_restriction.id,
             self.secret_plans_page.id,
@@ -83,7 +88,7 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
         WAGTAIL_PASSWORD_REQUIRED_TEMPLATE="tests/custom_page_password_required.html"
     )
     def test_anonymous_user_must_authenticate_with_custom_password_required_template(
-        self
+        self,
     ):
         response = self.client.get("/secret-plans/")
 

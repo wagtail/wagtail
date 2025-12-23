@@ -105,17 +105,17 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
             value={reply.newText}
             onChange={onChangeText}
           />
-          <div className="comment-reply__actions">
+          <div className="comment__actions">
             <button
               type="submit"
               disabled={reply.newText.length === 0}
-              className="comment-reply__button comment-reply__button--primary"
+              className="comment__button comment__button--primary"
             >
               {gettext('Save')}
             </button>
             <button
               type="button"
-              className="comment-reply__button"
+              className="comment__button"
               onClick={onCancel}
             >
               {gettext('Cancel')}
@@ -132,8 +132,8 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
     return (
       <>
         <CommentHeader commentReply={reply} store={store} focused={isFocused} />
-        <p className="comment-reply__text">{reply.text}</p>
-        <div className="comment-reply__progress">{gettext('Saving...')}</div>
+        <p className="comment__text">{reply.text}</p>
+        <div className="comment__progress">{gettext('Saving...')}</div>
       </>
     );
   }
@@ -150,12 +150,12 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
     return (
       <>
         <CommentHeader commentReply={reply} store={store} focused={isFocused} />
-        <p className="comment-reply__text">{reply.text}</p>
-        <div className="comment-reply__error">
+        <p className="comment__text">{reply.text}</p>
+        <div className="comment__error">
           {gettext('Save error')}
           <button
             type="button"
-            className="comment-reply__button"
+            className="comment__button"
             onClick={onClickRetry}
           >
             {gettext('Retry')}
@@ -187,19 +187,19 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
     return (
       <>
         <CommentHeader commentReply={reply} store={store} focused={isFocused} />
-        <p className="comment-reply__text">{reply.text}</p>
-        <div className="comment-reply__confirm-delete">
+        <p className="comment__text">{reply.text}</p>
+        <div className="comment__confirm-delete">
           {gettext('Are you sure?')}
           <button
             type="button"
-            className="comment-reply__button"
+            className="comment__button button button-small"
             onClick={onClickCancel}
           >
             {gettext('Cancel')}
           </button>
           <button
             type="button"
-            className="comment-reply__button comment-reply__button--primary"
+            className="comment__button button button-small no"
             onClick={onClickDelete}
           >
             {gettext('Delete')}
@@ -215,8 +215,8 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
     return (
       <>
         <CommentHeader commentReply={reply} store={store} focused={isFocused} />
-        <p className="comment-reply__text">{reply.text}</p>
-        <div className="comment-reply__progress">{gettext('Deleting')}</div>
+        <p className="comment__text">{reply.text}</p>
+        <div className="comment__progress">{gettext('Deleting')}</div>
       </>
     );
   }
@@ -243,19 +243,19 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
     return (
       <>
         <CommentHeader commentReply={reply} store={store} focused={isFocused} />
-        <p className="comment-reply__text">{reply.text}</p>
-        <div className="comment-reply__error">
+        <p className="comment__text">{reply.text}</p>
+        <div className="comment__error">
           {gettext('Delete error')}
           <button
             type="button"
-            className="comment-reply__button"
+            className="comment__button"
             onClick={onClickCancel}
           >
             {gettext('Cancel')}
           </button>
           <button
             type="button"
-            className="comment-reply__button"
+            className="comment__button"
             onClick={onClickRetry}
           >
             {gettext('Retry')}
@@ -308,7 +308,7 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
           onDelete={onDelete}
           focused={isFocused}
         />
-        <p className="comment-reply__text">{reply.text}</p>
+        <p className="comment__text">{reply.text}</p>
         {notice && (
           <div className="comment__notice-placeholder">
             <div className="comment__notice" role="status">

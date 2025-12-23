@@ -184,6 +184,12 @@ class Create(CreateView):
     def get_form_class(self):
         return self.get_edit_handler().get_form_class()
 
+    def get_initial_form_instance(self):
+        # defining this method ensures that self.object is set to a new instance
+        # while constructing the form, making it available to get_pages_formset
+        # and get_content_type_form during is_valid
+        return self.model()
+
     def get_pages_formset(self):
         if self.request.method == "POST":
             return WorkflowPagesFormSet(
@@ -213,36 +219,41 @@ class Create(CreateView):
         context["media"] = form.media + bound_panel.media + pages_formset.media
         return context
 
+    def is_valid(self, form):
+        if not super().is_valid(form):
+            return False
+
+        self.pages_formset = self.get_pages_formset()
+        self.content_type_form = self.get_content_type_form()
+
+        if not self.pages_formset.is_valid() or not self.content_type_form.is_valid():
+            self.produced_error_message = self.get_error_message()
+            return False
+
+        return True
+
     def form_valid(self, form):
         self.form = form
 
         with transaction.atomic():
             self.object = self.save_instance()
 
-            pages_formset = self.get_pages_formset()
-            content_type_form = self.get_content_type_form()
-            if pages_formset.is_valid() and content_type_form.is_valid():
-                pages_formset.save()
-                content_type_form.save()
+            self.pages_formset.save()
+            self.content_type_form.save()
 
-                success_message = self.get_success_message(self.object)
-                if success_message is not None:
-                    messages.success(
-                        self.request,
-                        success_message,
-                        buttons=[
-                            messages.button(
-                                reverse(self.edit_url_name, args=(self.object.id,)),
-                                _("Edit"),
-                            )
-                        ],
-                    )
-                return redirect(self.get_success_url())
-
-            else:
-                transaction.set_rollback(True)
-
-        return self.form_invalid(form)
+            success_message = self.get_success_message(self.object)
+            if success_message is not None:
+                messages.success(
+                    self.request,
+                    success_message,
+                    buttons=[
+                        messages.button(
+                            reverse(self.edit_url_name, args=(self.object.id,)),
+                            _("Edit"),
+                        )
+                    ],
+                )
+            return redirect(self.get_success_url())
 
 
 class Edit(EditView):
@@ -326,42 +337,50 @@ class Edit(EditView):
     def get_enable_url(self):
         return reverse(self.enable_url_name, args=(self.object.pk,))
 
+    def is_valid(self, form):
+        if not super().is_valid(form):
+            return False
+
+        if self.object.active:
+            # Note: These are hidden when the workflow is inactive
+            self.pages_formset = self.get_pages_formset()
+            self.content_type_form = self.get_content_type_form()
+
+            if (
+                not self.pages_formset.is_valid()
+                or not self.content_type_form.is_valid()
+            ):
+                self.produced_error_message = self.get_error_message()
+                return False
+
+        return True
+
     @transaction.atomic()
     def form_valid(self, form):
         self.form = form
 
         with transaction.atomic():
             self.object = self.save_instance()
-            successful = True
 
-            # Save pages formset and content type form
-            # Note: These are hidden when the workflow is inactive
             if self.object.active:
-                pages_formset = self.get_pages_formset()
-                content_type_form = self.get_content_type_form()
-                if pages_formset.is_valid() and content_type_form.is_valid():
-                    pages_formset.save()
-                    content_type_form.save()
-                else:
-                    transaction.set_rollback(True)
-                    successful = False
+                # Save pages formset and content type form
+                # Note: These are hidden when the workflow is inactive
+                self.pages_formset.save()
+                self.content_type_form.save()
 
-            if successful:
-                success_message = self.get_success_message()
-                if success_message is not None:
-                    messages.success(
-                        self.request,
-                        success_message,
-                        buttons=[
-                            messages.button(
-                                reverse(self.edit_url_name, args=(self.object.id,)),
-                                _("Edit"),
-                            )
-                        ],
-                    )
-                return redirect(self.get_success_url())
-
-        return self.form_invalid(form)
+            success_message = self.get_success_message()
+            if success_message is not None:
+                messages.success(
+                    self.request,
+                    success_message,
+                    buttons=[
+                        messages.button(
+                            reverse(self.edit_url_name, args=(self.object.id,)),
+                            _("Edit"),
+                        )
+                    ],
+                )
+            return redirect(self.get_success_url())
 
 
 class Disable(DeleteView):
@@ -637,7 +656,6 @@ def select_task_type(request):
 
 class CreateTask(CreateView):
     permission_policy = task_permission_policy
-    model = None
     page_title = _("New workflow task")
     template_name = "wagtailadmin/workflows/create_task.html"
     success_message = _("Task '%(object)s' created.")
@@ -652,8 +670,8 @@ class CreateTask(CreateView):
             content_type = ContentType.objects.get_by_natural_key(
                 self.kwargs["app_label"], self.kwargs["model_name"]
             )
-        except (ContentType.DoesNotExist, AttributeError):
-            raise Http404
+        except (ContentType.DoesNotExist, AttributeError) as e:
+            raise Http404 from e
 
         # Get class
         model = content_type.model_class()
@@ -694,8 +712,6 @@ class CreateTask(CreateView):
 
 class EditTask(EditView):
     permission_policy = task_permission_policy
-    model = None
-    page_title = _("Editing workflow task")
     template_name = "wagtailadmin/workflows/edit_task.html"
     success_message = _("Task '%(object)s' updated.")
     add_url_name = "wagtailadmin_workflows:select_task_type"

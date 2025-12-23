@@ -1,7 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 import { ngettext } from '../utils/gettext';
 
-const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
+const DEFAULT_ERROR_SELECTOR =
+  ':not([hidden]):is(.error-message,.help-critical)';
 
 /**
  * Adds the ability for a controlled element to update the total count
@@ -9,10 +10,20 @@ const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
  * to `body.`
  *
  * @example
+ * ```html
  * <div data-controller="w-count">
- *  <span data-w-count-target="label"></span>
- *  <span class="error-message">An error</span>
+ *   <span data-w-count-target="label"></span>
+ *   <span class="error-message">An error</span>
  * </div>
+ * ```
+ *
+ * @example add class when count of `.item` in `.items` is above 3
+ * ```html
+ * <div data-controller="w-count" data-w-count-active-class="is-active" data-w-count-find-value=".items .item" data-w-count-min-value="3">
+ *   <span data-w-count-target="label"></span>
+ *   <span class="error-message">An error</span>
+ * </div>
+ * ```
  */
 export class CountController extends Controller<HTMLFormElement> {
   static classes = ['active'];
@@ -29,7 +40,7 @@ export class CountController extends Controller<HTMLFormElement> {
   declare containerValue: string;
   /** selector string, used to find the elements to count within the container */
   declare findValue: string;
-  /** override pluralisation strings, e.g. `data-w-count-labels-value='["One item","Many items"]'` */
+  /** override pluralization strings, e.g. `data-w-count-labels-value='["One item","Many items"]'` */
   declare labelsValue: string[];
   /** minimum value, anything equal or below will trigger blank labels in the UI */
   declare minValue: number;

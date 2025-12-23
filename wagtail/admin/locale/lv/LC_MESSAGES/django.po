@@ -4,15 +4,16 @@
 #
 # Translators:
 # Joren Štekeļs, 2024
+# Joren Štekeļs, 2024
 # Maris Serzans <maris.serzans@gmail.com>, 2015
 # Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Joren Štekeļs, 2024\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -60,9 +61,6 @@ msgstr "Wagtail administrācija"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
-
-msgid "You do not have permission to access the admin"
-msgstr "Jums nav tiesību pieklūt administrācijas videi"
 
 msgid "None"
 msgstr "Nav"
@@ -137,9 +135,6 @@ msgstr ""
 "Atlasīt hierarhisko pozīciju. Piezīme: kolekcija nevar piederēt pati sev vai "
 "kādai no tās apakšpozīcijām."
 
-msgid "Please select another parent"
-msgstr "Lūdzu, izvēlieties citu valodu"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
 
@@ -166,9 +161,6 @@ msgstr "Jūs nevarat rediģēt cita lietotāja komentārus"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Publicēšanas datumam/laikam jābūt pirms beigu datuma/laika"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Beigu datumam/laikam jābūt nākotnē"
 
 msgid "New title"
 msgstr "Jauns virsraksts"
@@ -236,11 +228,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Kopējot apakšlapas nav iespējams kopēt lapu uz sevi pašu"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr ""
-"Tekstuālais identifikators \"%(page_slug)s\" jau tiek izmanots vecāklapā"
-
 msgid "Select a new parent for this page."
 msgstr "Izvēlieties jaunu vecāklapu šai lapai"
 
@@ -249,10 +236,6 @@ msgstr "Augstāka līmeņa lapa"
 
 msgid "Search…"
 msgstr "Meklēt..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Birka(s) %(value_too_long)s pārsniedz %(max_tag_length)d rakstzīmes "
 
 msgid "Visibility"
 msgstr "Redzamība"
@@ -286,9 +269,6 @@ msgstr "Piešķir darbplūsmai nosaukumu"
 
 msgid "Add tasks to your workflow"
 msgstr "Pievieno uzdevumus savai darbplūsmai "
-
-msgid "Task"
-msgstr "Uzdevums"
 
 msgid "1 page selected"
 msgstr "1 lapa ir atlasīta"
@@ -435,9 +415,6 @@ msgstr "Šo kolekciju privātu ir padarījusi augstāka līmeņa kolekcija."
 msgid "You can edit the privacy settings on:"
 msgstr "Mainīt privātuma iestatījumus:"
 
-msgid "Save"
-msgstr "Saglabāt"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -466,13 +443,11 @@ msgstr "Nevar izdzēst šo kolekciju, jo tā nac tukša. Tā satur:"
 msgid "Yes, delete"
 msgstr "Dzēst"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Atsaukt %(title)s publicēšanu"
-
 msgid "Yes, unpublish it"
 msgstr "Atsaukt publicēšanu"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Darbības"
 
@@ -522,8 +497,14 @@ msgstr "Datums"
 msgid "Site summary"
 msgstr "Kopsavilkums"
 
+msgid "Close"
+msgstr "Aizvērt"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Jūsu lapas un fragmenti darbplūsmā"
+
+msgid "Task"
+msgstr "Uzdevums"
 
 msgid "Task started"
 msgstr "Uzdevums uzsākts"
@@ -533,9 +514,6 @@ msgstr "Pieprasītās izmaiņas"
 
 msgid "Awaiting"
 msgstr "Gaida"
-
-msgid "Close"
-msgstr "Aizvērt"
 
 msgid "Awaiting your review"
 msgstr "Gaida jūsu pārbaudi"
@@ -658,15 +636,6 @@ msgstr "Pārlūkot lapas '%(title)s' zemāka līmeņa lapas."
 msgid "Add a child page to '%(title)s'"
 msgstr "Pievienot  zemāka līmeņa lapas pie '%(title)s'"
 
-msgid "Drag"
-msgstr "Pārvilkt"
-
-msgid "Disable ordering of child pages"
-msgstr "Atspējot apakšlapu kārtošanu"
-
-msgid "Enable ordering of child pages"
-msgstr "Iespējot apakšlapu kārtošanu"
-
 msgid "Previous"
 msgstr "Iepriekšējais"
 
@@ -691,6 +660,9 @@ msgstr "Uz augšu"
 
 msgid "Move down"
 msgstr "Uz leju"
+
+msgid "Drag"
+msgstr "Pārvilkt"
 
 msgid "Type"
 msgstr "Veids"
@@ -728,18 +700,21 @@ msgstr "Neviena lapa/fragments vēl netika iesniegts moderēšanai"
 msgid "Completed at"
 msgstr "Pabeigts plkst."
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
-
 msgid "Download CSV"
 msgstr "Lejupielādēt CSV failu"
 
 msgid "Filter"
 msgstr "Atsijāt"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām"
+
 msgid "Other searches"
 msgstr "Citi meklējumi"
+
+msgid "Save"
+msgstr "Saglabāt"
 
 msgid "Unlocked"
 msgstr "Atslēgts"
@@ -832,10 +807,6 @@ msgstr "Sākumlapa"
 msgid "Current draft"
 msgstr "Patreizējā sagatave"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Rediģēt '%(title)s'"
-
 msgid "Editing"
 msgstr "Labo"
 
@@ -876,9 +847,6 @@ msgstr "Lapa '%(page_title)s' izveidota un publicēta."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Lapa '%(page_title)s' izveidota un iesniegta moderācijai."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Validācijas kļūdas dēļ šo lapu nav iespējams izveidot"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Lapa '%(page_title)s' dzēsta."
@@ -898,12 +866,6 @@ msgstr "Lapa '%(page_title)s' ir publicēta."
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Lapa '%(page_title)s' ir nosūtīta moderācijai."
-
-msgid "The page could not be saved as it is locked"
-msgstr "Lapu nav iespējams saglabāt jo tā ir bloķēta"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Validācijas kļūdu dēļ lapu nav iespējams saglabāt"
 
 msgid "Owner"
 msgstr "Īpašnieks"

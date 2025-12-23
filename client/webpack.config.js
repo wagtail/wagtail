@@ -2,7 +2,9 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// Generates a path to the output bundle to be loaded in the browser.
+/**
+ * Generates a path to the output bundle to be loaded in the browser.
+ */
 const getOutputPath = (app, folder, filename) => {
   const exceptions = {
     'documents': 'wagtaildocs',
@@ -72,7 +74,6 @@ module.exports = function exports(env, argv) {
   };
 
   const entry = {};
-  // eslint-disable-next-line no-restricted-syntax
   for (const [appName, moduleNames] of Object.entries(entrypoints)) {
     moduleNames.forEach((moduleName) => {
       entry[moduleName] = {

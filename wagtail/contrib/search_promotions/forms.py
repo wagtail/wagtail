@@ -2,6 +2,7 @@ from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 
@@ -29,7 +30,7 @@ class QueryForm(forms.ModelForm):
         fields = ["query_string"]
 
 
-class SearchPromotionForm(forms.ModelForm):
+class SearchPromotionForm(WagtailAdminModelForm):
     sort_order = forms.IntegerField(required=False)
 
     def __init__(self, *args, **kwargs):
@@ -79,7 +80,7 @@ class SearchPromotionForm(forms.ModelForm):
 
         return cleaned_data
 
-    class Meta:
+    class Meta(WagtailAdminModelForm.Meta):
         model = SearchPromotion
         fields = (
             "query",

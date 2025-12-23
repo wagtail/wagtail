@@ -1,6 +1,7 @@
 from django.core.exceptions import ImproperlyConfigured
 
-from wagtail.telepath import JSContext
+from wagtail.admin.telepath import JSContext
+from wagtail.admin.telepath import register as register_telepath_adapter
 
 from .inline_panel import InlinePanel
 
@@ -20,6 +21,7 @@ class MultipleChooserPanel(InlinePanel):
         kwargs["chooser_field_name"] = self.chooser_field_name
         return kwargs
 
+    @register_telepath_adapter
     class BoundPanel(InlinePanel.BoundPanel):
         template_name = "wagtailadmin/panels/multiple_chooser_panel.html"
 
@@ -35,12 +37,18 @@ class MultipleChooserPanel(InlinePanel):
                     self.chooser_widget
                 )
 
+        telepath_adapter_name = "wagtail.panels.MultipleChooserPanel"
+
+        def js_opts(self):
+            opts = super().js_opts()
+            opts["chooserFieldName"] = self.panel.chooser_field_name
+            return opts
+
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-            context["chooser_field_name"] = self.panel.chooser_field_name
-            context[
-                "chooser_widget_definition"
-            ] = self.chooser_widget_telepath_definition
+            context["chooser_widget_definition"] = (
+                self.chooser_widget_telepath_definition
+            )
             return context
 
         @property

@@ -1,5 +1,4 @@
 from collections import defaultdict
-from warnings import warn
 
 from django import template
 from django.contrib.auth import get_permission_codename
@@ -8,11 +7,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.text import camel_case_to_spaces
 from django.utils.translation import gettext_noop
 
-from wagtail import hooks
 from wagtail.admin.models import Admin
-from wagtail.coreutils import accepts_kwarg
-from wagtail.users.permission_order import CONTENT_TYPE_ORDER
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.users.permission_order import get_content_type_order_lookup
 
 register = template.Library()
 
@@ -96,9 +92,10 @@ def format_permissions(permission_bound_field):
     # get a distinct and ordered list of the content types that these permissions relate to.
     # relies on Permission model default ordering, dict.fromkeys() retaining that order
     # from the queryset, and the stability of sorted().
+    content_type_order = get_content_type_order_lookup()
     content_type_ids = sorted(
         dict.fromkeys(permissions.values_list("content_type_id", flat=True)),
-        key=lambda ct: CONTENT_TYPE_ORDER.get(ct, float("inf")),
+        key=lambda ct: content_type_order.get(ct, float("inf")),
     )
 
     # iterate over permission_bound_field to build a lookup of individual renderable
@@ -188,28 +185,3 @@ def format_permissions(permission_bound_field):
         "other_perms": other_perms,
         "extra_perms_exist": extra_perms_exist,
     }
-
-
-@register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
-def user_listing_buttons(context, user):
-    warn(
-        "`user_listing_buttons` template tag is deprecated.",
-        category=RemovedInWagtail70Warning,
-    )
-
-    buttons = []
-
-    for hook in hooks.get_hooks("register_user_listing_buttons"):
-        if accepts_kwarg(hook, "request_user"):
-            buttons.extend(hook(user=user, request_user=context.get("request").user))
-        else:
-            # old-style hook that accepts a context argument instead of request_user
-            buttons.extend(hook(context, user))
-            warn(
-                "`register_user_listing_buttons` hook functions should accept a "
-                "`request_user` argument instead of `context` - "
-                f"{hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail70Warning,
-            )
-
-    return {"user": user, "buttons": sorted(buttons)}

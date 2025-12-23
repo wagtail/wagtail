@@ -6,6 +6,12 @@
 
 ## Custom editing interfaces for `StructBlock`
 
+The editing interface for a `StructBlock` can be configured in several ways, depending on the level of customization required.
+
+(structblock_custom_classes_and_attributes)=
+
+### Adding custom classes and attributes
+
 To customize the styling of a `StructBlock` as it appears in the page editor, you can specify a `form_classname` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to override the default value of `struct-block`:
 
 ```python
@@ -16,31 +22,226 @@ class PersonBlock(blocks.StructBlock):
     biography = blocks.RichTextBlock()
 
     class Meta:
-        icon = 'user'
-        form_classname = 'person-block struct-block'
+        icon = "user"
+        form_classname = "person-block struct-block"
+        form_attrs = {
+            # This block has additional customizations enabled
+            "data-controller": "magic",
+            "data-action": "click->magic#abracadabra",
+        }
 ```
 
 You can then provide custom CSS for this block, targeted at the specified classname, by using the [](insert_global_admin_css) hook.
 
 ```{note}
-Wagtail's editor styling has some built-in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
+If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`. You may need to include the default `struct-block` class if you have custom code or use a third-party package that relies on it.
 ```
+
+If you want to add custom attributes other than `class` on a `StructBlock` in the page editor, you can specify a `form_attrs` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to add any additional attributes.
+
+For example, you can use the custom attributes to [attach Stimulus controllers](extending_client_side_stimulus) to the block.
+
+```{note}
+Any attributes in `form_attrs` will take precedence over the default attributes that Wagtail applies to `StructBlock` elements in the page editor, such as `class`.
+```
+
+(structblock_initial_collapsible)=
+
+### Customizing the initial collapsible state
+
+In addition, the `StructBlock`'s `Meta` class also accepts a `collapsed` attribute. When set to `True`, the block is initially displayed in a collapsed state in the editing interface. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. Note that this only applies to `StructBlock` inside another `StructBlock`. If the `StructBlock` is within a `StreamBlock` or `ListBlock`, the initial state will follow the parent block's `collapsed` option.
+
+```python
+class SettingsBlock(blocks.StructBlock):
+    theme = ChoiceBlock(
+        choices=[
+            ("banana", "Banana"),
+            ("cherry", "Cherry"),
+            ("lime", "Lime"),
+        ],
+        required=False,
+        default="banana",
+        help_text="Select the theme for the block",
+    )
+    available = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        help_text="Whether this person is available",
+    )
+
+    class Meta:
+        icon = "cog"
+        # This block will be initially collapsed
+        collapsed = True
+        # The block's summary label when collapsed
+        label_format = "Theme: {theme}, Available: {available}"
+
+
+class PersonBlock(blocks.StructBlock):
+    first_name = blocks.CharBlock()
+    surname = blocks.CharBlock()
+    photo = ImageChooserBlock(required=False)
+    biography = blocks.RichTextBlock()
+    settings = SettingsBlock()
+
+    class Meta:
+        icon = "user"
+```
+
+(structblock_custom_order_and_grouping)=
+
+### Changing the order and grouping of child blocks
+
+```{versionadded} 7.3
+The `form_layout` attribute and `BlockGroup` were added.
+```
+
+By default, the child blocks of a `StructBlock` are rendered in the order they are defined on the block class. However, you can customize this order by specifying a `form_layout` attribute in the block's `Meta` class.
+
+If you need to change the order of child blocks, you can provide a list of block names:
+
+```python
+class PersonBlock(blocks.StructBlock):
+    first_name = blocks.CharBlock()
+    surname = blocks.CharBlock()
+    photo = ImageChooserBlock(required=False)
+    biography = blocks.RichTextBlock()
+
+    class Meta:
+        form_layout = [
+            "photo",
+            "surname",
+            "first_name",
+            "biography",
+        ]
+```
+
+The `form_layout` attribute also accepts a `BlockGroup` instance. Using a `BlockGroup` allows you to group multiple blocks together without having to split them into nested `StructBlock`s.
+
+The `BlockGroup` class accepts a list of `children` block names, as well as optional list of `settings` block names. Blocks inside the `settings` list will be hidden by default, and can be revealed by clicking a "Settings" button in the block's actions.
+
+For example, blocks inside `SettingsBlock` from the previous example can be put directly into the `PersonBlock`, to be grouped under a "Settings" button:
+
+```python
+from wagtail.blocks import BlockGroup
+
+
+class PersonBlock(blocks.StructBlock):
+    first_name = blocks.CharBlock()
+    surname = blocks.CharBlock()
+    photo = ImageChooserBlock(required=False)
+    biography = blocks.RichTextBlock()
+    theme = ChoiceBlock(
+        choices=[
+            ("banana", "Banana"),
+            ("cherry", "Cherry"),
+            ("lime", "Lime"),
+        ],
+        required=False,
+        default="banana",
+        help_text="Select the theme for the block",
+    )
+    available = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        help_text="Whether this person is available",
+    )
+
+    class Meta:
+        icon = "user"
+        form_layout = BlockGroup(
+            children=[
+                "photo",
+                "surname",
+                "first_name",
+                "biography",
+            ],
+            settings=[
+                "theme",
+                "available",
+            ]
+        )
+```
+
+You can nest `BlockGroup`s to group multiple blocks inside a collapsible panel. In addition to `children` and `settings` arguments, nested `BlockGroup`s also accept `heading`, `classname`, `help_text`, `icon`, `attrs`, and `label_format` arguments, which are used to customize the appearance of the group in the editing interface. To set a group to be initially collapsed, add the `collapsed` class to the `classname` argument.
+
+```python
+class PersonBlock(blocks.StructBlock):
+    ...  # as above
+
+    class Meta:
+        form_layout = BlockGroup(
+            children=[
+                # Can mix BlockGroups and individual blocks
+                "photo",
+                BlockGroup(
+                    children=["surname", "first_name"],
+                    heading="Basic info",
+                    label_format="{first_name} {surname}",
+                ),
+                BlockGroup(
+                    children=["biography"],
+                    heading="Biography",
+                    classname="collapsed",
+                    icon="edit"
+                ),
+            ],
+            settings=[
+                "theme",
+                "available",
+                # BlockGroups can also be nested inside settings if desired
+            ]
+        )
+```
+
+You can also override `get_form_layout` on the block class to modify the `BlockGroup` programmatically, which can be useful when extending a base block class:
+
+```python
+from copy import deepcopy
+
+
+class EmployeeBlock(PersonBlock):
+    role = blocks.CharBlock()
+    shown = blocks.BooleanBlock(required=False, default=True)
+
+    def get_form_layout(self):
+        # Use deepcopy to avoid modifying the parent's layout in-place
+        form_layout = deepcopy(super().get_form_layout())
+        # Add new blocks to suitable locations
+        form_layout.children[1].children += ["role"]
+        form_layout.settings += ["shown"]
+        return form_layout
+```
+
+Note that the use of `BlockGroup`s only affects the editing interface. The data structure of the block remains unchanged. This means that the values of the child blocks can still be accessed in the same way, such as `block.value['first_name']`.
+
+Refer to the [`BlockGroup`](wagtail.blocks.BlockGroup) documentation for more details on its available attributes and methods.
+
+(structblock_custom_template)=
+
+### Customizing the template of `StructBlock` forms
 
 For more extensive customizations that require changes to the HTML markup as well, you can override the `form_template` attribute in `Meta` to specify your own template path. The following variables are available on this template:
 
-**`children`**  
-An `OrderedDict` of `BoundBlock`s for all of the child blocks making up this `StructBlock`.
+**`children`**\
+An `OrderedDict` of `BoundBlock`s for all of the child blocks making up this `StructBlock`. When using a `BlockGroup` as the `Meta.form_layout`, this will only include blocks listed in `children`.
 
-**`help_text`**  
+**`settings`**\
+An `OrderedDict` of `BoundBlock`s for any blocks listed in the `settings` when using a `BlockGroup` as the `Meta.form_layout`.
+
+**`help_text`**\
 The help text for this block, if specified.
 
-**`classname`**
+**`classname`**\
 The class name passed as `form_classname` (defaults to `struct-block`).
 
-**`block_definition`**
+**`collapsed`**\
+The initial collapsible state of the block (defaults to `False`).
+
+**`block_definition`**\
 The `StructBlock` instance that defines this block.
 
-**`prefix`**
+**`prefix`**\
 The prefix used on form fields for this block instance, guaranteed to be unique across the form.
 
 To add additional variables, you can override the block's `get_form_context` method:
@@ -77,6 +278,17 @@ A form template for a StructBlock must include the output of `render_form` for e
         </span>
     {% endif %}
 
+    <div data-block-settings>
+        {% for child in settings.values %}
+            <div class="w-field" data-field data-contentpath="{{ child.block.name }}">
+                {% if child.block.label %}
+                    <label class="w-field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}</label>
+                {% endif %}
+                {{ child.render_form }}
+            </div>
+        {% endfor %}
+    </div>
+
     {% for child in children.values %}
         <div class="w-field" data-field data-contentpath="{{ child.block.name }}">
             {% if child.block.label %}
@@ -86,6 +298,12 @@ A form template for a StructBlock must include the output of `render_form` for e
         </div>
     {% endfor %}
 </div>
+```
+
+If the `Meta.form_layout` is a `BlockGroup` that uses `settings`, those blocks must be rendered inside a container element with a `data-block-settings` attribute, as shown above. The container will be hidden by default, and can be revealed by clicking a "Settings" button in the block's actions.
+
+```{note}
+Nested `BlockGroup`s are not supported when using a custom `form_template`. There is a system check to prevent this misconfiguration.
 ```
 
 (custom_streamfield_blocks_media)=
@@ -120,7 +338,7 @@ First, we define a telepath adapter for `AddressBlock`, so that it uses our own 
 
 ```python
 from wagtail.blocks.struct_block import StructBlockAdapter
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 from django import forms
 from django.utils.functional import cached_property
 
@@ -136,6 +354,10 @@ class AddressBlockAdapter(StructBlockAdapter):
         )
 
 register(AddressBlockAdapter(), AddressBlock)
+```
+
+```{versionchanged} 7.1
+The `register` function should now be imported from `wagtail.admin.telepath` rather than `wagtail.telepath`.
 ```
 
 Here `'myapp.blocks.AddressBlock'` is the identifier for our JavaScript class that will be registered with the telepath client-side code, and `'js/address-block.js'` is the file that defines it (as a path within any static file location recognized by Django). This implementation subclasses StructBlockDefinition and adds our custom code to the `render` method:

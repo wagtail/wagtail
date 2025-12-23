@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -64,9 +64,6 @@ msgstr "Wagtail admin"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini"
-
-msgid "You do not have permission to access the admin"
-msgstr "Anda tidak memiliki izin untuk mengakses pengelolaan"
 
 msgid "None"
 msgstr "Tidak ada"
@@ -146,9 +143,6 @@ msgstr "Hapus"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Waktu publikasi harus diatur sebelum waktu kadaluarsa"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Waktu kadaluarsa harus di masa depan"
 
 msgid "New title"
 msgstr "Judul baru"
@@ -334,9 +328,6 @@ msgstr "Koleksi ini diubah menjadi bersifat pribadi oleh halaman induknya."
 msgid "You can edit the privacy settings on:"
 msgstr "Anda dapat mengubah konfigurasi privasi pada:"
 
-msgid "Save"
-msgstr "Simpan"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -368,10 +359,6 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tarik publikasi %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Ya, tarik publikasi"
 
@@ -383,13 +370,6 @@ msgstr "Komentar"
 
 msgid "Update"
 msgstr "Perbarui"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Membandingkan %(title)s"
-
-msgid "Comparing"
-msgstr "Membandingkan"
 
 msgid "Fields"
 msgstr "Kolom-kolom"
@@ -431,11 +411,11 @@ msgstr "Tanggal"
 msgid "Site summary"
 msgstr "Ringkasan situs"
 
-msgid "Awaiting"
-msgstr "Menunggu"
-
 msgid "Close"
 msgstr "Tutup"
+
+msgid "Awaiting"
+msgstr "Menunggu"
 
 msgid "Awaiting your review"
 msgstr "Menunggu tinjauan anda"
@@ -586,15 +566,6 @@ msgstr "Jelajahi halaman turunan dari '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Tambahkan halaman turunan ke '%(title)s'"
 
-msgid "Drag"
-msgstr "Seret"
-
-msgid "Disable ordering of child pages"
-msgstr "Nonaktifkan pengurutan halaman turunan "
-
-msgid "Enable ordering of child pages"
-msgstr "Aktifkan pengurutan halaman turunan"
-
 msgid "Sites menu"
 msgstr "Menu situs"
 
@@ -626,6 +597,9 @@ msgstr "Geser ke atas"
 msgid "Move down"
 msgstr "Geser ke bawah"
 
+msgid "Drag"
+msgstr "Seret"
+
 msgid "Type"
 msgstr "Tipe"
 
@@ -653,10 +627,6 @@ msgstr "Dimulai pada"
 msgid "Completed at"
 msgstr "Diselesaikan pada"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Halaman %(page_num)s dari %(total_pages)s."
-
 msgid "Continue"
 msgstr "Lanjut"
 
@@ -667,11 +637,8 @@ msgid "Filter"
 msgstr "Saring"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hapus Jadwal Revisi %(revision.id)s untuk %(title)s"
-
-msgid "Unschedule"
-msgstr "Hapus Jadwal"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Halaman %(page_num)s dari %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Apakah Anda yakin untuk menghapus jadwal pada revisi ini?"
@@ -684,6 +651,9 @@ msgstr "Tidak, jangan hapus jadwal"
 
 msgid "Other searches"
 msgstr "Pencarian yang lain"
+
+msgid "Save"
+msgstr "Simpan"
 
 msgid "Unlocked"
 msgstr "Kunci terbuka"
@@ -788,10 +758,6 @@ msgstr "Konsep saat ini"
 msgid "Cancel scheduled publish"
 msgstr "Batalkan publikasi terjadwal"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Ubah '%(title)s'"
-
 msgid "Inspect"
 msgstr "Periksa"
 
@@ -803,6 +769,9 @@ msgstr "Paling awal"
 
 msgid "Latest"
 msgstr "Paling akhir"
+
+msgid "Unschedule"
+msgstr "Hapus Jadwal"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -843,9 +812,6 @@ msgstr "Halaman '%(page_title)s' telah dibuat dan dipublikasi."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Halaman '%(page_title)s' telah dibuat dan dikirim untuk dimoderasi."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Halaman '%(page_title)s' dihapus."
@@ -865,12 +831,6 @@ msgstr "Halaman '%(page_title)s' telah dipublikasi."
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Halaman '%(page_title)s' telah dikirim untuk moderasi."
-
-msgid "The page could not be saved as it is locked"
-msgstr "Halaman ini tidak dapat disimpan karena terkunci"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Halaman ini tidak dapat disimpan karena tidak lolos validasi"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

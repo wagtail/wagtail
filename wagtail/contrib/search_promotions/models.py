@@ -144,13 +144,7 @@ class SearchPromotion(models.Model):
         else:
             label = "external link"
 
-        return (
-            'SearchPromotion(query="'
-            + self.query.query_string
-            + f'", {label}="'
-            + self.title
-            + '")'
-        )
+        return f'SearchPromotion(query="{self.query.query_string}", {label}="{self.title}")'
 
     def __str__(self):
         return f"{self.query.query_string} - {self.title}"

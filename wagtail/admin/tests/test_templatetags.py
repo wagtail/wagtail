@@ -1,10 +1,10 @@
-import json
 import os
 import unittest
 from datetime import datetime, timedelta
 from datetime import timezone as dt_timezone
 from unittest import mock
 
+from django import forms
 from django.conf import settings
 from django.template import Context, Template, TemplateSyntaxError
 from django.test import SimpleTestCase, TestCase
@@ -12,24 +12,21 @@ from django.test.utils import override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.staticfiles import VERSION_HASH, versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
+    absolute_static,
     avatar_url,
     i18n_enabled,
     locale_label_from_id,
-    notification_static,
     timesince_last_update,
     timesince_simple,
 )
-from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
 from wagtail.coreutils import get_dummy_request
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestAvatarUrlInterceptTemplateTag(WagtailTestUtils, TestCase):
@@ -87,36 +84,38 @@ class TestAvatarTemplateTag(WagtailTestUtils, TestCase):
         self.assertIn("custom-avatar", url)
 
 
-class TestNotificationStaticTemplateTag(SimpleTestCase):
+class TestAbsoluteStaticTemplateTag(SimpleTestCase):
     @override_settings(STATIC_URL="/static/")
-    def test_local_notification_static(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "{}/static/wagtailadmin/images/email-header.jpg".format(
-                settings.WAGTAILADMIN_BASE_URL
-            ),
-            url,
+    def test_local_absolute_static(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            rf"^{settings.WAGTAILADMIN_BASE_URL}/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
     @override_settings(
         STATIC_URL="/static/", WAGTAILADMIN_BASE_URL="http://localhost:8000"
     )
-    def test_local_notification_static_baseurl(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "http://localhost:8000/static/wagtailadmin/images/email-header.jpg", url
+    def test_local_absolute_static_baseurl(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            r"^http://localhost:8000/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
     @override_settings(
         STATIC_URL="https://s3.amazonaws.com/somebucket/static/",
         WAGTAILADMIN_BASE_URL="http://localhost:8000",
     )
-    def test_remote_notification_static(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "https://s3.amazonaws.com/somebucket/static/wagtailadmin/images/email-header.jpg",
-            url,
+    def test_remote_absolute_static(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            r"https://s3.amazonaws.com/somebucket/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
 
 class TestVersionedStatic(SimpleTestCase):
@@ -398,24 +397,6 @@ class TestInternationalisationTags(TestCase):
         with override_settings(WAGTAIL_I18N_ENABLED=True):
             self.assertTrue(i18n_enabled())
 
-    def test_locales(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "The `locales` template tag will be removed in a future release.",
-        ):
-            locales_output = locales_tag()
-
-        self.assertIsInstance(locales_output, str)
-        self.assertEqual(
-            json.loads(locales_output),
-            [
-                {"code": "en", "display_name": "English"},
-                {"code": "fr", "display_name": "French"},
-                {"code": "ro", "display_name": "Romanian"},
-                {"code": "ru", "display_name": "Russian"},
-            ],
-        )
-
     def test_locale_label_from_id(self):
         with self.assertNumQueries(1):
             self.assertEqual(locale_label_from_id(self.locale_ids[0]), "English")
@@ -426,20 +407,6 @@ class TestInternationalisationTags(TestCase):
         # check with an invalid id
         with self.assertNumQueries(0):
             self.assertIsNone(locale_label_from_id(self.locale_ids[-1] + 100), None)
-
-    def test_js_translation_strings(self):
-        template = """
-            {% load wagtailadmin_tags %}
-            {% js_translation_strings %}
-        """
-
-        expected = json.dumps(get_js_translation_strings())
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "The `js_translation_strings` template tag will be removed in a future release.",
-        ):
-            self.assertHTMLEqual(expected, Template(template).render(Context()))
 
 
 class ComponentTest(SimpleTestCase):
@@ -1068,3 +1035,189 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertEqual(len(invalid_icons), 0)
         icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
         self.assertIsNotNone(icon)
+
+
+class ThemeColorSchemeTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.request = get_dummy_request()
+        self.user = self.login()
+        self.request.user = self.user
+        self.profile = UserProfile.get_for_user(self.user)
+
+    def test_default_mode(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark light")
+
+    def test_dark_mode(self):
+        self.profile.theme = "dark"
+        self.profile.save()
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark")
+
+    def test_light_mode(self):
+        self.profile.theme = "light"
+        self.profile.save()
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "light")
+
+
+class FormattedfieldTagTestCase(WagtailTestUtils, SimpleTestCase):
+    def render_template(self, template, field_name="title", **context):
+        class BasicForm(forms.Form):
+            title = forms.CharField()
+
+        form = BasicForm(data={})
+
+        html = Template("{% load wagtailadmin_tags %}" + template).render(
+            Context(
+                {
+                    "field": form[field_name],
+                    **context,
+                }
+            )
+        )
+
+        # Parse the rendered HTML for the first DOM element in the output
+        return self.get_soup(html).find()
+
+    def test_basic_usage_with_full_html(self):
+        soup = self.render_template("{% formattedfield field=field %}")
+
+        # check the outer wrapper attributes
+        self.assertEqual(
+            {"class": ["w-field__wrapper"], "data-field-wrapper": ""},
+            soup.attrs,
+        )
+
+        # check the label is correct
+        label = soup.find("label")
+        self.assertIsNotNone(label)
+        self.assertEqual(label["for"], "id_title")
+        self.assertEqual(label["id"], "id_title-label")
+        self.assertEqual(label.get_text().strip(), "Title*")
+
+        # check there is an error container
+        errors = soup.find("div", {"data-field-errors": ""})
+        self.assertIsNotNone(errors)
+        self.assertEqual(errors["class"], ["w-field__errors"])
+        self.assertEqual(errors.get_text().strip(), "This field is required.")
+
+        # check there is a help container that is empty
+        help_text = soup.find("div", {"data-field-help": ""})
+        self.assertIsNotNone(help_text)
+        self.assertEqual(help_text["class"], ["w-field__help"])
+        self.assertEqual(help_text.get_text().strip(), "")
+
+        # check there is an input
+        input = soup.find("input")
+        self.assertIsNotNone(input)
+        self.assertEqual(input["id"], "id_title")
+        self.assertEqual(input["name"], "title")
+        self.assertEqual(input["type"], "text")
+        self.assertEqual(input["required"], "")
+
+        # check the input container & input siblings
+        input_container = input.parent
+        self.assertIsNone(input.find("svg"))  # there should be no icon
+        self.assertEqual(
+            input_container.attrs, {"class": ["w-field__input"], "data-field-input": ""}
+        )  # validate input container
+
+    def test_complex_usage_with_full_html(self):
+        soup = self.render_template(
+            """{% formattedfield field=field wrapper_id="__CUSTOM_ID__" classname="extra-custom-class" sr_only_label=True icon='search' help_text='This is a help text.' show_add_comment_button=True %}"""
+        )
+
+        # check the outer wrapper attributes
+        self.assertEqual(
+            {
+                "class": ["w-field__wrapper", "extra-custom-class"],
+                "id": "__CUSTOM_ID__",
+                "data-field-wrapper": "",
+            },
+            soup.attrs,
+        )
+
+        # check the label is correct
+        label = soup.find("label")
+        self.assertIsNotNone(label)
+        self.assertEqual(label["for"], "id_title")
+        self.assertEqual(label["id"], "id_title-label")
+        self.assertEqual(label.get_text().strip(), "Title*")
+
+        # check there is an error container
+        errors = soup.find("div", {"data-field-errors": ""})
+        self.assertIsNotNone(errors)
+        self.assertEqual(errors["class"], ["w-field__errors"])
+        self.assertEqual(errors.get_text().strip(), "This field is required.")
+
+        # check there is a help container that is empty
+        help_text = soup.find("div", {"data-field-help": ""})
+        self.assertIsNotNone(help_text)
+        self.assertEqual(help_text["class"], ["w-field__help"])
+        self.assertEqual(help_text.get_text().strip(), "This is a help text.")
+
+        # check there is an input
+        input = soup.find("input")
+        self.assertIsNotNone(input)
+        self.assertEqual(input["id"], "id_title")
+        self.assertEqual(input["name"], "title")
+        self.assertEqual(input["type"], "text")
+        self.assertEqual(input["required"], "")
+
+        # check the input container & input siblings
+        input_container = input.parent
+        self.assertEqual(
+            input_container.find("svg").find("use")["href"], "#icon-search"
+        )  # there should be an icon
+        self.assertEqual(
+            input_container.attrs, {"class": ["w-field__input"], "data-field-input": ""}
+        )  # validate input container
+
+    def test_attrs_rendering(self):
+        soup = self.render_template(
+            """{% formattedfield field=field wrapper_id="__CUSTOM_ID__" classname="extra-custom-class" attrs=attrs %}""",
+            attrs={
+                "data-custom-attr": "custom-value",
+                "data-controller": "w-example w-other",
+                "data-field-wrapper": "__CANNOT_OVERRIDE_DEFAULT__",
+            },
+        )
+
+        self.assertEqual(
+            {
+                "class": ["w-field__wrapper", "extra-custom-class"],
+                "id": "__CUSTOM_ID__",
+                "data-custom-attr": "custom-value",
+                "data-controller": "w-example w-other",
+                # wrapper attribute should be preserved
+                "data-field-wrapper": "",
+            },
+            soup.attrs,
+        )

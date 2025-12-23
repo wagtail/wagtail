@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { escapeHtml as h } from '../../../utils/text';
 import Icon from '../../Icon/Icon';
+import { setAttrs } from '../../../utils/attrs';
 
 export class FieldBlock {
   constructor(
@@ -39,6 +40,7 @@ export class FieldBlock {
 
     this.prefix = prefix;
 
+    // Attributes to be set on the widget (input) element
     const options = { attributes: this.getAttributes() };
 
     try {
@@ -100,6 +102,9 @@ export class FieldBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    // Attributes to be set on the field wrapper element
+    setAttrs(this.field, this.blockDef.meta.attrs || {});
   }
 
   setCapabilityOptions(capability, options) {
@@ -121,6 +126,12 @@ export class FieldBlock {
     errorContainer
       .querySelectorAll('.error-message')
       .forEach((element) => element.remove());
+
+    // The widget knows exactly where the <input> is, so we let it handle the
+    // invalid state to e.g. set the aria-invalid attribute. Use optional
+    // chaining as custom widgets may not have implemented this method, or the
+    // widget itself may have failed to render in the first place.
+    this.widget?.setInvalid?.(!!error);
 
     if (error) {
       this.field.classList.add('w-field--error');

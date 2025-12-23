@@ -1,3 +1,10 @@
+// These inject Tailwind's base and component styles and any styles registered by plugins of each layer.
+// Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
+// https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
+
+@tailwind base;
+@tailwind components;
+
 *,
 ::before,
 ::after {

@@ -99,9 +99,7 @@ export class DrilldownController extends Controller<HTMLElement> {
       const count = name
         ? document.querySelectorAll(`[${this.countAttrValue}=${name}]`).length
         : total;
-      // eslint-disable-next-line no-param-reassign
       countTarget.hidden = count === 0;
-      // eslint-disable-next-line no-param-reassign
       countTarget.textContent = count.toString();
     });
   }

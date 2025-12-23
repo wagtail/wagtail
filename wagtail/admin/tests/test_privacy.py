@@ -2,6 +2,7 @@ from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Page, PageViewRestriction
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -68,14 +69,14 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         """
         This tests that a blank form is returned when a user opens the set_privacy view on a public page
         """
-        response = self.client.get(
-            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,))
-        )
+        url = reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,))
+        response = self.client.get(url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
-        self.assertEqual(response.context["page"].specific, self.public_page)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"].specific, self.public_page)
+        self.assertEqual(response.context["action_url"], url)
 
         # Check form attributes
         self.assertEqual(response.context["form"]["restriction_type"].value(), "none")
@@ -85,14 +86,14 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         This tests that the restriction type and password fields as set correctly
         when a user opens the set_privacy view on a public page
         """
-        response = self.client.get(
-            reverse("wagtailadmin_pages:set_privacy", args=(self.private_page.id,))
-        )
+        url = reverse("wagtailadmin_pages:set_privacy", args=(self.private_page.id,))
+        response = self.client.get(url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
-        self.assertEqual(response.context["page"].specific, self.private_page)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"].specific, self.private_page)
+        self.assertEqual(response.context["action_url"], url)
 
         # Check form attributes
         self.assertEqual(
@@ -120,7 +121,8 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         )
         html = response.json()["html"]
         self.assertIn(
-            f'<span>Privacy is inherited from the ancestor page - <a href="{parent_edit_url }">Private page (simple page)</a></span>',
+            f"<span>Privacy is inherited from the ancestor page - "
+            f'<a href="{parent_edit_url}">Private page (simple page)</a></span>',
             html,
         )
 
@@ -252,16 +254,16 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         """
         This tests that the restriction type and group fields as set correctly when a user opens the set_privacy view on a public page
         """
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:set_privacy", args=(self.private_groups_page.id,)
-            )
+        url = reverse(
+            "wagtailadmin_pages:set_privacy", args=(self.private_groups_page.id,)
         )
+        response = self.client.get(url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
-        self.assertEqual(response.context["page"].specific, self.private_groups_page)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"].specific, self.private_groups_page)
+        self.assertEqual(response.context["action_url"], url)
 
         # Check form attributes
         self.assertEqual(response.context["form"]["restriction_type"].value(), "groups")
@@ -503,9 +505,13 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
+        privacy_switch_js = versioned_static("wagtailadmin/js/privacy-switch.js")
+
         public_link = soup.select_one('[data-w-zone-switch-key-value="isPublic"]')
         private_link = soup.select_one('[data-w-zone-switch-key-value="!isPublic"]')
+        scripts = soup.select(f"script[src='{privacy_switch_js}']")
 
+        self.assertEqual(len(scripts), 1)
         # Check the privacy indicator is public
         self.assertEqual(public_link["class"], ["page-status-tag"])
 
@@ -524,8 +530,13 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
+        privacy_switch_js = versioned_static("wagtailadmin/js/privacy-switch.js")
+
         public_link = soup.select_one('[data-w-zone-switch-key-value="isPublic"]')
         private_link = soup.select_one('[data-w-zone-switch-key-value="!isPublic"]')
+        scripts = soup.select(f"script[src='{privacy_switch_js}']")
+
+        self.assertEqual(len(scripts), 1)
 
         # Check the privacy indicator is private
         self.assertEqual(private_link["class"], ["page-status-tag"])

@@ -1,5 +1,5 @@
 from collections.abc import Mapping
-from typing import Any, Union
+from typing import Any
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -38,7 +38,7 @@ class UpgradeNotificationPanel(Component):
     template_name = "wagtailadmin/home/upgrade_notification.html"
     dismissible_id = "last_upgrade_check"
 
-    def get_upgrade_check_setting(self) -> Union[bool, str]:
+    def get_upgrade_check_setting(self) -> bool | str:
         return getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True)
 
     def upgrade_check_lts_only(self) -> bool:
@@ -77,7 +77,7 @@ class WhatsNewInWagtailVersionPanel(Component):
     order = 110
     _version = "4"
 
-    def get_whats_new_banner_setting(self) -> Union[bool, str]:
+    def get_whats_new_banner_setting(self) -> bool | str:
         return getattr(settings, "WAGTAIL_ENABLE_WHATS_NEW_BANNER", True)
 
     def get_dismissible_id(self) -> str:
@@ -312,7 +312,9 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
 
         return {**context, **site_details}
 
-    def get_media(self, panels=[]):
+    def get_media(self, panels=None):
+        if panels is None:
+            panels = []
         media = Media()
 
         for panel in panels:

@@ -921,6 +921,40 @@ class TestStreamFieldComparison(TestCase):
         self.assertTrue(comparison.has_changed())
 
 
+class TestStreamBlockComparison(TestCase):
+    comparison_class = compare.StreamBlockComparison
+
+    def test_streamblock_comparison_htmlvalue(self):
+        field = StreamPage._meta.get_field("body")
+        stream_block = field.stream_block.child_blocks["books"]
+
+        stream_value = StreamValue(
+            stream_block,
+            [
+                ("title", "Test Title", "1"),
+                ("author", "Test Author", "2"),
+            ],
+        )
+
+        comparison = self.comparison_class(
+            stream_block,
+            True,
+            True,
+            stream_value,
+            stream_value,
+        )
+
+        result = comparison.htmlvalue(stream_value)
+
+        self.assertIsInstance(result, SafeString)
+        self.assertIn("<dl>", result)
+        self.assertIn("</dl>", result)
+        self.assertIn("<dt>Title</dt>", result)
+        self.assertIn("<dt>Author</dt>", result)
+        self.assertIn("<dd>Test Title</dd>", result)
+        self.assertIn("<dd>Test Author</dd>", result)
+
+
 class TestChoiceFieldComparison(TestCase):
     comparison_class = compare.ChoiceFieldComparison
 

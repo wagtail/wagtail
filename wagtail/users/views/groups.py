@@ -1,8 +1,5 @@
-from warnings import warn
-
 from django.contrib.auth.models import Group
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import re_path, reverse
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
@@ -14,7 +11,6 @@ from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.button import HeaderButton
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 _permission_panel_classes = None
 
@@ -46,19 +42,33 @@ class PermissionPanelFormsMixin:
 
         return kwargs
 
-    def get_permission_panel_forms(self):
+    @cached_property
+    def permission_panel_forms(self):
         return [
             cls(**self.get_permission_panel_form_kwargs(cls))
             for cls in get_permission_panel_classes()
         ]
 
+    def is_valid(self, form):
+        """
+        Check if the form and all permission panel forms are valid.
+        """
+        if not super().is_valid(form):
+            return False
+
+        for panel in self.permission_panel_forms:
+            if not panel.is_valid():
+                self.produced_error_message = self.get_error_message()
+                return False
+
+        return True
+
     def process_form(self):
         form = self.get_form()
-        permission_panels = self.get_permission_panel_forms()
-        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
+        if self.is_valid(form):
             response = self.form_valid(form)
 
-            for panel in permission_panels:
+            for panel in self.permission_panel_forms:
                 panel.save()
 
             return response
@@ -67,7 +77,7 @@ class PermissionPanelFormsMixin:
 
     def get_context_data(self, **kwargs):
         if "permission_panels" not in kwargs:
-            kwargs["permission_panels"] = self.get_permission_panel_forms()
+            kwargs["permission_panels"] = self.permission_panel_forms
 
         context = super().get_context_data(**kwargs)
 
@@ -164,24 +174,6 @@ class GroupViewSet(ModelViewSet):
 
     template_prefix = "wagtailusers/groups/"
 
-    @property
-    def users_view(self):
-        def view(request, pk):
-            legacy_url = reverse(self.get_url_name("users"), args=(pk,))
-            new_url = set_query_params(
-                reverse("wagtailusers_users:index"),
-                {"group": get_object_or_404(Group, pk=pk).pk},
-            )
-
-            warn(
-                f"Accessing the list of users in a group via {legacy_url} is "
-                f"deprecated, use {new_url} instead.",
-                RemovedInWagtail70Warning,
-            )
-            return redirect(new_url)
-
-        return view
-
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
@@ -192,8 +184,3 @@ class GroupViewSet(ModelViewSet):
 
     def get_form_class(self, for_update=False):
         return GroupForm
-
-    def get_urlpatterns(self):
-        return super().get_urlpatterns() + [
-            re_path(r"(\d+)/users/$", self.users_view, name="users"),
-        ]

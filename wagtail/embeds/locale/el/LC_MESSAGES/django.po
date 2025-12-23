@@ -5,6 +5,7 @@
 # Translators:
 # Dimitri Fekas, 2022
 # fekioh, 2022
+# fekioh, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # serafeim <serafeim@torchbox.com>, 2014,2016
@@ -13,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: George Giannoulopoulos <vdotoree@yahoo.gr>, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"

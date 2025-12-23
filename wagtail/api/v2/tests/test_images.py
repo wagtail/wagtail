@@ -255,7 +255,7 @@ class TestImageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            content, {"message": "cannot order by 'random' (unknown field)"}
+            content, {"message": "cannot order by '-random' (unknown field)"}
         )
 
     def test_ordering_by_random_with_offset_gives_error(self):

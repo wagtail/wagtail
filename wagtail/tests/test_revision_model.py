@@ -1,19 +1,22 @@
 import datetime
 
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from freezegun import freeze_time
 
 from wagtail.models import Page, Revision, get_default_page_content_type
 from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
+    RevisableChildModel,
     RevisableGrandChildModel,
     RevisableModel,
     SimplePage,
 )
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestRevisableModel(TestCase):
+class TestRevisableModel(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.instance = RevisableModel.objects.create(text="foo")
@@ -90,17 +93,32 @@ class TestRevisableModel(TestCase):
         self.assertEqual(instance.get_base_content_type(), base_content_type)
         self.assertEqual(instance.get_content_type(), content_type)
 
-        # The for_instance() method should return the revision,
-        # whether we're using the specific instance
+        # The `for_instance()` method of `Revision.objects` and the model's
+        # `revisions` property should return the revision,
+        # whether we're using the most specific instance
         self.assertIsInstance(instance, RevisableModel)
+        self.assertIsInstance(instance, RevisableChildModel)
         self.assertIsInstance(instance, RevisableGrandChildModel)
         self.assertEqual(Revision.objects.for_instance(instance).first(), revision)
+        self.assertEqual(instance.revisions.first(), revision)
+
+        # the intermediary instance
+        intermediary_instance = RevisableChildModel.objects.get(pk=instance.pk)
+        self.assertIsInstance(intermediary_instance, RevisableModel)
+        self.assertIsInstance(intermediary_instance, RevisableChildModel)
+        self.assertNotIsInstance(intermediary_instance, RevisableGrandChildModel)
+        self.assertEqual(
+            Revision.objects.for_instance(intermediary_instance).first(),
+            revision,
+        )
+        self.assertEqual(intermediary_instance.revisions.first(), revision)
 
         # or the base instance
         base_instance = RevisableModel.objects.get(pk=instance.pk)
         self.assertIsInstance(base_instance, RevisableModel)
         self.assertNotIsInstance(base_instance, RevisableGrandChildModel)
         self.assertEqual(Revision.objects.for_instance(base_instance).first(), revision)
+        self.assertEqual(base_instance.revisions.first(), revision)
 
     def test_content_type_for_page_model(self):
         hello_page = self.create_page()
@@ -119,17 +137,20 @@ class TestRevisableModel(TestCase):
         self.assertEqual(hello_page.get_base_content_type(), base_content_type)
         self.assertEqual(hello_page.get_content_type(), content_type)
 
-        # The for_instance() method should return the revision,
+        # The `for_instance()` method of `Revision.objects` and the model's
+        # `revisions` property should return the revision,
         # whether we're using the specific instance
         self.assertIsInstance(hello_page, SimplePage)
         self.assertIsInstance(hello_page, Page)
         self.assertEqual(Revision.objects.for_instance(hello_page).first(), revision)
+        self.assertEqual(hello_page.revisions.first(), revision)
 
         # or the base instance
         base_instance = Page.objects.get(pk=hello_page.pk)
         self.assertIsInstance(base_instance, Page)
         self.assertNotIsInstance(base_instance, SimplePage)
         self.assertEqual(Revision.objects.for_instance(base_instance).first(), revision)
+        self.assertEqual(base_instance.revisions.first(), revision)
 
     def test_as_object(self):
         self.instance.text = "updated"
@@ -200,15 +221,15 @@ class TestRevisableModel(TestCase):
     def test_revision_cascade_on_object_delete(self):
         page = self.create_page()
         full_featured_snippet = FullFeaturedSnippet.objects.create(text="foo")
+        # The RevisionMixin should provide a default `GenericRelation` so that
+        # revisions are deleted when the object is deleted, even if the
+        # model does not explicitly define a `GenericRelation` to `Revision`.
         cases = [
-            # Tuple of (instance, cascades)
-            # For models that define a GenericRelation to Revision, the revision
-            # should be deleted when the instance is deleted.
-            (page, True),
-            (full_featured_snippet, True),
-            (self.instance, False),  # No GenericRelation to Revision
+            page,
+            full_featured_snippet,
+            self.instance,  # No explicit GenericRelation to Revision
         ]
-        for instance, cascades in cases:
+        for instance in cases:
             with self.subTest(instance=instance):
                 revision = instance.save_revision()
                 query = {
@@ -217,4 +238,102 @@ class TestRevisableModel(TestCase):
                 }
                 self.assertEqual(Revision.objects.filter(**query).first(), revision)
                 instance.delete()
-                self.assertIs(Revision.objects.filter(**query).exists(), not cascades)
+                self.assertIs(Revision.objects.filter(**query).exists(), False)
+
+    def test_overwrite_revision(self):
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        revision2 = self.instance.save_revision(overwrite_revision=revision1)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "Updated revision")
+
+    def test_cannot_overwrite_revision_that_is_not_latest(self):
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Second revision"
+        self.instance.save_revision()
+        self.assertEqual(self.instance.revisions.count(), 2)
+        self.instance.text = "Updated revision"
+        with self.assertRaises(PermissionDenied):
+            self.instance.save_revision(overwrite_revision=revision1)
+
+        self.assertEqual(self.instance.revisions.count(), 2)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Second revision")
+
+    def test_cannot_overwrite_revision_from_other_instance(self):
+        self.instance.text = "Existing revision"
+        self.instance.save_revision()
+
+        other_instance = RevisableModel.objects.create(text="other")
+        other_instance.text = "Existing other revision"
+        revision1 = other_instance.save_revision()
+
+        self.instance.text = "Updated revision"
+        with self.assertRaises(PermissionDenied):
+            self.instance.save_revision(overwrite_revision=revision1)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing revision")
+
+        self.assertEqual(other_instance.revisions.count(), 1)
+        latest_revision = other_instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing other revision")
+
+    def test_overwrite_revision_with_user_id(self):
+        user = self.create_user("user1")
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision(user=user)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        revision2 = self.instance.save_revision(overwrite_revision=revision1, user=user)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "Updated revision")
+
+    def test_cannot_overwrite_revision_with_wrong_user_id(self):
+        user1 = self.create_user("user1")
+        user2 = self.create_user("user2")
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision(user=user1)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        with self.assertRaises(PermissionDenied):
+            self.instance.save_revision(overwrite_revision=revision1, user=user2)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing revision")
+
+    def test_cannot_overwrite_revision_with_omitted_user_id(self):
+        user1 = self.create_user("user1")
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision(user=user1)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        with self.assertRaises(PermissionDenied):
+            self.instance.save_revision(overwrite_revision=revision1)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing revision")
+
+    def test_cannot_overwrite_anonymous_revision_with_user_id(self):
+        user1 = self.create_user("user1")
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        with self.assertRaises(PermissionDenied):
+            self.instance.save_revision(overwrite_revision=revision1, user=user1)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing revision")

@@ -2,6 +2,7 @@
 A generic HTML whitelisting engine, designed to accommodate subclassing to override
 specific rules.
 """
+
 import re
 
 from bs4 import BeautifulSoup, Comment, NavigableString, Tag

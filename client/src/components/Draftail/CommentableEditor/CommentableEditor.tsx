@@ -352,7 +352,7 @@ function findCommentStyleRanges(
   callback: (start: number, end: number) => void,
   filterFn?: (metadata: CharacterMetadata) => boolean,
 ) {
-  // Find comment style ranges that do not overlap an existing entity
+  /** Find comment style ranges that do not overlap an existing entity */
   const filterFunction =
     filterFn ||
     ((metadata: CharacterMetadata) => metadata.getStyle().some(styleIsComment));

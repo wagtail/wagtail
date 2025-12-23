@@ -13,14 +13,16 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import Adapter, register
+from wagtail.compat import URLField
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
     RichText,
     RichTextMaxLengthValidator,
+    RichTextMinLengthValidator,
     extract_references_from_rich_text,
     get_text_for_indexing,
 )
-from wagtail.telepath import Adapter, register
 
 from .base import Block
 
@@ -119,6 +121,7 @@ class FieldBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": " ".join(classname),
+            "attrs": block.meta.form_attrs or {},
             "showAddCommentButton": getattr(
                 block.field.widget, "show_add_comment_button", True
             ),
@@ -228,6 +231,7 @@ class FloatBlock(FieldBlock):
     def __init__(
         self,
         required=True,
+        help_text=None,
         max_value=None,
         min_value=None,
         validators=(),
@@ -236,6 +240,7 @@ class FloatBlock(FieldBlock):
     ):
         self.field = forms.FloatField(
             required=required,
+            help_text=help_text,
             max_value=max_value,
             min_value=min_value,
             validators=validators,
@@ -318,7 +323,7 @@ class URLBlock(FieldBlock):
         validators=(),
         **kwargs,
     ):
-        self.field = forms.URLField(
+        self.field = URLField(
             required=required,
             help_text=help_text,
             max_length=max_length,
@@ -675,6 +680,7 @@ class RichTextBlock(FieldBlock):
         editor="default",
         features=None,
         max_length=None,
+        min_length=None,
         validators=(),
         search_index=True,
         **kwargs,
@@ -682,6 +688,10 @@ class RichTextBlock(FieldBlock):
         if max_length is not None:
             validators = list(validators) + [
                 RichTextMaxLengthValidator(max_length),
+            ]
+        if min_length is not None:
+            validators = list(validators) + [
+                RichTextMinLengthValidator(min_length),
             ]
         self.field_options = {
             "required": required,
@@ -707,7 +717,7 @@ class RichTextBlock(FieldBlock):
     def normalize(self, value):
         if isinstance(value, RichText):
             return value
-        return RichText(value)
+        return RichText(value and force_str(value))
 
     @cached_property
     def field(self):
@@ -763,7 +773,7 @@ class RawHTMLBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_default(self):
-        return self.normalize(self.meta.default or "")
+        return self.normalize(self._evaluate_callable(self.meta.default or ""))
 
     def to_python(self, value):
         return mark_safe(value)

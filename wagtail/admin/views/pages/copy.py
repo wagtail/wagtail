@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from wagtail import hooks
@@ -78,6 +79,10 @@ def copy(request, page_id):
                 new_page = action.execute()
 
             # Give a success message back to the user
+            edit_button = messages.button(
+                reverse("wagtailadmin_pages:edit", args=(new_page.id,)),
+                _("Edit"),
+            )
             if form.cleaned_data.get("copy_subpages"):
                 messages.success(
                     request,
@@ -86,12 +91,14 @@ def copy(request, page_id):
                         "page_title": page.specific_deferred.get_admin_display_title(),
                         "subpages_count": new_page.get_descendants().count(),
                     },
+                    buttons=[edit_button],
                 )
             else:
                 messages.success(
                     request,
                     _("Page '%(page_title)s' copied.")
                     % {"page_title": page.specific_deferred.get_admin_display_title()},
+                    buttons=[edit_button],
                 )
 
             for fn in hooks.get_hooks("after_copy_page"):

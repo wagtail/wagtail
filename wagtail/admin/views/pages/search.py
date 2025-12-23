@@ -60,6 +60,9 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
     index_results_url_name = "wagtailadmin_pages:search_results"
     # We override get_queryset here that has a custom search implementation
     is_searchable = True
+    # The queryset always gets passed to the search backend even if
+    # the search query is empty, so we are always "searching"
+    is_searching = True
     # This view has its own filtering mechanism that doesn't use django-filter
     filterset_class = None
     template_name = "wagtailadmin/pages/search.html"
@@ -88,15 +91,15 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         if "content_type" in request.GET:
             try:
                 app_label, model_name = request.GET["content_type"].split(".")
-            except ValueError:
-                raise Http404
+            except ValueError as e:
+                raise Http404 from e
 
             try:
                 self.selected_content_type = ContentType.objects.get_by_natural_key(
                     app_label, model_name
                 )
-            except ContentType.DoesNotExist:
-                raise Http404
+            except ContentType.DoesNotExist as e:
+                raise Http404 from e
 
         else:
             self.selected_content_type = None

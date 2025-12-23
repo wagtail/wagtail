@@ -1,5 +1,10 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import {
+  applyMiddleware,
+  combineReducers,
+  compose,
+  legacy_createStore as createStore,
+} from 'redux';
+import { thunk } from 'redux-thunk';
 
 // import { perfMiddleware } from '../../utils/performance';
 import Explorer from './PageExplorer';
@@ -12,7 +17,7 @@ const initPageExplorerStore = () => {
     nodes,
   });
 
-  const middleware = [thunkMiddleware];
+  const middleware = [thunk];
 
   // Uncomment this to use performance measurements.
   // if (process.env.NODE_ENV !== 'production') {

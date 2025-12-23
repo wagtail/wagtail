@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -149,11 +149,6 @@ msgstr "imagen"
 msgid "images"
 msgstr "imagen sira"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Uza dala %(usage_count)s"
-
 msgid "Yes, delete"
 msgstr "Loos, hamoos"
 
@@ -165,6 +160,11 @@ msgstr "foun"
 
 msgid "Usage"
 msgstr "Uza"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uza dala %(usage_count)s"
 
 #, python-format
 msgid ""
@@ -191,6 +191,9 @@ msgstr "Hatama permisaun imajen"
 
 msgid "Delete"
 msgstr "hamoos"
+
+msgid "Title"
+msgstr "Titlu"
 
 msgid "Choose an image"
 msgstr "Hili imagen ida"

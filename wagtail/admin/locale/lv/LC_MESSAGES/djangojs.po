@@ -1,18 +1,21 @@
 #
 # Translators:
-# Reinis Rozenbergs <reinisr@gmail.com>, 2022
-# Maris Serzans <maris.serzans@gmail.com>, 2022
 # Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Maris Serzans <maris.serzans@gmail.com>, 2025
+# Reinis Rozenbergs <reinisr@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2025\n"
 "Language-Team: Latvian (https://app.transifex.com/torchbox/teams/8009/lv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+
+msgid "Actions"
+msgstr "Darbības"
 
 msgid "Alt text"
 msgstr "Alt teksts"
@@ -50,6 +53,9 @@ msgstr "Ielādē..."
 msgid "Missing document"
 msgstr "Trūkstošs dokuments"
 
+msgid "No"
+msgstr "Nē"
+
 msgid "No results"
 msgstr "Nav rezultātu"
 
@@ -61,6 +67,9 @@ msgstr "Lapu pārlūks"
 
 msgid "Pages"
 msgstr "Lapas"
+
+msgid "Preview"
+msgstr "Priekšskatīt"
 
 msgid "Reload saved content"
 msgstr "Pārlādēt saglabāto saturu"
@@ -104,3 +113,6 @@ msgstr "Šis lauks ir nepieciešams"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Apskatīt '%(title)s' zemāka līmeņa lapas"
+
+msgid "Yes"
+msgstr "Jā"

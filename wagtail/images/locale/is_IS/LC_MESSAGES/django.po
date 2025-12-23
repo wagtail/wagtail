@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2024
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2025
 # saevarom <saevar@saevar.is>, 2015,2019-2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2019-2022,2024\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2021-2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -231,12 +232,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Ertu viss um að þú viljir eyða þessari mynd?"
 msgstr[1] "Ertu viss um að þú viljir eyða þessum myndum?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Notuð %(usage_count)s sinni"
-msgstr[1] "Notuð %(usage_count)s sinnum"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Þú ert ekki með réttindi til að eyða þessari mynd"
@@ -250,6 +245,9 @@ msgstr "Nei, ekki eyða"
 
 msgid "Popular tags"
 msgstr "Vinsæl merki"
+
+msgid "Layout"
+msgstr "Útlit"
 
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
@@ -284,11 +282,13 @@ msgid "You haven't uploaded any images."
 msgstr "Þú hefur ekki hlaðið inn neinum myndum."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"Af hverju ekki <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>hlaða upp núna</a>?"
+"Af hverju ekki að <a class=\"upload-one-now\" href=\"#tab-upload\" data-"
+"action=\"w-tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-"
+"focus-param=\"true\">hlaða einni upp núna</a>?"
 
 msgid "Choose a format"
 msgstr "Veldu snið"
@@ -362,6 +362,12 @@ msgstr "Skrá fannst ekki"
 msgid "Usage"
 msgstr "Notkun"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notuð %(usage_count)s sinni"
+msgstr[1] "Notuð %(usage_count)s sinnum"
+
 msgid "Sort by"
 msgstr "Raða eftir"
 
@@ -387,6 +393,12 @@ msgid ""
 msgstr ""
 "Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a "
 "href=\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+
+msgid "Grid layout"
+msgstr "Töflusýn"
+
+msgid "List layout"
+msgstr "Listasýn"
 
 msgid "Preview"
 msgstr "Forskoðun"
@@ -500,6 +512,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d mynd hefur verið eytt"
 msgstr[1] "%(num_parent_objects)d myndum hefur verið eytt"
 
+msgid "Title"
+msgstr "Titill"
+
+msgid "Created"
+msgstr "Bjó til"
+
 msgid "Choose an image"
 msgstr "Veldu mynd"
 
@@ -526,6 +544,12 @@ msgstr "Skráarstærð: (litlar fyrst)"
 
 msgid "File size: (high to low)"
 msgstr "Skráarstærð: (stórar fyrst)"
+
+msgid "Usage count: (low to high)"
+msgstr "Notkun: (lítil fyrst)"
+
+msgid "Usage count: (high to low)"
+msgstr "Notkun: (mikil fyrst)"
 
 msgid "Images"
 msgstr "Myndir"

@@ -26,6 +26,7 @@
                 <input
                     id="fileupload"
                     multiple
+                    accept="{{accept_attributes}}"
                     name="files[]"
                     type="file"
                     data-accept-file-types="/\.({{ allowed_extensions|join:'|' }})$/i"
@@ -52,7 +53,7 @@
     </div>
 
     <div id="overall-progress" class="progress progress-secondary">
-        <div class="bar" style="width: 0%;">0%</div>
+        <div class="bar w-w-0">0%</div>
     </div>
 
     <ul id="upload-list" class="upload-list multiple"></ul>
@@ -65,7 +66,7 @@
                         {% icon name="image" %}
                     </div>
                     <div class="progress">
-                        <div class="bar" style="width: 0%;"></div>
+                        <div class="bar w-w-0"></div>
                     </div>
                 </div>
             </div>

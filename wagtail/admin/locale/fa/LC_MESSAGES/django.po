@@ -7,6 +7,7 @@
 # Amir Mahmoodi, 2022-2023
 # Bardia, 2024
 # Bardia, 2024
+# Bardia, 2024
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2020
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Bardia, 2024\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -67,9 +68,6 @@ msgstr "ادمین وگتیل"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "متاسفانه مجوز لازم برای دسترسی به این بخش را ندارید."
-
-msgid "You do not have permission to access the admin"
-msgstr "مجوز لازم برای دسترسی به ادمین را ندارید"
 
 msgid "None"
 msgstr "خالی"
@@ -149,9 +147,6 @@ msgstr ""
 "سلسله جایگاه را انتخاب کنید. توجه: یک مجموعه نمی تواند زیر مجموعه خود یا یکی "
 "از زیر مجموعه هایش شود."
 
-msgid "Please select another parent"
-msgstr "لطفا یک والد دیگر انتخاب نمایید"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "برای یک مجموعه نمی‌توانید چندین مجوز انتخاب کنید."
 
@@ -178,9 +173,6 @@ msgstr "نمی توانید نظر کاربر دیگری را ویرایش کن�
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "تاریخ/ساعت زنده شدن باید پیش از تاریخ/ساعت انقضا باشد"
-
-msgid "Expiry date/time must be in the future"
-msgstr "تاریخ/ساعت انقضا باید در آینده باشد"
 
 msgid "New title"
 msgstr "عنوان جدید"
@@ -246,10 +238,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "هنگامی که صفحه ها کپی میشوند نمی‌توان یک صفحه را به داخل خودش کپی کرد"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "اسلاگ '%(page_slug)s' از قبل در صفحه والد استفاده شده است"
-
 msgid "Select a new parent for this page."
 msgstr "انتخاب یک والد جدید برای این صفحه."
 
@@ -265,10 +253,6 @@ msgstr "شما اجازه ساخت صفحه در زیر شاخه صفحه%(page_
 
 msgid "Search…"
 msgstr "جستجو..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "برچسب(های) %(value_too_long)s بیشتر از %(max_tag_length)d حرف دارند"
 
 msgid "Visibility"
 msgstr "وضوح"
@@ -290,9 +274,6 @@ msgstr "به رویه کاریتان نام بدهید"
 
 msgid "Add tasks to your workflow"
 msgstr "به رویه کاریتان دستورالعمل اضافه کنید"
-
-msgid "Task"
-msgstr "دستورالعمل"
 
 msgid "1 page selected"
 msgstr "1 صفحه انتخاب شده"
@@ -380,12 +361,6 @@ msgstr "همه آیتم های فهرست انتخاب شدند"
 
 msgid "Can access Wagtail admin"
 msgstr "دسترسی برای رفتن به صفحه ادمین وگتیل"
-
-msgid "For search engines"
-msgstr "برای موتور های جست و جو"
-
-msgid "For site menus"
-msgstr "برای منو های سایت"
 
 msgid "Content"
 msgstr "محتوا"
@@ -593,9 +568,6 @@ msgstr "این مجموعه توسط یک مجموعه والد خصوصی شد�
 msgid "You can edit the privacy settings on:"
 msgstr "تنظیمات حریم را می‌توانید اینجا ویرایش کنید:"
 
-msgid "Save"
-msgstr "ذخیره"
-
 msgid "Change privacy"
 msgstr "تغییر حریم خصوصی"
 
@@ -644,10 +616,6 @@ msgid "No, don't delete"
 msgstr "نه، حذف نکن"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "لغو انتشار %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "آیا مطمئن هستید میخواهید %(model_name)s را از انتشار خارج کنید؟"
 
@@ -668,6 +636,8 @@ msgstr "آیا هنوز مایل به انتشار %(model_name)s هستید؟"
 msgid "Cancel"
 msgstr "لغو"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "اعمال"
 
@@ -686,13 +656,6 @@ msgid ""
 msgstr ""
 "پیش نمایش به دلیل خطای اعتبار سنجی قابل نمایش نیست. <br /> بر بروی ذخیره "
 "کلیک کنید تا فیلد های مربوطه برجسته شوند."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "مقایسه %(title)s"
-
-msgid "Comparing"
-msgstr "مقایسه"
 
 msgid "Fields"
 msgstr "فیلدها"
@@ -758,6 +721,12 @@ msgstr "خلاصه سایت"
 msgid "Read the release notes."
 msgstr "خواندن یادداشت های انتشار."
 
+msgid "Close"
+msgstr "بستن"
+
+msgid "Task"
+msgstr "دستورالعمل"
+
 msgid "Task started"
 msgstr "دستورالعمل آغاز شده"
 
@@ -766,9 +735,6 @@ msgstr "تغییرات درخواست شده در"
 
 msgid "Awaiting"
 msgstr "در انتظار"
-
-msgid "Close"
-msgstr "بستن"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1049,18 +1015,6 @@ msgstr "کاوش زیرصفحه های «%(title)s»"
 msgid "Add a child page to '%(title)s'"
 msgstr "افزودن زیرصفحه به «%(title)s»"
 
-msgid "Drag"
-msgstr "کشیدن"
-
-msgid "Disable ordering of child pages"
-msgstr "غیرفعال سازی ترتیب زیرصفحه ها"
-
-msgid "Sort"
-msgstr "مرتب‌سازی"
-
-msgid "Enable ordering of child pages"
-msgstr "فعال سازی ترتیب زیرصفحه ها"
-
 msgid "Sites menu"
 msgstr "منوی سایت‌ها"
 
@@ -1097,6 +1051,9 @@ msgstr "حرکت به بالا"
 
 msgid "Move down"
 msgstr "حرکت به پایین"
+
+msgid "Drag"
+msgstr "کشیدن"
 
 msgid "Add a collection permission"
 msgstr "افزودن مجوز مجموعه"
@@ -1140,10 +1097,6 @@ msgstr "شروع شده در"
 msgid "Completed at"
 msgstr "پایان یافته در"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "صفحه %(page_num)s از %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "خرده نان"
 
@@ -1169,11 +1122,8 @@ msgid "Visit the live page"
 msgstr "دیدن صفحه منتشر شده"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "حذف زمانبندی بازنگری %(revision.id)s برای %(title)s"
-
-msgid "Unschedule"
-msgstr "حذف زمانبندی"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "صفحه %(page_num)s از %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "آیا مطمئن هستید که می‌خواهید زمانبندی این بازنگری را حذف کنید؟"
@@ -1186,6 +1136,9 @@ msgstr "نه، زمان بندی را حذف نکن"
 
 msgid "Other searches"
 msgstr "جستجوهای دیگر"
+
+msgid "Save"
+msgstr "ذخیره"
 
 msgid "Unlocked"
 msgstr "گشوده"
@@ -1256,6 +1209,9 @@ msgstr "%(action)s در <b>%(at)s</b>"
 msgid "%(action)s by <b>%(who)s</b>"
 msgstr "%(action)s به وسیله <b>%(who)s</b>"
 
+msgid "Sort"
+msgstr "مرتب‌سازی"
+
 msgid "Add a child page"
 msgstr "افزودن صفحه فرزند"
 
@@ -1279,13 +1235,6 @@ msgstr "در حال ساخت..."
 
 msgid "Create"
 msgstr "ساختن"
-
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"<a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>یک مورد الآن "
-"اضافه کنید</a>"
 
 msgid "Not started"
 msgstr "شروع نشده"
@@ -1461,10 +1410,6 @@ msgid ""
 msgstr ""
 "نسخه %(timestamp)s از %(model_name)s '%(object)s' برای انتشار زمانبندی شد."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "ویرایش %(title)s"
-
 msgid "Inspect"
 msgstr "بازرسی"
 
@@ -1485,6 +1430,9 @@ msgstr "'%(object)s' لغو انتشار شد."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "نسخه %(revision_id)s از \"%(object)s\" از زمانبندی خارج شد."
 
+msgid "Unschedule"
+msgstr "حذف زمانبندی"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "نسخه %(revision_id)s از \"%(object)s\""
@@ -1498,31 +1446,6 @@ msgstr "داشبورد"
 
 msgid "Delete selected pages"
 msgstr "حذف صفحات انتخاب شده"
-
-msgid "1 page has been deleted"
-msgstr "1 صفحه حذف شد"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
-msgstr[1] "1 صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d صفحه حذف شدند"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
-msgstr[1] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
 
 msgid "Select a new parent page"
 msgstr "انتخاب یک صفحه والد جدید"
@@ -1539,61 +1462,8 @@ msgstr[1] "%(num_pages)d صفحه جابجا شدند "
 msgid "Publish selected pages"
 msgstr "انتشار صفحات انتخاب شده"
 
-msgid "1 page has been published"
-msgstr "1 صفحه منتشر شد"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
-msgstr[1] "1 صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d صفحه منتشر شدند"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
-msgstr[1] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
-
 msgid "Unpublish selected pages"
 msgstr "لغو انتشار صفحات انتخاب شده"
-
-msgid "1 page has been unpublished"
-msgstr "1 صفحه لغو انتشار شد"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "1 صفحه و %(num_child_objects)d صفحه فرزند لغو انتشار شدند"
-msgstr[1] "1 صفحه و %(num_child_objects)d صفحه فرزند لغو انتشار شدند"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d صفحه لغو انتشار شدند"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند لغو انتشار "
-"شدند"
-msgstr[1] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند لغو انتشار "
-"شدند"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -1628,9 +1498,6 @@ msgstr "صفحه '%(page_title)s' ایجاد و انتشار یافت."
 #, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "صفحه '%(page_title)s' ایجاد و برای نظارت فرستاده شد."
-
-msgid "The page could not be created due to validation errors"
-msgstr "به دلیل بروز خطا صفحه ایجاد نشد."
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -1678,12 +1545,6 @@ msgstr "صفحه '%(page_title)s' انتشار یافت."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "صفحه '%(page_title)s' برای نظارت فرستاده شد."
 
-msgid "The page could not be saved as it is locked"
-msgstr "بدلیل قفل بودن صفحه امکان ذخیره وجود ندارد"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "صفحه به دلیل وجود خطاهای معتبرسازی ذخیره نمی‌شود"
-
 msgid "Site"
 msgstr "سایت"
 
@@ -1693,14 +1554,6 @@ msgstr "بله"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "صفحه '%(page_title)s' باز شده است."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"اسلاگ %(page_slug)s در حال حاضر توسط صفحه‌ی والد درحال استفاده است. لطفا "
-"مطمئن شوید اسلاگ یکتاست و دوباره امتحان کنید"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1713,9 +1566,6 @@ msgid ""
 msgstr ""
 "شما در حال دیدن نسخه قبلی این صفحه در <b>%(created_at)s</b> توسط %(user)s "
 "هستید"
-
-msgid "Page history"
-msgstr "تاریخچه‌ی صفحه"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -1745,30 +1595,6 @@ msgstr "منتظر بازنگری من"
 
 msgid "Requested By"
 msgstr "درخواست شده توسط"
-
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "پیش نمایش نسخه پیش نویس %(title)s"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "دیدن نسخه منتشر شده‌ی %(title)s"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "انتقال صفحه %(title)s"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "کپی صفحه %(title)s"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "حذف صفحه %(title)s"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "لغوانتشار صفحه %(title)s"
 
 msgid "Bulleted list"
 msgstr "لیست نقطه‌ای"

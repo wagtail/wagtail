@@ -72,7 +72,7 @@ def update_reference_index_on_save(instance, **kwargs):
         return
 
     update_reference_index_task.enqueue(
-        instance._meta.app_label, instance._meta.model_name, instance.pk
+        instance._meta.app_label, instance._meta.model_name, str(instance.pk)
     )
 
 

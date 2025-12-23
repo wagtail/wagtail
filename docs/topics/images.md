@@ -474,7 +474,7 @@ representing the color you would like to use:
 
 ## Image quality
 
-Wagtail's JPEG image quality settings default to 85 (which is quite high). AVIF and WebP default to 80.
+Wagtail's JPEG image quality settings default to 85 (which is quite high). WebP defaults to 80, AVIF defaults to 73.
 This can be changed either globally or on a per-tag basis.
 
 ### Changing globally
@@ -537,7 +537,7 @@ See [](image_renditions).
 Wagtail supports the use of Scalable Vector Graphics alongside raster images. To allow Wagtail users to upload and use SVG images, add "svg" to the list of allowed image extensions by configuring `WAGTAILIMAGES_EXTENSIONS`:
 
 ```python
-WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
+WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
 ```
 
 SVG images can be included in templates via the `image` template tag, as with raster images. However, operations that require SVG images to be rasterized are not currently supported. This includes direct format conversion, e.g. `format-webp`, and `bgcolor` directives. Crop and resize operations do not require rasterization, so may be used freely (see [](available_resizing_methods)).
@@ -555,6 +555,10 @@ In this example, any of the image objects that are SVGs will only have the `fill
 (svg_security_considerations)=
 
 ### Security considerations
+
+```{warning}
+Any system that allows user-uploaded files is a potential security risk.
+```
 
 Wagtail's underlying image library, Willow, is configured to mitigate known XML parser exploits (e.g. billion laughs, quadratic blowup) by rejecting suspicious files.
 

@@ -1,5 +1,8 @@
+@use '../tools' as *;
+
 .w-preview {
   --w-preview-background-color: var(--w-color-white);
+  --w-preview-color-scheme: normal;
   --preview-width-ratio: min(
     1,
     var(--preview-panel-width, 450) / var(--preview-device-width, 375)
@@ -37,6 +40,16 @@
     &:empty {
       // Ensure that sites without a background show with a fallback, only when iframe has loaded
       background-color: var(--w-preview-background-color);
+      // Sites that do not have a background but have color-scheme will have the
+      // colors (background, text, etc.) automatically styled by the browser.
+      // If the color-scheme matches Wagtail's current color-scheme, the browser
+      // will give the iframe a transparent background. If we only set the
+      // white background-color above, the white background will be used
+      // while the rest of the content follows the color-scheme of the site,
+      // which might result in white text on a white background.
+      // Since we cannot know the actual value of the content's color-scheme,
+      // we set the color-scheme to normal to ensure the iframe stays opaque.
+      color-scheme: var(--w-preview-color-scheme);
     }
 
     [dir='rtl'] & {

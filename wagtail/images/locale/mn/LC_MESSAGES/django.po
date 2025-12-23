@@ -9,13 +9,14 @@
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
 # Soft Exim, 2022
 # visual, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Soft Exim, 2022\n"
+"Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -145,12 +146,6 @@ msgstr "зураг"
 msgid "images"
 msgstr "зургууд"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s удаа ашигласан"
-msgstr[1] "Used %(usage_count)s times"
-
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
@@ -217,6 +212,12 @@ msgid "Usage"
 msgstr "Хэрэглээ"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашигласан"
+msgstr[1] "Used %(usage_count)s times"
+
+#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Уучлаарай, \"<em>%(query_string)s</em>\" хайлтад тохирох зураг олдсонгүй"
@@ -259,6 +260,9 @@ msgstr "Шошго"
 
 msgid "Delete"
 msgstr "Устгах"
+
+msgid "Title"
+msgstr "Гарчиг"
 
 msgid "Choose an image"
 msgstr "Зургаа сонгоно уу"

@@ -10,11 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from pathlib import Path
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = PROJECT_DIR.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "wagtail",
     "modelcluster",
     "taggit",
+    "django_filters",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -48,13 +49,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
@@ -64,7 +65,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(PROJECT_DIR, "templates"),
+            PROJECT_DIR / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -87,7 +88,7 @@ WSGI_APPLICATION = "{{ project_name }}.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -132,27 +133,23 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, "static"),
+    PROJECT_DIR / "static",
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
-# Default storage settings, with the staticfiles storage updated.
+# Default storage settings
 # See https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#std-setting-STORAGES
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
-    # ManifestStaticFilesStorage is recommended in production, to prevent
-    # outdated JavaScript / CSS assets being served from cache
-    # (e.g. after a Wagtail upgrade).
-    # See https://docs.djangoproject.com/en/{{ docs_version }}/ref/contrib/staticfiles/#manifeststaticfilesstorage
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
 

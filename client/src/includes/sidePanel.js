@@ -1,5 +1,9 @@
 import { ngettext } from '../utils/gettext';
 
+/**
+ * Initializes the side panel functionality.
+ * This includes opening and closing the side panel, resizing it, and managing its state.
+ */
 export default function initSidePanel() {
   const sidePanelWrapper = document.querySelector('[data-form-side]');
 
@@ -23,9 +27,11 @@ export default function initSidePanel() {
     return { minWidth, maxWidth, width, range, percentage };
   };
 
-  // We force the slider input to have dir="ltr" in the HTML so that the slider
-  // works the same way across Safari, Chrome and Firefox. Here, we correct the
-  // percentage value to follow the direction set on the root <html> element.
+  /**
+   * We force the slider input to have dir="ltr" in the HTML so that the slider
+   * works the same way across Safari, Chrome and Firefox. Here, we correct the
+   * percentage value to follow the direction set on the root <html> element.
+   */
   const getDirectedPercentage = (value) =>
     document.documentElement.dir === 'rtl' ? value : 100 - value;
 
@@ -58,7 +64,6 @@ export default function initSidePanel() {
       const name = panel.dataset.sidePanel;
       if (name === panelName) {
         if (panel.hidden) {
-          // eslint-disable-next-line no-param-reassign
           panel.hidden = false;
           // Don't fire the show event just yet,
           // to ensure that the hide event for the other panels is fired first.
@@ -67,7 +72,6 @@ export default function initSidePanel() {
         }
       } else if (!panel.hidden) {
         const hidePanel = () => {
-          // eslint-disable-next-line no-param-reassign
           panel.hidden = true;
           panel.dispatchEvent(new CustomEvent('hide'));
           sidePanelWrapper.classList.remove(`form-side--${name}`);

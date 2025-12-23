@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>, 2015-2016\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -65,12 +65,6 @@ msgstr "belge"
 msgid "documents"
 msgstr "belgeler"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s kez kullanıldı"
-msgstr[1] "%(usage_count)s kez kullanıldı"
-
 msgid "Yes, delete"
 msgstr "Evet, sil"
 
@@ -106,6 +100,12 @@ msgstr "Dosya bulunamadı"
 
 msgid "Usage"
 msgstr "Kullanım"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s kez kullanıldı"
+msgstr[1] "%(usage_count)s kez kullanıldı"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -193,10 +193,6 @@ msgstr "Hata nediyle belge kaydedilemedi."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "'%(document_title)s' belgesi güncellendi"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
 
 msgid "Delete document"
 msgstr "Belge sil"

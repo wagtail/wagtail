@@ -10,30 +10,30 @@ import { runInlineScripts } from '../utils/runInlineScripts';
  * @example
  * ```html
  * <form data-controller="w-formset">
- *  <input type="hidden" name="form-TOTAL_FORMS" value="2" data-w-formset-target="totalFormsInput">
- *  <input type="hidden" name="form-MIN_NUM_FORMS" value="0" data-w-formset-target="minFormsInput">
- *  <input type="hidden" name="form-MAX_NUM_FORMS" value="50" data-w-formset-target="maxFormsInput">
- *  <input type="hidden" name="form-INITIAL_FORMS" value="2">
- *  <ul data-w-formset-target="forms">
- *    <li data-w-formset-target="child">
- *      <input type="text" name="form-0-name">
- *      <input type="hidden" name="form-0-DELETE" data-w-formset-target="deleteInput">
- *      <button type="button" data-action="w-formset#delete">Delete</button>
- *    </li>
- *    <li data-w-formset-target="child">
- *      <input type="text" name="form-1-name">
- *      <input type="hidden" name="form-1-DELETE" data-w-formset-target="deleteInput">
- *      <button type="button" data-action="w-formset#delete">Delete</button>
- *    </li>
- *  </ul>
- *  <button type="button" data-action="w-formset#add">Add</button>
- *  <template data-w-formset-target="template">
- *    <li data-w-formset-target="child">
- *      <input type="text" name="form-__prefix__-name">
- *      <input type="hidden" name="form-__prefix__-DELETE" data-w-formset-target="deleteInput">
- *      <button type="button" data-action="w-formset#delete">Delete</button>
- *    </li>
- *  </template>
+ *   <input type="hidden" name="form-TOTAL_FORMS" value="2" data-w-formset-target="totalFormsInput">
+ *   <input type="hidden" name="form-MIN_NUM_FORMS" value="0" data-w-formset-target="minFormsInput">
+ *   <input type="hidden" name="form-MAX_NUM_FORMS" value="50" data-w-formset-target="maxFormsInput">
+ *   <input type="hidden" name="form-INITIAL_FORMS" value="2">
+ *   <ul data-w-formset-target="forms">
+ *     <li data-w-formset-target="child">
+ *       <input type="text" name="form-0-name">
+ *       <input type="hidden" name="form-0-DELETE" data-w-formset-target="deleteInput">
+ *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *     </li>
+ *     <li data-w-formset-target="child">
+ *       <input type="text" name="form-1-name">
+ *       <input type="hidden" name="form-1-DELETE" data-w-formset-target="deleteInput">
+ *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *     </li>
+ *   </ul>
+ *   <button type="button" data-action="w-formset#add">Add</button>
+ *   <template data-w-formset-target="template">
+ *     <li data-w-formset-target="child">
+ *       <input type="text" name="form-__prefix__-name">
+ *       <input type="hidden" name="form-__prefix__-DELETE" data-w-formset-target="deleteInput">
+ *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *     </li>
+ *   </template>
  * </form>
  * ```
  */
@@ -71,8 +71,10 @@ export class FormsetController extends Controller<HTMLElement> {
   declare readonly minFormsInputTarget: HTMLInputElement;
   /** Hidden input to read for the value for max forms. */
   declare readonly maxFormsInputTarget: HTMLInputElement;
-  /** Target element that has the template content to clone for new forms.
-   * `__prefix__` will be replaced with the next formIndex value upon creation. */
+  /**
+   * Target element that has the template content to clone for new forms.
+   * `__prefix__` will be replaced with the next formIndex value upon creation.
+   */
   declare readonly templateTarget: HTMLTemplateElement;
   /** Hidden input to track the total forms (including deleted) for POST request and initial reading. */
   declare readonly totalFormsInputTarget: HTMLInputElement;
@@ -123,6 +125,8 @@ export class FormsetController extends Controller<HTMLElement> {
   /**
    * Find the event's target's closest child target and remove it by
    * removing the 'child' target and adding a 'child-removed' target.
+   *
+   * @throws {Error} If the child form target for the event target cannot be found.
    */
   delete(event: Event) {
     const target = this.childTargets.find((child) =>
@@ -172,6 +176,8 @@ export class FormsetController extends Controller<HTMLElement> {
   /**
    * When removed, add the class and update the total count.
    * Also update the DELETE input for this form.
+   *
+   * @throws {Error} If the DELETE input target cannot be found within the removed form.
    */
   childTargetDisconnected(target: HTMLElement) {
     const deletedClasses = this.deletedClasses;

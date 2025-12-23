@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
-# X Bello <xbello@gmail.com>, 2022,2024
+# X Bello <xbello@gmail.com>, 2022,2024-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022,2024\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022,2024-2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -61,3 +61,6 @@ msgstr ""
 
 msgid "Table"
 msgstr "Táboa"
+
+msgid "Select a header option"
+msgstr "Seleccione unha opción de encabezado"

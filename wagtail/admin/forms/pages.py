@@ -25,7 +25,7 @@ class CopyForm(forms.Form):
             initial=self.page.slug,
             label=_("New slug"),
             allow_unicode=allow_unicode,
-            widget=widgets.SlugInput,
+            widget=widgets.SlugInput(locale=self.page.locale),
         )
         self.fields["new_parent_page"] = forms.ModelChoiceField(
             initial=self.page.get_parent(),
@@ -214,13 +214,22 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
                     "slug",
                     forms.ValidationError(
                         _(
-                            "The slug '%(page_slug)s' is already in use within the parent page"
+                            "The slug '%(page_slug)s' is already in use within the parent page."
                         )
                         % {"page_slug": page_slug}
                     ),
                 )
 
         return cleaned_data
+
+    @property
+    def media(self):
+        media = super().media
+        if self.show_comments_toggle:
+            media += forms.Media(
+                js=["wagtailadmin/js/comments.js"],
+            )
+        return media
 
 
 class MoveForm(forms.Form):

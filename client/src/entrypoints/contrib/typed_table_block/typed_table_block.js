@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 /* global $ */
 
 import { escapeHtml as h } from '../../../utils/text';

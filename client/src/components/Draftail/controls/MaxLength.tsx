@@ -6,9 +6,9 @@ import { gettext } from '../../../utils/gettext';
 
 /**
  * Count characters in a string, with special processing to account for astral symbols in UCS-2,
- * matching the behaviour of HTML-native maxlength. See:
- * - https://mathiasbynens.be/notes/javascript-unicode
- * - https://github.com/RadLikeWhoa/Countable/blob/master/Countable.js#L29
+ * matching the behavior of HTML-native maxlength. See:
+ * @see https://mathiasbynens.be/notes/javascript-unicode
+ * @see https://github.com/RadLikeWhoa/Countable/blob/master/Countable.js#L29
  */
 export const countCharacters = (text: string) => {
   if (text) {

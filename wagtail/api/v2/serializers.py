@@ -376,7 +376,7 @@ class PageSerializer(BaseSerializer):
         # Find all relation fields that point to child class and make them use
         # the ChildRelationField class.
         if relation_info.to_many:
-            model = getattr(self.Meta, "model")
+            model = self.Meta.model
             child_relations = {
                 child_relation.field.remote_field.related_name: child_relation.related_model
                 for child_relation in get_all_child_relations(model)

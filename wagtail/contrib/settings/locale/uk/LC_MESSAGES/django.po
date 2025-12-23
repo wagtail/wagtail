@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023\n"
+"Last-Translator: Николай Инкогнито <mmmsvit@gmail.com>, 2018\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,9 @@ msgstr ""
 
 msgid "default"
 msgstr "за замовчуванням"
+
+msgid "Sites"
+msgstr "Сайти"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

@@ -7,14 +7,14 @@
 # Dino Aljević <dino8890@protonmail.com>, 2020-2022
 # Luka Matijević <lumatijev@gmail.com>, 2015
 # Marko Burazin <marko.burazin1@gmail.com>, 2020
-# Matt Westcott <matthew@torchbox.com>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2021,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021,2025\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -62,9 +62,6 @@ msgstr "Wagtail administracija"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Nažalost nemate dozvolu za pristup ovoj stranici."
-
-msgid "You do not have permission to access the admin"
-msgstr "Nemate dozvolu za pristup administraciji"
 
 msgid "None"
 msgstr "Nema"
@@ -140,9 +137,6 @@ msgstr ""
 "Odaberite hijerarhisku poziciju. Napomena: zbirka ne može postati dijete "
 "same sebe ili svojih potomaka."
 
-msgid "Please select another parent"
-msgstr "Molimo odaberite drugog roditelja"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nije moguće dodati više skupova dozvola za istu zbirku."
 
@@ -168,9 +162,6 @@ msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Zakazan datum/vrijeme objavljivanja mora biti prije zakazanog datuma/vremena "
 "odjavljivanja."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/vrijeme odjavljivanja mora biti u budućnosti"
 
 msgid "New title"
 msgstr "Novi naslov"
@@ -242,10 +233,6 @@ msgstr ""
 msgid "Parent page"
 msgstr "Roditeljska stranica"
 
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Oznaka(e) %(value_too_long)s su dulje od %(max_tag_length)d znakova"
-
 msgid "Visibility"
 msgstr "Vidljivost"
 
@@ -271,8 +258,8 @@ msgstr "Nazovite vaš tijek rada"
 msgid "Add tasks to your workflow"
 msgstr "Dodajte zadatke u vaš tijek rada"
 
-msgid "Task"
-msgstr "Zadatak"
+msgid "task"
+msgstr "zadatak"
 
 msgid "1 page selected"
 msgstr "1 stranica odabrana"
@@ -438,9 +425,6 @@ msgstr "Pretraži"
 msgid "This collection has been made private by a parent collection."
 msgstr "Ovu zbirku je nadređena zbirka učinila privatnom."
 
-msgid "Save"
-msgstr "Spremi"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -479,10 +463,6 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, nemoj izbrisati"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odjavi %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Da, odjavi"
 
@@ -492,6 +472,8 @@ msgstr "Ne, nemoj odjaviti"
 msgid "Cancel"
 msgstr "Odustani"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Postupci"
 
@@ -500,13 +482,6 @@ msgstr "Komentar"
 
 msgid "Update"
 msgstr "Ažuriraj"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Usporedba %(title)s"
-
-msgid "Comparing"
-msgstr "Usporedba"
 
 msgid "Fields"
 msgstr "Polja"
@@ -560,11 +535,14 @@ msgstr "Datum"
 msgid "Site summary"
 msgstr "Sažetak"
 
-msgid "Changes requested at"
-msgstr "Zatražene promjene u"
-
 msgid "Close"
 msgstr "Zatvori"
+
+msgid "Task"
+msgstr "Zadatak"
+
+msgid "Changes requested at"
+msgstr "Zatražene promjene u"
 
 msgid "Awaiting your review"
 msgstr "Čekaju vaš pregled"
@@ -843,18 +821,6 @@ msgstr "Pretraži djecu stranice '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj dijete stranici '%(title)s'"
 
-msgid "Drag"
-msgstr "Povucite"
-
-msgid "Disable ordering of child pages"
-msgstr "Isključite mijenjanje redoslijeda podređenih stranica"
-
-msgid "Sort"
-msgstr "Sortiraj"
-
-msgid "Enable ordering of child pages"
-msgstr "Uključite mijenjanje redoslijeda podređenih stranica"
-
 msgid "Pagination"
 msgstr "Numeriranje stranica"
 
@@ -890,6 +856,9 @@ msgstr "Pomakni prema gore"
 
 msgid "Move down"
 msgstr "Pomakni prema dolje"
+
+msgid "Drag"
+msgstr "Povucite"
 
 msgid "Type"
 msgstr "Tip"
@@ -945,10 +914,6 @@ msgstr "Nepotpun zadatak"
 msgid "Completed at"
 msgstr "Završeno u"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Stranica %(page_num)s od %(total_pages)s."
-
 msgid "Toggle breadcrumbs"
 msgstr "Prikaži/sakrij navigacijsku traku"
 
@@ -986,11 +951,8 @@ msgid "Visit the live page"
 msgstr "Posjetite stranicu uživo"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Odjavi reviziju %(revision.id)s za %(title)s"
-
-msgid "Unschedule"
-msgstr "Otkaži"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Stranica %(page_num)s od %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Jeste li sigurni da želite otkazati ovu reviziju?"
@@ -1003,6 +965,9 @@ msgstr "Ne, nemoj otkazati"
 
 msgid "Other searches"
 msgstr "Ostale pretrage"
+
+msgid "Save"
+msgstr "Spremi"
 
 msgid "Minimap"
 msgstr "Prozor za prelistavanje"
@@ -1055,6 +1020,9 @@ msgstr "Tijek rada je završio"
 
 msgid "Approved task"
 msgstr "Odobren zadatak"
+
+msgid "Sort"
+msgstr "Sortiraj"
 
 msgid "Show in Explorer"
 msgstr "Prikaži u pretraživaču"
@@ -1311,20 +1279,8 @@ msgstr "%(model_name)s '%(object)s' je ažuriran."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' je stvoren."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Uredi '%(title)s'"
-
 msgid "Inspect"
 msgstr "Pregledaj"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Pregledaj '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Izbriši '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -1346,6 +1302,9 @@ msgstr "Najranije"
 
 msgid "Latest"
 msgstr "Najnovije"
+
+msgid "Unschedule"
+msgstr "Otkaži"
 
 msgid "Field"
 msgstr "Polje"
@@ -1388,9 +1347,6 @@ msgstr "Stranica '%(page_title)s' je stvorena i objavljena."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Stranica '%(page_title)s' je stvorena i poslana na moderiranje."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Nije moguće stvoriti stranicu zbog grešaka"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Stranica '%(page_title)s' je izbrisana."
@@ -1427,9 +1383,6 @@ msgstr "Stranica '%(page_title)s' je objavljena."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Stranica '%(page_title)s' je poslana na moderiranje."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Nije moguće sačuvati stranicu budući da je zaključana"
-
 msgid "Site"
 msgstr "Sjedište"
 
@@ -1451,9 +1404,6 @@ msgid ""
 msgstr ""
 "Gledate prijašnju verziju ove stranice iz <b>%(created_at)s</b> korisnika "
 "%(user)s"
-
-msgid "Page history"
-msgstr "Povijest stranice"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -1539,9 +1489,6 @@ msgstr "Novi zadatak tijeka rada"
 msgid "Task '%(object)s' created."
 msgstr "Zadatak '%(object)s' je stvoren."
 
-msgid "Editing workflow task"
-msgstr "Uređivanje zadatak tijeka rada"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Zadatak '%(object)s' je ažuriran."
@@ -1561,40 +1508,26 @@ msgstr "Zadatak '%(object)s' je onemogućen."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Zadatak '%(task_name)s' je omogućen."
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Pregledajte skicu od '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Pogledajte verziju uživo od '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Premjesti stranicu '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopiraj stranicu '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Izbriši stranicu '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Odjavi stranicu '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Pogledaj povijest stranice '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Sortiraj poredak izbornika"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Naslov %(level)d"
+msgid "Heading 1"
+msgstr "Naslov 1"
+
+msgid "Heading 2"
+msgstr "Naslov 2"
+
+msgid "Heading 3"
+msgstr "Naslov 3"
+
+msgid "Heading 4"
+msgstr "Naslov 4"
+
+msgid "Heading 5"
+msgstr "Naslov 5"
+
+msgid "Heading 6"
+msgstr "Naslov 6"
 
 msgid "Bulleted list"
 msgstr "Popis s predznacima"

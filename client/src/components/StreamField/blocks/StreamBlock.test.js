@@ -2,6 +2,7 @@ import $ from 'jquery';
 import * as uuid from 'uuid';
 import { FieldBlockDefinition } from './FieldBlock';
 import { StreamBlockDefinition } from './StreamBlock';
+import { BlockGroupDefinition, StructBlockDefinition } from './StructBlock';
 
 // Mock uuid for consistent snapshot results
 jest.mock('uuid');
@@ -79,6 +80,10 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
                 required: true,
                 icon: 'placeholder',
                 classname: 'w-field w-field--char_field w-field--text_input',
+                attrs: {
+                  'data-controller': 'w-custom',
+                  'data-action': 'click->w-custom#doSomething',
+                },
               },
             ),
             new FieldBlockDefinition(
@@ -90,6 +95,10 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
                 icon: 'pilcrow',
                 classname:
                   'w-field w-field--char_field w-field--admin_auto_height_text_input',
+                attrs: {
+                  'data-controller': 'w-other',
+                  'data-action': 'click->w-other#doSomethingElse',
+                },
               },
             ),
           ],
@@ -109,14 +118,6 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -362,14 +363,6 @@ describe('telepath: wagtail.blocks.StreamBlock with nested stream block', () => 
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -387,14 +380,6 @@ describe('telepath: wagtail.blocks.StreamBlock with nested stream block', () => 
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -480,14 +465,6 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete & kill with fire',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -560,14 +537,6 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
       maxNum: 3,
       minNum: null,
       blockCounts: {},
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete & kill with fire',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -796,14 +765,6 @@ describe('telepath: wagtail.blocks.StreamBlock with minNum set', () => {
       maxNum: null,
       minNum: 2,
       blockCounts: {},
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete & kill with fire',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -948,14 +909,6 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
         test_block_a: {
           max_num: 2,
         },
-      },
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete & kill with fire',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
       },
     },
   );
@@ -1185,14 +1138,6 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.min_num set', ()
           min_num: 2,
         },
       },
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete & kill with fire',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -1307,14 +1252,6 @@ describe('telepath: wagtail.blocks.StreamBlock with unique block type', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -1335,5 +1272,106 @@ describe('telepath: wagtail.blocks.StreamBlock with unique block type', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
     expect(boundBlock.children.length).toEqual(1);
     expect(boundBlock.children[0].type).toEqual('test_block_a');
+  });
+});
+
+describe('telepath: wagtail.blocks.StreamBlock with StructBlock child', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Create mocks for callbacks
+    constructor = jest.fn();
+    setState = jest.fn();
+    getState = jest.fn();
+    getValue = jest.fn();
+    focus = jest.fn();
+
+    // Define a test block
+    const blockDef = new StreamBlockDefinition(
+      '',
+      [
+        [
+          '',
+          [
+            new StructBlockDefinition(
+              'heading_block',
+              [
+                new FieldBlockDefinition(
+                  'heading_text',
+                  new DummyWidgetDefinition('Heading widget'),
+                  {
+                    label: 'Heading text',
+                    required: true,
+                    icon: 'placeholder',
+                    classname:
+                      'w-field w-field--char_field w-field--text_input',
+                    attrs: {
+                      'data-controller': 'w-custom',
+                      'data-action': 'click->w-custom#doSomething',
+                    },
+                  },
+                ),
+                new FieldBlockDefinition(
+                  'size',
+                  new DummyWidgetDefinition('Size widget'),
+                  {
+                    label: 'Size',
+                    required: false,
+                    icon: 'placeholder',
+                    classname: 'w-field w-field--choice_field w-field--select',
+                    attrs: {
+                      'data-controller': 'w-other',
+                      'data-action': 'click->w-other#doSomethingElse',
+                    },
+                  },
+                ),
+              ],
+              {
+                label: 'Heading block',
+                required: false,
+                icon: 'title',
+                classname: 'struct-block',
+                helpText: 'use <strong>lots</strong> of these',
+                helpIcon: '<svg></svg>',
+                formLayout: new BlockGroupDefinition({
+                  children: [
+                    ['heading_text', 'heading_text'],
+                    ['size', 'size'],
+                  ],
+                  settings: [],
+                }),
+              },
+            ),
+          ],
+        ],
+      ],
+      {
+        heading_block: 'Heading block options',
+      },
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of this',
+        helpIcon: '<svg></svg>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', []);
+  });
+
+  test('it renders the added child with a single collapsible panel', () => {
+    boundBlock.inserters[0].addButton.click();
+
+    expect(document.body.innerHTML).toMatchSnapshot();
+    expect(boundBlock.children.length).toEqual(1);
+    expect(boundBlock.children[0].type).toEqual('heading_block');
+    expect(document.querySelectorAll('[data-panel-toggle]').length).toBe(1);
   });
 });

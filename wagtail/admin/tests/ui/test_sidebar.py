@@ -4,6 +4,7 @@ from django.test import TestCase as DjangoTestCase
 from django.urls import reverse
 
 from wagtail.admin.search import SearchArea
+from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui.sidebar import (
     ActionMenuItem,
     LinkMenuItem,
@@ -12,9 +13,7 @@ from wagtail.admin.ui.sidebar import (
     SearchModule,
     SubMenuItem,
 )
-from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestAdaptLinkMenuItem(TestCase):
@@ -62,32 +61,6 @@ class TestAdaptLinkMenuItem(TestCase):
                         "name": "link",
                         "url": "/link/",
                         "attrs": {"data-is-custom": "true"},
-                    }
-                ],
-            },
-        )
-
-    def test_adapt_with_deprecated_classnames(self):
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "The `classnames` kwarg for sidebar LinkMenuItem is deprecated - use `classname` instead.",
-        ):
-            packed = JSContext().pack(
-                LinkMenuItem("link", "Link", "/link/", classnames="legacy-classes")
-            )
-
-        self.assertEqual(
-            packed,
-            {
-                "_type": "wagtail.sidebar.LinkMenuItem",
-                "_args": [
-                    {
-                        "classname": "legacy-classes",  # mapped to new name but raises warning
-                        "icon_name": "",
-                        "label": "Link",
-                        "name": "link",
-                        "url": "/link/",
-                        "attrs": {},
                     }
                 ],
             },

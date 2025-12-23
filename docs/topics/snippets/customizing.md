@@ -6,7 +6,7 @@
 
 # Customizing admin views for snippets
 
-Additional customizations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customizations provided by `ModelViewSet` such as customizing the listing view (e.g. adding custom columns, and filters), creating a custom menu item, and more.
+Additional customizations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customizations provided by `ModelViewSet` such as [customizing the listing view](modelviewset_listing) (e.g. adding custom columns, and filters), creating a custom menu item, and more.
 
 Before proceeding, ensure that you register the snippet model using `register_snippet` as a function instead of a decorator, as described in [](wagtailsnippets_registering).
 
@@ -108,6 +108,8 @@ The inspect view is disabled by default, as it's not often useful for most model
 
 Template customizations work the same way as for `ModelViewSet`, except that the {attr}`~.ModelViewSet.template_prefix` defaults to `wagtailsnippets/snippets/`. Refer to [the template customizations for `ModelViewSet`](modelviewset_templates) for more details.
 
+(wagtailsnippets_menu_item)=
+
 ## Menu item
 
 By default, registering a snippet model will add a "Snippets" menu item to the sidebar menu. However, you can configure a snippet model to have its own top-level menu item in the sidebar menu by setting {attr}`~.ViewSet.add_to_admin_menu` to `True`. Refer to [the menu customizations for `ModelViewSet`](modelviewset_menu) for more details.
@@ -160,6 +162,8 @@ class MarketingViewSetGroup(SnippetViewSetGroup):
 register_snippet(MarketingViewSetGroup)
 ```
 
+By default, the sidebar "Snippets" menu item will only show snippet models that haven't been configured with their own menu items.
 If all snippet models have their own menu items, the "Snippets" menu item will not be shown.
+This behaviour can be changed using the [](wagtailsnippets_menu_show_all) setting.
 
 Various additional attributes are available to customize the viewset - see {class}`~SnippetViewSet`.

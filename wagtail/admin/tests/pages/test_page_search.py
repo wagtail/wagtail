@@ -6,6 +6,7 @@ from django.test import TransactionTestCase
 from django.urls import reverse
 from django.utils.http import urlencode
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, SimplePage, SingleEventPage
 from wagtail.test.utils import WagtailTestUtils
@@ -284,6 +285,16 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
                     f"{url}?q=&amp;content_type=tests.eventindex",
                 )
 
+                # The type column should not contain a link to order by content type
+                soup = self.get_soup(response.content)
+                headings = soup.select("main table thead th")
+                type_th = None
+                for heading in headings:
+                    if heading.text.strip() == "Type":
+                        type_th = heading
+                self.assertIsNotNone(type_th)
+                self.assertIsNone(type_th.select_one("a"))
+
     def test_empty_search_with_content_type_filter(self):
         root_page = Page.objects.get(id=2)
         event_index = EventIndex(
@@ -328,3 +339,17 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
                     response,
                     f"{url}?q=&amp;content_type=tests.eventindex",
                 )
+
+    def test_bulk_action_rendered(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # Should render bulk actions markup
+        bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
+        soup = self.get_soup(response.content)
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])

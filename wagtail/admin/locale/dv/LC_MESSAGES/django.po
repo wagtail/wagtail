@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -57,9 +57,6 @@ msgstr "ވަގްޓޭލް އެޑްމިން"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "މާފަށް އެދެން، މި ސަރަހައްދަށް ވަނުމުގެ ހުއްދައެއް ނެތް."
-
-msgid "You do not have permission to access the admin"
-msgstr "އެޑްމިން އަށް ވަނުމުގެ ހުއްދައެއް ނެތެވެ"
 
 msgid "None"
 msgstr "None"
@@ -137,9 +134,6 @@ msgid ""
 "itself or one of its descendants."
 msgstr "ހައިރާރކިކަލް ޕޮޒިޝަން ހޮވުން. ނޯޓް: ކަލެކްޝަނަކީ އޭގެ އަމިއްލަ ދަރިއަކަށް ނުވަތަ އޭގެ ދަރިފަސްކޮޅުގެ މީހަކަށް ނުވެވޭނެއެވެ."
 
-msgid "Please select another parent"
-msgstr "އެހެން ބެލެނިވެރިއެއް ހޮވުން އެދެމެވެ"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "އެއް ކަލެކްޝަނަކަށް ގިނަ ހުއްދަ ރެކޯޑްތަކެއް ނުހުންނާނެއެވެ."
 
@@ -166,9 +160,6 @@ msgstr "އެހެން ޔޫޒަރެއްގެ ކޮމެންޓް އެޑިޓް ނުކު
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "ގޯ ލައިވް ތާރީޚު/ގަޑި ހުންނަންވާނީ މުއްދަތު ހަމަވާ ތާރީޚު/ގަޑިގެ ކުރިންނެވެ"
-
-msgid "Expiry date/time must be in the future"
-msgstr "މުއްދަތު ހަމަވާ ތާރީޚު/ގަޑިއަކީ ކުރިއަށް އޮތް ތަނުގައި ވާންޖެހޭނެއެވެ"
 
 msgid "New title"
 msgstr "އައު ލަގަބެވެ"
@@ -235,10 +226,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "ސަބްޕޭޖް ކޮޕީ ކުރާއިރު ޕޭޖެއް އޭގެ ތެރެއަށް ކޮޕީ ނުކުރެވޭނެއެވެ"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "ސްލަގް &#39;%(page_slug)s&#39; މިހާރުވެސް ބެލެނިވެރި ޞަފްޙާގެ ތެރޭގައި ބޭނުން ކުރަމުންދެއެވެ"
-
 msgid "Select a new parent for this page."
 msgstr "މި ޕޭޖަށް އާ ބެލެނިވެރިއަކު ހޮވާށެވެ."
 
@@ -254,10 +241,6 @@ msgstr "%(page_title)s ގެ ދަށުން ޕޭޖެއް އުފެއްދުމުގެ �
 
 msgid "Search…"
 msgstr "ހޯދުން…"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "ޓެގް(ސް) %(value_too_long)s ހުންނަނީ %(max_tag_length)d އަކުރުތަކުގެ މައްޗަށެވެ"
 
 msgid "Visibility"
 msgstr "ފެންނަން ހުރުމެވެ"
@@ -284,7 +267,7 @@ msgstr "ތިމާގެ ވޯކްފްލޯއަށް ނަމެއް ދޭށެވެ"
 msgid "Add tasks to your workflow"
 msgstr "ތިމާގެ ވޯކްފްލޯއަށް ޓާސްކްތައް އިތުރުކުރުން"
 
-msgid "Task"
+msgid "task"
 msgstr "މަސައްކަތެއް"
 
 msgid "1 page selected"
@@ -373,12 +356,6 @@ msgstr "ލިސްޓިންގގައިވާ ހުރިހާ އެއްޗެއް ހޮވާފ�
 
 msgid "Can access Wagtail admin"
 msgstr "ވެގްޓޭލް އެޑްމިން އަށް އެކްސެސް ކުރެވޭ"
-
-msgid "For search engines"
-msgstr "ސަރޗް އިންޖީނުތަކަށްޓަކައެވެ"
-
-msgid "For site menus"
-msgstr "ސައިޓް މެނޫތަކަށްޓަކައެވެ"
 
 msgid "Content"
 msgstr "މައިގަނޑު ކޮންޓެންޓް"
@@ -551,9 +528,6 @@ msgstr "މި ކަލެކްޝަން ޕްރައިވެޓްކޮށްފައިވަނީ �
 msgid "You can edit the privacy settings on:"
 msgstr "ޕްރައިވެސީ ސެޓިންގސް އެޑިޓް ކުރެވޭނީ:"
 
-msgid "Save"
-msgstr "ރައްކާކުރުން"
-
 msgid "Change privacy"
 msgstr "ޕްރައިވެސީ ބަދަލުކުރުން"
 
@@ -618,6 +592,8 @@ msgstr "އަދިވެސް މި %(model_name)s ޝާއިއު ކުރަން ބޭނު�
 msgid "Cancel"
 msgstr "ކެންސަލް"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "އަމަލުތައް"
 
@@ -634,9 +610,6 @@ msgid ""
 "Preview cannot display due to validation errors. <br /> Click save to "
 "highlight the relevant fields."
 msgstr "ވެލިޑޭޝަން އެރަރސް ގެ ސަބަބުން ޕްރިވިއު ނުފެނެއެވެ.<br /> ކަމާބެހޭ ދާއިރާތައް ހައިލައިޓް ކުރުމަށް ސޭވް އަށް ފިތާލާށެވެ."
-
-msgid "Comparing"
-msgstr "އަޅާކިޔުމެވެ"
 
 msgid "Fields"
 msgstr "ދަނޑުތަކެވެ"
@@ -703,8 +676,14 @@ msgstr "ސައިޓްގެ ޚުލާސާ"
 msgid "Read the release notes."
 msgstr "ރިލީޒް ނޯޓްސް ކިޔާށެވެ."
 
+msgid "Close"
+msgstr "ލެއްޕުން"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "ވޯކްފްލޯއެއްގައި ތިބާގެ ޞަފްޙާތަކާއި ސްނިޕެޓްތައް"
+
+msgid "Task"
+msgstr "މަސައްކަތެއް"
 
 msgid "Task started"
 msgstr "ޓާސްކް ފެށުނެވެ"
@@ -714,9 +693,6 @@ msgstr "ބަދަލު ގެނައުމަށް އެދިފައިވަނީ ގދ"
 
 msgid "Awaiting"
 msgstr "އިންތިޒާރުގައެވެ"
-
-msgid "Close"
-msgstr "ލެއްޕުން"
 
 msgid "Awaiting your review"
 msgstr "ތިޔަބޭފުޅުންގެ ރިވިއުގެ އިންތިޒާރުގައެވެ"
@@ -1046,14 +1022,6 @@ msgstr "ނޫން، އެލިއާސްއެއްގެ ގޮތުގައި ދޫކޮށްލ�
 msgid "Are you sure you want to delete this page?"
 msgstr "މި ޕޭޖް ޑިލީޓް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "މި ޢަމަލުގެ ސަބަބުން ޖުމްލަ <b>%(total_pages)s</b> ޞަފްޙާތައް ޑިލީޓްވާނެއެވެ."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "ކޮންފަރމް ކުރުމަށް <b>%(wagtail_site_name)s</b> ލިޔެލާށެވެ."
-
 msgid "Yes, delete it"
 msgstr "އާދެ ޑިލީޓް ކޮށްލާށެވެ"
 
@@ -1185,18 +1153,6 @@ msgstr "&#39;%(title)s&#39; ގެ ޗައިލްޑް ޕޭޖްތައް އެކްސް�
 msgid "Add a child page to '%(title)s'"
 msgstr "&#39;%(title)s&#39; އަށް ޗައިލްޑް ޕޭޖެއް އިތުރުކުރުން."
 
-msgid "Drag"
-msgstr "ލަސްކުރުން"
-
-msgid "Disable ordering of child pages"
-msgstr "ޗައިލްޑް ޕޭޖްތައް ތަރުތީބުކުރުން ނުކުޅެދުންތެރިކުރުން"
-
-msgid "Sort"
-msgstr "ހަމައަކަށް އެޅުވުން"
-
-msgid "Enable ordering of child pages"
-msgstr "ޗައިލްޑް ޕޭޖްތައް ތަރުތީބުކުރުން އެނެބަލްކުރުން"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)s ގެ %(items_count)s މުޅި ސައިޓް ހުރަސްކޮށް."
@@ -1259,17 +1215,15 @@ msgstr "މައްޗަށް ދޭ"
 msgid "Move down"
 msgstr "ތިރިޔަށް ދޭ"
 
+msgid "Drag"
+msgstr "ލަސްކުރުން"
+
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
 msgstr "މި %(model_name)s ލައިވްވާންވީ ވަގުތު އަދި/ނުވަތަ މުއްދަތު ހަމަވާންވީ ވަގުތު ހޮވާށެވެ"
 
 msgid "Choose when this page should go live and/or expire"
 msgstr "މި ޕޭޖް ލައިވްވާންވީ ވަގުތު އަދި/ނުވަތަ މުއްދަތު ހަމަވާންވީ ވަގުތު ހޮވާށެވެ"
-
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr "މި ޕަބްލިޝިންގ ޝެޑިއުލަށް އަމަލުކުރަން ފަށާނީ \"ޕަބްލިޝް\" އޮޕްޝަން ހޮވުމުންނެވެ"
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "އެޑިޓް ކުރުމުގެ ހުއްދަ ލިބިފައިވާ ކޮންމެ މީހަކަށް ވެސް ޝެޑިއުލް ތައްޔާރު ކުރެވޭނެ އެވެ"
@@ -1391,6 +1345,10 @@ msgstr "ރޮށި ޓޮގްލް ކޮށްލާށެވެ"
 msgid "Breadcrumb"
 msgstr "ބްރެޑްކްރަމްބް އެވެ"
 
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "ކޮންފަރމް ކުރުމަށް <b>%(wagtail_site_name)s</b> ލިޔެލާށެވެ."
+
 msgid "Close dialog"
 msgstr "ޑައިލޮގް ބަންދުކުރުން"
 
@@ -1433,21 +1391,14 @@ msgstr "ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
 msgid "Visible to all. Visit the live page"
 msgstr "އެންމެންނަށް ފެންނަން ހުރެއެވެ. ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
 
-msgid "Private. Visit the live page"
-msgstr "އަމިއްލަ. ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
-
 msgid "Visible to all"
 msgstr "އެންމެންނަށް ފެންނަން ހުރެއެވެ"
 
+msgid "Private. Visit the live page"
+msgstr "އަމިއްލަ. ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
+
 msgid "Toggle section"
 msgstr "ޓޮގްލް ސެކްޝަން"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s އަށް ރިވިޝަން %(revision.id)s ޝެޑިއުލް ނުކުރުން"
-
-msgid "Unschedule"
-msgstr "ޝެޑިއުލް ނުކޮށް"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "މި އިސްލާހު އަންޝެޑިއުލް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
@@ -1460,6 +1411,9 @@ msgstr "ނޫން، އަންޝެޑިއުލް ނުކުރާށެވެ"
 
 msgid "Other searches"
 msgstr "އެހެން ހޯދުންތަކެވެ"
+
+msgid "Save"
+msgstr "ރައްކާކުރުން"
 
 msgid "Minimap"
 msgstr "މިނިމެޕް"
@@ -1553,9 +1507,6 @@ msgstr "ސައްހަ ނޫން ޝެޑިއުލެއް"
 msgid "Go-live:"
 msgstr "ގޯ-ލައިވް:"
 
-msgid "Once published:"
-msgstr "އެއްފަހަރު ޝާއިއު ކުރުމުން:"
-
 msgid "No publishing schedule set"
 msgstr "ޕަބްލިޝިންގ ޝެޑިއުލް ކަނޑައެޅިފައެއް ނުވެއެވެ"
 
@@ -1647,6 +1598,9 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "މައިގަނޑު ކޮންޓެންޓަށް ސްކިޕް ކުރާށެވެ"
+
+msgid "Sort"
+msgstr "ހަމައަކަށް އެޅުވުން"
 
 msgid "View Wagtail quick actions"
 msgstr "ވެގްޓޭލް އަވަސް އަމަލުތައް ބަލާށެވެ"
@@ -1755,13 +1709,6 @@ msgstr "މާފަށް އެދެން، އެއްވެސް މަސައްކަތެއް \\
 msgid "You haven't created any tasks."
 msgstr "އެއްވެސް މަސައްކަތެއް އުފައްދާފައެއް ނުވެއެވެ."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"މިހާރު އެއްޗެއް <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>ނުއުފައްދާނީ ކީއްވެގެން؟ </a>"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -1869,6 +1816,17 @@ msgstr "އުފުލޭ ތަރުތީބުން &#39;%(label)s&#39; އަށް ތަރު�
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "ތިރިއަށް އަންނަ ތަރުތީބުން &#39;%(label)s&#39; އަށް ތަރުތީބުކުރުން."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "&#39;%(page_title)s&#39; ކާމިޔާބުކަމާއެކު ބަދަލުކުރެވިއްޖެއެވެ."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"ޑްރެގް ބަޓަންއަށް ފޯކަސްކޮށް މައްޗަށް ނުވަތަ ތިރިއަށް ތިރިއަށް ޖަހާ ތިރިއަށް ފިތާލުމަށްފަހު އެ އެއްޗެއް ގެންދިއުމަށްފަހު އެންޓަރ އަށް "
+"ފިތާލުމުން ބަދަލު ހުށަހަޅޭނެ"
 
 msgid "Profile"
 msgstr "ޕްރޮފައިލް"
@@ -1999,24 +1957,8 @@ msgstr "%(model_name)s &#39;%(object)s&#39; ގައި ވޯކްފްލޯ އަލުނ
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "%(model_name)s &#39;%(object)s&#39; ގައި ވޯކްފްލޯ ކެންސަލް ކުރެވިއްޖެއެވެ."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "&#39;%(title)s&#39; އެޑިޓްކުރުން."
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "&#39;%(title)s&#39; ކޮޕީ ކުރާށެވެ."
-
 msgid "Inspect"
 msgstr "އިންސްޕެކްޓް ކުރުން"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "&#39;%(title)s&#39; އިންސްޕެކްޓްކުރުން."
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "&#39;%(title)s&#39; ޑިލީޓްކުރުން."
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2059,6 +2001,9 @@ msgstr "&#39;%(object)s&#39; ޝާއިޢު ނުކުރެވިފައިވެއެވެ."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "\\&quot;%(object)s\\&quot; ގެ ވަރޝަން %(revision_id)s ޝެޑިއުލް ނުކުރެވިފައިވެއެވެ."
 
+msgid "Unschedule"
+msgstr "ޝެޑިއުލް ނުކޮށް"
+
 msgid "If you confirm deletion"
 msgstr "ޑިލީޓް ކޮންފަރމް ކޮށްފިނަމަ"
 
@@ -2079,13 +2024,6 @@ msgstr "ޑޭޝްބޯޑެވެ"
 msgid "Delete selected pages"
 msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ޑިލީޓްކުރުން"
 
-msgid "1 page has been deleted"
-msgstr "1 ޞަފްޙާ ޑިލީޓް ކުރެވިއްޖެއެވެ"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d ޕޭޖްތައް ޑިލީޓްކޮށްފިއެވެ"
-
 msgid "Select a new parent page"
 msgstr "އާ ބެލެނިވެރި ޕޭޖެއް ހޮވާށެވެ"
 
@@ -2095,22 +2033,8 @@ msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ބަދަލުކުރުން"
 msgid "Publish selected pages"
 msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ޝާއިޢުކުރުން"
 
-msgid "1 page has been published"
-msgstr "1 ޞަފްޙާ ޝާއިޢުކުރެވިއްޖެއެވެ"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d ޞަފްޙާތައް ޝާއިޢުކޮށްފައިވެއެވެ"
-
 msgid "Unpublish selected pages"
 msgstr "ހޮވާފައިވާ ޞަފްޙާތައް އަންޕަބްލިޝްކުރުން"
-
-msgid "1 page has been unpublished"
-msgstr "1 ޞަފްޙާ ވަނީ ޝާއިޢު ނުކުރެވިފައެވެ"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d ޞަފްޙާތައް ޝާއިޢު ނުކުރެވިފައިވެއެވެ"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2145,9 +2069,6 @@ msgstr "ޕޭޖް &#39;%(page_title)s&#39; އުފައްދައި ޝާއިއުކޮ�
 #, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "ޕޭޖް &#39;%(page_title)s&#39; އުފައްދައި މޮޑެރޭޝަނަށް ހުށަހެޅިއެވެ."
-
-msgid "The page could not be created due to validation errors"
-msgstr "ވެލިޑޭޝަން އެރަރސް ގެ ސަބަބުން ޕޭޖް އުފެއްދެވޭ ގޮތެއް ނުވިއެވެ"
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -2185,12 +2106,6 @@ msgstr "މޮޑެރޭޝަނަށް ހުށަހަޅާފައިވަނީ &#39;%(page_ti
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "&#39;%(page_title)s&#39; ޞަފްޙާގައިވާ ވޯކްފްލޯ އަލުން ފަށައިފިއެވެ."
 
-msgid "The page could not be saved as it is locked"
-msgstr "އެ ޕޭޖް ލޮކްކޮށްފައި އޮތުމުން ސޭވް ކުރެވޭ ގޮތެއް ނުވި އެވެ"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "ވެލިޑޭޝަން އެރަރސް ގެ ސަބަބުން ޕޭޖް ސޭވް ނުކުރެވުނެވެ"
-
 msgid "Is commenting action"
 msgstr "ކޮމެންޓް ކުރަނީ ފިޔަވަޅެވެ"
 
@@ -2221,28 +2136,9 @@ msgstr "ޞަފްޙާގެ ބާވަތެވެ"
 msgid "Exploring"
 msgstr "އެކްސްޕްލޯރ ކުރަމުންނެވެ"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"ޑްރެގް ބަޓަންއަށް ފޯކަސްކޮށް މައްޗަށް ނުވަތަ ތިރިއަށް ތިރިއަށް ޖަހާ ތިރިއަށް ފިތާލުމަށްފަހު އެ އެއްޗެއް ގެންދިއުމަށްފަހު އެންޓަރ އަށް "
-"ފިތާލުމުން ބަދަލު ހުށަހަޅޭނެ"
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "&#39;%(page_title)s&#39; ކާމިޔާބުކަމާއެކު ބަދަލުކުރެވިއްޖެއެވެ."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "ޕޭޖް &#39;%(page_title)s&#39; މިހާރު ވަނީ އަންލޮކް ކޮށްފައެވެ."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"ސްލަގް %(page_slug)s މިހާރުވެސް ބޭނުންކުރަމުންދަނީ ހޮވާފައިވާ ބެލެނިވެރި ޞަފްޙާގައެވެ. ސްލަގް ޔުނިކްކަން ޔަގީންކޮށް އަލުން "
-"ފަށާށެވެ"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2253,9 +2149,6 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr "ތިޔަ ބަލަނީ މި ޞަފްޙާގެ ކުރީގެ ވަރޝަނެއް 1 އިންނެވެ <b>%(created_at)s</b> by %(user)s"
-
-msgid "Page history"
-msgstr "ޞަފްޙާގެ ތާރީޚެވެ"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -2396,9 +2289,6 @@ msgstr "އައު ވޯކްފްލޯ ޓާސްކެއް"
 msgid "Task '%(object)s' created."
 msgstr "ޓާސްކް &#39;%(object)s&#39; އުފެއްދިއެވެ."
 
-msgid "Editing workflow task"
-msgstr "ވޯކްފްލޯ ޓާސްކް އެޑިޓްކުރުން"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "ޓާސްކް &#39;%(object)s&#39; އަޕްޑޭޓް ކޮށްފި."
@@ -2437,40 +2327,8 @@ msgstr "ޓާސްކް &#39;%(task_name)s&#39; އެނެބަލްކޮށްފިއެވ�
 msgid "Choose another"
 msgstr "އެހެން ހޮވާށެވެ"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "&#39;%(title)s&#39; ގެ ޑްރާފްޓް ވާޝަން ޕްރިވިއުކުރުން."
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "&#39;%(title)s&#39; ގެ ލައިވް ވާޝަން ބަލާށެވެ."
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "&#39;%(title)s&#39; ޞަފްޙާ ބަދަލުކުރުން."
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "ކޮޕީ ޕޭޖް &#39;%(title)s&#39;."
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "&#39;%(title)s&#39; ޞަފްޙާ ޑިލީޓްކުރުން."
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "އަންޕަބްލިޝް ޕޭޖް &#39;%(title)s&#39;."
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "&#39;%(title)s&#39; އަށް ޕޭޖް ހީސްޓްރީ ބަލާށެވެ."
-
 msgid "Sort menu order"
 msgstr "މެނޫ ތަރުތީބު ތަރުތީބުކުރުން"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "&#39;%(title)s&#39; ގެ ޗައިލްޑް ޕޭޖްތަކުގެ ތަރުތީބު ބަދަލުކުރުން."
 
 msgid "Bulleted list"
 msgstr "ބުލެޓް ޖަހާފައިވާ ލިސްޓެވެ"

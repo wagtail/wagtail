@@ -1,6 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 import Sortable from 'sortablejs';
 
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+
 enum Direction {
   Up = 'UP',
   Down = 'DOWN',
@@ -12,6 +14,15 @@ enum Direction {
  *
  * Once re-ordering is completed an async request will be made to the
  * provided URL to submit the update per item.
+ *
+ * @example
+ * ```html
+ * <fieldset data-controller="w-orderable" data-w-orderable-url-value="/path/to/orderable/">
+ *   <input type="button" data-w-orderable-target="item" data-w-orderable-item-id="1" value="Item 1"/>
+ *   <input type="button" data-w-orderable-target="item" data-w-orderable-item-id="2" value="Item 2"/>
+ *   <input type="button" data-w-orderable-target="item" data-w-orderable-item-id="3" value="Item 3"/>
+ * </fieldset>
+ * ```
  */
 export class OrderableController extends Controller<HTMLElement> {
   static classes = ['active', 'chosen', 'drag', 'ghost'];
@@ -186,36 +197,28 @@ export class OrderableController extends Controller<HTMLElement> {
       label,
     );
 
-    const formElement = this.element.closest('form');
-
-    const CSRFElement =
-      formElement &&
-      formElement.querySelector('input[name="csrfmiddlewaretoken"]');
-
-    if (CSRFElement instanceof HTMLInputElement) {
-      const CSRFToken: string = CSRFElement.value;
-      const body = new FormData();
-
-      body.append('csrfmiddlewaretoken', CSRFToken);
-
-      fetch(url, { method: 'POST', body })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-        })
-        .then(() => {
-          this.dispatch('w-messages:add', {
-            prefix: '',
-            target: window.document,
-            detail: { clear: true, text: message, type: 'success' },
-            cancelable: false,
-          });
-        })
-        .catch((error) => {
-          throw error;
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      })
+      .then(() => {
+        this.dispatch('w-messages:add', {
+          prefix: '',
+          target: window.document,
+          detail: { clear: true, text: message, type: 'success' },
+          cancelable: false,
         });
-    }
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   disconnect() {

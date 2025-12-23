@@ -1,7 +1,17 @@
 import { Controller } from '@hotwired/stimulus';
+import { gettext } from '../utils/gettext';
 
 /**
  * Localizes elements in the current locale.
+ *
+ * @example
+ * ```html
+ * <select data-controller="w-locale" data-action="w-locale#localizeTimeZoneOptions">
+ *   <option value="" selected>Use server time zone</option>
+ *   <option value="Asia/Jakarta">Asia/Jakarta</option>
+ *   <option value="Asia/Tokyo">Asia/Tokyo</option>
+ * </select>
+ * ```
  */
 export class LocaleController extends Controller<HTMLSelectElement> {
   /**
@@ -24,7 +34,6 @@ export class LocaleController extends Controller<HTMLSelectElement> {
   }
 
   /**
-   *
    * @param timeZone An IANA time zone string
    * @returns formatted time zone name in the current locale with short and long
    * labels, e.g. `"GMT+7 (Western Indonesia Time)"`
@@ -49,7 +58,13 @@ export class LocaleController extends Controller<HTMLSelectElement> {
       if (!timeZone) return;
       const localized = LocaleController.getTZLabel(timeZone);
       const option = opt;
-      option.textContent = `${option.textContent}: ${localized}`;
+      // Translators: An item in the time zone selection dropdown, e.g. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require a space before the colon.
+      const template = gettext(
+        '%(time_zone_option)s: %(localized_time_zone_label)s',
+      );
+      option.textContent = template
+        .replace('%(time_zone_option)s', option.textContent ?? '')
+        .replace('%(localized_time_zone_label)s', localized);
     });
   }
 }

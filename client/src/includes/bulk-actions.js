@@ -12,17 +12,13 @@ const BULK_ACTION_NUM_OBJECTS_IN_LISTING =
   '[data-bulk-action-num-objects-in-listing]';
 
 /**
- * Get the bulk action item type from the DOM element, allowing the deprecated global to override until
- * this is fully removed in a future release.
+ * Get the bulk action item type from the DOM element.
  * This is used to determine the strings to display in the bulk action footer.
  * @type {string}
  */
-const BULK_ACTION_ITEM_TYPE =
-  /** @deprecated RemovedInWagtail70 - Use `data-bulk-action-footer="..."` instead of window.wagtailConfig.* */
-  (wagtailConfig || {}).BULK_ACTION_ITEM_TYPE ||
-  document
-    .querySelector(BULK_ACTION_FOOTER)
-    .getAttribute('data-bulk-action-footer');
+const BULK_ACTION_ITEM_TYPE = document
+  .querySelector(BULK_ACTION_FOOTER)
+  .getAttribute('data-bulk-action-footer');
 let checkedState = {};
 
 /**
@@ -40,12 +36,11 @@ function getStringForListing(key) {
  */
 function onSelectAllChange(e) {
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
-    el.checked = e.target.checked; // eslint-disable-line no-param-reassign
+    el.checked = e.target.checked;
   });
   const changeEvent = new Event('change');
   document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
     if (el.checked !== e.target.checked) {
-      // eslint-disable-next-line no-param-reassign
       el.checked = e.target.checked;
       if (e.target.checked) {
         el.dispatchEvent(changeEvent);
@@ -109,7 +104,7 @@ function onSelectIndividualCheckbox(e) {
   } else {
     /* unchecks `Select all` checkbox as soon as one page is unchecked */
     document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
-      el.checked = false; // eslint-disable-line no-param-reassign
+      el.checked = false;
     });
     checkedState.checkedObjects.delete(e.target.dataset.objectId);
   }
@@ -131,7 +126,7 @@ function onSelectIndividualCheckbox(e) {
   if (numCheckedObjects === checkedState.numObjects) {
     /* when all checkboxes in the page are checked */
     document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
-      el.checked = true; // eslint-disable-line no-param-reassign
+      el.checked = true;
     });
     if (checkedState.shouldShowAllInListingText) {
       document
@@ -186,9 +181,15 @@ function onClickSelectAllInListing(e) {
  */
 function onClickActionButton(e) {
   e.preventDefault();
-  const url = e.target.getAttribute('href');
-  const urlParams = new URLSearchParams(window.location.search);
+  const currentURL = new URL(window.location.href);
+  const actionURL = new URL(e.target.getAttribute('href'), currentURL);
+
+  // Construct URL parameters for the action view
+  let urlParams;
   if (checkedState.selectAllInListing) {
+    // Preserve query parameters so the server can reconstruct the results
+    // when performing the action on all items in the current listing
+    urlParams = new URLSearchParams(currentURL.searchParams);
     urlParams.append('id', 'all');
     const parentElement = document.querySelector(BULK_ACTIONS_CHECKBOX_PARENT);
     if (parentElement) {
@@ -196,11 +197,22 @@ function onClickActionButton(e) {
       urlParams.append('childOf', parentPageId);
     }
   } else {
+    // No need to preserve existing query parameters as we're sending specific ids
+    urlParams = new URLSearchParams();
     checkedState.checkedObjects.forEach((objectId) => {
       urlParams.append('id', objectId);
     });
   }
-  window.location.href = `${url}&${urlParams.toString()}`;
+
+  // Use existing 'next' parameter if exists, otherwise use the current URL with
+  // query parameters to preserve any filters/search applied when redirecting back
+  const next =
+    currentURL.searchParams.get('next') ||
+    currentURL.pathname + currentURL.search;
+  urlParams.append('next', next);
+
+  actionURL.search = urlParams.toString();
+  window.location.href = actionURL.toString();
 }
 
 /**
@@ -248,10 +260,14 @@ function addBulkActionListeners() {
   });
 }
 
+/**
+ * Rebinds event listeners for bulk actions.
+ * This is useful when the page content changes dynamically, such as after an AJAX request.
+ */
 function rebindBulkActionsEventListeners() {
   // when deselecting all checkbox, simply hide the footer for smooth transition
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
-    el.checked = false; // eslint-disable-line no-param-reassign
+    el.checked = false;
   });
   document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {

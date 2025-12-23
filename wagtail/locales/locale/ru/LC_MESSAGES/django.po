@@ -7,15 +7,16 @@
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
 # sergeybe <sergeybe@gmail.com>, 2020
 # Loic Teixeira, 2022
+# Twixxik, 2025
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,6 +50,14 @@ msgid ""
 msgstr ""
 "Текущий код языка локали не поддерживается. Пожалуйста выберите новый язык "
 "или удалите эту локаль."
+
+#, python-format
+msgid "%(num_pages)d page"
+msgid_plural "%(num_pages)d pages"
+msgstr[0] "%(num_pages)d страница "
+msgstr[1] "%(num_pages)d страницы"
+msgstr[2] "%(num_pages)d страниц"
+msgstr[3] "%(num_pages)d страниц"
 
 msgid "Locales"
 msgstr "Локали"

@@ -40,9 +40,12 @@ class CustomRendition(AbstractRendition):
     image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
 
     class Meta:
-        unique_together = (
-            ('image', 'filter_spec', 'focal_point_key'),
-        )
+       constraints = [
+            models.UniqueConstraint(
+                fields=("image", "filter_spec", "focal_point_key"),
+                name="unique_rendition",
+            )
+        ]
 ```
 
 Then set the `WAGTAILIMAGES_IMAGE_MODEL` setting to point to it:

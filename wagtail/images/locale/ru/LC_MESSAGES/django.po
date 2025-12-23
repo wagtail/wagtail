@@ -3,9 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
+# Andrei Satsevich, 2023-2024
 # Andrei Satsevich, 2023
 # Andrei Satsevich, 2024
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
@@ -20,6 +23,7 @@
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
+# Twixxik, 2025
 # Влад <integration.into.society@gmail.com>, 2022
 # Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
@@ -31,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Andrei Satsevich, 2024\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -275,14 +279,6 @@ msgstr[1] "Вы уверены, что хотите удалить эти изо
 msgstr[2] "Вы уверены, что хотите удалить эти изображения?"
 msgstr[3] "Вы уверены, что хотите удалить эти изображения?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Использовано %(usage_count)sраз"
-msgstr[1] "Использовано %(usage_count)s раз"
-msgstr[2] "Использовано %(usage_count)s раз"
-msgstr[3] "Использовано%(usage_count)s раз"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "У вас недостаточно прав для удаления этого изображения"
@@ -333,11 +329,13 @@ msgid "You haven't uploaded any images."
 msgstr "Вы не загрузили ни одного изображения."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"Почему бы не <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>загрузить один сейчас</a>?"
+"Почему бы не <a class=\"upload-one-now\" href=\"#tab-upload\" data-"
+"action=\"w-tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-"
+"focus-param=\"true\">загрузить один сейчас</a>?"
 
 msgid "Choose a format"
 msgstr "Выберите формат"
@@ -417,6 +415,14 @@ msgstr "Файл не найден"
 
 msgid "Usage"
 msgstr "Использование"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использовано %(usage_count)sраз"
+msgstr[1] "Использовано %(usage_count)s раз"
+msgstr[2] "Использовано %(usage_count)s раз"
+msgstr[3] "Использовано%(usage_count)s раз"
 
 msgid "Sort by"
 msgstr "Сортировать по"
@@ -565,6 +571,12 @@ msgstr[1] "%(num_parent_objects)d изображений было удалено
 msgstr[2] "%(num_parent_objects)d изображений было удалено"
 msgstr[3] "%(num_parent_objects)d  изображений было удалено"
 
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Created"
+msgstr "Создан"
+
 msgid "Choose an image"
 msgstr "Выберите изображение"
 
@@ -591,6 +603,12 @@ msgstr "Размер файла: (от меньшего к большему)"
 
 msgid "File size: (high to low)"
 msgstr "Размер файла: (от большого к меньшему)"
+
+msgid "Usage count: (low to high)"
+msgstr "Количество использований: (по возрастанию)"
+
+msgid "Usage count: (high to low)"
+msgstr "Количество использований: (по убыванию)"
 
 msgid "Images"
 msgstr "Изображения"

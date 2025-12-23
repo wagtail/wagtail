@@ -1,7 +1,10 @@
+import uuid
+
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext
 
 from wagtail.admin.views.generic.preview import PreviewOnEdit as GenericPreviewOnEdit
 from wagtail.models import Page
@@ -15,8 +18,8 @@ def view_draft(request, page_id):
 
     try:
         preview_mode = request.GET.get("mode", page.default_preview_mode)
-    except IndexError:
-        raise PermissionDenied
+    except IndexError as e:
+        raise PermissionDenied from e
 
     return page.make_preview_request(request, preview_mode)
 
@@ -42,6 +45,16 @@ class PreviewOnEdit(GenericPreviewOnEdit):
                 parent_page=parent_page,
                 for_user=self.request.user,
             )
+
+        query_dict = query_dict.copy()
+
+        if not query_dict.get("title"):
+            query_dict["title"] = gettext("Placeholder title")
+
+        # Generate a random slug if one is not provided, use UUID to ensure
+        # uniqueness without needing to hit the database
+        if not query_dict.get("slug"):
+            query_dict["slug"] = str(uuid.uuid4())
 
         return form_class(
             query_dict,
@@ -69,8 +82,8 @@ class PreviewOnCreate(PreviewOnEdit):
             content_type = ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name
             )
-        except ContentType.DoesNotExist:
-            raise Http404
+        except ContentType.DoesNotExist as e:
+            raise Http404 from e
 
         page = content_type.model_class()()
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
@@ -95,9 +108,9 @@ class PreviewOnCreate(PreviewOnEdit):
 
     def get_form(self, query_dict):
         form = super().get_form(query_dict)
-        if form.is_valid():
+        if self.validate_form(form):
             # Ensures our unsaved page has a suitable url.
             form.instance.set_url_path(form.parent_page)
 
-            form.instance.full_clean()
+            form.instance.minimal_clean()
         return form

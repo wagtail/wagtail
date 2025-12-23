@@ -10,9 +10,9 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import register
+from wagtail.admin.telepath.widgets import WidgetAdapter
 from wagtail.blocks import FieldBlock
-from wagtail.telepath import register
-from wagtail.widget_adapters import WidgetAdapter
 
 DEFAULT_TABLE_OPTIONS = {
     "minSpareRows": 0,
@@ -89,6 +89,7 @@ class TableInputAdapter(WidgetAdapter):
                 "A heading that identifies the overall topic of the table, and is useful for screen reader users."
             ),
             "Table": _("Table"),
+            "Select a header option": _("Select a header option"),
         }
 
         return [

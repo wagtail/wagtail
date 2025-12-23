@@ -3,6 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# Axel H., 2016
 # Axel Haustant, 2016
 # Axel H., 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
@@ -13,13 +15,14 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -114,9 +117,6 @@ msgstr "règle de redirection"
 msgid "redirects"
 msgstr "règles de redirection"
 
-msgid "Add redirect"
-msgstr "Ajouter une règle de redirection"
-
 msgid "Redirects"
 msgstr "Règles de Redirection"
 
@@ -143,14 +143,8 @@ msgstr "Importer"
 msgid "Delete redirect %(title)s"
 msgstr "Supprimer la règle de redirection %(title)s"
 
-msgid "Delete"
-msgstr "Supprimer"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cette règle de redirection ?"
-
-msgid "Yes, delete"
-msgstr "Oui, supprimer"
 
 msgid "Confirm import"
 msgstr "Confirmer l'import"
@@ -200,6 +194,9 @@ msgstr ""
 "Aucune règle de redirection n'a été créée. Pourquoi ne pas <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
 
+msgid "Add redirect"
+msgstr "Ajouter une règle de redirection"
+
 msgid "Site"
 msgstr "Site"
 
@@ -214,30 +211,27 @@ msgstr "Règle de Redirection « %(redirect_title)s » mise à jour."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Règle de Redirection « %(redirect_title)s » supprimée."
 
+msgid "The redirect could not be created due to errors."
+msgstr "La règle de redirection ne peut être créée du fait d'erreurs."
+
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Règle de Redirection « %(redirect_title)s » ajoutée."
-
-msgid "Edit"
-msgstr "Modifier"
-
-msgid "The redirect could not be created due to errors."
-msgstr "La règle de redirection ne peut être créée du fait d'erreurs."
 
 msgid "Search redirects"
 msgstr "Rechercher une règle de redirection"
 
 #, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "Le format de fichier « %(extension)s » n'est pas supporté"
+msgid "File format of type \"%(extension)s\" is not supported."
+msgstr "Le format de fichier \"%(extension)s\" n'est pas supporté."
 
 #, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "L'encodage du fichier importé est incorrect : %(error_message)s"
+msgid "Imported file has a wrong encoding: %(error_message)s."
+msgstr "L'encodage du fichier importé est incorrect : %(error_message)s."
 
 #, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s erreurs lors de la lecture du fichier : %(filename)s"
+msgid "%(error)s encountered while trying to read file: %(filename)s."
+msgstr "%(error)s erreurs lors de la lecture du fichier : %(filename)s."
 
 #, python-format
 msgid "Imported %(total)d redirect"

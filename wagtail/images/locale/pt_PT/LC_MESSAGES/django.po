@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -232,13 +232,6 @@ msgstr[0] "Tem a certeza que quer apagar esta imagem?"
 msgstr[1] "Tem a certeza que quer apagar estas imagens?"
 msgstr[2] "Tem a certeza que quer apagar estas imagens?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Utilizado %(usage_count)s vez"
-msgstr[1] "Utilizado %(usage_count)s vezes"
-msgstr[2] "Utilizado %(usage_count)s vezes"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Não tem permissão para apagar esta imagem"
@@ -318,6 +311,13 @@ msgstr "Ficheiro não encontrado"
 
 msgid "Usage"
 msgstr "Utilização"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilizado %(usage_count)s vez"
+msgstr[1] "Utilizado %(usage_count)s vezes"
+msgstr[2] "Utilizado %(usage_count)s vezes"
 
 msgid "Select all images in listing"
 msgstr "Selecionar todas as imagens da listagem"
@@ -431,6 +431,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)dimagem foi apagada"
 msgstr[1] "%(num_parent_objects)dimagens foram apagadas"
 msgstr[2] "%(num_parent_objects)dimagens foram apagadas"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Created"
+msgstr "Criada"
 
 msgid "Choose an image"
 msgstr "Escolher uma imagem"

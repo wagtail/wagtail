@@ -1,5 +1,6 @@
 import os
 
+import django_filters
 from django import forms
 from django.http import HttpResponse
 from django.utils.safestring import mark_safe
@@ -44,6 +45,7 @@ from wagtail.test.testapp.views import (
     ToyViewSetGroup,
     animated_advert_chooser_viewset,
     event_page_listing_viewset,
+    opera_viewset,
 )
 
 from .forms import FavouriteColourForm
@@ -262,6 +264,11 @@ def register_toy_viewset():
 
 
 class FullFeaturedSnippetFilterSet(WagtailFilterSet):
+    some_number = django_filters.RangeFilter(
+        field_name="some_number",
+        label="Number range",
+    )
+
     class Meta:
         model = FullFeaturedSnippet
         fields = ["country_code", "some_date"]
@@ -434,6 +441,11 @@ def register_animated_advert_chooser_viewset():
 @hooks.register("register_admin_viewset")
 def register_event_page_listing_viewset():
     return event_page_listing_viewset
+
+
+@hooks.register("register_admin_viewset")
+def register_opera_viewset():
+    return opera_viewset
 
 
 @hooks.register("get_avatar_url")

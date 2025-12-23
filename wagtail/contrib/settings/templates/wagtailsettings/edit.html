@@ -9,5 +9,11 @@
             </label>
             {{ site_switcher.site }}
         </form>
+    {% elif site_for_header %}
+        <div class="w-mb-8">
+            {% trans "Site" %}:
+            {{ site_for_header.hostname }}
+            {% if site_for_header.is_default_site %}[{% trans "default" %}]{% endif %}
+        </div>
     {% endif %}
 {% endblock %}

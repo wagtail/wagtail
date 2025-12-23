@@ -798,3 +798,124 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check if slug is hello-world-2
         self.assertContains(response, "copy-form-2")
+
+    def test_copy_page_success_msg_contains_edit_button(self):
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "publish_copies": False,
+            "alias": False,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)),
+            post_data,
+            follow=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+
+        # Get copy
+        page_copy = self.root_page.get_children().filter(slug="hello-world-2").first()
+        self.assertIsNotNone(page_copy)
+
+        # Check the "Edit" button present in success message
+        soup = self.get_soup(response.content)
+        edit_button = soup.select_one(".messages .success a.button")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(
+            edit_button["href"],
+            reverse("wagtailadmin_pages:edit", args=(page_copy.id,)),
+        )
+        self.assertEqual("Edit", edit_button.text)
+
+    def test_copy_page_success_msg_contains_edit_button_subpages(self):
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": True,
+            "publish_copies": False,
+            "alias": False,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)),
+            post_data,
+            follow=True,
+        )
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+
+        # Get copy
+        page_copy = self.root_page.get_children().filter(slug="hello-world-2").first()
+        self.assertIsNotNone(page_copy)
+
+        # Check the "Edit" button present in success message
+        soup = self.get_soup(response.content)
+        edit_button = soup.select_one(".messages .success a.button")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(
+            edit_button["href"],
+            reverse("wagtailadmin_pages:edit", args=(page_copy.id,)),
+        )
+        self.assertEqual("Edit", edit_button.text)
+
+    def test_page_copy_form_widgets(self):
+        """
+        For widget rendering, we want to validate that the locale gets passed to the slug
+        and that the title is NOT syncing with the slug as this is NOT required on copy form.
+        """
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,))
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the form has the correct widgets
+        self.assertContains(response, "id_new_title")
+        self.assertContains(response, "id_new_slug")
+
+        soup = self.get_soup(response.content)
+
+        # Check the attributes on the slug field (locale available & slugify used on blue)
+        slug_field = soup.find("input", id="id_new_slug")
+        self.assertEqual(
+            slug_field.attrs,
+            {
+                "type": "text",
+                "name": "new_slug",
+                "value": "hello-world",
+                "data-controller": "w-slug",
+                "data-action": "blur->w-slug#slugify w-sync:check->w-slug#compare w-sync:apply->w-slug#urlify:prevent",
+                "data-w-slug-allow-unicode-value": "",
+                "data-w-slug-compare-as-param": "urlify",
+                "data-w-slug-trim-value": "true",
+                "data-w-slug-locale-value": "en",
+                "required": "",
+                "id": "id_new_slug",
+            },
+        )
+
+        # Check the attributes on the title field (no syncing)
+        title_field = soup.find("input", id="id_new_title")
+        self.assertEqual(
+            title_field.attrs,
+            {
+                "type": "text",
+                "name": "new_title",
+                "value": "Hello world!",
+                "required": "",
+                "id": "id_new_title",
+            },
+        )

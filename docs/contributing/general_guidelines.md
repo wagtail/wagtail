@@ -1,8 +1,39 @@
 # General coding guidelines
 
+## Use of generative AI
+
+We recognize generative AI can be a useful tool for contributors, but like any tool should be used with critical thinking and good judgement when creating issues and pull requests.
+
+Any AI-generated code that you submit must be reviewed and tested by you. You are expected to understand the code, and take final accountability for it.
+
+We ask that if you use generative AI for your contribution, you include a disclaimer, for example:
+
+> _"This pull request includes code written with the assistance of AI. This code was reviewed and verified by me."_
+
+### Acceptable uses
+
+-  Gaining understanding of the existing Wagtail code
+-  Assistance with written English for code comments, documentation and pull request descriptions
+-  Supplementing contributor knowledge for code, tests, and documentation
+
+### Unacceptable uses
+
+- Entire work (code changes, documentation update, pull request descriptions) are LLM-generated without there being a clear understanding of the solution implementation from the contributor.
+- Responding to questions asked during code review by pasting those questions into an LLM
+
+We will close those pull requests and issues that are unproductive, so we can focus our limited maintainer capacity elsewhere.
+
 ## Language
 
-British English is preferred for user-facing text; this text should also be marked for translation (using the `django.utils.translation.gettext` function and `{% translate %}` template tag, for example). However, identifiers within code should use American English if the British or international spelling would conflict with built-in language keywords; for example, CSS code should consistently use the spelling `color` to avoid inconsistencies like `background-color: $colour-red`. American English is also the preferred spelling style when writing documentation. Learn more about our documentation writing style in [](writing_style_guide).
+British English is preferred for user-facing text; this text should also be marked for translation (using the `django.utils.translation.gettext` function and `{% translate %}` template tag, for example).
+
+User-facing errors or field validation should use a well-formed sentence with a period (full stop) at the end.
+
+However, identifiers within code should use American English if the British or international spelling would conflict with built-in language keywords; for example, CSS code should consistently use the spelling `color` to avoid inconsistencies like `background-color: $colour-red`. American English is also the preferred spelling style when writing documentation.
+
+Learn more about our documentation writing style in [](writing_style_guide).
+
+Learn more about how to make content suitable for translations in [](contributing_translations).
 
 ## File names
 

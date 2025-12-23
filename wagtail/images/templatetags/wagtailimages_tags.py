@@ -7,7 +7,6 @@ from wagtail.images.shortcuts import (
     get_rendition_or_not_found,
     get_renditions_or_not_found,
 )
-from wagtail.images.utils import to_svg_safe_spec
 from wagtail.images.views.serve import generate_image_url
 
 register = template.Library()
@@ -30,7 +29,6 @@ def image(parser, token):
     error_messages = []
 
     multi_rendition = tag_name != "image"
-    preserve_svg = False
 
     for bit in bits:
         if bit == "as":
@@ -42,15 +40,13 @@ def image(parser, token):
             else:
                 # more than one item exists after 'as' - reject as invalid
                 error_messages.append("More than one variable name after 'as'")
-        elif bit == "preserve-svg":
-            preserve_svg = True
         else:
             try:
                 name, value = bit.split("=")
                 attrs[name] = parser.compile_filter(
                     value
                 )  # setup to resolve context variables as value
-            except ValueError:
+            except ValueError as e:
                 allowed_pattern = (
                     Filter.expanding_spec_pattern
                     if multi_rendition
@@ -62,7 +58,7 @@ def image(parser, token):
                     raise template.TemplateSyntaxError(
                         "filter specs in image tags may only contain A-Z, a-z, 0-9, dots, hyphens and underscores (and commas and curly braces for multi-image tags). "
                         "(given filter: {})".format(bit)
-                    )
+                    ) from e
 
     if as_context and output_var_name is None:
         # context was introduced but no variable given ...
@@ -87,7 +83,6 @@ def image(parser, token):
             filter_specs,
             attrs=attrs,
             output_var_name=output_var_name,
-            preserve_svg=preserve_svg,
         )
     else:
         errors = "; ".join(error_messages)
@@ -109,18 +104,14 @@ class ImageNode(template.Node):
         image_expr,
         filter_specs,
         output_var_name=None,
-        attrs={},
-        preserve_svg=False,
+        attrs=None,
     ):
         self.image_expr = image_expr
         self.output_var_name = output_var_name
-        self.attrs = attrs
+        self.attrs = attrs or {}
         self.filter_specs = filter_specs
-        self.preserve_svg = preserve_svg
 
-    def get_filter(self, preserve_svg=False):
-        if preserve_svg:
-            return Filter(to_svg_safe_spec(self.filter_specs))
+    def get_filter(self):
         return Filter(spec="|".join(self.filter_specs))
 
     def validate_image(self, context):
@@ -149,7 +140,7 @@ class ImageNode(template.Node):
 
         rendition = get_rendition_or_not_found(
             image,
-            self.get_filter(preserve_svg=self.preserve_svg and image.is_svg()),
+            self.get_filter(),
         )
 
         if self.output_var_name:
@@ -165,10 +156,8 @@ class ImageNode(template.Node):
 
 
 class SrcsetImageNode(ImageNode):
-    def get_filters(self, preserve_svg=False):
+    def get_filters(self):
         filter_specs = Filter.expand_spec(self.filter_specs)
-        if preserve_svg:
-            return [Filter(to_svg_safe_spec(f)) for f in filter_specs]
         return [Filter(spec=f) for f in filter_specs]
 
     def render(self, context):
@@ -177,7 +166,7 @@ class SrcsetImageNode(ImageNode):
         if not image:
             return ""
 
-        specs = self.get_filters(preserve_svg=self.preserve_svg and image.is_svg())
+        specs = self.get_filters()
         renditions = get_renditions_or_not_found(image, specs)
 
         if self.output_var_name:
@@ -202,7 +191,7 @@ class PictureNode(SrcsetImageNode):
 
         renditions = get_renditions_or_not_found(
             image,
-            self.get_filters(preserve_svg=self.preserve_svg and image.is_svg()),
+            self.get_filters(),
         )
 
         if self.output_var_name:
@@ -222,10 +211,10 @@ class PictureNode(SrcsetImageNode):
 def image_url(image, filter_spec, viewname="wagtailimages_serve"):
     try:
         return generate_image_url(image, filter_spec, viewname)
-    except NoReverseMatch:
+    except NoReverseMatch as e:
         raise ImproperlyConfigured(
             "'image_url' tag requires the "
             + viewname
             + " view to be configured. Please see "
             "https://docs.wagtail.org/en/stable/advanced_topics/images/image_serve_view.html#setup for instructions."
-        )
+        ) from e

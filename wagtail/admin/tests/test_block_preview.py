@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
+from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
 from wagtail.test.utils import WagtailTestUtils
@@ -24,6 +25,7 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
             description="A single line of text",
             preview_value="Hello, world!",
         )
+        block.set_name("single_line_text")
         response = self.get(block)
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
@@ -44,6 +46,9 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         main = soup.select_one("main")
         self.assertIsNotNone(main)
         self.assertEqual(main.text.strip(), "Hello, world!")
+
+        wrapper = main.select_one("div.block-single_line_text")
+        self.assertIsNotNone(wrapper)
 
     def test_nonexisting_block(self):
         response = self.client.get(reverse("wagtailadmin_block_preview"))
@@ -92,13 +97,22 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         self.assertEqual(main.text.strip(), "None")
 
     def test_preview_value_falls_back_to_default(self):
-        block = blocks.IntegerBlock(default=42)
-        response = self.get(block)
-        self.assertEqual(response.status_code, 200)
-        soup = self.get_soup(response.content)
-        main = soup.select_one("main")
-        self.assertIsNotNone(main)
-        self.assertEqual(main.text.strip(), "42")
+        def callable_default():
+            return 42
+
+        cases = [
+            ("static", blocks.IntegerBlock(default=42)),
+            ("callable", blocks.IntegerBlock(default=callable_default)),
+        ]
+
+        for via, block in cases:
+            with self.subTest(via=via):
+                response = self.get(block)
+                self.assertEqual(response.status_code, 200)
+                soup = self.get_soup(response.content)
+                main = soup.select_one("main")
+                self.assertIsNotNone(main)
+                self.assertEqual(main.text.strip(), "42")
 
     def test_preview_template(self):
         class PreviewTemplateViaMeta(blocks.Block):
@@ -138,6 +152,10 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
                 self.assertEqual(custom_js["src"], "/static/js/custom.js")
 
     def test_preview_value(self):
+        @staticmethod
+        def preview_callable():
+            return "Hello, world!"
+
         class PreviewValueViaMeta(blocks.Block):
             class Meta:
                 preview_value = "Hello, world!"
@@ -146,10 +164,20 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
             def get_preview_value(self):
                 return "Hello, world!"
 
+        class PreviewValueViaCallableMeta(blocks.Block):
+            class Meta:
+                preview_value = preview_callable
+
         cases = [
             ("meta", PreviewValueViaMeta()),
             ("method", PreviewValueViaMethod()),
+            ("meta_callable", PreviewValueViaCallableMeta()),
             ("kwarg", blocks.Block(preview_value="Hello, world!")),
+            ("localized", blocks.Block(preview_value=_("Hello, world!"))),
+            (
+                "localized_rich_text",
+                blocks.RichTextBlock(preview_value=_("<p>Hello, world!</p>")),
+            ),
         ]
 
         for via, block in cases:

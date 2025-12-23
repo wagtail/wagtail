@@ -4,13 +4,13 @@
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Thijs Kramer <thijskramer@gmail.com>, 2023
-# Loic Teixeira, 2024
-# Storm Heg <storm@stormbase.digital>, 2024
+# Thijs Kramer <thijskramer@gmail.com>, 2025
+# Loic Teixeira, 2025
+# Storm Heg <storm@stormbase.digital>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2024\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -39,6 +39,15 @@ msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixels"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "Actions"
+msgstr "Acties"
 
 msgid "Add a comment"
 msgstr "Voeg opmerking toe"
@@ -69,6 +78,10 @@ msgstr "Alles samenvouwen"
 
 msgid "Comment"
 msgstr "Opmerking"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Moeilijk"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -103,8 +116,15 @@ msgstr "Fout tijdens het versturen van voorvertoning-data"
 msgid "Expand all"
 msgstr "Alles uitvouwen"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Redelijk"
+
 msgid "Focus comment"
 msgstr "Focus opmerking"
+
+msgid "Good"
+msgstr "Goed"
 
 msgid "Horizontal line"
 msgstr "Horizontale lijn"
@@ -127,6 +147,9 @@ msgstr "Ontbrekend document"
 msgid "More actions"
 msgstr "Meer acties"
 
+msgid "No"
+msgstr "Nee"
+
 msgid "No results"
 msgstr "Geen resultaten"
 
@@ -141,6 +164,9 @@ msgstr "Pagina's"
 
 msgid "Pin toolbar"
 msgstr "Toolbar vastzetten"
+
+msgid "Preview"
+msgstr "Voorvertoning"
 
 msgid "Reload saved content"
 msgstr "Herlaad opgeslagen inhoud"
@@ -216,6 +242,9 @@ msgstr "Het minimale aantal items is %(min_num)d"
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
 
+msgid "Toggle section"
+msgstr "Toon/verberg sectie"
+
 msgid "Toggle side panel"
 msgstr "Toon/verberg zijbalk"
 
@@ -233,3 +262,6 @@ msgstr "Toon onderliggende pagina's van '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Schrijf iets of typ ‘/’ om een nieuw blok in te voegen"
+
+msgid "Yes"
+msgstr "Ja"

@@ -1,4 +1,7 @@
 // stylelint-disable selector-attribute-name-disallowed-list
+@use '../tools' as *;
+@use '../settings' as *;
+
 $separator: 1px solid theme('colors.white-15');
 $radius: theme('borderRadius.sm');
 

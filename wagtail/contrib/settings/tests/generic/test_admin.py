@@ -1,4 +1,5 @@
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
+from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.text import capfirst
@@ -60,11 +61,11 @@ class TestGenericSettingMenu(WagtailTestUtils, TestCase):
 
 
 class BaseTestGenericSettingView(WagtailTestUtils, TestCase):
-    def get(self, params={}, setting=TestGenericSetting):
+    def get(self, params=None, setting=TestGenericSetting):
         url = self.edit_url(setting=setting)
         return self.client.get(url, params)
 
-    def post(self, post_data={}, setting=TestGenericSetting):
+    def post(self, post_data=None, setting=TestGenericSetting):
         url = self.edit_url(setting=setting)
         return self.client.post(url, post_data)
 
@@ -210,6 +211,64 @@ class TestGenericSettingCreateView(BaseTestGenericSettingView):
         settings = TestPermissionedGenericSetting.objects.get()
         self.assertEqual(settings.title, "test")
         self.assertEqual(settings.sensitive_email, "test@example.com")
+
+    def test_before_edit_setting_hook_get(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.title, "")
+            self.assertEqual(instance.email, "")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_edit_setting", hook_func):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_edit_setting_hook_post(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.title, "")
+            self.assertEqual(instance.email, "")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_edit_setting", hook_func):
+            response = self.post(
+                post_data={
+                    "title": "Setting title",
+                    "email": "email@example.com",
+                }
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was updated
+        self.assertEqual(TestGenericSetting.load().title, "")
+        self.assertEqual(TestGenericSetting.load().email, "")
+
+    def test_after_edit_setting_hook(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsNotNone(instance.pk)
+            self.assertEqual(instance.title, "Setting title")
+            self.assertEqual(instance.email, "email@example.com")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("after_edit_setting", hook_func):
+            response = self.post(
+                post_data={
+                    "title": "Setting title",
+                    "email": "email@example.com",
+                }
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was updated
+        self.assertEqual(TestGenericSetting.load().title, "Setting title")
+        self.assertEqual(TestGenericSetting.load().email, "email@example.com")
 
 
 class TestGenericSettingEditView(BaseTestGenericSettingView):
@@ -374,6 +433,63 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
         self.assertEqual(test_setting.sensitive_email, "test@example.com")
         self.assertEqual(test_setting.title, "Old title")
 
+    def test_before_edit_setting_hook_get(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.title, "Setting title")
+            self.assertEqual(instance.email, "")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_edit_setting", hook_func):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_edit_setting_hook_post(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.title, "Setting title")
+            self.assertEqual(instance.email, "")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_edit_setting", hook_func):
+            response = self.post(
+                post_data={
+                    "title": "Edited setting title",
+                    "email": "different.email@example.com",
+                }
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was updated
+        self.assertEqual(TestGenericSetting.load().title, "Setting title")
+        self.assertEqual(TestGenericSetting.load().email, "")
+
+    def test_after_edit_setting_hook(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.title, "Edited setting title")
+            self.assertEqual(instance.email, "different.email@example.com")
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("after_edit_setting", hook_func):
+            response = self.post(
+                post_data={
+                    "title": "Edited setting title",
+                    "email": "different.email@example.com",
+                }
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was updated
+        self.assertEqual(TestGenericSetting.load().title, "Edited setting title")
+        self.assertEqual(TestGenericSetting.load().email, "different.email@example.com")
+
 
 class TestAdminPermission(WagtailTestUtils, TestCase):
     def test_registered_permission(self):
@@ -416,3 +532,17 @@ class TestEditHandlers(TestCase):
         handler = get_setting_edit_handler(TabbedGenericSettings)
         self.assertIsInstance(handler, TabbedInterface)
         self.assertEqual(len(handler.children), 2)
+
+
+class TestPermissionConfiguration(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+        self.group = Group.objects.get(name="Editors")
+
+    def test_get_permissions(self):
+        # Generic settings should not get their own section in the group permissions UI
+        response = self.client.get(
+            reverse("wagtailusers_groups:edit", args=(self.group.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Test generic setting permissions")

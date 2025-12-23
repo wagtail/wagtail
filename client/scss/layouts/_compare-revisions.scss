@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 $color-addition-dark: var(--color-addition-dark);
 $color-addition-light: var(--color-addition-light);
 $color-deletion-dark: var(--color-deletion-dark);

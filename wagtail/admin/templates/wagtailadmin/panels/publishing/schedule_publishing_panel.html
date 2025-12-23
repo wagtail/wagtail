@@ -8,7 +8,7 @@
     {% page_permissions instance as page_perms %}
     {% trans 'Choose when this page should go live and/or expire' as schedule_publishing_dialog_subtitle %}
     {% if page_perms.can_publish %}
-        {% trans 'This publishing schedule will only take effect after you select the "Publish" option' as message_heading %}
+        {% trans 'This publishing schedule will only take effect after you select the "Schedule to publish" option' as message_heading %}
     {% else %}
         {% trans "Anyone with editing permissions can create schedules" as message_heading %}
         {% trans "But only those with publishing permissions can make them effective." as message_description %}

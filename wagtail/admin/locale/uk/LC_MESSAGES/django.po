@@ -6,6 +6,7 @@
 # Anastasiia La, 2021
 # Anastasiia La, 2021
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
@@ -18,10 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
-"2020,2022-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -71,9 +71,6 @@ msgstr "Адміністрування Wagtail "
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Вибачте, ви не маєте дозволів для доступу у цей розділ."
-
-msgid "You do not have permission to access the admin"
-msgstr "У Вас не вистачає прав для доступу до адмінпанелі"
 
 msgid "None"
 msgstr "Нічого"
@@ -152,9 +149,6 @@ msgstr ""
 "Виберіть положення в ієрархії. Примітка: колекція не може стати дочірнім "
 "елементом самої себе або одного зі своїх нащадків."
 
-msgid "Please select another parent"
-msgstr "Будь ласка, виберіть іншого предка"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
@@ -182,9 +176,6 @@ msgstr "Ви не можете проредагувати коментар ін�
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Дата/час наживо має знаходитись перед датою/часом закінчення"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Дата/час закінчення має бути у майбутньому"
 
 msgid "New title"
 msgstr "Новий заголовок"
@@ -292,8 +283,8 @@ msgstr "Дайте назву робочому процесу"
 msgid "Add tasks to your workflow"
 msgstr "Додати завдання до робочого процесу"
 
-msgid "Task"
-msgstr "Завдання"
+msgid "task"
+msgstr "завдання"
 
 msgid "1 page selected"
 msgstr "Обрано 1 сторінку"
@@ -367,12 +358,6 @@ msgstr "Обрано всі %(objects)s об'єктів на цьому екра
 
 msgid "All items in listing selected"
 msgstr "Обрано всі об'єкти у списку"
-
-msgid "For search engines"
-msgstr "Для пошукових систем"
-
-msgid "For site menus"
-msgstr "Для меню сайту"
 
 msgid "Content"
 msgstr "Контент"
@@ -542,9 +527,6 @@ msgstr "Батьківська колекція зробила цю колекц
 msgid "You can edit the privacy settings on:"
 msgstr "Ви можете редагувати налаштування приватності для:"
 
-msgid "Save"
-msgstr "Зберегти"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -593,10 +575,6 @@ msgid "No, don't delete"
 msgstr "Ні, не видаляти"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Зняти з публікації %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Ви впевнені, що хочете зняти з публікації цей %(model_name)s?"
 
@@ -617,6 +595,8 @@ msgstr "Ви все ще хочете опублікувати цю %(model_name
 msgid "Cancel"
 msgstr "Скасувати"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Дії"
 
@@ -635,13 +615,6 @@ msgid ""
 msgstr ""
 "Попередній перегляд неможливий через помилки валідації. <br /> Натисніть "
 "зберегти щоб підсвітити відповідні поля"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Порівняння %(title)s"
-
-msgid "Comparing"
-msgstr "Порівняння"
 
 msgid "Fields"
 msgstr "Поля"
@@ -711,6 +684,12 @@ msgstr "Дата"
 msgid "Site summary"
 msgstr "Резюме сайту"
 
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Task"
+msgstr "Завдання"
+
 msgid "Task started"
 msgstr "Завдання запущене"
 
@@ -719,9 +698,6 @@ msgstr "Вимагаються зміни"
 
 msgid "Awaiting"
 msgstr "В очікуванні"
-
-msgid "Close"
-msgstr "Закрити"
 
 msgid "Awaiting your review"
 msgstr "В очікуванні огляду"
@@ -1150,18 +1126,6 @@ msgstr "Переглянути дочірні сторінки для '%(title)s
 msgid "Add a child page to '%(title)s'"
 msgstr "Додати дочірню сторінку для'%(title)s'"
 
-msgid "Drag"
-msgstr "Перетягнути"
-
-msgid "Disable ordering of child pages"
-msgstr "Вимкнути впорядковування дочірніх сторінок"
-
-msgid "Sort"
-msgstr "Сортувати"
-
-msgid "Enable ordering of child pages"
-msgstr "Увімкнути впорядковування дочірніх сторінок"
-
 msgid "Search the whole site"
 msgstr "Шукати по всьому сайту"
 
@@ -1210,15 +1174,11 @@ msgstr "Пересунути вгору"
 msgid "Move down"
 msgstr "Пересунути вниз"
 
+msgid "Drag"
+msgstr "Перетягнути"
+
 msgid "Choose when this page should go live and/or expire"
 msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
-
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Графік публікації почне працювати лише після того, як ви натиснете кнопку "
-"\"Опублікувати\""
 
 msgid "Set publishing schedule"
 msgstr "Задати графік публікації"
@@ -1295,10 +1255,6 @@ msgstr "Незавершене завдання"
 
 msgid "Completed at"
 msgstr "Завершено в"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Сторінка %(page_num)s з %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Ланцюжок навігації"
@@ -1399,11 +1355,8 @@ msgid "Visit the live page"
 msgstr "Відвідати сторінку"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Знято з розкладу ревізію %(revision.id)s для «%(title)s»"
-
-msgid "Unschedule"
-msgstr "Зняти з розкладу"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Сторінка %(page_num)s з %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ви впевнені,  що хочете зняти з розкладу цю ревізію?"
@@ -1416,6 +1369,9 @@ msgstr "Ні, не знімати з розкладу"
 
 msgid "Other searches"
 msgstr "Інші пошуки"
+
+msgid "Save"
+msgstr "Зберегти"
 
 msgid "Comment notifications"
 msgstr "Сповіщення про коментарі"
@@ -1536,6 +1492,9 @@ msgstr "Цю сторінку ще не надіслано на модераці
 
 msgid "Skip to main content"
 msgstr "Перейти до основного вмісту "
+
+msgid "Sort"
+msgstr "Сортувати"
 
 msgid "View Wagtail quick actions"
 msgstr "Переглянути швидкі дії Wagtail "
@@ -1853,16 +1812,8 @@ msgstr "%(model_name)s '%(object)s' заплановано до публікац
 msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
 msgstr "%(model_name)s '%(object)s' створено і заплановано до публікації."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Редагувати '%(title)s'"
-
 msgid "Inspect"
 msgstr "Переглянути"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Видалити '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -1885,6 +1836,9 @@ msgstr "Останнє"
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' знято з публікації"
 
+msgid "Unschedule"
+msgstr "Зняти з розкладу"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Редагувати %(object)s"
@@ -1894,41 +1848,6 @@ msgstr "Панель"
 
 msgid "Delete selected pages"
 msgstr "Видалити обрані сторінки"
-
-msgid "1 page has been deleted"
-msgstr "1 сторінка було видалено"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "Видалено 1 сторінку і %(num_child_objects)d дочірню сторінку"
-msgstr[1] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[2] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[3] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d сторінок було видалено"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірню "
-"сторінку"
-msgstr[1] ""
-"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
-"сторінок"
-msgstr[2] ""
-"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
-"сторінок"
-msgstr[3] ""
-"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
-"сторінок"
 
 msgid "Select a new parent page"
 msgstr "Обрати нову батьківську сторінку"
@@ -1947,83 +1866,8 @@ msgstr[3] "%(num_pages)d сторінок було перенесено"
 msgid "Publish selected pages"
 msgstr "Опублікувати обрані сторінки"
 
-msgid "1 page has been published"
-msgstr "1 сторінку було опубліковано"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "Опубліковано 1 сторінку і %(num_child_objects)d дочірню сторінку"
-msgstr[1] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[2] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[3] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d сторінок було знято з публікації"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d дочірня "
-"сторінка"
-msgstr[1] ""
-"Опубліковано %(num_parent_objects)d сторінку і %(num_child_objects)d "
-"дочірніх сторінок"
-msgstr[2] ""
-"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
-msgstr[3] ""
-"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
-
 msgid "Unpublish selected pages"
 msgstr "Зняти з публікації обрані сторінки"
-
-msgid "1 page has been unpublished"
-msgstr "1 сторінку було знято з публікації"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] ""
-"Знято з публікації 1 сторінку і %(num_child_objects)d дочірню сторінку"
-msgstr[1] ""
-"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[2] ""
-"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[3] ""
-"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d сторінок було знято з публікації"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірня сторінка"
-msgstr[1] ""
-"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
-msgstr[2] ""
-"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
-msgstr[3] ""
-"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2059,9 +1903,6 @@ msgstr "Сторінку '%(page_title)s' створено і опубліков
 #, python-format
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Сторінку '%(page_title)s' створено і направлено на модерацію."
-
-msgid "The page could not be created due to validation errors"
-msgstr "Цю сторінку не можна створити через помилки валідації"
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -2123,12 +1964,6 @@ msgstr "Сторінку '%(page_title)s' надіслано на модерац
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Робочий процес на сторінці '%(page_title)s' перезапущений."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Сторінку не можна зберегти, бо вона заблокована"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Сторінку не можна зберегти через помилки валідації"
-
 msgid "Owner"
 msgstr "Власник"
 
@@ -2146,14 +1981,6 @@ msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Сторінку '%(page_title)s' розблоковано."
 
 #, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Коротка назва '%(page_slug)s' вже використовується у обраних батьківських "
-"сторінках. Переконайтеся, що коротка назва унікальна і спробуйте ще раз."
-
-#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Сторінку '%(page_title)s' переміщено."
 
@@ -2164,9 +1991,6 @@ msgid ""
 msgstr ""
 "Ви переглядаєте колишню версію цієї сторінки від <b>%(created_at)s</b> "
 "створену %(user)s "
-
-msgid "Page history"
-msgstr "Історія змін"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -2265,9 +2089,6 @@ msgstr "Нове завдання робочого процесу"
 msgid "Task '%(object)s' created."
 msgstr "Завдання '%(object)s' створено."
 
-msgid "Editing workflow task"
-msgstr "Редагування завдання робочого процесу"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Завдання '%(object)s' оновлено."
@@ -2287,44 +2108,26 @@ msgstr "Завдання '%(object)s' вимкнено."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Завдання \"%(task_name)s\" увімкнено."
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Попередньо переглянути чернетку для '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Переглянути живу версію для '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Перемістити сторінку '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Копіювати сторінку '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Видалити сторінку '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Зняти з публікації сторінку '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Переглянути історію змін для '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Сортувати порядок меню"
 
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Змінити порядок дочірніх сторінок у '%(title)s'"
+msgid "Heading 1"
+msgstr "Заголовок 1"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Заголовок %(level)d"
+msgid "Heading 2"
+msgstr "Заголовок 2"
+
+msgid "Heading 3"
+msgstr "Заголовок 3"
+
+msgid "Heading 4"
+msgstr "Заголовок 4"
+
+msgid "Heading 5"
+msgstr "Заголовок 5"
+
+msgid "Heading 6"
+msgstr "Заголовок 6"
 
 msgid "Bulleted list"
 msgstr "Маркований список"

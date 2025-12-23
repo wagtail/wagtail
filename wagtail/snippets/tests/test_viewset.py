@@ -33,6 +33,8 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import (
     Advert,
+    AdvertTag,
+    AdvertWithCustomUUIDPrimaryKey,
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
@@ -56,6 +58,21 @@ class TestIncorrectRegistration(SimpleTestCase):
         self.assertIn("ModelViewSet", message)
         self.assertIn(
             "must define a `model` attribute or pass a `model` argument",
+            message,
+        )
+
+
+class TestIncorrectConverter(SimpleTestCase):
+    def test_unknown_converter(self):
+        class BadViewSet(SnippetViewSet):
+            model = AdvertTag
+            pk_path_converter = "foo"
+
+        with self.assertRaises(ImproperlyConfigured) as cm:
+            register_snippet(BadViewSet)
+        message = str(cm.exception)
+        self.assertEqual(
+            "BadViewSet.pk_path_converter is not a registered path converter",
             message,
         )
 
@@ -155,6 +172,30 @@ class TestSnippetChooserBlockWithIcon(TestCase):
         self.assertEqual(js_args[1].model, FullFeaturedSnippet)
         # It should use the icon defined in the FullFeaturedSnippetViewSet
         self.assertEqual(js_args[2]["icon"], "cog")
+
+    def test_adapt_with_explicit_icon(self):
+        block = SnippetChooserBlock(FullFeaturedSnippet, icon="thumbtack")
+
+        block.set_name("test_snippetchooserblock")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2]["icon"], "thumbtack")
+
+    def test_adapt_with_explicit_default_icon(self):
+        block = SnippetChooserBlock(FullFeaturedSnippet, icon="snippet")
+
+        block.set_name("test_snippetchooserblock")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2]["icon"], "snippet")
+
+    def test_adapt_with_no_icon_specified_on_block_or_viewset(self):
+        block = SnippetChooserBlock(Advert)
+
+        block.set_name("test_snippetchooserblock")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2]["icon"], "snippet")
 
     def test_deconstruct(self):
         block = SnippetChooserBlock(FullFeaturedSnippet, required=False)
@@ -359,6 +400,20 @@ class TestAdminURLs(BaseSnippetViewSetTests):
             expected_choose_url,
         )
 
+    def test_cannot_reverse_mismatched_converter_value(self):
+        viewset = AdvertWithCustomUUIDPrimaryKey.snippet_viewset
+        with self.assertRaises(NoReverseMatch):
+            reverse(viewset.get_url_name("edit"), kwargs={"pk": 123})
+
+    def test_404_on_mismatched_converter_value(self):
+        viewsets = [
+            AdvertWithCustomUUIDPrimaryKey.snippet_viewset,
+            FullFeaturedSnippet.snippet_viewset,
+        ]
+        for viewset in viewsets:
+            response = self.client.get(f"/admin/{viewset.url_prefix}/edit/123abc/")
+            self.assertEqual(response.status_code, 404)
+
 
 class TestPagination(BaseSnippetViewSetTests):
     @classmethod
@@ -420,15 +475,15 @@ class TestPagination(BaseSnippetViewSetTests):
 class TestFilterSetClass(BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
         FullFeaturedSnippet.objects.create(
-            text="Nasi goreng from Indonesia", country_code="ID"
+            text="Nasi goreng from Indonesia", country_code="ID", some_number=123
         )
         FullFeaturedSnippet.objects.create(
-            text="Fish and chips from the UK", country_code="UK"
+            text="Fish and chips from the UK", country_code="UK", some_number=456
         )
 
     def test_get_include_filters_form_media(self):
@@ -511,6 +566,29 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
         self.assertEqual(url, self.get_url("list_results"))
         self.assertNotIn("country_code=ID", params)
 
+    def test_range_filter(self):
+        self.create_test_snippets()
+        response = self.get({"some_number_min": 100, "some_number_max": 200})
+        self.assertContains(response, "Nasi goreng from Indonesia")
+        self.assertNotContains(response, "Fish and chips from the UK")
+        self.assertContains(response, "There is 1 match")
+        # Should render the active filters
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active-filters")
+        self.assertIsNotNone(active_filters)
+        pill = active_filters.select_one(".w-pill")
+        self.assertIsNotNone(pill)
+        self.assertEqual(
+            pill.get_text(separator=" ", strip=True),
+            "Number range: 100 - 200",
+        )
+        clear = pill.select_one(".w-pill__remove")
+        self.assertIsNotNone(clear)
+        url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+        self.assertEqual(url, self.get_url("list_results"))
+        self.assertNotIn("some_number_min=100", params)
+        self.assertNotIn("some_number_max=200", params)
+
 
 class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
@@ -523,7 +601,7 @@ class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
             FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -564,7 +642,7 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
         self.date = now()
         self.date_str = self.date.isoformat()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -699,7 +777,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         cls.model.objects.create(text="From Indonesia", country_code="ID")
         cls.model.objects.create(text="From the UK", country_code="UK")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def test_custom_columns(self):
@@ -738,8 +816,8 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
             response,
             """
             <td>
-                <svg class="icon icon-success default w-text-positive-100" aria-hidden="true">
-                    <use href="#icon-success"></use>
+                <svg class="icon icon-check default w-text-positive-100" aria-hidden="true">
+                    <use href="#icon-check"></use>
                 </svg>
                 <span class="w-sr-only">True</span>
             </td>
@@ -751,8 +829,8 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
             response,
             """
             <td>
-                <svg class="icon icon-error default w-text-critical-100" aria-hidden="true">
-                    <use href="#icon-error"></use>
+                <svg class="icon icon-cross default w-text-text-error" aria-hidden="true">
+                    <use href="#icon-cross"></use>
                 </svg>
                 <span class="w-sr-only">False</span>
             </td>
@@ -1044,7 +1122,7 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
             text="Python is a programming-bas, uh, language",
         )
 
-    def get(self, params={}, url_name="list"):
+    def get(self, params=None, url_name="list"):
         return self.client.get(self.get_url(url_name), params)
 
     def test_simple(self):
@@ -1204,7 +1282,7 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         self.assertEqual(item.url, reverse("wagtailsnippets:index"))
 
         # Clear cached property
-        del item._all_have_menu_items
+        del item._snippets_in_index_view
 
         with mock.patch(
             "wagtail.snippets.views.snippets.SnippetViewSet.get_menu_item_is_registered"
@@ -1213,6 +1291,19 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
             menu_items = admin_menu.render_component(self.request)
             snippets = [item for item in menu_items if item.name == "snippets"]
             self.assertEqual(len(snippets), 0)
+
+    def test_snippets_menu_item_hidden_when_user_lacks_permissions_for_snippets(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        menu_items = admin_menu.render_component(self.request)
+        snippets = [item for item in menu_items if item.name == "snippets"]
+        self.assertEqual(len(snippets), 0)
 
 
 class TestCustomFormClass(BaseSnippetViewSetTests):
@@ -1471,9 +1562,6 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
 
 class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
-    base_breadcrumb_items = AdminTemplateTestUtils.base_breadcrumb_items + [
-        {"label": "Snippets", "url": "/admin/snippets/"},
-    ]
 
     @classmethod
     def setUpTestData(cls):
@@ -1645,3 +1733,33 @@ class TestCustomPermissionPolicy(BaseSnippetViewSetTests):
         self.assertEqual(self.user.get_full_name(), "[FORBIDDEN] Joe")
         response = self.client.get(self.get_url("edit", args=(quote(self.object.pk),)))
         self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+
+class TestSnippetIndexViewBreadcrumbs(SimpleTestCase):
+    def test_snippet_without_menu_item_breadcrumbs(self):
+        self.assertEqual(
+            Advert.snippet_viewset.breadcrumbs_items,
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+            ],
+        )
+
+    def check_snippet_with_menu_item_breadcrumbs(self, expected):
+        self.assertEqual(DraftStateModel.snippet_viewset.breadcrumbs_items, expected)
+
+    def test_snippet_with_menu_item_breadcrumbs(self):
+        self.check_snippet_with_menu_item_breadcrumbs(
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+            ],
+        )
+
+    @override_settings(WAGTAILSNIPPETS_MENU_SHOW_ALL=True)
+    def test_snippet_with_menu_item_breadcrumbs_show_all(self):
+        self.check_snippet_with_menu_item_breadcrumbs(
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+            ]
+        )

@@ -24,7 +24,7 @@ python3 --version
 py --version
 ```
 
-If none of the preceding commands return a version number, or return a version lower than 3.9, then [install Python 3](https://www.python.org/downloads/).
+If none of the preceding commands return a version number, or return a version lower than 3.10, then [install Python 3](https://www.python.org/downloads/).
 
 (virtual_environment_creation)=
 
@@ -188,7 +188,7 @@ You must run the preceding commands each time you make changes to the model defi
 ```text
 Migrations for 'home':
   home/migrations/0003_homepage_body.py
-    - Add field body to homepage
+    + Add field body to homepage
 Operations to perform:
   Apply all migrations: admin, auth, contenttypes, home, sessions, taggit, wagtailadmin, wagtailcore, wagtaildocs, wagtailembeds, wagtailforms, wagtailimages, wagtailredirects, wagtailsearch, wagtailusers
 Running migrations:
@@ -359,25 +359,15 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 
-# add this:
-from wagtail.search import index
-
-# keep the definition of BlogIndexPage model, and add the BlogPage model:
+# Keep the BlogIndexPage model code as is, and add the BlogPage model:
 
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
-
     content_panels = Page.content_panels + ["date", "intro", "body"]
 ```
-
-In the model above, you import `index` as this makes the model searchable. You then list fields that you want to be searchable for the user.
 
 You have to migrate your database again because of the new changes in your `models.py` file:
 
@@ -414,7 +404,7 @@ URL of the blog this post is a part of.
 Now, go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) and create a few blog posts as children of `BlogIndexPage` by following these steps:
 
 1.  Click **Pages** from the Wagtail [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar), and then click **Home**
-2.  Hover on **Blog** and click **Add child page**.
+2.  Hover over **Blog**, click the three-dot menu (⋯), then select **Add child page**.
 
 ![Page listing for Home page with the "Add Child Page" button highlighted in red](../_static/images/tutorial/tutorial_4a.png)
 
@@ -553,7 +543,6 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.search import index
 
 # ... Keep the definition of BlogIndexPage, update the content_panels of BlogPage, and add a new BlogPageGalleryImage model:
 
@@ -561,11 +550,6 @@ class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
 
     content_panels = Page.content_panels + [
         "date", "intro", "body",
@@ -593,7 +577,7 @@ There are a few new concepts here:
 2.  The `ParentalKey` to `BlogPage` is what attaches the gallery images to a specific page. A `ParentalKey` works similarly to a `ForeignKey`, but also defines `BlogPageGalleryImage` as a "child" of the `BlogPage` model, so that it's treated as a fundamental part of the page in operations like submitting for moderation, and tracking revision history.
 3.  `image` is a `ForeignKey` to Wagtail's built-in `Image` model, which stores the actual images. This appears in the page editor as a pop-up interface for choosing an existing image or uploading a new one. This way, you allow an image to exist in multiple galleries. This creates a many-to-many relationship between pages and images.
 4.  Specifying `on_delete=models.CASCADE` on the foreign key means that deleting the image from the system also deletes the gallery entry. In other situations, it might be appropriate to leave the gallery entry in place. For example, if an "our staff" page includes a list of people with headshots, and you delete one of those photos, but prefer to leave the person in place on the page without a photo. In this case, you must set the foreign key to `blank=True, null=True, on_delete=models.SET_NULL`.
-5.  Finally, adding the `InlinePanel` to `BlogPage.content_panels` makes the gallery images available on the editing interface for `BlogPage`.
+5.  Finally, adding the field `gallery_images` to `BlogPage.content_panels` makes the gallery images available on the editing interface for `BlogPage`.
 
 After editing your `blog/models.py`, you should see **Images** in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar) and a **Gallery images** field with the option to upload images and provide a caption for it in the [Edit Screen](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#edit-screen) of your blog posts.
 
@@ -646,11 +630,6 @@ class BlogPage(Page):
             return gallery_item.image
         else:
             return None
-
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
 
     content_panels = Page.content_panels + ["date", "intro", "body", "gallery_images"]
 ```
@@ -725,7 +704,6 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import MultiFieldPanel
-from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 class BlogPage(Page):
@@ -736,7 +714,7 @@ class BlogPage(Page):
     # Add this:
     authors = ParentalManyToManyField('blog.Author', blank=True)
 
-    # ... Keep the main_image method and search_fields definition. Modify your content_panels:
+    # ... Keep the main_image method. Modify your content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel(["date", "authors"], heading="Blog information"),
         "intro", "body", "gallery_images"
@@ -760,7 +738,6 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 class BlogPage(Page):
@@ -848,8 +825,7 @@ from taggit.models import TaggedItemBase
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.search import index
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 
 # ... Keep the definition of BlogIndexPage model and add a new BlogPageTag model
@@ -870,7 +846,7 @@ class BlogPage(Page):
     # Add this:
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
+    # ... Keep the main_image method. Then modify the content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             "date",

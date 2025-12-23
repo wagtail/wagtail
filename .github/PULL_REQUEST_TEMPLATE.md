@@ -1,1 +1,1 @@
-_Please describe the problem you're fixing here. Include the issue number, if applicable._
+_Please describe the problem you're fixing here, including the issue number if any. For guidance on making a great pull request, be sure to check https://github.com/wagtail/wagtail/blob/main/.github/CONTRIBUTING.md_
