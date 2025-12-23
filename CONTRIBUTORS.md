@@ -957,6 +957,7 @@
 * Oluwagbeminiyi Agbedejobi
 * Baptiste Darthenay
 * Adithya00012
+* Devarshi Mani Tripathi
 
 ## Translators
 
