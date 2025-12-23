@@ -11,15 +11,18 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && python -m venv /opt/venv
 
-# Create a virtual environment to isolate Python packages.
-RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Install the project requirements.
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
+
+# Install the application server.
+RUN pip install "gunicorn==20.0.4"
+
 
 # RUNTIME STAGE
 # Use an official Python runtime based on Debian 12 "bookworm" as a parent image.
@@ -49,8 +52,7 @@ ENV PYTHONUNBUFFERED=1 \
     PORT=8000 \
     PATH="/opt/venv/bin:$PATH"
 
-# Install the application server.
-RUN pip install "gunicorn==20.0.4"
+
 
 # Copy the virtual environment from the builder stage.
 COPY --from=builder /opt/venv /opt/venv
