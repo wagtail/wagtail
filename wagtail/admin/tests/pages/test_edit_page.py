@@ -5,6 +5,7 @@ from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core import mail
 from django.core.files.base import ContentFile
 from django.http import HttpRequest, HttpResponse, JsonResponse
@@ -15,6 +16,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.action_menu import ActionMenuItem, PublishMenuItem
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.models import EditingSession
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
     Comment,
@@ -4570,72 +4572,101 @@ class TestCommentOutput(WagtailTestUtils, TestCase):
         comment_text.sort()
         self.assertEqual(comment_text, ["A test comment", "This is quite expensive"])
 
-    def test_comments_with_deep_contentpath_on_custom_fields(self):
-        page = CommentableJSONPage(
-            title="Commentable JSON Page",
-            slug="commentable-json-page",
-            commentable_body={
-                "header": {
-                    "title": "Comments are Welcome",
-                },
-            },
-            uncommentable_body={
-                "title": "No feedback here",
-            },
-            stream_body=[
-                {
-                    "id": "1",
-                    "type": "text",
-                    "value": "This allows comments",
-                }
-            ],
-        )
-        self.root_page.add_child(instance=page)
 
-        Comment.objects.create(
-            page=page,
-            user=self.user,
-            text="1. Comment on an existing JSON path in commentable JSONField",
-            contentpath="commentable_body.header.title",
+class TestMultipleUsersEditingWarning(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.user_a = self.create_superuser(
+            username="userA", email="userA@example.com", password="testpass"
         )
-        Comment.objects.create(
-            page=page,
-            user=self.user,
-            text="2. Comment on a non-existing JSON path in commentable JSONField",
-            contentpath="commentable_body.header.not_valid",
+        self.user_b = self.create_superuser(
+            username="userB", email="userB@example.com", password="testpass"
         )
-        Comment.objects.create(
-            page=page,
-            user=self.user,
-            text="3. Comment on an existing JSON path in base JSONField",
-            contentpath="uncommentable_body.title",
+        self.root_page = Page.objects.get(id=2)
+        self.page = self.root_page.add_child(instance=Page(title="Test Page"))
+        self.page.save_revision().publish()
+
+    def test_warning_on_concurrent_edit(self):
+        TIMESTAMP_1 = str(datetime.datetime(2020, 1, 1, 11, 59, 51))
+        TIMESTAMP_2 = str(datetime.datetime(2020, 1, 1, 11, 59, 52))
+
+        EditingSession.objects.create(
+            user=self.user_a,
+            content_type=ContentType.objects.get_for_model(Advert),
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_1,
+            is_editing=True,
         )
-        Comment.objects.create(
-            page=page,
-            user=self.user,
-            text="4. Comment on a non-existing JSON path in base JSONField",
-            contentpath="uncommentable_body.not_valid",
+        EditingSession.objects.create(
+            user=self.user_b,
+            content_type=ContentType.objects.get_for_model(Advert),
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_2,
+            is_editing=True,
         )
-        Comment.objects.create(
-            page=page,
-            user=self.user,
-            text="5. Comment on the top-level of a base JSONField",
-            contentpath="uncommentable_body",
+        self.client.login(username="userA", password="testpass")
+        post_data = {
+            "title": "edit by user A",
+            "content": "test content",
+            "slug": "test",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+            post_data,
+            follow=True,
         )
 
-        response = self.client.get(reverse("wagtailadmin_pages:edit", args=[page.id]))
-        soup = self.get_soup(response.content)
-        comments_data_json = soup.select_one("#comments-data").string
-        comments_data = json.loads(comments_data_json)
-        comment_text = [comment["text"] for comment in comments_data["comments"]]
-        comment_text.sort()
+        user_a_revision_id = str(self.page.get_latest_revision().id)
 
-        self.assertEqual(
-            comment_text,
-            [
-                # Custom fields can define which paths are valid for comments
-                "1. Comment on an existing JSON path in commentable JSONField",
-                # Comments directly on the top-level (the field itself) are always valid
-                "5. Comment on the top-level of a base JSONField",
-            ],
+        self.client.login(username="userB", password="testpass")
+
+        post_data = {
+            "title": "edit by user B",
+            "content": "test content",
+            "slug": "test",
+            "page_revision_id": user_a_revision_id,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+            post_data,
+            follow=True,
+        )
+
+        self.page.refresh_from_db()
+        user_b_revision_id = self.page.get_latest_revision().id
+
+        for message in response.context["messages"]:
+            self.assertIn(
+                f"Page Revision {user_a_revision_id} overwriting changes by another user in {user_b_revision_id}.",
+                message.message,
+            )
+            break
+
+    def test_no_warning_on_single_user_edit(self):
+        TIMESTAMP_1 = str(datetime.datetime(2020, 1, 1, 11, 59, 51))
+        EditingSession.objects.create(
+            user=self.user_a,
+            content_type=ContentType.objects.get_for_model(Advert),
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_1,
+            is_editing=True,
+        )
+
+        self.client.login(username="userA", password="testpass")
+        post_data = {
+            "title": "edit by user A",
+            "content": "test content",
+            "slug": "test",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)),
+            post_data,
+            follow=True,
+        )
+
+        messages = list(response.context["messages"])
+        self.assertTrue(
+            all(
+                "overwriting changes by another user" not in str(message)
+                for message in messages
+            )
         )

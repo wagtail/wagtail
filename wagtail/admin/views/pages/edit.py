@@ -81,6 +81,15 @@ class EditView(
                 "page_title": self.page.get_admin_display_title()
             }
 
+        if self.updated_by_another_user:
+            overwrite_warning_message = _(
+                "Page Revision %(initial_page_revision)s overwriting changes by another user in %(overwritten_page_revision)s."
+            ) % {
+                "initial_page_revision": self.request.POST.get("page_revision_id"),
+                "overwritten_page_revision": self.page.get_latest_revision().id,
+            }
+            messages.warning(self.request, overwrite_warning_message)
+
         messages.success(self.request, message)
 
     def get_commenting_changes(self):
@@ -338,6 +347,7 @@ class EditView(
         self.scheduled_revision = self.real_page_record.scheduled_revision
         self.page_content_type = self.real_page_record.cached_content_type
         self.page_class = self.real_page_record.specific_class
+        self.updated_by_another_user = False
 
         if self.page_class is None:
             raise PageClassNotFoundError(
@@ -542,6 +552,16 @@ class EditView(
         elif self.is_cancelling_workflow:
             return ("cancel_workflow", self.cancel_workflow_action)
         else:
+            latest_revision = self.page.get_latest_revision()
+            if (
+                latest_revision
+                and self.request.POST.get("page_revision_id")
+                and int(latest_revision.id)
+                != int(self.request.POST.get("page_revision_id"))
+            ):
+                self.updated_by_another_user = True
+            else:
+                self.updated_by_another_user = False
             return ("save", self.save_action)
 
     @property
@@ -1009,6 +1029,7 @@ class EditView(
         context.update(
             {
                 "page": self.page,
+                "latest_revision": self.latest_revision,
                 "page_for_status": self.get_page_for_status(),
                 "content_type": self.page_content_type,
                 "edit_handler": bound_panel,
