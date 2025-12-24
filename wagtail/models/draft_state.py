@@ -85,12 +85,12 @@ class DraftStateMixin(models.Model):
                 try:
                     revisions_count = self.revisions.filter(
                         created_at__gt=self.last_published_at
-                        ).count()
+                    ).count()
                     if revisions_count > 1:
                         return _("draft (unpublished)")
                 except (ValueError, TypeError):
                     pass
-                    
+
                 return _("unpublished")
             else:
                 return _("draft")

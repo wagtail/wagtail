@@ -569,9 +569,11 @@ class AbstractWorkflow(ClusterableModel):
                     "title": self.name,
                     "status": state.status,
                     "next": next_task_data,
-                    "task_state_id": state.current_task_state.id
-                    if state.current_task_state
-                    else None,
+                    "task_state_id": (
+                        state.current_task_state.id
+                        if state.current_task_state
+                        else None
+                    ),
                 }
             },
             revision=obj.get_latest_revision(),
@@ -1351,12 +1353,12 @@ class WorkflowMixin(models.Model):
                 try:
                     revisions_count = self.revisions.filter(
                         created_at__gt=self.last_published_at
-                        ).count()
+                    ).count()
                     if revisions_count > 1:
                         return _("draft (unpublished)")
                 except (ValueError, TypeError):
                     pass
-                    
+
                 return _("unpublished")
             else:
                 return _("draft")
