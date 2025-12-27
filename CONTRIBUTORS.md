@@ -934,6 +934,7 @@
 * Mustansir Dabhiya
 * bettercallok
 * Ritik Arya
+* Ankit Chaudhary
 
 ## Translators
 

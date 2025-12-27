@@ -91,6 +91,97 @@ If you would like to make further customizations to the filtering mechanism, you
 
 You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~ModelViewSet.export_filename` attribute can be used to customize the file name of the exported spreadsheet.
 
+(modelviewset_reordering)=
+
+### Reordering
+
+Reordering allows content editors to manually arrange items in the listing view by dragging and dropping them. This is useful when you need a custom order that doesn't follow standard sorting, such as prioritizing featured content or organizing items by importance.
+
+To enable reordering, add an integer field to your model for storing positions, then reference it in your viewset's `sort_order_field` attribute. A "Sort item order" button will appear in the listing view.
+
+```python
+from django.db import models
+
+class Employee(models.Model):
+    full_name = models.CharField(max_length=100)
+    role = models.CharField(max_length=50)
+
+    # Set default sort_order to 0 to avoid NULL values
+    sort_order = models.IntegerField(default=0, blank=True, db_index=True)
+    
+    def __str__(self):
+        return self.full_name
+    
+    class Meta:
+        verbose_name = "employee"
+        verbose_name_plural = "employees"
+```
+
+The following definition (to be placed in the same app's `views.py`) will generate a set of views for managing Employee instances:
+
+```python
+from wagtail.admin.viewsets.model import ModelViewSet
+from .models import Employee
+
+class EmployeeViewSet(ModelViewSet):
+    model = Employee
+    icon = "user"
+    add_to_admin_menu = True
+
+    form_fields = ["full_name", "role"]
+    list_display = ["full_name", "role"]
+    ordering = ["sort_order"]
+    sort_order_field = "sort_order" # Enables drag and drop reordering
+
+employee_viewset = EmployeeViewSet("employee")
+```
+Note that the sort order field should be excluded from `form_fields` - Wagtail handles it automatically through the drag-and-drop interface.
+
+This viewset can then be registered with the Wagtail admin to make it available under the URL `/admin/employee/`, by adding the following to `wagtail_hooks.py`:
+
+```python
+from wagtail import hooks
+from .views import employee_viewset
+
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return employee_viewset
+```
+
+#### Working with existing data
+
+When enabling drag-and-drop reordering using `sort_order_field`, it is important that all existing records have a valid and unique value for that field.
+
+If a model already contains records and the sort order field is empty, null, or contains duplicate values, the reordering feature may not behave reliably. This is because each item must have a distinct position value to determine its order correctly.
+
+#### Preparing existing data
+
+Before enabling reordering, you should ensure that all existing records have sequential values assigned to the sort order field. The recommended approach is to use a data migration to populate the field for existing rows.
+
+```python 
+# Example data migration
+
+from django.db import migrations, models
+
+
+def populate_sort_order(apps, schema_editor):
+    Employee = apps.get_model('myapp', 'Employee')
+    for i, employee in enumerate(Employee.objects.order_by('id')):
+        employee.sort_order = i
+        employee.save()
+        
+class Migration(migrations.Migration):
+    dependencies = [
+        # ...
+    ]
+    operations = [
+        migrations.RunPython(
+            populate_sort_order,
+            migrations.RunPython.noop,
+        ),
+    ]
+```
+
 (modelviewset_create_edit)=
 
 ### Create and edit views

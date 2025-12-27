@@ -51,6 +51,7 @@ Changelog
  * Docs: Various typo and grammar fixes (Mustansir Dabhiya)
  * Docs: Improve instructions for building documentation on Windows (Mustansir Dabhiya)
  * Docs: Provide recommended image quality settings for common use cases (Thibaud Colas)
+ * Docs: Add detailed documentation on reordering within generic listing view (Ankit Chaudhary)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
