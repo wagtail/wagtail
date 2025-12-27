@@ -39,7 +39,7 @@ class TestPage(Page):
         FieldPanel("body"),
     ]
 
-    parent_page_types = [HomePage]  # direct reference to HomePage
+    parent_page_types = [HomePage]
 
     class Meta:
         verbose_name = "Test Page"

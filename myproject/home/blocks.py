@@ -1,12 +1,14 @@
 from django import forms
-
 from wagtail.blocks import ChoiceBlock
 
 
 class IntChoiceBlock(ChoiceBlock):
-    def get_field(self, **kwargs):
-        choices = kwargs.pop("choices")
+    """
+    Custom ChoiceBlock that works with integer choices.
+    """
 
+    def get_field(self, **kwargs):
+        choices = kwargs.pop("choices", self.choices)
         return forms.TypedChoiceField(
             choices=choices,
             coerce=int,
