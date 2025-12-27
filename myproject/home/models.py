@@ -1,8 +1,9 @@
 from wagtail import blocks
-from wagtail.models import Page
-from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel
-from .blocks import IntChoiceBlock  # your custom block
+from wagtail.fields import StreamField
+from wagtail.models import Page
+
+from .blocks import IntChoiceBlock  # local import last
 
 # StructBlock using the custom IntChoiceBlock
 class TestBlock(blocks.StructBlock):

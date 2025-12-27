@@ -1,7 +1,6 @@
 from django import forms
 from wagtail.blocks import ChoiceBlock
 
-
 class IntChoiceBlock(ChoiceBlock):
     def get_field(self, **kwargs):
         choices = kwargs.pop("choices")
