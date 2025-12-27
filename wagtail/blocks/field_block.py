@@ -597,41 +597,52 @@ class BaseChoiceBlock(FieldBlock):
         # descendant block type
         icon = "placeholder"
 
-
 class ChoiceBlock(BaseChoiceBlock):
     def get_field(self, **kwargs):
         return forms.ChoiceField(**kwargs)
 
     def _get_callable_choices(self, choices, blank_choice=None):
-        # If we have a default choice and the field is required, we don't need to add a blank option.
         if blank_choice is None:
             blank_choice = not (self._default and self._required)
         return super()._get_callable_choices(choices, blank_choice=blank_choice)
 
     def deconstruct(self):
-        """
-        Always deconstruct ChoiceBlock instances as if they were plain ChoiceBlocks with their
-        choice list passed in the constructor, even if they are actually subclasses. This allows
-        users to define subclasses of ChoiceBlock in their models.py, with specific choice lists
-        passed in, without references to those classes ending up frozen into migrations.
-        """
         return ("wagtail.blocks.ChoiceBlock", [], self._constructor_kwargs)
 
     def get_searchable_content(self, value):
-        # Return the display value as the searchable value
         if not self.search_index:
             return []
         text_value = force_str(value)
         for k, v in self.field.choices:
             if isinstance(v, (list, tuple)):
-                # This is an optgroup, so look inside the group for options
                 for k2, v2 in v:
                     if value == k2 or text_value == force_str(k2):
                         return [force_str(k), force_str(v2)]
             else:
                 if value == k or text_value == force_str(k):
                     return [force_str(v)]
-        return []  # Value was not found in the list of choices
+        return []
+
+    def to_python(self, value):
+        """
+        Convert string values back to their original type (int or str)
+        based on the defined choices.
+        """
+        value = super().to_python(value)
+
+        if isinstance(value, str):
+            # Flatten all choices including optgroups
+            for k, v in self._get_callable_choices(self.choices):
+                if isinstance(v, (list, tuple)):
+                    for subk, _ in v:
+                        if str(subk) == value:
+                            return subk
+                else:
+                    if str(k) == value:
+                        return k
+
+        return value
+
 
 
 class MultipleChoiceBlock(BaseChoiceBlock):
