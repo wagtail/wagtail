@@ -5,6 +5,7 @@ from wagtail.models import Page
 
 from .blocks import IntChoiceBlock  # local import last
 
+
 # StructBlock using the custom IntChoiceBlock
 class TestBlock(blocks.StructBlock):
     number = IntChoiceBlock(
