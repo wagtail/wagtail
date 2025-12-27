@@ -597,6 +597,7 @@ class BaseChoiceBlock(FieldBlock):
         # descendant block type
         icon = "placeholder"
 
+
 class ChoiceBlock(BaseChoiceBlock):
     def get_field(self, **kwargs):
         return forms.ChoiceField(**kwargs)
@@ -642,7 +643,6 @@ class ChoiceBlock(BaseChoiceBlock):
                         return k
 
         return value
-
 
 
 class MultipleChoiceBlock(BaseChoiceBlock):

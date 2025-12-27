@@ -20,18 +20,23 @@ class TestBlock(blocks.StructBlock):
     class Meta:
         icon = "placeholder"
 
+
 # HomePage definition
 class HomePage(Page):
     pass
 
+
 # Page using the TestBlock
 class TestPage(Page):
-    body = StreamField([
-        ('test', TestBlock()),
-    ], use_json_field=True)
+    body = StreamField(
+        [
+            ("test", TestBlock()),
+        ],
+        use_json_field=True,
+    )
 
     content_panels = Page.content_panels + [
-        FieldPanel('body'),
+        FieldPanel("body"),
     ]
 
     parent_page_types = [HomePage]  # direct reference to HomePage

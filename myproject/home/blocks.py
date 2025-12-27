@@ -17,5 +17,3 @@ class IntChoiceBlock(ChoiceBlock):
         if value is None:
             return None
         return int(value)
-
-
