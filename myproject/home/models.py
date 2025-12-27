@@ -3,13 +3,11 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
 
-from .blocks import IntChoiceBlock
+from .blocks import IntChoiceBlock  # local import last
 
 
+# StructBlock using the custom IntChoiceBlock
 class TestBlock(blocks.StructBlock):
-    """
-    A StructBlock using IntChoiceBlock.
-    """
     number = IntChoiceBlock(
         choices=[
             (1, "One"),
@@ -23,17 +21,13 @@ class TestBlock(blocks.StructBlock):
         icon = "placeholder"
 
 
+# HomePage definition
 class HomePage(Page):
-    """
-    The top-level homepage.
-    """
     pass
 
 
+# Page using the TestBlock
 class TestPage(Page):
-    """
-    Page containing a StreamField with TestBlock.
-    """
     body = StreamField(
         [
             ("test", TestBlock()),
