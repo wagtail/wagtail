@@ -18,7 +18,6 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
 from wagtail.admin.telepath import registry
-from wagtail.blocks import ChoiceBlock
 from wagtail.blocks.base import get_error_json_data
 from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.blocks.field_block import FieldBlockAdapter
