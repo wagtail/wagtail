@@ -18,6 +18,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
 from wagtail.admin.telepath import registry
+from wagtail.blocks import ChoiceBlock
 from wagtail.blocks.base import get_error_json_data
 from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.blocks.field_block import FieldBlockAdapter
@@ -1322,6 +1323,22 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         )
         form_state = block.get_form_state("tea")
         self.assertEqual(form_state, ["tea"])
+        
+    
+    def test_choiceblock_preserves_integer_type(self):
+        block = blocks.ChoiceBlock(choices=[(1, "One"), (2, "Two")])
+        value = block.to_python("1")
+        self.assertEqual(value, 1)
+        self.assertIsInstance(value, int)
+
+    def test_choiceblock_does_not_coerce_string_choices(self):
+        block = blocks.ChoiceBlock(choices=[("1", "One"), ("2", "Two")])
+        value = block.to_python("1")
+        self.assertEqual(value, "1")
+        self.assertIsInstance(value, str)
+
+        
+    
 
 
 class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
