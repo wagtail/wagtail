@@ -1322,8 +1322,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         )
         form_state = block.get_form_state("tea")
         self.assertEqual(form_state, ["tea"])
-        
-    
+
     def test_choiceblock_preserves_integer_type(self):
         block = blocks.ChoiceBlock(choices=[(1, "One"), (2, "Two")])
         value = block.to_python("1")
@@ -1335,9 +1334,6 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         value = block.to_python("1")
         self.assertEqual(value, "1")
         self.assertIsInstance(value, str)
-
-        
-    
 
 
 class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
