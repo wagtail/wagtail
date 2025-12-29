@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { createEditorStateFromRaw } from 'draftail';
-import { DraftInlineStyleType, EditorState, SelectionState } from 'draft-js';
+import { DraftInlineStyleType, EditorState, SelectionState, Modifier} from 'draft-js';
 
 import { CommentApp } from '../../CommentApp/main';
 import { newComment } from '../../CommentApp/state/comments';
@@ -214,6 +214,254 @@ describe('CommentableEditor', () => {
       commentApp.store.getState().comments.comments.get(1)?.annotation,
     ).not.toBe(null);
   });
+
+  it('clamps comment positions when they exceed block length', () => {
+    // Test case: comment position stored with offsets that exceed the current block length
+    commentApp.store.dispatch(
+      commentApp.actions.addComment(
+        newComment(
+          contentpath,
+          '[{"key":"a","start":2,"end":100}]', // end offset exceeds "test" (4 chars)
+          1,
+          null,
+          null,
+          0,
+          {},
+        ),
+      ),
+    );
+    const newContentState = addCommentsToEditor(
+      createEditorStateFromRaw(content).getCurrentContent(),
+      getComments(commentApp),
+      commentApp,
+      () => new DraftailInlineAnnotation(fieldNode),
+    );
+    // Verify that the comment style is applied and clamped to valid range [2, 4]
+    newContentState.getFirstBlock().findStyleRanges(
+      (metadata) => metadata.getStyle().has('COMMENT-1'),
+      (start, end) => {
+        expect(start).toBe(2);
+        expect(end).toBe(4); // clamped from 100 to block length
+      },
+    );
+  });
+
+  it('ignores comment positions with missing blocks', () => {
+    // Test case: comment references a block key that doesn't exist
+    commentApp.store.dispatch(
+      commentApp.actions.addComment(
+        newComment(
+          contentpath,
+          '[{"key":"nonexistent","start":0,"end":1}]',
+          1,
+          null,
+          null,
+          0,
+          {},
+        ),
+      ),
+    );
+    const newContentState = addCommentsToEditor(
+      createEditorStateFromRaw(content).getCurrentContent(),
+      getComments(commentApp),
+      commentApp,
+      () => new DraftailInlineAnnotation(fieldNode),
+    );
+    // Verify that no comment styles are applied
+    let styleRangeFound = false;
+    newContentState.getFirstBlock().findStyleRanges(
+      (metadata) => metadata.getStyle().has('COMMENT-1'),
+      () => {
+        styleRangeFound = true;
+      },
+    );
+    expect(styleRangeFound).toBe(false);
+  });
+
+  it('ignores comment positions with invalid offsets', () => {
+    // Test case: comment position with non-numeric or NaN offsets
+    commentApp.store.dispatch(
+      commentApp.actions.addComment(
+        newComment(
+          contentpath,
+          '[{"key":"a","start":"invalid","end":2}]',
+          1,
+          null,
+          null,
+          0,
+          {},
+        ),
+      ),
+    );
+    const newContentState = addCommentsToEditor(
+      createEditorStateFromRaw(content).getCurrentContent(),
+      getComments(commentApp),
+      commentApp,
+      () => new DraftailInlineAnnotation(fieldNode),
+    );
+    // Verify that no comment styles are applied
+    let styleRangeFound = false;
+    newContentState.getFirstBlock().findStyleRanges(
+      (metadata) => metadata.getStyle().has('COMMENT-1'),
+      () => {
+        styleRangeFound = true;
+      },
+    );
+    expect(styleRangeFound).toBe(false);
+  });
+
+  it('ignores comment positions with zero-length ranges', () => {
+    // Test case: comment position where start === end after clamping
+    commentApp.store.dispatch(
+      commentApp.actions.addComment(
+        newComment(
+          contentpath,
+          '[{"key":"a","start":4,"end":4}]', // zero-length range
+          1,
+          null,
+          null,
+          0,
+          {},
+        ),
+      ),
+    );
+    const newContentState = addCommentsToEditor(
+      createEditorStateFromRaw(content).getCurrentContent(),
+      getComments(commentApp),
+      commentApp,
+      () => new DraftailInlineAnnotation(fieldNode),
+    );
+    // Verify that no comment styles are applied for zero-length ranges
+    let styleRangeFound = false;
+    newContentState.getFirstBlock().findStyleRanges(
+      (metadata) => metadata.getStyle().has('COMMENT-1'),
+      () => {
+        styleRangeFound = true;
+      },
+    );
+    expect(styleRangeFound).toBe(false);
+  });
+
+it('keeps comment anchored to the same text when surrounding whitespace is inserted and normalized', () => {
+    /**
+     * Initial content: "Hello world"
+     * Comment on "world" → [6, 11]
+     */
+
+
+    const raw = {
+      blocks: [
+        {
+          key: 'a',
+          text: 'Hello world',
+          type: 'unstyled',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+      entityMap: {},
+    };
+
+    commentApp.store.dispatch(
+      commentApp.actions.addComment(
+        newComment(
+          contentpath,
+          '[{"key":"a","start":6,"end":11}]',
+          1,
+          null,
+          null,
+          0,
+          {},
+        ),
+      ),
+    );
+
+    /**
+     * Step 1: create editor state and apply comment
+     */
+    let editorState = createEditorStateFromRaw(raw);
+    editorState = EditorState.push(
+      editorState,
+      addCommentsToEditor(
+        editorState.getCurrentContent(),
+        getComments(commentApp),
+        commentApp,
+        () => new DraftailInlineAnnotation(fieldNode),
+      ),
+      'change-inline-style',
+    );
+
+    /**
+     * Step 2: insert temporary whitespace before "world"
+     * "Hello   world"
+     */
+    const selection = SelectionState.createEmpty('a').merge({
+      anchorOffset: 6,
+      focusOffset: 6,
+    });
+
+    let contentState = Modifier.insertText(
+      editorState.getCurrentContent(),
+      selection,
+      '  ', // extra spaces
+    );
+
+    editorState = EditorState.push(editorState, contentState, 'insert-characters');
+
+    /**
+     * Step 3: normalize whitespace (remove extra spaces)
+     * back to "Hello world"
+     */
+    const normalizedText = 'Hello world';
+    const block = editorState.getCurrentContent().getFirstBlock();
+
+    const normalizeSelection = SelectionState.createEmpty('a').merge({
+      anchorOffset: 0,
+      focusOffset: block.getLength(),
+    });
+
+    contentState = Modifier.replaceText(
+      editorState.getCurrentContent(),
+      normalizeSelection,
+      normalizedText,
+    );
+
+    editorState = EditorState.push(editorState, contentState, 'remove-range');
+
+    /**
+     * Step 4: re-apply comments
+     * Reset the annotation so `addCommentsToEditor` re-adds styles
+     * (since `replaceText` removed inline styles).
+     */
+    commentApp.store.dispatch(
+      commentApp.actions.updateComment(1, { annotation: null }),
+    );
+    const finalContent = addCommentsToEditor(
+      editorState.getCurrentContent(),
+      getComments(commentApp),
+      commentApp,
+      () => new DraftailInlineAnnotation(fieldNode),
+    );
+
+    /**
+     * Step 5: assert comment is still on "world"
+     */
+    const ranges: Array<[number, number]> = [];
+    finalContent.getFirstBlock().findStyleRanges(
+      (meta) => meta.getStyle().has('COMMENT-1'),
+      (start, end) => ranges.push([start, end]),
+    );
+
+    const highlightedText = ranges.map(
+      ([start, end]) =>
+        finalContent.getFirstBlock().getText().slice(start, end),
+    );
+
+    expect(highlightedText).toEqual(['world']); 
+  });
+
   it('can find the least common comment id', () => {
     const block = createEditorStateFromRaw(contentWithOverlappingComments)
       .getCurrentContent()
