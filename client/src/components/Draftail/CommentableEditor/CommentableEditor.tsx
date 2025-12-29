@@ -163,12 +163,6 @@ function applyInlineStyleToRange({
   start: number;
   end: number;
 }) {
-  /* eslint-disable no-console */
-  console.group('[Editor] applyInlineStyleToRange');
-  console.log('Block key:', blockKey);
-  console.log('Style:', style);
-  console.log('Range:', { start, end });
-
   const selection = new SelectionState({
     anchorKey: blockKey,
     anchorOffset: start,
@@ -176,19 +170,12 @@ function applyInlineStyleToRange({
     focusOffset: end,
   });
 
-  console.log('SelectionState:', selection.toJS());
-  /* eslint-enable no-console */
 
   const updatedContentState = Modifier.applyInlineStyle(
     contentState,
     selection,
     style,
   );
-
-  /* eslint-disable no-console */
-  console.log('Inline style applied. ContentState updated.');
-  console.groupEnd();
-  /* eslint-enable no-console */
 
   return updatedContentState;
 }
@@ -615,25 +602,17 @@ export function addCommentsToEditor(
   let newContentState = contentState;
   comments
     .filter((comment) => !comment.annotation)
-    .forEach((comment, index) => {
+    .forEach((comment) => {
 
       /* eslint-disable no-console */
-      console.group(`[Comment ${index}] localId=${comment.localId}`);
-      console.log('Raw comment:', comment);
-
       commentApp.updateAnnotation(getAnnotation(), comment.localId);
-      console.log('Annotation updated');
 
       const style = `${COMMENT_STYLE_IDENTIFIER}${comment.localId}`;
-      console.log('Computed inline style:', style);
 
       try {
         const positions = JSON.parse(comment.position);
-        console.log('Parsed positions:', positions);
 
-        positions.forEach((position, posIndex) => {
-          console.group(`Position ${posIndex}`);
-          console.log('Position data:', position);
+        positions.forEach((position) => {
           const block = newContentState.getBlockForKey(position.key);
 
           if (!block) {
@@ -648,9 +627,6 @@ export function addCommentsToEditor(
           const blockLength = block.getLength();
           const start = Number(position.start);
           const end = Number(position.end);
-
-          console.log('Block length:', blockLength);
-          console.log('Raw range:', { start, end });
 
           if (!Number.isFinite(start) || !Number.isFinite(end)) {
             console.warn('Invalid start/end values, skipping');
@@ -670,11 +646,6 @@ export function addCommentsToEditor(
           const clampedStart = Math.max(0, Math.min(blockLength, anchoredStart));
           const clampedEnd = Math.max(clampedStart, Math.min(blockLength, anchoredEnd));
 
-          console.log('Clamped range:', {
-            clampedStart,
-            clampedEnd,
-          });
-
           if (clampedStart === clampedEnd) {
             console.warn('Empty range after clamping, skipping');
             console.groupEnd()
@@ -689,8 +660,6 @@ export function addCommentsToEditor(
             style,
           });
 
-          console.log('Inline style applied successfully');
-          console.groupEnd();
           /* eslint-enable no-console */
         });
       } catch (err) {
