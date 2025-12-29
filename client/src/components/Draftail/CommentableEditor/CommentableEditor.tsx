@@ -170,7 +170,6 @@ function applyInlineStyleToRange({
     focusOffset: end,
   });
 
-
   const updatedContentState = Modifier.applyInlineStyle(
     contentState,
     selection,
@@ -179,7 +178,6 @@ function applyInlineStyleToRange({
 
   return updatedContentState;
 }
-
 
 /**
  * Get a selection state corresponding to the full contentState.
@@ -564,7 +562,7 @@ function findTextRangeInBlock(
 ): [number, number] {
   /* eslint-disable no-console */
   const blockText = block.getText();
-  
+
   if (!targetText) {
     return [fallbackStart, fallbackEnd];
   }
@@ -591,19 +589,16 @@ export function addCommentsToEditor(
   commentApp: CommentApp,
   getAnnotation: () => Annotation,
 ) {
-
   /* eslint-disable no-console */
   console.group('[Editor] addCommentsToEditor');
   console.log('Initial contentState:', contentState.toJS());
   console.log('Total comments received:', comments.length);
   /* eslint-enable no-console */
 
-
   let newContentState = contentState;
   comments
     .filter((comment) => !comment.annotation)
     .forEach((comment) => {
-
       /* eslint-disable no-console */
       commentApp.updateAnnotation(getAnnotation(), comment.localId);
 
@@ -616,10 +611,7 @@ export function addCommentsToEditor(
           const block = newContentState.getBlockForKey(position.key);
 
           if (!block) {
-            console.warn(
-              'Block not found for key:',
-              position.key,
-            );
+            console.warn('Block not found for key:', position.key);
             console.groupEnd();
             return;
           }
@@ -643,12 +635,18 @@ export function addCommentsToEditor(
             end,
           );
 
-          const clampedStart = Math.max(0, Math.min(blockLength, anchoredStart));
-          const clampedEnd = Math.max(clampedStart, Math.min(blockLength, anchoredEnd));
+          const clampedStart = Math.max(
+            0,
+            Math.min(blockLength, anchoredStart),
+          );
+          const clampedEnd = Math.max(
+            clampedStart,
+            Math.min(blockLength, anchoredEnd),
+          );
 
           if (clampedStart === clampedEnd) {
             console.warn('Empty range after clamping, skipping');
-            console.groupEnd()
+            console.groupEnd();
             return;
           }
 

@@ -2,7 +2,12 @@ import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { createEditorStateFromRaw } from 'draftail';
-import { DraftInlineStyleType, EditorState, SelectionState, Modifier} from 'draft-js';
+import {
+  DraftInlineStyleType,
+  EditorState,
+  SelectionState,
+  Modifier,
+} from 'draft-js';
 
 import { CommentApp } from '../../CommentApp/main';
 import { newComment } from '../../CommentApp/state/comments';
@@ -342,12 +347,11 @@ describe('CommentableEditor', () => {
     expect(styleRangeFound).toBe(false);
   });
 
-it('keeps comment anchored to the same text when surrounding whitespace is inserted and normalized', () => {
+  it('keeps comment anchored to the same text when surrounding whitespace is inserted and normalized', () => {
     /**
      * Initial content: "Hello world"
      * Comment on "world" → [6, 11]
      */
-
 
     const raw = {
       blocks: [
@@ -408,7 +412,11 @@ it('keeps comment anchored to the same text when surrounding whitespace is inser
       '  ', // extra spaces
     );
 
-    editorState = EditorState.push(editorState, contentState, 'insert-characters');
+    editorState = EditorState.push(
+      editorState,
+      contentState,
+      'insert-characters',
+    );
 
     /**
      * Step 3: normalize whitespace (remove extra spaces)
@@ -454,12 +462,11 @@ it('keeps comment anchored to the same text when surrounding whitespace is inser
       (start, end) => ranges.push([start, end]),
     );
 
-    const highlightedText = ranges.map(
-      ([start, end]) =>
-        finalContent.getFirstBlock().getText().slice(start, end),
+    const highlightedText = ranges.map(([start, end]) =>
+      finalContent.getFirstBlock().getText().slice(start, end),
     );
 
-    expect(highlightedText).toEqual(['world']); 
+    expect(highlightedText).toEqual(['world']);
   });
 
   it('can find the least common comment id', () => {
