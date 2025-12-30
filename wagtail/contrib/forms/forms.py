@@ -136,7 +136,13 @@ class FormBuilder:
             # a FormPage with unsaved changes) it won't have a clean_name as this is
             # set in FormField.save.
             clean_name = field.clean_name or field.get_field_clean_name()
-            formfields[clean_name] = create_field(field, options)
+            form_field = create_field(field, options)
+
+            autocomplete = getattr(field, "autocomplete", "")
+            if autocomplete and not form_field.widget.attrs.get("autocomplete"):
+                form_field.widget.attrs["autocomplete"] = autocomplete
+
+            formfields[clean_name] = form_field
 
         return formfields
 

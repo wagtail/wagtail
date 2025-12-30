@@ -635,6 +635,8 @@ class FormPage(AbstractEmailForm):
 
 When rendering a form, each field type will be rendered using its default widget, the widget used can be overridden as follows.
 
+For common cases such as names, email addresses, phone numbers or organisations, you can set the HTML `autocomplete` attribute directly on each form field in the Wagtail form builder. This value will be applied to the underlying Django form widget unless that widget already defines its own `autocomplete` attribute.
+
 Define your custom widget, in this example we will override the email type with an enhanced `EmailInput` widget.
 
 ```py

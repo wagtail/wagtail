@@ -337,6 +337,17 @@ class TestFormBuilder(TestCase):
                 form.fields[fieldname].required = False  # makes testing easier
                 self.assertHTMLEqual(form[fieldname].as_widget(), expected_render)
 
+    def test_autocomplete_attribute_is_rendered(self):
+        """Setting autocomplete on a form field adds the attribute to the rendered widget."""
+        FormField.objects.filter(
+            page=self.form_page,
+            label="Your email",
+        ).update(autocomplete="email")
+
+        form = self.form_page.get_form(auto_id=None)
+        field_html = form["your_email"].as_widget()
+        self.assertIn('autocomplete="email"', field_html)
+
 
 class TestCustomFormBuilder(TestCase):
     def setUp(self):

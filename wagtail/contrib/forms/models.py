@@ -113,6 +113,14 @@ class AbstractFormField(Orderable):
     help_text = models.CharField(
         verbose_name=_("help text"), max_length=255, blank=True
     )
+    autocomplete = models.CharField(
+        verbose_name=_("autocomplete"),
+        max_length=255,
+        blank=True,
+        help_text=_(
+            "HTML autocomplete attribute value, such as 'name', 'email' or 'organization'."
+        ),
+    )
 
     panels = [
         FieldPanel("label"),
@@ -121,6 +129,7 @@ class AbstractFormField(Orderable):
         FieldPanel("field_type", classname="formbuilder-type"),
         FieldPanel("choices", classname="formbuilder-choices"),
         FieldPanel("default_value", classname="formbuilder-default"),
+        FieldPanel("autocomplete", classname="formbuilder-autocomplete"),
     ]
 
     api_fields = [
@@ -131,6 +140,7 @@ class AbstractFormField(Orderable):
         APIField("required"),
         APIField("choices"),
         APIField("default_value"),
+        APIField("autocomplete"),
     ]
 
     def get_field_clean_name(self):
