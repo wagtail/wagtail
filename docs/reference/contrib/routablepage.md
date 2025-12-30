@@ -34,6 +34,11 @@ If you want to create a more custom response, you may want to use `django.shortc
 
 The `path` and `re_path` decorators from `wagtail.contrib.routable_page.models.path` are similar to [the Django `django.urls` `path` and `re_path` functions](inv:django#topics/http/urls). The former allows the use of plain paths and converters while the latter lets you specify your URL patterns as regular expressions.
 
+```{admonition} Punctuation not supported
+There is a known [issue](https://github.com/wagtail/wagtail/issues/3653) the prevents punctuation from being used in `path` or `re_path` patterns.
+```
+
+
 Here's an example of an `EventIndexPage` with three views, assuming that an `EventPage` model with an `event_date` field has been defined elsewhere:
 
 ```python
