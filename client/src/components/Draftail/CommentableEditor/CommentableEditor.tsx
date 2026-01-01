@@ -129,11 +129,17 @@ export class DraftailInlineAnnotation implements Annotation {
       // If the comment is focused, calculate the median of refs only
       // within the focused block, to ensure the comment is visible
       // if the highlight has somehow been split up
-      medianRef = DraftailInlineAnnotation.getMedianRef(
-        Array.from(this.decoratorRefs.keys()).filter(
-          (ref) => this.decoratorRefs.get(ref) === this.focusedBlockKey,
-        ),
+      const focusedRefs = Array.from(this.decoratorRefs.keys()).filter(
+        (ref) => this.decoratorRefs.get(ref) === this.focusedBlockKey,
       );
+      medianRef = DraftailInlineAnnotation.getMedianRef(focusedRefs);
+
+      // Fallback to the overall median if the focused block has no refs.
+      if (!medianRef) {
+        medianRef = DraftailInlineAnnotation.getMedianRef(
+          Array.from(this.decoratorRefs.keys()),
+        );
+      }
     } else if (!this.cachedMedianRef) {
       // Our cache is empty - try to update it
       medianRef = DraftailInlineAnnotation.getMedianRef(
