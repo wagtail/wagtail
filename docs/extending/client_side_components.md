@@ -19,7 +19,7 @@ This guide covers the most common controllers and how to use them.
 </div>
 ```
 
-**API Reference**: {controller}`w-clipboard`
+**API Reference**: [w-clipboard](controller:ClipboardController)
 
 **Accessibility**:
 - Ensure the button has a recognizable label (e.g. "Copy").
@@ -58,7 +58,7 @@ This guide covers the most common controllers and how to use them.
 <button type="button" data-a11y-dialog-show="my-dialog">Open Dialog</button>
 ```
 
-**API Reference**: {controller}`w-dialog`
+**API Reference**: [w-dialog](controller:DialogController)
 
 **Accessibility**:
 - Manages focus trapping and restoration automatically.
@@ -85,7 +85,7 @@ This guide covers the most common controllers and how to use them.
 </button>
 ```
 
-**API Reference**: {controller}`w-tooltip`
+**API Reference**: [w-tooltip](controller:TooltipController)
 
 **Accessibility**:
 - Tooltips triggered by hover/focus are generally accessible if they contain supplementary info.
@@ -120,7 +120,7 @@ This guide covers the most common controllers and how to use them.
 </section>
 ```
 
-**API Reference**: {controller}`w-reveal`
+**API Reference**: [w-reveal](controller:RevealController)
 
 **Accessibility**:
 - Automatically updates `aria-expanded` on toggle buttons.
@@ -160,7 +160,7 @@ This guide covers the most common controllers and how to use them.
 >
 ```
 
-**API Reference**: {controller}`w-clean` and {controller}`w-slug`
+**API Reference**: [w-clean](controller:CleanController) and [w-slug](controller:CleanController)
 
 **Accessibility**:
 - Ensure users can review and modify the auto-generated value.
@@ -198,7 +198,7 @@ This guide covers the most common controllers and how to use them.
 </ul>
 ```
 
-**API Reference**: {controller}`w-orderable`
+**API Reference**: [w-orderable](controller:OrderableController)
 
 **Accessibility**:
 - Includes helpers (`w-orderable#up`, `w-orderable#down`) for keyboard-accessible reordering.
@@ -230,7 +230,7 @@ This guide covers the most common controllers and how to use them.
 </button>
 ```
 
-**API Reference**: {controller}`w-progress`
+**API Reference**: [w-progress](controller:ProgressController)
 
 **Accessibility**:
 - Disables the button to prevent double submission (if `w-progress#activate` is triggered).
@@ -269,7 +269,7 @@ This guide covers the most common controllers and how to use them.
 </button>
 ```
 
-**API Reference**: {controller}`w-action`
+**API Reference**: [w-action](controller:ActionController)
 
 **Available Methods**:
 - `post` / `sendBeacon`: POSTs to `urlValue`. `sendBeacon` is non-blocking.
