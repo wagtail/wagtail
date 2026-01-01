@@ -27,6 +27,13 @@ enum RevealState {
  *   <div id="my-content">CONTENT</div>
  * </section>
  * ```
+ *
+ * @event ready - Dispatched when controller is initialized. `detail: { closed: boolean }`
+ * @event closing - Dispatched before closing. Cancelable.
+ * @event closed - Dispatched after closing.
+ * @event opening - Dispatched before opening. Cancelable.
+ * @event opened - Dispatched after opening.
+ * @event toggled - Dispatched on toggle buttons when state changes. `detail: { closed: boolean, target: HTMLElement }`
  */
 export class RevealController extends Controller<HTMLElement> {
   static classes = [

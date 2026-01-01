@@ -71,7 +71,9 @@ export class ActionController extends Controller<
     url: String,
   };
 
+  /** If false (default), includes a `next` param in the POST request to redirect back to the current page. */
   declare continueValue: boolean;
+  /** The URL to submit to for `post` or `sendBeacon` actions. */
   declare urlValue: string;
 
   click() {
@@ -85,7 +87,7 @@ export class ActionController extends Controller<
    * Stimulus options without needing any extra functionality.
    * e.g. preventDefault (`:prevent`) and stopPropagation (`:stop`).
    */
-  noop() {}
+  noop() { }
 
   private createFormElement() {
     const formElement = document.createElement('form');
