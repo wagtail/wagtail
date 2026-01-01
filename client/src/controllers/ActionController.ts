@@ -87,7 +87,7 @@ export class ActionController extends Controller<
    * Stimulus options without needing any extra functionality.
    * e.g. preventDefault (`:prevent`) and stopPropagation (`:stop`).
    */
-  noop() { }
+  noop() {}
 
   private createFormElement() {
     const formElement = document.createElement('form');
