@@ -174,7 +174,7 @@ $header-button-size: theme('spacing.6');
   border: 1px solid theme('colors.border-furniture');
   border-radius: 5px;
   margin-bottom: calc(
-    theme('spacing.4') + theme('spacing.4') * var(--w-density-factor)
+    theme('spacing.5') + theme('spacing.5') * var(--w-density-factor)
   );
 
   .w-panel__header {
