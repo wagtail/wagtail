@@ -20,6 +20,12 @@
         <span id="page_{{ page.pk|unlocalize|admin_urlquote }}_title">
             {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial" %}{% endif %}
             {{ page.get_admin_display_title }}
+            {% if page.alias_of %}
+                <span class="w-page-alias-indicator" title="{% trans 'Alias of' %} {{ page.alias_of.get_admin_display_title }}">
+                    <span class="w-badge w-badge--muted" aria-hidden="true">{% trans "Alias" %}</span>
+                    <span class="sr-only">{% trans "Alias page" %}</span>
+                </span>
+            {% endif %}
         </span>
     {% endfragment %}
 
