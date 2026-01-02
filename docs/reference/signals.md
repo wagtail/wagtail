@@ -1,5 +1,14 @@
 # Signals
 
+The following Wagtail apps define signal receivers:
+
+- wagtailcore
+- wagtailadmin
+- wagtaildocs
+- wagtailimages
+- wagtailusers
+
+
 Wagtail's [](revision_model_ref) and [](page_model_ref) implement [Signals](inv:django#topics/signals) from `django.dispatch`.
 Signals are useful for creating side-effects from page publish/unpublish events.
 
