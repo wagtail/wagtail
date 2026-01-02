@@ -76,6 +76,7 @@ class CreateView(
 ):
     template_name = "wagtailadmin/pages/create.html"
     page_title = gettext_lazy("New")
+    edit_url_name = "wagtailadmin_pages:edit"
 
     def dispatch(
         self, request, content_type_app_name, content_type_model_name, parent_page_id
@@ -290,6 +291,7 @@ class CreateView(
                     "pk": self.page.pk,
                     "revision_id": revision.pk,
                     "revision_created_at": revision.created_at.isoformat(),
+                    "url": reverse(self.edit_url_name, args=[self.page.pk]),
                 }
             )
         else:

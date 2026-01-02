@@ -666,6 +666,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response_json["revision_created_at"],
             revision.created_at.isoformat(),
         )
+        self.assertEqual(
+            response_json["url"],
+            reverse("wagtailadmin_pages:edit", args=(page.pk,)),
+        )
 
         self.assertEqual(page.title, post_data["title"])
         self.assertEqual(page.draft_title, post_data["title"])
