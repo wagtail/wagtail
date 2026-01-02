@@ -253,6 +253,20 @@ ul.listing {
       margin: 3px 0.3em 0 0;
       vertical-align: top;
     }
+
+    .w-page-alias-indicator {
+      margin-inline-start: 0.5rem;
+      vertical-align: middle;
+      display: inline-flex;
+    }
+
+    .w-badge--muted {
+      font-size: 0.75rem;
+      padding: 0.1em 0.35em;
+      border-radius: 0.25rem;
+      background-color: rgba(0, 0, 0, 0.05);
+      color: rgba(0, 0, 0, 0.6);
+    }
   }
 
   .actions {
