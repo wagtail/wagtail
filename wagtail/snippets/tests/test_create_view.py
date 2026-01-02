@@ -210,6 +210,10 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], snippet.pk)
         self.assertEqual(response_json["field_updates"], {})
+        self.assertEqual(
+            response_json["url"],
+            reverse(snippet.snippet_viewset.get_url_name("edit"), args=(snippet.pk,)),
+        )
 
     def test_create_with_tags(self):
         tags = ["hello", "world"]

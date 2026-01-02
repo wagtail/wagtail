@@ -681,7 +681,11 @@ class CreateView(
         return instance
 
     def get_success_json(self):
-        result = {"success": True, "pk": self.object.pk}
+        result = {
+            "success": True,
+            "pk": self.object.pk,
+            "url": self.get_edit_url(),
+        }
         if isinstance(self.form, WagtailAdminModelForm):
             result["field_updates"] = dict(self.form.get_field_updates_for_resave())
         return result
