@@ -824,7 +824,7 @@ class CreateEditViewOptionalFeaturesMixin:
         # For autosave, we only want to save the page if there are no conflicts
         if self.expects_json_response and self.is_out_of_date:
             self.produced_error_code = "invalid_revision"
-            self.produced_error_message = _("Saving will overwrite a newer version")
+            self.produced_error_message = _("Saving will overwrite a newer version.")
             return False
 
         # Make sure object is not locked

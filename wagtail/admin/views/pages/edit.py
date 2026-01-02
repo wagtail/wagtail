@@ -377,7 +377,9 @@ class EditView(
             if self.expects_json_response and not self.response_is_json(response):
                 # Hook response is not suitable for a JSON response, so construct our own error response
                 return self.json_error_response(
-                    "blocked_by_hook", "Request to edit page was blocked by hook"
+                    "blocked_by_hook",
+                    _("Request to edit %(model_name)s was blocked by hook.")
+                    % {"model_name": Page._meta.verbose_name},
                 )
             else:
                 return response
@@ -506,7 +508,7 @@ class EditView(
         if self.expects_json_response and self.is_out_of_date:
             return self.json_error_response(
                 "invalid_revision",
-                _("Saving will overwrite a newer version"),
+                _("Saving will overwrite a newer version."),
             )
 
         self.form = self.form_class(
@@ -589,7 +591,7 @@ class EditView(
                         )
                     except Revision.DoesNotExist as e:
                         raise PermissionDenied(
-                            "Cannot overwrite a revision that does not exist"
+                            "Cannot overwrite a revision that does not exist."
                         ) from e
                 else:
                     overwrite_revision = None

@@ -613,7 +613,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version",
+                "errorMessage": "Saving will overwrite a newer version.",
             },
         )
 
@@ -707,7 +707,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version",
+                "errorMessage": "Saving will overwrite a newer version.",
             },
         )
 
@@ -2294,7 +2294,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook",
+                "errorMessage": "Request to edit page was blocked by hook.",
             },
         )
 
@@ -2363,7 +2363,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook",
+                "errorMessage": "Request to edit page was blocked by hook.",
             },
         )
 

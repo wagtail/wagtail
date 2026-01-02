@@ -370,7 +370,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit advert was blocked by hook",
+                "errorMessage": "Request to edit advert was blocked by hook.",
             },
         )
 
@@ -434,7 +434,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit advert was blocked by hook",
+                "errorMessage": "Request to edit advert was blocked by hook.",
             },
         )
 
@@ -790,7 +790,7 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             {
                 "success": False,
                 "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version",
+                "errorMessage": "Saving will overwrite a newer version.",
             },
         )
 
@@ -855,7 +855,7 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             {
                 "success": False,
                 "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version",
+                "errorMessage": "Saving will overwrite a newer version.",
             },
         )
 
@@ -897,7 +897,7 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
                 # We only naively check whether overwrite_revision_id matches
                 # the latest revision ID, and if it doesn't, we assume there's
                 # a newer revision.
-                "errorMessage": "Saving will overwrite a newer version",
+                "errorMessage": "Saving will overwrite a newer version.",
             },
         )
 
