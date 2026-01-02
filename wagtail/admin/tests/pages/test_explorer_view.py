@@ -141,6 +141,21 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:history", args=(1,)),
         )
 
+    def test_alias_indicator_shown_in_explorer(self):
+        # Create an alias page
+        alias = self.child_page.add_child(
+            instance=Page(title="Alias copy", slug="alias-copy")
+        )
+        alias.alias_of = self.new_page
+        alias.save()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.child_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Alias")
+        self.assertContains(response, "Alias of")
+
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
         self.assertEqual(response.status_code, 200)
