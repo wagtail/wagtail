@@ -23,6 +23,7 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.models import EditingSession
 from wagtail.admin.telepath import JSContext
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.tables import LiveStatusTagColumn, TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
@@ -282,6 +283,7 @@ class CreateEditViewOptionalFeaturesMixin:
             and issubclass(self.model, LockableMixin)
             and self.view_name != "create"
         )
+        self.autosave_enabled = self.revision_enabled and self.view_name != "create"
 
         # Set the object before super().setup() as LocaleMixin.setup() needs it
         self.object = self.get_object()
@@ -541,7 +543,7 @@ class CreateEditViewOptionalFeaturesMixin:
         self.new_revision = None
         if self.revision_enabled:
             overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
-            if overwrite_revision_id is not None:
+            if overwrite_revision_id:
                 try:
                     overwrite_revision = instance.revisions.get(
                         pk=overwrite_revision_id
@@ -795,6 +797,7 @@ class CreateEditViewOptionalFeaturesMixin:
         context["revision_enabled"] = self.revision_enabled
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
+        context["autosave_enabled"] = self.autosave_enabled
         context["workflow_history_url"] = self.get_workflow_history_url()
         context["confirm_workflow_cancellation_url"] = (
             self.get_confirm_workflow_cancellation_url()
@@ -804,6 +807,8 @@ class CreateEditViewOptionalFeaturesMixin:
         ) and bool(self.workflow_tasks)
         context["revisions_compare_url_name"] = self.revisions_compare_url_name
         context["editing_sessions"] = self.get_editing_sessions()
+        if self.autosave_enabled:
+            context["autosave_indicator"] = AutosaveIndicator()
         return context
 
     def is_valid(self, form):

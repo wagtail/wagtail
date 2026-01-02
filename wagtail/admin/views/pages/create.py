@@ -76,6 +76,7 @@ class CreateView(
 ):
     template_name = "wagtailadmin/pages/create.html"
     page_title = gettext_lazy("New")
+    edit_url_name = "wagtailadmin_pages:edit"
 
     def dispatch(
         self, request, content_type_app_name, content_type_model_name, parent_page_id
@@ -283,7 +284,12 @@ class CreateView(
 
         if self.expects_json_response:
             return JsonResponse(
-                {"success": True, "pk": self.page.pk, "revision_id": revision.pk}
+                {
+                    "success": True,
+                    "pk": self.page.pk,
+                    "revision_id": revision.pk,
+                    "url": reverse(self.edit_url_name, args=[self.page.pk]),
+                }
             )
         else:
             # remain on edit page for further edits
