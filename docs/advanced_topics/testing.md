@@ -330,3 +330,22 @@ Filling in the `path` / `numchild` / `depth` fields is necessary for tree operat
 `url_path` is another field that can cause errors in some uncommon cases if it isn't filled in.
 
 The [Treebeard docs](inv:treebeard:std:doc#mp_tree) might help in understanding how this works.
+
+
+## Custom Document Form
+
+In some cases, you may want to customise the form used when uploading documents in Wagtail — for example, to add custom validation or control which fields are available.
+
+This can be achieved by extending Wagtail’s built-in `DocumentForm`.
+
+### Example
+
+```python
+from wagtail.documents.forms import DocumentForm
+from wagtail.documents.models import Document
+
+
+class CustomDocumentForm(DocumentForm):
+    class Meta:
+        model = Document
+        fields = ("title", "file", "tags")
