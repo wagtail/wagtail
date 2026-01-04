@@ -225,7 +225,7 @@ This guide covers the most common controllers and how to use them.
     data-w-progress-active-value="Saving..."
 >
     <!-- Icon (optional) -->
-    <svg class="icon icon-spinner" ...></svg>
+    <svg class="icon icon-spinner"></svg>
     <em data-w-progress-target="label">Save</em>
 </button>
 ```
