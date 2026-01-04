@@ -21,6 +21,7 @@ template_components
 forms
 adding_reports
 custom_tasks
+client_side_components
 audit_log
 custom_account_settings
 customizing_group_views
