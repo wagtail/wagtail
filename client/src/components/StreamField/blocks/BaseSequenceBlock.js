@@ -10,110 +10,15 @@ import {
   toggleCollapsiblePanel,
 } from '../../../includes/panels';
 import { range } from '../../../utils/range';
+import {
+  MoveUpButton,
+  MoveDownButton,
+  DragButton,
+  DuplicateButton,
+  DeleteButton,
+} from './ActionButtons';
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { StructBlockDefinition } from './StructBlock';
-
-class ActionButton {
-  constructor(sequenceChild) {
-    this.sequenceChild = sequenceChild;
-  }
-
-  render(container) {
-    const label =
-      this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
-
-    this.dom = $(`
-      <button type="button" class="button button--icon text-replace white" data-streamfield-action="${this.labelIdentifier}" title="${h(label)}">
-        <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
-          <use href="#icon-${h(this.icon)}"></use>
-        </svg>
-      </button>
-    `);
-
-    this.dom.on('click', () => {
-      if (this.onClick) this.onClick();
-      return false; // don't propagate to header's onclick event (which collapses the block)
-    });
-
-    $(container).append(this.dom);
-
-    if (this.enableEvent) {
-      this.sequenceChild.addEventListener(this.enableEvent, () => {
-        this.enable();
-      });
-    }
-
-    if (this.disableEvent) {
-      this.sequenceChild.addEventListener(this.disableEvent, () => {
-        this.disable();
-      });
-    }
-
-    if (this.initiallyDisabled) {
-      this.disable();
-    }
-  }
-
-  enable() {
-    this.dom.removeAttr('disabled');
-  }
-
-  disable() {
-    this.dom.attr('disabled', 'true');
-  }
-}
-
-class MoveUpButton extends ActionButton {
-  enableEvent = 'enableMoveUp';
-  disableEvent = 'disableMoveUp';
-  initiallyDisabled = true;
-  icon = 'arrow-up';
-  labelIdentifier = 'MOVE_UP';
-
-  onClick() {
-    this.sequenceChild.moveUp();
-  }
-}
-
-class MoveDownButton extends ActionButton {
-  enableEvent = 'enableMoveDown';
-  disableEvent = 'disableMoveDown';
-  initiallyDisabled = true;
-  icon = 'arrow-down';
-  labelIdentifier = 'MOVE_DOWN';
-
-  onClick() {
-    this.sequenceChild.moveDown();
-  }
-}
-
-class DragButton extends ActionButton {
-  enableEvent = 'enableDrag';
-  disableEvent = 'disableDrag';
-  initiallyDisabled = false;
-  icon = 'grip';
-  labelIdentifier = 'DRAG';
-}
-
-class DuplicateButton extends ActionButton {
-  enableEvent = 'enableDuplication';
-  disableEvent = 'disableDuplication';
-  icon = 'copy';
-  labelIdentifier = 'DUPLICATE';
-
-  onClick() {
-    this.sequenceChild.duplicate({ animate: true });
-  }
-}
-
-class DeleteButton extends ActionButton {
-  icon = 'bin';
-  labelIdentifier = 'DELETE';
-
-  onClick() {
-    this.sequenceChild.delete({ animate: true });
-  }
-}
 
 export class BaseSequenceChild extends EventTarget {
   constructor(
@@ -137,7 +42,6 @@ export class BaseSequenceChild extends EventTarget {
     const animate = opts && opts.animate;
     const focus = opts && opts.focus;
     const collapsed = opts && opts.collapsed;
-    this.strings = (opts && opts.strings) || {};
 
     const panelId = `block-${id}-section`;
     const headingId = `block-${id}-heading`;
@@ -442,7 +346,6 @@ export class BaseSequenceBlock {
         onRequestInsert: (newIndex, opts) => {
           this._onRequestInsert(newIndex, opts);
         },
-        strings: this.blockDef.meta.strings,
       }),
     ];
 
@@ -504,7 +407,6 @@ export class BaseSequenceBlock {
         animate,
         focus,
         collapsed,
-        strings: this.blockDef.meta.strings,
       },
     );
     this.children.splice(index, 0, child);
@@ -514,7 +416,6 @@ export class BaseSequenceBlock {
       onRequestInsert: (newIndex, inserterOpts) => {
         this._onRequestInsert(newIndex, inserterOpts);
       },
-      strings: this.blockDef.meta.strings,
       animate,
     });
     this.inserters.splice(index + 1, 0, inserter);

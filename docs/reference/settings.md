@@ -446,7 +446,7 @@ Change the global default for WebP image encoding quality (default: 80).
 WAGTAILIMAGES_AVIF_QUALITY = 65
 ```
 
-Change the global default for AVIF image encoding quality (default: 80).
+Change the global default for AVIF image encoding quality (default: 73).
 
 ### `WAGTAILIMAGES_HEIC_QUALITY`
 

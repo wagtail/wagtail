@@ -2,19 +2,11 @@
 
 ## PEP8
 
-We ask that all Python contributions adhere to the [PEP8](https://peps.python.org/pep-0008/) style guide.
-All files should be formatted using the [ruff](https://github.com/astral-sh/ruff) auto-formatter. This will be
-run by `pre-commit` if that is configured.
+We ask that all Python contributions adhere to the [PEP8](https://peps.python.org/pep-0008/) style guide. See [](linting_and_formatting).
 
--   The project repository includes an `.editorconfig` file. We recommend using
-    a text editor with [EditorConfig](https://editorconfig.org/) support to avoid indentation and
-    whitespace issues. Python and HTML files use 4 spaces for indentation.
-
-If you have installed Wagtail's testing dependencies (`pip install -e '.[testing]'`), you can check your code by
-running `make lint`. You can also just check python related linting by running `make lint-server`.
-
-You can run all Python formatting with `make format`. Similar to linting you can format Python/template-only files
-by running `make format-server`.
+The project repository includes an `.editorconfig` file. We recommend using
+a text editor with [EditorConfig](https://editorconfig.org/) support to avoid indentation and
+whitespace issues. Python and HTML files use 4 spaces for indentation.
 
 ## Django compatibility
 
