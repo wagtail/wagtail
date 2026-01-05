@@ -242,6 +242,23 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
 
+    def test_loaded_revision_id_included_in_form(self):
+        # Ensure there's a revision for the page
+        self.event_page.title = "Updated event page"
+        revision = self.event_page.save_revision()
+        self.assertEqual(self.event_page.revisions.count(), 1)
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        loaded_revision = form.select_one("input[name='loaded_revision_id']")
+        self.assertIsNotNone(loaded_revision)
+        self.assertEqual(int(loaded_revision["value"]), revision.pk)
+
     def test_publish_button_shows_schedule_label_for_future_go_live(self):
         go_live_at = timezone.now() + datetime.timedelta(hours=1)
 

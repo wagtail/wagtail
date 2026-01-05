@@ -173,6 +173,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             "edits",
             editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
+        self.assertIsNone(editor_form.select_one("input[name='loaded_revision_id']"))
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
@@ -846,6 +847,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
     def test_get(self):
+        revision = self.test_snippet.save_revision()
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
@@ -883,6 +885,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             f'<a class="button" href="{unpublish_url}">',
         )
         self.assertNotContains(response, "Unpublish")
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        loaded_revision = form.select_one("input[name='loaded_revision_id']")
+        self.assertIsNotNone(loaded_revision)
+        self.assertEqual(int(loaded_revision["value"]), revision.pk)
 
     def test_save_draft(self):
         response = self.post(post_data={"text": "Draft-enabled Bar"})
