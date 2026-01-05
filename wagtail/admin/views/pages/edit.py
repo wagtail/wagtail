@@ -484,11 +484,30 @@ class EditView(
             and self.workflow_state.user_can_cancel(self.request.user)
         )
 
+    @cached_property
+    def is_out_of_date(self):
+        # Check the autosave revision if present, otherwise fall back to the
+        # initially loaded revision.
+        submitted_revision_id = self.request.POST.get(
+            "overwrite_revision_id"
+        ) or self.request.POST.get("loaded_revision_id")
+
+        return submitted_revision_id and (
+            submitted_revision_id != str(self.page.latest_revision_id)
+        )
+
     def post(self, request, *args, **kwargs):
         # Don't allow POST requests if the page is an alias
         if self.page.alias_of_id:
             # Return 405 "Method Not Allowed" response
             return HttpResponse(status=405)
+
+        # For autosave, we only want to save the page if there are no conflicts
+        if self.expects_json_response and self.is_out_of_date:
+            return self.json_error_response(
+                "invalid_revision",
+                _("Saving will overwrite a newer version"),
+            )
 
         self.form = self.form_class(
             self.request.POST,

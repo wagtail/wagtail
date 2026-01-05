@@ -789,6 +789,20 @@ class CreateEditViewOptionalFeaturesMixin:
             revision_id,
         )
 
+    @cached_property
+    def is_out_of_date(self):
+        # Check the autosave revision if present, otherwise fall back to the
+        # initially loaded revision.
+        submitted_revision_id = self.request.POST.get(
+            "overwrite_revision_id"
+        ) or self.request.POST.get("loaded_revision_id")
+
+        return (
+            self.revision_enabled
+            and submitted_revision_id
+            and (submitted_revision_id != str(self.object.latest_revision_id))
+        )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_lock_context())
@@ -807,6 +821,12 @@ class CreateEditViewOptionalFeaturesMixin:
         return context
 
     def is_valid(self, form):
+        # For autosave, we only want to save the page if there are no conflicts
+        if self.expects_json_response and self.is_out_of_date:
+            self.produced_error_code = "invalid_revision"
+            self.produced_error_message = _("Saving will overwrite a newer version")
+            return False
+
         # Make sure object is not locked
         if self.locked_for_user:
             self.produced_error_code = "locked"

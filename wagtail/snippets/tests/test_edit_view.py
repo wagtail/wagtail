@@ -731,13 +731,86 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         self.assertEqual(log_entries.count(), 1)
         self.assertEqual(log_entries.first().revision, revision)
 
-    def test_overwrite_revision_with_json_response(self):
-        self.test_snippet.text = "Initial revision"
-        revision = self.test_snippet.save_revision(user=self.user)
+    def test_edit_snippet_with_revision_and_json_response(self):
+        initial_revision = self.test_snippet.save_revision(user=self.user)
         self.assertEqual(self.test_snippet.revisions.count(), 1)
         response = self.post(
             post_data={
+                "text": "bar",
+                "loaded_revision_id": initial_revision.pk,
+            },
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 200 OK JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        response_json = response.json()
+        self.assertIs(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.test_snippet.pk)
+
+        # Should create a new revision to be overwritten later
+        self.assertEqual(self.test_snippet.revisions.count(), 2)
+        self.assertNotEqual(response_json["revision_id"], initial_revision.pk)
+        revision = self.test_snippet.revisions.get(pk=response_json["revision_id"])
+        self.assertEqual(revision.content["text"], "bar")
+
+        # The instance should be updated
+        snippets = RevisableModel.objects.filter(text="bar")
+        self.assertEqual(snippets.count(), 1)
+
+        # The log entry should have the revision attached
+        log_entries = ModelLogEntry.objects.for_instance(self.test_snippet).filter(
+            action="wagtail.edit"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        self.assertEqual(log_entries.first().revision, revision)
+
+    def test_save_outdated_revision_with_json_response(self):
+        self.test_snippet.text = "Initial revision"
+        revision = self.test_snippet.save_revision(user=self.user)
+        self.test_snippet.text = "Latest revision"
+        self.test_snippet.save_revision()
+        self.assertEqual(self.test_snippet.revisions.count(), 2)
+        response = self.post(
+            post_data={
                 "text": "Updated revision",
+                "loaded_revision_id": revision.pk,
+            },
+            headers={"Accept": "application/json"},
+        )
+
+        # Instead of creating a new revision for autosave (which means the user
+        # would unknowingly replace a newer revision), we return an error
+        # response that should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "invalid_revision",
+                "errorMessage": "Saving will overwrite a newer version",
+            },
+        )
+
+        self.assertEqual(self.test_snippet.revisions.count(), 2)
+        revision.refresh_from_db()
+        self.assertEqual(revision.content["text"], "Initial revision")
+
+    def test_overwrite_revision_with_json_response(self):
+        self.test_snippet.text = "Initial revision"
+        initial_revision = self.test_snippet.save_revision()
+        self.test_snippet.text = "Changed via a previous autosave"
+        revision = self.test_snippet.save_revision(user=self.user)
+        self.assertEqual(self.test_snippet.revisions.count(), 2)
+        response = self.post(
+            post_data={
+                "text": "Updated revision",
+                # The page was originally loaded with initial_revision, but
+                # a successful autosave created a new revision which we now
+                # want to overwrite with a new autosave request
+                "loaded_revision_id": initial_revision.pk,
                 "overwrite_revision_id": revision.pk,
             },
             headers={"Accept": "application/json"},
@@ -751,19 +824,22 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             {"success": True, "pk": self.test_snippet.pk, "revision_id": revision.pk},
         )
 
-        self.assertEqual(self.test_snippet.revisions.count(), 1)
+        self.assertEqual(self.test_snippet.revisions.count(), 2)
         revision.refresh_from_db()
         self.assertEqual(revision.content["text"], "Updated revision")
 
     def test_overwrite_non_latest_revision(self):
         self.test_snippet.text = "Initial revision"
+        initial_revision = self.test_snippet.save_revision(user=self.user)
+        self.test_snippet.text = "First update via autosave"
         user_revision = self.test_snippet.save_revision(user=self.user)
         self.test_snippet.text = "Someone else's changed text"
         later_revision = self.test_snippet.save_revision()
-        self.assertEqual(self.test_snippet.revisions.count(), 2)
+        self.assertEqual(self.test_snippet.revisions.count(), 3)
 
         post_data = {
             "text": "Updated revision",
+            "loaded_revision_id": initial_revision.id,
             "overwrite_revision_id": user_revision.id,
         }
         response = self.post(
@@ -779,7 +855,7 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             {
                 "success": False,
                 "errorCode": "invalid_revision",
-                "errorMessage": "Cannot overwrite a revision that is not the latest for this object",
+                "errorMessage": "Saving will overwrite a newer version",
             },
         )
 
@@ -789,9 +865,9 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         self.assertEqual(self.test_snippet.text, "foo")
 
         # The passed revision for overwriting, and the actual latest revision, should both be unchanged
-        self.assertEqual(self.test_snippet.revisions.count(), 2)
+        self.assertEqual(self.test_snippet.revisions.count(), 3)
         user_revision.refresh_from_db()
-        self.assertEqual(user_revision.content["text"], "Initial revision")
+        self.assertEqual(user_revision.content["text"], "First update via autosave")
         later_revision.refresh_from_db()
         self.assertEqual(later_revision.content["text"], "Someone else's changed text")
         self.assertEqual(self.test_snippet.get_latest_revision().id, later_revision.id)
@@ -818,7 +894,10 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             {
                 "success": False,
                 "errorCode": "invalid_revision",
-                "errorMessage": "Cannot overwrite a revision that does not exist",
+                # We only naively check whether overwrite_revision_id matches
+                # the latest revision ID, and if it doesn't, we assume there's
+                # a newer revision.
+                "errorMessage": "Saving will overwrite a newer version",
             },
         )
 
