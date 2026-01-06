@@ -1022,6 +1022,7 @@ class EditView(
             ),
             [],
             self.page.latest_revision_id,
+            self.latest_revision_created_at,
         )
 
     def get_action_menu(self):

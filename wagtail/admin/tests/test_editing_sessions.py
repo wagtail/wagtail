@@ -357,6 +357,175 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertFalse(self.session.is_editing)
 
     @freeze_time(TIMESTAMP_NOW)
+    def test_ping_with_overwritten_revision(self):
+        # Simulate other user creating a new revision to be used for autosave
+        with freeze_time(TIMESTAMP_1):
+            loaded_revision = self.page.save_revision(user=self.other_user)
+
+        loaded_timestamp = loaded_revision.created_at.isoformat()
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {
+                "revision_id": self.original_revision.id,
+                "revision_created_at": loaded_timestamp,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # no revisions have been saved since the original revision
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser", session_text)
+        self.assertIn("Currently viewing", session_text)
+        self.assertNotIn("saved a new version", session_text)
+
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+        # Simulate other user doing an autosave by overwriting the same revision
+        # that we have loaded
+        with freeze_time(TIMESTAMP_3):
+            self.page.save_revision(
+                user=self.other_user,
+                overwrite_revision=loaded_revision,
+            )
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {
+                "revision_id": self.original_revision.id,
+                "revision_created_at": loaded_timestamp,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # the overwritten revision should be indicated in the response
+        # (and last_seen_at should reflect it), even though it has the same ID
+        # as the loaded revision
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_3.isoformat(),
+                    "is_editing": False,
+                    "revision_id": loaded_revision.id,
+                },
+            ],
+        )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser saved a new version", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn("Vic Otheruser saved a new version", dialog_title.string)
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes made by Vic Otheruser. "
+            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
+            dialog_subtitle.string,
+        )
+
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+        self.other_session.delete()
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {
+                "revision_id": self.original_revision.id,
+                "revision_created_at": loaded_timestamp,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # the overwritten revision should still appear as an "other session" in
+        # the response, even though the editing session record has been deleted
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": None,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_3.isoformat(),
+                    "is_editing": False,
+                    "revision_id": loaded_revision.id,
+                },
+            ],
+        )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser saved a new version", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn(
+            "Vic Otheruser saved a new version",
+            dialog_title.string,
+        )
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes made by Vic Otheruser. "
+            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
+            dialog_subtitle.string,
+        )
+
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
     def test_ping_with_multiple_revisions_since_own_revision(self):
         # Create a new revision with the other_user
         with freeze_time(TIMESTAMP_3):
@@ -937,6 +1106,32 @@ class TestPingView(WagtailTestUtils, TestCase):
             ],
         )
 
+        # The rendered HTML should use special messaging if the newer revision
+        # is made by the same user ("in another window").
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 2)
+        session_text = rendered_sessions[0].text
+        self.assertIn("You saved a new version in another window", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn(
+            "You saved a new version in another window", dialog_title.text.strip()
+        )
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes you made in that window. "
+            "Refreshing the page will show you the new changes, but you will "
+            "lose any of your unsaved changes in the current window.",
+            dialog_subtitle.text.strip(),
+        )
+
     @freeze_time(TIMESTAMP_NOW)
     def test_user_must_have_edit_permission_on_page(self):
         # make user a member of Editors
@@ -1330,6 +1525,13 @@ class TestModuleInEditView(WagtailTestUtils, TestCase):
         self.assertEqual(
             revision_input.get("value"),
             str(self.object.latest_revision.id),
+        )
+        revision_created_at = soup.select_one('input[name="revision_created_at"]')
+        self.assertIsNotNone(revision_created_at)
+        self.assertEqual(revision_created_at.get("type"), "hidden")
+        self.assertEqual(
+            revision_created_at.get("value"),
+            self.object.latest_revision.created_at.isoformat(),
         )
 
     @freeze_time(TIMESTAMP_NOW)
