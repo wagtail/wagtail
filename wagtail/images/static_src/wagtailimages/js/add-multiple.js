@@ -133,7 +133,7 @@ $(function () {
 
     done: function (e, data) {
       var itemElement = $(data.context);
-      
+
       var thumb = itemElement.find('.preview .thumb');
       if (thumb.find('canvas').length === 0) {
         thumb.find('.icon').show();
