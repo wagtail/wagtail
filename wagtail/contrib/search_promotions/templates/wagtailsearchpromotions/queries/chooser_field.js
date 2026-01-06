@@ -9,7 +9,7 @@ function createQueryChooser(id) {
       url: initialUrl,
       onload: QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
-        queryChosen (queryData) {
+        queryChosen(queryData) {
           input.val(queryData.querystring);
         },
       },
