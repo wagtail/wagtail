@@ -259,7 +259,11 @@ class TestRevisableModel(WagtailTestUtils, TestCase):
         self.instance.save_revision()
         self.assertEqual(self.instance.revisions.count(), 2)
         self.instance.text = "Updated revision"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this "
+            "revisable model.",
+        ):
             self.instance.save_revision(overwrite_revision=revision1)
 
         self.assertEqual(self.instance.revisions.count(), 2)
@@ -275,7 +279,11 @@ class TestRevisableModel(WagtailTestUtils, TestCase):
         revision1 = other_instance.save_revision()
 
         self.instance.text = "Updated revision"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this "
+            "revisable model.",
+        ):
             self.instance.save_revision(overwrite_revision=revision1)
 
         self.assertEqual(self.instance.revisions.count(), 1)
@@ -305,7 +313,10 @@ class TestRevisableModel(WagtailTestUtils, TestCase):
         revision1 = self.instance.save_revision(user=user1)
         self.assertEqual(self.instance.revisions.count(), 1)
         self.instance.text = "Updated revision"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
             self.instance.save_revision(overwrite_revision=revision1, user=user2)
 
         self.assertEqual(self.instance.revisions.count(), 1)
@@ -318,7 +329,10 @@ class TestRevisableModel(WagtailTestUtils, TestCase):
         revision1 = self.instance.save_revision(user=user1)
         self.assertEqual(self.instance.revisions.count(), 1)
         self.instance.text = "Updated revision"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
             self.instance.save_revision(overwrite_revision=revision1)
 
         self.assertEqual(self.instance.revisions.count(), 1)
@@ -331,7 +345,10 @@ class TestRevisableModel(WagtailTestUtils, TestCase):
         revision1 = self.instance.save_revision()
         self.assertEqual(self.instance.revisions.count(), 1)
         self.instance.text = "Updated revision"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
             self.instance.save_revision(overwrite_revision=revision1, user=user1)
 
         self.assertEqual(self.instance.revisions.count(), 1)
