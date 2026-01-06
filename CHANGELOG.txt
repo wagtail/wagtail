@@ -35,6 +35,7 @@ Changelog
  * Docs: Fix formatting for `PageQuerySet.prefetch_related` performance note (Lasse Schmieding)
  * Docs: Fix path to `search.html` in tutorial (Lee Hart)
  * Docs: Grammar fixes to contributor guidelines (Biswajeet Yadav)
+ * Docs: Mention punctuation is unsupported in paths for `RoutablePageMixin` (Tibor Leupold)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
