@@ -62,6 +62,16 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+⚠️ Admin frontend assets
+
+After upgrading Wagtail or switching branches, the admin UI may still load with
+outdated frontend assets, causing broken or inconsistent behavior.
+
+If you encounter unexpected admin issues, rebuild the assets:
+
+    npm install
+    npm run build
+    
 For detailed installation and setup docs, see [the getting started tutorial](https://docs.wagtail.org/en/stable/getting_started/tutorial.html).
 
 ### 👨‍👩‍👧‍👦 Who’s using it?
