@@ -97,7 +97,11 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           </button>
         </Tippy>
 
-        <label className="w-sr-only" htmlFor="menu-search-q">
+        <label
+          className="w-sr-only"
+          htmlFor="menu-search-q"
+          id="menu-search-label"
+        >
           {gettext('Search')}
         </label>
 
@@ -123,6 +127,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           type="text"
           id="menu-search-q"
           name="q"
+          aria-labelledby="menu-search-label"
           placeholder={gettext('Search')}
           ref={searchInput}
           data-w-kbd-target={slim ? undefined : 'element'}
