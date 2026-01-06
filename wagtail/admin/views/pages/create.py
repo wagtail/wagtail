@@ -115,7 +115,9 @@ class CreateView(
             if self.expects_json_response and not self.response_is_json(response):
                 # Hook response is not suitable for a JSON response, so construct our own error response
                 return self.json_error_response(
-                    "blocked_by_hook", "Request to create page was blocked by hook"
+                    "blocked_by_hook",
+                    _("Request to create %(model_name)s was blocked by hook.")
+                    % {"model_name": Page._meta.verbose_name},
                 )
             else:
                 return response
