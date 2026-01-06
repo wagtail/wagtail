@@ -255,17 +255,17 @@ ul.listing {
     }
 
     .w-page-alias-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
       margin-inline-start: 0.5rem;
       vertical-align: middle;
-      display: inline-flex;
-    }
 
-    .w-badge--muted {
-      font-size: 0.75rem;
-      padding: 0.1em 0.35em;
-      border-radius: 0.25rem;
-      background-color: rgba(0, 0, 0, 0.05);
-      color: rgba(0, 0, 0, 0.6);
+      .w-icon {
+        width: 0.875rem;
+        height: 0.875rem;
+        color: var(--w-color-text-meta, rgba(0, 0, 0, 0.5));
+      }
     }
   }
 
@@ -516,6 +516,7 @@ table.listing {
   &__end {
     display: flex;
     flex: 1;
+
     @include media-breakpoint-down(md) {
       flex-basis: auto;
     }

@@ -141,21 +141,6 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:history", args=(1,)),
         )
 
-    def test_alias_indicator_shown_in_explorer(self):
-        # Create an alias page
-        alias = self.child_page.add_child(
-            instance=Page(title="Alias copy", slug="alias-copy")
-        )
-        alias.alias_of = self.new_page
-        alias.save()
-
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.child_page.id,))
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Alias")
-        self.assertContains(response, "Alias of")
-
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
         self.assertEqual(response.status_code, 200)
@@ -929,6 +914,31 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             response,
             reverse("wagtailadmin_pages:history", args=(page.id,)),
         )
+
+    def test_explore_alias_page(self):
+        # Create an alias page and set alias_of
+        alias = self.child_page.add_child(
+            instance=SimplePage(
+                title="Alias page", slug="alias-page", content="alias content"
+            )
+        )
+        alias.alias_of = self.new_page
+        alias.save()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.child_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check for the alias indicator class
+        self.assertContains(response, "w-page-alias-indicator")
+
+        # Check for the accessible label usage
+        self.assertContains(response, f'aria-labelledby="page_alias_label_{alias.pk}"')
+        self.assertContains(response, f'id="page_alias_label_{alias.pk}"')
+
+        # Check for the accessible text in sr-only span
+        self.assertContains(response, f"Alias page; alias of {self.new_page.title}")
 
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):
