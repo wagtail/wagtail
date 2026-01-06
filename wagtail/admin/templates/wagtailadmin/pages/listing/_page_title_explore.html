@@ -4,35 +4,48 @@
 
 <div class="title-wrapper">
     {% if page.is_site_root %}
-        {% if perms.wagtailcore.add_site or perms.wagtailcore.change_site or perms.wagtailcore.delete_site %}
-            <a href="{% url 'wagtailsites:index' %}" title="{% trans 'Sites menu' %}">{% icon name="site" classname="initial" %}</a>
-        {% endif %}
+    {% if perms.wagtailcore.add_site or perms.wagtailcore.change_site or perms.wagtailcore.delete_site %}
+    <a href="{% url 'wagtailsites:index' %}" title="{% trans 'Sites menu' %}">{% icon name="site" classname="initial"
+        %}</a>
+    {% endif %}
     {% endif %}
 
     {% comment %}
-        Instead of adding the "page_{pk}_title" id to the td element
-        in _page_title_cell.html, add it to an element that only contains the
-        page title (and not other things e.g. the buttons or other indicators),
-        so that other elements can refer to title for screen reader purposes
-        without also reading out the buttons and indicators.
+    Instead of adding the "page_{pk}_title" id to the td element
+    in _page_title_cell.html, add it to an element that only contains the
+    page title (and not other things e.g. the buttons or other indicators),
+    so that other elements can refer to title for screen reader purposes
+    without also reading out the buttons and indicators.
     {% endcomment %}
     {% fragment as page_title %}
-        <span id="page_{{ page.pk|unlocalize|admin_urlquote }}_title">
-            {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial" %}{% endif %}
-            {{ page.get_admin_display_title }}
+    <span id="page_{{ page.pk|unlocalize|admin_urlquote }}_title" class="title-wrapper">
+        {% if not page.is_site_root and not page.is_leaf %}
+        {% icon name="folder" classname="icon-folder initial" %}
+        {% endif %}
+        {{ page.get_admin_display_title }}
+        {% if page.alias_of %}
+        <span class="w-page-alias-indicator" role="img" aria-labelledby="page_alias_label_{{ page.pk }}">
+            {% icon name="link" classname="w-icon w-icon--small" %}
+            <span id="page_alias_label_{{ page.pk }}" class="w-sr-only">
+                {% blocktranslate with title=page.alias_of.get_admin_display_title %}
+                Alias page; alias of {{ title }}
+                {% endblocktranslate %}
+            </span>
         </span>
+        {% endif %}
+    </span>
     {% endfragment %}
 
     {% if page_perms.can_edit %}
-        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">
-            {{ page_title }}
-        </a>
-    {% else %}
+    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">
         {{ page_title }}
+    </a>
+    {% else %}
+    {{ page_title }}
     {% endif %}
 
     {% if show_locale_labels %}
-        {% status page.locale.get_display_name classname="w-status--label" %}
+    {% status page.locale.get_display_name classname="w-status--label" %}
     {% endif %}
 
     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
