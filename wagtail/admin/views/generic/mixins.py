@@ -769,7 +769,6 @@ class CreateEditViewOptionalFeaturesMixin:
             object_id=self.object.pk,
             last_seen_at=timezone.now(),
         )
-        revision_id = self.object.latest_revision_id if self.revision_enabled else None
         return EditingSessionsModule(
             session,
             reverse(
@@ -786,7 +785,8 @@ class CreateEditViewOptionalFeaturesMixin:
                 args=(session.id,),
             ),
             [],
-            revision_id,
+            self.latest_revision and self.latest_revision.pk,
+            self.latest_revision_created_at,
         )
 
     @cached_property
