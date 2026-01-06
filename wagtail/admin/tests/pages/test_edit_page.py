@@ -242,7 +242,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
 
-    def test_loaded_revision_id_included_in_form(self):
+    def test_loaded_revision_id_and_timestamp_included_in_form(self):
         # Ensure there's a revision for the page
         self.event_page.title = "Updated event page"
         revision = self.event_page.save_revision()
@@ -258,6 +258,9 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         loaded_revision = form.select_one("input[name='loaded_revision_id']")
         self.assertIsNotNone(loaded_revision)
         self.assertEqual(int(loaded_revision["value"]), revision.pk)
+        loaded_timestamp = form.select_one("input[name='loaded_revision_created_at']")
+        self.assertIsNotNone(loaded_timestamp)
+        self.assertEqual(loaded_timestamp["value"], revision.created_at.isoformat())
 
     def test_publish_button_shows_schedule_label_for_future_go_live(self):
         go_live_at = timezone.now() + datetime.timedelta(hours=1)
@@ -552,6 +555,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "content": "Some content",
             "slug": "hello-world",
             "loaded_revision_id": loaded_revision.pk,
+            "loaded_revision_created_at": loaded_revision.created_at.isoformat(),
         }
         response = self.client.post(
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
@@ -632,6 +636,56 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "Someone else edited after the page is loaded",
         )
         self.assertEqual(self.child_page.get_latest_revision().id, other_revision.id)
+
+    def test_save_outdated_revision_timestamp_with_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
+        loaded_revision_created_at = loaded_revision.created_at.isoformat()
+        # Simulate the loaded revision being updated via another session's autosave,
+        # which means the revision is overwritten with new content and created_at
+        self.child_page.title = "Someone else edited after the page is loaded"
+        self.child_page.save_revision(overwrite_revision=loaded_revision)
+        self.assertEqual(self.child_page.revisions.count(), 1)
+
+        post_data = {
+            "title": "Just another edit submitted after the other edit is done",
+            "content": "Some content",
+            "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
+            "loaded_revision_created_at": loaded_revision_created_at,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Instead of creating a new revision for autosave (which means the user
+        # would unknowingly replace the updated revision), we return an error
+        # response that should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "invalid_revision",
+                "errorMessage": "Saving will overwrite a newer version.",
+            },
+        )
+
+        # Page fields should still be from the published version
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.title, "Hello world!")
+
+        # The initially loaded revision should prefer the other session's autosave
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision.refresh_from_db()
+        self.assertEqual(
+            loaded_revision.content["title"],
+            "Someone else edited after the page is loaded",
+        )
+        self.assertEqual(self.child_page.get_latest_revision().id, loaded_revision.id)
 
     def test_page_edit_post_with_overwrite_revision_and_json_response(self):
         self.assertEqual(self.child_page.revisions.count(), 1)
