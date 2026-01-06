@@ -648,8 +648,9 @@ class CreateEditViewOptionalFeaturesMixin:
 
     def get_success_json(self):
         data = super().get_success_json()
-        if self.revision_enabled:
-            data["revision_id"] = self.new_revision and self.new_revision.id
+        if self.revision_enabled and self.new_revision:
+            data["revision_id"] = self.new_revision.id
+            data["revision_created_at"] = self.new_revision.created_at.isoformat()
         return data
 
     def form_invalid(self, form):

@@ -757,6 +757,10 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         self.assertEqual(self.test_snippet.revisions.count(), 2)
         self.assertNotEqual(response_json["revision_id"], initial_revision.pk)
         revision = self.test_snippet.revisions.get(pk=response_json["revision_id"])
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
         self.assertEqual(revision.content["text"], "bar")
 
         # The instance should be updated
@@ -857,9 +861,15 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         # Should be a 200 OK JSON response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
+        revision.refresh_from_db()
         self.assertEqual(
             response.json(),
-            {"success": True, "pk": self.test_snippet.pk, "revision_id": revision.pk},
+            {
+                "success": True,
+                "pk": self.test_snippet.pk,
+                "revision_id": revision.pk,
+                "revision_created_at": revision.created_at.isoformat(),
+            },
         )
 
         self.assertEqual(self.test_snippet.revisions.count(), 2)
