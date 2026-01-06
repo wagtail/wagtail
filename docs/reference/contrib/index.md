@@ -63,4 +63,4 @@ Provides a way to manage redirects.
 ## [](legacy_richtext)
 
 Provides the legacy richtext wrapper (`<div class="rich-text"></div>`).
-[Reference index](../reference_index.md)
+
