@@ -174,6 +174,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
         self.assertIsNone(editor_form.select_one("input[name='loaded_revision_id']"))
+        self.assertIsNone(
+            editor_form.select_one("input[name='loaded_revision_created_at']")
+        )
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
@@ -738,6 +741,7 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             post_data={
                 "text": "bar",
                 "loaded_revision_id": initial_revision.pk,
+                "loaded_revision_created_at": initial_revision.created_at.isoformat(),
             },
             headers={"Accept": "application/json"},
         )
@@ -797,6 +801,40 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         self.assertEqual(self.test_snippet.revisions.count(), 2)
         revision.refresh_from_db()
         self.assertEqual(revision.content["text"], "Initial revision")
+
+    def test_save_outdated_revision_timestampwith_json_response(self):
+        self.test_snippet.text = "Initial revision"
+        revision = self.test_snippet.save_revision(user=self.user)
+        loaded_revision_created_at = revision.created_at.isoformat()
+        self.test_snippet.text = "Latest revision"
+        self.test_snippet.save_revision(user=self.user, overwrite_revision=revision)
+        self.assertEqual(self.test_snippet.revisions.count(), 1)
+        response = self.post(
+            post_data={
+                "text": "Updated revision",
+                "loaded_revision_id": revision.pk,
+                "loaded_revision_created_at": loaded_revision_created_at,
+            },
+            headers={"Accept": "application/json"},
+        )
+
+        # Instead of creating a new revision for autosave (which means the user
+        # would unknowingly replace a newer revision), we return an error
+        # response that should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "invalid_revision",
+                "errorMessage": "Saving will overwrite a newer version.",
+            },
+        )
+
+        self.assertEqual(self.test_snippet.revisions.count(), 1)
+        revision.refresh_from_db()
+        self.assertEqual(revision.content["text"], "Latest revision")
 
     def test_overwrite_revision_with_json_response(self):
         self.test_snippet.text = "Initial revision"
@@ -971,6 +1009,9 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         loaded_revision = form.select_one("input[name='loaded_revision_id']")
         self.assertIsNotNone(loaded_revision)
         self.assertEqual(int(loaded_revision["value"]), revision.pk)
+        loaded_timestamp = form.select_one("input[name='loaded_revision_created_at']")
+        self.assertIsNotNone(loaded_timestamp)
+        self.assertEqual(loaded_timestamp["value"], revision.created_at.isoformat())
 
     def test_save_draft(self):
         response = self.post(post_data={"text": "Draft-enabled Bar"})

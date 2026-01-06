@@ -35,6 +35,7 @@
         {% csrf_token %}
         {% if revision_enabled and object.latest_revision_id %}
             <input type="hidden" name="loaded_revision_id" value="{{ object.latest_revision_id|unlocalize }}">
+            <input type="hidden" name="loaded_revision_created_at" value="{{ loaded_revision_created_at }}">
         {% endif %}
 
         {% block form_content %}

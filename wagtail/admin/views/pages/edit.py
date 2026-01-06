@@ -487,16 +487,38 @@ class EditView(
         )
 
     @cached_property
-    def is_out_of_date(self):
-        # Check the autosave revision if present, otherwise fall back to the
-        # initially loaded revision.
-        submitted_revision_id = self.request.POST.get(
-            "overwrite_revision_id"
-        ) or self.request.POST.get("loaded_revision_id")
+    def latest_revision_created_at(self):
+        return self.latest_revision and self.latest_revision.created_at.isoformat()
 
-        return submitted_revision_id and (
-            submitted_revision_id != str(self.page.latest_revision_id)
-        )
+    @cached_property
+    def is_out_of_date(self):
+        if not self.latest_revision:
+            return False
+
+        latest_revision_id = str(self.latest_revision.pk)
+
+        # Two different sessions cannot have the same autosave revision, so if
+        # autosave revision is present, it is either the latest or it is not.
+        if overwrite_revision_id := self.request.POST.get("overwrite_revision_id"):
+            return overwrite_revision_id != latest_revision_id
+
+        # Client has not made an autosave revision, check the loaded revision.
+        if loaded_revision_id := self.request.POST.get("loaded_revision_id"):
+            # If the loaded revision is not the latest revision, it is outdated.
+            if loaded_revision_id != latest_revision_id:
+                return True
+
+            # It's pointing to the latest revision, but that revision may have
+            # been overwritten by another session (via autosave) since the editor
+            # loaded it. The created_at is strictly increasing, so assume the
+            # loaded revision outdated if it doesn't match the latest created_at.
+            return (
+                self.request.POST.get("loaded_revision_created_at", "")
+                != self.latest_revision_created_at
+            )
+
+        # Not enough information to deduce, assume it's up to date.
+        return False
 
     def post(self, request, *args, **kwargs):
         # Don't allow POST requests if the page is an alias
@@ -1060,6 +1082,7 @@ class EditView(
                 "locale": self.locale,
                 "media": media,
                 "editing_sessions": self.get_editing_sessions(),
+                "loaded_revision_created_at": self.latest_revision_created_at,
             }
         )
 
