@@ -34,14 +34,17 @@ const IconsTable = ({ color }: { color: string }) => {
       </thead>
       {window.WAGTAIL_ICONS.map((icon) => (
         <tr key={icon}>
-          <td
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{
-              __html: template
-                .replace(/__icon__/g, icon)
-                .replace(/<svg/, `<svg style="fill: ${color};"`),
-            }}
-          />
+          <td>
+            <span className="w-sr-only">{icon}</span>
+            <span
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: template
+                  .replace(/__icon__/g, icon)
+                  .replace(/<svg/, `<svg style="fill: ${color};"`),
+              }}
+            />
+          </td>
           <td>
             <code>{icon}</code>
           </td>
