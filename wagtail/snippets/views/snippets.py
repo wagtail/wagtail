@@ -241,7 +241,8 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                 # Hook response is not suitable for a JSON response, so construct our own error response
                 return self.json_error_response(
                     "blocked_by_hook",
-                    f"Request to create {self.model._meta.verbose_name} was blocked by hook",
+                    _("Request to create %(model_name)s was blocked by hook.")
+                    % {"model_name": self.model._meta.verbose_name},
                 )
             else:
                 return response
@@ -306,7 +307,8 @@ class EditView(
                 # Hook response is not suitable for a JSON response, so construct our own error response
                 return self.json_error_response(
                     "blocked_by_hook",
-                    f"Request to edit {self.model._meta.verbose_name} was blocked by hook",
+                    _("Request to edit %(model_name)s was blocked by hook.")
+                    % {"model_name": self.model._meta.verbose_name},
                 )
             else:
                 return response
