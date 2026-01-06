@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.db.models.expressions import OuterRef, Subquery
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from modelcluster.models import (
     get_serializable_data_for_fields,
@@ -409,11 +410,18 @@ class RevisionMixin(models.Model):
             latest_revision = self.get_latest_revision()
             if overwrite_revision != latest_revision:
                 raise PermissionDenied(
-                    "Cannot overwrite a revision that is not the latest for this object"
+                    gettext(
+                        "Cannot overwrite a revision that is not the latest for "
+                        "this %(model_name)s."
+                    )
+                    % {"model_name": self._meta.verbose_name}
                 )
             if overwrite_revision.user_id != (user and user.pk):
                 raise PermissionDenied(
-                    "Cannot overwrite a revision that was not created by the current user"
+                    gettext(
+                        "Cannot overwrite a revision that was not created "
+                        "by the current user."
+                    )
                 )
 
             overwrite_revision.created_at = timezone.now()

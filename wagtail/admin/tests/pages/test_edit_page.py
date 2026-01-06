@@ -242,6 +242,23 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
 
+    def test_loaded_revision_id_included_in_form(self):
+        # Ensure there's a revision for the page
+        self.event_page.title = "Updated event page"
+        revision = self.event_page.save_revision()
+        self.assertEqual(self.event_page.revisions.count(), 1)
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        loaded_revision = form.select_one("input[name='loaded_revision_id']")
+        self.assertIsNotNone(loaded_revision)
+        self.assertEqual(int(loaded_revision["value"]), revision.pk)
+
     def test_publish_button_shows_schedule_label_for_future_go_live(self):
         go_live_at = timezone.now() + datetime.timedelta(hours=1)
 
@@ -527,11 +544,14 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertEqual(child_page_new.draft_title, post_data["title"])
 
     def test_page_edit_post_with_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
         # Tests simple editing
         post_data = {
             "title": "I've been edited!",
             "content": "Some content",
             "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
         }
         response = self.client.post(
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
@@ -545,6 +565,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response_json = response.json()
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], self.child_page.pk)
+
+        # Should create a new revision to be overwritten later
+        self.assertEqual(self.child_page.revisions.count(), 2)
+        self.assertNotEqual(response_json["revision_id"], loaded_revision.pk)
         revision = self.child_page.revisions.get(pk=response_json["revision_id"])
         self.assertEqual(revision.content["title"], "I've been edited!")
 
@@ -560,7 +584,58 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
 
+    def test_save_outdated_revision_with_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
+        self.child_page.title = "Someone else edited after the page is loaded"
+        other_revision = self.child_page.save_revision(user=self.user)
+        self.assertEqual(self.child_page.revisions.count(), 2)
+
+        post_data = {
+            "title": "Just another edit submitted after the other edit is done",
+            "content": "Some content",
+            "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Instead of creating a new revision for autosave (which means the user
+        # would unknowingly replace a newer revision), we return an error
+        # response that should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "invalid_revision",
+                "errorMessage": "Saving will overwrite a newer version.",
+            },
+        )
+
+        # Page fields should still be from the published version
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.title, "Hello world!")
+
+        # The initially loaded revision, and the actual latest revision,
+        # should both be unchanged
+        self.assertEqual(self.child_page.revisions.count(), 2)
+        loaded_revision.refresh_from_db()
+        self.assertEqual(loaded_revision.content["title"], "Hello world!")
+        other_revision.refresh_from_db()
+        self.assertEqual(
+            other_revision.content["title"],
+            "Someone else edited after the page is loaded",
+        )
+        self.assertEqual(self.child_page.get_latest_revision().id, other_revision.id)
+
     def test_page_edit_post_with_overwrite_revision_and_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
         self.child_page.title = "A changed title"
         revision = self.child_page.save_revision(user=self.user)
         self.assertEqual(self.child_page.revisions.count(), 2)
@@ -569,6 +644,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "title": "I've been edited again!",
             "content": "Some content",
             "slug": "hello-world",
+            # The page was originally loaded with loaded_revision, but
+            # a successful autosave created a new revision which we now
+            # want to overwrite with a new autosave request
+            "loaded_revision_id": loaded_revision.pk,
             "overwrite_revision_id": revision.id,
         }
         response = self.client.post(
@@ -628,7 +707,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "invalid_revision",
-                "errorMessage": "Cannot overwrite a revision that is not the latest for this page",
+                "errorMessage": "Saving will overwrite a newer version.",
             },
         )
 
@@ -2215,7 +2294,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook",
+                "errorMessage": "Request to edit page was blocked by hook.",
             },
         )
 
@@ -2284,7 +2363,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook",
+                "errorMessage": "Request to edit page was blocked by hook.",
             },
         )
 

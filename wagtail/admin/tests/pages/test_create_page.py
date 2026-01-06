@@ -1892,7 +1892,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to create page was blocked by hook",
+                "errorMessage": "Request to create page was blocked by hook.",
             },
         )
 
@@ -1972,7 +1972,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to create page was blocked by hook",
+                "errorMessage": "Request to create page was blocked by hook.",
             },
         )
 
