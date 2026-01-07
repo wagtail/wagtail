@@ -152,6 +152,12 @@ function CommentListing({
   );
 }
 
+export interface CommentAppData {
+  comments: InitialComment[];
+  user: number | string;
+  authors: Record<string, { name: string; avatar_url: string }>;
+}
+
 export class CommentApp {
   store: Store;
 
@@ -258,15 +264,12 @@ export class CommentApp {
     );
   }
 
-  renderApp(
-    element: HTMLElement,
-    outputElement: HTMLElement,
-    userId: any,
-    initialComments: InitialComment[],
-
-    authors: Map<string, { name: string; avatar_url: string }>,
-  ) {
-    let pinnedComment: number | null = null;
+  loadData({
+    comments: initialComments,
+    user: userId,
+    authors: authorsData,
+  }: CommentAppData) {
+    const authors = new Map(Object.entries(authorsData));
     this.setUser(userId, authors);
 
     // Check if there is "comment" query parameter.
@@ -278,56 +281,6 @@ export class CommentApp {
     if (commentParams) {
       initialFocusedCommentId = parseInt(commentParams, 10);
     }
-
-    const render = () => {
-      const state = this.store.getState();
-      const commentList: Comment[] = Array.from(
-        state.comments.comments.values(),
-      );
-
-      ReactDOM.render(
-        <CommentFormSetComponent
-          comments={commentList.filter(
-            (comment) => comment.mode !== 'creating',
-          )}
-          remoteCommentCount={state.comments.remoteCommentCount}
-        />,
-        outputElement,
-      );
-
-      // Check if the pinned comment has changed
-      if (state.comments.pinnedComment !== pinnedComment) {
-        // Tell layout controller about the pinned comment
-        // so it is moved alongside its annotation
-        this.layout.setPinnedComment(state.comments.pinnedComment);
-
-        pinnedComment = state.comments.pinnedComment;
-      }
-
-      ReactDOM.render(
-        <CommentListing
-          store={this.store}
-          layout={this.layout}
-          comments={commentList}
-        />,
-        element,
-        () => {
-          // Render again if layout has changed (eg, a comment was added, deleted or resized)
-          // This will just update the "top" style attributes in the comments to get them to move
-          this.layout.refreshDesiredPositions(state.settings.currentTab);
-          if (this.layout.refreshLayout()) {
-            ReactDOM.render(
-              <CommentListing
-                store={this.store}
-                layout={this.layout}
-                comments={commentList}
-              />,
-              element,
-            );
-          }
-        },
-      );
-    };
 
     // Fetch existing comments
     for (const comment of initialComments) {
@@ -384,6 +337,66 @@ export class CommentApp {
         );
       }
     }
+  }
+
+  renderApp(
+    element: HTMLElement,
+    outputElement: HTMLElement,
+    initialData: CommentAppData,
+  ) {
+    let pinnedComment: number | null = null;
+
+    const render = () => {
+      const state = this.store.getState();
+      const commentList: Comment[] = Array.from(
+        state.comments.comments.values(),
+      );
+
+      ReactDOM.render(
+        <CommentFormSetComponent
+          comments={commentList.filter(
+            (comment) => comment.mode !== 'creating',
+          )}
+          remoteCommentCount={state.comments.remoteCommentCount}
+        />,
+        outputElement,
+      );
+
+      // Check if the pinned comment has changed
+      if (state.comments.pinnedComment !== pinnedComment) {
+        // Tell layout controller about the pinned comment
+        // so it is moved alongside its annotation
+        this.layout.setPinnedComment(state.comments.pinnedComment);
+
+        pinnedComment = state.comments.pinnedComment;
+      }
+
+      ReactDOM.render(
+        <CommentListing
+          store={this.store}
+          layout={this.layout}
+          comments={commentList}
+        />,
+        element,
+        () => {
+          // Render again if layout has changed (eg, a comment was added, deleted or resized)
+          // This will just update the "top" style attributes in the comments to get them to move
+          this.layout.refreshDesiredPositions(state.settings.currentTab);
+          if (this.layout.refreshLayout()) {
+            ReactDOM.render(
+              <CommentListing
+                store={this.store}
+                layout={this.layout}
+                comments={commentList}
+              />,
+              element,
+            );
+          }
+        },
+      );
+    };
+
+    this.loadData(initialData);
 
     render();
 
