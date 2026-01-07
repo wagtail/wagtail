@@ -5,6 +5,7 @@
 const config = {
   extends: '@wagtail/stylelint-config-wagtail',
   rules: {
+    'at-rule-no-unknown': null,
     'scss/at-rule-no-unknown': [
       true,
       {
