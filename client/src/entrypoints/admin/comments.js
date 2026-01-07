@@ -269,13 +269,7 @@ window.comments = (() => {
       );
     }
     const data = JSON.parse(dataElement.textContent);
-    commentApp.renderApp(
-      commentsElement,
-      commentsOutputElement,
-      data.user,
-      data.comments,
-      new Map(Object.entries(data.authors)),
-    );
+    commentApp.renderApp(commentsElement, commentsOutputElement, data);
 
     formElement
       .querySelectorAll('[data-component="add-comment-button"]')
