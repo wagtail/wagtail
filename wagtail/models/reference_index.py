@@ -565,6 +565,21 @@ class ReferenceIndex(models.Model):
         ).delete()
 
     @classmethod
+    def remove_references_to(cls, object):
+        """
+        Deletes all inbound references to the given object.
+
+        Use this when deleting the object itself to prevent orphaned references.
+
+        Args:
+            object (Model): The model instance to delete ReferenceIndex records for (as a target)
+        """
+        base_content_type = cls._get_base_content_type(object)
+        cls.objects.filter(
+            to_content_type=base_content_type, to_object_id=object.pk
+        ).delete()
+
+    @classmethod
     def get_references_for_object(cls, object):
         """
         Returns all outbound references for the given object.
