@@ -22,8 +22,8 @@ def get_base_url(request=None):
     if base_url:
         # We only want the scheme and netloc
         base_url_parsed = urlsplit(force_str(base_url))
-
-        return base_url_parsed.scheme + "://" + base_url_parsed.netloc
+        root_url=base_url_parsed.scheme + "://" + base_url_parsed.netloc + base_url_parsed.path
+        return root_url.rstrip('/')
 
 
 def get_full_url(request, path):
