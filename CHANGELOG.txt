@@ -35,6 +35,7 @@ Changelog
  * Docs: Fix formatting for `PageQuerySet.prefetch_related` performance note (Lasse Schmieding)
  * Docs: Fix path to `search.html` in tutorial (Lee Hart)
  * Docs: Grammar fixes to contributor guidelines (Biswajeet Yadav)
+ * Docs: Mention punctuation is unsupported in paths for `RoutablePageMixin` (Tibor Leupold)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
@@ -49,6 +50,7 @@ Changelog
  * Maintenance: Upgrade to django-modelcluster 6.4.1 for Django 6.0 compatibility (Matt Westcott)
  * Maintenance: Refactor CreateView/EditView validation logic to support non-form validation (Matt Westcott)
  * Maintenance: Formalized support for Django 6.0 (Pravin Kamble)
+ * Maintenance: Add `no-jquery` ESLint plugin to start final deprecation of jQuery (LB (Ben) Johnston)
 
 
 7.2.1 (26.11.2025)
