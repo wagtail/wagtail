@@ -310,7 +310,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
                 {
                     "success": False,
                     "errorCode": "blocked_by_hook",
-                    "errorMessage": "Request to create advert was blocked by hook",
+                    "errorMessage": "Request to create advert was blocked by hook.",
                 },
             )
 
@@ -358,7 +358,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to create advert was blocked by hook",
+                "errorMessage": "Request to create advert was blocked by hook.",
             },
         )
 

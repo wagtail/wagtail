@@ -29,6 +29,9 @@
             {% csrf_token %}
 
             <input type="hidden" name="next" value="{{ next }}">
+            {% if page.latest_revision_id %}
+                <input type="hidden" name="loaded_revision_id" value="{{ page.latest_revision_id|unlocalize }}">
+            {% endif %}
             {{ edit_handler.render_form_content }}
 
             {% block footer %}
