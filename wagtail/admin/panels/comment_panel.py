@@ -31,15 +31,7 @@ class CommentPanel(Panel):
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-
-            user = getattr(self.request, "user", None)
-            bound = self.form.is_bound
-            if comment_formset := self.form.formsets.get("comments"):
-                comments_data = comment_formset.serialize(bound, user)
-            else:
-                comments_data = {"comments": [], "user": user.pk, "authors": {}}
-
-            context["comments_data"] = comments_data
+            context["comments_data"] = self.form.serialize_comments(self.request.user)
             return context
 
         def show_panel_furniture(self):
