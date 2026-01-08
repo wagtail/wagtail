@@ -180,12 +180,14 @@ class WagtailAdminModelForm(
         """
         updates = []
         for formset in self.formsets.values():
-            updates.append(
-                (
-                    f"{formset.management_form.prefix}-INITIAL_FORMS",
-                    str(formset.total_form_count()),
+            if formset.total_form_count() != formset.initial_form_count():
+                updates.append(
+                    (
+                        f"{formset.management_form.prefix}-INITIAL_FORMS",
+                        str(formset.total_form_count()),
+                    )
                 )
-            )
+
             for form in formset.forms:
                 id_field_name = f"{form.prefix}-id"
 
