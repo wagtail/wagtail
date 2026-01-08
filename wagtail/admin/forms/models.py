@@ -187,15 +187,20 @@ class WagtailAdminModelForm(
                 )
             )
             for form in formset.forms:
-                if formset.can_delete and formset._should_delete_form(form):
-                    continue
-
-                updates.extend(form.get_field_updates_for_resave())
                 id_field_name = f"{form.prefix}-id"
-                if form.instance.pk and not self.data.get(id_field_name):
-                    # instance has a PK but the form data doesn't include it - it must have
-                    # been created during the save we just performed
-                    updates.append((id_field_name, str(form.instance.pk)))
+
+                if formset.can_delete and formset._should_delete_form(form):
+                    if self.data.get(id_field_name):
+                        # Form will remain in the formset as a deleted form;
+                        # clear its ID so that it's skipped over on next submission
+                        # like an added-and-immediately-deleted form would be
+                        updates.append((id_field_name, ""))
+                else:
+                    updates.extend(form.get_field_updates_for_resave())
+                    if form.instance.pk and not self.data.get(id_field_name):
+                        # instance has a PK but the form data doesn't include it - it must have
+                        # been created during the save we just performed
+                        updates.append((id_field_name, str(form.instance.pk)))
 
         return updates
 
