@@ -140,3 +140,46 @@ class TestGetFieldUpdatesForResave(TestCase):
                 ("sections-1-id", str(section_2.id)),
             ],
         )
+
+    def test_get_field_updates_for_resave_on_update_when_deleting_child(self):
+        snippet = MultiSectionRichTextSnippet()
+        section_1 = snippet.sections.create(body="<p>Initial body 1</p>")
+        section_2 = snippet.sections.create(body="<p>Initial body 2</p>")
+        snippet.save()
+
+        form = SnippetForm(
+            nested_form_data(
+                {
+                    "sections": inline_formset(
+                        [
+                            {
+                                "id": str(section_1.id),
+                                "body": rich_text("<p>Section 1 body</p>"),
+                                "DELETE": "on",
+                            },
+                            {
+                                "id": str(section_2.id),
+                                "body": rich_text("<p>Section 2 body</p>"),
+                            },
+                            {
+                                # created and immediately deleted - should not appear in updates
+                                "id": "",
+                                "body": rich_text("<p>Section 3 body</p>"),
+                                "DELETE": "on",
+                            },
+                        ],
+                        initial=2,
+                    )
+                }
+            ),
+            instance=snippet,
+        )
+        self.assertTrue(form.is_valid())
+        form.save()
+        self.assertCountEqual(
+            form.get_field_updates_for_resave(),
+            [
+                ("sections-INITIAL_FORMS", "3"),
+                ("sections-0-id", ""),
+            ],
+        )
