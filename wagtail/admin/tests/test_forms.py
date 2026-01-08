@@ -3,8 +3,9 @@ from django.test import SimpleTestCase, TestCase
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.admin.forms.models import WagtailAdminModelForm
+from wagtail.models import Page
 from wagtail.test.snippets.models import MultiSectionRichTextSnippet
-from wagtail.test.testapp.models import Advert
+from wagtail.test.testapp.models import Advert, EventPage
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, rich_text
 
 
@@ -181,5 +182,78 @@ class TestGetFieldUpdatesForResave(TestCase):
             [
                 ("sections-INITIAL_FORMS", "3"),
                 ("sections-0-id", ""),
+            ],
+        )
+
+    def test_get_field_updates_for_resave_with_nested_inline_panel(self):
+        event_page = EventPage(
+            title="Test event",
+            date_from="2024-01-01",
+            audience="public",
+            location="Test location",
+            cost="Free",
+        )
+        speaker = event_page.speakers.create(first_name="First", last_name="Last")
+        award_1 = speaker.awards.create(name="Award 1")
+        root_page = Page.objects.filter(depth=2).first()
+        root_page.add_child(instance=event_page)
+
+        form = event_page.get_edit_handler().get_form_class()(
+            nested_form_data(
+                {
+                    "title": "Test event",
+                    "date_from": "2024-01-01",
+                    "audience": "public",
+                    "location": "Test location",
+                    "cost": "Free",
+                    "slug": "test-event",
+                    "speakers": inline_formset(
+                        [
+                            {
+                                "id": str(speaker.id),
+                                "first_name": "First",
+                                "last_name": "Last",
+                                "awards": inline_formset(
+                                    [
+                                        {"id": str(award_1.id), "name": "Award 1"},
+                                        {"id": "", "name": "Award 2"},
+                                    ],
+                                    initial=1,
+                                ),
+                            },
+                            {
+                                "id": "",
+                                "first_name": "New",
+                                "last_name": "Speaker",
+                                "awards": inline_formset(
+                                    [
+                                        {"id": "", "name": "New Award"},
+                                    ]
+                                ),
+                            },
+                        ],
+                        initial=1,
+                    ),
+                    "carousel_items": inline_formset([]),
+                    "related_links": inline_formset([]),
+                    "head_counts": inline_formset([]),
+                },
+            ),
+            instance=event_page,
+        )
+        self.assertTrue(form.is_valid())
+        form.save()
+        award_2 = speaker.awards.get(name="Award 2")
+        speaker_2 = event_page.speakers.get(first_name="New", last_name="Speaker")
+        award_3 = speaker_2.awards.get(name="New Award")
+        self.assertCountEqual(
+            form.get_field_updates_for_resave(),
+            [
+                ("speakers-INITIAL_FORMS", "2"),
+                ("speakers-0-awards-INITIAL_FORMS", "2"),
+                ("speakers-0-awards-1-id", str(award_2.id)),
+                ("speakers-1-id", str(speaker_2.id)),
+                ("speakers-1-awards-INITIAL_FORMS", "1"),
+                ("speakers-1-awards-0-id", str(award_3.id)),
             ],
         )
