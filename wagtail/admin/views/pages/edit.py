@@ -661,6 +661,7 @@ class EditView(
                     "pk": self.page.pk,
                     "revision_id": revision.pk,
                     "revision_created_at": revision.created_at.isoformat(),
+                    "comments": self.form.serialize_comments(self.request.user),
                 }
             )
         else:

@@ -1,6 +1,7 @@
 import { enableMapSet, produce } from 'immer';
 import type { Annotation } from '../utils/annotation';
 import * as actions from '../actions/comments';
+import { resetCommentAndReplyIds } from '../utils/sequences';
 
 enableMapSet();
 
@@ -311,9 +312,14 @@ export const reducer = produce(
         }
         break;
       }
+      case actions.RESET:
+        resetCommentAndReplyIds();
+        return INITIAL_STATE;
       default:
         break;
     }
+
+    return draft;
   },
   INITIAL_STATE,
 );
