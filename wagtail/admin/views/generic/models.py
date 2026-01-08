@@ -681,7 +681,10 @@ class CreateView(
         return instance
 
     def get_success_json(self):
-        return {"success": True, "pk": self.object.pk}
+        result = {"success": True, "pk": self.object.pk}
+        if isinstance(self.form, WagtailAdminModelForm):
+            result["field_updates"] = dict(self.form.get_field_updates_for_resave())
+        return result
 
     def save_action(self):
         if self.expects_json_response:
@@ -972,7 +975,10 @@ class EditView(
         return instance
 
     def get_success_json(self):
-        return {"success": True, "pk": self.object.pk}
+        result = {"success": True, "pk": self.object.pk}
+        if isinstance(self.form, WagtailAdminModelForm):
+            result["field_updates"] = dict(self.form.get_field_updates_for_resave())
+        return result
 
     def save_action(self):
         if self.expects_json_response:

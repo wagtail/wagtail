@@ -666,6 +666,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response_json["revision_created_at"],
             revision.created_at.isoformat(),
         )
+        self.assertEqual(response_json["field_updates"], {})
 
         self.assertEqual(page.title, post_data["title"])
         self.assertEqual(page.draft_title, post_data["title"])

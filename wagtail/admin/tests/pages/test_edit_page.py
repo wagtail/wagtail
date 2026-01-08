@@ -569,6 +569,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response_json = response.json()
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], self.child_page.pk)
+        self.assertEqual(response_json["field_updates"], {})
 
         # Should create a new revision to be overwritten later
         self.assertEqual(self.child_page.revisions.count(), 2)
@@ -3790,6 +3791,72 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
         self.assertEqual(len(awards), 2)
         self.assertEqual(awards[0].name, "Beard Of The Century")
         self.assertEqual(awards[1].name, "Bobsleigh Olympic gold medallist")
+
+    def test_post_edit_with_json_response(self):
+        self.christmas_page.unpublish()  # so that draft changes are applied to the database record
+
+        post_data = nested_form_data(
+            {
+                "title": "Christmas",
+                "date_from": "2017-12-25",
+                "date_to": "2017-12-25",
+                "slug": "christmas",
+                "audience": "public",
+                "location": "The North Pole",
+                "cost": "Free",
+                "carousel_items": inline_formset([]),
+                "speakers": inline_formset(
+                    [
+                        {
+                            "id": self.speaker.id,
+                            "first_name": "Jeff",
+                            "last_name": "Christmas",
+                            "awards": inline_formset(
+                                [
+                                    {
+                                        "id": self.speaker.awards.first().id,
+                                        "name": "Beard Of The Century",
+                                        "date_awarded": "1997-12-25",
+                                    },
+                                    {
+                                        "name": "Bobsleigh Olympic gold medallist",
+                                        "date_awarded": "2018-02-01",
+                                    },
+                                ],
+                                initial=1,
+                            ),
+                        },
+                    ],
+                    initial=1,
+                ),
+                "related_links": inline_formset([]),
+                "head_counts": inline_formset([]),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.christmas_page.id)
+        self.christmas_page.refresh_from_db()
+        self.assertEqual(
+            response_json["revision_id"], self.christmas_page.get_latest_revision().pk
+        )
+
+        new_award = self.christmas_page.speakers.first().awards.get(
+            name="Bobsleigh Olympic gold medallist"
+        )
+        self.assertEqual(
+            response_json["field_updates"],
+            {
+                "speakers-0-awards-INITIAL_FORMS": "2",
+                "speakers-0-awards-1-id": str(new_award.id),
+            },
+        )
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
