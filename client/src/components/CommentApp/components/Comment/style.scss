@@ -210,3 +210,8 @@ $box-padding: 20px;
     margin-top: 20px !important;
   }
 }
+
+// Avoid jank when reloading comments
+.comments-list--reloading .comment {
+  transition: none;
+}
