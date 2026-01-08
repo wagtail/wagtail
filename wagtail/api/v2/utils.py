@@ -1,4 +1,4 @@
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlunsplit
 
 from django.conf import settings
 from django.utils.encoding import force_str
@@ -20,10 +20,19 @@ def get_base_url(request=None):
             base_url = site.root_url
 
     if base_url:
-        # We only want the scheme and netloc
+        # We want the scheme, netloc, and path
         base_url_parsed = urlsplit(force_str(base_url))
-        root_url=base_url_parsed.scheme + "://" + base_url_parsed.netloc + base_url_parsed.path
-        return root_url.rstrip('/')
+        # last two empty strings are for query and fragment respectively
+        root_url = urlunsplit(
+            (
+                base_url_parsed.scheme,
+                base_url_parsed.netloc,
+                base_url_parsed.path,
+                "",
+                "",
+            )
+        )
+        return root_url.rstrip("/")
 
 
 def get_full_url(request, path):
