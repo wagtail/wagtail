@@ -44,6 +44,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     checkInterval: { default: 500, type: Number },
     confirmation: { default: false, type: Boolean },
     force: { default: false, type: Boolean },
+    hasComments: { default: false, type: Boolean },
     hasEdits: { default: false, type: Boolean },
   };
 
@@ -68,6 +69,8 @@ export class UnsavedController extends Controller<HTMLFormElement> {
    * the browser confirmation dialog to appear.
    */
   declare forceValue: boolean;
+  /** Whether there are unsaved comment changes in the form. */
+  declare hasCommentsValue: boolean;
   /** Whether there are unsaved edits in the form. */
   declare hasEditsValue: boolean;
 
@@ -101,8 +104,11 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     exclude.forEach((key) => formData.delete(key));
 
     // Replace File objects with a comparable representation
-    for (const key of formData.keys()) {
-      if (formData.get(key) instanceof File) {
+    // and remove comment form data as it's handled separately
+    for (const key of [...formData.keys()]) {
+      if (key.startsWith('comments-')) {
+        formData.delete(key);
+      } else if (formData.get(key) instanceof File) {
         // Use getAll to handle multi-file inputs
         const files = formData.getAll(key).flatMap((file: File) => [
           ['name', file.name],
@@ -131,8 +137,20 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     if (!this.initialFormData) return false;
 
     const newPayload = this.formData;
-    const changed = this.previousFormData !== newPayload;
+    const { commentApp } = window.comments || {};
+    const hasComments = !!commentApp?.selectors.selectIsDirty(
+      commentApp?.store.getState(),
+    );
+
+    // Consider the form changed if
+    const changed =
+      // the current form data (without comments) differs from the previous check
+      this.previousFormData !== newPayload ||
+      // or if the comment dirty state has changed from `false` to `true`
+      (hasComments && !this.hasCommentsValue);
+
     this.hasEditsValue = this.forceValue || this.initialFormData !== newPayload;
+    this.hasCommentsValue = hasComments;
     this.previousFormData = newPayload;
     return changed;
   }
@@ -194,6 +212,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
   clear() {
     this.setInitialFormData();
     this.hasEditsValue = false;
+    this.hasCommentsValue = false;
     this.forceValue = false;
   }
 
@@ -224,9 +243,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
    * Dispatch events to update the footer message via dispatching events.
    */
   notify: (() => void) | DebouncedFunction<[], void> = () => {
-    const edits = this.hasEditsValue;
-
-    if (!edits) {
+    if (!this.hasEditsValue && !this.hasCommentsValue) {
       this.dispatch('clear', { cancelable: false });
       return;
     }
