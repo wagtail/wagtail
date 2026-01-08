@@ -35,6 +35,10 @@ if rtd_lang := os.environ.get("READTHEDOCS_LANGUAGE", ""):
 if rtd_version := os.environ.get("READTHEDOCS_VERSION", ""):
     base_path += f"/{rtd_version}"
 
+html_context = {
+    "base_path": base_path,
+}
+
 html_theme = "sphinx_wagtail_theme"
 html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
 
