@@ -10,3 +10,8 @@ export function getNextReplyId() {
   nextReplyId += 1;
   return nextReplyId;
 }
+
+export function resetCommentAndReplyIds() {
+  nextCommentId = 1;
+  nextReplyId = 1;
+}

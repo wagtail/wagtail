@@ -344,6 +344,12 @@ window.comments = (() => {
     { once: true },
   );
 
+  document.addEventListener('w-autosave:success', ({ detail }) => {
+    if (detail?.data?.comments) {
+      commentApp.updateData(detail.data.comments);
+    }
+  });
+
   return {
     commentApp,
     getContentPath,
