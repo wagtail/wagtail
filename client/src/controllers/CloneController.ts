@@ -98,10 +98,15 @@ export class CloneController extends Controller<HTMLElement> {
 
     if (clear) this.clear();
 
-    const content = this.getTemplateContent(type);
-    if (!content) return;
+    const template = this.getTemplateElement(type);
+    const templateRoot = template?.content.firstElementChild;
+    if (!templateRoot) return;
+    const content = templateRoot.cloneNode(true) as HTMLElement;
+    const textSelector = template.dataset.selector;
 
-    const textElement = content.lastElementChild;
+    const textElement =
+      (textSelector && content.querySelector(textSelector)) ||
+      content.lastElementChild;
 
     if (textElement instanceof HTMLElement && text) {
       textElement.textContent = text;
@@ -157,12 +162,11 @@ export class CloneController extends Controller<HTMLElement> {
    * a matching target, finally fall back on the first template target if nothing
    * is found.
    */
-  getTemplateContent(type?: string | null): HTMLElement | null {
-    const template =
+  getTemplateElement(type?: string | null): HTMLTemplateElement | null {
+    return (
       (type &&
         this.templateTargets.find(({ dataset }) => dataset.type === type)) ||
-      this.templateTarget;
-    const content = template.content.firstElementChild?.cloneNode(true);
-    return content instanceof HTMLElement ? content : null;
+      this.templateTarget
+    );
   }
 }
