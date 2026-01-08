@@ -129,6 +129,15 @@ interface A11yReport {
 }
 
 /**
+ * Delay helper to allow the DOM to stabilize before scanning.
+ * This helps prevent race conditions with React/Next.js hydration in headless setups.
+ */
+const delay = (ms: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
+/**
  * Get accessibility testing results from Axe based on the configurable custom context and options.
  * Before calling this function, ensure that Axe has been configured with
  * axe.configure() using the config's `spec`, along with any custom checks.
@@ -136,6 +145,12 @@ interface A11yReport {
 export const getA11yReport = async (
   config: WagtailAxeConfiguration,
 ): Promise<A11yReport> => {
+  // Wait briefly to allow React/Next.js hydration to settle.
+  // This prevents scanning an intermediate or empty DOM state in headless setups,
+  // which can cause false 0-violation results due to race conditions.
+  // See: https://github.com/wagtail/wagtail/issues/13689
+  await delay(300);
+
   // Run Axe based on the context and options defined in Python.
   const results = await axe.run(config.context, config.options);
   const a11yErrorsNumber = results.violations.reduce(
