@@ -22,6 +22,7 @@ import {
   updateComment,
   commentActionFunctions,
   invalidateContentPath,
+  reset,
 } from './actions/comments';
 import { updateGlobalSettings } from './actions/settings';
 import {
@@ -158,6 +159,22 @@ export interface CommentAppData {
   authors: Record<string, { name: string; avatar_url: string }>;
 }
 
+export interface LoadDataOptions {
+  /**
+   * Whether to skip deleted and resolved comments.
+   *
+   * On initial load, this should be set to `false` to account for comments that
+   * the user tried to delete or resolve but haven't been processed (e.g.
+   * because the form was not valid when it was submitted).
+   *
+   * On subsequent loads, this should be set to `true` if the comments have
+   * been processed (e.g. via autosave, which guarantees that the new data only
+   * comes back when the server has processed the previous changes). */
+  skipRemoved?: boolean;
+  /** The remote ID of the comment to focus initially (if any). */
+  focusedCommentId?: number;
+}
+
 export class CommentApp {
   store: Store;
 
@@ -264,26 +281,37 @@ export class CommentApp {
     );
   }
 
-  loadData({
-    comments: initialComments,
-    user: userId,
-    authors: authorsData,
-  }: CommentAppData) {
+  loadData(
+    {
+      comments: initialComments,
+      user: userId,
+      authors: authorsData,
+    }: CommentAppData,
+    { skipRemoved = false, focusedCommentId }: LoadDataOptions = {},
+  ) {
     const authors = new Map(Object.entries(authorsData));
     this.setUser(userId, authors);
 
     // Check if there is "comment" query parameter.
     // If this is set, the user has clicked on a "View on frontend" link of an
     // individual comment. We should focus this comment and scroll to it
-    const urlParams = new URLSearchParams(window.location.search);
-    let initialFocusedCommentId: number | null = null;
-    const commentParams = urlParams.get('comment');
-    if (commentParams) {
-      initialFocusedCommentId = parseInt(commentParams, 10);
+    let initialFocusedCommentId: number | undefined = focusedCommentId;
+    if (!initialFocusedCommentId) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const commentParams = urlParams.get('comment');
+      if (commentParams) {
+        initialFocusedCommentId = parseInt(commentParams, 10);
+      }
     }
 
+    const comments = skipRemoved
+      ? initialComments.filter(
+          (comment) => !(comment.deleted || comment.resolved),
+        )
+      : initialComments;
+
     // Fetch existing comments
-    for (const comment of initialComments) {
+    for (const comment of comments) {
       const commentId = getNextCommentId();
 
       // Create comment
@@ -306,8 +334,12 @@ export class CommentApp {
         ),
       );
 
+      const replies = skipRemoved
+        ? comment.replies.filter((reply) => !reply.deleted)
+        : comment.replies;
+
       // Create replies
-      for (const reply of comment.replies) {
+      for (const reply of replies) {
         this.store.dispatch(
           addReply(
             commentId,
@@ -337,6 +369,26 @@ export class CommentApp {
         );
       }
     }
+  }
+
+  updateData(data: CommentAppData) {
+    // Get the remote ID of the currently focused comment (if any)
+    const { comments, focusedComment } = this.store.getState().comments;
+    const focusedCommentRemoteId =
+      comments.get(focusedComment || 0)?.remoteId ?? undefined;
+
+    // Merging the existing data with the new data from the server is complex,
+    // so for now we will just reset the whole store and load the new data
+    this.store.dispatch(reset());
+    this.loadData(data, {
+      // Upon processing an autosave, the server data includes comments that
+      // have been deleted or resolved as confirmation. We should skip them,
+      // otherwise the associated PK is no longer valid and the server would
+      // treat them as new comments, while the store holds on to the stale ones,
+      // creating an endless loop of duplicates.
+      skipRemoved: true,
+      focusedCommentId: focusedCommentRemoteId,
+    });
   }
 
   renderApp(

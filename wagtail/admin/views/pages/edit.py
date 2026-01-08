@@ -662,6 +662,7 @@ class EditView(
                     "revision_id": revision.pk,
                     "revision_created_at": revision.created_at.isoformat(),
                     "field_updates": dict(self.form.get_field_updates_for_resave()),
+                    "comments": self.form.serialize_comments(self.request.user),
                 }
             )
         else:
