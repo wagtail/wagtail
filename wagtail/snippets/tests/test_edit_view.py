@@ -312,6 +312,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response_json = response.json()
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], snippet.pk)
+        self.assertEqual(response_json["field_updates"], {})
 
     def test_edit_with_tags(self):
         tags = ["hello", "world"]
@@ -821,7 +822,12 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         self.assertEqual(response["Content-Type"], "application/json")
         self.assertEqual(
             response.json(),
-            {"success": True, "pk": self.test_snippet.pk, "revision_id": revision.pk},
+            {
+                "success": True,
+                "pk": self.test_snippet.pk,
+                "revision_id": revision.pk,
+                "field_updates": {},
+            },
         )
 
         self.assertEqual(self.test_snippet.revisions.count(), 2)
