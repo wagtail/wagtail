@@ -170,6 +170,35 @@ class WagtailAdminModelForm(
             self.fields[field_name].required = True
         self.deferred_required_fields = []
 
+    def get_field_updates_for_resave(self):
+        """
+        Following a successful save (as a background HTTP request), returns a list of
+        form field updates - as (name, new_value) tuples - that can be applied to the
+        form in the still-open page to make it valid for subsequent submissions. This
+        includes populating the IDs of child objects within formsets - without this,
+        subsequent submissions would create duplicates of these objects.
+        """
+        updates = []
+        for formset in self.formsets.values():
+            updates.append(
+                (
+                    f"{formset.management_form.prefix}-INITIAL_FORMS",
+                    str(formset.total_form_count()),
+                )
+            )
+            for form in formset.forms:
+                if formset.can_delete and formset._should_delete_form(form):
+                    continue
+
+                updates.extend(form.get_field_updates_for_resave())
+                id_field_name = f"{form.prefix}-id"
+                if form.instance.pk and not self.data.get(id_field_name):
+                    # instance has a PK but the form data doesn't include it - it must have
+                    # been created during the save we just performed
+                    updates.append((id_field_name, str(form.instance.pk)))
+
+        return updates
+
     class Meta:
         formfield_callback = formfield_for_dbfield
 
