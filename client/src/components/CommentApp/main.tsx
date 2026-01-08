@@ -87,7 +87,7 @@ function CommentListing({
   comments,
 }: CommentListingProps): React.ReactElement {
   const state = store.getState();
-  const { user, currentTab } = state.settings;
+  const { user, currentTab, isReloading } = state.settings;
   const { focusedComment, forceFocus } = state.comments;
   const commentsListRef = React.useRef<HTMLOListElement | null>(null);
   // Update the position of the comments listing as the window scrolls to keep the comments in line with the content
@@ -146,8 +146,10 @@ function CommentListing({
       isVisible={layout.getCommentVisible(currentTab, comment.localId)}
     />
   ));
+
+  const className = `comments-list ${isReloading ? 'comments-list--reloading' : ''}`;
   return (
-    <ol ref={commentsListRef} className="comments-list">
+    <ol ref={commentsListRef} className={className}>
       {commentsRendered}
     </ol>
   );
@@ -379,6 +381,7 @@ export class CommentApp {
 
     // Merging the existing data with the new data from the server is complex,
     // so for now we will just reset the whole store and load the new data
+    this.store.dispatch(updateGlobalSettings({ isReloading: true }));
     this.store.dispatch(reset());
     this.loadData(data, {
       // Upon processing an autosave, the server data includes comments that
@@ -389,6 +392,7 @@ export class CommentApp {
       skipRemoved: true,
       focusedCommentId: focusedCommentRemoteId,
     });
+    this.store.dispatch(updateGlobalSettings({ isReloading: false }));
   }
 
   renderApp(
