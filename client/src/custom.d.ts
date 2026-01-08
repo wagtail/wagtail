@@ -1,3 +1,5 @@
+import type { CommentApp } from './components/CommentApp/main';
+
 export interface WagtailConfig {
   /** For editing models that can be translated, the target locale's language code will be provided. */
   ACTIVE_CONTENT_LOCALE?: string;
@@ -26,6 +28,7 @@ declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION__: any;
     telepath: any;
+    comments?: { commentApp: CommentApp };
   }
 
   const wagtailConfig: WagtailConfig;
