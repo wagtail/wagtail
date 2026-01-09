@@ -1,3 +1,4 @@
+import warnings
 from urllib.parse import urlsplit, urlunsplit
 
 from django.conf import settings
@@ -22,14 +23,26 @@ def get_base_url(request=None):
     if base_url:
         # We want the scheme, netloc, and path
         base_url_parsed = urlsplit(force_str(base_url))
-        # last two empty strings are for query and fragment respectively
+        path = base_url_parsed.path
+
+        if path and path != "/":
+            allow_path = getattr(settings, "WAGTAILAPI_ALLOW_URL_PATH", False)
+
+            if not allow_path:
+                warnings.warn(
+                    "WAGTAIL_BASE_URL contains path component but WAGTAILAPI_ALLOW_URL_PATH is not set to True"
+                    "Path component will be ignored"
+                    "To use custom path add `WAGTAILAPI_ALLOW_URL_PATH = True` line in your Django setting file",
+                    UserWarning,
+                )
+                path = ""
         root_url = urlunsplit(
             (
                 base_url_parsed.scheme,
                 base_url_parsed.netloc,
-                base_url_parsed.path,
-                "",
-                "",
+                path,
+                "",  # query
+                "",  # fragment
             )
         )
         return root_url.rstrip("/")
