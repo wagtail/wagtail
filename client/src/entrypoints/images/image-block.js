@@ -20,8 +20,11 @@ class ImageBlockDefinition extends window.wagtailStreamField.blocks
     imageChooserWidget.addEventListener('chosen', ({ detail: data }) => {
       /* If the alt text field has not been changed from the previous image's default alt text
       (or the empty string, if there was no previous image), replace it with the new image's
-      default alt text */
-      if (altTextField.value === lastDefaultAltText) {
+      default alt text. Also populate if the field is empty (e.g., after switching from decorative). */
+      if (
+        altTextField.value === lastDefaultAltText ||
+        altTextField.value === ''
+      ) {
         altTextField.value = data.default_alt_text;
       }
       lastDefaultAltText = data.default_alt_text;
