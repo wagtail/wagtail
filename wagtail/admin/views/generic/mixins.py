@@ -23,6 +23,7 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.models import EditingSession
 from wagtail.admin.telepath import JSContext
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.tables import LiveStatusTagColumn, TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
@@ -282,6 +283,7 @@ class CreateEditViewOptionalFeaturesMixin:
             and issubclass(self.model, LockableMixin)
             and self.view_name != "create"
         )
+        self.autosave_enabled = self.revision_enabled and self.view_name != "create"
 
         # Set the object before super().setup() as LocaleMixin.setup() needs it
         self.object = self.get_object()
@@ -541,7 +543,7 @@ class CreateEditViewOptionalFeaturesMixin:
         self.new_revision = None
         if self.revision_enabled:
             overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
-            if overwrite_revision_id is not None:
+            if overwrite_revision_id:
                 try:
                     overwrite_revision = instance.revisions.get(
                         pk=overwrite_revision_id
@@ -648,8 +650,9 @@ class CreateEditViewOptionalFeaturesMixin:
 
     def get_success_json(self):
         data = super().get_success_json()
-        if self.revision_enabled:
-            data["revision_id"] = self.new_revision and self.new_revision.id
+        if self.revision_enabled and self.new_revision:
+            data["revision_id"] = self.new_revision.id
+            data["revision_created_at"] = self.new_revision.created_at.isoformat()
         return data
 
     def form_invalid(self, form):
@@ -769,7 +772,6 @@ class CreateEditViewOptionalFeaturesMixin:
             object_id=self.object.pk,
             last_seen_at=timezone.now(),
         )
-        revision_id = self.object.latest_revision_id if self.revision_enabled else None
         return EditingSessionsModule(
             session,
             reverse(
@@ -786,22 +788,47 @@ class CreateEditViewOptionalFeaturesMixin:
                 args=(session.id,),
             ),
             [],
-            revision_id,
+            self.latest_revision and self.latest_revision.pk,
+            self.latest_revision_created_at,
         )
 
     @cached_property
-    def is_out_of_date(self):
-        # Check the autosave revision if present, otherwise fall back to the
-        # initially loaded revision.
-        submitted_revision_id = self.request.POST.get(
-            "overwrite_revision_id"
-        ) or self.request.POST.get("loaded_revision_id")
+    def latest_revision(self):
+        return self.revision_enabled and self.object and self.object.latest_revision
 
-        return (
-            self.revision_enabled
-            and submitted_revision_id
-            and (submitted_revision_id != str(self.object.latest_revision_id))
-        )
+    @cached_property
+    def latest_revision_created_at(self):
+        return self.latest_revision and self.latest_revision.created_at.isoformat()
+
+    @cached_property
+    def is_out_of_date(self):
+        if not self.latest_revision:
+            return False
+
+        latest_revision_id = str(self.latest_revision.pk)
+
+        # Two different sessions cannot have the same autosave revision, so if
+        # autosave revision is present, it is either the latest or it is not.
+        if overwrite_revision_id := self.request.POST.get("overwrite_revision_id"):
+            return overwrite_revision_id != latest_revision_id
+
+        # Client has not made an autosave revision, check the loaded revision.
+        if loaded_revision_id := self.request.POST.get("loaded_revision_id"):
+            # If the loaded revision is not the latest revision, it is outdated.
+            if loaded_revision_id != latest_revision_id:
+                return True
+
+            # It's pointing to the latest revision, but that revision may have
+            # been overwritten by another session (via autosave) since the editor
+            # loaded it. The created_at is strictly increasing, so assume the
+            # loaded revision outdated if it doesn't match the latest created_at.
+            return (
+                self.request.POST.get("loaded_revision_created_at", "")
+                != self.latest_revision_created_at
+            )
+
+        # Not enough information to deduce, assume it's up to date.
+        return False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -809,6 +836,7 @@ class CreateEditViewOptionalFeaturesMixin:
         context["revision_enabled"] = self.revision_enabled
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
+        context["autosave_enabled"] = self.autosave_enabled
         context["workflow_history_url"] = self.get_workflow_history_url()
         context["confirm_workflow_cancellation_url"] = (
             self.get_confirm_workflow_cancellation_url()
@@ -818,6 +846,9 @@ class CreateEditViewOptionalFeaturesMixin:
         ) and bool(self.workflow_tasks)
         context["revisions_compare_url_name"] = self.revisions_compare_url_name
         context["editing_sessions"] = self.get_editing_sessions()
+        context["loaded_revision_created_at"] = self.latest_revision_created_at
+        if self.autosave_enabled:
+            context["autosave_indicator"] = AutosaveIndicator()
         return context
 
     def is_valid(self, form):
