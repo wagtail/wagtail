@@ -253,6 +253,20 @@ ul.listing {
       margin: 3px 0.3em 0 0;
       vertical-align: top;
     }
+
+    .w-page-alias-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      margin-inline-start: 0.5rem;
+      vertical-align: middle;
+
+      .w-icon {
+        width: 0.875rem;
+        height: 0.875rem;
+        color: var(--w-color-text-meta, rgba(0, 0, 0, 0.5));
+      }
+    }
   }
 
   .actions {
@@ -502,6 +516,7 @@ table.listing {
   &__end {
     display: flex;
     flex: 1;
+
     @include media-breakpoint-down(md) {
       flex-basis: auto;
     }

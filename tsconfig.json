@@ -12,6 +12,7 @@
     "noUnusedParameters": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "noEmit": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "target": "ES2023"
