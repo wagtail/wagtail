@@ -25,6 +25,7 @@ Changelog
  * Docs: Retitle documentation page for settings contrib module to "Settings models" (Karl Hobley)
  * Docs: Fix typos and minor grammar issues (Kunal Gupta)
  * Docs: Correct references to macOS and POSIX shell in tutorial (Ankit Kumar)
+ * Docs: Add PowerShell setup instructions to tutorial and correct method versus property terminology (Mustansir Dabhiya)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
