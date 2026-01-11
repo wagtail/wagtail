@@ -5,7 +5,7 @@ This tutorial shows you how to build a blog using Wagtail. Also, the tutorial gi
 To complete this tutorial, we recommend that you have some basic programming knowledge, as well as an understanding of web development concepts. A basic understanding of Python and the Django framework ensures a more grounded understanding of this tutorial, but it's not mandatory.
 
 ```{note}
-If you want to add Wagtail to an existing Django project instead, see [](integrating_into_django).
+If you want to add Wagtail to an existing Django project instead, see [Integrating into Django](integrating_into_django).
 ```
 
 ## Install and run Wagtail
@@ -41,13 +41,14 @@ py -m venv mysite\env
 
 Activate this virtual environment using:
 
-```doscon
+# For Command Prompt (cmd.exe):
 mysite\env\Scripts\activate.bat
 
-# if mysite\env\Scripts\activate.bat doesn't work, run:
+# For PowerShell:
+.\mysite\env\Scripts\Activate.ps1
 
+# If the above do not work, try:
 mysite\env\Scripts\activate
-```
 
 **On GNU/Linux or MacOS** (bash):
 
@@ -256,7 +257,7 @@ template that uses Wagtail's tags. If the tags aren't loaded, Django throws a `T
 
 ## A basic blog
 
-You are now ready to create a blog, use the following command line to create a new app in your Wagtail project.
+You are now ready to create a blog.Use the following command line to create a new app in your Wagtail project.
 
 ```sh
 python manage.py startapp blog
@@ -454,7 +455,7 @@ from its position in the hierarchy. But why do you have to
 specify `post.specific.intro` rather than `post.intro`?
 This has to do with the way you define your model, `class BlogPage(Page)`. The `get_children()` method gets you a list of instances of the `Page` base class.
 When you want to reference properties of the instances that inherit from the base class,
-Wagtail provides the `specific` method that retrieves the actual `BlogPage` record.
+Wagtail provides the `specific` property that retrieves the actual `BlogPage` record.
 While the "title" field is present on the base `Page` model, "intro" is only present
 on the `BlogPage` model. So you need `.specific` to access it.
 
@@ -888,7 +889,7 @@ To render tags on a `BlogPage`, add this to `blog_page.html`:
 {% endwith %}
 ```
 
-Notice that you're linking to pages here with the builtin `slugurl`
+Notice that you're linking to pages here with the built-in `slugurl`
 tag rather than `pageurl`, which you used earlier. The difference is that `slugurl` takes a `Page` slug (from the Promote tab) as an argument. `pageurl` is more commonly used because it's unambiguous and avoids extra database lookups. But in the case of this loop, the `Page` object isn't readily available, so you fall back on the less-preferred `slugurl` tag.
 
 With the modifications that you've made so far, visiting a blog post with tags displays a series of linked buttons at the bottom, one for each tag associated with the post. However, clicking on a button will result in a **404** error page, as you are yet to define a "tags" view.
