@@ -31,6 +31,9 @@
             {% block filter_form %}
                 {% if filter_form.fields %}
                     <form data-chooser-modal-search action="{{ results_url }}" method="GET" novalidate>
+                        {% if chooser_ids %}
+                            <input type="hidden" name="chooserIds" value="{{ chooser_ids }}">
+                        {% endif %}
                         {% for field in filter_form.hidden_fields %}{{ field }}{% endfor %}
 
                         {% if filter_form.visible_fields %}

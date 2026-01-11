@@ -395,12 +395,14 @@ class ChooseViewMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        chooser_ids = self.request.GET.get("chooserIds", None)
         context.update(
             {
                 "filter_form": self.filter_form,
                 "search_tab_label": self.search_tab_label,
                 "creation_tab_label": self.creation_tab_label
                 or self.create_action_label,
+                "chooser_ids": chooser_ids,
             }
         )
 
