@@ -158,7 +158,7 @@ class SearchController {
         this.resultsContainer.html(resultsData);
         if (this.onLoadResults) {
           // save the state of the checkboxes when the user searches or navigates between pages.
-          const checkboxes = document.querySelectorAll(
+          const checkboxes = this.resultsContainer[0].querySelectorAll(
             'form[data-multiple-choice-form] input[type="checkbox"]',
           );
           checkboxes.forEach((checkbox) => {
@@ -246,9 +246,11 @@ class ChooserModalOnloadHandlerFactory {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
 
-    this.updateMultipleChoiceSubmitLocalStorage();
+    this.updateMultipleChoiceSubmitLocalStorage(modal);
 
-    const form = document.querySelector('form[data-multiple-choice-form]');
+    const form = modal.container[0].querySelector(
+      '[data-multiple-choice-form]',
+    );
     form.addEventListener('submit', () => {
       this.getMissingCheckboxes(form);
     });
@@ -264,9 +266,9 @@ class ChooserModalOnloadHandlerFactory {
     }
   }
 
-  updateMultipleChoiceSubmitLocalStorage() {
+  updateMultipleChoiceSubmitLocalStorage(modal) {
     // eslint-disable-next-line func-names
-    $(document).on('change', '[data-multiple-choice-select]', function () {
+    $(modal.body).on('change', '[data-multiple-choice-select]', function () {
       $(this).each(() => {
         sessionStorage.setItem($(this).prop('id'), $(this).prop('checked'));
       });
