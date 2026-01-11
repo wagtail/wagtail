@@ -283,6 +283,60 @@ adding any fields defined in `panels` or `content_panels`.
 Any fields already defined on the model will not be overridden by these automatically added fields,
 so the form field for a model field can be overridden by adding it to the custom form.
 
+### Customizing model-level deferred validation
+
+If you have model-level validation rules that you wish to skip when saving a draft page or snippet, then the `is_deferred_validation` form property can be used within the form's `clean()` method. For example, the above example could be modified as follows:
+
+```python
+class EventPageForm(WagtailAdminPageForm):
+    address = forms.CharField()
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        start_date = cleaned_data['start_date']
+        end_date = cleaned_data['end_date']
+
+        # Only check at full-validation time if the event starts before it ends
+        if not self.is_deferred_validation:
+            if start_date and end_date and start_date > end_date:
+                self.add_error('end_date', 'The end date must be after the start date')
+
+        return cleaned_data
+
+    def save(self, commit=True):
+        page = super().save(commit=False)
+
+        # Update the duration field from the submitted dates, if possible
+        if page.start_date and page.end_date:
+            page.duration = (page.end_date - page.start_date).days
+        else:
+            page.duration = None
+
+        # Fetch the location by geocoding the address
+        page.location = geocoder.arcgis(self.cleaned_data['address'])
+
+        if commit:
+            page.save()
+        return page
+
+
+class EventPage(Page):
+    # Allow draft save of empty date and duration fields
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    duration = models.IntegerField(null=True)
+    location = models.CharField(max_length=255)
+
+    content_panels = [
+        TitleFieldPanel('title'),
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
+        FieldPanel('address'),
+    ]
+    base_form_class = EventPageForm
+```
+
 (custom_page_copy_form)=
 
 ## Customizing the generated copy page form
