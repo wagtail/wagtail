@@ -70,6 +70,7 @@ extensions = [
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
+    "sphinx_llm.txt",
 ]
 
 autodoc_type_aliases = {
