@@ -47,10 +47,11 @@ const Template = ({ debug = false }) => {
           </legend>
           <div className="w-m-4">
             <label htmlFor="slugify">
-              <pre>slugify</pre>
+              <pre id="slugify-label">slugify</pre>
               <input
                 id="slugify-default"
                 type="text"
+                aria-labelledby="slugify-label"
                 data-controller="w-clean"
                 data-action="blur->w-clean#slugify"
                 data-w-clean-trim-value
@@ -62,10 +63,11 @@ const Template = ({ debug = false }) => {
           </div>
           <div className="w-m-4">
             <label htmlFor="slugify-unicode">
-              <pre>slugify (allow unicode)</pre>
+              <pre id="slugify-unicode-label">slugify (allow unicode)</pre>
               <input
                 id="slugify-unicode"
                 type="text"
+                aria-labelledby="slugify-unicode-label"
                 data-controller="w-clean"
                 data-action="blur->w-clean#slugify"
                 data-w-clean-allow-unicode-value
@@ -78,10 +80,11 @@ const Template = ({ debug = false }) => {
           </div>
           <div className="w-m-4">
             <label htmlFor="urlify-default">
-              <pre>urlify</pre>
+              <pre id="urlify-label">urlify</pre>
               <input
                 id="urlify-default"
                 type="text"
+                aria-labelledby="urlify-label"
                 data-controller="w-clean"
                 data-action="blur->w-clean#urlify"
                 data-w-clean-trim-value
@@ -93,10 +96,13 @@ const Template = ({ debug = false }) => {
           </div>
           <div className="w-m-4">
             <label htmlFor="urlify-locale-uk">
-              <pre>urlify (with Ukrainian locale)</pre>
+              <pre id="urlify-locale-uk-label">
+                urlify (with Ukrainian locale)
+              </pre>
               <input
                 id="urlify-locale-uk"
                 type="text"
+                aria-labelledby="urlify-locale-uk-label"
                 data-controller="w-clean"
                 data-action="blur->w-clean#urlify"
                 data-w-clean-locale-value="uk-UK"
@@ -110,10 +116,11 @@ const Template = ({ debug = false }) => {
           </div>
           <div className="w-m-4">
             <label htmlFor="urlify-unicode">
-              <pre>urlify (allow unicode)</pre>
+              <pre id="urlify-unicode-label">urlify (allow unicode)</pre>
               <input
                 id="urlify-unicode"
                 type="text"
+                aria-labelledby="urlify-unicode-label"
                 data-controller="w-clean"
                 data-action="blur->w-clean#urlify"
                 data-w-clean-allow-unicode-value
@@ -126,10 +133,13 @@ const Template = ({ debug = false }) => {
           </div>
           <div className="w-m-4">
             <label htmlFor="format-basic">
-              <pre>format (remove !, replace digits with #)</pre>
+              <pre id="format-basic-label">
+                format (remove !, replace digits with #)
+              </pre>
               <input
                 id="format-basic"
                 type="text"
+                aria-labelledby="format-basic-label"
                 data-controller="w-clean"
                 data-action="blur->w-clean#format"
                 data-w-clean-allow-unicode-value
