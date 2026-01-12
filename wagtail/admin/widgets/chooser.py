@@ -229,7 +229,7 @@ class AdminPageChooser(BaseChooser):
     js_constructor = "PageChooser"
 
     def __init__(
-        self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
+        self, target_models=None, can_choose_root=False, user_perms=None, locale=None, **kwargs
     ):
         super().__init__(**kwargs)
 
@@ -263,6 +263,7 @@ class AdminPageChooser(BaseChooser):
         else:
             self.model = Page
         self.can_choose_root = bool(can_choose_root)
+        self.locale = locale
 
     @property
     def model_names(self):
@@ -281,6 +282,7 @@ class AdminPageChooser(BaseChooser):
             "modelNames": self.model_names,
             "canChooseRoot": self.can_choose_root,
             "userPerms": self.user_perms,
+            "locale": self.locale.language_code if self.locale else None,
             **super().base_js_init_options,
         }
 

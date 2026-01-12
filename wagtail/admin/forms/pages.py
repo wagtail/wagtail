@@ -34,6 +34,7 @@ class CopyForm(forms.Form):
                 target_models=self.page.specific_class.allowed_parent_page_models(),
                 can_choose_root=True,
                 user_perms="copy_to",
+                locale=self.page.locale,
             ),
             label=_("New parent page"),
             help_text=_("This copy will be a child of this given parent page."),
@@ -116,12 +117,22 @@ class CopyForm(forms.Form):
             # The slug is no longer valid, hence remove it from cleaned_data
             del cleaned_data["new_slug"]
 
-        # Don't allow recursive copies into self
         if cleaned_data.get("copy_subpages") and (
             self.page == parent_page or parent_page.is_descendant_of(self.page)
         ):
             self._errors["new_parent_page"] = self.error_class(
                 [_("You cannot copy a page into itself when copying subpages")]
+            )
+
+        if (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and parent_page.locale_id != self.page.locale_id
+        ):
+            self._errors["new_parent_page"] = self.error_class(
+                [
+                    _("The parent page must have the same locale (%(locale)s) as the page being copied.")
+                    % {"locale": self.page.locale}
+                ]
             )
 
         return cleaned_data

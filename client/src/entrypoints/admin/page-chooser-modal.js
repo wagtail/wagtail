@@ -258,6 +258,9 @@ class PageChooserModal extends ChooserModal {
     if (opts.userPerms) {
       urlParams.user_perms = opts.userPerms;
     }
+    if (opts.locale) {
+      urlParams.locale = opts.locale;
+    }
     return urlParams;
   }
 }

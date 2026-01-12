@@ -388,7 +388,7 @@ class BrowseView(View):
                     for desired_class in self.desired_classes
                 ],
                 "page_types_restricted": (page_type_string != "wagtailcore.page"),
-                "show_locale_controls": self.i18n_enabled,
+                "show_locale_controls": self.i18n_enabled and not request.GET.get("locale"),
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
                 "is_multiple_choice": self.is_multiple_choice,
@@ -451,6 +451,9 @@ class SearchView(View):
         pages = Page.objects.all()
         if self.i18n_enabled:
             pages = pages.select_related("locale")
+            selected_locale_code = request.GET.get("locale")
+            if selected_locale_code:
+                pages = pages.filter(locale__language_code=selected_locale_code)
 
         # allow hooks to modify the queryset
         for hook in hooks.get_hooks("construct_page_chooser_queryset"):
