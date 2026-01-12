@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { debounce, DebouncedFunction } from '../utils/debounce';
+import { debounce, DebouncibleFunction } from '../utils/debounce';
 import { setOptionalInterval } from '../utils/interval';
 
 const DEFAULT_DURATIONS = {
@@ -242,7 +242,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
    * Notify the user of changes to the form.
    * Dispatch events to update the footer message via dispatching events.
    */
-  notify: (() => void) | DebouncedFunction<[], void> = () => {
+  notify: DebouncibleFunction<() => void> = () => {
     if (!this.hasEditsValue && !this.hasCommentsValue) {
       this.dispatch('clear', { cancelable: false });
       return;
