@@ -23,7 +23,7 @@
             data-action="
                          w-unsaved#submit
                          beforeunload@window->w-unsaved#confirm
-                         w-unsaved:add->w-autosave#submit:prevent
+                         w-unsaved:add->w-autosave#save:prevent
                          w-autosave:success->w-unsaved#clear
                         "
             data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"

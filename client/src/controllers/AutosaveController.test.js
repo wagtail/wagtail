@@ -3,6 +3,8 @@ import { Application } from '@hotwired/stimulus';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { AutosaveController } from './AutosaveController';
 
+jest.useFakeTimers();
+
 describe('AutosaveController', () => {
   let application;
 
@@ -12,7 +14,7 @@ describe('AutosaveController', () => {
         action="/autosave/"
         method="post"
         data-controller="w-autosave w-unsaved"
-        data-action="w-unsaved:add->w-autosave#submit"
+        data-action="w-unsaved:add->w-autosave#save"
       >
         <input type="text" name="title" value="Autosave title" />
         ${inner}
@@ -26,6 +28,12 @@ describe('AutosaveController', () => {
     await Promise.resolve();
 
     return document.querySelector('form');
+  };
+
+  const dispatchUnsaved = async (form) => {
+    const unsavedEvent = new CustomEvent('w-unsaved:add', { bubbles: true });
+    form.dispatchEvent(unsavedEvent);
+    return unsavedEvent;
   };
 
   beforeEach(() => {
@@ -56,8 +64,8 @@ describe('AutosaveController', () => {
       });
     });
 
-    const unsavedEvent = new CustomEvent('w-unsaved:add', { bubbles: true });
-    form.dispatchEvent(unsavedEvent);
+    const unsavedEvent = await dispatchUnsaved(form);
+    await jest.advanceTimersByTimeAsync(500);
 
     const { detail: successEventDetail } = await successEvent;
 
@@ -92,7 +100,8 @@ describe('AutosaveController', () => {
     const blockSave = jest.fn((event) => event.preventDefault());
     form.addEventListener('w-autosave:save', blockSave, { once: true });
 
-    form.dispatchEvent(new CustomEvent('w-unsaved:add', { bubbles: true }));
+    await dispatchUnsaved(form);
+    await jest.advanceTimersByTimeAsync(500);
 
     expect(blockSave).toHaveBeenCalledTimes(1);
     expect(fetch).not.toHaveBeenCalled();
@@ -115,8 +124,8 @@ describe('AutosaveController', () => {
       });
     });
 
-    const unsavedEvent = new CustomEvent('w-unsaved:add', { bubbles: true });
-    form.dispatchEvent(unsavedEvent);
+    const unsavedEvent = await dispatchUnsaved(form);
+    await jest.advanceTimersByTimeAsync(500);
 
     const { detail: errorEventDetail } = await errorEvent;
 
@@ -143,8 +152,8 @@ describe('AutosaveController', () => {
       });
     });
 
-    const unsavedEvent = new CustomEvent('w-unsaved:add', { bubbles: true });
-    form.dispatchEvent(unsavedEvent);
+    const unsavedEvent = await dispatchUnsaved(form);
+    await jest.advanceTimersByTimeAsync(500);
 
     const { detail: errorEventDetail } = await errorEvent;
 
@@ -172,8 +181,8 @@ describe('AutosaveController', () => {
       });
     });
 
-    const unsavedEvent = new CustomEvent('w-unsaved:add', { bubbles: true });
-    form.dispatchEvent(unsavedEvent);
+    const unsavedEvent = await dispatchUnsaved(form);
+    await jest.advanceTimersByTimeAsync(500);
 
     const { detail: errorEventDetail } = await errorEvent;
 
@@ -196,8 +205,8 @@ describe('AutosaveController', () => {
       });
     });
 
-    const unsavedEvent = new CustomEvent('w-unsaved:add', { bubbles: true });
-    form.dispatchEvent(unsavedEvent);
+    const unsavedEvent = await dispatchUnsaved(form);
+    await jest.advanceTimersByTimeAsync(500);
 
     const { detail: errorEventDetail } = await errorEvent;
 

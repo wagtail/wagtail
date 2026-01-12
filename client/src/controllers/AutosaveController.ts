@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { gettext } from '../utils/gettext';
+import { debounce, DebouncibleFunction } from '../utils/debounce';
 
 enum ServerErrorCode {
   INVALID_REVISION = 'invalid_revision',
@@ -82,29 +83,42 @@ export class AutosaveController extends Controller<
 > {
   static values = {
     active: { type: Boolean, default: true },
+    interval: { type: Number, default: 500 },
     revisionId: { type: Number, default: 0 },
     state: { type: String, default: 'idle' as AutosaveState },
   };
 
   declare activeValue: boolean;
+  declare intervalValue: number;
   declare revisionIdValue: number;
   declare stateValue: AutosaveState;
 
-  async submit(event?: Event) {
+  initialize(): void {
+    this.submit = this.submit.bind(this);
+  }
+
+  async save(event?: Event) {
     if (!this.activeValue || !(this.element instanceof HTMLFormElement)) return;
     const formData = new FormData(this.element);
     if (this.revisionIdValue) {
       formData.set('overwrite_revision_id', `${this.revisionIdValue}`);
     }
 
-    const saveEvent = this.dispatch('save', {
-      cancelable: true,
-      detail: { formData, trigger: event },
-    });
-    if (saveEvent.defaultPrevented) return;
+    this.submit(
+      this.dispatch('save', {
+        cancelable: true,
+        detail: { formData, trigger: event },
+      }) as CustomEvent<AutosaveSaveDetail>,
+    );
+  }
 
+  submit: DebouncibleFunction<
+    (event: CustomEvent<AutosaveSaveDetail>) => Promise<void>
+  > = async ({ defaultPrevented, detail: { formData, trigger: event } }) => {
+    if (defaultPrevented) return;
+    const form = this.element as HTMLFormElement;
     const requestInit: RequestInit = {
-      method: this.element.method,
+      method: form.method,
       body: formData,
       headers: {
         Accept: 'application/json',
@@ -116,7 +130,7 @@ export class AutosaveController extends Controller<
     let response: AutosaveResponse | null = null;
 
     try {
-      rawResponse = await fetch(this.element.action, requestInit);
+      rawResponse = await fetch(form.action, requestInit);
       response = (await rawResponse.json()) as AutosaveResponse;
 
       // If we reach here, response must be JSON, but can be of any shape
@@ -131,7 +145,7 @@ export class AutosaveController extends Controller<
         for (const [fieldName, fieldValue] of Object.entries(
           response.field_updates,
         )) {
-          const field = this.element.elements.namedItem(fieldName) as
+          const field = form.elements.namedItem(fieldName) as
             | HTMLInputElement
             | HTMLTextAreaElement
             | null;
@@ -141,7 +155,7 @@ export class AutosaveController extends Controller<
         }
       }
       if (response.url) {
-        this.element.action = response.url;
+        form.action = response.url;
       }
 
       this.dispatch('success', {
@@ -199,6 +213,13 @@ export class AutosaveController extends Controller<
         },
       });
     }
+  };
+
+  intervalValueChanged(newInterval: number) {
+    if ('restore' in this.submit) {
+      this.submit = this.submit.restore();
+    }
+    this.submit = debounce(this.submit, newInterval);
   }
 
   /**

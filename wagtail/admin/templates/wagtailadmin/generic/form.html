@@ -31,7 +31,7 @@
                      w-unsaved#submit
                      beforeunload@window->w-unsaved#confirm
                      {% if autosave_enabled %}
-                         w-unsaved:add->w-autosave#submit:prevent
+                         w-unsaved:add->w-autosave#save:prevent
                          w-autosave:success->w-unsaved#clear
                      {% endif %}
                     "
