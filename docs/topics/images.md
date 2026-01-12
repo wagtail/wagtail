@@ -340,7 +340,7 @@ class CustomImagesAppConfig(WagtailImagesAppConfig):
     default_attrs = {"decoding": "async", "loading": "lazy"}
 ```
 
-Then, replace `wagtail.images` in `settings.INSTALLED_APPS` with the path to `CustomUsersAppConfig`:
+Then, replace `wagtail.images` in `settings.INSTALLED_APPS` with the path to `CustomImagesAppConfig`:
 
 ```python
 INSTALLED_APPS = [
