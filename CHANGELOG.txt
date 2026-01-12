@@ -14,6 +14,7 @@ Changelog
  * Lower default AVIF encoding quality from 80 to 73 (Thibaud Colas)
  * Provide a structured rendering of `StreamBlock` in comparison view (Taras Panasiuk)
  * Add support for settings and custom block layouts for StructBlock (Sage Abdullah)
+ * Add llms.txt versions of the developer documentation and Wagtail user guide (Thibaud Colas)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
