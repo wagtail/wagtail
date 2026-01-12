@@ -229,7 +229,12 @@ class AdminPageChooser(BaseChooser):
     js_constructor = "PageChooser"
 
     def __init__(
-        self, target_models=None, can_choose_root=False, user_perms=None, locale=None, **kwargs
+        self,
+        target_models=None,
+        can_choose_root=False,
+        user_perms=None,
+        locale=None,
+        **kwargs,
     ):
         super().__init__(**kwargs)
 

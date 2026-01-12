@@ -388,7 +388,8 @@ class BrowseView(View):
                     for desired_class in self.desired_classes
                 ],
                 "page_types_restricted": (page_type_string != "wagtailcore.page"),
-                "show_locale_controls": self.i18n_enabled and not request.GET.get("locale"),
+                "show_locale_controls": self.i18n_enabled
+                and not request.GET.get("locale"),
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
                 "is_multiple_choice": self.is_multiple_choice,

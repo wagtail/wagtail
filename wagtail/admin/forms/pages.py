@@ -130,7 +130,9 @@ class CopyForm(forms.Form):
         ):
             self._errors["new_parent_page"] = self.error_class(
                 [
-                    _("The parent page must have the same locale (%(locale)s) as the page being copied.")
+                    _(
+                        "The parent page must have the same locale (%(locale)s) as the page being copied."
+                    )
                     % {"locale": self.page.locale}
                 ]
             )
