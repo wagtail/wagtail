@@ -283,7 +283,12 @@ class CreateEditViewOptionalFeaturesMixin:
             and issubclass(self.model, LockableMixin)
             and self.view_name != "create"
         )
-        self.autosave_enabled = self.revision_enabled and self.view_name != "create"
+        self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
+        self.autosave_enabled = (
+            self.revision_enabled
+            and self.view_name != "create"
+            and self.autosave_interval > 0
+        )
 
         # Set the object before super().setup() as LocaleMixin.setup() needs it
         self.object = self.get_object()
@@ -837,6 +842,7 @@ class CreateEditViewOptionalFeaturesMixin:
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
         context["autosave_enabled"] = self.autosave_enabled
+        context["autosave_interval"] = self.autosave_interval
         context["workflow_history_url"] = self.get_workflow_history_url()
         context["confirm_workflow_cancellation_url"] = (
             self.get_confirm_workflow_cancellation_url()
