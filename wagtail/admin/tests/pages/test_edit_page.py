@@ -242,6 +242,19 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
 
+        # Autosave defaults to enabled with 500ms interval
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "500")
+
     def test_loaded_revision_id_and_timestamp_included_in_form(self):
         # Ensure there's a revision for the page
         self.event_page.title = "Updated event page"
@@ -261,6 +274,37 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         loaded_timestamp = form.select_one("input[name='loaded_revision_created_at']")
         self.assertIsNotNone(loaded_timestamp)
         self.assertEqual(loaded_timestamp["value"], revision.created_at.isoformat())
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=0)
+    def test_autosave_disabled(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=2000)
+    def test_autosave_custom_interval(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "2000")
 
     def test_publish_button_shows_schedule_label_for_future_go_live(self):
         go_live_at = timezone.now() + datetime.timedelta(hours=1)

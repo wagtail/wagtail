@@ -35,6 +35,7 @@
                          w-autosave:success->w-unsaved#clear
                      {% endif %}
                     "
+        {% if autosave_enabled %}data-w-autosave-interval-value="{{ autosave_interval|unlocalize }}"{% endif %}
         data-w-unsaved-confirmation-value="true"
         data-w-unsaved-force-value="{{ has_unsaved_changes|yesno:'true,false' }}"
     >

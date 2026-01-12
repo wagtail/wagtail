@@ -418,6 +418,8 @@ class EditView(
             self.workflow_tasks = []
 
         self.errors_debug = None
+        self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
+        self.autosave_enabled = self.autosave_interval > 0
 
         return super().dispatch(request, page_id, **kwargs)
 
@@ -1090,7 +1092,8 @@ class EditView(
                 and user_perms.can_unlock(),
                 "locale": self.locale,
                 "media": media,
-                "autosave_enabled": True,
+                "autosave_enabled": self.autosave_enabled,
+                "autosave_interval": self.autosave_interval,
                 "autosave_indicator": AutosaveIndicator(),
                 "editing_sessions": self.get_editing_sessions(),
                 "loaded_revision_created_at": self.latest_revision_created_at,

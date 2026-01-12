@@ -173,6 +173,11 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             editor_form.select_one("input[name='loaded_revision_created_at']")
         )
 
+        self.assertIsNotNone(editor_form)
+        self.assertNotIn("w-autosave", editor_form["data-controller"].split())
+        self.assertNotIn("w-autosave", editor_form["data-action"])
+        self.assertIsNone(editor_form.attrs.get("data-w-autosave-interval-value"))
+
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
         self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
@@ -1013,6 +1018,46 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         loaded_timestamp = form.select_one("input[name='loaded_revision_created_at']")
         self.assertIsNotNone(loaded_timestamp)
         self.assertEqual(loaded_timestamp["value"], revision.created_at.isoformat())
+
+        # Autosave defaults to enabled with 500ms interval
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "500")
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=0)
+    def test_autosave_disabled(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=2000)
+    def test_autosave_custom_interval(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "2000")
 
     def test_save_draft(self):
         response = self.post(post_data={"text": "Draft-enabled Bar"})
