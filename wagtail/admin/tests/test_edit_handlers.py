@@ -973,8 +973,7 @@ class TestFieldPanel(TestCase):
         # NOTE: Tests with and without providing POST data to the form to
         # prove that posted values have no impact on the output for
         # read-only panels.
-        expected_value_output = self.event.date_to.strftime("%B %-d, %Y")
-
+        expected_value_output = self.event.date_to.strftime("%B %d, %Y").replace(" 0", " ")
         for panel, data in (
             (self.read_only_end_date_panel, None),
             (
