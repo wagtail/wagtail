@@ -19,6 +19,7 @@ Changelog
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
  * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
+ * Maintenance: Fix `hash_filelike` test case to account for line break differences on Windows (Mustansir Dabhiya)
 
 
 7.3 (03.02.2026)
