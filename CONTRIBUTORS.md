@@ -936,6 +936,7 @@
 * Ritik Arya
 * Ankit Chaudhary
 * Saptami
+* Soumya-codr
 
 ## Translators
 

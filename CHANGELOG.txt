@@ -4,6 +4,7 @@ Changelog
 7.4 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
