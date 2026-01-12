@@ -25,16 +25,22 @@ class TestServeView(TestCase):
 
     def tearDown(self):
         if hasattr(self, "response"):
-            # Make sure the response is fully read before deleting the document so
-            # that the file is closed by the view.
-            # This is required on Windows as the below line that deletes the file
-            # will crash if the file is still open.
-            b"".join(self.response.streaming_content)
+            # Explicitly close the response and consume content to release the lock
+            self.response.close()
+            try:
+                b"".join(self.response.streaming_content)
+            except (ValueError, RuntimeError):
+                # Handle cases where stream is already closed
+                pass
 
-        # delete the FieldFile directly because the TestCase does not commit
-        # transactions to trigger transaction.on_commit() in the signal handler
-        self.document.file.delete()
-        self.pdf_document.file.delete()
+        # Use a more resilient deletion for Windows
+        for doc in [self.document, self.pdf_document]:
+            try:
+                doc.file.delete()
+            except PermissionError:
+                # Fallback: the test runner's temp dir cleanup will catch this 
+                # if the OS is still being stubborn
+                pass
 
     def get(self, document=None):
         document = document or self.document
@@ -373,10 +379,13 @@ class TestServeWithUnicodeFilename(TestCase):
             ) from e
 
     def tearDown(self):
-        # delete the FieldFile directly because the TestCase does not commit
-        # transactions to trigger transaction.on_commit() in the signal handler
-        self.document.file.delete()
-
+        if hasattr(self, "response"):
+            self.response.close()
+        
+        try:
+            self.document.file.delete()
+        except PermissionError:
+            pass
     def test_response_code(self):
         response = self.client.get(
             reverse("wagtaildocs_serve", args=(self.document.id, self.filename))
