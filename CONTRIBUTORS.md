@@ -931,6 +931,7 @@
 * Biswajeet Yadav
 * Taras Panasiuk
 * Florin Barnea
+* Mustansir Dabhiya
 
 ## Translators
 
