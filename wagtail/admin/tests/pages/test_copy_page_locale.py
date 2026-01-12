@@ -1,9 +1,11 @@
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+
 from wagtail.models import Locale, Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
+
 
 class TestPageCopyLocale(WagtailTestUtils, TestCase):
     def setUp(self):
