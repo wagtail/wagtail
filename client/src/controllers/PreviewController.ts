@@ -23,7 +23,7 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { gettext } from '../utils/gettext';
 import type { ProgressController } from './ProgressController';
 import { GetScrollPosition, getWagtailMessage } from '../utils/message';
-import { debounce, DebouncedFunction } from '../utils/debounce';
+import { debounce, DebouncibleFunction } from '../utils/debounce';
 
 interface PreviewDataResponse {
   is_valid: boolean;
@@ -210,7 +210,9 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   declare sidePanelContainer: HTMLDivElement;
 
-  declare setPreviewDataLazy: DebouncedFunction<[], boolean | undefined>;
+  declare setPreviewDataLazy: DebouncibleFunction<
+    () => Promise<boolean> | undefined
+  >;
 
   // Instance variables with initial values set here
 
