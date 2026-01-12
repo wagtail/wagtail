@@ -41,15 +41,18 @@ py -m venv mysite\env
 
 Activate this virtual environment using:
 
-# For Command Prompt (cmd.exe):
+**For Command Prompt (cmd.exe):**
+```doscon
 mysite\env\Scripts\activate.bat
-
-# For PowerShell:
+```
+**For PowerShell:**
+```doscon
 .\mysite\env\Scripts\Activate.ps1
-
-# If the above do not work, try:
+```
+**If the above do not work, try:**
+```doscon
 mysite\env\Scripts\activate
-
+```
 **On GNU/Linux or MacOS** (bash):
 
 Create the virtual environment using:
@@ -257,7 +260,7 @@ template that uses Wagtail's tags. If the tags aren't loaded, Django throws a `T
 
 ## A basic blog
 
-You are now ready to create a blog.Use the following command line to create a new app in your Wagtail project.
+You are now ready to create a blog. Use the following command line to create a new app in your Wagtail project.
 
 ```sh
 python manage.py startapp blog
