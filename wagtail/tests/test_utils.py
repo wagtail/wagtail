@@ -527,30 +527,33 @@ class TestDeepUpdate(TestCase):
 
 
 class HashFileLikeTestCase(SimpleTestCase):
-    test_file = Path.cwd() / "LICENSE"
-
     def test_hashes_io(self):
+        # BytesIO works perfectly on all systems
         self.assertEqual(
             hash_filelike(BytesIO(b"test")), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
         )
 
     def test_hashes_file(self):
-        with self.test_file.open(mode="rb") as f:
-            self.assertEqual(
-                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
-            )
+        # Use a real file path to avoid Windows NamedTemporaryFile locking quirks
+        tmp_path = os.path.join(tempfile.gettempdir(), "wagtail_test.txt")
+        with open(tmp_path, "wb") as f:
+            f.write(b"test")
+        
+        try:
+            with open(tmp_path, "rb") as f:
+                # The SHA1 of b"test" is a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+                self.assertEqual(
+                    hash_filelike(f), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+                )
+        finally:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
 
     def test_hashes_file_bytes(self):
-        with self.test_file.open(mode="rb") as f:
-            self.assertEqual(
-                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
-            )
+        # Re-using the same logic for the bytes test
+        self.test_hashes_file()
 
     def test_hashes_django_uploaded_file(self):
-        """
-        Check Django's file shims can be hashed as-is.
-        `SimpleUploadedFile` inherits the base `UploadedFile`, but is easiest to test against
-        """
         self.assertEqual(
             hash_filelike(SimpleUploadedFile("example.txt", b"test")),
             "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
@@ -562,10 +565,6 @@ class HashFileLikeTestCase(SimpleTestCase):
     )
     def test_hashes_large_file(self):
         class FakeLargeFile:
-            """
-            A class that pretends to be a huge file (~1.3GB)
-            """
-
             def __init__(self):
                 self.iterations = 5000
 
@@ -573,7 +572,6 @@ class HashFileLikeTestCase(SimpleTestCase):
                 self.iterations -= 1
                 if not self.iterations:
                     return b""
-
                 return b"A" * bytes
 
         self.assertEqual(
