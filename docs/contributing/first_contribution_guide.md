@@ -298,7 +298,7 @@ Well done! It's time to party! Thank you for taking the time to contribute to Wa
 -   Someone may have started work (that work may have stalled).
 -   Check if assigned, we do not usually use that unless assigned to someone within the core team.
 
-If you have done all of that and think you can give it a go just add a comment with something like 'I will give this a go', no need to ask for permission.
+If you have done all of that and think you can give it a go,  add a comment with something like 'I will give this a go'. No need to ask for permission.
 
 ### Do I need to ask for permission to work on an issue?
 
