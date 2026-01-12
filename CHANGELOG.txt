@@ -21,6 +21,7 @@ Changelog
  * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
  * Maintenance: Fix `hash_filelike` test case to account for line break differences on Windows (Mustansir Dabhiya)
  * Maintenance: Fix temporary file handling in redirect import tests on Windows (Mustansir Dabhiya)
+ * Maintenance: Fix use of platform-specific date formatting in edit handler tests (Mustansir Dabhiya)
 
 
 7.3 (03.02.2026)
