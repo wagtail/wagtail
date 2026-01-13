@@ -769,6 +769,7 @@ class EditView(
     page_title = gettext_lazy("Editing")
     context_object_name = None
     template_name = "wagtailadmin/generic/edit.html"
+    partials_template_name = "wagtailadmin/generic/edit_partials.html"
     permission_required = "change"
     delete_item_label = gettext_lazy("Delete")
     success_message = gettext_lazy("%(model_name)s '%(object)s' updated.")
@@ -982,7 +983,11 @@ class EditView(
         return instance
 
     def get_success_json(self):
-        result = {"success": True, "pk": self.object.pk}
+        result = {
+            "success": True,
+            "pk": self.object.pk,
+            "html": self.render_partials(),
+        }
         if isinstance(self.form, WagtailAdminModelForm):
             result["field_updates"] = dict(self.form.get_field_updates_for_resave())
         return result
@@ -1067,6 +1072,7 @@ class EditView(
         context["submit_button_label"] = self.submit_button_label
         context["submit_button_active_label"] = self.submit_button_active_label
         context["has_unsaved_changes"] = self.has_unsaved_changes
+        context["is_partial"] = self.expects_json_response
         context["can_delete"] = self.can_delete
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()

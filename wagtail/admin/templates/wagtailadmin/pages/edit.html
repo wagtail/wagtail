@@ -45,6 +45,9 @@
                 {{ block.super }}
                 {# Reuse the footer container, but redefine the actions content down below to use component classes #}
             {% endblock %}
+            {% block partials %}
+                {{ block.super }}
+            {% endblock %}
         </form>
     {% endblock %}
 {% endblock %}

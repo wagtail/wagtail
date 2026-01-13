@@ -94,6 +94,17 @@
                 {% endblock%}
             </footer>
         {% endblock %}
+
+        {% block partials %}
+            {% if autosave_enabled %}
+                <div data-w-autosave-target="partials" hidden>
+                    {% comment %}
+                        Any UI updates in the autosave response will be added here
+                        as template elements, to be put into place via w-teleport.
+                    {% endcomment %}
+                </div>
+            {% endif %}
+        {% endblock %}
     </form>
 {% endblock %}
 
