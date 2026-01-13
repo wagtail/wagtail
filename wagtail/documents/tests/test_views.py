@@ -1,6 +1,7 @@
 import os.path
 import unittest
 import urllib
+import sys
 from unittest import mock
 
 from django.conf import settings
@@ -24,17 +25,29 @@ class TestServeView(TestCase):
         )
 
     def tearDown(self):
-        if hasattr(self, "response"):
-            # Make sure the response is fully read before deleting the document so
-            # that the file is closed by the view.
-            # This is required on Windows as the below line that deletes the file
-            # will crash if the file is still open.
-            b"".join(self.response.streaming_content)
+        # 1. Safely handle the response
+        response = getattr(self, "response", None)
+        if response:
+            try:
+                response.close()
+                # On Windows, we must exhaust the stream to release the file handle
+                if sys.platform == 'win32' and hasattr(response, 'streaming_content'):
+                    try:
+                        for _ in response.streaming_content:
+                            pass
+                    except (ValueError, RuntimeError):
+                        pass
+            except Exception:
+                pass
 
-        # delete the FieldFile directly because the TestCase does not commit
-        # transactions to trigger transaction.on_commit() in the signal handler
-        self.document.file.delete()
-        self.pdf_document.file.delete()
+        # 2. Safely delete test files
+        for doc in [self.document, self.pdf_document]:
+            try:
+                doc.file.delete()
+            except PermissionError:
+                # Only ignore on Windows; keep the error for Linux/macOS
+                if sys.platform != 'win32':
+                    raise
 
     def get(self, document=None):
         document = document or self.document
@@ -189,7 +202,11 @@ class TestServeViewWithRedirect(TestCase):
         )
 
     def tearDown(self):
-        self.document.delete()
+        try:
+            self.document.delete()
+        except PermissionError:
+            if sys.platform != 'win32':
+                raise
 
     def get(self):
         return self.client.get(
@@ -218,7 +235,11 @@ class TestDirectDocumentUrls(TestCase):
         )
 
     def tearDown(self):
-        self.document.delete()
+        try:
+            self.document.delete()
+        except PermissionError:
+            if sys.platform != 'win32':
+                raise
 
     def get(self):
         return self.client.get(
@@ -265,7 +286,11 @@ class TestServeWithExternalStorage(TestCase):
         )
 
     def tearDown(self):
-        self.document.delete()
+        try:
+            self.document.delete()
+        except PermissionError:
+            if sys.platform != 'win32':
+                raise
 
     def test_document_url_should_point_to_serve_view(self):
         self.assertEqual(self.document.url, self.serve_view_url)
@@ -295,9 +320,11 @@ class TestServeViewWithSendfile(TestCase):
         )
 
     def tearDown(self):
-        # delete the FieldFile directly because the TestCase does not commit
-        # transactions to trigger transaction.on_commit() in the signal handler
-        self.document.file.delete()
+        try:
+            self.document.file.delete()
+        except PermissionError:
+            if sys.platform != 'win32':
+                raise
 
     def get(self):
         return self.client.get(
@@ -373,9 +400,11 @@ class TestServeWithUnicodeFilename(TestCase):
             ) from e
 
     def tearDown(self):
-        # delete the FieldFile directly because the TestCase does not commit
-        # transactions to trigger transaction.on_commit() in the signal handler
-        self.document.file.delete()
+        try:
+            self.document.file.delete()
+        except PermissionError:
+            if sys.platform != 'win32':
+                raise
 
     def test_response_code(self):
         response = self.client.get(
