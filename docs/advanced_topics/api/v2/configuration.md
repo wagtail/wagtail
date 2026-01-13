@@ -313,7 +313,29 @@ Note: `download_url` is the original uploaded file path, whereas
 When you are using another storage backend, such as S3, `download_url` will return
 a URL to the image if your media files are properly configured.
 
-For cases where the source image set may contain SVGs, the `ImageRenditionField` constructor takes a `preserve_svg` argument. The behavior of `ImageRenditionField` when `preserve_svg` is `True` is as described for the `image` template tag's `preserve-svg` argument (see the documentation on [](svg_images)).
+For cases where the source image set may contain SVGs, the `ImageRenditionField` constructor takes a `preserve_svg`argument. The behavior of `ImageRenditionField` when `preserve_svg` is `True` is as described for the `image` template tag's `preserve-svg` argument (see the documentation on [](svg_images)).
+
+#### Filter specifications
+
+The `filter_spec` parameter in `ImageRenditionField` determines how the image will be resized and processed. For a complete list of available operations and their syntax, see the [filter specifications documentation](../../../topics/images).
+
+Common examples include:
+
+```python
+# Square crop and fill  
+APIField('thumbnail', serializer=ImageRenditionField('fill-300x300', source='image'))
+
+# Maintain aspect ratio with maximum dimensions
+APIField('preview', serializer=ImageRenditionField('max-800x600', source='image'))
+
+# Exact dimensions without cropping
+APIField('banner', serializer=ImageRenditionField('width-1200', source='image'))
+
+# Chained operations (multiple filters combined)
+APIField('compressed_thumb', serializer=ImageRenditionField('fill-200x200|jpegquality-60', source='image'))
+```
+
+The generated rendition URLs will be included in the API response, allowing clients to directly access optimized versions of images without additional processing.
 
 ### Authentication
 

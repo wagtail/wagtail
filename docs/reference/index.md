@@ -19,5 +19,4 @@ project_template
 jinja2
 panels
 viewsets
-image_rendition_field
 ```
