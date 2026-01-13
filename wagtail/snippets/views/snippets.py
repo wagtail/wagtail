@@ -270,6 +270,8 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                 ),
                 locale=self.locale,
                 translations=self.translations,
+                # Show skeleton for usage info if usage_url_name is set
+                usage_url="" if self.usage_url_name else None,
             )
         ]
         if self.preview_enabled and self.form.instance.is_previewable():

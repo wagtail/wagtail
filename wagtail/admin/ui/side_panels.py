@@ -98,16 +98,15 @@ class StatusSidePanel(BaseSidePanel):
                 "wagtailadmin/shared/side_panels/includes/status/locale.html"
             )
 
-        if self.object.pk:
-            if self.locking_enabled:
-                templates.append(
-                    "wagtailadmin/shared/side_panels/includes/status/locked.html"
-                )
+        if self.locking_enabled:
+            templates.append(
+                "wagtailadmin/shared/side_panels/includes/status/locked.html"
+            )
 
-            if self.usage_url:
-                templates.append(
-                    "wagtailadmin/shared/side_panels/includes/status/usage.html"
-                )
+        if self.usage_url is not None:
+            templates.append(
+                "wagtailadmin/shared/side_panels/includes/status/usage.html"
+            )
 
         return templates
 
@@ -211,10 +210,11 @@ class StatusSidePanel(BaseSidePanel):
         }
 
     def get_usage_context(self):
+        usage_count = 0
+        if self.object.pk:
+            usage_count = ReferenceIndex.get_grouped_references_to(self.object).count()
         return {
-            "usage_count": ReferenceIndex.get_grouped_references_to(
-                self.object
-            ).count(),
+            "usage_count": usage_count,
             "usage_url": self.usage_url,
         }
 
@@ -231,7 +231,7 @@ class StatusSidePanel(BaseSidePanel):
         context["last_updated_info"] = self.last_updated_info
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
-        if self.object.pk and self.usage_url:
+        if self.usage_url is not None:
             context.update(self.get_usage_context())
         return context
 
@@ -240,6 +240,7 @@ class PageStatusSidePanel(StatusSidePanel):
     def __init__(self, *args, **kwargs):
         self.parent_page = kwargs.pop("parent_page", None)
         super().__init__(*args, **kwargs)
+        self.usage_url = ""
         if self.object.pk:
             self.usage_url = reverse("wagtailadmin_pages:usage", args=(self.object.pk,))
 

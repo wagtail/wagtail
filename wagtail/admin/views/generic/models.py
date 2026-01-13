@@ -482,6 +482,7 @@ class CreateView(
     index_url_name = None
     add_url_name = None
     edit_url_name = None
+    usage_url_name = None
     template_name = "wagtailadmin/generic/create.html"
     page_title = gettext_lazy("New")
     permission_required = "add"
@@ -636,6 +637,8 @@ class CreateView(
                     self.request,
                     locale=self.locale,
                     translations=self.translations,
+                    # Show skeleton for usage info if usage_url_name is set
+                    usage_url="" if self.usage_url_name else None,
                 )
             )
         return MediaContainer(side_panels)
