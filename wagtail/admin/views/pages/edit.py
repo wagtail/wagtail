@@ -51,6 +51,8 @@ from wagtail.utils.timestamps import render_timestamp
 class EditView(
     WagtailAdminTemplateMixin, HookResponseMixin, JsonPostResponseMixin, View
 ):
+    partials_template_name = "wagtailadmin/pages/edit_partials.html"
+
     def get_page_title(self):
         return _("Editing %(page_type)s") % {
             "page_type": self.page_class.get_verbose_name()
@@ -417,6 +419,7 @@ class EditView(
         else:
             self.workflow_tasks = []
 
+        self.has_unsaved_changes = False
         self.errors_debug = None
         self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
         self.autosave_enabled = self.autosave_interval > 0
@@ -463,7 +466,6 @@ class EditView(
             parent_page=self.parent,
             for_user=self.request.user,
         )
-        self.has_unsaved_changes = False
 
         return self.render_to_response(self.get_context_data())
 
@@ -665,6 +667,7 @@ class EditView(
                     "revision_created_at": revision.created_at.isoformat(),
                     "field_updates": dict(self.form.get_field_updates_for_resave()),
                     "comments": self.form.serialize_comments(self.request.user),
+                    "html": self.render_partials(),
                 }
             )
         else:
@@ -1000,14 +1003,14 @@ class EditView(
                 parent_page=self.page.get_parent(),
             ),
         ]
-        if self.page.is_previewable():
+        if not self.expects_json_response and self.page.is_previewable():
             side_panels.append(
                 PreviewSidePanel(
                     self.page, self.request, preview_url=self.get_preview_url()
                 )
             )
             side_panels.append(ChecksSidePanel(self.page, self.request))
-        if self.form.show_comments_toggle:
+        if not self.expects_json_response and self.form.show_comments_toggle:
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)
 
@@ -1097,6 +1100,7 @@ class EditView(
                 "autosave_indicator": AutosaveIndicator(),
                 "editing_sessions": self.get_editing_sessions(),
                 "loaded_revision_created_at": self.latest_revision_created_at,
+                "is_partial": self.expects_json_response,
             }
         )
 

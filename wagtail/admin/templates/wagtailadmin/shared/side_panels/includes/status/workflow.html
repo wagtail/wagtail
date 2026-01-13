@@ -101,7 +101,12 @@
         {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
 
         {# info subtitle #}
-        {% if object.get_latest_revision %}
+        {% if is_partial %}
+            {% comment %}
+                The dialog will be teleported to the body. Do not re-render the dialog
+                when rendering partials, as we would end up with multiple instances.
+            {% endcomment %}
+        {% elif object.get_latest_revision %}
             {% workflow_status_with_date workflow_state as message_heading %}
             {% if workflow_state.requested_by %}
                 {% blocktrans trimmed with user=workflow_state.requested_by|user_display_name asvar modified_by %}by {{ user }}{% endblocktrans %}

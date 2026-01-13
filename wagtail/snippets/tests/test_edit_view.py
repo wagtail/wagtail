@@ -857,16 +857,34 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
         revision.refresh_from_db()
+        response_json = response.json()
+        self.assertIs(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.test_snippet.pk)
+        self.assertEqual(response_json["revision_id"], revision.pk)
         self.assertEqual(
-            response.json(),
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
+        self.assertEqual(response_json["field_updates"], {})
+        soup = self.get_soup(response_json["html"])
+        status_side_panel = soup.find(
+            "template",
             {
-                "success": True,
-                "pk": self.test_snippet.pk,
-                "revision_id": revision.pk,
-                "revision_created_at": revision.created_at.isoformat(),
-                "field_updates": {},
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel='status']",
+                "data-w-teleport-mode-value": "innerHTML",
             },
         )
+        self.assertIsNotNone(status_side_panel)
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
 
         self.assertEqual(self.test_snippet.revisions.count(), 2)
         revision.refresh_from_db()

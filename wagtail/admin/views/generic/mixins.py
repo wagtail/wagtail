@@ -973,6 +973,8 @@ class JsonPostResponseMixin:
     on failure" behaviour.
     """
 
+    partials_template_name = None
+
     @cached_property
     def expects_json_response(self):
         return not self.request.accepts("text/html")
@@ -986,3 +988,10 @@ class JsonPostResponseMixin:
     @staticmethod
     def response_is_json(response):
         return response.headers.get("Content-Type") == "application/json"
+
+    def render_partials(self):
+        return render_to_string(
+            self.partials_template_name,
+            self.get_context_data(),
+            request=self.request,
+        )

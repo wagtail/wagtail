@@ -1,0 +1,25 @@
+{% load wagtailadmin_tags %}
+
+{% block side_panels %}
+    {% for panel in side_panels %}
+        <template
+            data-controller="w-teleport"
+            data-w-teleport-target-value="[data-side-panel='{{ panel.name }}']"
+            data-w-teleport-mode-value="innerHTML"
+        >
+            {% include "wagtailadmin/shared/side_panels/includes/side_panel.html" with panel=panel %}
+        </template>
+    {% endfor %}
+{% endblock side_panels %}
+
+{% block breadcrumbs %}
+    <template
+        data-controller="w-teleport"
+        data-w-teleport-target-value="header [data-w-breadcrumbs]"
+        data-w-teleport-mode-value="outerHTML"
+    >
+        {% block breadcrumbs_content %}
+            {% breadcrumbs breadcrumbs_items icon_name=icon_name %}
+        {% endblock %}
+    </template>
+{% endblock %}

@@ -42,6 +42,7 @@ export interface AutosaveSuccessResponse {
   revision_created_at?: string;
   url?: string;
   field_updates?: { [key: string]: string };
+  html?: string;
 }
 
 export type AutosaveResponse = AutosaveSuccessResponse | AutosaveErrorResponse;
@@ -81,12 +82,16 @@ export type AutosaveEvent =
 export class AutosaveController extends Controller<
   HTMLFormElement | HTMLDivElement
 > {
+  static targets = ['partials'];
   static values = {
     active: { type: Boolean, default: true },
     interval: { type: Number, default: 500 },
     revisionId: { type: Number, default: 0 },
     state: { type: String, default: 'idle' as AutosaveState },
   };
+
+  declare readonly hasPartialsTarget: boolean;
+  declare readonly partialsTarget: HTMLTemplateElement;
 
   declare activeValue: boolean;
   declare intervalValue: number;
@@ -156,6 +161,9 @@ export class AutosaveController extends Controller<
       }
       if (response.url) {
         form.action = response.url;
+      }
+      if (this.hasPartialsTarget && response.html) {
+        this.partialsTarget.innerHTML = response.html;
       }
 
       // Ensure any UI updates have finished before dispatching the success event

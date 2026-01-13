@@ -624,6 +624,25 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             revision.created_at.isoformat(),
         )
         self.assertEqual(revision.content["title"], "I've been edited!")
+        soup = self.get_soup(response_json["html"])
+        status_side_panel = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel='status']",
+                "data-w-teleport-mode-value": "innerHTML",
+            },
+        )
+        self.assertIsNotNone(status_side_panel)
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
