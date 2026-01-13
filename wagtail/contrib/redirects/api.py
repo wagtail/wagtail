@@ -47,10 +47,10 @@ class RedirectsAPIViewSet(BaseAPIViewSet):
                 }
             try:
                 site = Site.objects.get(**query)
-            except Site.MultipleObjectsReturned:
+            except Site.MultipleObjectsReturned as e:
                 raise BadRequestError(
                     "Your query returned multiple sites. Try adding a port number to your site filter."
-                )
+                ) from e
 
             if site:
                 # Get all redirects for the site as well as those that are not site-specific and apply to all sites
