@@ -80,6 +80,19 @@
                 {% endif %}
             {% endwith %}
         </div>
+    {% else %}
+        {% if draftstate_enabled %}
+            {% trans "Draft" as title %}
+            {% fragment as icon_name %}draft{% endfragment %}
+        {% else %}
+            {% trans "Live" as title %}
+            {% fragment as icon_name %}doc-full-inverse{% endfragment %}
+        {% endif %}
+        {% blocktranslate trimmed asvar help_text with user=request.user|user_display_name %}
+            To be created by {{ user }}
+        {% endblocktranslate %}
+
+        {{ block.super }}
     {% endif %}
 {% endblock %}
 

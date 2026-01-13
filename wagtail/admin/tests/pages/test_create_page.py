@@ -2251,6 +2251,56 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.context["page"].locale, fr_locale)
 
+    def test_create_shows_status_side_panel_skeleton(self):
+        self.user.first_name = "Chrismansyah"
+        self.user.last_name = "Rahadi"
+        self.user.save()
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            )
+        )
+        soup = self.get_soup(response.content)
+        panel = soup.select_one('[data-side-panel="status"]')
+        self.assertIsNotNone(panel)
+
+        def assert_panel_section(label_id, label_text, description):
+            section = panel.select_one(f'[aria-labelledby="{label_id}"]')
+            self.assertIsNotNone(section)
+            label = section.select_one(f"#{label_id}")
+            self.assertIsNotNone(label)
+            self.assertEqual(label.get_text(separator="\n", strip=True), label_text)
+            self.assertEqual(
+                section.get_text(separator="\n", strip=True),
+                f"{label_text}\n{description}",
+            )
+
+        assert_panel_section(
+            "status-sidebar-draft",
+            "Draft",
+            "To be created by Chrismansyah Rahadi",
+        )
+
+        assert_panel_section(
+            "status-sidebar-unlocked",
+            "Locking:\nUnlocked",
+            "Anyone can edit this page",
+        )
+
+        assert_panel_section(
+            "status-sidebar-visible-to-all",
+            "Page visibility:\nVisible to all",
+            "Once live anyone can view",
+        )
+
+        usage_section = panel.select("section")[-1]
+        self.assertIsNotNone(usage_section)
+        self.assertEqual(
+            usage_section.get_text(separator="\n", strip=True),
+            "Usage\nReferenced 0 times",
+        )
+
 
 class TestPermissionedFieldPanels(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
