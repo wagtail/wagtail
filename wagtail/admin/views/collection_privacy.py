@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 
 from wagtail.admin.forms.collections import CollectionViewRestrictionForm
 from wagtail.admin.modal_workflow import render_modal_workflow
@@ -69,10 +70,13 @@ def set_privacy(request, collection_id):
         # no restriction set at ancestor level - can set restrictions here
         return render_modal_workflow(
             request,
-            "wagtailadmin/collection_privacy/set_privacy.html",
+            "wagtailadmin/shared/set_privacy.html",
             None,
             {
-                "collection": collection,
+                "action_url": reverse(
+                    "wagtailadmin_collections:set_privacy", args=(collection.pk,)
+                ),
+                "object": collection,
                 "form": form,
             },
             json_data={"step": "set_privacy"},

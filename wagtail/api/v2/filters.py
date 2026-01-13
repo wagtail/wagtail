@@ -45,7 +45,7 @@ class FieldsFilter(BaseFilterBackend):
                     raise BadRequestError(
                         "field filter error. '%s' is not a valid value for %s (%s)"
                         % (value, field_name, str(e))
-                    )
+                    ) from e
 
                 if "\x00" in str(value):
                     raise BadRequestError(
@@ -106,8 +106,10 @@ class OrderingFilter(BaseFilterBackend):
 
         try:
             return queryset.order_by(*validated_fields)
-        except FieldError:
-            raise BadRequestError(f"cannot order by '{order_param}' (invalid field)")
+        except FieldError as e:
+            raise BadRequestError(
+                f"cannot order by '{order_param}' (invalid field)"
+            ) from e
 
 
 class SearchFilter(BaseFilterBackend):
@@ -145,13 +147,13 @@ class SearchFilter(BaseFilterBackend):
                     "cannot filter by '{}' while searching (field is not indexed)".format(
                         e.field_name
                     )
-                )
+                ) from e
             except OrderByFieldError as e:
                 raise BadRequestError(
                     "cannot order by '{}' while searching (field is not indexed)".format(
                         e.field_name
                     )
-                )
+                ) from e
 
         return queryset
 
@@ -170,13 +172,13 @@ class ChildOfFilter(BaseFilterBackend):
                     raise ValueError()
 
                 parent_page = view.get_base_queryset().get(id=parent_page_id)
-            except ValueError:
+            except ValueError as e:
                 if request.GET["child_of"] == "root":
                     parent_page = view.get_root_page()
                 else:
-                    raise BadRequestError("child_of must be a positive integer")
-            except Page.DoesNotExist:
-                raise BadRequestError("parent page doesn't exist")
+                    raise BadRequestError("child_of must be a positive integer") from e
+            except Page.DoesNotExist as e:
+                raise BadRequestError("parent page doesn't exist") from e
 
             queryset = queryset.child_of(parent_page)
 
@@ -202,10 +204,10 @@ class AncestorOfFilter(BaseFilterBackend):
                     raise ValueError()
 
                 descendant_page = view.get_base_queryset().get(id=descendant_page_id)
-            except ValueError:
-                raise BadRequestError("ancestor_of must be a positive integer")
-            except Page.DoesNotExist:
-                raise BadRequestError("descendant page doesn't exist")
+            except ValueError as e:
+                raise BadRequestError("ancestor_of must be a positive integer") from e
+            except Page.DoesNotExist as e:
+                raise BadRequestError("descendant page doesn't exist") from e
 
             queryset = queryset.ancestor_of(descendant_page)
 
@@ -230,13 +232,15 @@ class DescendantOfFilter(BaseFilterBackend):
                     raise ValueError()
 
                 parent_page = view.get_base_queryset().get(id=parent_page_id)
-            except ValueError:
+            except ValueError as e:
                 if request.GET["descendant_of"] == "root":
                     parent_page = view.get_root_page()
                 else:
-                    raise BadRequestError("descendant_of must be a positive integer")
-            except Page.DoesNotExist:
-                raise BadRequestError("ancestor page doesn't exist")
+                    raise BadRequestError(
+                        "descendant_of must be a positive integer"
+                    ) from e
+            except Page.DoesNotExist as e:
+                raise BadRequestError("ancestor page doesn't exist") from e
 
             queryset = queryset.descendant_of(parent_page)
 
@@ -257,13 +261,15 @@ class TranslationOfFilter(BaseFilterBackend):
                     raise ValueError()
 
                 page = view.get_base_queryset().get(id=page_id)
-            except ValueError:
+            except ValueError as e:
                 if request.GET["translation_of"] == "root":
                     page = view.get_root_page()
                 else:
-                    raise BadRequestError("translation_of must be a positive integer")
-            except Page.DoesNotExist:
-                raise BadRequestError("translation_of page doesn't exist")
+                    raise BadRequestError(
+                        "translation_of must be a positive integer"
+                    ) from e
+            except Page.DoesNotExist as e:
+                raise BadRequestError("translation_of page doesn't exist") from e
 
             _filtered_by_child_of = getattr(queryset, "_filtered_by_child_of", None)
 

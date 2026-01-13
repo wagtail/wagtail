@@ -6,7 +6,13 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
--   [Create a blog in Django with Wagtail (video)](https://www.youtube.com/watch?v=3aVvAGj1joo) (20 January 2025)
+-   [HTMX and Wagtail CMS quickstart guide](https://jackwhitworth.com/blog/htmx-and-wagtail-cms-quickstart/) (28 August 2025)
+-   [PostgreSQL Tutorial: Install Wagtail and connect it to your service using OVHcloud](https://support.us.ovhcloud.com/hc/en-us/articles/21458794389139-PostgreSQL-Tutorial-Install-Wagtail-and-connect-it-to-your-service) (17 July 2025)
+-   [Efficient parent/child page querying in Wagtail](https://jackwhitworth.com/blog/efficient-wagtail-page-querying/) (17 July 2025)
+-   [Writing a Minimal Wagtail, Poetry & Node Dockerfile](https://jackwhitworth.com/blog/writing-a-minimal-wagtail-poetry-node-dockerfile/) (8 April 2025)
+-   [Master Wagtail CMS and Tailwind CSS to build a beautiful blog (video)](https://www.youtube.com/watch?v=ML2e_HVfgEA) (23 March 2025)
+-   [Practical tips to Streamline Your Wagtail CMS Development](https://profil-software.com/blog/development/5-tips-to-streamline-your-wagtail-cms-development/) (2 March 2025)
+-   [Create a blog in Django with Wagtail (video series)](https://youtube.com/playlist?list=PL5E1F5cTSTtTpsD-0guoh6gdIpLQrYtR-&si=ZYMK7TGMuRy1FkWm) (20 January 2025)
 -   [Finding (StreamField) Blocks Across a Wagtail Site](https://code.informatikamihelac.com/en/finding-blocks-across-a-wagtail-site/) (6 December 2024)
 -   [Blog Site with Django + Wagtail CMS - Beginner Friendly Guide (video)](https://www.youtube.com/watch?v=xzdPGUDBslk) (25 November 2024)
 -   [Setting up Wagtail on Docker with PostgreSQL](https://dev.to/hari_shanmugam/wagtail-on-docker-2dfb) (24 November 2024)
@@ -14,6 +20,7 @@ the latest Wagtail versions.
 -   [How to Build No-Code Modal Components for Wagtail CMS Content Editors](https://blog.adonissimo.com/how-to-build-no-code-modal-components-for-wagtail-cms-content-editors) (17 November 2024)
 -   [How to Set Up GDPR-Compliant Analytics in Wagtail CMS: Cookie Consent with Clarity and Google Analytics](https://blog.adonissimo.com/how-to-set-up-gdpr-compliant-analytics-in-wagtail-cms-cookie-consent-with-clarity-and-google-analytics) (10 November 2024)
 -   [Adding Wagtail to a Django project to support content](https://medium.com/@zalun/base-6-wagtail-cms-for-the-content-f60d8ec7ac9e) (29 September 2024)
+-   [How to programmatically create a page translation](https://dev.to/k4ml/wagtail-programmatically-create-page-translation-2814) (30 September 2024)
 -   [A simple block pattern for Wagtail CMS](https://lincolnloop.com/insights/simple-block-pattern-wagtail-cms/) (29 August 2024)
 -   [Django and Wagtail site building comparison tutorial video](https://www.youtube.com/watch?v=qodE7XyWCVw) (9 July 2024)
 -   [An introduction to Wagtail tutorial](https://medium.com/@dogung51290/wagtail-cms-tutorial-5bd39e08ad44) (17 June 2024)

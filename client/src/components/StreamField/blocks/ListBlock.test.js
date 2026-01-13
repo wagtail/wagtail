@@ -3,6 +3,7 @@ import * as uuid from 'uuid';
 import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
 import { ListBlockDefinition } from './ListBlock';
 import { StreamBlockDefinition } from './StreamBlock';
+import { BlockGroupDefinition, StructBlockDefinition } from './StructBlock';
 
 // Mock uuid for consistent snapshot results
 jest.mock('uuid');
@@ -105,6 +106,10 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
           icon: 'pilcrow',
           classname:
             'w-field w-field--char_field w-field--admin_auto_height_text_input',
+          attrs: {
+            'data-controller': 'w-custom',
+            'data-action': 'click->w-custom#doSomething',
+          },
         },
       ),
       null,
@@ -114,14 +119,6 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -336,14 +333,6 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       helpText: 'use <strong>a few</strong> of these',
       helpIcon: '<svg></svg>',
       maxNum: 3,
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -473,14 +462,6 @@ describe('telepath: wagtail.blocks.ListBlock with minNum set', () => {
       helpText: 'use <strong>a few</strong> of these',
       helpIcon: '<svg></svg>',
       minNum: 2,
-      strings: {
-        MOVE_UP: 'Move up',
-        MOVE_DOWN: 'Move down',
-        DRAG: 'Drag',
-        DELETE: 'Delete',
-        DUPLICATE: 'Duplicate',
-        ADD: 'Add',
-      },
     },
   );
 
@@ -579,14 +560,6 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
           maxNum: null,
           minNum: null,
           blockCounts: {},
-          strings: {
-            MOVE_UP: 'Move up',
-            MOVE_DOWN: 'Move down',
-            DRAG: 'Drag',
-            DELETE: 'Delete',
-            DUPLICATE: 'Duplicate',
-            ADD: 'Add',
-          },
         },
       ),
       null,
@@ -596,14 +569,6 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -662,14 +627,6 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<svg></svg>',
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -687,14 +644,6 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         maxNum: null,
         minNum: null,
         blockCounts: {},
-        strings: {
-          MOVE_UP: 'Move up',
-          MOVE_DOWN: 'Move down',
-          DRAG: 'Drag',
-          DELETE: 'Delete',
-          DUPLICATE: 'Duplicate',
-          ADD: 'Add',
-        },
       },
     );
 
@@ -719,5 +668,91 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
     expect(duplicatedStreamChild.block.children[0]).not.toHaveSameBlockIdAs(
       originalStreamChild.block.children[0],
     );
+  });
+});
+
+describe('telepath: wagtail.blocks.ListBlock with StructBlock child', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Define test blocks - ListBlock[StreamBlock[FieldBlock]]
+    const blockDef = new ListBlockDefinition(
+      'list',
+      new StructBlockDefinition(
+        'heading_block',
+        [
+          new FieldBlockDefinition(
+            'heading_text',
+            new DummyWidgetDefinition('Heading widget'),
+            {
+              label: 'Heading text',
+              required: true,
+              icon: 'placeholder',
+              classname: 'w-field w-field--char_field w-field--text_input',
+              attrs: {
+                'data-controller': 'w-custom',
+                'data-action': 'click->w-custom#doSomething',
+              },
+            },
+          ),
+          new FieldBlockDefinition(
+            'size',
+            new DummyWidgetDefinition('Size widget'),
+            {
+              label: 'Size',
+              required: false,
+              icon: 'placeholder',
+              classname: 'w-field w-field--choice_field w-field--select',
+              attrs: {
+                'data-controller': 'w-other',
+                'data-action': 'click->w-other#doSomethingElse',
+              },
+            },
+          ),
+        ],
+        {
+          label: 'Heading block',
+          required: false,
+          icon: 'title',
+          classname: 'struct-block',
+          helpText: 'use <strong>lots</strong> of these',
+          helpIcon: '<svg></svg>',
+          formLayout: new BlockGroupDefinition({
+            children: [
+              ['heading_text', 'heading_text'],
+              ['size', 'size'],
+            ],
+            settings: [],
+          }),
+        },
+      ),
+      null,
+      {
+        label: 'Test listblock',
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>a few</strong> of these',
+        helpIcon: '<svg></svg>',
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: 'heading-block-1',
+        value: {
+          heading_text: 'value: Heading widget - the-prefix-heading_text',
+          size: 'value: Size widget - the-prefix-size',
+        },
+      },
+    ]);
+  });
+
+  test('it renders the child with a single collapsible panel', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+    expect(boundBlock.children.length).toEqual(1);
+    expect(boundBlock.children[0].type).toEqual('heading_block');
+    expect(document.querySelectorAll('[data-panel-toggle]').length).toBe(1);
   });
 });

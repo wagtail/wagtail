@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -123,15 +123,9 @@ msgstr "ผลการค้นหาที่โปรโมท"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "สิ่งที่โปรแกรมการจัดการข้อมูล'%(query)s'ถูกสร้างขึ้นแล้ว"
 
-msgid "Recommendations have not been created due to errors"
-msgstr "คำแนะนำไม่สามารถถูกสร้างขึ้นได้ในขณะที่มีข้อผิดพลาด"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "สิ่งที่โปรแกรมการจัดการข้อมูลเลือกสำหรับ'%(query)s'ถูกอัพเดทแล้ว"
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "คำแนะนำไม่สามารถถูกเซฟในขณะที่มีข้อผิดพลาด"
 
 msgid "Editor's picks deleted."
 msgstr "สิ่งที่โปรแกรมการจัดการข้อมูลเลือกถูกลบทิ้งแล้ว"

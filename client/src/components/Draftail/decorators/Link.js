@@ -22,7 +22,9 @@ const getEmailAddress = (mailto) => mailto.replace('mailto:', '').split('?')[0];
 const getPhoneNumber = (tel) => tel.replace('tel:', '').split('?')[0];
 const getDomainName = (url) => url.replace(/(^\w+:|^)\/\//, '').split('/')[0];
 
-// Determines how to display the link based on its type: page, mail, anchor or external.
+/**
+ * Determines how to display the link based on its type: page, mail, anchor or external.
+ */
 export const getLinkAttributes = (data) => {
   const url = data.url || null;
   let icon;
@@ -56,7 +58,7 @@ export const getLinkAttributes = (data) => {
 };
 
 /**
- * See https://docs.djangoproject.com/en/4.0/_modules/django/core/validators/#EmailValidator.
+ * @see https://docs.djangoproject.com/en/4.0/_modules/django/core/validators/#EmailValidator
  */
 // Compared to Django, changed to remove start and end of string checks.
 const djangoUser =
@@ -72,7 +74,7 @@ const djangoEmail = new RegExp(
 );
 
 /**
- * See https://docs.djangoproject.com/en/4.0/_modules/django/core/validators/#URLValidator.
+ * @see https://docs.djangoproject.com/en/4.0/_modules/django/core/validators/#URLValidator
  */
 const urlPattern = /(?:http|ftp)s?:\/\/[^\s]+/;
 

@@ -119,7 +119,6 @@ describe('checkImageAltText edge cases', () => {
 });
 
 jest.mock('axe-core', () => ({
-  configure: jest.fn(),
   run: jest.fn(),
 }));
 
@@ -135,7 +134,7 @@ describe('getA11yReport', () => {
     consoleError.mockRestore();
   });
 
-  it('should configure Axe with custom rules and return the accessibility report', async () => {
+  it('should use the context and options from the config and return the accessibility report', async () => {
     const mockResults = {
       violations: [
         {
@@ -153,7 +152,6 @@ describe('getA11yReport', () => {
       },
     };
     const report = await getA11yReport(config);
-    expect(axe.configure).toHaveBeenCalled();
     expect(consoleError).toHaveBeenCalledWith(
       'axe.run results',
       mockResults.violations,

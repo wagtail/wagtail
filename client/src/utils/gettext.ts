@@ -1,13 +1,13 @@
 /**
- * Translation / Internationalisation utilities based on Django's `JavaScriptCatalogView`
+ * Translation / Internationalization utilities based on Django's `JavaScriptCatalogView`
  *
- * https://docs.djangoproject.com/en/stable/topics/i18n/translation/#module-django.views.i18n
+ * @see https://docs.djangoproject.com/en/stable/topics/i18n/translation/#module-django.views.i18n
  */
 
 /**
  * The gettext function behaves similarly to the standard gettext interface within Django.
  *
- * https://docs.djangoproject.com/en/stable/topics/i18n/translation/#gettext
+ * @see https://docs.djangoproject.com/en/stable/topics/i18n/translation/#gettext
  *
  * @param {string} text
  * @returns {string}
@@ -25,7 +25,7 @@ export function gettext(text: string): string {
 /**
  * The ngettext function provides an interface to pluralize words and phrases.
  *
- * https://docs.djangoproject.com/en/stable/topics/i18n/translation/#ngettext
+ * @see https://docs.djangoproject.com/en/stable/topics/i18n/translation/#ngettext
  *
  * @param {string} singular
  * @param {string} plural
@@ -52,7 +52,7 @@ export function ngettext(
 }
 
 /**
- * https://docs.djangoproject.com/en/stable/topics/i18n/translation/#get-format
+ * @see https://docs.djangoproject.com/en/stable/topics/i18n/translation/#get-format
  */
 export type FormatType =
   | 'DATE_FORMAT'
@@ -74,7 +74,7 @@ export type FormatType =
  * The getFormat function has access to the configured i18n formatting settings and
  * can retrieve the format string for a given setting name.
  *
- * https://docs.djangoproject.com/en/stable/topics/i18n/translation/#get-format
+ * @see https://docs.djangoproject.com/en/stable/topics/i18n/translation/#get-format
  *
  * @param {FormatType} formatType
  * @returns {str}
@@ -99,7 +99,7 @@ export function getFormat(formatType: FormatType): string {
  * This can be used to store strings in global variables that should stay in the base
  * language (because they might be used externally) and will be translated later.
  *
- * https://docs.djangoproject.com/en/stable/topics/i18n/translation/#gettext_noop
+ * @see https://docs.djangoproject.com/en/stable/topics/i18n/translation/#gettext_noop
  *
  * @param {string} text
  * @returns {string}
@@ -118,7 +118,7 @@ export function gettextNoop(text: string): string {
  * The pluralIdx function works in a similar way to the pluralize template filter,
  * determining if a given count should use a plural form of a word or not.
  *
- * https://docs.djangoproject.com/en/stable/topics/i18n/translation/#pluralidx
+ * @see https://docs.djangoproject.com/en/stable/topics/i18n/translation/#pluralidx
  *
  * @param {number} count
  * @returns {boolean}

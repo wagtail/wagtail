@@ -26,6 +26,7 @@ from wagtail.admin.utils import (
     get_latest_str,
     get_user_display_name,
 )
+from wagtail.locks import BasicLock
 from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
@@ -41,6 +42,8 @@ from wagtail.models import (
 )
 from wagtail.signals import page_published, published
 from wagtail.test.testapp.models import (
+    CustomLockTask,
+    CustomWorkflowLock,
     FullFeaturedSnippet,
     ModeratedModel,
     MultiPreviewModesPage,
@@ -140,7 +143,7 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         ]
         WorkflowPage.objects.bulk_create(workflow_pages)
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:index"), params)
 
     def test_simple(self):
@@ -336,7 +339,7 @@ class TestWorkflowPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse(self.url_name), params)
 
     def test_simple(self):
@@ -414,10 +417,10 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
             FullFeaturedSnippet
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailadmin_workflows:add"), post_data)
 
     def test_get(self):
@@ -673,12 +676,12 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_workflows:edit", args=[self.workflow.id]), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_workflows:edit", args=[self.workflow.id]), post_data
         )
@@ -1025,7 +1028,7 @@ class TestRemoveWorkflow(WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_workflows:remove", args=[self.page.id, self.workflow.id]
@@ -1079,7 +1082,7 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:task_index"), params)
 
     def test_simple(self):
@@ -1367,7 +1370,7 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="add_task"))
 
-    def get(self, url_kwargs=None, params={}):
+    def get(self, url_kwargs=None, params=None):
         url_kwargs = url_kwargs or {}
         url_kwargs.setdefault("app_label", SimpleTask._meta.app_label)
         url_kwargs.setdefault("model_name", SimpleTask._meta.model_name)
@@ -1375,7 +1378,7 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             reverse("wagtailadmin_workflows:add_task", kwargs=url_kwargs), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_workflows:add_task",
@@ -1501,12 +1504,12 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_workflows:edit_task", args=[self.task.id]), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_workflows:edit_task", args=[self.task.id]), post_data
         )
@@ -4851,3 +4854,34 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
             with self.subTest(f"Testing with {notification}_notifications"):
                 notifier.notification = notification
                 self.assertSetEqual(notifier.get_valid_recipients(self.object), set())
+
+
+class TestCustomWorkflowLockOnTask(BasePageWorkflowTests):
+    def setup_workflow_and_tasks(self):
+        self.workflow = Workflow.objects.create(name="test_workflow")
+        self.task_1 = CustomLockTask.objects.create(name="test_task_1")
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_1, sort_order=1
+        )
+
+    def test_custom_lock_class(self):
+        self.post("submit")
+        response = self.client.get(self.get_url("edit"))
+        self.assertContains(response, "If there is a door, there must be a key")
+        self.assertIsInstance(self.object.get_lock(), CustomWorkflowLock)
+
+    @mock.patch.object(CustomLockTask, "lock_class", new_callable=mock.PropertyMock)
+    def test_typeerror_if_custom_lock_class_inherits_basic_locks(self, mock_property):
+        mock_property.return_value = BasicLock
+
+        self.post("submit")
+
+        with self.assertRaises(TypeError):
+            self.client.get(self.get_url("edit"))
+
+
+class TestCustomWorkflowLockOnTaskWithSnippets(
+    TestCustomWorkflowLockOnTask,
+    BaseSnippetWorkflowTests,
+):
+    pass

@@ -21,7 +21,7 @@
     "client/src/custom.d.ts",
     "client/storybook/stories.d.ts"
   ],
-  "include": ["src", "wagtail"],
+  "include": ["client/src", "wagtail"],
   "exclude": [
     "node_modules",
     "static",

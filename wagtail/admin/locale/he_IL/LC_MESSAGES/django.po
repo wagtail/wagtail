@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -61,9 +61,6 @@ msgid "Wagtail admin"
 msgstr "ממשק הניהול של Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
-msgstr "אין לך הרשאות גישה לממשק הניהול"
-
-msgid "You do not have permission to access the admin"
 msgstr "אין לך הרשאות גישה לממשק הניהול"
 
 msgid "None"
@@ -142,9 +139,6 @@ msgstr "מחק"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוקף"
-
-msgid "Expiry date/time must be in the future"
-msgstr "זמן תפוגה חייב להיות בעתיד"
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -272,9 +266,6 @@ msgstr "לסייר"
 
 msgid "You can edit the privacy settings on:"
 msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
-
-msgid "Save"
-msgstr "שמור"
 
 msgid "Privacy"
 msgstr "פרטיות"
@@ -437,15 +428,6 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
 
-msgid "Drag"
-msgstr "גרור"
-
-msgid "Disable ordering of child pages"
-msgstr "כיבוי סידור של תתי-עמודים"
-
-msgid "Enable ordering of child pages"
-msgstr "הפעלת סידור של תתי-עמודים"
-
 msgid "Previous"
 msgstr "קודם"
 
@@ -470,6 +452,9 @@ msgstr "עברו מעלה"
 
 msgid "Move down"
 msgstr "עברו מטה"
+
+msgid "Drag"
+msgstr "גרור"
 
 msgid "Type"
 msgstr "סוג"
@@ -504,6 +489,9 @@ msgstr "עמוד %(page_num)s מתוך %(total_pages)s"
 
 msgid "Other searches"
 msgstr "חיפושים אחרים"
+
+msgid "Save"
+msgstr "שמור"
 
 msgid "Unlocked"
 msgstr "בלתי נעול"
@@ -568,18 +556,9 @@ msgstr "עמוד %(page_title)s נוצר ופורסם"
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "עמוד %(page_title)s נוצר והוזן לעריכה"
 
-msgid "The page could not be created due to validation errors"
-msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "עמוד %(page_title)s נמחק"
-
-msgid "The page could not be saved as it is locked"
-msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
-
-msgid "The page could not be saved due to validation errors"
-msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 
 msgid "Owner"
 msgstr "בעלים"

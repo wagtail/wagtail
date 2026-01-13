@@ -2,7 +2,7 @@ import datetime
 from unittest import mock
 
 from django.contrib.auth.models import Group, Permission
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -189,11 +189,11 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
             self.assertContains(
                 response,
-                '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+                '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">',
             )
             self.assertContains(
                 response,
-                '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+                '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">',
             )
             # test register_page_action_menu_item hook
             self.assertContains(
@@ -265,7 +265,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">',
         )
         self.assertNotContains(response, "tab-promote")
 
@@ -282,15 +282,15 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">',
         )
         self.assertContains(
             response,
-            '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">',
         )
         self.assertContains(
             response,
-            '<a id="tab-label-dinosaurs" href="#tab-dinosaurs" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            '<a id="tab-label-dinosaurs" href="#tab-dinosaurs" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">',
         )
 
     def test_create_page_with_non_model_field(self):
@@ -544,6 +544,26 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             post_data,
         )
 
+        soup = self.get_soup(response.content)
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be created
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The page could not be created due to validation errors", message.get_text()
+        )
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
         # Check that a form error was raised
         self.assertFormError(
             response.context["form"], "title", "This field is required."
@@ -551,6 +571,32 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+    def test_create_simplepage_post_invalid_with_json_response(self):
+        post_data = {
+            "title": "",
+            "content": "Some content",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "validation_error",
+                "errorMessage": "The page could not be created due to validation errors.",
+            },
+        )
 
     def test_create_simplepage_post_with_blank_content(self):
         """
@@ -578,6 +624,43 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertRedirects(
             response, reverse("wagtailadmin_pages:edit", args=(page.id,))
         )
+
+        self.assertEqual(page.title, post_data["title"])
+        self.assertEqual(page.draft_title, post_data["title"])
+        self.assertIsInstance(page, SimplePage)
+        self.assertFalse(page.live)
+        self.assertFalse(page.first_published_at)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_create_simplepage_post_with_json_response(self):
+        post_data = {
+            "title": "New page",
+            "content": "hello world",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], page.pk)
+        self.assertEqual(response_json["revision_id"], page.get_latest_revision().pk)
 
         self.assertEqual(page.title, post_data["title"])
         self.assertEqual(page.draft_title, post_data["title"])
@@ -759,6 +842,26 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             post_data,
         )
         self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be created
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The page could not be created due to validation errors", message.get_text()
+        )
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0].attrs["data-controller"], "w-count w-focus")
+        self.assertEqual(
+            set(buttons[0].attrs["data-action"].split()),
+            {"click->w-focus#focus", "wagtail:panel-init@document->w-count#count"},
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
 
         # Check that a form error was raised
         self.assertFormError(
@@ -1144,7 +1247,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "expire_at",
-            "Expiry date/time must be in the future",
+            "Expiry date/time must be in the future.",
         )
 
         self.assertContains(
@@ -1328,7 +1431,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertFormError(
             response.context["form"],
             "slug",
-            "The slug 'hello-world' is already in use within the parent page",
+            "The slug 'hello-world' is already in use within the parent page.",
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
@@ -1759,6 +1862,52 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+    def test_before_create_page_hook_with_json_response(self):
+        def non_json_hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_create_page", non_json_hook_func):
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to create page was blocked by hook.",
+            },
+        )
+
+        with self.register_hook("before_create_page", json_hook_func):
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
     def test_before_create_page_hook_post(self):
         def hook_func(request, parent_page, page_class):
             self.assertIsInstance(request, HttpRequest)
@@ -1783,6 +1932,70 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should not be created
+        self.assertFalse(Page.objects.filter(title="New page!").exists())
+
+    def test_before_create_page_hook_post_with_json_response(self):
+        def non_json_hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, parent_page, page_class):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(parent_page.id, self.root_page.id)
+            self.assertEqual(page_class, SimplePage)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_create_page", non_json_hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "errorCode": "blocked_by_hook",
+                "errorMessage": "Request to create page was blocked by hook.",
+            },
+        )
+
+        # page should not be created
+        self.assertFalse(Page.objects.filter(title="New page!").exists())
+
+        with self.register_hook("before_create_page", json_hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
 
         # page should not be created
         self.assertFalse(Page.objects.filter(title="New page!").exists())
@@ -1817,6 +2030,70 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
+
+    def test_after_create_page_hook_with_json_response(self):
+        def non_json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page, SimplePage)
+
+            # Both are None as this is only a draft
+            self.assertIsNone(page.first_published_at)
+            self.assertIsNone(page.last_published_at)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page, SimplePage)
+
+            # Both are None as this is only a draft
+            self.assertIsNone(page.first_published_at)
+            self.assertIsNone(page.last_published_at)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("after_create_page", non_json_hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        # hook response is ignored, since it's not a JSON response
+        self.assertEqual(response.json()["success"], True)
+
+        # page should be created
+        self.assertTrue(Page.objects.filter(title="New page!").exists())
+
+        with self.register_hook("after_create_page", json_hook_func):
+            post_data = {
+                "title": "Another new page!",
+                "content": "Some content",
+                "slug": "hello-another-world",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
+        # page should be created
+        self.assertTrue(Page.objects.filter(title="Another new page!").exists())
 
     def test_after_create_page_hook_with_page_publish(self):
         def hook_func(request, page):

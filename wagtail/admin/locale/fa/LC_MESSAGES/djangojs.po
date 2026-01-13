@@ -3,15 +3,15 @@
 # Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2022
 # Mostafa Heidarian <tabvar@gmail.com>, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2022
-# Amir Mahmoodi, 2023
 # Bardia, 2024
 # Loic Teixeira, 2024
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2025
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2025
+# Amir Mahmoodi, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Ehsan jahanbakhsh <man207ej@gmail.com>, 2025\n"
+"Last-Translator: Amir Mahmoodi, 2025\n"
 "Language-Team: Persian (https://app.transifex.com/torchbox/teams/8009/fa/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fa\n"
@@ -119,3 +119,6 @@ msgstr "این فیلد لازم است."
 
 msgid "View child pages of '%(title)s'"
 msgstr "دیدن صفحات فرزند %(title)s"
+
+msgid "Yes"
+msgstr "بله"

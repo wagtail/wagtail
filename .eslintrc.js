@@ -1,3 +1,7 @@
+/**
+ * @see https://eslint.org/docs/user-guide/configuring
+ * @type {import('eslint').Linter.Config}
+ */
 module.exports = {
   extends: [
     '@wagtail/eslint-config-wagtail',
@@ -5,7 +9,7 @@ module.exports = {
     'plugin:storybook/recommended',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'no-jquery'],
   env: {
     jest: true,
     browser: true,
@@ -15,7 +19,7 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-use-before-define': 'error',
     // it is often helpful to pull out logic to class methods that may not use `this`
     'class-methods-use-this': 'off',
     'import/extensions': [
@@ -40,15 +44,21 @@ module.exports = {
       { exceptAfterSingleLine: true },
     ],
     'max-classes-per-file': 'off',
+    // Set warning for the top 5 jQuery rules to avoid new jQuery usage in code
+    'no-jquery/no-ajax': 'warn',
+    'no-jquery/no-global-selector': 'warn',
+    'no-jquery/no-jquery-constructor': 'warn',
+    'no-jquery/no-other-methods': 'warn',
+    'no-jquery/no-other-utils': 'warn',
     // note you must disable the base rule as it can report incorrect errors
     'no-use-before-define': 'off',
-    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
     'no-underscore-dangle': [
       'error',
       { allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_tippy'] },
     ],
     // this rule can be confusing as it forces some non-intuitive code for variable assignment
     'prefer-destructuring': 'off',
+    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
   },
   settings: {
     'import/core-modules': ['jquery'],
@@ -70,7 +80,6 @@ module.exports = {
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/interactive-supports-focus': 'off',
         'jsx-a11y/no-noninteractive-element-interactions': 'off',
-        'no-restricted-syntax': 'off',
         'react-hooks/exhaustive-deps': 'off',
         'react-hooks/rules-of-hooks': 'off',
         'react/button-has-type': 'off',
@@ -166,9 +175,57 @@ module.exports = {
         'wagtail/embeds/static_src/wagtailembeds/js/embed-chooser-modal.js',
         'wagtail/images/static_src/wagtailimages/js/add-multiple.js',
         'wagtail/images/static_src/wagtailimages/js/focal-point-chooser.js',
-        'wagtail/images/static_src/wagtailimages/js/image-url-generator.js',
       ],
       globals: { $: 'readonly', jQuery: 'readonly' },
+    },
+    // Files that we will allow usage of jQuery (global or import) due to legacy code that will be refactored over time
+    {
+      files: [
+        'client/src/components/Draftail/sources/ModalWorkflowSource.js',
+        'client/src/components/ExpandingFormset/index.js',
+        'client/src/components/InlinePanel/index.js',
+        'client/src/components/StreamField/blocks/ActionButtons.ts',
+        'client/src/components/StreamField/blocks/BaseSequenceBlock.js',
+        'client/src/components/StreamField/blocks/FieldBlock.js',
+        'client/src/components/StreamField/blocks/FieldBlock.test.js',
+        'client/src/components/StreamField/blocks/ListBlock.js',
+        'client/src/components/StreamField/blocks/ListBlock.test.js',
+        'client/src/components/StreamField/blocks/StaticBlock.test.js',
+        'client/src/components/StreamField/blocks/StreamBlock.js',
+        'client/src/components/StreamField/blocks/StreamBlock.test.js',
+        'client/src/components/StreamField/blocks/StructBlock.ts',
+        'client/src/components/StreamField/blocks/StructBlock.test.js',
+        'client/src/controllers/TagController.ts',
+        'client/src/entrypoints/admin/filtered-select.js',
+        'client/src/entrypoints/admin/modal-workflow.js',
+        'client/src/entrypoints/admin/page-chooser-modal.js',
+        'client/src/entrypoints/admin/privacy-switch.js',
+        'client/src/entrypoints/admin/task-chooser-modal.js',
+        'client/src/entrypoints/admin/task-chooser.js',
+        'client/src/entrypoints/admin/workflow-action.js',
+        'client/src/entrypoints/contrib/table_block/table.js',
+        'client/src/entrypoints/contrib/table_block/table.test.js',
+        'client/src/entrypoints/contrib/typed_table_block/typed_table_block.js',
+        'client/src/entrypoints/contrib/typed_table_block/typed_table_block.test.js',
+        'client/src/entrypoints/documents/document-chooser-modal.js',
+        'client/src/entrypoints/images/image-chooser-modal.js',
+        'client/src/includes/chooserModal.js',
+        'client/src/includes/dateTimeChooser.js',
+        'wagtail/contrib/search_promotions/static_src/wagtailsearchpromotions/js/query-chooser-modal.js',
+        'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js',
+        'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/queries/chooser_field.js',
+        'wagtail/documents/static_src/wagtaildocs/js/add-multiple.js',
+        'wagtail/embeds/static_src/wagtailembeds/js/embed-chooser-modal.js',
+        'wagtail/images/static_src/wagtailimages/js/add-multiple.js',
+        'wagtail/images/static_src/wagtailimages/js/focal-point-chooser.js',
+      ],
+      rules: {
+        'no-jquery/no-ajax': 'off',
+        'no-jquery/no-global-selector': 'off',
+        'no-jquery/no-jquery-constructor': 'off',
+        'no-jquery/no-other-methods': 'off',
+        'no-jquery/no-other-utils': 'off',
+      },
     },
     // Files that use other globals or legacy/vendor code that is unable to be easily linted
     {
@@ -199,7 +256,6 @@ module.exports = {
         'consistent-return': 'off',
         'func-names': 'off',
         'id-length': 'off',
-        'no-param-reassign': 'off',
         'no-underscore-dangle': 'off',
         'object-shorthand': 'off',
         'prefer-arrow-callback': 'off',

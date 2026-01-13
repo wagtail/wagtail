@@ -18,8 +18,8 @@ from wagtail.models import Page, Revision, RevisionMixin, WorkflowMixin
 def ping(request, app_label, model_name, object_id, session_id):
     try:
         model = apps.get_model(app_label, model_name)
-    except LookupError:
-        raise Http404
+    except LookupError as e:
+        raise Http404 from e
 
     unquoted_object_id = unquote(object_id)
 
@@ -31,9 +31,9 @@ def ping(request, app_label, model_name, object_id, session_id):
     else:
         try:
             permission_policy = model.snippet_viewset.permission_policy
-        except AttributeError:
+        except AttributeError as e:
             # model is neither a Page nor a snippet
-            raise Http404
+            raise Http404 from e
 
         can_edit = permission_policy.user_has_permission_for_instance(
             request.user, "change", obj
@@ -108,8 +108,8 @@ def ping(request, app_label, model_name, object_id, session_id):
         all_revisions = obj.revisions.defer("content")
         try:
             original_revision = all_revisions.get(id=revision_id)
-        except Revision.DoesNotExist:
-            raise Http404
+        except Revision.DoesNotExist as e:
+            raise Http404 from e
 
         newest_revision = (
             all_revisions.filter(created_at__gt=original_revision.created_at)

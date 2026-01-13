@@ -46,7 +46,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -83,6 +83,8 @@ You now need to create two templates named `form_page.html` and `form_page_landi
     </body>
 </html>
 ```
+
+When submitted, this form will use both HTML5 client-side validation and Django server-side validation. To disable client-side validation for greater consistency between browsers, add the [`novalidate` form attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#novalidate) to the `<form>` tag.
 
 `form_page_landing.html` is a standard Wagtail template, displayed after the user makes a successful form submission, `form_submission` will be available in this template. If you want to dynamically override the landing page template, you can do so with the `get_landing_page_template` method (in the same way that you would with `get_template`).
 

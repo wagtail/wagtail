@@ -7,7 +7,6 @@
  * Those variables usually come from the back-end via templates.
  * See /wagtailadmin/templates/wagtailadmin/admin_base.html.
  */
-
 const wagtailConfig = {
   ADMIN_API: {
     DOCUMENTS: '/admin/api/main/documents/',
@@ -36,6 +35,7 @@ const wagtailConfig = {
     },
   ],
   ACTIVE_CONTENT_LOCALE: 'en',
+  KEYBOARD_SHORTCUTS_ENABLED: true,
 };
 
 const configScript = Object.assign(document.createElement('script'), {

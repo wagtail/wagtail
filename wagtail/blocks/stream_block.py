@@ -14,7 +14,7 @@ from django.utils.html import format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.admin.telepath import Adapter, register
 
 from .base import (
     Block,
@@ -812,10 +812,10 @@ class StreamValue(MutableSequence):
     def __reduce__(self):
         try:
             stream_field = self._stream_field
-        except AttributeError:
+        except AttributeError as e:
             raise PickleError(
                 "StreamValue can only be pickled if it is associated with a StreamField"
-            )
+            ) from e
 
         return (
             self._deserialize_pickle_value,
@@ -840,18 +840,11 @@ class StreamBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "attrs": block.meta.form_attrs or {},
             "maxNum": block.meta.max_num,
             "minNum": block.meta.min_num,
             "blockCounts": block.meta.block_counts,
             "collapsed": block.meta.collapsed,
-            "strings": {
-                "MOVE_UP": _("Move up"),
-                "MOVE_DOWN": _("Move down"),
-                "DRAG": _("Drag"),
-                "DUPLICATE": _("Duplicate"),
-                "DELETE": _("Delete"),
-                "ADD": _("Add"),
-            },
         }
         help_text = getattr(block.meta, "help_text", None)
         if help_text:

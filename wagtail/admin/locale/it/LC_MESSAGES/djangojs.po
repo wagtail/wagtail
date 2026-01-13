@@ -4,14 +4,14 @@
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2022
 # giammi <gian-maria.daffre@giammi.org>, 2022
 # gcm, 2022
-# Marco Badan <marco.badan@gmail.com>, 2024
 # Loic Teixeira, 2024
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2025
 # Stefano Marchetto <airbatum@gmail.com>, 2025
+# Marco Badan <marco.badan@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Stefano Marchetto <airbatum@gmail.com>, 2025\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/torchbox/teams/8009/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: it\n"
@@ -114,6 +114,9 @@ msgstr "Documento non trovato"
 msgid "More actions"
 msgstr "Altre azioni"
 
+msgid "No"
+msgstr "No"
+
 msgid "No results"
 msgstr "Nessun risultato"
 
@@ -208,6 +211,9 @@ msgstr "Il numero minimo di elementi è %(min_num)d"
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio."
 
+msgid "Toggle section"
+msgstr "Attiva/disattiva sezione"
+
 msgid "Toggle side panel"
 msgstr "Attiva/disattiva barra laterale"
 
@@ -225,3 +231,6 @@ msgstr "Mostra sotto-pagine di '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Scrivi qualcosa o digita '/' per inserire un blocco"
+
+msgid "Yes"
+msgstr "Sì"

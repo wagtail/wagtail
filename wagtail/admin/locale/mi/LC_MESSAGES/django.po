@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -58,9 +58,6 @@ msgstr "Te kaiwhakahaere ō Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Aroha mai, ehara koe e whakaae ki roto i tēnei wāhi."
-
-msgid "You do not have permission to access the admin"
-msgstr "Ehara koe e whakaae ki te kai whakahaere"
 
 msgid "None"
 msgstr "Kore"
@@ -140,9 +137,6 @@ msgstr "Muku"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Me haere mataora rā/taima i mua te mōnehu rā/taima"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Me haere te mōnehu rā/taima ki roto ī te wāheke."
 
 msgid "New title"
 msgstr "Taitara hou"
@@ -238,6 +232,9 @@ msgstr "Hoatu he ingoa ki to mahi pūheke"
 
 msgid "Add tasks to your workflow"
 msgstr "Tāpiri waitara ki ō mahi pūheke"
+
+msgid "task"
+msgstr "mahi"
 
 msgid "Content"
 msgstr "Rārangi take"
@@ -353,9 +350,6 @@ msgstr "He paraiweti tēnei kohikohinga mai i te matua kohikohinga."
 msgid "You can edit the privacy settings on:"
 msgstr "Ka taea e koe ki te whakarerekē ngā tautuhinga paraiweti ki:"
 
-msgid "Save"
-msgstr "Puritia"
-
 msgid "Privacy"
 msgstr "Noho matatapu"
 
@@ -377,6 +371,8 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Hohenga"
 
@@ -500,6 +496,9 @@ msgstr "Tātari"
 msgid "Back"
 msgstr "Whakahoki"
 
+msgid "Save"
+msgstr "Puritia"
+
 msgid "Lock"
 msgstr "Raka"
 
@@ -547,14 +546,6 @@ msgstr "%(model_name)s '%(object)s' kua whakahou."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' kua hangaia."
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Whakarerekē '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Muku '%(title)s'"
 
 msgid "Editing"
 msgstr "Whakarerekē"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -176,15 +176,9 @@ msgstr "Promovirani rezultat pretraživanja"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Izbor urednika za '%(query)s' je stvoren."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Nije moguće stvoriti preporuke zbog grešaka"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Izbor urednika za '%(query)s' je ažuriran."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Nije moguće sačuvati preporuke zbog grešaka"
 
 msgid "Editor's picks deleted."
 msgstr "Izbor urednika je izbrisan."

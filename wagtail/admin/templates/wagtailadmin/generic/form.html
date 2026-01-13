@@ -1,12 +1,14 @@
 {% extends "wagtailadmin/generic/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n l10n wagtailadmin_tags %}
 {% block bodyclass %}editor-view{% endblock %}
 
 {% block main_header %}
     {% if breadcrumbs_items %}
         <div class="nice-padding w-mt-8">
             <h2 class="w-relative w-h1" id="header-title">
-                {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
+                {% if header_icon %}
+                    {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
+                {% endif %}
                 {{ page_subtitle|default:page_title }}
             </h2>
         </div>
@@ -31,6 +33,9 @@
         data-w-unsaved-watch-value="edits"
     >
         {% csrf_token %}
+        {% if revision_enabled and object.latest_revision_id %}
+            <input type="hidden" name="loaded_revision_id" value="{{ object.latest_revision_id|unlocalize }}">
+        {% endif %}
 
         {% block form_content %}
             {% if panel %}
@@ -88,6 +93,7 @@
 {% block extra_js %}
     {{ block.super }}
     {{ media.js }}
+    {% if edit_handler_data %}{{ edit_handler_data|json_script:"w-edit-handler-data" }}{% endif %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}
 

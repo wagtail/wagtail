@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -75,12 +75,6 @@ msgstr "αρχεία"
 msgid "Add tags to documents"
 msgstr "Προσθήκη ετικετών σε αρχεία"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
-msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
-
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
 
@@ -115,6 +109,12 @@ msgstr "Το αρχείο δεν βρέθηκε"
 
 msgid "Usage"
 msgstr "Χρήση"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
+msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -198,12 +198,6 @@ msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφ
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Έγινε διόρθωση του εγγράφου '%(document_title)s'"
-
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
-"διαγράψετε το έγγραφο"
 
 msgid "Delete document"
 msgstr "Διαγραφή εγγράφου"

@@ -18,12 +18,14 @@ from wagtail.admin.ui.tables import (
     DownloadColumn,
     Table,
     TitleColumn,
+    UsageCountColumn,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
+from wagtail.models import ReferenceIndex
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 Document = get_document_model()
@@ -79,9 +81,24 @@ class IndexView(generic.IndexView):
 
     def get_base_queryset(self):
         # Get documents (filtered by user permission)
-        return self.permission_policy.instances_user_has_any_permission_for(
+        documents = self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["change", "delete"]
         ).select_related("collection")
+
+        if self.needs_usage_count_subquery:
+            # Annotate usage_count on the whole queryset to allow ordering/filtering
+            # (On some databases, this can be slow when there are many objects)
+            documents = documents.annotate(
+                usage_count=ReferenceIndex.usage_count_subquery(self.model)
+            )
+
+        return documents
+
+    @cached_property
+    def needs_usage_count_subquery(self):
+        return self.ordering in ["usage_count", "-usage_count"] or (
+            self.is_filtering and "usage_count" in self.filters.form.cleaned_data
+        )
 
     @cached_property
     def current_collection(self):
@@ -104,7 +121,14 @@ class IndexView(generic.IndexView):
                 "created_at",
                 label=_("Created"),
                 sort_key="created_at",
+            ),
+            UsageCountColumn(
+                "usage_count",
+                label=_("Usage"),
                 width="16%",
+                # Ordering by usage count not currently available when searching,
+                # due to https://github.com/wagtail/django-modelsearch/issues/51
+                sort_key="usage_count" if not self.is_searching else None,
             ),
         ]
         if self.filters and "collection_id" in self.filters.filters:
@@ -148,9 +172,25 @@ class IndexView(generic.IndexView):
         kwargs["is_searching"] = self.is_searching
         return kwargs
 
+    def decorate_paginated_queryset(self, object_list):
+        if self.needs_usage_count_subquery:
+            # Already annotated in get_base_queryset
+            return object_list
+
+        # Use a separate, more efficient query that only gets usage counts for
+        # objects on the current page
+        # See https://github.com/wagtail/wagtail/issues/13561
+        counts = ReferenceIndex.get_count_references_to_in_bulk(list(object_list))
+        for obj in object_list:
+            obj.usage_count = counts.get(obj, 0)
+        return object_list
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_collection"] = self.current_collection
+        context["object_list"] = self.decorate_paginated_queryset(
+            context["object_list"]
+        )
         return context
 
 
@@ -242,7 +282,7 @@ class EditView(generic.EditView):
                 messages.error(
                     self.request,
                     _(
-                        "The file could not be found. Please change the source or delete the document"
+                        "The file could not be found. Please change the source or delete the document."
                     ),
                     buttons=[messages.button(self.get_delete_url(), _("Delete"))],
                 )

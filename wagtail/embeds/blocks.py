@@ -30,15 +30,16 @@ class EmbedValue:
 
 class EmbedBlock(blocks.URLBlock):
     def get_default(self):
+        default = self._evaluate_callable(self.meta.default)
         # Allow specifying the default for an EmbedBlock as either an EmbedValue or a string (or None).
-        if not self.meta.default:
+        if not default:
             return None
-        elif isinstance(self.meta.default, EmbedValue):
-            return self.meta.default
+        elif isinstance(default, EmbedValue):
+            return default
         else:
             # assume default has been passed as a string
             return EmbedValue(
-                self.meta.default,
+                default,
                 getattr(self.meta, "max_width", None),
                 getattr(self.meta, "max_height", None),
             )

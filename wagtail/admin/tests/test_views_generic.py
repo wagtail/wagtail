@@ -2,13 +2,14 @@ from django.contrib.admin.utils import quote
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.test.testapp.models import ModelWithStringTypePrimaryKey
 from wagtail.test.utils import WagtailTestUtils
 
 
 class TestGenericIndexView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("testapp_generic_index"), params)
 
     def test_non_integer_primary_key(self):
@@ -27,7 +28,7 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
 class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("testapp_generic_index_without_model"), params)
 
     def test_non_integer_primary_key(self):
@@ -37,10 +38,43 @@ class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
         self.assertEqual(response_object_count, 4)
 
 
+class TestGenericCreateView(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def get(self, params=None):
+        return self.client.get(reverse("testapp_generic_create"), params)
+
+    def test_get_create_view(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        h2 = soup.select_one("main h2")
+        self.assertIsNotNone(h2)
+        self.assertEqual(h2.text.strip(), "Model with string type primary key")
+        form = soup.select_one("main form")
+        self.assertIsNotNone(form)
+        id_input = form.select_one("input[name='custom_id']")
+        self.assertIsNotNone(id_input)
+        self.assertEqual(id_input.get("type"), "text")
+        content_input = form.select_one("input[name='content']")
+        self.assertIsNotNone(content_input)
+
+    def test_post_create_view(self):
+        post_data = {
+            "custom_id": "string-pk-3",
+            "content": "third modelwithstringtypeprimarykey model",
+        }
+        response = self.client.post(reverse("testapp_generic_create"), post_data)
+        self.assertEqual(response.status_code, 302)  # Redirect to index view
+        self.assertTrue(
+            ModelWithStringTypePrimaryKey.objects.filter(pk="string-pk-3").exists()
+        )
+
+
 class TestGenericEditView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, object_pk, params={}):
+    def get(self, object_pk, params=None):
         return self.client.get(
             reverse("testapp_generic_edit", args=(object_pk,)), params
         )
@@ -86,7 +120,7 @@ class TestGenericEditView(WagtailTestUtils, TestCase):
 class TestGenericDeleteView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def get(self, object_pk, params={}):
+    def get(self, object_pk, params=None):
         return self.client.get(
             reverse("testapp_generic_edit", args=(object_pk,)), params
         )

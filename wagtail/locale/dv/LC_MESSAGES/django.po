@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:05+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -355,13 +355,6 @@ msgstr "ސަރޗް އިންޖީނުތަކަށްޓަކައެވެ"
 
 msgid "For site menus"
 msgstr "ސައިޓް މެނޫތަކަށްޓަކައެވެ"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"ސްލަގް %(page_slug)s މިހާރުވެސް ބޭނުން ކުރަމުންދަނީ ޕޭރެންޓް ޕޭޖް%(parent_url_path)s ތެރޭގައި ގައެވެ."
 
 msgid "page"
 msgstr "ސަފްހާ"

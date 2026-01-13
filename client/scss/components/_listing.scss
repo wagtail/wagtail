@@ -93,9 +93,9 @@ ul.listing {
   }
 
   &:has(
-      td:first-child input[type='checkbox']:only-child,
-      th:first-child input[type='checkbox']:only-child
-    ) {
+    td:first-child input[type='checkbox']:only-child,
+    th:first-child input[type='checkbox']:only-child
+  ) {
     td:first-child,
     th:first-child {
       // Bulk actions, use smaller width (48px) for smaller screens
@@ -456,6 +456,11 @@ ul.listing {
   word-wrap: break-word;
 }
 
+.image-choice--list {
+  display: inline-block;
+  line-height: 0;
+}
+
 // stylelint-disable-next-line no-duplicate-selectors
 ul.listing {
   border-top: 1px dashed theme('colors.border-field-default');
@@ -547,6 +552,7 @@ table.listing {
         border: 1px solid theme('colors.border-furniture');
         border-radius: theme('borderRadius.sm');
         color: theme('colors.text-label');
+        padding: theme('spacing.1') theme('spacing.2');
       }
 
       &.pagination__page-number--current a {
@@ -718,9 +724,9 @@ table.listing {
     }
 
     &:has(
-        td:first-child input[type='checkbox']:only-child,
-        th:first-child input[type='checkbox']:only-child
-      ) {
+      td:first-child input[type='checkbox']:only-child,
+      th:first-child input[type='checkbox']:only-child
+    ) {
       // Bulk actions, match the width of the header spacing up until
       // the page title (final breadcrumb item):
       // Breadcrumbs left padding: 20px
@@ -740,10 +746,10 @@ table.listing {
     // custom ordering is active, as the padding to match the breadcrumbs is
     // already handled by the first column.
     &:has(
-        td:first-child input[type='checkbox']:only-child,
-        th:first-child input[type='checkbox']:only-child,
-        .ord
-      ) {
+      td:first-child input[type='checkbox']:only-child,
+      th:first-child input[type='checkbox']:only-child,
+      .ord
+    ) {
       th:nth-child(2),
       td:nth-child(2) {
         padding-inline-start: 0;
@@ -761,10 +767,10 @@ table.listing {
     // then apply the same 80px padding via the first column's left padding.
     &:not(.nice-padding &, .report &, .editor-view &, .w-dashboard &):not(
         :has(
-            td:first-child input[type='checkbox']:only-child,
-            th:first-child input[type='checkbox']:only-child,
-            .ord
-          )
+          td:first-child input[type='checkbox']:only-child,
+          th:first-child input[type='checkbox']:only-child,
+          .ord
+        )
       ) {
       // stylelint-disable-next-line selector-max-specificity
       th:first-child,

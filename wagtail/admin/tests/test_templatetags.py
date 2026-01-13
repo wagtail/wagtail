@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from datetime import timezone as dt_timezone
 from unittest import mock
 
+from django import forms
 from django.conf import settings
 from django.template import Context, Template, TemplateSyntaxError
 from django.test import SimpleTestCase, TestCase
@@ -1084,3 +1085,139 @@ class ThemeColorSchemeTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         meta_tag = soup.find("meta", {"name": "color-scheme"})
         self.assertIsNotNone(meta_tag)
         self.assertEqual(meta_tag["content"], "light")
+
+
+class FormattedfieldTagTestCase(WagtailTestUtils, SimpleTestCase):
+    def render_template(self, template, field_name="title", **context):
+        class BasicForm(forms.Form):
+            title = forms.CharField()
+
+        form = BasicForm(data={})
+
+        html = Template("{% load wagtailadmin_tags %}" + template).render(
+            Context(
+                {
+                    "field": form[field_name],
+                    **context,
+                }
+            )
+        )
+
+        # Parse the rendered HTML for the first DOM element in the output
+        return self.get_soup(html).find()
+
+    def test_basic_usage_with_full_html(self):
+        soup = self.render_template("{% formattedfield field=field %}")
+
+        # check the outer wrapper attributes
+        self.assertEqual(
+            {"class": ["w-field__wrapper"], "data-field-wrapper": ""},
+            soup.attrs,
+        )
+
+        # check the label is correct
+        label = soup.find("label")
+        self.assertIsNotNone(label)
+        self.assertEqual(label["for"], "id_title")
+        self.assertEqual(label["id"], "id_title-label")
+        self.assertEqual(label.get_text().strip(), "Title*")
+
+        # check there is an error container
+        errors = soup.find("div", {"data-field-errors": ""})
+        self.assertIsNotNone(errors)
+        self.assertEqual(errors["class"], ["w-field__errors"])
+        self.assertEqual(errors.get_text().strip(), "This field is required.")
+
+        # check there is a help container that is empty
+        help_text = soup.find("div", {"data-field-help": ""})
+        self.assertIsNotNone(help_text)
+        self.assertEqual(help_text["class"], ["w-field__help"])
+        self.assertEqual(help_text.get_text().strip(), "")
+
+        # check there is an input
+        input = soup.find("input")
+        self.assertIsNotNone(input)
+        self.assertEqual(input["id"], "id_title")
+        self.assertEqual(input["name"], "title")
+        self.assertEqual(input["type"], "text")
+        self.assertEqual(input["required"], "")
+
+        # check the input container & input siblings
+        input_container = input.parent
+        self.assertIsNone(input.find("svg"))  # there should be no icon
+        self.assertEqual(
+            input_container.attrs, {"class": ["w-field__input"], "data-field-input": ""}
+        )  # validate input container
+
+    def test_complex_usage_with_full_html(self):
+        soup = self.render_template(
+            """{% formattedfield field=field wrapper_id="__CUSTOM_ID__" classname="extra-custom-class" sr_only_label=True icon='search' help_text='This is a help text.' show_add_comment_button=True %}"""
+        )
+
+        # check the outer wrapper attributes
+        self.assertEqual(
+            {
+                "class": ["w-field__wrapper", "extra-custom-class"],
+                "id": "__CUSTOM_ID__",
+                "data-field-wrapper": "",
+            },
+            soup.attrs,
+        )
+
+        # check the label is correct
+        label = soup.find("label")
+        self.assertIsNotNone(label)
+        self.assertEqual(label["for"], "id_title")
+        self.assertEqual(label["id"], "id_title-label")
+        self.assertEqual(label.get_text().strip(), "Title*")
+
+        # check there is an error container
+        errors = soup.find("div", {"data-field-errors": ""})
+        self.assertIsNotNone(errors)
+        self.assertEqual(errors["class"], ["w-field__errors"])
+        self.assertEqual(errors.get_text().strip(), "This field is required.")
+
+        # check there is a help container that is empty
+        help_text = soup.find("div", {"data-field-help": ""})
+        self.assertIsNotNone(help_text)
+        self.assertEqual(help_text["class"], ["w-field__help"])
+        self.assertEqual(help_text.get_text().strip(), "This is a help text.")
+
+        # check there is an input
+        input = soup.find("input")
+        self.assertIsNotNone(input)
+        self.assertEqual(input["id"], "id_title")
+        self.assertEqual(input["name"], "title")
+        self.assertEqual(input["type"], "text")
+        self.assertEqual(input["required"], "")
+
+        # check the input container & input siblings
+        input_container = input.parent
+        self.assertEqual(
+            input_container.find("svg").find("use")["href"], "#icon-search"
+        )  # there should be an icon
+        self.assertEqual(
+            input_container.attrs, {"class": ["w-field__input"], "data-field-input": ""}
+        )  # validate input container
+
+    def test_attrs_rendering(self):
+        soup = self.render_template(
+            """{% formattedfield field=field wrapper_id="__CUSTOM_ID__" classname="extra-custom-class" attrs=attrs %}""",
+            attrs={
+                "data-custom-attr": "custom-value",
+                "data-controller": "w-example w-other",
+                "data-field-wrapper": "__CANNOT_OVERRIDE_DEFAULT__",
+            },
+        )
+
+        self.assertEqual(
+            {
+                "class": ["w-field__wrapper", "extra-custom-class"],
+                "id": "__CUSTOM_ID__",
+                "data-custom-attr": "custom-value",
+                "data-controller": "w-example w-other",
+                # wrapper attribute should be preserved
+                "data-field-wrapper": "",
+            },
+            soup.attrs,
+        )

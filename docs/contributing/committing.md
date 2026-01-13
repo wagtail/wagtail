@@ -4,7 +4,7 @@
 
 Code should only be committed after it has been reviewed
 by at least one other reviewer or committer,
-unless the change is a small documentation change or fixing a typo.
+unless the change is a small documentation change or a typo fix.  
 If additional code changes are made after the review, it is OK to commit them
 without further review if they are uncontroversial and small enough that
 there is minimal chance of introducing new bugs.
@@ -30,7 +30,7 @@ A simple way to do this is by adding the following `git` alias to your `~/.gitco
 
 Now you can check out pull request number `xxxx` by running `git pr xxxx`.
 
-## Rebase on to `main`
+## Rebase onto `main`  
 
 Now that you have the code, you should rebase the commits on to the `main` branch.
 Rebasing is preferred over merging,
@@ -76,7 +76,7 @@ To easily identify the most relevant changes to users, items are grouped togethe
 -   Minor enhancements (no prefix) - other improvements to the developer or end user experience
 -   Bug fixes (prefixed with "Fix:") - things that address broken behavior from previous releases
 -   Documentation (prefixed with "Docs:") - changes to documentation that do not accompany a specific code change; reorganizations, tutorials, recipes and so on
--   Maintenance (prefixed with "Maintenance:") - cleanup, refactoring and other changes to code or tooling that are not intended to have a visible effect to developers or end users
+-   Maintenance (prefixed with "Maintenance:") - cleanup, refactoring and other changes to code or tooling that do not affect the developer or end user experience
 
 The name of the contributor should be added at the end of the summary, in brackets.
 For example:
@@ -90,7 +90,7 @@ Minor enhancements ("Other features"), bug fixes, documentation and maintenance 
 Backwards compatibility notes should also be included. See previous release notes for examples.
 The release notes for each version are found in `docs/releases/x.x.x.md`.
 
-If the contributor is a new person, and this is their first contribution to Wagtail,
+If this is the contributor’s first contribution to Wagtail,
 they should be added to the `CONTRIBUTORS.md` list.
 Contributors are added in chronological order,
 with new contributors added to the bottom of the list.

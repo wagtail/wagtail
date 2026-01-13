@@ -440,7 +440,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
     .. method:: move(new_parent, pos=None)
 
         Move a page and all its descendants to a new parent.
-        See :meth:`django-treebeard <treebeard.mp_tree.MP_Node.move>` for more information.
+        See :meth:`django-treebeard <treebeard.models.Node.move>` for more information.
 
 
     .. automethod:: create_alias
@@ -986,6 +986,8 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. attribute:: sort_order
 
         (number)
+
+    .. autoattribute:: sort_order_field
 ```
 
 ## `Workflow`

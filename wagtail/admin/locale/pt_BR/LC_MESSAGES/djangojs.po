@@ -133,6 +133,9 @@ msgstr "Documento ausente"
 msgid "More actions"
 msgstr "Mais ações"
 
+msgid "No"
+msgstr "Não"
+
 msgid "No results"
 msgstr "Nenhum resultado"
 
@@ -226,6 +229,9 @@ msgstr "O número mínimo de itens é %(min_num)d"
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
+msgid "Toggle section"
+msgstr "Alternar seção"
+
 msgid "Toggle side panel"
 msgstr "Alternar barra lateral"
 
@@ -243,3 +249,6 @@ msgstr "Ver páginas filho de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escreva algo ou digite '/' para inserir um bloco"
+
+msgid "Yes"
+msgstr "Sim"

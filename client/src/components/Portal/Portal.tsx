@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 /**
  * A Portal component which automatically closes itself
  * when certain events happen outside.
- * See https://reactjs.org/docs/portals.html.
+ * @see https://reactjs.org/docs/portals.html
  */
 class Portal extends Component<{
   closeOnClick: boolean;

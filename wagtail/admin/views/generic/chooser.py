@@ -257,8 +257,8 @@ class BaseChooseView(
         self.paginator = self.paginator_class(objects, per_page=self.per_page)
         try:
             return self.paginator.page(request.GET.get("p", 1))
-        except InvalidPage:
-            raise Http404
+        except InvalidPage as e:
+            raise Http404 from e
 
     def get(self, request):
         self.filter_form = self.get_filter_form()
@@ -516,9 +516,9 @@ class ChosenViewMixin(ModelLookupMixin):
 
     def get(self, request, pk):
         try:
-            item = self.get_object(unquote(pk))
-        except ObjectDoesNotExist:
-            raise Http404
+            item = self.get_object(unquote(str(pk)))
+        except ObjectDoesNotExist as e:
+            raise Http404 from e
 
         return self.get_chosen_response(item)
 

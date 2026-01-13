@@ -1,8 +1,10 @@
 import * as StimulusModule from '@hotwired/stimulus';
+import Telepath from 'telepath-unpack';
 
 import { Icon, Portal } from '../..';
 import { ExpandingFormset } from '../../components/ExpandingFormset';
 import { coreControllerDefinitions } from '../../controllers';
+import { Panel, PanelGroup, FieldPanel } from '../../components/Panel';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
@@ -18,15 +20,15 @@ window.StimulusModule = StimulusModule;
  * interface to access the Stimulus application instance and base
  * React components.
  *
- * @type {Object} wagtail
- * @property {Object} app - Wagtail's Stimulus application instance.
- * @property {Object} components - Exposed components as globals for third-party reuse.
- * @property {Object} components.Icon - Icon React component.
- * @property {Object} components.Portal - Portal React component.
+ * @type {object} wagtail
+ * @property {object} app - Wagtail's Stimulus application instance.
+ * @property {object} components - Exposed components as globals for third-party reuse.
+ * @property {object} components.Icon - Icon React component.
+ * @property {object} components.Portal - Portal React component.
  */
 const wagtail = window.wagtail || {};
 
-/** Initialise Wagtail Stimulus application with core controller definitions. */
+/** Initialize Wagtail Stimulus application with core controller definitions. */
 wagtail.app = initStimulus({ definitions: coreControllerDefinitions });
 
 /** Expose components as globals for third-party reuse. */
@@ -42,6 +44,19 @@ window.escapeHtml = escapeHtml;
 window.InlinePanel = InlinePanel;
 
 window.MultipleChooserPanel = MultipleChooserPanel;
+
+if (!window.telepath) {
+  window.telepath = new Telepath();
+}
+
+window.telepath.register('wagtail.panels.Panel', Panel);
+window.telepath.register('wagtail.panels.PanelGroup', PanelGroup);
+window.telepath.register('wagtail.panels.FieldPanel', FieldPanel);
+window.telepath.register('wagtail.panels.InlinePanel', InlinePanel);
+window.telepath.register(
+  'wagtail.panels.MultipleChooserPanel',
+  MultipleChooserPanel,
+);
 
 /**
  * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.

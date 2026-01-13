@@ -1,19 +1,19 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2022
-# 汇民 王 <whuim@qq.com>, 2022
 # 祝沙军 <zhushajun@gmail.com>, 2022
 # Vincent Zhao <zhaopu2008@gmail.com>, 2022
 # Ed <724195301@qq.com>, 2022
 # Favo Yang <favoyang@gmail.com>, 2022
 # Yin Guanhao <sopium@mysterious.site>, 2022
 # Loic Teixeira, 2024
-# Ford Guo <agile.guo@gmail.com>, 2025
 # First Last <abc+github@mynook.info>, 2025
+# Ford Guo <agile.guo@gmail.com>, 2025
+# 汇民 王 <whuim@qq.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: First Last <abc+github@mynook.info>, 2025\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/torchbox/teams/"
 "8009/zh_CN/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -100,6 +100,9 @@ msgstr "缺失文档"
 
 msgid "More actions"
 msgstr "更多动作"
+
+msgid "No"
+msgstr "否"
 
 msgid "No results"
 msgstr "没有结果"
@@ -188,6 +191,9 @@ msgstr "条目的最小数是%(min_num)d"
 msgid "This field is required."
 msgstr "这个字段是必需的。"
 
+msgid "Toggle section"
+msgstr "部件开关"
+
 msgid "Toggle side panel"
 msgstr "边栏面板开关"
 
@@ -202,3 +208,6 @@ msgstr "取消固定工具栏"
 
 msgid "View child pages of '%(title)s'"
 msgstr "查看 '%(title)s' 的子页面"
+
+msgid "Yes"
+msgstr "是"

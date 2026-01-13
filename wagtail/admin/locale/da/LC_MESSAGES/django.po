@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -50,9 +50,6 @@ msgstr "Wagtail admin"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke rettigheder til at tilgå dette område"
-
-msgid "You do not have permission to access the admin"
-msgstr "Du mangler rettigheden til, at bruge admin-interfacet"
 
 msgid "None"
 msgstr "Intet"
@@ -126,9 +123,6 @@ msgstr "Slet"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Gå live dato/tidspunkt skal forekomme før udløbende dato/tidspunkt"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Udløbende dato/tidspunkt skal være i fremtiden"
 
 msgid "New title"
 msgstr "Ny titel"
@@ -302,9 +296,6 @@ msgstr "Denne samling er blevet gjort privat af en forældre samling."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan sætte opdatere dine konto indstillinger her:"
-
-msgid "Save"
-msgstr "Gem"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -483,15 +474,6 @@ msgstr "Udforsk undersider af '%(title)s'?"
 msgid "Add a child page to '%(title)s'"
 msgstr "Tilføj en underside til '%(title)s'"
 
-msgid "Drag"
-msgstr "Træk"
-
-msgid "Disable ordering of child pages"
-msgstr "Deaktiver arrangering af undersider"
-
-msgid "Enable ordering of child pages"
-msgstr "Aktiver arrangering af undersider"
-
 msgid "Sites menu"
 msgstr "Sidemenu"
 
@@ -517,6 +499,9 @@ msgstr "Bevæg op"
 msgid "Move down"
 msgstr "Bevæg ned"
 
+msgid "Drag"
+msgstr "Træk"
+
 msgid "Type"
 msgstr "Type"
 
@@ -534,6 +519,9 @@ msgstr "Navn"
 
 msgid "Edit this item"
 msgstr "Rediger denne enhed"
+
+msgid "Save"
+msgstr "Gem"
 
 msgid "Unlocked"
 msgstr "Ulåst"
@@ -572,6 +560,9 @@ msgstr "Gå tilbage"
 msgid "Redo"
 msgstr "Gå frem"
 
+msgid "Bold"
+msgstr "Fed"
+
 msgid "Italic"
 msgstr "Skråskrift"
 
@@ -583,10 +574,6 @@ msgstr "Live version"
 
 msgid "Current draft"
 msgstr "Nuværende skitse"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Rediger '%(title)s'"
 
 msgid "Editing"
 msgstr "Redigerer"
@@ -653,9 +640,6 @@ msgstr "Liste med prikker"
 
 msgid "Numbered list"
 msgstr "Liste med numre"
-
-msgid "Bold"
-msgstr "Fed"
 
 msgid "Link"
 msgstr "Link"

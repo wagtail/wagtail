@@ -201,4 +201,80 @@ describe('FocusController', () => {
       expect(document.activeElement).toBe(errorMessage);
     });
   });
+
+  describe('dispatching events before & after focusing', () => {
+    beforeEach(async () => {
+      await setup(
+        `
+    <main>
+      <button
+        type="button"
+        data-controller="w-focus"
+        data-action="w-focus#focus"
+        data-w-focus-target-value=".focus-target"
+      >
+        Focus target
+      </button>
+      <div class="focus-target">Focus me</div>
+    </main>`,
+        // { identifier: 'w-focus' },
+      );
+    });
+
+    it('should dispatch focus event before focusing', async () => {
+      expect(document.activeElement).toBe(document.body);
+
+      const focusTarget = document.querySelector('.focus-target');
+      const focusSpy = jest.spyOn(focusTarget, 'dispatchEvent');
+
+      document.querySelector('button').click();
+      expect(focusSpy).toHaveBeenCalled();
+      const [event] = focusSpy.mock.calls[0];
+      expect(event).toEqual(expect.objectContaining({ type: 'w-focus:focus' }));
+      expect(event.target).toEqual(focusTarget);
+      expect(event.bubbles).toBe(true);
+      expect(event.cancelable).toBe(true);
+
+      await jest.runAllTimersAsync();
+
+      expect(document.activeElement).toBe(focusTarget);
+    });
+
+    it('should dispatch focused event after focusing', async () => {
+      expect(document.activeElement).toBe(document.body);
+
+      const focusTarget = document.querySelector('.focus-target');
+      const focusedSpy = jest.spyOn(focusTarget, 'dispatchEvent');
+
+      document.querySelector('button').click();
+      expect(focusedSpy).toHaveBeenCalled();
+      const [event] = focusedSpy.mock.calls[1];
+      expect(event).toEqual(
+        expect.objectContaining({ type: 'w-focus:focused' }),
+      );
+      expect(event.target).toEqual(focusTarget);
+      expect(event.bubbles).toBe(true);
+      expect(event.cancelable).toBe(false);
+
+      await jest.runAllTimersAsync();
+
+      expect(document.activeElement).toBe(focusTarget);
+    });
+
+    it('should not focus if the focus event is canceled', async () => {
+      const focusTarget = document.querySelector('.focus-target');
+      focusTarget.addEventListener('w-focus:focus', (event) => {
+        event.preventDefault();
+      });
+
+      expect(document.activeElement).toBe(document.body);
+
+      document.querySelector('button').click();
+
+      await jest.runAllTimersAsync();
+
+      expect(document.activeElement).toBe(document.body);
+      expect(focusTarget.getAttribute('tabindex')).toBe(null);
+    });
+  });
 });

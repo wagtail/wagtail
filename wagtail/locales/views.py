@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Any
 
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy, ngettext_lazy
@@ -62,7 +62,7 @@ class IndexView(generic.IndexView):
         LocaleUsageColumn("usage", label=gettext_lazy("Usage")),
     ]
 
-    def get_add_url(self) -> Optional[str]:
+    def get_add_url(self) -> str | None:
         # Removes the "Add" button from the index view.
         if not _can_add_locale():
             return None

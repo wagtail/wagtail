@@ -3,12 +3,14 @@ import logging
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Q
 from django.db.models.expressions import OuterRef, Subquery
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from modelcluster.models import (
     get_serializable_data_for_fields,
@@ -275,9 +277,6 @@ class RevisionMixin(models.Model):
     so it cannot be used for reverse-related queries from ``Revision`` back to
     this model. If the feature is desired, subclasses can define their own
     ``GenericRelation`` to ``Revision`` with a custom ``related_query_name``.
-
-    .. versionadded:: 7.1
-        The default ``GenericRelation`` :attr:`~wagtail.models.RevisionMixin._revisions` was added.
     """
 
     # An array of additional field names that will not be included when the object is copied.
@@ -378,6 +377,7 @@ class RevisionMixin(models.Model):
         self.latest_revision = revision
         self.save(update_fields=["latest_revision"])
 
+    @transaction.atomic
     def save_revision(
         self,
         user=None,
@@ -386,6 +386,7 @@ class RevisionMixin(models.Model):
         log_action=False,
         previous_revision=None,
         clean=True,
+        overwrite_revision=None,
     ):
         """
         Creates and saves a revision.
@@ -403,14 +404,41 @@ class RevisionMixin(models.Model):
         if clean:
             self.full_clean()
 
-        revision = Revision.objects.create(
-            content_object=self,
-            base_content_type=self.get_base_content_type(),
-            user=user,
-            approved_go_live_at=approved_go_live_at,
-            content=self.serializable_data(),
-            object_str=str(self),
-        )
+        if overwrite_revision:
+            # the revision being overwritten must be the latest revision for the current instance, and must match
+            # the current user (if any)
+            latest_revision = self.get_latest_revision()
+            if overwrite_revision != latest_revision:
+                raise PermissionDenied(
+                    gettext(
+                        "Cannot overwrite a revision that is not the latest for "
+                        "this %(model_name)s."
+                    )
+                    % {"model_name": self._meta.verbose_name}
+                )
+            if overwrite_revision.user_id != (user and user.pk):
+                raise PermissionDenied(
+                    gettext(
+                        "Cannot overwrite a revision that was not created "
+                        "by the current user."
+                    )
+                )
+
+            overwrite_revision.created_at = timezone.now()
+            overwrite_revision.content = self.serializable_data()
+            overwrite_revision.approved_go_live_at = approved_go_live_at
+            overwrite_revision.object_str = str(self)
+            overwrite_revision.save()
+            revision = overwrite_revision
+        else:
+            revision = Revision.objects.create(
+                content_object=self,
+                base_content_type=self.get_base_content_type(),
+                user=user,
+                approved_go_live_at=approved_go_live_at,
+                content=self.serializable_data(),
+                object_str=str(self),
+            )
 
         self._update_from_revision(revision, changed)
 

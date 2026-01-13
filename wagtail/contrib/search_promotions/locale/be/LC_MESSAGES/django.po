@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -128,15 +128,9 @@ msgstr "Высокі вынік пошуку"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Зроблена падборка для '%(query)s'."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Рэкамендацыі не былі створаны з-за памылкі"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Падборка для «%(query)s» абнаўляецца."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Рэкамендацыі не былі захаваныя з-за памылкі"
 
 msgid "Editor's picks deleted."
 msgstr "Падборка выдалена."

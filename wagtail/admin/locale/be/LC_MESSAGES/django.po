@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -61,9 +61,6 @@ msgstr "Wagtail адміністратар"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "На жаль, у вас няма дазволу на доступ да гэтай часткі."
-
-msgid "You do not have permission to access the admin"
-msgstr "У вас няма доступу да панэлі адміністратара"
 
 msgid "None"
 msgstr "Некалькі"
@@ -147,9 +144,6 @@ msgstr "Выдаліць"
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Час размяшчэння павінен быць раней часу зняцця з размяшчэння."
 
-msgid "Expiry date/time must be in the future"
-msgstr "Тэрмін адмены размяшшчэння павінен быць у будучыні"
-
 msgid "New title"
 msgstr "Новая назва"
 
@@ -226,9 +220,6 @@ msgstr "Гэта поле з'яўляецца абавязковым."
 
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
-
-msgid "Task"
-msgstr "Задача"
 
 msgid "Content"
 msgstr "Змест"
@@ -371,9 +362,6 @@ msgstr "Гэтая калекцыя была зачынена бацькоўск
 msgid "You can edit the privacy settings on:"
 msgstr "Вы можаце смяніць налады прыватнасці:"
 
-msgid "Save"
-msgstr "Захаваць"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -423,6 +411,8 @@ msgstr "Не, не публікаваць"
 msgid "Cancel"
 msgstr "Адмена"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Дзеянні"
 
@@ -483,6 +473,9 @@ msgstr "Агульная інфармацыя"
 
 msgid "Close"
 msgstr "Зачыніць"
+
+msgid "Task"
+msgstr "Задача"
 
 msgid "Preview"
 msgstr "Папярэдні прагляд"
@@ -635,18 +628,6 @@ msgstr "Агляд даччыных для '%(title)s' старонак"
 msgid "Add a child page to '%(title)s'"
 msgstr "Дадаць даччыную старонку да '%(title)s'"
 
-msgid "Drag"
-msgstr "Перацягнуць"
-
-msgid "Disable ordering of child pages"
-msgstr "Адключыць ўпарадкаванне даччыных старонак"
-
-msgid "Sort"
-msgstr "Парадак"
-
-msgid "Enable ordering of child pages"
-msgstr "Уключыць ўпарадкаванне даччыных старонак"
-
 msgid "Sites menu"
 msgstr "Спіс сайтаў"
 
@@ -683,6 +664,9 @@ msgstr "Падвінуць наверх"
 
 msgid "Move down"
 msgstr "Падвінусь уніз"
+
+msgid "Drag"
+msgstr "Перацягнуць"
 
 msgid "Type"
 msgstr "Тып"
@@ -769,6 +753,9 @@ msgstr "Не, не адмяняць публікацыю па раскладзе
 msgid "Other searches"
 msgstr "Іншыя пошукі"
 
+msgid "Save"
+msgstr "Захаваць"
+
 msgid "Minimap"
 msgstr "Міні-карта"
 
@@ -809,6 +796,9 @@ msgstr "Зменена"
 msgid "with comment:"
 msgstr "з каментарамі:"
 
+msgid "Sort"
+msgstr "Парадак"
+
 msgid "Add a child page"
 msgstr "Дадаць даччыную старонку"
 
@@ -845,6 +835,9 @@ msgstr "Адмяніць дзеянне"
 
 msgid "Redo"
 msgstr "Абнавіць"
+
+msgid "Bold"
+msgstr "Тоўсты"
 
 msgid "Italic"
 msgstr "Нахільны"
@@ -928,10 +921,6 @@ msgstr "Чарнавік"
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Рэдагаваць '%(title)s'"
-
 msgid "Editing"
 msgstr "Рэдагаванне"
 
@@ -982,9 +971,6 @@ msgstr "Старонка '%(page_title)s' створана і апублікав
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Старонка '%(page_title)s' створана і адпраўлена на мадэрацыю."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Гэтая старонка не можа быць створана з-за памылак пры праверцы"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Старонка '%(page_title)s' выдаленая."
@@ -1005,12 +991,6 @@ msgstr "Старонка '%(page_title)s' апублікаваная."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Старонка '%(page_title)s' была адпраўлена на мадэрацыю."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Старонка не можа быць захавана, таму што заблакавана"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Старонка не можа быць захавана з-за памылак пры праверцы"
-
 msgid "Site"
 msgstr "Сайт"
 
@@ -1020,14 +1000,6 @@ msgstr "Так"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Старонка '%(page_title)s' адмыкнутая."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Слаг '%(page_slug)s' ужо выкарыстоўваецца ў абранай бацькоўскай старонцы. "
-"Пераканайцеся што слаг унікальны і паспрабуйце нанова"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1056,30 +1028,6 @@ msgstr "Адключан"
 msgid "Enable"
 msgstr "Уключан"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Прадпрагляд чарнавы версіі '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Паглядзець апублікаваную версію '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Перамясціць старонку '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Скапіраваць старонку '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Выдаліць старонку '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Выдаліць з публікацыі '%(title)s'"
-
 msgid "Heading 1"
 msgstr "Заголовак 1"
 
@@ -1106,9 +1054,6 @@ msgstr "Нумараваны спіс"
 
 msgid "Blockquote"
 msgstr "Цытата"
-
-msgid "Bold"
-msgstr "Тоўсты"
 
 msgid "Link"
 msgstr "Спасылка"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -85,15 +85,9 @@ msgstr "קדם תוצאת חיפוש"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "בחירת העורך עבור '%(query)s' נוצרה"
 
-msgid "Recommendations have not been created due to errors"
-msgstr "המלצות לא נשמרו בעקבות שגיאה"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "בחירת העורך עבור '%(query)s' עודכנה"
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "ההמלצות לא נשמרו עקב שגיאות"
 
 msgid "Editor's picks deleted."
 msgstr "בחירת העורך נמחקה"

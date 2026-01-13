@@ -5,6 +5,7 @@
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2018,2024
+# Jan Zelený <janzeleny@outlook.com>, 2025
 # Marek Turnovec <aesculap@gmail.com>, 2016,2020
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020
 # IT Management <hudan@itmanagement.cz>, 2018
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2024\n"
+"Last-Translator: Jan Zelený <janzeleny@outlook.com>, 2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,13 @@ msgstr ""
 
 msgid "default"
 msgstr "výchozí"
+
+msgid "Sites"
+msgstr "Weby"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "oprávnění pro %(model)s"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

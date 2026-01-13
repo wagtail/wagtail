@@ -3,7 +3,7 @@ from urllib.parse import quote, urlencode
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -15,6 +15,7 @@ from django.views.generic.base import View
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     ChecksSidePanel,
@@ -23,7 +24,7 @@ from wagtail.admin.ui.side_panels import (
     PreviewSidePanel,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request
-from wagtail.admin.views.generic import HookResponseMixin
+from wagtail.admin.views.generic import HookResponseMixin, JsonPostResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.models import (
     BaseViewRestriction,
@@ -70,7 +71,9 @@ def add_subpage(request, parent_page_id):
     )
 
 
-class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
+class CreateView(
+    WagtailAdminTemplateMixin, HookResponseMixin, JsonPostResponseMixin, View
+):
     template_name = "wagtailadmin/pages/create.html"
     page_title = gettext_lazy("New")
 
@@ -88,8 +91,8 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             self.page_content_type = ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name
             )
-        except ContentType.DoesNotExist:
-            raise Http404
+        except ContentType.DoesNotExist as e:
+            raise Http404 from e
 
         # Get class
         self.page_class = self.page_content_type.model_class()
@@ -109,7 +112,15 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             "before_create_page", self.request, self.parent_page, self.page_class
         )
         if response:
-            return response
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    _("Request to create %(model_name)s was blocked by hook.")
+                    % {"model_name": Page._meta.verbose_name},
+                )
+            else:
+                return response
 
         self.locale = self.parent_page.locale
         self.page = self.page_class(owner=self.request.user)
@@ -247,25 +258,38 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         self.set_default_privacy_setting()
 
         # Save revision
-        self.page.save_revision(user=self.request.user, log_action=True, clean=False)
+        revision = self.page.save_revision(
+            user=self.request.user, log_action=True, clean=False
+        )
 
         # Save subscription settings
         self.subscription.page = self.page
         self.subscription.save()
 
-        # Notification
-        messages.success(
-            self.request,
-            _("Page '%(page_title)s' created.")
-            % {"page_title": self.page.get_admin_display_title()},
-        )
+        if not self.expects_json_response:
+            # Notification
+            messages.success(
+                self.request,
+                _("Page '%(page_title)s' created.")
+                % {"page_title": self.page.get_admin_display_title()},
+            )
 
         response = self.run_hook("after_create_page", self.request, self.page)
         if response:
-            return response
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                pass
+            else:
+                return response
 
-        # remain on edit page for further edits
-        return self.redirect_and_remain()
+        if self.expects_json_response:
+            return JsonResponse(
+                {"success": True, "pk": self.page.pk, "revision_id": revision.pk}
+            )
+        else:
+            # remain on edit page for further edits
+            return self.redirect_and_remain()
 
     def publish_action(self):
         self.page = self.form.save(commit=False)
@@ -380,14 +404,20 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return redirect(target_url)
 
     def form_invalid(self, form):
-        messages.validation_error(
-            self.request,
-            _("The page could not be created due to validation errors"),
-            self.form,
-        )
-        self.has_unsaved_changes = True
+        if self.expects_json_response:
+            return self.json_error_response(
+                "validation_error",
+                _("The page could not be created due to validation errors."),
+            )
+        else:
+            messages.validation_error(
+                self.request,
+                _("The page could not be created due to validation errors."),
+                self.form,
+            )
+            self.has_unsaved_changes = True
 
-        return self.render_to_response(self.get_context_data())
+            return self.render_to_response(self.get_context_data())
 
     def get(self, request):
         init_new_page.send(sender=CreateView, page=self.page, parent=self.parent_page)
@@ -452,7 +482,12 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         )
         side_panels = self.get_side_panels()
 
-        media = MediaContainer([bound_panel, self.form, action_menu, side_panels]).media
+        js_context = JSContext()
+        edit_handler_data = js_context.pack(bound_panel)
+
+        media = MediaContainer(
+            [bound_panel, self.form, action_menu, side_panels, js_context]
+        ).media
 
         context.update(
             {
@@ -460,6 +495,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 "page_class": self.page_class,
                 "parent_page": self.parent_page,
                 "edit_handler": bound_panel,
+                "edit_handler_data": edit_handler_data,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
                 "form": self.form,

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -153,11 +153,6 @@ msgstr "画像"
 msgid "images"
 msgstr "画像"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s回使用"
-
 msgid "Yes, delete"
 msgstr "はい、削除します"
 
@@ -222,6 +217,11 @@ msgstr "ファイルは見つかりませんでした"
 
 msgid "Usage"
 msgstr "使用法"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s回使用"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -290,6 +290,12 @@ msgstr "タグ"
 
 msgid "Delete"
 msgstr "削除"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Created"
+msgstr "作成"
 
 msgid "Choose an image"
 msgstr "画像を選択"

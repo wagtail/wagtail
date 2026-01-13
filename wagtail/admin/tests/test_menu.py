@@ -411,11 +411,9 @@ class TestMenuRendering(WagtailTestUtils, TestCase):
             "important-pages-generic-setting",
             "redirects",
             "important-pages-site-setting",
-            "workflow-tasks",
             "promoted-search-results",
             "icon-generic-setting",
             "file-site-setting",
-            "workflows",
             "file-generic-setting",
         }
 

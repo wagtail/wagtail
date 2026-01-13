@@ -1,7 +1,7 @@
 import { Application } from '@hotwired/stimulus';
 import { BlockController } from './BlockController';
 
-const render = jest.fn();
+const render = jest.fn(() => ({ element: document.createElement('div') }));
 const unpack = jest.fn(() => ({ render }));
 window.telepath = { unpack };
 

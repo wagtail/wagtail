@@ -20,6 +20,7 @@
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Twixxik, 2025
 # Vassily <zuber.kg@gmail.com>, 2017
 # Vassily <zuber.kg@gmail.com>, 2017
 # Влад <integration.into.society@gmail.com>, 2022
@@ -32,9 +33,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:03+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Никита Викторович <hnknta@gmail.com>, 2014\n"
+"Last-Translator: Twixxik, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -168,6 +169,12 @@ msgstr "Удобная"
 #. between elements in the user interface
 msgid "density"
 msgstr "плотность"
+
+msgid "Keyboard shortcuts"
+msgstr "Горячие клавиши"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Включить пользовательские сочетания клавиш для Wagtail."
 
 msgid "user profile"
 msgstr "профиль пользователя"
@@ -335,9 +342,6 @@ msgstr ""
 "Группы еще не созданы. Почему бы не <a "
 "href=\"%(wagtailusers_create_group_url)s\">добавить</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Вы уверены, что хотите удалить этого пользователя?"
-
 msgid "Account"
 msgstr "Аккаунт"
 
@@ -468,9 +472,6 @@ msgstr "Администратор"
 
 msgid "Access level"
 msgstr "Уровень доступа"
-
-msgid "Status"
-msgstr "Статус"
 
 #, python-format
 msgid "More options for '%(title)s'"

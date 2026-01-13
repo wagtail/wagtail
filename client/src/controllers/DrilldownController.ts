@@ -1,5 +1,3 @@
-/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["hidden","textContent"] }] */
-
 import { Controller } from '@hotwired/stimulus';
 
 import type { ActionController } from './ActionController';

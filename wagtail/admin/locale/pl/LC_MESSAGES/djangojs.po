@@ -2,7 +2,7 @@
 # Translators:
 # Łukasz Bołdys (Lukasz Boldys), 2022
 # Loic Teixeira, 2024
-# Krzysztof Jeziorny <github@jeziorny.net>, 2024
+# Krzysztof Jeziorny <github@jeziorny.net>, 2025
 # Miłosz Miśkiewicz, 2025
 #
 msgid ""
@@ -135,6 +135,9 @@ msgstr "Brakujący dokument"
 msgid "More actions"
 msgstr "Więcej akcji"
 
+msgid "No"
+msgstr "Nie"
+
 msgid "No results"
 msgstr "Brak wyników"
 
@@ -227,6 +230,9 @@ msgstr "Minimalna ilość elementów to %(min_num)d"
 msgid "This field is required."
 msgstr "To pole jest wymagane."
 
+msgid "Toggle section"
+msgstr "Przełącz sekcję"
+
 msgid "Toggle side panel"
 msgstr "Rozszerzanie bocznego panelu"
 
@@ -244,3 +250,6 @@ msgstr "Wyświetl podstrony dla '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Wpisz coś lub naciśnij '/' by wstawić blok"
+
+msgid "Yes"
+msgstr "Tak"

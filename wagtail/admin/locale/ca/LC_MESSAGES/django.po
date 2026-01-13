@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -73,8 +73,8 @@ msgstr "Administració de Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "No teniu permís per accedir a aquesta àrea."
 
-msgid "You do not have permission to access the admin"
-msgstr "No teniu permís per accedir a la pàgina d'administració"
+msgid "You do not have permission to access the admin."
+msgstr "No teniu permisos per accedir a l'administració."
 
 msgid "None"
 msgstr "Cap"
@@ -85,11 +85,20 @@ msgstr "Data d'inici"
 msgid "Date to"
 msgstr "Data de fi"
 
+msgid "Minimum"
+msgstr "Mínim"
+
+msgid "Maximum"
+msgstr "Màxim"
+
 msgid "Locale"
 msgstr "Localització"
 
 msgid "All"
 msgstr "Tot"
+
+msgid "Usage count"
+msgstr "Recompte d'ús"
 
 msgid "Collection"
 msgstr "Col·lecció"
@@ -163,8 +172,8 @@ msgstr ""
 "Seleccioneu la posició jeràrquica. Nota: una col·lecció no pot ser filla "
 "d'ella mateixa o d'un dels seus descendents."
 
-msgid "Please select another parent"
-msgstr "Trieu un altre pare"
+msgid "Please select another parent."
+msgstr "Seleccioneu un altre pare."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -195,8 +204,8 @@ msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "La data/hora de pas a en viu ha de ser anterior a la data/hora de caducitat."
 
-msgid "Expiry date/time must be in the future"
-msgstr "La data/hora de caducitat ha d'estar en el futur"
+msgid "Expiry date/time must be in the future."
+msgstr "La data/hora d'expiració ha de ser en el futur."
 
 msgid "New title"
 msgstr "Nou títol"
@@ -263,8 +272,8 @@ msgstr ""
 "No podeu copiar una pàgina a ella mateixa quan esteu copiant subpàgines"
 
 #, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "El llimac '%(page_slug)s' ja està en ús a la pàgina principal"
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "L'àlies '%(page_slug)s' ja es utilitzat a la pàgina pare."
 
 msgid "Select a new parent for this page."
 msgstr "Seleccioneu un nou pare per aquesta pàgina."
@@ -290,9 +299,9 @@ msgid "Search…"
 msgstr "Cercar..."
 
 #, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
 msgstr ""
-"Etiqueta(es) %(value_too_long)s té/tenen més de %(max_tag_length)d caràcters"
+"L'etiqueta(es) %(value_too_long)s té més de %(max_tag_length)d caràcters."
 
 msgid "Visibility"
 msgstr "Visibilitat"
@@ -328,8 +337,8 @@ msgstr "Poseu-li un nom al fluxe de treball"
 msgid "Add tasks to your workflow"
 msgstr "Afegir tasques al fluxe de treball"
 
-msgid "Task"
-msgstr "Tasca"
+msgid "task"
+msgstr "tasca"
 
 msgid "1 page selected"
 msgstr "1 pàgina seleccionada"
@@ -513,6 +522,9 @@ msgstr "Pujar una imatge de perfil:"
 msgid "Sidebar"
 msgstr "Barra lateral"
 
+msgid "Go to the first error"
+msgstr "Anar al primer error"
+
 msgid "Go back"
 msgstr "Anar enrere"
 
@@ -635,9 +647,6 @@ msgstr "Aquesta col·lecció ha estat feta privada per una col·lecció pare."
 msgid "You can edit the privacy settings on:"
 msgstr "Podeu editar la configuració de privadesa a:"
 
-msgid "Save"
-msgstr "Desar"
-
 msgid "Change privacy"
 msgstr "Modificar la privacitat"
 
@@ -730,6 +739,8 @@ msgstr "Encara voleu publicar aquest/a %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancel·lar"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Accions"
 
@@ -857,6 +868,9 @@ msgstr "Tanca"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Les vostres pàgines i fragments en un fluxe de treball"
+
+msgid "Task"
+msgstr "Tasca"
 
 msgid "Task started"
 msgstr "La tasca s'ha iniciat"
@@ -1466,14 +1480,6 @@ msgstr[1] ""
 "S'esborraran també %(descendant_count)s pàgines filles més. Esborrar aquesta "
 "pàgines esborrarà també %(translation_count)s traduccions d'aquesta pàgina."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Aquesta acció esborrarà un total de <b>%(total_pages)s</b> pàgines."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Escriviu <b>%(wagtail_site_name)s</b> per confirmar."
-
 msgid "Yes, delete it"
 msgstr "Sí, eliminar-la"
 
@@ -1676,22 +1682,6 @@ msgstr "Explorar pàgines filles de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Afegeix una pàgina filla a '%(title)s'"
 
-msgid "Drag"
-msgstr "Agafa"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Element %(index)s de %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Desactiva l'ordenació de les pàgines fill"
-
-msgid "Sort"
-msgstr "Ordenació"
-
-msgid "Enable ordering of child pages"
-msgstr "Activa l'ordenació de les pàgines fill"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr "%(start_index)s-%(end_index)s de %(items_count)s a tot el lloc."
@@ -1773,6 +1763,9 @@ msgstr "Puja"
 
 msgid "Move down"
 msgstr "Baixa"
+
+msgid "Drag"
+msgstr "Agafa"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -1917,6 +1910,19 @@ msgstr "Commutar rutes de navegació"
 msgid "Breadcrumb"
 msgstr "Ruta de navegació"
 
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] ""
+"Aquesta acció suprimirà <b>%(total_pages_formatted)s</b> pàgina en total."
+msgstr[1] ""
+"Aquesta acció suprimirà <b>%(total_pages_formatted)s</b> pàgines en total."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Escriviu <b>%(wagtail_site_name)s</b> per confirmar."
+
 msgid "Close dialog"
 msgstr "Tancar el diàleg"
 
@@ -2007,8 +2013,19 @@ msgstr "Tornar"
 msgid "History"
 msgstr "Historial"
 
+msgid "account"
+msgstr "compte"
+
 msgid "Keyboard shortcuts"
 msgstr "Dreceres de teclat"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently disabled; manage your %(account_link)s to "
+"enable them."
+msgstr ""
+"Les dreceres de teclat estan desactivades; gestioneu el vostre "
+"%(account_link)s per activar-les."
 
 msgid "All keyboard shortcuts"
 msgstr "Totes les dreceres de teclat"
@@ -2018,6 +2035,14 @@ msgstr "Secció"
 
 msgid "Keyboard shortcut"
 msgstr "Drecera de teclat"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
+"disable them."
+msgstr ""
+"Les dreceres de teclat estan activades; gestioneu el vostre %(account_link)s "
+"per desactivar-les."
 
 msgid "Current page status:"
 msgstr "Estat de la pàgina actual:"
@@ -2053,6 +2078,9 @@ msgstr "No, no desprogramar"
 msgid "Other searches"
 msgstr "Altres cerques"
 
+msgid "Save"
+msgstr "Desar"
+
 msgid "Minimap"
 msgstr "Minimapa"
 
@@ -2076,6 +2104,46 @@ msgstr "Paraules"
 
 msgid "Reading time"
 msgstr "Temps de lectura"
+
+msgid "Readability"
+msgstr "Llegibilitat"
+
+msgid "This data explained"
+msgstr "Aquestes dades explicaven"
+
+msgid "How we calculate our metrics"
+msgstr "Com calculem les nostres mètriques"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Extraiem el contingut principal de la vista prèvia de la pàgina, eliminem "
+"tot el format i calculem el nombre de paraules."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Calculem el temps de lectura a partir del recompte de paraules, utilitzant "
+"diferents velocitats de lectura per a diferents idiomes."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Fem servir una fórmula de llegibilitat basada en la longitud de les paraules "
+"i les frases. Les frases i les paraules llargues donen lloc a una pitjor "
+"puntuació de llegibilitat."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Consulteu la nostra <a href=\"%(guide_link)s\" target=\"_blank\">guia de "
+"comprovació de contingut</a> sobre com es calculen les mètriques de "
+"contingut."
 
 msgid "Issues found"
 msgstr "Incidències trobades"
@@ -2295,6 +2363,19 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Saltar al contingut principal"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Element %(index)s de %(total)s"
+
+msgid "Disable custom ordering"
+msgstr "Desactivar l'ordenació personalitzada"
+
+msgid "Sort"
+msgstr "Ordenació"
+
+msgid "Enable custom ordering"
+msgstr "Activar l'ordenació personalitzada"
+
 msgid "View Wagtail quick actions"
 msgstr "Veure accions ràpides de Wagtail"
 
@@ -2448,11 +2529,13 @@ msgid "You haven't created any tasks."
 msgstr "No heu creat cap tasca."
 
 msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
 msgstr ""
-"En voleu <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>crear un ara</a>?"
+"Voleu <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">crear-ne un ara</a>?"
 
 #, python-format
 msgid ""
@@ -2536,8 +2619,33 @@ msgstr "Enviat a %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "Accions comunes"
+#. Translators: Shortcuts for admin common shortcuts that are available across
+#. the admin
+msgid "Application"
+msgstr "Aplicaciós"
+
+msgid "Show keyboard shortcuts"
+msgstr "Mostrar les dreceres de teclat"
+
+msgid "Toggle sidebar"
+msgstr "Commutar la barra lateral"
+
+msgid "Toggle minimap"
+msgstr "Commutar mini-mapa"
+
+msgid "Close modal dialogs (like this one)"
+msgstr "Tancar els diàlegs modals (com aquest)"
+
+msgid "Save changes"
+msgstr "Desar els canvis"
+
+msgid "Add or show comments"
+msgstr "Afegir o mostrar comentaris"
+
+#. Translators: Shortcuts for common text editing features available in all
+#. fields (even if not a rich text field)
+msgid "Text editing"
+msgstr "Edició de text"
 
 msgid "Cut"
 msgstr "Retallar"
@@ -2557,26 +2665,19 @@ msgstr "Desfés"
 msgid "Redo"
 msgstr "Refés"
 
-msgid "Save changes"
-msgstr "Desar els canvis"
-
-msgid "Add or show comments"
-msgstr "Afegir o mostrar comentaris"
-
-msgid "Text content"
-msgstr "Contingut de text"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Formatació del text"
 
 msgid "Insert or edit a link"
 msgstr "Inserir o editar un enllaç"
 
-msgid "Text formatting"
-msgstr "Formatació del text"
+msgid "Bold"
+msgstr "Negreta"
 
 msgid "Italic"
 msgstr "Cursiva"
-
-msgid "Underline"
-msgstr "Subratllat"
 
 msgid "Monospace (code)"
 msgstr "Monoespai (codi)"
@@ -2624,6 +2725,17 @@ msgstr "Ordenar per '%(label)s' en ordre ascencent."
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Ordenar per '%(label)s' en ordre descendent."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "S'ha mogut '%(page_title)s'."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Centreu-vos en el botó d'arrossegar i premeu les fletxes amunt o avall per "
+"moure l'element i, a continuació, premeu Intro per enviar el canvi."
 
 #, python-format
 msgid ""
@@ -2866,24 +2978,11 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Copiar '%(title)s'"
+msgid "Sort item order"
+msgstr "Ordenar els elements"
 
 msgid "Inspect"
 msgstr "Inspeccionar"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspeccionar '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Esborrar '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -3093,8 +3192,8 @@ msgstr "Pàgina '%(page_title)s' creada i publicada."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Pàgina '%(page_title)s' creada i enviada a moderació."
 
-msgid "The page could not be created due to validation errors"
-msgstr "No es pot crear la pàgina per causa d'errors de validació"
+msgid "The page could not be created due to validation errors."
+msgstr "No s'ha pogut crear la pàgina a causa d'errors de validació."
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -3156,11 +3255,11 @@ msgstr "La pàgina '%(page_title)s' ha estat enviada a moderació."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "S'ha reiniciat el fluxe de treball de la pàgina '%(page_title)s'."
 
-msgid "The page could not be saved as it is locked"
-msgstr "No s'ha pogut desar la pàgina donat que està bloquejada"
+msgid "The page could not be saved as it is locked."
+msgstr "No s'ha pogut desar la pàgina perquè està bloquejada."
 
-msgid "The page could not be saved due to validation errors"
-msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
+msgid "The page could not be saved due to validation errors."
+msgstr "No s'ha pogut desar la pàgina a causa d'errors de validació."
 
 msgid "Is commenting action"
 msgstr "Està comentant l'acció"
@@ -3192,17 +3291,6 @@ msgstr "Tipus de pàgina"
 msgid "Exploring"
 msgstr "Explorant"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Centreu-vos en el botó d'arrossegar i premeu les fletxes amunt o avall per "
-"moure l'element i, a continuació, premeu Intro per enviar el canvi."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "S'ha mogut '%(page_title)s'."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "La pàgina '%(page_title)s' ara està desbloquejada."
@@ -3210,10 +3298,10 @@ msgstr "La pàgina '%(page_title)s' ara està desbloquejada."
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
+"sure the slug is unique and try again."
 msgstr ""
-"El llimac '%(page_slug)s' ja està en ús en la pàgina pare seleccionada. "
-"Assegureu-vos que el llimac és unic i torneu-ho a provar"
+"L'àlies '%(page_slug)s' ja s'està utilitzant a la pàgina pare. Assegureu-vos "
+"que l'àlies sigui únic i torneu-ho a provar."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3415,40 +3503,8 @@ msgstr "S'ha activat la tasca %(task_name)s'."
 msgid "Choose another"
 msgstr "Triar un altre"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Previsualitzar versió d'esborrany de '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Visualitzar versió En viu de '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Moure la pàgina '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copiar la pàgina '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Esborrar la pàgina '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Anul·lar la publicació de la pàgina '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Veure l'historial de pàgina de '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Ordenar el menú"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Canviar l'ordre de les pàgines filles de '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Capçalera 1"
@@ -3476,9 +3532,6 @@ msgstr "Llista numerada"
 
 msgid "Blockquote"
 msgstr "Cita de bloc"
-
-msgid "Bold"
-msgstr "Negreta"
 
 msgid "Link"
 msgstr "Enllaç"

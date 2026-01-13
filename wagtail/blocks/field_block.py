@@ -13,6 +13,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import Adapter, register
 from wagtail.compat import URLField
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
@@ -22,7 +23,6 @@ from wagtail.rich_text import (
     extract_references_from_rich_text,
     get_text_for_indexing,
 )
-from wagtail.telepath import Adapter, register
 
 from .base import Block
 
@@ -121,6 +121,7 @@ class FieldBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": " ".join(classname),
+            "attrs": block.meta.form_attrs or {},
             "showAddCommentButton": getattr(
                 block.field.widget, "show_add_comment_button", True
             ),
@@ -230,6 +231,7 @@ class FloatBlock(FieldBlock):
     def __init__(
         self,
         required=True,
+        help_text=None,
         max_value=None,
         min_value=None,
         validators=(),
@@ -238,6 +240,7 @@ class FloatBlock(FieldBlock):
     ):
         self.field = forms.FloatField(
             required=required,
+            help_text=help_text,
             max_value=max_value,
             min_value=min_value,
             validators=validators,
@@ -770,7 +773,7 @@ class RawHTMLBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_default(self):
-        return self.normalize(self.meta.default or "")
+        return self.normalize(self._evaluate_callable(self.meta.default or ""))
 
     def to_python(self, value):
         return mark_safe(value)

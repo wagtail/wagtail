@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -120,15 +120,9 @@ msgstr "推廣搜索結果"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "為'%(query)s'的編輯精選已被創建。"
 
-msgid "Recommendations have not been created due to errors"
-msgstr "無法創建推薦，出現錯誤。"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "為'%(query)s'的編輯精選已被更新。"
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "無法儲存推薦，出現錯誤。"
 
 msgid "Editor's picks deleted."
 msgstr "編輯精選已被刪除。"

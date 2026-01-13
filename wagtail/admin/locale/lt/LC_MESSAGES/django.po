@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -47,9 +47,6 @@ msgstr "Wagtail administravimas"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."
-
-msgid "You do not have permission to access the admin"
-msgstr "Jūs neturite leidimo pasiekti administravimo sąsajos"
 
 msgid "None"
 msgstr "Joks"
@@ -152,9 +149,6 @@ msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Veikimo įjungimo data/laikas turi būti prieš galiojimo pabaigos datą/laiką"
 
-msgid "Expiry date/time must be in the future"
-msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
-
 msgid "New title"
 msgstr "Naujas pavadinimas"
 
@@ -238,9 +232,6 @@ msgstr "Prašome pasirinkti bent vieną grupę."
 
 msgid "All types"
 msgstr "Visi tipai"
-
-msgid "Task"
-msgstr "Užduotis"
 
 msgid "Content"
 msgstr "Turinys"
@@ -386,9 +377,6 @@ msgstr "Ši kolekcija buvo padaryta privačia pagal pirminę kolekciją."
 msgid "You can edit the privacy settings on:"
 msgstr "Jūs galite redaguoti privatumo nustatymus čia:"
 
-msgid "Save"
-msgstr "Išsaugoti"
-
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -431,6 +419,8 @@ msgstr "Ne, publikuoti"
 msgid "Cancel"
 msgstr "Atšaukti"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Veiksmai"
 
@@ -491,6 +481,9 @@ msgstr "Tinklalapio suvestinė"
 
 msgid "Close"
 msgstr "Uždaryti"
+
+msgid "Task"
+msgstr "Užduotis"
 
 msgid "Task started"
 msgstr "Užduotis pradėta"
@@ -703,15 +696,6 @@ msgstr "Naršyti vidinius '%(title)s' puslapius"
 msgid "Add a child page to '%(title)s'"
 msgstr "Pridėti vidinį puslapį į '%(title)s'"
 
-msgid "Drag"
-msgstr "Tempti"
-
-msgid "Disable ordering of child pages"
-msgstr "Išjungti vidinių puslapių rikiavimą"
-
-msgid "Enable ordering of child pages"
-msgstr "Įgalinti vidinių puslapių rikiavimą"
-
 msgid "Sites menu"
 msgstr "Tinklalapių meniu"
 
@@ -748,6 +732,9 @@ msgstr "Perkelti aukštyn"
 
 msgid "Move down"
 msgstr "Perkelti žemyn"
+
+msgid "Drag"
+msgstr "Tempti"
 
 msgid "Collection management permissions"
 msgstr "Kolekcijų valdymo leidimai"
@@ -846,6 +833,9 @@ msgstr "Ne, planuoti"
 msgid "Other searches"
 msgstr "Kitos paieškos"
 
+msgid "Save"
+msgstr "Išsaugoti"
+
 msgid "Comment notifications"
 msgstr "Komentarų pranešimai"
 
@@ -929,6 +919,9 @@ msgstr "Anuliuoti"
 
 msgid "Redo"
 msgstr "Atgrąžinti"
+
+msgid "Bold"
+msgstr "Stambus"
 
 msgid "Italic"
 msgstr "Pakreiptas"
@@ -1016,16 +1009,8 @@ msgstr "%(model_name)s '%(object)s' atnaujintas."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' sukurtas."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redaguoti '%(title)s'"
-
 msgid "Inspect"
 msgstr "Tikrinti"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Ištrinti '%(title)s'"
 
 msgid "Editing"
 msgstr "Redaguojama"
@@ -1082,9 +1067,6 @@ msgstr "Puslapis '%(page_title)s' sukurtas ir publikuotas."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Puslapis '%(page_title)s' sukurtas ir pateiktas moderavimui."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Puslapis '%(page_title)s' ištrintas."
@@ -1104,12 +1086,6 @@ msgstr "Puslapis '%(page_title)s' buvo publikuotas."
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Puslapis '%(page_title)s' buvo pateiktas moderavimui."
-
-msgid "The page could not be saved as it is locked"
-msgstr "Puslapis negalėjo būti išsaugotas nes yra užrakintas"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Puslapis negalėjo būti išsaugotas dėl validavimo klaidų"
 
 msgid "Site"
 msgstr "Tinklalapis"
@@ -1160,26 +1136,6 @@ msgstr "Išjungti"
 msgid "Enable"
 msgstr "Įjungti"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Peržiūrėti '%(title)s' juodraštį"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Perkelti puslapį '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopijuoti puslapį '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Ištrinti puslapį '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Nebepublikuoti '%(title)s' puslapio"
-
 msgid "Sort menu order"
 msgstr "Meniu rikiavimo tvarka"
 
@@ -1209,9 +1165,6 @@ msgstr "Numeruotas sąrašas"
 
 msgid "Blockquote"
 msgstr "Citata"
-
-msgid "Bold"
-msgstr "Stambus"
 
 msgid "Link"
 msgstr "Nuoroda"

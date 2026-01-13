@@ -9,7 +9,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.admin.telepath import Adapter, register
 
 from .base import (
     Block,
@@ -456,15 +456,8 @@ class ListBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "attrs": block.meta.form_attrs or {},
             "collapsed": block.meta.collapsed,
-            "strings": {
-                "MOVE_UP": _("Move up"),
-                "MOVE_DOWN": _("Move down"),
-                "DRAG": _("Drag"),
-                "DUPLICATE": _("Duplicate"),
-                "DELETE": _("Delete"),
-                "ADD": _("Add"),
-            },
         }
         help_text = getattr(block.meta, "help_text", None)
         if help_text:

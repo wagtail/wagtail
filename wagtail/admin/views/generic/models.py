@@ -8,7 +8,7 @@ from django.core.exceptions import (
 from django.db import models, transaction
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -38,6 +38,7 @@ from wagtail.admin.ui.tables import (
     TitleColumn,
     UpdatedAtColumn,
 )
+from wagtail.admin.ui.tables.orderable import OrderableTableMixin
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
@@ -50,10 +51,17 @@ from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
+from wagtail.models.orderable import set_max_order
 from wagtail.search.index import class_is_indexed
 
 from .base import BaseListingView, WagtailAdminTemplateMixin
-from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
+from .mixins import (
+    BeforeAfterHookMixin,
+    HookResponseMixin,
+    JsonPostResponseMixin,
+    LocaleMixin,
+    PanelMixin,
+)
 from .permissions import PermissionCheckedMixin
 
 
@@ -71,9 +79,11 @@ class IndexView(
     copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
+    reorder_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
     list_filter = None
     show_other_searches = False
+    sort_order_field = None
 
     @cached_property
     def is_searchable(self):
@@ -104,6 +114,24 @@ class IndexView(
             (WagtailFilterSet,),
             {"Meta": Meta},
         )
+
+    @cached_property
+    def table_class(self):
+        table_class = super().table_class
+        if self.show_ordering_column:
+            return type(
+                f"{self.model.__name__}Table",
+                (OrderableTableMixin, table_class),
+                {},
+            )
+        return table_class
+
+    def get_table_kwargs(self):
+        kwargs = super().get_table_kwargs()
+        if self.show_ordering_column:
+            kwargs["sort_order_field"] = self.sort_order_field
+            kwargs["reorder_url"] = self.get_reorder_url()
+        return kwargs
 
     def _annotate_queryset_updated_at(self, queryset):
         # Annotate the objects' updated_at, use _ prefix to avoid name collision
@@ -138,9 +166,11 @@ class IndexView(
         if has_updated_at_column:
             queryset = self._annotate_queryset_updated_at(queryset)
 
+        if self.show_ordering_column:
+            return queryset.order_by(self.sort_order_field)
         # Explicitly handle null values for the updated at column to ensure consistency
         # across database backends and match the behaviour in page explorer
-        if self.ordering == "_updated_at":
+        elif self.ordering == "_updated_at":
             return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
         elif self.ordering == "-_updated_at":
             return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
@@ -276,6 +306,10 @@ class IndexView(
         if self.delete_url_name and self.user_has_permission("delete"):
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
 
+    def get_reorder_url(self):
+        if self.reorder_url_name and self.user_has_permission("change"):
+            return reverse(self.reorder_url_name, args=(999999,))
+
     def get_add_url(self):
         if self.add_url_name and self.user_has_permission("add"):
             return self._set_locale_query_param(reverse(self.add_url_name))
@@ -298,6 +332,19 @@ class IndexView(
                     self.add_item_label,
                     url=self.add_url,
                     icon_name="plus",
+                )
+            )
+        return buttons
+
+    @cached_property
+    def header_more_buttons(self):
+        buttons = super().header_more_buttons
+        if self.get_reorder_url():
+            buttons.append(
+                Button(
+                    _("Sort item order"),
+                    url=self.index_url + f"?ordering={self.sort_order_field}",
+                    icon_name="list-ul",
                 )
             )
         return buttons
@@ -382,6 +429,26 @@ class IndexView(
             return self.model._meta.verbose_name_plural
         return None
 
+    @cached_property
+    def show_ordering_column(self):
+        return self.sort_order_field and (self.ordering == self.sort_order_field)
+
+    def get_paginate_by(self, queryset):
+        if self.show_ordering_column:
+            # Don't paginate if sorting by custom order - all items must be shown
+            # to allow drag-and-drop reordering
+            return None
+        return super().get_paginate_by(queryset)
+
+    def get_valid_orderings(self):
+        valid_orderings = super().get_valid_orderings()
+
+        if self.sort_order_field and not (self.is_searching or self.is_filtering):
+            # ordering by custom order is only available when not searching/filtering
+            valid_orderings.append(self.sort_order_field)
+
+        return valid_orderings
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -407,6 +474,7 @@ class CreateView(
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
+    JsonPostResponseMixin,
     BaseCreateView,
 ):
     model = None
@@ -424,10 +492,37 @@ class CreateView(
     submit_button_label = gettext_lazy("Create")
     submit_button_active_label = gettext_lazy("Creating…")
     actions = ["create"]
+    sort_order_field = None
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
+
+    def post(self, request, *args, **kwargs):
+        # BaseCreateView.post() would set self.object here, but some subclasses need
+        # to do that during setup() instead, so only do that if it hasn't already been set.
+        if not hasattr(self, "object"):
+            self.object = None
+
+        form = self.get_form()
+        if self.is_valid(form):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def is_valid(self, form):
+        """
+        Validate the form, setting the produced_error_message attribute if validation fails.
+
+        Subclasses that require extra validation conditions not handled by
+        form.is_valid() (such as formsets, or a locked status on the model) should
+        override this method.
+        """
+        result = form.is_valid()
+        if not result:
+            self.produced_error_code = "validation_error"
+            self.produced_error_message = self.get_error_message()
+        return result
 
     def get_action(self, request):
         for action in self.get_available_actions():
@@ -506,6 +601,9 @@ class CreateView(
         return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
+        """
+        Return the top-level error message to be shown when the form is invalid.
+        """
         if self.error_message is None:
             return None
         return capfirst(
@@ -575,19 +673,29 @@ class CreateView(
         and returns the new object. Override this to implement custom save logic.
         """
         instance = self.form.save()
+        # Apply max order number if the model uses custom ordering and the
+        # sort_order_field is not set.
+        if self.sort_order_field and getattr(instance, self.sort_order_field) is None:
+            set_max_order(instance, self.sort_order_field)
         log(instance=instance, action="wagtail.create", content_changed=True)
         return instance
 
+    def get_success_json(self):
+        return {"success": True, "pk": self.object.pk}
+
     def save_action(self):
-        success_message = self.get_success_message(self.object)
-        success_buttons = self.get_success_buttons()
-        if success_message is not None:
-            messages.success(
-                self.request,
-                success_message,
-                buttons=success_buttons,
-            )
-        return redirect(self.get_success_url())
+        if self.expects_json_response:
+            return JsonResponse(self.get_success_json())
+        else:
+            success_message = self.get_success_message(self.object)
+            success_buttons = self.get_success_buttons()
+            if success_message is not None:
+                messages.success(
+                    self.request,
+                    success_message,
+                    buttons=success_buttons,
+                )
+            return redirect(self.get_success_url())
 
     def form_valid(self, form):
         self.form = form
@@ -604,9 +712,15 @@ class CreateView(
 
     def form_invalid(self, form):
         self.form = form
-        error_message = self.get_error_message()
-        if error_message is not None:
-            messages.validation_error(self.request, error_message, form)
+
+        if self.expects_json_response:
+            return self.json_error_response(
+                getattr(self, "produced_error_code", "internal_error"),
+                self.produced_error_message or "",
+            )
+
+        if self.produced_error_message is not None:
+            messages.validation_error(self.request, self.produced_error_message, form)
         return super().form_invalid(form)
 
 
@@ -630,6 +744,7 @@ class EditView(
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
+    JsonPostResponseMixin,
     BaseUpdateView,
 ):
     model = None
@@ -655,6 +770,32 @@ class EditView(
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
+
+    def post(self, request, *args, **kwargs):
+        # BaseUpdateView.post() would set self.object here, but some subclasses need
+        # to do that during setup() instead, so only do that if it hasn't already been set.
+        if not hasattr(self, "object"):
+            self.object = self.get_object()
+
+        form = self.get_form()
+        if self.is_valid(form):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def is_valid(self, form):
+        """
+        Validate the form, setting the produced_error_message attribute if validation fails.
+
+        Subclasses that require extra validation conditions not handled by
+        form.is_valid() (such as formsets, or a locked status on the model) should
+        override this method.
+        """
+        result = form.is_valid()
+        if not result:
+            self.produced_error_code = "validation_error"
+            self.produced_error_message = self.get_error_message()
+        return result
 
     @cached_property
     def object_pk(self):
@@ -830,16 +971,22 @@ class EditView(
 
         return instance
 
+    def get_success_json(self):
+        return {"success": True, "pk": self.object.pk}
+
     def save_action(self):
-        success_message = self.get_success_message()
-        success_buttons = self.get_success_buttons()
-        if success_message is not None:
-            messages.success(
-                self.request,
-                success_message,
-                buttons=success_buttons,
-            )
-        return redirect(self.get_success_url())
+        if self.expects_json_response:
+            return JsonResponse(self.get_success_json())
+        else:
+            success_message = self.get_success_message()
+            success_buttons = self.get_success_buttons()
+            if success_message is not None:
+                messages.success(
+                    self.request,
+                    success_message,
+                    buttons=success_buttons,
+                )
+            return redirect(self.get_success_url())
 
     def get_success_message(self):
         if self.success_message is None:
@@ -856,6 +1003,9 @@ class EditView(
         return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
+        """
+        Return the top-level error message to be displayed when form validation fails.
+        """
         if self.error_message is None:
             return None
         return capfirst(
@@ -878,9 +1028,15 @@ class EditView(
 
     def form_invalid(self, form):
         self.form = form
-        error_message = self.get_error_message()
-        if error_message is not None:
-            messages.validation_error(self.request, error_message, form)
+
+        if self.expects_json_response:
+            return self.json_error_response(
+                getattr(self, "produced_error_code", "internal_error"),
+                self.produced_error_message or "",
+            )
+
+        if self.produced_error_message is not None:
+            messages.validation_error(self.request, self.produced_error_message, form)
         return super().form_invalid(form)
 
     @cached_property

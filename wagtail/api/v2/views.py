@@ -1,10 +1,12 @@
 from collections import OrderedDict
 
+from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import path, reverse
+from django.utils.functional import classproperty
 from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
@@ -35,7 +37,16 @@ from .utils import (
 
 
 class BaseAPIViewSet(GenericViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    @classproperty
+    def renderer_classes(cls):
+        renderers = [JSONRenderer]
+
+        # Only add BrowsableAPIRenderer if rest_framework is installed
+        # (which provides the necessary templates and static files)
+        if apps.is_installed("rest_framework"):
+            renderers.append(BrowsableAPIRenderer)
+
+        return renderers
 
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
@@ -98,8 +109,8 @@ class BaseAPIViewSet(GenericViewSet):
             if obj is None:
                 raise self.model.DoesNotExist
 
-        except self.model.DoesNotExist:
-            raise Http404("not found")
+        except self.model.DoesNotExist as e:
+            raise Http404("not found") from e
 
         # Generate redirect
         url = get_object_detail_url(
@@ -355,7 +366,7 @@ class BaseAPIViewSet(GenericViewSet):
             try:
                 fields_config = parse_fields_parameter(request.GET["fields"])
             except ValueError as e:
-                raise BadRequestError("fields error: %s" % str(e))
+                raise BadRequestError("fields error: %s" % str(e)) from e
         else:
             # Use default fields
             fields_config = []
@@ -538,10 +549,10 @@ class PagesAPIViewSet(BaseAPIViewSet):
                 }
             try:
                 site = Site.objects.get(**query)
-            except Site.MultipleObjectsReturned:
+            except Site.MultipleObjectsReturned as e:
                 raise BadRequestError(
                     "Your query returned multiple sites. Try adding a port number to your site filter."
-                )
+                ) from e
         else:
             # Otherwise, find the site from the request
             site = Site.find_for_request(self.request)
@@ -568,8 +579,8 @@ class PagesAPIViewSet(BaseAPIViewSet):
         try:
             models_type = request.GET.get("type", None)
             models = models_type and page_models_from_string(models_type) or []
-        except (LookupError, ValueError):
-            raise BadRequestError("type doesn't exist")
+        except (LookupError, ValueError) as e:
+            raise BadRequestError("type doesn't exist") from e
 
         if not models:
             if self.model == Page:

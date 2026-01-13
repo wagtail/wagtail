@@ -155,8 +155,15 @@ class MigrateStreamData(RunPython):
 
         updated_revisions_buffer = []
         for revision in revision_queryset.iterator(chunk_size=self.chunk_size):
+            try:
+                json_data = revision.content[self.field_name]
+            except KeyError:
+                # The requested field doesn't exist on this revision. The revision may
+                # have been created before the creation of the field. Don't process this
+                # revision.
+                continue
 
-            raw_data = json.loads(revision.content[self.field_name])
+            raw_data = json.loads(json_data)
             for operation, block_path_str in self.operations_and_block_paths:
                 try:
                     raw_data = utils.apply_changes_to_raw_data(

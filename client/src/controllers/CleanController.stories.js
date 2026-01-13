@@ -92,6 +92,23 @@ const Template = ({ debug = false }) => {
             </label>
           </div>
           <div className="w-m-4">
+            <label htmlFor="urlify-locale-uk">
+              <pre>urlify (with Ukrainian locale)</pre>
+              <input
+                id="urlify-locale-uk"
+                type="text"
+                data-controller="w-clean"
+                data-action="blur->w-clean#urlify"
+                data-w-clean-locale-value="uk-UK"
+                data-w-clean-trim-value
+              />
+              <p>Try `Георгій`, should be `heorhii`, not `georgij`.</p>
+              <output className="w-inline-flex w-items-center">
+                Source value: <pre>{sourceValues['urlify-locale-uk']}</pre>
+              </output>
+            </label>
+          </div>
+          <div className="w-m-4">
             <label htmlFor="urlify-unicode">
               <pre>urlify (allow unicode)</pre>
               <input
@@ -104,6 +121,26 @@ const Template = ({ debug = false }) => {
               />
               <output className="w-inline-flex w-items-center">
                 Source value: <pre>{sourceValues['urlify-unicode']}</pre>
+              </output>
+            </label>
+          </div>
+          <div className="w-m-4">
+            <label htmlFor="format-basic">
+              <pre>format (remove !, replace digits with #)</pre>
+              <input
+                id="format-basic"
+                type="text"
+                data-controller="w-clean"
+                data-action="blur->w-clean#format"
+                data-w-clean-allow-unicode-value
+                data-w-clean-formatters-value={JSON.stringify([
+                  /!/.source,
+                  [/\d/.source, '#'],
+                ])}
+                data-w-clean-trim-value
+              />
+              <output className="w-inline-flex w-items-center">
+                Source value: <pre>{sourceValues['format-basic']}</pre>
               </output>
             </label>
           </div>

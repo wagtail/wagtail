@@ -5,7 +5,7 @@
 # Translators:
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
-# Miłosz Miśkiewicz, 2016,2018
+# Miłosz Miśkiewicz, 2016,2018,2023
 # Miłosz Miśkiewicz, 2018,2023
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2018,2023\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,3 @@ msgstr ""
 
 msgid "Wagtail search"
 msgstr "Wyszukiwarka Wagtail"
-
-msgid "index entry"
-msgstr "wpis indeksu"
-
-msgid "index entries"
-msgstr "wpisy indeksu"

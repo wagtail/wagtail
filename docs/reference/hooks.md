@@ -464,10 +464,6 @@ def user_listing_external_profile(user, request_user):
 The `wagtail.users.widgets.UserListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
 ```
 
-```{versionadded} 7.0
-The `wagtail.admin.widgets.ListingButton` class can be used to add buttons to the top-level menu in the users listing.
-```
-
 (filter_form_submissions_for_user)=
 
 ### `filter_form_submissions_for_user`
@@ -686,6 +682,8 @@ def before_create_page(request, parent_page, page_class):
 
 Do something after a `Page` object is deleted. Uses the same behavior as `after_create_page`.
 
+This hook runs only when deleting a page through the deletion view at `/admin/pages/<id>/delete/`. It will not run when deleting pages through other routes, such as bulk actions (see [](after_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page deletion, regardless of how the deletion was performed, it may be more appropriate to use Django's [post_delete](https://docs.djangoproject.com/en/stable/ref/signals/#post-delete) signal.
+
 (before_delete_page)=
 
 ### `before_delete_page`
@@ -713,6 +711,8 @@ def before_delete_page(request, page):
         return redirect('wagtailadmin_pages:delete', page.pk)
 ```
 
+This hook runs only when deleting a page through the deletion view at `/admin/pages/<id>/delete/`. It will not run when deleting pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page deletion, regardless of how the deletion was performed, it may be more appropriate to use Django's [pre_delete](https://docs.djangoproject.com/en/stable/ref/signals/#pre-delete) signal.
+
 (after_edit_page)=
 
 ### `after_edit_page`
@@ -735,6 +735,8 @@ Do something with a `Page` object after it has been published via page create vi
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
+This hook runs only when publishing via the page create view or the page edit view. It will not run when publishing pages through other routes, such as bulk actions (see [](after_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page published, regardless of how the publication was performed, it may be more appropriate to use Django's [post_save](https://docs.djangoproject.com/en/stable/ref/signals/#post-save) signal.
+
 (before_publish_page)=
 
 ### `before_publish_page`
@@ -742,6 +744,8 @@ The function does not have to return anything, but if an object with a `status_c
 Do something with a `Page` object before it has been published via page create view or page edit view.
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+This hook runs only when publishing via the page create view or the page edit view. It will not run when publishing pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page published, regardless of how the publication was performed, it may be more appropriate to use Django's [pre_save](https://docs.djangoproject.com/en/stable/ref/signals/#pre-save) signal.
 
 (after_unpublish_page)=
 
@@ -751,6 +755,8 @@ Called after unpublish action in "unpublish" view passing in the request and the
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
+This hook runs only while unpublishing through the “unpublish” view. It will not run when unpublishing pages through other routes, such as bulk actions (see [](after_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any unpublish, regardless of how it was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/stable/ref/signals/#signals).
+
 (before_unpublish_page)=
 
 ### `before_unpublish_page`
@@ -758,6 +764,8 @@ The function does not have to return anything, but if an object with a `status_c
 Called before unpublish action in "unpublish" view passing in the request and the page object.
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+This hook runs only while unpublishing through the “unpublish” view. It will not run when unpublishing pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any unpublish, regardless of how it was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/stable/ref/signals/#signals).
 
 (after_copy_page)=
 
@@ -779,6 +787,8 @@ Uses the same behavior as `before_create_page`.
 
 Do something with a `Page` object after it has been moved passing in the request and page object. Uses the same behavior as `after_create_page`.
 
+This hook runs only when a page is moved through the “move page” view. It will not run when moving pages through other routes, such as bulk actions (see [](after_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page move, regardless of how it was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/stable/ref/signals/#signals).
+
 (before_move_page)=
 
 ### `before_move_page`
@@ -786,6 +796,8 @@ Do something with a `Page` object after it has been moved passing in the request
 Called at the beginning of the "move page" view passing in the request, the page object, and the destination page object.
 
 Uses the same behavior as `before_create_page`.
+
+This hook runs only at the beginning of the the “move page” view. It will not run when moving pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page move, regardless of how it was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/stable/ref/signals/#signals).
 
 (before_convert_alias_page)=
 
@@ -887,7 +899,7 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the user bar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
 
 ```python
 from wagtail import hooks
@@ -899,7 +911,7 @@ class UserbarPuppyLinkItem:
 
 @hooks.register('construct_wagtail_userbar')
 def add_puppy_link_item(request, items, page):
-    return items.append( UserbarPuppyLinkItem() )
+    items.append(UserbarPuppyLinkItem())
 ```
 
 If you intend to use icons in your actions, you'll have to declare them by overriding the [userbar template](custom_icons_userbar).
@@ -1417,10 +1429,6 @@ The `priority` argument controls the order the buttons are displayed in. Buttons
 The `wagtail.snippets.widgets.SnippetListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
 ```
 
-```{versionadded} 7.0
-The `wagtail.admin.widgets.ListingButton` class can be used to add buttons to the top-level menu in the snippets listing.
-```
-
 (construct_snippet_listing_buttons)=
 
 ### `construct_snippet_listing_buttons`
@@ -1431,6 +1439,43 @@ Modify the final list of snippet listing buttons in the "More" dropdown menu. Th
 @hooks.register('construct_snippet_listing_buttons')
 def remove_snippet_listing_button_item(buttons, snippet, user):
     buttons.pop()  # Removes the 'delete' button
+```
+
+## Settings
+
+Hooks for working with registered [Settings](./contrib/settings).
+
+(after_edit_setting)=
+
+### `after_edit_setting`
+
+Called when a Setting is edited. The callable passed into the hook will receive the model instance, the request object. If the callable returns an `HttpResponse`, that response will be returned immediately to the user, and Wagtail will not proceed to call `redirect()` to the listing view.
+
+```python
+from django.http import HttpResponse
+
+from wagtail import hooks
+
+@hooks.register('after_edit_setting')
+def after_setting_update(request, instance):
+    return HttpResponse(f"Congrats on editing a setting with id {instance.pk}", content_type="text/plain")
+```
+
+(before_edit_setting)=
+
+### `before_edit_setting`
+
+Called at the beginning of the edit setting view. The callable passed into the hook will receive the model instance, the request object. If the callable returns an `HttpResponse`, that response will be returned immediately to the user, and Wagtail will not proceed to call `redirect()` to the listing view.
+
+```python
+from django.http import HttpResponse
+
+from wagtail import hooks
+
+@hooks.register('before_edit_setting')
+def block_setting_edit(request, instance):
+    if isinstance(instance, RestrictedSetting) and instance.prevent_edit:
+        return HttpResponse("Sorry, you can't edit this setting", content_type="text/plain")
 ```
 
 ## Bulk actions

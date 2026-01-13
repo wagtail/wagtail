@@ -1,5 +1,3 @@
-/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["hidden"] }] */
-
 import { Controller } from '@hotwired/stimulus';
 
 enum RevealState {
@@ -63,9 +61,9 @@ export class RevealController extends Controller<HTMLElement> {
   declare readonly contentTargets: HTMLElement[];
   /** Global selector string to be used to determine the container to add the mouseleave listener to. */
   declare readonly peekTargetValue: string;
-  /**  Local storage key to be used to backup the open state of this controller, this can be unique or shared across multiple controllers, it uses the controller identifier for the base.If not provided, the controller will not attempt to store the state to local storage. */
+  /** Local storage key to be used to backup the open state of this controller, this can be unique or shared across multiple controllers, it uses the controller identifier for the base.If not provided, the controller will not attempt to store the state to local storage. */
   declare readonly storageKeyValue: string;
-  /**  Toggle button element(s) to have their classes and aria attributes updated. */
+  /** Toggle button element(s) to have their classes and aria attributes updated. */
   declare readonly toggleTargets: HTMLButtonElement[];
 
   cleanUpPeekListener?: () => void;
@@ -116,9 +114,7 @@ export class RevealController extends Controller<HTMLElement> {
     }).then(() => {
       this.dispatch('ready', {
         cancelable: false,
-        detail: {
-          closed: this.closedValue,
-        },
+        detail: { closed: this.closedValue },
       });
     });
   }
@@ -174,9 +170,7 @@ export class RevealController extends Controller<HTMLElement> {
     toggles.forEach((target) => {
       this.dispatch('toggled', {
         cancelable: false,
-        detail: {
-          closed: shouldClose,
-        },
+        detail: { closed: shouldClose },
         target,
       });
     });

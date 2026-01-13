@@ -13,8 +13,10 @@ from wagtail.admin.panels import (
     ObjectList,
     extract_panel_definitions_from_model_class,
 )
+from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.views import generic
-from wagtail.models import Site
+from wagtail.admin.views.generic import preview
+from wagtail.models import PreviewableMixin, Site
 
 from .forms import SiteSwitchForm
 from .models import BaseGenericSetting, BaseSiteSetting
@@ -99,6 +101,7 @@ def redirect_to_relevant_instance(request, app_name, model_name):
 class EditView(generic.EditView):
     template_name = "wagtailsettings/edit.html"
     edit_url_name = "wagtailsettings:edit"
+    preview_url_name = "wagtailsettings:preview_on_edit"
     error_message = gettext_lazy("The setting could not be saved due to errors.")
     permission_required = "change"
 
@@ -109,6 +112,13 @@ class EditView(generic.EditView):
         self.permission_policy = self.model.get_permission_policy()
         self.pk = kwargs.get(self.pk_url_kwarg)
         super().setup(request, app_name, model_name, *args, **kwargs)
+        self.object = self.get_object()
+
+    def run_before_hook(self):
+        return self.run_hook("before_edit_setting", self.request, self.object)
+
+    def run_after_hook(self):
+        return self.run_hook("after_edit_setting", self.request, self.object)
 
     def get_header_icon(self):
         return registry._model_icons.get(self.model)
@@ -172,3 +182,42 @@ class EditView(generic.EditView):
             _("%(setting_type)s updated.")
             % {"setting_type": self.model._meta.verbose_name}
         )
+
+    def get_preview_url(self):
+        if isinstance(self.object, PreviewableMixin) and self.object.is_previewable():
+            return reverse(
+                self.preview_url_name,
+                args=(self.app_name, self.model_name, self.pk),
+            )
+
+    def get_side_panels(self):
+        side_panels = super().get_side_panels()
+        if preview_url := self.get_preview_url():
+            side_panels.append(
+                PreviewSidePanel(self.object, self.request, preview_url=preview_url)
+            )
+            side_panels.append(ChecksSidePanel(self.object, self.request))
+        return side_panels
+
+
+class PreviewOnEdit(preview.PreviewOnEdit):
+    def setup(self, request, app_name, model_name, *args, **kwargs):
+        self.app_name = app_name
+        self.model_name = model_name
+        self.model = get_model_from_url_params(app_name, model_name)
+        self.pk = kwargs.get("pk")
+        super().setup(request, app_name, model_name, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        self.site = None
+        if issubclass(self.model, BaseSiteSetting):
+            self.site = get_object_or_404(Site, pk=self.pk)
+            return self.model.for_site(self.site)
+        else:
+            return get_object_or_404(self.model, pk=self.pk)
+
+    def get_extra_request_attrs(self):
+        attrs = super().get_extra_request_attrs()
+        # Inject current instance into request so the context processor uses it
+        attrs[self.object.get_cache_attr_name()] = self.object
+        return attrs

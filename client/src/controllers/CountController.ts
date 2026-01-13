@@ -1,7 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 import { ngettext } from '../utils/gettext';
 
-const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
+const DEFAULT_ERROR_SELECTOR =
+  ':not([hidden]):is(.error-message,.help-critical)';
 
 /**
  * Adds the ability for a controlled element to update the total count
@@ -11,6 +12,14 @@ const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
  * @example
  * ```html
  * <div data-controller="w-count">
+ *   <span data-w-count-target="label"></span>
+ *   <span class="error-message">An error</span>
+ * </div>
+ * ```
+ *
+ * @example add class when count of `.item` in `.items` is above 3
+ * ```html
+ * <div data-controller="w-count" data-w-count-active-class="is-active" data-w-count-find-value=".items .item" data-w-count-min-value="3">
  *   <span data-w-count-target="label"></span>
  *   <span class="error-message">An error</span>
  * </div>

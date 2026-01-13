@@ -31,6 +31,8 @@ describe('CountController', () => {
       document.getElementById('items').innerHTML = `
       <li class="error-message"></li>
       <li class="help-critical"></li>
+      <li class="error-message" hidden></li>
+      <li class="help-critical" hidden></li>
       <li class="error-message"></li>`;
 
       document.dispatchEvent(new CustomEvent('recount'));

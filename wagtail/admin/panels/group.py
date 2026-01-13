@@ -1,6 +1,8 @@
 from django.forms import Media
 from django.utils.functional import cached_property
 
+from wagtail.admin.telepath import register as register_telepath_adapter
+
 from .base import Panel
 
 
@@ -97,6 +99,7 @@ class PanelGroup(Panel):
 
         return result
 
+    @register_telepath_adapter
     class BoundPanel(Panel.BoundPanel):
         @cached_property
         def children(self):
@@ -156,8 +159,21 @@ class PanelGroup(Panel):
 
             return comparators
 
+        telepath_adapter_name = "wagtail.panels.PanelGroup"
+
+        def js_opts(self):
+            opts = super().js_opts()
+            opts["children"] = self.visible_children
+            return opts
+
 
 class TabbedInterface(PanelGroup):
+    BASE_ATTRS = {
+        "data-controller": "w-tabs",
+        "data-action": "popstate@window->w-tabs#select",
+        "data-w-tabs-use-location-value": "true",
+    }
+
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/tabbed_interface.html"
 

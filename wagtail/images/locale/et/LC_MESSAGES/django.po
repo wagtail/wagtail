@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -149,12 +149,6 @@ msgstr "pilt"
 msgid "images"
 msgstr "pilte"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Kasutatud %(usage_count)s korda"
-msgstr[1] "Kasutatud %(usage_count)s korda"
-
 msgid "Yes, delete"
 msgstr "Jah, kustuta"
 
@@ -226,6 +220,12 @@ msgid "Usage"
 msgstr "Kasutamine"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
+
+#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Vabandust, ükski pilt ei vasta \"<em>%(query_string)s</em>\" päringule"
 
@@ -289,6 +289,12 @@ msgstr "Lisage pildiluba"
 
 msgid "Delete"
 msgstr "Kustuta"
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "Created"
+msgstr "Loodud"
 
 msgid "Choose an image"
 msgstr "Valige pilt"

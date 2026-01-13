@@ -5,7 +5,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRel
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, models
-from django.db.models.functions import Cast
+from django.db.models import CharField, Count, OuterRef, Subquery
+from django.db.models.functions import Cast, Coalesce
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
@@ -203,6 +204,16 @@ class ReferenceIndex(models.Model):
                 "to_object_id",
                 "content_path_hash",
             )
+        ]
+        indexes = [
+            models.Index(
+                name="referenceindex_source_object",
+                fields=["base_content_type", "object_id"],
+            ),
+            models.Index(
+                name="referenceindex_target_object",
+                fields=["to_content_type", "to_object_id"],
+            ),
         ]
 
     @classmethod
@@ -621,6 +632,22 @@ class ReferenceIndex(models.Model):
         return cls.objects.filter(condition)
 
     @classmethod
+    def get_count_references_to_in_bulk(cls, objects):
+        references = cls.get_references_to_in_bulk(objects)
+        qs = references.values("to_content_type", "to_object_id").annotate(
+            count=Count("pk")
+        )
+        counts = {}
+        for entry in qs:
+            counts[(entry["to_content_type"], entry["to_object_id"])] = entry["count"]
+        return {
+            object: counts.get(
+                (cls._get_base_content_type(object).pk, str(object.pk)), 0
+            )
+            for object in objects
+        }
+
+    @classmethod
     def get_grouped_references_to(cls, object):
         """
         Returns all inbound references for the given object, grouped by the object
@@ -655,6 +682,23 @@ class ReferenceIndex(models.Model):
             )
             for object in objects
         }
+
+    @classmethod
+    def usage_count_subquery(cls, model):
+        return Coalesce(
+            Subquery(
+                ReferenceIndex.objects.filter(
+                    to_content_type=ContentType.objects.get_for_model(model),
+                    to_object_id=Cast(OuterRef("pk"), output_field=CharField()),
+                )
+                .values("object_id", "to_object_id")
+                .distinct()
+                .values("to_object_id")
+                .annotate(count=Count("object_id", distinct=True))
+                .values("count")
+            ),
+            0,
+        )
 
     @property
     def _content_type(self):

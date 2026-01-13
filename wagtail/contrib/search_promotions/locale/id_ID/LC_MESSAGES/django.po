@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -128,15 +128,9 @@ msgstr "Hasil pencarian terpromosi"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Pilihan editor untuk '%(query)s' telah dibuat."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Rekomendasi tidak dapat dibuat karena suatu kesalahan."
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Pilihan editor untuk '%(query)s' telah diperbarui."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Rekomendasi tidak dapat disimpan karena suatu kesalahan."
 
 msgid "Editor's picks deleted."
 msgstr "Pilihan editor dihapus."

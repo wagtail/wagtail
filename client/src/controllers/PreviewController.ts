@@ -7,10 +7,16 @@ import {
   getA11yReport,
   renderA11yResults,
   WagtailAxeConfiguration,
+  addCustomChecks,
 } from '../includes/a11y-result';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import {
-  getPreviewContentMetrics,
+  ContentExtractorOptions,
+  getPreviewContent,
+  getReadingTime,
+  getLIXScore,
+  getReadabilityScore,
+  getWordCount,
   renderContentMetrics,
 } from '../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
@@ -18,6 +24,7 @@ import { debounce, DebouncedFunction } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
 import type { ProgressController } from './ProgressController';
 import { setOptionalInterval } from '../utils/interval';
+import { GetScrollPosition, getWagtailMessage } from '../utils/message';
 
 interface PreviewDataResponse {
   is_valid: boolean;
@@ -37,6 +44,7 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  * @fires PreviewController#error - When an error occurs while updating the preview data.
  * @fires PreviewController#load - Before reloading the preview iframe. Cancelable.
  * @fires PreviewController#loaded - After the preview iframe has been reloaded.
+ * @fires PreviewController#content - When the content of the preview iframe is extracted to be analyzed.
  * @fires PreviewController#ready - When the preview is ready for further updates – only fired on initial load.
  * @fires PreviewController#updated - After an update cycle is finished – may or may not involve reloading the iframe.
  *
@@ -47,13 +55,13 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  *
  * @event PreviewController#json
  * @type {CustomEvent}
- * @property {Object} detail
+ * @property {object} detail
  * @property {PreviewDataResponse} detail.data - The response data that indicates whether the submitted data was valid and whether the preview is available.
  * @property {string} name - `w-preview:json`
  *
  * @event PreviewController#error
  * @type {CustomEvent}
- * @property {Object} detail
+ * @property {object} detail
  * @property {Error} detail.error - The error object that was thrown.
  * @property {string} name - `w-preview:error`
  *
@@ -65,6 +73,13 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  * @event PreviewController#loaded
  * @type {CustomEvent}
  * @property {string} name - `w-preview:loaded`
+ *
+ * @event PreviewController#content
+ * @type {CustomEvent}
+ * @property {string} name - `w-preview:content`
+ * @property {object} detail
+ * @property {ExtractedContent} detail.content - The extracted content from the preview iframe.
+ * @property {ContentMetrics} detail.metrics - The calculated metrics of the preview content.
  *
  * @event PreviewController#ready
  * @type {CustomEvent}
@@ -96,6 +111,13 @@ export class PreviewController extends Controller<HTMLElement> {
   /** The device size width to use when the preview is not available. */
   static fallbackWidth = PREVIEW_UNAVAILABLE_WIDTH.toString();
 
+  /**
+   * The time tolerance between the iframe's `load` event and the scroll
+   * restoration completion, which may not be instantaneous for cross-domain
+   * preview iframes.
+   */
+  static scrollRestoreTimeout = 10_000; // 10 seconds
+
   // Classes
 
   /** CSS class to indicate that there are errors in the form. */
@@ -109,9 +131,11 @@ export class PreviewController extends Controller<HTMLElement> {
 
   /** The main preview `<iframe>` that is currently displayed. */
   declare readonly iframeTarget: HTMLIFrameElement;
-  /** All preview `<iframes>` that are currently in the DOM.
+  /**
+   * All preview `<iframe>`s that are currently in the DOM.
    * This contains the currently displayed `<iframe>` and may also contain
-   * the new `<iframe>` that will replace the current one. */
+   * the new `<iframe>` that will replace the current one.
+   */
   declare readonly iframeTargets: HTMLIFrameElement[];
   /** Preview mode `<select>` element. */
   declare readonly modeTarget: HTMLSelectElement;
@@ -127,8 +151,10 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Values
 
-  /** Interval in milliseconds when the form is checked for changes.
-   * Also used as the debounce duration for the update request. */
+  /**
+   * Interval in milliseconds when the form is checked for changes.
+   * Also used as the debounce duration for the update request.
+   */
   declare readonly autoUpdateIntervalValue: number;
   /** Key for storing the last selected device size in localStorage. */
   declare readonly deviceLocalStorageKeyValue: string;
@@ -136,8 +162,10 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly deviceWidthPropertyValue: string;
   /** CSS property for the current width of the panel, to maintain the device scaling. */
   declare readonly panelWidthPropertyValue: string;
-  /** URL for rendering the preview, defaults to `urlValue`.
-   * Useful for headless setups where the front-end may be hosted at a different URL. */
+  /**
+   * URL for rendering the preview, defaults to `urlValue`.
+   * Useful for headless setups where the front-end may be hosted at a different URL.
+   */
   declare renderUrlValue: string;
   /** URL for updating the preview data. Also used for rendering the preview if `renderUrlValue` is unset. */
   declare readonly urlValue: string;
@@ -154,6 +182,8 @@ export class PreviewController extends Controller<HTMLElement> {
   declare a11yRowTemplate: HTMLTemplateElement | null;
   /** Configuration for Axe. */
   declare axeConfig: WagtailAxeConfiguration | null;
+  /** Configuration for Wagtail's Axe content extractor plugin instance. */
+  declare contentExtractorOptions: ContentExtractorOptions;
   /** Container for rendering content checks results. */
   declare checksPanel: HTMLElement | null;
   /** Content checks counter inside the checks panel. */
@@ -166,10 +196,13 @@ export class PreviewController extends Controller<HTMLElement> {
   declare contentChecksEnabled: boolean;
   /** Main editor form. */
   declare editForm: HTMLFormElement;
-  /** ResizeObserver to observe when the panel is resized
-   * so we can maintain the device size scaling. */
+  /**
+   * ResizeObserver to observe when the panel is resized
+   * so we can maintain the device size scaling.
+   */
   declare resizeObserver: ResizeObserver;
-  /** Side panel element of the preview panel, i.e. the element with the
+  /**
+   * Side panel element of the preview panel, i.e. the element with the
    * `data-side-panel` attribute. Useful for listening to show/hide events.
    * Normally, this is the parent element of the controller element.
    */
@@ -177,9 +210,12 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set here
 
-  /** Whether the preview is ready for further updates.
+  /**
+   * Whether the preview is ready for further updates.
    *
+   * @remarks
    * The preview data is stored in the session, which means:
+   *
    * - After logging out and logging back in, the session is cleared, so the
    *   client must send the preview data on initial editor load in order for
    *   Wagtail to render the preview.
@@ -215,7 +251,8 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   ready = false;
 
-  /** Whether the preview is currently available. This is used to distinguish
+  /**
+   * Whether the preview is currently available. This is used to distinguish
    * whether we are rendering a preview or the "Preview is not available"
    * screen. So even if the preview is currently outdated, this is still `true`
    * as long as the preview data is available and the preview is rendered (e.g.
@@ -223,7 +260,8 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   available = true;
 
-  /** Serialized form payload to be compared in between intervals to determine
+  /**
+   * Serialized form payload to be compared in between intervals to determine
    * whether an update should be performed. Note that we currently do not handle
    * file inputs.
    */
@@ -235,13 +273,24 @@ export class PreviewController extends Controller<HTMLElement> {
   /** Interval for the auto-update. */
   updateInterval: ReturnType<typeof setOptionalInterval> = null;
 
-  /** Promise for the current update request. This is resolved as soon as the
+  /**
+   * Promise for the current update request. This is resolved as soon as the
    * update request is successful, so the preview iframe may not have been
    * fully reloaded.
    */
   updatePromise: Promise<boolean> | null = null;
 
-  /** Promise for the current content checks request. This resolved when both
+  /**
+   * Promise for the current iframe reload. This is resolved when the new
+   * iframe's `load` event is fired and the scroll position has been restored.
+   */
+  reloadPromise: Promise<void> | null = null;
+
+  /** Resolver function for the current iframe reload promise. */
+  #reloadPromiseResolve: (() => void) | null = null;
+
+  /**
+   * Promise for the current content checks request. This resolved when both
    * the content checks and the accessibility checks are completed. Useful for
    * queueing the checks, as Axe does not allow concurrent runs.
    */
@@ -346,6 +395,11 @@ export class PreviewController extends Controller<HTMLElement> {
       } as ContextObject['exclude'];
     }
 
+    this.contentExtractorOptions = {
+      targetElement: 'main, [role="main"]',
+    };
+
+    axe.configure(addCustomChecks(this.axeConfig.spec));
     axe.registerPlugin(wagtailPreviewPlugin);
 
     this.checksSidePanel.addEventListener('show', this.activatePreview);
@@ -389,7 +443,7 @@ export class PreviewController extends Controller<HTMLElement> {
     try {
       lastDevice = localStorage.getItem(this.deviceLocalStorageKeyValue);
     } catch (e) {
-      // Initialise with the default device if the last one cannot be restored.
+      // Initialize with the default device if the last one cannot be restored.
     }
     const lastDeviceInput =
       this.sizeTargets.find((input) => input.value === lastDevice) ||
@@ -680,6 +734,10 @@ export class PreviewController extends Controller<HTMLElement> {
    * iframe from flashing when reloading.
    */
   reloadIframe() {
+    this.reloadPromise = new Promise<void>((resolve) => {
+      this.#reloadPromiseResolve = resolve;
+    });
+
     const loadEvent = this.dispatch('load');
     if (loadEvent.defaultPrevented) {
       // The load event is cancelled, so don't reload the iframe
@@ -712,7 +770,7 @@ export class PreviewController extends Controller<HTMLElement> {
    * Replaces the old iframe with the new iframe.
    * @param event The `load` event from the new iframe
    */
-  replaceIframe(event: Event) {
+  async replaceIframe(event: Event) {
     const id = this.iframeTarget.id;
     const newIframe = event.target as HTMLIFrameElement;
 
@@ -721,19 +779,8 @@ export class PreviewController extends Controller<HTMLElement> {
     // not run the replacement logic in this case.
     if (!newIframe.src) return;
 
-    // Restore scroll position with instant scroll to avoid flickering if the
-    // previewed page has scroll-behavior: smooth.
-    try {
-      newIframe.contentWindow?.scroll({
-        top: this.iframeTarget.contentWindow?.scrollY as number,
-        left: this.iframeTarget.contentWindow?.scrollX as number,
-        behavior: 'instant',
-      });
-    } catch {
-      // The iframe is likely cross-domain, e.g. in a headless setup, in which
-      // case we cannot call `scroll()` directly. Continue without restoring the
-      // scroll position.
-    }
+    // On subsequent loads, restore the scroll position from the old iframe
+    if (this.ready) await this.restoreScrollPosition(newIframe);
 
     // Remove any other existing iframes. Normally there are two iframes at this
     // point, the old one and the new one. However, the `load` event may be fired
@@ -751,18 +798,111 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.dispatch('loaded', { cancelable: false });
 
-    if (this.contentChecksEnabled) {
-      this.runChecks().finally(() => this.finishUpdate());
-    } else {
-      this.finishUpdate();
+    // Finish the update process. Instead of calling `runChecks()` here,
+    // accessibility and content checks will be triggered by the userbar in the
+    // new iframe via the `w-userbar:axe-ready` message event. This ensures that
+    // Axe in this window does not instruct the new iframe's Axe to immediately
+    // run the checks, which might fail if it is still running the initial
+    // checks as part of the userbar initialization.
+    this.finishUpdate();
+  }
+
+  /**
+   * Restores the scroll position from the old iframe to the new one.
+   * For same-origin iframes, this is done by calling `scroll()` on the new
+   * iframe's content window with the scroll position of the old iframe.
+   * For cross-origin iframes, this is done by using the postMessage API to
+   * request the scroll position from the old iframe and send it to the new one.
+   * @param newIframe The new iframe element that will replace the old one.
+   * @returns a Promise that resolves when the scroll position is restored or
+   * the timeout has lapsed.
+   */
+  async restoreScrollPosition(newIframe: HTMLIFrameElement): Promise<void> {
+    const isCrossOrigin = { oldIframe: false, newIframe: false };
+    // Do try/catch for each iframe so we know which of the iframes are cross-origin
+    try {
+      isCrossOrigin.oldIframe =
+        !this.iframeTarget.contentWindow?.location.origin;
+    } catch {
+      isCrossOrigin.oldIframe = true;
     }
+    try {
+      isCrossOrigin.newIframe = !newIframe.contentWindow?.location.origin;
+    } catch {
+      isCrossOrigin.newIframe = true;
+    }
+
+    // Origins mismatch, something has gone wrong, skip scroll restoration.
+    if (isCrossOrigin.oldIframe !== isCrossOrigin.newIframe) {
+      return Promise.resolve();
+    }
+
+    // Normal same-domain for both iframes
+    if (!isCrossOrigin.oldIframe && !isCrossOrigin.newIframe) {
+      // Restore scroll position with instant scroll to avoid flickering if the
+      // previewed page has scroll-behavior: smooth.
+      newIframe.contentWindow?.scroll({
+        top: this.iframeTarget.contentWindow?.scrollY as number,
+        left: this.iframeTarget.contentWindow?.scrollX as number,
+        behavior: 'instant',
+      });
+      return Promise.resolve();
+    }
+
+    // Both iframes are likely cross-domain, e.g. in a headless setup, in which
+    // case we cannot call `scroll()` directly. Use the postMessage API
+    // instead to request the scroll position from the old iframe and send it
+    // to the new iframe.
+    return new Promise<void>((resolve) => {
+      const scrollHandler = (event: MessageEvent) => {
+        const data = getWagtailMessage(event);
+        if (!data) return;
+
+        switch (data.type) {
+          case 'w-preview:request-scroll':
+            // The new iframe is requesting to scroll to the last scroll position
+            // Get the last scroll position from the old iframe
+            this.iframeTarget.contentWindow?.postMessage(
+              {
+                wagtail: {
+                  type: 'w-preview:get-scroll-position',
+                } as GetScrollPosition,
+              },
+              data.origin,
+            );
+            break;
+          case 'w-preview:set-scroll-position':
+            // The old iframe responded with the last scroll position
+            // Set the scroll position on the new iframe
+            newIframe.contentWindow?.postMessage(
+              { wagtail: data },
+              data.origin,
+            );
+
+            // Done, remove the event listener and resolve the promise
+            window.removeEventListener('message', scrollHandler);
+            resolve();
+            break;
+          default:
+            break;
+        }
+      };
+
+      window.addEventListener('message', scrollHandler);
+
+      // If the cross-frame communication takes too long,
+      // resolve the promise to avoid hanging the preview indefinitely
+      setTimeout(() => {
+        window.removeEventListener('message', scrollHandler);
+        resolve();
+      }, PreviewController.scrollRestoreTimeout);
+    });
   }
 
   /**
    * Runs the content and accessibility checks.
-   * This is called when the preview iframe is loaded, or when the iframe sends
-   * a message event from the userbar indicating that it has finished running
-   * the checks within itself.
+   * This is called when the iframe sends a message event from the userbar
+   * indicating that it has finished running the checks within itself.
    * @param event The message event from the userbar
    */
   async runChecks(event?: MessageEvent<{ wagtail: { type: string } }>) {
@@ -771,11 +911,9 @@ export class PreviewController extends Controller<HTMLElement> {
     // Other events do not need to be checked, as we assume it's intentional
     // (e.g. a custom button that re-runs the checks on click).
     if (event && event.type === 'message') {
-      // Ignore message events that are not from Wagtail
-      if (!(typeof event.data === 'object' && 'wagtail' in event.data))
-        return this.contentChecksPromise;
+      const data = getWagtailMessage(event);
       // Ignore messages that are not from the userbar indicating axe is ready
-      if (event.data.wagtail.type !== 'w-userbar:axe-ready')
+      if (data?.type !== 'w-userbar:axe-ready')
         return this.contentChecksPromise;
     }
 
@@ -794,6 +932,9 @@ export class PreviewController extends Controller<HTMLElement> {
     return this.contentChecksPromise;
   }
 
+  /**
+   * Runs the accessibility checks using Axe.
+   */
   async runAccessibilityChecks() {
     const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig!);
 
@@ -814,19 +955,43 @@ export class PreviewController extends Controller<HTMLElement> {
     );
   }
 
+  /**
+   * Runs the content checks by extracting the content from the preview iframe
+   * using an Axe plugin and calculating content metrics.
+   */
   async runContentChecks() {
-    const contentMetrics = await getPreviewContentMetrics({
-      targetElement: 'main, [role="main"]',
-    });
+    const content = await this.extractContent();
 
-    // If for any reason the plugin fails to return the content metrics (e.g.
-    // the previewed page shows an error response), skip rendering the metrics.
-    if (!contentMetrics) return;
+    // If for any reason the plugin fails to return the content (e.g. the
+    // previewed page shows an error response), skip doing anything with it.
+    if (!content) return;
 
-    renderContentMetrics({
-      wordCount: contentMetrics.wordCount,
-      readingTime: contentMetrics.readingTime,
-    });
+    const wordCount = getWordCount(content.lang, content.innerText);
+    const readingTime = getReadingTime(content.lang, wordCount);
+    const lixScore = getLIXScore(content.lang, content.innerText);
+    const readabilityScore = getReadabilityScore(lixScore);
+    const metrics = { wordCount, readingTime, lixScore, readabilityScore };
+
+    this.dispatch('content', { detail: { content, metrics } });
+
+    renderContentMetrics(metrics);
+  }
+
+  /**
+   * Extracts the rendered content from the preview iframe via an Axe plugin.
+   * @param options Options object for extracting the content. Supported options:
+   * - `targetElement`: CSS selector for the element to extract content from. Defaults to `main, [role="main"]`.
+   * @returns An `ExtractedContent` object with `lang`, `innerText`, and `innerHTML` properties.
+   */
+  async extractContent(options?: ContentExtractorOptions) {
+    if (!this.ready) {
+      // Preview panel likely hasn't been opened, force an update to ensure
+      // the preview iframe is loaded with the current data.
+      await this.checkAndUpdatePreview();
+      await this.reloadPromise;
+    }
+
+    return getPreviewContent(options || this.contentExtractorOptions);
   }
 
   /**
@@ -854,6 +1019,10 @@ export class PreviewController extends Controller<HTMLElement> {
       this.dispatch('ready', { cancelable: false });
     }
     this.dispatch('updated', { cancelable: false });
+
+    this.#reloadPromiseResolve?.();
+    this.reloadPromise = null;
+    this.#reloadPromiseResolve = null;
   }
 
   /**

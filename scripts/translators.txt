@@ -4,6 +4,7 @@ Jaco du Plessis <jaco.jacoduplessis.co.za>
 
 Arabic - ar
 -----
+Abdullah Bamuhrez <bamuhrez.gmail.com>
 Ahmad Kiswani <kiswani.ahmad.gmail.com>
 Ahmed Miske Sidi Med <boutien321.gmail.com>
 Amr Awad <amro.khir.gmail.com>
@@ -131,6 +132,7 @@ Eva Mikesova <eva.mikesova.tul.cz>
 IT Management <hudan.itmanagement.cz>
 Ivan Pomykacz <mist.alastify.cz>
 Jan Feřtek
+Jan Zelený <janzeleny.outlook.com>
 Jiri Stepanek <stepiiicz.gmail.com>
 Kryštof Pilnáček <krystof.pilnacek.rossum.ai>
 Loic Teixeira
@@ -175,6 +177,7 @@ Maarten Kling <kling.maarten.gmail.com>
 Matt Westcott <matthew.torchbox.com>
 Meteor0id
 Michael van Tellingen <michaelvantellingen.gmail.com>
+Michel Vuijlsteke
 Ramon de Jezus <rdejezus.leukeleu.nl>
 Richard Voorhorst
 Rob Moorman <rob.moori.nl>
@@ -227,6 +230,7 @@ Christophe CHAUVET <christophe.chauvet.gmail.com>
 Dominique PERETTI <dperetti.gmail.com>
 Fabien Le Frapper <contact.fabienlefrapper.me>
 Loic Teixeira
+Lucie Laporte
 Léo <leo.naeka.fr>
 Matt Westcott <matthew.torchbox.com>
 Renaud Kern <renaud.kern.gmail.com>
@@ -369,6 +373,7 @@ Carlo Miron <carlo.miron.it>
 Claudio Bantaloukas <rockdreamer.gmail.com>
 Edd <edd.baldry.googlemail.com>
 Edd Baldry <edd.baldry.gmail.com>
+Fabio Piras
 Giacomo Ghizzani <giacomo.ghz.gmail.com>
 Guglielmo Celata <guglielmo.celata.gmail.com>
 LB (Ben Johnston) <mail.lb.ee>
@@ -574,6 +579,7 @@ Rustam Mirzaev <mirus.2x2.pw>
 Sergey Khalymon <sergiykhalimon.gmail.com>
 Sergey Komarov <sjkomarov.gmail.com>
 Tatsiana Tsygan <art.tatsiana.gmail.com>
+Twixxik
 Vassily <zuber.kg.gmail.com>
 Zhdan Parfenov
 ajk
@@ -687,13 +693,16 @@ Walaksawan Vervoort <nula_wala.yahoo.com>
 
 Turkish - tr
 -----
+Abdullah Bamuhrez <bamuhrez.gmail.com>
 Ahmet Sarıcan <asarican.gmail.com>
 Basitlik İyidir
 Cihad GÜNDOĞDU <cihadgundogdu.gmail.com>
+Ertuğrul Keremoğlu
 Fatih Koç koç <fatihinemaili.gmail.com>
 Halim Turan <halim_turan_61.hotmail.com>
 Halit Çelik
 José Luis <alagunajs.gmail.com>
+LB (Ben Johnston) <mail.lb.ee>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Py Data Geek <pydatageek.gmail.com>

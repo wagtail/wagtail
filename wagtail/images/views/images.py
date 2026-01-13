@@ -1,20 +1,34 @@
+import json
 import os
 from tempfile import SpooledTemporaryFile
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.http import FileResponse, HttpResponse, JsonResponse
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import (
+    FileResponse,
+    HttpResponse,
+    HttpResponseBadRequest,
+    HttpResponseForbidden,
+)
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
-from django.views import View
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
+from wagtail.admin.ui.tables import (
+    BaseColumn,
+    BulkActionsCheckboxColumn,
+    Column,
+    DateColumn,
+    TitleColumn,
+    UsageCountColumn,
+)
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.images import get_image_model
@@ -23,7 +37,7 @@ from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
-from wagtail.models import Site
+from wagtail.models import ReferenceIndex, Site
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -48,6 +62,8 @@ class IndexView(generic.IndexView):
         "-title": gettext_lazy("Title: (Z -> A)"),
         "file_size": gettext_lazy("File size: (low to high)"),
         "-file_size": gettext_lazy("File size: (high to low)"),
+        "usage_count": gettext_lazy("Usage count: (low to high)"),
+        "-usage_count": gettext_lazy("Usage count: (high to low)"),
     }
     default_ordering = "-created_at"
     context_object_name = "images"
@@ -65,13 +81,18 @@ class IndexView(generic.IndexView):
     edit_url_name = "wagtailimages:edit"
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
-    columns = []
 
     def get_paginate_by(self, queryset):
         return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 
     def get_valid_orderings(self):
-        return self.ORDERING_OPTIONS
+        orderings = self.ORDERING_OPTIONS.copy()
+        if self.is_searching:
+            # Ordering by usage count not currently available when searching,
+            # due to https://github.com/wagtail/django-modelsearch/issues/51
+            orderings.pop("usage_count", None)
+            orderings.pop("-usage_count", None)
+        return orderings.keys()
 
     def get_base_queryset(self):
         # Get images (filtered by user permission)
@@ -82,7 +103,21 @@ class IndexView(generic.IndexView):
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
+
+        if self.needs_usage_count_subquery:
+            # Annotate usage_count on the whole queryset to allow ordering/filtering
+            # (On some databases, this can be slow when there are many objects)
+            images = images.annotate(
+                usage_count=ReferenceIndex.usage_count_subquery(self.model)
+            )
+
         return images
+
+    @cached_property
+    def needs_usage_count_subquery(self):
+        return self.ordering in ["usage_count", "-usage_count"] or (
+            self.is_filtering and "usage_count" in self.filters.form.cleaned_data
+        )
 
     @cached_property
     def current_collection(self):
@@ -108,6 +143,19 @@ class IndexView(generic.IndexView):
             next_url += "?" + request_query_string
         return next_url
 
+    def decorate_paginated_queryset(self, object_list):
+        if self.needs_usage_count_subquery:
+            # Already annotated in get_base_queryset
+            return object_list
+
+        # Use a separate, more efficient query that only gets usage counts for
+        # objects on the current page
+        # See https://github.com/wagtail/wagtail/issues/13561
+        counts = ReferenceIndex.get_count_references_to_in_bulk(list(object_list))
+        for obj in object_list:
+            obj.usage_count = counts.get(obj, 0)
+        return object_list
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -117,10 +165,75 @@ class IndexView(generic.IndexView):
                 "current_collection": self.current_collection,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
+                "layout": self.layout,
+                "object_list": self.decorate_paginated_queryset(context["object_list"]),
             }
         )
 
         return context
+
+    @cached_property
+    def layout(self):
+        return self.request.GET.get("layout", "grid")
+
+    @cached_property
+    def columns(self):
+        if self.layout == "grid":
+            return []
+        else:
+            columns = [
+                BulkActionsColumn("bulk_actions"),
+                ImagePreviewColumn(
+                    "preview",
+                    label=_("Preview"),
+                    accessor="image",
+                    classname="image-preview",
+                ),
+                TitleColumnWithFilename(
+                    "title",
+                    label=_("Title"),
+                    sort_key="title",
+                    get_url=self.get_edit_url,
+                    width="35%",
+                    classname="title-with-filename",
+                ),
+                Column("collection", label=_("Collection"), accessor="collection.name"),
+                DateColumn(
+                    "created_at",
+                    label=_("Created"),
+                    sort_key="created_at",
+                ),
+                UsageCountColumn(
+                    "usage_count",
+                    label=_("Usage"),
+                    # Ordering by usage count not currently available when searching,
+                    # due to https://github.com/wagtail/django-modelsearch/issues/51
+                    sort_key="usage_count" if not self.is_searching else None,
+                    width="16%",
+                ),
+            ]
+
+            return columns
+
+
+class BulkActionsColumn(BulkActionsCheckboxColumn):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, obj_type="image", **kwargs)
+
+    def get_header_context_data(self, parent_context):
+        context = super().get_header_context_data(parent_context)
+        parent = parent_context.get("current_collection")
+        if parent:
+            context["parent"] = parent.id
+        return context
+
+
+class ImagePreviewColumn(BaseColumn):
+    cell_template_name = "wagtailimages/images/image_preview_column_cell.html"
+
+
+class TitleColumnWithFilename(TitleColumn):
+    cell_template_name = "wagtailimages/images/title_column_cell.html"
 
 
 class EditView(generic.EditView):
@@ -208,10 +321,16 @@ class URLGeneratorView(generic.InspectView):
     model = get_image_model()
     pk_url_kwarg = "image_id"
     header_icon = "image"
+    output_only = False
     page_title = gettext_lazy("Generate URL")
     template_name = "wagtailimages/images/url_generator.html"
+    output_template_name = "wagtailimages/images/url_generator_output.html"
     index_url_name = "wagtailimages:index"
     edit_url_name = "wagtailimages:edit"
+
+    invalid_filter_error = gettext_lazy(
+        "The filter options you have selected are not valid."
+    )
 
     def get_page_subtitle(self):
         return self.object.title
@@ -219,55 +338,52 @@ class URLGeneratorView(generic.InspectView):
     def get_fields(self):
         return []
 
+    def get_template_names(self):
+        if self.output_only:
+            self.template_name = self.output_template_name
+        return super().get_template_names()
+
     def get(self, request, image_id, *args, **kwargs):
         self.object = get_object_or_404(self.model, id=image_id)
 
         if not permission_policy.user_has_permission_for_instance(
             request.user, "change", self.object
         ):
+            if self.output_only:
+                return HttpResponseForbidden(
+                    "You do not have permission to generate a URL for this image."
+                )
+
             raise PermissionDenied
 
-        self.form = URLGeneratorForm(
-            initial={
-                "filter_method": "original",
-                "width": self.object.width,
-                "height": self.object.height,
-            }
-        )
+        data = {
+            "filter_method": request.GET.get("filter_method", "original"),
+            "width": request.GET.get("width", self.object.width),
+            "height": request.GET.get("height", self.object.height),
+            "closeness": request.GET.get("closeness", "0"),
+        }
+
+        self.filter_spec = self.get_filter_spec(**data)
+
+        # Parse the filter spec to make sure it's valid
+        try:
+            Filter(spec=self.filter_spec).operations
+        except InvalidFilterSpecError as e:
+            if self.output_only:
+                return HttpResponseBadRequest(
+                    f"Invalid filter spec: `{self.filter_spec}`. {str(e)}."
+                )
+            messages.error(request, self.invalid_filter_error)
+
+        self.form = URLGeneratorForm(initial=data)
 
         return self.render_to_response(self.get_context_data())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"] = self.form
-        return context
 
-
-class GenerateURLView(View):
-    def get(self, request, image_id, filter_spec):
-        # Get the image
-        Image = get_image_model()
-        try:
-            image = Image.objects.get(id=image_id)
-        except Image.DoesNotExist:
-            return JsonResponse({"error": "Cannot find image."}, status=404)
-
-        # Check if this user has edit permission on this image
-        if not permission_policy.user_has_permission_for_instance(
-            request.user, "change", image
-        ):
-            return JsonResponse(
-                {
-                    "error": "You do not have permission to generate a URL for this image."
-                },
-                status=403,
-            )
-
-        # Parse the filter spec to make sure it's valid
-        try:
-            Filter(spec=filter_spec).operations
-        except InvalidFilterSpecError:
-            return JsonResponse({"error": "Invalid filter spec."}, status=400)
+        filter_spec = self.filter_spec
+        image_id = self.object.pk
 
         # Generate url
         signature = generate_signature(image_id, filter_spec)
@@ -282,9 +398,33 @@ class GenerateURLView(View):
         # Generate preview url
         preview_url = reverse("wagtailimages:preview", args=(image_id, filter_spec))
 
-        return JsonResponse(
-            {"url": site_root_url + url, "preview_url": preview_url}, status=200
+        message_labels = json.dumps(
+            {"400": self.invalid_filter_error},
+            cls=DjangoJSONEncoder,
         )
+
+        context["form"] = self.form
+        context["message_labels"] = message_labels
+        context["preview_url"] = preview_url
+        context["result_url"] = site_root_url + url
+
+        return context
+
+    def get_filter_spec(self, filter_method, width, height, closeness):
+        match filter_method:
+            case "width":
+                return f"{filter_method}-{width}"
+            case "height":
+                return f"{filter_method}-{height}"
+            case "min" | "max":
+                return f"{filter_method}-{width}x{height}"
+            case "fill":
+                spec = f"{filter_method}-{width}x{height}"
+                if closeness != "0":
+                    spec += f"-c{closeness}"
+                return spec
+            case _:
+                return filter_method
 
 
 def preview(request, image_id, filter_spec):

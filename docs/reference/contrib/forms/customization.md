@@ -31,7 +31,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('custom_form_fields', label="Form fields"),
+        InlinePanel('custom_form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -80,7 +80,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -139,7 +139,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -212,7 +212,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -305,7 +305,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -447,7 +447,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([

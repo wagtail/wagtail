@@ -41,7 +41,6 @@ export const sortAxeViolations = (violations: Result[]) =>
  * Wagtail's Axe configuration object. This should reflect what's returned by
  * `wagtail.admin.userbar.AccessibilityItem.get_axe_configuration()`.
  */
-
 interface ErrorMessage {
   error_name: string;
   help_text: string;
@@ -80,9 +79,9 @@ export const getAxeConfiguration = (
 
 /**
  * Custom rule for checking image alt text. This rule checks if the alt text for images
- * contains poor quality text like file extensions or undescores.
+ * contains poor quality text like file extensions or underscores.
  * The rule will be added via the Axe.configure() API.
- * https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
+ * @see https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
  */
 export const checkImageAltText = (
   node: HTMLImageElement,
@@ -130,14 +129,14 @@ interface A11yReport {
 }
 
 /**
- * Get accessibility testing results from Axe based on the configurable custom spec, context, and options.
- * It integrates custom rules into the Axe configuration before running the tests.
+ * Get accessibility testing results from Axe based on the configurable custom context and options.
+ * Before calling this function, ensure that Axe has been configured with
+ * axe.configure() using the config's `spec`, along with any custom checks.
  */
 export const getA11yReport = async (
   config: WagtailAxeConfiguration,
 ): Promise<A11yReport> => {
-  axe.configure(addCustomChecks(config.spec));
-  // Initialise Axe based on the context and options defined in Python.
+  // Run Axe based on the context and options defined in Python.
   const results = await axe.run(config.context, config.options);
   const a11yErrorsNumber = results.violations.reduce(
     (sum, violation) => sum + violation.nodes.length,
@@ -167,7 +166,6 @@ export const renderA11yResults = (
   onClickSelector: (selectorName: string, event: MouseEvent) => void,
 ) => {
   // Reset contents ahead of rendering new results.
-  // eslint-disable-next-line no-param-reassign
   container.innerHTML = '';
 
   if (results.violations.length) {

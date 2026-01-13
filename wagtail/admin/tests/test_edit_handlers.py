@@ -1,7 +1,7 @@
 from collections.abc import Mapping
 from datetime import date, datetime, timezone
 from functools import wraps
-from typing import Any, Optional
+from typing import Any
 from unittest import mock
 
 from django import VERSION as DJANGO_VERSION
@@ -436,7 +436,7 @@ class TestPanelAttributes(WagtailTestUtils, TestCase):
                     [
                         InlinePanel(
                             "speakers",
-                            label="Speakers",
+                            label="speaker",
                             attrs={"data-panel-type": "inline"},
                         ),
                     ],
@@ -533,7 +533,7 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                 ),
                 ObjectList(
                     [
-                        InlinePanel("speakers", label="Speakers"),
+                        InlinePanel("speakers", label="speaker"),
                     ],
                     heading="Speakers",
                 ),
@@ -584,14 +584,17 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
 
         result = tabbed_interface.render_html()
 
+        soup = self.get_soup(result)
+
         # result should contain tab buttons
+
         self.assertIn(
-            '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-            result,
+            '<a aria-selected="false" class="w-tabs__tab shiny" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-event_details" id="tab-label-event_details" role="tab" tabindex="-1">',
+            str(soup.find("a", {"id": "tab-label-event_details"})),
         )
         self.assertIn(
-            '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-            result,
+            '<a aria-selected="false" class="w-tabs__tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-speakers" id="tab-label-speakers" role="tab" tabindex="-1">',
+            str(soup.find("a", {"id": "tab-label-speakers"})),
         )
 
         # result should contain tab panels
@@ -647,26 +650,29 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                 form=form,
                 request=self.request,
             )
+
             result = tabbed_interface.render_html()
+            soup = self.get_soup(result)
+
             self.assertIn(
-                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab shiny" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-event_details" id="tab-label-event_details" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-event_details"})),
             )
             self.assertIn(
-                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-speakers" id="tab-label-speakers" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-speakers"})),
             )
             self.assertIn(
-                '<a id="tab-label-secret" href="#tab-secret" ',
-                result,
+                'data-w-tabs-target="trigger" href="#tab-secret" id="tab-label-secret" role="tab"',
+                str(soup.find("a", {"id": "tab-label-secret"})),
             )
             self.assertIn(
-                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
-                result,
+                'data-w-tabs-target="trigger" href="#tab-custom_setting" id="tab-label-custom_setting" role="tab"',
+                str(soup.find("a", {"id": "tab-label-custom_setting"})),
             )
             self.assertIn(
-                '<a id="tab-label-other_custom_setting" href="#tab-other_custom_setting" ',
-                result,
+                'data-w-tabs-target="trigger" href="#tab-other_custom_setting" id="tab-label-other_custom_setting" role="tab"',
+                str(soup.find("a", {"id": "tab-label-other_custom_setting"})),
             )
 
         with self.subTest("Not superuser permissions"):
@@ -681,26 +687,27 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                 form=form,
                 request=self.request,
             )
+
             result = tabbed_interface.render_html()
+            soup = self.get_soup(result)
+
             self.assertIn(
-                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-                result,
-            )
-            self.assertIn(
-                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-                result,
-            )
-            self.assertNotIn(
-                '<a id="tab-label-secret" href="#tab-secret" ',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab shiny" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-event_details" id="tab-label-event_details" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-event_details"})),
             )
             self.assertIn(
-                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-speakers" id="tab-label-speakers" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-speakers"})),
             )
-            self.assertNotIn(
-                '<a id="tab-label-other_custom_setting" href="#tab-other-custom_setting" ',
-                result,
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-secret"}),
+            )
+            self.assertIn(
+                'data-w-tabs-target="trigger" href="#tab-custom_setting" id="tab-label-custom_setting" role="tab"',
+                str(soup.find("a", {"id": "tab-label-custom_setting"})),
+            )
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-other_custom_setting"}),
             )
 
         with self.subTest("Non superuser"):
@@ -714,26 +721,26 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                 form=form,
                 request=self.request,
             )
+
             result = tabbed_interface.render_html()
+            soup = self.get_soup(result)
+
             self.assertIn(
-                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab shiny" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-event_details" id="tab-label-event_details" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-event_details"})),
             )
             self.assertIn(
-                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-speakers" id="tab-label-speakers" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-speakers"})),
             )
-            self.assertNotIn(
-                '<a id="tab-label-secret" href="#tab-secret" ',
-                result,
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-secret"}),
             )
-            self.assertNotIn(
-                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
-                result,
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-other_custom_setting"}),
             )
-            self.assertNotIn(
-                '<a id="tab-label-other_custom_setting" href="#tab-other-custom_setting" ',
-                result,
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-custom_setting"}),
             )
 
 
@@ -748,7 +755,7 @@ class TestObjectList(TestCase):
                 FieldPanel("title", widget=forms.Textarea),
                 FieldPanel("date_from"),
                 FieldPanel("date_to"),
-                InlinePanel("speakers", label="Speakers"),
+                InlinePanel("speakers", label="speaker"),
             ],
             heading="Event details",
             classname="shiny",
@@ -864,8 +871,8 @@ class TestFieldPanel(TestCase):
 
     def _get_form(
         self,
-        data: Optional[Mapping[str, Any]] = None,
-        fields: Optional[list[str]] = None,
+        data: Mapping[str, Any] | None = None,
+        fields: list[str] | None = None,
     ) -> WagtailAdminPageForm:
         cls = get_form_for_model(
             EventPage,
@@ -989,6 +996,10 @@ class TestFieldPanel(TestCase):
 
                 # Help text should still be rendered, too
                 self.assertIn("Not required if event is on a single day", result)
+
+                # No widget should be passed to telepath
+                js_widget = bound_panel.js_opts()["widget"]
+                self.assertIsNone(js_widget)
 
     def test_format_value_for_display_with_choicefield(self):
         result = self.read_only_audience_panel.format_value_for_display(
@@ -1353,7 +1364,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             [
                 InlinePanel(
                     "speakers",
-                    label="Speakers",
+                    label="speaker",
                     classname="classname-for-speakers",
                     attrs={"data-controller": "test"},
                 )
@@ -1415,13 +1426,18 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         # rendered panel must include the JS initializer
-        self.assertIn("var panel = new InlinePanel({", result)
+        self.assertIn("var panel = new InlinePanel(", result)
 
         # rendered panel must have data-contentpath-disabled attribute by default
         self.assertIn("data-contentpath-disabled", result)
 
         # check that attr option renders the data-controller attribute
         self.assertIn('data-controller="test"', result)
+
+        # Reordering controls should be present
+        self.assertIn("data-inline-panel-child-move-up", result)
+        self.assertIn("data-inline-panel-child-move-down", result)
+        self.assertIn("data-inline-panel-child-drag", result)
 
     def test_render_with_panel_overrides(self):
         """
@@ -1432,7 +1448,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             [
                 InlinePanel(
                     "speakers",
-                    label="Speakers",
+                    label="speaker",
                     panels=[
                         FieldPanel("first_name", widget=forms.Textarea),
                         FieldPanel("image"),
@@ -1505,7 +1521,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         # render_js_init must provide the JS initializer
-        self.assertIn("var panel = new InlinePanel({", panel.render_html())
+        self.assertIn("var panel = new InlinePanel(", panel.render_html())
 
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_js(self):
@@ -1519,7 +1535,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             [
                 InlinePanel(
                     "speakers",
-                    label="Speakers",
+                    label="speaker",
                     panels=[
                         FieldPanel("first_name", widget=forms.Textarea),
                         FieldPanel("image"),
@@ -1535,15 +1551,15 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             instance=event_page, form=form, request=self.request
         )
 
-        self.assertIn("maxForms: 1000", panel.render_html())
+        self.assertIn(r"\u0022maxForms\u0022: 1000", panel.render_html())
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
-            self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
+            self.assertRaises(TypeError, lambda: InlinePanel(label="speaker"))
             self.assertRaises(
                 TypeError,
                 lambda: InlinePanel(
-                    EventPage, "speakers", label="Speakers", bacon="chunky"
+                    EventPage, "speakers", label="speaker", bacon="chunky"
                 ),
             )
 
@@ -1552,13 +1568,13 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         # Heading is the plural term, derived from the relation's related_name
         self.assertEqual(panel.heading, "Social links")
         # Label is the singular term, derived from the related model's verbose_name
-        self.assertEqual(panel.label, "Social link")
+        self.assertEqual(panel.label, "social link")
 
     def test_inline_panel_order_with_min_num(self):
         event_page = EventPage.objects.get(slug="christmas")
 
         speaker_object_list = ObjectList(
-            [InlinePanel("speakers", label="Speakers", min_num=2)]
+            [InlinePanel("speakers", label="speaker", min_num=2)]
         ).bind_to_model(EventPage)
 
         EventPageForm = speaker_object_list.get_form_class()
@@ -1595,7 +1611,7 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
             [
                 InlinePanel(
                     "social_links",
-                    label="Social Links",
+                    label="social link",
                 )
             ]
         ).bind_to_model(PersonPage)
@@ -2144,7 +2160,9 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'name="gallery_images-TOTAL_FORMS"')
-        self.assertContains(response, 'chooserFieldName: "image"')
+        self.assertContains(
+            response, r"\u0022chooserFieldName\u0022: \u0022image\u0022"
+        )
 
 
 class TestMultipleChooserPanelGetComparison(TestCase):
@@ -2270,7 +2288,7 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
     def test_override_inlinepanel_icon(self):
         cases = [
             (
-                InlinePanel("carousel_items", label="Carousey", icon="cogs"),
+                InlinePanel("carousel_items", label="carousey", icon="cogs"),
                 "cogs",
             ),
             (
@@ -2395,6 +2413,18 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
 
         attrs = html.find("input").attrs
         self.assertEqual(attrs["data-w-sync-target-value"], "")
+
+    def test_form_with_readonly_title_field_panel(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title", read_only=True), FieldPanel("slug")]),
+            instance=EventPage(),
+        )
+
+        panel = html.select_one(".w-panel.title")
+        self.assertIsNotNone(panel)
+        input = panel.select_one("input")
+        self.assertIsNone(input)
+        self.assertIsNone(html.select_one("[data-controller~='w-sync']"))
 
     def test_not_using_apply_actions_if_live(self):
         """

@@ -17,7 +17,8 @@ window.scrollTo = jest.fn();
 /** Mock scrollIntoView on elements, this is not provided by JSDom */
 Element.prototype.scrollIntoView = jest.fn();
 
-/** Mock console.warn to filter out warnings from React due to Draftail legacy Component API usage.
+/**
+ * Mock console.warn to filter out warnings from React due to Draftail legacy Component API usage.
  * Draftail/Draft-js is unlikely to support these and the warnings are not useful for unit test output.
  */
 /* eslint-disable no-console */

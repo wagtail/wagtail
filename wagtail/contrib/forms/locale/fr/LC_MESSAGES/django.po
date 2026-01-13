@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:08+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -42,6 +42,14 @@ msgstr "Date depuis le"
 
 msgid "Date to"
 msgstr "Date jusqu’au"
+
+#, python-format
+msgid ""
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
+msgstr ""
+"Le nom '%(duplicate_clean_name)s' est déjà assigné à ce champ et ne peut "
+"être modifié. Veuillez saisir un libellé différent pour le champ en conflit."
 
 #, python-format
 msgid ""

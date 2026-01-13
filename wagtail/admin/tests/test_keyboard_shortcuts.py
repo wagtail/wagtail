@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from wagtail.admin.utils import get_keyboard_key_labels_from_request
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.users.models import UserProfile
 
 
 class TestGetKeyboardKeyLabelsFromRequestUtil(TestCase):
@@ -65,7 +66,8 @@ class TestGetKeyboardKeyLabelsFromRequestUtil(TestCase):
 
 class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.test_user = self.create_test_user()
+        self.login(user=self.test_user)
 
     def test_keyboard_shortcuts_trigger_in_sidebar(self):
         response = self.client.get(reverse("wagtailadmin_home"))
@@ -83,7 +85,8 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
                     "role": "button",
                     "data-a11y-dialog-show": "keyboard-shortcuts-dialog",
                     "data-action": "w-action#noop:prevent:stop",
-                    "data-controller": "w-action",
+                    "data-controller": "w-kbd w-action",
+                    "data-w-kbd-key-value": "?",
                 }
             ),
             sidebar_data,
@@ -150,6 +153,53 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
 
         self.assertNotIn("comments", shortcuts_dialog.prettify())
         self.assertNotIn("Ctrl + Alt + m", all_shortcuts_text)
+
+    def test_account_link_in_modal(self):
+        """
+        Test that the 'account' link fragment is correctly rendered in the
+        keyboard shortcuts modal.
+        """
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        self.assertIsNotNone(shortcuts_dialog)
+
+        account_link = shortcuts_dialog.select_one("a[href$='account/']")
+        self.assertIsNotNone(account_link)
+        self.assertEqual(account_link.text.strip(), "account")
+        self.assertIn("w-underline", account_link.get("class", []))
+
+    def test_modal_shows_disabled_info_when_keyboard_shortcuts_disabled(self):
+        """
+        Modal should open and show warning if keyboard shortcuts are disabled.
+        """
+        profile = UserProfile.get_for_user(self.test_user)
+        profile.keyboard_shortcuts = False
+        profile.save()
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        soup = self.get_soup(response.content)
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        self.assertIn(
+            "Keyboard shortcuts are currently disabled", shortcuts_dialog.prettify()
+        )
+
+    def test_modal_shows_enabled_info_when_shortcuts_enabled(self):
+        """
+        Modal should show normal info when keyboard shortcuts are enabled.
+        """
+        profile = UserProfile.get_for_user(self.test_user)
+        response = self.client.get(reverse("wagtailadmin_home"))
+        soup = self.get_soup(response.content)
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+
+        self.assertTrue(profile.keyboard_shortcuts)
+        self.assertIn(
+            "Keyboard shortcuts are currently enabled", shortcuts_dialog.prettify()
+        )
 
 
 class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):

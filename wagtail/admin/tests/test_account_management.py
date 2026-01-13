@@ -1,3 +1,4 @@
+import io
 import unittest
 import zoneinfo
 
@@ -10,7 +11,9 @@ from django.core import mail
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
+from PIL import Image
 
+from wagtail.admin.forms.account import AvatarPreferencesForm
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES,
     get_available_admin_languages,
@@ -253,6 +256,7 @@ class TestAccountSectionUtilsMixin:
             "theme-theme": "dark",
             "theme-density": "default",
             "theme-contrast": "system",
+            "keyboard-shortcuts": "true",
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse("wagtailadmin_account"), post_data)
@@ -708,12 +712,46 @@ class TestAccountSection(
         self.assertTrue(hasattr(request, "sensitive_post_parameters"))
         self.assertEqual(request.sensitive_post_parameters, "__ALL__")
 
+    def test_change_keyboard_shortcut_preference(self):
+        response = self.post_form(
+            {
+                "keyboard_shortcuts": "false",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(
+            get_user_model().objects.get(pk=self.user.pk)
+        )
+
+        # Check that the keyboard shortcut preferences are as submitted
+        self.assertFalse(profile.keyboard_shortcuts)
+
 
 class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
     def setUp(self):
         self.user = self.login()
         self.avatar = get_test_image_file()
         self.other_avatar = get_test_image_file()
+
+    def create_image_file(self, size=(800, 800), color="red", name="test.png"):
+        img = Image.new("RGB", size, color=color)
+        img_byte_arr = io.BytesIO()
+
+        ext = name.split(".")[-1].upper()
+        if ext == "JPG":
+            ext = "JPEG"
+
+        img.save(img_byte_arr, format=ext)
+        img_byte_arr.seek(0)
+
+        content_type = f"image/{ext.lower()}" if ext != "JPEG" else "image/jpeg"
+
+        return SimpleUploadedFile(
+            name=name, content=img_byte_arr.read(), content_type=content_type
+        )
 
     def test_account_view(self):
         """
@@ -771,6 +809,7 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         """
         profile = UserProfile.get_for_user(self.user)
         profile.avatar = self.avatar
+        old_url = profile.avatar.url
         profile.save()
 
         # Upload a new avatar
@@ -780,7 +819,8 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
 
         # Check the avatar was changed
         profile.refresh_from_db()
-        self.assertIn("test.png", profile.avatar.url)
+        self.assertEqual("/media/test.png", old_url)
+        self.assertTrue(profile.avatar.url.endswith(".png"))
 
     def test_clear_removes_current_avatar(self):
         """
@@ -797,7 +837,71 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
 
         # Check the avatar was changed
         profile.refresh_from_db()
-        self.assertIn("test.png", profile.avatar.url)
+        self.assertTrue(profile.avatar)
+
+    def test_avatar_resize_large_image(self):
+        """Ensure that large uploaded images are resized to a maximum of 400x400."""
+        uploaded_file = self.create_image_file(size=(800, 800), name="large_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertLessEqual(resized_image.width, 400)
+        self.assertLessEqual(resized_image.height, 400)
+
+    def test_avatar_no_resize_small_image(self):
+        uploaded_file = self.create_image_file(size=(300, 300), name="small_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        image = Image.open(avatar_file)
+        self.assertEqual(image.size, (300, 300))
+
+    def test_avatar_resize_width_greater_than_height(self):
+        uploaded_file = self.create_image_file(size=(500, 300), name="wide_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertEqual(resized_image.size, (400, 240))
+
+        original_ratio = 500 / 300
+        new_ratio = resized_image.width / resized_image.height
+        self.assertAlmostEqual(original_ratio, new_ratio, places=2)
+
+    def test_avatar_resize_height_greater_than_width(self):
+        uploaded_file = self.create_image_file(size=(300, 500), name="tall_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertEqual(resized_image.size, (240, 400))
+
+        original_ratio = 300 / 500
+        new_ratio = resized_image.width / resized_image.height
+        self.assertAlmostEqual(original_ratio, new_ratio, places=2)
+
+    def test_avatar_preserves_original_format(self):
+        # Test JPG format
+        jpg_file = self.create_image_file(size=(500, 500), name="test.jpg")
+        form = AvatarPreferencesForm(files={"avatar": jpg_file})
+        self.assertTrue(form.is_valid())
+        avatar_file = form.clean_avatar()
+        self.assertTrue(avatar_file.name.endswith(".jpg"))
+
+        # Test PNG format
+        png_file = self.create_image_file(size=(500, 500), name="test.png")
+        form = AvatarPreferencesForm(files={"avatar": png_file})
+        self.assertTrue(form.is_valid())
+        avatar_file = form.clean_avatar()
+        self.assertTrue(avatar_file.name.endswith(".png"))
+
+        resized_image = Image.open(avatar_file)
+        self.assertIsNotNone(resized_image.format)
 
 
 class TestAccountManagementForNonModerator(WagtailTestUtils, TestCase):

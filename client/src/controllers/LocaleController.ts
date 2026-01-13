@@ -34,7 +34,6 @@ export class LocaleController extends Controller<HTMLSelectElement> {
   }
 
   /**
-   *
    * @param timeZone An IANA time zone string
    * @returns formatted time zone name in the current locale with short and long
    * labels, e.g. `"GMT+7 (Western Indonesia Time)"`

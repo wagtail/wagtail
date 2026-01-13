@@ -15,7 +15,7 @@ class TestSiteIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login()
         self.home_page = Page.objects.get(id=2)
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailsites:index"), params)
 
     def test_simple(self):
@@ -49,10 +49,10 @@ class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailsites:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailsites:add"), post_data)
 
     def create_site(
@@ -197,12 +197,12 @@ class TestSiteEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]
 
-    def get(self, params={}, site_id=None):
+    def get(self, params=None, site_id=None):
         return self.client.get(
             reverse("wagtailsites:edit", args=(site_id or self.localhost.id,)), params
         )
 
-    def post(self, post_data={}, site_id=None):
+    def post(self, post_data=None, site_id=None):
         site_id = site_id or self.localhost.id
         site = Site.objects.get(id=site_id)
         post_defaults = {
@@ -370,12 +370,12 @@ class TestSiteDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]
 
-    def get(self, params={}, site_id=None):
+    def get(self, params=None, site_id=None):
         return self.client.get(
             reverse("wagtailsites:delete", args=(site_id or self.localhost.id,)), params
         )
 
-    def post(self, post_data={}, site_id=None):
+    def post(self, post_data=None, site_id=None):
         return self.client.post(
             reverse("wagtailsites:delete", args=(site_id or self.localhost.id,)),
             post_data,

@@ -106,6 +106,12 @@ class PreviewOnEdit(View):
             {"object": self.object},
         )
 
+    def get_extra_request_attrs(self):
+        return {
+            "in_preview_panel": self.request.GET.get("in_preview_panel") == "true",
+            "is_editing": True,
+        }
+
     @method_decorator(xframe_options_sameorigin_override)
     def get(self, request, *args, **kwargs):
         form = self.get_form(self._get_data_from_session())
@@ -117,13 +123,10 @@ class PreviewOnEdit(View):
 
         try:
             preview_mode = request.GET.get("mode", self.object.default_preview_mode)
-        except IndexError:
-            raise PermissionDenied
+        except IndexError as e:
+            raise PermissionDenied from e
 
-        extra_attrs = {
-            "in_preview_panel": request.GET.get("in_preview_panel") == "true",
-            "is_editing": True,
-        }
+        extra_attrs = self.get_extra_request_attrs()
 
         return self.object.make_preview_request(request, preview_mode, extra_attrs)
 
@@ -168,8 +171,8 @@ class PreviewRevision(View):
             preview_mode = request.GET.get(
                 "mode", self.revision_object.default_preview_mode
             )
-        except IndexError:
-            raise PermissionDenied
+        except IndexError as e:
+            raise PermissionDenied from e
 
         return self.revision_object.make_preview_request(request, preview_mode)
 

@@ -2,12 +2,12 @@
 # Translators:
 # Aarni Koskela, 2022
 # Loic Teixeira, 2024
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2025
 # Valter Maasalo <vmaasalo@gmail.com>, 2025
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2025\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/torchbox/teams/8009/fi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fi\n"
@@ -36,6 +36,12 @@ msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pikseli"
 msgstr[1] "%(num)s pikseliä"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
 msgid "Actions"
 msgstr "Toimet"
@@ -70,6 +76,10 @@ msgstr "Supista kaikki"
 msgid "Comment"
 msgstr "Kommentti"
 
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Monimutkainen"
+
 msgid "Dashboard"
 msgstr "Kojelauta"
 
@@ -103,8 +113,15 @@ msgstr "Virhe lähettäessä esikatseludataa."
 msgid "Expand all"
 msgstr "Laajenna kaikki"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Kelvollinen"
+
 msgid "Focus comment"
 msgstr "Kohdista kommentti"
+
+msgid "Good"
+msgstr "Hyvä"
 
 msgid "Horizontal line"
 msgstr "Vaakaviiva"
@@ -126,6 +143,9 @@ msgstr "Puuttuva dokumentti"
 
 msgid "More actions"
 msgstr "Lisää toimintoja"
+
+msgid "No"
+msgstr "Ei"
 
 msgid "No results"
 msgstr "Ei tuloksia"
@@ -233,3 +253,6 @@ msgstr "Näytä sivun '%(title)s' alasivut"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Kirjoita jotain tai kirjoita ‘/’ lisätäksesi lohkon"
+
+msgid "Yes"
+msgstr "Kyllä"

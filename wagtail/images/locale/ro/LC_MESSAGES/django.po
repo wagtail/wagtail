@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -239,13 +239,6 @@ msgstr[0] "Sigur doriți să ștergeți această pagină?"
 msgstr[1] "Sigur doriți să ștergeți aceste pagini?"
 msgstr[2] "Sigur doriți să ștergeți aceste pagini?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s utilizare"
-msgstr[1] "%(usage_count)s utilizări"
-msgstr[2] "%(usage_count)s de utilizări"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Nu aveți permisiunea de a șterge această imagine"
@@ -292,13 +285,6 @@ msgstr "Nu ați încărcat nici o imagine în această colecție."
 
 msgid "You haven't uploaded any images."
 msgstr "Nu ați încărcat nici o imagine."
-
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"De ce să nu <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>încărcați ceva acum</a>?"
 
 msgid "Choose a format"
 msgstr "Alege un format"
@@ -360,6 +346,13 @@ msgstr "Fișierul nu a fost găsit"
 
 msgid "Usage"
 msgstr "Utilizare"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s utilizare"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s de utilizări"
 
 msgid "Sort by"
 msgstr "Sortează după"
@@ -498,6 +491,12 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d imagine a fost ștearsă"
 msgstr[1] "%(num_parent_objects)d imagini au fost șterse"
 msgstr[2] "%(num_parent_objects)d imagini au fost șterse"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Created"
+msgstr "A creat"
 
 msgid "Choose an image"
 msgstr "Alege imagine"

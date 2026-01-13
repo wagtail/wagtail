@@ -91,7 +91,6 @@ These are classes for components.
 @use 'components/forms/required-mark';
 @use 'components/forms/help';
 @use 'components/forms/drop-zone';
-@use 'components/forms/daterange';
 @use 'components/forms/file';
 @use 'components/forms/publishing';
 @use 'components/forms/switch';
@@ -144,6 +143,7 @@ These are classes for components.
 @use 'components/pill';
 @use 'components/ping';
 @use 'components/editing-sessions';
+@use 'components/badge';
 
 @use '../src/components/Sidebar/Sidebar';
 @use '../src/components/Sidebar/SidebarPanel';

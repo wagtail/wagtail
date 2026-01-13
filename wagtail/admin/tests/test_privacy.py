@@ -69,14 +69,14 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         """
         This tests that a blank form is returned when a user opens the set_privacy view on a public page
         """
-        response = self.client.get(
-            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,))
-        )
+        url = reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,))
+        response = self.client.get(url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
-        self.assertEqual(response.context["page"].specific, self.public_page)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"].specific, self.public_page)
+        self.assertEqual(response.context["action_url"], url)
 
         # Check form attributes
         self.assertEqual(response.context["form"]["restriction_type"].value(), "none")
@@ -86,14 +86,14 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         This tests that the restriction type and password fields as set correctly
         when a user opens the set_privacy view on a public page
         """
-        response = self.client.get(
-            reverse("wagtailadmin_pages:set_privacy", args=(self.private_page.id,))
-        )
+        url = reverse("wagtailadmin_pages:set_privacy", args=(self.private_page.id,))
+        response = self.client.get(url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
-        self.assertEqual(response.context["page"].specific, self.private_page)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"].specific, self.private_page)
+        self.assertEqual(response.context["action_url"], url)
 
         # Check form attributes
         self.assertEqual(
@@ -254,16 +254,16 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         """
         This tests that the restriction type and group fields as set correctly when a user opens the set_privacy view on a public page
         """
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:set_privacy", args=(self.private_groups_page.id,)
-            )
+        url = reverse(
+            "wagtailadmin_pages:set_privacy", args=(self.private_groups_page.id,)
         )
+        response = self.client.get(url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
-        self.assertEqual(response.context["page"].specific, self.private_groups_page)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"].specific, self.private_groups_page)
+        self.assertEqual(response.context["action_url"], url)
 
         # Check form attributes
         self.assertEqual(response.context["form"]["restriction_type"].value(), "groups")

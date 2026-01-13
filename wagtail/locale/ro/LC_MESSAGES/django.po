@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 23:05+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -376,14 +376,6 @@ msgstr "Pentru motoare de căutare"
 
 msgid "For site menus"
 msgstr "Pentru meniuri"
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use within the parent page at "
-"'%(parent_url_path)s'"
-msgstr ""
-"Slug-ul '%(page_slug)s' este deja folosit în cadrul paginii părinte la "
-"'%(parent_url_path)s'"
 
 msgid "page"
 msgstr "pagină"

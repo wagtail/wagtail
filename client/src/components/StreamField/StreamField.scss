@@ -1,15 +1,11 @@
 @use 'scss/components/c-sf-add-button';
 
-[aria-expanded='true'] + .w-panel__heading .c-sf-block__title {
-  @apply w-sr-only;
+.c-sf-block__title {
+  @apply w-help-text;
 }
 
-// Only hide the block type if the field is collapsed *and* the title isn’t empty.
-[aria-expanded='false']
-  + .w-panel__heading
-  .c-sf-block__title:not(:empty)
-  + .c-sf-block__type {
-  display: none;
+[aria-expanded='true'] + .w-panel__heading .c-sf-block__title {
+  @apply w-sr-only;
 }
 
 .c-sf-help .help {

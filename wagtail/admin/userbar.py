@@ -34,6 +34,7 @@ class AccessibilityItem(BaseItem):
     def __init__(self, in_editor=False):
         super().__init__()
         self.in_editor = in_editor
+        """Whether the accessibility checker is being run in the page editor."""
 
     #: The template to use for rendering the item.
     template = "wagtailadmin/userbar/item_accessibility.html"
@@ -363,10 +364,15 @@ class Userbar(Component):
             # Remove any unrendered items
             rendered_items = [item for item in rendered_items if item]
 
+            if request:
+                origin = f"{request.scheme}://{request.get_host()}"
+            else:
+                origin = get_admin_base_url() or ""
+
             # Render the userbar items
             return {
                 "request": request,
-                "origin": get_admin_base_url(),
+                "origin": origin,
                 "items": rendered_items,
                 "position": self.position,
                 "page": self.object,

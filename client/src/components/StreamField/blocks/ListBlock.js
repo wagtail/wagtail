@@ -13,6 +13,7 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import { setAttrs } from '../../../utils/attrs';
 
 /**
  * Wrapper for an item inside a ListBlock
@@ -52,7 +53,7 @@ class ListChild extends BaseSequenceChild {
 /**
  * Represents a position in the DOM where a new list item can be inserted.
  *
- * @description
+ * @remarks
  * This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
  */
 class InsertPosition extends BaseInsertionControl {
@@ -60,7 +61,7 @@ class InsertPosition extends BaseInsertionControl {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
     const animate = opts && opts.animate;
-    const title = h(opts.strings.ADD);
+    const title = h(gettext('Add'));
     const button = $(`
       <button type="button" title="${title}" data-streamfield-list-add class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
@@ -135,6 +136,8 @@ export class ListBlock extends BaseSequenceBlock {
     }
 
     this.initDragNDrop();
+
+    setAttrs(this.container[0], this.blockDef.meta.attrs || {});
   }
 
   /**

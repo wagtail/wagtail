@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -63,9 +63,6 @@ msgstr "Administrare Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."
-
-msgid "You do not have permission to access the admin"
-msgstr "Nu aveți permisiunea de a accesa zona de administrare."
 
 msgid "None"
 msgstr "Nici una"
@@ -146,9 +143,6 @@ msgstr ""
 "Selectați poziție ierarhică. Notă: o colecție nu poate deveni un descendent "
 "al său."
 
-msgid "Please select another parent"
-msgstr "Selectați un alt părinte"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
@@ -177,9 +171,6 @@ msgstr "Nu puteți edita comentariile altui utilizator"
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Data/timpul de publicare trebuie să fie înaintea datei/timpului de expirare"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/timpul de expirare trebuie să fie în viitor"
 
 msgid "New title"
 msgstr "Titlu nou"
@@ -250,10 +241,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nu puteți copia o pagină în sine atunci când copiați subpagini"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Slug-ul  '%(page_slug)s' este deja folosit la nivelul paginii părinte"
-
 msgid "Select a new parent for this page."
 msgstr "Alege o pagină de bază nouă pentru această pagină."
 
@@ -269,10 +256,6 @@ msgstr "Nu aveți permisiunea de a crea o pagină sub \"%(page_title)s\""
 
 msgid "Search…"
 msgstr "Caută…"
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Etichetele %(value_too_long)s au peste %(max_tag_length)d caractere"
 
 msgid "Visibility"
 msgstr "Vizibilitate"
@@ -309,8 +292,8 @@ msgstr "Dați un nume fluxului de lucru"
 msgid "Add tasks to your workflow"
 msgstr "Adăugați sarcini la fluxul de lucru"
 
-msgid "Task"
-msgstr "Sarcina"
+msgid "task"
+msgstr "sarcină"
 
 msgid "1 page selected"
 msgstr "1 pagină selectată"
@@ -610,9 +593,6 @@ msgstr "Această colecție a fost făcută privată de către o colecție părin
 msgid "You can edit the privacy settings on:"
 msgstr "Puteți edita setările de confidențialitate la:"
 
-msgid "Save"
-msgstr "Salvează"
-
 msgid "Change privacy"
 msgstr "Schimbă confidențialitatea"
 
@@ -703,6 +683,8 @@ msgstr "Mai doriți să publicați acest %(model_name)s?"
 msgid "Cancel"
 msgstr "Anulează"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Acțiuni"
 
@@ -794,6 +776,9 @@ msgstr "Închideți"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Paginile și fragmentele Dvs. într-un flux de lucru"
+
+msgid "Task"
+msgstr "Sarcina"
 
 msgid "Task started"
 msgstr "Sarcină incepută"
@@ -1422,14 +1407,6 @@ msgstr[2] ""
 "Vor fi șterse și %(descendant_count)s pagini descendente. Ștergerea acestei "
 "pagini va șterge și %(translation_count)sde  traduceri corespunzătoare."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Această acțiune va șterge <b>%(total_pages)s</b> pagini în total."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Introduceți <b>%(wagtail_site_name)s</b> pentru a confima."
-
 msgid "Yes, delete it"
 msgstr "Da, șterge"
 
@@ -1650,18 +1627,6 @@ msgstr "Explorează paginile descendente la '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adaugă o pagină descendentă la '%(title)s'"
 
-msgid "Drag"
-msgstr "Glisează"
-
-msgid "Disable ordering of child pages"
-msgstr "Dezactivează rânduirea paginilor descendente"
-
-msgid "Sort"
-msgstr "Sortează"
-
-msgid "Enable ordering of child pages"
-msgstr "Activează rânduirea paginilor descendente"
-
 msgid "Search the whole site"
 msgstr "Caută în tot sait-ul"
 
@@ -1717,6 +1682,9 @@ msgstr "Deplasează în sus"
 
 msgid "Move down"
 msgstr "Deplasează în jos"
+
+msgid "Drag"
+msgstr "Glisează"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -1836,6 +1804,10 @@ msgstr "Comută breadcrumb"
 msgid "Breadcrumb"
 msgstr "Traseu navigare"
 
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Introduceți <b>%(wagtail_site_name)s</b> pentru a confima."
+
 msgid "Close dialog"
 msgstr "Închide dialog"
 
@@ -1911,6 +1883,9 @@ msgstr "Nu, nu anulează programarea"
 
 msgid "Other searches"
 msgstr "Alte căutări"
+
+msgid "Save"
+msgstr "Salvează"
 
 msgid "Minimap"
 msgstr "Minimapă"
@@ -2135,6 +2110,9 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
 
+msgid "Sort"
+msgstr "Sortează"
+
 msgid "View Wagtail quick actions"
 msgstr "Vezi acțiunile Wagtail rapide"
 
@@ -2292,13 +2270,6 @@ msgstr ""
 msgid "You haven't created any tasks."
 msgstr "Nu ați creat nici o sarcină"
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"De ce să nu <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>creați una acum</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2383,8 +2354,11 @@ msgstr "Trimis în %(task_name)s la %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
 
-msgid "Common actions"
-msgstr "Acțiuni comune"
+msgid "Toggle sidebar"
+msgstr "Comutați bara laterală"
+
+msgid "Save changes"
+msgstr "Salvează modificările"
 
 msgid "Cut"
 msgstr "Taie"
@@ -2404,23 +2378,19 @@ msgstr "Anulare"
 msgid "Redo"
 msgstr "Refacere"
 
-msgid "Save changes"
-msgstr "Salvează modificările"
-
-msgid "Text content"
-msgstr "Conținut text"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Formatare text"
 
 msgid "Insert or edit a link"
 msgstr "Inserează sau editează un link"
 
-msgid "Text formatting"
-msgstr "Formatare text"
+msgid "Bold"
+msgstr "Caractere aldine"
 
 msgid "Italic"
 msgstr "Cursiv"
-
-msgid "Underline"
-msgstr "Subliniere"
 
 msgid "Monospace (code)"
 msgstr "Monospațiu (cod)"
@@ -2650,24 +2620,8 @@ msgstr ""
 "Versiunea din %(timestamp)s a %(model_name)s '%(object)s' a fost programată "
 "pentru publicare."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editează '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Copie '%(title)s'"
-
 msgid "Inspect"
 msgstr "Examinează"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Examinează '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Șterge '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2802,9 +2756,6 @@ msgstr "Pagina '%(page_title)s' a fost creată și publicată."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Pagina '%(page_title)s' a fost creată și trimisă pentru moderare."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Pagina nu a fost creată din cauza erorilor de validare."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Pagina '%(page_title)s' a fost ștearsă."
@@ -2866,12 +2817,6 @@ msgstr "Pagina '%(page_title)s' a fost trimisă pentru moderare."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Fluxul de lucru al paginii '%(page_title)s' a fost repornit."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Pagina nu a fost salvată pentru că este blocată"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
-
 msgid "Is commenting action"
 msgstr "Este acțiune de comentare"
 
@@ -2905,14 +2850,6 @@ msgstr "Explorează"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Pagina '%(page_title)s' is fost deblocată."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Acest slug '%(page_slug)s' este deja folosit în contextul paginii părinte. "
-"Asigurați-vă ca slug-ul este unic și încercați din nou"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -3108,40 +3045,8 @@ msgstr "Sarcina '%(task_name)s' a fost activată."
 msgid "Choose another"
 msgstr "Alege alt(ă)"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Previzualizează versiunea ciornă a '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Vezi versiunea live a '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Mutați pagina '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copiază pagina '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Șterge pagina '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Pagină nepublicată '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Vezi istoria paginii pentru '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Sortează ordinea de meniu"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Schimbă ordinea paginilor descendente la '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Antet 1"
@@ -3169,9 +3074,6 @@ msgstr "Listă numerotată"
 
 msgid "Blockquote"
 msgstr "Citat"
-
-msgid "Bold"
-msgstr "Caractere aldine"
 
 msgid "Link"
 msgstr "Legătură"

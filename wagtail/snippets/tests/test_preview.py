@@ -6,7 +6,6 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.templatetags.wagtailadmin_tags import absolute_static
 from wagtail.admin.views.generic.preview import PreviewOnEdit
 from wagtail.test.testapp.models import (
     EventCategory,
@@ -325,10 +324,17 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
         self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
-    @override_settings(WAGTAILADMIN_BASE_URL="http://other.example.com:8000")
     def test_userbar_in_preview(self):
         self.client.post(self.preview_on_edit_url, self.post_data)
-        response = self.client.get(self.preview_on_edit_url)
+        host = "other.example.com:8000"
+        response = self.client.get(self.preview_on_edit_url, headers={"host": host})
+
+        # Snippets have no concept of the current site or fully qualified URLs,
+        # so the original request's host should be preserved.
+        self.assertEqual(
+            response.context["request"].get_host(),
+            "other.example.com:8000",
+        )
 
         # Check the HTML response
         self.assertEqual(response.status_code, 200)
@@ -336,16 +342,23 @@ class TestPreview(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         userbar = soup.select_one("wagtail-userbar")
         self.assertIsNotNone(userbar)
+        template = soup.select_one("#wagtail-userbar-template")
+        self.assertIsNotNone(template)
 
-        # Absolute URLs to static assets should be rendered with the original
-        # request's host as the base URL, as snippets have no concept of the
-        # current site or fully qualified URLs.
+        # Previews use a dummy request object, so the userbar should use
+        # relative URLs to avoid using the wrong host.
+        admin_url = reverse("wagtailadmin_home")
+        admin_link = template.select_one(f'a[href$="{admin_url}"]')
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link["href"], admin_url)
 
+        # Previews use a dummy request object, so the userbar should use
+        # relative URLs to avoid using the wrong host.
         css_links = soup.select("link[rel='stylesheet']")
         self.assertEqual(
             [link.get("href") for link in css_links],
             [
-                absolute_static("wagtailadmin/css/core.css"),
+                versioned_static("wagtailadmin/css/core.css"),
                 "/path/to/my/custom.css",
             ],
         )
@@ -353,8 +366,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual(
             [script.get("src") for script in scripts],
             [
-                absolute_static("wagtailadmin/js/vendor.js"),
-                absolute_static("wagtailadmin/js/userbar.js"),
+                versioned_static("wagtailadmin/js/vendor.js"),
+                versioned_static("wagtailadmin/js/userbar.js"),
             ],
         )
 
@@ -467,7 +480,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_show_preview_panel_on_edit_with_single_mode(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         new_tab_url = preview_url + "?mode="
         response = self.client.get(edit_url)
@@ -561,7 +574,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_custom_auto_update_interval(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         response = self.client.get(edit_url)
 
@@ -590,7 +603,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
     def test_disable_auto_update_using_zero_interval(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         response = self.client.get(edit_url)
 

@@ -33,6 +33,8 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.snippets.widgets import AdminSnippetChooser
 from wagtail.test.testapp.models import (
     Advert,
+    AdvertTag,
+    AdvertWithCustomUUIDPrimaryKey,
     DraftStateModel,
     FullFeaturedSnippet,
     ModeratedModel,
@@ -56,6 +58,21 @@ class TestIncorrectRegistration(SimpleTestCase):
         self.assertIn("ModelViewSet", message)
         self.assertIn(
             "must define a `model` attribute or pass a `model` argument",
+            message,
+        )
+
+
+class TestIncorrectConverter(SimpleTestCase):
+    def test_unknown_converter(self):
+        class BadViewSet(SnippetViewSet):
+            model = AdvertTag
+            pk_path_converter = "foo"
+
+        with self.assertRaises(ImproperlyConfigured) as cm:
+            register_snippet(BadViewSet)
+        message = str(cm.exception)
+        self.assertEqual(
+            "BadViewSet.pk_path_converter is not a registered path converter",
             message,
         )
 
@@ -383,6 +400,20 @@ class TestAdminURLs(BaseSnippetViewSetTests):
             expected_choose_url,
         )
 
+    def test_cannot_reverse_mismatched_converter_value(self):
+        viewset = AdvertWithCustomUUIDPrimaryKey.snippet_viewset
+        with self.assertRaises(NoReverseMatch):
+            reverse(viewset.get_url_name("edit"), kwargs={"pk": 123})
+
+    def test_404_on_mismatched_converter_value(self):
+        viewsets = [
+            AdvertWithCustomUUIDPrimaryKey.snippet_viewset,
+            FullFeaturedSnippet.snippet_viewset,
+        ]
+        for viewset in viewsets:
+            response = self.client.get(f"/admin/{viewset.url_prefix}/edit/123abc/")
+            self.assertEqual(response.status_code, 404)
+
 
 class TestPagination(BaseSnippetViewSetTests):
     @classmethod
@@ -444,7 +475,7 @@ class TestPagination(BaseSnippetViewSetTests):
 class TestFilterSetClass(BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -570,7 +601,7 @@ class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
             FullFeaturedSnippet.snippet_viewset.get_url_name(url_name), args=args
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -611,7 +642,7 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
         self.date = now()
         self.date_str = self.date.isoformat()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def create_test_snippets(self):
@@ -746,7 +777,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         cls.model.objects.create(text="From Indonesia", country_code="ID")
         cls.model.objects.create(text="From the UK", country_code="UK")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(self.get_url("list"), params)
 
     def test_custom_columns(self):
@@ -1091,7 +1122,7 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
             text="Python is a programming-bas, uh, language",
         )
 
-    def get(self, params={}, url_name="list"):
+    def get(self, params=None, url_name="list"):
         return self.client.get(self.get_url(url_name), params)
 
     def test_simple(self):

@@ -8,6 +8,7 @@
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jan Feřtek, 2023
 # Jan Feřtek, 2023
+# Jan Zelený <janzeleny@outlook.com>, 2025
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2022
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Last-Translator: Jan Zelený <janzeleny@outlook.com>, 2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -221,13 +222,8 @@ msgstr[3] "Přidat %(counter)s obrázků do nové kolekce"
 msgid "Add images to collection"
 msgstr "Přidat obrázky do kolekce"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Použito %(usage_count)sx"
-msgstr[1] "Použito %(usage_count)sx"
-msgstr[2] "Použito %(usage_count)sx"
-msgstr[3] "Použito %(usage_count)sx"
+msgid "Delete images"
+msgstr "Smazat obrázky"
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -246,6 +242,10 @@ msgstr "Nový"
 
 msgid "Latest images"
 msgstr "Poslední obrázky"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Vybrat %(title)s"
 
 msgid "Choose a format"
 msgstr "Zvolte formát"
@@ -298,6 +298,14 @@ msgstr "Soubor nenalezen"
 msgid "Usage"
 msgstr "Použití"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)sx"
+msgstr[1] "Použito %(usage_count)sx"
+msgstr[2] "Použito %(usage_count)sx"
+msgstr[3] "Použito %(usage_count)sx"
+
 msgid "Sort by"
 msgstr "Řadit podle"
 
@@ -327,6 +335,9 @@ msgstr "Náhled"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Copied to clipboard"
+msgstr "Zkopírováno do schránky"
 
 msgid "Add multiple images"
 msgstr "Přidat více obrázků"
@@ -369,6 +380,12 @@ msgstr "Tagy"
 
 msgid "Delete"
 msgstr "Smazat"
+
+msgid "Title"
+msgstr "Název"
+
+msgid "Created"
+msgstr "Vytvořeno"
 
 msgid "Choose an image"
 msgstr "Zvolit obrázek"

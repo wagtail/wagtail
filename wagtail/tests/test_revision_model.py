@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from freezegun import freeze_time
 
@@ -12,9 +13,10 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     SimplePage,
 )
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestRevisableModel(TestCase):
+class TestRevisableModel(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.instance = RevisableModel.objects.create(text="foo")
@@ -237,3 +239,118 @@ class TestRevisableModel(TestCase):
                 self.assertEqual(Revision.objects.filter(**query).first(), revision)
                 instance.delete()
                 self.assertIs(Revision.objects.filter(**query).exists(), False)
+
+    def test_overwrite_revision(self):
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        revision2 = self.instance.save_revision(overwrite_revision=revision1)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "Updated revision")
+
+    def test_cannot_overwrite_revision_that_is_not_latest(self):
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Second revision"
+        self.instance.save_revision()
+        self.assertEqual(self.instance.revisions.count(), 2)
+        self.instance.text = "Updated revision"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this "
+            "revisable model.",
+        ):
+            self.instance.save_revision(overwrite_revision=revision1)
+
+        self.assertEqual(self.instance.revisions.count(), 2)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Second revision")
+
+    def test_cannot_overwrite_revision_from_other_instance(self):
+        self.instance.text = "Existing revision"
+        self.instance.save_revision()
+
+        other_instance = RevisableModel.objects.create(text="other")
+        other_instance.text = "Existing other revision"
+        revision1 = other_instance.save_revision()
+
+        self.instance.text = "Updated revision"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this "
+            "revisable model.",
+        ):
+            self.instance.save_revision(overwrite_revision=revision1)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing revision")
+
+        self.assertEqual(other_instance.revisions.count(), 1)
+        latest_revision = other_instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing other revision")
+
+    def test_overwrite_revision_with_user_id(self):
+        user = self.create_user("user1")
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision(user=user)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        revision2 = self.instance.save_revision(overwrite_revision=revision1, user=user)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "Updated revision")
+
+    def test_cannot_overwrite_revision_with_wrong_user_id(self):
+        user1 = self.create_user("user1")
+        user2 = self.create_user("user2")
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision(user=user1)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            self.instance.save_revision(overwrite_revision=revision1, user=user2)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing revision")
+
+    def test_cannot_overwrite_revision_with_omitted_user_id(self):
+        user1 = self.create_user("user1")
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision(user=user1)
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            self.instance.save_revision(overwrite_revision=revision1)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing revision")
+
+    def test_cannot_overwrite_anonymous_revision_with_user_id(self):
+        user1 = self.create_user("user1")
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+        self.assertEqual(self.instance.revisions.count(), 1)
+        self.instance.text = "Updated revision"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            self.instance.save_revision(overwrite_revision=revision1, user=user1)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        latest_revision = self.instance.get_latest_revision()
+        self.assertEqual(latest_revision.content["text"], "Existing revision")

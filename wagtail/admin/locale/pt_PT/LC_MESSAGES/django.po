@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -77,9 +77,6 @@ msgstr "Admin Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Desculpe, não tem permissão para aceder a esta área."
-
-msgid "You do not have permission to access the admin"
-msgstr "Não tem permissão para aceder à administração"
 
 msgid "None"
 msgstr "Nenhum"
@@ -158,9 +155,6 @@ msgstr ""
 "Selecione a posição hierárquica. Nota: a coleção não pode ser filha de si "
 "própria nem dos seus descendentes."
 
-msgid "Please select another parent"
-msgstr "Por favor selecione outro progenitor"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Não é permitido ter múltiplos registos de permissões para a mesma coleção. "
@@ -188,9 +182,6 @@ msgstr "Não pode alterar o comentário de outro utilizador"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "A data/hora de publicação tem de ser anterior à data/hora final"
-
-msgid "Expiry date/time must be in the future"
-msgstr "A data/hora final deve ficar no futuro"
 
 msgid "New title"
 msgstr "Novo título"
@@ -263,10 +254,6 @@ msgstr ""
 "Não pode copiar uma página para dentro dela própria quando está a copiar "
 "páginas-filha"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "A referência '%(page_slug)s' já está em uso dentro da página-mãe"
-
 msgid "Select a new parent for this page."
 msgstr "Selecione uma nova página-mãe para esta página"
 
@@ -275,11 +262,6 @@ msgstr "Página-mãe"
 
 msgid "Search…"
 msgstr "Procurar..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr ""
-"As etiquetas %(value_too_long)s estão acima de %(max_tag_length)d caracteres"
 
 msgid "Visibility"
 msgstr "Visibilidade"
@@ -314,8 +296,8 @@ msgstr "Dar um nome ao seu fluxo de trabalho"
 msgid "Add tasks to your workflow"
 msgstr "Adicionar tarefas ao seu fluxo de trabalho"
 
-msgid "Task"
-msgstr "Tarefa"
+msgid "task"
+msgstr "tarefa"
 
 msgid "1 page selected"
 msgstr "1 página selecionada"
@@ -606,9 +588,6 @@ msgstr "A coleção foi tornada privada por uma coleção-mãe."
 msgid "You can edit the privacy settings on:"
 msgstr "Pode alterar as definições de privacidade em:"
 
-msgid "Save"
-msgstr "Gravar"
-
 msgid "Change privacy"
 msgstr "Alterar privacidade"
 
@@ -675,6 +654,8 @@ msgstr "Publicar %(model_name)s"
 msgid "Cancel"
 msgstr "Cancelar"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Ações"
 
@@ -738,6 +719,9 @@ msgstr "Resumo do site"
 
 msgid "Close"
 msgstr "Fechar"
+
+msgid "Task"
+msgstr "Tarefa"
 
 msgid "Task started"
 msgstr "Tarefa iniciada"
@@ -1192,18 +1176,6 @@ msgstr "Explorar as filhas da página '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adicionar filha à página %(title)s"
 
-msgid "Drag"
-msgstr "Arrastar"
-
-msgid "Disable ordering of child pages"
-msgstr "Desativar ordenação de páginas-filha"
-
-msgid "Sort"
-msgstr "Ordenar"
-
-msgid "Enable ordering of child pages"
-msgstr "Ativar ordenação de páginas-filha"
-
 msgid "Sites menu"
 msgstr "Menu de Sites"
 
@@ -1244,6 +1216,9 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Descer"
+
+msgid "Drag"
+msgstr "Arrastar"
 
 msgid "Collection management permissions"
 msgstr "Permissões de gestão de coleção"
@@ -1363,6 +1338,9 @@ msgstr "Não, não desmarcar"
 msgid "Other searches"
 msgstr "Outras pesquisas"
 
+msgid "Save"
+msgstr "Gravar"
+
 msgid "Comment notifications"
 msgstr "Notificações de comentário"
 
@@ -1429,6 +1407,9 @@ msgstr "Esta página ainda não foi enviada para moderação"
 
 msgid "Skip to main content"
 msgstr "Saltar para o conteúdo principal"
+
+msgid "Sort"
+msgstr "Ordenar"
 
 msgid "View Wagtail quick actions"
 msgstr "Visualizar as ações rápidas do Wagtail"
@@ -1595,11 +1576,17 @@ msgstr "%(time_period)s atrás"
 msgid "Log out"
 msgstr "Sair"
 
+msgid "Toggle sidebar"
+msgstr "Alternar estado da barra lateral"
+
 msgid "Undo"
 msgstr "Desfazer"
 
 msgid "Redo"
 msgstr "Refazer"
+
+msgid "Bold"
+msgstr "Negrito"
 
 msgid "Italic"
 msgstr "Itálico"
@@ -1723,16 +1710,8 @@ msgstr "%(model_name)s '%(object)s' atualizado"
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' criado."
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Alterar '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspecionar"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Apagar '%(title)s'"
 
 msgid "Editing"
 msgstr "A alterar"
@@ -1809,9 +1788,6 @@ msgstr "Página '%(page_title)s' criada e publicada."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Página '%(page_title)s' criada e enviada para moderação."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Esta página não pôde ser criada devido a erros de validação"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Página '%(page_title)s' apagada."
@@ -1872,12 +1848,6 @@ msgstr "A página '%(page_title)s' foi enviada para moderação."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "O fluxo de trabalho na página '%(page_title)s' foi reiniciado."
 
-msgid "The page could not be saved as it is locked"
-msgstr "A página não pôde ser guardada por estar trancada"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "A página não pôde ser guardada devido a erros de validação"
-
 msgid "Owner"
 msgstr "Dono"
 
@@ -1890,14 +1860,6 @@ msgstr "Sim"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "A página '%(page_title)s' foi destrancada."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"A referência '%(page_slug)s' já está em uso na página-mãe selecionada. "
-"Certifique-se que a referência é única e tente outra vez."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2036,40 +1998,8 @@ msgstr "Tarefa '%(object)s' desativada."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Tarefa '%(task_name)s' ativada."
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Visualizar a versão de rascunho de '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Ver a versão publicada de '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Mover página '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copiar página '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Apagar página '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Despublicar a página '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Ver histórico da página para '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Ordenar ordem de menu"
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Alterar a ordem das páginas-filha de '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Cabeçalho 1"
@@ -2097,9 +2027,6 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Bloco de citação"
-
-msgid "Bold"
-msgstr "Negrito"
 
 msgid "Link"
 msgstr "Ligação"

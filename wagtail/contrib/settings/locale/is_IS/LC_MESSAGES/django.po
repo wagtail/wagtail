@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016,2018,2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016,2018,2022,2025
 # saevarom <saevar@saevar.is>, 2020,2022
 # saevarom <saevar@saevar.is>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2020,2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2016,2018,2022,2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,13 @@ msgstr ""
 
 msgid "default"
 msgstr "sjálfgefin"
+
+msgid "Sites"
+msgstr "Vefsvæði"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s heimildir"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

@@ -2,12 +2,12 @@
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
 # Loic Teixeira, 2024
-# Andrej Marsetič, 2024
 # Mitja Pagon <mitja.pagon@inueni.com>, 2025
+# Andrej Marsetič, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2025\n"
+"Last-Translator: Andrej Marsetič, 2025\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -135,6 +135,9 @@ msgstr "Manjkajoči dokument"
 msgid "More actions"
 msgstr "Več dejanj"
 
+msgid "No"
+msgstr "Ne"
+
 msgid "No results"
 msgstr "Ni zadetkov"
 
@@ -228,6 +231,9 @@ msgstr "Najmanjše število predmetov je %(min_num)d"
 msgid "This field is required."
 msgstr "Polje je obvezno."
 
+msgid "Toggle section"
+msgstr "Preklop razdelka"
+
 msgid "Toggle side panel"
 msgstr "Preklopi stransko ploščo"
 
@@ -245,3 +251,6 @@ msgstr "Ogled podrejenih strani za  '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Napišite nekaj ali pritisnite \"/\" za dodajanje bloka"
+
+msgid "Yes"
+msgstr "Da"

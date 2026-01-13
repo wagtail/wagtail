@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import { initTabs } from '../../includes/tabs';
 import { submitCreationForm } from '../../includes/chooserModal';
 
 const ajaxifyTaskCreateTab = (modal) => {
@@ -34,9 +33,6 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         form.dispatchEvent(new CustomEvent('navigate', { detail: { url } }));
         return false;
       });
-
-      // Reinitialize tabs to hook up tab event listeners in the modal
-      initTabs();
 
       // set up success handling when new results are returned for next search
       modal.body[0].addEventListener(

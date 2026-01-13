@@ -2272,6 +2272,29 @@ class TestPreview(WagtailTestUtils, TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertTemplateUsed(response, template)
 
+    def test_empty_field_type_does_not_crash_preview(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "formpage", self.homepage.pk),
+        )
+
+        response = self.client.post(
+            preview_url,
+            {**self.post_data, "form_fields-0-field_type": ""},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": False, "is_available": False},
+        )
+
+        response = self.client.get(preview_url)
+
+        self.assertContains(
+            response,
+            "Preview cannot display due to validation errors.",
+        )
+
 
 class TestFormPageCreate(WagtailTestUtils, TestCase):
     def setUp(self):

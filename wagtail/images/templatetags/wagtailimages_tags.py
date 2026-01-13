@@ -46,7 +46,7 @@ def image(parser, token):
                 attrs[name] = parser.compile_filter(
                     value
                 )  # setup to resolve context variables as value
-            except ValueError:
+            except ValueError as e:
                 allowed_pattern = (
                     Filter.expanding_spec_pattern
                     if multi_rendition
@@ -58,7 +58,7 @@ def image(parser, token):
                     raise template.TemplateSyntaxError(
                         "filter specs in image tags may only contain A-Z, a-z, 0-9, dots, hyphens and underscores (and commas and curly braces for multi-image tags). "
                         "(given filter: {})".format(bit)
-                    )
+                    ) from e
 
     if as_context and output_var_name is None:
         # context was introduced but no variable given ...
@@ -104,11 +104,11 @@ class ImageNode(template.Node):
         image_expr,
         filter_specs,
         output_var_name=None,
-        attrs={},
+        attrs=None,
     ):
         self.image_expr = image_expr
         self.output_var_name = output_var_name
-        self.attrs = attrs
+        self.attrs = attrs or {}
         self.filter_specs = filter_specs
 
     def get_filter(self):
@@ -211,10 +211,10 @@ class PictureNode(SrcsetImageNode):
 def image_url(image, filter_spec, viewname="wagtailimages_serve"):
     try:
         return generate_image_url(image, filter_spec, viewname)
-    except NoReverseMatch:
+    except NoReverseMatch as e:
         raise ImproperlyConfigured(
             "'image_url' tag requires the "
             + viewname
             + " view to be configured. Please see "
             "https://docs.wagtail.org/en/stable/advanced_topics/images/image_serve_view.html#setup for instructions."
-        )
+        ) from e

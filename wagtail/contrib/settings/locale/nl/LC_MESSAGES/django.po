@@ -10,15 +10,15 @@
 # Meteor0id, 2021
 # Meteor0id, 2021
 # Rob Moorman <rob@moori.nl>, 2016
-# Storm Heg <storm@stormbase.digital>, 2022
+# Storm Heg <storm@stormbase.digital>, 2022,2025
 # Thijs Kramer <thijskramer@gmail.com>, 2016,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2016,2020\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022,2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,13 @@ msgstr ""
 
 msgid "default"
 msgstr "standaard"
+
+msgid "Sites"
+msgstr "Sites"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s machtigingen"
 
 #, python-format
 msgid "%(site_setting)s for %(site)s"

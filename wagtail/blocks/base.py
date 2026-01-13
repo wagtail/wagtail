@@ -16,7 +16,8 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import JSContext
+from wagtail.admin.telepath import JSContext
+from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
@@ -62,6 +63,7 @@ class Block(metaclass=BaseBlock):
         label = None
         icon = "placeholder"
         classname = None
+        form_attrs = None
         group = ""
 
     # Attributes of Meta which can legally be modified after the block has been instantiated.
@@ -150,15 +152,20 @@ class Block(metaclass=BaseBlock):
         """
         return BoundBlock(self, value, prefix=prefix, errors=errors)
 
+    def _evaluate_callable(self, value):
+        return value() if callable(value) else value
+
     def get_default(self):
         """
         Return this block's default value (conventionally found in self.meta.default),
-        converted to the value type expected by this block. This caters for the case
-        where that value type is not something that can be expressed statically at
+        converted to the value type expected by this block. If the default is a callable
+        (e.g. a function), it will be evaluated at runtime. This caters for
+        the case where that value type is not something that can be expressed statically at
         model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        return self.normalize(getattr(self.meta, "default", None))
+        default = self._evaluate_callable(getattr(self.meta, "default", None))
+        return self.normalize(default)
 
     def clean(self, value):
         """
@@ -310,12 +317,13 @@ class Block(metaclass=BaseBlock):
         """
         Return the placeholder value that will be used for rendering the block's
         preview. By default, the value is the ``preview_value`` from the block's
-        options if provided, otherwise the ``default`` is used as fallback. This
-        method can be overridden to provide a dynamic preview value, such as
-        from the database.
+        options if provided. If it's a callable, it will be evaluated at runtime.
+        If ``preview_value`` is not provided, the ``default`` is used as fallback.
+        This method can also be overridden to provide a dynamic preview value.
         """
         if hasattr(self.meta, "preview_value"):
-            return self.normalize(self.meta.preview_value)
+            value = self._evaluate_callable(self.meta.preview_value)
+            return self.normalize(value)
         return self.get_default()
 
     @cached_property
@@ -647,6 +655,7 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
 # ========================
 
 
+@register_telepath_adapter
 class BlockWidget(forms.Widget):
     """Wraps a block object as a widget so that it can be incorporated into a Django form"""
 
@@ -711,9 +720,8 @@ class BlockWidget(forms.Widget):
     def media(self):
         return self.js_context.media + forms.Media(
             js=[
-                # these will almost certainly be
+                # this will almost certainly be
                 # pulled in by the block adapters too
-                versioned_static("wagtailadmin/js/telepath/telepath.js"),
                 versioned_static("wagtailadmin/js/telepath/blocks.js"),
             ],
             css={
@@ -728,6 +736,9 @@ class BlockWidget(forms.Widget):
 
     def value_omitted_from_data(self, data, files, name):
         return self.block_def.value_omitted_from_data(data, files, name)
+
+    def telepath_pack(self, context):
+        return ("wagtail.widgets.BlockWidget", [])
 
 
 class BlockField(forms.Field):

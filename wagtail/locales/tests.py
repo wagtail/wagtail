@@ -21,7 +21,7 @@ class TestLocaleIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login(user=self.user)
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaillocales:index"), params)
 
     def test_simple(self):
@@ -49,10 +49,10 @@ class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login()
         self.english = Locale.objects.get()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtaillocales:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtaillocales:add"), post_data)
 
     def test_default_language(self):
@@ -254,13 +254,13 @@ class TestLocaleDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login()
         self.english = Locale.objects.get()
 
-    def get(self, params={}, locale=None):
+    def get(self, params=None, locale=None):
         locale = locale or self.english
         return self.client.get(
             reverse("wagtaillocales:delete", args=[locale.id]), params
         )
 
-    def post(self, post_data={}, locale=None):
+    def post(self, post_data=None, locale=None):
         locale = locale or self.english
         return self.client.post(
             reverse("wagtaillocales:delete", args=[locale.id]), post_data

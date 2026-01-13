@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -182,18 +182,6 @@ msgstr "Přesměrování '%(redirect_title)s' bylo přidáno."
 
 msgid "Search redirects"
 msgstr "Hledat přesměrování"
-
-#, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "Formát souboru \"%(extension)s\" není podporován"
-
-#, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "Importovaný soubor má nesprávné kódování: %(error_message)s"
-
-#, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "došlo k %(error)s chybě/ám při čtení souboru: %(filename)s"
 
 #, python-format
 msgid "Imported %(total)d redirect"

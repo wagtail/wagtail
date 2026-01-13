@@ -1,0 +1,11 @@
+{% load i18n l10n wagtailadmin_tags %}
+
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <a href="{{ instance.usage_url }}">
+        {% blocktrans trimmed with usage_count=raw_value|intcomma count usage_count_counter=raw_value %}
+            Used {{ usage_count }} time
+        {% plural %}
+            Used {{ usage_count }} times
+        {% endblocktrans %}
+    </a>
+</td>

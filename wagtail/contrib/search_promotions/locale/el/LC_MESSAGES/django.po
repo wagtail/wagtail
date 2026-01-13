@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -132,15 +132,9 @@ msgstr "Προωθείται το αποτέλεσμα αναζήτησης"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Επιτυχής δημιουργία επιλογή συντακτών για το '%(query)s'."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "Οι συστάσεις δεν έχουν δημιουργηθεί λόγω σφαλμάτων"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Επιτυχής διόθρωση επιλογής συντακτών για το '%(query)s'."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Οι συστάσεις δεν έχουν αποθηκευτεί λόγω σφαλμάτων"
 
 msgid "Editor's picks deleted."
 msgstr "Επιτυχής διαγραφή επιλογής συντακτών."

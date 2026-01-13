@@ -20,9 +20,9 @@ This is the human-readable name of your Wagtail install which welcomes users upo
 WAGTAILADMIN_BASE_URL = 'http://example.com'
 ```
 
-This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
+This is the base URL used by the Wagtail admin site. It is used for generating absolute URLs to the admin, such as in notification emails and the user bar. This setting must not include the admin path (`/admin`) or a trailing slash.
 
-If this setting is not present, Wagtail will try to fall back to `request.site.root_url` or to the request's host name.
+If this setting is not set, a system check warning will be raised.
 
 (append_slash)=
 
@@ -276,6 +276,8 @@ WAGTAILADMIN_COMMENTS_ENABLED = False
 
 Sets whether commenting is enabled for pages (`True` by default).
 
+(wagtail_allow_unicode_slugs)=
+
 ### `WAGTAIL_ALLOW_UNICODE_SLUGS`
 
 ```python
@@ -323,6 +325,8 @@ WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
 ```
 
 This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.
+
+(wagtailimages_all_settings)=
 
 ## Images
 
@@ -412,13 +416,53 @@ Custom storage classes should subclass `django.core.files.storage.Storage`. See 
 ### `WAGTAILIMAGES_EXTENSIONS`
 
 ```python
-WAGTAILIMAGES_EXTENSIONS = ['png', 'jpg']
+WAGTAILIMAGES_EXTENSIONS = ['avif', 'svg']
 ```
 
 A list of allowed image extensions that will be validated during image uploading.
 If this isn't supplied, all of AVIF, GIF, JPG, JPEG, PNG, WEBP are allowed.
 Warning: this doesn't always ensure that the uploaded file is valid as files can
 be renamed to have an extension no matter what data they contain.
+
+### `WAGTAILIMAGES_JPEG_QUALITY`
+
+```python
+WAGTAILIMAGES_JPEG_QUALITY = 75
+```
+
+Change the global default for JPEG image encoding quality (default: 85).
+
+### `WAGTAILIMAGES_WEBP_QUALITY`
+
+```python
+WAGTAILIMAGES_WEBP_QUALITY = 70
+```
+
+Change the global default for WebP image encoding quality (default: 80).
+
+### `WAGTAILIMAGES_AVIF_QUALITY`
+
+```python
+WAGTAILIMAGES_AVIF_QUALITY = 65
+```
+
+Change the global default for AVIF image encoding quality (default: 73).
+
+### `WAGTAILIMAGES_HEIC_QUALITY`
+
+```python
+WAGTAILIMAGES_HEIC_QUALITY = 60
+```
+
+Change the global default for HEIC image encoding quality (default: 80).
+
+### `WAGTAILIMAGES_FORMAT_CONVERSIONS`
+
+```python
+WAGTAILIMAGES_FORMAT_CONVERSIONS = {}
+```
+
+See [](customizing_output_formats).
 
 ## Documents
 

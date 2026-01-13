@@ -3,11 +3,12 @@ import json
 import unittest
 from unittest.mock import Mock
 
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import Http404
 from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
@@ -194,6 +195,20 @@ class TestValidation(TestCase):
         homepage.add_child(instance=hello_page)
         retrieved_page = Page.objects.get(id=hello_page.id)
         self.assertEqual(retrieved_page.draft_title, "Hello world edited")
+
+
+class TestAsyncMethods(TestCase):
+    def test_asave_with_update_fields_none_saves_all_fields(self):
+        root = Page.get_first_root_node()
+        page = Page(title="Original title", slug="async-page")
+        root.add_child(instance=page)
+
+        # Call asave using async_to_sync
+        page.title = "Updated title"
+        async_to_sync(page.asave)()
+
+        refreshed = Page.objects.get(id=page.id)
+        assert refreshed.title == "Updated title"
 
 
 @override_settings(
@@ -997,6 +1012,141 @@ class TestSaveRevision(TestCase):
             christmas_event.save_revision(
                 approved_go_live_at=timezone.now() + datetime.timedelta(days=1)
             )
+
+    def test_overwrite_revision(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_that_is_not_latest(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 2)
+        christmas_event.title = "Three French hens"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 2)
+        latest_revision = christmas_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_from_other_instance(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+
+        other_event = EventPage.objects.get(
+            url_path="/home/events/tentative-unpublished-event/"
+        )
+        other_event.title = "The final event"
+        revision2 = other_event.save_revision()
+        self.assertEqual(other_event.revisions.count(), 1)
+
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision2)
+
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        latest_revision = christmas_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "A partridge in a pear tree")
+
+        self.assertEqual(other_event.revisions.count(), 1)
+        latest_revision = other_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "The final event")
+
+    def test_overwrite_revision_with_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_moderator)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(
+            user=event_moderator, overwrite_revision=revision1
+        )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_with_wrong_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_editor)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(
+                user=event_moderator, overwrite_revision=revision1
+            )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+    def test_cannot_overwrite_revision_with_omitted_user_id(self):
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_editor)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+    def test_cannot_overwrite_anonymous_revision_with_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(
+                user=event_moderator, overwrite_revision=revision1
+            )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
 
 
 class TestLiveRevision(TestCase):
@@ -4132,3 +4282,57 @@ class TestPageServeWithPasswordRestriction(TestCase, WagtailTestUtils):
 
         self.assertFalse("Cache-Control" in response)
         self.assertFalse("Expires" in response)
+
+
+class TestPageNaturalKey(TestCase):
+    def setUp(self):
+        self.home_page = Page.objects.get(slug="home")
+
+    def test_page_natural_key(self):
+        natural_key = self.home_page.natural_key()
+        self.assertEqual(natural_key, ("/home/",))
+
+        retrieved_page = Page.objects.get_by_natural_key("/home/")
+        self.assertEqual(retrieved_page, self.home_page)
+
+
+class TestPageCreationWithoutPromotePanels(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.root_page = Page.objects.get(url_path="/home/")
+
+    def _submit_page_form(self, model_name, title):
+        url = reverse(
+            "wagtailadmin_pages:add", args=("tests", model_name, self.root_page.id)
+        )
+
+        get_response = self.client.get(url)
+        self.assertEqual(get_response.status_code, 200)
+
+        form = get_response.context["form"]
+        post_data = form.data.copy()
+
+        for key, value in list(post_data.items()):
+            if value is None:
+                post_data[key] = ""
+
+        post_data.update(
+            {
+                "title": title,
+                "action-save": "Save draft",
+            }
+        )
+
+        post_response = self.client.post(url, post_data)
+        return post_response
+
+    def test_create_simple_page_with_auto_slug(self):
+        response_1 = self._submit_page_form("nopromotepage", "New York")
+        self.assertEqual(response_1.status_code, 302)
+        self.assertTrue(Page.objects.filter(title="New York", slug="new-york").exists())
+
+        response_2 = self._submit_page_form("nopromotepage", "New York")
+        self.assertEqual(response_2.status_code, 302)
+        self.assertTrue(
+            Page.objects.filter(title="New York", slug="new-york-2").exists()
+        )

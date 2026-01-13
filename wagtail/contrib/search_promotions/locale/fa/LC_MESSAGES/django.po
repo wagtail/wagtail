@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -120,15 +120,9 @@ msgstr "نتایج جستجوی ترویج شده"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "منتخب ویراستار برای '%(query)s' ایجاد شد."
 
-msgid "Recommendations have not been created due to errors"
-msgstr "پیشنهادها به دلیل بروز خطا ایجاد نشد"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "انتخاب ویراستار برای '%(query)s' آپدیت شد."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "پیشنهادها به دلیل بروز خطا ذخیره نشدند"
 
 msgid "Editor's picks deleted."
 msgstr "منتخب ویراستار حذف شد"

@@ -157,8 +157,14 @@ class TestRedirects(TestCase):
             normalise_path("/here/tésting-ünicode"),
         )
 
-        self.assertNotEqual(  # Doesn't remove unicode characters
-            "/here/testing-unicode", normalise_path("/here/tésting-ünicode")
+        # percent-encoded sequences (in upper or lower case) are converted to Unicode characters
+        self.assertEqual(
+            "/here/tésting-ünicode",
+            normalise_path("/here/t%C3%A9sting-%C3%BCnicode"),
+        )
+        self.assertEqual(
+            "/here/tésting-ünicode",
+            normalise_path("/here/t%c3%a9sting-%c3%bcnicode"),
         )
 
     def test_route_path_normalisation(self):
@@ -520,6 +526,11 @@ class TestRedirects(TestCase):
         )
 
     def test_redirect_with_unicode_in_url(self):
+        # This test and test_redirect_with_encoded_url confirm that redirect paths containing Unicode characters
+        # are handled correctly, whether the stored redirect is using the decoded Unicode characters, or the
+        # percent-encoded equivalent. Redirect.normalise_path() will always return the decoded version, but these
+        # tests create redirects directly (bypassing normalise_path) so that we are correctly handling redirects
+        # that were created in older versions of Wagtail, or bypassed this normalization step for some other reason.
         redirect = models.Redirect(
             old_path="/tésting-ünicode", redirect_link="/redirectto"
         )
@@ -532,6 +543,13 @@ class TestRedirects(TestCase):
             response, "/redirectto", status_code=301, fetch_redirect_response=False
         )
 
+        # Same, but using the underlying percent-encoded URL that would actually be seen at the HTTP level
+        response = self.client.get("/t%C3%A9sting-%C3%BCnicode/")
+
+        self.assertRedirects(
+            response, "/redirectto", status_code=301, fetch_redirect_response=False
+        )
+
     def test_redirect_with_encoded_url(self):
         redirect = models.Redirect(
             old_path="/t%C3%A9sting-%C3%BCnicode", redirect_link="/redirectto"
@@ -539,10 +557,40 @@ class TestRedirects(TestCase):
         redirect.save()
 
         # Navigate to it
+        response = self.client.get("/tésting-ünicode/")
+
+        self.assertRedirects(
+            response, "/redirectto", status_code=301, fetch_redirect_response=False
+        )
+
+        # Same, but using the underlying percent-encoded URL that would actually be seen at the HTTP level
         response = self.client.get("/t%C3%A9sting-%C3%BCnicode/")
 
         self.assertRedirects(
             response, "/redirectto", status_code=301, fetch_redirect_response=False
+        )
+
+    def test_encoded_url_case_insensitive(self):
+        # Redirects created with percent-encoded paths should be matched case-insensitively.
+        # In this case, we are going through Redirect.add_redirect as we are reliant on the normalization step.
+        models.Redirect.add_redirect(
+            old_path="/games/%eb%a1%9c%ec%8a%a4%ed%8a%b8%ec%95%84%ed%81%ac",
+            redirect_to="/lost-ark",
+        )
+
+        # Navigate using the decoded unicode URL
+        response = self.client.get("/games/로스트아크/")
+
+        self.assertRedirects(
+            response, "/lost-ark", status_code=301, fetch_redirect_response=False
+        )
+
+        # Same, but using UPPERCASE percent-encoded URL
+        response = self.client.get(
+            "/games/%EB%A1%9C%EC%8A%A4%ED%8A%B8%EC%95%84%ED%81%AC/"
+        )
+        self.assertRedirects(
+            response, "/lost-ark", status_code=301, fetch_redirect_response=False
         )
 
     def test_reject_null_characters(self):
@@ -608,7 +656,7 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailredirects:index"), params)
 
     def test_simple(self):
@@ -789,10 +837,10 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
         self.login()
         PURGED_URLS.clear()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailredirects:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailredirects:add"), post_data)
 
     def test_simple(self):
@@ -977,13 +1025,13 @@ class TestRedirectsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         PURGED_URLS.clear()
 
-    def get(self, params={}, redirect_id=None):
+    def get(self, params=None, redirect_id=None):
         return self.client.get(
             reverse("wagtailredirects:edit", args=(redirect_id or self.redirect.id,)),
             params,
         )
 
-    def post(self, post_data={}, redirect_id=None):
+    def post(self, post_data=None, redirect_id=None):
         return self.client.post(
             reverse("wagtailredirects:edit", args=(redirect_id or self.redirect.id,)),
             post_data,
@@ -1144,7 +1192,7 @@ class TestRedirectsDeleteView(WagtailTestUtils, TestCase):
 
         PURGED_URLS.clear()
 
-    def get(self, params={}, redirect_id=None):
+    def get(self, params=None, redirect_id=None):
         return self.client.get(
             reverse("wagtailredirects:delete", args=(redirect_id or self.redirect.id,)),
             params,

@@ -79,6 +79,9 @@ msgstr "Documento em falta"
 msgid "More actions"
 msgstr "Mais ações"
 
+msgid "No"
+msgstr "Não"
+
 msgid "No results"
 msgstr "Sem resultados"
 
@@ -170,3 +173,6 @@ msgstr "Tirar enfoque do comentário"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Ver páginas-filha de '%(title)s'"
+
+msgid "Yes"
+msgstr "Sim"

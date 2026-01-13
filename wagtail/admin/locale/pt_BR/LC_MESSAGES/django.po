@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:23+0100\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -81,9 +81,6 @@ msgstr "Administração Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Desculpe, você não tem permissão para acessar esta área."
-
-msgid "You do not have permission to access the admin"
-msgstr "Você não tem permissão para acessar o administrador"
 
 msgid "None"
 msgstr "Nenhum"
@@ -164,9 +161,6 @@ msgstr ""
 "Selecione a posição hierárquica. Nota: uma coleção não pode se tornar filha "
 "de si mesma ou de seus descendentes."
 
-msgid "Please select another parent"
-msgstr "Selecione outro pai"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Você não pode ter vários registros de permissão para a mesma coleção."
 
@@ -193,9 +187,6 @@ msgstr "Você não pode editar o comentário de outro usuário."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Data/hora para ficar online deve ser antes da data/hora de expiração"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/hora de expiração deve ser no futuro."
 
 msgid "New title"
 msgstr "Novo título"
@@ -266,10 +257,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Você não pode copiar uma página em si mesmo ao copiar subpáginas"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "O slug '%(page_slug)s' já está em uso na página pai"
-
 msgid "Select a new parent for this page."
 msgstr "Selecione uma nova página pai para esta página."
 
@@ -292,10 +279,6 @@ msgstr ""
 
 msgid "Search…"
 msgstr "Procurar..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Tag(s) %(value_too_long)s tem mais de %(max_tag_length)d caracteres"
 
 msgid "Visibility"
 msgstr "Visibilidade"
@@ -331,8 +314,8 @@ msgstr "Dê um nome ao seu fluxo de trabalho"
 msgid "Add tasks to your workflow"
 msgstr "Adicione tarefas ao seu fluxo de trabalho"
 
-msgid "Task"
-msgstr "Tarefa"
+msgid "task"
+msgstr "tarefa"
 
 msgid "1 page selected"
 msgstr "1 página selecionada"
@@ -624,9 +607,6 @@ msgstr "Essa coleção foi feita privativa por uma coleção raíz."
 msgid "You can edit the privacy settings on:"
 msgstr "Você pode editar as configurações de privacidade em:"
 
-msgid "Save"
-msgstr "Salvar"
-
 msgid "Change privacy"
 msgstr "Alterar privacidade"
 
@@ -702,6 +682,8 @@ msgstr "Você gostaria de publicar esse %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
 msgid "Actions"
 msgstr "Ações"
 
@@ -829,6 +811,9 @@ msgstr "Fechar"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Suas páginas e snippets em um fluxo de trabalho"
+
+msgid "Task"
+msgstr "Tarefa"
 
 msgid "Task started"
 msgstr "Tarefa iniciada"
@@ -1246,14 +1231,6 @@ msgstr[0] "Também excluirá %(translation_count)s tradução."
 msgstr[1] "Também excluirá %(translation_count)s traduções."
 msgstr[2] "Também excluirá %(translation_count)s traduções."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Esta ação irá apagar o total de <b>%(total_pages)s</b> páginas."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Por favor digite <b>%(wagtail_site_name)s</b> para confirmar."
-
 msgid "Yes, delete it"
 msgstr "Sim, exclua"
 
@@ -1388,22 +1365,6 @@ msgstr "Explorar subpáginas de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adicionar subpágina de %(title)s"
 
-msgid "Drag"
-msgstr "Arrastar"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Item %(index)s de %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Desabilitar ordenação de subpáginas"
-
-msgid "Sort"
-msgstr "Ordenar"
-
-msgid "Enable ordering of child pages"
-msgstr "Habilitar ordenação de subpáginas"
-
 msgid "No results across entire site."
 msgstr "Nenhum resultado em todo o site."
 
@@ -1474,6 +1435,9 @@ msgstr "Mover para cima"
 
 msgid "Move down"
 msgstr "Mover para baixo"
+
+msgid "Drag"
+msgstr "Arrastar"
 
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
@@ -1603,6 +1567,10 @@ msgstr "Editar avatar da conta"
 msgid "Breadcrumb"
 msgstr "Navegação"
 
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Por favor digite <b>%(wagtail_site_name)s</b> para confirmar."
+
 msgid "Close dialog"
 msgstr "Fechar caixa de diálogo"
 
@@ -1707,6 +1675,9 @@ msgstr "Não, não agendar"
 
 msgid "Other searches"
 msgstr "Outras buscas"
+
+msgid "Save"
+msgstr "Salvar"
 
 msgid "Minimap"
 msgstr "Minimapa"
@@ -1922,6 +1893,13 @@ msgstr "Esta página ainda não foi enviada para moderação"
 msgid "Skip to main content"
 msgstr "Ir para o conteúdo principal"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Item %(index)s de %(total)s"
+
+msgid "Sort"
+msgstr "Ordenar"
+
 msgid "View Wagtail quick actions"
 msgstr "Veja as ações rápidas do Wagtail"
 
@@ -2068,13 +2046,6 @@ msgstr "Desculpe, nenhuma tarefa coincide com \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Você não criou nenhuma tarefa."
 
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
-msgstr ""
-"Por que não <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>criar um agora</a>?"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2155,8 +2126,11 @@ msgstr "Alterações solicitadas %(finished_at)s"
 msgid "Sent to %(task_name)s %(started_at)s"
 msgstr "Enviado para %(task_name)s %(started_at)s"
 
-msgid "Common actions"
-msgstr "Ações comuns"
+msgid "Toggle sidebar"
+msgstr "Alternar barra lateral"
+
+msgid "Save changes"
+msgstr "Salvar alterações"
 
 msgid "Cut"
 msgstr "Cortar"
@@ -2176,23 +2150,19 @@ msgstr "Desfazer"
 msgid "Redo"
 msgstr "Refazer"
 
-msgid "Save changes"
-msgstr "Salvar alterações"
-
-msgid "Text content"
-msgstr "Conteúdo de texto"
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Formatação de texto"
 
 msgid "Insert or edit a link"
 msgstr "Inserir ou editar um link"
 
-msgid "Text formatting"
-msgstr "Formatação de texto"
+msgid "Bold"
+msgstr "Negrito"
 
 msgid "Italic"
 msgstr "Itálico"
-
-msgid "Underline"
-msgstr "Sublinhado"
 
 msgid "Monospace (code)"
 msgstr "Monoespaçado (código)"
@@ -2238,6 +2208,17 @@ msgstr "Ordenar por '%(label)s' em ordem crescente."
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Ordenar por '%(label)s' em ordem decrescente."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' foi movido com sucesso."
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Concentre-se no botão arrastar e pressione as setas para cima ou para baixo "
+"para mover o item e pressione Enter para enviar a alteração."
 
 #, python-format
 msgid ""
@@ -2460,24 +2441,8 @@ msgstr ""
 msgid "%(related_model_name)s %(field_label)s"
 msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Copiar '%(title)s'"
-
 msgid "Inspect"
 msgstr "Inspecionar"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspecionar '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Excluir '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2626,9 +2591,6 @@ msgstr "Página '%(page_title)s' criada e publicada."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Página '%(page_title)s' criada e enviada para moderação."
 
-msgid "The page could not be created due to validation errors"
-msgstr "A página não pôde ser criada devido a erros de validação"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Página '%(page_title)s' excluida."
@@ -2689,12 +2651,6 @@ msgstr "Página '%(page_title)s' foi enviada para moderação."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "O fluxo de trabalho na página '%(page_title)s' foi reiniciado."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Esta página não pode ser salva já que está bloqueada"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "A página não pode ser salva devido a erros de validação"
-
 msgid "Is commenting action"
 msgstr "Está comentando ação"
 
@@ -2725,28 +2681,9 @@ msgstr "Tipo de página"
 msgid "Exploring"
 msgstr "Explorando"
 
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Concentre-se no botão arrastar e pressione as setas para cima ou para baixo "
-"para mover o item e pressione Enter para enviar a alteração."
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s' foi movido com sucesso."
-
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Agora a página '%(page_title)s' está desbloqueada."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"O slug '%(page_slug)s' já está em uso na página pai selecionada. Certifique-"
-"se de que o slug é único e tente novamente"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -2909,40 +2846,8 @@ msgstr "Tarefa '%(task_name)s' habilitada."
 msgid "Choose another"
 msgstr "Escolha outro"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Visualizar versão de rascunho de '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Ver versão ao vivo de '%(title)s'"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Mover página '%(title)s'"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copiar página '%(title)s'"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Excluir página '%(title)s'"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Cancelar publicação da página '%(title)s'"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Ver o histórico da página para '%(title)s'"
-
 msgid "Sort menu order"
 msgstr "Ordem do menu de classificação "
-
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Alterar a ordem das páginas filhas de '%(title)s'"
 
 msgid "Heading 1"
 msgstr "Cabeçalho 1"
@@ -2970,9 +2875,6 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Bloco de citação"
-
-msgid "Bold"
-msgstr "Negrito"
 
 msgid "Link"
 msgstr "Link"

@@ -1,7 +1,6 @@
 /* global ModalWorkflow */
 
 import $ from 'jquery';
-import { initTabs } from './tabs';
 import { gettext } from '../utils/gettext';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
@@ -70,6 +69,11 @@ const submitCreationForm = (modal, form, { errorContainerSelector }) => {
   });
 };
 
+/**
+ * Legacy function, no longer used, this has been migrated to SyncController instead.
+ *
+ * @deprecated RemovedInWagtail80
+ */
 const initPrefillTitleFromFilename = (
   modal,
   { fileFieldSelector, titleFieldSelector, eventName },
@@ -230,9 +234,6 @@ class ChooserModalOnloadHandlerFactory {
       return false;
     });
 
-    // Reinitialize tabs to hook up tab event listeners in the modal
-    if (this.modalHasTabs(modal)) initTabs();
-
     this.updateMultipleChoiceSubmitEnabledState(modal);
     $('[data-multiple-choice-select]', containerElement).on('change', () => {
       this.updateMultipleChoiceSubmitEnabledState(modal);
@@ -249,10 +250,6 @@ class ChooserModalOnloadHandlerFactory {
     }
   }
 
-  modalHasTabs(modal) {
-    return $('[data-tabs]', modal.body).length;
-  }
-
   ajaxifyCreationForm(modal) {
     /* Convert the creation form to an AJAX submission */
     $(this.creationFormSelector, modal.body).on('submit', (event) => {
@@ -264,7 +261,14 @@ class ChooserModalOnloadHandlerFactory {
       return false;
     });
 
-    /* If this form has a file and title field, set up the title to be prefilled from the title */
+    /**
+     * If this form has a file and title field, set up the title to be prefilled from the title
+     *
+     * The code below is no longer used for image and document choosers, keeping until we remove
+     * in a future major release.
+     *
+     * @deprecated RemovedInWagtail80
+     */
     if (
       this.creationFormFileFieldSelector &&
       this.creationFormTitleFieldSelector
@@ -312,7 +316,7 @@ class ChooserModalOnloadHandlerFactory {
     $(this.creationFormTabSelector, modal.body).replaceWith(
       jsonData.htmlFragment,
     );
-    if (this.modalHasTabs(modal)) initTabs();
+
     this.ajaxifyCreationForm(modal);
   }
 

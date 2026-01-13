@@ -12,6 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import (
     FieldDoesNotExist,
+    PermissionDenied,
     ValidationError,
 )
 from django.db import models, transaction
@@ -22,11 +23,13 @@ from django.dispatch import receiver
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
+from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
 from django.utils.log import log_response
 from django.utils.text import capfirst, slugify
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import (
@@ -138,6 +141,10 @@ def get_streamfield_names(model_class):
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
+
+    def get_by_natural_key(self, url_path):
+        """Get page by URL"""
+        return self.get(url_path=url_path)
 
     def first_common_ancestor_of(self, pages, include_self=False, strict=False):
         """
@@ -637,7 +644,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Set default values for core fields (slug, draft_title, locale) that need to be
         in place before validating or saving
         """
-        if not self.slug:
+
+        # If path is unset, then this cleaning step must be happening in advance of the
+        # final save, and there is no point trying to auto-generate a slug yet, as we
+        # don't know the set of sibling pages to de-duplicate against. In this case,
+        # this method will be called again as part of the call to `save()` after the
+        # path is populated, and we will auto-generate the slug at that point if
+        # necessary.
+        if (not self.slug) and self.path:
             # Try to auto-populate slug from title
             allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
             base_slug = slugify(self.title, allow_unicode=allow_unicode)
@@ -663,7 +677,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             raise ValidationError(
                 {
                     "slug": _(
-                        "The slug '%(page_slug)s' is already in use within the parent page at '%(parent_url_path)s'"
+                        "The slug '%(page_slug)s' is already in use within the parent page at '%(parent_url_path)s'."
                     )
                     % {"page_slug": self.slug, "parent_url_path": parent_page.url}
                 }
@@ -719,10 +733,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         :meth:`~django.db.models.Model.full_clean` before saving.
 
         If ``clean=True`` is passed, and the page has ``live=False`` set, only the title and slug fields are validated.
-
-        .. versionchanged:: 7.0
-           ``clean=True`` now only performs full validation when the page is live. When the page is not live, only
-           the title and slug fields are validated. Previously, full validation was always performed.
         """
         if clean:
             if self.live:
@@ -743,7 +753,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Check that we are committing the slug to the database
             # Basically: If update_fields has been specified, and slug is not included, skip this step
             if not (
-                "update_fields" in kwargs and "slug" not in kwargs["update_fields"]
+                "update_fields" in kwargs
+                and kwargs["update_fields"] is not None
+                and "slug" not in kwargs["update_fields"]
             ):
                 # see if the slug has changed from the record in the db, in which case we need to
                 # update url_path of self and all descendants. Even though we might not need it,
@@ -903,10 +915,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 # Cache the parent page on the subpage to avoid another db query
                 # Treebeard's get_parent will use the `_cached_parent_obj` attribute if it exists
                 # And update = False
-                setattr(subpage, "_cached_parent_obj", self)
+                subpage._cached_parent_obj = self
 
-            except Page.DoesNotExist:
-                raise Http404
+            except Page.DoesNotExist as e:
+                raise Http404 from e
 
             return subpage.specific.route(request, remaining_components)
 
@@ -927,6 +939,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # in a fixture or migration that didn't explicitly handle draft_title)
         return self.draft_title or self.title
 
+    @transaction.atomic
     def save_revision(
         self,
         user=None,
@@ -935,6 +948,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         log_action=False,
         previous_revision=None,
         clean=True,
+        overwrite_revision=None,
     ):
         # Raise error if this is not the specific version of the page
         if not isinstance(self, self.specific_class):
@@ -958,14 +972,42 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # We need to ensure comments have an id in the revision, so positions can be identified correctly
             comment.save()
 
-        revision = Revision.objects.create(
-            content_object=self,
-            base_content_type=self.get_base_content_type(),
-            user=user,
-            approved_go_live_at=approved_go_live_at,
-            content=self.serializable_data(),
-            object_str=str(self),
-        )
+        if overwrite_revision:
+            # the revision being overwritten must be the latest revision for the current page, and must match
+            # the current user (if any)
+            latest_revision = self.get_latest_revision()
+            if overwrite_revision != latest_revision:
+                raise PermissionDenied(
+                    gettext(
+                        "Cannot overwrite a revision that is not the latest for "
+                        "this %(model_name)s."
+                    )
+                    % {"model_name": Page._meta.verbose_name}
+                )
+
+            if overwrite_revision.user_id != (user and user.pk):
+                raise PermissionDenied(
+                    gettext(
+                        "Cannot overwrite a revision that was not created "
+                        "by the current user."
+                    )
+                )
+
+            overwrite_revision.created_at = timezone.now()
+            overwrite_revision.content = self.serializable_data()
+            overwrite_revision.approved_go_live_at = approved_go_live_at
+            overwrite_revision.object_str = str(self)
+            overwrite_revision.save()
+            revision = overwrite_revision
+        else:
+            revision = Revision.objects.create(
+                content_object=self,
+                base_content_type=self.get_base_content_type(),
+                user=user,
+                approved_go_live_at=approved_go_live_at,
+                content=self.serializable_data(),
+                object_str=str(self),
+            )
 
         for comment in new_comments:
             comment.revision_created = revision
@@ -1895,6 +1937,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             "wagtailcore/password_required.html",
         )
 
+        # Ensuring preview attributes exist
+        if not hasattr(request, "is_preview"):
+            request.is_preview = False
+        if not hasattr(request, "preview_mode"):
+            request.preview_mode = None
+
         context = self.get_context(request)
         context["form"] = form
         context["action_url"] = action_url
@@ -2029,6 +2077,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             except AttributeError:
                 workflow = None
             return workflow
+
+    def natural_key(self):
+        """Return the URL path as the natural key"""
+        return (self.url_path,)
 
     class Meta:
         verbose_name = _("page")
@@ -2693,12 +2745,12 @@ class Comment(ClusterableModel):
             # comment applies to the field as a whole
             return True
 
-        if not isinstance(field, StreamField):
-            # only StreamField supports content paths that are deeper than one level
+        # e.g. StreamField supports content paths that are deeper than one level
+        if not hasattr(field, "get_block_by_content_path"):
             return False
 
-        stream_value = getattr(page, field_name)
-        block = field.get_block_by_content_path(stream_value, remainder)
+        field_value = getattr(page, field_name)
+        block = field.get_block_by_content_path(field_value, remainder)
         # content path is valid if this returns a BoundBlock rather than None
         return bool(block)
 

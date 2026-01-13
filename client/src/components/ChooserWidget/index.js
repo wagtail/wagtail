@@ -1,10 +1,11 @@
-import EventEmitter from 'events';
 import { ChooserModal } from '../../includes/chooserModal';
 
-export class Chooser extends EventEmitter {
+export class Chooser extends EventTarget {
   chooserModalClass = ChooserModal;
-  titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
-  editUrlStateKey = 'edit_url'; // key used in the 'state' dictionary to hold the URL of the edit page
+  /** Key used in the 'state' dictionary to hold the human-readable title. */
+  titleStateKey = 'title';
+  /** Key used in the 'state' dictionary to hold the URL of the edit page. */
+  editUrlStateKey = 'edit_url';
 
   constructor(id, opts = {}) {
     super();
@@ -42,15 +43,15 @@ export class Chooser extends EventEmitter {
     );
   }
 
+  /**
+   * Construct initial state of the chooser from the rendered (static) HTML.
+   * State is either null (= no item chosen) or a dict of id, title and edit_url.
+   *
+   * The result returned from the chooser modal (see get_chosen_response_data in
+   * wagtail.admin.views.generic.chooser.ChosenView) is a superset of this, and can therefore be
+   * passed directly to chooser.setState.
+   */
   getStateFromHTML() {
-    /*
-        Construct initial state of the chooser from the rendered (static) HTML.
-        State is either null (= no item chosen) or a dict of id, title and edit_url.
-
-        The result returned from the chooser modal (see get_chosen_response_data in
-        wagtail.admin.views.generic.chooser.ChosenView) is a superset of this, and can therefore be
-        passed directly to chooser.setState.
-        */
     if (this.input.value) {
       const state = {
         id: this.input.value,
@@ -85,7 +86,7 @@ export class Chooser extends EventEmitter {
 
   setStateFromModalData(data) {
     this.setState(data);
-    this.emit('chosen', data);
+    this.dispatchEvent(new CustomEvent('chosen', { detail: data }));
   }
 
   clear() {
@@ -186,7 +187,6 @@ export class ChooserFactory {
 
   render(placeholder, name, id, initialState) {
     const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
-    // eslint-disable-next-line no-param-reassign
     placeholder.outerHTML = html;
     // eslint-disable-next-line new-cap
     const chooser = new this.widgetClass(id, this.opts);
@@ -213,10 +213,14 @@ export class ChooserFactory {
     this.modal.open(options, callback);
   }
 
-  /**
-   * retrieve the widget object corresponding to the given HTML ID
-   */
+  /** Retrieve the widget object corresponding to the given HTML ID. */
   getById(id) {
     return document.getElementById(`${id}-chooser`).widget;
+  }
+
+  /** Retrieve the widget object corresponding to the given HTML name. */
+  getByName(name, container) {
+    const input = container.querySelector(`input[name="${name}"]`);
+    return this.getById(input.id);
   }
 }
