@@ -65,9 +65,11 @@ describe('AutosaveController', () => {
     });
 
     const unsavedEvent = await dispatchUnsaved(form);
+    // rAF doesn't work with jest fake timers
+    // https://github.com/jestjs/jest/issues/5147
+    const mockRAF = jest.fn((callback) => callback());
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementationOnce(mockRAF);
     await jest.advanceTimersByTimeAsync(500);
-
-    const { detail: successEventDetail } = await successEvent;
 
     expect(fetch).toHaveBeenCalledTimes(1);
     const [url, init] = fetch.mock.calls[0];
@@ -86,6 +88,9 @@ describe('AutosaveController', () => {
     expect(saveHandler).toHaveBeenCalledTimes(1);
     expect(errorHandler).not.toHaveBeenCalled();
 
+    const { detail: successEventDetail } = await successEvent;
+
+    expect(mockRAF).toHaveBeenCalledTimes(1);
     const { response, trigger } = successEventDetail;
     expect(response).toEqual({
       success: true,
