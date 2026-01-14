@@ -365,6 +365,35 @@ describe('TeleportController', () => {
       expect(contents).toEqual('');
     });
 
+    it('should run inline scripts contained in the template content', async () => {
+      document.body.innerHTML += /* html */ `
+        <div id="target-container"></div>
+      `;
+
+      const template = document.querySelector('template');
+      template.setAttribute(
+        'data-w-teleport-target-value',
+        '#target-container',
+      );
+
+      const scriptContent = /* js */ `
+        document.getElementById('target-container').setAttribute('data-script-ran', 'true');
+      `;
+      const scriptElement = document.createElement('script');
+      scriptElement.text = scriptContent;
+      template.content.appendChild(scriptElement);
+
+      expect(document.getElementById('target-container').innerHTML).toEqual('');
+
+      application.start();
+
+      await Promise.resolve();
+
+      const container = document.getElementById('target-container');
+      expect(container).not.toBeNull();
+      expect(container.getAttribute('data-script-ran')).toEqual('true');
+    });
+
     it('should throw an error if a valid target container cannot be resolved', async () => {
       const errors = [];
 
@@ -386,6 +415,98 @@ describe('TeleportController', () => {
           message: 'Error connecting controller',
         },
       ]);
+    });
+  });
+
+  describe('mode value', () => {
+    const startController = async () => {
+      application.start();
+      await Promise.resolve();
+    };
+
+    const setTemplateMode = (mode) => {
+      const template = document.getElementById('template');
+      template.setAttribute('data-w-teleport-mode-value', mode);
+
+      return template;
+    };
+
+    beforeEach(() => {
+      application?.stop();
+      document.body.innerHTML = /* html */ `
+        <main>
+          <template
+            id="template"
+            data-controller="w-teleport"
+            data-w-teleport-target-value="#target"
+          >
+            <p id="teleported-element">Element node</p>
+            and + some text node
+            <script>document.body.setAttribute('data-script-ran', 'true');</script>
+          </template>
+          <section id="target-parent">
+            <div id="target">
+              Some existing text
+              <span id="existing-child">Existing child element</span>
+            </div>
+          </section>
+        </main>
+      `;
+
+      application = new Application();
+      application.register('w-teleport', TeleportController);
+    });
+
+    afterEach(() => {
+      application?.stop();
+    });
+
+    it('replaces the target element when mode is outerHTML', async () => {
+      setTemplateMode('outerHTML');
+      await startController();
+      expect(document.body.outerHTML).toMatchSnapshot();
+    });
+
+    it('replaces the target inner content when mode is innerHTML', async () => {
+      setTemplateMode('innerHTML');
+      await startController();
+      expect(document.body.outerHTML).toMatchSnapshot();
+    });
+
+    it('copies only the textual content when mode is textContent', async () => {
+      setTemplateMode('textContent');
+      await startController();
+      expect(document.body.outerHTML).toMatchSnapshot();
+    });
+
+    it('inserts nodes before the target when mode is beforebegin', async () => {
+      setTemplateMode('beforebegin');
+      await startController();
+      expect(document.body.outerHTML).toMatchSnapshot();
+    });
+
+    it('prepends nodes when mode is afterbegin', async () => {
+      setTemplateMode('afterbegin');
+      await startController();
+      expect(document.body.outerHTML).toMatchSnapshot();
+    });
+
+    it('appends nodes when mode is beforeend', async () => {
+      setTemplateMode('beforeend');
+      await startController();
+      expect(document.body.outerHTML).toMatchSnapshot();
+    });
+
+    it('inserts nodes after the target when mode is afterend', async () => {
+      setTemplateMode('afterend');
+      await startController();
+      expect(document.body.outerHTML).toMatchSnapshot();
+    });
+
+    it('defaults to beforeend if mode is not recognised', async () => {
+      setTemplateMode('unknown');
+      await startController();
+      expect(document.body.outerHTML).toMatchSnapshot();
     });
   });
 });
