@@ -31,6 +31,7 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.forms import URLGeneratorForm, get_image_form
@@ -81,6 +82,19 @@ class IndexView(generic.IndexView):
     edit_url_name = "wagtailimages:edit"
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
+
+    @property
+    def header_buttons(self):
+        """Add a custom header button for URL upload."""
+        buttons = super().header_buttons
+        buttons.append(
+            HeaderButton(
+                label=_("Add an Image from URL"),
+                url=reverse("add_from_url"),
+                icon_name="plus",
+            )
+        )
+        return buttons
 
     def get_paginate_by(self, queryset):
         return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)

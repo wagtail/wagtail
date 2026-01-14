@@ -25,12 +25,14 @@ from wagtail.images.views.bulk_actions import (
     DeleteBulkAction,
 )
 from wagtail.images.views.chooser import viewset as chooser_viewset
+from wagtail.images.views.multiple import AddFromURLView
 
 
 @hooks.register("register_admin_urls")
 def register_admin_urls():
     return [
         path("images/", include(admin_urls, namespace="wagtailimages")),
+        path("images/add_from_url/", AddFromURLView.as_view(), name="add_from_url"),
     ]
 
 
@@ -189,7 +191,6 @@ class ImageAdminURLFinder(ModelAdminURLFinder):
 
 
 register_admin_url_finder(get_image_model(), ImageAdminURLFinder)
-
 
 for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction]:
     hooks.register("register_bulk_action", action_class)
