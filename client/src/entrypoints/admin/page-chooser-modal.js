@@ -260,6 +260,7 @@ class PageChooserModal extends ChooserModal {
     }
     if (opts.locale) {
       urlParams.locale = opts.locale;
+      urlParams.show_locale_controls = 'false';
     }
     return urlParams;
   }
