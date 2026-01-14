@@ -6,13 +6,13 @@
     {% endif %}
 
     {% if render_filters_fragment %}
-        <template data-controller="w-teleport" data-w-teleport-target-value="#filters-drilldown" data-w-teleport-reset-value="true">
+        <template data-controller="w-teleport" data-w-teleport-target-value="#filters-drilldown" data-w-teleport-mode-value="innerHTML">
             {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters %}
         </template>
     {% endif %}
 
     {% if render_buttons_fragment %}
-        <template data-controller="w-teleport" data-w-teleport-target-value="#w-slim-header-buttons" data-w-teleport-reset-value="true">
+        <template data-controller="w-teleport" data-w-teleport-target-value="#w-slim-header-buttons" data-w-teleport-mode-value="innerHTML">
             {% for button in header_buttons %}
                 {% component button %}
             {% endfor %}
