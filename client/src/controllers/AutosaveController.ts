@@ -158,14 +158,17 @@ export class AutosaveController extends Controller<
         form.action = response.url;
       }
 
-      this.dispatch('success', {
-        cancelable: false,
-        detail: {
-          response,
-          data: response,
-          trigger: event,
-        },
-      });
+      // Ensure any UI updates have finished before dispatching the success event
+      requestAnimationFrame(() =>
+        this.dispatch('success', {
+          cancelable: false,
+          detail: {
+            response,
+            data: response,
+            trigger: event,
+          },
+        }),
+      );
     } catch (error) {
       let type: KnownErrorCode;
       let text: string;
