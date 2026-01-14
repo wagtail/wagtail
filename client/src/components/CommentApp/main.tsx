@@ -362,7 +362,13 @@ export class CommentApp {
       // If this is the initial focused comment. Focus and pin it
 
       // TODO: Scroll to this comment
-      if (initialFocusedCommentId && comment.pk === initialFocusedCommentId) {
+      if (
+        initialFocusedCommentId &&
+        // Remote ID match
+        (comment.pk === initialFocusedCommentId ||
+          // A new comment that did not have a remote ID (assume the last one)
+          (initialFocusedCommentId === -1 && comment === comments.at(-1)))
+      ) {
         this.store.dispatch(
           setFocusedComment(commentId, {
             updatePinnedComment: true,
@@ -376,8 +382,9 @@ export class CommentApp {
   updateData(data: CommentAppData) {
     // Get the remote ID of the currently focused comment (if any)
     const { comments, focusedComment } = this.store.getState().comments;
-    const focusedCommentRemoteId =
-      comments.get(focusedComment || 0)?.remoteId ?? undefined;
+    const comment = comments.get(focusedComment || 0);
+    // -1 means it's a new comment that didn't exist on the server yet
+    const focusedCommentRemoteId = comment ? comment.remoteId || -1 : undefined;
 
     // Merging the existing data with the new data from the server is complex,
     // so for now we will just reset the whole store and load the new data

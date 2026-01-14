@@ -1,5 +1,5 @@
-let nextCommentId = 1;
-let nextReplyId = 1;
+let nextCommentId = 0;
+let nextReplyId = 0;
 
 export function getNextCommentId() {
   nextCommentId += 1;
@@ -12,6 +12,6 @@ export function getNextReplyId() {
 }
 
 export function resetCommentAndReplyIds() {
-  nextCommentId = 1;
-  nextReplyId = 1;
+  nextCommentId = 0;
+  nextReplyId = 0;
 }
