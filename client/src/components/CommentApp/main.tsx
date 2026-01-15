@@ -267,6 +267,7 @@ export class CommentApp {
     authors: Map<string, { name: string; avatar_url: string }>,
   ) {
     let pinnedComment: number | null = null;
+    let lastScrolledComment: number | null = null;
     this.setUser(userId, authors);
 
     // Check if there is "comment" query parameter.
@@ -302,6 +303,27 @@ export class CommentApp {
         this.layout.setPinnedComment(state.comments.pinnedComment);
 
         pinnedComment = state.comments.pinnedComment;
+      }
+
+      const { focusedComment, forceFocus } = state.comments;
+      if (!forceFocus || focusedComment === null) {
+        lastScrolledComment = null;
+      } else if (focusedComment !== lastScrolledComment) {
+        const focused = state.comments.comments.get(focusedComment);
+        const anchor = focused?.annotation?.getAnchorNode?.(true);
+
+        if (anchor instanceof Element) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          lastScrolledComment = focusedComment;
+        } else {
+          /* eslint-disable-next-line no-console */
+          console.warn(
+            '[Comment] Could not scroll to comment anchor - annotation or getAnchorNode is missing. commentId:',
+            focusedComment,
+            'hasAnnotation:',
+            !!focused?.annotation,
+          );
+        }
       }
 
       ReactDOM.render(
