@@ -356,6 +356,13 @@ export class PreviewController extends Controller<HTMLElement> {
     this.setUpContentChecks();
 
     this.restoreLastSavedPreferences();
+
+    if (
+      !this.sidePanelContainer.hidden ||
+      (this.checksSidePanel && !this.checksSidePanel.hidden)
+    ) {
+      this.checkAndUpdatePreview();
+    }
   }
 
   setUpContentChecks() {
