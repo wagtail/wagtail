@@ -643,6 +643,15 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             },
         )
         self.assertIsNotNone(breadcrumbs)
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNone(form_title_heading)
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)

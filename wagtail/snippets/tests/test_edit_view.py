@@ -885,6 +885,16 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             },
         )
         self.assertIsNotNone(breadcrumbs)
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(form_title_heading)
+        self.assertEqual(form_title_heading.text.strip(), "Updated revision")
 
         self.assertEqual(self.test_snippet.revisions.count(), 2)
         revision.refresh_from_db()

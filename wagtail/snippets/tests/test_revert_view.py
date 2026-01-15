@@ -74,7 +74,10 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         )
 
         # Form should show the content of the revision, not the current draft
-        self.assertContains(response, "The original text", count=1)
+        soup = self.get_soup(response.content)
+        textarea = soup.select_one("textarea[name='text']")
+        self.assertIsNotNone(textarea)
+        self.assertEqual(textarea.text.strip(), "The original text")
 
         # Form action url should point to the revisions_revert view
         form_tag = f'<form action="{self.revert_url}" method="POST">'

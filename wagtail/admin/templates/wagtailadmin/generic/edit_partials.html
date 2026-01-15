@@ -23,3 +23,13 @@
         {% endblock %}
     </template>
 {% endblock %}
+
+{% block form_title_heading %}
+    <template
+        data-controller="w-teleport"
+        data-w-teleport-target-value="#header-title span"
+        data-w-teleport-mode-value="textContent"
+    >
+        {{ page_subtitle|default:page_title }}
+    </template>
+{% endblock %}
