@@ -52,6 +52,44 @@
         </form>
     </div>
 
+    <div class="drop-zone w-mt-8">
+        <p>{{ url_help_text }}</p>
+        <form id="url-upload-form" action="{% url 'wagtailimages:add_multiple' %}" method="POST">
+            {% csrf_token %}
+            <div class="replace-file-input" style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+                <input
+                    type="url"
+                    id="image_url"
+                    name="image_url"
+                    placeholder="https://example.com/image.jpg"
+                    required
+                    aria-describedby="image_url-helptext"
+                    style="min-width: 300px; max-width: 500px; outline: none !important;"
+                >
+                <button type="submit" class="button bicolor button--icon" id="url-upload-button">
+                    {% icon name="download" wrapped=1 %}{% trans "Import from URL" %}
+                </button>
+            </div>
+            {% if collections %}
+                {% trans "Add to collection:" as label_text %}
+                {% rawformattedfield label_text=label_text id_for_label="id_url_collection" classname="w-mx-auto w-mt-4 w-grid w-justify-center url-collection-field" %}
+                    <select id="id_url_collection" name="collection">
+                        {% for pk, display_name in collections.get_indented_choices %}
+                            <option value="{{ pk|unlocalize }}"{% if pk|unlocalize == selected_collection_id %} selected{% endif %} >
+                                {{ display_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                {% endrawformattedfield %}
+            {% endif %}
+        </form>
+        <div id="url-upload-progress" class="w-mt-4 w-hidden">
+            <div class="progress progress-secondary">
+                <div class="bar" style="width: 100%;">{% trans "Importing..." %}</div>
+            </div>
+        </div>
+    </div>
+
     <div id="overall-progress" class="progress progress-secondary">
         <div class="bar w-w-0">0%</div>
     </div>

@@ -1,11 +1,15 @@
 import datetime
 import json
 import urllib
+from io import BytesIO
+from unittest.mock import MagicMock
 from unittest.mock import patch
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
 from django.db.models.lookups import In
 from django.template.defaultfilters import filesizeformat
@@ -24,6 +28,10 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.tables import Table
 from wagtail.images import get_image_model
+from wagtail.images.url_import import DownloadTimeoutError
+from wagtail.images.url_import import FileTooLargeError
+from wagtail.images.url_import import InvalidContentTypeError
+from wagtail.images.url_import import InvalidURLError
 from wagtail.images.utils import generate_signature
 from wagtail.images.views.images import BulkActionsColumn, ImagesFilterSet
 from wagtail.models import (
@@ -42,11 +50,10 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
-
 from .utils import Image, get_test_image_file, get_test_image_file_svg
 
-# Get the chars that Django considers safe to leave unescaped in a URL
 urlquote_safechars = RFC3986_SUBDELIMS + "/~:@"
+User = get_user_model()
 
 
 class TestImageIndexView(WagtailTestUtils, TestCase):
@@ -69,9 +76,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/index.html")
         self.assertContains(response, "Add an image")
-        # The search box should not raise an error
         self.assertNotContains(response, "This field is required.")
-        # all results should be returned
         self.assertContains(response, "a cute kitten")
         self.assertContains(response, "a cute puppy")
 
@@ -80,9 +85,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query_string"], "")
         self.assertContains(response, "Add an image")
-        # The search box should not raise an error
         self.assertNotContains(response, "This field is required.")
-        # all results should be returned
         self.assertContains(response, "a cute kitten")
         self.assertContains(response, "a cute puppy")
 
@@ -108,7 +111,6 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
 
         response_body = response.content.decode("utf8")
 
-        # prev link should exist and include collection_id
         self.assertTrue(
             ("?p=1&amp;collection_id=%i" % evil_plans_collection.id) in response_body
             or ("?collection_id=%i&amp;p=1" % evil_plans_collection.id) in response_body
@@ -393,8 +395,6 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             data={}, queryset=Image.objects.all(), request=request, is_searching=True
         )
 
-        # Filtering on tags during a search would normally apply a `pk__in` filter, but this should not happen
-        # when the tag filter is empty.
         in_clauses = [
             clause
             for clause in filterset.qs.query.where.children
@@ -718,8 +718,6 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
             title="a cute puppy",
             file=get_test_image_file(size=(1, 1)),
         )
-        # The created_at field uses auto_now_add, so changing it needs to be
-        # done after the image is created.
         self.kitten_image.created_at = local_datetime(2020, 1, 1)
         self.kitten_image.save()
         self.puppy_image.created_at = local_datetime(2022, 2, 2)
@@ -3413,6 +3411,244 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertIn("success", response_json)
         self.assertEqual(response_json["image_id"], self.image.id)
         self.assertTrue(response_json["success"])
+
+
+class TestMultipleImageUploaderURLUpload(WagtailTestUtils, TestCase):
+    """
+    Tests for uploading images from URL in wagtailimages/views/multiple.py
+    """
+
+    def setUp(self):
+        self.user = self.login()
+
+    def _create_mock_response(
+        self, content=b"fake image data", content_type="image/png", content_length=None
+    ):
+        """Helper to create a mock response for requests.get."""
+
+        mock_response = MagicMock()
+        mock_response.headers = {"Content-Type": content_type}
+        if content_length is not None:
+            mock_response.headers["Content-Length"] = str(content_length)
+        mock_response.iter_content.return_value = [content]
+        mock_response.raise_for_status = MagicMock()
+        return mock_response
+
+    def test_add_view_contains_url_upload_form(self):
+        """
+        Test that the add view contains the URL upload form section
+        """
+        response = self.client.get(reverse("wagtailimages:add_multiple"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="url-upload-form"')
+        self.assertContains(response, 'name="image_url"')
+        self.assertContains(response, "Import from URL")
+
+    @patch("wagtail.images.views.multiple.fetch_image_from_url")
+    def test_url_upload_success(self, mock_fetch):
+        """
+        Test successful image upload from URL
+        """
+
+        file_data = BytesIO(get_test_image_file().file.getvalue())
+        mock_file = InMemoryUploadedFile(
+            file=file_data,
+            field_name="file",
+            name="test-image.png",
+            content_type="image/png",
+            size=len(file_data.getvalue()),
+            charset=None,
+        )
+        mock_fetch.return_value = mock_file
+
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "image_url": "https://example.com/test-image.png",
+            },
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+
+        # Check JSON response
+        response_json = json.loads(response.content.decode())
+        self.assertTrue(response_json["success"])
+        self.assertIn("image_id", response_json)
+        self.assertIn("form", response_json)
+
+        # Check that image was created
+        image = Image.objects.get(id=response_json["image_id"])
+        self.assertEqual(image.title, "test-image")
+        self.assertEqual(image.uploaded_by_user, self.user)
+
+    @patch("wagtail.images.views.multiple.fetch_image_from_url")
+    def test_url_upload_invalid_url(self, mock_fetch):
+        """
+        Test that invalid URLs return an error
+        """
+
+        mock_fetch.side_effect = InvalidURLError("Invalid URL: missing hostname.")
+
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "image_url": "not-a-valid-url",
+            },
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertFalse(response_json["success"])
+        self.assertIn("error_message", response_json)
+        self.assertIn("Invalid URL", response_json["error_message"])
+
+    @patch("wagtail.images.views.multiple.fetch_image_from_url")
+    def test_url_upload_invalid_content_type(self, mock_fetch):
+        """
+        Test that non-image URLs return an error
+        """
+
+        mock_fetch.side_effect = InvalidContentTypeError(
+            "URL does not point to a valid image. Content type: text/html"
+        )
+
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "image_url": "https://example.com/page.html",
+            },
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertFalse(response_json["success"])
+        self.assertIn("error_message", response_json)
+        self.assertIn("Content type", response_json["error_message"])
+
+    @patch("wagtail.images.views.multiple.fetch_image_from_url")
+    def test_url_upload_file_too_large(self, mock_fetch):
+        """
+        Test that oversized files return an error
+        """
+
+        mock_fetch.side_effect = FileTooLargeError(
+            "File is too large. Maximum size: 10 MB."
+        )
+
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "image_url": "https://example.com/huge-image.jpg",
+            },
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertFalse(response_json["success"])
+        self.assertIn("error_message", response_json)
+        self.assertIn("too large", response_json["error_message"])
+
+    @patch("wagtail.images.views.multiple.fetch_image_from_url")
+    def test_url_upload_timeout(self, mock_fetch):
+        """
+        Test that timeouts return an error
+        """
+
+        mock_fetch.side_effect = DownloadTimeoutError(
+            "Download timed out after 30 seconds."
+        )
+
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "image_url": "https://example.com/slow-image.jpg",
+            },
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertFalse(response_json["success"])
+        self.assertIn("error_message", response_json)
+        self.assertIn("timed out", response_json["error_message"])
+
+    @patch("wagtail.images.views.multiple.fetch_image_from_url")
+    def test_url_upload_uses_custom_title(self, mock_fetch):
+        """
+        Test that custom title can be provided
+        """
+
+        file_data = BytesIO(get_test_image_file().file.getvalue())
+        mock_file = InMemoryUploadedFile(
+            file=file_data,
+            field_name="file",
+            name="image.png",
+            content_type="image/png",
+            size=len(file_data.getvalue()),
+            charset=None,
+        )
+        mock_fetch.return_value = mock_file
+
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "image_url": "https://example.com/image.png",
+                "title": "My Custom Title",
+            },
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertTrue(response_json["success"])
+
+        # Check that image was created with custom title
+        image = Image.objects.get(id=response_json["image_id"])
+        self.assertEqual(image.title, "My Custom Title")
+
+    def test_url_upload_requires_permission(self):
+        """
+        Test that URL upload requires add permission
+        """
+        # Create a user without add permission
+
+        limited_user = User.objects.create_user(
+            username="limited", password="password123"
+        )
+        self.client.logout()
+        self.client.login(username="limited", password="password123")
+
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "image_url": "https://example.com/image.png",
+            },
+        )
+
+        # Should redirect to login or return permission denied
+        self.assertIn(response.status_code, [302, 403])
+
+    @patch("wagtail.images.views.multiple.fetch_image_from_url")
+    def test_url_upload_empty_url(self, mock_fetch):
+        """
+        Test that empty URL falls back to regular file upload behavior
+        """
+        # With empty URL and no file, should return bad request
+        response = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "image_url": "",
+            },
+        )
+
+        # Should return 400 Bad Request (no file provided)
+        self.assertEqual(response.status_code, 400)
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")

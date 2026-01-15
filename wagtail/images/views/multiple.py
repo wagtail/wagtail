@@ -1,9 +1,10 @@
 import os.path
 
+from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.text import capfirst
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
@@ -22,6 +23,14 @@ from wagtail.images.utils import (
     find_image_duplicates,
     get_accept_attributes,
     get_allowed_image_extensions,
+)
+from wagtail.images.url_import import (
+    DownloadTimeoutError,
+    FileTooLargeError,
+    InvalidContentTypeError,
+    InvalidURLError,
+    fetch_image_from_url,
+    get_max_url_download_size,
 )
 
 
@@ -91,6 +100,14 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
                 ),
             )
 
+        # Add preview thumbnail URL for displaying in the upload list
+        try:
+            preview_rendition = self.object.get_rendition("max-150x150")
+            data["preview_url"] = preview_rendition.url
+        except Exception:
+            # If rendition fails, fall back to original image URL
+            data["preview_url"] = self.object.file.url if self.object.file else None
+
         return data
 
     def save_object(self, form):
@@ -99,14 +116,79 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
         image.save()
         return image
 
+    def post(self, request):
+        """
+        Handle POST requests - supports both file uploads and URL imports.
+        """
+        image_url = request.POST.get("image_url", "").strip()
+
+        if image_url:
+            return self.handle_url_upload(request, image_url)
+
+        return super().post(request)
+
+    def handle_url_upload(self, request, image_url):
+        """
+        Handle image import from URL.
+        """
+        try:
+            uploaded_file = fetch_image_from_url(image_url)
+        except (InvalidURLError, FileTooLargeError, InvalidContentTypeError, DownloadTimeoutError) as e:
+            return JsonResponse({
+                "success": False,
+                "error_message": str(e),
+            })
+
+        filename = uploaded_file.name
+        title = request.POST.get("title", "")
+        if not title:
+            title = filename.rsplit(".", 1)[0] if "." in filename else filename
+
+        upload_form_class = self.get_upload_form_class()
+        form = upload_form_class(
+            {
+                "title": title,
+                "collection": request.POST.get("collection"),
+            },
+            {
+                "file": uploaded_file,
+            },
+            user=request.user,
+        )
+
+        if form.is_valid():
+            self.object = self.save_object(form)
+
+            return JsonResponse(self.get_edit_object_response_data())
+        elif "file" in form.errors:
+            return JsonResponse({
+                "success": False,
+                "error_message": "\n".join(form.errors["file"]),
+            })
+        else:
+            all_errors = []
+            for field, errors in form.errors.items():
+                for error in errors:
+                    all_errors.append(f"{field}: {error}")
+            return JsonResponse({
+                "success": False,
+                "error_message": "\n".join(all_errors),
+            })
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        allowed_extensions = get_allowed_image_extensions()
+        formats_str = ", ".join(ext.upper() for ext in allowed_extensions)
+        url_help_text = _("Enter a direct link to an image. Supported formats: %(formats)s") % {
+            "formats": formats_str
+        }
 
         context.update(
             {
                 "max_filesize": self.form.fields["file"].max_upload_size,
                 "max_title_length": self.form.fields["title"].max_length,
-                "allowed_extensions": get_allowed_image_extensions(),
+                "allowed_extensions": allowed_extensions,
                 "accept_attributes": get_accept_attributes(),
                 "error_max_file_size": self.form.fields["file"].error_messages[
                     "file_too_large_unknown_size"
@@ -114,6 +196,8 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
                 "error_accepted_file_types": self.form.fields["file"].error_messages[
                     "invalid_image_extension"
                 ],
+                "max_url_download_size": get_max_url_download_size(),
+                "url_help_text": url_help_text,
             }
         )
 
