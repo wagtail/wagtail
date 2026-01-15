@@ -9,7 +9,7 @@
                 {% if header_icon %}
                     {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
                 {% endif %}
-                {{ page_subtitle|default:page_title }}
+                <span>{{ page_subtitle|default:page_title }}</span>
             </h2>
         </div>
     {% else %}
