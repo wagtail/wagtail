@@ -22,6 +22,7 @@ export interface AutosaveSuccessResponse {
   revision_id?: number;
   revision_created_at?: string;
   url?: string;
+  field_updates?: { [key: string]: string };
 }
 
 export type AutosaveResponse = AutosaveSuccessResponse | AutosaveErrorResponse;
@@ -69,6 +70,19 @@ export class AutosaveController extends Controller<HTMLFormElement> {
 
       if (response.revision_id) {
         this.revisionIdValue = response.revision_id;
+      }
+      if (response.field_updates) {
+        for (const [fieldName, fieldValue] of Object.entries(
+          response.field_updates,
+        )) {
+          const field = this.element.elements.namedItem(fieldName) as
+            | HTMLInputElement
+            | HTMLTextAreaElement
+            | null;
+          if (field) {
+            field.value = fieldValue;
+          }
+        }
       }
       if (response.url) {
         this.element.action = response.url;
