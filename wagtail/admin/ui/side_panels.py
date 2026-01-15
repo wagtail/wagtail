@@ -22,13 +22,7 @@ class BaseSidePanel(Component):
             self.panel = panel
 
         def get_context_data(self, parent_context):
-            # Inherit classes from fragments defined in slim_header.html
-            inherit = {
-                "nav_icon_button_classes",
-                "nav_icon_classes",
-                "nav_icon_counter_classes",
-            }
-            context = {key: parent_context.get(key) for key in inherit}
+            context = {}
             context["toggle"] = self
             context["panel"] = self.panel
             context["count"] = 0
