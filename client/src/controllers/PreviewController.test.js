@@ -1199,6 +1199,74 @@ describe('PreviewController', () => {
       iframes = document.querySelectorAll('iframe');
       expect(iframes.length).toEqual(1);
     });
+
+    it('should immediately update the preview if the panel was already open on connect', async () => {
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      sidePanelContainer.hidden = false;
+      await Promise.resolve();
+
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(events).toMatchObject({
+        update: [],
+        json: [],
+        error: [],
+        load: [],
+        loaded: [],
+        content: [],
+        ready: [],
+        updated: [],
+      });
+
+      // Should not have fetched the preview URL
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      application = Application.start();
+      application.register(identifier, PreviewController);
+      await Promise.resolve();
+
+      // There's no spinner, so setTimeout should not be called
+      expect(setTimeout).not.toHaveBeenCalled();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+
+      // At this point, there should only be one fetch call (upon connect)
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      // Initially, the iframe src should be empty so it doesn't load the preview
+      // until after the request is complete
+      const iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0].src).toEqual('');
+
+      // Simulate the request completing
+      await Promise.resolve();
+      await Promise.resolve();
+
+      await expectIframeReloaded();
+
+      // If content checks are enabled, there are a few more promises to resolve
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(events).toMatchObject({
+        update: [expect.any(Event)],
+        json: [expect.any(Event)],
+        error: [],
+        load: [expect.any(Event)],
+        loaded: [expect.any(Event)],
+        content: [],
+        ready: [expect.any(Event)],
+        updated: [expect.any(Event)],
+      });
+    });
   });
 
   describe('auto update based on form state', () => {
@@ -2570,6 +2638,75 @@ describe('PreviewController', () => {
       expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
       await Promise.resolve();
       await expectIframeReloaded();
+    });
+
+    it('should immediately update the preview if the panel was already open on connect', async () => {
+      mockAxeResults();
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="checks"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      sidePanelContainer.hidden = false;
+      await Promise.resolve();
+
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(events).toMatchObject({
+        update: [],
+        json: [],
+        error: [],
+        load: [],
+        loaded: [],
+        content: [],
+        ready: [],
+        updated: [],
+      });
+
+      // Should not have fetched the preview URL
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      application = Application.start();
+      application.register(identifier, PreviewController);
+      await Promise.resolve();
+
+      // There's no spinner, so setTimeout should not be called
+      expect(setTimeout).not.toHaveBeenCalled();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+
+      // At this point, there should only be one fetch call (upon connect)
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      // Initially, the iframe src should be empty so it doesn't load the preview
+      // until after the request is complete
+      const iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0].src).toEqual('');
+
+      // Simulate the request completing
+      await Promise.resolve();
+      await Promise.resolve();
+
+      await expectIframeReloaded();
+
+      // If content checks are enabled, there are a few more promises to resolve
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(events).toMatchObject({
+        update: [expect.any(Event)],
+        json: [expect.any(Event)],
+        error: [],
+        load: [expect.any(Event)],
+        loaded: [expect.any(Event)],
+        content: [expect.any(Event)],
+        ready: [expect.any(Event)],
+        updated: [expect.any(Event)],
+      });
     });
 
     it('should clean up event listeners on disconnect', async () => {
