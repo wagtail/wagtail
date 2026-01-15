@@ -99,7 +99,12 @@ export class UnsavedController extends Controller<HTMLFormElement> {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/File
    */
   get formData() {
-    const exclude = ['csrfmiddlewaretoken', 'next'];
+    const exclude = [
+      'csrfmiddlewaretoken',
+      'loaded_revision_id',
+      'loaded_revision_created_at',
+      'next',
+    ];
     const formData = new FormData(this.element);
     exclude.forEach((key) => formData.delete(key));
 

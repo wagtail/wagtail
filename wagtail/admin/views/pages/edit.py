@@ -64,7 +64,8 @@ class EditView(
     def get_template_names(self):
         if self.page.alias_of_id:
             return ["wagtailadmin/pages/edit_alias.html"]
-
+        elif self.hydrate_create_view:
+            return [self.partials_template_name]
         else:
             return ["wagtailadmin/pages/edit.html"]
 
@@ -490,6 +491,10 @@ class EditView(
             and self.workflow_state
             and self.workflow_state.user_can_cancel(self.request.user)
         )
+
+    @cached_property
+    def hydrate_create_view(self):
+        return bool(self.request.GET.get("_w_hydrate_create_view"))
 
     @cached_property
     def latest_revision_created_at(self):
@@ -1009,8 +1014,13 @@ class EditView(
                     self.page, self.request, preview_url=self.get_preview_url()
                 )
             )
-            side_panels.append(ChecksSidePanel(self.page, self.request))
-        if not self.expects_json_response and self.form.show_comments_toggle:
+            if not self.hydrate_create_view:
+                side_panels.append(ChecksSidePanel(self.page, self.request))
+        if (
+            not self.expects_json_response
+            and not self.hydrate_create_view
+            and self.form.show_comments_toggle
+        ):
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)
 
@@ -1100,7 +1110,8 @@ class EditView(
                 "autosave_indicator": AutosaveIndicator(),
                 "editing_sessions": self.get_editing_sessions(),
                 "loaded_revision_created_at": self.latest_revision_created_at,
-                "is_partial": self.expects_json_response,
+                "is_partial": self.expects_json_response or self.hydrate_create_view,
+                "hydrate_create_view": self.hydrate_create_view,
             }
         )
 

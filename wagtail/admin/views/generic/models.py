@@ -39,7 +39,11 @@ from wagtail.admin.ui.tables import (
     UpdatedAtColumn,
 )
 from wagtail.admin.ui.tables.orderable import OrderableTableMixin
-from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
+from wagtail.admin.utils import (
+    get_latest_str,
+    get_valid_next_url_from_request,
+    set_query_params,
+)
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
     BaseButton,
@@ -684,10 +688,13 @@ class CreateView(
         return instance
 
     def get_success_json(self):
+        edit_url = self.get_edit_url()
+        hydrate_url = set_query_params(edit_url, {"_w_hydrate_create_view": "1"})
         result = {
             "success": True,
             "pk": self.object.pk,
-            "url": self.get_edit_url(),
+            "url": edit_url,
+            "hydrate_url": hydrate_url,
         }
         if isinstance(self.form, WagtailAdminModelForm):
             result["field_updates"] = dict(self.form.get_field_updates_for_resave())
@@ -781,6 +788,11 @@ class EditView(
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
+
+    def get_template_names(self):
+        if self.hydrate_create_view:
+            return [self.partials_template_name]
+        return super().get_template_names()
 
     def post(self, request, *args, **kwargs):
         # BaseUpdateView.post() would set self.object here, but some subclasses need
@@ -1061,6 +1073,10 @@ class EditView(
     def has_unsaved_changes(self):
         return self.form.is_bound
 
+    @cached_property
+    def hydrate_create_view(self):
+        return bool(self.request.GET.get("_w_hydrate_create_view"))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
@@ -1072,7 +1088,8 @@ class EditView(
         context["submit_button_label"] = self.submit_button_label
         context["submit_button_active_label"] = self.submit_button_active_label
         context["has_unsaved_changes"] = self.has_unsaved_changes
-        context["is_partial"] = self.expects_json_response
+        context["is_partial"] = self.expects_json_response or self.hydrate_create_view
+        context["hydrate_create_view"] = self.hydrate_create_view
         context["can_delete"] = self.can_delete
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()

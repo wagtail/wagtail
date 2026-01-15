@@ -284,11 +284,7 @@ class CreateEditViewOptionalFeaturesMixin:
             and self.view_name != "create"
         )
         self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
-        self.autosave_enabled = (
-            self.revision_enabled
-            and self.view_name != "create"
-            and self.autosave_interval > 0
-        )
+        self.autosave_enabled = self.revision_enabled and self.autosave_interval > 0
 
         # Set the object before super().setup() as LocaleMixin.setup() needs it
         self.object = self.get_object()

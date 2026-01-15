@@ -105,6 +105,9 @@
             {% comment %}
                 The dialog will be teleported to the body. Do not re-render the dialog
                 when rendering partials, as we would end up with multiple instances.
+                We also don't render it when hydrating the create view, as it's unlikely
+                that the object immediately enters a workflow on creation without a
+                full-page reload.
             {% endcomment %}
         {% elif object.get_latest_revision %}
             {% workflow_status_with_date workflow_state as message_heading %}
