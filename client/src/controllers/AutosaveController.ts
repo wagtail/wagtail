@@ -27,6 +27,16 @@ function isHandledServerErrorCode(code: string): code is ServerErrorCode {
 
 export type KnownErrorCode = ServerErrorCode | ClientErrorCode;
 
+export class HydrationError extends Error {
+  code: ClientErrorCode;
+
+  constructor(code: ClientErrorCode, ...params: Parameters<ErrorConstructor>) {
+    super(...params);
+    this.name = 'HydrationError';
+    this.code = code;
+  }
+}
+
 export type AutosaveState = 'idle' | 'saving' | 'saved' | 'paused';
 
 export interface AutosaveErrorResponse {
@@ -41,6 +51,7 @@ export interface AutosaveSuccessResponse {
   revision_id?: number;
   revision_created_at?: string;
   url?: string;
+  hydrate_url?: string;
   field_updates?: { [key: string]: string };
   html?: string;
 }
@@ -50,6 +61,11 @@ export type AutosaveResponse = AutosaveSuccessResponse | AutosaveErrorResponse;
 export interface AutosaveSaveDetail {
   trigger?: Event;
   formData: FormData;
+}
+
+export interface AutosaveHydrateDetail {
+  trigger?: Event;
+  url: string;
 }
 
 export interface AutosaveSuccessDetail {
@@ -160,7 +176,15 @@ export class AutosaveController extends Controller<
         }
       }
       if (response.url) {
+        // For create views, we need to swap the form action and the browser URL
         form.action = response.url;
+        window.history.replaceState(null, '', response.url);
+      }
+      if (response.hydrate_url) {
+        // and hydrate the create view to turn it into an edit view
+        await this.hydrate({
+          detail: { url: response.hydrate_url, trigger: event },
+        } as CustomEvent<AutosaveHydrateDetail>);
       }
       if (this.hasPartialsTarget && response.html) {
         this.partialsTarget.innerHTML = response.html;
@@ -180,13 +204,20 @@ export class AutosaveController extends Controller<
     } catch (error) {
       let type: KnownErrorCode;
       let text: string;
-      if (!rawResponse) {
+      if (
+        !rawResponse ||
+        (error instanceof HydrationError &&
+          error.code === ClientErrorCode.NETWORK_ERROR)
+      ) {
         // Fetch failed, no response at all
         type = ClientErrorCode.NETWORK_ERROR;
         text = gettext('A network error occurred.');
       } else if (
         // Non-JSON response
         !response ||
+        // Error during hydration of create view
+        (error instanceof HydrationError &&
+          error.code === ClientErrorCode.SERVER_ERROR) ||
         // Unknown non-success JSON response (e.g. custom hook response)
         !('errorCode' in response) ||
         // Unhandled error code
@@ -199,9 +230,13 @@ export class AutosaveController extends Controller<
         text = response.errorMessage;
       }
 
-      // There's no way to recover from an invalid revision, so deactivate and
-      // inform listeners (e.g. to immediately trigger a notification)
-      if (type === ServerErrorCode.INVALID_REVISION) {
+      // There's no reliable way to recover from an invalid revision or a
+      // hydration error, so deactivate and inform listeners (e.g. to
+      // immediately trigger a notification)
+      if (
+        type === ServerErrorCode.INVALID_REVISION ||
+        error instanceof HydrationError
+      ) {
         this.activeValue = false;
         this.dispatch('deactivated', {
           cancelable: false,
@@ -225,6 +260,44 @@ export class AutosaveController extends Controller<
       });
     }
   };
+
+  /**
+   * Fetches the given URL that returns the partials needed to hydrate a create
+   * view into an edit view, and put it into the partials target.
+   * @param event A CustomEvent containing the URL to fetch.
+   */
+  async hydrate(event: CustomEvent<AutosaveHydrateDetail>) {
+    const { url } = event.detail;
+
+    return fetch(url)
+      .catch((error) => {
+        throw new HydrationError(
+          ClientErrorCode.NETWORK_ERROR,
+          'Network error during hydration.',
+          { cause: error },
+        );
+      })
+      .then((data) => {
+        if (!data.ok)
+          throw new HydrationError(
+            ClientErrorCode.SERVER_ERROR,
+            'Server error during hydration.',
+          );
+        return data.text();
+      })
+      .then((html) => {
+        if (this.hasPartialsTarget) {
+          this.partialsTarget.innerHTML = html;
+        }
+      })
+      .catch((error) => {
+        throw new HydrationError(
+          ClientErrorCode.SERVER_ERROR,
+          'Error during hydration.',
+          { cause: error },
+        );
+      });
+  }
 
   intervalValueChanged(newInterval: number) {
     if ('restore' in this.submit) {

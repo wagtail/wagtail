@@ -224,6 +224,9 @@ class StatusSidePanel(BaseSidePanel):
         context["status_templates"] = self.get_status_templates(context)
         context["last_updated_info"] = self.last_updated_info
         context["is_partial"] = parent_context.get("is_partial", False)
+        context["hydrate_create_view"] = parent_context.get(
+            "hydrate_create_view", False
+        )
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
         if self.usage_url is not None:

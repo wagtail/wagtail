@@ -32,11 +32,16 @@
         {% endwith %}
     </div>
 
-    {% if not is_partial %}
+    {% if is_partial and not hydrate_create_view %}
         {% comment %}
             The dialog will be teleported to the body. Do not re-render the dialog
             when rendering partials, as we would end up with multiple instances.
+            However, we do want to render the dialog when hydrating the create view,
+            as in that case the initial render didn't have the page ID needed to
+            render the dialog.
         {% endcomment %}
+    {% elif page.id %}
+        {# Only render when the page has been saved, as we need the ID for the URL #}
         {% trans 'Change privacy' as set_privacy_title %}
         {% trans 'Choose who can view the live version of this page' as set_privacy_message %}
         {% trans 'Privacy changes apply to all children of this page too.' as privacy_message_text %}

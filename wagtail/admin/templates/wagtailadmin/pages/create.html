@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/generic/form.html" %}
 {% load wagtailadmin_tags %}
-{% load i18n %}
+{% load i18n l10n %}
 
 {% block content %}
     {% get_comments_enabled as comments_enabled %}
@@ -14,8 +14,16 @@
         novalidate
         {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
         data-edit-form
-        data-controller="w-init w-unsaved"
-        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
+        data-controller="w-init w-unsaved {% if autosave_enabled %}w-autosave{% endif %}"
+        data-action="
+                     w-unsaved#submit
+                     beforeunload@window->w-unsaved#confirm
+                     {% if autosave_enabled %}
+                         w-unsaved:add->w-autosave#save:prevent
+                         w-autosave:success->w-unsaved#clear
+                     {% endif %}
+                    "
+        {% if autosave_enabled %}data-w-autosave-interval-value="{{ autosave_interval|unlocalize }}"{% endif %}
         data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
         data-w-unsaved-confirmation-value="true"
         data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
@@ -35,6 +43,9 @@
         {% block footer %}
             {{ block.super }}
             {# Reuse the footer container, but redefine the actions content down below to use component classes #}
+        {% endblock %}
+        {% block partials %}
+            {{ block.super }}
         {% endblock %}
     </form>
 
