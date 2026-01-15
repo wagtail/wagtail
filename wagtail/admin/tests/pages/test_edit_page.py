@@ -652,6 +652,21 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             },
         )
         self.assertIsNone(form_title_heading)
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(
+            header_title.text.strip(),
+            # Looks a bit off because get_admin_display_title for SimplePage
+            # adds (simple page) suffix
+            "Editing Simple page: I've been edited! (simple page)",
+        )
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
