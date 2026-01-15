@@ -41,8 +41,7 @@
     >
         {% csrf_token %}
         {% if revision_enabled and object.latest_revision_id %}
-            <input type="hidden" name="loaded_revision_id" value="{{ object.latest_revision_id|unlocalize }}">
-            <input type="hidden" name="loaded_revision_created_at" value="{{ loaded_revision_created_at }}">
+            {% include "wagtailadmin/generic/includes/_loaded_revision_inputs.html" with loaded_revision_id=object.latest_revision_id loaded_revision_created_at=loaded_revision_created_at only %}
         {% endif %}
 
         {% block form_content %}
