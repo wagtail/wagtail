@@ -1,5 +1,15 @@
 {% load wagtailadmin_tags %}
 
+{% block title %}
+    <template
+        data-controller="w-teleport"
+        data-w-teleport-target-value="head title"
+        data-w-teleport-mode-value="textContent"
+    >
+        {{ header_title }}
+    </template>
+{% endblock %}
+
 {% block side_panels %}
     {% for panel in side_panels %}
         <template
