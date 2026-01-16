@@ -72,6 +72,9 @@ class RevisionsRevertView(EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["action_url"] = self.get_revisions_revert_url()
+        # Autosave does not make much sense in this view, we want the user to
+        # explicitly confirm they want to revert to the previous revision
+        context["autosave_enabled"] = False
         return context
 
 

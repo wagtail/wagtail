@@ -104,7 +104,7 @@
 </ol>
 
 {% if sessions.0.revision_id %}
-    <template data-controller="w-teleport" data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog" data-w-teleport-reset-value="true">
+    <template data-controller="w-teleport" data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog" data-w-teleport-mode-value="textContent">
         {% if current_session.user == sessions.0.user %}
             {% blocktranslate trimmed asvar someone_has_saved_message %}
                 You saved a new version in another window
@@ -117,7 +117,7 @@
         {{ someone_has_saved_message }}
     </template>
 
-    <template data-controller="w-teleport" data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog" data-w-teleport-reset-value="true">
+    <template data-controller="w-teleport" data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog" data-w-teleport-mode-value="textContent">
         {% if current_session.user == sessions.0.user %}
             {% blocktranslate trimmed asvar overwrite_message %}
                 Proceeding will overwrite the changes you made in that window. Refreshing the page will show you the new changes, but you will lose any of your unsaved changes in the current window.

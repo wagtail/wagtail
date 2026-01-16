@@ -1167,6 +1167,9 @@ register_snippet(ModelWithCustomManager)
 class RevisableModel(RevisionMixin, models.Model):
     text = models.TextField()
 
+    def __str__(self):
+        return self.text
+
 
 class RevisableChildModel(RevisableModel):
     secret_text = models.TextField(blank=True, default="")

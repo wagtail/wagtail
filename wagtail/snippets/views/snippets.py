@@ -270,9 +270,15 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                 ),
                 locale=self.locale,
                 translations=self.translations,
+                # Show skeleton for usage info if usage_url_name is set
+                usage_url="" if self.usage_url_name else None,
             )
         ]
-        if self.preview_enabled and self.form.instance.is_previewable():
+        if (
+            not self.expects_json_response
+            and self.preview_enabled
+            and self.form.instance.is_previewable()
+        ):
             side_panels.append(
                 PreviewSidePanel(
                     self.form.instance, self.request, preview_url=self.get_preview_url()
@@ -350,7 +356,11 @@ class EditView(
                 last_updated_info=self.get_last_updated_info(),
             )
         ]
-        if self.preview_enabled and self.object.is_previewable():
+        if (
+            not self.expects_json_response
+            and self.preview_enabled
+            and self.object.is_previewable()
+        ):
             side_panels.append(
                 PreviewSidePanel(
                     self.object, self.request, preview_url=self.get_preview_url()

@@ -20,11 +20,10 @@ import {
   renderContentMetrics,
 } from '../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
-import { debounce, DebouncedFunction } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
 import type { ProgressController } from './ProgressController';
-import { setOptionalInterval } from '../utils/interval';
 import { GetScrollPosition, getWagtailMessage } from '../utils/message';
+import { debounce, DebouncibleFunction } from '../utils/debounce';
 
 interface PreviewDataResponse {
   is_valid: boolean;
@@ -103,6 +102,7 @@ export class PreviewController extends Controller<HTMLElement> {
     deviceWidthProperty: { default: '--preview-device-width', type: String },
     panelWidthProperty: { default: '--preview-panel-width', type: String },
     renderUrl: { default: '', type: String },
+    stale: { default: true, type: Boolean },
     url: { default: '', type: String },
   };
 
@@ -167,6 +167,8 @@ export class PreviewController extends Controller<HTMLElement> {
    * Useful for headless setups where the front-end may be hosted at a different URL.
    */
   declare renderUrlValue: string;
+  /** Whether the preview data is considered stale and needs an update. */
+  declare staleValue: boolean;
   /** URL for updating the preview data. Also used for rendering the preview if `renderUrlValue` is unset. */
   declare readonly urlValue: string;
 
@@ -207,6 +209,10 @@ export class PreviewController extends Controller<HTMLElement> {
    * Normally, this is the parent element of the controller element.
    */
   declare sidePanelContainer: HTMLDivElement;
+
+  declare setPreviewDataLazy: DebouncibleFunction<
+    () => Promise<boolean> | undefined
+  >;
 
   // Instance variables with initial values set here
 
@@ -260,18 +266,8 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   available = true;
 
-  /**
-   * Serialized form payload to be compared in between intervals to determine
-   * whether an update should be performed. Note that we currently do not handle
-   * file inputs.
-   */
-  formPayload = '';
-
   /** Timeout before displaying the loading spinner. */
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
-
-  /** Interval for the auto-update. */
-  updateInterval: ReturnType<typeof setOptionalInterval> = null;
 
   /**
    * Promise for the current update request. This is resolved as soon as the
@@ -315,6 +311,22 @@ export class PreviewController extends Controller<HTMLElement> {
     return url;
   }
 
+  get shouldAutoUpdate() {
+    return (
+      // Auto-update is enabled
+      this.autoUpdateIntervalValue > 0 &&
+      // And either the preview panel or the checks side panel (if enabled) is visible
+      (!this.sidePanelContainer.hidden ||
+        (this.checksSidePanel && !this.checksSidePanel.hidden))
+    );
+  }
+
+  initialize(): void {
+    this.checkAndUpdatePreview = this.checkAndUpdatePreview.bind(this);
+    this.runChecks = this.runChecks.bind(this);
+    this.setPreviewData = this.setPreviewData.bind(this);
+  }
+
   connect() {
     if (!this.urlValue) {
       throw new Error(
@@ -336,18 +348,21 @@ export class PreviewController extends Controller<HTMLElement> {
     // element to also act as the controller.
     this.sidePanelContainer = this.element.parentElement as HTMLDivElement;
 
-    this.activatePreview = this.activatePreview.bind(this);
-    this.deactivatePreview = this.deactivatePreview.bind(this);
-    this.setPreviewData = this.setPreviewData.bind(this);
-    this.checkAndUpdatePreview = this.checkAndUpdatePreview.bind(this);
-    this.runChecks = this.runChecks.bind(this);
-
-    this.sidePanelContainer.addEventListener('show', this.activatePreview);
-    this.sidePanelContainer.addEventListener('hide', this.deactivatePreview);
+    this.sidePanelContainer.addEventListener(
+      'show',
+      this.checkAndUpdatePreview,
+    );
 
     this.setUpContentChecks();
 
     this.restoreLastSavedPreferences();
+
+    if (
+      !this.sidePanelContainer.hidden ||
+      (this.checksSidePanel && !this.checksSidePanel.hidden)
+    ) {
+      this.checkAndUpdatePreview();
+    }
   }
 
   setUpContentChecks() {
@@ -402,8 +417,7 @@ export class PreviewController extends Controller<HTMLElement> {
     axe.configure(addCustomChecks(this.axeConfig.spec));
     axe.registerPlugin(wagtailPreviewPlugin);
 
-    this.checksSidePanel.addEventListener('show', this.activatePreview);
-    this.checksSidePanel.addEventListener('hide', this.deactivatePreview);
+    this.checksSidePanel.addEventListener('show', this.checkAndUpdatePreview);
 
     // Add the message event listener here instead of using a Stimulus action,
     // as message events may originate from other sources and thus will add
@@ -420,17 +434,6 @@ export class PreviewController extends Controller<HTMLElement> {
       this.renderUrlValue = this.urlValue;
     }
     this.updateNewTabLink();
-  }
-
-  autoUpdateIntervalValueChanged() {
-    // If the value is changed, only update the interval if it's currently active
-    // as we don't want to start the interval when the panel is hidden
-    if (this.updateInterval) {
-      this.addInterval();
-    } else if (!this.autoUpdateIntervalValue) {
-      // If the auto-update interval is unset, clear the interval
-      this.clearInterval();
-    }
   }
 
   /**
@@ -454,65 +457,6 @@ export class PreviewController extends Controller<HTMLElement> {
     // not trigger the togglePreviewSize method, so we need to apply the
     // selected size class manually.
     this.applySelectedSizeClass(lastDeviceInput.value);
-  }
-
-  /**
-   * Activates the preview mechanism.
-   * The preview data is immediately updated. If auto-update is enabled,
-   * an interval is set up to automatically check the form and update the
-   * preview data.
-   */
-  activatePreview() {
-    // Immediately update the preview when the panel is opened
-    this.checkAndUpdatePreview();
-
-    // Only set the interval while the panel is shown
-    this.addInterval();
-  }
-
-  /**
-   * Sets the interval for auto-updating the preview and applies debouncing to
-   * `setPreviewData` for subsequent calls.
-   */
-  addInterval() {
-    this.clearInterval();
-    // This interval performs the checks for changes but not necessarily the
-    // update itself
-    this.updateInterval = setOptionalInterval(
-      this.checkAndUpdatePreview,
-      this.autoUpdateIntervalValue,
-    );
-
-    if (this.updateInterval) {
-      // Apply debounce for subsequent updates if an interval was set
-      this.setPreviewData = debounce(
-        this.setPreviewData,
-        this.autoUpdateIntervalValue,
-      );
-    }
-  }
-
-  /**
-   * Clears the auto-update interval.
-   */
-  clearInterval() {
-    // Restore the original function if it was previously debounced
-    if ('restore' in this.setPreviewData) {
-      this.setPreviewData =
-        this.setPreviewData.restore() as typeof this.setPreviewData;
-    }
-    if (!this.updateInterval) return;
-    window.clearInterval(this.updateInterval);
-    this.updateInterval = null;
-  }
-
-  /**
-   * Deactivates the preview mechanism.
-   *
-   * If auto-update is enabled, clear the auto-update interval.
-   */
-  deactivatePreview() {
-    this.clearInterval();
   }
 
   /**
@@ -611,30 +555,33 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
-   * Like `setPreviewData`, but only updates the preview if there is no pending
-   * update and the form has not changed.
+   * Like `setPreviewData`, but only updates the preview if the form has not changed.
    * @returns whether the data is valid
    */
   async checkAndUpdatePreview() {
-    // Small performance optimization: the hasChanges() method will not be called
-    // if there is a pending update due to the || operator short-circuiting
-    if (this.updatePromise || !this.hasChanges()) return undefined;
+    // If there are no changes, return the existing update promise (if any)
+    if (!this.staleValue) return this.updatePromise;
     return this.setPreviewData();
   }
 
   /**
-   * Checks whether the form data has changed since the last call to this method.
-   * @returns whether the form data has changed
+   * Marks the preview data as stale, indicating it needs an update.
+   * Accepts an optional `stale` parameter to explicitly override the value.
    */
-  hasChanges() {
-    // https://github.com/microsoft/TypeScript/issues/30584
-    const newPayload = new URLSearchParams(
-      new FormData(this.editForm) as unknown as Record<string, string>,
-    ).toString();
-    const changed = this.formPayload !== newPayload;
+  setStale(event?: Event & { params?: { stale: boolean } }) {
+    this.staleValue = event?.params?.stale ?? true;
+  }
 
-    this.formPayload = newPayload;
-    return changed;
+  staleValueChanged(newValue: boolean) {
+    if (this.ready && newValue && this.shouldAutoUpdate) {
+      this.setPreviewDataLazy();
+    }
+  }
+
+  autoUpdateIntervalValueChanged(newValue?: number) {
+    // Update the debounce function with the new interval, without cancelling
+    // any pending calls to ensure they are still executed.
+    this.setPreviewDataLazy = debounce(this.setPreviewData, newValue);
   }
 
   /**
@@ -643,9 +590,7 @@ export class PreviewController extends Controller<HTMLElement> {
    * display an error message.
    * @returns whether the data is valid
    */
-  setPreviewData:
-    | (() => Promise<boolean | undefined>)
-    | DebouncedFunction<[], boolean | undefined> = async () => {
+  setPreviewData() {
     // Bail out if there is already a pending update
     if (this.updatePromise) return this.updatePromise;
 
@@ -704,9 +649,10 @@ export class PreviewController extends Controller<HTMLElement> {
         throw error;
       }
     })();
+    this.staleValue = false;
 
     return this.updatePromise;
-  };
+  }
 
   /**
    * Clears the preview data from the session.
@@ -1071,13 +1017,17 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   disconnect(): void {
-    this.sidePanelContainer.removeEventListener('show', this.activatePreview);
-    this.sidePanelContainer.removeEventListener('hide', this.deactivatePreview);
+    this.sidePanelContainer.removeEventListener(
+      'show',
+      this.checkAndUpdatePreview,
+    );
 
     if (this.contentChecksEnabled) {
       window.removeEventListener('message', this.runChecks);
-      this.checksSidePanel!.removeEventListener('show', this.activatePreview);
-      this.checksSidePanel!.removeEventListener('hide', this.deactivatePreview);
+      this.checksSidePanel!.removeEventListener(
+        'show',
+        this.checkAndUpdatePreview,
+      );
     }
 
     this.resizeObserver.disconnect();

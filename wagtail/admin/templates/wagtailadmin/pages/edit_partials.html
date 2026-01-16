@@ -1,0 +1,31 @@
+{% extends "wagtailadmin/generic/edit_partials.html" %}
+{% load wagtailadmin_tags %}
+
+{% block breadcrumbs_content %}
+    {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
+{% endblock %}
+
+{% block header_buttons %}
+    {% if hydrate_create_view %}
+        {% fragment as actions %}
+            {% page_header_buttons page user=request.user view_name="edit" %}
+        {% endfragment %}
+
+        {% include "wagtailadmin/shared/headers/_actions.html" with actions=actions %}
+    {% endif %}
+{% endblock %}
+
+{# For pages, the title "heading" is the editable title field. #}
+{% block form_title_heading %}{% endblock %}
+
+{% block form %}
+    {% if hydrate_create_view %}
+        <template
+            data-controller="w-teleport"
+            data-w-teleport-target-value="form[data-edit-form]"
+            data-w-teleport-mode-value="afterbegin"
+        >
+            {% include "wagtailadmin/generic/includes/_loaded_revision_inputs.html" with loaded_revision_id=page.latest_revision_id loaded_revision_created_at=loaded_revision_created_at only %}
+        </template>
+    {% endif %}
+{% endblock %}
