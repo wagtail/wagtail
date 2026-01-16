@@ -762,7 +762,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
     def test_render_no_request(self):
@@ -791,7 +791,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
         css_links = soup.select("link[rel='stylesheet']")
@@ -843,7 +843,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
     def test_render_with_page(self):
@@ -869,7 +869,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(accessibility_button)
         self.assertEqual(
             accessibility_button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
     @override_settings(WAGTAILADMIN_BASE_URL=None)
@@ -900,7 +900,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(button)
         self.assertEqual(
             button.get_text(separator=" | ", strip=True).strip(),
-            "Issues found | Accessibility",
+            "Issues found | Checks",
         )
 
         css_links = soup.select("link[rel='stylesheet']")
