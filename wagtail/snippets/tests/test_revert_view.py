@@ -87,6 +87,15 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         # Buttons should be relabelled
         self.assertContains(response, "Replace current revision", count=1)
 
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+
+        # Autosave should be disabled
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
+
     def test_get_revert_revision_with_non_revisable_snippet(self):
         snippet = Advert.objects.create(text="foo")
         response = self.client.get(
