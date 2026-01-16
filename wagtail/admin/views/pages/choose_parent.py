@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -10,7 +11,7 @@ from django.views.generic import FormView
 
 from wagtail.admin.forms.pages import ParentChooserForm
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
-from wagtail.models import Page
+from wagtail.models import Locale, Page, TranslatableMixin
 from wagtail.permissions import page_permission_policy
 
 
@@ -19,6 +20,21 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
     model = Page
     index_url_name = None
     page_title = gettext_lazy("Choose parent")
+
+    @cached_property
+    def i18n_enabled(self):
+        return getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        )
+
+    @cached_property
+    def locale(self):
+        if not self.i18n_enabled:
+            return None
+
+        if selected_locale := self.request.GET.get("locale"):
+            return get_object_or_404(Locale, language_code=selected_locale)
+        return Locale.get_default()
 
     def get_valid_parent_pages(self, user):
         """
@@ -36,6 +52,10 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
         allowed_parent_pages = Page.objects.filter(
             content_type__in=allowed_parent_page_content_types
         )
+
+        # Filter by locale if i18n is enabled
+        if self.i18n_enabled and self.locale:
+            allowed_parent_pages = allowed_parent_pages.filter(locale=self.locale)
 
         # Get queryset of pages where the user has permission to add subpages
         if user.is_superuser:

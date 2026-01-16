@@ -1,10 +1,10 @@
 from unittest import mock
 
 from django.contrib.auth.models import Group, Permission
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission, Locale, Page
 from wagtail.test.testapp.models import BusinessIndex, EventIndex, EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
@@ -159,5 +159,114 @@ class TestParentPageChooserView(AdminTemplateTestUtils, WagtailTestUtils, TestCa
             reverse(
                 "wagtailadmin_pages:add",
                 args=("tests", "eventpage", parent_page.pk),
+            ),
+        )
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestParentPageChooserViewWithLocale(
+    AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+        self.user = self.login()
+        self.view_url = reverse("event_pages:choose_parent")
+        self.fr_locale = Locale.objects.create(language_code="fr")
+        self.en_event_index = EventIndex.objects.first()
+        self.fr_event_index = self.en_event_index.copy_for_translation(
+            self.fr_locale, copy_parents=True
+        )
+
+    def test_skip_if_only_one_valid_parent_with_locale_filter(self):
+        with mock.patch.object(EventPage, "allowed_parent_page_models") as mock_method:
+            mock_method.return_value = [EventIndex]
+            self.assertEqual(EventPage.allowed_parent_page_models(), [EventIndex])
+            response = self.client.get(self.view_url + "?locale=fr")
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.fr_event_index.pk),
+            ),
+        )
+
+    def test_skip_if_only_one_valid_parent_with_default_locale(self):
+        with mock.patch.object(EventPage, "allowed_parent_page_models") as mock_method:
+            mock_method.return_value = [EventIndex]
+            self.assertEqual(EventPage.allowed_parent_page_models(), [EventIndex])
+            response = self.client.get(self.view_url)
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.en_event_index.pk),
+            ),
+        )
+
+    def test_show_chooser_when_multiple_parents_in_same_locale(self):
+        # Create a second EventIndex in the default locale
+        root_page = Page.objects.get(depth=1)
+        second_event_index = EventIndex(title="Second Events", slug="second-events")
+        root_page.add_child(instance=second_event_index)
+
+        with mock.patch.object(EventPage, "allowed_parent_page_models") as mock_method:
+            mock_method.return_value = [EventIndex]
+            self.assertEqual(EventPage.allowed_parent_page_models(), [EventIndex])
+            response = self.client.get(self.view_url + "?locale=en")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/choose_parent.html")
+
+    def test_invalid_locale_returns_404(self):
+        with mock.patch.object(EventPage, "allowed_parent_page_models") as mock_method:
+            mock_method.return_value = [EventIndex]
+            self.assertEqual(EventPage.allowed_parent_page_models(), [EventIndex])
+            response = self.client.get(self.view_url + "?locale=invalid")
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_form_submission_with_locale(self):
+        form_data = {
+            "parent_page": self.fr_event_index.pk,
+        }
+
+        response = self.client.post(self.view_url + "?locale=fr", form_data)
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.fr_event_index.pk),
+            ),
+        )
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=False)
+class TestParentPageChooserViewWithoutI18n(
+    AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+        self.user = self.login()
+        self.view_url = reverse("event_pages:choose_parent")
+
+    def test_locale_param_ignored_when_i18n_disabled(self):
+        self.assertEqual(EventIndex.objects.count(), 1)
+
+        with mock.patch.object(EventPage, "allowed_parent_page_models") as mock_method:
+            mock_method.return_value = [EventIndex]
+            self.assertEqual(EventPage.allowed_parent_page_models(), [EventIndex])
+            response = self.client.get(self.view_url + "?locale=en")
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", EventIndex.objects.first().pk),
             ),
         )
