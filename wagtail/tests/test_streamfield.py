@@ -805,6 +805,37 @@ class TestJSONStreamField(TestCase):
         self.assertIsNotNone(instance)
         self.assertEqual(instance.id, self.instance.id)
 
+    def test_required_structblock_child_allowed_on_draft(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = StreamPage
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        (
+                            "books",
+                            {
+                                "title": "",  # required CharBlock inside StructBlock
+                                "author": "Someone",
+                            },
+                        )
+                    ]
+                )
+            }
+        )
+
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertTrue(form.is_valid())
+
+
 
 class TestStreamFieldPickleSupport(TestCase):
     def setUp(self):

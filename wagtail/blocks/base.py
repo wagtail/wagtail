@@ -754,8 +754,12 @@ class BlockField(forms.Field):
 
         super().__init__(**kwargs)
 
-    def clean(self, value):
+    def clean(self, value, *, for_draft=False):
         from wagtail.blocks.stream_block import StreamBlock
+
+        # When defer_required_fields is called on a form, it sets field.required = False
+        # We need to respect this setting and treat it as draft mode
+        should_defer_validation = for_draft or not self.required
 
         if isinstance(self.block, StreamBlock):
             # StreamBlock is the only block type that is formally-supported as the top level block
@@ -767,11 +771,21 @@ class BlockField(forms.Field):
             # We do this through the `ignore_required_constraints` flag recognised by
             # StreamBlock.clean.
             return self.block.clean(
-                value, ignore_required_constraints=not self.required
+                value,
+                ignore_required_constraints=should_defer_validation,
+                for_draft=should_defer_validation,
             )
         else:
-            return self.block.clean(value)
-
+            # For other block types, check if they support the for_draft parameter
+            if should_defer_validation:
+                try:
+                    return self.block.clean(value, for_draft=True)
+                except TypeError:
+                    # Block doesn't support for_draft, just call clean normally
+                    return self.block.clean(value)
+            else:
+                return self.block.clean(value)
+    
     def has_changed(self, initial_value, data_value):
         return self.block.get_prep_value(initial_value) != self.block.get_prep_value(
             data_value
