@@ -49,5 +49,6 @@
     {% versioned_static 'wagtailadmin/js/userbar.js' as userbar_js_url %}
     <script src="{% build_absolute_url vendor_js_url %}"></script>
     <script src="{% build_absolute_url userbar_js_url %}"></script>
+    {% hook_output 'insert_userbar_js' %}
 {% endblock %}
 <!-- end Wagtail user bar embed code -->

@@ -5,6 +5,7 @@ from django.template import Context, Template
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import translation
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext
 
 from wagtail import hooks
@@ -83,6 +84,22 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 f"http://localhost{versioned_static('wagtailadmin/js/userbar.js')}",
             ],
         )
+
+    def test_insert_userbar_js_hook(self):
+        def hook():
+            return mark_safe("<script data-hooked></script>")
+
+        with hooks.register_temporarily("insert_userbar_js", hook):
+            template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+            context = Context(
+                {
+                    PAGE_TEMPLATE_VAR: self.homepage,
+                    "request": self.dummy_request(self.user),
+                }
+            )
+            content = template.render(context)
+
+        self.assertIn("<script data-hooked></script>", content)
 
     def test_userbar_does_not_break_without_request(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")

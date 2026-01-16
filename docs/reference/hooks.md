@@ -589,6 +589,25 @@ def global_admin_js():
     )
 ```
 
+(insert_userbar_js)=
+
+### `insert_userbar_js`
+
+Add additional JavaScript files or code snippets to the content of the userbar. This is useful for defining custom content checks as described in [](built_in_accessibility_checker).
+
+```python
+from django.utils.html import format_html
+from django.templatetags.static import static
+
+from wagtail import hooks
+
+@hooks.register('insert_userbar_js')
+def userbar_js():
+    return format_html(
+        '<script src="{}"></script>', static("js/custom-checks.js")
+    )
+```
+
 (register_page_header_buttons)=
 
 ### `register_page_header_buttons`
