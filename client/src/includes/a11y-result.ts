@@ -1,4 +1,5 @@
 import axe, {
+  Check,
   AxeResults,
   ContextObject,
   CrossTreeSelector,
@@ -101,6 +102,19 @@ export const checkImageAltText = (
 export const customChecks = {
   'check-image-alt-text': checkImageAltText,
   // Add other custom checks here
+};
+
+/**
+ * Registers a custom check to be used by Axe.
+ * @param id - The ID of the check
+ * @param evaluate - The evaluation function for the check
+ */
+export const registerCustomCheck = (
+  id: string,
+  evaluate: Check['evaluate'],
+) => {
+  customChecks[id] = evaluate;
+  return customChecks;
 };
 
 /**
