@@ -1083,7 +1083,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ),
             ],
         )
-        
+
     def test_to_python_with_optgroups_preserves_type(self):
         block = blocks.ChoiceBlock(
             choices=[
@@ -1103,13 +1103,13 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ),
             ],
         )
-        
+
         value_from_json = "1"
         result = block.to_python(value_from_json)
-        
+
         self.assertEqual(result, 1)
         self.assertIsInstance(result, int)
-        
+
     def test_multiple_choice_block_preserves_types(self):
         block = blocks.MultipleChoiceBlock(
             choices=[
@@ -1118,15 +1118,14 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 (3, "Three"),
             ],
         )
-        
+
         value_from_json = ["1", "3"]
         result = block.to_python(value_from_json)
-        
+
         self.assertEqual(result, [1, 3])
         for item in result:
             self.assertIsInstance(item, int)
-            
-    
+
     def test_multiple_choice_block_with_optgroups_preserves_types(self):
         block = blocks.MultipleChoiceBlock(
             choices=[
@@ -1146,15 +1145,13 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ),
             ],
         )
-        
+
         value_from_json = ["2", "4"]
         result = block.to_python(value_from_json)
-        
+
         self.assertEqual(result, [2, 4])
         for item in result:
             self.assertIsInstance(item, int)
-
-
 
     def test_named_groups_with_blank_option(self):
         block = blocks.ChoiceBlock(
