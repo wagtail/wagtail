@@ -172,6 +172,101 @@ def replace_userbar_accessibility_item(request, items, page):
     ]
 ```
 
+### Custom content checks
+
+You can also implement custom checks. This can be useful to enforce more advanced accessibility checks, or other best practices unrelated to accessibility. This requires configuration via hooks, and registration of any client-side check evaluation via the `window.wagtailUserbar.registerCheck` API.
+
+First, inject your custom JavaScript check implementation into the userbar using the [`insert_userbar_js`](insert_userbar_js) hook:
+
+```python
+# wagtail_hooks.py
+from django.templatetags.static import static
+from django.utils.html import format_html
+
+from wagtail import hooks
+
+@hooks.register("insert_userbar_js")
+def userbar_js():
+    return format_html(
+        '<script src="{}"></script>', static("js/custom-checks.js")
+    )
+```
+
+In your `custom-checks.js` file, implement the check and register it. The `registerCheck` method takes two arguments: the check identifier and the evaluation function.
+
+```javascript
+// static/js/custom-checks.js
+
+/**
+ * Checks if the element text matches an antipattern.
+ * @param {HTMLElement} node
+ * @param {Object} options
+ * @param {string} options.antipattern The regex pattern to match against the element text.
+ * @returns {boolean} True if the element text does not match the pattern, false otherwise.
+ */
+const checkElementText = (node, options) => {
+    const antipattern = new RegExp(options.antipattern, 'i');
+    return !antipattern.test(node.textContent.trim());
+};
+
+window.wagtailUserbar.registerCheck('check-element-text', checkElementText);
+```
+
+Then, configure `AccessibilityItem` to add this check with `get_axe_custom_checks`, and add a new rule that uses this check with `get_axe_custom_rules`. We also need to provide helpful content for the rule with `get_axe_messages`:
+
+```python
+# wagtail_hooks.py
+from django.utils.translation import gettext_lazy as _
+from wagtail.admin.userbar import AccessibilityItem
+
+class CustomAccessibilityItem(AccessibilityItem):
+    def get_axe_custom_checks(self, request):
+        checks = super().get_axe_custom_checks(request)
+        return checks + [
+            {
+                "id": "check-element-text",
+                "options": {"antipattern": "^(click here|click this|go|here|this|start|more|learn more)$"},
+            },
+        ]
+
+    def get_axe_custom_rules(self, request):
+        rules = super().get_axe_custom_rules(request)
+        return rules + [
+            {
+                "id": "link-text-quality",
+                "impact": "serious",
+                "selector": "a[href]",
+                "tags": ["best-practice"],
+                "any": ["check-element-text"],
+                "enabled": True,
+            },
+        ]
+
+    def get_axe_messages(self, request):
+        messages = super().get_axe_messages(request)
+        return {
+            **messages,
+            "link-text-quality": {
+                "error_name": _("Link does not have descriptive text"),
+                "help_text": _("Link text should describe the link destination."),
+            },
+        }
+
+@hooks.register('construct_wagtail_userbar')
+def replace_userbar_accessibility_item(request, items, page):
+    items[:] = [
+        CustomAccessibilityItem(in_editor=item.in_editor)
+        if isinstance(item, AccessibilityItem) else item
+        for item in items
+    ]
+```
+
+In this example, the check will flag any matching element with a text label that matches the configured patterns. With its `selector`, the rule defines that it enforces element text on all anchor elements, regardless of where they appear on the page.
+
+Finally, in `get_axe_messages`, we provide a custom `error_name` and `help_text` to display for CMS users when the check fails.
+
+### Environment-specific checks
+
 The checks you run in production should be restricted to issues your content editors can fix themselves; warnings about things out of their control will only teach them to ignore all warnings. However, it may be useful for you to run additional checks in your development environment.
 
 ```python
