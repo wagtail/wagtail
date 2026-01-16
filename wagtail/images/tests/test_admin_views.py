@@ -154,6 +154,28 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(context["page_obj"].object_list[0], self.puppy_image)
         self.assertEqual(context["page_obj"].object_list[1], self.kitten_image)
 
+    def test_list_images_invalid_ordering_does_not_crash(self):
+        """
+        Test that passing various invalid 'ordering' parameters does not crash the image index.
+        """
+        # List of "garbage" or invalid ordering values to test
+        invalid_params = [
+            "not_a_field", 
+            "!!!", 
+            "---", 
+            " ", 
+            "long_string_" * 10,
+            "123"
+        ]
+
+        for param in invalid_params:
+            with self.subTest(ordering=param):
+                response = self.get({"ordering": param})
+                # We want to ensure it still returns 200 OK and defaults gracefully
+                self.assertEqual(response.status_code, 200)
+                # Verify it falls back to the default ordering (usually -created_at)
+                self.assertEqual(response.context["current_ordering"], "-created_at")
+
     @override_settings(WAGTAILIMAGES_INDEX_PAGE_SIZE=15)
     def test_default_entries_per_page(self):
         images = [
