@@ -23,6 +23,6 @@ sphinx-autobuild . _build/html
 ```
 On Windows, if the command above is not found, try 
 ```
-python -m sphinx_autobuild . _build
+python -m sphinx_autobuild . _build/html
 ```
 The online [MyST playground at Curvenote](https://curvenote.com/blog/working-locally-with-myst-markdown#cFcGTrnCiH) or the [MyST-Markdown VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ExecutableBookProject.myst-highlight) are helpful tools for working with the MyST syntax.
