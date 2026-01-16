@@ -2,10 +2,8 @@ import json
 from urllib.parse import quote
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
-from django.db.models import Prefetch, Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -18,8 +16,8 @@ from django.views.generic.base import View
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
-from wagtail.admin.mail import send_notification
 from wagtail.admin.models import EditingSession
+from wagtail.admin.notifications import send_commenting_notifications
 from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
@@ -35,9 +33,6 @@ from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
-    COMMENTS_RELATION_NAME,
-    Comment,
-    CommentReply,
     Page,
     PageSubscription,
     Revision,
@@ -140,132 +135,6 @@ class EditView(
             "deleted_replies": deleted_replies,
             "edited_replies": edited_replies,
         }
-
-    def send_commenting_notifications(self, changes):
-        """
-        Sends notifications about any changes to comments to anyone who is subscribed.
-        """
-        relevant_comment_ids = []
-        relevant_comment_ids.extend(
-            comment.pk for comment in changes["resolved_comments"]
-        )
-        relevant_comment_ids.extend(
-            comment.pk for comment, replies in changes["new_replies"]
-        )
-
-        # Skip if no changes were made
-        # Note: We don't email about edited comments so ignore those here
-        if (
-            not changes["new_comments"]
-            and not changes["deleted_comments"]
-            and not changes["resolved_comments"]
-            and not changes["new_replies"]
-        ):
-            return
-
-        # Get global page comment subscribers
-        subscribers = PageSubscription.objects.filter(
-            page=self.page, comment_notifications=True
-        ).select_related("user")
-        global_recipient_users = [
-            subscriber.user
-            for subscriber in subscribers
-            if subscriber.user != self.request.user
-        ]
-
-        # Get subscribers to individual threads
-        replies = CommentReply.objects.filter(comment_id__in=relevant_comment_ids)
-        comments = Comment.objects.filter(id__in=relevant_comment_ids)
-        thread_users = (
-            get_user_model()
-            .objects.exclude(pk=self.request.user.pk)
-            .exclude(pk__in=subscribers.values_list("user_id", flat=True))
-            .filter(
-                Q(comment_replies__comment_id__in=relevant_comment_ids)
-                | Q(**{("%s__pk__in" % COMMENTS_RELATION_NAME): relevant_comment_ids})
-            )
-            .prefetch_related(
-                Prefetch("comment_replies", queryset=replies),
-                Prefetch(COMMENTS_RELATION_NAME, queryset=comments),
-            )
-        )
-
-        # Skip if no recipients
-        if not (global_recipient_users or thread_users):
-            return
-        thread_users = [
-            (
-                user,
-                set(
-                    list(user.comment_replies.values_list("comment_id", flat=True))
-                    + list(
-                        getattr(user, COMMENTS_RELATION_NAME).values_list(
-                            "pk", flat=True
-                        )
-                    )
-                ),
-            )
-            for user in thread_users
-        ]
-        mailed_users = set()
-
-        for current_user, current_threads in thread_users:
-            # We are trying to avoid calling send_notification for each user for performance reasons
-            # so group the users receiving the same thread notifications together here
-            if current_user in mailed_users:
-                continue
-            users = [current_user]
-            mailed_users.add(current_user)
-            for user, threads in thread_users:
-                if user not in mailed_users and threads == current_threads:
-                    users.append(user)
-                    mailed_users.add(user)
-            send_notification(
-                users,
-                "updated_comments",
-                {
-                    "page": self.page,
-                    "editor": self.request.user,
-                    "new_comments": [
-                        comment
-                        for comment in changes["new_comments"]
-                        if comment.pk in threads
-                    ],
-                    "resolved_comments": [
-                        comment
-                        for comment in changes["resolved_comments"]
-                        if comment.pk in threads
-                    ],
-                    "deleted_comments": [],
-                    "replied_comments": [
-                        {
-                            "comment": comment,
-                            "replies": replies,
-                        }
-                        for comment, replies in changes["new_replies"]
-                        if comment.pk in threads
-                    ],
-                },
-            )
-
-        return send_notification(
-            global_recipient_users,
-            "updated_comments",
-            {
-                "page": self.page,
-                "editor": self.request.user,
-                "new_comments": changes["new_comments"],
-                "resolved_comments": changes["resolved_comments"],
-                "deleted_comments": changes["deleted_comments"],
-                "replied_comments": [
-                    {
-                        "comment": comment,
-                        "replies": replies,
-                    }
-                    for comment, replies in changes["new_replies"]
-                ],
-            },
-        )
 
     def log_commenting_changes(self, changes, revision):
         """
@@ -616,10 +485,10 @@ class EditView(
         if not self.expects_json_response:
             self.add_save_confirmation_message()
 
-        if self.has_content_changes and "comments" in self.form.formsets:
+        if "comments" in self.form.formsets:
             changes = self.get_commenting_changes()
             self.log_commenting_changes(changes, revision)
-            self.send_commenting_notifications(changes)
+            send_commenting_notifications(changes, self.page, self.request.user)
 
         response = self.run_hook("after_edit_page", self.request, self.page)
         if response:
@@ -664,10 +533,10 @@ class EditView(
         )
         action.execute(skip_permission_checks=True)
 
-        if self.has_content_changes and "comments" in self.form.formsets:
+        if "comments" in self.form.formsets:
             changes = self.get_commenting_changes()
             self.log_commenting_changes(changes, revision)
-            self.send_commenting_notifications(changes)
+            send_commenting_notifications(changes, self.page, self.request.user)
 
         # Need to reload the page because the URL may have changed, and we
         # need the up-to-date URL for the "View Live" button.
@@ -745,10 +614,10 @@ class EditView(
             previous_revision=self.previous_revision,
         )
 
-        if self.has_content_changes and "comments" in self.form.formsets:
+        if "comments" in self.form.formsets:
             changes = self.get_commenting_changes()
             self.log_commenting_changes(changes, revision)
-            self.send_commenting_notifications(changes)
+            send_commenting_notifications(changes, self.page, self.request.user)
 
         if (
             self.workflow_state
@@ -792,10 +661,10 @@ class EditView(
             previous_revision=self.previous_revision,
         )
 
-        if self.has_content_changes and "comments" in self.form.formsets:
+        if "comments" in self.form.formsets:
             changes = self.get_commenting_changes()
             self.log_commenting_changes(changes, revision)
-            self.send_commenting_notifications(changes)
+            send_commenting_notifications(changes, self.page, self.request.user)
 
         # cancel workflow
         self.workflow_state.cancel(user=self.request.user)
@@ -827,6 +696,7 @@ class EditView(
         self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
+        revision = None
         if self.has_content_changes:
             # Save revision
             revision = self.page.save_revision(
@@ -837,10 +707,10 @@ class EditView(
                 ),
             )
 
-            if "comments" in self.form.formsets:
-                changes = self.get_commenting_changes()
-                self.log_commenting_changes(changes, revision)
-                self.send_commenting_notifications(changes)
+        if "comments" in self.form.formsets:
+            changes = self.get_commenting_changes()
+            self.log_commenting_changes(changes, revision)
+            send_commenting_notifications(changes, self.page, self.request.user)
 
         extra_workflow_data_json = self.request.POST.get(
             "workflow-action-extra-data", "{}"
@@ -874,10 +744,10 @@ class EditView(
             previous_revision=self.previous_revision,
         )
 
-        if self.has_content_changes and "comments" in self.form.formsets:
+        if "comments" in self.form.formsets:
             changes = self.get_commenting_changes()
             self.log_commenting_changes(changes, revision)
-            self.send_commenting_notifications(changes)
+            send_commenting_notifications(changes, self.page, self.request.user)
 
         # Notifications
         self.add_cancel_workflow_confirmation_message()
