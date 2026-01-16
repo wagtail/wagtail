@@ -587,3 +587,84 @@ class TestDeletingTranslatedPages(Utils):
         self.assertNotIn(self.en_blog_post, en_root.get_descendants().specific())
         # The alias should no longer be in the translated tree root (fr HomePage)
         self.assertNotIn(self.fr_blog_post, fr_root.get_descendants().specific())
+
+
+@override_settings(
+    WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+)
+class TestCopyingPagesWithTranslationAliases(Utils):
+    """Test that translation aliases are created when copying pages."""
+
+    def test_copy_page_creates_translation_aliases(self):
+        self.assertFalse(
+            self.en_blog_post.get_translations().filter(locale=self.fr_locale).exists()
+        )
+        self.assertFalse(
+            self.en_blog_post.get_translations().filter(locale=self.de_locale).exists()
+        )
+
+        copied_page = self.en_blog_post.copy(
+            recursive=False,
+            update_attrs={"title": "Copied Blog Post", "slug": "copied-blog-post"},
+        )
+
+        from wagtail.contrib.simple_translation.models import after_copy_page
+
+        after_copy_page(None, self.en_blog_post, copied_page)
+
+        self.assertTrue(
+            copied_page.get_translations().filter(locale=self.fr_locale).exists()
+        )
+        self.assertTrue(
+            copied_page.get_translations().filter(locale=self.de_locale).exists()
+        )
+
+        fr_alias = copied_page.get_translations().filter(locale=self.fr_locale).first()
+        de_alias = copied_page.get_translations().filter(locale=self.de_locale).first()
+
+        self.assertEqual(fr_alias.alias_of_id, copied_page.id)
+        self.assertEqual(de_alias.alias_of_id, copied_page.id)
+
+    def test_copy_page_with_descendants_creates_translation_aliases(self):
+        en_child_page = TestPage(title="Child Page", slug="child-page")
+        self.en_blog_post.add_child(instance=en_child_page)
+
+        copied_page = self.en_blog_post.copy(
+            recursive=True,
+            update_attrs={
+                "title": "Copied Blog with Children",
+                "slug": "copied-blog-children",
+            },
+        )
+
+        from wagtail.contrib.simple_translation.models import after_copy_page
+
+        after_copy_page(None, self.en_blog_post, copied_page)
+
+        copied_child = copied_page.get_children().first().specific
+        after_copy_page(None, en_child_page, copied_child)
+
+        self.assertTrue(
+            copied_page.get_translations().filter(locale=self.fr_locale).exists()
+        )
+        self.assertTrue(
+            copied_child.get_translations().filter(locale=self.fr_locale).exists()
+        )
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False)
+    def test_copy_page_without_sync_setting(self):
+        copied_page = self.en_blog_post.copy(
+            recursive=False,
+            update_attrs={"title": "Copied Without Sync", "slug": "copied-no-sync"},
+        )
+
+        from wagtail.contrib.simple_translation.models import after_copy_page
+
+        after_copy_page(None, self.en_blog_post, copied_page)
+
+        self.assertFalse(
+            copied_page.get_translations().filter(locale=self.fr_locale).exists()
+        )
+        self.assertFalse(
+            copied_page.get_translations().filter(locale=self.de_locale).exists()
+        )

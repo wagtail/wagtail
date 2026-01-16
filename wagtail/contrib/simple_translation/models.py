@@ -39,3 +39,12 @@ def after_create_page(request, page):
         for locale in Locale.objects.exclude(pk=page.locale_id):
             if not page.has_translation(locale):
                 page.copy_for_translation(locale, copy_parents=True, alias=True)
+
+
+@hooks.register("after_copy_page")
+def after_copy_page(request, page, new_page):
+    """Create translation aliases when copying pages with sync enabled."""
+    if getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
+        for locale in Locale.objects.exclude(pk=new_page.locale_id):
+            if not new_page.has_translation(locale):
+                new_page.copy_for_translation(locale, copy_parents=True, alias=True)
