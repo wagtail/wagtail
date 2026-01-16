@@ -4,7 +4,7 @@
  * More background can be found in `webpack.config.js`.
  */
 
-import axe from 'axe-core';
+import axe, { Check } from 'axe-core';
 
 import A11yDialog from 'a11y-dialog';
 import { Application } from '@hotwired/stimulus';
@@ -12,6 +12,7 @@ import {
   getAxeConfiguration,
   getA11yReport,
   renderA11yResults,
+  registerCustomCheck,
   addCustomChecks,
   WagtailAxeConfiguration,
 } from './a11y-result';
@@ -360,6 +361,13 @@ export class Userbar extends HTMLElement {
       origin: window.location.origin,
     });
     await this.initializeAxe();
+  }
+
+  /**
+   * Register a custom check for Axe, to power a custom checker rule.
+   */
+  registerCheck(id: string, evaluate: Check['evaluate']) {
+    registerCustomCheck(id, evaluate);
   }
 
   /**
