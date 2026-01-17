@@ -937,6 +937,7 @@
 * Ankit Chaudhary
 * Saptami
 * Soumya-codr
+* Wenli Tsai
 
 ## Translators
 

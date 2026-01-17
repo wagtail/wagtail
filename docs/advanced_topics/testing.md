@@ -330,3 +330,8 @@ Filling in the `path` / `numchild` / `depth` fields is necessary for tree operat
 `url_path` is another field that can cause errors in some uncommon cases if it isn't filled in.
 
 The [Treebeard docs](inv:treebeard:std:doc#mp_tree) might help in understanding how this works.
+
+#### Additional testing guides
+
+- [Testing documents](documents/testing.md)
+- [Unit testing hooks](unit_testing_hooks)
