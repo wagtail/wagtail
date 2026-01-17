@@ -44,9 +44,10 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertEqual(
             js_args[2],
             {
-                "canChooseRoot": False,
                 "modelNames": ["wagtailcore.page"],
+                "canChooseRoot": False,
                 "userPerms": None,
+                "locale": None,
                 "modalUrl": "/admin/choose-page/",
             },
         )
@@ -80,7 +81,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"});',
+            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": null, "locale": null, "modalUrl": "/admin/choose-page/"});',
             html,
         )
 
@@ -89,7 +90,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": "copy_to", "modalUrl": "/admin/choose-page/"});',
+            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": "copy_to", "locale": null, "modalUrl": "/admin/choose-page/"});',
             html,
         )
 
@@ -106,7 +107,7 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertInHTML("foobarbaz (simple page)", html)
 
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": %d});'
+            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": false, "userPerms": null, "locale": null, "modalUrl": "/admin/choose-page/", "parentId": %d});'
             % self.root_page.id,
             html,
         )
@@ -116,7 +117,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["tests.simplepage"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"});',
+            'new PageChooser("test-id", {"modelNames": ["tests.simplepage"], "canChooseRoot": false, "userPerms": null, "locale": null, "modalUrl": "/admin/choose-page/"});',
             html,
         )
 
@@ -128,7 +129,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["tests.simplepage"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"});',
+            'new PageChooser("test-id", {"modelNames": ["tests.simplepage"], "canChooseRoot": false, "userPerms": null, "locale": null, "modalUrl": "/admin/choose-page/"});',
             html,
         )
 
@@ -140,7 +141,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["tests.simplepage"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"});',
+            'new PageChooser("test-id", {"modelNames": ["tests.simplepage"], "canChooseRoot": false, "userPerms": null, "locale": null, "modalUrl": "/admin/choose-page/"});',
             html,
         )
 
@@ -153,7 +154,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["tests.simplepage", "tests.eventpage"], "canChooseRoot": false, "userPerms": null, "modalUrl": "/admin/choose-page/"});',
+            'new PageChooser("test-id", {"modelNames": ["tests.simplepage", "tests.eventpage"], "canChooseRoot": false, "userPerms": null, "locale": null, "modalUrl": "/admin/choose-page/"});',
             html,
         )
 
@@ -165,7 +166,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
         self.assertIn(
-            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": true, "userPerms": null, "modalUrl": "/admin/choose-page/", "parentId": %d});'
+            'new PageChooser("test-id", {"modelNames": ["wagtailcore.page"], "canChooseRoot": true, "userPerms": null, "locale": null, "modalUrl": "/admin/choose-page/", "parentId": %d});'
             % self.root_page.id,
             html,
         )

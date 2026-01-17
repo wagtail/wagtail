@@ -1573,8 +1573,7 @@ class TaggedPage(Page):
         FieldPanel("tags"),
     ]
 
-    # Page.search_fields intentionally omitted to test warning
-    search_fields = [
+    search_fields = Page.search_fields + [
         index.SearchField("tags"),
     ]
 

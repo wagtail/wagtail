@@ -4,6 +4,7 @@ from django.core import checks
 from django.test import TestCase
 
 from wagtail.models import Page
+from wagtail.search import index
 from wagtail.test.testapp.models import (
     TaggedChildPage,
     TaggedGrandchildPage,
@@ -27,26 +28,32 @@ class TestSearchFields(TestCase):
     def test_checking_core_page_fields_are_indexed(self):
         """Run checks to ensure that when core page fields are missing we get a warning"""
 
-        # first confirm that errors show as TaggedPage (in test models) has no Page.search_fields
-        errors = [
-            error for error in checks.run_checks() if error.id == "wagtailsearch.W001"
-        ]
+        # Purposely break TaggedPage to check that the warning is triggered.
+        # This allows TaggedPage to be "correct" in the testapp models (avoiding global warnings)
+        # while still testing the warning logic.
+        with patch_search_fields(TaggedPage, [index.SearchField("tags")]):
+            errors = [
+                error
+                for error in checks.run_checks()
+                if error.id == "wagtailsearch.W001"
+            ]
 
-        # should only ever get this warning on the sub-classes of the page model
-        self.assertEqual(
-            [TaggedPage, TaggedChildPage, TaggedGrandchildPage],
-            [error.obj for error in errors],
-        )
-
-        for error in errors:
+            # should only ever get this warning on the sub-classes of the page model
+            # Note: TaggedChildPage and TaggedGrandchildPage also trigger it because they inherit from TaggedPage
             self.assertEqual(
-                error.msg,
-                "Core Page fields missing in `search_fields`",
+                {TaggedPage, TaggedChildPage, TaggedGrandchildPage},
+                {error.obj for error in errors},
             )
-            self.assertIn(
-                "Page model search fields `search_fields = Page.search_fields + [...]`",
-                error.hint,
-            )
+
+            for error in errors:
+                self.assertEqual(
+                    error.msg,
+                    "Core Page fields missing in `search_fields`",
+                )
+                self.assertIn(
+                    "Page model search fields `search_fields = Page.search_fields + [...]`",
+                    error.hint,
+                )
 
         # second check that we get no errors when setting up the models correctly
         with patch_search_fields(
