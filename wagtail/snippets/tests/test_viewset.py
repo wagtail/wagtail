@@ -308,6 +308,28 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
         self.assertEqual(response_json["result"]["string"], "New snippet")
 
 
+class TestSnippetChooserViewSetWidgetClass(TestCase):
+    def test_widget_class_returns_class(self):
+        chooser_viewset = Advert.snippet_viewset.chooser_viewset
+        widget_class = chooser_viewset.widget_class
+
+        self.assertIsInstance(widget_class, type)
+        self.assertTrue(issubclass(widget_class, AdminSnippetChooser))
+
+    def test_widget_class_is_instantiable(self):
+        chooser_viewset = Advert.snippet_viewset.chooser_viewset
+        widget_class = chooser_viewset.widget_class
+
+        widget_instance = widget_class()
+        self.assertIsInstance(widget_instance, AdminSnippetChooser)
+
+    def test_widget_class_has_correct_model(self):
+        chooser_viewset = Advert.snippet_viewset.chooser_viewset
+        widget_class = chooser_viewset.widget_class
+
+        self.assertEqual(widget_class.model, Advert)
+
+
 class TestAdminURLs(BaseSnippetViewSetTests):
     def test_default_url_namespace(self):
         snippet = Advert.objects.create(text="foo")
