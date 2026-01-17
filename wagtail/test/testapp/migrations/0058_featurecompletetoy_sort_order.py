@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("tests", "0056_commentablejsonpage"),
+        ("tests", "0057_articlepage_homepage_tag_pagetag_and_more"),
     ]
 
     operations = [
