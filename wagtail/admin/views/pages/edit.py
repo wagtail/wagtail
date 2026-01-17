@@ -606,6 +606,7 @@ class EditView(
                 self.subscription.save()
 
                 overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
+                expected_revision_created_at = None
                 if overwrite_revision_id is not None:
                     try:
                         overwrite_revision = self.page.revisions.get(
@@ -615,6 +616,11 @@ class EditView(
                         raise PermissionDenied(
                             "Cannot overwrite a revision that does not exist."
                         ) from e
+                    # Get the expected created_at timestamp from the client to detect
+                    # race conditions where another session has modified the revision
+                    expected_revision_created_at = self.request.POST.get(
+                        "loaded_revision_created_at"
+                    )
                 else:
                     overwrite_revision = None
 
@@ -624,6 +630,7 @@ class EditView(
                     log_action=True,  # Always log the new revision on edit
                     previous_revision=self.previous_revision,
                     overwrite_revision=overwrite_revision,
+                    expected_revision_created_at=expected_revision_created_at,
                     clean=False,
                 )
         except PermissionDenied as e:
