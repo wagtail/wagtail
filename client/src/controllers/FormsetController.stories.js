@@ -44,7 +44,7 @@ const Template = ({ debug = false }) => (
       <input type="hidden" name="form-INITIAL_FORMS" value="2" />
       <ul data-w-formset-target="forms">
         <li data-w-formset-target="child">
-          <input type="text" name="form-0-name" />
+          <input type="text" name="form-0-name" aria-label="Child name" />
           <input
             type="hidden"
             name="form-0-DELETE"
@@ -55,7 +55,7 @@ const Template = ({ debug = false }) => (
           </button>
         </li>
         <li data-w-formset-target="child">
-          <input type="text" name="form-1-name" />
+          <input type="text" name="form-1-name" aria-label="Child name" />
           <input
             type="hidden"
             name="form-1-DELETE"

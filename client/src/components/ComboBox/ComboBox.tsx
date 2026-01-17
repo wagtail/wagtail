@@ -184,7 +184,6 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     <div className="w-combobox-container">
       <div className="w-combobox">
         {/* downshift does the label-field association itself. */}
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label {...getLabelProps()} className="w-sr-only">
           {label}
         </label>
