@@ -301,16 +301,32 @@ class BaseStructBlock(Block):
             for name, block in self.child_blocks.items()
         )
 
-    def clean(self, value):
-        result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
+    def clean(self, value, ignore_required_constraints=False, *, for_draft=False):
+        # print(f"StructBlock.clean: for_draft={for_draft}, value={value}, ignore_required_constraints={ignore_required_constraints}")
+        result = []
         errors = {}
+
         for name, val in value.items():
             try:
-                result.append((name, self.child_blocks[name].clean(val)))
+                result.append((
+                    name,
+                    self.child_blocks[name].clean(
+                        val,
+                        ignore_required_constraints=(
+                            ignore_required_constraints or for_draft
+                        ),
+                        for_draft=for_draft,
+                    )
+                ))
             except ValidationError as e:
-                errors[name] = e
+                # In draft mode, swallow validation errors and keep original value
+                if for_draft:
+                    result.append((name, val))
+                else:
+                    errors[name] = e
 
-        if errors:
+        # Only raise errors if not in draft mode
+        if errors and not for_draft:
             raise StructBlockValidationError(errors)
 
         return self._to_struct_value(result)

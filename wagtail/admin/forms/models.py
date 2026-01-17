@@ -157,6 +157,8 @@ class WagtailAdminModelForm(
             if formset.min_num is not None:
                 self.deferred_formset_min_nums[name] = formset.min_num
                 formset.min_num = 0
+        
+        self._is_draft = True
 
     def restore_required_fields(self):
         for name, formset in self.formsets.items():
