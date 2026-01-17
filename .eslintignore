@@ -2,6 +2,7 @@ node_modules
 *.min.js
 **/lib/
 public/
+build/
 coverage/
 **/vendor/
 docs/_build
