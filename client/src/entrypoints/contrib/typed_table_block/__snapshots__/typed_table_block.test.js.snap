@@ -38,7 +38,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
             </thead>
             <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.0.values.0">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-0-0-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -48,7 +48,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
             <p name="mytable-cell-0-0" id="mytable-cell-0-0">Block A widget</p>
           </div>
         </div>
-      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.0.values.1">
         <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-0-1-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -62,7 +62,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button></td></tr><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.1.values.0">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-1-0-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -72,7 +72,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
             <p name="mytable-cell-1-0" id="mytable-cell-1-0">Block A widget</p>
           </div>
         </div>
-      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.1.values.1">
         <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-1-1-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -144,7 +144,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
             </thead>
             <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.0.values.0">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-0-0-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -154,7 +154,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
             <p name="mytable-cell-0-0" id="mytable-cell-0-0">Block A widget</p>
           </div>
         </div>
-      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.0.values.1">
         <div class="w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error" data-field="">
           <div class="w-field__errors" id="mytable-cell-0-1-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
@@ -168,7 +168,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button></td></tr><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.1.values.0">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-1-0-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -178,7 +178,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
             <p name="mytable-cell-1-0" id="mytable-cell-1-0">Block A widget</p>
           </div>
         </div>
-      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.1.values.1">
         <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-1-1-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -250,7 +250,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
             </thead>
             <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.0.values.0">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-0-0-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -260,7 +260,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
             <p name="mytable-cell-0-0" id="mytable-cell-0-0">Block A widget</p>
           </div>
         </div>
-      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.0.values.1">
         <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-0-1-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -274,7 +274,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button></td></tr><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.1.values.0">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-1-0-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
@@ -284,7 +284,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
             <p name="mytable-cell-1-0" id="mytable-cell-1-0">Block A widget</p>
           </div>
         </div>
-      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="" data-contentpath="rows.1.values.1">
         <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
           <div class="w-field__errors" id="mytable-cell-1-1-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>

@@ -100,11 +100,13 @@ window.comments = (() => {
 
     onFocus() {
       this.node.classList.add('w-field__comment-button--focused');
+      this.fieldNode.classList.add('w-field--comment-focused');
       this.node.ariaLabel = gettext('Unfocus comment');
     }
 
     onUnfocus() {
       this.node.classList.remove('w-field__comment-button--focused');
+      this.fieldNode.classList.remove('w-field--comment-focused');
       this.node.ariaLabel = gettext('Focus comment');
 
       // TODO: ensure comment is focused accessibly when this is clicked,

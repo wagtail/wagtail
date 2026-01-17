@@ -224,6 +224,21 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
     });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
+
+  test('assigns data-contentpath to cells', () => {
+    const cells = document.querySelectorAll(
+      '[data-field-wrapper][data-contentpath]',
+    );
+    expect(cells.length).toBe(4); // 2 rows * 2 columns
+
+    // Row 0
+    expect(cells[0].dataset.contentpath).toBe('rows.0.values.0');
+    expect(cells[1].dataset.contentpath).toBe('rows.0.values.1');
+
+    // Row 1
+    expect(cells[2].dataset.contentpath).toBe('rows.1.values.0');
+    expect(cells[3].dataset.contentpath).toBe('rows.1.values.1');
+  });
 });
 
 describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBlock', () => {

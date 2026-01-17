@@ -341,6 +341,7 @@ export class TypedTableBlock {
       /* add an initial row */
       this.insertRow(0);
     }
+    this.updateAllCellContentPaths();
     return column;
   }
 
@@ -362,6 +363,7 @@ export class TypedTableBlock {
       this.columns[i].position -= 1;
       this.columns[i].positionInput.value = this.columns[i].position;
     });
+    this.updateAllCellContentPaths();
 
     // if no columns remain, revert to initial empty state with no rows
     if (this.columns.length === 0) {
@@ -449,6 +451,7 @@ export class TypedTableBlock {
       this.rows[i].positionInput.value = this.rows[i].position;
     });
 
+    this.updateAllCellContentPaths();
     return row;
   }
 
@@ -464,13 +467,45 @@ export class TypedTableBlock {
       this.rows[i].position -= 1;
       this.rows[i].positionInput.value = this.rows[i].position;
     });
+    this.updateAllCellContentPaths();
   }
 
   initCell(cell, column, row, initialState) {
     const placeholder = document.createElement('div');
     cell.appendChild(placeholder);
     const cellPrefix = this.prefix + '-cell-' + row.id + '-' + column.id;
-    return column.blockDef.render(placeholder, cellPrefix, initialState, null);
+    const block = column.blockDef.render(
+      placeholder,
+      cellPrefix,
+      initialState,
+      null,
+    );
+    this.updateCellContentPath(cell, row.position, column.position);
+    return block;
+  }
+
+  updateCellContentPath(cell, rowPosition, colPosition) {
+    // The first column is the row header (trash icon), so data columns start at index 1 in the DOM
+    const cellContainer = cell.querySelector('[data-field-wrapper]');
+    if (cellContainer) {
+      if (this.rows[rowPosition]) {
+        cellContainer.dataset.contentpath = `rows.${rowPosition}.values.${colPosition}`;
+      }
+    }
+  }
+
+  updateAllCellContentPaths() {
+    // skip the first row (headers)
+    Array.from(this.tbody.children).forEach((tr, rowIndex) => {
+      // skip the first cell (control) and last cell (delete row) of each row
+      const dataCells = Array.from(tr.children).slice(
+        1,
+        this.columns.length + 1,
+      );
+      dataCells.forEach((cell, colIndex) => {
+        this.updateCellContentPath(cell, rowIndex, colIndex);
+      });
+    });
   }
 
   setState(state) {
