@@ -13,6 +13,35 @@ afterEach(() => {
   }
 });
 
+const OriginalDateTimeFormat = Intl.DateTimeFormat;
+
+beforeAll(() => {
+  jest.spyOn(Intl, 'DateTimeFormat').mockImplementation((locale, options) => {
+    const formatter = new OriginalDateTimeFormat(locale, options);
+
+    // Only override timeZoneName rendering
+    if (options && options.timeZoneName) {
+      return {
+        ...formatter,
+        formatToParts(date) {
+          return formatter.formatToParts(date).map((part) =>
+            part.type === 'timeZoneName'
+              ? { ...part, value: '[TZ]' }
+              : part
+          );
+        },
+      };
+    }
+
+    return formatter;
+  });
+});
+
+afterAll(() => {
+  Intl.DateTimeFormat.mockRestore();
+});
+
+
 describe('LocaleController', () => {
   let app;
   let select;
@@ -74,8 +103,9 @@ describe('LocaleController', () => {
       expect(selected).toBeTruthy();
       expect(selected.value).toEqual('');
       expect(selected.textContent).toEqual(
-        'Use server time zone: GMT (Greenwich Mean Time)',
+      'Use server time zone: [TZ] ([TZ])',
       );
+
       expect(select).toMatchSnapshot();
     });
   });
@@ -97,8 +127,9 @@ describe('LocaleController', () => {
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
     expect(selected.textContent).toEqual(
-      'Use server time zone: WIB (Waktu Indonesia Barat)',
-    );
+  'Use server time zone: [TZ] ([TZ])',
+  );
+
     expect(select).toMatchSnapshot();
   });
 
@@ -141,8 +172,9 @@ describe('LocaleController', () => {
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
     expect(selected.textContent).toEqual(
-      'Use server time zone: GMT+9 (Waktu Standar Jepang)',
-    );
+  'Use server time zone: [TZ] ([TZ])',
+  );
+
     expect(select).toMatchSnapshot();
   });
 
@@ -172,8 +204,9 @@ describe('LocaleController', () => {
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
     expect(selected.textContent).toBe(
-      'Use server time zone : UTC+1 (heure normale d’Europe centrale)',
-    );
+  'Use server time zone : [TZ] ([TZ])',
+  );
+
     expect(select).toMatchSnapshot();
   });
 });
