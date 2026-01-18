@@ -37,4 +37,3 @@ class TestProgrammaticPageCreation(TestCase, WagtailTestUtils):
                 "See issue #13698."
             ),
         )
-
