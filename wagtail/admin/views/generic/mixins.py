@@ -541,6 +541,7 @@ class CreateEditViewOptionalFeaturesMixin:
         self.new_revision = None
         if self.revision_enabled:
             overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
+            expected_revision_created_at = None
             if overwrite_revision_id is not None:
                 try:
                     overwrite_revision = instance.revisions.get(
@@ -550,6 +551,11 @@ class CreateEditViewOptionalFeaturesMixin:
                     raise PermissionDenied(
                         "Cannot overwrite a revision that does not exist"
                     ) from e
+                # Get the expected created_at timestamp from the client to detect
+                # race conditions where another session has modified the revision
+                expected_revision_created_at = self.request.POST.get(
+                    "loaded_revision_created_at"
+                )
             else:
                 overwrite_revision = None
 
@@ -557,6 +563,7 @@ class CreateEditViewOptionalFeaturesMixin:
                 user=self.request.user,
                 clean=not self.saving_as_draft,
                 overwrite_revision=overwrite_revision,
+                expected_revision_created_at=expected_revision_created_at,
             )
 
         log(

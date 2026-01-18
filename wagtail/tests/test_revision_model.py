@@ -354,3 +354,101 @@ class TestRevisableModel(WagtailTestUtils, TestCase):
         self.assertEqual(self.instance.revisions.count(), 1)
         latest_revision = self.instance.get_latest_revision()
         self.assertEqual(latest_revision.content["text"], "Existing revision")
+
+    def test_overwrite_revision_with_expected_created_at(self):
+        """
+        Test that overwriting a revision succeeds when the expected_revision_created_at
+        matches the actual created_at timestamp of the revision.
+        """
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+        expected_created_at = revision1.created_at.isoformat()
+
+        self.instance.text = "Updated revision"
+        self.instance.save_revision(
+            overwrite_revision=revision1,
+            expected_revision_created_at=expected_created_at,
+        )
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "Updated revision")
+
+    def test_cannot_overwrite_revision_with_wrong_expected_created_at(self):
+        """
+        Test that overwriting a revision fails when the expected_revision_created_at
+        does not match the actual created_at timestamp. This prevents race conditions
+        where concurrent requests could overwrite each other's changes.
+        """
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+
+        # Simulate a concurrent update by directly modifying the revision's created_at
+        # This mimics what would happen if another request overwrote the revision
+        wrong_created_at = "2020-01-01T00:00:00+00:00"
+
+        self.instance.text = "Updated revision"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "This revision has been modified by another session.",
+        ):
+            self.instance.save_revision(
+                overwrite_revision=revision1,
+                expected_revision_created_at=wrong_created_at,
+            )
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        revision1.refresh_from_db()
+        # The revision should not have been updated
+        self.assertEqual(revision1.content["text"], "Existing revision")
+
+    def test_overwrite_revision_without_expected_created_at_still_works(self):
+        """
+        Test backward compatibility: overwriting a revision without providing
+        expected_revision_created_at should still work.
+        """
+        self.instance.text = "Existing revision"
+        revision1 = self.instance.save_revision()
+
+        self.instance.text = "Updated revision"
+        self.instance.save_revision(overwrite_revision=revision1)
+
+        self.assertEqual(self.instance.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "Updated revision")
+
+    def test_race_condition_prevention_with_select_for_update(self):
+        """
+        Test that the SELECT FOR UPDATE locking prevents concurrent overwrites.
+        When two requests try to overwrite the same revision simultaneously,
+        the second request should fail if the first has already modified it.
+        """
+        self.instance.text = "Initial revision"
+        revision1 = self.instance.save_revision()
+        original_created_at = revision1.created_at.isoformat()
+
+        # First update succeeds
+        self.instance.text = "First update"
+        self.instance.save_revision(
+            overwrite_revision=revision1,
+            expected_revision_created_at=original_created_at,
+        )
+
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "First update")
+
+        # Second update with the OLD timestamp should fail
+        # (simulating a concurrent request that started before the first update)
+        self.instance.text = "Second update"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "This revision has been modified by another session.",
+        ):
+            self.instance.save_revision(
+                overwrite_revision=revision1,
+                expected_revision_created_at=original_created_at,
+            )
+
+        # The revision should still have the first update's content
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["text"], "First update")

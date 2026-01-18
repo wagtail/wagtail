@@ -387,6 +387,7 @@ class RevisionMixin(models.Model):
         previous_revision=None,
         clean=True,
         overwrite_revision=None,
+        expected_revision_created_at=None,
     ):
         """
         Creates and saves a revision.
@@ -399,16 +400,44 @@ class RevisionMixin(models.Model):
         :param previous_revision: Indicates a revision reversal. Should be set to the previous revision instance.
         :type previous_revision: Revision
         :param clean: Set this to ``False`` to skip cleaning object content before saving this revision.
+        :param expected_revision_created_at: When overwriting a revision, the expected ``created_at`` timestamp
+            of the revision being overwritten. If provided and the revision's actual ``created_at`` differs,
+            a PermissionDenied exception is raised. This prevents race conditions where concurrent requests
+            could overwrite each other's changes.
         :return: The newly created revision.
         """
         if clean:
             self.full_clean()
 
         if overwrite_revision:
+            # Re-fetch the revision with SELECT FOR UPDATE to prevent race conditions.
+            # This locks the row until the transaction completes.
+            try:
+                locked_revision = Revision.objects.select_for_update().get(
+                    pk=overwrite_revision.pk
+                )
+            except Revision.DoesNotExist:
+                raise PermissionDenied(
+                    gettext("Cannot overwrite a revision that does not exist.")
+                )
+
+            # Verify the revision hasn't been modified by another concurrent request.
+            # The created_at timestamp changes on each overwrite, so if it differs from
+            # what the client expects, another request has already modified this revision.
+            if expected_revision_created_at is not None:
+                actual_created_at = locked_revision.created_at.isoformat()
+                if actual_created_at != expected_revision_created_at:
+                    raise PermissionDenied(
+                        gettext(
+                            "This revision has been modified by another session. "
+                            "Please refresh and try again."
+                        )
+                    )
+
             # the revision being overwritten must be the latest revision for the current instance, and must match
             # the current user (if any)
             latest_revision = self.get_latest_revision()
-            if overwrite_revision != latest_revision:
+            if locked_revision != latest_revision:
                 raise PermissionDenied(
                     gettext(
                         "Cannot overwrite a revision that is not the latest for "
@@ -416,7 +445,7 @@ class RevisionMixin(models.Model):
                     )
                     % {"model_name": self._meta.verbose_name}
                 )
-            if overwrite_revision.user_id != (user and user.pk):
+            if locked_revision.user_id != (user and user.pk):
                 raise PermissionDenied(
                     gettext(
                         "Cannot overwrite a revision that was not created "
@@ -424,12 +453,12 @@ class RevisionMixin(models.Model):
                     )
                 )
 
-            overwrite_revision.created_at = timezone.now()
-            overwrite_revision.content = self.serializable_data()
-            overwrite_revision.approved_go_live_at = approved_go_live_at
-            overwrite_revision.object_str = str(self)
-            overwrite_revision.save()
-            revision = overwrite_revision
+            locked_revision.created_at = timezone.now()
+            locked_revision.content = self.serializable_data()
+            locked_revision.approved_go_live_at = approved_go_live_at
+            locked_revision.object_str = str(self)
+            locked_revision.save()
+            revision = locked_revision
         else:
             revision = Revision.objects.create(
                 content_object=self,
