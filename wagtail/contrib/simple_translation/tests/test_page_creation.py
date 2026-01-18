@@ -1,6 +1,6 @@
-
 from django.test import TestCase, override_settings
-from wagtail.models import Page, Locale
+
+from wagtail.models import Locale, Page
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.utils import WagtailTestUtils
 
