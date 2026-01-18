@@ -6,8 +6,6 @@ import { InitController } from './InitController';
 jest.useFakeTimers();
 jest.setSystemTime(new Date('2025-01-11'));
 
-
-
 const OriginalDateTimeFormat = Intl.DateTimeFormat;
 
 beforeAll(() => {
@@ -19,11 +17,11 @@ beforeAll(() => {
       return {
         ...formatter,
         formatToParts(date) {
-          return formatter.formatToParts(date).map((part) =>
-            part.type === 'timeZoneName'
-              ? { ...part, value: '[TZ]' }
-              : part
-          );
+          return formatter
+            .formatToParts(date)
+            .map((part) =>
+              part.type === 'timeZoneName' ? { ...part, value: '[TZ]' } : part,
+            );
         },
       };
     }
@@ -35,7 +33,6 @@ beforeAll(() => {
 afterAll(() => {
   Intl.DateTimeFormat.mockRestore();
 });
-
 
 describe('LocaleController', () => {
   let app;
@@ -97,10 +94,8 @@ describe('LocaleController', () => {
       const selected = select.selectedOptions[0];
       expect(selected).toBeTruthy();
       expect(selected.value).toEqual('');
-      
-      expect(selected.textContent).toEqual(
-      'Use server time zone: [TZ] ([TZ])',
-      );
+
+      expect(selected.textContent).toEqual('Use server time zone: [TZ] ([TZ])');
 
       expect(select).toMatchSnapshot();
     });
@@ -122,10 +117,8 @@ describe('LocaleController', () => {
     const selected = select.selectedOptions[0];
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
-   
-    expect(selected.textContent).toEqual(
-  'Use server time zone: [TZ] ([TZ])',
-  );
+
+    expect(selected.textContent).toEqual('Use server time zone: [TZ] ([TZ])');
 
     expect(select).toMatchSnapshot();
   });
@@ -168,10 +161,8 @@ describe('LocaleController', () => {
     const selected = select.selectedOptions[0];
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
-    
-    expect(selected.textContent).toEqual(
-  'Use server time zone: [TZ] ([TZ])',
-  );
+
+    expect(selected.textContent).toEqual('Use server time zone: [TZ] ([TZ])');
 
     expect(select).toMatchSnapshot();
   });
@@ -201,10 +192,8 @@ describe('LocaleController', () => {
     const selected = select.selectedOptions[0];
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
-    
-    expect(selected.textContent).toBe(
-  'Use server time zone : [TZ] ([TZ])',
-  );
+
+    expect(selected.textContent).toBe('Use server time zone : [TZ] ([TZ])');
 
     expect(select).toMatchSnapshot();
   });
