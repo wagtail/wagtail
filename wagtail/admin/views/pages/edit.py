@@ -603,7 +603,7 @@ class EditView(
         try:
             with transaction.atomic():
                 self.page = self.form.save(commit=not self.page.live)
-                if hasattr(self.page, 'save_related'):
+                if hasattr(self.page, "save_related"):
                     self.page.save_related()
                 self.subscription.save()
 
