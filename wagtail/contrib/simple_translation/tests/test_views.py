@@ -460,6 +460,10 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
 
         post_save.connect(create_translation_aliases_on_page_creation, sender=Page)
 
+        # Delete existing translations so aliases are created
+        self.fr_homepage.delete()
+        self.de_homepage.delete()
+
         en_blog_index = TestPage(title="Blog", slug="blog")
         self.en_homepage.add_child(instance=en_blog_index)
 
