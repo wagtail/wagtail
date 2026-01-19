@@ -9,6 +9,7 @@ from django.utils.translation import gettext
 
 from wagtail import hooks
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.ui.components import Component
 from wagtail.admin.userbar import AccessibilityItem, Userbar
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
@@ -923,3 +924,66 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
                 versioned_static("wagtailadmin/js/userbar.js"),
             ],
         )
+
+    def test_component_item(self):
+        class TestItem(Component):
+            def render_html(self, parent_context):
+                return "<li><a href='#test-item'>Test item</a></li>"
+
+        def hook(request, items, page):
+            items.append(TestItem())
+
+        with hooks.register_temporarily("construct_wagtail_userbar", hook):
+            rendered = Userbar(object=self.homepage).render_html(
+                {"request": self.request, PAGE_TEMPLATE_VAR: self.homepage}
+            )
+            soup = self.get_soup(rendered)
+
+        self.assertIsNotNone(soup.css.select_one("a[href='#test-item']"))
+
+    def test_legacy_render_item(self):
+        class LegacyItem:
+            def render(self, request):
+                return "<li><a href='#legacy-item'>Legacy item</a></li>"
+
+        def hook(request, items, page):
+            items.append(LegacyItem())
+
+        with (
+            self.assertWarnsMessage(
+                RemovedInWagtail80Warning,
+                "Userbar items now use the `render_html(parent_context)` method instead of `render(request)` - "
+                "view the `construct_wagtail_userbar` docs to update LegacyItem",
+            ),
+            hooks.register_temporarily(
+                "construct_wagtail_userbar",
+                hook,
+            ),
+        ):
+            rendered = Userbar(object=self.homepage).render_html(
+                {"request": self.request, PAGE_TEMPLATE_VAR: self.homepage}
+            )
+            soup = self.get_soup(rendered)
+
+        self.assertIsNotNone(soup.css.select_one("a[href='#legacy-item']"))
+
+    def test_component_item_with_media(self):
+        class ItemWithMedia(Component):
+            def render_html(self, parent_context):
+                return ""
+
+            class Media:
+                js = ["custom-item.js"]
+                css = {"all": ["custom-item.css"]}
+
+        def hook(request, items, page):
+            items.append(ItemWithMedia())
+
+        with hooks.register_temporarily("construct_wagtail_userbar", hook):
+            rendered = Userbar(object=self.homepage).render_html(
+                {"request": self.request, PAGE_TEMPLATE_VAR: self.homepage}
+            )
+            soup = self.get_soup(rendered)
+
+        self.assertIsNotNone(soup.css.select_one('script[src$="custom-item.js"]'))
+        self.assertIsNotNone(soup.css.select_one('link[href$="custom-item.css"]'))
