@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy
 from wagtail import hooks
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
 from wagtail.contrib.simple_translation.forms import SubmitTranslationForm
-from wagtail.contrib.simple_translation.models import after_create_page
+from wagtail.contrib.simple_translation.models import after_create_page, create_translation_aliases_on_page_creation
 from wagtail.contrib.simple_translation.views import (
     SubmitPageTranslationView,
     SubmitSnippetTranslationView,
@@ -408,13 +408,16 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
 )
 class TestPageTreeSync(WagtailTestUtils, TestCase):
     def setUp(self):
+        from django.db.models.signals import post_save
+        from wagtail.models import Page
+
+        post_save.disconnect(create_translation_aliases_on_page_creation, sender=Page)
+
         self.en_locale = Locale.objects.first()
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.de_locale = Locale.objects.create(language_code="de")
 
         self.en_homepage = Page.objects.get(depth=2)
-        self.fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
-        self.de_homepage = self.en_homepage.copy_for_translation(self.de_locale)
 
     def test_hook_function_registered(self):
         fns = hooks.get_hooks("after_create_page")
@@ -422,6 +425,9 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
         self.assertIn(after_create_page, fns)
 
     def test_alias_created_after_page_saved(self):
+        self.fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
+        self.de_homepage = self.en_homepage.copy_for_translation(self.de_locale)
+
         en_blog_index = TestPage(title="Blog", slug="blog")
         self.en_homepage.add_child(instance=en_blog_index)
 
@@ -442,6 +448,24 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
 
         self.assertFalse(en_blog_index.has_translation(self.fr_locale))
         self.assertFalse(en_blog_index.has_translation(self.de_locale))
+
+    def test_aliases_created_on_programmatic_page_creation(self):
+        from django.db.models.signals import post_save
+        from wagtail.models import Page
+
+        post_save.connect(create_translation_aliases_on_page_creation, sender=Page)
+
+        en_blog_index = TestPage(title="Blog", slug="blog")
+        self.en_homepage.add_child(instance=en_blog_index)
+
+        # Aliases should be created automatically via signal
+        fr_blog_index = en_blog_index.get_translation(self.fr_locale)
+        de_blog_index = en_blog_index.get_translation(self.de_locale)
+
+        self.assertEqual(fr_blog_index.alias_of.specific, en_blog_index)
+        self.assertEqual(de_blog_index.alias_of.specific, en_blog_index)
+
+        post_save.disconnect(create_translation_aliases_on_page_creation, sender=Page)
 
 
 @override_settings(

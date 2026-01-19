@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.db.models import Model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
-from wagtail.models import Locale
+from wagtail.models import Locale, Page
 
 
 class SimpleTranslation(Model):
@@ -22,7 +24,6 @@ class SimpleTranslation(Model):
         ]
 
 
-@hooks.register("after_create_page")
 def after_create_page(request, page):
     """Creates page aliases in other locales when a page is created.
 
@@ -33,9 +34,15 @@ def after_create_page(request, page):
     tree, this signal handler creates an alias of that page called
     "blog/my-blog-post" under the other locales' trees.
     """
-    if getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
+    if page.alias_of is None and getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
         # Check if the source tree needs to be synchronised into any other trees
         # Create aliases in all those locales
         for locale in Locale.objects.exclude(pk=page.locale_id):
             if not page.has_translation(locale):
                 page.copy_for_translation(locale, copy_parents=True, alias=True)
+
+
+@receiver(post_save, sender=Page)
+def create_translation_aliases_on_page_creation(sender, instance, created, **kwargs):
+    if created:
+        after_create_page(None, instance)
