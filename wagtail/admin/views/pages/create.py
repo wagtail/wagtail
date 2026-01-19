@@ -274,6 +274,15 @@ class CreateView(
                 % {"page_title": self.page.get_admin_display_title()},
             )
 
+        response = self.run_hook("after_create_page", self.request, self.page)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                pass
+            else:
+                return response
+
         if self.expects_json_response:
             return JsonResponse(
                 {
@@ -338,6 +347,10 @@ class CreateView(
                 buttons=buttons,
             )
 
+        response = self.run_hook("after_create_page", self.request, self.page)
+        if response:
+            return response
+
         return self.redirect_away()
 
     def submit_action(self):
@@ -374,6 +387,10 @@ class CreateView(
             % {"page_title": self.page.get_admin_display_title()},
             buttons=buttons,
         )
+
+        response = self.run_hook("after_create_page", self.request, self.page)
+        if response:
+            return response
 
         return self.redirect_away()
 

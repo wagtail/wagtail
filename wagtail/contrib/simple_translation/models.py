@@ -24,6 +24,7 @@ class SimpleTranslation(Model):
         ]
 
 
+@hooks.register("after_create_page")
 def after_create_page(request, page):
     """Creates page aliases in other locales when a page is created.
 

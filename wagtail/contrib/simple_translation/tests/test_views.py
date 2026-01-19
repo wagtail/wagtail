@@ -424,6 +424,11 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
 
         self.assertIn(after_create_page, fns)
 
+    def test_hook_function_registered(self):
+        fns = hooks.get_hooks("after_create_page")
+
+        self.assertIn(after_create_page, fns)
+
     def test_alias_created_after_page_saved(self):
         self.fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
         self.de_homepage = self.en_homepage.copy_for_translation(self.de_locale)
