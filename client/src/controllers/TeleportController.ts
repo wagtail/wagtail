@@ -57,7 +57,7 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
   declare keepValue: boolean;
   /**
    * If true, empty the target element's contents before appending the cloned element.
-   * @deprecated RemovedInWagtail800Warning Use `modeValue` with `innerHTML` or `outerHTML` instead.
+   * @deprecated RemovedInWagtail80Warning Use `modeValue` with `innerHTML` or `outerHTML` instead.
    */
   declare resetValue: boolean;
   /**
