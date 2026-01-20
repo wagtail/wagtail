@@ -41,8 +41,8 @@ export type AutosaveState = 'idle' | 'saving' | 'saved' | 'paused';
 
 export interface AutosaveErrorResponse {
   success: false;
-  errorCode: ServerErrorCode | UnhandledServerErrorCode;
-  errorMessage: string;
+  error_code: ServerErrorCode | UnhandledServerErrorCode;
+  error_message: string;
 }
 
 export interface AutosaveSuccessResponse {
@@ -156,7 +156,7 @@ export class AutosaveController extends Controller<
 
       // If we reach here, response must be JSON, but can be of any shape
       if (!response.success) {
-        throw new Error(response!.errorMessage || 'Unknown error');
+        throw new Error(response!.error_message || 'Unknown error');
       }
 
       if (response.revision_id) {
@@ -219,15 +219,15 @@ export class AutosaveController extends Controller<
         (error instanceof HydrationError &&
           error.code === ClientErrorCode.SERVER_ERROR) ||
         // Unknown non-success JSON response (e.g. custom hook response)
-        !('errorCode' in response) ||
+        !('error_code' in response) ||
         // Unhandled error code
-        !isHandledServerErrorCode(response?.errorCode)
+        !isHandledServerErrorCode(response?.error_code)
       ) {
         type = ClientErrorCode.SERVER_ERROR;
         text = gettext('A server error occurred.');
       } else {
-        type = response.errorCode as ServerErrorCode;
-        text = response.errorMessage;
+        type = response.error_code as ServerErrorCode;
+        text = response.error_message;
       }
 
       // There's no reliable way to recover from an invalid revision or a

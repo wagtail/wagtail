@@ -980,7 +980,11 @@ class JsonPostResponseMixin:
 
     def json_error_response(self, error_code, error_message):
         return JsonResponse(
-            {"success": False, "errorCode": error_code, "errorMessage": error_message},
+            {
+                "success": False,
+                "error_code": error_code,
+                "error_message": error_message,
+            },
             status=400,
         )
 

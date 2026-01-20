@@ -272,8 +272,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "validation_error",
-                "errorMessage": "There are validation errors, click save to highlight them.",
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
             },
         )
 
@@ -367,8 +367,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit advert was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit advert was blocked by hook.",
             },
         )
 
@@ -431,8 +431,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit advert was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit advert was blocked by hook.",
             },
         )
 
@@ -792,8 +792,8 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -826,8 +826,8 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -936,8 +936,8 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -975,11 +975,11 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
+                "error_code": "invalid_revision",
                 # We only naively check whether overwrite_revision_id matches
                 # the latest revision ID, and if it doesn't, we assume there's
                 # a newer revision.
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 

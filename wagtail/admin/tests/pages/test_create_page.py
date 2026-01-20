@@ -593,8 +593,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "validation_error",
-                "errorMessage": "There are validation errors, click save to highlight them.",
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
             },
         )
 
@@ -1901,8 +1901,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to create page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to create page was blocked by hook.",
             },
         )
 
@@ -1981,8 +1981,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to create page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to create page was blocked by hook.",
             },
         )
 

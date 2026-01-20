@@ -118,8 +118,8 @@ describe('AutosaveController', () => {
     fetch.mockResponseBadRequest(
       JSON.stringify({
         success: false,
-        errorCode: 'validation_error',
-        errorMessage: 'Validation error',
+        error_code: 'validation_error',
+        error_message: 'Validation error',
       }),
     );
 
@@ -138,8 +138,8 @@ describe('AutosaveController', () => {
     const { response, error, trigger } = errorEventDetail;
     expect(response).toEqual({
       success: false,
-      errorCode: 'validation_error',
-      errorMessage: 'Validation error',
+      error_code: 'validation_error',
+      error_message: 'Validation error',
     });
     expect(error).toBeInstanceOf(Error);
     expect(error.message).toBe('Validation error');

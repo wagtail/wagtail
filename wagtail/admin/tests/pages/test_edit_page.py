@@ -708,8 +708,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -761,8 +761,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -857,8 +857,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -1087,8 +1087,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "locked",
-                "errorMessage": "The page could not be saved as it is locked.",
+                "error_code": "locked",
+                "error_message": "The page could not be saved as it is locked.",
             },
         )
 
@@ -2444,8 +2444,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit page was blocked by hook.",
             },
         )
 
@@ -2513,8 +2513,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit page was blocked by hook.",
             },
         )
 
@@ -3555,7 +3555,7 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
         self.assertIn(self.men_with_beards_category, updated_page.categories.all())
 
 
-class TestValidationErrorMessages(WagtailTestUtils, TestCase):
+class TestValidationerror_messages(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -3656,8 +3656,8 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "validation_error",
-                "errorMessage": "There are validation errors, click save to highlight them.",
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
             },
         )
 
