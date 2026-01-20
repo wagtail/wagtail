@@ -3,9 +3,12 @@ from django.db.models import Model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
+import logging
 
 from wagtail import hooks
 from wagtail.models import Locale, Page
+
+logger = logging.getLogger(__name__)
 
 
 class SimpleTranslation(Model):
@@ -40,19 +43,35 @@ def after_create_page(request, page):
         # Create aliases in all those locales
         for locale in Locale.objects.exclude(pk=page.locale_id):
             if not page.has_translation(locale):
-                page.copy_for_translation(locale, copy_parents=True, alias=True)
+                translated_page = page.copy_for_translation(locale, copy_parents=True, alias=True)
+                translated_page.save(clean=False)
 
 
-@receiver(post_save, sender=Page)
+@receiver(post_save)
 def create_translation_aliases_on_page_creation(sender, instance, created, **kwargs):
     """Signal to create aliases for programmatic page creations."""
     if not isinstance(instance, Page):
         return
 
-    print(f"[simple_translation] signal received: created={created}, page_id={getattr(instance, 'id', None)}, translation_key={getattr(instance, 'translation_key', None)}, locale={getattr(instance, 'locale_id', None)}")
+    logger.debug(
+        "[simple_translation] signal received: created=%s, page_id=%s, translation_key=%s, locale=%s",
+        created,
+        getattr(instance, "id", None),
+        getattr(instance, "translation_key", None),
+        getattr(instance, "locale_id", None),
+    )
 
     if created and instance.translation_key:
-        if instance.depth == 2:
+        # Skip when tree sync is disabled — avoids creating aliases when the sync feature is off and prevents surprising side effects
+        if not getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
+            return
+
+        # Skip raw fixture/deserialization saves — prevents test/fixture fragility during loaddata/deserialization
+        if kwargs.get("raw", False):
+            return
+
+        # Skip root/homepage (depth <= 2) — avoid automatically aliasing top-level structural pages
+        if instance.depth <= 2:
             return
 
         from django.db.models.signals import post_save
@@ -60,9 +79,48 @@ def create_translation_aliases_on_page_creation(sender, instance, created, **kwa
         post_save.disconnect(create_translation_aliases_on_page_creation)
 
         try:
-            for locale in Locale.objects.exclude(id=instance.locale_id):
-                if not Page.objects.filter(translation_key=instance.translation_key, locale=locale).exists():
-                    print(f"[simple_translation] creating alias for page {instance} in locale {locale}")
-                    instance.copy_for_translation(locale, copy_parents=True, alias=True)
+            locales = list(Locale.objects.exclude(id=instance.locale_id))
+            logger.debug("[simple_translation] target locales: %s", locales)
+            for locale in locales:
+                exists = Page.objects.filter(translation_key=instance.translation_key, locale=locale).exists()
+                logger.debug(
+                    "[simple_translation] checking locale %s: exists=%s",
+                    locale,
+                    exists,
+                )
+                if not exists:
+                    try:
+                        # Require parent to be translated; don't auto-create translated parents as that would change tree structure
+                        parent = instance.get_parent().specific
+                        try:
+                            parent_translation = parent.get_translation(locale)
+                        except parent.__class__.DoesNotExist:
+                            logger.debug(
+                                "[simple_translation] skipping alias creation for %s in %s because parent is not translated",
+                                instance,
+                                locale,
+                            )
+                            continue
+
+                        logger.debug(
+                            "[simple_translation] creating alias for page %s in locale %s",
+                            instance,
+                            locale,
+                        )
+                        # Don't auto-create untranslated parents here (we already ensured translated parent exists)
+                        translated_page = instance.copy_for_translation(locale, copy_parents=False, alias=True)
+                        translated_page.save(clean=False)
+                        logger.debug(
+                            "[simple_translation] created alias: %s (id=%s)",
+                            translated_page,
+                            getattr(translated_page, "id", None),
+                        )
+                    except Exception:
+                        # Log exception with traceback for debugging, but don't raise
+                        logger.exception(
+                            "[simple_translation] failed to create alias for %s in %s",
+                            instance,
+                            locale,
+                        )
         finally:
             post_save.connect(create_translation_aliases_on_page_creation)
