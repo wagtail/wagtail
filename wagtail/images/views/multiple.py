@@ -134,11 +134,18 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
         """
         try:
             uploaded_file = fetch_image_from_url(image_url)
-        except (InvalidURLError, FileTooLargeError, InvalidContentTypeError, DownloadTimeoutError) as e:
-            return JsonResponse({
-                "success": False,
-                "error_message": str(e),
-            })
+        except (
+            InvalidURLError,
+            FileTooLargeError,
+            InvalidContentTypeError,
+            DownloadTimeoutError,
+        ) as e:
+            return JsonResponse(
+                {
+                    "success": False,
+                    "error_message": str(e),
+                }
+            )
 
         filename = uploaded_file.name
         title = request.POST.get("title", "")
@@ -162,28 +169,32 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
 
             return JsonResponse(self.get_edit_object_response_data())
         elif "file" in form.errors:
-            return JsonResponse({
-                "success": False,
-                "error_message": "\n".join(form.errors["file"]),
-            })
+            return JsonResponse(
+                {
+                    "success": False,
+                    "error_message": "\n".join(form.errors["file"]),
+                }
+            )
         else:
             all_errors = []
             for field, errors in form.errors.items():
                 for error in errors:
                     all_errors.append(f"{field}: {error}")
-            return JsonResponse({
-                "success": False,
-                "error_message": "\n".join(all_errors),
-            })
+            return JsonResponse(
+                {
+                    "success": False,
+                    "error_message": "\n".join(all_errors),
+                }
+            )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         allowed_extensions = get_allowed_image_extensions()
         formats_str = ", ".join(ext.upper() for ext in allowed_extensions)
-        url_help_text = _("Enter a direct link to an image. Supported formats: %(formats)s") % {
-            "formats": formats_str
-        }
+        url_help_text = _(
+            "Enter a direct link to an image. Supported formats: %(formats)s"
+        ) % {"formats": formats_str}
 
         context.update(
             {

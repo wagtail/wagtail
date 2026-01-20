@@ -187,8 +187,7 @@ def fetch_image_from_url(url):
 
     except requests.exceptions.Timeout as e:
         raise DownloadTimeoutError(
-            _("Download timed out after %(seconds)s seconds.")
-            % {"seconds": timeout}
+            _("Download timed out after %(seconds)s seconds.") % {"seconds": timeout}
         ) from e
     except requests.exceptions.SSLError as e:
         raise InvalidURLError(_("SSL certificate verification failed.")) from e
@@ -196,10 +195,13 @@ def fetch_image_from_url(url):
         raise InvalidURLError(_("Could not connect to the server.")) from e
     except requests.exceptions.HTTPError as e:
         raise InvalidURLError(
-            _("Server returned an error: %(status)s") % {"status": e.response.status_code}
+            _("Server returned an error: %(status)s")
+            % {"status": e.response.status_code}
         ) from e
     except requests.exceptions.RequestException as e:
-        raise InvalidURLError(_("Failed to fetch URL: %(error)s") % {"error": str(e)}) from e
+        raise InvalidURLError(
+            _("Failed to fetch URL: %(error)s") % {"error": str(e)}
+        ) from e
 
     content_type = response.headers.get("Content-Type", "")
     base_content_type = content_type.split(";")[0].strip().lower()
@@ -216,9 +218,7 @@ def fetch_image_from_url(url):
             file_size = int(content_length)
             if max_size is not None and file_size > max_size:
                 raise FileTooLargeError(
-                    _(
-                        "File is too large (%(file_size)s). Maximum size: %(max_size)s."
-                    )
+                    _("File is too large (%(file_size)s). Maximum size: %(max_size)s.")
                     % {
                         "file_size": filesizeformat(file_size),
                         "max_size": filesizeformat(max_size),
@@ -239,9 +239,7 @@ def fetch_image_from_url(url):
             if max_size is not None and bytes_downloaded > max_size:
                 response.close()
                 raise FileTooLargeError(
-                    _(
-                        "File is too large. Maximum size: %(max_size)s."
-                    )
+                    _("File is too large. Maximum size: %(max_size)s.")
                     % {"max_size": filesizeformat(max_size)}
                 )
 

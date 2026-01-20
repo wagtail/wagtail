@@ -66,7 +66,9 @@ class TestExtractFilenameFromUrl(TestCase):
 
     def test_content_type_with_charset(self):
         url = "https://example.com/images/photo"
-        filename = extract_filename_from_url(url, content_type="image/jpeg; charset=utf-8")
+        filename = extract_filename_from_url(
+            url, content_type="image/jpeg; charset=utf-8"
+        )
         self.assertEqual(filename, "photo.jpg")
 
 
@@ -101,9 +103,13 @@ class TestValidateUrl(TestCase):
 
 
 class TestFetchImageFromUrl(TestCase):
-    def _create_mock_response(self, content=b"fake image data",
-                              content_type="image/jpeg", content_length=None,
-                              status_code=200):
+    def _create_mock_response(
+        self,
+        content=b"fake image data",
+        content_type="image/jpeg",
+        content_length=None,
+        status_code=200,
+    ):
         """Helper to create a mock response."""
         mock_response = MagicMock()
         mock_response.headers = {"Content-Type": content_type}
@@ -192,7 +198,6 @@ class TestFetchImageFromUrl(TestCase):
 
     @patch("wagtail.images.url_import.requests.get")
     def test_timeout_raises(self, mock_get):
-
         mock_get.side_effect = requests.exceptions.Timeout()
 
         with self.assertRaises(DownloadTimeoutError):
@@ -200,7 +205,6 @@ class TestFetchImageFromUrl(TestCase):
 
     @patch("wagtail.images.url_import.requests.get")
     def test_connection_error_raises(self, mock_get):
-
         mock_get.side_effect = requests.exceptions.ConnectionError()
 
         with self.assertRaises(InvalidURLError) as cm:
@@ -209,7 +213,6 @@ class TestFetchImageFromUrl(TestCase):
 
     @patch("wagtail.images.url_import.requests.get")
     def test_ssl_error_raises(self, mock_get):
-
         mock_get.side_effect = requests.exceptions.SSLError()
 
         with self.assertRaises(InvalidURLError) as cm:
@@ -305,4 +308,3 @@ class TestFetchImageFromUrl(TestCase):
 
         call_kwargs = mock_get.call_args[1]
         self.assertTrue(call_kwargs["stream"])
-
