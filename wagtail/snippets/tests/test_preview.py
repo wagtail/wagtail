@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -113,6 +114,32 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_create_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.post(self.preview_on_add_url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_create_get_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.get(self.preview_on_add_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
     def test_preview_on_edit_with_m2m_field(self):
         response = self.client.post(self.preview_on_edit_url, self.post_data)
 
@@ -199,6 +226,32 @@ class TestPreview(WagtailTestUtils, TestCase):
                 f"{self.session_key_prefix}-{new_snippet.pk}",
                 self.client.session,
             )
+
+    def test_preview_on_edit_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.post(self.preview_on_edit_url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_edit_get_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.get(self.preview_on_edit_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_preview_on_create_clear_preview_data(self):
         # Set a fake preview session data for the page

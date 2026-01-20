@@ -1,6 +1,7 @@
 import datetime
 from functools import wraps
 
+from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -228,6 +229,47 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_create_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "eventpage", self.home_page.id),
+        )
+
+        response = self.client.post(
+            preview_url,
+            self.post_data,
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_create_get_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "eventpage", self.home_page.id),
+        )
+
+        response = self.client.get(preview_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
     def test_preview_on_edit_with_m2m_field(self):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
@@ -317,6 +359,45 @@ class TestPreview(WagtailTestUtils, TestCase):
             self.assertEqual(response.status_code, 200)
             response = self.client.get(preview_url)
             self.assertEqual(response.status_code, 200)
+
+    def test_preview_on_edit_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
+        )
+
+        response = self.client.post(
+            preview_url,
+            self.post_data,
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_edit_get_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
+        )
+
+        response = self.client.get(preview_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_preview_on_create_clear_preview_data(self):
         preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
