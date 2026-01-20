@@ -657,10 +657,16 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
+        revision = page.get_latest_revision()
         response_json = response.json()
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], page.pk)
-        self.assertEqual(response_json["revision_id"], page.get_latest_revision().pk)
+        self.assertEqual(response_json["revision_id"], revision.pk)
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
+        self.assertEqual(response_json["field_updates"], {})
 
         self.assertEqual(page.title, post_data["title"])
         self.assertEqual(page.draft_title, post_data["title"])

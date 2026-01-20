@@ -285,7 +285,13 @@ class CreateView(
 
         if self.expects_json_response:
             return JsonResponse(
-                {"success": True, "pk": self.page.pk, "revision_id": revision.pk}
+                {
+                    "success": True,
+                    "pk": self.page.pk,
+                    "revision_id": revision.pk,
+                    "revision_created_at": revision.created_at.isoformat(),
+                    "field_updates": dict(self.form.get_field_updates_for_resave()),
+                }
             )
         else:
             # remain on edit page for further edits

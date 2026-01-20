@@ -932,6 +932,7 @@
 * Taras Panasiuk
 * Florin Barnea
 * Mustansir Dabhiya
+* bettercallok
 
 ## Translators
 
