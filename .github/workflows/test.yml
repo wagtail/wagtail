@@ -110,16 +110,12 @@ jobs:
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
-            install_extras: |
-              pip install "django-tasks>=0.9,<0.10"
           - python: '3.14'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
-            install_extras: |
-              pip install "django-tasks>=0.9,<0.10"
     services:
       postgres:
         image: ${{ matrix.postgres || 'postgres:12' }}
