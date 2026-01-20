@@ -17,13 +17,16 @@ from wagtail.blocks.base import Block
 from wagtail.models import PreviewableMixin, RevisionMixin
 from wagtail.utils.decorators import xframe_options_sameorigin_override
 
+from .permissions import PermissionCheckedMixin
 
-class PreviewOnEdit(View):
+
+class PreviewOnEdit(PermissionCheckedMixin, View):
     model = None
     form_class = None
     http_method_names = ("post", "get", "delete")
     preview_expiration_timeout = 60 * 60 * 24  # seconds
     session_key_prefix = "wagtail-preview-"
+    permission_required = "change"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -54,6 +57,8 @@ class PreviewOnEdit(View):
 
     def get_object(self):
         obj = get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
+        if not self.user_has_permission_for_instance(self.permission_required, obj):
+            raise PermissionDenied
         if isinstance(obj, RevisionMixin):
             obj = obj.get_latest_revision_as_object()
         return obj
@@ -136,6 +141,8 @@ class PreviewOnEdit(View):
 
 
 class PreviewOnCreate(PreviewOnEdit):
+    permission_required = "add"
+
     @property
     def session_key(self):
         app_label = self.model._meta.app_label
