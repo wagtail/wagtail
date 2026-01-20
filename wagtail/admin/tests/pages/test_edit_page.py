@@ -3657,7 +3657,7 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "validation_error",
-                "errorMessage": "The page could not be saved due to validation errors.",
+                "errorMessage": "There are validation errors, click save to highlight them.",
             },
         )
 

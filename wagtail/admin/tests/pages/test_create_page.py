@@ -594,7 +594,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             {
                 "success": False,
                 "errorCode": "validation_error",
-                "errorMessage": "The page could not be created due to validation errors.",
+                "errorMessage": "There are validation errors, click save to highlight them.",
             },
         )
 

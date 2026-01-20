@@ -968,7 +968,7 @@ class EditView(
             if self.expects_json_response:
                 return self.json_error_response(
                     "validation_error",
-                    _("The page could not be saved due to validation errors."),
+                    _("There are validation errors, click save to highlight them."),
                 )
             else:
                 messages.validation_error(

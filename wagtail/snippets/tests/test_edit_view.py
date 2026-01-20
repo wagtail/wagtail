@@ -273,7 +273,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             {
                 "success": False,
                 "errorCode": "validation_error",
-                "errorMessage": "The advert could not be saved due to errors.",
+                "errorMessage": "There are validation errors, click save to highlight them.",
             },
         )
 

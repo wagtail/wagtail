@@ -611,6 +611,8 @@ class CreateView(
         """
         if self.error_message is None:
             return None
+        if self.expects_json_response:
+            return _("There are validation errors, click save to highlight them.")
         return capfirst(
             self.error_message
             % {"model_name": self.model and self.model._meta.verbose_name}
@@ -1038,6 +1040,8 @@ class EditView(
         """
         if self.error_message is None:
             return None
+        if self.expects_json_response:
+            return _("There are validation errors, click save to highlight them.")
         return capfirst(
             self.error_message
             % {"model_name": self.model and self.model._meta.verbose_name}
