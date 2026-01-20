@@ -23,8 +23,10 @@ class DateRangePickerWidget(SuffixedMultiWidget):
 
     def __init__(self, attrs=None):
         widgets = (
-            AdminDateInput(attrs={"placeholder": _("Date from")}),
-            AdminDateInput(attrs={"placeholder": _("Date to")}),
+            AdminDateInput(
+                attrs={"placeholder": _("Date from"), "data-bwignore": "true"}
+            ),
+            AdminDateInput(attrs={"placeholder": _("Date to"), "data-bwignore": "true"}),
         )
         super().__init__(widgets, attrs)
 

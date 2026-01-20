@@ -98,3 +98,18 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
             morten_username=self.morten.get_username(),
         )
         self.assertHTMLEqual(html, expected_html)
+
+
+class TestDateRangePickerWidget(TestCase):
+    def test_bitwarden_ignore_attribute(self):
+        """Test that data-bwignore attribute is present to prevent password manager clashes"""
+        from wagtail.admin.filters import DateRangePickerWidget
+
+        widget = DateRangePickerWidget()
+        html = widget.render("last_login", None)
+
+        # Verify the attribute appears in the rendered HTML
+        self.assertIn('data-bwignore="true"', html)
+        # Check it appears twice (for both "from" and "to" inputs)
+        self.assertEqual(html.count('data-bwignore="true"'), 2)
+
