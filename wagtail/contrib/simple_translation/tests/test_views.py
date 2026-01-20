@@ -5,6 +5,7 @@ from django.http import Http404
 from django.test import RequestFactory, override_settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
+from unittest.mock import patch
 
 from wagtail import hooks
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
@@ -20,6 +21,22 @@ from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.testapp.models import FullFeaturedSnippet
 from wagtail.test.utils import TestCase, WagtailTestUtils
+import logging
+
+
+class MockTaskResult:
+    def __init__(self, task=None, args=None, kwargs=None, **extra):
+        self.task = task
+        self.args = args
+        self.kwargs = kwargs
+        self.id = None
+        self.backend = None
+        self.status = None
+        self.worker_ids = []
+
+    @classmethod
+    def __class_getitem__(cls, item):
+        return cls
 
 
 @override_settings(
@@ -454,6 +471,7 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
         self.assertFalse(en_blog_index.has_translation(self.fr_locale))
         self.assertFalse(en_blog_index.has_translation(self.de_locale))
 
+    @patch('django_tasks.backends.immediate.TaskResult', MockTaskResult)
     def test_aliases_created_on_programmatic_page_creation(self):
         from django.db.models.signals import post_save
         from wagtail.models import Page
@@ -461,11 +479,22 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
         post_save.connect(create_translation_aliases_on_page_creation, sender=Page)
 
         # Delete existing translations so aliases are created
+        self.fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
+        self.de_homepage = self.en_homepage.copy_for_translation(self.de_locale)
         self.fr_homepage.delete()
         self.de_homepage.delete()
 
+        # Create translated homepages
+        self.fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
+        self.de_homepage = self.en_homepage.copy_for_translation(self.de_locale)
+
         en_blog_index = TestPage(title="Blog", slug="blog")
         self.en_homepage.add_child(instance=en_blog_index)
+
+        # Debug: list pages sharing the same translation_key
+        from wagtail.models import Page
+
+        logging.getLogger(__name__).debug("DEBUG: pages with translation_key: %s", list(Page.objects.filter(translation_key=en_blog_index.translation_key).values_list("id", "locale_id", "alias_of_id", "slug")))
 
         # Aliases should be created automatically via signal
         fr_blog_index = en_blog_index.get_translation(self.fr_locale)
