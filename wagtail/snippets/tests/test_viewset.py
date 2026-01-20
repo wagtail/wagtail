@@ -1689,6 +1689,7 @@ class TestCustomMethods(BaseSnippetViewSetTests):
             {
                 "data-controller": "w-teleport",
                 "data-w-teleport-target-value": "#w-slim-header-buttons",
+                "data-w-teleport-mode-value": "innerHTML",
             },
         )
         self.assertIsNotNone(template)
@@ -1706,6 +1707,7 @@ class TestCustomMethods(BaseSnippetViewSetTests):
             {
                 "data-controller": "w-teleport",
                 "data-w-teleport-target-value": "#w-slim-header-buttons",
+                "data-w-teleport-mode-value": "innerHTML",
             },
         )
         self.assertIsNotNone(template)

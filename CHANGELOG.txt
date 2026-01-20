@@ -39,6 +39,7 @@ Changelog
  * Docs: Grammar fixes to contributor guidelines (Biswajeet Yadav)
  * Docs: Mention punctuation is unsupported in paths for `RoutablePageMixin` (Tibor Leupold)
  * Docs: Various typo and grammar fixes (Mustansir Dabhiya)
+ * Docs: Improve instructions for building documentation on Windows (Mustansir Dabhiya)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
@@ -54,6 +55,9 @@ Changelog
  * Maintenance: Refactor CreateView/EditView validation logic to support non-form validation (Matt Westcott)
  * Maintenance: Formalized support for Django 6.0 (Pravin Kamble)
  * Maintenance: Add `no-jquery` ESLint plugin to start final deprecation of jQuery (LB (Ben) Johnston)
+ * Maintenance: Add `mode` value to `w-teleport` to allow different DOM update strategies (Sage Abdullah)
+ * Maintenance: Ignore 'build' dir when running ESLint (Matt Westcott)
+ * Maintenance: Upgrade to django-tasks 0.11.0 for Django 6.0 and Python 3.11 compatibility (Guilhem Saurel)
 
 
 7.2.1 (26.11.2025)
