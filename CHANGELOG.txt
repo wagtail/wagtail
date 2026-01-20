@@ -53,6 +53,7 @@ Changelog
  * Maintenance: Refactor CreateView/EditView validation logic to support non-form validation (Matt Westcott)
  * Maintenance: Formalized support for Django 6.0 (Pravin Kamble)
  * Maintenance: Add `no-jquery` ESLint plugin to start final deprecation of jQuery (LB (Ben) Johnston)
+ * Maintenance: Add `mode` value to `w-teleport` to allow different DOM update strategies (Sage Abdullah)
 
 
 7.2.1 (26.11.2025)
