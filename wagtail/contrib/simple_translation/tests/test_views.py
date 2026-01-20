@@ -471,7 +471,7 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
         self.assertFalse(en_blog_index.has_translation(self.fr_locale))
         self.assertFalse(en_blog_index.has_translation(self.de_locale))
 
-    @patch('django_tasks.backends.immediate.TaskResult', MockTaskResult)
+    @patch("django_tasks.backends.immediate.TaskResult", MockTaskResult)
     def test_aliases_created_on_programmatic_page_creation(self):
         from django.db.models.signals import post_save
 
@@ -495,7 +495,14 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
         # Debug: list pages sharing the same translation_key
         from wagtail.models import Page
 
-        logging.getLogger(__name__).debug("DEBUG: pages with translation_key: %s", list(Page.objects.filter(translation_key=en_blog_index.translation_key).values_list("id", "locale_id", "alias_of_id", "slug")))
+        logging.getLogger(__name__).debug(
+            "DEBUG: pages with translation_key: %s",
+            list(
+                Page.objects.filter(
+                    translation_key=en_blog_index.translation_key
+                ).values_list("id", "locale_id", "alias_of_id", "slug")
+            ),
+        )
 
         # Aliases should be created automatically via signal
         fr_blog_index = en_blog_index.get_translation(self.fr_locale)

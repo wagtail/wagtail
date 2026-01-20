@@ -39,12 +39,16 @@ def after_create_page(request, page):
     tree, this signal handler creates an alias of that page called
     "blog/my-blog-post" under the other locales' trees.
     """
-    if page.alias_of is None and getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
+    if page.alias_of is None and getattr(
+        settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False
+    ):
         # Check if the source tree needs to be synchronised into any other trees
         # Create aliases in all those locales
         for locale in Locale.objects.exclude(pk=page.locale_id):
             if not page.has_translation(locale):
-                translated_page = page.copy_for_translation(locale, copy_parents=True, alias=True)
+                translated_page = page.copy_for_translation(
+                    locale, copy_parents=True, alias=True
+                )
                 translated_page.save(clean=False)
 
 
@@ -83,7 +87,9 @@ def create_translation_aliases_on_page_creation(sender, instance, created, **kwa
             locales = list(Locale.objects.exclude(id=instance.locale_id))
             logger.debug("[simple_translation] target locales: %s", locales)
             for locale in locales:
-                exists = Page.objects.filter(translation_key=instance.translation_key, locale=locale).exists()
+                exists = Page.objects.filter(
+                    translation_key=instance.translation_key, locale=locale
+                ).exists()
                 logger.debug(
                     "[simple_translation] checking locale %s: exists=%s",
                     locale,
@@ -109,7 +115,9 @@ def create_translation_aliases_on_page_creation(sender, instance, created, **kwa
                             locale,
                         )
                         # Don't auto-create untranslated parents here (we already ensured translated parent exists)
-                        translated_page = instance.copy_for_translation(locale, copy_parents=False, alias=True)
+                        translated_page = instance.copy_for_translation(
+                            locale, copy_parents=False, alias=True
+                        )
                         translated_page.save(clean=False)
                         logger.debug(
                             "[simple_translation] created alias: %s (id=%s)",

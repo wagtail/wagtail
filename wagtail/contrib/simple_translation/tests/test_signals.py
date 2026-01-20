@@ -31,7 +31,9 @@ class TestSimpleTranslationSignals(WagtailTestUtils, TestCase):
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
     def test_parent_untranslated_no_alias_created(self):
         # Ensure parent's translations are removed
-        Page.objects.filter(translation_key=self.en_homepage.translation_key).exclude(locale=self.en_locale).delete()
+        Page.objects.filter(translation_key=self.en_homepage.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
 
         en_blog = TestPage(title="Blog", slug="blog-untranslated")
         self.en_homepage.add_child(instance=en_blog)
@@ -62,7 +64,9 @@ class TestSimpleTranslationSignals(WagtailTestUtils, TestCase):
     def test_parent_translation_is_alias_still_creates_alias(self):
         """Regression: when the parent translated page is an alias, child aliases should still be created."""
         # Create the parent translation as an alias in the FR tree
-        self.fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale, alias=True)
+        self.fr_homepage = self.en_homepage.copy_for_translation(
+            self.fr_locale, alias=True
+        )
 
         en_blog = TestPage(title="Blog", slug="blog-alias-parent")
         self.en_homepage.add_child(instance=en_blog)

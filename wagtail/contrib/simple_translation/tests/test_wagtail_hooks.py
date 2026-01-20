@@ -31,7 +31,7 @@ class MockTaskResult:
         return cls
 
 
-@patch('django_tasks.backends.immediate.TaskResult', MockTaskResult)
+@patch("django_tasks.backends.immediate.TaskResult", MockTaskResult)
 @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
 class Utils(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -125,7 +125,6 @@ class TestWagtailHooksButtons(Utils):
             assert isinstance(buttons[0], wagtailadmin_widgets.Button)
         else:
             assert buttons == []
-
 
     def test_snippet_buttons(self):
         snippet = TranslatableSnippet.objects.create(text="Test Snippet")
@@ -362,8 +361,13 @@ class TestMovingTranslatedPages(Utils):
 
         # Ensure a clean slate for these pages (delete any pre-existing translations)
         from wagtail.models import Page
-        Page.objects.filter(translation_key=self.en_blog_index.translation_key).exclude(locale=self.en_locale).delete()
-        Page.objects.filter(translation_key=self.en_blog_post.translation_key).exclude(locale=self.en_locale).delete()
+
+        Page.objects.filter(translation_key=self.en_blog_index.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
+        Page.objects.filter(translation_key=self.en_blog_post.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
 
         # BlogIndex needs translated pages before child pages can be translated
         self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
@@ -444,8 +448,13 @@ class TestDeletingTranslatedPages(Utils):
 
         # Ensure a clean slate for these pages (delete any pre-existing translations)
         from wagtail.models import Page
-        Page.objects.filter(translation_key=self.en_blog_index.translation_key).exclude(locale=self.en_locale).delete()
-        Page.objects.filter(translation_key=self.en_blog_post.translation_key).exclude(locale=self.en_locale).delete()
+
+        Page.objects.filter(translation_key=self.en_blog_index.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
+        Page.objects.filter(translation_key=self.en_blog_post.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
 
         # BlogIndex needs translated pages before child pages can be translated
         self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
@@ -472,7 +481,9 @@ class TestDeletingTranslatedPages(Utils):
         )
         self.assertEqual(response.status_code, 200)
         expected_translation_count = self.en_blog_post.get_translations().count() - 1
-        self.assertEqual(response.context["translation_count"], expected_translation_count)
+        self.assertEqual(
+            response.context["translation_count"], expected_translation_count
+        )
         self.assertEqual(response.context["translation_descendant_count"], 0)
         self.assertIn(
             "Deleting this page will also delete 1 translation of this page.",
