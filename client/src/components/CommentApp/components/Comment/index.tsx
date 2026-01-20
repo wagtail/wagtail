@@ -686,6 +686,13 @@ export default class CommentComponent extends React.Component<CommentProps> {
           element.offsetHeight,
         );
       }
+
+      // For comments in creating mode, ensure the position is updated
+      // after the annotation DOM is fully rendered
+      if (this.props.comment.mode === 'creating') {
+        this.props.layout.updateDesiredPosition(this.props.comment.localId);
+        this.props.layout.refreshLayout();
+      }
     }
   }
 
