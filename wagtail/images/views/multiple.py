@@ -4,7 +4,8 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.text import capfirst
-from django.utils.translation import gettext as _, gettext_lazy
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
@@ -19,11 +20,6 @@ from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
 from wagtail.images.forms import get_image_form, get_image_multi_form
 from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
-from wagtail.images.utils import (
-    find_image_duplicates,
-    get_accept_attributes,
-    get_allowed_image_extensions,
-)
 from wagtail.images.url_import import (
     DownloadTimeoutError,
     FileTooLargeError,
@@ -31,6 +27,11 @@ from wagtail.images.url_import import (
     InvalidURLError,
     fetch_image_from_url,
     get_max_url_download_size,
+)
+from wagtail.images.utils import (
+    find_image_duplicates,
+    get_accept_attributes,
+    get_allowed_image_extensions,
 )
 
 
@@ -104,7 +105,7 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
         try:
             preview_rendition = self.object.get_rendition("max-150x150")
             data["preview_url"] = preview_rendition.url
-        except Exception:
+        except Exception:  # noqa: BLE001
             # If rendition fails, fall back to original image URL
             data["preview_url"] = self.object.file.url if self.object.file else None
 

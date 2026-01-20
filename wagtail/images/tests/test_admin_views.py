@@ -2,15 +2,17 @@ import datetime
 import json
 import urllib
 from io import BytesIO
-from unittest.mock import MagicMock
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
+from django.core.files.uploadedfile import (
+    InMemoryUploadedFile,
+    SimpleUploadedFile,
+    TemporaryUploadedFile,
+)
 from django.db.models.lookups import In
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
@@ -28,10 +30,12 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.tables import Table
 from wagtail.images import get_image_model
-from wagtail.images.url_import import DownloadTimeoutError
-from wagtail.images.url_import import FileTooLargeError
-from wagtail.images.url_import import InvalidContentTypeError
-from wagtail.images.url_import import InvalidURLError
+from wagtail.images.url_import import (
+    DownloadTimeoutError,
+    FileTooLargeError,
+    InvalidContentTypeError,
+    InvalidURLError,
+)
 from wagtail.images.utils import generate_signature
 from wagtail.images.views.images import BulkActionsColumn, ImagesFilterSet
 from wagtail.models import (
@@ -50,6 +54,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
+
 from .utils import Image, get_test_image_file, get_test_image_file_svg
 
 urlquote_safechars = RFC3986_SUBDELIMS + "/~:@"
@@ -3618,9 +3623,7 @@ class TestMultipleImageUploaderURLUpload(WagtailTestUtils, TestCase):
         """
         # Create a user without add permission
 
-        limited_user = User.objects.create_user(
-            username="limited", password="password123"
-        )
+        User.objects.create_user(username="limited", password="password123")
         self.client.logout()
         self.client.login(username="limited", password="password123")
 

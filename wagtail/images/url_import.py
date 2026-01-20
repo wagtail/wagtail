@@ -142,7 +142,7 @@ def validate_url(url):
     try:
         parsed = urlparse(url)
     except ValueError as e:
-        raise InvalidURLError(_("Invalid URL: %(error)s") % {"error": str(e)})
+        raise InvalidURLError(_("Invalid URL: %(error)s") % {"error": str(e)}) from e
 
     if parsed.scheme not in ("http", "https"):
         raise InvalidURLError(
@@ -185,21 +185,21 @@ def fetch_image_from_url(url):
         )
         response.raise_for_status()
 
-    except requests.exceptions.Timeout:
+    except requests.exceptions.Timeout as e:
         raise DownloadTimeoutError(
             _("Download timed out after %(seconds)s seconds.")
             % {"seconds": timeout}
-        )
-    except requests.exceptions.SSLError:
-        raise InvalidURLError(_("SSL certificate verification failed."))
-    except requests.exceptions.ConnectionError:
-        raise InvalidURLError(_("Could not connect to the server."))
+        ) from e
+    except requests.exceptions.SSLError as e:
+        raise InvalidURLError(_("SSL certificate verification failed.")) from e
+    except requests.exceptions.ConnectionError as e:
+        raise InvalidURLError(_("Could not connect to the server.")) from e
     except requests.exceptions.HTTPError as e:
         raise InvalidURLError(
             _("Server returned an error: %(status)s") % {"status": e.response.status_code}
-        )
+        ) from e
     except requests.exceptions.RequestException as e:
-        raise InvalidURLError(_("Failed to fetch URL: %(error)s") % {"error": str(e)})
+        raise InvalidURLError(_("Failed to fetch URL: %(error)s") % {"error": str(e)}) from e
 
     content_type = response.headers.get("Content-Type", "")
     base_content_type = content_type.split(";")[0].strip().lower()

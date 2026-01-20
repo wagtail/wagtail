@@ -33,10 +33,12 @@ $(function () {
       dataType: 'json',
     })
       .done(function (response) {
-        if (typeof response === 'string') {
+        var parsedResponse = response;
+
+        if (typeof parsedResponse === 'string') {
           try {
-            response = JSON.parse(response);
-          } catch (e) {
+            parsedResponse = JSON.parse(parsedResponse);
+          } catch (parseError) {
             li.removeClass('upload-uploading').addClass('upload-failure upload-complete');
             $('.right .error_messages', li).append(
               escapeHtml('Invalid response from server.'),
@@ -45,19 +47,19 @@ $(function () {
           }
         }
 
-        if (response && response.success) {
+        if (parsedResponse && parsedResponse.success) {
           li.removeClass('upload-uploading').addClass('upload-success upload-complete');
 
-          if (response.preview_url) {
+          if (parsedResponse.preview_url) {
             var thumbDiv = li.find('.preview .thumb');
             thumbDiv.find('.icon').remove();
-            thumbDiv.append($('<img>').attr('src', response.preview_url));
+            thumbDiv.append($('<img>').attr('src', parsedResponse.preview_url));
             li.addClass('hasthumb');
           }
 
-          if (response.duplicate) {
+          if (parsedResponse.duplicate) {
             li.addClass('upload-duplicate');
-            $('.right', li).append(response.confirm_duplicate_upload);
+            $('.right', li).append(parsedResponse.confirm_duplicate_upload);
             $('.confirm-duplicate-upload', li).on(
               'click',
               '.confirm-upload',
@@ -65,18 +67,18 @@ $(function () {
                 event.preventDefault();
                 var confirmUpload = $(this).closest('.confirm-duplicate-upload');
                 confirmUpload.remove();
-                $('.right', li).append(response.form);
+                $('.right', li).append(parsedResponse.form);
               },
             );
           } else {
-            $('.right', li).append(response.form);
+            $('.right', li).append(parsedResponse.form);
           }
           urlInput.val('');
         } else {
           li.removeClass('upload-uploading').addClass('upload-failure upload-complete');
           var errorMsg =
-            response && response.error_message
-              ? response.error_message
+            parsedResponse && parsedResponse.error_message
+              ? parsedResponse.error_message
               : 'Upload failed. Please try again.';
           $('.right .error_messages', li).append(escapeHtml(errorMsg));
         }
