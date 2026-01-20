@@ -1,4 +1,20 @@
 $(function () {
+  // Apply layout-related styles for the URL upload elements that were previously inline.
+  $('#url-upload-form .replace-file-input').css({
+    display: 'flex',
+    gap: '1rem',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  });
+
+  $('#image_url').css({
+    minWidth: '300px',
+    maxWidth: '500px',
+  });
+
+  $('#url-upload-progress .bar').css('width', '100%');
+
   function handleUrlUpload(e) {
     if (e) {
       e.preventDefault();

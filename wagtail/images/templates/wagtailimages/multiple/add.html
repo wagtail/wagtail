@@ -56,7 +56,7 @@
         <p>{{ url_help_text }}</p>
         <form id="url-upload-form" action="{% url 'wagtailimages:add_multiple' %}" method="POST">
             {% csrf_token %}
-            <div class="replace-file-input" style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <div class="replace-file-input">
                 <input
                     type="url"
                     id="image_url"
@@ -64,7 +64,6 @@
                     placeholder="https://example.com/image.jpg"
                     required
                     aria-describedby="image_url-helptext"
-                    style="min-width: 300px; max-width: 500px; outline: none !important;"
                 >
                 <button type="submit" class="button bicolor button--icon" id="url-upload-button">
                     {% icon name="download" wrapped=1 %}{% trans "Import from URL" %}
@@ -85,7 +84,7 @@
         </form>
         <div id="url-upload-progress" class="w-mt-4 w-hidden">
             <div class="progress progress-secondary">
-                <div class="bar" style="width: 100%;">{% trans "Importing..." %}</div>
+                <div class="bar">{% trans "Importing..." %}</div>
             </div>
         </div>
     </div>
