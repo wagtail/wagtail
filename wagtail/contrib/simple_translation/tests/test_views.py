@@ -1,3 +1,6 @@
+import logging
+from unittest.mock import patch
+
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -5,12 +8,14 @@ from django.http import Http404
 from django.test import RequestFactory, override_settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
-from unittest.mock import patch
 
 from wagtail import hooks
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
 from wagtail.contrib.simple_translation.forms import SubmitTranslationForm
-from wagtail.contrib.simple_translation.models import after_create_page, create_translation_aliases_on_page_creation
+from wagtail.contrib.simple_translation.models import (
+    after_create_page,
+    create_translation_aliases_on_page_creation,
+)
 from wagtail.contrib.simple_translation.views import (
     SubmitPageTranslationView,
     SubmitSnippetTranslationView,
@@ -21,7 +26,6 @@ from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.testapp.models import FullFeaturedSnippet
 from wagtail.test.utils import TestCase, WagtailTestUtils
-import logging
 
 
 class MockTaskResult:
@@ -426,6 +430,7 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
 class TestPageTreeSync(WagtailTestUtils, TestCase):
     def setUp(self):
         from django.db.models.signals import post_save
+
         from wagtail.models import Page
 
         post_save.disconnect(create_translation_aliases_on_page_creation, sender=Page)
@@ -435,11 +440,6 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
         self.de_locale = Locale.objects.create(language_code="de")
 
         self.en_homepage = Page.objects.get(depth=2)
-
-    def test_hook_function_registered(self):
-        fns = hooks.get_hooks("after_create_page")
-
-        self.assertIn(after_create_page, fns)
 
     def test_hook_function_registered(self):
         fns = hooks.get_hooks("after_create_page")
@@ -474,6 +474,7 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
     @patch('django_tasks.backends.immediate.TaskResult', MockTaskResult)
     def test_aliases_created_on_programmatic_page_creation(self):
         from django.db.models.signals import post_save
+
         from wagtail.models import Page
 
         post_save.connect(create_translation_aliases_on_page_creation, sender=Page)

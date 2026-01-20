@@ -1,9 +1,10 @@
+import logging
+
 from django.conf import settings
 from django.db.models import Model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
-import logging
 
 from wagtail import hooks
 from wagtail.models import Locale, Page
@@ -93,7 +94,7 @@ def create_translation_aliases_on_page_creation(sender, instance, created, **kwa
                         # Require parent to be translated; don't auto-create translated parents as that would change tree structure
                         parent = instance.get_parent().specific
                         try:
-                            parent_translation = parent.get_translation(locale)
+                            parent.get_translation(locale)
                         except parent.__class__.DoesNotExist:
                             logger.debug(
                                 "[simple_translation] skipping alias creation for %s in %s because parent is not translated",

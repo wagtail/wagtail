@@ -1,8 +1,9 @@
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from unittest.mock import patch
 
 from wagtail import hooks
 from wagtail.actions.create_alias import CreatePageAliasAction
