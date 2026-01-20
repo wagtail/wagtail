@@ -1,5 +1,4 @@
 $(function () {
-  // Apply layout-related styles for the URL upload elements that were previously inline.
   $('#url-upload-form .replace-file-input').css({
     display: 'flex',
     gap: '1rem',
@@ -7,12 +6,10 @@ $(function () {
     alignItems: 'center',
     flexWrap: 'wrap',
   });
-
   $('#image_url').css({
     minWidth: '300px',
     maxWidth: '500px',
   });
-
   $('#url-upload-progress .bar').css('width', '100%');
 
   function handleUrlUpload(e) {
@@ -55,7 +52,9 @@ $(function () {
           try {
             parsedResponse = JSON.parse(parsedResponse);
           } catch (parseError) {
-            li.removeClass('upload-uploading').addClass('upload-failure upload-complete');
+            li.removeClass('upload-uploading').addClass(
+              'upload-failure upload-complete',
+            );
             $('.right .error_messages', li).append(
               escapeHtml('Invalid response from server.'),
             );
@@ -64,7 +63,9 @@ $(function () {
         }
 
         if (parsedResponse && parsedResponse.success) {
-          li.removeClass('upload-uploading').addClass('upload-success upload-complete');
+          li.removeClass('upload-uploading').addClass(
+            'upload-success upload-complete',
+          );
 
           if (parsedResponse.preview_url) {
             var thumbDiv = li.find('.preview .thumb');
@@ -81,7 +82,9 @@ $(function () {
               '.confirm-upload',
               function (event) {
                 event.preventDefault();
-                var confirmUpload = $(this).closest('.confirm-duplicate-upload');
+                var confirmUpload = $(this).closest(
+                  '.confirm-duplicate-upload',
+                );
                 confirmUpload.remove();
                 $('.right', li).append(parsedResponse.form);
               },
@@ -91,7 +94,9 @@ $(function () {
           }
           urlInput.val('');
         } else {
-          li.removeClass('upload-uploading').addClass('upload-failure upload-complete');
+          li.removeClass('upload-uploading').addClass(
+            'upload-failure upload-complete',
+          );
           var errorMsg =
             parsedResponse && parsedResponse.error_message
               ? parsedResponse.error_message
@@ -100,9 +105,13 @@ $(function () {
         }
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
-        li.removeClass('upload-uploading').addClass('upload-server-error upload-complete');
+        li.removeClass('upload-uploading').addClass(
+          'upload-server-error upload-complete',
+        );
         var errorMessage = $('.server-error', li);
-        $('.error-text', errorMessage).text(errorThrown || textStatus || 'Unknown error');
+        $('.error-text', errorMessage).text(
+          errorThrown || textStatus || 'Unknown error',
+        );
         $('.error-code', errorMessage).text(jqXHR.status || 'N/A');
       })
       .always(function () {
@@ -113,7 +122,7 @@ $(function () {
     return false;
   }
 
-  $('#url-upload-form').on('submit', function(e) {
+  $('#url-upload-form').on('submit', function (e) {
     e.preventDefault();
     e.stopPropagation();
     handleUrlUpload(e);
@@ -121,7 +130,7 @@ $(function () {
   });
 
   // Also handle button click as backup to prevent form submission
-  $('#url-upload-button').on('click', function(e) {
+  $('#url-upload-button').on('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     handleUrlUpload(e);
