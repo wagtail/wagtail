@@ -16,6 +16,7 @@ Changelog
  * Add support for settings and custom block layouts for StructBlock (Sage Abdullah)
  * Add llms.txt versions of the developer documentation and Wagtail user guide (Thibaud Colas)
  * Lower default JPEG and AVIF image quality settings to provide consistent perceptual quality between formats (Thibaud Colas)
+ * Add support for custom content checks with client-side registration (Thibaud Colas)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
@@ -61,6 +62,7 @@ Changelog
  * Maintenance: Add `mode` value to `w-teleport` to allow different DOM update strategies (Sage Abdullah)
  * Maintenance: Ignore 'build' dir when running ESLint (Matt Westcott)
  * Maintenance: Upgrade to django-tasks 0.11.0 for Django 6.0 and Python 3.11 compatibility (Guilhem Saurel)
+ * Maintenance: Switch userbar items to the template components API (Thibaud Colas)
 
 
 7.2.1 (26.11.2025)
