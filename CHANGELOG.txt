@@ -15,6 +15,7 @@ Changelog
  * Provide a structured rendering of `StreamBlock` in comparison view (Taras Panasiuk)
  * Add support for settings and custom block layouts for StructBlock (Sage Abdullah)
  * Add llms.txt versions of the developer documentation and Wagtail user guide (Thibaud Colas)
+ * Lower default JPEG and AVIF image quality settings to provide consistent perceptual quality between formats (Thibaud Colas)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
@@ -41,6 +42,7 @@ Changelog
  * Docs: Mention punctuation is unsupported in paths for `RoutablePageMixin` (Tibor Leupold)
  * Docs: Various typo and grammar fixes (Mustansir Dabhiya)
  * Docs: Improve instructions for building documentation on Windows (Mustansir Dabhiya)
+ * Docs: Provide recommended image quality settings for common use cases (Thibaud Colas)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
