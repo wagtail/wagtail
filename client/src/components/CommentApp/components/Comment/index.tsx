@@ -84,11 +84,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
   renderReplies({ hideNewReply = false } = {}): React.ReactFragment | null {
     const { comment, isFocused, store, user } = this.props;
 
-    if (!comment.remoteId) {
-      // Hide replies UI if the comment itself isn't saved yet
-      return null;
-    }
-
     const onChangeNewReply = (value: string) => {
       store.dispatch(
         updateComment(comment.localId, {
