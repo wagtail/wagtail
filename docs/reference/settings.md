@@ -430,7 +430,7 @@ be renamed to have an extension no matter what data they contain.
 WAGTAILIMAGES_JPEG_QUALITY = 75
 ```
 
-Change the global default for JPEG image encoding quality (default: 85).
+Change the global default for JPEG image encoding quality (default: 76).
 
 ### `WAGTAILIMAGES_WEBP_QUALITY`
 
