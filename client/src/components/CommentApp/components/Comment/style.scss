@@ -48,35 +48,6 @@ $box-padding: 20px;
     }
   }
 
-  &__notice-placeholder {
-    position: relative;
-    padding-bottom: 40px;
-  }
-
-  &__notice {
-    background-color: theme('colors.warning.50');
-    color: theme('colors.grey.600');
-    position: absolute;
-    inset-inline-start: -$box-padding;
-    bottom: 0;
-    width: calc(100% + #{$box-padding} * 2);
-    padding: 5px 10px;
-
-    svg.icon {
-      color: theme('colors.warning.100');
-      width: 14px;
-      height: 14px;
-      margin-inline-end: 10px;
-      vertical-align: text-bottom;
-    }
-  }
-
-  & > &__notice-placeholder:last-child &__notice,
-  &__replies:last-child > :last-child &__notice {
-    border-end-start-radius: $box-border-radius;
-    border-end-end-radius: $box-border-radius;
-  }
-
   &__text {
     color: $color-box-text;
     font-weight: 400;
