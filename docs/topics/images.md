@@ -474,7 +474,7 @@ representing the color you would like to use:
 
 ## Image quality
 
-Wagtail's JPEG image quality settings default to 76. WebP defaults to 80, AVIF defaults to 73.
+Wagtail's JPEG image quality settings default to 76. WebP defaults to 80, AVIF defaults to 61.
 This can be changed either globally or on a per-tag basis.
 
 ### Changing globally
