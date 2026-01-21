@@ -1139,7 +1139,7 @@ class Filter:
                 elif "avif-quality" in env:
                     quality = env["avif-quality"]
                 else:
-                    quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 73)
+                    quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 61)
                 return willow.save_as_avif(output, quality=quality)
             elif output_format == "heic":
                 # Allow changing of HEIC compression quality. Safari is the only browser that supports HEIC,
