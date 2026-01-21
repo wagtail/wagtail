@@ -286,6 +286,14 @@ WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
+(wagtail_autosave_interval)=
+
+### `WAGTAIL_AUTOSAVE_INTERVAL`
+
+The interval (in milliseconds) to wait since the last edit, before attempting an autosave in the page or snippet editor. The default value is `500`.
+
+If set to `0`, autosave will be disabled.
+
 (wagtail_auto_update_preview_interval)=
 
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`

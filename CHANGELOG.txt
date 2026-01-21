@@ -17,6 +17,7 @@ Changelog
  * Add llms.txt versions of the developer documentation and Wagtail user guide (Thibaud Colas)
  * Lower default JPEG and AVIF image quality settings to provide consistent perceptual quality between formats (Thibaud Colas)
  * Add support for custom content checks with client-side registration (Thibaud Colas)
+ * Initial support for autosave (Matt Westcott, Sage Abdullah)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
