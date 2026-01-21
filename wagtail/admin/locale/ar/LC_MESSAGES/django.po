@@ -89,6 +89,9 @@ msgstr "واجهة إدارة Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "عذرًا، ليس لديك صلاحية للوصول إلى هذه المنطقة."
 
+msgid "You do not have permission to access the admin."
+msgstr "ليس لديك صلاحية للوصول لواجهة الإدارة"
+
 msgid "None"
 msgstr "لا شيء"
 
@@ -98,11 +101,20 @@ msgstr "التاريخ من"
 msgid "Date to"
 msgstr "التاريخ إلى"
 
+msgid "Minimum"
+msgstr "الحد الأدنى"
+
+msgid "Maximum"
+msgstr "الحد الأقصى"
+
 msgid "Locale"
 msgstr "الإعدادات المحلية"
 
 msgid "All"
 msgstr "الكل"
+
+msgid "Usage count"
+msgstr "عدد الاستخدام"
 
 msgid "Collection"
 msgstr "رزمة"
@@ -173,6 +185,9 @@ msgid ""
 msgstr ""
 "اختر الموقع الهرمي. ملاحظة: لا يمكن أن تصبح الرزمة فرعًا لنفسها أو لأحد "
 "فروعها."
+
+msgid "Please select another parent."
+msgstr "الرجاء اختيار أصل آخر"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "لا يمكن أن يكون لديك سجلات صلاحيات متعددة لنفس الرزمة."
@@ -2179,6 +2194,9 @@ msgstr "رجوع"
 msgid "History"
 msgstr "السجل"
 
+msgid "account"
+msgstr "الحساب"
+
 msgid "Keyboard shortcuts"
 msgstr "اختصارات لوحة المفاتيح"
 
@@ -3293,6 +3311,9 @@ msgstr "صفحة '%(page_title)s' تم إنشاؤها ونشرها."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "صفحة '%(page_title)s' تم إنشاؤها وتقديمها للإشراف."
 
+msgid "The page could not be created due to validation errors."
+msgstr "لا يمكن إنشاء الصفحة بسبب أخطاء التحقق من الصحة"
+
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "الصفحة '%(page_title)s' محذوفة."
@@ -3350,6 +3371,12 @@ msgstr "الصفحة '%(page_title)s' تم تقديمها للإشراف."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "تم إعادة تشغيل سير العمل على الصفحة '%(page_title)s'."
 
+msgid "The page could not be saved as it is locked."
+msgstr "لا يمكن حفظ الصفحة لأنها مقفلة"
+
+msgid "The page could not be saved due to validation errors."
+msgstr "لا يمكن حفظ الصفحة بسبب أخطاء التحقق من الصحة"
+
 msgid "Is commenting action"
 msgstr "إجراء التعليق"
 
@@ -3383,6 +3410,14 @@ msgstr "استكشاف"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "الصفحة '%(page_title)s' غير مقفلة الآن."
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again."
+msgstr ""
+"الرابط '%(page_slug)s' مستخدم بالفعل في الصفحة الأصل المحددة. تأكد من أن "
+"الرابط فريد وحاول مرة أخرى"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."

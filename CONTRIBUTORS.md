@@ -968,7 +968,7 @@
 * Hindi: Apoorv Saini
 * Hungarian: Istvan Farkas, Laszlo Molnar, Kornél Novák Mergulhão, BN, Patrik Radics, Aron Santa
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
-* Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Reshi Mahendra, Geek Pantura, Andry Widya Putra, Ronggo Radityo, M. Febrian Ramadhana
+* Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Reshi Mahendra, Geek Pantura, Andry Widya Putra, Ronggo Radityo, M. Febrian Ramadhana, Imanu Wardi
 * Italian: Sandro Badalamenti, Marco Badan, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, gcm, Giacomo Ghizzani, LB (Ben Johnston), Marco Lerco, Stefano Marchetto, Carlo Miron, Fabio Piras, Alessio Di Stasio, Andrea Tagliazucchi, tognee
 * Japanese: Sangmin Ahn, Goto Hayato, Shuhei Hirota, Shu Ishida, bayside kent, Yudai Kobayashi, Tri Minh, Koji Miyazawa, Tetsuya Morimoto, Tomo Mizoe, Hideaki Oguchi, Safu9, Hiroki Sawano, Kinoshita Shinji, Daigo Shitara, Okosama Star, Shimizu Taku, umepon0626, Takuya Yamamoto
 * Korean: Kyungil Choi, Jihan Chung, mirusu400, sl kim
@@ -987,7 +987,7 @@
 * Slovak (Slovakia): Stevo Backor, dellax, Jozef Gáborík, Martin Janšto, Jozef Karabelly, Ivan Waginger
 * Slovenian: Andrej Marsetič, Mitja Pagon, Lev Predan Kowarski, Urban Prevc, Matej Stavanja
 * Spanish: Antoni Aloy, Mauricio Baeza, Lautaro Bringas, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, Hector Garcia, José Luis, Florian Merges, Oluwadamilare Ogunbanjo, Amós Oviedo, Maylon Pedroso, Enrique Sánchez-Reboto García, Joaquín Tita, Daniel Wohlgemuth, Rodrigo Yanez, Unai Zalakain
-* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström, Tomas Walch
+* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Jonathan Lindén, Hannes Lohmander, Martin Sandström, Tomas Walch
 * Tamil: Ramakrishnan Sathyanarayanan
 * Tetum: Alessandro, Joanico Barros, Peter Coward, Mariano de Deus, Onorio de Jesus Afonso, Mario Alves Pinto
 * Thai: Amawalee Combe, Jon Combe, Siramol Khunchai, Walaksawan Vervoort

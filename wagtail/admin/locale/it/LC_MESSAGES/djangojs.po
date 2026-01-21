@@ -7,16 +7,22 @@
 # Loic Teixeira, 2024
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2025
 # Stefano Marchetto <airbatum@gmail.com>, 2025
-# Marco Badan <marco.badan@gmail.com>, 2025
+# Marco Badan <marco.badan@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2025\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/torchbox/teams/8009/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s nuove voci in questo menu)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nuova voce in questo menu)"
 
 msgid "(New)"
 msgstr "(Nuova)"
@@ -27,11 +33,23 @@ msgstr[0] "%(num)s errore"
 msgstr[1] "%(num)s errori"
 msgstr[2] "%(num)s errori"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s min"
+msgstr[2] "%(num)s min"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixel"
 msgstr[2] "%(num)s pixel"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
 msgid "Actions"
 msgstr "Azioni"
@@ -60,8 +78,15 @@ msgstr "Conteggio caratteri:"
 msgid "Close"
 msgstr "Chiudi"
 
+msgid "Collapse all"
+msgstr "Comprimi tutto"
+
 msgid "Comment"
 msgstr "Commenta"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Complesso"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -87,11 +112,24 @@ msgstr "Modifica '%(title)s'"
 msgid "Enter your comments..."
 msgstr "Inserisci i tuoi commenti..."
 
+msgid "Enter your reply..."
+msgstr "Inserisci la tua risposta..."
+
+msgid "Error while sending preview data."
+msgstr "Errore durante l'invio dei dati di anteprima."
+
 msgid "Expand all"
 msgstr "Espandi tutto"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Discreto"
+
 msgid "Focus comment"
 msgstr "Evidenzia commento"
+
+msgid "Good"
+msgstr "Buono"
 
 msgid "Horizontal line"
 msgstr "Linea orizzontale"
