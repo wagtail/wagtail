@@ -1103,7 +1103,7 @@ class Filter:
                 if "jpeg-quality" in env:
                     quality = env["jpeg-quality"]
                 else:
-                    quality = getattr(settings, "WAGTAILIMAGES_JPEG_QUALITY", 85)
+                    quality = getattr(settings, "WAGTAILIMAGES_JPEG_QUALITY", 76)
 
                 # If the image has an alpha channel, give it a white background
                 if willow.has_alpha():
