@@ -12,22 +12,24 @@ trigger Django’s file upload handling.
 Example:
 
 ```python
+from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from wagtail.documents import models
 from wagtail.documents.forms import get_document_form
 
-form_data = {
-    "title": "Simple Text Document",
-}
 
-file_data = {
-    "file": SimpleUploadedFile(
-        "simple-document.txt",
-        b"hello world",
-        content_type="text/plain",
-    ),
-}
-
-form = get_document_form(models.Document)(form_data, file_data)
-assert form.is_valid()
+class CustomDocumentFormTest(TestCase):
+    def test_limit_upload_file_size(self):
+        form_data = {
+            "title": "Simple Text Document",
+            "tags": [],
+        }
+        file_data = {
+            "file": SimpleUploadedFile('simple.txt', b'hello world' * 1024 * 1024, content_type='text/plain'),
+        }
+        form_cls = get_document_form(models.Document)
+        form = form_cls(form_data, file_data)
+        self.assertFormError(
+            form, 'file', ['The file size exceeds the configured limit (1KB).']
+        )
 ```

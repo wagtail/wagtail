@@ -41,6 +41,8 @@ def yet_another_hook_function(arg1, arg2...)
     # your code here
 ```
 
+(unit_testing_hooks)=
+
 ## Unit testing hooks
 
 Hooks are usually registered on startup and can't be changed at runtime. But when writing unit tests, you might want to register a hook
