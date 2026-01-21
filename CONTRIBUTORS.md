@@ -933,6 +933,7 @@
 * Florin Barnea
 * Mustansir Dabhiya
 * bettercallok
+* Ritik Arya
 
 ## Translators
 
