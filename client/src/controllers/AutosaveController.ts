@@ -182,9 +182,11 @@ export class AutosaveController extends Controller<
       }
       if (response.hydrate_url) {
         // and hydrate the create view to turn it into an edit view
-        await this.hydrate({
-          detail: { url: response.hydrate_url, trigger: event },
-        } as CustomEvent<AutosaveHydrateDetail>);
+        await this.hydrate(
+          this.dispatch('hydrate', {
+            detail: { url: response.hydrate_url, trigger: event },
+          }) as CustomEvent<AutosaveHydrateDetail>,
+        );
       }
       if (this.hasPartialsTarget && response.html) {
         this.partialsTarget.innerHTML = response.html;
