@@ -172,6 +172,8 @@ def replace_userbar_accessibility_item(request, items, page):
     ]
 ```
 
+(custom_content_checks)=
+
 ### Custom content checks
 
 You can also implement custom checks. This can be useful to enforce more advanced accessibility checks, or other best practices unrelated to accessibility. This requires configuration via hooks, and registration of any client-side check evaluation via the `window.wagtail.userbar.registerCheck` API.
