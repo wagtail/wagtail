@@ -1,4 +1,5 @@
 import logging
+from urllib.parse import urlsplit
 
 import requests
 from django.core.exceptions import ImproperlyConfigured
@@ -14,6 +15,8 @@ __all__ = ["CloudflareBackend"]
 class CloudflareBackend(BaseBackend):
     CHUNK_SIZE = 30
 
+    PURGE_OPTIONS = {"URL", "PREFIX"}
+
     def __init__(self, params):
         super().__init__(params)
 
@@ -28,6 +31,13 @@ class CloudflareBackend(BaseBackend):
                 self.cloudflare_zoneid
             )
         )
+
+        self.purge_option = params.pop("PURGE_OPTION", "URL")
+
+        if self.purge_option not in self.PURGE_OPTIONS:
+            raise ImproperlyConfigured(
+                f"Unknown purge option {self.purge_option!r}. Must be one of {self.PURGE_OPTIONS!r}"
+            )
 
         if (
             (not self.cloudflare_email and self.cloudflare_api_key)
@@ -47,25 +57,28 @@ class CloudflareBackend(BaseBackend):
             )
 
     def _purge_urls(self, urls):
-        try:
-            purge_url = (
-                "https://api.cloudflare.com/client/v4/zones/{}/purge_cache".format(
-                    self.cloudflare_zoneid
-                )
-            )
+        headers = {"Content-Type": "application/json"}
 
-            headers = {"Content-Type": "application/json"}
+        if self.cloudflare_token:
+            headers["Authorization"] = f"Bearer {self.cloudflare_token}"
+        else:
+            headers["X-Auth-Email"] = self.cloudflare_email
+            headers["X-Auth-Key"] = self.cloudflare_api_key
 
-            if self.cloudflare_token:
-                headers["Authorization"] = f"Bearer {self.cloudflare_token}"
-            else:
-                headers["X-Auth-Email"] = self.cloudflare_email
-                headers["X-Auth-Key"] = self.cloudflare_api_key
-
+        if self.purge_option == "URL":
             data = {"files": urls}
+        else:
+            # Cloudflare requires scheme-less URLs when prefix matching
+            data = {
+                "prefixes": [
+                    urlsplit(url)._replace(scheme="").geturl().lstrip("/")
+                    for url in urls
+                ]
+            }
 
+        try:
             response = requests.delete(
-                purge_url,
+                self.cloudflare_purge_endpoint_url,
                 json=data,
                 headers=headers,
             )
