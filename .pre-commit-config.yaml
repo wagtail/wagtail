@@ -50,8 +50,16 @@ repos:
     hooks:
       - id: djhtml
   - repo: https://github.com/semgrep/semgrep
-    rev: v1.132.0
+    rev: v1.149.0 # NOTE: Keep in sync with dependencies in pyproject.toml
     hooks:
       - id: semgrep
         files: \.(js|ts|tsx|html|py)$
-        args: ['--config', '.semgrep.yml', '--disable-version-check', '--error']
+        args:
+          [
+            '--config',
+            '.semgrep.yml',
+            '--disable-version-check',
+            '--error',
+            '--jobs',
+            '4',
+          ]
