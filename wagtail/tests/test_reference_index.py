@@ -878,3 +878,45 @@ class TestBulkFetch(TestCase):
             },
             expected_refs,
         )
+
+
+class TestReferenceIndex(TestCase):
+    def test_target_deletion_leaves_orphan(self):
+        """
+        Regression test for #13632:
+        Deleting the TARGET (referenced) object should remove the inbound link from ReferenceIndex.
+        """
+        root_page = Page.objects.get(id=2)
+        target_page = Page(title="Target2", slug="target2")
+        root_page.add_child(instance=target_page)
+        source_page = Page(title="Source2", slug="source2")
+        root_page.add_child(instance=source_page)
+
+        ReferenceIndex.objects.create(
+            base_content_type=ReferenceIndex._get_base_content_type(source_page),
+            content_type=ContentType.objects.get_for_model(source_page),
+            object_id=source_page.pk,
+            to_content_type=ReferenceIndex._get_base_content_type(target_page),
+            to_object_id=target_page.pk,
+            model_path="body",
+            content_path="body.0.value",
+            content_path_hash=ReferenceIndex._get_content_path_hash("body.0.value"),
+        )
+
+        # Verify ref exists
+        self.assertEqual(ReferenceIndex.get_references_to(target_page).count(), 1)
+
+        # Delete TARGET
+        target_page.delete()
+
+        # Check if reference remains (pointing to dead target)
+        refs = ReferenceIndex.objects.filter(
+            to_object_id=target_page.pk,
+            to_content_type=ReferenceIndex._get_base_content_type(target_page),
+        )
+
+        self.assertEqual(
+            refs.count(),
+            0,
+            "ReferenceIndex should be cleared of inbound references when target is deleted",
+        )

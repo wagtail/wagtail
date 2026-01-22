@@ -1034,7 +1034,10 @@ class TestSaveRevision(TestCase):
         christmas_event.save_revision()
         self.assertEqual(christmas_event.revisions.count(), 2)
         christmas_event.title = "Three French hens"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
             christmas_event.save_revision(overwrite_revision=revision1)
         self.assertEqual(christmas_event.revisions.count(), 2)
         latest_revision = christmas_event.get_latest_revision()
@@ -1054,7 +1057,10 @@ class TestSaveRevision(TestCase):
         self.assertEqual(other_event.revisions.count(), 1)
 
         christmas_event.title = "Two turtle doves"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
             christmas_event.save_revision(overwrite_revision=revision2)
 
         self.assertEqual(christmas_event.revisions.count(), 1)
@@ -1093,7 +1099,10 @@ class TestSaveRevision(TestCase):
         revision1 = christmas_event.save_revision(user=event_editor)
         self.assertEqual(christmas_event.revisions.count(), 1)
         christmas_event.title = "Two turtle doves"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
             christmas_event.save_revision(
                 user=event_moderator, overwrite_revision=revision1
             )
@@ -1109,7 +1118,10 @@ class TestSaveRevision(TestCase):
         revision1 = christmas_event.save_revision(user=event_editor)
         self.assertEqual(christmas_event.revisions.count(), 1)
         christmas_event.title = "Two turtle doves"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
             christmas_event.save_revision(overwrite_revision=revision1)
         self.assertEqual(christmas_event.revisions.count(), 1)
         revision1.refresh_from_db()
@@ -1125,7 +1137,10 @@ class TestSaveRevision(TestCase):
         revision1 = christmas_event.save_revision()
         self.assertEqual(christmas_event.revisions.count(), 1)
         christmas_event.title = "Two turtle doves"
-        with self.assertRaises(PermissionDenied):
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
             christmas_event.save_revision(
                 user=event_moderator, overwrite_revision=revision1
             )

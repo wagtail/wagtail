@@ -5,6 +5,7 @@
 #
 # Translators:
 # Tomas Walch <tomas@alternaliv.se>, 2021
+# Jonathan Lindén, 2025
 #
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2021-10-15 16:05+0000\n"
-"Last-Translator: Tomas Walch <tomas@alternaliv.se>, 2021\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,10 +35,10 @@ msgid "Insert column"
 msgstr "Infoga kolumn"
 
 msgid "Delete column"
-msgstr "Ta bort kolumn"
+msgstr "Radera kolumn"
 
 msgid "Insert row"
 msgstr "Infoga rad"
 
 msgid "Delete row"
-msgstr "Ta bort rad"
+msgstr "Radera rad"

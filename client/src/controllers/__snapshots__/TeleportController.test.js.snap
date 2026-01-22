@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeleportController mode value appends nodes when mode is beforeend 1`] = `
+"<body data-script-ran="true">
+        <main>
+          
+          <section id="target-parent">
+            <div id="target">
+              Some existing text
+              <span id="existing-child">Existing child element</span>
+            
+            <p id="teleported-element">Element node</p>
+            and + some text node
+            <script>document.body.setAttribute('data-script-ran', 'true');</script>
+          </div>
+          </section>
+        </main>
+      </body>"
+`;
+
+exports[`TeleportController mode value copies only the textual content when mode is textContent 1`] = `
+"<body data-script-ran="true">
+        <main>
+          
+          <section id="target-parent">
+            <div id="target">
+            Element node
+            and + some text node
+            document.body.setAttribute('data-script-ran', 'true');
+          </div>
+          </section>
+        </main>
+      </body>"
+`;
+
+exports[`TeleportController mode value defaults to beforeend if mode is not recognised 1`] = `
+"<body data-script-ran="true">
+        <main>
+          
+          <section id="target-parent">
+            <div id="target">
+              Some existing text
+              <span id="existing-child">Existing child element</span>
+            
+            <p id="teleported-element">Element node</p>
+            and + some text node
+            <script>document.body.setAttribute('data-script-ran', 'true');</script>
+          </div>
+          </section>
+        </main>
+      </body>"
+`;
+
+exports[`TeleportController mode value inserts nodes after the target when mode is afterend 1`] = `
+"<body data-script-ran="true">
+        <main>
+          
+          <section id="target-parent">
+            <div id="target">
+              Some existing text
+              <span id="existing-child">Existing child element</span>
+            </div>
+            <p id="teleported-element">Element node</p>
+            and + some text node
+            <script>document.body.setAttribute('data-script-ran', 'true');</script>
+          
+          </section>
+        </main>
+      </body>"
+`;
+
+exports[`TeleportController mode value inserts nodes before the target when mode is beforebegin 1`] = `
+"<body data-script-ran="true">
+        <main>
+          
+          <section id="target-parent">
+            
+            <p id="teleported-element">Element node</p>
+            and + some text node
+            <script>document.body.setAttribute('data-script-ran', 'true');</script>
+          <div id="target">
+              Some existing text
+              <span id="existing-child">Existing child element</span>
+            </div>
+          </section>
+        </main>
+      </body>"
+`;
+
+exports[`TeleportController mode value prepends nodes when mode is afterbegin 1`] = `
+"<body data-script-ran="true">
+        <main>
+          
+          <section id="target-parent">
+            <div id="target">
+            <p id="teleported-element">Element node</p>
+            and + some text node
+            <script>document.body.setAttribute('data-script-ran', 'true');</script>
+          
+              Some existing text
+              <span id="existing-child">Existing child element</span>
+            </div>
+          </section>
+        </main>
+      </body>"
+`;
+
+exports[`TeleportController mode value replaces the target element when mode is outerHTML 1`] = `
+"<body data-script-ran="true">
+        <main>
+          
+          <section id="target-parent">
+            
+            <p id="teleported-element">Element node</p>
+            and + some text node
+            <script>document.body.setAttribute('data-script-ran', 'true');</script>
+          
+          </section>
+        </main>
+      </body>"
+`;
+
+exports[`TeleportController mode value replaces the target inner content when mode is innerHTML 1`] = `
+"<body data-script-ran="true">
+        <main>
+          
+          <section id="target-parent">
+            <div id="target">
+            <p id="teleported-element">Element node</p>
+            and + some text node
+            <script>document.body.setAttribute('data-script-ran', 'true');</script>
+          </div>
+          </section>
+        </main>
+      </body>"
+`;
