@@ -637,4 +637,169 @@ describe('UnsavedController', () => {
       expect(events['w-unsaved:clear']).toHaveLength(2);
     });
   });
+
+  describe('handling comments data', () => {
+    const mockDirtyComments = () => {
+      window.comments = {
+        commentApp: {
+          selectors: {
+            selectIsDirty: jest.fn().mockReturnValue(true),
+          },
+          store: {
+            getState: jest.fn(),
+          },
+        },
+      };
+    };
+
+    afterEach(() => {
+      delete window.comments;
+    });
+
+    it('should track comments app data instead of the form inputs', async () => {
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      await setup(/* html */ `
+        <section>
+          <form
+            id="form"
+            data-controller="w-unsaved"
+            data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
+            data-w-unsaved-confirmation-value="true"
+          >
+            <input type="text" id="title" name="title" value="Some Page" />
+            <div id="comments-output" hidden="">
+              <input
+                type="hidden"
+                name="comments-TOTAL_FORMS"
+                id="id_comments-TOTAL_FORMS"
+                value="0"
+              />
+              <input
+                type="hidden"
+                name="comments-INITIAL_FORMS"
+                id="id_comments-INITIAL_FORMS"
+                value="0"
+              />
+              <input
+                type="hidden"
+                name="comments-MIN_NUM_FORMS"
+                id="id_comments-MIN_NUM_FORMS"
+                value="0"
+              />
+              <input
+                type="hidden"
+                name="comments-MAX_NUM_FORMS"
+                id="id_comments-MAX_NUM_FORMS"
+                value=""
+              />
+            </div>
+            <button>Submit</button>
+          </form>
+        </section>
+      `);
+
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      // Simulate updating the comments form data
+      const output = document.getElementById('comments-output');
+      output.innerHTML = /* html */ `
+        <input
+          type="hidden"
+          name="comments-TOTAL_FORMS"
+          id="id_comments-TOTAL_FORMS"
+          value="1"
+        />
+        <input
+          type="hidden"
+          name="comments-INITIAL_FORMS"
+          id="id_comments-INITIAL_FORMS"
+          value="0"
+        />
+        <input
+          type="hidden"
+          name="comments-MIN_NUM_FORMS"
+          id="id_comments-MIN_NUM_FORMS"
+          value="0"
+        />
+        <input
+          type="hidden"
+          name="comments-MAX_NUM_FORMS"
+          id="id_comments-MAX_NUM_FORMS"
+          value=""
+        />
+        <fieldset>
+          <input
+            type="hidden"
+            name="comments-0-DELETE"
+            id="id_comments-0-DELETE"
+            value=""
+          />
+          <input
+            type="hidden"
+            name="comments-0-resolved"
+            id="id_comments-0-resolved"
+            value=""
+          />
+          <input
+            type="hidden"
+            name="comments-0-id"
+            id="id_comments-0-id"
+            value=""
+          />
+          <input
+            type="hidden"
+            name="comments-0-contentpath"
+            id="id_comments-0-contentpath"
+            value="title"
+          />
+          <input
+            type="hidden"
+            name="comments-0-text"
+            id="id_comments-0-text"
+            value="Nice"
+          />
+          <input
+            type="hidden"
+            name="comments-0-position"
+            id="id_comments-0-position"
+            value=""
+          />
+        </fieldset>
+      `;
+
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      // Should not be detected yet
+      expect(events['w-unsaved:add']).toHaveLength(0);
+      const form = document.querySelector('form');
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'false',
+      );
+      expect(form.getAttribute('data-w-unsaved-has-comments-value')).toEqual(
+        'false',
+      );
+
+      // Simulate comments app reporting dirty state
+      mockDirtyComments();
+
+      // Run interval to check for changes
+      await jest.runOnlyPendingTimersAsync();
+      // Wait for debounce
+      await jest.runOnlyPendingTimersAsync();
+
+      // Now changes should be detected from the comments app
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'false',
+      );
+      expect(form.getAttribute('data-w-unsaved-has-comments-value')).toEqual(
+        'true',
+      );
+    });
+  });
 });
