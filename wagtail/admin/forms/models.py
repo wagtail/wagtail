@@ -91,8 +91,8 @@ register_form_field_override(
     override={"widget": widgets.SlugInput},
 )
 
-# Remove the following block when the minimum Django version is >= 5.0.
-if (5, 0) <= DJANGO_VERSION < (6, 0):
+# Remove the following block when the minimum Django version is >= 6.0.
+if DJANGO_VERSION < (6, 0):
     register_form_field_override(
         models.URLField,
         override={"assume_scheme": "https"},
