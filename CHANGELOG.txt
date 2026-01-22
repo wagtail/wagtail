@@ -47,6 +47,7 @@ Changelog
  * Docs: Provide recommended image quality settings for common use cases (Thibaud Colas)
  * Docs: Add detailed documentation on reordering within generic listing view (Ankit Chaudhary)
  * Docs: Document early notification process for security releases (Jake Howard)
+ * Docs: Remove mention of Wagtailtrans from internationalization docs (Andreas Nüßlein)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
