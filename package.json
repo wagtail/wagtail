@@ -4,7 +4,7 @@
   "repository": "https://github.com/wagtail/wagtail",
   "private": true,
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "browserslist": [
     "Firefox ESR",
