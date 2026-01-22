@@ -4,7 +4,7 @@ Changelog
 7.4 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
- * ...
+ * Maintenance: Removed support for Django 4.2
 
 
 7.3 (xx.xx.xxxx) - IN DEVELOPMENT
