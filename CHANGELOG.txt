@@ -4,7 +4,7 @@ Changelog
 7.4 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
- * ...
+ * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
 
 
 7.3 (xx.xx.xxxx) - IN DEVELOPMENT

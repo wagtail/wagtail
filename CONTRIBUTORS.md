@@ -935,6 +935,7 @@
 * bettercallok
 * Ritik Arya
 * Ankit Chaudhary
+* Saptami
 
 ## Translators
 
