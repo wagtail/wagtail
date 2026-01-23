@@ -1,0 +1,47 @@
+{% load i18n wagtailadmin_tags %}
+{% comment %}
+
+    Variables accepted by this template:
+
+    - `page` - A wagtail page object
+    - `classes` - String of extra css classes to pass to this component
+{% endcomment %}
+
+{% comment %} Unable to use pageurl template tag here due to issues in unit tests where request is not yet available - see #10157 {% endcomment %}
+{% if page.live and page.url is not None %}
+    {% test_page_is_public page as is_public %}
+    {% trans 'Live' as live_label %}
+    {% comment %} Two copies of the tag, visibility is toggled by the privacy switch JS {% endcomment %}
+    <a
+        href="{{ page.url }}"
+        target="_blank"
+        rel="noreferrer"
+        class="{% classnames 'page-status-tag' is_public|yesno:',w-hidden' %}"
+        aria-label="{% trans 'Visible to all. Visit the live page' %}"
+        data-controller="w-tooltip w-zone"
+        data-action="w-privacy:changed@document->w-zone#switch"
+        data-w-tooltip-content-value="{% trans 'Visible to all' %}"
+        data-w-tooltip-offset-value="[0, 13]"
+        data-w-zone-inactive-class="w-hidden"
+        data-w-zone-switch-key-value="isPublic"
+    >
+        {% icon classname='w-w-4 w-h-4 w-mr-1' name="view" %}
+        {{ live_label }}
+    </a>
+    <a
+        href="{{ page.url }}"
+        target="_blank"
+        rel="noreferrer"
+        class="{% classnames 'page-status-tag' is_public|yesno:'w-hidden,' %}"
+        aria-label="{% trans 'Private. Visit the live page' %}"
+        data-controller="w-tooltip w-zone"
+        data-action="w-privacy:changed@document->w-zone#switch"
+        data-w-tooltip-content-value="{% trans 'Private' %}"
+        data-w-tooltip-offset-value="[0, 13]"
+        data-w-zone-inactive-class="w-hidden"
+        data-w-zone-switch-key-value="!isPublic"
+    >
+        {% icon classname='w-w-4 w-h-4 w-mr-1' name="no-view" %}
+        {{ live_label }}
+    </a>
+{% endif %}

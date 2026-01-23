@@ -1,0 +1,17 @@
+[
+  {
+    "pk": "00000000-0000-0000-0000-000000000001",
+    "model": "emailuser.emailuser",
+    "fields": {
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "groups": [],
+      "user_permissions": [],
+      "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+      "email": "superuser@example.com"
+    }
+  }
+]

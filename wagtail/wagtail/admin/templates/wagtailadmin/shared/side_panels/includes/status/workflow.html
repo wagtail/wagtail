@@ -1,0 +1,172 @@
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% comment %}
+    This template is used to show Live, Draft, Live and Draft, In Moderation or Live and In Moderation.
+    Sometimes {{ block.super }} will be called two times in the instances where the object is in multiple states e.g. Live + Draft
+{% endcomment %}
+
+{% block content %}
+    {% if object.pk %}
+        <div class="w-space-y-3">
+            {% trans 'Status: ' as screen_reader_title_prefix %}
+
+            {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision live_revision=object.live_revision %}
+
+                {# Live section #}
+                {% if not draftstate_enabled or object.live %}
+                    {% trans 'Live' as title %}
+                    {% if live_revision %}
+                        {% timesince_last_update live_revision.created_at user_display_name=live_revision.user|user_display_name use_shorthand=True as help_text %}
+                    {% elif last_updated_info %}
+                        {% timesince_last_update last_updated_info.timestamp user_display_name=last_updated_info.user_display_name use_shorthand=True as help_text %}
+                    {% endif %}
+
+                    {% with icon_name='doc-full-inverse' %}
+                        {% if object.has_unpublished_changes or workflow_state %}
+                            {% with hide_action=True %}
+                                {{ block.super }}
+                            {% endwith %}
+                        {% else %}
+                            {{ block.super }}
+                        {% endif %}
+                    {% endwith %}
+                    {% if has_live_publishing_schedule %}
+                        <div class="w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3 w-border w-border-transparent">
+                            {% icon name='calendar-check' classname='w-w-4 w-h-4 w-text-info-100' %}
+                            <div class="w-flex w-flex-1 w-items-start w-justify-between">
+                                <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text w-text-grey-400">
+                                    <div>
+                                        <span class="w-text-grey-600">{% trans 'Expiry:' %}</span>
+                                        {{ live_expire_at }}
+                                    </div>
+                                </div>
+                                {% if show_schedule_publishing_toggle and not has_draft_publishing_schedule and not lock_context.locked %}
+                                    {% trans 'Edit schedule' as edit_schedule_text %}
+                                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary-600 hover:w-text-secondary-400 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                {% endif %}
+
+                {# Draft and In moderation settings #}
+                {% if workflow_state %}
+
+                    {# In Moderation Settings #}
+                    {% trans 'In Moderation' as title %}
+                    {% if workflow_state.created_at %}
+                        {% timesince_last_update workflow_state.created_at user_display_name=workflow_state.requested_by|user_display_name use_shorthand=True as help_text %}
+                    {% endif %}
+                    {% trans 'View details' as action_text %}
+
+                    {# Icon #}
+                    {% with icon_name='draft' hide_action=False %}
+                        {{ block.super }}
+                    {% endwith %}
+
+                    {# Draft Settings #}
+                {% elif object.has_unpublished_changes %}
+                    {% trans 'Draft' as title %}
+                    {% if draft_revision.created_at %}
+                        {% timesince_last_update draft_revision.created_at user_display_name=draft_revision.user|user_display_name use_shorthand=True as help_text %}
+                    {% endif %}
+
+                    {# Icon #}
+                    {% with icon_name='draft' %}
+                        {{ block.super }}
+                    {% endwith %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block action %}
+    {% if workflow_state and not hide_action %}
+        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
+
+        {# info subtitle #}
+        {% if object.get_latest_revision %}
+            {% workflow_status_with_date workflow_state as message_heading %}
+            {% if workflow_state.requested_by %}
+                {% blocktrans trimmed with user=workflow_state.requested_by|user_display_name asvar modified_by %}by {{ user }}{% endblocktrans %}
+            {% endif %}
+            {% dialog id="workflow-status-dialog" icon_name="list-ul" title=workflow_state.workflow.name message_status='info' message_heading=message_heading|add:' '|add:modified_by %}
+                {% include 'wagtailadmin/workflows/workflow_status.html' %}
+            {% enddialog %}
+        {% else %}
+            {% dialog id="workflow-status-dialog" icon_name="list-ul" title=workflow_state.workflow.name %}
+                {% include 'wagtailadmin/workflows/workflow_status.html' %}
+            {% enddialog %}
+        {% endif %}
+    {% elif history_url %}
+        {% with action_url=history_url %}
+            {% trans 'View history' as action_text %}
+            {{ block.super }}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block bottom %}
+    {# Workflow Status #}
+    {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision %}
+        {% if workflow_state %}
+            <div class="w-flex w-space-x-4">
+                {% icon name='info-circle' classname='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
+                <div class="w-label-3 w-flex-1">
+                    {% workflow_status_with_date workflow_state %}
+                </div>
+            </div>
+        {% endif %}
+
+        {# Scheduled publishing #}
+        {% if has_draft_publishing_schedule or schedule_has_errors %}
+            <div class="w-p-4 w-rounded w-flex w-space-x-3 w-border w-border-transparent {% if schedule_has_errors %}w-bg-critical-50{% else %}w-bg-info-50{% endif %}">
+                {% if schedule_has_errors %}
+                    {% icon name='warning' classname='w-w-4 w-h-4 w-text-critical-100' %}
+                {% elif scheduled_go_live_at or scheduled_expire_at %}
+                    {% icon name='calendar-check' classname='w-w-4 w-h-4 w-text-info-100' %}
+                {% else %}
+                    {% icon name='calendar' classname='w-w-4 w-h-4 w-text-info-100' %}
+                {% endif %}
+                <div class="w-flex w-flex-1 w-items-start w-justify-between">
+                    <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text w-text-grey-400">
+                        {% if schedule_has_errors %}
+                            <div class="w-label-3 w-text-primary">{% trans 'Invalid schedule' %}</div>
+                        {% else %}
+                            {% if scheduled_go_live_at %}
+                                <div><span class="w-text-grey-600">{% trans 'Go-live:' %}</span> {{ scheduled_go_live_at }}</div>
+                            {% endif %}
+                            {% if scheduled_expire_at %}
+                                <div><span class="w-text-grey-600">{% trans 'Expiry:' %}</span> {{ scheduled_expire_at }}</div>
+                            {% endif %}
+                            {% if draft_go_live_at or draft_expire_at %}
+                                <div class="w-label-3 w-text-primary">{% trans 'Once scheduled:' %}</div>
+                                {% if draft_go_live_at %}
+                                    <div><span class="w-text-grey-600">{% trans 'Go-live:' %}</span> {{ draft_go_live_at }}</div>
+                                {% endif %}
+                                {% if draft_expire_at %}
+                                    <div><span class="w-text-grey-600">{% trans 'Expiry:' %}</span> {{ draft_expire_at }}</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% if show_schedule_publishing_toggle and not lock_context.locked %}
+                        {% trans 'Edit schedule' as edit_schedule_text %}
+                        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary-600 hover:w-text-secondary-400 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                    {% endif %}
+                </div>
+            </div>
+        {% elif draftstate_enabled and not has_live_publishing_schedule %}
+            <div class="w-flex w-justify-between w-items-center w-w-full">
+                <div class="w-ml-8 w-pr-4 w-label-3">{% trans 'No publishing schedule set' %}</div>
+                {% if show_schedule_publishing_toggle and not lock_context.locked %}
+                    {% trans 'Set schedule' as set_schedule_text %}
+                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=set_schedule_text %}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

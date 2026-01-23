@@ -1,0 +1,5 @@
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if value %}
+        <a href="{% url 'wagtailadmin_explore' value.id %}">{{ value.specific_deferred.get_admin_display_title }}</a>
+    {% endif %}
+</td>

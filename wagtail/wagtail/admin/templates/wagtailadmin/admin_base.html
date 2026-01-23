@@ -1,0 +1,36 @@
+{% extends "wagtailadmin/skeleton.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}">
+
+    {% hook_output 'insert_global_admin_css' %}
+
+    {% block extra_css %}{% endblock %}
+{% endblock %}
+
+{% block branding_favicon %}
+    <link rel="shortcut icon" href="{% versioned_static 'wagtailadmin/images/favicon.ico' %}" />
+{% endblock %}
+
+{% block js %}
+    {% wagtail_config as config %}
+    {{ config|json_script:"wagtail-config" }}
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-ui-1.13.2.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.datetimepicker.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-transition.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+    <script src="{% url 'wagtailadmin_javascript_catalog' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/sidebar.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+
+    {% hook_output 'insert_global_admin_js' %}
+
+    {% block extra_js %}{% endblock %}
+{% endblock %}

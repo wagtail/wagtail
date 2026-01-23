@@ -1,0 +1,107 @@
+@use '../../../../../../client/scss/settings';
+@use '../../../../../../client/scss/tools';
+
+.typed-table-block {
+  // Layout is handled by the table markup.
+  .w-field__wrapper {
+    margin-bottom: 0;
+  }
+
+  table {
+    margin: 2.5rem 0 1rem 2.5rem;
+  }
+
+  th,
+  td {
+    padding: 0.25rem;
+  }
+
+  th {
+    position: relative;
+    border: 2px solid theme('colors.border-field-default');
+
+    button.prepend-column,
+    button.append-column {
+      position: absolute;
+      inset-inline-start: -0.9rem;
+      top: -2rem;
+    }
+
+    button.delete-column {
+      position: absolute;
+      inset-inline-end: 0.625rem;
+      top: 0.875rem;
+    }
+
+    input.column-heading {
+      padding-inline-end: 3rem;
+      font-weight: bold;
+    }
+  }
+
+  td {
+    position: relative;
+    border-inline-start: 1px solid theme('colors.border-field-default');
+  }
+
+  th:first-child,
+  th:last-child,
+  td:first-child {
+    border-width: 0;
+  }
+
+  tbody tr,
+  tfoot tr {
+    position: relative;
+    border-top: 1px dotted theme('colors.border-field-default');
+
+    button.prepend-row {
+      inset-inline-start: -2rem;
+      position: absolute;
+      top: -0.9rem;
+    }
+
+    button.delete-row {
+      margin-inline-start: 0.25rem;
+    }
+
+    td:not(.control-cell) {
+      vertical-align: top;
+      min-width: 20rem;
+    }
+  }
+
+  ul.add-column-menu {
+    position: absolute;
+    top: 0;
+    inset-inline-start: -0.9rem;
+    z-index: 100;
+    min-width: 10rem;
+    background-color: theme('colors.surface-page');
+
+    button {
+      width: 100%;
+      margin: 1px;
+    }
+  }
+
+  .control-cell ul.add-column-menu {
+    top: 0;
+  }
+
+  .w-field--commentable {
+    // Add enough space for the comment button.
+    padding-inline-end: theme('spacing.8');
+  }
+
+  .w-field--draftail_rich_text_area {
+    // Add enough space for the block picker.
+    padding-inline-start: theme('spacing.9');
+  }
+}
+
+.typed-table-block__wrapper {
+  overflow-x: auto;
+  // Reserve space for the add column menu.
+  min-height: 20rem;
+}

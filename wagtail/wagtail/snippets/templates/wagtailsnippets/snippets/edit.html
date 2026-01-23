@@ -1,0 +1,24 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block bodyclass %}{{ block.super }} {% if locked_for_user %}content-locked{% endif %}{% endblock %}
+
+{% block slim_header %}
+    {% comment %}
+        We can't use the `only` keyword yet, because the SnippetStatusSidePanel still rely on some
+        context variables from the view. As a result, we can't reuse the include from the generic
+        template and have to copy it here without the `only` keyword.
+    {% endcomment %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url buttons=header_buttons %}
+{% endblock %}
+
+{% block actions %}
+    {{ action_menu.render_html }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% if workflow_enabled %}
+        {% include "wagtailadmin/shared/_workflow_init.html" %}
+    {% endif %}
+{% endblock %}

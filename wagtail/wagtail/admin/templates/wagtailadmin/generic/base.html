@@ -1,0 +1,25 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+
+{% block titletag %}{{ header_title }}{% endblock %}
+
+{% block content %}
+
+    {% block header %}
+        {% block slim_header %}
+            {% if breadcrumbs_items %}
+                {# Ensure all necessary variables are passed explicitly here #}
+                {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url title=header_title search_url=index_results_url search_form=search_form filters=filters buttons=header_buttons icon_name=header_icon only %}
+            {% endif %}
+        {% endblock %}
+        {% block main_header %}
+            {% if not breadcrumbs_items %}
+                {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon only %}
+            {% endif %}
+        {% endblock %}
+    {% endblock %}
+
+    <div class="nice-padding">
+        {% block main_content %}{% endblock %}
+    </div>
+{% endblock %}

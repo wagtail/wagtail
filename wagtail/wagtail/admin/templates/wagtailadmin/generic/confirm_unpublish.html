@@ -1,0 +1,27 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block main_content %}
+    {% if usage_url %}
+        {% include "wagtailadmin/shared/usage_summary.html" %}
+    {% endif %}
+    {% block confirmation_text %}
+        <p>
+            {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+                Are you sure you want to unpublish this {{ model_name }}?
+            {% endblocktrans %}
+        </p>
+    {% endblock %}
+
+    <form action="{{ unpublish_url }}" method="POST">
+        {% csrf_token %}
+
+        {% block form_content %}
+        {% endblock %}
+
+        <div>
+            <button class="button" type="submit">{% trans 'Yes, unpublish it' %}</button>
+            <a href="{{ next_url }}" class="button button-secondary">{% trans "No, don't unpublish" %}</a>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,24 @@
+============================
+Wagtail 1.13.1 release notes
+============================
+
+*November 17, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* API listing views no longer fail when no site records are defined (Karl Hobley)
+* Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
+* Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
+* Fixed error in Postgres search backend when searching specific fields of a ``specific()`` Page QuerySet (Bertrand Bordage, Matt Westcott)
+* Fixed error on Elasticsearch backend when passing a QuerySet as an ``__in`` filter (Karl Hobley, Matt Westcott)
+* ``__isnull`` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+* Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)

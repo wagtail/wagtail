@@ -1,0 +1,10 @@
+{% extends 'wagtailadmin/reports/base_report_results.html' %}
+{% load i18n %}
+
+{% block results %}
+    {% include "wagtailadmin/reports/listing/_list_page_report.html" %}
+{% endblock %}
+
+{% block no_results_message %}
+    <p>{% trans "No pages match this report's criteria." %}</p>
+{% endblock %}

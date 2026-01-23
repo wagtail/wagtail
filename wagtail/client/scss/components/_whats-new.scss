@@ -1,0 +1,76 @@
+.w-whats-new {
+  margin-bottom: theme('spacing.16');
+
+  &.w-dismissible--dismissed {
+    display: none;
+  }
+
+  &__banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: theme('borderRadius.md');
+    padding: theme('spacing.6');
+    color: theme('colors.grey.600');
+    background-color: theme('colors.warning.50');
+    border: 5px solid transparent;
+  }
+
+  &__main-icon {
+    .icon {
+      color: theme('colors.warning.100');
+      width: theme('spacing.10');
+      height: theme('spacing.10');
+      margin-inline-end: theme('spacing.4');
+      border-radius: theme('borderRadius.full');
+
+      @media (prefers-reduced-motion: no-preference) {
+        animation: ping-warning 5s 5;
+      }
+    }
+  }
+
+  &__heading {
+    @apply w-h3;
+    color: theme('colors.grey.600');
+    margin-top: 0;
+    margin-bottom: theme('spacing.2');
+  }
+
+  &__details {
+    @apply w-body-text-large;
+    margin-bottom: 0;
+  }
+
+  &__link {
+    font-weight: theme('fontWeight.bold');
+    color: theme('colors.secondary.400');
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: theme('colors.secondary.600');
+    }
+  }
+
+  &__dismiss {
+    @apply -w-top-3 -w-right-3;
+    position: absolute;
+    padding: 0;
+    background-color: transparent;
+
+    .icon {
+      border-radius: theme('borderRadius.full');
+      width: theme('spacing.6');
+      height: theme('spacing.6');
+      background-color: theme('colors.surface-page');
+      color: theme('colors.icon-primary');
+
+      @media (forced-colors: active) {
+        background-color: Canvas;
+        color: CanvasText;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@use '../../../../scss/tools' as *;
+@use '../../../../../node_modules/draftail/src/index' as *;
+
+.MediaBlock {
+  display: inline-block;
+  position: relative;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+
+  &__icon-wrapper {
+    position: absolute;
+    top: 0;
+    inset-inline-end: 0;
+    background: $draftail-editor-chrome;
+    color: $draftail-editor-chrome-text;
+    line-height: 1;
+    padding: $controls-spacing * 2 $controls-spacing * 3;
+    pointer-events: none;
+
+    .icon {
+      @include svg-icon();
+    }
+  }
+
+  &__icon {
+    $icon-size: 1.5rem;
+    width: $icon-size;
+    height: $icon-size;
+    font-size: $icon-size;
+  }
+
+  @mixin invalid-image-fallback {
+    min-width: 256px;
+    min-height: 50px;
+    object-fit: contain;
+    background-color: theme('colors.text-context');
+  }
+
+  &__img {
+    @include invalid-image-fallback;
+    display: block;
+    width: 256px;
+    height: auto;
+    pointer-events: none;
+  }
+
+  &__fallback {
+    position: absolute;
+    top: 0;
+    inset-inline-end: 0;
+    bottom: 0;
+    inset-inline-start: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: theme('colors.surface-page');
+  }
+}

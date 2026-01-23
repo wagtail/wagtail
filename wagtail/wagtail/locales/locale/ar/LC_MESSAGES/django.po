@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail locales"
+msgstr "لغات Wagtail"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Select a new language"
+msgstr "اختر لغة جديدة"
+
+msgid "This locale's language code is not supported"
+msgstr "رمز لغة هذه اللغة غير مدعوم"
+
+msgid "Yes, delete"
+msgstr "نعم، احذف"
+
+msgid "Back"
+msgstr "رجوع"
+
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+"رمز لغة هذه اللغة الحالي غير مدعوم. يرجى اختيار لغة جديدة أو حذف هذه اللغة."
+
+#, python-format
+msgid "%(num_pages)d pages and %(num_others)d others"
+msgstr "%(num_pages)d صفحات و %(num_others)d أخرى"
+
+#, python-format
+msgid "%(num_pages)d page"
+msgid_plural "%(num_pages)d pages"
+msgstr[0] "%(num_pages)d صفحة"
+msgstr[1] "%(num_pages)d صفحة"
+msgstr[2] "%(num_pages)d صفحتين"
+msgstr[3] "%(num_pages)d صفحة"
+msgstr[4] "%(num_pages)d صفحة"
+msgstr[5] "%(num_pages)d صفحة"
+
+msgid "Locales"
+msgstr "اللغات"
+
+msgid "Add a locale"
+msgstr "إضافة لغة"
+
+msgid "Usage"
+msgstr "الاستخدام"
+
+msgid "Add locale"
+msgstr "إضافة لغة"
+
+#, python-format
+msgid "Locale '%(object)s' created."
+msgstr "تم إنشاء اللغة '%(object)s'."
+
+#, python-format
+msgid "Locale '%(object)s' updated."
+msgstr "تم تحديث اللغة '%(object)s'."
+
+msgid "The locale could not be saved due to errors."
+msgstr "تعذر حفظ اللغة بسبب وجود أخطاء."
+
+#, python-format
+msgid "Locale '%(object)s' deleted."
+msgstr "تم حذف اللغة '%(object)s'."
+
+msgid "Delete locale"
+msgstr "حذف لغة"
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "هل أنت متأكد أنك تريد حذف هذه اللغة؟"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr "لا يمكن حذف هذه اللغة لأنه لا توجد لغات أخرى."
+
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
+msgstr "لا يمكن حذف هذه اللغة لأن هناك صفحات و/أو كائنات أخرى تستخدمها."

@@ -1,0 +1,106 @@
+{% load i18n l10n wagtailadmin_tags %}
+
+<div
+    class="w-preview"
+    data-controller="w-preview"
+    data-w-preview-has-errors-class="w-preview--has-errors"
+    data-w-preview-proxy-class="w-preview__proxy"
+    data-w-preview-selected-size-class="w-preview__size-button--selected"
+    data-w-preview-auto-update-interval-value="{{ auto_update_interval|unlocalize }}"
+    data-w-preview-url-value="{{ preview_url }}"
+    data-w-preview-w-progress-outlet="[data-controller='w-preview'] [data-controller='w-progress']"
+>
+    <div class="w-preview__sizes">
+        {% block size_buttons %}
+            {% for size in object.preview_sizes %}
+                <label class="w-preview__size-button">
+                    {% icon name=size.icon %}
+                    <input
+                        type="radio"
+                        class="w-preview__proxy"
+                        name="preview-size"
+                        value="{{ size.name }}"
+                        data-action="w-preview#togglePreviewSize"
+                        data-w-preview-target="size"
+                        aria-label="{{ size.label }}"
+                        data-device-width="{{ size.device_width|stringformat:'s' }}"
+                        {% if object.default_preview_size == size.name %}
+                            checked
+                        {% endif %}
+                    />
+                </label>
+            {% endfor %}
+        {% endblock %}
+
+        {% block new_tab_button %}
+            <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="w-preview__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab:prevent" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
+        {% endblock %}
+    </div>
+
+    {% if auto_update_interval %}
+        <div class="w-preview__spinner" data-w-preview-target="spinner" hidden>
+            {% icon name="spinner" classname="default" %}
+            <span class="w-sr-only">{% trans 'Loading'%}</span>
+        </div>
+    {% else %}
+        <button
+            type="button"
+            class="button button-small button-secondary button-longrunning button--icon w-preview__refresh-button"
+            data-controller="w-progress"
+            data-action="click->w-preview#setPreviewDataWithAlert click->w-progress#activate"
+            data-w-progress-active-value="{% trans 'Refreshing…' %}"
+            data-w-progress-duration-seconds-value="300"
+        >
+            {% icon name="rotate" classname="button-longrunning__icon" %}
+            {% icon name="spinner" %}
+            {# Using sr-only for the label as there might not be enough room for the label if the panel is resized #}
+            <em class="w-sr-only" data-w-progress-target="label">{% trans 'Refresh' %}</em>
+        </button>
+    {% endif %}
+
+    <div class="w-preview__area">
+        <div class="w-preview__controls{% if has_multiple_modes %} w-preview__controls--multiple{% endif %}">
+            {% block error_banner %}
+                <div id="w-preview-error-banner" class="w-preview__error-banner">
+                    {% icon name='warning' classname='default' %}
+                    <div>
+                        <h3 class="w-preview__error-title">
+                            {% trans 'Preview is out of date' %}
+                        </h3>
+                        <p class="w-preview__error-details">
+                            {% trans 'Correct the validation errors to resume preview (saving will highlight errors)' %}
+                        </p>
+                    </div>
+                </div>
+            {% endblock %}
+            {% block mode_select %}
+                {% if has_multiple_modes %}
+                    {% rawformattedfield label_text=_("Preview mode") id_for_label="id_preview_mode" classname="w-preview__modes" %}
+                        <select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-w-preview-target="mode" data-action="w-preview#setPreviewMode">
+                            {% for internal_name, display_name in object.preview_modes %}
+                                <option value="{{ internal_name }}"{% if internal_name == object.default_preview_mode %} selected{% endif %}>{{ display_name }}</option>
+                            {% endfor %}
+                        </select>
+                    {% endrawformattedfield %}
+                {% endif %}
+            {% endblock %}
+        </div>
+
+        <div class="w-preview__wrapper">
+            {% block iframe %}
+                <iframe
+                    id="w-preview-iframe"
+                    title="{% trans 'Preview' %}"
+                    class="w-preview__iframe"
+                    data-w-preview-target="iframe"
+                    data-action="load->w-preview#replaceIframe"
+                    aria-describedby="w-preview-error-banner"
+                >
+                    <div>
+                        {# Add placeholder element to support styling content when iframe has loaded #}
+                    </div>
+                </iframe>
+            {% endblock %}
+        </div>
+    </div>
+</div>

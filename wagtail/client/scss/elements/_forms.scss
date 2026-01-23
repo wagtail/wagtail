@@ -1,0 +1,37 @@
+@use 'sass:map';
+@use '../tools' as *;
+// Legacy form reset styles. Avoid adding any new styles here.
+form {
+  // Historically, Wagtail forms rendered all fields as list items.
+  // This is still the case in some instances, and there may be a lot of
+  // of form widgets relying on this too.
+  ul,
+  li {
+    list-style-type: none;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+fieldset {
+  border: 0;
+  padding: 0 0 2em;
+  margin: 0;
+}
+
+// Special styles to counteract Firefox's completely unwarranted assumptions about button styles
+input[type='submit'],
+input[type='reset'],
+input[type='button'],
+button {
+  padding: 0 1em;
+
+  @include media-breakpoint-up(sm) {
+    &.button-small {
+      height: 2em;
+    }
+  }
+}

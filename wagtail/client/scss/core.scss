@@ -1,0 +1,186 @@
+/* =============================================================================
+/*  Wagtail CMS main stylesheet
+/* =============================================================================
+
+REFERENCE
+
+  * We organise our styles based on a combination of ITCSS and
+    the Sass 7-1 pattern.
+  * Classes should be written using BEM, which we modify to include a prefix.
+  * Every BEM block should have its own file.
+
+┌────────────┬────────────────────────┬──────────────┬
+│ Folder     │ Contents               │ ITCSS level  │
+├────────────┼────────────────────────┼──────────────┼
+│ settings   │ variables, maps, fonts │ 1 Settings   │
+│ tools      │ mixins, functions      │ 2 Tools      │
+│ generic    │ resets                 │ 3 Generic    │
+│ elements   │ elements, no classes   │ 4 Elements   │
+│ objects    │ Unused                 │ 5 Objects    │
+│ components │ classes                │ 6 Components │
+│            │   BEM blocks           │              │
+│ overrides  │ classes                │ 7 Trumps     │
+│            │   overrides, utilities │              │
+└────────────┴────────────────────────┴──────────────┘
+
+SCSS: https://sass-lang.com/guide
+ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
+Sass 7-1 pattern: https://gist.github.com/rveitch/84cea9650092119527bc
+BEM: https://getbem.com/
+
+==============================================================================*/
+
+/* Legacy vendor styles. Do not add new styles here. */
+@use 'generic/normalize';
+@use 'vendor/jquery-ui-1.10.3.verdant';
+@use 'vendor/jquery.tagit' as jquery-tagit;
+@use 'vendor/jquery.Jcrop.min' as jquery-jcrop;
+
+/* SETTINGS
+These are variables, maps, and fonts.
+* No CSS should be produced by these files
+*/
+
+@use 'settings';
+
+/* TOOLS
+These are functions and mixins.
+* No CSS should be produced by these files.
+*/
+
+@use 'tools';
+
+/* GENERIC
+This is for resets and other rules that affect large collections of bare elements.
+* Changes to them should be very rare.
+*/
+
+/* ELEMENTS
+These are base styles for bare HTML elements.
+* Changes to them should be very rare.
+*/
+
+@use 'elements/elements';
+@use 'elements/typography';
+@use 'elements/forms';
+
+/* COMPONENTS
+These are classes for components.
+* These classes (unless legacy) are prefixed with `.w-`.
+* React component styles live in the same folders as their React components,
+  which is the preferred pattern over housing them in the scss folder.
+*/
+
+@use '../src/components/Transition/Transition';
+@use '../src/components/LoadingSpinner/LoadingSpinner';
+@use '../src/components/PublicationStatus/PublicationStatus';
+@use '../src/components/ComboBox/ComboBox';
+@use '../src/components/ComboBoxPreview/ComboBoxPreview';
+@use '../src/components/PageExplorer/PageExplorer';
+@use '../src/components/CommentApp/main';
+
+@use 'components/avatar';
+@use 'components/icons';
+@use 'components/forms/input-base';
+@use 'components/forms/input-text';
+@use 'components/forms/radio-checkbox';
+@use 'components/forms/select';
+@use 'components/forms/tagit';
+@use 'components/forms/radio-checkbox-multiple';
+@use 'components/forms/error-message';
+@use 'components/forms/required-mark';
+@use 'components/forms/help';
+@use 'components/forms/drop-zone';
+@use 'components/forms/file';
+@use 'components/forms/publishing';
+@use 'components/forms/switch';
+@use 'components/forms/title';
+@use 'components/forms/field';
+@use 'components/forms/field-row';
+@use 'components/forms/field-comment-control';
+@use 'components/forms/field-textoutput';
+@use 'components/forms/form-width';
+@use 'components/forms/nested-panel';
+@use 'components/tabs';
+@use 'components/panel';
+@use 'components/dialog';
+@use 'components/dismissible';
+@use 'components/drilldown';
+@use 'components/dropdown';
+@use 'components/dropdown-button';
+@use 'components/help-block';
+@use 'components/button';
+@use 'components/keyboard-shortcuts';
+@use 'components/modals';
+@use 'components/chooser';
+@use 'components/tag';
+@use 'components/listing';
+@use 'components/filters';
+@use 'components/messages';
+@use 'components/messages.capability' as messages-capability;
+@use 'components/messages.status' as messages-status;
+@use 'components/header';
+@use 'components/progressbar';
+@use 'components/summary';
+@use 'components/whats-new';
+@use 'components/grid.legacy';
+@use 'components/footer';
+@use 'components/loading-mask';
+@use 'components/human-readable-date';
+@use 'components/link.legacy';
+@use 'components/indicator';
+@use 'components/status-tag';
+@use 'components/skiplink';
+@use 'components/workflow-tasks';
+@use 'components/workflow-timeline';
+@use 'components/bulk_actions';
+@use 'components/preview-panel';
+@use 'components/preview-error';
+@use 'components/form-side';
+@use 'components/a11y-result';
+@use 'components/userbar';
+@use 'components/breadcrumbs';
+@use 'components/pill';
+@use 'components/ping';
+@use 'components/editing-sessions';
+@use 'components/badge';
+
+@use '../src/components/Sidebar/Sidebar';
+@use '../src/components/Sidebar/SidebarPanel';
+@use '../src/components/Sidebar/menu/MenuItem';
+@use '../src/components/Sidebar/menu/SubMenuItem';
+@use '../src/components/Sidebar/modules/MainMenu';
+@use '../src/components/Sidebar/modules/WagtailBranding';
+@use '../src/components/Minimap/Minimap';
+
+/* OVERRIDES
+These are classes that provide overrides.
+* Higher specificity is allowed here because these are overrides and imported last.
+*/
+
+// VENDOR: overrides of vendor styles.
+@use 'overrides/vendor.datetimepicker' as vendor-datetimepicker;
+@use 'overrides/vendor.handsontable' as vendor-handsontable;
+@use 'overrides/vendor.tagit' as vendor-tagit;
+@use 'overrides/vendor.tippy' as vendor-tippy;
+
+// UTILITIES: classes that do one simple thing.
+@use 'overrides/utilities.focus' as utilities-focus;
+
+// Legacy utilities
+@use 'overrides/utilities.legacy' as utilities-legacy;
+// TAILWIND: This is at the bottom so it can take precedence over other css classes
+@use 'overrides/utilities.tailwind' as utilities-tailwind;
+
+/* Legacy layout-specific styles. Do not add new styles here. */
+
+@use 'layouts/404' as layout-404;
+@use 'layouts/compare-revisions';
+@use 'layouts/login';
+@use 'layouts/account';
+@use 'layouts/workflow-progress';
+@use 'layouts/report';
+@use 'layouts/add-multiple';
+@use 'layouts/chooser-duplicate-upload';
+@use 'layouts/focal-point-chooser';
+@use 'layouts/redirects';

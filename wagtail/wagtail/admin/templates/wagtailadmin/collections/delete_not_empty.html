@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/generic/confirm_delete.html" %}
+{% load i18n %}
+
+{% block main_content %}
+    <p>
+        {% trans 'This collection cannot be deleted, because it is not empty. It contains:' %}
+    </p>
+    <ul>
+        {% for item_type in collection_contents %}
+            <li>
+                {% if item_type.url %}
+                    <a href="{{ item_type.url }}">{{ item_type.count_text }}</a>
+                {% else %}
+                    {{ item_type.count_text }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

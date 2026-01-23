@@ -1,0 +1,30 @@
+@use '../tools' as *;
+
+.progress {
+  border-radius: 1.2em;
+  background-color: theme('colors.surface-button-hover');
+  border: 1px solid theme('colors.surface-button-default');
+  opacity: 0;
+
+  &.active {
+    @include transition(opacity 0.3s ease);
+    opacity: 1;
+  }
+
+  .bar {
+    @include transition(width 0.3s ease);
+    border-radius: 1.5em;
+    overflow: hidden;
+    text-align: end;
+    line-height: 1.2em;
+    color: theme('colors.text-button');
+    font-size: 0.85em;
+    background-color: theme('colors.surface-button-default');
+    height: 1.2em;
+    padding-inline-end: 1em;
+
+    @media (forced-colors: active) {
+      background-color: ButtonText;
+    }
+  }
+}

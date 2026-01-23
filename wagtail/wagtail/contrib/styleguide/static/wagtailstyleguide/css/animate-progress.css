@@ -1,0 +1,17 @@
+@keyframes animate-progress {
+  0% {
+    width: 20%;
+  }
+
+  60% {
+    width: 80%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+#progress-example .bar {
+  animation: animate-progress 4s infinite linear;
+}

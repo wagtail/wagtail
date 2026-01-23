@@ -1,0 +1,13 @@
+{% load wagtailadmin_tags i18n l10n %}
+
+{% rawformattedfield label_text=_("Collection") id_for_label="collection_chooser_collection_id" %}
+    <select id="collection_chooser_collection_id" name="collection_id" data-controller="w-submit" data-action="change->w-submit#submit">
+        <option value="">{% trans "All collections" %}</option>
+        {% for pk, display_name in collections.get_indented_choices %}
+            <option value="{{ pk|unlocalize }}"
+                    {% if pk == current_collection.pk %}selected="selected"{% endif %}>
+                {{ display_name }}
+            </option>
+        {% endfor %}
+    </select>
+{% endrawformattedfield %}

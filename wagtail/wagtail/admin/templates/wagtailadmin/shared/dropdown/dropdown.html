@@ -1,0 +1,43 @@
+{% load wagtailadmin_tags %}
+
+{% comment "text/markdown" %}
+    Reusable dropdown menu component built with Tippy.js using the Stimulus DropdownController.
+
+    - `theme` (string?) - visual variants of the component
+    - `classname` (string?) - more classes for parent element
+    - `attrs` (string?) - more attributes for parent element
+    - `toggle_icon` (string?) - toggle icon identifier
+    - `toggle_label` (string?) - Visible label for the toggle button
+    - `toggle_suffix` (string?) - Visible content for the toggle button after the icon
+    - `toggle_aria_label` (string?) - aria-label for the toggle button
+    - `toggle_describedby` (string?) - aria-describedby for the toggle button
+    - `toggle_classname` (string?) - additional toggle classes
+    - `toggle_tooltip_offset` (string?) - Tooltip offset prop
+    - `hide_on_click` (boolean?) - Whether or not the tooltip should hide when clicking inside
+    - `keep_mounted` (boolean?) - Whether or not the tooltip should keep its DOM node mounted when hidden
+    - `children` - Dropdown contents (`a` and `button` elements only)
+{% endcomment %}
+
+{% fragment as class %}{% classnames 'w-dropdown' classname %}{% if theme %} w-dropdown--{{ theme }}{% endif %}{% endfragment %}
+
+<div
+    data-controller="w-dropdown"
+    class="{{ class }}"
+    {{ attrs }}
+    {% if theme %}data-w-dropdown-theme-value="{{ theme }}"{% endif %}
+    {% if toggle_tooltip_offset %}data-w-dropdown-offset-value="{{ toggle_tooltip_offset }}"{% endif %}
+    {% if hide_on_click %}data-w-dropdown-hide-on-click-value="true"{% endif %}
+    {% if keep_mounted %}data-w-dropdown-keep-mounted-value="true"{% endif %}
+>
+    <button type="button" class="{% classnames 'w-dropdown__toggle' toggle_label|yesno:',w-dropdown__toggle--icon' toggle_classname %}" data-w-dropdown-target="toggle"{% if toggle_aria_label %} aria-label="{{ toggle_aria_label }}"{% endif %}{% if toggle_describedby %} aria-describedby="{{ toggle_describedby }}"{% endif %}{% if toggle_tippy_offset %} data-tippy-offset="{{ toggle_tippy_offset }}"{% endif %}>
+        {{ toggle_label }}
+        {% if toggle_icon %}
+            {% icon name=toggle_icon classname="w-dropdown__toggle-icon" %}
+        {% endif %}
+        {{ toggle_suffix }}
+    </button>
+
+    <div data-w-dropdown-target="content" class="w-dropdown__content" hidden>
+        {{ children }}
+    </div>
+</div>

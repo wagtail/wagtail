@@ -1,0 +1,107 @@
+@use '../../tools' as *;
+@use '../../settings' as *;
+
+$header-icon-size: theme('spacing.4');
+$icon-center-offset: 2px;
+$guide-line-bottom-margin: calc($form-field-spacing / 3);
+
+/**
+ * Panel styles shared between StreamField and InlinePanel,
+ * for repeating collapsible panels which can be reordered.
+ * Top-level and nested panels have guiding borders to show their start and end,
+ * as well as indentation for nested panels.
+ */
+
+// Styles for the top-level panel, and any panel within.
+.w-panel--nested {
+  --nesting-indent: #{$nested-field-indent-sm};
+
+  @include media-breakpoint-up(sm) {
+    --nesting-indent: #{$nested-field-indent};
+  }
+
+  .w-panel__content {
+    // Center the vertical line.
+    margin-inline-start: calc(-1 * var(--nesting-indent));
+    padding-inline-start: var(--nesting-indent);
+    margin-bottom: $guide-line-bottom-margin;
+    @include guide-line-vertical();
+
+    @include media-breakpoint-up(sm) {
+      // Extra pixels for better alignment with center of icon.
+      margin-inline-start: calc(
+        -1 * var(--nesting-indent) + $icon-center-offset
+      );
+    }
+  }
+
+  .w-panel__anchor {
+    // Mask the overlap with the parent panel’s guide line.
+    background-color: theme('colors.surface-page');
+  }
+
+  .w-field__wrapper {
+    // Reduced field spacing for nested panels.
+    // Using both padding and margin so the field guide line extends below.
+    padding-bottom: calc($form-field-spacing / 2);
+    margin-bottom: $guide-line-bottom-margin;
+  }
+}
+
+// Styles for nested panels at the top level only.
+.w-panel--nested:not(.w-panel .w-panel) {
+  > .w-panel__content {
+    @include guide-line-vertical-stop();
+  }
+}
+
+// Styles for nested panels excluding the top level.
+.w-panel--nested .w-panel {
+  margin-inline-start: var(--nesting-indent);
+  margin-bottom: 0;
+
+  @include guide-line-nested();
+
+  .w-panel__content {
+    margin-inline-start: calc(
+      -1 * (var(--nesting-indent) + $icon-center-offset - var(--header-gap) / 2)
+    );
+  }
+
+  // Tighter spacing for nested panel headers so their icons align
+  // with parent panels’ guiding line.
+  .w-panel__header {
+    gap: 0;
+    transform: translateX(
+      calc(var(--w-direction-factor) * -1 * var(--nesting-indent))
+    );
+
+    @include media-breakpoint-up(sm) {
+      transform: translateX(
+        calc(var(--w-direction-factor) * theme('spacing.1'))
+      );
+    }
+  }
+
+  .w-panel__divider {
+    // Slightly nicer text alignment.
+    margin-top: 1px;
+
+    @include guide-line-horizontal();
+  }
+
+  .w-panel__heading--label {
+    // Use smaller labels within nested panels in InlinePanel.
+    @apply w-label-2;
+  }
+
+  // For nested panels, there is always enough space for the prefix anchor.
+  .w-panel__anchor--prefix {
+    display: inline-grid;
+  }
+
+  // Nested panels never need the suffix anchor.
+  .w-panel__anchor--suffix {
+    display: none;
+  }
+}

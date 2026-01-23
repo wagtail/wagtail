@@ -1,0 +1,255 @@
+#
+# Translators:
+# Łukasz Bołdys (Lukasz Boldys), 2022
+# Loic Teixeira, 2024
+# Krzysztof Jeziorny <github@jeziorny.net>, 2025
+# Miłosz Miśkiewicz, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Miłosz Miśkiewicz, 2025\n"
+"Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s nowe pozycje w tym menu)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nowa pozycja w tym menu)"
+
+msgid "(New)"
+msgstr "(Nowy)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s błąd"
+msgstr[1] "%(num)s błędy"
+msgstr[2] "%(num)s błędów"
+msgstr[3] "%(num)s błędy"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s minuta"
+msgstr[1] "%(num)s minuty"
+msgstr[2] "%(num)s minut"
+msgstr[3] "%(num)s minut"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s piksel"
+msgstr[1] "%(num)s pikseli"
+msgstr[2] "%(num)s pikseli"
+msgstr[3] "%(num)s piksele"
+
+msgid "Actions"
+msgstr "Akcje"
+
+msgid "Add a comment"
+msgstr "Dodaj komentarz"
+
+msgid "Alt text"
+msgstr "Tekst alternatywny"
+
+msgid "Are you sure?"
+msgstr "Czy jesteś pewny?"
+
+msgid "Blocks"
+msgstr "Bloki"
+
+msgid "Broken link"
+msgstr "Zepsuty link"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Character count:"
+msgstr "Liczba znaków:"
+
+msgid "Close"
+msgstr "Zamknij"
+
+msgid "Collapse all"
+msgstr "Zwiń wszystkie"
+
+msgid "Comment"
+msgstr "Komentarz"
+
+msgid "Dashboard"
+msgstr "Kokpit"
+
+msgid "Decorative image"
+msgstr "Obrazek dekoracyjny"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Delete error"
+msgstr "Błąd usuwania"
+
+msgid "Deleting"
+msgstr "Usuwanie"
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Edit '%(title)s'"
+msgstr "Edytuj '%(title)s'"
+
+msgid "Enter your comments..."
+msgstr "Dodaj komentarz…"
+
+msgid "Enter your reply..."
+msgstr "Dodaj odpowiedź…"
+
+msgid "Error while sending preview data."
+msgstr "Błąd podczas przesyłania danych do podglądu."
+
+msgid "Expand all"
+msgstr "Rozwiń wszytkie"
+
+msgid "Focus comment"
+msgstr "Wyróżnij komentarz"
+
+msgid "Horizontal line"
+msgstr "Linia pozioma"
+
+msgid "Insert a block"
+msgstr "Dodaj blok"
+
+msgid "Line break"
+msgstr "Nowa linia"
+
+msgid "Loading…"
+msgstr "Wczytywanie..."
+
+msgid "Main menu"
+msgstr "Główne menu"
+
+msgid "Missing document"
+msgstr "Brakujący dokument"
+
+msgid "More actions"
+msgstr "Więcej akcji"
+
+msgid "No"
+msgstr "Nie"
+
+msgid "No results"
+msgstr "Brak wyników"
+
+msgid "Page"
+msgstr "Strona"
+
+msgid "Page explorer"
+msgstr "Przeglądarka stron"
+
+msgid "Pages"
+msgstr "Strony"
+
+msgid "Pin toolbar"
+msgstr "Zakotwicz pasek narzędzi"
+
+msgid "Preview"
+msgstr "Podgląd"
+
+msgid "Reload saved content"
+msgstr "Odśwież zapisaną zawartość"
+
+msgid "Reload the page"
+msgstr "Odśwież stronę"
+
+msgid "Reply"
+msgstr "Odpowiedz"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
+
+msgid "Resolve"
+msgstr "Rozwiąż"
+
+msgid "Retry"
+msgstr "Ponów"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Save error"
+msgstr "Błąd zapisu"
+
+msgid "Save the page to add this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this reply"
+msgstr "Zapisz stronę aby zapisać odpowiedź"
+
+msgid "Saving..."
+msgstr "Zapisywanie..."
+
+msgid "Search"
+msgstr "Szukaj"
+
+msgid "Search options…"
+msgstr "Opcje szukania…"
+
+msgid "See all"
+msgstr "Zobacz wszystkie"
+
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "Show error"
+msgstr "Pokaż błąd"
+
+msgid "Show latest content"
+msgstr "Pokaż ostatnią zawartość"
+
+msgid "Split block"
+msgstr "Rozłam blok"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Edytor napotkał błąd. Zawartość została cofnięta do ostatniej zapisanej "
+"wersji."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksymalna ilość elementów to %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimalna ilość elementów to %(min_num)d"
+
+msgid "This field is required."
+msgstr "To pole jest wymagane."
+
+msgid "Toggle section"
+msgstr "Przełącz sekcję"
+
+msgid "Toggle side panel"
+msgstr "Rozszerzanie bocznego panelu"
+
+msgid "Toggle sidebar"
+msgstr "Rozszerzanie bocznej nawigacji"
+
+msgid "Unfocus comment"
+msgstr "Usuń wyróżnienie komentarza"
+
+msgid "Unpin toolbar"
+msgstr "Uwolnij pasek narzędzi"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Wyświetl podstrony dla '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Wpisz coś lub naciśnij '/' by wstawić blok"
+
+msgid "Yes"
+msgstr "Tak"

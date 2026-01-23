@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/generic/confirm_delete.html" %}
+{% load i18n %}
+
+{% block main_content %}
+    {% if warning_message %}
+        <p>{{ warning_message }}</p>
+    {% endif %}
+    <p>{% trans 'Are you sure you want to disable this workflow?' %}</p>
+    <form action="{{ view.get_delete_url }}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="{% trans 'Yes, disable' %}" class="button serious" />
+        <a class="button button-secondary" href="{{ view.get_edit_url }}">{% trans 'No' %}</a>
+    </form>
+{% endblock %}

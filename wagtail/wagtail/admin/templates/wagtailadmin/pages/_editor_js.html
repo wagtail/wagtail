@@ -1,0 +1,8 @@
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    DEPRECATED: Remove this template in a future release and replace with the direct hook_output template tag, customizations should use the hook only.
+    Do not add any further standalone script imports here, this template will be deprecated in a future release - RemovedInWagtail80
+{% endcomment %}
+
+{% hook_output 'insert_editor_js' %}

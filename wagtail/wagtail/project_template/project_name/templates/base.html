@@ -1,0 +1,46 @@
+{% templatetag openblock %} load static wagtailcore_tags wagtailuserbar {% templatetag closeblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% templatetag openblock %} block title %}
+            {% templatetag openblock %} if page.seo_title %}{% templatetag openvariable %} page.seo_title {% templatetag closevariable %}{% templatetag openblock %} else %}{% templatetag openvariable %} page.title {% templatetag closevariable %}{% templatetag openblock %} endif %}
+            {% templatetag openblock %} endblock %}
+            {% templatetag openblock %} block title_suffix %}
+            {% templatetag openblock %} wagtail_site as current_site %}
+            {% templatetag openblock %} if current_site and current_site.site_name %}- {% templatetag openvariable %} current_site.site_name {% templatetag closevariable %}{% templatetag openblock %} endif %}
+            {% templatetag openblock %} endblock %}
+        </title>
+        {% templatetag openblock %} if page.search_description {% templatetag closeblock %}
+        <meta name="description" content="{% templatetag openvariable %} page.search_description {% templatetag closevariable %}" />
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {% templatetag opencomment %} Force all links in the live preview panel to be opened in a new tab {% templatetag closecomment %}
+        {% templatetag openblock %} if request.in_preview_panel {% templatetag closeblock %}
+        <base target="_blank">
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+
+        {% templatetag opencomment %} Global stylesheets {% templatetag closecomment %}
+        <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}">
+
+        {% templatetag openblock %} block extra_css {% templatetag closeblock %}
+        {% templatetag opencomment %} Override this in templates to add extra stylesheets {% templatetag closecomment %}
+        {% templatetag openblock %} endblock {% templatetag closeblock %}
+    </head>
+
+    <body class="{% templatetag openblock %} block body_class {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}">
+        {% templatetag openblock %} wagtailuserbar {% templatetag closeblock %}
+
+        {% templatetag openblock %} block content {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+        {% templatetag opencomment %} Global javascript {% templatetag closecomment %}
+        <script type="text/javascript" src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
+
+        {% templatetag openblock %} block extra_js {% templatetag closeblock %}
+        {% templatetag opencomment %} Override this in templates to add extra javascript {% templatetag closecomment %}
+        {% templatetag openblock %} endblock {% templatetag closeblock %}
+    </body>
+</html>

@@ -1,0 +1,23 @@
+============================
+Wagtail 2.10.1 release notes
+============================
+
+*August 26, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Prevent ``create_log_entries_from_revisions`` command from failing when page model classes are missing (Dan Braghis)
+* Prevent page audit log views from failing for user models without a ``username`` field (Vyacheslav Matyukhin)
+* Fix icon alignment on menu items (Coen van der Kamp)
+* Page editor header bar now correctly shows 'Published' or 'Draft' status when no revisions exist (Matt Westcott)
+* Prevent page editor from failing when ``USE_TZ`` is false (Matt Westcott)
+* Ensure whitespace between block-level elements is preserved when stripping tags from rich text for search indexing (Matt Westcott)

@@ -1,0 +1,6 @@
+{% extends "wagtailadmin/generic/confirm_delete.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans trimmed with query=query.query_string %}Delete {{ query }}{% endblocktrans %}{% endblock %}
+{% block confirmation_message %}
+    <p>{% trans "Are you sure you want to delete all promoted results for this search term?" %}</p>
+{% endblock %}

@@ -1,0 +1,176 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Philip Crisp, 2022
+# Philip Crisp, 2022
+# Philip Lindsay-Crisp, 2024
+# Philip Lindsay-Crisp, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Philip Lindsay-Crisp, 2024\n"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
+"cy/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
+
+msgid "Publish"
+msgstr "Cyhoeddi"
+
+msgid "Submit for moderation"
+msgstr "Cyflwyno i'w gymedroli"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Ailgyflwyno i %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Cyflwyno i %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Ailgychwyn llif gwaith"
+
+msgid "Cancel workflow "
+msgstr "Canslo llif gwaith"
+
+msgid "Unpublish"
+msgstr "Anghyhoedd"
+
+msgid "Save"
+msgstr "Cadw"
+
+msgid "Locked"
+msgstr "Wedi' gloi"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s a chyhoeddi"
+
+msgid "Wagtail snippets"
+msgstr "Pytiau Wagtail"
+
+msgid "Delete"
+msgstr "Dileu"
+
+msgid "Delete selected snippets"
+msgstr "Dileu'r tamaid sydd wedi gael ei dethol"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' wedi'i dileu."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s wedi' dileu."
+msgstr[1] "%(count)d %(model_name)s wedi' dileu."
+msgstr[2] "%(count)d %(model_name)s wedi' dileu. "
+msgstr[3] "%(count)d %(model_name)s wedi' dileu."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Dileu %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Dileu"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Ydych chi'n siwr eich fod chi eisio dileu %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+"Ydych chi'n siwr eich fod chi eisio dileu %(count)s %(snippet_type_name)s?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Nid oes gennych ganiatâd i ddileu %(snippet_type_name)s hon"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Nid oes gennych ganiatâd i ddileu'r %(snippet_plural_name)s yma"
+
+msgid "Yes, delete"
+msgstr "Ia, dileu"
+
+msgid "No, don't delete"
+msgstr "Na, peidiwch a ddileu"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Mae'n ddrwg gennym, nid oes tamaid sydd yn cyfateb a \"<em>%(search_query)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Nid ydych wedi creu unrhyw tamaid %(snippet_type_name)s. Beth am <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">creu un rwan</a>?"
+
+msgid "Publishing…"
+msgstr "Yn Cyhoeddi..."
+
+msgid "Publish this version"
+msgstr "Cyhoeddi fersiwn newydd"
+
+msgid "Saving…"
+msgstr "Cadw…"
+
+msgid "Replace current draft"
+msgstr "Amnewid y drafft hon"
+
+msgid "Replace current revision"
+msgstr "Amnewid y fersiwn gyfredol"
+
+msgid "Save draft"
+msgstr "Cadw drafft"
+
+msgid "Select all snippets in listing"
+msgstr "Dewiswch yr holl bytiau yn y rhestr"
+
+msgid "Choose"
+msgstr "Dewis"
+
+msgid "Snippets"
+msgstr "Pytiau"
+
+msgid "Name"
+msgstr "Enw"
+
+msgid "Instances"
+msgstr "Enghreifftiau"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Fwy o opsiynau i '%(title)s'"
+
+msgid "Home"
+msgstr "Adref"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Dewis %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Dewis %(object)s arall"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Golygu %(object)s"

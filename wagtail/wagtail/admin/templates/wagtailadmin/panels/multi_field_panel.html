@@ -1,0 +1,8 @@
+{% load wagtailadmin_tags %}
+{# Avoid semantic markup here. Children of this panel can either be fields, or other groups. #}
+{% if self.help_text %}
+    {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
+{% endif %}
+{% for child in self.visible_children %}
+    {% include "wagtailadmin/panels/multi_field_panel_child.html" %}
+{% endfor %}

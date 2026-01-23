@@ -1,0 +1,28 @@
+{% extends 'wagtailadmin/notifications/base.html' %}
+{% load wagtailadmin_tags i18n %}
+{% base_url_setting default="" as base_url %}
+
+{% block content %}
+    {% if page %}
+        <p>{% blocktrans trimmed with title=page.get_admin_display_title task=task.name %}The page "{{ title }}" has been approved in moderation stage "{{ task }}".{% endblocktrans %}</p>
+        <p>{% trans "You can edit the page here:"%} <a href="{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}</a></p>
+    {% else %}
+        {% latest_str object as title %}
+        {% admin_edit_url object user as edit_url %}
+        <p>
+            {% blocktrans trimmed with title=title task=task.name model_name=model_name asvar message %}
+                The {{ model_name }} "{{ title }}" has been approved in moderation stage "{{ task }}".
+            {% endblocktrans %}
+            {{ message|capfirst }}
+        </p>
+        {% if edit_url %}
+            <p>
+                {% blocktrans trimmed with model_name=model_name asvar edit_message %}
+                    You can edit the {{ model_name }} here:
+                {% endblocktrans %}
+                {{ edit_message|capfirst }}
+                <a href="{{ base_url }}{{ edit_url }}">{{ base_url }}{{ edit_url }}</a>
+            </p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

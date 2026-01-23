@@ -1,0 +1,20 @@
+============================
+Wagtail 2.11.1 release notes
+============================
+
+*November 6, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Ensure that cached ``wagtail_site_root_paths`` structures from older Wagtail versions are invalidated (Sævar Öfjörð Magnússon)
+* Avoid circular import between wagtail.admin.auth and custom user models (Matt Westcott)
+* Prevent error on resolving page URLs when a locale outside of ``WAGTAIL_CONTENT_LANGUAGES`` is active (Matt Westcott)

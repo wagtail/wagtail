@@ -1,0 +1,9 @@
+{% load wagtailadmin_tags %}
+
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if value %}
+        {% if column.true_label %}{% status column.true_label classname="w-status--primary" %}{% endif %}
+    {% else %}
+        {% if column.false_label %}{% status column.false_label classname="w-status--primary" %}{% endif %}
+    {% endif %}
+</td>

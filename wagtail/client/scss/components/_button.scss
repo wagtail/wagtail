@@ -1,0 +1,466 @@
+// stylelint-disable max-nesting-depth
+
+// Core button styles
+
+@use 'sass:color';
+@use '../tools' as *;
+@use '../settings' as *;
+
+.button {
+  border-radius: theme('borderRadius.sm');
+  width: auto;
+  height: 2.25em;
+  padding: 0 1em;
+  font-size: theme('fontSize.14');
+  font-weight: theme('fontWeight.normal');
+  line-height: calc(2.25em - 2px); // account for border
+  vertical-align: middle;
+  display: inline-block;
+  background-color: theme('colors.surface-button-default');
+  border: 1px solid theme('colors.surface-button-default');
+  outline-offset: $focus-outline-width;
+  color: theme('colors.text-button');
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.1s ease;
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -moz-appearance: none;
+  -webkit-font-smoothing: auto;
+
+  + .button {
+    // ensure buttons can sit next to each other with a nice margin
+    margin-inline-start: theme('spacing.4');
+  }
+
+  &.button-small {
+    padding: 0 theme('spacing.3');
+    height: 2em;
+    font-size: calc(theme('fontSize.14') * 0.87);
+    line-height: calc(2em - 2px); // account for border
+  }
+
+  &.button--icon {
+    .icon {
+      @include svg-icon();
+    }
+  }
+
+  &.button-secondary {
+    color: theme('colors.text-button-outline-default');
+    background-color: transparent;
+
+    &:hover {
+      background-color: theme('colors.surface-button-outline-hover');
+      border-color: theme('colors.border-button-outline-hover');
+      color: theme('colors.text-button-outline-hover');
+    }
+  }
+
+  &.warning {
+    background-color: theme('colors.warning.100');
+    border-color: theme('colors.warning.100');
+
+    &.button-secondary {
+      border-color: theme('colors.warning.100');
+      color: theme('colors.warning.100');
+      background-color: transparent;
+    }
+
+    &:hover {
+      color: theme('colors.text-button');
+      border-color: transparent;
+      background-color: theme('colors.warning.100');
+    }
+  }
+
+  // no/serious is not compatible with the button-secondary class
+  &.no,
+  &.serious {
+    background-color: theme('colors.surface-page');
+    border: 1px solid theme('colors.text-error');
+    color: theme('colors.text-error');
+
+    &:hover {
+      color: theme('colors.text-button-critical-outline-hover');
+      border-color: theme('colors.text-button-critical-outline-hover');
+      background-color: theme('colors.surface-button-critical-hover');
+    }
+  }
+
+  &.bicolor {
+    padding-inline-start: 3.5em;
+
+    .icon-wrapper {
+      background-color: theme('colors.black-20');
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      inset-inline-start: 0;
+      top: 0;
+      width: 3em;
+      height: 100%;
+      box-sizing: content-box;
+      text-align: center;
+      border-start-start-radius: inherit;
+      border-end-start-radius: inherit;
+    }
+
+    &.button--icon {
+      .icon {
+        @include svg-icon();
+      }
+    }
+
+    &.button--icon-flipped {
+      .icon {
+        transform: scaleX(-1);
+      }
+    }
+
+    &.button-secondary {
+      .icon-wrapper {
+        border-inline-end: 1px solid theme('colors.surface-button-default');
+        background-color: transparent;
+      }
+
+      &:hover {
+        background-color: theme('colors.text-button');
+      }
+
+      &:disabled,
+      &[disabled],
+      &.disabled {
+        .icon-wrapper {
+          border-color: theme('colors.surface-button-inactive');
+        }
+      }
+    }
+
+    &.button-small {
+      padding-inline-start: 3.5em;
+
+      .icon-wrapper {
+        width: theme('spacing.8');
+      }
+
+      &.button--icon .icon {
+        @include svg-icon(0.9rem);
+        padding: 0.25em;
+      }
+
+      &.button-secondary {
+        border: 0;
+        padding-inline-start: 2.2em;
+
+        .icon-wrapper {
+          border: 1px solid theme('colors.surface-button-default');
+          border-radius: 50%;
+          height: fit-content;
+          width: fit-content;
+        }
+
+        &:hover {
+          background-color: transparent;
+
+          .icon-wrapper {
+            background-color: theme('colors.surface-button-default');
+            color: theme('colors.text-button');
+          }
+        }
+
+        &:disabled,
+        &[disabled],
+        &.disabled {
+          .icon-wrapper {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  &.button-longrunning {
+    em {
+      font-style: normal;
+    }
+
+    svg.icon-spinner {
+      @include transition(all 0.3s ease);
+      display: none;
+    }
+  }
+
+  &.button-longrunning-active {
+    display: inline-flex;
+    align-items: center;
+
+    svg.icon-spinner {
+      @include svg-icon();
+      display: inline-block;
+      opacity: 0.8;
+      padding: 0;
+      margin-inline-end: 0.5em;
+    }
+
+    .button-longrunning__icon {
+      display: none;
+    }
+  }
+
+  // Base hover state
+  &:hover {
+    background-color: theme('colors.surface-button-hover');
+    color: theme('colors.text-button');
+    border-color: transparent;
+  }
+
+  // Disabled state
+  &:disabled,
+  &[disabled],
+  &.disabled {
+    background-color: theme('colors.surface-button-inactive');
+    border-color: theme('colors.surface-button-inactive');
+    color: theme('colors.text-button');
+    cursor: default;
+    pointer-events: none;
+
+    &:hover {
+      background-color: theme('colors.surface-button-inactive');
+      border-color: theme('colors.surface-button-inactive');
+      color: theme('colors.text-button');
+      cursor: default;
+    }
+
+    @media (forced-colors: active) {
+      color: GrayText;
+      border-color: GrayText;
+      border-style: dashed;
+    }
+  }
+
+  &.button-secondary:disabled,
+  &.button-secondary[disabled],
+  &.button-secondary.disabled {
+    background-color: theme('colors.surface-page');
+    border-color: theme('colors.surface-button-inactive');
+    color: theme('colors.text-placeholder');
+  }
+
+  // Buttons which are only an icon
+  &.text-replace {
+    &.button--icon {
+      background-color: transparent;
+      color: theme('colors.icon-secondary');
+      border-color: transparent;
+      font-size: 0;
+      text-align: center;
+      height: inherit;
+      width: inherit;
+      // Allow overflow for an error badge
+      overflow: visible;
+
+      &:hover {
+        color: theme('colors.icon-secondary-hover');
+      }
+
+      .icon {
+        @include svg-icon(1rem, middle);
+
+        font-size: initial;
+        padding: 0.5em;
+        box-sizing: content-box;
+      }
+
+      &.button-small {
+        line-height: 1.75em;
+
+        .icon {
+          padding: 0.25em;
+        }
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      &.icon {
+        &.button-small {
+          width: 1.75em;
+          height: 1.75em;
+        }
+      }
+    }
+  }
+
+  // Larger viewport width adjustments
+
+  @include media-breakpoint-up(sm) {
+    font-size: theme('fontSize.14');
+    padding: 0 1.4em;
+    height: 3em;
+    line-height: calc(3em - 2px); // account for border
+
+    &.bicolor {
+      padding-inline-start: 3.5em;
+
+      &.button-small {
+        padding-inline-start: 3em;
+      }
+    }
+  }
+
+  // Ensure visual consistency between button and a elements in WHCM
+
+  @media (forced-colors: active) {
+    &:not(:disabled):not(.disabled):not([disabled]) {
+      color: ButtonText;
+      border-color: ButtonText;
+
+      &:hover {
+        border-color: Highlight;
+      }
+    }
+  }
+}
+
+.w-header-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: theme('spacing.1');
+  height: theme('spacing.8');
+  min-width: theme('spacing.8');
+  appearance: none;
+  background-color: initial;
+  border: 1px solid transparent;
+  color: theme('colors.text-button-outline-default');
+  padding: 0 theme('spacing[1.5]');
+  font-size: theme('fontSize.14');
+  font-weight: theme('fontWeight.medium');
+  cursor: pointer;
+
+  @include more-contrast-interactive();
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+    padding: theme('spacing.[0.5]');
+    border: 1px solid currentColor;
+    border-radius: theme('borderRadius.full');
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    border-color: theme('colors.border-button-outline-hover');
+    background-color: theme('colors.surface-button-outline-hover');
+  }
+
+  &:hover,
+  &:focus-visible {
+    .icon {
+      // This ideally should use a solid variant of the icon instead.
+      color: theme('colors.surface-page');
+      border-color: theme('colors.text-button-outline-hover');
+      background-color: theme('colors.text-button-outline-hover');
+    }
+    color: theme('colors.text-link-hover');
+  }
+}
+
+.w-slim-header-action-button {
+  position: relative;
+  width: theme('spacing.10');
+  height: theme('spacing.10');
+  padding: 0;
+  border: 1px solid theme('borderColor.border-field-default');
+  border-radius: theme('borderRadius.sm');
+  color: theme('colors.text-link-default');
+  background-color: theme('backgroundColor.surface-header');
+
+  @include more-contrast-interactive();
+
+  .icon {
+    width: theme('fontSize.16');
+    height: theme('fontSize.16');
+  }
+
+  &:hover {
+    border-color: theme('colors.border-field-hover');
+  }
+}
+
+.w-layout-toggle-button-right {
+  border-start-start-radius: theme('borderRadius.sm');
+  border-end-start-radius: theme('borderRadius.sm');
+}
+
+.w-layout-toggle-button-left {
+  border-start-end-radius: theme('borderRadius.sm');
+  border-end-end-radius: theme('borderRadius.sm');
+  margin-inline-start: -1px;
+}
+
+.w-layout-toggle-button {
+  position: relative;
+  width: theme('spacing.10');
+  height: 100%;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: theme('backgroundColor.surface-header');
+  border: 1px solid theme('borderColor.border-field-default');
+  transition: background-color 0.1s ease;
+
+  input[type='radio'] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .icon {
+    width: theme('fontSize.16');
+    height: theme('fontSize.16');
+    color: theme('colors.text-meta');
+    transition: color 0.1s ease;
+  }
+
+  &:hover {
+    background-color: theme('colors.surface-field');
+    border-color: theme('colors.border-field-hover');
+    z-index: 2;
+  }
+
+  &:has(input[type='radio']:checked),
+  input[type='radio']:checked + & {
+    background-color: theme('colors.surface-field');
+  }
+
+  &:has(input[type='radio']:checked) .icon {
+    color: theme('colors.text-link-default');
+
+    @media (prefers-color-scheme: light) {
+      color: theme('colors.primary.DEFAULT');
+    }
+  }
+
+  &:focus {
+    @include focus-outline;
+    z-index: 1;
+  }
+}
+
+.w-layout-switch-control {
+  position: relative;
+  width: theme('spacing.20');
+  height: theme('spacing.10');
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

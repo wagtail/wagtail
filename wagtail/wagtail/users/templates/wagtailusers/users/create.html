@@ -1,0 +1,67 @@
+{% extends "wagtailadmin/generic/form.html" %}
+{% load wagtailadmin_tags wagtailimages_tags %}
+{% load i18n %}
+
+{% block form_content %}
+    <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#select" data-w-tabs-use-location-value="true">
+        <div class="w-tabs__wrapper">
+            <div role="tablist" class="w-tabs__list" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+                {% trans "Account" as account_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
+                {% trans "Roles" as roles_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='roles' title=roles_text %}
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <section
+                id="tab-account"
+                class="w-tabs__panel"
+                role="tabpanel"
+                hidden
+                aria-labelledby="tab-label-account"
+                data-w-tabs-target="panel"
+                data-action="w-focus:focus->w-tabs#selectInside"
+            >
+                <ul class="fields">
+                    {% block fields %}
+                        {% if form.separate_username_field %}
+                            <li>{% formattedfield form.username_field %}</li>
+                        {% endif %}
+                        <li>{% formattedfield form.email %}</li>
+                        <li>{% formattedfield form.first_name %}</li>
+                        <li>{% formattedfield form.last_name %}</li>
+                        {% block extra_fields %}{% endblock extra_fields %}
+                        {% if form.password1 %}
+                            <li>{% formattedfield form.password1 %}</li>
+                        {% endif %}
+                        {% if form.password2 %}
+                            <li>{% formattedfield form.password2 %}</li>
+                        {% endif %}
+                    {% endblock fields %}
+
+                    <li>
+                        <a href="#tab-roles" class="button w-flex w-items-center w-w-fit w-mb-8" role="tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">
+                            {% trans "Roles" %}
+                            {% icon name="arrow-right" classname="default" %}
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <section
+                id="tab-roles"
+                class="w-tabs__panel"
+                role="tabpanel"
+                hidden
+                aria-labelledby="tab-label-roles"
+                data-w-tabs-target="panel"
+                data-action="w-focus:focus->w-tabs#selectInside"
+            >
+                <ul class="fields">
+                    <li>{% formattedfield form.is_superuser %}</li>
+                    <li>{% formattedfield form.groups %}</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+{% endblock %}

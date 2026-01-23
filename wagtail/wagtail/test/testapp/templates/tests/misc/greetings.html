@@ -1,0 +1,6 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% block titletag %}Greetings{% endblock %}
+
+{% block main_content %}
+    Welcome to this greetings page, {{ user.get_full_name }}!
+{% endblock %}

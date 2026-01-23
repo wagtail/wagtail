@@ -1,0 +1,31 @@
+{% load i18n wagtailadmin_tags %}
+
+{% test_collection_is_public collection as is_public %}
+
+{% if not collection.is_root %}
+    {% url 'wagtailadmin_collections:set_privacy' collection.id as privacy_url %}
+    {% dialog icon_name='view' id='set-privacy' data_url=privacy_url title=_("Change privacy") message_status='info' message_heading=_("Privacy settings determine who is able to view documents in this collection.") %}
+    {% enddialog %}
+
+    <div
+        class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}"
+        data-controller="w-zone"
+        data-action="w-privacy:changed@document->w-zone#switch"
+        data-w-zone-active-class="public"
+        data-w-zone-inactive-class="private"
+        data-w-zone-switch-key-value="isPublic"
+    >
+        {% trans "Privacy" %}
+        <button type="button" data-a11y-dialog-show="set-privacy" class="button button-small button-secondary">
+            {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
+            <span class="label-public" aria-label="{% trans 'Set collection privacy. Current status: Public' %}">
+                {% icon name="view" classname="default" %}
+                {% trans "Public" %}
+            </span>
+            <span class="label-private" aria-label="{% trans 'Set collection privacy. Current status: Private' %}">
+                {% icon name="no-view" classname="default" %}
+                {% trans "Private" %}
+            </span>
+        </button>
+    </div>
+{% endif %}

@@ -1,0 +1,7 @@
+{% load wagtailadmin_tags %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if value %}
+        <a href="{% url 'wagtailadmin_choose_page_child' value.id %}{% querystring p=None q=None %}" class="navigate-parent">{{ value.get_admin_display_title }}</a>
+        {% if show_locale_labels %}{% status value.locale.get_display_name classname="w-status--label" %}{% endif %}
+    {% endif %}
+</td>

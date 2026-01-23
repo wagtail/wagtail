@@ -1,0 +1,57 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Unpublish 1 page {% plural %}Unpublish {{ counter }} pages{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
+
+{% block header %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Unpublish") icon="doc-empty-inverse" %}
+{% endblock header %}
+
+{% block items_with_access %}
+    {% if items %}
+        <p>{% trans "Are you sure you want to unpublish these pages?" %}</p>
+        <ul>
+            {% for page in items %}
+                <li>
+                    <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer">{{ page.item.get_admin_display_title }}</a>
+                    <p>
+                        {% with live_descendant_count=page.live_descendant_count %}
+                            {% if live_descendant_count %}
+                                {% blocktrans trimmed with counter=live_descendant_count|intcomma count counter_val=live_descendant_count %}
+                                    This page has one subpage
+                                {% plural %}
+                                    This page has {{ counter }} subpages
+                                {% endblocktrans %}
+                            {% endif %}
+                        {% endwith %}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock items_with_access %}
+
+{% block items_with_no_access %}
+
+    {% blocktrans trimmed asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to unpublish this page{% plural %}You don't have permission to unpublish these pages{% endblocktrans %}
+    {% include './list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
+
+{% endblock items_with_no_access %}
+
+{% block form_section %}
+    {% if items %}
+        {% trans 'Yes, unpublish' as action_button_text %}
+        {% trans "No, don't unpublish" as no_action_button_text %}
+        {% if has_live_descendants %}
+            {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}
+        {% else %}
+            {% include 'wagtailadmin/bulk_actions/confirmation/form.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+    {% endif %}
+{% endblock form_section %}

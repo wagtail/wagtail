@@ -1,0 +1,6 @@
+{% load wagtailadmin_tags %}
+{% block content %}
+    {% for field in form %}
+        {% formattedfield field %}
+    {% endfor %}
+{% endblock %}

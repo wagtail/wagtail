@@ -1,0 +1,17 @@
+{% load i18n wagtailadmin_tags %}
+{% block content %}
+    <div class="w-avatar-panel w-flex w-flex-wrap w-items-center">
+        <div class="w-avatar-panel__image w-mr-9 w-mb-5">
+            {% if form.avatar.value %}
+                <input class="avatar-clear" type="checkbox" name="avatar-avatar-clear" id="avatar-avatar-clear_id">
+                <label for="avatar-avatar-clear_id">{% trans "Reset to default" %}</label>
+                <img class="avatar large gravatar w-block w-mt-3" src="{% avatar_url request.user 70 gravatar_only=True %}" alt="{% trans 'Default avatar' %}"/>
+            {% endif %}
+            {% avatar user=request.user classname="avatar-span w-block w-mt-3" size="large" %}
+        </div>
+        <div class="w-avatar-panel__form">
+            <label for="id_avatar-avatar">{% trans "Upload a profile picture:" %}</label>
+            <input type="file" name="avatar-avatar" accept="image/*" id="id_avatar-avatar">
+        </div>
+    </div>
+{% endblock %}

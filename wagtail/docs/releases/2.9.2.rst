@@ -1,0 +1,18 @@
+===========================
+Wagtail 2.9.2 release notes
+===========================
+
+*July 3, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Prevent startup failure when ``wagtail.contrib.sitemaps`` is in ``INSTALLED_APPS`` (Matt Westcott)

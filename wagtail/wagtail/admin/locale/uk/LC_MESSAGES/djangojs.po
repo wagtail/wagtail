@@ -1,0 +1,193 @@
+#
+# Translators:
+# Mykola Zamkovoi <nickzam@gmail.com>, 2022
+# Viktor Shytiuk <VicHunting@yandex.ua>, 2022
+# Loic Teixeira, 2024
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2025
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2025
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
+"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2025\n"
+"Language-Team: Ukrainian (https://app.transifex.com/torchbox/teams/8009/"
+"uk/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Actions"
+msgstr "Дії"
+
+msgid "Add a comment"
+msgstr "Додати коментар"
+
+msgid "Alt text"
+msgstr "Альтернативний текст"
+
+msgid "Are you sure?"
+msgstr "Ви впевненні?"
+
+msgid "Blocks"
+msgstr "Блоки"
+
+msgid "Broken link"
+msgstr "Непрацююче посилання"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Collapse all"
+msgstr "Згорнути усе"
+
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Dashboard"
+msgstr "Панель"
+
+msgid "Decorative image"
+msgstr "Декоративне зображення"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Delete error"
+msgstr "Видалити помилку"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Edit '%(title)s'"
+msgstr "Редагувати '%(title)s'"
+
+msgid "Expand all"
+msgstr "Розгорнути усе"
+
+msgid "Focus comment"
+msgstr "Сфосукувати коментар"
+
+msgid "Horizontal line"
+msgstr "Горизонтальна лінія"
+
+msgid "Insert a block"
+msgstr "Вставити блок"
+
+msgid "Line break"
+msgstr "Рядковий розрив"
+
+msgid "Loading…"
+msgstr "Завантаження..."
+
+msgid "Missing document"
+msgstr "Документ відсутній"
+
+msgid "More actions"
+msgstr "Більше дій"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "No results"
+msgstr "Результати відсутні"
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "Page explorer"
+msgstr "Провідник сторінок"
+
+msgid "Pages"
+msgstr "Сторінки"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+msgid "Reload saved content"
+msgstr "Перезавантажити збережений контент"
+
+msgid "Reload the page"
+msgstr "Перезавантажити цю сторінку"
+
+msgid "Reply"
+msgstr "Відповісти"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Надіслати цю помилку адміністратору сайту з наступною інформацією:"
+
+msgid "Resolve"
+msgstr "Закрити обговорення"
+
+msgid "Retry"
+msgstr "Повторити"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Save error"
+msgstr "Зберегти помилку"
+
+msgid "Save the page to add this comment"
+msgstr "Збережіть сторінку, щоб додати цей коментар"
+
+msgid "Save the page to save this comment"
+msgstr "Збережіть сторінку, щоб зберегти цей коментар"
+
+msgid "Save the page to save this reply"
+msgstr "Збережіть сторінку, щоб зберегти цю відповідь"
+
+msgid "Saving..."
+msgstr "Зберігання"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search options…"
+msgstr "Шукати ..."
+
+msgid "See all"
+msgstr "Показати всі"
+
+msgid "Server Error"
+msgstr "Помилка сервера"
+
+msgid "Show error"
+msgstr "Показати помилку"
+
+msgid "Show latest content"
+msgstr "Показати останній вміст"
+
+msgid "Split block"
+msgstr "Розділити блок"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор щойно впав. Вміст був скинутий до останньої збереженої версії."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максимальна кількість елементів: %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Мінімальна кількість елементів: %(min_num)d"
+
+msgid "This field is required."
+msgstr "Це поле необхідно заповнити."
+
+msgid "Unfocus comment"
+msgstr "Розфокусувати коментар"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Переглянути дочірні сторінки '%(title)s'"
+
+msgid "Yes"
+msgstr "Так"

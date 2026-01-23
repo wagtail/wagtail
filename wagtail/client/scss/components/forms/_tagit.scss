@@ -1,0 +1,25 @@
+@use './input-base' as *;
+
+.tagit {
+  @include input-base();
+
+  input[type='text'] {
+    min-height: 0;
+  }
+}
+
+@media (forced-colors: active) {
+  .tagit {
+    .tag {
+      border: 1px solid;
+
+      &::before {
+        background: ButtonText;
+      }
+    }
+  }
+
+  .tagit-close .ui-icon.ui-icon-close:before {
+    background: ButtonText;
+  }
+}

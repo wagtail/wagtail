@@ -1,0 +1,47 @@
+@use '../../tools' as *;
+
+.w-field-row {
+  @include max-form-width();
+  // Ensure there is enough room for a comment button within the gap.
+  gap: theme('spacing.7');
+  // For mobile viewports, we attempt to display all items in the row side by side even if not at the desired size.
+  display: flex;
+  flex-wrap: wrap;
+
+  @include media-breakpoint-up(md) {
+    display: grid;
+    grid-auto-flow: column;
+    // All columns will be the same size.
+    grid-auto-columns: minmax(min-content, 1fr);
+  }
+
+  .w-field__wrapper + &,
+  + .w-field__wrapper {
+    margin-top: theme('spacing.5');
+  }
+
+  > .w-field__wrapper {
+    margin-top: 0;
+  }
+
+  // Support explicit sizing of child columns.
+  // This isn’t equivalent to 12-column grid – instead, there will be as many columns as calculated from usage of those classes.
+  // For example, a `<div class="col6"/><div class="col3"/>` will generate a 9-column grid, with one item taking two thirds of the space.
+  // Rather than a 12-column grid with one item taking half and the other a quarter.
+  @for $i from 1 through 12 {
+    > .col#{$i} {
+      display: block;
+      float: none;
+      padding: 0;
+      width: auto;
+      grid-column: span #{$i};
+    }
+  }
+}
+
+// Each column will be as wide as its widest member.
+.w-field-row--max-content {
+  @include media-breakpoint-up(md) {
+    grid-auto-columns: minmax(min-content, max-content);
+  }
+}

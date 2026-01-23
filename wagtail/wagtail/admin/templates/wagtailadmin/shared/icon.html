@@ -1,0 +1,14 @@
+{% spaceless %}
+    {# Reference implementation: components/Icon.tsx #}
+    {% if wrapped %}<span class="icon-wrapper">{% endif %}
+    <svg class="icon icon-{{ name }} {{ classname }}" aria-hidden="true">
+        <use href="#icon-{{ name }}"></use>
+    </svg>
+    {% if title %}
+        <span class="w-sr-only">
+            {{ title }}
+        </span>
+    {% endif %}
+    {% if wrapped %}</span>{% endif %}
+    {# Make sure this file _doesn’t_ end with a final newline. It breaks rendering. #}
+{% endspaceless %}

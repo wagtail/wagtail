@@ -1,0 +1,42 @@
+<!doctype html>
+{% load wagtailadmin_tags i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="{% admin_theme_classname %}">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block titletag %}{% endblock %} - {% block branding_title %}Wagtail{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex" />
+        <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+
+        {% block css %}{% endblock %}
+
+        {% block branding_favicon %}{% endblock %}
+    </head>
+    {% sidebar_collapsed as sidebar_collapsed %}
+    {% fragment as bodyclass %}{% block bodyclass %}{% endblock %}{% endfragment %}
+    <body id="wagtail" class="{% classnames bodyclass sidebar_collapsed|yesno:"sidebar-collapsed," messages|yesno:"has-messages," %}" data-controller="w-init" data-w-init-ready-class="ready">
+        {% block icons_sprite %}
+            <div data-sprite></div>
+
+            <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% icon_sprite_url %}"></script>
+        {% endblock %}
+
+        <noscript class="capabilitymessage">
+            {% blocktrans trimmed %}
+                JavaScript is required to use Wagtail, but it is currently disabled.<br />
+                Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noreferrer">instructions how to enable JavaScript in your web browser</a>.
+            {% endblocktrans %}
+        </noscript>
+
+        {% block js %}{% endblock %}
+
+        <a class="skiplink button" href="#main" data-controller="w-focus" data-action="w-focus#focus:prevent">{% trans 'Skip to main content' %}</a>
+
+        <div class="wrapper">
+            {% block furniture %}{% endblock %}
+        </div>
+    </body>
+</html>

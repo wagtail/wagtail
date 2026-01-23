@@ -1,0 +1,205 @@
+==========================
+Wagtail 2.10 release notes
+==========================
+
+*August 11, 2020*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Moderation workflow
+~~~~~~~~~~~~~~~~~~~
+
+This release introduces a configurable moderation workflow system to replace the single-step "submit for moderation" feature. Workflows can be set up on specific subsections of the page tree and consist of any number of tasks to be completed by designated user groups. To support this, numerous UI improvements have been made to Wagtail's page editor, including a new log viewer to track page history.
+
+For further details, see our How-to: `Configure workflows for moderation <https://guide.wagtail.org/en-latest/how-to-guides/configure-workflows-for-moderation/>`_ and :doc:`../extending/custom_tasks`.
+
+This feature was developed by Jacob Topp-Mugglestone, Karl Hobley, Matt Westcott and Dan Braghis, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+
+Django 3.1 support
+~~~~~~~~~~~~~~~~~~
+
+This release adds support for Django 3.1. Compatibility fixes were contributed by Matt Westcott and Karl Hobley.
+
+
+Search query expressions
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Search queries can now be constructed as structured expressions in the manner of the Django ORM's ``Q()`` values, allowing for complex queries that combine individual terms, phrases and boosting. A helper function ``parse_query_string`` is provided to convert "natural" queries containing quoted phrases into these expressions. For complete documentation, see :ref:`wagtailsearch_complex_queries`. This feature was developed by Karl Hobley and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+
+Redirect importing
+~~~~~~~~~~~~~~~~~~
+
+Redirects can now be imported from an uploaded CSV, TSV, XLS or XLSX file. This feature was developed by Martin Sandström.
+
+Accessibility and usability
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release contains a number of improvements to the accessibility and general usability of the Wagtail admin, fixing long-standing issues. Some of the changes come from our January 2020 sprint in Bristol, and some from our brand new `accessibility team <https://github.com/wagtail/wagtail/wiki/Accessibility-team>`_:
+
+* Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
+* Add SVG icons to resolve accessibility and customization issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas, Dan Braghis)
+* Switch userbar and header H1s to use SVG icons (Coen van der Kamp)
+* Add skip link for keyboard users to bypass Wagtail navigation in the admin (Martin Coote)
+* Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
+* Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
+
+Other features
+~~~~~~~~~~~~~~
+
+* Added ``webpquality`` and ``format-webp-lossless`` image filters and ``WAGTAILIMAGES_WEBP_QUALITY`` setting. See :ref:`output_image_format` and :ref:`image_quality` (Nikolay Lukyanov)
+* Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
+* Added filtering to locked pages report (Karl Hobley)
+* Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
+* Redirect to previous url when deleting/copying/unpublish a page and modify this url via the relevant hooks (Ascani Carlo)
+* Added ``next_url`` keyword argument on ``register_page_listing_buttons`` and ``register_page_listing_more_buttons`` hooks (Ascani Carlo, Matt Westcott, LB (Ben Johnston))
+* ``AbstractEmailForm`` will use ``SHORT_DATETIME_FORMAT`` and ``SHORT_DATE_FORMAT`` Django settings to format date/time values in email (Haydn Greatnews)
+* ``AbstractEmailForm`` now has a separate method (``render_email``) to build up email content on submission emails. See :ref:`form_builder_render_email`. (Haydn Greatnews)
+* Add ``pre_page_move`` and ``post_page_move`` signals. (Andy Babic)
+* Add ability to sort search promotions on listing page (Chris Ranjana, LB (Ben Johnston))
+* Upgrade internal JS tooling; Node v10, Gulp v4 & Jest v23 (Jim Jazwiecki, Kim LaRocca, Thibaud Colas)
+* Add ``after_publish_page``, ``before_publish_page``, ``after_unpublish_page`` & ``before_unpublish_page`` hooks (Jonatas Baldin, Coen van der Kamp)
+* Add convenience ``page_url`` shortcut to improve how page URLs can be accessed from site settings in Django templates (Andy Babic)
+* Show more granular error messages from Pillow when uploading images (Rick van Hattem)
+* Add ordering to ``Site`` object, so that index page and ``Site`` switcher will be sorted consistently (Coen van der Kamp, Tim Leguijt)
+* Add Reddit to oEmbed provider list (Luke Hardwick)
+* Add ability to replace the default Wagtail logo in the userbar, via ``branding_logo`` block (Meteor0id)
+* Add ``alt`` property to ``ImageRenditionField`` api representation (Liam Mullens)
+* Add ``purge_revisions`` management command to purge old page revisions (Jacob Topp-Mugglestone, Tom Dyson)
+* Render the Wagtail User Bar on non ``Page`` views (Caitlin White, Coen van der Kamp)
+* Add ability to define ``form_classname`` on ``ListBlock`` & ``StreamBlock`` (LB (Ben Johnston))
+* Add documentation about how to use ``Rustface`` for image feature detection (Neal Todd)
+* Improve performance of public/not_public queries in ``PageQuerySet`` (Timothy Bautista)
+* Add ``add_redirect`` static method to ``Redirect`` class for programmatic redirect creation (Brylie Christopher Oxley, Lacey Williams Henschel)
+* Add reference documentation for ``wagtail.contrib.redirects`` See :ref:`redirects`. (LB (Ben Johnston))
+* ``bulk_delete`` page permission is no longer required to move pages, even if those pages have children (Robert Rollins, LB (Ben Johnston))
+* Add ``after_edit_snippet``, ``after_create_snippet`` and ``after_delete_snippet`` hooks and documentation (Kalob Taulien)
+* Improve performance of empty search results by avoiding downloading the entire search index in these scenarios (Lars van de Kerkhof, Coen van der Kamp)
+* Replace ``gulp-sass`` with ``gulp-dart-sass`` to improve core development across different platforms (Thibaud Colas)
+* Remove markup around rich text rendering by default, provide a way to use old behavior via ``wagtail.contrib.legacy.richtext``. See :doc:`/reference/contrib/legacy_richtext`. (Coen van der Kamp, Dan Braghis)
+* Add ``WAGTAIL_TIME_FORMAT`` setting (Jacob Topp-Mugglestone)
+* Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
+* Allow omitting the default editor from ``WAGTAILADMIN_RICH_TEXT_EDITORS`` (Gassan Gousseinov)
+* Disable password auto-completion on user creation form (Samir Shah)
+* Upgrade jQuery to version 3.5.1 to reduce penetration testing false positives (Matt Westcott)
+* Add ability to extend ``EditHandler`` without a children attribute (Seb Brown)
+* ``Page.objects.specific`` now gracefully handles pages with missing specific records (Andy Babic)
+* StreamField 'add' buttons are now disabled when maximum count is reached (Max Gabrielsson)
+* Use underscores for form builder field names to allow use as template variables (Ashia Zawaduk, LB (Ben Johnston))
+* Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
+* Improve error feedback when editing a page with a missing model class (Andy Babic)
+* Change Wagtail tabs implementation to only allow slug-formatted tab identifiers, reducing false positives from security audits (Matt Westcott)
+* Ensure errors during Postgres search indexing are left uncaught to assist troubleshooting (Karl Hobley)
+* Add ability to edit images and embeds in rich text editor (Maylon Pedroso, Samuel Mendes, Gabriel Peracio)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
+* ``AbstractEmailForm`` saved submission fields are now aligned with the email content fields, ``form.cleaned_data`` will be used instead of ``form.fields`` (Haydn Greatnews)
+* Removed ARIA ``role="table"`` from TableBlock output (Thibaud Colas)
+* Set Cache-Control header to prevent page preview responses from being cached (Tomas Walch)
+* Accept unicode characters in slugs on the "copy page" form (François Poulain)
+* Support IPv6 domain (Alex Gleason, Coen van der Kamp)
+* Remove top padding when ``FieldRowPanel`` is used inside a ``MultiFieldPanel`` (Jérôme Lebleu)
+* Add Wagtail User Bar back to page previews and ensure moderation actions are available (Coen van der Kamp)
+* Fix issue where queryset annotations were lost (e.g. ``.annotate_score()``) when using specific models in page query (Dan Bentley)
+* Prevent date/time picker from losing an hour on losing focus when 12-hour times are in use (Jacob Topp-Mugglestone)
+* Strip out HTML tags from ``RichTextField`` & ``RichTextBlock`` search index content (Timothy Bautista)
+* Avoid using null on string ``Site.site_name`` blank values to avoid different values for no name (Coen van der Kamp)
+* Fix deprecation warnings on Elasticsearch 7 (Yngve Høiseth)
+* Remove use of Node.forEach for IE 11 compatibility in admin menu items (Thibaud Colas)
+* Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
+* ``wagtail.contrib.sitemaps`` no longer depends on SiteMiddleware (Matt Westcott)
+* Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
+* Image / document forms now display non-field errors such as ``unique_together`` constraints (Matt Westcott)
+* Make "Site" chooser in site settings translatable (Andreas Bernacca)
+* Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
+
+
+Upgrade considerations
+======================
+
+Removed support for Python 3.5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python 3.5 is no longer supported as of this release; please upgrade to Python 3.6 or above before upgrading Wagtail.
+
+
+Move to new configurable moderation system (workflow)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new workflow system has been introduced for moderation. Task types are defined as models in code, and instances - tasks - are created in the Wagtail Admin,
+then chained together to form workflows: sequences of moderation stages through which a page must pass prior to publication.
+
+Key points:
+
+* Prior to 2.10, moderation in Wagtail was performed on a per-revision basis: once submitted, the moderator would approve or reject
+  the submitted revision only, which would not include subsequent changes. Moderation is now performed per page, with moderators
+  always seeing the latest revision.
+* ``PageRevision.submitted_for_moderation`` will return ``True`` for revisions passing through the old moderation system, but not for the new system
+* Pages undergoing moderation in the old system will not have their moderation halted, and can still be approved/rejected. As a result, you may see
+  two sets of moderation dashboard panels until there are no longer any pages in moderation in the old system
+* No pages can be submitted for moderation in the old system: "Submit for moderation" now submits to the new Workflow system
+* You no longer need the publish permission to perform moderation actions on a page - actions available to each user are now configured per task.
+  With the built in ``GroupApprovalTask``, anybody in a specific set of groups can approve or reject the task.
+* A data migration is provided to recreate your existing publish-permission based moderation workflow in the new system. If you have made no permissions changes,
+  this should simply create a task approvable by anybody in the `Moderators` group, and assign a workflow with this task to the root page, creating a standard workflow
+  for the entire page tree. However, if you have a complex nested set of publish page permissions, the created set of workflows will be more complex as well - you may wish to
+  inspect the created workflows and tasks in the new ``Settings/Workflows`` admin area and potentially simplify them.
+  See our How-to: `Configure workflows for moderation <https://guide.wagtail.org/en-latest/how-to-guides/configure-workflows-for-moderation/>`_ for the administrator guide.
+
+
+``<div class="rich-text">`` wrappers removed from rich text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, rich text values were enclosed in a ``<div class="rich-text">`` element when rendered; this element has now been removed.
+To restore the old behaviour, see :doc:`/reference/contrib/legacy_richtext`.
+
+
+Prepopulating data for site history report
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release introduces logging of user actions, viewable through the "Site history" report. To pre-populate these logs with data from page revision history, run the management command: ``./manage.py create_log_entries_from_revisions``.
+
+
+``clean_name`` field added to form builder form field models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A ``clean_name`` field has been added to form field models that extend ``AbstractForm``. This is used as the name attribute of the HTML form field, and the dictionary key that the submitted form data is stored under. Storing this on the model (rather than calculating it on-the-fly as was done previously) ensures that if the algorithm for generating the clean name changes in future, the existing data will not become inaccessible. A future version of Wagtail will drop the ``unidecode`` library currently used for this.
+
+For forms created through the Wagtail admin interface, no action is required, as the new field will be populated on server startup. However, any process that creates form pages through direct insertion on the database (such as loading from fixtures) should now be updated to populate ``clean_name``.
+
+
+New ``next_url`` keyword argument on ``register_page_listing_buttons`` and ``register_page_listing_more_buttons`` hooks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Functions registered through the hooks ``register_page_listing_buttons`` and ``register_page_listing_more_buttons`` now accept an additional keyword argument ``next_url``. A hook function currently written as:
+
+.. code-block:: python
+
+    @hooks.register('register_page_listing_buttons')
+    def page_listing_more_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.Button(
+            'My button', '/goes/to/a/url/', priority=60
+        )
+
+should now become:
+
+.. code-block:: python
+
+    @hooks.register('register_page_listing_buttons')
+    def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
+        yield wagtailadmin_widgets.Button(
+            'My button', '/goes/to/a/url/', priority=60
+        )
+
+The ``next_url`` argument specifies a URL to redirect back to after the action is complete, and can be passed as a query parameter to the linked URL, if the view supports it.

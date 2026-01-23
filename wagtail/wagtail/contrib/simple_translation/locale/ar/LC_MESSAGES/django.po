@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Younes Oumakhou, 2022
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail simple translation"
+msgstr "ترجمة بسيطة لـ Wagtail"
+
+msgid "Select all"
+msgstr "تحديد الكل"
+
+msgid "Locales"
+msgstr "اللغات"
+
+msgid "All child pages will be created."
+msgstr "سيتم إنشاء جميع الصفحات الفرعية."
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "تضمين الشجرة الفرعية (%(descendant_count)s صفحة)"
+msgstr[1] "تضمين الشجرة الفرعية (%(descendant_count)s صفحة)"
+msgstr[2] "تضمين الشجرة الفرعية (%(descendant_count)s صفحتين)"
+msgstr[3] "تضمين الشجرة الفرعية (%(descendant_count)s صفحة)"
+msgstr[4] "تضمين الشجرة الفرعية (%(descendant_count)s صفحة)"
+msgstr[5] "تضمين الشجرة الفرعية (%(descendant_count)s صفحة)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] "لغة واحدة معطلة لأن الصفحة الأم غير مترجمة."
+msgstr[1] "لغتان معطلتان لأن الصفحتين الأم غير مترجمتين."
+msgstr[2] "بعض اللغات معطلة لأن صفحتي الأم غير مترجمتين."
+msgstr[3] " لغات معطلة لأن بعض الصفحات الأم غير مترجمة."
+msgstr[4] " لغة معطلة لأن بعض الصفحات الأم غير مترجمة."
+msgstr[5] " لغة معطلة لأن بعض الصفحات الأم غير مترجمة."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "ترجمة الصفحة الأم."
+msgstr[1] "ترجمة الصفحة الأم."
+msgstr[2] "ترجمة الصفحتين الأم."
+msgstr[3] "ترجمة الصفحات الأم."
+msgstr[4] "ترجمة الصفحات الأم."
+msgstr[5] "ترجمة الصفحات الأم."
+
+msgid "Can submit translations"
+msgstr "يمكن تقديم الترجمات"
+
+msgid "Submit"
+msgstr "إرسال"
+
+msgid "Translate"
+msgstr "ترجمة"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s لغات"
+
+msgid "Translate page"
+msgstr "ترجمة صفحة"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "تم إنشاء الصفحة '%(page_title)s' بنجاح في %(locales)s"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "ترجمة %(model_name)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "تم إنشاء %(locales)s بنجاح لـ %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "ترجمة هذه الصفحة"

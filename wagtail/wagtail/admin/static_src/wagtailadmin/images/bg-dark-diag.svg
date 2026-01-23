@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg width="5px" height="5px" viewBox="0 0 5 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <style type="text/css">
+            <![CDATA[
+                rect {
+                    fill: #000;
+                    fill-opacity:0.1;
+                }
+            ]]>
+        </style>
+    </defs>
+    <g>
+        <rect x="0" y="4" width="1" height="1"></rect>
+        <rect x="1" y="3" width="1" height="1"></rect>
+        <rect x="2" y="2" width="1" height="1"></rect>
+        <rect x="3" y="1" width="1" height="1"></rect>
+        <rect x="4" y="0" width="1" height="1"></rect>
+    </g>
+</svg>

@@ -1,0 +1,113 @@
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+
+$sidebar-toggle-spacing: 12px;
+$sidebar-toggle-size: 35px;
+
+@mixin sidebar-toggle() {
+  @include transition(background-color $menu-transition-duration ease);
+
+  position: absolute;
+  top: $sidebar-toggle-spacing;
+  inset-inline-start: $sidebar-toggle-spacing;
+  color: theme('colors.text-label-menus-default');
+  width: $sidebar-toggle-size;
+  height: $sidebar-toggle-size;
+  background: transparent;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
+
+  svg {
+    width: 15px;
+    height: 16px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    position: static;
+    inset-inline-end: $sidebar-toggle-spacing;
+    inset-inline-start: initial;
+  }
+
+  .has-messages & {
+    top: $sidebar-toggle-spacing + 70px;
+
+    @include media-breakpoint-up(sm) {
+      top: $sidebar-toggle-spacing;
+    }
+  }
+}
+
+.sidebar,
+.sidebar-loading {
+  @apply w-fixed w-flex w-flex-col w-h-full w-bg-surface-menus w-z-sidebar w-transition-sidebar;
+  width: $menu-width;
+  inset-inline-start: 0;
+
+  @media (forced-colors: active) {
+    border-inline-end: 1px solid transparent;
+  }
+  @include dark-theme-more-contrast() {
+    border-inline-end: 1px solid theme('colors.border-furniture-more-contrast');
+  }
+
+  .icon--menuitem {
+    width: 1rem;
+    height: 1rem;
+    min-width: 1rem;
+    // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
+    margin: 0.046875rem 0;
+  }
+
+  &--slim {
+    width: $menu-width-slim;
+  }
+
+  // The sidebar can move completely off-screen in mobile mode for extra room
+  &--hidden {
+    $neg-menu-width: -($menu-width);
+    inset-inline-start: $neg-menu-width;
+  }
+
+  // When sidebar is completely closed and animations have finished
+  &--closed {
+    display: none;
+  }
+
+  &__inner {
+    // On medium, make it possible for the nav links to scroll.
+    @apply w-h-full w-bg-surface-menus w-flex w-flex-col w-flex-nowrap;
+  }
+
+  &__collapse-toggle {
+    @include sidebar-toggle;
+    // All other styling is done with utility classes on this element
+  }
+
+  // When in mobile mode, hide the collapse-toggle and show the nav-toggle (which is defined in the .sidebar-nav-toggle class below)
+  &--mobile &__collapse-toggle {
+    display: none;
+  }
+}
+
+.sidebar-collapsed .sidebar-loading {
+  width: $menu-width-slim;
+}
+
+// This is a separate component as it needs to display in the header
+.sidebar-nav-toggle {
+  @apply w-z-sidebar-toggle;
+  display: none; // Nav toggle is for mobile only
+
+  @include sidebar-toggle;
+
+  &--mobile {
+    @apply w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active;
+    display: grid;
+  }
+
+  &--open {
+    @apply w-fixed hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
+  }
+}

@@ -1,0 +1,45 @@
+{% extends 'wagtailadmin/notifications/base.html' %}
+{% load wagtailadmin_tags i18n %}
+{% base_url_setting default="" as base_url %}
+
+{% block content %}
+    {% if page %}
+        <p>{% blocktrans trimmed with task=task.name title=page.get_admin_display_title %}The page "{{ title }}" has been submitted for approval in moderation stage "{{ task }}".{% endblocktrans %}</p>
+
+        <p>
+            {% trans "You can preview the page here:" %} <a href="{{ base_url }}{% url 'wagtailadmin_pages:workflow_preview' page.id task.id %}">{{ base_url }}{% url 'wagtailadmin_pages:workflow_preview' page.id task.id %}</a><br/>
+            {% trans "You can edit the page here:" %} <a href="{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}</a>
+        </p>
+    {% else %}
+        {% latest_str object as title %}
+        {% admin_edit_url object user as edit_url %}
+        {% admin_url_name object 'workflow_preview' as workflow_preview_url_name %}
+        {% url workflow_preview_url_name object.pk|admin_urlquote as preview_url %}
+        <p>
+            {% blocktrans trimmed with title=title task=task.name model_name=model_name asvar message %}
+                The {{ model_name }} "{{ title }}" has been submitted for approval in moderation stage "{{ task }}".
+            {% endblocktrans %}
+            {{ message|capfirst }}
+        </p>
+
+        {% if object.is_previewable or edit_url %}
+            <p>
+                {% if object.is_previewable %}
+                    {% blocktrans trimmed with model_name=model_name asvar preview_message %}
+                        You can preview the {{ model_name }} here:
+                    {% endblocktrans %}
+                    {{ preview_message|capfirst }}
+                    <a href="{{ base_url }}{{ preview_url }}">{{ base_url }}{{ preview_url }}</a>
+                    <br/>
+                {% endif %}
+                {% if edit_url %}
+                    {% blocktrans trimmed with model_name=model_name asvar edit_message %}
+                        You can edit the {{ model_name }} here:
+                    {% endblocktrans %}
+                    {{ edit_message|capfirst }}
+                    <a href="{{ base_url }}{{ edit_url }}">{{ base_url }}{{ edit_url }}</a>
+                {% endif %}
+            </p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

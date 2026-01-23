@@ -1,0 +1,837 @@
+@use '../tools' as *;
+
+/* stylelint-disable selector-max-combinators */
+// General listings, like for pages, images or snippets
+ul.listing {
+  @include unlist();
+}
+
+.listing {
+  margin-bottom: 2em;
+  color: theme('colors.text-context');
+  font-size: 0.95em;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding-inline-start: 0;
+  }
+
+  > li {
+    padding: 1em 0;
+    border-bottom: 1px dashed theme('colors.border-field-default');
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1em;
+  }
+
+  td,
+  th {
+    text-align: start;
+    padding: calc(1em * var(--w-density-factor)) 0.3em;
+
+    @include media-breakpoint-up(sm) {
+      padding: calc(1em * var(--w-density-factor)) 1em;
+    }
+
+    &.no-padding {
+      padding: 0;
+    }
+  }
+
+  &.small td,
+  th {
+    padding: 0.6em 0.3em;
+
+    @include media-breakpoint-up(sm) {
+      padding: 0.6em 1em;
+    }
+  }
+
+  td {
+    vertical-align: middle;
+
+    &.wrap-anywhere {
+      overflow-wrap: anywhere;
+    }
+  }
+
+  td.title {
+    line-height: 2em;
+  }
+
+  thead {
+    font-size: 1.1em;
+    color: theme('colors.text-context');
+    border-bottom: 1px solid theme('colors.border-furniture');
+
+    th {
+      font-size: 0.9em;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+
+    th.title {
+      white-space: normal;
+    }
+
+    th.children {
+      border: 0;
+    }
+
+    th a.label:not(.teal) {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+
+      &.icon:after {
+        inset-inline-end: 0;
+      }
+    }
+  }
+
+  &:has(
+    td:first-child input[type='checkbox']:only-child,
+    th:first-child input[type='checkbox']:only-child
+  ) {
+    td:first-child,
+    th:first-child {
+      // Bulk actions, use smaller width (48px) for smaller screens
+      // (no need to match where the breadcrumbs are)
+      width: theme('spacing.10');
+      text-align: center;
+
+      // stylelint-disable-next-line selector-max-specificity
+      input[type='checkbox'] {
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  &.full-width {
+    margin-bottom: -3em; // this negates the padding added to the bottom of .content
+  }
+
+  .table-headers {
+    border-bottom: 1px solid theme('colors.border-furniture');
+  }
+
+  tbody {
+    border-bottom: 1px dashed theme('colors.border-field-default');
+
+    tr {
+      border-top: 1px dashed theme('colors.border-furniture');
+
+      &:first-child {
+        border-top: 1px dashed theme('colors.border-furniture');
+      }
+    }
+
+    tr.selected {
+      background-color: theme('colors.text-highlight');
+    }
+  }
+
+  &.full-width tbody {
+    border: 0;
+  }
+
+  &.chooser {
+    tbody .parent-page {
+      font-size: 1.15em;
+      background-color: theme('colors.border-furniture');
+    }
+
+    tbody .parent-page .title {
+      a {
+        display: inline-block;
+      }
+
+      .w-status--label {
+        border: 1px solid;
+      }
+    }
+
+    tbody .title a {
+      @include transition(none);
+      display: block;
+    }
+
+    tbody tr:hover {
+      background-color: theme('colors.surface-button-hover');
+      color: theme('colors.text-button');
+
+      .title a,
+      .title a:hover,
+      .title label {
+        color: theme('colors.text-button');
+      }
+
+      .parent a {
+        color: theme('colors.text-button');
+      }
+
+      .w-status {
+        border-color: theme('colors.text-button');
+      }
+    }
+
+    tbody tr.disabled td {
+      opacity: 0.25;
+    }
+
+    tbody tr.disabled td.children {
+      opacity: 1;
+    }
+
+    tbody tr.disabled:hover {
+      background-color: inherit;
+      color: inherit;
+
+      .title {
+        cursor: not-allowed;
+      }
+
+      .w-status {
+        border-color: inherit;
+      }
+    }
+  }
+
+  &.small tbody tr {
+    font-size: 1em;
+  }
+
+  &.full-width .divider td {
+    padding-inline-start: 20px;
+  }
+
+  // specific columns
+  .bulk {
+    padding-inline-end: 0;
+
+    label {
+      font-size: 1em;
+      display: block;
+      width: 100%;
+      position: relative;
+    }
+
+    label span {
+      @apply w-sr-only;
+    }
+
+    input {
+      margin-top: 3px;
+    }
+  }
+
+  .title {
+    word-break: break-word;
+
+    .title-wrapper,
+    h2 {
+      @apply w-label-1;
+      display: inline;
+      margin: 0;
+      vertical-align: middle;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+
+        // stylelint-disable max-nesting-depth
+        &:hover {
+          color: theme('colors.text-link-default');
+        }
+      }
+    }
+
+    .icon-folder {
+      margin: 3px 0.3em 0 0;
+      vertical-align: top;
+    }
+  }
+
+  .actions {
+    float: inline-end;
+    font-size: 0.8rem;
+    margin: 0;
+
+    a {
+      text-decoration: none;
+    }
+
+    > li {
+      float: inline-start;
+      padding: 0 0.5em 0 0;
+      vertical-align: middle;
+    }
+  }
+
+  .moderate-actions form {
+    float: inline-start;
+    margin: 0 1em 1em 0;
+  }
+
+  .children,
+  .no-children {
+    padding: 0;
+    vertical-align: middle;
+
+    a {
+      display: block;
+      padding: 0;
+    }
+  }
+
+  .children a {
+    color: theme('colors.text-button-outline-default');
+    display: block;
+    text-align: center;
+
+    .icon {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  .no-children a {
+    color: theme('colors.text-button-outline-default');
+    display: block;
+    text-align: center;
+    line-height: 3rem;
+
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    &:hover,
+    &:focus {
+      color: theme('colors.text-button-outline-hover');
+    }
+
+    &:focus {
+      opacity: 1; //opacity is already changed on hover on the parent tr
+    }
+  }
+
+  &.small .children a .icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  th.ord {
+    text-align: center;
+
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      vertical-align: middle;
+      margin-inline-end: 2px;
+    }
+
+    &--active a,
+    a:hover {
+      color: theme('colors.text-button-outline-hover');
+    }
+  }
+
+  .w-orderable__item--active {
+    border: 1px dashed theme('colors.border-field-default');
+    border-width: 1px 0;
+
+    td {
+      display: none;
+    }
+
+    .ord,
+    .title {
+      display: table-cell;
+    }
+  }
+
+  .w-orderable__item__handle {
+    cursor: move;
+  }
+
+  table .no-results-message {
+    padding-inline-start: 20px;
+  }
+
+  .w-status {
+    margin: 0;
+    margin-inline: 0;
+  }
+
+  &.images img {
+    @include transition(border-color 0.2s ease);
+    border: 3px solid theme('colors.surface-page');
+  }
+
+  &--dashboard {
+    margin-bottom: 0;
+
+    tbody {
+      border-bottom: 0;
+    }
+
+    th:first-child,
+    td:first-child {
+      padding-inline-start: theme('spacing.6');
+    }
+
+    th:last-child,
+    td:last-child {
+      padding-inline-end: theme('spacing.6');
+    }
+
+    .title a {
+      font-weight: theme('fontWeight.medium');
+    }
+
+    .w-status--label {
+      float: inline-end;
+      font-size: inherit;
+    }
+
+    .indicator .icon {
+      padding: 0;
+    }
+
+    .privacy-indicator {
+      margin-inline-end: theme('spacing.2');
+
+      // Adjust icon size to closely match the appearance of the adjacent 'locked' icon
+      .icon-no-view {
+        width: 1.1em;
+        height: 1.1em;
+      }
+    }
+
+    .tasks {
+      text-wrap: nowrap;
+    }
+
+    .actions li {
+      float: inline-end;
+    }
+
+    @include media-breakpoint-down(md) {
+      display: grid;
+
+      tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: theme('spacing.2');
+        padding: theme('spacing.5');
+      }
+
+      td,
+      td:first-child,
+      td:last-child {
+        padding: 0;
+      }
+
+      .title {
+        width: 100%;
+      }
+
+      .actions-container {
+        margin-inline-start: auto;
+      }
+    }
+  }
+}
+
+.image-choice {
+  // Force the link to be displayed as a block, so its focus outline has the right shape.
+  display: block;
+  color: inherit;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.image-choice--list {
+  display: inline-block;
+  line-height: 0;
+}
+
+// stylelint-disable-next-line no-duplicate-selectors
+ul.listing {
+  border-top: 1px dashed theme('colors.border-field-default');
+  margin-bottom: 2em;
+}
+
+table.listing {
+  width: 100%;
+}
+
+// Use consistent spacing to the left and right of the header.
+.page-explorer .w-slim-header {
+  @include media-breakpoint-up(md) {
+    padding-inline-end: theme('spacing.6');
+  }
+}
+
+.page-explorer .listing {
+  position: relative;
+
+  .table-headers,
+  thead tr {
+    height: 35px;
+  }
+}
+
+.pagination {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  @include media-breakpoint-up(sm) {
+    flex-wrap: nowrap;
+  }
+
+  &__start,
+  &__end {
+    display: flex;
+    flex: 1;
+    @include media-breakpoint-down(md) {
+      flex-basis: auto;
+    }
+  }
+
+  &__end {
+    justify-content: end;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  ul {
+    @include unlist();
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  li {
+    line-height: 1em;
+    display: flex;
+    align-items: center;
+
+    a:not([href]) {
+      visibility: hidden;
+    }
+
+    a,
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.pagination__page-number {
+      a,
+      span {
+        font-weight: theme('fontWeight.medium');
+        height: theme('spacing.8');
+        min-width: theme('spacing.8');
+        margin: theme('spacing.1');
+      }
+
+      a {
+        border: 1px solid theme('colors.border-furniture');
+        border-radius: theme('borderRadius.sm');
+        color: theme('colors.text-label');
+        padding: theme('spacing.1') theme('spacing.2');
+      }
+
+      &.pagination__page-number--current a {
+        background-color: theme('colors.surface-button-default');
+        border-color: transparent;
+        color: theme('colors.text-button');
+      }
+
+      &:hover a {
+        background-color: theme('colors.surface-button-outline-hover');
+        border-color: theme('colors.border-button-outline-hover');
+        color: theme('colors.text-button-outline-hover');
+      }
+    }
+  }
+
+  .prev,
+  .next {
+    margin: 0 0.5rem;
+  }
+}
+
+.listing.full-width + .pagination {
+  margin-top: 3em;
+  border-top: 1px dashed theme('colors.border-furniture');
+  padding: 2em 50px 0;
+}
+
+// listing filters
+.listing-filter {
+  @include clearfix();
+  background-color: theme('colors.surface-header');
+  border-width: 1px 0;
+  margin: 3em 0;
+}
+
+.filter-title {
+  float: inline-start;
+  font-size: 0.95em;
+  padding: 1em;
+  margin: 0 1em 0 0;
+  background-color: theme('colors.border-furniture');
+}
+
+.filter-options {
+  @include unlist();
+  @include clearfix();
+  overflow: hidden;
+
+  li {
+    padding: 0.8em;
+    float: inline-start;
+  }
+
+  &__icon {
+    width: 1em;
+    height: 1em;
+    margin-inline-end: 0.2em;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .listing {
+    &.horiz {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      align-items: flex-end;
+      justify-items: initial;
+    }
+
+    &.images {
+      border: 0;
+
+      > li {
+        padding: 1.5em;
+        width: auto;
+        height: auto;
+        text-align: center;
+        margin-top: -1px;
+        border: 0;
+
+        .bulk-action-checkbox {
+          float: inline-start;
+          margin: -0.5em 0.5em 0.5em -0.75em;
+        }
+
+        .bulk-action-checkbox + .image-choice {
+          clear: both;
+          margin-top: 1em;
+        }
+
+        .image {
+          text-align: center;
+          height: 180px;
+
+          // Vertically center the image.
+          &:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-inline-end: -0.25em;
+          }
+
+          img {
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+
+        &:hover {
+          img {
+            border-color: theme('colors.border-button-outline-default');
+          }
+        }
+      }
+    }
+
+    .bulk-action-checkbox {
+      opacity: 0;
+
+      &.show,
+      &:checked {
+        opacity: 1;
+      }
+    }
+
+    .no-children {
+      border-color: transparent;
+
+      a {
+        opacity: 0;
+      }
+    }
+
+    tr:hover,
+    tr:focus-within {
+      .no-children a,
+      .bulk-action-checkbox {
+        opacity: 1;
+      }
+    }
+
+    // used on the image listing
+    li:hover,
+    li:focus-within {
+      .bulk-action-checkbox {
+        opacity: 1;
+      }
+    }
+
+    tr:hover .children {
+      background-color: theme('colors.text-button-outline-default');
+
+      .icon {
+        color: theme('colors.surface-page');
+      }
+    }
+
+    td.children:hover {
+      background-color: theme('colors.text-button-outline-default');
+    }
+
+    table .no-results-message {
+      padding-inline-start: 50px;
+    }
+
+    &:has(
+      td:first-child input[type='checkbox']:only-child,
+      th:first-child input[type='checkbox']:only-child
+    ) {
+      // Bulk actions, match the width of the header spacing up until
+      // the page title (final breadcrumb item):
+      // Breadcrumbs left padding: 20px
+      // Breadcrumbs toggle: 50px
+      // Breadcrumbs toggle margin right: 10px
+      // Total: 80px
+      th:first-child,
+      td:first-child {
+        width: theme('spacing.20');
+        // Follow the left padding for the breadcrumbs (20px)
+        // so the checkbox align with the breadcrumbs toggle.
+        padding-inline-start: theme('spacing.5');
+      }
+    }
+
+    // Remove left padding from the second column if either bulk action or
+    // custom ordering is active, as the padding to match the breadcrumbs is
+    // already handled by the first column.
+    &:has(
+      td:first-child input[type='checkbox']:only-child,
+      th:first-child input[type='checkbox']:only-child,
+      .ord
+    ) {
+      th:nth-child(2),
+      td:nth-child(2) {
+        padding-inline-start: 0;
+      }
+    }
+
+    // If either:
+    // - no nice padding is applied,
+    // - we're not in a report listing,
+    // - we're not in the editor view,
+    // - we're not in the dashboard view,
+    // and:
+    // - no bulk actions are present,
+    // - we're not in the "custom ordering" mode,
+    // then apply the same 80px padding via the first column's left padding.
+    &:not(.nice-padding &, .report &, .editor-view &, .w-dashboard &):not(
+        :has(
+          td:first-child input[type='checkbox']:only-child,
+          th:first-child input[type='checkbox']:only-child,
+          .ord
+        )
+      ) {
+      // stylelint-disable-next-line selector-max-specificity
+      th:first-child,
+      td:first-child {
+        padding-inline-start: theme('spacing.20');
+      }
+    }
+
+    &.full-width .divider td {
+      padding-inline-start: 50px;
+    }
+  }
+}
+
+// State
+.listing__item--active {
+  > .actions {
+    visibility: visible;
+  }
+}
+
+// stylelint-disable no-duplicate-selectors
+
+// Transitions
+.listing {
+  .children,
+  .no-children {
+    @include transition(background-color 0.2s ease);
+  }
+
+  .children a,
+  .no-children a {
+    @include transition(all 0.2s ease);
+  }
+}
+
+// Ordering
+td.ord {
+  // Align with the row's title text, and the column's label.
+  vertical-align: top;
+}
+
+table.listing {
+  th.ordered {
+    color: theme('colors.text-link-default');
+  }
+}
+
+.w-title-ellipsis {
+  display: inline-block;
+  vertical-align: bottom;
+  max-width: 20ch;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @include media-breakpoint-up(sm) {
+    max-width: 30ch;
+  }
+
+  @include media-breakpoint-up(md) {
+    max-width: none;
+  }
+}

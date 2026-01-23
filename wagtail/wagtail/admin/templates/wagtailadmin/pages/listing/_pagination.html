@@ -1,0 +1,29 @@
+{% load i18n wagtailadmin_tags l10n %}
+
+{% comment %}
+Pagination for page listings. Used by the `{% paginate %}` template tag.
+{% endcomment %}
+
+<nav class="pagination" aria-label="{% trans 'Pagination' %}">
+    <p>{% blocktrans trimmed with page_number=page.number|intcomma num_pages=paginator.num_pages|intcomma %}
+        Page {{ page_number }} of {{ num_pages }}.
+    {% endblocktrans %}</p>
+    <ul>
+        <li class="prev">
+            {% if page.has_previous %}
+                <a data-page="{{ page.previous_page_number|unlocalize }}" href="{{ base_url }}{% pagination_querystring page.previous_page_number page_key=page_key %}" class="{{ classname }}">
+                    {% icon name="arrow-left" classname="default" %}
+                    {% trans "Previous" %}
+                </a>
+            {% endif %}
+        </li>
+        <li class="next">
+            {% if page.has_next %}
+                <a data-page="{{ page.next_page_number|unlocalize }}" href="{{ base_url }}{% pagination_querystring page.next_page_number page_key=page_key %}" class="{{ classname }}">
+                    {% trans "Next" %}
+                    {% icon name="arrow-right" classname="default" %}
+                </a>
+            {% endif %}
+        </li>
+    </ul>
+</nav>

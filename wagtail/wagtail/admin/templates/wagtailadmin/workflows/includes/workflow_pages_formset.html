@@ -1,0 +1,47 @@
+{% load i18n wagtailadmin_tags %}
+<h2>{% trans "Assigned pages" %}</h2>
+
+{{ formset.management_form }}
+
+{% if formset.non_form_errors %}
+    <p class="error-message">
+        {% for error in formset.non_form_errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
+
+<table class="listing">
+    <col />
+    <col />
+    <thead>
+        <tr>
+            <th>{% trans "Page" %}</th>
+            <th aria-label="{% trans 'Action' %}"></th>
+        </tr>
+    </thead>
+    <tbody id="id_{{ formset.prefix }}-FORMS" data-w-formset-target="forms">
+        {% for form in formset.forms %}
+            <tr id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} hidden data-w-formset-target="deleted"{% else %} data-w-formset-target="child"{% endif %}>
+                {% if form.non_field_errors %}
+                    <p class="error-message">
+                        {% for error in form.non_field_errors %}
+                            <span>{{ error|escape }}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% include "wagtailadmin/workflows/includes/workflow_pages_form.html" with form=form only %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<template id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE" data-w-formset-target="template">
+    <tr id="inline_child_{{ formset.empty_form.prefix }}" data-w-formset-target="child">
+        {% include "wagtailadmin/workflows/includes/workflow_pages_form.html" with form=formset.empty_form only %}
+    </tr>
+</template>
+
+<p class="add">
+    <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button" data-action="w-formset#add">{% icon name="plus" wrapped=1 %}{% trans "Assign to another page" %}</button>
+</p>

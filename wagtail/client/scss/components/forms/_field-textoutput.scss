@@ -1,0 +1,30 @@
+@use 'sass:map';
+@use '../../settings' as *;
+@use './input-base' as *;
+
+/**
+ * A container for rendering human-readable field values in forms in a way
+ that makes them 'focusable' without rendering an actual input.
+ */
+
+.w-field__textoutput {
+  @apply w-body-text-large;
+  width: 100%;
+  padding: theme('spacing.[1.5]') theme('spacing.5');
+  min-height: $text-input-height;
+  position: relative;
+  overflow: hidden;
+  overflow-wrap: break-word;
+
+  @include input-base();
+
+  // stylelint-disable-next-line no-duplicate-selectors, scss/selector-no-redundant-nesting-selector
+  & {
+    background-color: theme('colors.surface-field-inactive');
+  }
+
+  &,
+  &:hover {
+    border-color: theme('colors.border-field-inactive');
+  }
+}

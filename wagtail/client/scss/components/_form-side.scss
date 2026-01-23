@@ -1,0 +1,109 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:math';
+@use '../tools' as *;
+
+.side-panel-open {
+  @apply w-overflow-y-hidden sm:w-overflow-y-auto;
+}
+
+.side-panel-resizing {
+  @apply w-select-none w-cursor-ew-resize;
+
+  .form-side {
+    @apply w-transition;
+  }
+}
+
+.form-side {
+  @apply w-absolute
+      w-right-0
+      w-top-full
+      w-h-[calc(100vh-100%)]
+      w-invisible
+      w-transform
+      w-translate-x-full
+      rtl:-w-translate-x-full
+      w-bg-surface-page
+      w-box-border
+      w-transition-all
+      motion-reduce:w-transition-none
+      w-duration-300
+      w-border-l
+      w-border-border-furniture
+      w-min-w-full
+      md:w-min-w-[22.875rem]
+      w-max-w-full
+      sm:w-max-w-[22.5rem]
+      md:w-max-w-[35.937rem]
+      lg:w-max-w-[31.25rem]
+      xl:w-max-w-[46.875rem]
+      more-contrast:w-border-border-furniture-more-contrast;
+  z-index: calc(theme('zIndex.header') - 10);
+  width: var(--side-panel-width, 100%);
+
+  @include media-breakpoint-up(md) {
+    width: var(--side-panel-width, theme('width.[1/3]'));
+  }
+
+  &--open {
+    @apply w-translate-x-0 rtl:w-translate-x-0 w-visible;
+  }
+
+  &--initial {
+    @apply w-transition-none;
+  }
+
+  &--preview {
+    @apply sm:w-max-w-[70vw];
+  }
+
+  &__close-button {
+    @apply w-text-icon-primary w-absolute w-left-3 w-top-3 hover:w-text-icon-primary-hover w-bg-surface-page w-p-3 w-transition;
+
+    .icon {
+      @apply w-w-4 w-h-4;
+    }
+  }
+
+  &:has(.form-side__resize-grip:is(:hover, :focus-within)) {
+    @apply w-text-icon-secondary-hover;
+  }
+
+  &__resize-grip-container {
+    @apply w-absolute w-place-items-center w-hidden md:w-flex w-z-10 w-left-0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &__resize-grip {
+    @apply w-text-icon-secondary hover:w-text-icon-secondary-hover w-border w-border-transparent w-rounded w-bg-surface-page w-py-2.5 w-pl-2.5 w-hidden w-touch-pinch-zoom w-cursor-ew-resize;
+
+    .form-side--open & {
+      @apply w-flex;
+    }
+
+    &:focus-within:has(:focus-visible) {
+      @include focus-outline;
+    }
+  }
+
+  &__resize-grip-icon {
+    width: 0.3125rem;
+    height: 1.375rem;
+    border-inline-start: 1px solid currentColor;
+    border-inline-end: 1px solid currentColor;
+
+    @media (forced-colors: active) {
+      background-color: ButtonText;
+    }
+  }
+
+  &__width-input {
+    @apply w-w-0 w-h-0 w-opacity-0 w-absolute w-pointer-events-none;
+  }
+
+  &__panel {
+    @apply w-px-5 xl:w-px-10 w-py-4 w-w-full w-h-full w-overflow-y-auto w-scrollbar-thin;
+  }
+}

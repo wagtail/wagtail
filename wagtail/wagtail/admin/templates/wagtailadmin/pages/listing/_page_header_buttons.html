@@ -1,0 +1,12 @@
+{% load wagtailadmin_tags i18n %}
+
+{% trans "Actions" as title %}
+<nav aria-label="{{ title }}">
+    {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=title toggle_classname="w-p-0 w-outline-offset-inside w-relative w-z-30" toggle_tooltip_offset="[0, -2]" %}
+        {% block content %}
+            {% for button in buttons %}
+                {% component button %}
+            {% endfor %}
+        {% endblock %}
+    {% enddropdown %}
+</nav>

@@ -1,0 +1,16 @@
+{% extends "wagtailadmin/generic/form.html" %}
+{% load wagtailimages_tags wagtailadmin_tags i18n %}
+{% block titletag %}{% trans "Add an image" %}{% endblock %}
+
+{% block actions %}
+    <button
+        type="submit"
+        class="button button-longrunning"
+        data-controller="w-progress"
+        data-action="w-progress#activate"
+        data-w-progress-active-value="{% trans 'Uploading…' %}"
+    >
+        {% icon name="spinner" %}
+        <em data-w-progress-target="label">{% trans 'Upload' %}</em>
+    </button>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "wagtailadmin/generic/confirm_delete.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans trimmed with title=redirect.title %}Delete redirect {{ title }}{% endblocktrans %}{% endblock %}
+{% block confirmation_message %}
+    <p>{% trans "Are you sure you want to delete this redirect?" %}</p>
+{% endblock %}

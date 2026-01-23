@@ -1,0 +1,20 @@
+===========================
+Wagtail 2.1.1 release notes
+===========================
+
+*July 4, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Fix ``Site.get_site_root_paths()`` preferring other sites over the default when some sites share the same root_page (Andy Babic)
+* Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
+* Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Matt Westcott)

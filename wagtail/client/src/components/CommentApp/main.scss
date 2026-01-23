@@ -1,0 +1,10 @@
+@use 'components/CommentHeader/style' as CommentHeader;
+@use 'components/Comment/style' as Comment;
+@use 'components/CommentReply/style' as CommentReply;
+
+.comments-list {
+  position: relative;
+  top: 20px;
+  inset-inline-end: 20px;
+  z-index: calc(theme('zIndex.header') + 5);
+}

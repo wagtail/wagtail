@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["ES2023", "ES2023.Intl", "DOM", "DOM.iterable"],
+    "moduleResolution": "node",
+    "noImplicitAny": false, // TODO: Enable once all existing code is typed
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "target": "ES2023"
+  },
+  "files": [
+    "client/src/index.ts",
+    "client/src/custom.d.ts",
+    "client/storybook/stories.d.ts"
+  ],
+  "include": ["client/src", "wagtail"],
+  "exclude": [
+    "node_modules",
+    "static",
+    // Files with template syntax.
+    "wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js"
+  ]
+}

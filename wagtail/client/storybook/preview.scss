@@ -1,0 +1,21 @@
+@use '../scss/settings' as *;
+@use '../scss/tools' as *;
+
+body {
+  font-size: 1rem;
+  overflow-x: auto;
+}
+
+// Fix compatibility issue with Wagtail styles.
+.sbdocs .tag,
+.sbdocs .tag::before,
+h1,
+h2,
+code,
+textarea {
+  all: revert;
+}
+
+.icon {
+  @include svg-icon();
+}

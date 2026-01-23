@@ -1,0 +1,66 @@
+@use 'sass:color';
+@use '../settings' as *;
+
+.w-status {
+  border-radius: 2px;
+  text-align: center;
+  display: inline-block;
+  word-break: normal;
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+  padding: 0 0.5em;
+  border: 1px solid theme('colors.border-furniture');
+  color: theme('colors.text-context');
+  -webkit-font-smoothing: auto;
+  line-height: 19px;
+  font-size: 0.8em;
+  margin: 0 0.5em 0.5em;
+  background: theme('colors.surface-page')
+    url('#{$images-root}bg-dark-diag.svg');
+
+  &.w-status--primary {
+    color: theme('colors.text-meta');
+    background: theme('colors.surface-page');
+  }
+
+  &.w-status--disabled,
+  &[disabled] {
+    pointer-events: none;
+  }
+
+  &--label {
+    padding: theme('spacing.px') theme('spacing.2');
+    color: theme('colors.text-status-label');
+    font-weight: theme('fontWeight.medium');
+    background: theme('colors.surface-status-label');
+    border: 1px solid theme('colors.text-status-label');
+    border-radius: theme('borderRadius.xl');
+    // stylelint-disable-next-line property-disallowed-list
+    text-transform: none;
+  }
+}
+
+.listing .index .w-status--label {
+  border: 1px solid;
+}
+
+button.w-status:hover,
+a.w-status:hover,
+a.w-status.w-status--primary:hover {
+  border-color: theme('colors.border-button-outline-hover');
+  color: theme('colors.text-button-outline-hover');
+}
+
+button.w-status:hover {
+  border-color: theme('colors.border-button-outline-hover');
+  background-color: theme('colors.surface-button-outline-hover');
+  color: theme('colors.text-button-outline-hover');
+}
+
+.page-status-tag {
+  @apply w-inline-flex w-items-center w-justify-center w-whitespace-nowrap w-px-1 w-ml-3 w-text-11 w-rounded-sm w-bg-transparent w-text-text-meta w-border w-border-border-furniture w-no-underline w-font-semibold hover:w-border-surface-menus hover:w-text-text-label w-transition more-contrast:w-border more-contrast:w-border-border-interactive-more-contrast hover:more-contrast:w-border-border-interactive-more-contrast-hover;
+
+  // Special case for text-transform: uppercase.
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+}

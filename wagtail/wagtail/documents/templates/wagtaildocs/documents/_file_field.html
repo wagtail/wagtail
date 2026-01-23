@@ -1,0 +1,6 @@
+{% load i18n wagtailadmin_tags %}
+{% rawformattedfield field=field %}
+    <a href="{{ document.url }}">{% icon name="doc-full-inverse" classname="default" %}{{ document.filename }}</a><br /><br />
+    {% trans "Change document:" %}
+    {{ field }}
+{% endrawformattedfield %}

@@ -1,0 +1,10 @@
+@use '../../tools' as *;
+
+.w-required-mark {
+  color: theme('colors.text-error');
+  margin-inline-start: 0.25ch;
+
+  @include media-breakpoint-up(sm) {
+    margin-inline-start: 0.5ch;
+  }
+}

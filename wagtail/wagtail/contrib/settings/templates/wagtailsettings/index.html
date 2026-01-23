@@ -1,0 +1,26 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Settings" %}{% endblock %}
+{% block bodyclass %}menu-settings{% endblock %}
+{% block content %}
+
+    {% trans "Settings" as settings_str %}
+    {% include "wagtailadmin/shared/header.html" with title=settings_str icon="cogs" %}
+
+    <div class="nice-padding">
+        <ul class="listing">
+            {% for name, description, content_type in setting_types %}
+                <li>
+                    <div class="row row-flush title">
+                        <h2>
+                            <a href="{% url 'wagtailsettings_edit' content_type.app_label content_type.model %}" class="col6">
+                                {{ name|capfirst }}
+                            </a>
+                        </h2>
+                        <small class="col6">{{ description }}</small>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

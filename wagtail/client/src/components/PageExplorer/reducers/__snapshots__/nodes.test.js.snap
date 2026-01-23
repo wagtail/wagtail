@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes GET_CHILDREN_FAILURE 1`] = `
+{
+  "1": {
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 0,
+    "isError": true,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": true,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+}
+`;
+
+exports[`nodes GET_CHILDREN_START 1`] = `
+{
+  "1": {
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": true,
+    "isFetchingTranslations": false,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+}
+`;
+
+exports[`nodes GET_CHILDREN_SUCCESS 1`] = `
+{
+  "1": {
+    "children": {
+      "count": 3,
+      "items": [
+        3,
+        4,
+        5,
+      ],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+  "3": {
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 3,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+  "4": {
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 4,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+  "5": {
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 5,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+}
+`;
+
+exports[`nodes GET_PAGE_FAILURE 1`] = `
+{
+  "1": {
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 0,
+    "isError": true,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": true,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+}
+`;
+
+exports[`nodes GET_PAGE_SUCCESS 1`] = `
+{
+  "1": {
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+}
+`;
+
+exports[`nodes OPEN_EXPLORER 1`] = `
+{
+  "1": {
+    "children": {
+      "count": 0,
+      "items": [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "meta": {
+      "children": {},
+      "parent": null,
+      "status": {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+  },
+}
+`;
+
+exports[`nodes empty state 1`] = `{}`;

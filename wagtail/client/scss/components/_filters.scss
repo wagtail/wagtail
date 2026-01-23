@@ -1,0 +1,32 @@
+@use '../tools' as *;
+
+.filterable {
+  display: grid;
+  grid-template-columns: 1fr minmax(theme('spacing.48'), theme('spacing.64'));
+  grid-column-gap: theme('spacing.12');
+
+  @include media-breakpoint-down(md) {
+    grid-template-columns: auto;
+  }
+}
+
+.filterable__filters {
+  button[type='submit'] {
+    display: block;
+    margin-bottom: theme('spacing.6');
+  }
+
+  input[type='checkbox'] {
+    display: block;
+    margin-bottom: theme('spacing.3');
+  }
+
+  @include media-breakpoint-down(md) {
+    grid-row: 1;
+  }
+}
+
+.w-active-filters {
+  @apply w-m-0 w-py-4 w-bg-surface-header w-border-b w-border-border-furniture w-flex w-flex-wrap w-list-none w-gap-2;
+  @include nice-padding;
+}

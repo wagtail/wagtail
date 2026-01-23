@@ -1,0 +1,40 @@
+{% load i18n wagtailcore_tags wagtailadmin_tags %}
+{% wagtail_version as current_version %}
+<div class="w-panel-upgrade w-flex w-mb-[-2rem] sm:w-mb-0 w-gap-5 w-items-center w-pl-slim-header w-pr-5 sm:w-px-[3.5rem] w-py-5 w-text-text-context w-bg-surface-info-panel w-border-b w-border-transparent"
+     data-controller="w-upgrade w-dismissible"
+     data-w-upgrade-current-version-value="{{ current_version }}"
+     {% if lts_only %}data-w-upgrade-lts-only-value="true"{% endif %}
+     data-w-dismissible-id-value="{{ dismissible_id }}"
+     data-w-dismissible-dismissed-class="w-hidden"
+     hidden>
+    {% icon name='info-circle' classname='w-w-5 w-h-5 w-shrink-0 w-text-text-link-info w-ml-5 sm:w-ml-0' %}
+    <div>
+        <p class="w-mb-1"><strong>{% trans "Wagtail upgrade available" %}</strong></p>
+        <p class="w-mb-0">
+            {% blocktrans trimmed %}
+                Your version: <strong>{{ current_version }}</strong>. New version: <strong data-w-upgrade-target="latestVersion"></strong>.
+            {% endblocktrans %}
+            <a href=""
+               data-w-upgrade-target="link"
+               class="w-text-text-link-info hover:w-text-text-link-info w-underline w-underline-offset-[3px]">{% trans "Read the release notes." %}</a>
+        </p>
+    </div>
+
+    <button
+        type="button"
+        data-action="w-dismissible#toggle"
+        {% if dismissible_value %}data-w-dismissible-value-param="{{ dismissible_value }}"{% endif %}
+        data-w-upgrade-target="dismiss"
+        aria-label="{% trans 'Close' %}"
+        class="w-ml-auto w-flex w-items-center w-justify-center w-bg-transparent w-rounded-full w-p-0 w-w-8 w-h-8
+               w-text-current
+               w-border
+               w-border-transparent
+               hover:w-text-text-link-hover
+               more-contrast:w-border-border-interactive-more-contrast
+               hover:more-contrast:w-border-border-interactive-more-contrast-hover
+              "
+    >
+        {% icon name="cross" classname="w-w-4 w-h-4" %}
+    </button>
+</div>

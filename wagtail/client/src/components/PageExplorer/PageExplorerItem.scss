@@ -1,0 +1,54 @@
+@use '../../../scss/tools' as *;
+
+.c-page-explorer__item {
+  @apply w-flex w-flex-row w-flex-nowrap w-border-0 w-border-b w-border-solid w-border-surface-menus w-divide-x w-divide-solid w-divide-surface-menus w-divide-y-0;
+}
+
+.c-page-explorer__item__link {
+  @apply w-inline-flex w-items-start sm:w-items-center w-flex-wrap w-grow w-cursor-pointer w-gap-1 w-transition hover:w-bg-surface-menus focus:w-bg-surface-menus focus:w-text-text-label-menus-active hover:w-text-text-label-menus-active;
+  padding: 1.45em 1em;
+
+  @include media-breakpoint-up(sm) {
+    padding: 1.45em 1.75em;
+  }
+}
+
+.c-page-explorer__item__link .icon {
+  @apply w-text-text-label-menus-default;
+  width: 2em;
+  height: 2em;
+  margin-inline-end: 0.75rem;
+}
+
+.c-page-explorer__item__title {
+  margin: 0;
+  color: theme('colors.text-label-menus-default');
+  display: inline-block;
+}
+
+.c-page-explorer__item__action {
+  @apply w-text-text-label-menus-default w-transition hover:w-bg-surface-menus hover:w-text-text-label-menus-active focus:w-bg-surface-menus focus:w-text-text-label-menus-active;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 50px;
+  padding: 0 0.5em;
+  line-height: 1;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.c-page-explorer__item__action--small {
+  font-size: 1.2em;
+}
+
+.icon--item-action {
+  width: 1em;
+  height: 1em;
+}
+
+.c-page-explorer__meta {
+  @apply w-flex w-gap-2 w-text-text-label-menus-default;
+  font-size: 12px;
+}

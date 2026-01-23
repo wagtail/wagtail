@@ -1,0 +1,37 @@
+{% extends "wagtailadmin/generic/listing.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block main_header %}
+    {% comment %}
+        RemovedInWagtail80Warning: This block override is for supporting listing
+        views that do not use breadcrumbs. There is no longer such a view in
+        Wagtail core, but we keep this block until the deprecation ends.
+    {% endcomment %}
+    {% fragment as extra_actions %}
+        {% block extra_actions %}
+            {% if view.list_export %}
+                {% include view.export_buttons_template_name %}
+            {% endif %}
+        {% endblock %}
+    {% endfragment %}
+    {% if not breadcrumbs_items %}
+        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label action_icon=header_action_icon extra_actions=extra_actions icon=header_icon search_url=search_url search_form=search_form search_results_url=index_results_url only %}
+    {% endif %}
+{% endblock %}
+
+{% block listing %}
+    {% comment %}
+        RemovedInWagtail80Warning: This block override is for supporting views that have filters
+        but not using breadcrumbs (thus have no slim_header to put the filters in).
+        There is no longer such a view in Wagtail core, but we keep this block
+        until the deprecation ends.
+    {% endcomment %}
+    {% if filters and not breadcrumbs_items %}
+        <div class="filterable">
+            {{ block.super }}
+            {% include "wagtailadmin/shared/filters.html" %}
+        </div>
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}

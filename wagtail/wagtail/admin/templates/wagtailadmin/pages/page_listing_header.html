@@ -1,0 +1,27 @@
+{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block breadcrumbs %}
+    {# breadcrumbs #}
+    {% page_breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
+{% endblock %}
+
+{% block actions %}
+    {% page_permissions parent_page as parent_page_perms %}
+    {% if parent_page_perms.can_add_subpage %}
+        {% trans 'Add child page' as add_child_page_str %}
+        {# Keep this in sync with the styles of HeaderButton. #}
+        <a href="{% url "wagtailadmin_pages:add_subpage" parent_page.id %}" class="w-header-button button" data-controller="w-tooltip" data-w-tooltip-content-value="{{ add_child_page_str }}" aria-label="{{ add_child_page_str }}">{% icon name="plus" %}</a>
+    {% endif %}
+
+    {# Page actions dropdown #}
+    {% page_header_buttons parent_page user=request.user view_name="index" %}
+{% endblock %}
+{% block toggles %}
+    {{ block.super }}
+    {% include "wagtailadmin/shared/page_status_tag_new.html" with page=parent_page %}
+{% endblock %}
+
+{% block side_panels %}
+    {% include "wagtailadmin/shared/side_panels.html" with in_explorer=True %}
+{% endblock side_panels %}

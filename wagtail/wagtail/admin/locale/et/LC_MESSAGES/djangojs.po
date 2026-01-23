@@ -1,0 +1,117 @@
+#
+# Translators:
+# Ragnar Rebase <rrebase@gmail.com>, 2022
+# Loic Teixeira, 2024
+# Erlend Eelmets <debcf78e@opayq.com>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2025\n"
+"Language-Team: Estonian (https://app.transifex.com/torchbox/teams/8009/et/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Actions"
+msgstr "Toimingud"
+
+msgid "Alt text"
+msgstr "Alt-tekst"
+
+msgid "Broken link"
+msgstr "Katkine link"
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "Close"
+msgstr "Sulge"
+
+msgid "Comment"
+msgstr "Kommentaar"
+
+msgid "Dashboard"
+msgstr "Armatuurlaud"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Edit '%(title)s'"
+msgstr "Muuda üksust „%(title)s”"
+
+msgid "Horizontal line"
+msgstr "Horisontaalne joon"
+
+msgid "Line break"
+msgstr "Reavahetus"
+
+msgid "Loading…"
+msgstr "Laadimine ..."
+
+msgid "Missing document"
+msgstr "Puuduv dokument"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "No results"
+msgstr "Tulemused puuduvad"
+
+msgid "Page"
+msgstr "Leht"
+
+msgid "Page explorer"
+msgstr "Leheuurija"
+
+msgid "Pages"
+msgstr "Lehed"
+
+msgid "Preview"
+msgstr "Eelvaade"
+
+msgid "Reload saved content"
+msgstr "Salvestatud sisu uuesti laadimine"
+
+msgid "Reload the page"
+msgstr "Laadige leht uuesti"
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Search"
+msgstr "Otsing"
+
+msgid "See all"
+msgstr "Vaata kõiki"
+
+msgid "Server Error"
+msgstr "Serveri viga"
+
+msgid "Show error"
+msgstr "Kuva viga"
+
+msgid "Show latest content"
+msgstr "Kuva uusim sisu"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Redaktorjooksis kokku. Sisu on lähtestatud viimati salvestatud versioonile."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimaalne üksuste arv on %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimaalne üksuste arv on %(min_num)d"
+
+msgid "This field is required."
+msgstr "Selle välja täitmine on kohustuslik."
+
+msgid "View child pages of '%(title)s'"
+msgstr "Kuva üksuse „%(title)s” alamlehed"
+
+msgid "Yes"
+msgstr "Jah"

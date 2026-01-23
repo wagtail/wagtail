@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon should support icons with a name 1`] = `
+<Icon
+  name="test"
+>
+  <svg
+    aria-hidden="true"
+    className="icon icon-test"
+  >
+    <use
+      href="#icon-test"
+    />
+  </svg>
+</Icon>
+`;

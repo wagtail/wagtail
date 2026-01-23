@@ -1,0 +1,18 @@
+{% load i18n wagtailadmin_tags %}
+
+<h2 role="alert">
+    {% with counter_val=pages.paginator.count %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}
+            There is {{ counter }} match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+    {% endwith %}
+</h2>
+
+{% if pages %}
+    {% component table %}
+
+    {% url 'wagtailadmin_choose_page_search' as pagination_base_url %}
+    {% paginate pages base_url=pagination_base_url classname="navigate-pages" %}
+{% endif %}

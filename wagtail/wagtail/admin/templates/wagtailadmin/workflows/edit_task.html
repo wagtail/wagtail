@@ -1,0 +1,33 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block form_content %}
+    {{ block.super }}
+
+    <div class="w-form-width help-block help-info">
+        {% icon name='help' %}
+        {% for workflow in object.active_workflows %}
+            {% if forloop.first %}<strong>{% trans "Used on the following active workflows" %}:</strong> {% endif %}
+            <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            {% trans "Not used" %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block extra_actions %}
+    {% if can_enable %}
+        <button
+            class="button"
+            data-controller="w-action"
+            data-action="w-action#post"
+            data-w-action-continue-value="true"
+            data-w-action-url-value='{{ view.get_enable_url }}'
+            type="submit"
+        >
+            {{ view.enable_item_label }}
+        </button>
+    {% elif can_disable %}
+        <a href="{{ view.get_delete_url }}" class="button">{{ view.delete_item_label }}</a>
+    {% endif %}
+{% endblock %}

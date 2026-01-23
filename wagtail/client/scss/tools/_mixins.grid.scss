@@ -1,0 +1,61 @@
+@use 'sass:math';
+@use '../settings' as *;
+@use '../tools/mixins.breakpoints' as *;
+@use '../tools/mixins.general' as *;
+
+// grid settings
+$grid-columns: 12;
+$grid-gutter-width: 3%;
+
+// Utility variable - you should never need to modify this
+$padding: math.div($grid-gutter-width, 2);
+
+// Our row container
+@mixin row($padding: 0) {
+  @include clearfix();
+  display: block;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+  padding-inline-end: $padding;
+  padding-inline-start: $padding;
+}
+
+@mixin row-flush() {
+  margin-inline-start: -$padding;
+  margin-inline-end: -$padding;
+}
+
+// Our column container
+@mixin column($x, $padding: $padding, $grid-columns: $grid-columns) {
+  display: inline;
+  float: inline-start;
+  width: 100% * math.div($x, $grid-columns);
+  padding-inline-end: $padding;
+  padding-inline-start: $padding;
+}
+
+// only used in places where padding not applied to same elements as row or row-flush
+// most of the time this class should be applied directly to the html elements
+@mixin nice-padding {
+  padding-inline-start: $mobile-nice-padding;
+  padding-inline-end: $mobile-nice-padding;
+
+  @include media-breakpoint-up(sm) {
+    padding-inline-start: $desktop-nice-padding;
+    padding-inline-end: $desktop-nice-padding;
+  }
+}
+
+@mixin nice-margin {
+  margin-inline-start: $mobile-nice-padding;
+  margin-inline-end: $mobile-nice-padding;
+
+  @include media-breakpoint-up(sm) {
+    margin-inline-start: $desktop-nice-padding;
+    margin-inline-end: $desktop-nice-padding;
+  }
+}
+
+@mixin max-form-width {
+  max-width: $max-form-width;
+}

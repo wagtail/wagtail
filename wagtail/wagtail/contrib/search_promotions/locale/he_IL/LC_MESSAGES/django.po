@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 <5628a6f4d3ab86b48aef276247790766_814>, 2015
+# 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 <5628a6f4d3ab86b48aef276247790766_814>, 2015
+# lior abazon <abazon@v15.org.il>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
+"Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
+"language/he_IL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: 2;\n"
+
+msgid "Search term(s)/phrase"
+msgstr "חיפוש מושגים/משפט"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "אנא ציין לפחות המלצה אחת למונח חיפוש זה"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"האם אתם בטוחים כי ברצונכם למחוק את כל התוצאות המקודמות עבור מונח חיפוש זה?"
+
+msgid "Move up"
+msgstr "העבר מעלה"
+
+msgid "Move down"
+msgstr "העבר מטה"
+
+msgid "Drag"
+msgstr "גרור"
+
+msgid "Delete"
+msgstr "מחיקה"
+
+msgid "Promoted search results"
+msgstr "תוצאות חיפוש מקודמות "
+
+msgid "Popular search terms"
+msgstr "מושגי חיפוש פופולארים"
+
+msgid "Search"
+msgstr "חיפוש"
+
+msgid "Terms"
+msgstr "מושגים"
+
+msgid "No results found"
+msgstr "לא נמצאו תוצאות "
+
+msgid "Choose from popular search terms"
+msgstr "בחירה ממושגי חיפוש פופולארים"
+
+msgid "External link"
+msgstr "קישור חיצוני"
+
+msgid "None"
+msgstr "אף אחת"
+
+msgid "Date"
+msgstr "תאריך"
+
+msgid "Add new promoted result"
+msgstr "הוסף תוצאה מקודמת חדשה"
+
+msgid "Promoted results"
+msgstr "תוצאות מקודמות "
+
+msgid "Promoted search result"
+msgstr "קדם תוצאת חיפוש"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "בחירת העורך עבור '%(query)s' נוצרה"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "בחירת העורך עבור '%(query)s' עודכנה"
+
+msgid "Editor's picks deleted."
+msgstr "בחירת העורך נמחקה"

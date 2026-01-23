@@ -1,0 +1,19 @@
+============================
+Wagtail 0.8.10 release notes
+============================
+
+*September 16, 2015*
+
+.. contents::
+    :local:
+    :depth: 1
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
+* Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
+* Resizing single pixel images with the "fill" filter no longer raises ``ZeroDivisionError`` or "tile cannot extend outside image"

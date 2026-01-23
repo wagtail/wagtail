@@ -1,0 +1,33 @@
+{% load wagtailadmin_tags i18n %}
+<div
+    class="footer__container footer__container--hidden"
+    aria-live="polite"
+    data-controller="w-messages"
+    data-action="w-unsaved:add@document->w-messages#add w-unsaved:clear@document->w-messages#clear"
+    data-w-messages-clear-delay-value="1024"
+    data-w-messages-clear-param="true"
+    data-w-messages-hide-class="footer__container--hidden"
+>
+    <div class="footer__save-warning footer__emphasise-span-tags" data-w-messages-target="container"></div>
+    {% block message_templates %}
+        {% trans 'Save your changes before leaving' as generic_save_message %}
+        <template data-w-messages-target="template" data-type="edits">
+            <div>
+                <b>{% blocktrans trimmed %}You have <span>unsaved edits</span>{% endblocktrans %}</b>
+                <p>{{ generic_save_message }}</p>
+            </div>
+        </template>
+        <template data-w-messages-target="template" data-type="comments">
+            <div>
+                <b>{% blocktrans trimmed %}You have <span>unsaved comments</span>{% endblocktrans %}</b>
+                <p>{{ generic_save_message }}</p>
+            </div>
+        </template>
+        <template data-w-messages-target="template" data-type="all">
+            <div>
+                <b>{% blocktrans trimmed %}You have <span>unsaved edits</span> and <span>comments</span>{% endblocktrans %}</b>
+                <p>{{ generic_save_message }}</p>
+            </div>
+        </template>
+    {% endblock %}
+</div>

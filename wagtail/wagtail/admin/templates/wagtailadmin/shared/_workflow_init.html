@@ -1,0 +1,9 @@
+{% load wagtailadmin_tags %}
+<script
+    src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"
+    data-activate="editor"
+    {% if publishing_will_cancel_workflow %}
+        data-confirm-cancellation-url="{{ confirm_workflow_cancellation_url }}"
+    {% endif %}
+>
+</script>

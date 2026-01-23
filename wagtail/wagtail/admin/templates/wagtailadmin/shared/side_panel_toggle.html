@@ -1,0 +1,19 @@
+{% load wagtailadmin_tags %}
+
+<button type="button"
+        class="{{ nav_icon_button_classes }}"
+        aria-label="{{ toggle.aria_label }}"
+        aria-expanded="false"
+        data-controller="w-tooltip{% if toggle.keyboard_shortcut %} w-kbd{% endif %}"
+        data-side-panel-toggle="{{ panel.name }}"
+        {% if toggle.keyboard_shortcut %}data-w-kbd-key-value="{{ toggle.keyboard_shortcut }}" data-w-kbd-scope-value="global"{% endif %}
+        data-w-tooltip-content-value="{{ panel.title }}"
+        data-w-tooltip-offset-value="[0, 0]"
+>
+    {% icon name=toggle.icon_name classname=nav_icon_classes %}
+    {% if toggle.has_counter %}
+        <div data-side-panel-toggle-counter class="{{ nav_icon_counter_classes }} {{ toggle.counter_classname|default:'w-bg-surface-button-default'}}" {% if not count %}hidden{% endif %}>
+            {{ count|intcomma }}
+        </div>
+    {% endif %}
+</button>

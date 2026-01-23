@@ -1,0 +1,12 @@
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <ul>
+        {% for reference in value %}
+            <li>
+                {% if edit_url %}
+                    <a href="{{ edit_url }}#:w:contentpath={{ reference.content_path }}">
+                {% endif %}
+                {{ reference.describe_source_field }}{% if edit_url %}</a>{% endif %}{% if describe_on_delete %}: {{ reference.describe_on_delete }}{% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</td>

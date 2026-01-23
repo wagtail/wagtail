@@ -1,0 +1,175 @@
+// =============================================================================
+// Mixins
+// =============================================================================
+// Please note that the mixins partial shouldn't include any classes. This is so
+// it can be included in any file without accidentally producing output
+
+@use '../settings' as *;
+
+// Turns on font-smoothing when used. Use sparingly.
+@mixin font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: ' ';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin unlist() {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-inline-start: 0;
+  list-style-type: none;
+  font-style: normal;
+
+  li {
+    list-style-type: none;
+    font-style: normal;
+  }
+}
+
+// remove list styles, but only for the immediate element -
+// allow nested lists inside it to keep the default style
+
+@mixin unlistimmediate() {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-inline-start: 0;
+  list-style-type: none;
+  font-style: normal;
+
+  > li {
+    list-style-type: none;
+    font-style: normal;
+  }
+}
+
+@mixin transition($transition...) {
+  body.ready & {
+    transition: $transition;
+  }
+}
+
+@mixin svg-icon($size: 1em, $position: text-top) {
+  width: $size;
+  height: $size;
+  vertical-align: $position;
+}
+
+// Applies given rules on hover, for devices that support hover.
+@mixin hover {
+  @media (hover: hover) {
+    a:hover {
+      @content;
+    }
+  }
+}
+
+// Where included, show the focus outline within focusable items instead of around them.
+// This is useful when focusable items are tightly packed and there is no space in-between.
+@mixin show-focus-outline-inside {
+  outline-offset: -1 * $focus-outline-width;
+}
+
+/**
+ * Apply styles for the dark theme only.
+ */
+@mixin dark-theme() {
+  .w-theme-dark & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .w-theme-system & {
+      @content;
+    }
+  }
+}
+
+/**
+ * Apply styles for enhanced contrast theming.
+ */
+@mixin more-contrast() {
+  .w-contrast-more & {
+    @content;
+  }
+
+  @media (prefers-contrast: more) {
+    .w-contrast-system & {
+      @content;
+    }
+  }
+}
+
+/**
+ * Apply styles for the light theme only.
+ */
+@mixin light-theme() {
+  .w-theme-light & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: light) {
+    .w-theme-system & {
+      @content;
+    }
+  }
+}
+
+/**
+ * Apply styles for the dark theme with increased contrast.
+ */
+@mixin dark-theme-more-contrast() {
+  .w-theme-dark.w-contrast-more & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .w-theme-system.w-contrast-more & {
+      @content;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .w-theme-dark.w-contrast-system & {
+      @content;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+    .w-theme-system.w-contrast-system & {
+      @content;
+    }
+  }
+}
+
+/**
+* Increased contrast theme styles for interactive components
+*/
+@mixin more-contrast-interactive() {
+  @include more-contrast() {
+    border: 1px solid theme('colors.border-interactive-more-contrast');
+
+    &:hover {
+      border-color: theme('colors.border-interactive-more-contrast-hover');
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      border-style: dashed;
+    }
+  }
+}
+
+@mixin focus-outline {
+  outline: $focus-outline-width solid theme('colors.focus');
+}

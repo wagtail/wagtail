@@ -1,0 +1,34 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
+{% load i18n wagtailadmin_tags %}
+{% base_url_setting default="" as base_url %}
+
+{% block content %}{% blocktrans trimmed with title=page.get_admin_display_title|safe editor=editor|user_display_name|safe %}{{ editor }} has updated comments on "{{ title }}".{% endblocktrans %}
+{% spaceless %}
+
+{% endspaceless %}{% if new_comments %}
+
+{% trans "New comments:" %}{% for comment in new_comments %}
+ - "{{ comment.text|safe }}"
+{% endfor %}{% endif %}{% spaceless %}
+
+{% endspaceless %}{% if resolved_comments %}
+
+{% trans "Resolved comments:" %}{% for comment in resolved_comments %}
+ - "{{ comment.text|safe }}"
+{% endfor %}{% endif %}{% spaceless %}
+
+{% endspaceless %}{% if deleted_comments %}
+
+{% trans "Deleted comments:" %}{% for comment in deleted_comments %}
+ - "{{ comment.text|safe }}"
+{% endfor %}{% endif %}{% spaceless %}
+
+{% endspaceless %}{% if replied_comments %}
+
+{% trans "New replies:" %}{% for thread in replied_comments %}
+
+  {% trans 'New replies to:' %} "{{ thread.comment.text|safe }}"{% for reply in thread.replies %}
+   - "{{ reply.text|safe }}"{% endfor %}{% endfor %}{% endif %}
+
+{% trans "You can edit the page here:" %} {{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}
+{% endblock %}

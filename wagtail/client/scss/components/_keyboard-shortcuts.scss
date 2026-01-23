@@ -1,0 +1,37 @@
+.w-keyboard-shortcuts {
+  kbd {
+    word-spacing: 0.125em;
+    white-space: nowrap;
+    font-size: theme('fontSize.15');
+    color: theme('colors.grey.600');
+    background-color: theme('colors.grey.50');
+  }
+}
+
+.w-keyboard-shortcuts__category {
+  th {
+    text-align: start;
+    margin-top: theme('spacing.5');
+    margin-bottom: theme('spacing.3');
+    display: block;
+  }
+}
+
+.w-keyboard_shortcuts__key {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid theme('colors.grey.100');
+
+  th {
+    font-size: theme('fontSize.14');
+    font-weight: theme('fontWeight.normal');
+    padding: theme('spacing.2') 0;
+    text-align: start;
+  }
+
+  td {
+    padding: theme('spacing.2') 0;
+  }
+}

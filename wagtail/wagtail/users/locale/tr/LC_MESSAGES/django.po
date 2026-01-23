@@ -1,0 +1,447 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Basitlik İyidir, 2020
+# Basitlik İyidir, 2020
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
+# Ertuğrul Keremoğlu, 2025
+# Matt Westcott <matthew@torchbox.com>, 2020
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Ertuğrul Keremoğlu, 2025\n"
+"Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail kullanıcılar"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Zorunlu. Sadece harfler, rakamlar ve @/./+/-/_ karakterleri kullanılabilir."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Bu değer sadece harf, sayı ya da @/./+/-/_ karakterlerinden oluşur."
+
+msgid "A user with that username already exists."
+msgstr "Bu kullanıcı adı daha önce alınmış."
+
+msgid "The two password fields didn't match."
+msgstr "Parola alanları eşleşmiyor"
+
+msgid "Email"
+msgstr "Eposta"
+
+msgid "First Name"
+msgstr "Ad"
+
+msgid "Last Name"
+msgstr "Soyad"
+
+msgid "Password"
+msgstr "Parola"
+
+msgid "Leave blank if not changing."
+msgstr "Aynı kalması için boş bırakın."
+
+msgid "Password confirmation"
+msgstr "Parola doğrulama"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Doğrulama yapmak için yukarıdaki şifrenin aynısını girin."
+
+msgid "Administrator"
+msgstr "Yönetici"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Yöneticilerin herhangi bir nesne ya da ayarı değiştirmek için tam yetkisi "
+"vardır."
+
+msgid "A group with that name already exists."
+msgstr "O isimde bir grup zaten var."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Aynı sayfa için birden fazla izin kaydı olamaz."
+
+msgid "submitted notifications"
+msgstr "gönderilen bildirimler"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Kontrol edilmek üzere bir sayfa gönderildiğinde bildirim alın"
+
+msgid "approved notifications"
+msgstr "onaylanan bildirimler"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Düzenlediğiniz sayfa onaylandığında bildirim alın"
+
+msgid "rejected notifications"
+msgstr "reddedilen bildirimler"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Düzenlediğiniz sayfa reddedildiğinde bildirim alın"
+
+msgid "updated comments notifications"
+msgstr "güncellenen yorum bildirimleri"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Abone olduğunuz bir sayfada yorum oluşturulduğunda, çözüldüğünde veya "
+"silindiğinde bildirim alın"
+
+msgid "preferred language"
+msgstr "tercih edilen dil"
+
+msgid "Select language for the admin"
+msgstr "Yönetim paneli dilini belirleyin"
+
+msgid "current time zone"
+msgstr "şimdiki zaman dilimi"
+
+msgid "Select your current time zone"
+msgstr "Şimdiki zaman dilimizi seçin"
+
+msgid "profile picture"
+msgstr "profil resmi"
+
+msgid "System default"
+msgstr "Sistem varsayılanı"
+
+msgid "Light"
+msgstr "Açık"
+
+msgid "Dark"
+msgstr "Koyu"
+
+msgid "admin theme"
+msgstr "yönetici teması"
+
+msgid "More contrast"
+msgstr "Daha fazla kontrast"
+
+msgid "contrast"
+msgstr "kontrast"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "Snug"
+msgstr "Dar"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "yoğunluk"
+
+msgid "Keyboard shortcuts"
+msgstr "Klavye kısayolları"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Wagtail'a özel özel klavye kısayollarını etkinleştir."
+
+msgid "user profile"
+msgstr "kullanıcı profili"
+
+msgid "user profiles"
+msgstr "kullanıcı profilleri"
+
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "1 kullanıcıya rol ata"
+msgstr[1] "%(counter)s kullanıcısına rol atandı."
+
+msgid "Assign role"
+msgstr "Rol ata"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Bu rolü bu kullanıcılara atamak istediğinizden emin misiniz?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Bu kullanıcıyı düzenleme izniniz yok"
+msgstr[1] "Bu kullanıcıları düzenleme izniniz yok"
+
+msgid "Yes, assign"
+msgstr "Evet, ata"
+
+msgid "No, don't assign"
+msgstr "Hayır, atama yapma"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "1 kullanıcı sil"
+msgstr[1] "%(counter)s kullanıcı sil"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Bu kullanıcıları silmek istediğinizden emin misiniz?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Bu kullanıcıyı silme izniniz yok"
+msgstr[1] "Bu kullanıcıları silme izniniz yok"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "1 kullanıcının etkin durumunu değiştir"
+msgstr[1] "%(counter)s kullanıcının aktiflik durumunu değiştir"
+
+msgid "Set active state"
+msgstr "Aktiflik durumunu ayarla"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Bu kullanıcıların aktiflik durumunu değiştirmek istediğinizden emin misiniz?"
+
+msgid "You cannot change your own active status"
+msgstr "Kendi aktiflik durumunuzu değiştiremezsiniz"
+
+msgid "Yes, change state"
+msgstr "Evet, durumu değiştir"
+
+msgid "No, don't change state"
+msgstr "Hayır, durumu değiştirme"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Grup '%(group_name)s' <strong>%(group_user_count)s</strong> üyesi var."
+msgstr[1] ""
+"Grup '%(group_name)s' <strong>%(group_user_count)s</strong> üyesi var."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "Grubu silmek, grubun izinlerini tüm üye kullanıcılardan geri alır."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Grubu silmek istediğinizden emin misiniz?"
+
+msgid "Object permissions"
+msgstr "Nesne izinleri"
+
+msgid "Name"
+msgstr "Ad"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Change"
+msgstr "Değiştir"
+
+msgid "Custom permissions"
+msgstr "Özel izinler"
+
+msgid "Toggle all"
+msgstr "Tümünü değiştir"
+
+msgid "Toggle all add permissions"
+msgstr "Tüm ekleme izinlerini etkinleştir/devre dışı bırak"
+
+msgid "Toggle all change permissions"
+msgstr "Tüm değişiklik izinlerini etkinleştir/devre dışı bırak"
+
+msgid "Toggle all delete permissions"
+msgstr "Tüm silme izinlerini etkinleştir/devre dışı bırak"
+
+msgid "Toggle all custom permissions"
+msgstr "Tüm özel izinleri etkinleştir/devre dışı bırak"
+
+msgid "Other permissions"
+msgstr "Diğer izinler"
+
+msgid "Page permissions"
+msgstr "Sayfa izinleri"
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Add a page permission"
+msgstr "Bir sayfa izni ekle"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Üzgünüm, \"%(query)s\" ile eşleşen bir grup bulunamadı"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Herhangi bir grup ayarlanmadı. Neden <a "
+"href=\"%(wagtailusers_create_group_url)s\">bir kaç tane ayarlamıyorsunuz</a>?"
+
+msgid "Account"
+msgstr "Hesap"
+
+msgid "Roles"
+msgstr "Roller"
+
+msgid "Select all users in listing"
+msgstr "Listede tüm kullanıcıları seç"
+
+msgid "Sorry, no users match your query"
+msgstr "Sorgunuza uyan kullanıcı bulunamadı"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Hiç kullanıcı yapılandırılmamış. Bir kullanıcı <a "
+"href=\"%(wagtailusers_add_url)s\">eklemeyi</a> deneyin."
+
+msgid "Can view"
+msgstr "Görebilir"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "Kullanıcı %(id)s (silinmiş)"
+
+msgid "Assign role to selected users"
+msgstr "Seçilen kullanıcılara rol ata"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d kullanıcı %(role)s olarak atandı."
+msgstr[1] "%(num_parent_objects)d kullanıcı %(role)s olarak atandı."
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d kullanıcı silindi."
+msgstr[1] "%(num_parent_objects)d kullanıcı silindi."
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Inactive"
+msgstr "Pasif"
+
+msgid "Mark as active"
+msgstr "Aktif olarak işaretle"
+
+msgid "Change the active state for selected users"
+msgstr "Seçilen kullanıcıların aktif durumunu değiştir"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d kullanıcı aktif olarak işaretlendi."
+msgstr[1] "%(num_parent_objects)d kullanıcı aktif olarak işaretlendi."
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d kullanıcı pasif olarak işaretlendi."
+msgstr[1] "%(num_parent_objects)d kullanıcı pasif olarak işaretlendi."
+
+msgid "Groups"
+msgstr "Gruplar"
+
+msgid "Add a group"
+msgstr "Bir grup ekle"
+
+msgid "Search groups"
+msgstr "Gruplarda ara"
+
+msgid "Add group"
+msgstr "Grup ekle"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "'%(object)s' grubu oluşturuldu."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "'%(object)s' grubu güncellendi."
+
+msgid "The group could not be saved due to errors."
+msgstr "Hata nedeniyle grup kaydedilemedi."
+
+msgid "View users in this group"
+msgstr "Bu gruptaki kullanıcıları görüntüle"
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "'%(object)s' grubu silindi."
+
+msgid "Delete group"
+msgstr "Grubu sil"
+
+msgid "Last login"
+msgstr "Son giriş"
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "Add a user"
+msgstr "Kullanıcı ekle"
+
+msgid "Users"
+msgstr "Kullanıcılar"
+
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+msgid "Admin"
+msgstr "Yönetici"
+
+msgid "Access level"
+msgstr "Erişim seviyesi"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr " '%(title)s' için daha fazla seçenek"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Kullanıcı '%(object)s' oluşturuldu."
+
+msgid "Add user"
+msgstr "Kullanıcı ekle"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "'%(object)s' kullanıcısı güncellendi."
+
+msgid "The user could not be saved due to errors."
+msgstr "Hata nedeniyle kullanıcı kaydedilemedi."
+
+msgid "Delete user"
+msgstr "Kullanıcıyı sil"
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "'%(object)s' kullanıcısı silindi."

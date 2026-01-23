@@ -1,0 +1,66 @@
+@use 'sass:map';
+@use '../tools' as *;
+@use '../settings' as *;
+
+// free tagging tags from taggit
+.tag {
+  border-radius: 2px;
+  background-color: theme('colors.surface-button-default');
+  padding: 0.2em 0.5em;
+  color: theme('colors.text-button');
+  line-height: 2em;
+  white-space: nowrap;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    background: theme('colors.text-button');
+    padding-inline-end: 0.5rem;
+    width: 16px;
+    height: 16px;
+    mask-image: url('#{$images-root}icons/tag.svg');
+    mask-repeat: no-repeat;
+    transform: translateY(3px);
+  }
+
+  .taglist & {
+    margin-inline-end: 0.8em;
+  }
+}
+
+a.tag:hover {
+  background-color: theme('colors.surface-button-hover');
+  color: theme('colors.text-button');
+}
+
+.taglist {
+  font-size: 0.9em;
+  line-height: 2.4em;
+}
+
+.tagfilter {
+  legend {
+    font-weight: 700;
+    color: theme('colors.text-context');
+    font-size: 1.1em;
+    display: block;
+    padding: 0 0 0.8em;
+
+    @include media-breakpoint-up(sm) {
+      @include column(2);
+      padding-inline-start: 0;
+    }
+  }
+
+  a {
+    font-size: 0.9em;
+  }
+
+  .button.bicolor.icon-cross {
+    padding-inline-start: 2em;
+
+    &:before {
+      background-color: transparent;
+    }
+  }
+}

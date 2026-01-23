@@ -1,0 +1,16 @@
+{% load i18n wagtailadmin_tags %}
+{% include "wagtailadmin/shared/header.html" with title=_("Add an anchor link") %}
+
+<div class="nice-padding">
+    {% include 'wagtailadmin/chooser/_link_types.html' with current='anchor' %}
+
+    <form action="{% url 'wagtailadmin_choose_page_anchor_link' %}{% querystring %}" method="post" novalidate>
+        {% csrf_token %}
+        <ul class="fields">
+            {% for field in form %}
+                <li>{% formattedfield field %}</li>
+            {% endfor %}
+            <li><input type="submit" value="{% trans 'Insert anchor' %}" class="button" /></li>
+        </ul>
+    </form>
+</div>

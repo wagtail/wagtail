@@ -1,0 +1,231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# Younes Oumakhou, 2022
+# Younes Oumakhou, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail forms"
+msgstr "نماذج Wagtail"
+
+msgid "Date from"
+msgstr "التاريخ من"
+
+msgid "Date to"
+msgstr "التاريخ إلى"
+
+#, python-format
+msgid ""
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
+msgstr ""
+"الاسم '%(duplicate_clean_name)s' معيّن مسبقًا لهذا الحقل ولا يمكن تغييره. يرجى "
+"إدخال تسمية مختلفة للحقل المتعارض."
+
+#, python-format
+msgid ""
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
+msgstr ""
+"اسم الحقل '%(duplicate_clean_name)s' يتعارض مع حقل آخر. يرجى تغيير التسمية."
+
+msgid "Single line text"
+msgstr "نص ذو سطر واحد"
+
+msgid "Multi-line text"
+msgstr "نص متعدد الأسطر"
+
+msgid "Email"
+msgstr "بريد إلكتروني"
+
+msgid "Number"
+msgstr "رقم"
+
+msgid "URL"
+msgstr "رابط"
+
+msgid "Checkbox"
+msgstr "خانة اختيار"
+
+msgid "Checkboxes"
+msgstr "خانات اختيار"
+
+msgid "Drop down"
+msgstr "قائمة منسدلة"
+
+msgid "Multiple select"
+msgstr "اختيار متعدد"
+
+msgid "Radio buttons"
+msgstr "أزرار اختيار"
+
+msgid "Date"
+msgstr "تاريخ"
+
+msgid "Date/time"
+msgstr "تاريخ/وقت"
+
+msgid "Hidden field"
+msgstr "حقل مخفي"
+
+msgid "submit time"
+msgstr "وقت التقديم"
+
+msgid "form submission"
+msgstr "تقديم النموذج"
+
+msgid "form submissions"
+msgstr "تقديمات النماذج"
+
+msgid "name"
+msgstr "اسم"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "اسم آمن لحقل النموذج، تم تحويل التسمية إلى ascii_snake_case"
+
+msgid "label"
+msgstr "تسمية"
+
+msgid "The label of the form field"
+msgstr "تسمية حقل النموذج"
+
+msgid "field type"
+msgstr "نوع الحقل"
+
+msgid "required"
+msgstr "مطلوب"
+
+msgid "choices"
+msgstr "خيارات"
+
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"قائمة خيارات مفصولة بفواصل أو أسطر جديدة. تنطبق فقط على خانات الاختيار، "
+"أزرار الاختيار والقوائم المنسدلة."
+
+msgid "default value"
+msgstr "القيمة الافتراضية"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"القيمة الافتراضية. القيم المفصولة بفواصل أو أسطر جديدة مدعومة لخانات "
+"الاختيار."
+
+msgid "help text"
+msgstr "نص مساعدة"
+
+msgid "Submission date"
+msgstr "تاريخ التقديم"
+
+msgid "Form"
+msgstr "نموذج"
+
+msgid "Landing page"
+msgstr "صفحة الهبوط"
+
+msgid "to address"
+msgstr "إلى العنوان"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"اختياري - سيتم إرسال تقديمات النموذج إلى هذه العناوين عبر البريد الإلكتروني. "
+"افصل بين العناوين المتعددة بفاصلة."
+
+msgid "from address"
+msgstr "من العنوان"
+
+msgid "subject"
+msgstr "موضوع"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "تقديمات %(model_name)s"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "حذف بيانات النموذج %(title)s"
+
+msgid "Delete form data"
+msgstr "حذف بيانات النموذج"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "هل أنت متأكد أنك تريد حذف تقديم للنموذج؟"
+msgstr[1] "هل أنت متأكد أنك تريد حذف تقديم للنموذج؟"
+msgstr[2] "هل أنت متأكد أنك تريد حذف تقديمين للنموذج؟"
+msgstr[3] "هل أنت متأكد أنك تريد حذف تقديم للنموذج؟"
+msgstr[4] "هل أنت متأكد أنك تريد حذف تقديم للنموذج؟"
+msgstr[5] "هل أنت متأكد أنك تريد حذف تقديم للنموذج؟"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete selected submissions"
+msgstr "حذف التقديمات المحددة"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "لا توجد أي تقديمات لنموذج '%(title)s'."
+
+msgid "Total submissions"
+msgstr "إجمالي التقديمات"
+
+msgid "Latest submission"
+msgstr "أحدث تقديم"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "تقديمات %(form_title)s"
+
+msgid "Page type"
+msgstr "نوع الصفحة"
+
+msgid "Forms"
+msgstr "نماذج"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Origin"
+msgstr "المصدر"
+
+msgid "Pages"
+msgstr "صفحات"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)d تم حذف تقديم"
+msgstr[1] "تم حذف تقديم واحد."
+msgstr[2] "تم حذف %(count)d تقديمين."
+msgstr[3] "تم حذف %(count)d تقديمًا."
+msgstr[4] "تم حذف %(count)d تقديمًا."
+msgstr[5] "تم حذف %(count)d تقديم."
+
+msgid "Form data"
+msgstr "بيانات النموذج"

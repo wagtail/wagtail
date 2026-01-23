@@ -1,0 +1,94 @@
+@use 'sass:math';
+@use '../tools' as *;
+
+$preview-size: 2.625rem; // 42px
+
+.chooser {
+  &.blank .chosen {
+    display: none;
+  }
+
+  &:not(.blank) .unchosen {
+    display: none;
+  }
+}
+
+// Very subdued button style specifically for choosers, as there can be a lot of
+// chooser fields left unused on a page editing form.
+.button.chooser__choose-button {
+  @apply w-label-3;
+  display: flex;
+  align-items: center;
+  color: theme('colors.text-button-outline-default');
+  border-color: transparent;
+  padding: theme('spacing.[1.5]');
+
+  @include more-contrast-interactive();
+
+  .icon {
+    @include svg-icon(theme('spacing.4'), initial);
+    color: inherit;
+    margin-inline-end: 5px;
+  }
+
+  &:hover,
+  &:focus {
+    color: theme('colors.text-link-hover');
+    background-color: theme('colors.surface-page');
+  }
+}
+
+.chosen {
+  display: flex;
+  gap: theme('spacing.4');
+  align-items: center;
+}
+
+.chooser__preview {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: $preview-size;
+  height: $preview-size;
+  // Prevent this item from getting smaller if the title is long.
+  flex-shrink: 0;
+  background-color: theme('colors.border-button-small-outline-default');
+  color: theme('colors.text-button');
+  border-radius: theme('borderRadius.sm');
+
+  @media (forced-colors: active) {
+    border: 1px solid transparent;
+  }
+}
+
+.chooser__title {
+  @apply w-body-text-large;
+}
+
+.chooser__image {
+  $max-width: 165px;
+  $max-height: 125px;
+
+  // Adjust thumbnail size based on UI density, with safe minimums and maximums.
+  max-width: clamp(
+    math.div($max-width, 2),
+    calc($max-width * var(--w-density-factor)),
+    $max-width
+  );
+  max-height: clamp(
+    math.div($max-height, 2),
+    calc($max-height * var(--w-density-factor)),
+    $max-height
+  );
+  height: auto;
+  width: auto;
+}
+
+// Display these as inline block so that action icons such as comments can appear as close as possible
+.w-field--admin_task_chooser,
+.w-field--admin_page_chooser,
+.w-field--document_chooser_widget,
+.w-field--admin_image_chooser,
+.w-field--admin_snippet_chooser {
+  display: inline-block;
+}

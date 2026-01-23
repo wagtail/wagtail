@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use '../../settings' as *;
+
+.error-message {
+  border: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
+  margin: 0.5em 0 0;
+  font-size: 1em;
+  font-weight: bold;
+  color: theme('colors.text-error');
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -10%;
+    mask-image: url('#{$images-root}icons/warning.svg');
+    background-color: currentColor;
+  }
+}

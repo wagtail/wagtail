@@ -1,0 +1,59 @@
+{% extends "wagtailadmin/generic/form.html" %}
+{% load wagtailadmin_tags %}
+{% load i18n %}
+{% load l10n %}
+{% block bodyclass %}editor-view {% if page.live %}page-is-live{% endif %} {% if page_locked %}content-locked{% endif %}{% endblock %}
+
+{% block content %}
+    {% get_comments_enabled as comments_enabled %}
+    {% page_permissions page as page_perms %}
+
+    {% include 'wagtailadmin/shared/headers/page_edit_header.html' with title=header_title %}
+
+    {% block form %}
+
+        <form
+            id="page-edit-form"
+            action="{{ action_url }}"
+            method="POST"
+            novalidate
+            {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+            data-edit-form
+            data-controller="w-init w-unsaved"
+            data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+            data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
+            data-w-unsaved-confirmation-value="true"
+            data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
+            data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
+        >
+            {% csrf_token %}
+
+            <input type="hidden" name="next" value="{{ next }}">
+            {% if page.latest_revision_id %}
+                <input type="hidden" name="loaded_revision_id" value="{{ page.latest_revision_id|unlocalize }}">
+                <input type="hidden" name="loaded_revision_created_at" value="{{ loaded_revision_created_at }}">
+            {% endif %}
+            {{ edit_handler.render_form_content }}
+
+            {% block footer %}
+                {{ block.super }}
+                {# Reuse the footer container, but redefine the actions content down below to use component classes #}
+            {% endblock %}
+        </form>
+    {% endblock %}
+{% endblock %}
+
+{% block actions %}
+    {{ action_menu.render_html }}
+    {% block extra_footer_actions %}
+        {% comment %}
+            While undocumented, this block is used by some packages to add
+            additional actions *outside* of the dropdown menu.
+        {% endcomment %}
+    {% endblock %}
+{% endblock%}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/shared/_workflow_init.html" %}
+{% endblock %}

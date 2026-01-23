@@ -1,0 +1,120 @@
+// stylelint-disable selector-attribute-name-disallowed-list
+@use '../tools' as *;
+@use '../settings' as *;
+
+$separator: 1px solid theme('colors.white-15');
+$radius: theme('borderRadius.sm');
+
+.w-dropdown-button {
+  // Cosmetic details based on live tooltip placement,
+  // implemented CSS-only by using Tippy.js `data-placement` and `:has`.
+  --primary-button-radius-top: #{$radius};
+  --primary-button-radius-bottom: #{$radius};
+  --toggle-button-radius-top: #{$radius};
+  --toggle-button-radius-bottom: #{$radius};
+  --first-item-border-top: 0;
+  --last-item-border-top: 0;
+  // Set each separately so a button that’s both first and last is correct.
+  --first-item-start-start-radius: 0;
+  --first-item-start-end-radius: 0;
+  --last-item-end-start-radius: 0;
+  --last-item-end-end-radius: 0;
+
+  display: flex;
+  // Make sure the tooltip within will match this element’s width.
+  position: relative;
+
+  [data-tippy-root] {
+    // Make sure the tooltip within will match this element’s width.
+    width: 100%;
+  }
+
+  &:has(:not([hidden]) > [data-placement^='bottom']) {
+    --primary-button-radius-top: #{$radius};
+    --primary-button-radius-bottom: 0;
+    --toggle-button-radius-top: #{$radius};
+    --toggle-button-radius-bottom: 0;
+    --last-item-end-start-radius: #{$radius};
+    --last-item-end-end-radius: #{$radius};
+    --first-item-border-top: #{$separator};
+  }
+
+  &:has(:not([hidden]) > [data-placement^='top']) {
+    --primary-button-radius-top: 0;
+    --primary-button-radius-bottom: #{$radius};
+    --toggle-button-radius-top: 0;
+    --toggle-button-radius-bottom: #{$radius};
+    --first-item-start-start-radius: #{$radius};
+    --first-item-start-end-radius: #{$radius};
+    --last-item-border-bottom: #{$separator};
+  }
+}
+
+// Primary button next to the dropdown toggle.
+.w-dropdown-button > :is(a, button) {
+  border-start-start-radius: var(--primary-button-radius-top);
+  border-start-end-radius: 0;
+  border-end-start-radius: var(--primary-button-radius-bottom);
+  border-end-end-radius: 0;
+  min-height: $text-input-height;
+}
+
+.w-dropdown-button .button.w-dropdown__toggle {
+  width: theme('spacing.8');
+  height: $text-input-height;
+  padding: 0 theme('spacing.2');
+  background-color: theme('colors.surface-button-default');
+  color: theme('colors.text-button');
+  border-inline-start: $separator;
+  border-start-start-radius: 0;
+  border-start-end-radius: var(--toggle-button-radius-top);
+  border-end-start-radius: 0;
+  border-end-end-radius: var(--toggle-button-radius-bottom);
+
+  &:is(:hover, :focus-visible) {
+    background-color: theme('colors.surface-button-hover');
+  }
+}
+
+.w-dropdown-button .w-dropdown__content {
+  padding: 0;
+}
+
+// Use a generic selector to support all types of links / buttons.
+.w-dropdown-button .w-dropdown__content :is(a, button) {
+  @include show-focus-outline-inside();
+  height: auto;
+  min-height: $text-input-height;
+  margin: 0;
+  white-space: normal;
+  border-radius: 0;
+
+  &:nth-child(n + 2) {
+    border-top: $separator;
+  }
+
+  &:first-child {
+    border-top: var(--first-item-border-top);
+    border-start-start-radius: var(--first-item-start-start-radius);
+    border-start-end-radius: var(--first-item-start-end-radius);
+  }
+
+  &:last-child {
+    border-bottom: var(--last-item-border-bottom);
+    border-end-start-radius: var(--last-item-end-start-radius);
+    border-end-end-radius: var(--last-item-end-end-radius);
+  }
+}
+
+.w-dropdown-button > .warning {
+  + .w-dropdown .button {
+    background-color: theme('colors.warning.100');
+    border-color: $separator;
+  }
+
+  + .w-dropdown .w-dropdown__toggle {
+    border-inline-end-color: theme('colors.warning.100');
+    border-top-color: theme('colors.warning.100');
+    border-bottom-color: theme('colors.warning.100');
+  }
+}

@@ -1,0 +1,103 @@
+@use 'sass:math';
+
+$switch-width: 36px;
+$switch-height: 18px;
+$switch-border: 2px;
+$switch-outline: 3px;
+
+$switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  margin: 5px 0;
+  position: relative;
+
+  // Disable forms styling that's applied to the <label> tag
+  width: unset;
+  float: unset;
+
+  &__icon {
+    width: 12px;
+    height: $switch-height;
+    position: absolute;
+    top: 50%;
+    transform: translate(calc(var(--w-direction-factor) * 5px), -50%);
+    color: theme('colors.text-button');
+
+    @media (forced-colors: active) {
+      color: SelectedItemText;
+    }
+  }
+
+  &__toggle {
+    position: relative;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: '';
+      transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+      display: block;
+    }
+
+    &::before {
+      height: $switch-height + $switch-border * 2;
+      width: $switch-width + $switch-border * 2;
+      border-radius: $switch-border-radius;
+      background: theme('colors.text-placeholder');
+      border: $switch-border solid theme('colors.text-placeholder');
+    }
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      transform: translate(
+        calc(var(--w-direction-factor) * $switch-border),
+        -50%
+      );
+      height: $switch-height;
+      width: $switch-height;
+      border: $switch-border solid theme('colors.surface-page');
+      border-radius: theme('borderRadius.full');
+      background-color: theme('colors.surface-page');
+    }
+  }
+
+  [type='checkbox']:checked + &__toggle::before {
+    background: theme('colors.text-button-outline-default');
+    border-color: theme('colors.text-button-outline-default');
+
+    @media (forced-colors: active) {
+      background: SelectedItem;
+      border-color: SelectedItem;
+    }
+  }
+
+  [type='checkbox']:checked + &__toggle::after {
+    transform: translate(
+      calc(
+        var(--w-direction-factor) * (#{$switch-width + $switch-border} - 100%)
+      ),
+      -50%
+    );
+  }
+
+  [type='checkbox']:disabled + &__toggle {
+    cursor: not-allowed;
+    filter: grayscale(100%);
+    opacity: 0.3;
+  }
+
+  [type='checkbox']:focus-visible + &__toggle {
+    outline: theme('colors.focus') solid $switch-outline;
+  }
+
+  [type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+  }
+}

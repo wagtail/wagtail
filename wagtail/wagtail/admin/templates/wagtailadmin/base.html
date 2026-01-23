@@ -1,0 +1,61 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags wagtailcore_tags i18n %}
+
+{% block furniture %}
+    <template data-wagtail-sidebar-branding-logo>{% block branding_logo %}{% endblock %}</template>
+    {% sidebar_props %}
+    <aside id="wagtail-sidebar" class="sidebar-loading" aria-label="{% trans 'Sidebar' %}" data-wagtail-sidebar data-controller="w-kbd" data-w-kbd-key-value="["></aside>
+    {% keyboard_shortcuts_dialog %}
+    <main class="content-wrapper w-overflow-x-hidden" id="main">
+        <div class="content">
+            {# Always show messages div so it can be appended to by JS #}
+            <div class="messages" role="status" data-controller="w-messages" data-action="w-messages:add@document->w-messages#add w-messages:clear@document->w-messages#clear" data-w-messages-added-class="new" data-w-messages-show-class="appear" data-w-messages-show-delay-value="100">
+                <ul data-w-messages-target="container">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% message_level_tag message as level_tag %}
+                            <li class="{% message_tags message %}">
+                                {% if level_tag == "error" %}
+                                    {# There is no error icon, use warning icon instead #}
+                                    {% icon name="warning" classname="messages-icon" %}
+                                {% elif message.extra_tags == "lock" %}
+                                    {% icon name="lock" classname="messages-icon" %}
+                                {% elif message.extra_tags == "unlock" %}
+                                    {% icon name="lock-open" classname="messages-icon" %}
+                                {% else %}
+                                    {% icon name=level_tag classname="messages-icon" %}
+                                {% endif %}
+                                {{ message|safe }}
+                                {% if level_tag == "error" %}
+                                    {# Show a button to focus the first field/response error if available. #}
+                                    <button
+                                        type="button"
+                                        class="button button-small button-secondary w-hidden w-ml-2.5"
+                                        data-controller="w-count w-focus"
+                                        data-action="click->w-focus#focus wagtail:panel-init@document->w-count#count"
+                                        data-w-count-active-class="!w-inline-block"
+                                        data-w-count-find-value=":not([hidden]):is(.error-message,.help-critical)"
+                                        data-w-focus-target-value=":not([hidden]):is(.error-message,.help-critical)"
+                                    >
+                                        {% trans 'Go to the first error' %}
+                                    </button>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+                <template data-w-messages-target="template" data-type="success">
+                    <li class="success">{% icon name="success" classname="messages-icon" %}<span></span></li>
+                </template>
+                <template data-w-messages-target="template" data-type="error">
+                    <li class="error">{% icon name="warning" classname="messages-icon" %}<span></span></li>
+                </template>
+                <template data-w-messages-target="template" data-type="warning">
+                    <li class="warning">{% icon name="warning" classname="messages-icon" %}<span></span></li>
+                </template>
+            </div>
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+{% endblock %}

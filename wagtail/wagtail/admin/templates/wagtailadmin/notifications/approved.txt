@@ -1,0 +1,8 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
+{% load i18n %}
+
+{% block content %}
+{% blocktrans trimmed with title=revision.content_object.get_admin_display_title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}
+
+{% trans "You can view the page here:" %} {{ revision.content_object.full_url }}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "wagtailadmin/generic/chooser/chooser.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block filter_form %}
+    <form data-chooser-modal-search action="{{ results_url }}" method="GET" autocomplete="off" novalidate>
+        <div class="md:w-flex w-gap-8">
+            <ul class="fields w-grow">
+                {% for field in filter_form %}
+                    <li>{% formattedfield field %}</li>
+                {% endfor %}
+                {% if popular_tags %}
+                    <li class="taglist w-label-3">
+                        <h3>{% trans 'Popular tags' %}</h3>
+                        {% for tag in popular_tags %}
+                            <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>
+                        {% endfor %}
+                    </li>
+                {% endif %}
+            </ul>
+            <fieldset class="w-pb-0">
+                <legend class="w-field__label w-mb-2">{% trans 'Layout' %}</legend>
+                <div id="layout-switch-control" class="w-layout-switch-control w-mb-8" data-chooser-modal-search-filter>
+                    {% include "wagtailimages/images/layout_toggle_button.html" %}
+                </div>
+            </fieldset>
+        </div>
+    </form>
+
+{% endblock %}

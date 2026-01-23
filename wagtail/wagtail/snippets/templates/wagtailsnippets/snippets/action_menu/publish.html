@@ -1,0 +1,14 @@
+{% load i18n wagtailadmin_tags %}
+<button
+    type="submit"
+    name="{{ name }}"
+    value="{{ name }}"
+    class="button action-save button-longrunning"
+    data-controller="w-progress"
+    data-action="w-progress#activate"
+    data-w-progress-active-value="{% if is_scheduled %}{% trans 'Scheduling…' %}{% else %}{% trans 'Publishing…' %}{% endif %}"
+>
+    {% icon name=icon_name classname="button-longrunning__icon" %}
+    {% icon name="spinner" %}
+    <em data-w-progress-target="label">{% if is_scheduled %}{% trans "Schedule to publish" %}{% elif is_revision %}{% trans 'Publish this version' %}{% else %}{% trans 'Publish' %}{% endif %}</em>
+</button>

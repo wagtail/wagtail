@@ -1,0 +1,20 @@
+{% comment %}
+This error template is intentionally left as static HTML to ensure that it is still renderable even
+during system-wide failures such as a missing database.
+
+Any Django template tags here - including this comment - will be processed at the point of cloning
+the project template with `wagtail start`, and not during page rendering (unless escaped with
+'templatetag').
+{% endcomment %}<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Internal server error</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <h1>Internal server error</h1>
+
+        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
+    </body>
+</html>

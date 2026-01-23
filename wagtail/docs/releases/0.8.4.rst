@@ -1,0 +1,22 @@
+===========================
+Wagtail 0.8.4 release notes
+===========================
+
+*December 4, 2014*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* It is no longer possible to have the explorer and settings menu open at the same time
+* Page IDs in page revisions were not updated on page copy, causing subsequent edits to be committed to the original page instead
+* Copying a page now creates a new page revision, ensuring that changes to the title/slug are correctly reflected in the editor (and also ensuring that the user performing the copy is logged)
+* Prevent a race condition when creating Filter objects
+* On adding a new page, the available page types are ordered by the displayed verbose name

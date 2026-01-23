@@ -1,0 +1,95 @@
+@use '../../../../../node_modules/draftail/src/index' as *;
+
+$tooltip-spacing: 0.625rem;
+$tooltip-arrow-height: 15px;
+$tooltip-arrow-spacing: 25px;
+$tooltip-radius: $draftail-toolbar-radius;
+
+$tooltip-chrome: $draftail-editor-chrome;
+$tooltip-chrome-text: $draftail-tooltip-chrome-text;
+
+$tooltip-z-index: $draftail-tooltip-z-index;
+
+$tooltip-color-no: theme('colors.critical.100');
+
+@mixin arrow--top {
+  margin-top: $tooltip-spacing;
+  transform: translateX(calc(var(--w-direction-factor) * -50%));
+
+  &::before {
+    content: none;
+  }
+}
+
+@mixin arrow--left {
+  margin-inline-start: $tooltip-arrow-spacing;
+  transform: translateY(-50%);
+
+  &::before {
+    top: 50%;
+    inset-inline-end: 100%;
+    transform: translateY(-50%);
+    border-inline-end-color: $tooltip-chrome;
+  }
+}
+
+@mixin arrow--top-left {
+  margin-top: $tooltip-arrow-spacing;
+
+  &::before {
+    bottom: 100%;
+    inset-inline-start: $tooltip-arrow-spacing;
+    border-bottom-color: $tooltip-chrome;
+  }
+}
+
+.Tooltip {
+  position: absolute;
+  padding: $tooltip-spacing;
+  background-color: $tooltip-chrome;
+  color: $tooltip-chrome-text;
+  z-index: $tooltip-z-index;
+  border-radius: $tooltip-radius;
+  box-shadow: 0 0 5px theme('colors.black-35');
+
+  &::before {
+    content: '';
+    position: absolute;
+    border: $tooltip-arrow-height solid transparent;
+  }
+
+  &--top {
+    @include arrow--top;
+  }
+
+  &--left {
+    @include arrow--left;
+  }
+
+  &--top-left {
+    @include arrow--top-left;
+  }
+
+  &__link {
+    @include font-smoothing;
+    font-size: 0.875rem;
+    margin-inline-end: $controls-spacing * 4;
+    display: inline-block;
+
+    &,
+    &:hover {
+      color: theme('colors.text-button');
+    }
+  }
+
+  &__button {
+    &.no.button-secondary {
+      color: $tooltip-color-no;
+      border-color: currentColor;
+
+      &:hover {
+        color: theme('colors.critical.200');
+      }
+    }
+  }
+}

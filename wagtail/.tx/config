@@ -1,0 +1,118 @@
+[main]
+host     = https://www.transifex.com
+lang_map = zh-Hant: zh_Hant, zh_CN: zh_Hans
+
+[o:torchbox:p:wagtail:r:wagtailadmin]
+file_filter = wagtail/admin/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/admin/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailadminjs]
+file_filter = wagtail/admin/locale/<lang>/LC_MESSAGES/djangojs.po
+source_file = wagtail/admin/locale/en/LC_MESSAGES/djangojs.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailcore]
+file_filter = wagtail/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtaildocs]
+file_filter = wagtail/documents/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/documents/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailembeds]
+file_filter = wagtail/embeds/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/embeds/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailforms]
+file_filter = wagtail/contrib/forms/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/forms/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailimages]
+file_filter = wagtail/images/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/images/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtaillocales]
+file_filter = wagtail/locales/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/locales/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailredirects]
+file_filter = wagtail/contrib/redirects/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/redirects/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailsearch]
+file_filter = wagtail/search/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/search/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailsearchpromotions]
+file_filter = wagtail/contrib/search_promotions/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/search_promotions/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailsettings]
+file_filter = wagtail/contrib/settings/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/settings/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailsimpletranslation]
+file_filter = wagtail/contrib/simple_translation/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/simple_translation/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailsites]
+file_filter = wagtail/sites/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/sites/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailsnippets]
+file_filter = wagtail/snippets/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/snippets/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailstyleguide]
+file_filter = wagtail/contrib/styleguide/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/styleguide/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailtableblock]
+file_filter = wagtail/contrib/table_block/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/table_block/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailtypedtableblock]
+file_filter = wagtail/contrib/typed_table_block/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/typed_table_block/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+
+[o:torchbox:p:wagtail:r:wagtailusers]
+file_filter = wagtail/users/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/users/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type        = PO
+

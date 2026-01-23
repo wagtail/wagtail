@@ -1,0 +1,32 @@
+===========================
+Wagtail 1.4.4 release notes
+===========================
+
+*May 10, 2016*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Translations
+~~~~~~~~~~~~
+
+* New translation for Slovenian (Mitja Pagon)
+
+Bug fixes
+~~~~~~~~~
+
+* The ``wagtailuserbar`` template tag now gracefully handles situations where the ``request`` object is not in the template context (Matt Westcott)
+* Meta classes on StreamField blocks now handle multiple inheritance correctly (Tim Heap)
+* Now user can upload images / documents only into permitted collection from choosers
+* Keyboard shortcuts for save / preview on the page editor no longer incorrectly trigger the "unsaved changes" message (Jack Paine / Matt Westcott)
+* Redirects no longer fail when both a site-specific and generic redirect exist for the same URL path (Nick Smith, João Luiz Lorencetti)
+* Wagtail now checks that Group is registered with the Django admin before unregistering it (Jason Morrison)
+* Previewing inaccessible pages no longer fails with ``ALLOWED_HOSTS = ['*']`` (Robert Rollins)
+* The submit button 'spinner' no longer activates if the form has client-side validation errors (Jack Paine, Matt Westcott)
+* Overriding ``MESSAGE_TAGS`` in project settings no longer causes messages in the Wagtail admin to lose their styling (Tim Heap)
+* Border added around explorer menu to stop it blending in with StreamField block listing; also fixes invisible explorer menu in Firefox 46 (Alex Gleason)

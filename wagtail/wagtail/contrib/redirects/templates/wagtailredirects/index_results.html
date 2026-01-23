@@ -1,0 +1,18 @@
+{% extends "wagtailadmin/generic/index_results.html" %}
+{% load i18n %}
+
+{% block no_results_message %}
+    {% if query_string %}
+        <p role="alert">
+            {% blocktrans trimmed %}
+                Sorry, no redirects match "<em>{{ query_string }}</em>"
+            {% endblocktrans %}
+        </p>
+    {% else %}
+        <p>
+            {% blocktrans trimmed with wagtailredirects_add_redirect_url=add_url %}
+                No redirects have been created. Why not <a href="{{ wagtailredirects_add_redirect_url }}">add one</a>?
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+{% endblock %}

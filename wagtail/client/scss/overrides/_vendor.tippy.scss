@@ -1,0 +1,75 @@
+// stylelint-disable selector-attribute-name-disallowed-list
+@use '../../../node_modules/tippy.js/dist/tippy';
+
+.tippy-box {
+  // Special font size 12px for tooltips
+  @apply w-bg-surface-tooltip w-text-text-button w-text-[0.75rem] w-rounded-sm w-font-medium;
+}
+
+.tippy-box[data-placement^='top'] > .tippy-arrow::before {
+  @apply w-border-t-surface-tooltip;
+}
+
+.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
+  @apply w-border-b-surface-tooltip;
+}
+
+.tippy-box[data-placement^='left'] > .tippy-arrow::before {
+  @apply w-border-l-surface-tooltip;
+}
+
+.tippy-box[data-placement^='right'] > .tippy-arrow::before {
+  @apply w-border-r-surface-tooltip;
+}
+
+// Dropdown theme for tippy tooltips
+.tippy-box[data-theme='dropdown'] {
+  @apply w-rounded;
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}
+
+.tippy-box[data-theme='popup'] {
+  @apply w-rounded w-bg-surface-page w-text-inherit w-shadow-md;
+
+  &[data-placement^='bottom'] > .tippy-arrow::before {
+    @apply w-border-b-surface-page;
+  }
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}
+
+.tippy-box[data-theme='drilldown'] {
+  @apply w-rounded w-bg-surface-page w-text-inherit w-shadow-md;
+  width: 300px;
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}
+
+.tippy-box[data-theme='dropdown-button'] {
+  @apply w-rounded-none w-w-full w-bg-transparent;
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}
+
+// Media for Windows High Contrast mode
+@media (forced-colors: active) {
+  .tippy-box {
+    .tippy-content {
+      border: 2px solid transparent;
+    }
+  }
+
+  .tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
+    @apply w-border-b-surface-tooltip;
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+  }
+}

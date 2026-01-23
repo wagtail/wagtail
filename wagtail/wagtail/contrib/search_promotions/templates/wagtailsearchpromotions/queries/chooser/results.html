@@ -1,0 +1,29 @@
+{% load i18n %}
+{% load l10n %}
+{% load wagtailadmin_tags %}
+<table class="listing chooser">
+    <col width="50%"/>
+    <col width="50%"/>
+    <thead>
+        <tr>
+            <th class="title">{% trans "Terms" %}</th>
+            <th>{% trans "Views" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if queries %}
+            {% for query in queries %}
+                <tr>
+                    <td class="title">
+                        <div class="title-wrapper"><a class="choose-query" href="#{{ query.id|unlocalize }}" data-id="{{ query.id|unlocalize }}" data-querystring="{{ query.query_string }}">{{ query.query_string }}</a></div>
+                    </td>
+                    <td>{{ query.hits }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="100%" class="no-results-message"><p>{% trans "No results found" %}</p></td></tr>
+        {% endif %}
+    </tbody>
+</table>
+
+{% paginate queries %}

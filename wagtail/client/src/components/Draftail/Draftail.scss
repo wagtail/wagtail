@@ -1,0 +1,296 @@
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+@use '../../../scss/components/forms/input-base' as *;
+
+@use '../../../../node_modules/draft-js/dist/Draft';
+@use '../../../../node_modules/draftail/src/index' as * with (
+  $draftail-editor-text: theme('colors.text-context'),
+  $draftail-placeholder-text: theme('colors.text-placeholder'),
+  // w-body-text-large
+  $draftail-editor-font-size: theme('fontSize.19'),
+  $draftail-editor-line-height: theme('lineHeight.normal'),
+  $draftail-editor-chrome: theme('colors.surface-menus'),
+  $draftail-editor-chrome-text: theme('colors.text-button'),
+  // This needs to remain a Sass value due to a limitation in Draftail.
+  // $draftail-editor-chrome-active: theme('colors.surface-page'),
+  $draftail-editor-chrome-active: #fff,
+  $draftail-editor-chrome-accent: transparent,
+
+  $draftail-base-spacing: 0.375rem,
+  $draftail-editor-radius: 0,
+  $draftail-editor-border: 0,
+  $draftail-editor-padding: theme('spacing.[2.5]') theme('spacing.5'),
+  $draftail-editor-background: theme('colors.surface-field'),
+  $draftail-block-spacing: theme('spacing.[2.5]'),
+  $draftail-toolbar-radius: theme('borderRadius.DEFAULT'),
+  $draftail-editor-font-family: theme('fontFamily.sans')
+);
+
+@use './Tooltip/Tooltip';
+@use './CommentableEditor/CommentableEditor';
+@use './EditorFallback/EditorFallback';
+
+@use './decorators/TooltipEntity';
+
+@use './blocks/MediaBlock';
+@use './blocks/ImageBlock';
+@use './blocks/EmbedBlock';
+
+$draftail-toolbar-icon-size: 1em;
+$draftail-trigger-additional-size: 30px;
+$draftail-block-hoverable-area-offset: 40px;
+
+@include draftail-richtext-styles {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    // Overrides for heading styles of Wagtail itself.
+    color: inherit;
+    line-height: theme('lineHeight.tight');
+    font-weight: theme('fontWeight.bold');
+  }
+
+  h1 {
+    font-size: theme('fontSize.30');
+  }
+
+  h2 {
+    font-size: theme('fontSize.24');
+  }
+
+  h3 {
+    font-size: theme('fontSize.22');
+  }
+
+  h4 {
+    font-size: theme('fontSize.18');
+  }
+
+  h5 {
+    font-size: theme('fontSize.16');
+  }
+
+  h6 {
+    font-size: theme('fontSize.14');
+  }
+}
+
+.Draftail-Editor {
+  // Number used inside a `calc` function, which doesn’t support unitless zero.
+  // stylelint-disable-next-line length-zero-no-unit
+  --draftail-offset-inline-start: 0px;
+  @include input-base();
+
+  &--focus {
+    outline: $focus-outline-width solid theme('colors.focus');
+  }
+}
+
+.Draftail-Editor__wrapper {
+  // Ensure elements within the editor are positioned according to this container.
+  position: relative;
+  // Make fields take up the whole available width in their container.
+  width: 100%;
+}
+
+.Draftail-Toolbar {
+  border-width: 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+  background-color: $draftail-editor-background;
+  color: $draftail-placeholder-text;
+
+  &--pin {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .Draftail-Editor--focus & {
+    color: $draftail-editor-text;
+    top: calc(theme('spacing.slim-header') * 2);
+
+    @include media-breakpoint-up(sm) {
+      top: theme('spacing.slim-header');
+    }
+  }
+
+  .Draftail-ToolbarButton--active {
+    @include light-theme() {
+      background-color: theme('colors.surface-header');
+      border-color: theme('colors.border-furniture');
+
+      @media (forced-colors: active) {
+        background: Highlight;
+      }
+    }
+  }
+}
+
+.Draftail-MetaToolbar {
+  position: absolute;
+  inset-inline-end: 0;
+  visibility: hidden;
+  background-color: transparent;
+
+  &:empty {
+    display: none;
+  }
+
+  // Make sure the toolbar is always visible for devices that do not hover.
+  @media (hover: hover) {
+    visibility: hidden;
+
+    .Draftail-Editor:focus-within &,
+    .Draftail-Editor:hover & {
+      visibility: visible;
+    }
+  }
+}
+
+.Draftail-BlockToolbar {
+  position: absolute;
+  background: transparent;
+  // Adds additional hoverable area so block trigger will be shown when hovering to the side of the field.
+  width: $draftail-block-hoverable-area-offset;
+  inset-inline-start: -$draftail-block-hoverable-area-offset;
+  top: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Draftail-BlockToolbar__trigger {
+  $icon-size: theme('spacing.4');
+  color: theme('colors.text-button-outline-default');
+  width: $icon-size;
+  height: $icon-size;
+  margin-inline-end: calc($nested-field-indent-sm - $icon-size / 2 - 2px);
+
+  @include media-breakpoint-up(sm) {
+    margin-inline-end: calc($nested-field-indent - $icon-size / 2 - 2px);
+  }
+
+  // Increase the hoverable area of the trigger button
+  &::before {
+    content: '';
+    background: transparent;
+    display: block;
+    position: absolute;
+    transform: translate(calc(var(--w-direction-factor) * -50%), -50%);
+    inset-inline-start: 50%;
+    top: 50%;
+    width: $draftail-trigger-additional-size;
+    height: $draftail-trigger-additional-size;
+    border-radius: theme('borderRadius.DEFAULT');
+    z-index: 1;
+  }
+
+  // Hide the trigger unless the editor is hovered, focused, or an element within it is focused.
+  .Draftail-Editor:not(:hover, .Draftail-Editor--focus, :focus-within) & {
+    // Hide even if the conditions to display it are met.
+    // stylelint-disable-next-line declaration-no-important
+    visibility: hidden !important;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: theme('colors.surface-page');
+    background-color: theme('colors.text-button-outline-hover');
+  }
+
+  .icon {
+    transition: transform 0.3s ease;
+    width: theme('spacing.3');
+    height: theme('spacing.3');
+  }
+
+  &[aria-expanded='true'] .icon {
+    transform: rotate(45deg);
+  }
+}
+
+.Draftail-ToolbarGroup {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Draftail-ToolbarGroup::before {
+  display: none;
+}
+
+.Draftail-ToolbarButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.875rem;
+  min-width: 1.875rem;
+  padding: 0;
+  margin-inline-end: 0.625rem;
+
+  @include more-contrast-interactive();
+
+  .Draftail-ToolbarGroup:last-of-type &:last-of-type {
+    margin-inline-end: 0;
+  }
+
+  &[disabled] {
+    opacity: 0.3;
+  }
+
+  &:hover,
+  &:active {
+    border: 1px solid theme('colors.border-button-small-outline-default');
+  }
+
+  .icon {
+    width: $draftail-toolbar-icon-size;
+    height: $draftail-toolbar-icon-size;
+    vertical-align: middle;
+  }
+
+  .icon-h1,
+  .icon-h2,
+  .icon-h3,
+  .icon-h4,
+  .icon-h5,
+  .icon-h6 {
+    width: 1.25 * $draftail-toolbar-icon-size;
+    height: 1.25 * $draftail-toolbar-icon-size;
+  }
+}
+
+.Draftail-ToolbarButton--pin {
+  min-width: theme('spacing.6');
+  height: theme('spacing.6');
+  border: 1px solid theme('colors.surface-tooltip');
+
+  &:hover {
+    border-color: theme('colors.surface-tooltip');
+  }
+
+  .Draftail-Toolbar & {
+    border-color: theme('colors.border-field-default');
+    background-color: theme('colors.surface-page');
+    color: currentColor;
+    border-top-width: 0;
+    border-inline-end-width: 0;
+
+    .Draftail-Editor:hover & {
+      border-color: theme('colors.border-field-hover');
+    }
+  }
+}
+
+.Draftail-block--blockquote {
+  border-inline-start: 0.25em solid theme('colors.border-field-default');
+  color: theme('colors.text-meta');
+  margin: 1em 0;
+  padding: 1em 2em;
+}
+
+.DraftEditor-editorContainer {
+  border: 0;
+}

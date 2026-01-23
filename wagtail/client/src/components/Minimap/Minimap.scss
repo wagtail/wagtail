@@ -1,0 +1,106 @@
+$minimap-width: 260px;
+$minimap-collapsed-width-mobile: 20px;
+$minimap-collapsed-width: 30px;
+$minimap-overflow: theme('spacing.2');
+
+@use '../../../scss/tools' as *;
+
+@use './CollapseAll';
+@use './MinimapItem';
+
+.w-minimap {
+  position: absolute;
+  top: var(--offset-top);
+  inset-inline-end: 0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100%);
+  z-index: theme('zIndex.minimap');
+  width: $minimap-width;
+  transform: translateX(
+    calc(var(--w-direction-factor) * (100% - $minimap-collapsed-width-mobile))
+  );
+
+  @include media-breakpoint-up(sm) {
+    transform: translateX(
+      calc(var(--w-direction-factor) * (100% - $minimap-collapsed-width))
+    );
+  }
+
+  .side-panel-open & {
+    inset-inline-end: var(--side-panel-width, 0);
+  }
+
+  &--expanded {
+    transform: translateX(0);
+    // Take up the whole height so overlap with the page looks better.
+    height: calc(100vh - var(--offset-top));
+    // Only transition when opening, so the closing animation doesn’t interfere with "hover to open".
+    transition: transform 0.3s ease;
+  }
+
+  > * {
+    // Set the background on the contents of the minimap only to reduce overlapping area with fields and comments.
+    background-color: theme('colors.surface-page');
+  }
+}
+
+.w-minimap__toggle {
+  // Keep the icon at a stable position and reduce the amount of shifting of the button.
+  display: inline-flex;
+  padding: theme('spacing.[0.5]');
+  background-color: theme('colors.surface-page');
+  color: theme('colors.icon-primary');
+  transform: rotate(180deg);
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 18px;
+    padding: theme('spacing.[1.5]');
+  }
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+  }
+
+  :where(.w-minimap--expanded) & {
+    margin-top: theme('spacing.3');
+    margin-inline-start: theme('spacing.3');
+    padding: theme('spacing.3');
+    transform: rotate(0deg);
+  }
+}
+
+.w-minimap__header {
+  min-height: 70px;
+
+  :where(.w-minimap--expanded) & {
+    margin-inline-start: $minimap-overflow;
+    border-inline-start: 1px solid theme('colors.border-furniture');
+  }
+}
+
+.w-minimap__list {
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  list-style-type: none;
+
+  :where(.w-minimap--expanded) & {
+    padding-inline-start: $minimap-overflow;
+  }
+
+  > li {
+    display: flex;
+  }
+}
+
+.w-minimap__footer {
+  flex-grow: 1;
+
+  :where(.w-minimap--expanded) & {
+    margin-inline-start: $minimap-overflow;
+    border-inline-start: 1px solid theme('colors.border-furniture');
+  }
+}

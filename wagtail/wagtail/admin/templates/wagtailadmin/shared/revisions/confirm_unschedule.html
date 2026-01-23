@@ -1,0 +1,16 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n %}
+
+{% block main_content %}
+    <p>{% trans "Are you sure you want to unschedule this revision?" %}</p>
+    <form action="{{ revisions_unschedule_url }}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <ul class="fields">
+            <li>
+                <input type="submit" value="{% trans 'Yes, unschedule' %}" class="button">
+                <a href="{{ next_url }}" class="button button-secondary">{% trans "No, don't unschedule" %}</a>
+            </li>
+        </ul>
+    </form>
+{% endblock %}

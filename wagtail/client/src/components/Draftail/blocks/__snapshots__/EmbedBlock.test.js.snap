@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmbedBlock no data 1`] = `
+<MediaBlock
+  alt=""
+  block={{}}
+  blockProps={
+    {
+      "editorState": {},
+      "entity": {
+        "getData": [Function],
+      },
+      "entityType": {},
+      "onChange": [Function],
+    }
+  }
+  fallbackText=""
+  src={null}
+>
+  <button
+    className="button Tooltip__button"
+    type="button"
+  >
+    Edit
+  </button>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;
+
+exports[`EmbedBlock renders 1`] = `
+<MediaBlock
+  alt=""
+  block={{}}
+  blockProps={
+    {
+      "editorState": {},
+      "entity": {
+        "getData": [Function],
+      },
+      "entityType": {},
+      "onChange": [Function],
+    }
+  }
+  fallbackText=""
+  src="http://www.example.com/example.png"
+>
+  <a
+    className="Tooltip__link EmbedBlock__link"
+    href="http://www.example.com/"
+    rel="noreferrer"
+    target="_blank"
+    title="http://www.example.com/"
+  >
+    Test title
+  </a>
+  <button
+    className="button Tooltip__button"
+    type="button"
+  >
+    Edit
+  </button>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;

@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/userbar/item_base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block item_content %}
+    {% url 'wagtailadmin_explore' self.parent_page.id as explore_url %}
+    <a href="{% build_absolute_url explore_url %}" target="_parent" role="menuitem">
+        {% icon name="folder-open-inverse" classname="w-action-icon" %}
+        {% trans 'Show in Explorer' %}
+    </a>
+{% endblock %}

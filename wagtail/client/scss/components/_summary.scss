@@ -1,0 +1,34 @@
+@use '../tools' as *;
+
+.w-summary {
+  color: theme('colors.text-link-default');
+  margin-bottom: theme('spacing.3');
+  padding-top: theme('spacing.1');
+
+  .w-summary__list {
+    @include unlist();
+
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: theme('spacing.8');
+  }
+
+  /* Summary item */
+  li {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: theme('spacing.[2.5]');
+    margin-bottom: theme('spacing.6');
+  }
+
+  .icon {
+    @include svg-icon(1.375rem);
+    color: theme('colors.icon-primary');
+  }
+
+  a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}

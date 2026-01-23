@@ -1,0 +1,10 @@
+{% load wagtailadmin_tags %}
+
+<div class="help-block help-{{ status }}">
+    {% if status == 'info' %}
+        {% icon name='help' %}
+    {% else %}
+        {% icon name='warning' %}
+    {% endif %}
+    {{ children }}
+</div>

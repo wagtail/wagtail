@@ -1,0 +1,268 @@
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2022
+# Mohammed Abdul gadir <weekmo@aol.com>, 2022
+# ultraify media <ultraify@gmail.com>, 2022
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2022
+# Younes Oumakhou, 2022
+# Loic Teixeira, 2024
+# Tarek Berkane, 2025
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s عناصر جديدة في هذه القائمة)"
+
+msgid "(1 new item in this menu)"
+msgstr "(عنصر جديد واحد في هذه القائمة)"
+
+msgid "(New)"
+msgstr "(جديد)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s خطأ"
+msgstr[1] "%(num)s خطأ"
+msgstr[2] "%(num)s خطأين"
+msgstr[3] "%(num)s أخطاء"
+msgstr[4] "%(num)s خطأ"
+msgstr[5] "%(num)s خطأ"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s دقيقة"
+msgstr[1] "%(num)s دقيقة"
+msgstr[2] "%(num)s دقيقتين"
+msgstr[3] "%(num)s دقائق"
+msgstr[4] "%(num)s دقيقة"
+msgstr[5] "%(num)s دقيقة"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s بكسل"
+msgstr[1] "%(num)s بكسل"
+msgstr[2] "%(num)s بكسلين"
+msgstr[3] "%(num)s بكسل"
+msgstr[4] "%(num)s بكسل"
+msgstr[5] "%(num)s بكسل"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "Actions"
+msgstr "الإجراءات"
+
+msgid "Add a comment"
+msgstr "إضافة تعليق"
+
+msgid "Alt text"
+msgstr "نص بديل"
+
+msgid "Are you sure?"
+msgstr "هل أنت متأكد؟"
+
+msgid "Blocks"
+msgstr "الكتل"
+
+msgid "Broken link"
+msgstr "رابط معطوب"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Character count:"
+msgstr "عدد الأحرف:"
+
+msgid "Close"
+msgstr "إغلاق"
+
+msgid "Collapse all"
+msgstr "طي الكل"
+
+msgid "Comment"
+msgstr "تعليق"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Decorative image"
+msgstr "صورة زخرفية"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete error"
+msgstr "خطأ في الحذف"
+
+msgid "Deleting"
+msgstr "جاري الحذف"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Edit '%(title)s'"
+msgstr "تحرير '%(title)s'"
+
+msgid "Enter your comments..."
+msgstr "أدخل تعليقاتك..."
+
+msgid "Enter your reply..."
+msgstr "أدخل ردك..."
+
+msgid "Error while sending preview data."
+msgstr "حدث خطأ أثناء إرسال بيانات المعاينة."
+
+msgid "Expand all"
+msgstr "توسيع الكل"
+
+msgid "Focus comment"
+msgstr "تركيز التعليق"
+
+msgid "Horizontal line"
+msgstr "خط أفقي"
+
+msgid "Insert a block"
+msgstr "إدراج كتلة"
+
+msgid "Line break"
+msgstr "فاصل أسطر"
+
+msgid "Loading…"
+msgstr "جاري التحميل..."
+
+msgid "Main menu"
+msgstr "القائمة الرئيسية"
+
+msgid "Missing document"
+msgstr "مستند مفقود"
+
+msgid "More actions"
+msgstr "المزيد من الإجراءات"
+
+msgid "No"
+msgstr "لا"
+
+msgid "No results"
+msgstr "لا توجد نتائج"
+
+msgid "Page"
+msgstr "صفحة"
+
+msgid "Page explorer"
+msgstr "مستكشف الصفحات"
+
+msgid "Pages"
+msgstr "صفحات"
+
+msgid "Pin toolbar"
+msgstr "تثبيت شريط الأدوات"
+
+msgid "Preview"
+msgstr "معاينة"
+
+msgid "Reload saved content"
+msgstr "إعادة تحميل المحتوى المحفوظ"
+
+msgid "Reload the page"
+msgstr "إعادة تحميل الصفحة"
+
+msgid "Reply"
+msgstr "رد"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "أبلغ عن هذا الخطأ لمسؤول موقع الويب الخاص بك بالمعلومات التالية:"
+
+msgid "Resolve"
+msgstr "حل"
+
+msgid "Retry"
+msgstr "إعادة المحاولة"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Save error"
+msgstr "خطأ في الحفظ"
+
+msgid "Save the page to add this comment"
+msgstr "احفظ الصفحة لإضافة هذا التعليق"
+
+msgid "Save the page to save this comment"
+msgstr "احفظ الصفحة لحفظ هذا التعليق"
+
+msgid "Save the page to save this reply"
+msgstr "احفظ الصفحة لحفظ هذا الرد"
+
+msgid "Saving..."
+msgstr "جاري الحفظ..."
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Search options…"
+msgstr "خيارات البحث…"
+
+msgid "See all"
+msgstr "عرض الكل"
+
+msgid "Server Error"
+msgstr "خطأ في الخادم"
+
+msgid "Show error"
+msgstr "عرض الخطأ"
+
+msgid "Show latest content"
+msgstr "عرض أحدث محتوى"
+
+msgid "Split block"
+msgstr "تقسيم الكتلة"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "حدث تعطل للمحرر. تمت استعادة المحتوى إلى آخر نسخة محفوظة."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "الحد الأقصى لعدد العناصر هو %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "الحد الأدنى لعدد العناصر هو %(min_num)d"
+
+msgid "This field is required."
+msgstr "هذا الحقل مطلوب."
+
+msgid "Toggle section"
+msgstr "تبديل القسم"
+
+msgid "Toggle side panel"
+msgstr "تبديل اللوحة الجانبية"
+
+msgid "Toggle sidebar"
+msgstr "تبديل الشريط الجانبي"
+
+msgid "Unfocus comment"
+msgstr "إلغاء تركيز التعليق"
+
+msgid "Unpin toolbar"
+msgstr "إلغاء تثبيت شريط الأدوات"
+
+msgid "View child pages of '%(title)s'"
+msgstr "عرض الصفحات الفرعية لـ '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "اكتب شيئًا أو اكتب '/' لإدراج كتلة"
+
+msgid "Yes"
+msgstr "نعم"

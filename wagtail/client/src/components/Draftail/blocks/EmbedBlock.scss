@@ -1,0 +1,6 @@
+@use '../../../../../node_modules/draftail/src/index' as *;
+
+.EmbedBlock__link {
+  display: block;
+  margin-bottom: $button-spacing;
+}

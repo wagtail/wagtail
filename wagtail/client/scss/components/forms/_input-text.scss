@@ -1,0 +1,57 @@
+@use '../../settings' as *;
+@use './input-base' as *;
+
+// All HTML5 input types, with irrelevant ones commented out.
+// input[type="button"],
+// input[type="checkbox"],
+// input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="file"],
+// input[type="hidden"],
+// input[type="image"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+// input[type="radio"],
+// input[type="range"],
+// input[type="reset"],
+input[type="search"],
+// input[type="submit"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+textarea {
+  @apply w-body-text-large;
+  width: 100%;
+  padding: theme('spacing.[1.5]') theme('spacing.5');
+  min-height: $text-input-height;
+
+  @include input-base();
+}
+
+// Multiline text fields have larger top-bottom padding.
+textarea {
+  padding: theme('spacing.5');
+}
+
+// Disable resize handle on textareas with auto-sizing behaviour
+.w-field__autosize {
+  resize: none;
+}
+
+.w-field--date_field,
+.w-field--date_time_field,
+.w-field--time_field {
+  // Make sure comment buttons are as close as possible.
+  display: inline-block;
+
+  // Make non-text field types with custom widgets have a smaller width.
+  input {
+    width: auto;
+    max-width: 100%;
+  }
+}

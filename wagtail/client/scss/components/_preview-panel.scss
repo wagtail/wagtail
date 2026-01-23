@@ -1,0 +1,222 @@
+@use '../tools' as *;
+
+.w-preview {
+  --w-preview-background-color: var(--w-color-white);
+  --w-preview-color-scheme: normal;
+  --preview-width-ratio: min(
+    1,
+    var(--preview-panel-width, 450) / var(--preview-device-width, 375)
+  );
+  --preview-iframe-width: calc(1px * var(--preview-device-width, 375));
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__area {
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    // Needed for the warning message when the data is not valid.
+    overflow: hidden;
+  }
+
+  &__wrapper {
+    position: relative;
+    width: calc(var(--preview-iframe-width) * var(--preview-width-ratio));
+    height: 100%;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+  }
+
+  &__iframe {
+    transform-origin: top left;
+    width: var(--preview-iframe-width);
+    height: calc(100% / var(--preview-width-ratio));
+    transform: scale(var(--preview-width-ratio));
+    display: block;
+
+    &:empty {
+      // Ensure that sites without a background show with a fallback, only when iframe has loaded
+      background-color: var(--w-preview-background-color);
+      // Sites that do not have a background but have color-scheme will have the
+      // colors (background, text, etc.) automatically styled by the browser.
+      // If the color-scheme matches Wagtail's current color-scheme, the browser
+      // will give the iframe a transparent background. If we only set the
+      // white background-color above, the white background will be used
+      // while the rest of the content follows the color-scheme of the site,
+      // which might result in white text on a white background.
+      // Since we cannot know the actual value of the content's color-scheme,
+      // we set the color-scheme to normal to ensure the iframe stays opaque.
+      color-scheme: var(--w-preview-color-scheme);
+    }
+
+    [dir='rtl'] & {
+      // Transform with the top-right physical corner as the origin since the layout is reversed.
+      transform-origin: top right;
+    }
+
+    // Prevent the iframe from capturing pointer events when resizing the panel, which
+    // would consume the pointerup event and leaving the panel stuck in a resizing state.
+    .side-panel-resizing & {
+      pointer-events: none;
+    }
+  }
+
+  &__sizes {
+    @apply w-border-border-furniture w-border-b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    padding-inline: 1rem;
+
+    @include more-contrast() {
+      border-color: theme('colors.border-furniture-more-contrast');
+    }
+  }
+
+  &__size-button {
+    @apply w-text-text-meta w-transition hover:w-transform hover:w-scale-110 hover:w-text-text-label focus:w-text-text-label;
+
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    padding: 0;
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+
+    &--selected,
+    &--selected:hover {
+      @apply w-bg-surface-menus w-text-text-button w-transform-none w-border w-border-transparent;
+    }
+
+    &:focus-within:has(:focus-visible) {
+      @include focus-outline;
+    }
+
+    .icon {
+      @include svg-icon(1rem);
+
+      &.icon-tablet-alt,
+      &.icon-desktop {
+        @include svg-icon(1.25rem);
+      }
+
+      &.icon-link-external {
+        @include svg-icon(0.9rem);
+      }
+    }
+  }
+
+  &__refresh-button.button--icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 1rem;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    inset-inline-end: 1.5rem;
+
+    // Use element and class selectors to beat .button-longrunning specificity
+    svg.icon,
+    svg.icon-spinner {
+      margin-inline-end: 0;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  &__spinner {
+    position: absolute;
+    top: 1.25rem;
+    inset-inline-end: 1.5rem;
+  }
+
+  &__controls {
+    @apply w-border-t w-border-transparent w-duration-500 w-ease-in-out;
+    transition-property: border-color, margin-top, padding-top;
+    margin-top: 0;
+    padding-top: 0;
+
+    // Show the border only if there's an error,
+    // but always show it if there are multiple preview modes
+    .w-preview--has-errors &:not(&--multiple),
+    &--multiple {
+      @apply w-border-border-furniture w-border-t;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  &__error-banner {
+    @apply w-text-text-context w-duration-1000 w-ease-in-out w-translate-y-20;
+    transition-property: max-height, transform, visibility;
+    visibility: hidden;
+    max-height: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: -1;
+
+    .icon {
+      @apply w-text-warning-100;
+    }
+  }
+
+  &--has-errors &__error-banner {
+    @apply w-translate-y-0;
+    visibility: visible;
+    max-height: 6rem;
+  }
+
+  &__error-title {
+    @apply w-label-2;
+    color: inherit;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  &__error-details {
+    color: inherit;
+  }
+
+  &__modes {
+    margin-bottom: 0;
+    background-color: theme('colors.surface-page');
+
+    .w-field__input {
+      padding-inline-end: 0;
+    }
+  }
+
+  &__mode-select {
+    @apply w-outline-offset-inside;
+  }
+
+  // A hidden element that is only rendered for functionality purposes,
+  // but is not visible to the user. Used by radio inputs for preview sizes and
+  // the iframe while it's loading. We nest the selector rather than suffixing
+  // the parent selector to beat the specificity of input[type="radio"] styles
+  .w-preview__proxy {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+
+    // Remove mask-image from radio inputs to avoid loading the default icon,
+    // use extra specificity to beat the default styles
+    &:is(input[type='radio'])::before {
+      content: none;
+      mask-image: none;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{% extends "wagtailadmin/generic/chooser/results.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block listing_title %}<h2>{% trans "Latest documents" %}</h2>{% endblock %}
+
+{% block no_search_results_message %}
+    <p role="alert">{% blocktrans trimmed %}Sorry, no documents match "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
+{% endblock %}
+
+{% block no_items_message %}
+    <p>
+        {% if is_filtering_by_collection %}
+            {% trans "You haven't uploaded any documents in this collection." %}
+        {% else %}
+            {% trans "You haven't uploaded any documents." %}
+        {% endif %}
+        {% if can_create %}
+            {% blocktrans trimmed %}
+                Why not <a class="upload-one-now" href="#tab-upload" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" data-w-tabs-focus-param="true">upload one now</a>?
+            {% endblocktrans %}
+        {% endif %}
+    </p>
+{% endblock %}

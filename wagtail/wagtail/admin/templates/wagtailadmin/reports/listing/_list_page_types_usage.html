@@ -1,0 +1,83 @@
+{% load i18n wagtailadmin_tags wagtailcore_tags %}
+
+<table class="listing {% block table_classname %}{% endblock table_classname %}">
+    <col width="25%" />
+    <col width="20%" />
+    <col width="10%" />
+    <col width="30%" />
+    <col width="15%" />
+    <thead>
+        {% block post_parent_page_headers %}
+            <tr class="table-headers">
+                <th class="title">
+                    {% trans 'Type' %}
+                </th>
+                <th class="app-label">
+                    {% trans 'App' %}
+                </th>
+                <th class="count">
+                    {% trans 'Pages' %}
+                </th>
+                <th class="last-edited-page">
+                    {% trans 'Last edited page' %}
+                </th>
+                <th class="last-edited-at">
+                    {% trans 'Last edit' %}
+                </th>
+                {% block extra_columns %}
+                {% endblock extra_columns %}
+            </tr>
+        {% endblock post_parent_page_headers %}
+    </thead>
+    <tbody>
+        {% for page_type in page_types %}
+            <tr class="{% block page_row_classname %}{% endblock page_row_classname %}">
+                <td class="page-type" valign="top" data-listing-page-type>
+                    {% block page_type %}
+                        {{ page_type.name|title }}
+                    {% endblock page_type %}
+                </td>
+                <td class="app-label" valign="top">
+                    {{ page_type.app_label }}.{{ page_type.model }}
+                </td>
+                <td class="count" valign="top">
+                    {% if page_type.count > 0 %}
+                        <a href="{% url 'wagtailadmin_pages:type_use' content_type_app_name=page_type.app_label content_type_model_name=page_type.model %}">{{ page_type.count|intcomma }}</a>
+                    {% else %}
+                        {{ page_type.count|intcomma }}
+                    {% endif %}
+                </td>
+                <td class="last-edited-page" valign="top">
+                    {% if page_type.last_edited_page %}
+                        {% page_permissions page_type.last_edited_page as perms %}
+                        {% with page_display_title=page_type.last_edited_page.get_admin_display_title %}
+                            {% if perms.can_edit %}
+                                <a href="{% url 'wagtailadmin_pages:edit' page_type.last_edited_page.id %}">
+                                    {{ page_display_title }}
+                                </a>
+                            {% else %}
+                                <p>{{ page_display_title }}</p>
+                            {% endif %}
+                        {% endwith %}
+                        {% i18n_enabled as show_locale_labels %}
+                        {% if show_locale_labels %}
+                            {% locale_label_from_id page_type.last_edited_page.locale_id as locale_label %}
+                            {% status locale_label classname="w-status--label" %}
+                        {% endif %}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td class="last-edited-at" valign="top">
+                    {% if page_type.last_edited_page.latest_revision_created_at %}
+                        {% human_readable_date page_type.last_edited_page.latest_revision_created_at %}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                {% block extra_page_data %}
+                {% endblock extra_page_data %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

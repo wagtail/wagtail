@@ -1,0 +1,69 @@
+@use 'sass:math';
+@use '../../settings' as *;
+@use './input-base' as *;
+
+// 24px input widget size.
+$size: 1.5rem;
+$marker-size: 1rem;
+$px: 0.0625rem;
+$marker-offset: math.div($size - $marker-size, 2) - $px;
+$radio-checkbox-label-gap: theme('spacing.[2.5]');
+
+// Both input types are very similar in appearance and layout.
+@mixin radio-checkbox-base() {
+  display: inline-block;
+  position: relative;
+  height: $size;
+  width: $size;
+  cursor: pointer;
+  margin-inline-end: $radio-checkbox-label-gap;
+  // Prevent the checkbox or radio button from shrinking when the label is long.
+  flex-shrink: 0;
+
+  @include input-base();
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: $marker-offset;
+    inset-inline-start: $marker-offset;
+    width: $marker-size;
+    height: $marker-size;
+  }
+
+  &:checked::before {
+    background: theme('colors.border-button-outline-default');
+
+    @media (forced-colors: active) {
+      background: Highlight;
+    }
+  }
+}
+
+input[type='radio'] {
+  @include radio-checkbox-base();
+
+  // stylelint-disable-next-line no-duplicate-selectors, scss/selector-no-redundant-nesting-selector
+  & {
+    border-radius: theme('borderRadius.full');
+  }
+
+  &:checked::before {
+    mask-image: url('#{$images-root}icons/radio-full.svg');
+  }
+}
+
+input[type='checkbox'] {
+  @include radio-checkbox-base();
+
+  // stylelint-disable-next-line no-duplicate-selectors, scss/selector-no-redundant-nesting-selector
+  & {
+    border-radius: theme('borderRadius.sm');
+    // Legacy alignment for checkboxes, particularly within listings.
+    vertical-align: bottom;
+  }
+
+  &:checked::before {
+    mask-image: url('#{$images-root}icons/check.svg');
+  }
+}

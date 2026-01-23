@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% comment %}
+        Override the content block instead of main_content so we get the full-width layout without the nice-padding.
+        However, this means we need to include the header block again (and only do {{ block.super }} inside it).
+    {% endcomment %}
+
+    {% block header %}
+        {{ block.super }}
+    {% endblock %}
+
+    {% block listing %}
+        <div id="listing-results">
+            {% comment %}
+                This div will be replaced on AJAX refreshes.
+                Do not add page furniture here unless you intend it to disappear on AJAX refresh
+            {% endcomment %}
+            {% include view.results_template_name|default:"wagtailadmin/generic/listing_results.html" %}
+        </div>
+    {% endblock %}
+
+    {% block bulk_actions %}{% endblock %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {{ media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
+{% endblock %}

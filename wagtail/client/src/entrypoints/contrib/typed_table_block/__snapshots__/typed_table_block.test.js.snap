@@ -1,0 +1,319 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders correctly 1`] = `
+"<div class="typed-table-block ">
+        <div class="w-field__wrapper" data-field-wrapper="">
+          <label class="w-field__label" for="mytable-caption">
+            Caption
+          </label>
+          <div class="w-field w-field--char_field w-field--text_input" data-field="">
+            <div class="w-field__help" data-field-help="">
+              <div class="help">
+                A heading that identifies the overall topic of the table, and is useful for screen reader users.
+              </div>
+            </div>
+            <div class="w-field__input" data-field-input="">
+              <input type="text" id="mytable-caption" name="mytable-caption" value="">
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="mytable-column-count" data-column-count="" value="2">
+        <input type="hidden" name="mytable-row-count" data-row-count="" value="2">
+        <div data-deleted-fields=""><input type="hidden" name="mytable-column-0-deleted" value=""><input type="hidden" name="mytable-column-1-deleted" value=""><input type="hidden" name="mytable-row-0-deleted" value=""><input type="hidden" name="mytable-row-1-deleted" value=""></div>
+        <div class="typed-table-block__wrapper">
+          <table>
+            <thead>
+              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button><input type="text" name="mytable-column-0-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button><input type="text" name="mytable-column-1-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></th><th class="control-cell">
+                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" aria-expanded="false" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
+                </th></tr>
+            </thead>
+            <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-0-0-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-0-0-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-0-0" id="mytable-cell-0-0">Block A widget</p>
+          </div>
+        </div>
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-0-1-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-0-1-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-0-1" id="mytable-cell-0-1">Block B widget</p>
+          </div>
+        </div>
+      </div></td><td class="control-cell"><input type="hidden" name="mytable-row-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-row" aria-label="Delete row" title="Delete row">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></td></tr><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-1-0-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-1-0-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-1-0" id="mytable-cell-1-0">Block A widget</p>
+          </div>
+        </div>
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-1-1-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-1-1-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-1-1" id="mytable-cell-1-1">Block B widget</p>
+          </div>
+        </div>
+      </div></td><td class="control-cell"><input type="hidden" name="mytable-row-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-row" aria-label="Delete row" title="Delete row">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></td></tr></tbody>
+            <tfoot>
+              <tr>
+                <td class="control-cell">
+                  <button type="button" class="button button-small button-secondary button--icon text-replace prepend-row" data-add-row="" aria-label="Add row" title="Add row" style="">
+                    <svg class="icon icon-plus icon" aria-hidden="true">
+                      <use href="#icon-plus"></use>
+                    </svg>
+                  </button></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>plenty</strong> of these
+          </div>
+        </div>
+      </div>"
+`;
+
+exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passes error messages to children 1`] = `
+"<div class="typed-table-block ">
+        <div class="w-field__wrapper" data-field-wrapper="">
+          <label class="w-field__label" for="mytable-caption">
+            Caption
+          </label>
+          <div class="w-field w-field--char_field w-field--text_input" data-field="">
+            <div class="w-field__help" data-field-help="">
+              <div class="help">
+                A heading that identifies the overall topic of the table, and is useful for screen reader users.
+              </div>
+            </div>
+            <div class="w-field__input" data-field-input="">
+              <input type="text" id="mytable-caption" name="mytable-caption" value="">
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="mytable-column-count" data-column-count="" value="2">
+        <input type="hidden" name="mytable-row-count" data-row-count="" value="2">
+        <div data-deleted-fields=""><input type="hidden" name="mytable-column-0-deleted" value=""><input type="hidden" name="mytable-column-1-deleted" value=""><input type="hidden" name="mytable-row-0-deleted" value=""><input type="hidden" name="mytable-row-1-deleted" value=""></div>
+        <div class="typed-table-block__wrapper">
+          <table>
+            <thead>
+              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button><input type="text" name="mytable-column-0-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button><input type="text" name="mytable-column-1-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></th><th class="control-cell">
+                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" aria-expanded="false" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
+                </th></tr>
+            </thead>
+            <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-0-0-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-0-0-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-0-0" id="mytable-cell-0-0">Block A widget</p>
+          </div>
+        </div>
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error" data-field="">
+          <div class="w-field__errors" id="mytable-cell-0-1-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+          <p class="error-message">This is not enough cheese.</p></div>
+          <div class="w-field__help" id="mytable-cell-0-1-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-0-1" id="mytable-cell-0-1">Block B widget</p>
+          </div>
+        </div>
+      </div></td><td class="control-cell"><input type="hidden" name="mytable-row-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-row" aria-label="Delete row" title="Delete row">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></td></tr><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-1-0-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-1-0-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-1-0" id="mytable-cell-1-0">Block A widget</p>
+          </div>
+        </div>
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-1-1-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-1-1-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-1-1" id="mytable-cell-1-1">Block B widget</p>
+          </div>
+        </div>
+      </div></td><td class="control-cell"><input type="hidden" name="mytable-row-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-row" aria-label="Delete row" title="Delete row">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></td></tr></tbody>
+            <tfoot>
+              <tr>
+                <td class="control-cell">
+                  <button type="button" class="button button-small button-secondary button--icon text-replace prepend-row" data-add-row="" aria-label="Add row" title="Add row" style="">
+                    <svg class="icon icon-plus icon" aria-hidden="true">
+                      <use href="#icon-plus"></use>
+                    </svg>
+                  </button></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>plenty</strong> of these
+          </div>
+        </div>
+      </div>"
+`;
+
+exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows non-block errors 1`] = `
+"<div class="typed-table-block "><p class="help-block help-critical">This is just generally wrong.</p>
+        <div class="w-field__wrapper" data-field-wrapper="">
+          <label class="w-field__label" for="mytable-caption">
+            Caption
+          </label>
+          <div class="w-field w-field--char_field w-field--text_input" data-field="">
+            <div class="w-field__help" data-field-help="">
+              <div class="help">
+                A heading that identifies the overall topic of the table, and is useful for screen reader users.
+              </div>
+            </div>
+            <div class="w-field__input" data-field-input="">
+              <input type="text" id="mytable-caption" name="mytable-caption" value="">
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="mytable-column-count" data-column-count="" value="2">
+        <input type="hidden" name="mytable-row-count" data-row-count="" value="2">
+        <div data-deleted-fields=""><input type="hidden" name="mytable-column-0-deleted" value=""><input type="hidden" name="mytable-column-1-deleted" value=""><input type="hidden" name="mytable-row-0-deleted" value=""><input type="hidden" name="mytable-row-1-deleted" value=""></div>
+        <div class="typed-table-block__wrapper">
+          <table>
+            <thead>
+              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button><input type="text" name="mytable-column-0-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button><input type="text" name="mytable-column-1-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></th><th class="control-cell">
+                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" aria-expanded="false" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
+                </th></tr>
+            </thead>
+            <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-0-0-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-0-0-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-0-0" id="mytable-cell-0-0">Block A widget</p>
+          </div>
+        </div>
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-0-1-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-0-1-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-0-1" id="mytable-cell-0-1">Block B widget</p>
+          </div>
+        </div>
+      </div></td><td class="control-cell"><input type="hidden" name="mytable-row-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-row" aria-label="Delete row" title="Delete row">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></td></tr><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+      </button></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-1-0-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-1-0-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-1-0" id="mytable-cell-1-0">Block A widget</p>
+          </div>
+        </div>
+      </div></td><td><div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+          <div class="w-field__errors" id="mytable-cell-1-1-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="mytable-cell-1-1-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="mytable-cell-1-1" id="mytable-cell-1-1">Block B widget</p>
+          </div>
+        </div>
+      </div></td><td class="control-cell"><input type="hidden" name="mytable-row-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-row" aria-label="Delete row" title="Delete row">
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
+      </button></td></tr></tbody>
+            <tfoot>
+              <tr>
+                <td class="control-cell">
+                  <button type="button" class="button button-small button-secondary button--icon text-replace prepend-row" data-add-row="" aria-label="Add row" title="Add row" style="">
+                    <svg class="icon icon-plus icon" aria-hidden="true">
+                      <use href="#icon-plus"></use>
+                    </svg>
+                  </button></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      
+        <div class="c-sf-help">
+          <div class="help">
+            use <strong>plenty</strong> of these
+          </div>
+        </div>
+      </div>"
+`;

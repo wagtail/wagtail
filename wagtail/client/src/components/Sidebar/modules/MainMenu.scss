@@ -1,0 +1,102 @@
+@use '../../../../scss/tools' as *;
+@use '../../../../scss/settings' as *;
+
+.sidebar-main-menu {
+  overflow: auto;
+  overflow-x: hidden;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  *:focus {
+    @include show-focus-outline-inside;
+  }
+
+  .icon--submenu-header {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 0.8em;
+    opacity: 0.15;
+  }
+
+  > ul > li > a {
+    // Need !important to override body.ready class
+    // stylelint-disable-next-line declaration-no-important
+    transition: padding $menu-transition-duration ease !important;
+  }
+
+  .menuitem-label {
+    transition: opacity $menu-transition-duration ease;
+  }
+}
+
+.sidebar-footer {
+  @apply w-bg-surface-menus w-mt-auto;
+  // stylelint-disable-next-line declaration-no-important
+  transition: width $menu-transition-duration ease !important; // Override body.ready
+
+  > ul,
+  ul > li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  ul > li {
+    position: relative;
+  }
+
+  > ul {
+    @include transition(max-height $menu-transition-duration ease);
+    visibility: hidden;
+
+    max-height: 0;
+
+    a {
+      border-inline-start: 3px solid transparent;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &__account {
+    @include show-focus-outline-inside();
+
+    &-toggle {
+      @apply w-pl-2 w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
+
+      min-width: 0;
+
+      .icon {
+        flex-shrink: 0;
+      }
+    }
+
+    &-label {
+      @apply w-text-text-label-menus-default w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis;
+    }
+  }
+
+  @at-root .sidebar--slim #{&} {
+    &__account {
+      @apply w-pb-3;
+    }
+
+    &__account-toggle {
+      @apply w-hidden;
+    }
+  }
+
+  &--open {
+    > ul {
+      $footer-submenu-height: 85px;
+      max-height: $footer-submenu-height;
+      visibility: visible;
+    }
+  }
+}

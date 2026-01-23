@@ -1,0 +1,177 @@
+@use 'sass:math';
+@use 'sass:color';
+@use '../tools' as *;
+@use '../settings' as *;
+
+.w-header {
+  @apply w-text-text-label;
+  margin-bottom: theme('spacing.8');
+
+  h1,
+  h2 {
+    @apply w-text-text-label;
+    margin: 0;
+  }
+
+  h1,
+  .w-header__title {
+    @apply w-h1;
+    position: relative;
+  }
+
+  .w-header__glyph {
+    position: absolute;
+    inset-inline-start: calc(0 - theme('spacing.11'));
+    vertical-align: text-top;
+
+    &.icon {
+      top: 0.125em;
+      max-width: 1em;
+      max-height: 1em;
+    }
+  }
+
+  .w-header__subtitle {
+    margin-inline-start: theme('spacing[1.5]');
+    font-weight: theme('fontWeight.normal');
+  }
+
+  // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
+  // Use w-header--with-padding for headers that don't contain .row elements.
+  &.w-header--with-padding,
+  > .row {
+    padding-top: theme('spacing.2');
+    padding-bottom: theme('spacing.[2.5]');
+    padding-inline-start: 110px;
+    padding-inline-end: theme('spacing.5');
+  }
+
+  &.w-header--merged .w-breadcrumbs {
+    padding-inline-start: $mobile-nav-indent;
+  }
+
+  .col {
+    float: inline-start;
+    margin-inline-end: 2em;
+  }
+
+  .left {
+    float: inline-start;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .right {
+    display: flex;
+    gap: theme('spacing[2.5]');
+    text-align: end;
+    float: inline-end;
+  }
+
+  // For case where content below header should merge with it
+  &.w-header--merged {
+    margin-bottom: 0;
+    padding-bottom: theme('spacing.1');
+  }
+
+  &.w-header--no-border {
+    border: 0;
+  }
+
+  &.w-header--merged.w-header--no-border {
+    padding-bottom: 0;
+  }
+
+  .error-message {
+    color: inherit;
+  }
+
+  .last-updated {
+    ul {
+      padding: 0;
+    }
+
+    li {
+      display: inline;
+      margin-inline-end: 2em;
+    }
+
+    a {
+      font-weight: theme('fontWeight.bold');
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .w-header {
+    .row {
+      padding-inline-start: $desktop-nice-padding;
+      padding-inline-end: $desktop-nice-padding;
+      padding-top: theme('spacing.10');
+    }
+
+    &.w-header--merged .w-breadcrumbs {
+      padding-inline-start: 0;
+    }
+
+    .left {
+      float: inline-start;
+      margin-inline-end: 0;
+
+      &:first-child {
+        padding-bottom: 0;
+        float: inline-start;
+      }
+    }
+
+    .second {
+      clear: none;
+
+      .right,
+      .left {
+        float: inline-end;
+      }
+    }
+
+    .col3 {
+      @include column(3);
+    }
+
+    .col3.actionbutton {
+      width: auto;
+    }
+
+    .col6 {
+      @include column(6);
+    }
+
+    .col9 {
+      @include column(9);
+    }
+  }
+}
+
+.w-slim-header {
+  @include more-contrast() {
+    border-color: theme('colors.border-furniture-more-contrast');
+  }
+
+  &__search-form {
+    @apply w-mx-2 w-flex w-items-center w-gap-2;
+  }
+
+  .w-field__wrapper:not(.w-drilldown .w-field__wrapper) {
+    @apply w-mb-0;
+
+    .w-field__input {
+      @apply w-mt-0;
+
+      > input,
+      > select {
+        @apply w-text-16;
+        min-height: theme('spacing.10');
+      }
+    }
+  }
+}

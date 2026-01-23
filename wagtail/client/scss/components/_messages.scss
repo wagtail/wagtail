@@ -1,0 +1,104 @@
+@use '../tools' as *;
+
+// Messages are specific to Django's 'Messaging' system which adds messages into the session,
+// for display on the next page visited. These appear as an animated banner at the top of the page.
+// For inline help text, see typography.scss
+.messages {
+  position: relative;
+  background-color: theme('colors.surface-page');
+
+  .buttons {
+    margin-inline-start: 1em;
+  }
+
+  > ul {
+    @include unlistimmediate();
+    position: relative;
+    top: -100px;
+    opacity: 0;
+  }
+
+  > ul > li {
+    padding: 1.6em 3em 1.6em 1.6em;
+    color: theme('colors.text-button');
+    border-bottom: 1px solid transparent;
+  }
+
+  > ul > li:before {
+    @include font-smoothing;
+    margin-inline-end: 0.5em;
+    font-size: 1.5em;
+    vertical-align: middle;
+  }
+
+  &-icon {
+    vertical-align: text-top;
+    margin-inline-end: 0.5em;
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  .button.button-secondary {
+    border-color: currentColor;
+    color: inherit;
+
+    &:hover {
+      background-color: transparent;
+      color: theme('colors.text-button');
+    }
+  }
+
+  .error {
+    background-color: theme('colors.critical.200');
+    color: theme('colors.white.DEFAULT');
+
+    .button:hover {
+      color: theme('colors.white.DEFAULT');
+    }
+  }
+
+  .warning {
+    background-color: theme('colors.warning.100');
+    color: theme('colors.grey.600');
+
+    @include more-contrast() {
+      background-color: theme('colors.warning.75');
+    }
+  }
+
+  .info {
+    background-color: theme('colors.info.100');
+    color: theme('colors.white.DEFAULT');
+  }
+
+  .success {
+    background-color: theme('colors.positive.100');
+    color: theme('colors.white.DEFAULT');
+  }
+
+  .errorlist {
+    margin: 0.5em 0 0 1em;
+  }
+}
+
+.messages.new > ul {
+  transition: none;
+  top: -100px;
+}
+
+.ready .messages > ul,
+.messages.appear > ul {
+  transition:
+    top 0.5s ease,
+    opacity 0.5s ease,
+    max-height 1.2s ease;
+  opacity: 1;
+  top: 0;
+}
+
+@include media-breakpoint-up(sm) {
+  .messages > ul > li {
+    padding-inline-start: 1.6em;
+    padding-inline-end: 3em;
+  }
+}

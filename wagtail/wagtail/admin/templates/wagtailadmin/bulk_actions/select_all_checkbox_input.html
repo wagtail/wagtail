@@ -1,0 +1,2 @@
+{% load i18n l10n %}
+<input {% if parent %}data-bulk-action-parent-id="{{ parent|unlocalize }}"{% endif %} data-bulk-action-select-all-checkbox type="checkbox" aria-label="{{ _('Select all') }}"/>

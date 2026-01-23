@@ -1,0 +1,107 @@
+@use '../../../scss/tools' as *;
+
+.w-minimap-item {
+  @apply w-label-3 w-outline-offset-inside;
+  display: inline-flex;
+  align-items: center;
+  height: theme('spacing.8');
+  gap: theme('spacing[2.5]');
+  font-weight: theme('fontWeight.normal');
+  border-inline-start: 1px solid transparent;
+
+  @include media-breakpoint-up(sm) {
+    padding-inline-start: theme('spacing.2');
+    padding-inline-end: theme('spacing.2');
+  }
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+  }
+
+  .icon-minus {
+    padding: theme('spacing.1');
+  }
+
+  // Minimap items have a lot of different states denoted with their text color, border color, and background.
+  // The order of the following declaration blocks is essential so the correct states take priority.
+  :where(.w-minimap--expanded) & {
+    border-color: theme('colors.border-furniture');
+    padding-inline-start: theme('spacing.8');
+  }
+
+  &--active {
+    border-color: theme('colors.icon-primary');
+
+    @media (forced-colors: active) {
+      border-inline-start-width: 3px;
+    }
+
+    @include more-contrast() {
+      border-inline-start-width: 3px;
+    }
+  }
+
+  &:hover {
+    color: theme('colors.text-button-outline-hover');
+    border-color: theme('colors.border-button-outline-hover');
+    background-color: theme('colors.surface-button-outline-hover');
+  }
+
+  &--error {
+    color: theme('colors.text-error');
+  }
+
+  &--h2 {
+    font-weight: theme('fontWeight.bold');
+
+    .w-minimap-item__placeholder {
+      color: theme('colors.icon-primary');
+    }
+  }
+}
+
+.w-minimap-item__placeholder {
+  flex-shrink: 0;
+  color: theme('colors.icon-secondary');
+
+  :where(.w-minimap--expanded) & {
+    display: none;
+  }
+
+  @media (forced-colors: active) {
+    color: LinkText;
+  }
+}
+
+.w-minimap-item__errors {
+  $border-width: 1px;
+  $badge-size: theme('spacing.4');
+  width: $badge-size;
+  height: $badge-size;
+  flex-shrink: 0;
+  line-height: calc($badge-size - $border-width * 2);
+  text-align: center;
+  font-size: 0.5625rem;
+  font-weight: theme('fontWeight.bold');
+  border-radius: theme('borderRadius.full');
+  background-color: theme('colors.critical.200');
+  border: $border-width solid theme('colors.surface-page');
+  color: theme('colors.white.DEFAULT');
+
+  :where(.w-minimap--expanded) & {
+    margin-inline-start: calc(-1 * (theme('spacing.8') + $badge-size / 2));
+    // Improve the alignment of "1" with the item’s border.
+    padding-inline-end: theme('spacing.px');
+    margin-inline-end: calc($badge-size - theme('spacing.px'));
+  }
+}
+
+.w-minimap-item__icon,
+.w-minimap-item__label {
+  opacity: 0;
+
+  :where(.w-minimap--expanded) & {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,595 @@
+<!-- Auto-generated with Wagtail’s styleguide. -->
+<table class="w-w-full"> <caption><code>register_icons</code> entries from <code>wagtailadmin/icons</code></caption>
+<thead>
+<tr>
+<th scope="col">Visual</th>
+<th scope="col">Name</th>
+<th scope="col">Source</th>
+<th scope="col">File path</th> </tr> </thead>
+<tbody>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M8 11.5a.743.743 0 0 1-.54-.21L3.71 7.54a.723.723 0 0 1 0-1.056.723.723 0 0 1 1.056 0L8 9.695l3.21-3.21a.723.723 0 0 1 1.056 0 .723.723 0 0 1 0 1.054l-3.75 3.75A.727.727 0 0 1 8 11.5Z"></path></svg> </svg></td>
+<td><code>arrow-down</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/arrow-down.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-arrow-right-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16"><!--! right-long (solid): Font Awesome Pro 6.4.0 --><path d="m15.75 8.563-3.5 3.25c-.219.218-.531.25-.813.156a.78.78 0 0 1-.468-.688V9H1c-.563 0-1-.438-1-1 0-.594.438-1 1-1h9.969V4.75a.78.78 0 0 1 .469-.688c.28-.093.593-.062.812.157l3.5 3.25a.755.755 0 0 1 0 1.093Z"></path></svg> </svg></td>
+<td><code>arrow-right-full</code></td>
+<td> right-long (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/arrow-right-full.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-arrow-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M9.5 13a.743.743 0 0 1-.54-.21L5.21 9.04a.723.723 0 0 1 0-1.056l3.75-3.75a.723.723 0 0 1 1.056 0 .723.723 0 0 1 0 1.055L6.805 8.5l3.21 3.234a.723.723 0 0 1 0 1.055A.727.727 0 0 1 9.5 13Z"></path></svg> </svg></td>
+<td><code>arrow-left</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/arrow-left.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M6.5 13a.743.743 0 0 1-.54-.21.723.723 0 0 1 0-1.056L9.173 8.5 5.96 5.29a.723.723 0 0 1 0-1.056.723.723 0 0 1 1.055 0l3.75 3.75a.723.723 0 0 1 0 1.055l-3.75 3.75A.727.727 0 0 1 6.5 13Z"></path></svg> </svg></td>
+<td><code>arrow-right</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/arrow-right.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-arrow-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M11.75 10.75a.743.743 0 0 1-.54-.21L8 7.327 4.766 10.54a.723.723 0 0 1-1.055 0 .723.723 0 0 1 0-1.055l3.75-3.75a.723.723 0 0 1 1.055 0l3.75 3.75a.723.723 0 0 1 0 1.055.727.727 0 0 1-.516.211Z"></path></svg> </svg></td>
+<td><code>arrow-up</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/arrow-up.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-bars" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! bars (solid): Font Awesome Pro 6.4.0 --><path d="M1 3c0-.531.438-1 1-1h12c.531 0 1 .469 1 1 0 .563-.469 1-1 1H2c-.563 0-1-.438-1-1Zm0 5c0-.531.438-1 1-1h12c.531 0 1 .469 1 1 0 .563-.469 1-1 1H2c-.563 0-1-.438-1-1Zm13 6H2c-.563 0-1-.438-1-1 0-.531.438-1 1-1h12c.531 0 1 .469 1 1 0 .563-.469 1-1 1Z"></path></svg> </svg></td>
+<td><code>bars</code></td>
+<td> bars (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/bars.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-bin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! trash-can (regular): Font Awesome Pro 6.4.0 --><path d="M6 12.5c0 .281-.25.5-.5.5a.494.494 0 0 1-.5-.5V6c0-.25.219-.5.5-.5.25 0 .5.25.5.5v6.5Zm2.5 0c0 .281-.25.5-.5.5a.494.494 0 0 1-.5-.5V6c0-.25.219-.5.5-.5.25 0 .5.25.5.5v6.5Zm2.5 0c0 .281-.25.5-.5.5a.494.494 0 0 1-.5-.5V6c0-.25.219-.5.5-.5.25 0 .5.25.5.5v6.5ZM10.906.781 12.062 2.5h2.188a.76.76 0 0 1 .75.75.74.74 0 0 1-.75.75H14v9.5c0 1.406-1.125 2.5-2.5 2.5h-7A2.468 2.468 0 0 1 2 13.5V4h-.25A.722.722 0 0 1 1 3.25a.74.74 0 0 1 .75-.75h2.156L5.062.781A1.792 1.792 0 0 1 6.532 0h2.905c.594 0 1.157.313 1.47.781ZM5.72 2.5h4.531l-.594-.875a.263.263 0 0 0-.219-.125H6.531a.263.263 0 0 0-.218.125l-.594.875ZM3.5 13.5c0 .563.438 1 1 1h7c.531 0 1-.438 1-1V4h-9v9.5Z"></path></svg> </svg></td>
+<td><code>bin</code></td>
+<td> trash-can (regular): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/bin.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-bold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! bold (solid): Font Awesome Pro 6.4.0 --><path d="M12.031 7.594A3.962 3.962 0 0 0 13 5c0-2.188-1.813-4-4-4l-6 .031c-.563 0-1 .438-1 1 0 .531.438 1 1 1h.5v10H3c-.563 0-1 .438-1 1 0 .531.438 1 1 1h7c2.188 0 4-1.812 4-4 0-1.469-.813-2.75-1.969-3.437ZM5.5 3.03H9c1.094 0 2 .875 2 2 0 1.094-.906 2-2 2H5.5v-4ZM10 13H5.5V9H10c1.094 0 2 .906 2 2 0 1.063-.906 2-2 2Z"></path></svg> </svg></td>
+<td><code>bold</code></td>
+<td> bold (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/bold.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-breadcrumb-expand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><circle cx="1" cy="8" r="1"></circle><circle cx="4" cy="8" r="1"></circle><circle cx="7" cy="8" r="1"></circle><path d="M11.132 12.872a.804.804 0 0 1-.584-.229.783.783 0 0 1 0-1.142l3.479-3.504-3.479-3.479a.783.783 0 0 1 0-1.142.783.783 0 0 1 1.143 0l4.062 4.062c.33.305.33.838 0 1.143l-4.062 4.062a.787.787 0 0 1-.559.229Z"></path></svg> </svg></td>
+<td><code>breadcrumb-expand</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/breadcrumb-expand.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! calendar (solid): Font Awesome Pro 6.4.0 --><path d="M4 1c0-.531.438-1 1-1 .531 0 1 .469 1 1v1h4V1c0-.531.438-1 1-1 .531 0 1 .469 1 1v1h1.5c.813 0 1.5.688 1.5 1.5V5H1V3.5A1.5 1.5 0 0 1 2.5 2H4V1Zm11 13.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.48 1.48 0 0 1 1 14.5V6h14v8.5Z"></path></svg> </svg></td>
+<td><code>calendar</code></td>
+<td> calendar (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/calendar.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-calendar-alt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! calendar-days (solid): Font Awesome Pro 6.4.0 --><path d="M6 1v1h4V1c0-.531.438-1 1-1 .531 0 1 .469 1 1v1h1.5c.813 0 1.5.688 1.5 1.5V5H1V3.5A1.5 1.5 0 0 1 2.5 2H4V1c0-.531.438-1 1-1 .531 0 1 .469 1 1ZM1 6h14v8.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.48 1.48 0 0 1 1 14.5V6Zm2 3.5c0 .281.219.5.5.5h1c.25 0 .5-.219.5-.5v-1c0-.25-.25-.5-.5-.5h-1c-.281 0-.5.25-.5.5v1Zm4 0c0 .281.219.5.5.5h1c.25 0 .5-.219.5-.5v-1c0-.25-.25-.5-.5-.5h-1c-.281 0-.5.25-.5.5v1ZM11.5 8c-.281 0-.5.25-.5.5v1c0 .281.219.5.5.5h1c.25 0 .5-.219.5-.5v-1c0-.25-.25-.5-.5-.5h-1ZM3 13.5c0 .281.219.5.5.5h1c.25 0 .5-.219.5-.5v-1c0-.25-.25-.5-.5-.5h-1c-.281 0-.5.25-.5.5v1ZM7.5 12c-.281 0-.5.25-.5.5v1c0 .281.219.5.5.5h1c.25 0 .5-.219.5-.5v-1c0-.25-.25-.5-.5-.5h-1Zm3.5 1.5c0 .281.219.5.5.5h1c.25 0 .5-.219.5-.5v-1c0-.25-.25-.5-.5-.5h-1c-.281 0-.5.25-.5.5v1Z"></path></svg> </svg></td>
+<td><code>calendar-alt</code></td>
+<td> calendar-days (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/calendar-alt.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-calendar-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! calendar-check (solid): Font Awesome Pro 6.4.0 --><path d="M6 1v1h4V1c0-.531.438-1 1-1 .531 0 1 .469 1 1v1h1.5c.813 0 1.5.688 1.5 1.5V5H1V3.5A1.5 1.5 0 0 1 2.5 2H4V1c0-.531.438-1 1-1 .531 0 1 .469 1 1ZM1 6h14v8.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.48 1.48 0 0 1 1 14.5V6Zm10.25 3.531c.313-.281.313-.75 0-1.062a.736.736 0 0 0-1.031 0l-2.969 3-1.5-1.5a.736.736 0 0 0-1.031 0c-.313.312-.313.781 0 1.062l2 2a.684.684 0 0 0 1.031 0l3.5-3.5Z"></path></svg> </svg></td>
+<td><code>calendar-check</code></td>
+<td> calendar-check (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/calendar-check.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! check (solid): Font Awesome Pro 6.4.0 --><path d="M14.688 3.313a.964.964 0 0 1 0 1.406l-8 8a.964.964 0 0 1-1.407 0l-4-4a.964.964 0 0 1 0-1.406.964.964 0 0 1 1.407 0l3.28 3.28 7.313-7.28a.964.964 0 0 1 1.406 0Z"></path></svg> </svg></td>
+<td><code>check</code></td>
+<td> check (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/check.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-circle-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-check (solid): Font Awesome Pro 6.4.0 --><path d="M0 8c0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8 0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8Zm11.594-1.375a.85.85 0 0 0 0-1.219.85.85 0 0 0-1.219 0L7 8.781 5.594 7.406a.85.85 0 0 0-1.219 0 .85.85 0 0 0 0 1.219l2 2a.849.849 0 0 0 1.219 0l4-4Z"></path></svg> </svg></td>
+<td><code>circle-check</code></td>
+<td> circle-check (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/circle-check.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-circle-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-plus (solid): Font Awesome Pro 6.4.0 --><path d="M0 8c0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8 0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8Zm8 3.5a.74.74 0 0 0 .75-.75v-2h2A.74.74 0 0 0 11.5 8a.76.76 0 0 0-.75-.75h-2v-2A.76.76 0 0 0 8 4.5a.74.74 0 0 0-.75.75v2h-2A.74.74 0 0 0 4.5 8c0 .438.313.75.75.75h2v2c0 .438.313.75.75.75Z"></path></svg> </svg></td>
+<td><code>circle-plus</code></td>
+<td> circle-plus (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/circle-plus.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-circle-xmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-xmark (regular): Font Awesome Pro 6.4.0 --><path d="M5.469 5.469a.736.736 0 0 1 1.031 0l1.469 1.5 1.5-1.5a.736.736 0 0 1 1.031 0c.313.312.313.781 0 1.062L9.031 8 10.5 9.469c.313.312.313.781 0 1.062a.684.684 0 0 1-1.031 0l-1.5-1.469-1.469 1.47a.684.684 0 0 1-1.031 0c-.313-.282-.313-.75 0-1.063L6.937 8 5.47 6.531c-.313-.281-.313-.75 0-1.062ZM16 8c0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8 0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8ZM8 1.5C4.406 1.5 1.5 4.438 1.5 8c0 3.594 2.906 6.5 6.5 6.5 3.563 0 6.5-2.906 6.5-6.5 0-3.563-2.938-6.5-6.5-6.5Z"></path></svg> </svg></td>
+<td><code>circle-xmark</code></td>
+<td> circle-xmark (regular): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/circle-xmark.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-clipboard-list" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! clipboard-list (solid): Font Awesome Pro 6.4.0 --><path d="M12.5 2h-1.688C10.376.844 9.283 0 8 0 6.687 0 5.594.844 5.156 2H3.5A1.5 1.5 0 0 0 2 3.5v11c0 .844.656 1.5 1.5 1.5h9a1.5 1.5 0 0 0 1.5-1.5v-11c0-.813-.688-1.5-1.5-1.5ZM5 12.25a.722.722 0 0 1-.75-.75.74.74 0 0 1 .75-.75.76.76 0 0 1 .75.75.74.74 0 0 1-.75.75Zm0-3a.722.722 0 0 1-.75-.75.74.74 0 0 1 .75-.75.76.76 0 0 1 .75.75.74.74 0 0 1-.75.75ZM8 2c.531 0 1 .469 1 1 0 .563-.469 1-1 1-.563 0-1-.438-1-1 0-.531.438-1 1-1Zm3.5 10h-4a.494.494 0 0 1-.5-.5c0-.25.219-.5.5-.5h4c.25 0 .5.25.5.5 0 .281-.25.5-.5.5Zm0-3h-4a.494.494 0 0 1-.5-.5c0-.25.219-.5.5-.5h4c.25 0 .5.25.5.5 0 .281-.25.5-.5.5Z"></path></svg> </svg></td>
+<td><code>clipboard-list</code></td>
+<td> clipboard-list (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/clipboard-list.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-code" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! code (solid): Font Awesome Pro 6.4.0 --><path d="m10.203 3.46-3 10.5a.735.735 0 0 1-.914.517.735.735 0 0 1-.516-.915l3-10.5a.735.735 0 0 1 .915-.515.735.735 0 0 1 .515.914Zm2.438 1.9 2.625 2.624a.723.723 0 0 1 0 1.055l-2.625 2.625a.723.723 0 0 1-1.055 0 .723.723 0 0 1 0-1.055L13.672 8.5l-2.086-2.086a.723.723 0 0 1 0-1.055.723.723 0 0 1 1.055 0ZM4.39 6.413 2.305 8.5l2.086 2.11a.723.723 0 0 1 0 1.054.723.723 0 0 1-1.055 0L.71 9.04a.723.723 0 0 1 0-1.055L3.336 5.36a.723.723 0 0 1 1.055 0 .723.723 0 0 1 0 1.055Z"></path></svg> </svg></td>
+<td><code>code</code></td>
+<td> code (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/code.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-cog" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! gear (solid): Font Awesome Pro 6.4.0 --><path d="M15.469 5.219c.125.281.031.562-.188.781l-1.344 1.219c.032.25.063.531.063.781 0 .281-.031.563-.063.813l1.344 1.218c.219.219.313.5.188.781A6.456 6.456 0 0 1 15 11.876l-.156.25c-.219.344-.438.688-.688 1-.187.219-.5.281-.781.188l-1.719-.532a8.599 8.599 0 0 1-1.375.781l-.406 1.782a.74.74 0 0 1-.563.562 9.37 9.37 0 0 1-2.656 0 .74.74 0 0 1-.562-.562l-.407-1.781a8.605 8.605 0 0 1-1.375-.782l-1.718.531c-.281.094-.594.032-.781-.187-.25-.313-.47-.656-.688-1l-.156-.25A6.456 6.456 0 0 1 .5 10.812c-.125-.28-.031-.562.188-.78l1.343-1.22C2 8.563 2 8.283 2 8c0-.25 0-.531.031-.781L.687 6C.47 5.781.376 5.5.5 5.219c.125-.375.281-.719.469-1.063l.156-.25c.219-.344.438-.687.688-1 .187-.219.5-.281.78-.187l1.72.531c.437-.313.906-.594 1.375-.781L6.093.688a.74.74 0 0 1 .562-.563C7.094.062 7.531 0 8 0c.438 0 .875.063 1.313.125a.74.74 0 0 1 .562.563l.406 1.78c.469.188.938.47 1.375.782l1.719-.531c.281-.094.594-.031.781.187.25.313.469.656.688 1l.156.25c.188.344.344.688.469 1.063ZM8 10.5c1.375 0 2.5-1.094 2.5-2.5 0-1.375-1.125-2.5-2.5-2.5A2.487 2.487 0 0 0 5.5 8c0 1.406 1.094 2.5 2.5 2.5Z"></path></svg> </svg></td>
+<td><code>cog</code></td>
+<td> gear (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/cog.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-cogs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! gears (solid): Font Awesome Pro 6.4.0 --><path d="M7.17 5.371c.024.147.049.317.049.488 0 .196-.025.367-.05.513l.538.488c.17.147.244.391.147.61-.05.123-.123.27-.171.391l-.074.122c-.097.122-.17.245-.244.367a.573.573 0 0 1-.61.17l-.684-.244c-.268.22-.561.391-.879.513l-.17.708a.494.494 0 0 1-.44.44c-.17.024-.342.024-.488.024-.171 0-.342 0-.513-.024a.494.494 0 0 1-.44-.44l-.17-.708a3.188 3.188 0 0 1-.88-.513l-.683.245a.573.573 0 0 1-.61-.171c-.073-.122-.171-.245-.244-.367L.48 7.861c-.048-.122-.122-.268-.17-.39a.524.524 0 0 1 .146-.61l.537-.489a3.047 3.047 0 0 1-.049-.513c0-.17.025-.341.05-.488l-.538-.488c-.17-.171-.244-.415-.146-.61.048-.147.122-.27.17-.391l.074-.122c.073-.122.17-.244.244-.366a.573.573 0 0 1 .61-.171l.684.244c.268-.22.561-.39.879-.513l.17-.708a.494.494 0 0 1 .44-.44c.17-.024.342-.048.513-.048.146 0 .317.024.488.049.22.024.415.195.44.44l.17.707c.318.122.61.293.88.513l.683-.244c.22-.074.464 0 .61.17.073.123.147.245.244.367l.074.122c.048.122.122.244.17.39.098.196.025.44-.146.61l-.537.49Zm-3.076-.684c-.66 0-1.172.538-1.172 1.172 0 .66.513 1.172 1.172 1.172.635 0 1.172-.512 1.172-1.172 0-.634-.537-1.171-1.172-1.171Zm7.91 8.57c-.147.024-.317.024-.488.024-.196 0-.367 0-.513-.024l-.488.537c-.171.17-.391.244-.61.146-.123-.048-.27-.122-.391-.17l-.122-.098-.367-.22a.573.573 0 0 1-.17-.61l.244-.684a2.993 2.993 0 0 1-.513-.903l-.708-.147c-.244-.048-.415-.22-.44-.44-.024-.17-.024-.34-.024-.512 0-.146 0-.317.024-.488a.543.543 0 0 1 .44-.464l.708-.146c.122-.318.293-.61.513-.88l-.245-.683a.573.573 0 0 1 .171-.61c.122-.073.245-.171.367-.244l.122-.074c.122-.048.244-.122.39-.17.22-.098.44-.025.61.146l.489.537c.146-.024.317-.049.513-.049.17 0 .341.025.488.05l.488-.538c.171-.17.39-.244.61-.147.147.05.27.123.391.171l.122.074c.122.073.244.17.366.244.171.146.245.39.171.61l-.244.684c.22.268.39.561.513.879l.708.146a.543.543 0 0 1 .44.464c.024.17.048.342.048.488 0 .171-.024.342-.049.513-.024.22-.195.39-.44.44l-.707.146a2.994 2.994 0 0 1-.513.903l.244.684c.074.22 0 .464-.17.61l-.367.22-.122.098c-.122.048-.268.122-.39.17-.22.098-.44.025-.61-.146l-.49-.537Zm.684-3.1c0-.636-.538-1.173-1.172-1.173-.66 0-1.172.537-1.172 1.172 0 .66.512 1.172 1.172 1.172.634 0 1.171-.513 1.171-1.172Z"></path></svg> </svg></td>
+<td><code>cogs</code></td>
+<td> gears (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/cogs.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! clone (regular): Font Awesome Pro 6.4.0 --><path d="M2 14.5h7c.25 0 .5-.219.5-.5v-2H11v2c0 1.125-.906 2-2 2H2c-1.125 0-2-.875-2-2V7c0-1.094.875-2 2-2h2v1.5H2c-.281 0-.5.25-.5.5v7c0 .281.219.5.5.5ZM5 2c0-1.094.875-2 2-2h7c1.094 0 2 .906 2 2v7c0 1.125-.906 2-2 2H7c-1.125 0-2-.875-2-2V2Zm2 7.5h7c.25 0 .5-.219.5-.5V2c0-.25-.25-.5-.5-.5H7c-.281 0-.5.25-.5.5v7c0 .281.219.5.5.5Z"></path></svg> </svg></td>
+<td><code>copy</code></td>
+<td> clone (regular): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/copy.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-collapse-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><rect width="2" height="12" x="14" y="1.5" rx="1" transform="rotate(90 14 1.5)"></rect><path d="M8 13.625a.928.928 0 0 1-.674-.264L2.64 8.674a.903.903 0 0 1 0-1.319.903.903 0 0 1 1.318 0L8 11.37l4.014-4.014a.903.903 0 0 1 1.318 0c.38.352.38.967 0 1.319L8.645 13.36a.909.909 0 0 1-.645.264Z"></path></svg> </svg></td>
+<td><code>collapse-down</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/collapse-down.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-collapse-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><rect width="2" height="12" x="14" y="1.5" rx="1" transform="rotate(90 14 1.5)"></rect><path d="M12.688 12.688a.928.928 0 0 1-.674-.264L8 8.41l-4.043 4.014a.903.903 0 0 1-1.318 0 .903.903 0 0 1 0-1.319l4.687-4.687a.903.903 0 0 1 1.319 0l4.687 4.687c.38.352.38.967 0 1.319a.909.909 0 0 1-.645.264Z"></path></svg> </svg></td>
+<td><code>collapse-up</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/collapse-up.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-comment" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! comment-dots (solid): Font Awesome Pro 6.4.0 --><path d="M8 1.313C3.84 1.313.5 4.037.5 7.405c0 1.436.645 2.784 1.67 3.809-.352 1.494-1.582 2.812-1.582 2.812-.088.059-.088.176-.059.264a.22.22 0 0 0 .205.146c1.963 0 3.37-.937 4.131-1.523.967.352 2.022.586 3.135.586 4.16 0 7.47-2.754 7.47-6.094 0-3.34-3.34-6.093-7.47-6.093Zm-3.78 7.03a.944.944 0 0 1-.937-.937c0-.468.41-.937.938-.937.498 0 .937.44.937.937 0 .528-.41.938-.937.938Zm3.78 0a.944.944 0 0 1-.938-.937c0-.468.44-.937.938-.937.469 0 .908.44.908.937A.92.92 0 0 1 8 8.344Zm3.72 0a.944.944 0 0 1-.937-.937c0-.468.41-.937.938-.937.498 0 .937.44.937.937 0 .528-.41.938-.937.938Z"></path></svg> </svg></td>
+<td><code>comment</code></td>
+<td> comment-dots (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/comment.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-comment-add" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M8 1.813C3.84 1.813.5 4.566.5 7.905c0 1.465.615 2.784 1.64 3.838C1.79 13.238.56 14.527.56 14.557c-.088.058-.088.175-.059.263.03.088.117.117.234.117 1.934 0 3.37-.908 4.102-1.494A9.199 9.199 0 0 0 8 14c4.131 0 7.47-2.725 7.47-6.094 0-3.34-3.339-6.093-7.47-6.093Z"></path><path fill="#fff" d="M10.571 7.357H8.643V5.43A.44.44 0 0 0 8.214 5h-.428c-.241 0-.429.2-.429.429v1.928H5.43c-.242 0-.429.201-.429.429v.428c0 .241.188.429.429.429h1.928v1.928c0 .242.188.429.429.429h.428a.432.432 0 0 0 .429-.429V8.643h1.928A.432.432 0 0 0 11 8.214v-.428a.44.44 0 0 0-.429-.429Z"></path></svg> </svg></td>
+<td><code>comment-add</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/comment-add.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-comment-add-reversed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M8 1.813C3.84 1.813.5 4.566.5 7.905c0 1.407.557 2.696 1.524 3.721-.41 1.143-1.319 2.139-1.348 2.139-.205.205-.234.498-.147.761.118.264.381.41.674.41 1.787 0 3.194-.732 4.073-1.347.82.264 1.757.41 2.724.41 4.131 0 7.47-2.725 7.47-6.094 0-3.34-3.339-6.093-7.47-6.093Zm0 10.78a7.64 7.64 0 0 1-2.314-.35l-.674-.206-.557.41a6.54 6.54 0 0 1-1.699.85c.234-.352.44-.762.586-1.172l.322-.82-.615-.645c-.527-.556-1.143-1.494-1.143-2.754C1.906 5.328 4.631 3.22 8 3.22c3.34 0 6.094 2.11 6.094 4.687 0 2.608-2.754 4.688-6.094 4.688Z"></path><path d="M10.571 7.357H8.643V5.43A.44.44 0 0 0 8.214 5h-.428c-.241 0-.429.2-.429.429v1.928H5.43c-.242 0-.429.201-.429.429v.428c0 .241.188.429.429.429h1.928v1.928c0 .242.188.429.429.429h.428a.432.432 0 0 0 .429-.429V8.643h1.928A.432.432 0 0 0 11 8.214v-.428a.44.44 0 0 0-.429-.429Z"></path></svg> </svg></td>
+<td><code>comment-add-reversed</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/comment-add-reversed.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-cross" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! xmark (solid): Font Awesome Pro 6.4.0 --><path d="M12.688 11.313a.964.964 0 0 1 0 1.406A.97.97 0 0 1 12 13a.99.99 0 0 1-.719-.281L8 9.438l-3.313 3.28A.97.97 0 0 1 4 13a.99.99 0 0 1-.719-.281.964.964 0 0 1 0-1.406L6.562 8l-3.28-3.281a.964.964 0 0 1 0-1.407.964.964 0 0 1 1.405 0L8 6.595l3.281-3.282a.964.964 0 0 1 1.406 0 .964.964 0 0 1 0 1.407L9.408 8.03l3.28 3.281Z"></path></svg> </svg></td>
+<td><code>cross</code></td>
+<td> xmark (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/cross.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-crosshairs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! crosshairs (solid): Font Awesome Pro 6.4.0 --><path d="M7 8c0-.531.438-1 1-1 .531 0 1 .469 1 1 0 .563-.469 1-1 1-.563 0-1-.438-1-1Zm1-8c.531 0 1 .469 1 1v.344A6.764 6.764 0 0 1 14.656 7H15c.531 0 1 .469 1 1 0 .563-.469 1-1 1h-.344c-.437 2.938-2.75 5.25-5.656 5.688V15c0 .563-.469 1-1 1-.563 0-1-.438-1-1v-.313A6.762 6.762 0 0 1 1.312 9H1c-.563 0-1-.438-1-1 0-.531.438-1 1-1h.313C1.75 4.094 4.063 1.781 7 1.344V1c0-.531.438-1 1-1ZM7 12.656V12c0-.531.438-1 1-1 .531 0 1 .469 1 1v.656A4.685 4.685 0 0 0 12.625 9H12c-.563 0-1-.438-1-1 0-.531.438-1 1-1h.625A4.69 4.69 0 0 0 9 3.375V4c0 .563-.469 1-1 1-.563 0-1-.438-1-1v-.625A4.685 4.685 0 0 0 3.344 7H4c.531 0 1 .469 1 1 0 .563-.469 1-1 1h-.656A4.68 4.68 0 0 0 7 12.656Z"></path></svg> </svg></td>
+<td><code>crosshairs</code></td>
+<td> crosshairs (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/crosshairs.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-cut" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! scissors (solid): Font Awesome Pro 6.4.0 --><path d="M12.375 1.625a2.245 2.245 0 0 1 3.219 0 .547.547 0 0 1 0 .781L6.75 11.25c.156.406.25.813.25 1.25C7 14.438 5.406 16 3.5 16A3.494 3.494 0 0 1 0 12.5C0 10.594 1.563 9 3.5 9c.438 0 .844.094 1.25.25L5.969 8 4.75 6.781A3.4 3.4 0 0 1 3.5 7 3.494 3.494 0 0 1 0 3.5C0 1.594 1.563 0 3.5 0 5.406 0 7 1.594 7 3.5c0 .469-.094.875-.25 1.281L7.969 6l4.406-4.375ZM5 3.5C5 2.687 4.312 2 3.5 2A1.5 1.5 0 0 0 2 3.5C2 4.344 2.656 5 3.5 5A1.5 1.5 0 0 0 5 3.5ZM3.5 14A1.5 1.5 0 0 0 5 12.5c0-.813-.688-1.5-1.5-1.5A1.5 1.5 0 0 0 2 12.5c0 .844.656 1.5 1.5 1.5Zm5.188-3.281 2-2 4.906 4.906a.547.547 0 0 1 0 .781 2.245 2.245 0 0 1-3.219 0L8.687 10.72Z"></path></svg> </svg></td>
+<td><code>cut</code></td>
+<td> scissors (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/cut.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-date" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! calendar-day (solid): Font Awesome Pro 6.4.0 --><path d="M6 1v1h4V1c0-.531.438-1 1-1 .531 0 1 .469 1 1v1h1.5c.813 0 1.5.688 1.5 1.5V5H1V3.5A1.5 1.5 0 0 1 2.5 2H4V1c0-.531.438-1 1-1 .531 0 1 .469 1 1ZM1 6h14v8.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.48 1.48 0 0 1 1 14.5V6Zm2.5 2c-.281 0-.5.25-.5.5v3c0 .281.219.5.5.5h3c.25 0 .5-.219.5-.5v-3c0-.25-.25-.5-.5-.5h-3Z"></path></svg> </svg></td>
+<td><code>date</code></td>
+<td> calendar-day (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/date.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-decimal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M3.5 2.5C1.553 2.5 0 4.088 0 6.08v2.84c0 1.97 1.553 3.58 3.5 3.58 1.925 0 3.5-1.61 3.5-3.58V6.058C7 4.088 5.425 2.5 3.5 2.5Zm2.1 6.42c0 1.186-.962 2.148-2.1 2.148-1.16 0-2.1-.962-2.1-2.147V6.057c0-1.163.94-2.148 2.1-2.148 1.138 0 2.1.985 2.1 2.148v2.864ZM12.5 2.5C10.553 2.5 9 4.088 9 6.08v2.84c0 1.97 1.553 3.58 3.5 3.58 1.925 0 3.5-1.61 3.5-3.58V6.058C16 4.088 14.425 2.5 12.5 2.5Zm2.1 6.42c0 1.186-.963 2.148-2.1 2.148-1.16 0-2.1-.962-2.1-2.147V6.057c0-1.163.94-2.148 2.1-2.148 1.137 0 2.1.985 2.1 2.148v2.864Z"></path><circle cx="8" cy="12.5" r="1"></circle></svg> </svg></td>
+<td><code>decimal</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/decimal.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-desktop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! desktop (solid): Font Awesome Pro 6.4.0 --><path d="M14.563.75H1.437C.7.75.125 1.352.125 2.063v8.75c0 .738.574 1.312 1.313 1.312h5.25l-.438 1.313H4.281c-.383 0-.656.3-.656.656 0 .383.273.656.656.656h7.438a.648.648 0 0 0 .656-.656c0-.356-.3-.656-.656-.656H9.75l-.438-1.313h5.25c.711 0 1.313-.574 1.313-1.313v-8.75A1.33 1.33 0 0 0 14.562.75Zm-.438 7.875H1.875V2.5h12.25v6.125Z"></path></svg> </svg></td>
+<td><code>desktop</code></td>
+<td> desktop (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/desktop.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-doc-empty-inverse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! file (solid): Font Awesome Pro 6.4.0 --><path d="M2 2c0-1.094.875-2 2-2h5v4c0 .563.438 1 1 1h4v9c0 1.125-.906 2-2 2H4c-1.125 0-2-.875-2-2V2Zm8 2V0l4 4h-4Z"></path></svg> </svg></td>
+<td><code>doc-empty-inverse</code></td>
+<td> file (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/doc-empty-inverse.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-doc-empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! file (regular): Font Awesome Pro 6.4.0 --><path d="M2 2c0-1.094.875-2 2-2h5.156c.531 0 1.031.219 1.406.594l2.844 2.844c.375.374.594.874.594 1.406V14c0 1.125-.906 2-2 2H4c-1.125 0-2-.875-2-2V2Zm10.5 12V5H10c-.563 0-1-.438-1-1V1.5H4c-.281 0-.5.25-.5.5v12c0 .281.219.5.5.5h8c.25 0 .5-.219.5-.5Z"></path></svg> </svg></td>
+<td><code>doc-empty</code></td>
+<td> file (regular): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/doc-empty.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-doc-full-inverse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! file-lines (solid): Font Awesome Pro 6.4.0 --><path d="M10 0v4h4l-4-4ZM9 4V0H3.5A1.5 1.5 0 0 0 2 1.5v13c0 .844.656 1.5 1.5 1.5h9a1.5 1.5 0 0 0 1.5-1.5V5h-4c-.563 0-1-.438-1-1Zm1.5 9h-5a.494.494 0 0 1-.5-.5c0-.25.219-.5.5-.5h5c.25 0 .5.25.5.5 0 .281-.25.5-.5.5Zm0-2h-5a.494.494 0 0 1-.5-.5c0-.25.219-.5.5-.5h5c.25 0 .5.25.5.5 0 .281-.25.5-.5.5Zm.5-2.5c0 .281-.25.5-.5.5h-5a.494.494 0 0 1-.5-.5c0-.25.219-.5.5-.5h5c.25 0 .5.25.5.5Z"></path></svg> </svg></td>
+<td><code>doc-full-inverse</code></td>
+<td> file-lines (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/doc-full-inverse.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-doc-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! file-lines (regular): Font Awesome Pro 6.4.0 --><path d="M13.406 2.938 11.062.594A1.988 1.988 0 0 0 9.656 0H4C2.875 0 2 .906 2 2v12c0 1.125.875 2 2 2h8c1.094 0 2-.875 2-2V4.344c0-.532-.219-1.032-.594-1.407ZM12.5 14c0 .281-.25.5-.5.5H4a.494.494 0 0 1-.5-.5V2.031c0-.281.219-.5.5-.5h5V4c0 .563.438 1 1 1h2.469v9h.031ZM5 8.75c0 .438.313.75.75.75h4.5a.74.74 0 0 0 .75-.75.76.76 0 0 0-.75-.75h-4.5a.74.74 0 0 0-.75.75ZM10.25 11h-4.5a.74.74 0 0 0-.75.75c0 .438.313.75.75.75h4.5a.74.74 0 0 0 .75-.75.76.76 0 0 0-.75-.75Z"></path></svg> </svg></td>
+<td><code>doc-full</code></td>
+<td> file-lines (regular): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/doc-full.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-dots-horizontal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! ellipsis (solid): Font Awesome Pro 6.4.0 --><path d="M4.75 8c0 .969-.813 1.75-1.75 1.75-.969 0-1.75-.781-1.75-1.75 0-.938.781-1.75 1.75-1.75.938 0 1.75.813 1.75 1.75Zm5 0c0 .969-.813 1.75-1.75 1.75-.969 0-1.75-.781-1.75-1.75 0-.938.781-1.75 1.75-1.75.938 0 1.75.813 1.75 1.75Zm1.5 0c0-.938.781-1.75 1.75-1.75.938 0 1.75.813 1.75 1.75 0 .969-.813 1.75-1.75 1.75-.969 0-1.75-.781-1.75-1.75Z"></path></svg> </svg></td>
+<td><code>dots-horizontal</code></td>
+<td> ellipsis (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/dots-horizontal.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-download" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! download (solid): Font Awesome Pro 6.4.0 --><path d="M15 11h-4.188l-1.406 1.438A1.959 1.959 0 0 1 8 13c-.563 0-1.063-.188-1.438-.563L5.157 11H1c-.563 0-1 .469-1 1v3c0 .563.438 1 1 1h14c.531 0 1-.438 1-1v-3c0-.531-.469-1-1-1Zm-1.5 3.25a.722.722 0 0 1-.75-.75.74.74 0 0 1 .75-.75.76.76 0 0 1 .75.75.74.74 0 0 1-.75.75Zm-6.219-2.531A.99.99 0 0 0 8 12c.25 0 .5-.094.688-.281l4-4a.964.964 0 0 0 0-1.407.964.964 0 0 0-1.407 0L9 8.595V1c0-.531-.469-1-1-1-.563 0-1 .469-1 1v7.594L4.687 6.313a.964.964 0 0 0-1.406 0 .964.964 0 0 0 0 1.406l4 4Z"></path></svg> </svg></td>
+<td><code>download</code></td>
+<td> download (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/download.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-draft" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M2 2c0-1.094.875-2 2-2h5.156c.532 0 1.032.219 1.407.594l2.843 2.844c.375.374.594.874.594 1.406V14c0 1.125-.906 2-2 2H4c-1.125 0-2-.875-2-2V2Zm10.5 12V5H10c-.562 0-1-.438-1-1V1.5H4c-.281 0-.5.25-.5.5v12c0 .281.219.5.5.5h8c.25 0 .5-.219.5-.5Z"></path><rect width="5.458" height="1" x="3.846" y="5.689" rx=".5" transform="rotate(-45 3.846 5.69)"></rect><rect width="6.828" height="1" x="3.846" y="9.689" rx=".5" transform="rotate(-45 3.846 9.69)"></rect><rect width="10.982" height="1" x="3.83" y="13.705" rx=".5" transform="rotate(-45 3.83 13.705)"></rect><rect width="5.192" height="1" x="7.908" y="13.627" rx=".5" transform="rotate(-45 7.908 13.627)"></rect></svg> </svg></td>
+<td><code>draft</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/draft.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18"><!--! pen (solid): Font Awesome Pro 6.4.0 --><path d="M12.313 1.625a2.018 2.018 0 0 1 2.843 0l1.219 1.219a2.018 2.018 0 0 1 0 2.844l-1.5 1.5-4.063-4.063 1.5-1.5Zm1.843 6.281-7.281 7.282a2.722 2.722 0 0 1-1.156.687l-3.782 1.094a.638.638 0 0 1-.718-.188.708.708 0 0 1-.219-.718l1.125-3.782c.125-.437.375-.844.688-1.156l7.28-7.281 4.063 4.062Z"></path></svg> </svg></td>
+<td><code>edit</code></td>
+<td> pen (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/edit.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-expand-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17"><!--! Custom icon --><rect width="2" height="12" x=".5" y="2.5" rx="1"></rect><path d="m15.934 9.209-4.063 4.063a.788.788 0 0 1-.559.228.805.805 0 0 1-.583-.229.783.783 0 0 1 0-1.142l2.666-2.691h-7.77a.802.802 0 0 1-.813-.813c0-.432.356-.813.813-.813h7.77l-2.666-2.666a.783.783 0 0 1 0-1.142.783.783 0 0 1 1.142 0l4.063 4.062c.33.305.33.838 0 1.143Z"></path></svg> </svg></td>
+<td><code>expand-right</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/expand-right.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-error" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-xmark (solid): Font Awesome Pro 6.4.0 --><path d="M0 8c0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8 0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8Zm5.469-1.469L6.937 8 5.47 9.469c-.313.312-.313.781 0 1.062a.684.684 0 0 0 1.031 0l1.469-1.469 1.5 1.47a.684.684 0 0 0 1.031 0c.313-.282.313-.75 0-1.063L9.031 8 10.5 6.531c.313-.281.313-.75 0-1.062a.736.736 0 0 0-1.031 0l-1.5 1.5-1.469-1.5a.736.736 0 0 0-1.031 0c-.313.312-.313.781 0 1.062Z"></path></svg> </svg></td>
+<td><code>error</code></td>
+<td> circle-xmark (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/error.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-folder-inverse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! folder (solid): Font Awesome Pro 6.4.0 --><path d="M16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.48 1.48 0 0 1 0 13.5v-11A1.5 1.5 0 0 1 1.5 1h5l2 2h6c.813 0 1.5.688 1.5 1.5Z"></path></svg> </svg></td>
+<td><code>folder-inverse</code></td>
+<td> folder (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/folder-inverse.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-folder-open-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 16"><!--! folder-open (regular): Font Awesome Pro 6.4.0 --><path d="m17.875 8.469-3 6c-.156.344-.5.531-.906.531H2c-1.125 0-2-.875-2-2V3c0-1.094.875-2 2-2h3.656c.532 0 1.032.219 1.407.594L8.592 3H13c1.094 0 2 .906 2 2v1h-1.5V5c0-.25-.25-.5-.5-.5H8L6 2.656a.502.502 0 0 0-.344-.156H2c-.281 0-.5.25-.5.5v9l2.219-4.438A.962.962 0 0 1 4.594 7H17c.719 0 1.219.781.875 1.469Z"></path></svg> </svg></td>
+<td><code>folder-open-1</code></td>
+<td> folder-open (regular): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/folder-open-1.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-folder-open-inverse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 16"><!--! folder-open (solid): Font Awesome Pro 6.4.0 --><path d="M4.594 6H15V4.5c0-.813-.688-1.5-1.5-1.5h-5l-2-2h-5A1.5 1.5 0 0 0 0 2.5v10.281l2.813-5.656A2.003 2.003 0 0 1 4.593 6Zm12.375 1H4.594a.962.962 0 0 0-.875.563L0 15h13.969c.375 0 .719-.188.875-.531l3-6A.986.986 0 0 0 16.969 7Z"></path></svg> </svg></td>
+<td><code>folder-open-inverse</code></td>
+<td> folder-open (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/folder-open-inverse.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-folder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16"><!--! folder (regular): Font Awesome Pro 6.4.0 --><path d="M14.969 3H9.594L8.063 1.594A1.988 1.988 0 0 0 6.655 1H2.97c-1.125 0-2 .906-2 2v10c0 1.125.875 2 2 2h12c1.094 0 2-.875 2-2V5c0-1.094-.875-2-2-2Zm.5 10c0 .281-.25.5-.5.5h-12a.494.494 0 0 1-.5-.5V3c0-.25.219-.5.5-.5h3.656c.125 0 .25.063.344.156l2 1.844h6c.25 0 .5.25.5.5v8Z"></path></svg> </svg></td>
+<td><code>folder</code></td>
+<td> folder (regular): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/folder.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-form" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! rectangle-list (solid): Font Awesome Pro 6.4.0 --><path d="M.125 3.375c0-.957.766-1.75 1.75-1.75h12.25c.957 0 1.75.793 1.75 1.75v8.75c0 .984-.793 1.75-1.75 1.75H1.875c-.984 0-1.75-.766-1.75-1.75v-8.75ZM4.5 7.75a.9.9 0 0 0-.875-.875.881.881 0 0 0-.875.875c0 .492.383.875.875.875A.881.881 0 0 0 4.5 7.75Zm0-2.625a.9.9 0 0 0-.875-.875.881.881 0 0 0-.875.875c0 .492.383.875.875.875a.881.881 0 0 0 .875-.875Zm0 5.25a.9.9 0 0 0-.875-.875.881.881 0 0 0-.875.875c0 .492.383.875.875.875a.881.881 0 0 0 .875-.875Zm1.75-5.906c-.383 0-.656.3-.656.656 0 .383.273.656.656.656h6.125a.648.648 0 0 0 .656-.656c0-.355-.3-.656-.656-.656H6.25Zm0 2.625c-.383 0-.656.3-.656.656 0 .383.273.656.656.656h6.125a.648.648 0 0 0 .656-.656c0-.355-.3-.656-.656-.656H6.25Zm0 2.625c-.383 0-.656.3-.656.656 0 .383.273.656.656.656h6.125a.648.648 0 0 0 .656-.656c0-.355-.3-.656-.656-.656H6.25Z"></path></svg> </svg></td>
+<td><code>form</code></td>
+<td> rectangle-list (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/form.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-glasses" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! glasses (classic): Font Awesome Pro 6.5.1 --><path d="M118.6 80c-11.5 0-21.4 7.9-24 19.1L57 260.3c20.5-6.2 48.3-12.3 78.7-12.3c32.3 0 61.8 6.9 82.8 13.5c10.6 3.3 19.3 6.7 25.4 9.2c3.1 1.3 5.5 2.4 7.3 3.2c.9 .4 1.6 .7 2.1 1l.6 .3 .2 .1 .1 0 0 0 0 0s0 0-6.3 12.7h0l6.3-12.7c5.8 2.9 10.4 7.3 13.5 12.7h40.6c3.1-5.3 7.7-9.8 13.5-12.7l6.3 12.7h0c-6.3-12.7-6.3-12.7-6.3-12.7l0 0 0 0 .1 0 .2-.1 .6-.3c.5-.2 1.2-.6 2.1-1c1.8-.8 4.2-1.9 7.3-3.2c6.1-2.6 14.8-5.9 25.4-9.2c21-6.6 50.4-13.5 82.8-13.5c30.4 0 58.2 6.1 78.7 12.3L481.4 99.1c-2.6-11.2-12.6-19.1-24-19.1c-3.1 0-6.2 .6-9.2 1.8L416.9 94.3c-12.3 4.9-26.3-1.1-31.2-13.4s1.1-26.3 13.4-31.2l31.3-12.5c8.6-3.4 17.7-5.2 27-5.2c33.8 0 63.1 23.3 70.8 56.2l43.9 188c1.7 7.3 2.9 14.7 3.5 22.1c.3 1.9 .5 3.8 .5 5.7v6.7V352v16c0 61.9-50.1 112-112 112H419.7c-59.4 0-108.5-46.4-111.8-105.8L306.6 352H269.4l-1.2 22.2C264.9 433.6 215.8 480 156.3 480H112C50.1 480 0 429.9 0 368V352 310.7 304c0-1.9 .2-3.8 .5-5.7c.6-7.4 1.8-14.8 3.5-22.1l43.9-188C55.5 55.3 84.8 32 118.6 32c9.2 0 18.4 1.8 27 5.2l31.3 12.5c12.3 4.9 18.3 18.9 13.4 31.2s-18.9 18.3-31.2 13.4L127.8 81.8c-2.9-1.2-6-1.8-9.2-1.8zM64 325.4V368c0 26.5 21.5 48 48 48h44.3c25.5 0 46.5-19.9 47.9-45.3l2.5-45.6c-2.3-.8-4.9-1.7-7.5-2.5c-17.2-5.4-39.9-10.5-63.6-10.5c-23.7 0-46.2 5.1-63.2 10.5c-3.1 1-5.9 1.9-8.5 2.9zM512 368V325.4c-2.6-.9-5.5-1.9-8.5-2.9c-17-5.4-39.5-10.5-63.2-10.5c-23.7 0-46.4 5.1-63.6 10.5c-2.7 .8-5.2 1.7-7.5 2.5l2.5 45.6c1.4 25.4 22.5 45.3 47.9 45.3H464c26.5 0 48-21.5 48-48z"/></svg> </svg></td>
+<td><code>glasses</code></td>
+<td> glasses (classic): Font Awesome Pro 6.5.1 </td>
+<td><code>wagtailadmin/icons/glasses.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-globe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! globe (solid): Font Awesome Pro 6.4.0 --><path d="M11 8c0 .719-.063 1.375-.125 2H5.094a19.61 19.61 0 0 1-.125-2c0-.688.062-1.344.125-2h5.781c.063.656.125 1.313.125 2Zm4.719-2c.187.656.281 1.313.281 2 0 .719-.094 1.375-.281 2h-3.844c.063-.625.125-1.313.125-2 0-.688-.063-1.344-.125-2h3.844Zm-.313-1H11.75c-.313-1.969-.938-3.656-1.719-4.719C12.47.937 14.47 2.687 15.406 5ZM10.75 5H5.219c.187-1.125.5-2.125.843-2.938.344-.75.688-1.28 1.063-1.624C7.469.124 7.75 0 8 0c.219 0 .5.125.844.438.375.343.719.875 1.062 1.625.344.812.656 1.812.844 2.937ZM.562 5C1.5 2.687 3.5.937 5.938.281 5.157 1.344 4.532 3.031 4.22 5H.562Zm3.532 1c-.063.656-.125 1.313-.125 2 0 .688.062 1.375.125 2H.25C.062 9.375 0 8.719 0 8c0-.688.063-1.344.25-2h3.844Zm1.968 7.969A12.984 12.984 0 0 1 5.22 11h5.531a12.984 12.984 0 0 1-.844 2.969c-.344.75-.687 1.281-1.062 1.625-.344.312-.625.406-.875.406-.219 0-.5-.094-.844-.406-.375-.344-.719-.875-1.063-1.625Zm-.125 1.781A8.02 8.02 0 0 1 .563 11H4.22c.312 2 .937 3.688 1.718 4.75Zm4.094 0c.781-1.063 1.406-2.75 1.719-4.75h3.656a8.02 8.02 0 0 1-5.375 4.75Z"></path></svg> </svg></td>
+<td><code>globe</code></td>
+<td> globe (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/globe.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-grip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M5.346 4.52a1.435 1.435 0 1 0 0-2.872 1.435 1.435 0 0 0 0 2.871ZM5.346 9.433a1.435 1.435 0 1 0 0-2.87 1.435 1.435 0 0 0 0 2.87ZM5.346 14.351a1.435 1.435 0 1 0 0-2.87 1.435 1.435 0 0 0 0 2.87ZM10.654 4.52a1.435 1.435 0 1 0 0-2.872 1.435 1.435 0 0 0 0 2.871ZM10.654 9.433a1.435 1.435 0 1 0 0-2.87 1.435 1.435 0 0 0 0 2.87ZM10.654 14.351a1.435 1.435 0 1 0 0-2.87 1.435 1.435 0 0 0 0 2.87Z"></path></svg> </svg></td>
+<td><code>grip</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/grip.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-group" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! user-group (solid): Font Awesome Pro 6.4.0 --><path d="M5.656 7.813a3.131 3.131 0 0 0 3.125-3.125c0-1.71-1.416-3.125-3.125-3.125a3.131 3.131 0 0 0-3.125 3.125 3.115 3.115 0 0 0 3.125 3.125Zm1.221 1.171H4.41c-2.344 0-4.223 1.905-4.223 4.248 0 .464.366.83.83.83h9.252c.464 0 .855-.366.855-.83a4.251 4.251 0 0 0-4.248-4.248Zm5.005.391h-1.807a5 5 0 0 1 1.831 3.857c0 .318-.097.586-.244.83h3.37a.787.787 0 0 0 .78-.78c0-2.15-1.757-3.907-3.93-3.907Zm-1.148-1.563c1.49 0 2.735-1.22 2.735-2.734 0-1.49-1.245-2.734-2.735-2.734-.634 0-1.196.22-1.635.561.268.537.463 1.148.463 1.783 0 .878-.292 1.684-.78 2.319.488.513 1.171.806 1.952.806Z"></path></svg> </svg></td>
+<td><code>group</code></td>
+<td> user-group (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/group.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-h1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M9.732 11.5a.63.63 0 0 1-.625.625H7.232a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.313V8.062H3.17v2.813h.312c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625H1.607a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.313v-6.25h-.313A.617.617 0 0 1 .982 4a.63.63 0 0 1 .625-.625h1.875c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625H3.17v2.188h4.375V4.624h-.313A.617.617 0 0 1 6.607 4a.63.63 0 0 1 .625-.625h1.875c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.312v6.25h.312c.332 0 .625.293.625.625Zm2.487 0h1.606V3.75h-1.611L10.21 5.14v1.44l1.977-1.343h.032V11.5Z"></path></svg> </svg></td>
+<td><code>h1</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/h1.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-h2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M9.056 11.5a.63.63 0 0 1-.625.625H6.556a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.312V8.062H2.493v2.813h.313c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625H.93a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.312v-6.25H.931A.617.617 0 0 1 .306 4a.63.63 0 0 1 .625-.625h1.875c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.313v2.188h4.375V4.624h-.312A.617.617 0 0 1 5.93 4a.63.63 0 0 1 .625-.625H8.43c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.313v6.25h.313c.332 0 .625.293.625.625Zm.456-5.393h1.504c0-.746.586-1.267 1.359-1.267.698 0 1.176.473 1.176 1.096 0 .537-.22.907-1.203 1.853l-2.744 2.6V11.5h5.634v-1.29h-3.513v-.031l1.627-1.558c1.311-1.251 1.778-1.837 1.778-2.788 0-1.289-1.095-2.255-2.755-2.255-1.681 0-2.863 1.036-2.863 2.53Z"></path></svg> </svg></td>
+<td><code>h2</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/h2.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-h3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M8.91 11.5a.63.63 0 0 1-.624.625H6.41a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.312V8.062H2.348v2.813h.313c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625H.786A.617.617 0 0 1 .16 11.5a.63.63 0 0 1 .625-.625h.312v-6.25H.786A.617.617 0 0 1 .16 4a.63.63 0 0 1 .625-.625H2.66c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.313v2.188h4.375V4.624h-.312A.617.617 0 0 1 5.786 4a.63.63 0 0 1 .625-.625h1.875c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.313v6.25h.313c.332 0 .625.293.625.625Zm2.423-3.41h.886c.94 0 1.493.418 1.488 1.17 0 .656-.559 1.107-1.37 1.107-.854 0-1.412-.43-1.466-1.064H9.324c.07 1.424 1.262 2.369 3.013 2.369 1.8 0 3.019-.935 3.019-2.342 0-1.063-.752-1.746-1.901-1.853v-.032c.913-.188 1.616-.827 1.616-1.816 0-1.24-1.106-2.051-2.744-2.051-1.622 0-2.75.907-2.83 2.325h1.487c.048-.671.58-1.08 1.343-1.08.773 0 1.208.404 1.208 1.037 0 .634-.526 1.075-1.337 1.075h-.865v1.154Z"></path></svg> </svg></td>
+<td><code>h3</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/h3.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-h4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M8.814 11.5a.63.63 0 0 1-.625.625H6.314a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.312V8.062H2.251v2.813h.313c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625H.689a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.312v-6.25H.69A.617.617 0 0 1 .064 4a.63.63 0 0 1 .625-.625h1.875c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.313v2.188h4.375V4.624h-.312A.617.617 0 0 1 5.689 4a.63.63 0 0 1 .625-.625h1.875c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.313v6.25h.313c.332 0 .625.293.625.625Zm4.243 0H14.6v-1.423h1.02V8.782H14.6V3.75H12.31C10.72 6.086 9.877 7.44 9.2 8.723v1.354h3.857V11.5Zm-2.444-2.718c.618-1.155 1.322-2.256 2.444-3.872h.032v3.915h-2.476v-.043Z"></path></svg> </svg></td>
+<td><code>h4</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/h4.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-h5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M8.938 11.5a.63.63 0 0 1-.626.625H6.438a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.312V8.062H2.375v2.813h.313c.332 0 .624.293.624.625a.63.63 0 0 1-.624.625H.812a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.313v-6.25H.812A.617.617 0 0 1 .188 4a.63.63 0 0 1 .625-.625h1.875c.333 0 .626.293.626.625a.63.63 0 0 1-.626.625h-.312v2.188H6.75V4.624h-.313A.617.617 0 0 1 5.813 4a.63.63 0 0 1 .625-.625h1.875c.333 0 .626.293.626.625a.63.63 0 0 1-.626.625H8v6.25h.313c.332 0 .624.293.624.625Zm3.523.172c1.778 0 2.997-1.112 2.997-2.75 0-1.477-1.058-2.54-2.535-2.54-.784 0-1.424.316-1.746.837h-.032l.188-2.18h3.658v-1.29h-4.947L9.689 8.3h1.413c.263-.467.747-.757 1.37-.757.848 0 1.44.585 1.44 1.417 0 .844-.592 1.43-1.446 1.43-.746 0-1.321-.441-1.412-1.113H9.555c.043 1.408 1.246 2.396 2.906 2.396Z"></path></svg> </svg></td>
+<td><code>h5</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/h5.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-h6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="M8.835 11.5a.63.63 0 0 1-.625.625H6.335a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.313V8.062H2.273v2.813h.312c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625H.71a.617.617 0 0 1-.625-.625.63.63 0 0 1 .625-.625h.313v-6.25H.71A.617.617 0 0 1 .085 4a.63.63 0 0 1 .625-.625h1.875c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.312v2.188h4.375V4.624h-.313A.617.617 0 0 1 5.71 4a.63.63 0 0 1 .625-.625H8.21c.332 0 .625.293.625.625a.63.63 0 0 1-.625.625h-.312v6.25h.312c.332 0 .625.293.625.625Zm3.674.172c1.73 0 2.987-1.144 2.987-2.75 0-1.456-1.026-2.525-2.525-2.525-1.047 0-1.81.527-2.11 1.247h-.033c-.005-1.698.553-2.788 1.681-2.788.64 0 1.101.322 1.284.875h1.6c-.214-1.278-1.374-2.159-2.878-2.159-2.014 0-3.24 1.547-3.24 4.115 0 2.674 1.381 3.985 3.234 3.985Zm-.021-1.29A1.404 1.404 0 0 1 11.07 8.96c0-.79.612-1.364 1.434-1.364.81 0 1.412.58 1.412 1.397-.005.779-.633 1.39-1.428 1.39Z"></path></svg> </svg></td>
+<td><code>h6</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/h6.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-help" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-question (solid): Font Awesome Pro 6.4.0 --><path d="M8 0C3.562 0 0 3.594 0 8c0 4.438 3.563 8 8 8 4.406 0 8-3.563 8-8 0-4.406-3.594-8-8-8Zm0 12.5c-.563 0-1-.438-1-1 0-.563.406-1 1-1 .531 0 1 .438 1 1 0 .563-.469 1-1 1Zm2.156-4.438-1.406.876V9a.76.76 0 0 1-.75.75.76.76 0 0 1-.75-.75v-.5c0-.25.125-.5.375-.656L9.406 6.78a.67.67 0 0 0 .344-.593c0-.375-.344-.688-.719-.688H7.437a.674.674 0 0 0-.687.688.76.76 0 0 1-.75.75.76.76 0 0 1-.75-.75C5.25 4.968 6.219 4 7.406 4H9c1.281 0 2.25.969 2.25 2.188a2.19 2.19 0 0 1-1.094 1.875Z"></path></svg> </svg></td>
+<td><code>help</code></td>
+<td> circle-question (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/help.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-history" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! clock-rotate-left (solid): Font Awesome Pro 6.4.0 --><path d="M8 0c4.406 0 8 3.594 8 8 0 4.438-3.594 8-8 8a8.227 8.227 0 0 1-4.594-1.406c-.437-.344-.562-.969-.25-1.406.313-.47.938-.563 1.406-.25C5.532 13.624 6.72 14 8 14c3.313 0 6-2.688 6-6 0-3.313-2.688-6-6-6-1.688 0-3.156.688-4.25 1.781l.969.938c.468.5.125 1.281-.532 1.281H.75A.722.722 0 0 1 0 5.25V1.812c0-.656.781-1 1.25-.53l1.063 1.062C3.78.906 5.78 0 7.968 0H8Zm0 4a.76.76 0 0 1 .75.75v2.969l2 2c.313.312.313.781 0 1.062a.684.684 0 0 1-1.031 0l-2.25-2.25C7.312 8.406 7.25 8.22 7.25 8V4.75A.74.74 0 0 1 8 4Z"></path></svg> </svg></td>
+<td><code>history</code></td>
+<td> clock-rotate-left (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/history.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! house (solid): Font Awesome Pro 6.4.0 --><path d="M15.848 7.75c0 .492-.41.875-.875.875h-.875L14.125 13v.656a1.08 1.08 0 0 1-1.094 1.094h-2.187a1.063 1.063 0 0 1-1.094-1.094V11.25a.9.9 0 0 0-.875-.875h-1.75a.881.881 0 0 0-.875.875v2.406a1.08 1.08 0 0 1-1.094 1.094H2.97a1.063 1.063 0 0 1-1.094-1.094V8.625H1a.864.864 0 0 1-.875-.875c0-.246.082-.465.273-.656l7-6.098A.823.823 0 0 1 8 .75a.94.94 0 0 1 .574.219l6.973 6.125c.219.191.328.41.3.656Z"></path></svg> </svg></td>
+<td><code>home</code></td>
+<td> house (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/home.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16"><!--! image (solid): Font Awesome Pro 6.4.0 --><path d="M14.969 1h-12c-1.094 0-2 .906-2 2v10c0 1.125.906 2 2 2h12c1.094 0 2-.875 2-2V3c0-1.094-.875-2-2-2Zm-10.5 2c.812 0 1.5.688 1.5 1.5 0 .844-.657 1.5-1.5 1.5-.875 0-1.5-.656-1.5-1.5 0-.813.687-1.5 1.5-1.5Zm10.468 9.75a.539.539 0 0 1-.437.25H3.562a.514.514 0 0 1-.468-.25c-.063-.188-.063-.375.062-.531l2.188-3A.488.488 0 0 1 5.75 9c.156 0 .281.094.375.219l1.031 1.406 2.907-4.375A.499.499 0 0 1 10.5 6c.156 0 .313.094.406.25l4 6c.094.125.094.344.031.5Z"></path></svg> </svg></td>
+<td><code>image</code></td>
+<td> image (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/image.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-info-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-info (solid): Font Awesome Pro 6.4.0 --><path d="M8 0C3.562 0 0 3.594 0 8c0 4.438 3.563 8 8 8 4.406 0 8-3.563 8-8 0-4.406-3.594-8-8-8Zm0 4c.531 0 1 .469 1 1 0 .563-.469 1-1 1-.563 0-1-.438-1-1 0-.531.438-1 1-1Zm1.25 8h-2.5a.722.722 0 0 1-.75-.75.74.74 0 0 1 .75-.75h.5v-2H7a.722.722 0 0 1-.75-.75A.74.74 0 0 1 7 7h1a.76.76 0 0 1 .75.75v2.75h.5a.76.76 0 0 1 .75.75.74.74 0 0 1-.75.75Z"></path></svg> </svg></td>
+<td><code>info-circle</code></td>
+<td> circle-info (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/info-circle.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-italic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! italic (solid): Font Awesome Pro 6.4.0 --><path d="M14 2.031c0 .531-.469 1-1 1h-1.844L7 13.031h2c.531 0 1 .438 1 1 0 .531-.469 1-1 1H3c-.563 0-1-.469-1-1 0-.562.438-1 1-1h1.813l4.156-10H7c-.563 0-1-.469-1-1 0-.562.438-1 1-1h6c.531 0 1 .438 1 1Z"></path></svg> </svg></td>
+<td><code>italic</code></td>
+<td> italic (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/italic.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-key" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! key (solid): Font Awesome Pro 6.4.0 --><path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"></path></svg> </svg></td>
+<td><code>key</code></td>
+<td> key (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/key.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-keyboard" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! keyboard (solid): Font Awesome Free 6.5.1 --><path d="M64 64C28.7 64 0 92.7 0 128v256c0 35.3 28.7 64 64 64h448c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm16 64h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-32zm16 80h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zm80-176c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32zm16 80h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zm-16 112c0-8.8 7.2-16 16-16h224c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16v-32zm112-208h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zm-16 112c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32zm112-112h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zm-16 112c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32zm112-112h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zm-16 112c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32zm16 80h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16z"/></svg></svg></td>
+<td><code>keyboard</code></td>
+<td> keyboard (solid): Font Awesome Free 6.5.1</td>
+<td><code>wagtailadmin/icons/keyboard.svg</code></td>
+</tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! link (solid): Font Awesome Pro 6.4.0 --><path d="M4.387 4.785a3.537 3.537 0 0 1 4.98 0 3.556 3.556 0 0 1 .39 4.566l-.024.024c-.244.366-.732.44-1.098.195-.342-.268-.44-.757-.171-1.098l.024-.025a1.965 1.965 0 0 0-.22-2.539c-.756-.781-2.001-.781-2.783 0L2.751 8.643c-.781.756-.781 2.002 0 2.783a1.998 1.998 0 0 0 2.539.22l.024-.05c.367-.244.855-.17 1.1.196.243.342.17.83-.172 1.099l-.049.024a3.523 3.523 0 0 1-4.54-.39 3.493 3.493 0 0 1 0-4.981l2.734-2.759Zm7.202 6.055a3.493 3.493 0 0 1-4.98 0 3.523 3.523 0 0 1-.391-4.541l.024-.025c.244-.366.733-.439 1.099-.195a.78.78 0 0 1 .17 1.099l-.024.024a1.968 1.968 0 0 0 .22 2.54c.757.78 2.002.78 2.783 0l2.735-2.735c.78-.781.78-2.027 0-2.783a1.968 1.968 0 0 0-2.54-.22l-.024.024a.779.779 0 0 1-1.098-.17.809.809 0 0 1 .17-1.1l.05-.024a3.523 3.523 0 0 1 4.54.391 3.493 3.493 0 0 1 0 4.98L11.59 10.84Z"></path></svg> </svg></td>
+<td><code>link</code></td>
+<td> link (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/link.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-link-external" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! up-right-from-square (solid): Font Awesome Pro 6.4.0 --><path d="M12 10c-.563 0-1 .469-1 1v3H2V5h3c.531 0 1-.438 1-1 0-.531-.469-1-1-1H2C.875 3 0 3.906 0 5v9c0 1.125.875 2 2 2h9c1.094 0 2-.875 2-2v-3c0-.531-.469-1-1-1Zm3.25-10H11c-.406 0-.781.25-.938.625a1.01 1.01 0 0 0 .22 1.094L11.561 3l-6.28 6.313a.964.964 0 0 0 0 1.406A.99.99 0 0 0 6 11c.25 0 .5-.094.688-.281L13 4.438l1.281 1.28a1.01 1.01 0 0 0 1.094.22C15.75 5.78 16 5.405 16 5V.75a.76.76 0 0 0-.75-.75Z"></path></svg> </svg></td>
+<td><code>link-external</code></td>
+<td> up-right-from-square (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/link-external.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-list-ol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! list-ol (solid): Font Awesome Pro 6.4.0 --><path d="M1.629 2.309c0-.383.3-.657.656-.657h.875c.383 0 .656.274.656.657v3.253h.438c.383 0 .656.301.656.657a.632.632 0 0 1-.656.656H2.066a.648.648 0 0 1-.656-.656c0-.356.3-.657.656-.657h.438V2.966h-.219a.665.665 0 0 1-.656-.656Zm1.723 7.793c-.164-.22-.493-.192-.657.027l-.3.41c-.22.3-.63.383-.903.164-.3-.219-.383-.629-.164-.902l.3-.438c.657-.902 1.97-.984 2.708-.136.601.656.574 1.668-.027 2.324l-.957 1.011h.93c.355 0 .655.301.655.657 0 .383-.3.656-.656.656H1.875c-.273 0-.52-.137-.602-.383-.109-.246-.082-.52.11-.71l1.969-2.134a.416.416 0 0 0 0-.546ZM14.125 2.5a.9.9 0 0 1 .875.875c0 .492-.41.875-.875.875h-7a.864.864 0 0 1-.875-.875c0-.465.383-.875.875-.875h7Zm0 4.375A.9.9 0 0 1 15 7.75c0 .492-.41.875-.875.875h-7a.864.864 0 0 1-.875-.875c0-.465.383-.875.875-.875h7Zm0 4.375a.9.9 0 0 1 .875.875c0 .492-.41.875-.875.875h-7a.864.864 0 0 1-.875-.875c0-.465.383-.875.875-.875h7Z"></path></svg> </svg></td>
+<td><code>list-ol</code></td>
+<td> list-ol (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/list-ol.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-list-ul" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! list-ul (solid): Font Awesome Pro 6.4.0 --><path d="M.969 3.188c0-.762.615-1.407 1.406-1.407.762 0 1.406.645 1.406 1.407 0 .79-.644 1.406-1.406 1.406A1.388 1.388 0 0 1 .969 3.187Zm13.594-.938c.497 0 .937.44.937.938 0 .527-.44.937-.938.937H6.126a.926.926 0 0 1-.938-.938c0-.498.41-.937.938-.937h8.438Zm0 4.688c.497 0 .937.439.937.937 0 .527-.44.938-.938.938H6.126a.926.926 0 0 1-.938-.938c0-.498.41-.938.938-.938h8.438Zm0 4.687c.497 0 .937.44.937.938 0 .527-.44.937-.938.937H6.126a.926.926 0 0 1-.938-.938c0-.497.41-.937.938-.937h8.438Zm-13.594.938c0-.762.615-1.407 1.406-1.407.762 0 1.406.645 1.406 1.406 0 .792-.644 1.407-1.406 1.407a1.388 1.388 0 0 1-1.406-1.406ZM3.78 7.875c0 .791-.644 1.406-1.406 1.406A1.388 1.388 0 0 1 .969 7.875c0-.762.615-1.406 1.406-1.406.762 0 1.406.644 1.406 1.406Z"></path></svg> </svg></td>
+<td><code>list-ul</code></td>
+<td> list-ul (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/list-ul.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-lock-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! lock-open (solid): Font Awesome Pro 6.4.0 --><path d="M5.5 6H13c1.094 0 2 .906 2 2v6c0 1.125-.906 2-2 2H3c-1.125 0-2-.875-2-2V8c0-1.094.875-2 2-2h.5V4.5C3.5 2.031 5.5 0 8 0a4.507 4.507 0 0 1 4.063 2.594c.218.5 0 1.094-.5 1.312a.959.959 0 0 1-1.313-.469C9.844 2.595 8.969 2 8 2a2.487 2.487 0 0 0-2.5 2.5V6Z"></path></svg> </svg></td>
+<td><code>lock-open</code></td>
+<td> lock-open (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/lock-open.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! lock (solid): Font Awesome Pro 6.4.0 --><path d="M3.5 6V4.5C3.5 2.031 5.5 0 8 0c2.469 0 4.5 2.031 4.5 4.5V6h.5c1.094 0 2 .906 2 2v6c0 1.125-.906 2-2 2H3c-1.125 0-2-.875-2-2V8c0-1.094.875-2 2-2h.5Zm2 0h5V4.5C10.5 3.125 9.375 2 8 2a2.487 2.487 0 0 0-2.5 2.5V6Z"></path></svg> </svg></td>
+<td><code>lock</code></td>
+<td> lock (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/lock.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-login" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! right-to-bracket (solid): Font Awesome Pro 6.4.0 --><path d="m10.75 7.469-4.5-4.25c-.219-.219-.531-.25-.813-.156A.75.75 0 0 0 5 3.75V6H1c-.563 0-1 .469-1 1v2c0 .563.438 1 1 1h4v2.25c0 .313.156.594.438.719.28.094.593.062.812-.156l4.5-4.25a.755.755 0 0 0 0-1.094ZM13 1h-2c-.563 0-1 .469-1 1 0 .563.438 1 1 1h2c.531 0 1 .469 1 1v8c0 .563-.469 1-1 1h-2c-.563 0-1 .469-1 1 0 .563.438 1 1 1h2c1.656 0 3-1.313 3-3V4a3 3 0 0 0-3-3Z"></path></svg> </svg></td>
+<td><code>login</code></td>
+<td> right-to-bracket (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/login.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path d="m5.25 7.469 4.5-4.25c.219-.219.531-.25.813-.156A.75.75 0 0 1 11 3.75V6h4c.563 0 1 .469 1 1v2c0 .563-.438 1-1 1h-4v2.25c0 .313-.156.594-.438.719-.28.094-.593.062-.812-.156l-4.5-4.25a.755.755 0 0 1 0-1.094ZM3 1h2c.563 0 1 .469 1 1 0 .563-.438 1-1 1H3c-.531 0-1 .469-1 1v8c0 .563.469 1 1 1h2c.563 0 1 .469 1 1 0 .563-.438 1-1 1H3a2.98 2.98 0 0 1-3-3V4a3 3 0 0 1 3-3Z"></path></svg> </svg></td>
+<td><code>logout</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/logout.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-mail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! envelope (solid): Font Awesome Pro 6.4.0 --><path d="M14.5 2c.813 0 1.5.688 1.5 1.5 0 .5-.25.938-.625 1.219L8.594 9.812a.986.986 0 0 1-1.219 0L.594 4.72A1.496 1.496 0 0 1 0 3.5 1.5 1.5 0 0 1 1.5 2h13Zm-7.719 8.625a2.016 2.016 0 0 0 2.407 0L16 5.5V12c0 1.125-.906 2-2 2H2c-1.125 0-2-.875-2-2V5.5l6.781 5.125Z"></path></svg> </svg></td>
+<td><code>mail</code></td>
+<td> envelope (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/mail.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-media" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-play (solid): Font Awesome Pro 6.4.0 --><path d="M16 8c0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8 0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8ZM5.5 5.25v5.5c0 .281.125.531.375.656.219.156.531.125.75 0l4.5-2.75A.762.762 0 0 0 11.5 8a.75.75 0 0 0-.375-.625l-4.5-2.75a.659.659 0 0 0-.75 0 .687.687 0 0 0-.375.625Z"></path></svg> </svg></td>
+<td><code>media</code></td>
+<td> circle-play (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/media.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-minus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! minus (solid): Font Awesome Pro 6.4.0 --><path d="M13.5 9h-11c-.563 0-1-.438-1-1 0-.531.438-1 1-1h11c.531 0 1 .469 1 1 0 .563-.469 1-1 1Z"></path></svg> </svg></td>
+<td><code>minus</code></td>
+<td> minus (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/minus.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-mobile-alt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! mobile-screen-button (solid): Font Awesome Pro 6.4.0 --><path d="M11.5 0h-7c-1.125 0-2 .906-2 2v12c0 1.125.875 2 2 2h7c1.094 0 2-.875 2-2V2c0-1.094-.906-2-2-2ZM8 15c-.563 0-1-.438-1-1 0-.531.438-1 1-1 .531 0 1 .469 1 1 0 .563-.469 1-1 1Zm3.5-13v10h-7V2h7Z"></path></svg> </svg></td>
+<td><code>mobile-alt</code></td>
+<td> mobile-screen-button (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/mobile-alt.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-no-view" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! eye-slash (solid): Font Awesome Pro 6.4.0 --><path d="M3.85 3.833c1.098-.83 2.465-1.49 4.15-1.49 1.953 0 3.54.904 4.688 1.978 1.147 1.05 1.904 2.32 2.27 3.199a.876.876 0 0 1 0 .61c-.317.781-.977 1.904-1.953 2.88l2.563 2.027a.54.54 0 0 1 .098.806.54.54 0 0 1-.806.097L.407 2.612a.54.54 0 0 1-.097-.805.54.54 0 0 1 .805-.098L3.85 3.833Zm1.782 1.392 2.197 1.733c.098-.22.171-.44.171-.708 0-.269-.098-.537-.22-.757.074 0 .147-.024.22-.024a2.344 2.344 0 0 1 2.344 2.343 2.1 2.1 0 0 1-.22.953l.952.732a3.53 3.53 0 0 0 .44-1.684A3.532 3.532 0 0 0 8 4.296c-.928 0-1.758.366-2.368.928ZM8 13.28c-1.978 0-3.564-.879-4.712-1.953-1.147-1.074-1.904-2.344-2.27-3.198a.875.875 0 0 1 0-.61 9.75 9.75 0 0 1 1.196-2.002l2.295 1.806c-.025.171-.025.342-.025.489A3.501 3.501 0 0 0 8 11.328c.44 0 .879-.073 1.294-.244l1.782 1.416A6.39 6.39 0 0 1 8 13.281Z"></path></svg> </svg></td>
+<td><code>no-view</code></td>
+<td> eye-slash (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/no-view.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-openquote" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! quote-left (solid): Font Awesome Pro 6.4.0 --><path d="M4 7c-.375 0-.688.094-1 .188V7c0-1.094.875-2 2-2 .531 0 1-.438 1-1 0-.531-.469-1-1-1-2.219 0-4 1.813-4 4v3c0 1.688 1.313 3 3 3 1.656 0 3-1.313 3-3a3 3 0 0 0-3-3Zm8 0c-.375 0-.688.094-1 .188V7c0-1.094.875-2 2-2 .531 0 1-.438 1-1 0-.531-.469-1-1-1-2.219 0-4 1.813-4 4v3c0 1.688 1.313 3 3 3 1.656 0 3-1.313 3-3a3 3 0 0 0-3-3Z"></path></svg> </svg></td>
+<td><code>openquote</code></td>
+<td> quote-left (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/openquote.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-order-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! arrow-down (solid): Font Awesome Pro 6.4.0 --><path d="m13.688 9.719-5 5A.97.97 0 0 1 8 15a.99.99 0 0 1-.719-.281l-5-5a.964.964 0 0 1 0-1.406.964.964 0 0 1 1.406 0L7 11.592V2c0-.531.438-.969.969-.969C8.469 1.031 9 1.47 9 2v9.594l3.281-3.281a.964.964 0 0 1 1.406 0 .964.964 0 0 1 0 1.406Z"></path></svg> </svg></td>
+<td><code>order-down</code></td>
+<td> arrow-down (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/order-down.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-order-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! arrow-up (solid): Font Awesome Pro 6.4.0 --><path d="M13.688 7.719A.97.97 0 0 1 13 8a.99.99 0 0 1-.719-.281L9 4.437V14c0 .563-.469 1-1 1-.5 0-1-.438-1-1V4.437L3.687 7.72a.964.964 0 0 1-1.406 0 .964.964 0 0 1 0-1.407l5-5a.964.964 0 0 1 1.407 0l5 5a.964.964 0 0 1 0 1.407Z"></path></svg> </svg></td>
+<td><code>order-up</code></td>
+<td> arrow-up (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/order-up.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-order" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! arrow-down-1-9 (solid): Font Awesome Pro 6.4.0 --><path d="M10 6c0 .563.438 1 1 1h2c.531 0 1-.438 1-1 0-.531-.469-1-1-1V2a.985.985 0 0 0-.5-.844c-.281-.187-.656-.187-.969-.031l-1 .531A.99.99 0 0 0 10.094 3c.187.344.531.531.906.531V5c-.563 0-1 .469-1 1Zm2.25 2a2.734 2.734 0 0 0-2.75 2.75c0 1.156.688 2.125 1.656 2.531l-.219.25a.887.887 0 0 0 0 1.25.955.955 0 0 0 .626.219.847.847 0 0 0 .624-.25c2.188-2.281 2.782-2.688 2.782-4C15 9.219 13.75 8 12.25 8Zm0 3.5a.74.74 0 0 1-.75-.75.74.74 0 0 1 .75-.75.76.76 0 0 1 .75.75.76.76 0 0 1-.75.75Zm-5.5-1.469c-.281 0-.563.094-.75.313l-1 1.125V2.03C5 1.47 4.531 1 4 1c-.563 0-1 .469-1 1.031v9.438l-1.031-1.125a.991.991 0 0 0-1.407-.063c-.406.375-.437 1-.062 1.438l2.719 3c.375.406 1.094.406 1.469 0l2.718-3c.375-.438.344-1.063-.062-1.438-.125-.156-.375-.25-.594-.25Z"></path></svg> </svg></td>
+<td><code>order</code></td>
+<td> arrow-down-1-9 (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/order.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-password" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! key (solid): Font Awesome Pro 6.4.0 --><path d="M8.813 10.75 7.75 11.781a.622.622 0 0 1-.5.219H6v1.25a.74.74 0 0 1-.75.75H4v1.25a.74.74 0 0 1-.75.75H.75a.722.722 0 0 1-.75-.75v-2.5c0-.188.063-.375.219-.531L5.25 7.188C5.062 6.655 5 6.093 5 5.5 5 2.469 7.438 0 10.5 0 13.531 0 16 2.469 16 5.5c0 3.063-2.469 5.5-5.5 5.5-.594 0-1.156-.063-1.688-.25ZM11.75 5.5c.688 0 1.25-.531 1.25-1.25C13 3.562 12.437 3 11.75 3c-.719 0-1.25.563-1.25 1.25 0 .719.531 1.25 1.25 1.25Z"></path></svg> </svg></td>
+<td><code>password</code></td>
+<td> key (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/password.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-pick" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! star (solid): Font Awesome Pro 6.4.0 --><path d="m10.543 4.879 3.91.574a.892.892 0 0 1 .711.602c.11.3.027.656-.219.875l-2.843 2.816.683 3.992a.86.86 0 0 1-.355.848c-.274.219-.63.219-.93.082L8 12.781l-3.527 1.887c-.274.137-.657.137-.903-.082a.859.859 0 0 1-.355-.848l.656-3.992L1.027 6.93a.812.812 0 0 1-.218-.875.892.892 0 0 1 .71-.602l3.938-.574 1.75-3.637A.852.852 0 0 1 8 .75c.328 0 .629.191.766.492l1.777 3.637Z"></path></svg> </svg></td>
+<td><code>pick</code></td>
+<td> star (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/pick.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-pilcrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! paragraph (solid): Font Awesome Pro 6.4.0 --><path d="M15 2c0 .563-.469 1-1 1h-1v11c0 .563-.469 1-1 1-.5 0-1-.438-1-1V3h-1v11c0 .563-.469 1-1 1-.5 0-1-.438-1-1v-3h-.813C4.595 11 2.25 9.094 2 6.5 1.719 3.531 4.063 1 6.969 1h7C14.53 1 15 1.469 15 2Z"></path></svg> </svg></td>
+<td><code>pilcrow</code></td>
+<td> paragraph (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/pilcrow.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-chevron-down (solid): Font Awesome Pro 6.4.0 --><path d="M8 0C3.562 0 0 3.594 0 8c0 4.438 3.563 8 8 8 4.406 0 8-3.563 8-8 0-4.406-3.594-8-8-8Zm4.188 7.719-3.5 3.5A.97.97 0 0 1 8 11.5a.99.99 0 0 1-.719-.281l-3.5-3.5a.964.964 0 0 1 0-1.407.964.964 0 0 1 1.406 0L8 9.095l2.781-2.781a.964.964 0 0 1 1.406 0 .964.964 0 0 1 0 1.406Z"></path></svg> </svg></td>
+<td><code>placeholder</code></td>
+<td> circle-chevron-down (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/placeholder.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-plus-inverse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-plus (solid): Font Awesome Pro 6.4.0 --><path d="M0 8c0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8 0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8Zm8 3.5a.74.74 0 0 0 .75-.75v-2h2A.74.74 0 0 0 11.5 8a.76.76 0 0 0-.75-.75h-2v-2A.76.76 0 0 0 8 4.5a.74.74 0 0 0-.75.75v2h-2A.74.74 0 0 0 4.5 8c0 .438.313.75.75.75h2v2c0 .438.313.75.75.75Z"></path></svg> </svg></td>
+<td><code>plus-inverse</code></td>
+<td> circle-plus (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/plus-inverse.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! plus (solid): Font Awesome Pro 6.4.0 --><path d="M14.5 8c0 .563-.469 1.031-1 1.031H9v4.5c0 .531-.469.969-1 .969a.98.98 0 0 1-1-.969v-4.5H2.5c-.563 0-1-.469-1-1.031a.98.98 0 0 1 1-.969H7v-4.5C7 1.97 7.438 1.5 8 1.5c.531 0 1 .469 1 1.031v4.5h4.5c.531-.031 1 .438 1 .969Z"></path></svg> </svg></td>
+<td><code>plus</code></td>
+<td> plus (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/plus.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-radio-empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle (regular): Font Awesome Pro 6.4.0 --><path d="M16 8c0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8 0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8ZM8 1.5C4.406 1.5 1.5 4.438 1.5 8c0 3.594 2.906 6.5 6.5 6.5 3.563 0 6.5-2.906 6.5-6.5 0-3.563-2.938-6.5-6.5-6.5Z"></path></svg> </svg></td>
+<td><code>radio-empty</code></td>
+<td> circle (regular): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/radio-empty.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-radio-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! circle (solid): Font Awesome Pro 6.4.0 --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path></svg> </svg></td>
+<td><code>radio-full</code></td>
+<td> circle (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/radio-full.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-redirect" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! diamond-turn-right (solid): Font Awesome Pro 6.4.0 --><path d="M15.531 6.969 9.031.437C8.72.157 8.344 0 7.97 0c-.375.031-.75.156-1.032.469l-6.5 6.5C.126 7.25 0 7.625 0 8c0 .375.125.75.438 1.031l6.5 6.531c.28.313.656.438 1.062.438.375 0 .75-.156 1.031-.438l6.5-6.53C15.844 8.75 16 8.374 16 8c-.031-.375-.156-.75-.469-1.031Zm-2.719.906-3 2.625c-.343.313-.843.031-.843-.375V8.5h-2V10c0 .563-.438 1-1 1-.594 0-1-.438-1-1V7.5c0-.531.437-1 1-1h2.968V4.875c0-.406.5-.625.813-.375l3 2.625c.188.094.219.25.219.375 0 .156-.031.281-.156.375Z"></path></svg> </svg></td>
+<td><code>redirect</code></td>
+<td> diamond-turn-right (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/redirect.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-regex" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><circle cx="2.926" cy="13.471" r="1.5"></circle><path d="m13.383 10.22-2.37 1.81-1.939-3.584-1.938 3.583-2.37-1.808 2.64-3.037-3.832-.842.899-2.912 3.573 1.695-.433-4.096h2.923l-.433 4.096 3.573-1.695.898 2.912-3.832.842 2.641 3.037Z"></path></svg> </svg></td>
+<td><code>regex</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/regex.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-resubmit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18"><!--! right-left (solid): Font Awesome Pro 6.4.0 --><path d="M2 6h9.969v2.25c0 .313.187.594.469.688.28.124.593.093.812-.126l3.5-3.25a.755.755 0 0 0 0-1.093l-3.5-3.25c-.219-.219-.531-.25-.813-.157a.78.78 0 0 0-.468.688V4H2c-.563 0-1 .469-1 1 0 .5.438 1 1 1Zm14 6H6V9.75c0-.313-.188-.594-.469-.688C5.25 8.97 4.938 9 4.72 9.22l-3.5 3.25a.755.755 0 0 0 0 1.094l3.5 3.25c.218.218.531.25.812.125.282-.094.469-.375.469-.688V14h10c.531 0 1-.438 1-1 0-.531-.469-1-1-1Z"></path></svg> </svg></td>
+<td><code>resubmit</code></td>
+<td> right-left (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/resubmit.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-rotate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! rotate (solid): Font Awesome Pro 6.4.0 --><path d="m14.031 1.25-1.5 1.531C11.312 1.687 9.72 1 8 1a6.781 6.781 0 0 0-6.469 4.719c-.156.531.125 1.093.657 1.25.53.156 1.093-.125 1.25-.657C4.061 4.345 5.905 3 8 3c1.156 0 2.281.469 3.125 1.188L9.719 5.563c-.5.53-.156 1.437.594 1.437h4.593c.313 0 .594-.25.594-.594V1.875c0-.781-.938-1.156-1.469-.625Zm-.25 7.813c-.531-.157-1.094.124-1.25.656C11.906 11.688 10.062 13 8 13c-1.188 0-2.281-.438-3.156-1.156l1.406-1.406c.5-.5.156-1.407-.594-1.438H1.063a.617.617 0 0 0-.563.625v4.531c0 .781.906 1.156 1.438.625l1.5-1.531A6.776 6.776 0 0 0 7.968 15a6.743 6.743 0 0 0 6.438-4.688.955.955 0 0 0-.625-1.25Z"></path></svg> </svg></td>
+<td><code>rotate</code></td>
+<td> rotate (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/rotate.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18"><!--! magnifying-glass (solid): Font Awesome Pro 6.4.0 --><path d="m16.625 14.875-3.75-3.75a6.489 6.489 0 0 0 1.063-4.5c-.407-2.875-2.75-5.188-5.594-5.563C4.094.532.5 4.126 1.03 8.375c.375 2.844 2.688 5.188 5.563 5.594 1.687.219 3.25-.219 4.531-1.063l3.719 3.75c.5.469 1.281.469 1.781 0 .469-.5.469-1.281 0-1.781ZM3.469 7.5c0-2.188 1.781-4 4-4 2.187 0 4 1.813 4 4 0 2.219-1.813 4-4 4-2.219 0-4-1.781-4-4Z"></path></svg> </svg></td>
+<td><code>search</code></td>
+<td> magnifying-glass (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/search.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-site" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! earth-americas (solid): Font Awesome Pro 6.4.0 --><path d="M16 8c0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8 0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8ZM1.781 6.031l.313.532c.25.437.656.78 1.187.937l1.781.5c.563.156.938.656.938 1.219v1.25c0 .344.188.656.5.781.281.156.5.469.5.813v1.218c0 .5.438.844.906.719a1.476 1.476 0 0 0 1.032-1.063l.093-.343c.125-.531.469-.969.938-1.25l.25-.156c.469-.25.781-.75.781-1.282v-.281c0-.375-.188-.781-.469-1.063l-.094-.093C10.158 8.188 9.75 8 9.376 8H8c-.344 0-.688-.063-.969-.25l-1.093-.625c-.125-.063-.22-.188-.282-.344-.093-.281.032-.625.313-.75l.187-.093a.81.81 0 0 1 .657-.063l.75.25c.25.094.53-.031.687-.25a.615.615 0 0 0-.063-.719l-.406-.5a.993.993 0 0 1 0-1.281l.5-.563a.99.99 0 0 0 .094-1.156l-.063-.125c-.124 0-.218-.031-.312-.031a6.54 6.54 0 0 0-6.219 4.531Zm11.875-1.187-.781.312c-.5.219-.75.75-.594 1.25L12.812 8c.094.313.376.563.72.656l.905.219A7.67 7.67 0 0 0 14.5 8a6.439 6.439 0 0 0-.844-3.156Z"></path></svg> </svg></td>
+<td><code>site</code></td>
+<td> earth-americas (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/site.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-sliders" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! sliders (solid): Font Awesome Pro 6.4.0 --><path d="M0 13C0 12.4688 0.4375 12 1 12H2.6875C3.09375 11.125 3.96875 10.5 5 10.5C6 10.5 6.875 11.125 7.28125 12H15C15.5312 12 16 12.4688 16 13C16 13.5625 15.5312 14 15 14H7.28125C6.875 14.9062 6 15.5 5 15.5C3.96875 15.5 3.09375 14.9062 2.6875 14H1C0.4375 14 0 13.5625 0 13ZM6 13C6 12.4688 5.53125 12 5 12C4.4375 12 4 12.4688 4 13C4 13.5625 4.4375 14 5 14C5.53125 14 6 13.5625 6 13ZM11 5.5C12 5.5 12.875 6.125 13.2812 7H15C15.5312 7 16 7.46875 16 8C16 8.5625 15.5312 9 15 9H13.2812C12.875 9.90625 12 10.5 11 10.5C9.96875 10.5 9.09375 9.90625 8.6875 9H1C0.4375 9 0 8.5625 0 8C0 7.46875 0.4375 7 1 7H8.6875C9.09375 6.125 9.96875 5.5 11 5.5ZM12 8C12 7.46875 11.5312 7 11 7C10.4375 7 10 7.46875 10 8C10 8.5625 10.4375 9 11 9C11.5312 9 12 8.5625 12 8ZM15 2C15.5312 2 16 2.46875 16 3C16 3.5625 15.5312 4 15 4H8.28125C7.875 4.90625 7 5.5 6 5.5C4.96875 5.5 4.09375 4.90625 3.6875 4H1C0.4375 4 0 3.5625 0 3C0 2.46875 0.4375 2 1 2H3.6875C4.09375 1.125 4.96875 0.5 6 0.5C7 0.5 7.875 1.125 8.28125 2H15ZM5 3C5 3.5625 5.4375 4 6 4C6.53125 4 7 3.5625 7 3C7 2.46875 6.53125 2 6 2C5.4375 2 5 2.46875 5 3Z" /></svg></svg></td>
+<td><code>sliders</code></td>
+<td> sliders (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/sliders.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-snippet" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16"><!--! leaf (solid): Font Awesome Pro 6.4.0 --><path d="M17 5.188c0 4-2.219 7.343-5.5 8.437a5.414 5.414 0 0 1-2 .375c-2.031 0-3.938-1.125-4.875-2.938-1.688 1.563-2.156 3.344-2.156 3.376A.76.76 0 0 1 1.75 15h-.188A.754.754 0 0 1 1 14.094C1.313 12.844 3.844 7 11.469 7c.281 0 .531-.219.531-.5 0-.25-.25-.5-.5-.5C8.125 6 5.719 7.094 4 8.375c0-.344.031-.688.094-1.031a5.487 5.487 0 0 1 4.125-4.188c.875-.219 1.719-.187 2.531 0 1.75.406 3.688-.25 4.656-1.906.188-.313.625-.313.781 0 .5 1.156.813 2.563.813 3.938Z"></path></svg> </svg></td>
+<td><code>snippet</code></td>
+<td> leaf (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/snippet.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! spinner (solid): Font Awesome Pro 6.4.0 --><path d="M9.5 1.5A1.5 1.5 0 0 1 8 3a1.48 1.48 0 0 1-1.5-1.5A1.5 1.5 0 0 1 8 0c.813 0 1.5.688 1.5 1.5Zm0 13A1.5 1.5 0 0 1 8 16a1.48 1.48 0 0 1-1.5-1.5A1.5 1.5 0 0 1 8 13c.813 0 1.5.688 1.5 1.5ZM0 8a1.5 1.5 0 0 1 1.5-1.5C2.313 6.5 3 7.188 3 8a1.5 1.5 0 0 1-1.5 1.5A1.48 1.48 0 0 1 0 8Zm16 0a1.5 1.5 0 0 1-1.5 1.5A1.48 1.48 0 0 1 13 8a1.5 1.5 0 0 1 1.5-1.5c.813 0 1.5.688 1.5 1.5ZM2.312 13.656c-.562-.562-.562-1.531 0-2.094.594-.593 1.563-.593 2.126 0a1.453 1.453 0 0 1 0 2.094c-.563.594-1.532.594-2.125 0ZM4.438 4.47c-.563.593-1.532.593-2.125 0-.563-.563-.563-1.532 0-2.125.593-.563 1.562-.563 2.124 0 .594.594.594 1.562 0 2.125Zm7.093 7.093c.563-.593 1.531-.593 2.125 0 .563.563.563 1.532 0 2.094-.594.594-1.562.594-2.125 0a1.453 1.453 0 0 1 0-2.094Z"></path></svg> </svg></td>
+<td><code>spinner</code></td>
+<td> spinner (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/spinner.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-strikethrough" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! strikethrough (solid): Font Awesome Pro 6.4.0 --><path d="M10.375 10c.531.406.688.844.563 1.531-.094.531-.344.906-.75 1.156-1.126.594-3.407.376-5.813-.624a1 1 0 0 0-1.313.53 1 1 0 0 0 .532 1.313c1 .406 3 1.125 4.937 1.125.938 0 1.844-.187 2.625-.594.969-.562 1.563-1.437 1.75-2.593.125-.719.094-1.313-.094-1.844h-2.437Zm4.875-2.5H9.719c-.5-.156-1-.313-1.469-.438-2.656-.78-3.469-1.218-3.219-2.562.063-.438.313-.813.688-1.063.656-.406 2-.718 4.875.032a1.025 1.025 0 0 0 1.219-.719c.124-.531-.188-1.094-.72-1.219-2.843-.75-5.03-.687-6.437.25a3.397 3.397 0 0 0-1.593 2.407C2.78 5.78 3.343 6.813 4.28 7.5H.75a.734.734 0 0 0-.75.719c0 .437.313.75.75.75h14.5a.76.76 0 0 0 .75-.75c0-.375-.344-.719-.75-.719Z"></path></svg> </svg></td>
+<td><code>strikethrough</code></td>
+<td> strikethrough (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/strikethrough.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! circle-check (solid): Font Awesome Pro 6.4.0 --><path d="M0 8c0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8 0 4.438-3.594 8-8 8-4.438 0-8-3.563-8-8Zm11.594-1.375a.85.85 0 0 0 0-1.219.85.85 0 0 0-1.219 0L7 8.781 5.594 7.406a.85.85 0 0 0-1.219 0 .85.85 0 0 0 0 1.219l2 2a.849.849 0 0 0 1.219 0l4-4Z"></path></svg> </svg></td>
+<td><code>success</code></td>
+<td> circle-check (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/success.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-subscript" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17"><!--! subscript (solid): Font Awesome Pro 6.4.0 --><path d="M15 14v-4a.985.985 0 0 0-.5-.844c-.281-.187-.656-.187-.969-.031l-1 .5a.99.99 0 0 0-.437 1.344c.156.344.531.562.906.562v2.5c-.563 0-1 .438-1 1 0 .531.438 1 1 1h2c.531 0 1-.468 1-1C16 14.47 15.531 14 15 14ZM10 4c.531 0 1-.438 1-1 0-.531-.469-1-1-1H9a1.08 1.08 0 0 0-.844.438L5.5 6.28 2.812 2.438c-.187-.25-.5-.407-.812-.407H1c-.563 0-1 .438-1 1 0 .531.438 1 1 1h.469L4.25 8l-2.781 4H1c-.563 0-1 .469-1 1 0 .563.438 1 1 1h1a.982.982 0 0 0 .813-.438L5.5 9.75l2.656 3.844c.188.25.5.406.844.406l1 .031c.531 0 1-.469 1-1 0-.5-.469-1-1-1h-.5l-2.781-4L9.5 4.062h.5V4Z"></path></svg> </svg></td>
+<td><code>subscript</code></td>
+<td> subscript (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/subscript.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-superscript" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17"><!--! superscript (solid): Font Awesome Pro 6.4.0 --><path d="M15 6V2a.985.985 0 0 0-.5-.844c-.281-.187-.656-.187-.969-.031l-1 .5a.99.99 0 0 0-.437 1.344c.156.344.531.562.906.562v2.5c-.563 0-1 .438-1 1 0 .532.438 1 1 1h2c.531 0 1-.469 1-1C16 6.47 15.531 6 15 6Zm-5-1c.531 0 1-.438 1-1 0-.531-.469-1-1-1H9a1.08 1.08 0 0 0-.844.438L5.5 7.28 2.812 3.438c-.187-.25-.5-.407-.812-.407H1c-.563 0-1 .438-1 1 0 .532.438 1 1 1h.469L4.25 9l-2.781 4H1c-.563 0-1 .469-1 1 0 .563.438 1 1 1h1a.982.982 0 0 0 .813-.438L5.5 10.75l2.656 3.844c.188.25.5.406.844.406l1 .031c.531 0 1-.469 1-1 0-.5-.469-1-1-1h-.5l-2.781-4L9.5 5.062h.5V5Z"></path></svg> </svg></td>
+<td><code>superscript</code></td>
+<td> superscript (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/superscript.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-table" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! table (solid): Font Awesome Pro 6.4.0 --><path d="M14 1c1.094 0 2 .906 2 2v10c0 1.125-.906 2-2 2H2c-1.125 0-2-.875-2-2V3c0-1.094.875-2 2-2h12ZM7 8V5H2v3h5Zm-5 2v3h5v-3H2Zm7 3h5v-3H9v3Zm5-5V5H9v3h5Z"></path></svg> </svg></td>
+<td><code>table</code></td>
+<td> table (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/table.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-tablet-alt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! tablet-screen-button (solid): Font Awesome Pro 6.4.0 --><path d="M13 0H3C1.875 0 1 .906 1 2v12c0 1.125.875 2 2 2h10c1.094 0 2-.906 2-2V2c0-1.094-.906-2-2-2ZM8 15c-.563 0-1-.438-1-1 0-.531.438-1 1-1 .531 0 1 .469 1 1 0 .563-.469 1-1 1Zm5-3H3V2h10v10Z"></path></svg> </svg></td>
+<td><code>tablet-alt</code></td>
+<td> tablet-screen-button (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/tablet-alt.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-tag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! tag (solid): Font Awesome Pro 6.4.0 --><path d="M2.5 1h4.656c.532 0 1.032.219 1.407.594l5.5 5.5a2.018 2.018 0 0 1 0 2.843l-4.157 4.157a2.018 2.018 0 0 1-2.844 0l-5.5-5.5A1.959 1.959 0 0 1 1 7.188V2.5A1.5 1.5 0 0 1 2.5 1Zm2 4.5c.531 0 1-.438 1-1 0-.531-.469-1-1-1-.563 0-1 .469-1 1 0 .563.438 1 1 1Z"></path></svg> </svg></td>
+<td><code>tag</code></td>
+<td> tag (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/tag.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-tasks" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16"><!--! list-check (solid): Font Awesome Pro 6.4.0 --><path d="M5.75 1.219c.281.281.313.75.031 1.062l-2.25 2.5A.754.754 0 0 1 3 5a.595.595 0 0 1-.531-.219l-1.25-1.25a.684.684 0 0 1 0-1.031.684.684 0 0 1 1.031 0l.719.688L4.688 1.25a.774.774 0 0 1 1.062-.031Zm0 5c.281.25.313.75.031 1.062l-2.25 2.5A.754.754 0 0 1 3 10a.595.595 0 0 1-.531-.219l-1.25-1.25c-.313-.281-.313-.75 0-1.062a.736.736 0 0 1 1.031 0l.719.718L4.688 6.25a.774.774 0 0 1 1.062-.031ZM8 3c0-.531.438-1 1-1h7c.531 0 1 .469 1 1 0 .563-.469 1-1 1H9c-.563 0-1-.438-1-1Zm0 5c0-.531.438-1 1-1h7c.531 0 1 .469 1 1 0 .563-.469 1-1 1H9c-.563 0-1-.438-1-1Zm-2 5c0-.531.438-1 1-1h9c.531 0 1 .469 1 1 0 .563-.469 1-1 1H7c-.563 0-1-.438-1-1Zm-5 0a1.5 1.5 0 0 1 1.5-1.5c.813 0 1.5.688 1.5 1.5a1.5 1.5 0 0 1-1.5 1.5A1.48 1.48 0 0 1 1 13Z"></path></svg> </svg></td>
+<td><code>tasks</code></td>
+<td> list-check (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/tasks.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-thumbtack" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! thumbtack (solid): Font Awesome Pro 6.4.0 --><path d="M3.313 1.313c0-.499.41-.938.937-.938h7.5c.498 0 .938.44.938.938 0 .527-.44.937-.938.937h-.879l.322 4.365a4.951 4.951 0 0 1 2.344 2.754l.03.088a.969.969 0 0 1-.147.85.843.843 0 0 1-.732.38H3.312c-.322 0-.585-.117-.761-.38a.969.969 0 0 1-.147-.85l.03-.088a4.951 4.951 0 0 1 2.343-2.754L5.1 2.25h-.85a.926.926 0 0 1-.938-.938Zm5.624 10.312v2.813c0 .527-.439.937-.937.937a.926.926 0 0 1-.938-.938v-2.812h1.875Z"></path></svg> </svg></td>
+<td><code>thumbtack</code></td>
+<td> thumbtack (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/thumbtack.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-thumbtack-crossed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! Custom icon --><path fill-rule="evenodd" d="M7.745.568A.944.944 0 0 0 6.464.91a.926.926 0 0 0 .343 1.28l.736.425L6.28 4.472l5.284 3.05.976-2.02.761.44a.944.944 0 0 0 1.28-.344.964.964 0 0 0-.342-1.28L7.745.568Zm3.412 10.014L3.835 6.355a4.907 4.907 0 0 0-2.16 1.094l-.07.061a.969.969 0 0 0-.298.81c.02.316.19.549.47.71l8.118 4.688c.254.146.541.176.825.036a.969.969 0 0 0 .552-.663l.018-.09a4.906 4.906 0 0 0-.133-2.419ZM4.773 15.09l1.406-2.436-1.624-.937-1.406 2.436a.925.925 0 0 0 .343 1.28.944.944 0 0 0 1.28-.343Z" clip-rule="evenodd"></path><path d="m2.822 3.55 11.52 6.652-.5.866-11.52-6.651z"></path></svg> </svg></td>
+<td><code>thumbtack-crossed</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/thumbtack-crossed.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-tick-inverse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! square-check (solid): Font Awesome Pro 6.4.0 --><path d="M13 1c1.094 0 2 .906 2 2v10c0 1.125-.906 2-2 2H3c-1.125 0-2-.875-2-2V3c0-1.094.875-2 2-2h10Zm-1.406 5.625a.85.85 0 0 0 0-1.219.85.85 0 0 0-1.219 0L7 8.781 5.594 7.406a.85.85 0 0 0-1.219 0 .85.85 0 0 0 0 1.219l2 2a.849.849 0 0 0 1.219 0l4-4Z"></path></svg> </svg></td>
+<td><code>tick-inverse</code></td>
+<td> square-check (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/tick-inverse.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-time" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! clock (solid): Font Awesome Pro 6.4.0 --><path d="M8 16c-4.438 0-8-3.563-8-8 0-4.406 3.563-8 8-8 4.406 0 8 3.594 8 8 0 4.438-3.594 8-8 8Zm-.75-8c0 .25.125.5.313.625l3 2a.718.718 0 0 0 1.03-.188c.25-.343.157-.812-.187-1.062L8.75 7.625V3.75c0-.406-.344-.75-.781-.75a.76.76 0 0 0-.75.75L7.25 8Z"></path></svg> </svg></td>
+<td><code>time</code></td>
+<td> clock (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/time.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! heading (solid): Font Awesome Pro 6.4.0 --><path d="M15 14c0 .563-.469 1-1 1h-3c-.563 0-1-.438-1-1 0-.531.438-1 1-1h.5V8.5h-7V13H5c.531 0 1 .469 1 1 0 .563-.469 1-1 1H2c-.563 0-1-.438-1-1 0-.531.438-1 1-1h.5V3H2c-.563 0-1-.438-1-1 0-.531.438-1 1-1h3c.531 0 1 .469 1 1 0 .563-.469 1-1 1h-.5v3.5h7V3H11c-.563 0-1-.438-1-1 0-.531.438-1 1-1h3c.531 0 1 .469 1 1 0 .563-.469 1-1 1h-.5v10h.5c.531 0 1 .469 1 1Z"></path></svg> </svg></td>
+<td><code>title</code></td>
+<td> heading (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/title.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-upload" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! upload (solid): Font Awesome Pro 6.4.0 --><path d="M3.281 5.719a.964.964 0 0 0 1.406 0L7 3.437V11c0 .563.438 1 1 1 .531 0 1-.438 1-1V3.437l2.281 2.282a.964.964 0 0 0 1.406 0 .964.964 0 0 0 0-1.407l-4-4C8.5.126 8.25 0 8 0c-.281 0-.531.125-.719.313l-4 4a.964.964 0 0 0 0 1.406ZM15 11h-5c0 1.125-.906 2-2 2-1.125 0-2-.875-2-2H1c-.563 0-1 .469-1 1v3c0 .563.438 1 1 1h14c.531 0 1-.438 1-1v-3c0-.531-.469-1-1-1Zm-1.5 3.25a.722.722 0 0 1-.75-.75.74.74 0 0 1 .75-.75.76.76 0 0 1 .75.75.74.74 0 0 1-.75.75Z"></path></svg> </svg></td>
+<td><code>upload</code></td>
+<td> upload (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/upload.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! user (solid): Font Awesome Pro 6.4.0 --><path d="M8 8c2.188 0 4-1.781 4-4 0-2.188-1.813-4-4-4-2.219 0-4 1.813-4 4 0 2.219 1.781 4 4 4Zm1.563 1.5H6.405C3.406 9.5 1 11.938 1 14.938 1 15.53 1.469 16 2.063 16h11.843C14.5 16 15 15.531 15 14.937c0-3-2.438-5.437-5.438-5.437Z"></path></svg> </svg></td>
+<td><code>user</code></td>
+<td> user (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/user.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-view" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><!--! eye (solid): Font Awesome Pro 6.4.0 --><path d="M7.754 5.152c.082 0 .164-.027.246-.027a2.626 2.626 0 0 1 0 5.25A2.608 2.608 0 0 1 5.375 7.75v-.219c.246.137.547.219.875.219C7.207 7.75 8 6.984 8 6c0-.3-.11-.602-.246-.848ZM13.25 3.84c1.285 1.176 2.133 2.598 2.543 3.582a.98.98 0 0 1 0 .683c-.41.957-1.258 2.38-2.543 3.582-1.285 1.204-3.063 2.188-5.25 2.188-2.215 0-3.992-.984-5.277-2.188C1.438 10.485.59 9.063.18 8.105a.98.98 0 0 1 0-.683c.41-.984 1.257-2.406 2.543-3.582C4.008 2.637 5.785 1.625 8 1.625c2.188 0 3.965 1.012 5.25 2.215ZM8 3.813A3.938 3.938 0 0 0 4.062 7.75 3.921 3.921 0 0 0 8 11.688c2.16 0 3.938-1.75 3.938-3.938 0-2.16-1.778-3.938-3.938-3.938Z"></path></svg> </svg></td>
+<td><code>view</code></td>
+<td> eye (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/view.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg xmlns="http://www.w3.org/2000/svg" id="icon-wagtail-icon" viewBox="0 0 16 16"> <!--! Custom icon --> <path d="M12.324 2.539c0 0.152-0.114 0.303-0.303 0.303-0.152 0-0.303-0.152-0.303-0.303 0-0.19 0.152-0.303 0.303-0.303 0.19 0 0.303 0.114 0.303 0.303zM12.437 5.421c0 0-0.417-1.896-2.92-1.403-0.228-0.872-0.19-1.517 0.341-2.086 0.759-0.796 1.972-0.379 1.972-0.379v-0.645c-0.417-0.19-0.834-0.228-1.252-0.228-1.631 0-2.541 1.214-2.92 2.048l-4.513 8.306 1.289-0.228-2.351 4.513 1.631-0.303 1.252-3.527c3.527 0 8.078-1.289 7.471-6.068zM13.954 3.828l-0.986-0.986-0.796 0.986zM5.535 10.465c0 0 0.152-0.038 0.341-0.076 0.19-0.076 0.493-0.114 0.834-0.228 0.19-0.038 0.379-0.114 0.569-0.152 0.19-0.076 0.417-0.152 0.607-0.228 0.228-0.114 0.417-0.19 0.607-0.303 0.228-0.114 0.417-0.265 0.607-0.379 0.038-0.038 0.114-0.076 0.152-0.114l0.114-0.114c0.114-0.114 0.19-0.19 0.265-0.265s0.152-0.19 0.228-0.265c0.038-0.038 0.076-0.076 0.114-0.152l0.038-0.076 0.038-0.038c0.038-0.076 0.076-0.114 0.076-0.152 0.038-0.038 0.076-0.114 0.076-0.152 0.038-0.038 0.038-0.038 0.038-0.076 0.038 0 0.038-0.038 0.038-0.076 0.038-0.038 0.038-0.076 0.076-0.114 0.038-0.114 0.076-0.19 0.114-0.303 0-0.076 0.038-0.152 0.076-0.265 0-0.076 0.038-0.152 0.038-0.228s0.038-0.152 0.038-0.228c0-0.076 0.038-0.152 0.038-0.228 0-0.038 0-0.114 0-0.152 0-0.19 0.038-0.341 0.038-0.341l0.19 0.038c0 0-0.038 0.114-0.038 0.303 0 0.076-0.038 0.114-0.038 0.19s0 0.152-0.038 0.19c0 0.076 0 0.152-0.038 0.265 0 0.076-0.038 0.152-0.038 0.228-0.038 0.114-0.076 0.19-0.114 0.303-0.038 0.076-0.076 0.19-0.114 0.265 0 0.038-0.038 0.114-0.076 0.152 0 0.038 0 0.038-0.038 0.076 0 0.038 0 0.038-0.038 0.076 0 0.038-0.038 0.076-0.076 0.152-0.038 0.038-0.038 0.076-0.076 0.114s-0.038 0.076-0.038 0.076l-0.076 0.076c-0.038 0.038-0.076 0.114-0.114 0.152-0.076 0.076-0.152 0.19-0.228 0.265s-0.152 0.152-0.265 0.265l-0.114 0.114c-0.076 0.038-0.114 0.038-0.152 0.076-0.228 0.152-0.417 0.303-0.645 0.417-0.19 0.076-0.417 0.19-0.607 0.265-0.228 0.076-0.417 0.152-0.645 0.228-0.19 0.038-0.379 0.114-0.569 0.152-0.341 0.076-0.645 0.152-0.834 0.19s-0.341 0.076-0.341 0.076z"></path> </svg> </svg></td>
+<td><code>wagtail-icon</code></td>
+<td> Custom icon </td>
+<td><code>wagtailadmin/icons/wagtail.svg</code></td> </tr>
+<tr>
+<td><svg width="32" height="32" fill="currentColor"><svg id="icon-warning" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 16"><!--! triangle-exclamation (solid): Font Awesome Pro 6.4.0 --><path d="M16.813 13.031 10.155 1.656c-.531-.875-1.812-.875-2.312 0L1.156 13.031c-.5.875.125 1.969 1.157 1.969h13.343a1.316 1.316 0 0 0 1.156-1.969ZM8.25 5.25A.74.74 0 0 1 9 4.5a.76.76 0 0 1 .75.75v4A.74.74 0 0 1 9 10a.76.76 0 0 1-.75-.75v-4ZM9 13a.98.98 0 0 1-1-.969.98.98 0 0 1 1-.969c.531 0 .969.438.969.97A.974.974 0 0 1 9 13Z"></path></svg> </svg></td>
+<td><code>warning</code></td>
+<td> triangle-exclamation (solid): Font Awesome Pro 6.4.0 </td>
+<td><code>wagtailadmin/icons/warning.svg</code></td> </tr> </tbody> </table>

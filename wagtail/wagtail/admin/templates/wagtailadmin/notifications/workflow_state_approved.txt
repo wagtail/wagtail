@@ -1,0 +1,10 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block content %} {% if page %}
+{% blocktrans trimmed with title=page.get_admin_display_title|safe workflow=workflow.name|safe %}The page "{{ title }}" has been approved in workflow "{{ workflow }}".{% endblocktrans %}
+{% trans "You can view the page here:" %} {{ page.full_url }} {% else %} {% latest_str object as title %}
+{% blocktrans trimmed with title=title|safe workflow=workflow.name|safe model_name=model_name|safe asvar message %}
+    The {{ model_name }} "{{ title }}" has been approved in workflow "{{ workflow }}".
+{% endblocktrans %}{{ message|capfirst|safe }}{% endif %}
+{% endblock %}

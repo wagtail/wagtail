@@ -1,0 +1,19 @@
+===========================
+Wagtail 1.9.1 release notes
+===========================
+
+*April 21, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
+* Prevent pages from being recursively copied into themselves (Matheus Bratfisch)

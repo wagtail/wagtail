@@ -1,0 +1,16 @@
+.w-pill {
+  @apply w-flex w-items-center;
+  min-height: theme('spacing[6.5]');
+
+  &__content {
+    @apply w-pl-3 w-py-1 w-rounded-l-xl w-bg-info-100 w-p-0 w-text-white w-pr-2 w-text-14 w-flex w-items-center w-border w-border-info-100 w-border-r-white-15 w-h-full;
+  }
+
+  &__remove {
+    @apply w-pr-3 w-py-1 w-rounded-r-xl w-border w-border-info-100 w-bg-info-100 w-text-white w-p-0 w-pl-2 w-flex w-items-center w-justify-center w-h-full;
+  }
+
+  button {
+    @apply hover:w-bg-info-125;
+  }
+}

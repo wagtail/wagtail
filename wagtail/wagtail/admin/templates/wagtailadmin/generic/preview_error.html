@@ -1,0 +1,26 @@
+{% extends 'wagtailadmin/admin_base.html' %}
+{% load i18n %}
+
+{% block titletag %}{% trans 'Preview not available' %}{% endblock %}
+
+{% block furniture %}
+    <div class="preview-error">
+        <header class="preview-error__header">
+            <h1 class="preview-error__title">{% trans 'Preview not available' %}</h1>
+        </header>
+        <p class="preview-error__details">
+            {% blocktrans trimmed %}
+                Preview cannot display due to validation errors.
+                <br />
+                Click save to highlight the relevant fields.
+            {% endblocktrans %}
+        </p>
+    </div>
+{% endblock %}
+
+{# Avoid loading all of Wagtail’s JavaScript for a fully static page. #}
+{% block js %}
+{% endblock %}
+
+{# Avoid loading Wagtail’s icons sprite. #}
+{% block icons_sprite %}{% endblock %}

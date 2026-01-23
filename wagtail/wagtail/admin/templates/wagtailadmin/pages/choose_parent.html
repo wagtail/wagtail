@@ -1,0 +1,17 @@
+{% extends "wagtailadmin/generic/form.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block bodyclass %}
+    {# Unset the editor-view body class as this is just a simple form #}
+{% endblock %}
+
+{% block main_header %}
+    {# We only use the h1 from the breadcrumbs and don't need the h2 heading #}
+{% endblock %}
+
+{% block main_content %}
+    {# We don't use the h2 from main_header, so we need extra margin at the top #}
+    <div class="w-mt-8">
+        {{ block.super }}
+    </div>
+{% endblock %}

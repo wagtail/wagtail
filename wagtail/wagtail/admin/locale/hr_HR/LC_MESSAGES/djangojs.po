@@ -1,0 +1,152 @@
+#
+# Translators:
+# Luka Matijević <lumatijev@gmail.com>, 2022
+# Loic Teixeira, 2024
+# Dino Aljević <dino8890@protonmail.com>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2025\n"
+"Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/teams/"
+"8009/hr_HR/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s greška"
+msgstr[1] "%(num)s grešaka"
+msgstr[2] "%(num)s grešaka"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s piksel"
+msgstr[1] "%(num)s piksela"
+msgstr[2] "%(num)s piksela"
+
+msgid "Actions"
+msgstr "Postupci"
+
+msgid "Add a comment"
+msgstr "Dodaj komentar"
+
+msgid "Alt text"
+msgstr "Alternativni tekst"
+
+msgid "Are you sure?"
+msgstr "Jeste li sigurni?"
+
+msgid "Broken link"
+msgstr "Neispravna poveznica"
+
+msgid "Cancel"
+msgstr "Odustani"
+
+msgid "Character count:"
+msgstr "Broj znakova:"
+
+msgid "Close"
+msgstr "Zatvori"
+
+msgid "Comment"
+msgstr "Komentar"
+
+msgid "Dashboard"
+msgstr "Kontrolna ploča"
+
+msgid "Decorative image"
+msgstr "Dekorativna slika"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Edit '%(title)s'"
+msgstr "Uredi '%(title)s'"
+
+msgid "Horizontal line"
+msgstr "Vodoravna linija"
+
+msgid "Line break"
+msgstr "Novi red"
+
+msgid "Loading…"
+msgstr "Učitavanje..."
+
+msgid "Missing document"
+msgstr "Nedostaje dokument"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "No results"
+msgstr "Nema rezultata"
+
+msgid "Page"
+msgstr "Stranica"
+
+msgid "Page explorer"
+msgstr "Pretraživač stranica"
+
+msgid "Pages"
+msgstr "Stranice"
+
+msgid "Pin toolbar"
+msgstr "Prikači alatnu traku"
+
+msgid "Preview"
+msgstr "Pregled"
+
+msgid "Reload saved content"
+msgstr "Ponovno učitaj sačuvani sadržaj"
+
+msgid "Reload the page"
+msgstr "Ponovno učitaj stranicu"
+
+msgid "Save"
+msgstr "Spremi"
+
+msgid "Saving..."
+msgstr "Spremanje..."
+
+msgid "Search"
+msgstr "Pretraži"
+
+msgid "Server Error"
+msgstr "Greška na poslužitelju"
+
+msgid "Show error"
+msgstr "Prikaži grešku"
+
+msgid "Show latest content"
+msgstr "Prikaži najnoviji sadržaj"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Uređivač se upravo srušio. Sadržaj je vraćen na zadnju pohranjenu verziju. "
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimalni broj stavki iznosi %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimalni broj stavki iznosi %(min_num)d"
+
+msgid "This field is required."
+msgstr "Ovo polje je obavezno."
+
+msgid "Unpin toolbar"
+msgstr "Otkvači alatnu traku"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Pogledaj djecu stranice '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Upišite nešto ili utipkajte '/' za ubacivanje bloka"
+
+msgid "Yes"
+msgstr "Da"

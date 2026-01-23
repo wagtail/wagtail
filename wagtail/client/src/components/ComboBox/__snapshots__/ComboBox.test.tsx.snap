@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ComboBox rendering matches the snapshot 1`] = `
+<div
+  className="w-combobox-container"
+>
+  <div
+    className="w-combobox"
+  >
+    <label
+      className="w-sr-only"
+      htmlFor="downshift-1-input"
+      id="downshift-1-label"
+    >
+      Search options…
+    </label>
+    <div
+      className="w-combobox__field"
+    >
+      <input
+        aria-activedescendant=""
+        aria-autocomplete="list"
+        aria-controls="downshift-1-menu"
+        aria-expanded={false}
+        aria-labelledby="downshift-1-label"
+        autoComplete="off"
+        disabled={false}
+        id="downshift-1-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Search options…"
+        role="combobox"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      aria-labelledby="downshift-1-label"
+      className="w-combobox__menu"
+      id="downshift-1-menu"
+      onMouseLeave={[Function]}
+      role="listbox"
+    >
+      <div
+        className="w-combobox__optgroup"
+        key="blockTypes"
+      >
+        <div
+          className="w-combobox__optgroup-label"
+        >
+          Blocks
+        </div>
+        <div
+          className="w-combobox__option-row w-combobox__option-row--col1"
+          key="blockquote"
+        >
+          <div
+            aria-disabled={false}
+            aria-selected={false}
+            className="w-combobox__option"
+            id="downshift-1-item-0"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
+          >
+            <div
+              className="w-combobox__option-icon"
+            >
+              <Icon
+                name="blockquote"
+              />
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              Blockquote
+            </div>
+          </div>
+        </div>
+        <div
+          className="w-combobox__option-row w-combobox__option-row--col1"
+          key="paragraph"
+        >
+          <div
+            aria-disabled={false}
+            aria-selected={false}
+            className="w-combobox__option"
+            id="downshift-1-item-1"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
+          >
+            <div
+              className="w-combobox__option-icon"
+            >
+              <span
+                className="my-icon"
+              >
+                P
+              </span>
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              Paragraph
+            </div>
+          </div>
+        </div>
+        <div
+          className="w-combobox__option-row w-combobox__option-row--col1"
+          key="heading-one"
+        >
+          <div
+            aria-disabled={false}
+            aria-selected={false}
+            className="w-combobox__option"
+            id="downshift-1-item-2"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
+          >
+            <div
+              className="w-combobox__option-icon"
+            >
+              <Icon
+                name="custom"
+                viewBox="0 0 1024 1024"
+              >
+                <path
+                  d="M 83.625 "
+                  key="M 83.625 "
+                />
+                <path
+                  d="L 232.535156 "
+                  key="L 232.535156 "
+                />
+              </Icon>
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              Heading 1
+            </div>
+          </div>
+        </div>
+        <div
+          className="w-combobox__option-row w-combobox__option-row--col2"
+          key="heading-two"
+        >
+          <div
+            aria-disabled={false}
+            aria-selected={false}
+            className="w-combobox__option"
+            id="downshift-1-item-3"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
+          >
+            <div
+              className="w-combobox__option-icon"
+            >
+              <span>
+                H2
+              </span>
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              <span
+                className="custom-text"
+              >
+                H2
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="w-combobox__option-row w-combobox__option-row--col2"
+          key="link"
+        >
+          <div
+            aria-disabled={false}
+            aria-selected={false}
+            className="w-combobox__option"
+            id="downshift-1-item-4"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
+          >
+            <div
+              className="w-combobox__option-icon"
+            >
+              <span>
+                🔗
+              </span>
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              Link
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

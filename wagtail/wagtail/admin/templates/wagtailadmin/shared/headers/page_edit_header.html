@@ -1,0 +1,16 @@
+{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block breadcrumbs %}
+    {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
+{% endblock %}
+
+{% block actions %}
+    {# Page actions dropdown #}
+    {% page_header_buttons page user=request.user view_name="edit" %}
+{% endblock %}
+
+{% block toggles %}
+    {{ block.super }}
+    {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page_for_status %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+{% templatetag openblock %} load static wagtailcore_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} block body_class {% templatetag closeblock %}template-searchresults{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block title {% templatetag closeblock %}Search{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block content {% templatetag closeblock %}
+<h1>Search</h1>
+
+<form action="{% templatetag openblock %} url 'search' {% templatetag closeblock %}" method="get">
+    <input type="text" name="query"{% templatetag openblock %} if search_query {% templatetag closeblock %} value="{% templatetag openvariable %} search_query {% templatetag closevariable %}"{% templatetag openblock %} endif {% templatetag closeblock %}>
+    <input type="submit" value="Search" class="button">
+</form>
+
+{% templatetag openblock %} if search_results {% templatetag closeblock %}
+<ul>
+    {% templatetag openblock %} for result in search_results {% templatetag closeblock %}
+    <li>
+        <h4><a href="{% templatetag openblock %} pageurl result {% templatetag closeblock %}">{% templatetag openvariable %} result {% templatetag closevariable %}</a></h4>
+        {% templatetag openblock %} if result.search_description {% templatetag closeblock %}
+        {% templatetag openvariable %} result.search_description {% templatetag closevariable %}
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+    </li>
+    {% templatetag openblock %} endfor {% templatetag closeblock %}
+</ul>
+
+{% templatetag openblock %} if search_results.has_previous {% templatetag closeblock %}
+<a href="{% templatetag openblock %} url 'search' {% templatetag closeblock %}?query={% templatetag openvariable %} search_query|urlencode {% templatetag closevariable %}&amp;page={% templatetag openvariable %} search_results.previous_page_number {% templatetag closevariable %}">Previous</a>
+{% templatetag openblock %} endif {% templatetag closeblock %}
+
+{% templatetag openblock %} if search_results.has_next {% templatetag closeblock %}
+<a href="{% templatetag openblock %} url 'search' {% templatetag closeblock %}?query={% templatetag openvariable %} search_query|urlencode {% templatetag closevariable %}&amp;page={% templatetag openvariable %} search_results.next_page_number {% templatetag closevariable %}">Next</a>
+{% templatetag openblock %} endif {% templatetag closeblock %}
+{% templatetag openblock %} elif search_query {% templatetag closeblock %}
+No results found
+{% templatetag openblock %} endif {% templatetag closeblock %}
+{% templatetag openblock %} endblock {% templatetag closeblock %}

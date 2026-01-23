@@ -1,0 +1,7 @@
+@use '../tools' as *;
+
+@include media-breakpoint-up(sm) {
+  .browsermessage {
+    margin: 0 0 0 -150px;
+  }
+}

@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:32 templates/wagtailsettings/edit.html:16
+msgid "default"
+msgstr ""
+
+#: forms.py:61
+msgid "Sites"
+msgstr ""
+
+#: forms.py:102
+#, python-format
+msgid "%(model)s permissions"
+msgstr ""
+
+#: models.py:162
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr ""
+
+#: templates/wagtailsettings/edit.html:8 templates/wagtailsettings/edit.html:14
+msgid "Site"
+msgstr ""
+
+#: templates/wagtailsettings/index.html:3
+#: templates/wagtailsettings/index.html:7
+msgid "Settings"
+msgstr ""
+
+#: views.py:78
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+
+#: views.py:105
+msgid "The setting could not be saved due to errors."
+msgstr ""
+
+#: views.py:175
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr ""

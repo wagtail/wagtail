@@ -1,0 +1,33 @@
+@use '../tools' as *;
+
+.report {
+  display: grid;
+  grid-column-gap: theme('spacing.12');
+
+  @include nice-margin();
+
+  &__results {
+    &--text {
+      margin: 0 theme('spacing.[1.5]') theme('spacing.[1.5]') 0;
+
+      + .w-status {
+        margin-inline-start: 0;
+      }
+    }
+
+    &--comment {
+      display: block;
+    }
+  }
+
+  &__actions > div {
+    float: inline-end;
+    margin-inline-end: theme('spacing.3');
+  }
+
+  @include media-breakpoint-down(md) {
+    form {
+      margin-bottom: theme('spacing.3');
+    }
+  }
+}

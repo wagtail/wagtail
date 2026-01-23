@@ -1,0 +1,14 @@
+// Displays 'timesince' formatted date with full date in tooltip
+.w-human-readable-date {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  text-align: start;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 1px;
+}

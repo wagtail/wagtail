@@ -1,0 +1,160 @@
+@use 'sass:map';
+@use '../../../scss/settings' as *;
+@use '../../../scss/tools' as *;
+@use 'PageExplorerItem';
+
+$c-page-explorer-bg-active: theme('colors.black-50');
+$menu-footer-height: 50px;
+
+.c-page-explorer {
+  @apply w-bg-surface-menu-item-active;
+  max-width: 485px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  flex: 1;
+
+  *:focus {
+    @include show-focus-outline-inside;
+  }
+
+  @include media-breakpoint-up(sm) {
+    width: 485px;
+    box-shadow: 2px 2px 5px $c-page-explorer-bg-active;
+  }
+}
+
+.c-page-explorer > .w-transition-group {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  z-index: 350;
+}
+
+.c-page-explorer__drawer {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+$explorer-header-horizontal-padding: 10px;
+
+.c-page-explorer__header {
+  @apply w-bg-surface-menu-item-active w-text-text-label-menus-default w-border-b w-border-surface-menus;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-inline-start: $mobile-nav-indent;
+  height: $mobile-nav-indent;
+
+  @include media-breakpoint-up(sm) {
+    margin-inline-start: initial;
+    height: initial;
+  }
+}
+
+.c-page-explorer__header__title {
+  @apply hover:w-bg-surface-menus hover:w-text-text-label-menus-active focus:w-bg-surface-menus focus:w-text-text-label-menus-active;
+  color: inherit;
+}
+
+.c-page-explorer__header__title__inner {
+  @apply w-flex;
+  padding: 1em $explorer-header-horizontal-padding;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  .icon {
+    @apply w-text-text-label-menus-default;
+    margin-inline-end: 0.25rem;
+    font-size: 1rem;
+  }
+
+  .icon--explorer-header {
+    @apply w-text-text-label-menus-default w-mr-2;
+    width: 1.25em;
+    height: 1.25em;
+    margin-inline-end: 0.25rem;
+    vertical-align: text-top;
+  }
+
+  @include media-breakpoint-up(sm) {
+    padding: 1em 1.5em;
+  }
+}
+
+.c-page-explorer__header__select {
+  $margin: 10px;
+  @apply w-text-text-label-menus-default w-bg-surface-menus;
+  margin-inline-end: $margin;
+
+  > select {
+    padding: 5px 30px 5px 10px;
+    font-size: 0.875rem;
+
+    &:disabled {
+      border: 0;
+    }
+
+    &:hover:enabled {
+      cursor: pointer;
+    }
+
+    &:hover:disabled {
+      color: inherit;
+      background-color: inherit;
+      cursor: inherit;
+    }
+  }
+
+  // Add select arrow back on browsers where native ui has been removed
+  &-icon {
+    @apply w-text-icon-primary;
+    position: absolute;
+    inset-inline-end: 1rem;
+    top: 0.85rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    pointer-events: none;
+
+    .ie & {
+      display: none;
+    }
+  }
+}
+
+.c-page-explorer__placeholder {
+  padding: 1em;
+  color: theme('colors.text-label-menus-default');
+
+  @include media-breakpoint-up(sm) {
+    padding: 1em 1.75em;
+  }
+}
+
+.c-page-explorer__see-more {
+  display: block;
+  padding: 1em;
+  background: theme('colors.black-35');
+  color: theme('colors.text-label-menus-default');
+
+  &:focus {
+    color: theme('colors.text-label-menus-active');
+    background: $c-page-explorer-bg-active;
+  }
+
+  // Overrides for default link hover.
+  &:hover {
+    color: theme('colors.text-label-menus-active');
+  }
+
+  @include hover {
+    background: $c-page-explorer-bg-active;
+  }
+
+  @include media-breakpoint-up(sm) {
+    padding: 1em 1.75em;
+    height: $menu-footer-height;
+  }
+}

@@ -1,0 +1,78 @@
+// These inject Tailwind's base and component styles and any styles registered by plugins of each layer.
+// Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
+// https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
+
+@tailwind base;
+@tailwind components;
+
+*,
+::before,
+::after {
+  // Reset border styles so tailwinds default border class works as expected
+  // https://tailwindcss.com/docs/preflight#border-styles-are-reset-globally
+  border-width: 0;
+  border-style: solid;
+  // Set all elements to inherit their parent’s (border-box) box-sizing.
+  box-sizing: inherit;
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+// Default to LTR if `dir` is not set.
+:root,
+:host,
+[dir='ltr'] {
+  // Flips the direction based on whether the UI is LTR or RTL. Used for:
+  // - `transform` / `background-position` declarations for layout
+  // - icons mirroring.
+  // - Any other styles built with physical properties or values to mirror for RTL languages.
+  --w-direction-factor: 1;
+}
+
+[dir='rtl'] {
+  --w-direction-factor: -1;
+}
+
+html {
+  height: 100%;
+  // Set the whole admin to border-box by default.
+  box-sizing: border-box;
+  // Display viewport overscroll areas in a theme-appropriate color.
+  background-color: theme('colors.surface-page');
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: fixed;
+    transition:
+      visibility 0s linear 0s,
+      opacity 0.2s ease-out;
+    background: theme('colors.white-50');
+    width: 100%;
+    height: 100%;
+    top: 0;
+    inset-inline-start: 0;
+    z-index: 5;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+hr {
+  border: 1px solid theme('colors.border-furniture');
+  border-width: 1px 0 0;
+  margin: 1.5em 0;
+}
+
+// general image style
+img {
+  max-width: 100%;
+  height: auto;
+}

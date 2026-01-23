@@ -1,0 +1,69 @@
+#
+# Translators:
+# Martin Janšto <mato@jansto.sk>, 2022
+# Loic Teixeira, 2024
+# dellax <michalnebbia@gmail.com>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: dellax <michalnebbia@gmail.com>, 2025\n"
+"Language-Team: Slovak (Slovakia) (https://app.transifex.com/torchbox/teams/"
+"8009/sk_SK/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Actions"
+msgstr "Akcie"
+
+msgid "Close"
+msgstr "Zavrieť"
+
+msgid "Dashboard"
+msgstr "Nástenka"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Edit '%(title)s'"
+msgstr "Upraviť '%(title)s'"
+
+msgid "No results"
+msgstr "Žiadne výsledky"
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "Preview"
+msgstr "Náhľad"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Saving..."
+msgstr "Ukladám..."
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "See all"
+msgstr "Vidieť všetko"
+
+msgid "Server Error"
+msgstr "Chyba servera"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maximálne množstvo je %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimálne množstvo je %(min_num)d"
+
+msgid "This field is required."
+msgstr "Toto pole je povinné."

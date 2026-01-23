@@ -1,0 +1,98 @@
+#
+# Translators:
+# Siramol Khunchai, 2024
+# Loic Teixeira, 2024
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2025\n"
+"Language-Team: Thai (https://app.transifex.com/torchbox/teams/8009/th/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Alt text"
+msgstr "ข้อความอย่างอื่น"
+
+msgid "Close"
+msgstr "ปิด"
+
+msgid "Collapse all"
+msgstr "ย่อทั้งหมด"
+
+msgid "Dashboard"
+msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
+
+msgid "Delete"
+msgstr "ลบ,ลบทิ้ง"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Edit '%(title)s'"
+msgstr "แก้ไข'%(title)s'"
+
+msgid "Expand all"
+msgstr "ขยายทั้งหมด"
+
+msgid "Horizontal line"
+msgstr "บรรทัดแนวนอน"
+
+msgid "Line break"
+msgstr "ตัวแบ่งบรรทัด"
+
+msgid "Loading…"
+msgstr "กำลังโหลด"
+
+msgid "No results"
+msgstr "ไม่พบ"
+
+msgid "Page"
+msgstr "หน้า"
+
+msgid "Pages"
+msgstr "หลายหน้า"
+
+msgid "Preview"
+msgstr "ภาพตัวอย่าง"
+
+msgid "Reload saved content"
+msgstr "โหลดเนื้อหาที่คุณเซฟใหม่อีกครั้ง"
+
+msgid "Reload the page"
+msgstr "โหลดหน้าที่ต้องการใหม่อีกครั้ง"
+
+msgid "Save"
+msgstr "เซฟ,เก็บข้อมูล"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "Search options…"
+msgstr "ค้นหาตัวเลือก..."
+
+msgid "See all"
+msgstr "เปิดทั้งหมด"
+
+msgid "Server Error"
+msgstr "เซฟเว่อร์เกิดข้อผิดพลาด"
+
+msgid "Show error"
+msgstr "แสดงข้อผิดพลาด"
+
+msgid "Show latest content"
+msgstr "แสดงเนื้อหาอันล่าสุด"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "โปรแกรมที่แก้ไขมีปัญหา เนื้อหาเก่าได้ถูกเซฟไว้เรียบร้อยแล้ว"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "จำนวนมากสุดของสิ่งนี้คือ %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "ตัวเลขน้อยที่สุดของสิ่งนี้คือ %(min_num)d"
+
+msgid "This field is required."
+msgstr "ไฟล์นี้จำเป็นต้องใช้"

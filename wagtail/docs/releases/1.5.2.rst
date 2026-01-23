@@ -1,0 +1,19 @@
+===========================
+Wagtail 1.5.2 release notes
+===========================
+
+*June 8, 2016*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Bug fixes
+~~~~~~~~~
+
+* Fixed regression in 1.5.1 on editing external links (Stephen Rice)

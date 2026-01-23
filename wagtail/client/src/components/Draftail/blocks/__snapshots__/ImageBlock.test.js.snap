@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageBlock alt 1`] = `
+<MediaBlock
+  alt=""
+  block={{}}
+  blockProps={
+    {
+      "editorState": {},
+      "entity": {
+        "getData": [Function],
+      },
+      "entityType": {},
+      "onChange": [Function],
+    }
+  }
+  fallbackText={null}
+  src="example.png"
+>
+  <p
+    className="ImageBlock__alt"
+  >
+    Alt text: “Test”
+  </p>
+  <button
+    className="button Tooltip__button"
+    type="button"
+  >
+    Edit
+  </button>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;
+
+exports[`ImageBlock no data 1`] = `
+<MediaBlock
+  alt=""
+  block={{}}
+  blockProps={
+    {
+      "editorState": {},
+      "entity": {
+        "getData": [Function],
+      },
+      "entityType": {},
+      "onChange": [Function],
+    }
+  }
+  fallbackText={null}
+  src={null}
+>
+  <p
+    className="ImageBlock__alt"
+  >
+    Decorative image
+  </p>
+  <button
+    className="button Tooltip__button"
+    type="button"
+  >
+    Edit
+  </button>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;
+
+exports[`ImageBlock renders 1`] = `
+<MediaBlock
+  alt=""
+  block={{}}
+  blockProps={
+    {
+      "editorState": {},
+      "entity": {
+        "getData": [Function],
+      },
+      "entityType": {},
+      "onChange": [Function],
+    }
+  }
+  fallbackText={null}
+  src="example.png"
+>
+  <p
+    className="ImageBlock__alt"
+  >
+    Decorative image
+  </p>
+  <button
+    className="button Tooltip__button"
+    type="button"
+  >
+    Edit
+  </button>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;

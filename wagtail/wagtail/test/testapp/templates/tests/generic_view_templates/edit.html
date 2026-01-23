@@ -1,0 +1,18 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailadmin_tags %}
+
+{% block content %}
+
+    <form action="{% url 'testapp_generic_edit' test_object.pk %}" method="POST" >
+        <div class="tab-content">
+            {% csrf_token %}
+            <ul class="fields">
+                <li>{% formattedfield form.content %}</li>
+                <li>
+                    <input type="submit" value="Save" class="button"/>
+                </li>
+            </ul>
+        </div>
+    </form>
+
+{% endblock %}

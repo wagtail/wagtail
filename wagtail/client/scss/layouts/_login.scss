@@ -1,0 +1,114 @@
+@use '../tools' as *;
+
+:root {
+  --w-login-fullscreen-background: radial-gradient(
+    100% 300.28% at 100% 0%,
+    theme('colors.primary.DEFAULT') 0%,
+    theme('colors.primary.DEFAULT') 32.94%,
+    theme('colors.primary.DEFAULT') 49.9%,
+    theme('colors.primary.DEFAULT') 50.2%,
+    theme('colors.secondary.DEFAULT') 100%
+  );
+}
+
+.login {
+  color: theme('colors.text-label');
+  background: var(--w-login-fullscreen-background);
+
+  .wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    padding: min(theme('spacing.4'), 5vh) min(theme('spacing.4'), 5vw);
+    min-height: 100vh;
+  }
+
+  .messages {
+    background: none;
+    margin-bottom: theme('spacing.8');
+
+    ul {
+      @include unlist();
+
+      li {
+        border-radius: theme('borderRadius.sm');
+        margin-bottom: theme('spacing.2');
+      }
+    }
+  }
+
+  .content-wrapper {
+    // border style needed in forced color mode
+    border: 3px solid transparent;
+    height: auto;
+    float: none;
+    padding: theme('spacing.10') theme('spacing.12');
+    background: theme('colors.surface-page');
+    box-shadow: theme('boxShadow.md');
+    border-radius: theme('borderRadius.md');
+    margin-bottom: 15vh; // should appear slightly above centre
+    max-width: calc(theme('spacing.32') * 3.15);
+
+    @include media-breakpoint-up(sm) {
+      max-width: calc(theme('spacing.32') * 3.5);
+      padding: theme('spacing.12') theme('spacing.14');
+    }
+  }
+
+  h1 {
+    @apply w-h1;
+    margin-top: 0;
+    margin-bottom: theme('spacing.8');
+    text-align: center;
+  }
+
+  .button,
+  .w-field__label {
+    width: 100%;
+    font-size: theme('fontSize.16');
+    font-weight: theme('fontWeight.bold');
+  }
+
+  .w-field__wrapper {
+    margin-bottom: theme('spacing.6');
+  }
+
+  .skiplink {
+    width: auto;
+  }
+
+  .reset-password {
+    display: block;
+    // bring in reset password link tight to the form
+    margin: calc(-1 * theme('spacing.4')) 0 theme('spacing.8');
+  }
+
+  .remember-me {
+    margin: theme('spacing.4') 0;
+  }
+
+  .form-actions {
+    // no need for margin bottom due to padding on content-wrapper
+    margin-top: theme('spacing.8');
+    text-align: center;
+
+    .button-longrunning {
+      &-active {
+        justify-content: center;
+      }
+    }
+  }
+
+  .login-form .w-field__errors {
+    // for the login form, we rely on the non-field error only.
+
+    display: none;
+  }
+
+  .login-logo {
+    margin: theme('spacing.8') auto 0;
+    width: theme('spacing.32');
+  }
+}

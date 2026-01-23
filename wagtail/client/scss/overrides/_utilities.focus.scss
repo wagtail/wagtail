@@ -1,0 +1,9 @@
+@use '../settings' as *;
+
+// stylelint-disable declaration-no-important
+// Set global focus outline styles so they are consistent across the UI,
+// without individual components having to explicitly define focus styles.
+// Using !important because we want to enforce only one style is used across the UI.
+*:focus-visible {
+  outline: $focus-outline-width solid theme('colors.focus') !important;
+}

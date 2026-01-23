@@ -1,0 +1,21 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n wagtailadmin_tags l10n %}
+
+{% block main_content %}
+    {% block fields_output %}
+        {% if fields %}
+            <dl>
+                {% for field in fields %}
+                    <dt>{{ field.label }}</dt>
+                    <dd>
+                        {% if field.component %}
+                            {% component field.component %}
+                        {% else %}
+                            {{ field.value|localize }}
+                        {% endif %}
+                    </dd>
+                {% endfor %}
+            </dl>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

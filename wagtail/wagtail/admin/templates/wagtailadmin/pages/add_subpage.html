@@ -1,0 +1,42 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% block titletag %}{% blocktrans trimmed with title=parent_page.get_admin_display_title %}Create a page in {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Create a page in") subtitle=parent_page.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        {% if page_types %}
+            <p>{% trans "Choose which type of page you'd like to create." %}</p>
+        {% else %}
+            <p>{% trans "Sorry, you cannot create a page at this location." %}</p>
+        {% endif %}
+
+        {% if page_types %}
+            <ul class="listing">
+                {% for verbose_name, app_label, model_name, page_description in page_types %}
+                    <li>
+                        <div class="row row-flush">
+                            <div class="col8">
+                                <a href="{% url 'wagtailadmin_pages:add' app_label model_name parent_page.id %}{% if next %}?next={{ next }}{% endif %}">
+                                    {% icon name="plus-inverse" classname="default w-mr-1 w-align-middle" %}
+                                    {{ verbose_name }}
+                                    {% if page_description %}
+                                        <div><span class="w-sr-only">.</span><small>{{ page_description }}</small></div>
+                                    {% endif %}
+                                </a>
+                            </div>
+
+                            <small class="col4 w-text-end">
+                                <a href="{% url 'wagtailadmin_pages:type_use' app_label model_name %}" class="nolink">{% blocktrans trimmed with page_type=verbose_name %}Pages using {{ page_type }}{% endblocktrans %}</a>
+                            </small>
+
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

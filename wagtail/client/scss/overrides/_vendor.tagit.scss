@@ -1,0 +1,100 @@
+@use 'sass:map';
+@use '../settings' as *;
+
+// taggit tagging
+.tagit {
+  padding: 0.6em 1.2em;
+
+  .tagit-choice {
+    border: 0;
+  }
+}
+
+// Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
+// which get added after the core CSS, and otherwise trump our styles.
+.admin_tag_widget ul.tagit input[type='text'] {
+  padding: 0.2em 0.5em;
+}
+
+// Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
+// which get added after the core CSS, and otherwise trump our styles.
+.admin_tag_widget ul.tagit li.tagit-choice-editable {
+  padding: 0 23px 0 0;
+}
+
+.ui-front {
+  // provided by jqueryui but not high enough an index
+  z-index: 1000;
+}
+
+.ui-widget-content,
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  background-color: theme('colors.surface-page');
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus,
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+  background-color: theme('colors.surface-button-default');
+}
+
+.ui-widget-header {
+  background-color: theme('colors.surface-button-default');
+  border-color: theme('colors.border-furniture');
+}
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+  background-color: theme('colors.surface-header');
+}
+
+.ui-menu .ui-menu-item .ui-menu-item-wrapper {
+  border: 1px solid transparent; // ensure border on hover (active) does not move content
+  color: theme('colors.text-context');
+
+  // use this instead of :hover as the UI's hover state is controlled via JS
+  // and there is a delay before the hover state is removed when the mouse leaves
+  &.ui-state-active {
+    color: theme('colors.text-label-menus-active');
+  }
+}
+
+.tagit-close {
+  .ui-icon-close {
+    margin-inline-start: 1rem;
+    text-indent: 0;
+  }
+
+  .ui-icon-close:before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: theme('colors.icon-secondary');
+    mask-image: url('#{$images-root}icons/cross.svg');
+    mask-repeat: no-repeat;
+  }
+}
+
+@media (forced-colors: active) {
+  .ui-state-hover,
+  .ui-widget-content .ui-state-hover,
+  .ui-widget-header .ui-state-hover,
+  .ui-state-focus,
+  .ui-widget-content .ui-state-focus,
+  .ui-widget-header .ui-state-focus,
+  .ui-state-active,
+  .ui-widget-content .ui-state-active,
+  .ui-widget-header .ui-state-active {
+    background-color: ButtonText;
+  }
+}

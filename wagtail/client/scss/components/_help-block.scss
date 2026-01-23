@@ -1,0 +1,84 @@
+@use 'sass:color';
+@use 'sass:map';
+@use '../tools' as *;
+// Help text formatters
+.help-block {
+  padding: 1em;
+  margin: 1em 0;
+  clear: both;
+  color: theme('colors.grey.600');
+
+  p {
+    margin-top: 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: theme('colors.secondary.400');
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: theme('colors.secondary.600');
+      text-decoration: none;
+    }
+  }
+}
+
+.help-info,
+.help-warning,
+.help-critical {
+  border-radius: 3px;
+  padding-inline-start: 3.5em;
+  position: relative;
+
+  .icon {
+    @include svg-icon(1rem);
+    position: absolute;
+    inset-inline-start: 1.125rem;
+    top: 0.8125rem;
+  }
+}
+
+.help-info {
+  background-color: theme('colors.info.50');
+
+  .icon-help {
+    color: theme('colors.info.100');
+  }
+}
+
+.help-warning {
+  background-color: theme('colors.warning.50');
+
+  .icon-warning {
+    color: theme('colors.primary.DEFAULT');
+  }
+}
+
+.help-critical {
+  background-color: theme('colors.critical.50');
+
+  .icon-warning {
+    color: theme('colors.critical.200');
+  }
+}
+
+// Media for Windows High Contrast
+@media (forced-colors: active) {
+  .help-block {
+    border: 3px solid currentColor; // ensure visible separation in Windows High Contrast mode
+  }
+
+  .help-warning {
+    border-style: dotted;
+  }
+
+  .help-critical {
+    border-style: dashed;
+  }
+}

@@ -1,0 +1,41 @@
+{% load i18n wagtailadmin_tags %}
+{% comment "text/markdown" %}
+    Displays a user avatar using the avatar template
+    Variables this template accepts:
+
+    - `classname` - if present, adds classname to the root class list
+    - `user` - A user object to use for the avatar image
+    - `size` (string?) - small, large, square
+    - `tooltip` (string?) - Modifier classes
+    - `tooltip_html` (string?) - An HTML element to use for the tooltip content
+    - `edit_link` (boolean?) - Edit link to display underneath the avatar
+{% endcomment %}
+<span
+    class="{% classnames 'avatar' size classname edit_link|yesno:"avatar--edit," %}"
+    {% if tooltip or tooltip_html %} data-controller="w-tooltip" {% endif %}
+    {% if tooltip %} data-w-tooltip-content-value="{{ tooltip }}" {% endif %}
+>
+    {% if tooltip_html %}
+        <template data-w-tooltip-target="content">
+            {{ tooltip_html }}
+        </template>
+    {% endif %}
+    {% if size == 'small' %}
+        <img src="{% avatar_url user size=25 %}" alt="" decoding="async" loading="lazy"/>
+    {% elif size == 'large' %}
+        <img src="{% avatar_url user size=80 %}" alt="" decoding="async" loading="lazy"/>
+    {% elif size == 'square' %}
+        <img src="{% avatar_url user %}" alt="" decoding="async" loading="lazy"/>
+    {% else %}
+        <img src="{% avatar_url user %}" alt="" decoding="async" loading="lazy"/>
+    {% endif %}
+    {% if edit_link %}
+        <a
+            class="avatar__edit-link"
+            aria-label="{% trans 'Edit account avatar' %}"
+            href="{% url 'wagtailadmin_account' %}#avatar-section"
+        >
+            {% icon name="edit" %}
+        </a>
+    {% endif %}
+</span>

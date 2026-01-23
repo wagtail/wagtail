@@ -1,0 +1,133 @@
+#
+# Translators:
+# Umut Bektaş <info@umutbektas.com>, 2022
+# Ragıp Ünal <ragip@ragipunal.com>, 2022
+# Loic Teixeira, 2024
+# Py Data Geek <pydatageek@gmail.com>, 2025
+# LB (Ben Johnston) <mail@lb.ee>, 2025
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025\n"
+"Language-Team: Turkish (https://app.transifex.com/torchbox/teams/8009/tr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Actions"
+msgstr "Eylemler"
+
+msgid "Alt text"
+msgstr "Alt metin"
+
+msgid "Broken link"
+msgstr "Kırık bağlantı"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Comment"
+msgstr "Yorum"
+
+msgid "Dashboard"
+msgstr "Kontrol paneli"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' düzenle"
+
+msgid "Horizontal line"
+msgstr "Yatay çizgi"
+
+msgid "Line break"
+msgstr "Satır sonu"
+
+msgid "Loading…"
+msgstr "Yükleniyor…"
+
+msgid "Missing document"
+msgstr "Eksik belge"
+
+msgid "More actions"
+msgstr "Daha fazla eylem"
+
+msgid "No results"
+msgstr "Sonuç yok"
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Page explorer"
+msgstr "Sayfa bulucu"
+
+msgid "Pages"
+msgstr "Sayfalar"
+
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "Reload saved content"
+msgstr "Kayıtlı içeriği yeniden yükle"
+
+msgid "Reload the page"
+msgstr "Sayfayı yeniden yükle"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "bilgileriyle birlikte web sitesi yöneticinize bildirin.bilgi:"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Saving..."
+msgstr "Kaydediliyor"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "See all"
+msgstr "Tümünü gör"
+
+msgid "Server Error"
+msgstr "Sunucu Hatası"
+
+msgid "Show error"
+msgstr "Hatayı göster"
+
+msgid "Show latest content"
+msgstr "Son içeriği göster"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editör çöktü. İçerik son kaydedilen sürüme sıfırlandı."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Azami öğe sayısı %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Asgari öğe sayısı %(min_num)d"
+
+msgid "This field is required."
+msgstr "Bu alan gerekli."
+
+msgid "Toggle side panel"
+msgstr "Yan paneli aç/kapa"
+
+msgid "Toggle sidebar"
+msgstr "Yan menüyü aç/kapa"
+
+msgid "View child pages of '%(title)s'"
+msgstr "'%(title)s' alt sayfalarını gör"
+
+msgid "Yes"
+msgstr "Evet"

@@ -1,0 +1,52 @@
+{% extends "wagtailadmin/generic/form.html" %}
+{% load wagtailadmin_tags %}
+{% load i18n %}
+
+{% block content %}
+    {% get_comments_enabled as comments_enabled %}
+
+    {% include 'wagtailadmin/shared/headers/page_create_header.html' with title=header_title %}
+
+    <form
+        id="page-edit-form"
+        action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}"
+        method="POST"
+        novalidate
+        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+        data-edit-form
+        data-controller="w-init w-unsaved"
+        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+        data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
+        data-w-unsaved-confirmation-value="true"
+        data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
+        data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
+    >
+        {% csrf_token %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        {% if parent_page.is_root %}
+            {# The user is allowed to set a different locale for pages created at the root #}
+            {# If they've done this, make sure their chosen locale is passed in the form #}
+            <input type="hidden" name="locale" value="{{ locale.language_code }}">
+        {% endif %}
+
+        {{ edit_handler.render_form_content }}
+
+        {% block footer %}
+            {{ block.super }}
+            {# Reuse the footer container, but redefine the actions content down below to use component classes #}
+        {% endblock %}
+    </form>
+
+{% endblock %}
+
+{% block actions %}
+    {{ action_menu.render_html }}
+    {% block extra_footer_actions %}
+        {% comment %}
+            While undocumented, this block is used by some packages to add
+            additional actions *outside* of the dropdown menu.
+        {% endcomment %}
+    {% endblock %}
+{% endblock%}

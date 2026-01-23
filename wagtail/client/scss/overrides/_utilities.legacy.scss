@@ -1,0 +1,17 @@
+@use '../tools' as *;
+@use '../settings' as *;
+
+.nice-padding {
+  padding-inline-start: $mobile-nice-padding;
+  padding-inline-end: $mobile-nice-padding;
+
+  @include media-breakpoint-up(sm) {
+    padding-inline-start: $desktop-nice-padding;
+    padding-inline-end: $desktop-nice-padding;
+  }
+}
+
+// Show a transparency grid in background
+.show-transparency {
+  background: url('#{$images-root}transparency.svg');
+}

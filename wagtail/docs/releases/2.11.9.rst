@@ -1,0 +1,18 @@
+============================
+Wagtail 2.11.9 release notes
+============================
+
+*January 24, 2022*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Update Pillow dependency to allow 9.x (Rizwan Mansuri)

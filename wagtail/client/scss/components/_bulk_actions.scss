@@ -1,0 +1,82 @@
+@use '../tools' as *;
+
+.bulk-actions-filter-checkbox {
+  .table-headers & {
+    > div {
+      display: flex;
+      align-items: center;
+    }
+
+    .bulk-actions-choices,
+    .bulk-actions-choices > ul {
+      display: flex;
+      align-items: center;
+    }
+
+    .bulk-actions-choices li {
+      margin: 0 0.5em;
+    }
+  }
+}
+
+.bulk-actions-choices {
+  &.footer {
+    @include transition(transform 0.1s ease 0.1s);
+
+    &.hidden {
+      transform: translateY(200px);
+      visibility: hidden;
+    }
+
+    .button {
+      font-weight: 600;
+    }
+  }
+
+  .footer__container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    padding: 1.25em;
+    border-radius: 4px 4px 0 0;
+    margin-inline-start: 30px;
+
+    input[type='checkbox'] {
+      margin-inline-end: 1.25em;
+    }
+
+    .bulk-actions-buttons {
+      @include unlistimmediate();
+      display: flex;
+      gap: theme('spacing.4');
+      border-inline-start: 1px solid theme('colors.icon-secondary');
+      padding-inline-start: 1.5em;
+
+      .bulk-action-btn {
+        max-width: 160px;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .num-objects {
+      margin: 0 5px;
+    }
+
+    .num-objects-in-listing {
+      // This is inside the footer, which has a dark indigo background in light
+      // mode, so we want to use the absolute value of dark mode's
+      // text-link-default instead of its dynamic value.
+      color: theme('colors.secondary.100');
+      background-color: transparent;
+      border: 0;
+      font-family: theme('fontFamily.sans');
+      padding: 0;
+    }
+
+    .button:not(:hover) {
+      background-color: theme('colors.surface-page');
+    }
+  }
+}

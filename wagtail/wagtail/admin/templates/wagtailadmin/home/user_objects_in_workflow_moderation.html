@@ -1,0 +1,71 @@
+
+
+{% load i18n wagtailadmin_tags %}
+{% if workflow_states %}
+    {% panel id="objects-in-workflow" heading=_("Your pages and snippets in a workflow") classname="w-panel--dashboard" %}
+        <table class="listing listing--dashboard">
+            <col />
+            <col width="10%"/>
+            <col width="7%"/>
+            <col width="25%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <thead class="w-sr-only">
+                <tr>
+                    <th class="title">{% trans "Title" %}</th>
+                    <th>{% trans "Language" %}</th>
+                    <th>{% trans "Privacy and access" %}</th>
+                    <th>{% trans "Task" %}</th>
+                    <th>{% trans "Task started" %}</th>
+                    <th aria-hidden="true">{% comment %} added for visual alignment only {% endcomment %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for workflow_state in workflow_states %}
+                    {% with obj=workflow_state.content_object %}
+                        {% is_page obj as is_page %}
+                        {% if is_page %}
+                            {% page_permissions obj as page_perms %}
+                        {% endif %}
+                        <tr>
+                            <td class="title">
+                                <div class="title-wrapper">
+                                    {% admin_edit_url obj as edit_url %}
+                                    {% if page_perms.can_edit or not is_page and edit_url %}
+                                        <a href="{{ edit_url }}" title="{% trans 'Edit' %}">{% latest_str obj %}</a>
+                                    {% else %}
+                                        {% latest_str obj %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                {% i18n_enabled as show_locale_labels %}
+                                {% if show_locale_labels and obj.locale_id %}
+                                    {% locale_label_from_id obj.locale_id as locale_label %}
+                                    {% status locale_label classname="w-status--label" %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if is_page %}
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
+                                {% endif %}
+                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=obj %}
+                            </td>
+                            <td class="task">
+                                {% if workflow_state.current_task_state.status == 'rejected' %}
+                                    {% icon name="warning" classname="w-h-4 w-w-4 w-align-text-top" %}
+                                    {% trans "Changes requested at" %}
+                                {% elif workflow_state.current_task_state.status == 'in_progress' %}
+                                    {% trans "Awaiting" %}
+                                {% endif %}
+                                {{ workflow_state.current_task_state.task.name }}
+                            </td>
+                            <td>{% human_readable_date workflow_state.current_task_state.started_at %}</td>
+                            <td>{# Deliberately empty #}</td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endpanel %}
+{% endif %}

@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Document no data 1`] = `
+<TooltipEntity
+  contentState={
+    Immutable.Record {
+      "entityMap": {
+        "2": "2",
+      },
+      "blockMap": Immutable.OrderedMap {
+        "a": Immutable.Record {
+          "key": "a",
+          "type": "unstyled",
+          "text": "test",
+          "characterList": Immutable.List [
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+          ],
+          "depth": 0,
+          "data": Immutable.Map {},
+        },
+      },
+      "selectionBefore": Immutable.Record {
+        "anchorKey": "a",
+        "anchorOffset": 0,
+        "focusKey": "a",
+        "focusOffset": 0,
+        "isBackward": false,
+        "hasFocus": false,
+      },
+      "selectionAfter": Immutable.Record {
+        "anchorKey": "a",
+        "anchorOffset": 0,
+        "focusKey": "a",
+        "focusOffset": 0,
+        "isBackward": false,
+        "hasFocus": false,
+      },
+    }
+  }
+  entityKey="2"
+  icon={
+    <Icon
+      name="warning"
+    />
+  }
+  label="Missing document"
+  onEdit={[Function]}
+  onRemove={[Function]}
+  url={null}
+>
+  test
+</TooltipEntity>
+`;
+
+exports[`Document works 1`] = `
+<TooltipEntity
+  contentState={
+    Immutable.Record {
+      "entityMap": {
+        "1": "1",
+      },
+      "blockMap": Immutable.OrderedMap {
+        "a": Immutable.Record {
+          "key": "a",
+          "type": "unstyled",
+          "text": "test",
+          "characterList": Immutable.List [
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+          ],
+          "depth": 0,
+          "data": Immutable.Map {},
+        },
+      },
+      "selectionBefore": Immutable.Record {
+        "anchorKey": "a",
+        "anchorOffset": 0,
+        "focusKey": "a",
+        "focusOffset": 0,
+        "isBackward": false,
+        "hasFocus": false,
+      },
+      "selectionAfter": Immutable.Record {
+        "anchorKey": "a",
+        "anchorOffset": 0,
+        "focusKey": "a",
+        "focusOffset": 0,
+        "isBackward": false,
+        "hasFocus": false,
+      },
+    }
+  }
+  entityKey="1"
+  icon={
+    <Icon
+      name="doc-full"
+    />
+  }
+  label="example.pdf"
+  onEdit={[Function]}
+  onRemove={[Function]}
+  url="/example.pdf"
+>
+  test
+</TooltipEntity>
+`;

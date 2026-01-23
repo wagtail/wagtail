@@ -1,0 +1,30 @@
+{% load wagtailadmin_tags %}
+
+<table{% include "wagtailadmin/shared/attrs.html" with attrs=table.attrs %}>
+    {% with caption=table.get_caption %}
+        {% if caption %}
+            <caption class="w-sr-only">{{ caption }}</caption>
+        {% endif %}
+    {% endwith %}
+    {% if table.has_column_widths %}
+        {% for column in table.columns.values %}
+            <col {% if column.width %}width="{{ column.width }}"{% endif %} />
+        {% endfor %}
+    {% endif %}
+    <thead>
+        <tr {% if table.header_row_classname %}class="{{ table.header_row_classname }}"{% endif %}>
+            {% for column in table.columns.values %}
+                {% component column.header %}
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in table.rows %}
+            <tr{% include "wagtailadmin/shared/attrs.html" with attrs=row.attrs %}>
+                {% for cell in row.values %}
+                    {% component cell %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

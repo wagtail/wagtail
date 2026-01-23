@@ -1,0 +1,246 @@
+#
+# Translators:
+# Julian C <jcuotpc@gmail.com>, 2022
+# Alex Morega, 2023
+# Loic Teixeira, 2024
+# Bogdan Mateescu, 2025
+# Dan Braghis, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Dan Braghis, 2025\n"
+"Language-Team: Romanian (https://app.transifex.com/torchbox/teams/8009/ro/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s elemente noi în acest meniu)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 articol nou în acest meniu)"
+
+msgid "(New)"
+msgstr "(Nou)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s eroare"
+msgstr[1] "%(num)s erori"
+msgstr[2] "%(num)s de erori"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixeli"
+msgstr[2] "%(num)s de pixeli"
+
+msgid "Actions"
+msgstr "Acțiuni"
+
+msgid "Add a comment"
+msgstr "Adaugă un comentariu"
+
+msgid "Alt text"
+msgstr "Text alternativ"
+
+msgid "Are you sure?"
+msgstr "Ești sigur?"
+
+msgid "Blocks"
+msgstr "Blocuri"
+
+msgid "Broken link"
+msgstr "Link nefuncțional"
+
+msgid "Cancel"
+msgstr "Anulează"
+
+msgid "Character count:"
+msgstr "Număr de caractere:"
+
+msgid "Close"
+msgstr "Închideți"
+
+msgid "Collapse all"
+msgstr "Restrânge toate"
+
+msgid "Comment"
+msgstr "Comentariu"
+
+msgid "Dashboard"
+msgstr "Bord"
+
+msgid "Decorative image"
+msgstr "Imagine decorativă"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Delete error"
+msgstr "Eroare de ștergere"
+
+msgid "Deleting"
+msgstr "În curs de ștergere"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Edit '%(title)s'"
+msgstr "Editează '%(title)s'"
+
+msgid "Enter your comments..."
+msgstr "Introduceți comentariile Dvs"
+
+msgid "Enter your reply..."
+msgstr "Introduceți răspunsul Dvs"
+
+msgid "Error while sending preview data."
+msgstr "Eroare în timpul transmiterii datelor pentru previzualizare."
+
+msgid "Expand all"
+msgstr "Extinde toate"
+
+msgid "Focus comment"
+msgstr "Focalizează comentariu"
+
+msgid "Horizontal line"
+msgstr "Linie orizontală"
+
+msgid "Insert a block"
+msgstr "Inserează un bloc"
+
+msgid "Line break"
+msgstr "Sfârșit de linie"
+
+msgid "Loading…"
+msgstr "Se încarcă…"
+
+msgid "Main menu"
+msgstr "Meniul principal"
+
+msgid "Missing document"
+msgstr "Document lipsă"
+
+msgid "More actions"
+msgstr "Mai multe acțiuni"
+
+msgid "No"
+msgstr "Nu"
+
+msgid "No results"
+msgstr "Nici un rezultat"
+
+msgid "Page"
+msgstr "Pagină"
+
+msgid "Page explorer"
+msgstr "Explorator de pagini"
+
+msgid "Pages"
+msgstr "Pagini"
+
+msgid "Pin toolbar"
+msgstr "Fixează bara de instrumente"
+
+msgid "Preview"
+msgstr "Examinare"
+
+msgid "Reload saved content"
+msgstr "Reîncarcă conținutul salvat"
+
+msgid "Reload the page"
+msgstr "Reîncarcă pagina"
+
+msgid "Reply"
+msgstr "Raspunde"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Raportează această eroare admistratorului site-ului cu următoarele "
+"informații:"
+
+msgid "Resolve"
+msgstr "Rezolva"
+
+msgid "Retry"
+msgstr "Încearcă din nou"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Save error"
+msgstr "Eroare de salvare"
+
+msgid "Save the page to add this comment"
+msgstr "Salvează pagina pentru a adăuga acest comentariu"
+
+msgid "Save the page to save this comment"
+msgstr "Salvează pagina pentru a păstra acest comentariu"
+
+msgid "Save the page to save this reply"
+msgstr "Salvează pagina pentru a păstra acest răspuns"
+
+msgid "Saving..."
+msgstr "În curs de salvare..."
+
+msgid "Search"
+msgstr "Căută"
+
+msgid "Search options…"
+msgstr "Opțiuni de căutare…"
+
+msgid "See all"
+msgstr "Vezi toate"
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Show error"
+msgstr "Afișează eroare"
+
+msgid "Show latest content"
+msgstr "Afișează conținutul cel mai recent"
+
+msgid "Split block"
+msgstr "Despică bloc"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Numărul maxim de articole este %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Numărul minim de articole este %(min_num)d"
+
+msgid "This field is required."
+msgstr "Acest câmp este obligatoriu."
+
+msgid "Toggle section"
+msgstr "Comută secțiunea"
+
+msgid "Toggle side panel"
+msgstr "Comută panou lateral"
+
+msgid "Toggle sidebar"
+msgstr "Comutați bara laterală"
+
+msgid "Unfocus comment"
+msgstr "Defocalizează comentariu"
+
+msgid "Unpin toolbar"
+msgstr "Anulează fixarea barei de instrumente"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Vezi pagini descendente la '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Scrie ceva, sau ‘/‘ pentru a insera un bloc"
+
+msgid "Yes"
+msgstr "Da"

@@ -1,0 +1,9 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
+{% load wagtailadmin_tags i18n %}
+{% base_url_setting default="" as base_url %}
+
+{% block content %}
+{% blocktrans trimmed with title=revision.content_object.get_admin_display_title|safe %}The page "{{ title }}" has been rejected.{% endblocktrans %}
+
+{% trans "You can edit the page here:"%} {{ base_url }}{% url 'wagtailadmin_pages:edit' revision.object_id %}
+{% endblock %}

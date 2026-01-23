@@ -1,0 +1,10 @@
+{% load wagtailadmin_tags %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if value is None %}
+        {% icon title=value|stringformat:'s' name="help" classname="default" %}
+    {% elif value %}
+        {% icon title=value|stringformat:'s' name="check" classname="default w-text-positive-100" %}
+    {% else %}
+        {% icon title=value|stringformat:'s' name="cross" classname="default w-text-text-error" %}
+    {% endif %}
+</td>

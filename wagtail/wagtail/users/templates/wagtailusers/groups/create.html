@@ -1,0 +1,26 @@
+{% extends "wagtailadmin/generic/create.html" %}
+{% load wagtailusers_tags i18n wagtailadmin_tags %}
+
+{% block form_content %}
+    {% block fields %}
+        {% comment %}
+            This block is not documented, but developers might assume its existence
+            based on the docs for custom user forms.
+        {% endcomment %}
+
+        {% panel id="name" heading=form.name.label id_for_label=form.name.id_for_label is_required=True %}
+            {% formattedfield field=form.name show_label=False %}
+        {% endpanel %}
+
+        <div class="w-form-width">
+            {# This block is documented in the docs for customizing group views #}
+            {% block extra_fields %}{% endblock extra_fields %}
+
+            {% format_permissions permission_bound_field=form.permissions %}
+
+            {% for panel in permission_panels %}
+                {{ panel.as_admin_panel }}
+            {% endfor %}
+        </div>
+    {% endblock %}
+{% endblock %}

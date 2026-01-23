@@ -1,0 +1,18 @@
+{% extends "wagtailadmin/generic/create.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block form_content %}
+    {{ edit_handler.render_form_content }}
+
+    <div class="w-form-width">
+        {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") attrs=pages_formset.attrs %}
+            {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
+        {% endpanel %}
+
+        {% if has_workflow_enabled_models %}
+            {% panel id="workflow-content-types" icon="snippet" heading=_("Assign your workflow to snippets") %}
+                {% formattedfield field=content_type_form.content_types sr_only_label=True %}
+            {% endpanel %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,158 @@
+#
+# Translators:
+# Karl Hobley <karl@torchbox.com>, 2022
+# Yiannis Inglessis <negtheone@gmail.com>, 2022
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2022
+# Loic Teixeira, 2024
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2025
+# serafeim <serafeim@torchbox.com>, 2025
+# fekioh, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: fekioh, 2025\n"
+"Language-Team: Greek (https://app.transifex.com/torchbox/teams/8009/el/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Actions"
+msgstr "Ενέργειες"
+
+msgid "Add a comment"
+msgstr "Προσθήκη σχολίου"
+
+msgid "Are you sure?"
+msgstr "Είστε σίγουρος/η"
+
+msgid "Broken link"
+msgstr "Άκυρος σύνδεσμος"
+
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+msgid "Close"
+msgstr "Κλείσιμο"
+
+msgid "Comment"
+msgstr "Σχόλιο"
+
+msgid "Dashboard"
+msgstr "Πίνακας ελέγχου"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Delete error"
+msgstr "Διαγραφή λάθους"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Edit '%(title)s'"
+msgstr "Επεξεργασία '%(title)s'"
+
+msgid "Focus comment"
+msgstr "Εστίαση σχολίου"
+
+msgid "Horizontal line"
+msgstr "Οριζόντια γραμμή"
+
+msgid "Line break"
+msgstr "Νέα γραμμή"
+
+msgid "Loading…"
+msgstr "Φόρτωση..."
+
+msgid "Missing document"
+msgstr "Αρχείο που λείπει"
+
+msgid "More actions"
+msgstr "Περισσότερες επιλογές"
+
+msgid "No"
+msgstr "Όχι"
+
+msgid "No results"
+msgstr "Κανένα αποτέλεσμα"
+
+msgid "Page"
+msgstr "Σελίδα"
+
+msgid "Pages"
+msgstr "Σελίδες"
+
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+msgid "Reload saved content"
+msgstr "Επαναφόρτωση αποθηκευμένου περιεχόμενου"
+
+msgid "Reload the page"
+msgstr "Επαναφόρτωση σελίδας"
+
+msgid "Reply"
+msgstr "Απάντηση"
+
+msgid "Resolve"
+msgstr "Επίλυση"
+
+msgid "Retry"
+msgstr "Ξαναδοκιμάστε"
+
+msgid "Save"
+msgstr "Αποθηκευση"
+
+msgid "Save error"
+msgstr "Αποθήκευση λάθους"
+
+msgid "Save the page to add this comment"
+msgstr "Αποθηκεύστε τη σελίδα για να προσθέσετε το σχόλιο"
+
+msgid "Save the page to save this comment"
+msgstr "Αποθηκεύστε τη σελίδα για να αποθηκευθεί το σχόλιο"
+
+msgid "Save the page to save this reply"
+msgstr "Αποθηκεύστε τη σελίδα για να αποθηκευθεί η απάντηση"
+
+msgid "Saving..."
+msgstr "Αποθήκευση..."
+
+msgid "Search"
+msgstr "Αναζήτηση"
+
+msgid "See all"
+msgstr "Εμφάνιση όλων"
+
+msgid "Server Error"
+msgstr "Σφάλμα"
+
+msgid "Show error"
+msgstr "Εμφάνιση λάθους"
+
+msgid "Show latest content"
+msgstr "Εμφάνιση τελευταίου σχολίου"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Ο επεξεργαστής κειμένου απέτυχε. Το περιεχόμενο επαναφέρθηκε στην τελευταία "
+"αποθηκευμένη έκδοση."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Ο μέγιστος αριθμός στοιχείων είναι %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Ο ελάχιστος αριθμός στοιχείων είναι %(min_num)d"
+
+msgid "This field is required."
+msgstr "Το πεδίο αυτό είναι απαραίτητο"
+
+msgid "Unfocus comment"
+msgstr "Αποεστίαση σχολίου"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Εμφάνιση υποσελίδων της '%(title)s'"
+
+msgid "Yes"
+msgstr "Ναι"

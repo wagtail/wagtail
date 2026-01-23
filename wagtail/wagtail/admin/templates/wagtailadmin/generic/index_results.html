@@ -1,0 +1,21 @@
+{% extends "wagtailadmin/generic/listing_results.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block other_searches %}
+    {% if is_searching and view.show_other_searches %}
+        <div class="nice-padding">
+            {% search_other %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block no_results_message %}
+    {% if add_url and not is_searching and not is_filtering %}
+        {% blocktrans trimmed with model_name=verbose_name_plural asvar no_results_text %}
+            There are no {{ model_name }} to display. Why not <a href="{{ add_url }}">add one</a>?
+        {% endblocktrans %}
+        <p>{{ no_results_text|capfirst }}</p>
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}

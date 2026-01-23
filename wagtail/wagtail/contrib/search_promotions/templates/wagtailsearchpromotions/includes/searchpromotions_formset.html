@@ -1,0 +1,21 @@
+{% load i18n wagtailadmin_tags %}
+{{ formset.management_form }}
+
+{% trans "Promoted search results" as heading %}
+{% panel id="promoted-search-results" heading=heading heading_size="label" classname="w-panel--nested" %}
+    <div id="id_{{ formset.prefix }}-FORMS">
+        {% for form in formset.forms %}
+            {% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=form only %}
+        {% endfor %}
+    </div>
+    {# Align with guiding line of the preceding child panel. #}
+    <div class="w-mb-4 -w-ml-4">
+        <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ formset.prefix }}-ADD" value="Add">
+            {% icon name="plus-inverse" %}{% trans "Add a recommended result" %}
+        </button>
+    </div>
+{% endpanel %}
+
+<template id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
+    {% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=formset.empty_form only %}
+</template>

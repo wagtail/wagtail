@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link works 1`] = `
+<TooltipEntity
+  contentState={
+    Immutable.Record {
+      "entityMap": {
+        "1": "1",
+      },
+      "blockMap": Immutable.OrderedMap {
+        "a": Immutable.Record {
+          "key": "a",
+          "type": "unstyled",
+          "text": "test",
+          "characterList": Immutable.List [
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+            Immutable.Record {
+              "style": Immutable.OrderedSet [],
+              "entity": null,
+            },
+          ],
+          "depth": 0,
+          "data": Immutable.Map {},
+        },
+      },
+      "selectionBefore": Immutable.Record {
+        "anchorKey": "a",
+        "anchorOffset": 0,
+        "focusKey": "a",
+        "focusOffset": 0,
+        "isBackward": false,
+        "hasFocus": false,
+      },
+      "selectionAfter": Immutable.Record {
+        "anchorKey": "a",
+        "anchorOffset": 0,
+        "focusKey": "a",
+        "focusOffset": 0,
+        "isBackward": false,
+        "hasFocus": false,
+      },
+    }
+  }
+  entityKey="1"
+  href="#test"
+  icon={
+    <Icon
+      name="link"
+    />
+  }
+  label="www.example.com"
+  onEdit={[Function]}
+  onRemove={[Function]}
+  url="http://www.example.com/"
+>
+  test
+</TooltipEntity>
+`;
+
+exports[`onPasteLink skips linking punctuation chars 1`] = `
+[
+  "http://a.co/t./.",
+  "http://a.co/t?/?",
+  "http://a.co/t!/!",
+  "http://a.co/t:/:",
+  "http://a.co/t;/;",
+  "http://a.co/t,/,",
+  "http://a.co/t܌/܌",
+  "http://a.co/t؟/؟",
+  "http://a.co/t،/،",
+  "http://a.co/t‼/‼",
+  "http://a.co/t﹒/﹒",
+  "http://a.co/t…/…",
+  "http://a.co/t-/-",
+  "http://a.co/t_/_",
+  "http://a.co/t–/–",
+  "http://a.co/t+/+",
+  "http://a.co/t=/=hello",
+]
+`;
+
+exports[`onPasteLink skips linking punctuation chars 2`] = `
+[
+  "http://a.co/t./",
+  "http://a.co/t?/",
+  "http://a.co/t!/",
+  "http://a.co/t:/",
+  "http://a.co/t;/",
+  "http://a.co/t,/",
+  "http://a.co/t܌/",
+  "http://a.co/t؟/",
+  "http://a.co/t،/",
+  "http://a.co/t‼/",
+  "http://a.co/t﹒/",
+  "http://a.co/t…/…",
+  "http://a.co/t-/-",
+  "http://a.co/t_/_",
+  "http://a.co/t–/–",
+  "http://a.co/t+/+",
+  "http://a.co/t=/=",
+]
+`;

@@ -1,0 +1,34 @@
+{% load i18n wagtailadmin_tags %}
+
+{{ create_form.media.css }}
+{{ create_form.media.js }}
+
+{% if task_types|length > 1 %}
+    <a href="{% url 'wagtailadmin_workflows:task_chooser_create' %}" class="choose-different-task-type">{% trans "Choose a different task type" %}</a>
+{% endif %}
+
+<form class="task-create" action="{{ add_url }}" enctype="multipart/form-data" method="POST" novalidate>
+    {% csrf_token %}
+
+    <ul class="fields">
+        {% for field in create_form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                <li>{% formattedfield field %}</li>
+            {% endif %}
+        {% endfor %}
+        <li>
+            <button
+                type="submit"
+                class="button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+                data-w-progress-active-value="{% trans 'Creating…' %}"
+            >
+                {% icon name="spinner" %}
+                <em data-w-progress-target="label">{% trans "Create" %}</em>
+            </button>
+        </li>
+    </ul>
+</form>

@@ -1,0 +1,246 @@
+#
+# Translators:
+# Azat, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2025\n"
+"Language-Team: Uyghur (https://app.transifex.com/torchbox/teams/8009/ug/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "بۇ تىزىملىكتە (%(number)s يېڭى تۈر بار"
+
+msgid "(1 new item in this menu)"
+msgstr "(بۇ تىزىملىكتىكى 1 يېڭى تۈر بار)"
+
+msgid "(New)"
+msgstr "(يېڭى)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s خاتالىق"
+msgstr[1] "%(num)s خاتالىق"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s مىنۇت"
+msgstr[1] "%(num)s مىنۇت"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s پىكسېل"
+msgstr[1] "%(num)s پىكسېل"
+
+msgid "Actions"
+msgstr "مەشغۇلات"
+
+msgid "Add a comment"
+msgstr "ئىنكاس قوش"
+
+msgid "Alt text"
+msgstr "ئالماشتۇرىدىغان تېكىست"
+
+msgid "Are you sure?"
+msgstr "راستمۇ؟"
+
+msgid "Blocks"
+msgstr "بۆلەك"
+
+msgid "Broken link"
+msgstr "ئۈزۈلگەن ئۇلانما"
+
+msgid "Cancel"
+msgstr "ۋاز كەچ"
+
+msgid "Character count:"
+msgstr "ھەرپ سانى:"
+
+msgid "Close"
+msgstr "ياپ"
+
+msgid "Collapse all"
+msgstr "ھەممىنى يىغ"
+
+msgid "Comment"
+msgstr "ئىنكاس"
+
+msgid "Dashboard"
+msgstr "باشقۇرۇش تاختىسى"
+
+msgid "Decorative image"
+msgstr "بېزەك سۈرەت"
+
+msgid "Delete"
+msgstr "ئۆچۈر"
+
+msgid "Delete error"
+msgstr "خاتالىقنى ئۆچۈر"
+
+msgid "Deleting"
+msgstr "ئۆچۈرۈۋاتىدۇ"
+
+msgid "Edit"
+msgstr "تەھرىر"
+
+msgid "Edit '%(title)s'"
+msgstr "«%(title)s» تەھرىر"
+
+msgid "Enter your comments..."
+msgstr "ئىنكاسىڭىزنى كىرگۈزۈڭ…"
+
+msgid "Enter your reply..."
+msgstr "جاۋابىڭىزنى كىرگۈزۈڭ…"
+
+msgid "Error while sending preview data."
+msgstr "ئالدىن كۆزىتىش سانلىق مەلۇماتىنى يوللاۋاتقاندا خاتالىق كۆرۈلدى."
+
+msgid "Expand all"
+msgstr "ھەممىنى ياي"
+
+msgid "Focus comment"
+msgstr "ئىنكاسقا مەركەزلىشىش"
+
+msgid "Horizontal line"
+msgstr "توغرا سىزىق"
+
+msgid "Insert a block"
+msgstr "بىر بۆلەك قىستۇر"
+
+msgid "Line break"
+msgstr "قۇر ئالماشتۇرۇش بەلگىسى"
+
+msgid "Loading…"
+msgstr "يۈكلەۋاتىدۇ…"
+
+msgid "Main menu"
+msgstr "ئاساسىي تىزىملىك"
+
+msgid "Missing document"
+msgstr "يوقالغان پۈتۈك"
+
+msgid "More actions"
+msgstr "تېخىمۇ كۆپ مەشغۇلات"
+
+msgid "No"
+msgstr "ياق"
+
+msgid "No results"
+msgstr "نەتىجە يوق"
+
+msgid "Page"
+msgstr "بەت"
+
+msgid "Page explorer"
+msgstr "بەت باشقۇرۇش"
+
+msgid "Pages"
+msgstr "بەت"
+
+msgid "Pin toolbar"
+msgstr "قورال بالداقنى مىخلا"
+
+msgid "Preview"
+msgstr "ئالدىن كۆزەت"
+
+msgid "Reload saved content"
+msgstr "ساقلانغان مەزمۇننى قايتا يۈكلە"
+
+msgid "Reload the page"
+msgstr "بەتنى قايتا يۈكلە"
+
+msgid "Reply"
+msgstr "جاۋاب"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"بۇ خاتالىقنى تۆۋەندىكى ئۇچۇرنى قوشۇپ تور بېكەت باشقۇرغۇچىڭىزغا دوكلات قىلىڭ:"
+
+msgid "Resolve"
+msgstr "ھەل قىلىش"
+
+msgid "Retry"
+msgstr "قايتا سىنا"
+
+msgid "Save"
+msgstr "ساقلا"
+
+msgid "Save error"
+msgstr "خاتالىقنى ساقلا"
+
+msgid "Save the page to add this comment"
+msgstr "بۇ ئىنكاسنى قوشۇپ بەتنى ساقلايدۇ"
+
+msgid "Save the page to save this comment"
+msgstr "بۇ ئىنكاسنى ساقلاشتا بەتنى ساقلايدۇ"
+
+msgid "Save the page to save this reply"
+msgstr "بۇ جاۋابنى ساقلاشتا بەتنى ساقلايدۇ"
+
+msgid "Saving..."
+msgstr "ساقلاۋاتىدۇ…"
+
+msgid "Search"
+msgstr "ئىزدەش"
+
+msgid "Search options…"
+msgstr "ئىزدەش تاللانمىسى…"
+
+msgid "See all"
+msgstr "ھەممىنى كۆرسەت"
+
+msgid "Server Error"
+msgstr "مۇلازىمېتىر خاتالىقى"
+
+msgid "Show error"
+msgstr "خاتالىقنى كۆرسەت"
+
+msgid "Show latest content"
+msgstr "ئاخىرقى مەزمۇننى كۆرسەت"
+
+msgid "Split block"
+msgstr "بۆلەكنى پارچىلا"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"تەھرىرلىگۈچ ھازىرلا يىمىرىلدى. مەزمۇن ئاخىرقى قېتىم ساقلانغان نۇسخىسىغا "
+"ئەسلىگە قايتۇرۇلدى."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "ئەڭ كۆپ تۈر سانى  %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "ئەڭ ئاز تۈر سانى %(min_num)d"
+
+msgid "This field is required."
+msgstr "بۇ بۆلەك زۆرۈر."
+
+msgid "Toggle section"
+msgstr "بۆلەك ئالماشتۇر"
+
+msgid "Toggle side panel"
+msgstr "يان تاختىنى ئالماشتۇر"
+
+msgid "Toggle sidebar"
+msgstr "يان بالداقنى ئالماشتۇر"
+
+msgid "Unfocus comment"
+msgstr "ئىنكاسقا مەركەزلەشتۈرمە"
+
+msgid "Unpin toolbar"
+msgstr "قورال بالداقنى يۇل"
+
+msgid "View child pages of '%(title)s'"
+msgstr "كۆرسىتىدىغىنى «%(title)s» نىڭ بالا بېتى"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "بىر نەرسە يېزىلىدۇ ياكى «/» كىرگۈزۈلسە بىر بۆلەك قىستۇرىدۇ"
+
+msgid "Yes"
+msgstr "ھەئە"

@@ -1,0 +1,28 @@
+{% load wagtailimages_tags wagtailadmin_tags %}
+{% load i18n %}
+{% trans "Insert embed" as ins_emb_str %}
+{% include "wagtailadmin/shared/header.html" with title=ins_emb_str %}
+
+<div class="tab-content">
+    <section id="form" class="active nice-padding">
+        <form class="embed-form" action="{% url 'wagtailembeds:chooser_upload' %}" method="POST" novalidate>
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    <li>{% formattedfield field %}</li>
+                {% endfor %}
+                <li>
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{% trans 'Insert' %}</em>
+                    </button>
+                </li>
+            </ul>
+        </form>
+    </section>
+</div>

@@ -1,0 +1,54 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Delete 1 image{% plural %}Delete {{ counter }} images{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
+
+{% block header %}
+    {% trans "Delete images" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str icon="doc-full-inverse" %}
+{% endblock header %}
+
+{% block items_with_access %}
+    {% if items %}
+        {% if not is_protected %}
+            <p>
+                {% blocktrans trimmed count counter=items|length %}
+                    Are you sure you want to delete this image?
+                {% plural %}
+                    Are you sure you want to delete these images?
+                {% endblocktrans %}
+            </p>
+        {% endif %}
+        <ul>
+            {% for image in items %}
+                {% with usage_count_val=image.item.get_usage.count %}
+                    <li>
+                        <a href="{% url 'wagtailimages:edit' image.item.id %}" target="_blank" rel="noreferrer">{{image.item.title}}</a>
+
+                        {% include "wagtailadmin/shared/usage_summary.html" with model_opts=model_opts usage_url=image.usage_url usage_count=image.usage_count is_protected=image.is_protected %}
+                    </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock items_with_access %}
+
+{% block items_with_no_access %}
+
+    {% blocktrans trimmed asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this image{% plural %}You don't have permission to delete these images{% endblocktrans %}
+    {% include 'wagtailimages/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
+
+{% endblock items_with_no_access %}
+
+{% block form_section %}
+    {% if items and not is_protected %}
+        {% trans 'Yes, delete' as action_button_text %}
+        {% trans "No, don't delete" as no_action_button_text %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/form.html' with action_button_class="serious" %}
+    {% else %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+    {% endif %}
+{% endblock form_section %}

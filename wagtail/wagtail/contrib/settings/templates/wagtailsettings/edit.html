@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load i18n %}
+
+{% block before_form %}
+    {% if site_switcher %}
+        <form class="w-mb-8" method="get" id="settings-site-switch" novalidate>
+            <label for="{{ site_switcher.site.id_for_label }}">
+                {% trans "Site" %}:
+            </label>
+            {{ site_switcher.site }}
+        </form>
+    {% elif site_for_header %}
+        <div class="w-mb-8">
+            {% trans "Site" %}:
+            {{ site_for_header.hostname }}
+            {% if site_for_header.is_default_site %}[{% trans "default" %}]{% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

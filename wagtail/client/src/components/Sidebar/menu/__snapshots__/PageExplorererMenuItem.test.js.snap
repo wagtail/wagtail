@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageExplorerMenuItem should render with the minimum required props 1`] = `
+<li
+  className="sidebar-menu-item sidebar-page-explorer-item"
+>
+  <ForwardRef(TippyWrapper)
+    disabled={true}
+    placement="right"
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      className="sidebar-menu-item__link"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        className="icon--menuitem"
+        name="folder-open-inverse"
+      />
+      <span
+        className="menuitem-label"
+      />
+      <Icon
+        className="sidebar-sub-menu-trigger-icon"
+        name="arrow-right"
+      />
+    </button>
+  </ForwardRef(TippyWrapper)>
+  <div>
+    <SidebarPanel
+      depth={2}
+      isOpen={false}
+      isVisible={false}
+      widthPx={485}
+    >
+      <SubMenuCloseButton
+        isVisible={false}
+      />
+      <Provider
+        store={
+          {
+            "@@observable": [Function],
+            "dispatch": [Function],
+            "getState": [Function],
+            "replaceReducer": [Function],
+            "subscribe": [Function],
+          }
+        }
+      >
+        <Connect(PageExplorer)
+          isVisible={false}
+          onClose={[Function]}
+        />
+      </Provider>
+    </SidebarPanel>
+  </div>
+</li>
+`;

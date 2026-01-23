@@ -1,0 +1,14 @@
+.comment-reply {
+  padding-top: 20px;
+  pointer-events: auto;
+  position: relative;
+  border-top: 1px solid theme('colors.border-furniture');
+
+  &--mode-deleting .comment__text {
+    color: theme('colors.text-meta');
+  }
+
+  form {
+    margin-top: 10px;
+  }
+}

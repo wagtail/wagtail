@@ -1,0 +1,113 @@
+=========================
+Wagtail 2.1 release notes
+=========================
+
+*May 22, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+New ``HelpPanel``
+~~~~~~~~~~~~~~~~~
+
+A new panel type ``HelpPanel`` allows you to easily add HTML within an edit form.
+This new feature was developed by Kevin Chung.
+
+
+Profile picture upload
+~~~~~~~~~~~~~~~~~~~~~~
+
+Users can now upload profile pictures directly through the Account Settings menu, rather than using Gravatar. Gravatar is still used as a fallback if no profile picture has been uploaded directly; a new setting :ref:`WAGTAIL_GRAVATAR_PROVIDER_URL <wagtail_gravatar_provider_url>` has been added to specify an alternative provider, or disable the use of external avatars completely. This feature was developed by Daniel Chimeno, Pierre Geier and Matt Westcott.
+
+
+API lookup by page path
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The API now includes an endpoint for finding pages by path; see :ref:`apiv2_finding_pages_by_path`. This feature was developed by Karl Hobley.
+
+
+User time zone setting
+~~~~~~~~~~~~~~~~~~~~~~
+
+Users can now set their current time zone through the Account Settings menu, which will then be reflected in date / time fields throughout the admin (such as go-live / expiry dates). The list of available time zones can be configured via the :ref:`WAGTAIL_USER_TIME_ZONES <wagtail_user_time_zones>` setting. This feature was developed by David Moore.
+
+
+Elasticsearch 6 support
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now supports Elasticsearch 6. See :ref:`wagtailsearch_backends_elasticsearch` for configuration details. This feature was developed by Karl Hobley.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)
+* Animate the chevron icon when opening sub-menus in the admin (Carlo Ascani)
+* Look through the target link and target page slug (in addition to the old slug) when searching for redirects in the admin (Michael Harrison)
+* Remove support for IE6 to IE9 from project template (Samir Shah)
+* Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
+* Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
+* Removed ``assert`` statements from Wagtail API (Kim Chee Leong)
+* Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Pomax)
+* Added error notification when running the ``wagtail`` command on Python <3.4 (Matt Westcott)
+* ``update_index`` management command now accepts a ``--chunk_size`` option to determine the number of items to load at once (Dave Bell)
+* Added hook `register_account_menu_item` to add new account preference items (Michael van Tellingen)
+* Added change email functionality from the account settings (Alejandro Garza, Alexs Mathilda)
+* Add request parameter to edit handlers (Rajeev J Sebastian)
+* ImageChooser now sets a default title based on filename (Coen van der Kamp)
+* Added error handling to the Draftail editor (Thibaud Colas)
+* Add new `wagtail_icon` template tag to facilitate making admin icons accessible (Sander Tuit)
+* Set `ALLOWED_HOSTS` in the project template to allow any host in development (Tom Dyson)
+* Expose reusable client-side code to build Draftail extensions (Thibaud Colas)
+* Added ``WAGTAILFRONTENDCACHE_LANGUAGES`` setting to specify the languages whose URLs are to be purged when using ``i18n_patterns`` (PyMan Claudio Marinozzi)
+* Added ``extra_footer_actions`` template blocks for customizing the add/edit page views (Arthur Holzner)
+
+Bug fixes
+~~~~~~~~~
+
+* Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
+* Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
+* Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
+* StreamField icons are now correctly sorted into groups on the 'append' menu (Tim Heap)
+* Draftail now supports features specified via the ``WAGTAILADMIN_RICH_TEXT_EDITORS`` setting (Todd Dembrey)
+* Password reset form no longer indicates whether the email is recognized, as per standard Django behavior (Bertrand Bordage)
+* ``UserAttributeSimilarityValidator`` is now correctly enforced on user creation / editing forms (Tim Heap)
+* Focal area removal not working in IE11 and MS Edge (Thibaud Colas)
+* Rewrite password change feedback message to be more user-friendly (Casper Timmers)
+* Correct dropdown arrow styling in Firefox, IE11 (Janneke Janssen, Alexs Mathilda)
+* Password reset no indicates specific validation errors on certain password restrictions (Lucas Moeskops)
+* Confirmation page on page deletion now respects custom ``get_admin_display_title`` methods (Kim Chee Leong)
+* Adding external link with selected text now includes text in link chooser (Tony Yates, Thibaud Colas, Alexs Mathilda)
+* Editing setting object with no site configured no longer crashes (Harm Zeinstra)
+* Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
+* Localization of image and apps verbose names
+* Draftail editor no longer crashes after deleting image/embed using DEL key (Thibaud Colas)
+* Breadcrumb navigation now respects custom ``get_admin_display_title`` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
+* Inconsistent order of heading features when adding h1, h5, or h6 as default feature for Hallo RichText editor (Loic Teixeira)
+* Add invalid password reset link error message (Coen van der Kamp)
+* Bypass select/prefetch related optimisation on ``update_index`` for ``ParentalManyToManyField`` to fix crash (Tim Kamanin)
+* 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
+* Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
+* Background color overflow within the Wagtail documentation (Sergey Fedoseev)
+* Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
+* Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
+* Generate URL for the current site when multiple sites share the same root page (Codie Roelf)
+* Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+* Stop revision comparison view from crashing when non-model FieldPanels are in use (LB (Ben Johnston))
+* Ordering in the page explorer now respects custom ``get_admin_display_title`` methods when sorting <100 pages (Matt Westcott)
+* Use index-specific Elasticsearch endpoints for bulk insertion, for compatibility with providers that lock down the root endpoint (Karl Hobley)
+* Fix usage URL on the document edit page (Jérôme Lebleu)
+
+
+Upgrade considerations
+======================
+
+Image format ``image_to_html`` method has been updated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The internal API for rich text image format objects (see :ref:`rich_text_image_formats`) has been updated; the ``Format.image_to_html`` method now receives the ``extra_attributes`` keyword argument as a dictionary of attributes, rather than a string. If you have defined any custom format objects that override this method, these will need to be updated.

@@ -1,0 +1,256 @@
+#
+# Translators:
+# Matej Stavanja <matej.stavanja@zfm.si>, 2022
+# Loic Teixeira, 2024
+# Mitja Pagon <mitja.pagon@inueni.com>, 2025
+# Andrej Marsetič, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Andrej Marsetič, 2025\n"
+"Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
+"sl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s novih elementov v tem meniju)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nov element v tem meniju)"
+
+msgid "(New)"
+msgstr "(Novo)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s napaka"
+msgstr[1] "%(num)s napaki"
+msgstr[2] "%(num)s napak"
+msgstr[3] "%(num)s napak"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s minuta"
+msgstr[1] "%(num)s minuti"
+msgstr[2] "%(num)s minut"
+msgstr[3] "%(num)s minut"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s piksel"
+msgstr[1] "%(num)s piksla"
+msgstr[2] "%(num)s pikslov"
+msgstr[3] "%(num)s pikslov"
+
+msgid "Actions"
+msgstr "Dejanja"
+
+msgid "Add a comment"
+msgstr "Dodaj komentar"
+
+msgid "Alt text"
+msgstr "Nadomestno besedilo"
+
+msgid "Are you sure?"
+msgstr "Ali ste prepričani?"
+
+msgid "Blocks"
+msgstr "Bloki"
+
+msgid "Broken link"
+msgstr "Nepravilna povezava"
+
+msgid "Cancel"
+msgstr "Prekliči"
+
+msgid "Character count:"
+msgstr "Število znakov:"
+
+msgid "Close"
+msgstr "Zapri"
+
+msgid "Collapse all"
+msgstr "Zapri vse"
+
+msgid "Comment"
+msgstr "Komentar"
+
+msgid "Dashboard"
+msgstr "Nadzorna plošča"
+
+msgid "Decorative image"
+msgstr "Okrasna slika"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Delete error"
+msgstr "Pobriši napako"
+
+msgid "Deleting"
+msgstr "Brišem"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Edit '%(title)s'"
+msgstr "Uredi '%(title)s'"
+
+msgid "Enter your comments..."
+msgstr "Vnesite vaš komentar"
+
+msgid "Enter your reply..."
+msgstr "Vnesite svoj odgovor ..."
+
+msgid "Error while sending preview data."
+msgstr "Napaka pri pošiljanju podatkov za predogled."
+
+msgid "Expand all"
+msgstr "Razširi vse"
+
+msgid "Focus comment"
+msgstr "Fokus komentarja"
+
+msgid "Horizontal line"
+msgstr "Vodoravna črta"
+
+msgid "Insert a block"
+msgstr "Vstavite blok"
+
+msgid "Line break"
+msgstr "Prelom vrstice"
+
+msgid "Loading…"
+msgstr "Nalaganje ..."
+
+msgid "Main menu"
+msgstr "Glavni meni"
+
+msgid "Missing document"
+msgstr "Manjkajoči dokument"
+
+msgid "More actions"
+msgstr "Več dejanj"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "No results"
+msgstr "Ni zadetkov"
+
+msgid "Page"
+msgstr "Stran"
+
+msgid "Page explorer"
+msgstr "Raziskovalec strani"
+
+msgid "Pages"
+msgstr "Strani"
+
+msgid "Pin toolbar"
+msgstr "Pripni orodno vrstico"
+
+msgid "Preview"
+msgstr "Predogled"
+
+msgid "Reload saved content"
+msgstr "Ponovno naložite shranjeno vsebino"
+
+msgid "Reload the page"
+msgstr "Osveži stran"
+
+msgid "Reply"
+msgstr "Odgovori"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"O tej napaki obvestite skrbnika spletnega mesta z naslednjimi informacijami:"
+
+msgid "Resolve"
+msgstr "Reši"
+
+msgid "Retry"
+msgstr "Poskusi ponovno"
+
+msgid "Save"
+msgstr "Shrani"
+
+msgid "Save error"
+msgstr "Shrani napako"
+
+msgid "Save the page to add this comment"
+msgstr "Shranite stran, da dodate ta komentar"
+
+msgid "Save the page to save this comment"
+msgstr "Shranite stran, da shranite ta komentar"
+
+msgid "Save the page to save this reply"
+msgstr "Shranite stran, da shranite ta odgovor"
+
+msgid "Saving..."
+msgstr "Shranjevanje..."
+
+msgid "Search"
+msgstr "Iskanje"
+
+msgid "Search options…"
+msgstr "Možnosti iskanja..."
+
+msgid "See all"
+msgstr "Poglej vse"
+
+msgid "Server Error"
+msgstr "Napaka na strežniku"
+
+msgid "Show error"
+msgstr "Pokaži napako"
+
+msgid "Show latest content"
+msgstr "Pokaži najnovejšo vsebino"
+
+msgid "Split block"
+msgstr "Razdeli blok"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Urejevalnik se je pravkar zrušil. Vsebina je bila ponastavljena na zadnjo "
+"shranjeno različico"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Največje število predmetov je %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Najmanjše število predmetov je %(min_num)d"
+
+msgid "This field is required."
+msgstr "Polje je obvezno."
+
+msgid "Toggle section"
+msgstr "Preklop razdelka"
+
+msgid "Toggle side panel"
+msgstr "Preklopi stransko ploščo"
+
+msgid "Toggle sidebar"
+msgstr "Preklopi stransko vrstico"
+
+msgid "Unfocus comment"
+msgstr "Odstrani fokus komentarja"
+
+msgid "Unpin toolbar"
+msgstr "Odpni orodno vrstico"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Ogled podrejenih strani za  '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Napišite nekaj ali pritisnite \"/\" za dodajanje bloka"
+
+msgid "Yes"
+msgstr "Da"

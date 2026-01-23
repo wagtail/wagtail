@@ -1,0 +1,114 @@
+@use 'sass:string';
+@use '../tools' as *;
+@use '../settings' as *;
+
+// Set SVG icons to use the current text color in the location they appear as
+// their default fill color. Can be overridden for a specific icon by either
+// the color or fill properties.
+.icon {
+  fill: currentColor;
+}
+
+.icon.teal {
+  color: theme('colors.text-button-outline-default');
+}
+
+.icon.white {
+  color: theme('colors.surface-page');
+}
+
+// =============================================================================
+// Icon factory methods
+// =============================================================================
+
+// Legacy icons still implemented via CSS due to the markup being hard to change.
+$icons-after: ('arrow-down', 'arrow-up');
+
+@each $icon in $icons-after {
+  .icon-#{$icon}-after::after {
+    content: '';
+    mask-image: url('#{$images-root}icons/#{$icon}.svg');
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background-color: currentColor;
+  }
+}
+
+// =============================================================================
+// Custom config for various icons
+// =============================================================================
+
+// Add spinner styles onto the use element,
+// so an icon can be turned into a spinner by changing the href only.
+// This allows us to switch any icon to a spinner with much less boilerplate.
+use[href='#icon-spinner'] {
+  animation: spin-wag 0.5s infinite linear;
+  transform-origin: center;
+}
+
+.text-replace {
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+
+  .icon {
+    @include svg-icon(1rem, middle);
+  }
+}
+
+@keyframes spin-wag {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// stylelint-disable-next-line no-duplicate-selectors
+.icon {
+  &.initial {
+    @include svg-icon(1em, $position: initial);
+  }
+
+  &.default {
+    @include svg-icon(1.5em);
+  }
+
+  &.middle {
+    @include svg-icon(1.5em, $position: middle);
+  }
+
+  &--flipped {
+    transform: scaleX(-1);
+  }
+}
+
+.icon.locale-error {
+  vertical-align: text-top;
+  margin-inline-end: 0.5em;
+  width: 1.5em;
+  height: 1.5em;
+  color: theme('colors.critical.200');
+}
+
+.icon-wagtail {
+  width: 100%;
+  height: auto;
+}
+
+.icon-wagtail__wordmark {
+  fill: theme('colors.text-context');
+}
+
+// Icons mirroring for RTL languages to match the rest of the Wagtail UI.
+// Automatically mirror child elements of SVG icons marked with
+// icon--directional. This will be applied to the children of the <symbol>
+// elements in the icons sprite, ensuring all usages of the icons will be in the
+// correct direction.
+.icon--directional * {
+  transform: scaleX(var(--w-direction-factor));
+  transform-origin: center;
+}

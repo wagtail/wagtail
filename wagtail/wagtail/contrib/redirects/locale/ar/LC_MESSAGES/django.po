@@ -1,0 +1,220 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail redirects"
+msgstr "إعادة التوجيه في Wagtail"
+
+msgid "Type"
+msgstr "النوع"
+
+msgid "Permanent"
+msgstr "دائم"
+
+msgid "Temporary"
+msgstr "مؤقت"
+
+msgid "All"
+msgstr "الكل"
+
+msgid "From site"
+msgstr "من الموقع"
+
+msgid "All sites"
+msgstr "جميع المواقع"
+
+msgid "A redirect with this path already exists."
+msgstr "يوجد بالفعل إعادة توجيه بهذا المسار."
+
+msgid "File to import"
+msgstr "ملف للاستيراد"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "الصيغ المدعومة: %(supported_formats)s."
+
+msgid "From field"
+msgstr "حقل المصدر"
+
+msgid "To field"
+msgstr "حقل الهدف"
+
+msgid "redirect from"
+msgstr "إعادة توجيه من"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "permanent"
+msgstr "دائم"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"موصى به. تضمن عمليات إعادة التوجيه الدائمة أن تنسى محركات البحث الصفحة "
+"القديمة (المصدر) وتفهرس الصفحة الجديدة بدلاً منها."
+
+msgid "redirect to a page"
+msgstr "إعادة توجيه إلى صفحة"
+
+msgid "target page route"
+msgstr "مسار صفحة الهدف"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"يمكنك اختياريًا تحديد مسار في صفحة الهدف لإعادة التوجيه إليه. اتركه فارغًا "
+"لإعادة التوجيه إلى مسار الصفحة الافتراضي."
+
+msgid "redirect to any URL"
+msgstr "إعادة توجيه إلى أي عنوان URL"
+
+msgid "automatically created"
+msgstr "تم إنشاؤه تلقائيًا"
+
+msgid "created at"
+msgstr "تم الإنشاء في"
+
+msgid "temporary"
+msgstr "مؤقت"
+
+msgid "redirect"
+msgstr "إعادة توجيه"
+
+msgid "redirects"
+msgstr "إعادة التوجيهات"
+
+msgid "Redirects"
+msgstr "إعادة التوجيهات"
+
+msgid "Import redirects"
+msgstr "استيراد إعادة التوجيهات"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>حدد ملفًا حيث يتم فصل إعادة التوجيهات في صفوف ويحتوي على أعمدة تمثل "
+"<code>من</code> و <code>إلى</code> (يمكن تسميتها بأي شيء).</p> <p>بعد "
+"الإرسال، سيتم نقلك إلى عرض تأكيد حيث يمكنك تخصيص إعادة التوجيهات قبل "
+"الاستيراد.</p>"
+
+msgid "Import"
+msgstr "استيراد"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "حذف إعادة توجيه %(title)s"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "هل أنت متأكد أنك تريد حذف إعادة التوجيه هذه؟"
+
+msgid "Confirm import"
+msgstr "تأكيد الاستيراد"
+
+msgid "Confirm"
+msgstr "تأكيد"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Preview"
+msgstr "معاينة"
+
+msgid "Summary"
+msgstr "ملخص"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"تم العثور على %(total)s إعادة توجيه، تم إنشاء %(successes)s وتم العثور على "
+"%(errors)s أخطاء."
+
+msgid "From"
+msgstr "من"
+
+msgid "To"
+msgstr "إلى"
+
+msgid "Error"
+msgstr "خطأ"
+
+msgid "Continue"
+msgstr "متابعة"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا، لا توجد إعادة توجيه تطابق \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"لم يتم إنشاء أي إعادة توجيه. لماذا لا <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">تضيف واحدة</a>؟"
+
+msgid "Add redirect"
+msgstr "إضافة إعادة توجيه"
+
+msgid "Site"
+msgstr "موقع"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "تعذر حفظ إعادة التوجيه بسبب وجود أخطاء."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "تم تحديث إعادة التوجيه '%(redirect_title)s'."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "تم حذف إعادة التوجيه '%(redirect_title)s'."
+
+msgid "The redirect could not be created due to errors."
+msgstr "تعذر إنشاء إعادة التوجيه بسبب وجود أخطاء."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "تمت إضافة إعادة التوجيه '%(redirect_title)s'."
+
+msgid "Search redirects"
+msgstr "بحث في إعادة التوجيهات"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "تم استيراد%(total)d إعادة توجيه"
+msgstr[1] "تم استيراد%(total)d إعادة توجيه"
+msgstr[2] "تم استيراد %(total)d إعادة توجيه"
+msgstr[3] "تم استيراد %(total)d إعادة توجيه"
+msgstr[4] "تم استيراد %(total)d إعادة توجيه"
+msgstr[5] "تم استيراد %(total)d إعادة توجيه"

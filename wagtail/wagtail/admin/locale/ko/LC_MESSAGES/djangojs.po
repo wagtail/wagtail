@@ -1,0 +1,197 @@
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2022
+# Loic Teixeira, 2024
+# sl kim <vizuan@gmail.com>, 2025
+# Kyungil Choi <hanpama@gmail.com>, 2025
+# Kyu Choi, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Kyu Choi, 2025\n"
+"Language-Team: Korean (https://app.transifex.com/torchbox/teams/8009/ko/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Actions"
+msgstr "액션"
+
+msgid "Add a comment"
+msgstr "댓글 추가"
+
+msgid "Alt text"
+msgstr "대체 텍스트"
+
+msgid "Are you sure?"
+msgstr "정말 이 작업을 하겠습니까?"
+
+msgid "Broken link"
+msgstr "깨진 링크"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Collapse all"
+msgstr "모두 접기"
+
+msgid "Comment"
+msgstr "댓글"
+
+msgid "Dashboard"
+msgstr "대시보드"
+
+msgid "Decorative image"
+msgstr "장식 이미지"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Delete error"
+msgstr "오류 삭제"
+
+msgid "Deleting"
+msgstr "삭제중"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' 수정"
+
+msgid "Expand all"
+msgstr "모두 펼치기"
+
+msgid "Focus comment"
+msgstr "인기 댓글"
+
+msgid "Horizontal line"
+msgstr "수평선"
+
+msgid "Line break"
+msgstr "줄바꿈"
+
+msgid "Loading…"
+msgstr "불러오는 중..."
+
+msgid "Main menu"
+msgstr "메인 메뉴"
+
+msgid "Missing document"
+msgstr "문서 없음"
+
+msgid "More actions"
+msgstr "더 많은 움직임"
+
+msgid "No"
+msgstr "아니오"
+
+msgid "No results"
+msgstr "결과 없음"
+
+msgid "Page"
+msgstr "페이지"
+
+msgid "Page explorer"
+msgstr "페이지 탐색"
+
+msgid "Pages"
+msgstr "페이지"
+
+msgid "Pin toolbar"
+msgstr "툴바 고정"
+
+msgid "Preview"
+msgstr "미리보기"
+
+msgid "Reload saved content"
+msgstr "저장된 컨텐츠 다시 불러오기"
+
+msgid "Reload the page"
+msgstr "페이지 다시 불러오기"
+
+msgid "Reply"
+msgstr "응답하다"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "이 오류를 다음의 정보와 함께 웹 관리자에게 보고하시길 바랍니다"
+
+msgid "Resolve"
+msgstr "해결하다"
+
+msgid "Retry"
+msgstr "재시도하다"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Save error"
+msgstr "오류를 저장하다"
+
+msgid "Save the page to add this comment"
+msgstr "이 댓글을 추가하기 위해 페이지 저장"
+
+msgid "Save the page to save this comment"
+msgstr "이 댓글을 저장하기 위해 페이지 저장"
+
+msgid "Save the page to save this reply"
+msgstr "이 응답을 저장하기 위해 페이지 저장"
+
+msgid "Saving..."
+msgstr "저장 중..."
+
+msgid "Search"
+msgstr "검색"
+
+msgid "See all"
+msgstr "모두 보기"
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "Show error"
+msgstr "오류 보기"
+
+msgid "Show latest content"
+msgstr "최근 컨텐츠 보기"
+
+msgid "Split block"
+msgstr "장애물 전환"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"에디터에 문제가 발생했습니다. 내용은 마지막으로 저장된 버전으로 초기화되었습"
+"니다."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "항목은 최대 개수는 %(max_num)d개입니다"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "항목은 최소 %(min_num)d개 이상이어야 합니다"
+
+msgid "This field is required."
+msgstr "이 필드는 필수입니다."
+
+msgid "Toggle side panel"
+msgstr "사이드 패널 전환"
+
+msgid "Toggle sidebar"
+msgstr "사이드 전환"
+
+msgid "Unfocus comment"
+msgstr "비인기 댓글"
+
+msgid "Unpin toolbar"
+msgstr "툴바 고정 해제"
+
+msgid "View child pages of '%(title)s'"
+msgstr " '%(title)s' 페이지의 하위 페이지 보기"
+
+msgid "Yes"
+msgstr "예"

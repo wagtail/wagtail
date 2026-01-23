@@ -1,0 +1,4 @@
+{% load i18n wagtailadmin_tags %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if value %}{% human_readable_date value %}{% endif %}
+</td>

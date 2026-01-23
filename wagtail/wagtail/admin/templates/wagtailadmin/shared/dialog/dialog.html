@@ -1,0 +1,50 @@
+{% load wagtailadmin_tags i18n %}
+<template
+    data-controller="w-teleport"
+    {% if dialog_root_selector %}data-w-teleport-target-value="{{ dialog_root_selector }}"{% endif %}
+>
+    <div id="{{ id }}"
+         aria-labelledby="title-{{ id }}"
+         aria-hidden="true"
+         class="w-dialog{% if theme %} w-dialog--{{ theme }}{% endif %}{% if message_heading and message_icon_name %} w-dialog--message{% endif %}{% if classname %} {{ classname }}{% endif %}"
+         data-controller="w-dialog"
+         data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show"
+         {% if theme %}data-w-dialog-theme-value="{{ theme }}"{% endif %}
+         {% if data_url %}data-url="{{ data_url }}"{% endif %}
+    >
+        <div class="w-dialog__overlay" data-action="click->w-dialog#hide"></div>
+        <div class="w-dialog__box">
+            <button type="button" class="w-dialog__close-button" aria-label="{% trans 'Close dialog' %}" data-action="w-dialog#hide">
+                {% icon name='cross' classname="w-dialog__close-icon" %}
+            </button>
+
+            {% if message_heading and message_icon_name %}
+                <div class="w-dialog__message w-dialog__message--{{ message_status }}">
+                    {% icon name=message_icon_name classname="w-dialog__message-icon" %}
+                    <div class="w-dialog__message-header">
+                        <strong class="w-dialog__message-heading">{{ message_heading }}</strong>
+                        {% if message_description %}<p class="w-dialog__message-description ">{{ message_description }}</p>{% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="w-dialog__content">
+                <div class="w-dialog__header">
+                    <h2 class="w-dialog__title w-h1" id="title-{{ id }}">
+                        {% fragment as icon_classname %}{% classnames "w-dialog__icon" icon_classname %}{% endfragment %}
+                        {% if icon_name %}{% icon name=icon_name classname=icon_classname %}{% endif %}
+                        <span id="title-text-{{ id }}">{{ title }}</span>
+                    </h2>
+
+                    {% if subtitle %}
+                        <p class="w-dialog__subtitle w-help-text" id="subtitle-{{ id }}">{{ subtitle }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="w-dialog__body" data-w-dialog-target="body">
+                    {{ children }}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

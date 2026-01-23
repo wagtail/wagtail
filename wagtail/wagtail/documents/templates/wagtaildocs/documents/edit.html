@@ -1,0 +1,31 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block form_content %}
+    <div class="w-grid w-grid-cols-1 sm:w-grid-cols-6 w-gap-8">
+        <div class="sm:w-col-span-5">
+            <input type="hidden" value="{{ next }}" name="next">
+            {% for field in form %}
+                {% if field.name == 'file' %}
+                    {% include "wagtaildocs/documents/_file_field.html" %}
+                {% elif field.is_hidden %}
+                    {{ field }}
+                {% else %}
+                    {% formattedfield field %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <dl>
+            {% if document.file %}
+                <dt>{% trans "Filesize" %}</dt>
+                <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
+            {% endif %}
+
+            <dt>{% trans "Usage" %}</dt>
+            <dd>
+                <a href="{{ document.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+            </dd>
+        </dl>
+    </div>
+{% endblock %}

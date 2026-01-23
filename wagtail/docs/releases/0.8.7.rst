@@ -1,0 +1,23 @@
+===========================
+Wagtail 0.8.7 release notes
+===========================
+
+*April 29, 2015*
+
+.. contents::
+    :local:
+    :depth: 1
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* ``wagtailfrontendcache`` no longer tries to purge pages that are not in a site
+* The contents of ``<div>`` elements in the rich text editor were not being whitelisted
+* Due to the above issue, embeds/images in a rich text field would sometimes be saved into the database in their editor representation
+* RoutablePage now prevents ``subpage_urls`` from being defined as a property, which would cause a memory leak
+* Added validation to prevent pages being created with only whitespace characters in their title fields
+* Users are no longer logged out on changing password when SessionAuthenticationMiddleware (added in Django 1.7) is in use
+* Added a workaround for a Python / Django issue that prevented documents with certain non-ASCII filenames from being served

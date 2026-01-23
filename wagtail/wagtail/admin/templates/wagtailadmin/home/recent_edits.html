@@ -1,0 +1,69 @@
+
+{% load wagtailcore_tags %}
+{% load i18n wagtailadmin_tags %}
+{% if last_edits %}
+    {% panel id="recent-edits" heading=_("Your most recent edits")  classname="w-panel--dashboard" %}
+        <table class="listing listing--dashboard listing-page">
+            <col />
+            <col width="10%"/>
+            <col width="7%"/>
+            <col width="25%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <thead class="w-sr-only">
+                <tr>
+                    <th class="title">{% trans "Title" %}</th>
+                    <th>{% trans "Language" %}</th>
+                    <th>{% trans "Privacy and access" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Date" %}</th>
+                    <th aria-hidden="true">{% comment %} added for visual alignment only {% endcomment %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for last_edited_at, page in last_edits %}
+                    <tr>
+                        <td class="title">
+                            <div class="title-wrapper">
+                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
+                            </div>
+                        </td>
+                        <td>
+                            {% i18n_enabled as show_locale_labels %}
+                            {% if show_locale_labels and page.locale_id %}
+                                {% locale_label_from_id page.locale_id as locale_label %}
+                                {% status locale_label classname="w-status--label" %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                            {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                        </td>
+                        <td>
+                            {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                        </td>
+                        <td>{% human_readable_date last_edited_at %}</td>
+                        <td class="actions-container">
+                            <ul class="actions">
+                                <li>
+                                    {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
+                                        <a href="{% url 'wagtailadmin_pages:edit' page.id %}">{% trans "Edit" %}</a>
+                                        {% if page.has_unpublished_changes and page.is_previewable %}
+                                            <a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" target="_blank" rel="noreferrer">{% trans 'Draft' %}</a>
+                                        {% endif %}
+                                        {% if page.live %}
+                                            {% pageurl page as page_url %}
+                                            {% if page_url is not None %}
+                                                <a href="{{ page_url }}" target="_blank" rel="noreferrer">{% trans 'Live' %}</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% enddropdown %}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endpanel %}
+{% endif %}

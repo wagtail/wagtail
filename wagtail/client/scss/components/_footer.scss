@@ -1,0 +1,145 @@
+@use 'sass:math';
+@use '../tools' as *;
+@use '../settings' as *;
+
+.footer {
+  @include transition(bottom 0.5s ease 1s);
+  @include row();
+  margin-top: $mobile-nice-padding;
+  margin-inline-start: $mobile-nice-padding;
+  margin-inline-end: $mobile-nice-padding;
+  z-index: theme('zIndex.footer-actions');
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 0;
+    margin-inline-start: calc(#{$desktop-nice-padding} - 0.75em);
+    margin-inline-end: $desktop-nice-padding;
+    width: auto;
+    position: fixed;
+    bottom: 0;
+  }
+
+  &__emphasise-span-tags span {
+    color: theme('colors.warning.100');
+  }
+
+  // Don't apply horizontal margins if nice-padding is applied in the parent
+  .nice-padding & {
+    margin-inline: 0;
+  }
+}
+
+.footer__container {
+  border-radius: theme('borderRadius.sm') theme('borderRadius.sm') 0 0;
+  background: theme('colors.surface-menus');
+  color: theme('colors.text-button');
+  transition: transform 1s;
+  padding: theme('spacing.1');
+
+  @include media-breakpoint-down(xs) {
+    width: 100%;
+
+    &:not(:first-child) {
+      border-radius: 0;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    padding: theme('spacing.[2.5]');
+    margin-inline-end: 0;
+
+    &:not(:first-child) {
+      margin-inline-start: calc(-1 * theme('borderRadius.sm'));
+    }
+  }
+
+  &.footer__container--hidden {
+    transform: translateY(100%);
+
+    @include media-breakpoint-down(xs) {
+      display: none;
+    }
+  }
+}
+
+.footer__save-warning {
+  font-size: theme('fontSize.14');
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  p {
+    margin: 0;
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin-inline-end: theme('spacing[1.5]');
+    align-items: center;
+  }
+}
+
+// Footer control bar for performing actions on the page
+.footer .actions {
+  width: 100%;
+
+  @include media-breakpoint-up(sm) {
+    width: theme('spacing.64');
+  }
+
+  &--primary {
+    // Support basic layout support for items added via `extra_footer_actions`
+
+    align-items: stretch;
+    display: grid;
+    gap: theme('spacing.2');
+    grid-auto-flow: column;
+
+    .button {
+      // There are default .button styles that would:
+      // - set height responsively
+      // - add a margin when there is a .button sibling
+      // Unset these styles in favor of a fixed height and the grid gap
+      height: $text-input-height;
+      margin-inline-start: initial;
+      font-size: theme('fontSize.16');
+    }
+
+    @include media-breakpoint-up(sm) {
+      min-width: theme('spacing.80');
+      width: max-content;
+
+      > *:first-child {
+        // Ensure the first child (the dropdown action usually) is always wide
+        min-width: theme('spacing.56');
+      }
+    }
+  }
+}
+
+.actions .button {
+  @apply w-leading-none w-inline-flex w-items-center;
+  font-weight: 600;
+  padding: 0 theme('spacing.3');
+  white-space: initial;
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+    margin-inline-end: theme('spacing.2');
+    flex-shrink: 0;
+  }
+}
+
+.actions .w-dropdown-button {
+  width: 100%;
+
+  .w-dropdown .button {
+    font-size: theme('fontSize.14');
+    font-weight: 500;
+  }
+
+  > .button {
+    flex-grow: 1;
+  }
+}

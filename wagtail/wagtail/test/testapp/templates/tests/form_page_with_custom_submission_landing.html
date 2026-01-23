@@ -1,0 +1,10 @@
+{% extends "tests/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <p>{{ greeting }}</p>
+    {{ self.thank_you_text|richtext }}
+
+    <p>User email: {{ form_submission.get_data.useremail }}</p>
+
+{% endblock %}

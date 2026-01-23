@@ -1,0 +1,65 @@
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+
+.sidebar-panel {
+  // With CSS variable allows panels with different widths to animate properly
+  --width: #{$menu-width};
+  @apply w-transition-sidebar;
+
+  visibility: hidden;
+  transform: translateX(calc(var(--w-direction-factor) * -100%));
+  position: fixed;
+  height: 100vh;
+  padding: 0;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-up(sm) {
+    z-index: var(--z-index);
+    width: var(--width);
+  }
+
+  @media (forced-colors: active) {
+    border-inline-start: 1px solid transparent;
+    border-inline-end: 1px solid transparent;
+  }
+
+  &--visible {
+    visibility: visible;
+    box-shadow: 2px 0 2px theme('colors.black-35');
+  }
+
+  .sidebar-page-explorer-item & {
+    overflow: hidden;
+  }
+
+  // Showing the submenu options panel in mobile mode
+  .sidebar--mobile .sidebar-sub-menu-item--open &,
+  .sidebar--mobile .sidebar-page-explorer-item.sidebar-menu-item--active & {
+    transform: translateX(0);
+  }
+
+  @include media-breakpoint-up(sm) {
+    @at-root .sidebar--slim #{&} {
+      inset-inline-start: $menu-width-slim;
+    }
+    // Don't apply this to nested submenus though
+    @at-root .sidebar--slim .sidebar-panel #{&} {
+      inset-inline-start: 0;
+    }
+
+    &--open {
+      inset-inline-start: $menu-width;
+      transform: translateX(0);
+
+      // Don't apply this to nested submenus though
+      @at-root .sidebar--slim .sidebar-panel #{&} {
+        inset-inline-start: $menu-width-slim;
+        transform: translateX(0);
+      }
+    }
+  }
+}

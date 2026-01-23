@@ -1,0 +1,264 @@
+#
+# Translators:
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2022
+# Nikita Tonkoshkur <humapen@gmail.com>, 2022
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2022
+# Eugene <eugene.mechanism@gmail.com>, 2022
+# Мирон Левицкий <miron200504@gmail.com>, 2022
+# Виктор Виктор <spam.vitek@gmail.com>, 2022
+# Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023
+# Loic Teixeira, 2024
+# Andrei Satsevich, 2024
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2025
+# Влад <integration.into.society@gmail.com>, 2025
+# sergeybe <sergeybe@gmail.com>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: sergeybe <sergeybe@gmail.com>, 2025\n"
+"Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s новых элементов в этом меню)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 новый элемент в этом меню)"
+
+msgid "(New)"
+msgstr "(Новый)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s ошибка"
+msgstr[1] "%(num)s ошибки"
+msgstr[2] "%(num)s ошибок"
+msgstr[3] "%(num)s ошибок"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s минута"
+msgstr[1] "%(num)s минуты"
+msgstr[2] "%(num)s минут"
+msgstr[3] "%(num)s минут"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s пиксель"
+msgstr[1] "%(num)s пикселя"
+msgstr[2] "%(num)s пикселей"
+msgstr[3] "%(num)s пикселей"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Add a comment"
+msgstr "Добавить комментарий"
+
+msgid "Alt text"
+msgstr "Текст подсказки"
+
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+msgid "Blocks"
+msgstr "Блоки"
+
+msgid "Broken link"
+msgstr "Битая ссылка"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Character count:"
+msgstr "Количество символов:"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Collapse all"
+msgstr "Свернуть все"
+
+msgid "Comment"
+msgstr "Оставить комментарий"
+
+msgid "Dashboard"
+msgstr "Панель управления"
+
+msgid "Decorative image"
+msgstr "Декоративное изображение"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete error"
+msgstr "Удалить ошибку"
+
+msgid "Deleting"
+msgstr "Удаление"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Edit '%(title)s'"
+msgstr "Редактировать '%(title)s'"
+
+msgid "Enter your comments..."
+msgstr "Напишите ваши комментарии..."
+
+msgid "Enter your reply..."
+msgstr "Напишите ваш ответ..."
+
+msgid "Error while sending preview data."
+msgstr "Ошибка при отправке данных предварительного просмотра."
+
+msgid "Expand all"
+msgstr "Развернуть все"
+
+msgid "Focus comment"
+msgstr "Сфокусироваться на комментарии"
+
+msgid "Horizontal line"
+msgstr "Горизонтальная линия"
+
+msgid "Insert a block"
+msgstr "Вставить блок"
+
+msgid "Line break"
+msgstr "Разрыв строки"
+
+msgid "Loading…"
+msgstr "Загрузка…"
+
+msgid "Main menu"
+msgstr "Главное меню"
+
+msgid "Missing document"
+msgstr "Документ отсутствует"
+
+msgid "More actions"
+msgstr "Больше действий"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "No results"
+msgstr "Нет результатов"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Page explorer"
+msgstr "Просмотрщик страниц"
+
+msgid "Pages"
+msgstr "Страницы"
+
+msgid "Pin toolbar"
+msgstr "Закрепить панель инструментов"
+
+msgid "Preview"
+msgstr "Предварительный просмотр"
+
+msgid "Reload saved content"
+msgstr "Перезагрузить сохранённое содержание"
+
+msgid "Reload the page"
+msgstr "Перезагрузить страницу"
+
+msgid "Reply"
+msgstr "Ответить"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Сообщите об этой ошибке администратору веб-сайта со следующей информацией:"
+
+msgid "Resolve"
+msgstr "Закрыть обсуждение"
+
+msgid "Retry"
+msgstr "Повторить"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save error"
+msgstr "Сохранить ошибку"
+
+msgid "Save the page to add this comment"
+msgstr "Сохраните страницу, чтобы добавить этот комментарий"
+
+msgid "Save the page to save this comment"
+msgstr "Сохраните страницу, чтобы сохранить этот комментарий"
+
+msgid "Save the page to save this reply"
+msgstr "Сохраните страницу, чтобы добавить этот ответ"
+
+msgid "Saving..."
+msgstr "Сохранение..."
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Search options…"
+msgstr "Параметры поиска…"
+
+msgid "See all"
+msgstr "Смотреть все"
+
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "Show error"
+msgstr "Показать ошибку"
+
+msgid "Show latest content"
+msgstr "Показать последнее содержание"
+
+msgid "Split block"
+msgstr "Разделить блок"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор только что сломался. Содержимое было возвращено к последней "
+"сохранённой версии."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максимальное количество элементов: %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Минимальное количество элементов: %(min_num)d"
+
+msgid "This field is required."
+msgstr "Это поле обязательно для заполнения."
+
+msgid "Toggle section"
+msgstr "Переключить раздел"
+
+msgid "Toggle side panel"
+msgstr "Переключить боковую панель"
+
+msgid "Toggle sidebar"
+msgstr "Переключить боковую панель"
+
+msgid "Unfocus comment"
+msgstr "Убрать фокус"
+
+msgid "Unpin toolbar"
+msgstr "Открепить панель инструментов"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Показать дочерние страницы '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Напишите что-нибудь или введите «/», чтобы вставить блок"
+
+msgid "Yes"
+msgstr "Да"

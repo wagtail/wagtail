@@ -1,0 +1,2646 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Basitlik İyidir, 2020
+# Basitlik İyidir, 2020
+# Basitlik İyidir, 2020
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2025
+# Ertuğrul Keremoğlu, 2025
+# Fatih Koç koç <fatihinemaili@gmail.com>, 2021
+# Halim Turan <halim_turan_61@hotmail.com>, 2020
+# Halit Çelik, 2023
+# Halit Çelik, 2023
+# Matt Westcott <matthew@torchbox.com>, 2020,2025
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+# suayip uzulmez <suayip.541@gmail.com>, 2021
+# Umut Bektaş <info@umutbektas.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Ertuğrul Keremoğlu, 2025\n"
+"Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Publish"
+msgstr "Yayınla"
+
+msgid "Submit for moderation"
+msgstr "Denetleme için gönder"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Tekrar gönderildi %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Gönderildi %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr " İş akışını yenile"
+
+msgid "Cancel workflow "
+msgstr " İş akışını iptal et"
+
+msgid "Unpublish"
+msgstr "Yayından Kaldır"
+
+msgid "Save Draft"
+msgstr "Taslak Olarak Kaydet"
+
+msgid "Page locked"
+msgstr "Sayfa kilitlendi"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ve yayınla"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "herhangi"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
+
+msgid "Wagtail admin"
+msgstr "Wagtail Yönetim"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Üzgünüm, bu alana erişim yetkiniz yok."
+
+msgid "You do not have permission to access the admin."
+msgstr "Yönetim paneline erişim izniniz yok."
+
+msgid "None"
+msgstr "Yok"
+
+msgid "Date from"
+msgstr "Başlangıç tarihi"
+
+msgid "Date to"
+msgstr "Bitiş tarihi"
+
+msgid "Minimum"
+msgstr "Minimum"
+
+msgid "Maximum"
+msgstr "Maximum"
+
+msgid "Locale"
+msgstr "Yerel"
+
+msgid "All"
+msgstr "Hepsi"
+
+msgid "Usage count"
+msgstr "Kullanım sayısı"
+
+msgid "Collection"
+msgstr "Koleksiyon"
+
+msgid "Tag"
+msgstr "Etiket"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "En popüler on etikete göre filtrele."
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "Sunucu dilini kullan: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "Sunucu zaman dilimini kullan"
+
+msgid "Preferred language"
+msgstr "Tercih edilen dil"
+
+msgid "Current time zone"
+msgstr "Şimdiki zaman dilimi"
+
+msgid "First Name"
+msgstr "Ad"
+
+msgid "Last Name"
+msgstr "Soyad"
+
+msgid "Email"
+msgstr "Eposta"
+
+msgid "Upload a profile picture"
+msgstr "Profil resmi yükle"
+
+msgid "Enter password"
+msgstr "Şifre girin"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s ve şifre uyuşmuyor. Lütfen tekrar deneyin"
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "%(username_field_name)s girin"
+
+msgid "Enter your email address to reset your password"
+msgstr "Şifreyi sıfırlamak için eposta adresini girin"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Arama terimi"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "All collections"
+msgstr "Tüm koleksiyonlar"
+
+msgid "Parent"
+msgstr "Üst-Ebeveyn"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Hiyerarşik konumu seçin. Not: bir koleksiyon kendisinin veya torunlarından "
+"birinin çocuğu olamaz."
+
+msgid "Please select another parent."
+msgstr "Lütfen başka bir üst öğe seçin."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Aynı kolleksiyon için birden fazla yetkiye sahip olamazsınız."
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Add collections"
+msgstr "Koleksiyon ekle"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit collections"
+msgstr "Koleksiyonu düzenle"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Delete collections"
+msgstr "Koleksiyonu sil"
+
+msgid "You cannot edit another user's comment."
+msgstr "Başka bir kullanıcının yorumunu düzenleyemezsiniz."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Yayın başlangıç tarih/saati bitiş tarih/saatinden öncesinde olmalı"
+
+msgid "Expiry date/time must be in the future."
+msgstr "Son kullanma tarihi/zamanı gelecekte olmalıdır."
+
+msgid "New title"
+msgstr "Yeni başlık"
+
+msgid "New slug"
+msgstr "Yeni başlık url'si"
+
+msgid "New parent page"
+msgstr "Yeni üst sayfa"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Bu kopya verilen ebeveyn sayfanın alt sayfası olacaktır."
+
+msgid "Copy subpages"
+msgstr "Alt sayfaları kopyala"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Bu %(count)s alt sayfayı kopyalayacaktır."
+msgstr[1] "Bu %(count)s alt sayfayı kopyalayacaktır."
+
+msgid "Publish copied page"
+msgstr "Kopyalanan sayfayı yayınla"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Bu sayfa yayındadır. Kopyasını da yayınlamak ister misiniz?"
+
+msgid "Publish copies"
+msgstr "Kopyaları yayınla"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"Kopyalanan sayfalardan %(count)s tanesi yayında. Kopyalarını yayınlamak "
+"ister misiniz?"
+msgstr[1] ""
+"Kopyalanan sayfalardan %(count)s tanesi yayında. Kopyalarını yayınlamak "
+"ister misiniz?"
+
+msgid "Alias"
+msgstr "Diğer Ad"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Yeni sayfaları gelecekteki değişikliklerle güncel tutun"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "\"%(page_title)s\"  sayfasına kopyalamak için izniniz yok"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Bu başlık url'si \"%(parent_page_title)s\", zaten üst sayfada kullanılıyor"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Alt sayfaları kopyalarken bir sayfayı kendi içine kopyalayamazsınız"
+
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "'%(page_slug)s' URL tanımlayıcısı, bu üst sayfada zaten kullanılıyor."
+
+msgid "Select a new parent for this page."
+msgstr "Bu sayfa için yeni bir üst sayfa seçin"
+
+msgid "Parent page"
+msgstr "Üst sayfa"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "Yeni sayfa, verilen bu ana sayfanın bir çocuğu olacaktır."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "\"%(page_title)s\" altında sayfa oluşturma izniniz yok."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"\"%(page_title)s\" altında \"%(page_type)s\" türünde bir sayfa "
+"oluşturamazsınız."
+
+msgid "Search…"
+msgstr "Ara..."
+
+msgid "Visibility"
+msgstr "Görünürlük"
+
+msgid "This field is required."
+msgstr "Bu alan zorunludur."
+
+msgid "Please select at least one group."
+msgstr "Lütfen en az bir grup seçin."
+
+msgid "All types"
+msgstr "Tüm türler"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Bu sayfaya zaten '%(workflow_name)s' iş akışı atanmış."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "Bu iş akışını aynı sayfaya birden fazla kez atayamazsınız."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr "Snippet '%(content_type)s' zaten '%(workflow_name)s' iş akışı atanmış."
+
+msgid "Give your workflow a name"
+msgstr "İş akışınıza bir ad verin"
+
+msgid "Add tasks to your workflow"
+msgstr "İş akışınıza görev ekleyin"
+
+msgid "task"
+msgstr "görev"
+
+msgid "1 page selected"
+msgstr "1 sayfa seçildi"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s sayfa seçildi"
+
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Bu ekrandaki tüm %(objects)s sayfa seçildi"
+
+msgid "All pages in listing selected"
+msgstr "Listelemedeki tüm sayfalar seçildi"
+
+msgid "1 document selected"
+msgstr "1 belge seçildi"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s belge seçildi"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Bu ekrandaki tüm %(objects)s belge seçildi"
+
+msgid "All documents in listing selected"
+msgstr "Listelemedeki tüm belgeler seçildi"
+
+msgid "1 image selected"
+msgstr "1 resim seçildi"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s resim seçildi"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Bu ekrandaki tüm %(objects)s resim seçildi"
+
+msgid "All images in listing selected"
+msgstr "Listelemedeki tüm resimler seçildi"
+
+msgid "1 user selected"
+msgstr "1 kullanıcı seçildi"
+
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "%(objects)s kullanıcı seçildi"
+
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "Bu ekrandaki tüm %(objects)s kullanıcı seçildi"
+
+msgid "All users in listing selected"
+msgstr "Listelemedeki tüm kullanıcılar seçildi"
+
+msgid "1 snippet selected"
+msgstr "1 snippet seçildi"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s snippet seçildi"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Bu ekrandaki tüm %(objects)s snippet seçildi"
+
+msgid "All snippets in listing selected"
+msgstr "Listelemedeki tüm snippet'ler seçildi"
+
+msgid "1 item selected"
+msgstr "1 öğe seçildi"
+
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "%(objects)s öğe seçildi"
+
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "Bu ekrandaki tüm %(objects)s öğe seçildi"
+
+msgid "All items in listing selected"
+msgstr "Listelemedeki tüm öğeler seçildi"
+
+msgid "Can access Wagtail admin"
+msgstr "Wagtail yöneticisine erişebilir"
+
+msgid "item"
+msgstr "öğe"
+
+msgid "items"
+msgstr "öğeler"
+
+msgid "Content"
+msgstr "İçerik"
+
+msgid "Promote"
+msgstr "Tanıtımını yap"
+
+msgid "Settings"
+msgstr "Ayarlar"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Page title"
+msgstr "Sayfa başlığı"
+
+msgid "Error 404: Page not found"
+msgstr "Hata 404: Sayfa bulunamadı"
+
+msgid "Error 404"
+msgstr "Hata 404"
+
+msgid "The requested page could not be found."
+msgstr "İstenilen sayfa bulunamadı."
+
+msgid "Go to Wagtail admin"
+msgstr "Wagtail yönetimine git"
+
+msgid "More actions"
+msgstr "Daha fazla eylem"
+
+msgid "Reset password"
+msgstr "Şifreyi sıfırla"
+
+msgid "Password change successful"
+msgstr "Şifre değiştirme başarılı"
+
+msgid "Login"
+msgstr "Giriş"
+
+msgid "Set your new password"
+msgstr "Yeni şifre ayarla"
+
+msgid "Invalid password reset link"
+msgstr "Geçersiz şifre sıfırlama bağlantısı"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "Şifre sıfırlama bağlantısı geçersiz, muhtemelen daha önce kullanıldı."
+
+msgid "Request a new password reset"
+msgstr "Şifreyi sıfırlama isteği gönder"
+
+msgid "Check your email"
+msgstr "Epostanızı kontrol edin"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Bu adres için bir hesap mevcutsa, şifrenizi sıfırlamak için bir e-posta "
+"gönderildi."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Şifrenizi sıfırlamak için aşağıdaki bağlantıyı takip edin"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Kullanıcı adın (Unutmanız durumunda):"
+
+msgid "Password reset"
+msgstr "Şifreyi sıfırla"
+
+msgid "Reset your password"
+msgstr "Şifreni sıfırla"
+
+msgid "Reset to default"
+msgstr "Varsayılana sıfırla"
+
+msgid "Default avatar"
+msgstr "Varsayılan avatar"
+
+msgid "Upload a profile picture:"
+msgstr "Bir profil resmi yükle"
+
+msgid "Sidebar"
+msgstr "Yan panel"
+
+msgid "Go to the first error"
+msgstr "İlk hataya git"
+
+msgid "Go back"
+msgstr "Geri dön"
+
+msgid "Bulk actions"
+msgstr "Toplu işlemler"
+
+msgid "Select"
+msgstr "Seç"
+
+msgid "Select row"
+msgstr "Satırı seç"
+
+msgid "Select all"
+msgstr "Tümünü seç"
+
+msgid "Internal link"
+msgstr "İç bağlantı"
+
+msgid "External link"
+msgstr "Dış bağlantı"
+
+msgid "Email link"
+msgstr "Eposta bağlantısı"
+
+msgid "Phone link"
+msgstr "Telefon bağlantısı"
+
+msgid "Anchor link"
+msgstr "Çapa bağlantısı"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "1 eşleşme var"
+msgstr[1] "%(counter)s eşleşme var"
+
+msgid "Add an anchor link"
+msgstr "Çapa bağlantısı ekle"
+
+msgid "Insert anchor"
+msgstr "Çapa ekle"
+
+msgid "Choose"
+msgstr "Seç"
+
+msgid "Choose a page"
+msgstr "Bir sayfa seç"
+
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Bu alan için yalnızca \"%(type)s\" türündeki sayfalar seçilebilir. Arama "
+"sonuçları diğer türdeki sayfaları hariç tutacaktır."
+msgstr[1] ""
+"Bu alan için yalnızca aşağıdaki sayfa türleri seçilebilir: %(type)s. Arama "
+"sonuçları diğer türdeki sayfaları hariç tutacaktır."
+
+msgid "Confirm selection"
+msgstr "Seçimi onaylayın"
+
+msgid "Convert to internal link"
+msgstr "İç bağlantıya dönüştür"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"Girdiğiniz URL, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, iç sayfa %(page)s ile "
+"eşleşiyor gibi görünüyor. Bu sayfanın URL'si <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"Bu bağlantıyı %(page)s sayfasına iç bağlantı olarak dönüştürmek, sayfanın "
+"URL'si değişirse bağlantının otomatik olarak güncellenmesini sağlar. Bunu "
+"yapmak ister misiniz?"
+
+msgid "Use external link"
+msgstr "Dış bağlantı kullan"
+
+msgid "Add an email link"
+msgstr "Bir eposta bağlantısı ekle"
+
+msgid "Insert link"
+msgstr "Bağlantı ekle"
+
+msgid "Add an external link"
+msgstr "Bir dış bağlantı ekle"
+
+msgid "Add a phone link"
+msgstr "Bir telefon bağlantısı ekle"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s seçin"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
+
+msgid "Explore"
+msgstr "Araştır"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Bu koleksiyon bir üst koleksiyon tarafından gizli yapıldı."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Gizlilik ayarlarını düzenleyebilirsiniz:"
+
+msgid "Change privacy"
+msgstr "Gizliliği değiştir"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Gizlilik ayarları, bu koleksiyondaki belgeleri kimin görebileceğini belirler."
+
+msgid "Privacy"
+msgstr "Gizlilik"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Koleksiyon gizliliğini ayarla. Şimdiki durum: Genel"
+
+msgid "Public"
+msgstr "Genel"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Koleksiyon gizliliğini ayarla. Şimdiki durum: Gizli"
+
+msgid "Private"
+msgstr "Gizli"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Bu kolleksiyon silinemedi çünkü boş değil ve şunları içeriyor:"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"Hiç koleksiyon oluşturulmadı. Neden bir adet <a "
+"href=\"%(add_collection_url)s\">eklemiyorsun</a>?"
+
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Üzgünüz, \"1%(search_query)s1\" ile eşleşen sonuç bulunamadı."
+
+msgid "There are no results."
+msgstr "Sonuç yok."
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr ""
+"Bu %(model_name)s'yi yayınlamaktan vazgeçmek istediğinizden emin misiniz?"
+
+msgid "Yes, unpublish it"
+msgstr "Evet, yayından kaldır"
+
+msgid "No, don't unpublish"
+msgstr "Hayır, yayından kaldırma"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "%(model_name)s yayınla"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Bu %(model_name)s, <strong>%(task)s</strong> aşamasında "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Bu %(model_name)s şu anda <strong>%(task)s</strong> aşamasında "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "Bu %(model_name)s'yi yayımlamak mevcut iş akışını iptal edecektir."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Bu %(model_name)s'yi yayımlamak istiyor musunuz?"
+
+msgid "Cancel"
+msgstr "İptal"
+
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Eylemler"
+
+msgid "Comment"
+msgstr "Yorum"
+
+#, python-format
+msgid ""
+"There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
+"one</a>?"
+msgstr ""
+"Burada hiç görüntülenen %(model_name)s yok. neden  <a "
+"href=\"%(add_url)s\">eklemiyorsun</a>?"
+
+msgid "Update"
+msgstr "Güncelle"
+
+msgid "Preview not available"
+msgstr "Önizleme mevcut değil"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Önizleme, doğrulama hataları nedeniyle görüntülenemiyor.<br /> İlgili "
+"alanları vurgulamak için kaydet'e tıklayın."
+
+msgid "Fields"
+msgstr "Alanlar"
+
+msgid "Changes"
+msgstr "Değişiklikler"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "1 aşağı taşındı."
+msgstr[1] "%(counter)s aşağı taşındı."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "1 yukarı taşındı."
+msgstr[1] "%(counter)s yukarı taşındı."
+
+msgid "There are no differences between these two versions"
+msgstr "Bu iki sürüm arasında hiçbir fark yok."
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Bu, oluşturduğunuz içerikle ilgili faydalı bilgilerin görüntüleneceği "
+"yönetim panelinizdir."
+
+msgid "Account"
+msgstr "Hesap"
+
+#, python-format
+msgid "Wagtail %(current_version)s editor guide"
+msgstr "Wagtail %(current_version)s editör kılavuzu"
+
+msgid "Your locked pages"
+msgstr "Kilitli sayfalar"
+
+msgid "Language"
+msgstr "Dil"
+
+msgid "Privacy and access"
+msgstr "Gizlilik ve erişim"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Locked at"
+msgstr "Kilitli"
+
+msgid "Edit this page"
+msgstr "Bu sayfayı düzenle"
+
+msgid "Unlock"
+msgstr "Kilidini aç"
+
+msgid "Draft"
+msgstr "Taslak"
+
+msgid "Live"
+msgstr "Yayında"
+
+msgid "Your most recent edits"
+msgstr "En son düzenlemeleriniz"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Site summary"
+msgstr "Site özeti"
+
+#, python-format
+msgid ""
+"%(total)s Page <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s Sayfa <span class=\"w-sr-only\">%(site_name)s</span> içinde "
+"oluşturuldu."
+msgstr[1] ""
+"%(total)s Sayfa <span class=\"w-sr-only\">%(site_name)s</span> içinde "
+"oluşturuldu."
+
+msgid "Wagtail upgrade available"
+msgstr "Wagtail yükseltmesi mevcut"
+
+#, python-format
+msgid ""
+"Your version: <strong>%(current_version)s</strong>. New version: <strong "
+"data-w-upgrade-target=\"latestVersion\"></strong>."
+msgstr ""
+"Sürümünüz: <strong>%(current_version)s</strong>. Yeni sürüm: <strong data-w-"
+"upgrade-target=\"latestVersion\"></strong>."
+
+msgid "Read the release notes."
+msgstr "Sürüm notlarını okuyun."
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Your pages and snippets in a workflow"
+msgstr "Sayfalarınız ve parçalarınız bir sırasında"
+
+msgid "Task"
+msgstr "Görev"
+
+msgid "Task started"
+msgstr "Görev başlatıldı."
+
+msgid "Changes requested at"
+msgstr "Değişiklikler istendi"
+
+msgid "Awaiting"
+msgstr "Bekliyor"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "Wagtail %(version)s'de bazı şeyler değişti!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
+msgstr ""
+"Endişelenmeyin, arkanızdayız. Nelerin değiştiğini öğrenmek için <a class=\"w-"
+"whats-new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editör Kılavuzu</a>'na göz atın."
+
+msgid "Awaiting your review"
+msgstr "İncelemenizi bekliyor"
+
+msgid "Tasks"
+msgstr "Görevler"
+
+msgid "Task submitted by"
+msgstr "Görev gönderen"
+
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "Compare with live version"
+msgstr "Canlı sürümüyle karşılaştır"
+
+msgid "Compare with previous version"
+msgstr "Önceki sürümle karşılaştır"
+
+msgid "Sign in"
+msgstr "Oturum aç"
+
+msgid "Sign in to Wagtail"
+msgstr "Wagtail'de oturumu aç"
+
+msgid "Forgotten password?"
+msgstr "Şifrenizi mi unuttunuz?"
+
+msgid "Remember me"
+msgstr "Beni hatırla"
+
+msgid "Signing in…"
+msgstr "Giriş yapılıyor…"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "\"%(title)s\" sayfası onaylandı."
+
+msgid "You can view the page here:"
+msgstr "Sayfayı burada görüntüleyebilirsiniz:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "\"%(title)s\" sayfası onaylandı."
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Merhaba %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Bildirim tercihlerinizi burada düzenleyin:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "\"%(title)s\" sayfası reddedildi."
+
+msgid "You can edit the page here:"
+msgstr "Sayfayı burada düzenleyebilirsiniz:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "\"%(title)s\" sayfası reddedildi."
+
+msgid "You can preview the page here:"
+msgstr "Sayfayı buradan önizleyebilirsiniz:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s \"%(title)s\" sayfasındaki yorumları güncelledi."
+
+msgid "New comments"
+msgstr "Yeni yorumlar"
+
+msgid "Resolved comments"
+msgstr "Çözülen yorumlar"
+
+msgid "Deleted comments"
+msgstr "Silinen yorumlar"
+
+msgid "New replies"
+msgstr "Yeni yanıtlar"
+
+msgid "New replies to:"
+msgstr "Yeni yanıtlar:"
+
+msgid "New comments:"
+msgstr "Yeni yorumlar:"
+
+msgid "Resolved comments:"
+msgstr "Çözülen yorumlar:"
+
+msgid "Deleted comments:"
+msgstr "Yorumlar silindi."
+
+msgid "New replies:"
+msgstr "Yeni yanıtlar:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s \"%(title)s\" sayfasındaki yorumları güncelledi."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"\"%(title)s\" sayfası \"%(workflow)s\" sırasında \"%(task)s\" aşamasında "
+"%(rejector)s tarafından reddedildi."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "Aşağıdaki yorum bırakıldı: \"%(comment)s\""
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"%(model_name)s \"%(title)s\" sayfası \"%(workflow)s\" sırasında \"%(task)s\" "
+"aşamasında %(rejector)s tarafından reddedildi."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \"%(title)s\" sayfası \"%(workflow)s\" sırasında \"%(task)s\" "
+"aşamasında reddedildi."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\" by %(requester)s."
+msgstr ""
+"%(model_name)s \"%(title)s\" sayfası \"%(workflow)s\" sırasında "
+"%(requester)s tarafından kontrol için gönderildi."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted to workflow "
+"\"%(workflow)s\""
+msgstr ""
+"%(model_name)s \"%(title)s\" sayfası \"%(workflow)s\" sırasında kontrol için "
+"gönderildi."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "Bu sayfanın gizliliğini değiştirmek devre dışı bırakıldı."
+
+msgid "Publishing…"
+msgstr "Yayınlanıyor…"
+
+msgid "Schedule to publish"
+msgstr "Yayınlamak için zamanla"
+
+msgid "Publish this version"
+msgstr "Bu düzeltmeyi yayınla"
+
+msgid "Saving…"
+msgstr "Kaydediliyor…"
+
+msgid "Replace current draft"
+msgstr "Şimdiki taslağın yerine koy"
+
+msgid "Save draft"
+msgstr "Taslağı kaydet"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "%(title)s sayfasında bir sayfa oluştur"
+
+msgid "Create a page in"
+msgstr "İçinde sayfa oluştur"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Hangi sayfa türünü oluşturmak istediğinizi seçin."
+
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Üzgünüm, bu konumda bir sayfa oluşturamazsınız."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Sayfaların kullandığı türler %(page_type)s"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Bu sayfaları silmek istediğinizden emin misiniz?"
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Bu sayfayı silme izniniz yok."
+msgstr[1] "Bu sayfaları silme izniniz yok."
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "Move 1 page"
+msgstr[1] "%(counter)s sayfayı taşı"
+
+msgid "Move"
+msgstr "Taşı"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Bu sayfaları taşımak istediğinizden emin misiniz?"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Bu sayfalar için geçerli bir hedef sayfa yok"
+
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "Bu sayfanın bir yayımlanmamış alt sayfası var"
+msgstr[1] "Bu sayfanın %(counter)s yayımlanmamış alt sayfası var"
+
+#, python-format
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Bu sayfanın bir alt sayfası var"
+msgstr[1] "Bu sayfanın %(counter)s alt sayfası var"
+
+msgid "Convert alias"
+msgstr "Alias'ı dönüştür"
+
+msgid "This action cannot be undone."
+msgstr "Bu işlem geri alınamaz."
+
+msgid "No, leave it as an alias"
+msgstr "Hayır, alias olarak bırak"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s sil"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Bu sayfayı silmek istediğinize emin misiniz?"
+
+#, python-format
+msgid "Deleting this page will also delete %(descendant_count)s child page."
+msgid_plural ""
+"Deleting this page will also delete %(descendant_count)s more child pages."
+msgstr[0] ""
+"Bu sayfayı silmek, %(descendant_count)s alt sayfasını da silecektir."
+msgstr[1] ""
+"Bu sayfayı silmek, %(descendant_count)s alt sayfasını da silecektir."
+
+#, python-format
+msgid ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Bu sayfanın bir çevirisi ve toplamda %(translation_descendant_count)s "
+"çevrilmiş alt sayfası silinecektir."
+msgstr[1] ""
+"Bu sayfanın %(translation_descendant_count)s çevrilmiş alt sayfası "
+"silinecektir."
+
+#, python-format
+msgid ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Bu sayfanın toplamda %(translation_count)s çevirisi ve "
+"%(translation_descendant_count)s çevrilmiş alt sayfası silinecektir."
+msgstr[1] ""
+"Bu sayfanın toplamda %(translation_count)s çevirisi ve "
+"%(translation_descendant_count)s çevrilmiş alt sayfası silinecektir."
+
+#, python-format
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "Bu sayfanın %(translation_count)s çevirisi silinecektir."
+msgstr[1] "Bu sayfanın %(translation_count)s çevirisi silinecektir."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Bu sayfanın bir çevirisi ve toplamda %(translation_descendant_count)s "
+"çevrilmiş alt sayfası silinecektir."
+msgstr[1] ""
+"Bu sayfanın %(translation_descendant_count)s çevrilmiş alt sayfası "
+"silinecektir."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Bu sayfanın toplamda %(translation_count)s çevirisi ve "
+"%(translation_descendant_count)s çevrilmiş alt sayfası silinecektir."
+msgstr[1] ""
+"Bu sayfanın toplamda %(translation_count)s çevirisi ve "
+"%(translation_descendant_count)s çevrilmiş alt sayfası silinecektir."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translation of "
+"this page."
+msgid_plural ""
+"This will also delete %(descendant_count)s more child pages. Deleting this "
+"page will also delete %(translation_count)s translations of this page."
+msgstr[0] ""
+"Bu işlem ayrıca %(descendant_count)s alt sayfayı daha silecektir. Bu sayfayı "
+"silmek, bu sayfanın %(translation_count)s çevirisini de silecektir."
+msgstr[1] ""
+"Bu işlem ayrıca %(descendant_count)s alt sayfayı daha silecektir. Bu sayfayı "
+"silmek, bu sayfanın %(translation_count)s çevirisini de silecektir."
+
+msgid "Yes, delete it"
+msgstr "Evet, sil"
+
+msgid "No, don't delete it"
+msgstr "Hayır, silme"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Alternatif olarak <a href=\"%(unpublish_url)s\">sayfayı yayından "
+"kaldırabilirsiniz</a>. Böylece sayfa başkaları tarafından görüntülenemez ve "
+"daha sonra düzenleyebilir ve tekrar yayınlayabilirsiniz."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "%(title)s taşı"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Bu sayfayı '%(title)s' içine taşımak istediğinize emin misiniz?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Bu sayfayı ve alt sayfalarını '%(title)s' içine taşımak istediğinize emin "
+"misiniz?"
+
+#, python-format
+msgid "This will also move one translation of this page and its child pages"
+msgid_plural ""
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
+msgstr[0] ""
+"Bu işlem ayrıca %(translations_to_move_count)s çeviriyi ve onların alt "
+"sayfalarını da taşıyacaktır."
+msgstr[1] ""
+"Bu işlem ayrıca %(translations_to_move_count)s çeviriyi ve onların alt "
+"sayfalarını da taşıyacaktır."
+
+msgid "Yes, move this page"
+msgstr "Evet, sayfayı taşı"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Bu sayfayı yayından kaldırmak istediğinize emin misiniz?"
+
+#, python-format
+msgid "This will also unpublish one translation of the page."
+msgid_plural ""
+"This will also unpublish all %(translation_count)s translations of the page."
+msgstr[0] ""
+"Bu işlem ayrıca %(translation_count)s çeviriyi de yayından kaldıracaktır."
+msgstr[1] ""
+"Bu işlem ayrıca %(translation_count)s çeviriyi de yayından kaldıracaktır."
+
+#, python-format
+msgid ""
+"This page has one subpage and its translations have a combined one "
+"translated child page. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined one translated child page. Unpublish these too"
+msgstr[0] ""
+"Bu sayfanın toplamda %(live_descendant_count)s alt sayfası ve çevrilmiş alt "
+"sayfası bulunmaktadır. Bunları da yayından kaldırın."
+msgstr[1] ""
+"Bu sayfanın toplamda %(live_descendant_count)s alt sayfası ve çevrilmiş alt "
+"sayfası bulunmaktadır. Bunları da yayından kaldırın."
+
+#, python-format
+msgid ""
+"This page has one child page and its translations have a combined "
+"%(translation_descendant_count)s translated child pages. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined %(translation_descendant_count)s translated child pages. "
+"Unpublish these too"
+msgstr[0] ""
+"Bu sayfanın toplamda %(translation_descendant_count)s çevrilmiş alt sayfası "
+"bulunmaktadır. Bunları da yayından kaldırın."
+msgstr[1] ""
+"Bu sayfanın toplamda %(translation_descendant_count)s çevrilmiş alt sayfası "
+"bulunmaktadır. Bunları da yayından kaldırın."
+
+#, python-format
+msgid "This page has one subpage. Unpublish this too"
+msgid_plural ""
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] ""
+"Bu sayfanın 1 alt sayfası bulunmaktadır. Bunları da yayından kaldırın."
+msgstr[1] ""
+"Bu sayfanın toplamda %(live_descendant_count)s alt sayfası bulunmaktadır. "
+"Bunları da yayından kaldırın."
+
+#, python-format
+msgid ""
+"This page was marked as needing changes at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Bu sayfa <strong>%(task)s</strong> aşamasında <strong>%(workflow)s</strong> "
+"içinde değişiklik gerektiriyor olarak işaretlendi."
+
+#, python-format
+msgid ""
+"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
+"strong>."
+msgstr ""
+"<strong>%(task)s</strong> aşamasında <strong>%(workflow)s</strong> içinde."
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Bu sayfayı yayınlamak mevcut iş akışını iptal edecektir."
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "%(title)s kopyala"
+
+msgid "Copy"
+msgstr "Kopyala"
+
+msgid "Copy this page"
+msgstr "Bu sayfayı kopyala"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Bu taklidi sıradan bir sayfaya dönüştür"
+
+msgid ""
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
+msgstr ""
+"Kök düzeyinde, Wagtail kurulumunuza yeni siteler ekleyebilirsiniz. Burada "
+"oluşturulan sayfalar, bir site ile ilişkilendirilene kadar herhangi bir "
+"URL'den erişilemez."
+
+msgid "Configure a site now."
+msgstr "Şimdi bir site yapılandırın."
+
+msgid ""
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
+msgstr ""
+"Eğer sadece mevcut bir siteye sayfa eklemek istiyorsanız, bunları ana "
+"sayfanın alt sayfaları olarak oluşturun."
+
+msgid ""
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
+msgstr ""
+"Burada oluşturulan sayfalar, herhangi bir URL'den erişilemez. Mevcut bir "
+"siteye sayfa eklemek için, bunları ana sayfanın alt sayfaları olarak "
+"oluşturun."
+
+msgid ""
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
+msgstr ""
+"Bu konum için bir site ayarlanmamıştır. Burada oluşturulan sayfalar, bu "
+"konumla ilişkilendirilene kadar herhangi bir URL'den erişilemez."
+
+msgid ""
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
+msgstr ""
+"Bu konum için bir site kaydı yoktur. Burada oluşturulan sayfalar, herhangi "
+"bir URL'den erişilemez."
+
+msgid "Select all pages in listing"
+msgstr "Listede tüm sayfaları seç"
+
+msgid "This page is locked to further editing"
+msgstr "Bu sayfa düzenlemeye karşı kilitlenmiştir"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "'%(title)s' sayfasına alt sayfa ekleyin"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s / %(items_count)s"
+
+msgid "No results across entire site."
+msgstr "Tüm sitede sonuç yok."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Arama '<span class=\"w-title-ellipsis\">%(title)s</span>' içinde"
+
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s / %(items_count)s '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>' içinde."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
+msgid "Search the whole site"
+msgstr "Tüm sitede ara"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s / %(items_count)s"
+
+msgid "Sites menu"
+msgstr "Siteler menüsü"
+
+msgid "Pagination"
+msgstr "Sayfalama"
+
+msgid "Previous"
+msgstr "Önceki"
+
+msgid "Next"
+msgstr "Sonraki"
+
+msgid "This page is protected from public view"
+msgstr "Bu sayfa genel görünüme karşı korumalıdır"
+
+msgid "Confirm"
+msgstr "Onayla"
+
+msgid "Add child page"
+msgstr "Alt sayfa ekle"
+
+msgid "Page types"
+msgstr "Sayfa türleri"
+
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Üzgünüz, <em>\"%(query_string)s\"</em> ile eşleşen sayfa yok."
+
+msgid "Enter a search term above"
+msgstr "Bir arama kelimesi girin"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Ekle %(label)s"
+
+msgid "Move up"
+msgstr "Yukarı taşı"
+
+msgid "Move down"
+msgstr "Aşağı taşı"
+
+msgid "Drag"
+msgstr "Sürükle"
+
+#, python-format
+msgid "Choose when this %(model_name)s should go live and/or expire"
+msgstr "Bu %(model_name)s ne zaman yayına girmeli ve/veya sona ermeli seçin"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Bu sayfa ne zaman yayına girmeli ve/veya sona ermeli seçin"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Schedule to publish\" option"
+msgstr ""
+"Bu yayınlama takvimi yalnızca \"Yayınlamak için planla\" seçeneğini "
+"seçtikten sonra geçerli olacaktır."
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Düzenleme izinlerine sahip olan herkes takvim oluşturabilir."
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr ""
+"Ancak yalnızca yayınlama izinlerine sahip olanlar bunları geçerli kılabilir."
+
+msgid "Collection management permissions"
+msgstr "Koleksiyon yönetim izinleri"
+
+msgid "Last published by"
+msgstr "Son yayımlayan"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "No pages found."
+msgstr "Sayfa bulunamadı."
+
+msgid "No pages match this report's criteria."
+msgstr "Rapor kriterine göre eşleşen sayfa bulunmamaktadır."
+
+msgid "Updated"
+msgstr "Güncellendi"
+
+msgid "App"
+msgstr "Uygulama"
+
+msgid "Pages"
+msgstr "Sayfalar"
+
+msgid "Locking status"
+msgstr "Kilitli durum"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "Senin tarafından <b>%(locking_date)s</b> tarihinde kilitlendi."
+
+#, python-format
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr ""
+"<b>%(locked_by)s</b> tarafından <b>%(locking_date)s</b> tarihinde kilitlendi."
+
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> tarihinde kilitlendi."
+
+msgid "Locked"
+msgstr "Kilitlendi"
+
+msgid "Name"
+msgstr "İsim"
+
+msgid "User"
+msgstr "Kullanıcı"
+
+msgid "Edit this item"
+msgstr "Bu elemanı düzenle"
+
+msgid "Workflow"
+msgstr "İş akışı"
+
+msgid "Page/Snippet"
+msgstr "Sayfa/Parça"
+
+msgid "Requested by"
+msgstr "Talep eden"
+
+msgid "Started at"
+msgstr "Oluşturulma zamanı"
+
+msgid "Incomplete task"
+msgstr "Tamamlanmamış görev"
+
+msgid "Completed at"
+msgstr "Tamamlanma zamanı"
+
+msgid "Clear"
+msgstr "Temizle"
+
+msgid "Edit account avatar"
+msgstr "Hesap avatarını düzenle"
+
+msgid "Breadcrumb"
+msgstr "İçerik haritası"
+
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] "هذا الإجراء سيحذف <b>%(total_pages_formatted)s</b> إجمالي صفحة."
+msgstr[1] ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "<b>%(wagtail_site_name)s</b> yazın lütfen."
+
+msgid "Close dialog"
+msgstr "Diyaloğu kapat"
+
+msgid "You saved a new version in another window"
+msgstr "Başka bir pencerede yeni bir sürüm kaydettiniz."
+
+msgid "System"
+msgstr "Sistem"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s yeni bir sürüm kaydetti"
+
+msgid "Refresh"
+msgstr "Yenile"
+
+msgid "You have unsaved changes in another window"
+msgstr "Başka bir pencerede kaydedilmemiş değişiklikleriniz var."
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s'in kaydedilmemiş değişiklikleri var."
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Başka bir kullanıcı şu anda görüntülüyor"
+msgstr[1] "%(num_user)s başka kullanıcı şu anda görüntülüyor"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"Devam etmek, o pencerede yaptığınız değişiklikleri geçersiz kılacaktır. "
+"Sayfayı yenilediğinizdeyeni değişiklikleri görebilirsiniz, ancak mevcut "
+"pencerede kaydettiğiniz değişiklikleri kaybedersiniz."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"Devam etmek, %(user_name)s tarafından yapılan değişiklikleri geçersiz "
+"kılacaktır. Sayfayı yenilediğinizdeyeni değişiklikleri görebilirsiniz, ancak "
+"kaydetmediğiniz değişiklikler kaybolacaktır."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr ""
+"Sayfayı yenilemek, kaydedilmemiş değişikliklerinizi kaybedeceğiniz anlamına "
+"gelir."
+
+msgid "Continue"
+msgstr "Devam et"
+
+msgid "Refresh the page"
+msgstr "Sayfayı yenile"
+
+msgid "Download XLSX"
+msgstr "XLSX İndir"
+
+msgid "Download CSV"
+msgstr "CSV İndir"
+
+msgid "Filter"
+msgstr "Filtrele"
+
+msgid "Apply filters"
+msgstr "Filtreleri uygula"
+
+msgid "Add comment"
+msgstr "Yorum ekle"
+
+msgid "Back"
+msgstr "Geri"
+
+msgid "History"
+msgstr "Geçmiş"
+
+msgid "Keyboard shortcuts"
+msgstr "Klavye kısayolları"
+
+msgid "All keyboard shortcuts"
+msgstr "Tüm klavye kısayolları"
+
+msgid "Keyboard shortcut"
+msgstr "Klavye kısayolu"
+
+msgid "Current page status:"
+msgstr "Şimdiki sayfa durumu:"
+
+msgid "Visit the live page"
+msgstr "Yayındaki sayfayı gör"
+
+msgid "Visible to all"
+msgstr "Herkese görünür"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sayfa %(page_num)s / %(total_pages)s"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Bu değişiklik planını kaldırmak istediğinizden emin misiniz?"
+
+msgid "Yes, unschedule"
+msgstr "Evet, planı kaldır"
+
+msgid "No, don't unschedule"
+msgstr "Hayır, planı kaldırma"
+
+msgid "Other searches"
+msgstr "Diğer aramalar"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Minimap"
+msgstr "Minik Harita"
+
+msgid "Side panels"
+msgstr "Yan paneller"
+
+msgid "Toggle side panel"
+msgstr "Yan paneli aç/kapa"
+
+msgid "Side panel width"
+msgstr "Yan panel genişliği"
+
+msgid "Show issue"
+msgstr "Sorunu göster"
+
+msgid "Words"
+msgstr "Kelimeler"
+
+msgid "Issues found"
+msgstr "Bulunan sorunlar"
+
+msgid "Comment notifications"
+msgstr "Yorum bildirimleri"
+
+msgid "Locale: "
+msgstr "Yerel: "
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "Toplam %(translations_total)s yerelde mevcut"
+
+msgid "No other translations"
+msgstr "Başka çeviri yok"
+
+msgid "Switch locales"
+msgstr "Yerel ayarları değiştir"
+
+msgid "Unlocked"
+msgstr "Kilitsiz"
+
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Bu %(model_name)s herkes tarafından düzenlenebilir - başkalarının "
+"düzenlemesini önlemek için kilitleyin."
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Bu %(model_name)s' herkes tarafından düzenlenebilir."
+
+msgid "Lock"
+msgstr "Kilitle"
+
+msgid "Once live anyone can view"
+msgstr "Canlıya alındığında herkes görebilir"
+
+msgid "Not visible to the public"
+msgstr "Genel görünür değil"
+
+msgid "Choose who can view the live version of this page"
+msgstr "Bu sayfanın canlı sürümünü kimin görebileceğini seçin"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
+
+msgid "Usage"
+msgstr "Kullanım"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s kez kullanıldı"
+msgstr[1] "%(usage_count)s kez kullanıldı"
+
+msgid "Expiry:"
+msgstr "Son Kullanma Tarihi:"
+
+msgid "In Moderation"
+msgstr "Moderasyonda"
+
+msgid "View history"
+msgstr "Geçmişi görüntüle"
+
+msgid "Go-live:"
+msgstr "Canlıya al"
+
+msgid "No publishing schedule set"
+msgstr "Yayınlama planı ayarlanmamış"
+
+msgid "Preview in new tab"
+msgstr "Yeni sekmede önizle"
+
+msgid "Preview is out of date"
+msgstr "Önizleme güncel değil"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr ""
+"Doğrulama hatalarını düzeltin ve önizlemeyi yeniden başlatın (kaydetme, "
+"hataları vurgulayacaktır)."
+
+msgid "First published"
+msgstr "İlk yayın"
+
+msgid "Save your changes before leaving"
+msgstr "Ayrılmadan önce değişikliklerinizi kaydedin"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Kaydedilmemiş düzenlemeleriniz var"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Kaydedilmemiş yorumlarınız var"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Kaydedilmemiş düzenlemeleriniz ve yorumlarınız var"
+
+#, python-format
+msgid ""
+"One or more references to this %(model_name)s prevent it from being deleted."
+msgstr ""
+"Bu %(model_name)s'ye bir veya daha fazla referans, silinmesini engelliyor."
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Talep eden: <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Başlangıç tarihi: <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "Durum: %(status)s"
+
+msgid "Timeline"
+msgstr "Zaman Çizelgesi"
+
+msgid "Initial Revision"
+msgstr "İlk Revizyon"
+
+msgid "Edited"
+msgstr "Düzenlendi"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "%(action)s <b>%(who)s</b> tarafından <b>%(at)s</b> tarihinde yapıldı."
+
+#, python-format
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "%(action)s <b>%(at)s</b> tarihinde yapıldı."
+
+msgid "with comment:"
+msgstr "yorum ile:"
+
+msgid "Workflow started"
+msgstr "İş akışı başlatıldı"
+
+msgid "Workflow completed"
+msgstr "İş akışı tamamlandı"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "%(action)s <b>%(who)s</b> tarafından yapıldı."
+
+msgid "Approved task"
+msgstr "Görev onaylandı"
+
+msgid ""
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
+msgstr ""
+"JavaScript, Wagtail'ı kullanmak için gereklidir, ancak şu anda devre dışı "
+"bırakılmıştır.<br /> JavaScript'i etkinleştirmek için <a href=\"https://"
+"www.enable-javascript.com/\" target=\"_blank\" rel=\"noreferrer\">talimatlar "
+"burada</a>."
+
+msgid "Skip to main content"
+msgstr "Ana içeriğe atla"
+
+msgid "Sort"
+msgstr "Sırala"
+
+msgid "View Wagtail quick actions"
+msgstr "Wagtail hızlı eylemlerini görüntüle"
+
+msgid "Warnings"
+msgstr "Uyarılar"
+
+msgid "Add a child page"
+msgstr "Alt sayfa ekle"
+
+msgid "Show in Explorer"
+msgstr "Araştırıcıda göster"
+
+#, python-format
+msgid ""
+"This workflow is currently in progress on %(workflow_states_in_progress)s "
+"pages. Deleting this workflow will cancel moderation on these page. Are you "
+"sure you want to delete this workflow?"
+msgstr ""
+"Bu iş akışı şu anda %(workflow_states_in_progress)s sayfalarında devam "
+"ediyor. Bu iş akışını silmek, bu sayfalardaki denetimi iptal edecektir. Bu "
+"iş akışını silmek istediğinizden emin misiniz?"
+
+msgid "Assign your workflow to pages"
+msgstr "İş akışınızı sayfalara atayın"
+
+msgid "Assign your workflow to snippets"
+msgstr "İş akışınızı parçacıklara atayın"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
+msgstr ""
+"İş akışları alt sayfalara da uygulanır. Burada bir üst sayfa seçerseniz, "
+"onun alt sayfaları da bu iş akışını kullanır. İş akışınızın uygulandığı "
+"sayfaların listesini <a href=\"%(workflow_pages_url)s\">buradan</a> "
+"görebilirsiniz."
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr "Bu iş akışı devre dışı bırakıldığı için herhangi bir sayfaya atanamaz."
+
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr ""
+"Bu iş akışı devre dışı bırakıldığı için herhangi bir parçacığa atanamaz."
+
+msgid "Used on the following active workflows"
+msgstr "Aşağıdaki aktif iş akışlarında kullanıldı"
+
+msgid "Not used"
+msgstr "Kullanılmıyor"
+
+msgid "Disabled"
+msgstr "Devre dışı"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s daha"
+msgstr[1] "+%(counter)s daha"
+
+msgid "Assigned pages"
+msgstr "Atanan sayfalar"
+
+msgid "Page"
+msgstr "Sayfa"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Adım %(step_number)s"
+
+#, python-format
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 sayfa"
+msgstr[1] "%(counter)s sayfa"
+
+#, python-format
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "1 parçacık türü"
+msgstr[1] "%(counter)s parçacık türü"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Existing"
+msgstr "Mevcut"
+
+msgid "Choose a different task type"
+msgstr "Farklı bir görev türü seçin"
+
+msgid "Create"
+msgstr "Oluştur"
+
+msgid "Used on"
+msgstr "Kullanıldığı yerler"
+
+msgid "You haven't created any tasks."
+msgstr "Hiç görev oluşturmadınız."
+
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
+msgstr ""
+"Neden bir adet <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">oluşturmuyorsun</a>?"
+
+msgid "Submitted"
+msgstr "Gönderildi"
+
+msgid "Not started"
+msgstr "Başlanmadı"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Değişiklikler istendi %(requested_by)s"
+
+msgid "Changes requested"
+msgstr "Değişiklikler istendi"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "Onaylandı %(approved_by)s"
+
+msgid "See full history"
+msgstr "Tam geçmişi gör"
+
+msgid "More"
+msgstr "Daha fazla"
+
+msgid "More bulk actions"
+msgstr "Daha fazla toplu işlem"
+
+msgid "0 minutes"
+msgstr "0 dakika"
+
+msgid "just now"
+msgstr "şimdi"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s önce"
+
+msgid "Log out"
+msgstr "Çıkış yap"
+
+#, python-format
+msgid "Changes requested %(finished_at)s"
+msgstr "Değişiklikler istendi %(finished_at)s"
+
+#, python-format
+msgid "%(status_display)s %(task_name)s %(started_at)s"
+msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Toggle sidebar"
+msgstr "Yan menüyü aç/kapa"
+
+msgid "Toggle minimap"
+msgstr "Minik haritayı aç/kapa"
+
+msgid "Add or show comments"
+msgstr "Yorum ekle veya göster"
+
+msgid "Cut"
+msgstr "Kes"
+
+msgid "Paste"
+msgstr "Yapıştır"
+
+msgid "Paste and match style"
+msgstr "Yapıştır ve stili eşleştir"
+
+msgid "Paste without formatting"
+msgstr "Biçim olmadan yapıştır"
+
+msgid "Undo"
+msgstr "Geri al"
+
+msgid "Redo"
+msgstr "Yeniden"
+
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Metin biçimlendirme"
+
+msgid "Bold"
+msgstr "Kalın"
+
+msgid "Italic"
+msgstr "İtalik"
+
+msgid "Monospace (code)"
+msgstr "Monospace (kod)"
+
+msgid "Superscript"
+msgstr "Üstyazı"
+
+msgid "Subscript"
+msgstr "Altyazı"
+
+msgid "Toggle comments"
+msgstr "Yorumları aç/kapa"
+
+msgid "Comments"
+msgstr "Yorumlar"
+
+msgid "Toggle checks"
+msgstr "Kontrolleri aç/kapa"
+
+msgid "Checks"
+msgstr "Kontroller"
+
+msgid "Toggle preview"
+msgstr "Önizlemeyi aç/kapa"
+
+msgid "(blank)"
+msgstr "(boş)"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Sürükle butonuna odaklanın ve öğeyi taşımak için yukarı veya aşağı ok "
+"tuşlarına basın, ardından değişikliği göndermek için enter tuşuna basın."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"'%(parent)s' sayfasına ait olan alt sayfaları '%(label)s' göre artan şekilde "
+"sırala."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"'%(parent)s' sayfasına ait olan alt sayfaları '%(label)s' göre azalan "
+"şekilde sırala."
+
+msgid "Button text is empty"
+msgstr "Buton metni boş"
+
+msgid "Use meaningful text for screen reader users"
+msgstr "Ekran okuyucu kullanıcıları için anlamlı metin kullanın"
+
+msgid "Empty heading found"
+msgstr "Boş başlık bulundu"
+
+msgid "Table header text is empty"
+msgstr "Tablo başlık metni boş"
+
+msgid "Empty frame title found"
+msgstr "Boş çerçeve başlığı bulundu"
+
+msgid "Use a meaningful title for screen reader users"
+msgstr "Ekran okuyucu kullanıcıları için anlamlı bir başlık kullanın"
+
+msgid "Incorrect heading hierarchy"
+msgstr "Yanlış başlık hiyerarşisi"
+
+msgid "Avoid skipping levels"
+msgstr "Seviyeleri atlamaktan kaçının"
+
+msgid "Input button text is empty"
+msgstr "Giriş butonu metni boş"
+
+msgid "Link text is empty"
+msgstr "Bağlantı metni boş"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Paragrafları başlık olarak yanlış kullanma"
+
+msgid "Use proper heading tags"
+msgstr "Uygun başlık etiketlerini kullanın"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "Görsel alternatif metni uygunsuz bir desen içeriyor."
+
+msgid "Use meaningful text"
+msgstr "Anlamlı metin kullanın."
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s nesnesi (%(id)s)"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Name and Email"
+msgstr "Ad ve E-posta"
+
+msgid "Theme preferences"
+msgstr "Tema tercihleri"
+
+msgid "Password"
+msgstr "Parola"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Hesap ayarlarınız başarıyla değiştirildi!"
+
+msgid "You have been successfully logged out."
+msgstr "Başarılı bir şekilde çıkış yaptınız."
+
+msgid "Collections"
+msgstr "Koleksiyonlar"
+
+msgid "Add a collection"
+msgstr "Bir koleksiyon ekle"
+
+msgid "Add collection"
+msgstr "Koleksiyon ekle"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Koleksiyon '%(object)s' oluşturuldu."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Koleksiyon '%(object)s' güncellendi."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Hatalardan dolayı koleksiyon kaydedilemedi."
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Koleksiyon '%(object)s' silindi."
+
+msgid "Delete collection"
+msgstr "Koleksiyonu sil"
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Bu koleksiyonu silmek istediğinizden emin misiniz?"
+
+msgid "Home"
+msgstr "Anasayfa"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Hiçbir %(model_name)s sorgunuzla eşleşmiyor."
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Gösterilecek hiçbir %(model_name)s yok."
+
+msgid "Live version"
+msgstr "Canlı sürüm"
+
+msgid "Current draft"
+msgstr "Şimdiki taslak"
+
+msgid "Cancel scheduled publish"
+msgstr "Zamanlanmış yayını iptal et"
+
+msgid "Workflow history"
+msgstr "İş akışı geçmişi"
+
+msgid "Workflow progress"
+msgstr "İş akışı durumu"
+
+msgid "Edit / Review"
+msgstr "Düzenle / Gözden Geçir"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' güncellendi."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' oluşturuldu."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
+msgstr ""
+"Bu %(model_name)s modelinin önceki bir sürümünü görüntülüyorsunuz."
+"<b>%(created_at)s</b> tarihinde %(user)s tarafından"
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' has been replaced with version from "
+"%(timestamp)s."
+msgstr ""
+"%(model_name)s '%(object)s' sürümü '%(timestamp)s' tarihinden itibaren "
+"değiştirilmiştir."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
+msgstr ""
+"%(model_name)s '%(object)s' sürümü '%(timestamp)s' tarihinden itibaren "
+"yayınlanmıştır."
+
+#, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
+
+msgid "Inspect"
+msgstr "İncele"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr " '%(title)s' için daha fazla seçenek"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Yeni: %(model_name)s"
+
+msgid "Editing"
+msgstr "Düzenleniyor"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' silindi."
+
+msgid "Compare"
+msgstr "Karşılaştır"
+
+msgid "Earliest"
+msgstr "En eski"
+
+msgid "Latest"
+msgstr "En yeni"
+
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Version %(revision_id)s of \"%(object)s\" planı kaldırıldı."
+
+msgid "Unschedule"
+msgstr "Planı kaldır"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "revision %(revision_id)s of \"%(object)s\""
+
+#, python-format
+msgid "Preview for %(block_label)s (%(block_type)s)"
+msgstr "Önizleme için %(block_label)s (%(block_type)s)"
+
+msgid "If you confirm deletion"
+msgstr "Silme işlemini onaylarsanız"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s düzenle"
+
+msgid "Dashboard"
+msgstr "Kontrol paneli"
+
+msgid "Search all pages…"
+msgstr "Tüm sayfalarda ara…"
+
+#, python-format
+msgid "Privacy is inherited from the ancestor page - %(ancestor_page)s"
+msgstr "Gizlilik, üst sayfa - %(ancestor_page)s - üzerinden miras alınır."
+
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been deleted"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been deleted"
+msgstr "%(parent_pages)s ve %(child_pages)s silindi."
+
+#, python-format
+msgid "%(num_parent_objects)d page has been deleted"
+msgid_plural "%(num_parent_objects)d pages have been deleted"
+msgstr[0] "%(num_parent_objects)d sayfa silindi."
+msgstr[1] "%(num_parent_objects)d sayfa silindi."
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d sayfa taşındı."
+msgstr[1] "%(num_pages)d sayfa taşındı."
+
+#, python-format
+msgid "%(num_parent_objects)d page"
+msgid_plural "%(num_parent_objects)d pages"
+msgstr[0] "%(num_parent_objects)d sayfa"
+msgstr[1] "%(num_parent_objects)d sayfa"
+
+#, python-format
+msgid "%(num_child_objects)d child page"
+msgid_plural "%(num_child_objects)d child pages"
+msgstr[0] "%(num_child_objects)d alt sayfa"
+msgstr[1] "%(num_child_objects)d alt sayfa"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "Sayfa '%(page_title)s' ve %(subpages_count)s altsayfa kopyalandı."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Sayfa '%(page_title)s' kopyalandı."
+
+msgid "View draft"
+msgstr "Taslak görüntüle"
+
+msgid "View live"
+msgstr "Canlı gör"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Page '%(page_title)s' oluşturuldu."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Sayfa '%(page_title)s' oluşturuldu ve yayın için planlandı."
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Sayfa '%(page_title)s' oluşturuldu ve yayınlandı."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr ""
+"Sayfa '%(page_title)s' oluşturuldu ve kontrol edilmek üzere gönderildi."
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Sayfa '%(page_title)s' silindi."
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Sayfa '%(page_title)s' güncellendi."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Sayfa '%(page_title)s' yayınlanmak için planlandı."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Sayfa '%(page_title)s' yayınlandı."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Sayfa '%(page_title)s' kontrol için gönderildi."
+
+msgid "Is commenting action"
+msgstr "Yorum yapma eylemi"
+
+msgid "Owner"
+msgstr "Sahibi"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Any"
+msgstr "Herhangi bir"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "Page type"
+msgstr "Sayfa türü"
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Sayfa '%(page_title)s' şuan kilitli değil."
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Sayfa '%(page_title)s' taşındı."
+
+msgid "Placeholder title"
+msgstr "Yer tutucu başlık"
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Şu anda '%(user)s' tarafından <b>%(created_at)s</b> tarihli bu sayfanın "
+"önceki bir sürümünü görüntülüyorsunuz."
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Sayfa '%(page_title)s' yayından kaldırıldı."
+
+msgid "Pages using"
+msgstr "Kullanan sayfalar"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Sayfa '%(page_title)s' şuan kontrol edilmek üzere beklemiyor."
+
+msgid "Last published before"
+msgstr "Son yayınlanma tarihi"
+
+msgid "Aging pages"
+msgstr "Yaşlanan sayfalar"
+
+msgid "ID"
+msgstr "Kimlik"
+
+msgid "Show"
+msgstr "Göster"
+
+msgid "Awaiting my review"
+msgstr "İncelememi bekliyor"
+
+msgid "Workflows"
+msgstr "İş akışları"
+
+msgid "Page/Snippet ID"
+msgstr "Sayfa/Parça Kimliği"
+
+msgid "Page/Snippet Type"
+msgstr "Sayfa/Parça Türü"
+
+msgid "Page/Snippet Title"
+msgstr "Sayfa/Parça Başlığı"
+
+msgid "By task"
+msgstr "Göreve göre"
+
+msgid "Workflow tasks"
+msgstr "İş akışı görevleri"
+
+msgid "Requested By"
+msgstr "Talep Eden"
+
+msgid "Show disabled"
+msgstr "Devre dışı bırakılmışları göster"
+
+msgid "Used by"
+msgstr "Kullananlar"
+
+msgid "Disable"
+msgstr "Devre dışı bırak"
+
+msgid "Enable"
+msgstr "Etkinleştir"
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
+msgstr[0] ""
+"Bu iş akışı %(states_in_progress)d sayfa/parçada devam ediyor. Bu iş akışını "
+"devre dışı bırakmak, bu sayfa/parçada moderasyonu iptal edecektir."
+msgstr[1] ""
+"Bu iş akışı %(states_in_progress)d sayfa/parçada devam ediyor. Bu iş akışını "
+"devre dışı bırakmak, bu sayfa/parçada moderasyonu iptal edecektir."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "İş akışı '%(workflow_name)s' etkinleştirildi."
+
+msgid "Disable task"
+msgstr "Görevi devre dışı bırak"
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Bu görev %(states_in_progress)d sayfa/snippet üzerinde devam ediyor. Bu "
+"görevi devre dışı bırakmak, moderasyon iş akışında atlanmasına ve iş akışını "
+"düzenlerken seçim için listelenmemesine neden olacaktır."
+msgstr[1] ""
+"Bu görev %(states_in_progress)d sayfa/snippet üzerinde devam ediyor. Bu "
+"görevi devre dışı bırakmak, moderasyon iş akışında atlanmasına ve iş akışını "
+"düzenlerken seçim için listelenmemesine neden olacaktır."
+
+#, python-format
+msgid "Task '%(task_name)s' enabled."
+msgstr "Görev '%(task_name)s' etkinleştirildi."
+
+msgid "Sort menu order"
+msgstr "Menü sırasını sırala"
+
+msgid "Heading 1"
+msgstr "Başlık 1"
+
+msgid "Heading 2"
+msgstr "Başlık 2"
+
+msgid "Heading 3"
+msgstr "Başlık 3"
+
+msgid "Heading 4"
+msgstr "Başlık 4"
+
+msgid "Heading 5"
+msgstr "Başlık 5"
+
+msgid "Heading 6"
+msgstr "Başlık 6"
+
+msgid "Bulleted list"
+msgstr "Numarasız liste"
+
+msgid "Numbered list"
+msgstr "Numaralı liste"
+
+msgid "Blockquote"
+msgstr "Alıntı"
+
+msgid "Link"
+msgstr "Bağlantı"
+
+msgid "Strikethrough"
+msgstr "Üstü çizgili"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Reports"
+msgstr "Raporlar"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Wagtail %(version)s'de yenilikler"
+
+msgid "Editor Guide"
+msgstr "Editör Kılavuzu"
+
+msgid "Shortcuts"
+msgstr "Kısayollar"
+
+msgid "Help"
+msgstr "Yardım"
+
+msgid "Choose an item"
+msgstr "Bir eleman seçiniz"
+
+msgid "Choose another item"
+msgstr "Başka bir eleman seçiniz"
+
+msgid "Clear choice"
+msgstr "Seçimi temizle"
+
+msgid "Choose another page"
+msgstr "Başka sayfa seç"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr ""
+"Birden fazla kelimeden oluşan etiketler otomatik olarak çift tırnak içine "
+"alınacaktır."
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr ""
+"Etiketler yalnızca tek bir kelimeden oluşabilir, boşluklara izin verilmez."

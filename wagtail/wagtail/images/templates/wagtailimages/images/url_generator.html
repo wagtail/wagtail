@@ -1,0 +1,30 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailimages_tags wagtailadmin_tags i18n %}
+
+{% block main_content %}
+    <div class="w-image-url-generator w-mt-8">
+        <form
+            class="w-image-url-generator__form w-mb-5"
+            id="image-url-generator-form"
+            method="get"
+            data-controller="w-rules w-swap"
+            data-action="change->w-rules#resolve keyup->w-rules#resolve change->w-swap#submitLazy keyup->w-swap#submitLazy"
+            data-w-swap-loading-class="loading"
+            data-w-swap-messages-value='{{ message_labels }}'
+            data-w-swap-reflect-value="true"
+            data-w-swap-src-value="{% url 'wagtailimages:url_generator_output' object.id %}"
+            data-w-swap-target-value="output[form='image-url-generator-form']"
+            data-w-swap-wait-value="500"
+        >
+            {% include "wagtailadmin/shared/field.html" with field=form.filter_method %}
+            {% field_row max_content=True %}
+                {% include "wagtailadmin/shared/field.html" with field=form.width %}
+                {% include "wagtailadmin/shared/field.html" with field=form.height %}
+                {% include "wagtailadmin/shared/field.html" with field=form.closeness %}
+            {% endfield_row %}
+        </form>
+        <output aria-live="polite" class="loading-mask w-block" form="image-url-generator-form" for="{% for field in form %}{{ field.id_for_label }}{% if not forloop.last %} {% endif %}{% endfor %}">
+            {% include "wagtailimages/images/url_generator_output.html" %}
+        </output>
+    </div>
+{% endblock %}

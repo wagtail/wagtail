@@ -1,0 +1,22 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n %}
+
+{% block main_content %}
+    {% block usage_summary %}
+        {% if usage_url %}
+            {% include "wagtailadmin/shared/usage_summary.html" %}
+        {% endif %}
+    {% endblock %}
+    {% if not is_protected %}
+        {% block confirmation_message %}
+            <p>{{ view.confirmation_message }}</p>
+        {% endblock %}
+        {% block form %}
+            <form action="{{ view.get_delete_url }}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="button serious">{% trans 'Yes, delete' %}</button>
+                <a href="{{ view.get_success_url }}" class="button button-secondary">{% trans "No, don't delete" %}</a>
+            </form>
+        {% endblock %}
+    {% endif %}
+{% endblock %}

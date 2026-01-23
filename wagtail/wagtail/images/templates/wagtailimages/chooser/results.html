@@ -1,0 +1,46 @@
+{% extends "wagtailadmin/generic/chooser/results.html" %}
+{% load i18n wagtailimages_tags wagtailadmin_tags %}
+
+{% block listing_title %}<h2>{% trans "Latest images" %}</h2>{% endblock %}
+
+{% block results_listing %}
+    {% if layout == "list" %}
+        {% include "wagtailadmin/tables/table.html" with table_classname="listing" %}
+    {% else %}
+        <ul class="listing horiz images chooser">
+            {% for image in results %}
+                <li>
+                    {% if is_multiple_choice %}
+                        <label title="Select {% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}">
+                            <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
+                            <h3>
+                                <input type="checkbox" data-multiple-choice-select name="id" value="{{ image.id }}" title="{% blocktrans trimmed with title=image.title %}Select {{ title }}{% endblocktrans %}">
+                                {{ image.title|ellipsistrim:60 }}
+                            </h3>
+                        </label>
+                    {% else %}
+                        <a data-chooser-modal-choice class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{{ image.chosen_url }}">
+                            <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
+                            <h3>{{ image.title|ellipsistrim:60 }}</h3>
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block no_items_message %}
+    <p>
+        {% if is_filtering_by_collection %}
+            {% trans "You haven't uploaded any images in this collection." %}
+        {% else %}
+            {% trans "You haven't uploaded any images." %}
+        {% endif %}
+        {% if can_create %}
+            {% blocktrans trimmed %}
+                Why not <a class="upload-one-now" href="#tab-upload" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" data-w-tabs-focus-param="true">upload one now</a>?
+            {% endblocktrans %}
+        {% endif %}
+    </p>
+{% endblock %}

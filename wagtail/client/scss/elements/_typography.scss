@@ -1,0 +1,82 @@
+body {
+  -webkit-font-smoothing: antialiased; // Do not remove!
+  font-family: theme('fontFamily.sans');
+  font-size: 85%;
+  line-height: 1.5em;
+  color: theme('colors.text-context');
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  line-height: theme('lineHeight.tight');
+  color: theme('colors.text-label');
+}
+
+h1 {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+p {
+  margin-top: 0;
+}
+
+a {
+  color: theme('colors.text-link-default');
+  text-decoration: none;
+
+  &:hover {
+    color: theme('colors.text-link-hover');
+  }
+}
+
+code {
+  box-shadow: inset 0 0 4px 0 theme('colors.black-20');
+  background-color: theme('colors.surface-page');
+  color: theme('colors.text-context');
+  font-family: theme('fontFamily.mono');
+  padding: 2px 5px;
+}
+
+kbd {
+  border-radius: 3px;
+  font-family: theme('fontFamily.sans');
+  border: 1px solid currentColor;
+  border-color: theme('colors.black-20');
+  color: theme('colors.text-meta');
+  padding: 0.3em 0.5em;
+}
+
+pre {
+  font-family: theme('fontFamily.mono');
+}
+
+dl,
+dt,
+dd {
+  padding: 0;
+  margin: 0;
+}
+
+dl {
+  margin-top: 1em;
+}
+
+dt {
+  color: theme('colors.text-meta');
+  font-size: 0.9em;
+}
+
+dd {
+  margin-bottom: 1em;
+}

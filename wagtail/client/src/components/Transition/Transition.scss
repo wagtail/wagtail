@@ -1,0 +1,66 @@
+// =============================================================================
+// Transitions
+// =============================================================================
+
+$w-transition-duration: 200ms;
+
+.w-transition-group {
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+.w-transition-push-enter {
+  transform: translateX(calc(var(--w-direction-factor) * 100%));
+  transition:
+    transform $w-transition-duration ease,
+    opacity $w-transition-duration linear;
+  opacity: 0;
+}
+
+.w-transition-push-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.w-transition-push-leave {
+  transform: translateX(0);
+  transition:
+    transform $w-transition-duration ease,
+    opacity $w-transition-duration linear;
+  opacity: 1;
+}
+
+.w-transition-push-leave-active {
+  transform: translateX(calc(var(--w-direction-factor) * -100%));
+  opacity: 0;
+}
+
+// =============================================================================
+// Pop transition
+// =============================================================================
+.w-transition-pop-enter {
+  transform: translateX(calc(var(--w-direction-factor) * -100%));
+  transition:
+    transform $w-transition-duration ease,
+    opacity $w-transition-duration linear;
+  opacity: 0;
+}
+
+.w-transition-pop-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.w-transition-pop-leave {
+  transform: translateX(0);
+  transition:
+    transform $w-transition-duration ease,
+    opacity $w-transition-duration linear;
+  opacity: 1;
+}
+
+.w-transition-pop-leave-active {
+  transform: translateX(calc(var(--w-direction-factor) * 100%));
+  opacity: 0;
+}

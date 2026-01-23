@@ -1,0 +1,87 @@
+{% load i18n wagtailadmin_tags %}
+{% block result_template %}
+    <template id="w-a11y-result-row-template">
+        <div class="w-a11y-result__row" data-a11y-result-row>
+            <div>
+                <h3 class="w-a11y-result__header">
+                    <span class="w-a11y-result__name" data-a11y-result-name></span>
+                </h3>
+                <div class="w-a11y-result__help" data-a11y-result-help></div>
+            </div>
+            <button
+                class="w-a11y-result__selector"
+                data-a11y-result-selector
+                aria-label="{% trans 'Show issue' %}"
+                type="button"
+            >
+                <span class="w-a11y-result__selector-text" data-a11y-result-selector-text></span>
+                {% icon name="link-external" classname="w-a11y-result__icon" %}
+            </button>
+        </div>
+    </template>
+{% endblock %}
+
+{% block content %}
+    <div class="w-divide-y w-divide-border-furniture w-py-6 w-pl-2 lg:w-pl-8 w-gap-3">
+        {% block metrics_section %}
+            <div>
+                <h2 class="w-my-5 w-text-16 w-font-bold w-text-text-label">
+                    {% trans 'Content metrics' %}
+                </h2>
+                <div class="w-flex w-flex-wrap w-gap-x-5 w-gap-y-4">
+                    {% block metrics %}
+                        <div>
+                            <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Words' %}</h3>
+                            <p class="w-font-semibold w-text-text-label" data-content-word-count>-</p>
+                        </div>
+                        <div>
+                            <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Reading time' %}</h3>
+                            <p class="w-font-semibold w-text-text-label" data-content-reading-time>-</p>
+                        </div>
+                        <div>
+                            <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Readability' %}</h3>
+                            <p class="w-font-semibold w-text-text-label" data-content-readability-score>-</p>
+                        </div>
+                    {% endblock %}
+                </div>
+                <div class="w-mb-5">
+                    {% fragment as toggle_text %}{% icon name="help" classname="w-w-4 w-h-4 w-mr-1" %} {% trans 'This data explained' %}{% endfragment %}
+                    {% trans 'Content metrics' as explainer_title %}
+                    {% trans 'How we calculate our metrics' as explainer_subtitle %}
+                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition' dialog_id="metrics-explainer-dialog" text=toggle_text %}
+                    {% dialog icon_name="help" id="metrics-explainer-dialog" title=explainer_title subtitle=explainer_subtitle %}
+                        {% block metrics_explainer %}
+                            <h3 class="w-h3">{% trans 'Words' %}</h3>
+                            <p>{% trans 'We extract the main content from the page preview, remove all formatting, and calculate the number of words.' %}</p>
+                            <h3 class="w-h3">{% trans 'Reading time' %}</h3>
+                            <p>{% trans 'We calculate reading time from word count, using different reading speeds for different languages.' %}</p>
+                            <h3 class="w-h3">{% trans 'Readability' %}</h3>
+                            <p>{% trans 'We use a readability formula based on length of words and sentences. Long sentences and words result in a worse readability score.' %}</p>
+                            <hr>
+                            {% help_block status="info" %}
+                                {% fragment as guide_link %}https://guide.wagtail.org/content-checks/{% endfragment %}
+                                {% blocktrans trimmed %}
+                                    See our <a href="{{ guide_link }}" target="_blank">content checks guide</a> for more information on how content metrics are calculated.
+                                {% endblocktrans %}
+                            {% endhelp_block %}
+                        {% endblock %}
+                    {% enddialog %}
+                </div>
+            </div>
+        {% endblock %}
+        {% block issues_section %}
+            <div>
+                <h2 class="w-flex w-items-center w-gap-2 w-my-5 w-text-16 w-font-bold">
+                    <span>{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count>0</span>
+                </h2>
+                {% block issues %}
+                    <div class="w-flex w-flex-col w-gap-2.5" data-checks-panel></div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block axe_config %}
+    {{ axe_configuration|json_script:"accessibility-axe-configuration" }}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% if widget.wrap_label %}
+    <label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}{% if widget.attrs.disabled %} class="disabled"{% endif %}>
+        {% include "django/forms/widgets/input.html" %} {{ widget.label }}
+    </label>
+{% else %}
+    {% include "django/forms/widgets/input.html" %} {{ widget.label }}
+{% endif %}

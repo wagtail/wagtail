@@ -1,0 +1,153 @@
+@use '../tools' as *;
+
+$zindex-modal-background: 500;
+
+.fade {
+  @include transition(opacity 0.15s linear);
+  opacity: 0;
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+// Kill the scroll on the body
+.modal-open {
+  overflow: hidden;
+
+  .content-wrapper {
+    transform: none;
+  }
+}
+
+// Container that the modal scrolls within
+.modal {
+  display: none;
+  overflow: auto;
+  overflow-y: scroll;
+  position: fixed;
+  top: 0;
+  inset-inline-end: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  z-index: $zindex-modal-background;
+}
+
+// Shell div to position the modal with bottom padding
+.modal-dialog {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  padding: 0;
+  z-index: ($zindex-modal-background + 10);
+  height: 90%;
+  width: 85%;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-inline-end: -0.25em;
+  }
+}
+
+// Actual modal
+.modal-content {
+  border-radius: 3px;
+  width: 98.7%;
+  position: relative;
+  background-color: theme('colors.surface-page');
+  margin-top: 2em;
+  padding-bottom: 3em;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+// Modal background
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  inset-inline-end: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  z-index: ($zindex-modal-background - 10);
+  background-color: theme('colors.black-50');
+
+  // Fade for backdrop
+  &.fade {
+    opacity: 0;
+  }
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+.modal .close.button {
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  padding: 0;
+  top: theme('spacing.3');
+  inset-inline-end: theme('spacing.3');
+  width: theme('spacing.8');
+  height: theme('spacing.8');
+  color: theme('colors.text-button');
+  z-index: 1;
+
+  &:hover {
+    background-color: theme('colors.surface-menu-item-active');
+    color: theme('colors.text-button');
+  }
+}
+
+// Where all modal content resides
+.modal-body {
+  position: relative;
+  padding-bottom: 2em;
+
+  .w-header {
+    color: theme('colors.text-label-menus-default');
+    background-color: theme('colors.surface-menus');
+
+    > .row {
+      // reset inline padding added to w-header for sidebar offset
+      padding-inline-start: theme('spacing.16');
+      // ensure title can never overlap the close button
+      padding-inline-end: theme('spacing.16');
+    }
+
+    .w-header__title {
+      color: inherit;
+      font-weight: 700;
+      font-size: theme('fontSize.19');
+      line-height: 130%;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .modal-dialog {
+    margin-inline-end: theme('spacing.20');
+    margin-inline-start: theme('spacing.20');
+    padding: 0 0 2em 0;
+    width: auto;
+  }
+
+  .modal .close.button {
+    width: theme('spacing.12');
+    height: theme('spacing.12');
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .modal-dialog {
+    margin-inline-end: auto;
+    margin-inline-start: auto;
+    max-width: 100em;
+    padding: 0 0 2em;
+  }
+}

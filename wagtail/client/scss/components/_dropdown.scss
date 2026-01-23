@@ -1,0 +1,56 @@
+.w-dropdown__toggle {
+  @apply w-px-2 w-text-text-label w-bg-transparent w-border-2 w-border-transparent;
+}
+
+.w-dropdown__toggle--icon {
+  @apply w-w-8 w-h-8 more-contrast:w-p-0 more-contrast:w-border more-contrast:w-rounded-sm more-contrast:w-border-border-interactive-more-contrast hover:more-contrast:w-border-border-interactive-more-contrast-hover;
+}
+
+.w-dropdown__toggle-icon {
+  @apply w-w-4 w-h-4 w-align-text-bottom w-transition motion-reduce:w-transition-none;
+}
+
+.w-dropdown__content {
+  @apply w-flex w-flex-col w-justify-start w-py-2;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.w-dropdown__content :where(a, button) {
+  @apply w-bg-transparent w-inline-flex w-items-center w-text-left w-font-bold w-text-text-label-menus-default w-py-3 w-px-6 w-no-underline w-transition w-outline-offset-inside w-w-full;
+
+  .icon {
+    @apply w-w-4 w-h-4 w-mr-3 w-transition w-shrink-0;
+  }
+
+  .icon-wrapper .icon {
+    @apply w-mr-0;
+  }
+
+  &:hover {
+    @apply w-text-text-label-menus-active w-bg-surface-menu-item-active;
+  }
+}
+
+/* Only apply the hover-opacity effect for the default "dropdown" theme */
+.w-dropdown--dropdown .w-dropdown__content :where(a, button) {
+  .icon {
+    @apply w-opacity-50;
+  }
+
+  &:hover {
+    .icon {
+      @apply w-opacity-100;
+    }
+  }
+}
+
+.w-dropdown--popup {
+  .w-dropdown__content {
+    @apply w-p-4;
+  }
+
+  .w-dropdown__toggle {
+    @apply w-p-0;
+  }
+}

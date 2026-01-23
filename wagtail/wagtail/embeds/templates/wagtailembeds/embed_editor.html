@@ -1,0 +1,13 @@
+<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="{{ embed.url }}">
+    <h3>{{ embed.title }}</h3>
+    <p>URL: {{ embed.url }}</p>
+    {% if embed.provider_name %}
+        <p>Provider: {{ embed.provider_name }}</p>
+    {% endif %}
+    {% if embed.author_name %}
+        <p>Author: {{ embed.author_name }}</p>
+    {% endif %}
+    {% if embed.thumbnail_url %}
+        <img src="{{ embed.thumbnail_url }}" alt="{{ embed.title }}">
+    {% endif %}
+</div>

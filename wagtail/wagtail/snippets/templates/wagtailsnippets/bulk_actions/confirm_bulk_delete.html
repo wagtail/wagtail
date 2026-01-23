@@ -1,0 +1,68 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
+{% load i18n wagtailusers_tags wagtailadmin_tags %}
+
+{% block titletag %}
+    {% if items|length == 1 %}
+        {% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }}{% endblocktrans %} - {{ items.0.item }}
+    {% else %}
+        {{ items|length|intcomma }} {{ model_opts.verbose_name_plural|capfirst }}
+    {% endif %}
+{% endblock %}
+
+{% block header %}
+    {% trans "Delete " as delete_str %}
+    {% if items|length == 1 %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=items.0.item icon=header_icon only %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=model_opts.verbose_name_plural|capfirst icon=header_icon only %}
+    {% endif %}
+{% endblock header %}
+
+{% block items_with_access %}
+    {% if items %}
+        {% if items|length == 1 %}
+            {% include "wagtailadmin/shared/usage_summary.html" with model_opts=model_opts usage_url=items.0.usage_url usage_count=items.0.usage_count is_protected=is_protected %}
+
+            {% if not is_protected %}
+                <p>{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
+            {% endif %}
+        {% else %}
+            {% if not is_protected %}
+                <p>{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name_plural count=items|length|intcomma %}Are you sure you want to delete {{ count }} {{ snippet_type_name }}?{% endblocktrans %}</p>
+            {% endif %}
+            <ul>
+                {% for snippet in items %}
+                    <li>
+                        <a href="{{ snippet.edit_url }}" target="_blank" rel="noreferrer">{{ snippet.item }}</a>
+
+                        {% include "wagtailadmin/shared/usage_summary.html" with model_opts=model_opts usage_url=snippet.usage_url usage_count=snippet.usage_count is_protected=snippet.is_protected %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock items_with_access %}
+
+
+{% block items_with_no_access %}
+    {% if items_with_no_access|length == 1 %}
+        {% blocktrans with snippet_type_name=model_opts.verbose_name trimmed asvar no_access_msg %}
+            You don't have permission to delete this {{ snippet_type_name }}
+        {% endblocktrans %}
+    {% else %}
+        {% blocktrans with snippet_plural_name=model_opts.verbose_name_plural trimmed asvar no_access_msg %}
+            You don't have permission to delete these {{ snippet_plural_name }}
+        {% endblocktrans %}
+    {% endif %}
+    {% include 'wagtailsnippets/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
+{% endblock items_with_no_access %}
+
+{% block form_section %}
+    {% if items and not is_protected %}
+        {% trans 'Yes, delete' as action_button_text %}
+        {% trans "No, don't delete" as no_action_button_text %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/form.html' with action_button_class="serious" %}
+    {% else %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+    {% endif %}
+{% endblock form_section %}

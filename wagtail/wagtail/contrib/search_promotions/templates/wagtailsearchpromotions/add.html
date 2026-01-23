@@ -1,0 +1,40 @@
+{% extends "wagtailadmin/generic/form.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block before_form %}
+    <div class="help-block help-info w-form-width">
+        {% icon name='help' %}
+        {% blocktrans trimmed %}
+            <p>Promoted search results are a means of recommending specific pages or external links that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with the less common term "<em>giving</em>".</p>
+        {% endblocktrans %}
+
+        {% blocktrans trimmed %}
+            <p>The "Search term(s)/phrase" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>
+        {% endblocktrans %}
+    </div>
+{% endblock %}
+
+{% block form_content %}
+    <ul class="fields">
+        <li>
+            {% include "wagtailsearchpromotions/queries/chooser_field.html" with field=form.query_string only %}
+        </li>
+        <li>
+            {% include "wagtailsearchpromotions/includes/searchpromotions_formset.html" with formset=searchpicks_formset only %}
+        </li>
+    </ul>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% versioned_static 'wagtailsearchpromotions/js/query-chooser-modal.js' %}"></script>
+
+    <script type="text/javascript">
+        {% include "wagtailsearchpromotions/includes/searchpromotions_formset.js" with formset=searchpicks_formset only %}
+        {% include "wagtailsearchpromotions/queries/chooser_field.js" only %}
+
+        $(function() {
+            createQueryChooser('{{ form.query_string.auto_id }}');
+        });
+    </script>
+{% endblock %}

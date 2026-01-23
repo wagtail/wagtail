@@ -1,0 +1,24 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans trimmed with title=page.title %}Delete form data {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}menu-explorer{% endblock %}
+
+{% block content %}
+    {% trans "Delete form data" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>
+            {% blocktrans trimmed count counter=submissions.count %}
+                Are you sure you want to delete this form submission?
+            {% plural %}
+                Are you sure you want to delete these form submissions?
+            {% endblocktrans %}
+        </p>
+        <form action="{% url 'wagtailforms:delete_submissions' page.id %}?{{ request.GET.urlencode }}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{ next_url }}" name="next">
+            <input type="submit" value="{% trans 'Delete' %}" class="button serious">
+        </form>
+    </div>
+{% endblock %}

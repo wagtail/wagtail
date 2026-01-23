@@ -1,0 +1,17 @@
+{% load i18n wagtailadmin_tags %}
+
+<td>
+    {% formattedfield field=form.collection sr_only_label=True %}
+    {{ form.DELETE }}
+</td>
+
+{% for option in form.permissions %}
+    <td>
+        <label for="{{ option.id_for_label }}" class="w-sr-only">{{ option.choice_label }}</label>
+        {{ option.tag }}
+    </td>
+{% endfor %}
+
+<td>
+    <button class="button button-small no" type="button" id="{{ form.DELETE.id_for_label }}-button" data-action="w-formset#delete">{% trans "Delete" %}</button>
+</td>

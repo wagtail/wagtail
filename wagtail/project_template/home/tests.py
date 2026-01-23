@@ -30,7 +30,9 @@ class HomeTests(WagtailPageTestCase):
         Create a homepage instance for testing.
         """
         root_page = Page.get_first_root_node()
-        Site.objects.create(hostname="testsite", root_page=root_page, is_default_site=True)
+        Site.objects.create(
+            hostname="testsite", root_page=root_page, is_default_site=True
+        )
         self.homepage = HomePage(title="Home")
         root_page.add_child(instance=self.homepage)
 

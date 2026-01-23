@@ -1,0 +1,347 @@
+// stylelint-disable selector-max-combinators, max-nesting-depth
+@use 'sass:map';
+@use '../settings' as *;
+
+.xdsoft_datetimepicker {
+  box-shadow: 0 5px 10px -5px theme('colors.black-35');
+  background: theme('colors.surface-field');
+  border: 1px solid theme('colors.border-field-default');
+  padding: 8px;
+  padding-inline-start: 0;
+  padding-top: 2px;
+  position: absolute;
+  z-index: 500;
+  display: none;
+
+  .w-dialog & {
+    z-index: calc(theme('zIndex.dialog') + 5);
+  }
+
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  iframe {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+    width: 75px;
+    height: 210px;
+    background: transparent;
+    border: 0;
+  }
+
+  .xdsoft_datepicker,
+  .xdsoft_timepicker {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  .xdsoft_datepicker {
+    float: inline-start;
+    margin-inline-start: 8px;
+  }
+
+  .xdsoft_datepicker.active + .xdsoft_timepicker {
+    margin-top: 8px;
+    margin-bottom: 3px;
+  }
+
+  .xdsoft_mounthpicker {
+    position: relative;
+    text-align: center;
+  }
+
+  .xdsoft_next,
+  .xdsoft_prev,
+  .xdsoft_today_button {
+    background-color: transparent;
+    cursor: pointer;
+    display: block;
+    border: 0;
+    overflow: hidden;
+    padding: 5px 0;
+    position: relative;
+    white-space: nowrap;
+    width: 2em;
+    color: theme('colors.text-button-outline-default');
+    text-align: center;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      text-align: center;
+      margin: 0;
+      background-color: currentColor;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
+    }
+
+    &:hover {
+      color: theme('colors.text-button-outline-hover');
+    }
+  }
+
+  .xdsoft_prev {
+    float: inline-start;
+
+    &:before {
+      mask-image: url('#{$images-root}icons/arrow-left.svg');
+    }
+  }
+
+  .xdsoft_today_button {
+    float: inline-start;
+    margin-inline-start: 5px;
+
+    &:before {
+      mask-image: url('#{$images-root}icons/home.svg');
+    }
+  }
+
+  .xdsoft_next {
+    float: inline-end;
+
+    &:before {
+      mask-image: url('#{$images-root}icons/arrow-right.svg');
+    }
+  }
+
+  .xdsoft_timepicker {
+    min-width: 70px;
+    float: inline-start;
+    text-align: center;
+    margin-inline-start: 8px;
+    margin-top: 0;
+
+    .xdsoft_prev,
+    .xdsoft_next {
+      float: none;
+      height: 1.5em;
+      display: block;
+      text-align: center;
+      width: 100%;
+      padding: 0;
+    }
+
+    .xdsoft_prev:before {
+      mask-image: url('#{$images-root}icons/arrow-up.svg');
+    }
+
+    .xdsoft_next:before {
+      mask-image: url('#{$images-root}icons/arrow-down.svg');
+    }
+
+    .xdsoft_time_box {
+      position: relative;
+      border: 1px solid theme('colors.border-furniture');
+      height: 170px;
+      overflow: hidden;
+
+      > div > div {
+        background: theme('colors.surface-header');
+        border-top: 1px solid theme('colors.border-furniture');
+        color: theme('colors.text-context');
+        font-size: 1em;
+        text-align: center;
+        border-collapse: collapse;
+        cursor: pointer;
+        border-bottom-width: 0;
+        height: 2.3em;
+        line-height: 2.3em;
+        padding-inline-start: 0.6em;
+        padding-inline-end: 0.6em;
+
+        &:first-child {
+          border-top-width: 0;
+        }
+      }
+    }
+  }
+
+  .xdsoft_label {
+    display: inline;
+    position: relative;
+    z-index: 9999;
+    margin: 0;
+    padding: 5px 3px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: bold;
+    background-color: theme('colors.surface-page');
+    float: inline-start;
+    width: 182px;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    > .xdsoft_select {
+      border: 1px solid theme('colors.border-furniture');
+      position: absolute;
+      inset-inline-end: 0;
+      top: 30px;
+      z-index: 101;
+      display: none;
+      background: theme('colors.surface-field');
+      max-height: 160px;
+      overflow-y: hidden;
+
+      &.xdsoft_monthselect {
+        inset-inline-end: -7px;
+      }
+
+      &.xdsoft_yearselect {
+        inset-inline-end: 2px;
+      }
+
+      > div > .xdsoft_option:hover {
+        background: theme('colors.text-highlight');
+
+        @media (forced-colors: active) {
+          background: SelectedItem;
+        }
+      }
+
+      > div > .xdsoft_option {
+        padding: 2px 15px 2px 5px;
+      }
+    }
+  }
+
+  .xdsoft_month {
+    width: 90px;
+    text-align: end;
+  }
+
+  .xdsoft_year {
+    width: 56px;
+  }
+
+  .xdsoft_calendar {
+    clear: both;
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td > div {
+      padding-inline-end: 5px;
+    }
+
+    td,
+    th {
+      width: 14.285%;
+      border: 1px solid theme('colors.border-furniture');
+      color: theme('colors.text-context');
+      font-size: 12px;
+      text-align: end;
+      padding: 5px 7px;
+      border-collapse: collapse;
+      cursor: pointer;
+      height: 25px;
+    }
+
+    td {
+      background-color: theme('colors.surface-page');
+    }
+
+    th {
+      background: theme('colors.surface-header');
+      font-weight: 700;
+      font-size: 0.85em;
+      text-align: center;
+      cursor: default;
+    }
+  }
+
+  .xdsoft_calendar td.xdsoft_default,
+  .xdsoft_calendar td.xdsoft_current,
+  .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
+    background: theme('colors.text-highlight');
+    font-weight: 700;
+
+    @media (forced-colors: active) {
+      background: SelectedItem;
+    }
+  }
+
+  .xdsoft_calendar td.xdsoft_other_month,
+  .xdsoft_calendar td.xdsoft_disabled,
+  .xdsoft_time_box > div > div.xdsoft_disabled {
+    opacity: 50%;
+    background: theme('colors.border-furniture');
+
+    @media (forced-colors: active) {
+      opacity: 100%;
+      color: GrayText;
+    }
+  }
+
+  .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
+    opacity: 20%;
+
+    @media (forced-colors: active) {
+      opacity: 100%;
+      color: GrayText;
+    }
+  }
+
+  .xdsoft_calendar td:hover,
+  .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
+    color: theme('colors.text-button');
+    background: theme('colors.surface-button-default');
+  }
+
+  .xdsoft_calendar td.xdsoft_today {
+    font-weight: 700;
+  }
+}
+
+.xdsoft_noselect {
+  user-select: none;
+}
+
+.xdsoft_noselect::selection {
+  background: transparent;
+}
+
+.xdsoft_noselect::-moz-selection {
+  background: transparent;
+}
+
+.xdsoft_datetimepicker.xdsoft_inline {
+  display: inline-block;
+  position: static;
+  box-shadow: none;
+}
+
+.xdsoft_scroller_box {
+  position: relative;
+}
+
+.xdsoft_scrollbar {
+  position: absolute;
+  width: 7px;
+  inset-inline-end: 0;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+
+  > .xdsoft_scroller {
+    // stylelint-disable-next-line declaration-no-important
+    background: theme('colors.border-furniture') !important;
+    height: 20px;
+    border-radius: 3px;
+  }
+}

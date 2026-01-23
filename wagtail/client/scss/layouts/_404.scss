@@ -1,0 +1,67 @@
+@use '../tools' as *;
+
+.page404__bg {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: theme('colors.secondary.400');
+  font-family: theme('fontFamily.sans');
+  color: theme('colors.white.DEFAULT');
+}
+
+.page404__logo {
+  width: 400px;
+  height: 500px;
+
+  // Media for Windows High Contrast mode
+  @media (forced-colors: active) {
+    background-color: LinkText;
+  }
+}
+
+.page404__text-container {
+  width: 600px;
+
+  height: 500px;
+  text-align: center;
+}
+
+.page404__header {
+  font-size: 6.8em;
+  margin-bottom: 0.2em;
+  color: inherit;
+}
+
+.page404__text {
+  font-size: 2.25em;
+  line-height: 1.25em;
+  color: inherit;
+}
+
+a.button.page404__button {
+  // more specific to override standard button styles
+  font-size: 1.5em;
+  line-height: 2em;
+  height: 2.5em;
+  padding: 0 0.5em;
+  background-color: theme('colors.secondary.400');
+  border: 4px solid theme('colors.secondary.DEFAULT');
+  color: inherit;
+
+  &:hover {
+    background-color: theme('colors.secondary.DEFAULT');
+  }
+}
+
+// MOBILE CHANGES:
+@include media-breakpoint-down(xs) {
+  .page404__text-container {
+    width: 400px;
+  }
+
+  .page404__header {
+    font-size: 5em;
+  }
+}

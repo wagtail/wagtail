@@ -1,0 +1,11 @@
+.c-status {
+  @apply w-bg-black-50 w-tracking-tight w-text-text-label-menus-default;
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  border-radius: 0.25em;
+  vertical-align: middle;
+  line-height: 1.5;
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+  font-size: 0.625rem;
+}

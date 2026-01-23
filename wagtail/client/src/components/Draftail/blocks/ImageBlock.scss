@@ -1,0 +1,7 @@
+@use 'sass:color';
+@use '../../../../../client/scss/tools' as *;
+
+.ImageBlock__alt {
+  @include font-smoothing;
+  font-size: 0.875rem;
+}

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link #accessibleLabel 1`] = `
+<a
+  className=""
+  href="#"
+  onClick={[Function]}
+>
+  <span
+    className="w-sr-only"
+  >
+    I am here in the shadows
+  </span>
+</a>
+`;
+
+exports[`Link #children 1`] = `
+<a
+  className=""
+  href="#"
+  onClick={[Function]}
+>
+  To infinity and beyond!
+</a>
+`;
+
+exports[`Link #target 1`] = `
+<a
+  className=""
+  href="#"
+  onClick={[Function]}
+  rel="noreferrer"
+  target="_blank"
+/>
+`;
+
+exports[`Link basic 1`] = `
+<a
+  className=""
+  href="#"
+  onClick={[Function]}
+/>
+`;

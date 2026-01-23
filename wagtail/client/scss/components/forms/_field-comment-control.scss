@@ -1,0 +1,91 @@
+@use '../../tools' as *;
+
+$icon-size: theme('spacing.4');
+$button-padding: theme('spacing.2');
+
+.w-field__comment-button {
+  $root: &;
+
+  @include transition(opacity 0.2s ease);
+  position: absolute;
+  color: theme('colors.text-button-outline-default');
+  background: none;
+  border: 0;
+  padding: theme('spacing.4') $button-padding;
+  inset-inline-end: calc(-1 * ($icon-size + $button-padding * 2));
+  top: 50%;
+  transform: translateY(-50%);
+  // Only show the buttons when commenting is enabled.
+  display: none;
+  opacity: 0;
+
+  .icon {
+    width: $icon-size;
+    height: $icon-size;
+    color: inherit;
+  }
+
+  .tab-content--comments-enabled & {
+    display: block;
+  }
+
+  // For devices without hover support, always show when comments are enabled.
+  @media (hover: none) {
+    .tab-content--comments-enabled & {
+      opacity: 1;
+    }
+  }
+
+  // Hide by default, reveal on hover of parent, for devices supporting hover interaction
+  @media (hover: hover) {
+    .w-field__input:hover > &,
+    .w-field__input:focus-within > &,
+    &:hover,
+    &:focus,
+    &.w-field__comment-button--focused {
+      opacity: 1;
+    }
+  }
+
+  // Special positioning of comment icons to sit at the top right of these fields
+  textarea ~ &,
+  .w-field--checkbox_select_multiple &,
+  .w-field--admin_tag_widget & {
+    transform: translateY(0);
+    top: 0;
+  }
+}
+
+.w-field__comment-button--add {
+  .icon-comment-add,
+  .icon-comment-add-reversed {
+    display: none;
+  }
+
+  &:not(:hover) {
+    .icon-comment-add-reversed {
+      display: block;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .icon-comment-add {
+      display: block;
+    }
+  }
+
+  // Hide the "Add comment" button if it’s preceded by a "Reveal comment" button.
+  .w-field__comment-button--reveal + & {
+    display: none;
+  }
+}
+
+.w-field__comment-button--reveal {
+  display: none;
+
+  .tab-content--comments-enabled & {
+    display: block;
+  }
+}

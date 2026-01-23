@@ -1,0 +1,44 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans trimmed with title=page.specific_deferred.get_admin_display_title %}Copy {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Copy") subtitle=page.specific_deferred.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailadmin_pages:copy' page.id %}" method="POST" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+
+            <ul class="fields">
+                <li>{% formattedfield form.new_title %}</li>
+                <li>{% formattedfield form.new_slug %}</li>
+                <li>{% formattedfield form.new_parent_page %}</li>
+
+                {% if form.copy_subpages %}
+                    <li>{% formattedfield form.copy_subpages %}</li>
+                {% endif %}
+
+                {% if form.publish_copies %}
+                    <li>{% formattedfield form.publish_copies %}</li>
+                {% endif %}
+
+                {% if form.alias %}
+                    <li>{% formattedfield form.alias %}</li>
+                {% endif %}
+            </ul>
+
+            <input type="submit" value="{% trans 'Copy this page' %}" class="button">
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}

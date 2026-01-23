@@ -1,0 +1,42 @@
+#
+# Translators:
+# Karl Hobley <karl@torchbox.com>, 2022
+# Adi Ron <adi@bnop.co>, 2022
+# lior abazon <abazon@v15.org.il>, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: lior abazon <abazon@v15.org.il>, 2025\n"
+"Language-Team: Hebrew (Israel) (https://app.transifex.com/torchbox/teams/"
+"8009/he_IL/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: 2;\n"
+
+msgid "Dashboard"
+msgstr "לוח מחוונים"
+
+msgid "Delete"
+msgstr "מחק"
+
+msgid "Edit"
+msgstr "ערוך"
+
+msgid "Page"
+msgstr "עמוד"
+
+msgid "Pages"
+msgstr "עמודים"
+
+msgid "Preview"
+msgstr "תצוגה מקדימה "
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "Search"
+msgstr "חיפוש"
+
+msgid "This field is required."
+msgstr "שדה חובה"

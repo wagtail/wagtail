@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% comment "text/markdown" %}
+    Variables accepted by this template:
+
+    - `tab_id` - {string} A unique tab id consisting only of ASCII alphanumerics, dashes and underscores
+    - `title` - {string} Text that the tab button will display
+    - `active` - {boolean?} Force this to be active
+    - `classname` - {string?} Extra css classes to pass to this component
+{% endcomment %}
+
+<a id="tab-label-{{ tab_id }}" href="#tab-{{ tab_id }}" class="w-tabs__tab {{ classname }}" role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger">
+    {{ title }}
+    <div class="w-tabs__errors" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#tab-{{ tab_id }}">
+        <span aria-hidden="true" data-w-count-target="total"></span>
+        <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
+    </div>
+</a>

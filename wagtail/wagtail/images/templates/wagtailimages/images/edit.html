@@ -1,0 +1,74 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load wagtailimages_tags wagtailadmin_tags i18n l10n %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <!-- Focal point chooser -->
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/focal-point-chooser.js' %}"></script>
+{% endblock %}
+
+{% block form_content %}
+    <div class="w-grid w-grid-cols-1 sm:w-grid-cols-2 w-gap-8">
+        <div>
+            <input type="hidden" value="{{ next }}" name="next">
+            {% for field in form %}
+                {% if field.name == 'file' %}
+                    {% include "wagtailimages/images/_file_field.html" %}
+                {% elif field.is_hidden %}
+                    {{ field }}
+                {% else %}
+                    {% formattedfield field %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div>
+            {% image image max-800x600 as rendition %}
+
+            <div
+                class="focal-point-chooser"
+                data-max-width="{{ rendition.width|unlocalize }}px"
+                data-max-height="{{ rendition.height|unlocalize }}px"
+                data-focal-point-x="{{ image.focal_point_x|default_if_none:''|unlocalize }}"
+                data-focal-point-y="{{ image.focal_point_y|default_if_none:''|unlocalize }}"
+                data-focal-point-width="{{ image.focal_point_width|default_if_none:''|unlocalize }}"
+                data-focal-point-height="{{ image.focal_point_height|default_if_none:''|unlocalize }}"
+                data-focal-input-label="{% trans 'Image focal point' %}"
+            >
+                <img {{ rendition.attrs }} decoding="async" data-original-width="{{ image.width|unlocalize }}" data-original-height="{{ image.height|unlocalize }}" class="show-transparency">
+                <div class="current-focal-point-indicator{% if not image.has_focal_point %} hidden{% endif %}"></div>
+            </div>
+
+            {% if url_generator_url %}
+                <a href="{{ url_generator_url }}" class="button bicolor button--icon">{% icon name="link" wrapped=1 %}{% trans "URL Generator" %}</a>
+                <hr />
+            {% endif %}
+
+            <div class="w-grid md:w-grid-cols-3 w-gap-2">
+                <div class="w-col-span-2">
+                    <h2 class="w-label-3">{% trans "Focal point" %} <span class="w-font-normal">{% trans "(optional)" %}</span></h2>
+                    <p>{% trans "To define this image's most important region, drag a box over the image above." %} {% if image.has_focal_point %}({% trans "Current focal point shown" %}){% endif %}</p>
+
+                    <button class="button button-secondary no remove-focal-point" type="button">{% trans "Remove focal area" %}</button>
+                </div>
+                <div class="w-col-span-1">
+                    {% image image original as original_image %}
+
+                    <dl>
+                        <dt>{% trans "Max dimensions" %}</dt>
+                        <dd>{{ original_image.width|unlocalize }}x{{ original_image.height|unlocalize }}</dd>
+                        <dt>{% trans "Filesize" %}</dt>
+                        <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
+
+                        <dt>{% trans "Usage" %}</dt>
+                        <dd>
+                            <a href="{{ image.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

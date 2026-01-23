@@ -1,0 +1,18 @@
+{% comment %}
+ Separated out of results.html to prevent invalid images from crashing the entire
+ images listing. (issue #1805)
+
+ If an error is raised inside a template include, the error is caught by the
+ calling {% include %} tag and the contents blanked out.
+
+ This behaviour caused a confusing error on the images listing view where it
+ would go blank if one of the images was invalid.
+
+ Separating the image rendering code into this file allows us to limit Django's
+ crash/blanking behaviour to a single image so the listing can still be used when
+ the issue occurs.
+{% endcomment %}
+
+{% load wagtailimages_tags %}
+
+<div class="image">{% image image max-165x165 class="show-transparency" alt="" %}</div>

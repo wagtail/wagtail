@@ -1,0 +1,105 @@
+===============================
+Wagtail 2.3 (LTS) release notes
+===============================
+
+*October 23, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Wagtail 2.3 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 8 months).
+
+Note that Wagtail 2.3 will be the last release branch to support Django 1.11.
+
+
+What's new
+==========
+
+Added Django 2.1 support
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail is now compatible with Django 2.1.  Compatibility fixes were contributed by Ryan Verner and Matt Westcott.
+
+
+Improved color contrast
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Colour contrast within the admin interface has been improved, and now complies with WCAG 2 level AA. This was completed by Coen van der Kamp and Naomi Morduch Toubman based on earlier work from Edd Baldry, Naa Marteki Reed and Ben Enright.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Added 'scale' image filter (Oliver Wilkerson)
+* Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
+* EmbedBlock now validates against recognized embed providers on save (Bertrand Bordage)
+* Made cache control headers on Wagtail admin consistent with Django admin (Tomasz Knapik)
+* Notification emails now include an "Auto-Submitted: auto-generated" header (Dan Braghis)
+* Image chooser panels now show alt text as title (Samir Shah)
+* Added ``download_url`` field to images in the API (Michael Harrison)
+* Dummy requests for preview now preserve the HTTP Authorization header (Ben Dickinson)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Respect next param on login (Loic Teixeira)
+* InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
+* before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
+* Seek to the beginning of image files when uploading, to restore compatibility with django-storages Google Cloud and Azure backends (Mikalai Radchuk)
+* Snippet chooser modal no longer fails on snippet models with UUID primary keys (Sævar Öfjörð Magnússon)
+* Restored localization in date/time pickers (David Moore, Thibaud Colas)
+* Tag input field no longer treats 'б' on Russian keyboards as a comma (Michael Borisov)
+* Disabled autocomplete dropdowns on date/time chooser fields (Janneke Janssen)
+* Split up ``wagtail.admin.forms`` to make it less prone to circular imports (Matt Westcott)
+* Disable linking to root page in rich text, making the page non-functional (Matt Westcott)
+* Pages should be editable and save-able even if there are broken page or document links in rich text (Matt Westcott)
+* Avoid redundant round-trips of JSON StreamField data on save, improving performance and preventing consistency issues on fixture loading (Andy Chosak, Matt Westcott)
+* Users are not logged out when changing their own password through the Users area (Matt Westcott)
+
+
+Upgrade considerations
+======================
+
+``wagtail.admin.forms`` reorganized
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``wagtail.admin.forms`` module has been split up into submodules to make it less prone to producing circular imports, particularly when a custom user model is in use. The following (undocumented) definitions have now been moved to new locations:
+
++----------------------------------------------+---------------------------------------+
+| Definition                                   | New location                          |
++==============================================+=======================================+
+| LoginForm                                    | wagtail.admin.forms.auth              |
++----------------------------------------------+---------------------------------------+
+| PasswordResetForm                            | wagtail.admin.forms.auth              |
++----------------------------------------------+---------------------------------------+
+| URLOrAbsolutePathValidator                   | wagtail.admin.forms.choosers          |
++----------------------------------------------+---------------------------------------+
+| URLOrAbsolutePathField                       | wagtail.admin.forms.choosers          |
++----------------------------------------------+---------------------------------------+
+| ExternalLinkChooserForm                      | wagtail.admin.forms.choosers          |
++----------------------------------------------+---------------------------------------+
+| EmailLinkChooserForm                         | wagtail.admin.forms.choosers          |
++----------------------------------------------+---------------------------------------+
+| CollectionViewRestrictionForm                | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| CollectionForm                               | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| BaseCollectionMemberForm                     | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| BaseGroupCollectionMemberPermissionFormSet   | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| collection_member_permission_formset_factory | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| CopyForm                                     | wagtail.admin.forms.pages             |
++----------------------------------------------+---------------------------------------+
+| PageViewRestrictionForm                      | wagtail.admin.forms.pages             |
++----------------------------------------------+---------------------------------------+
+| SearchForm                                   | wagtail.admin.forms.search            |
++----------------------------------------------+---------------------------------------+
+| BaseViewRestrictionForm                      | wagtail.admin.forms.view_restrictions |
++----------------------------------------------+---------------------------------------+
+
+The following definitions remain in ``wagtail.admin.forms``: ``FORM_FIELD_OVERRIDES``, ``DIRECT_FORM_FIELD_OVERRIDES``, ``formfield_for_dbfield``, ``WagtailAdminModelFormMetaclass``, ``WagtailAdminModelForm`` and ``WagtailAdminPageForm``.

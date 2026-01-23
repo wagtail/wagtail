@@ -1,0 +1,9 @@
+{% load wagtailadmin_tags %}
+{% if self.help_text %}
+    {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
+{% endif %}
+{% field_row %}
+    {% for child in self.visible_children %}
+        {% include "wagtailadmin/panels/multi_field_panel_child.html" %}
+    {% endfor %}
+{% endfield_row %}

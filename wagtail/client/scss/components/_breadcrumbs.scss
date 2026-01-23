@@ -1,0 +1,28 @@
+@use '../tools' as *;
+
+.w-breadcrumbs:not(.editor-view .w-breadcrumbs) {
+  @apply sm:w-py-2.5;
+
+  li[hidden] ~ li:last-child,
+  li:only-child {
+    a {
+      font-size: theme('fontSize.18');
+      font-weight: theme('fontWeight.extrabold');
+
+      @include media-breakpoint-up(md) {
+        font-size: theme('fontSize.22');
+      }
+    }
+
+    .w-breadcrumbs__sublabel,
+    .w-breadcrumbs__icon {
+      display: inline-block;
+    }
+
+    .w-breadcrumbs__icon {
+      width: theme('spacing.5');
+      height: theme('spacing.5');
+      margin-inline-end: theme('spacing[2.5]');
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailadmin_tags i18n %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
+{% endblock %}
+
+{% block content %}
+    {% fragment as header_title %}
+        {% block branding_welcome %}{{ site_name }}{% endblock %}
+    {% endfragment %}
+
+    {% component upgrade_notification %}
+    <div class="w-dashboard w-px-6 sm:w-px-[3.75rem] w-mt-16 sm:w-mt-10 lg:w-mt-[3.75rem]">
+        <header class="w-flex w-flex-col lg:w-flex-row">
+            <div class="lg:w-pr-20 lg:w-grow">
+                <h1 class="w-h1 w-mt-0">{{ header_title }}</h1>
+                {% component site_summary %}
+
+                <form
+                    class="w-mb-12"
+                    action="{% if root_page.pk %}{% url 'wagtailadmin_explore' root_page.pk %}{% else %}{% url 'wagtailadmin_explore_root' %}{% endif %}"
+                    method="get"
+                    novalidate
+                    role="search"
+                >
+                    {% for field in search_form %}
+                        {% formattedfield field=field sr_only_label=True icon="search" %}
+                    {% endfor %}
+                    <div class="submit w-sr-only"><input type="submit" value="Search" class="button" /></div>
+                </form>
+
+            </div>
+            {% include "wagtailadmin/home/account_summary.html" %}
+        </header>
+        {% if panels %}
+            {% for panel in panels %}
+                {% component panel fallback_render_method=True %}
+            {% endfor %}
+        {% else %}
+            <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {{ media.js }}
+{% endblock %}

@@ -1,0 +1,105 @@
+================================
+Wagtail 1.12 (LTS) release notes
+================================
+
+*August 21, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Wagtail 1.12 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 8 months).
+
+
+What's new
+==========
+
+Configurable rich text features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The feature set provided by the rich text editor can now be configured on a per-field basis, by passing a ``features`` keyword argument; for example, a field can be configured to allow bold / italic formatting and links, but not headings or embedded images or media. For further information, see :ref:`rich_text_features`. This feature was developed by Matt Westcott.
+
+Improved embed configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+New configuration options for embedded media have been added, to give greater control over how media URLs are converted to embeds, and to make it possible to specify additional media providers beyond the ones built in to Wagtail. For further information, see :ref:`embedded_content`. This feature was developed by Karl Hobley.
+
+Other features
+~~~~~~~~~~~~~~
+
+* The admin interface now displays a title of the latest draft (Mikalai Radchuk)
+* ``RoutablePageMixin`` now has a default "index" route (Andreas Nüßlein, Matt Westcott)
+* Added multi-select form field to the form builder (dwasyl)
+* Improved performance of sitemap generation (Levi Adler)
+* StreamField now respects the ``blank`` setting; StreamBlock accepts a ``required`` setting (Loic Teixeira)
+* StreamBlock now accepts ``min_num``, ``max_num`` and ``block_counts`` settings to control the minimum and maximum numbers of blocks (Edwar Baron, Matt Westcott)
+* Users can no longer remove their own active / superuser flags through Settings -> Users (Stein Strindhaug, Huub Bouma)
+* The ``process_form_submission`` method of form pages now return the created form submission object (Christine Ho)
+* Added ``WAGTAILUSERS_PASSWORD_ENABLED`` and ``WAGTAILUSERS_PASSWORD_REQUIRED`` settings to permit creating users with no Django-side passwords, to support external authentication setups (Matt Westcott)
+* Added help text parameter to ``DecimalBlock`` and ``RegexBlock`` (Tomasz Knapik)
+* Optimised caudal oscillation parameters on logo (Jack Paine)
+
+Bug fixes
+~~~~~~~~~
+
+* FieldBlocks in StreamField now call the field's ``prepare_value`` method (Tim Heap)
+* Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
+* Redirects with unicode characters now work (Rich Brennan)
+* Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
+* Hide the userbar from printed page representation (Eugene Morozov)
+* Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
+* StructBlock values no longer render HTML templates as their ``str`` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
+* Removed deprecated jQuery ``load`` call from TableBlock initialization (Jack Paine)
+* Position of options in mobile nav-menu (Jack Paine)
+* Center page editor footer regardless of screen width (Jack Paine)
+* Change the design of the navbar toggle icon so that it no longer obstructs page headers (Jack Paine)
+* Document add/edit forms no longer render container elements for hidden fields (Jeffrey Chau)
+
+Upgrade considerations
+======================
+
+StreamField now defaults to ``blank=False``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+StreamField now respects the ``blank`` field setting; when this is false, at least one block must be supplied for the field to pass validation. To match the behavior of other model fields, ``blank`` defaults to ``False``; if you wish to allow a StreamField to be left empty, you must now add ``blank=True`` to the field.
+
+When passing an explicit ``StreamBlock`` as the top-level block of a StreamField definition, note that the StreamField's ``blank`` keyword argument always takes precedence over the block's ``required`` property, including when it is left as the default value of ``blank=False``. Consequently, setting ``required=False`` on a top-level ``StreamBlock`` has no effect.
+
+
+Old configuration settings for embeds are deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The configuration settings ``WAGTAILEMBEDS_EMBED_FINDER`` and ``WAGTAILEMBEDS_EMBEDLY_KEY`` have been deprecated in favor of the new ``WAGTAILEMBEDS_FINDERS`` setting. Please see :ref:`configuring_embed_finders` for the new configuration to use.
+
+
+Registering custom hallo.js plugins directly is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ability to enable / disable ``hallo.js`` plugins by calling ``registerHalloPlugin`` or modifying the ``halloPlugins`` list has been deprecated, and will be removed in Wagtail 1.14. The recommended way of customizing the hallo.js editor is now through :ref:`rich text features <rich_text_features>`.
+
+
+Custom ``get_admin_display_title`` methods should use ``draft_title``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release introduces a new ``draft_title`` field on page models, so that page titles as used across the admin interface will correctly reflect any changes that exist in draft. If any of your page models override the ``get_admin_display_title`` method, to customize the display of page titles in the admin, it is recommended that you now update these to base their output on ``draft_title`` rather than ``title``. Alternatively, to preserve backwards compatibility, you can invoke ``super`` on the method, for example:
+
+.. code-block:: python
+
+    def get_admin_display_title(self):
+        return "%(title)s (%(lang)s)" % {
+            'title': super(TranslatablePage, self).get_admin_display_title(),
+            'lang': self.language_code,
+        }
+
+
+Fixtures for loading pages should include ``draft_title``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In most situations, the new ``draft_title`` field on page models will automatically be populated from the page title. However, this is not the case for pages that are created from fixtures. Projects that use fixtures to load initial data should therefore ensure that a ``draft_title`` field is specified.
+
+
+``RoutablePageMixin`` now has a default index route
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you've used ``RoutablePageMixin`` on a Page model, you may have had to manually define an index route to serve the page at its main URL (``r'^$'``) so it behaves like a normal page. Wagtail now defines a default index route so this is no longer required.

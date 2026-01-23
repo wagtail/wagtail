@@ -1,0 +1,652 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2022
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# Younes Oumakhou, 2022
+# Younes Oumakhou, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail images"
+msgstr "صور Wagtail"
+
+msgid "Image is decorative"
+msgstr "الصورة زخرفية"
+
+msgid "Alt text"
+msgstr "نص بديل"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "الرجاء إضافة نص بديل للصورة أو وضع علامة عليها كزخرفية"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"التنسيقات المدعومة: %(supported_formats)s. الحد الأقصى لحجم الملف: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "التنسيقات المدعومة: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "تنسيق الصورة غير مدعوم. التنسيقات المدعومة: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"صورة .%(extension)s غير صالحة. الامتداد لا يتطابق مع تنسيق الملف "
+"(%(image_format)s)"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"هذا الملف كبير جدًا (%(file_size)s). الحد الأقصى لحجم الملف %(max_filesize)s."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"هذا الملف يحتوي على عدد كبير جدًا من البكسل (%(num_pixels)s). الحد الأقصى "
+"للبكسل %(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "هذا الملف كبير جدًا. الحد الأقصى لحجم الملف %(max_filesize)s."
+
+msgid "Full width"
+msgstr "عرض كامل"
+
+msgid "Left-aligned"
+msgstr "محاذاة لليسار"
+
+msgid "Right-aligned"
+msgstr "محاذاة لليمين"
+
+msgid "Collection"
+msgstr "مجموعة"
+
+msgid "Format"
+msgstr "تنسيق"
+
+msgid "Filter"
+msgstr "تصفية"
+
+msgid "Original size"
+msgstr "الحجم الأصلي"
+
+msgid "Resize to width"
+msgstr "تغيير الحجم حسب العرض"
+
+msgid "Resize to height"
+msgstr "تغيير الحجم حسب الارتفاع"
+
+msgid "Resize to min"
+msgstr "تغيير الحجم إلى الحد الأدنى"
+
+msgid "Resize to max"
+msgstr "تغيير الحجم إلى الحد الأقصى"
+
+msgid "Resize to fill"
+msgstr "تغيير الحجم لملء الفراغ"
+
+msgid "Width"
+msgstr "عرض"
+
+msgid "Height"
+msgstr "ارتفاع"
+
+msgid "Closeness"
+msgstr "قرب"
+
+msgid "Add"
+msgstr "إضافة"
+
+msgid "Add/edit images you own"
+msgstr "إضافة/تحرير الصور التي تملكها"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Edit any image"
+msgstr "تحرير أي صورة"
+
+msgid "Choose"
+msgstr "اختيار"
+
+msgid "Select images in choosers"
+msgstr "تحديد الصور في أدوات الاختيار"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "file"
+msgstr "ملف"
+
+msgid "description"
+msgstr "وصف"
+
+msgid "width"
+msgstr "عرض"
+
+msgid "height"
+msgstr "ارتفاع"
+
+msgid "created at"
+msgstr "تاريخ الإنشاء"
+
+msgid "uploaded by user"
+msgstr "تم الرفع بواسطة المستخدم"
+
+msgid "tags"
+msgstr "وسوم"
+
+msgid "image"
+msgstr "صورة"
+
+msgid "images"
+msgstr "صور"
+
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "إضافة وسوم إلى%(counter)s صورة "
+msgstr[1] "إضافة وسوم إلى صورة واحدة"
+msgstr[2] "إضافة وسوم إلى  %(counter)s صورتين"
+msgstr[3] "إضافة وسوم إلى %(counter)s صور"
+msgstr[4] "إضافة وسوم إلى %(counter)s صورة"
+msgstr[5] "إضافة وسوم إلى %(counter)s صورة"
+
+msgid "Add tags to images"
+msgstr "إضافة وسوم إلى الصور"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "هل أنت متأكد من رغبتك في وضع وسوم على الصورة التالية؟"
+msgstr[1] "هل أنت متأكد من رغبتك في وضع وسوم على الصورة التالية؟"
+msgstr[2] "هل أنت متأكد من رغبتك في وضع وسوم على الصورتين التاليتين؟"
+msgstr[3] "هل أنت متأكد من رغبتك في وضع وسوم على الصور التالية؟"
+msgstr[4] "هل أنت متأكد من رغبتك في وضع وسوم على الصور التالية؟"
+msgstr[5] "هل أنت متأكد من رغبتك في وضع وسوم على الصور التالية؟"
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "ليس لديك الصلاحية لإضافة وسوم لهذه الصورة"
+msgstr[1] "ليس لديك الصلاحية لإضافة وسوم لهذه الصورة"
+msgstr[2] "ليس لديك الصلاحية لإضافة وسوم لهاتين الصورتين"
+msgstr[3] "ليس لديك الصلاحية لإضافة وسوم لهذه الصور"
+msgstr[4] "ليس لديك الصلاحية لإضافة وسوم لهذه الصور"
+msgstr[5] "ليس لديك الصلاحية لإضافة وسوم لهذه الصور"
+
+msgid "Yes, add"
+msgstr "نعم، أضف"
+
+msgid "No, don't add"
+msgstr "لا، لا تُضف"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "إضافة%(counter)s صورة إلى رزمة جديدة"
+msgstr[1] "إضافة صورة واحدة إلى رزمة جديدة"
+msgstr[2] "إضافة %(counter)s صورتين إلى رزمة جديدة"
+msgstr[3] "إضافة %(counter)s صور إلى رزمة جديدة"
+msgstr[4] "إضافة %(counter)s صورة إلى رزمة جديدة"
+msgstr[5] "إضافة %(counter)s صورة إلى رزمة جديدة"
+
+msgid "Add images to collection"
+msgstr "إضافة الصور إلى رزمة"
+
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] "هل أنت متأكد من رغبتك في إضافة الصورة التالية إلى المجموعة المحددة؟"
+msgstr[1] "هل أنت متأكد من رغبتك في إضافة الصورة التالية إلى المجموعة المحددة؟"
+msgstr[2] ""
+"هل أنت متأكد من رغبتك في إضافة الصورتين التاليتين إلى المجموعة المحددة؟"
+msgstr[3] "هل أنت متأكد من رغبتك في إضافة الصور التالية إلى المجموعة المحددة؟"
+msgstr[4] "هل أنت متأكد من رغبتك في إضافة الصور التالية إلى المجموعة المحددة؟"
+msgstr[5] "هل أنت متأكد من رغبتك في إضافة الصور التالية إلى الرزمة المحددة؟"
+
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] "ليس لديك الصلاحية لإضافة هذه الصورة إلى مجموعة"
+msgstr[1] "ليس لديك الصلاحية لإضافة هذه الصورة إلى مجموعة"
+msgstr[2] "ليس لديك الصلاحية لإضافة هاتين الصورتين إلى مجموعة"
+msgstr[3] "ليس لديك الصلاحية لإضافة هذه الصور إلى مجموعة"
+msgstr[4] "ليس لديك الصلاحية لإضافة هذه الصور إلى مجموعة"
+msgstr[5] "ليس لديك صلاحية إضافة هذه الصور إلى رزمة"
+
+#, python-format
+msgid "Delete 1 image"
+msgid_plural "Delete %(counter)s images"
+msgstr[0] "حذف%(counter)s صورة"
+msgstr[1] "Delete 1 image"
+msgstr[2] "حذف%(counter)s صورتين"
+msgstr[3] "حذف %(counter)s صور"
+msgstr[4] "حذف %(counter)s صورة"
+msgstr[5] "حذف %(counter)s صورة"
+
+msgid "Delete images"
+msgstr "حذف الصور"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "هل أنت متأكد من رغبتك في حذف هذه الصورة؟"
+msgstr[1] "هل أنت متأكد من رغبتك في حذف هذه الصورة؟"
+msgstr[2] "هل أنت متأكد من رغبتك في حذف هاتين الصورتين؟"
+msgstr[3] "هل أنت متأكد من رغبتك في حذف هذه الصور؟"
+msgstr[4] "هل أنت متأكد من رغبتك في حذف هذه الصور؟"
+msgstr[5] "هل أنت متأكد من رغبتك في حذف هذه الصور؟"
+
+msgid "You don't have permission to delete this image"
+msgid_plural "You don't have permission to delete these images"
+msgstr[0] "ليس لديك الصلاحية لحذف هذه الصورة"
+msgstr[1] "ليس لديك الصلاحية لحذف هذه الصورة"
+msgstr[2] "ليس لديك الصلاحية لحذف هاتين الصورتين"
+msgstr[3] "ليس لديك الصلاحية لحذف هذه الصور"
+msgstr[4] "ليس لديك الصلاحية لحذف هذه الصور"
+msgstr[5] "ليس لديك صلاحية حذف هذه الصور"
+
+msgid "Yes, delete"
+msgstr "نعم، احذف"
+
+msgid "No, don't delete"
+msgstr "لا، لا تحذف"
+
+msgid "Popular tags"
+msgstr "الوسوم الشائعة"
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"تم الرفع بنجاح. لكن يبدو أن صورتك الجديدة مكررة لصورة موجودة. يمكنك حذفها "
+"إذا لم تكن مطلوبة."
+
+msgid "Existing"
+msgstr "موجود"
+
+msgid "New"
+msgstr "جديد"
+
+msgid "Use new image"
+msgstr "استخدم الصورة الجديدة"
+
+msgid "Use existing and delete new"
+msgstr "استخدم الموجود واحذف الجديد"
+
+msgid "Latest images"
+msgstr "أحدث الصور"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "تحديد %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "لم تقم برفع أي صور في هذه الرزمة."
+
+msgid "You haven't uploaded any images."
+msgstr "لم تقم برفع أي صور."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"لماذا لا  <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\"> يتم رفع واحد الآن </a>؟"
+
+msgid "Choose a format"
+msgstr "اختر تنسيقًا"
+
+msgid "Insert image"
+msgstr "إدراج صورة"
+
+#, python-format
+msgid ""
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s صورة <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
+msgstr[1] ""
+"%(total)s صورة <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
+msgstr[2] ""
+"%(total)s صورتين <span class=\"w-sr-only\">تم إنشاؤهما في %(site_name)s</"
+"span>"
+msgstr[3] ""
+"%(total)s صورة <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
+msgstr[4] ""
+"%(total)s صورة <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
+msgstr[5] ""
+"%(total)s صورة <span class=\"w-sr-only\">تم إنشاؤها في %(site_name)s</span>"
+
+msgid "Change image file:"
+msgstr "تغيير ملف الصورة:"
+
+msgid "Add an image"
+msgstr "إضافة صورة"
+
+msgid "Uploading…"
+msgstr "جاري الرفع…"
+
+msgid "Upload"
+msgstr "رفع"
+
+msgid "Keep new image"
+msgstr "احتفظ بالصورة الجديدة"
+
+msgid "Delete new image"
+msgstr "حذف الصورة الجديدة"
+
+msgid "Image focal point"
+msgstr "نقطة التركيز للصورة"
+
+msgid "URL Generator"
+msgstr "مولد الرابط"
+
+msgid "Focal point"
+msgstr "نقطة التركيز"
+
+msgid "(optional)"
+msgstr "(اختياري)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"لتحديد المنطقة الأكثر أهمية في هذه الصورة، اسحب مربعًا فوق الصورة أعلاه."
+
+msgid "Current focal point shown"
+msgstr "نقطة التركيز الحالية معروضة"
+
+msgid "Remove focal area"
+msgstr "إزالة منطقة التركيز"
+
+msgid "Max dimensions"
+msgstr "الأبعاد القصوى"
+
+msgid "Filesize"
+msgstr "حجم الملف"
+
+msgid "File not found"
+msgstr "الملف غير موجود"
+
+msgid "Usage"
+msgstr "الاستخدام"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "مستخدم %(usage_count)s مرة"
+msgstr[1] "مستخدم %(usage_count)s مرة"
+msgstr[2] "مستخدم %(usage_count)s مرتين"
+msgstr[3] "مستخدم %(usage_count)s مرات"
+msgstr[4] "مستخدم %(usage_count)s مرة"
+msgstr[5] "مستخدم %(usage_count)s مرة"
+
+msgid "Sort by"
+msgstr "ترتيب حسب"
+
+msgid "Select all images in listing"
+msgstr "تحديد جميع الصور في القائمة"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا، لا توجد صور تطابق \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"لم تقم برفع أي صور في هذه الرزمة. لماذا لا <a "
+"href=\"%(wagtailimages_add_image_url)s\">ترفع واحدة الآن</a>؟"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"لم تقم برفع أي صور. لماذا لا <a "
+"href=\"%(wagtailimages_add_image_url)s\">ترفع واحدة الآن</a>؟"
+
+msgid "Preview"
+msgstr "معاينة"
+
+msgid "URL"
+msgstr "رابط"
+
+msgid "Image URL"
+msgstr "رابط الصورة"
+
+msgid "Copy URL"
+msgstr "نسخ الرابط"
+
+msgid "Copied to clipboard"
+msgstr "تم النسخ إلى الحافظة"
+
+msgid "Copying to clipboard failed"
+msgstr "فشل النسخ إلى الحافظة"
+
+msgid "Add multiple images"
+msgstr "إضافة صور متعددة"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "اسحب الصور وأسقطها في هذه المنطقة لرفعها فورًا."
+
+msgid "Or choose from your computer"
+msgstr "أو اختر من جهازك"
+
+msgid "Add to collection:"
+msgstr "إضافة إلى رزمة:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr "الرجاء تقديم وصف للصورة للامتثال لأفضل ممارسات إمكانية الوصول."
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"تم الرفع بنجاح. الرجاء تحديث هذه الصورة بعنوان أكثر ملاءمة إذا لزم الأمر. "
+"يمكنك أيضًا حذف الصورة تمامًا إذا لم يكن الرفع مطلوبًا."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"تم الرفع بنجاح. لكن يبدو أن صورتك الجديدة مكررة لهذه الصورة الموجودة. يمكنك "
+"حذفها إذا لم تكن مطلوبة."
+
+msgid "Sorry, upload failed."
+msgstr "عذرًا، فشل الرفع."
+
+msgid "Server Error"
+msgstr "خطأ في الخادم"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "أبلغ عن هذا الخطأ لمسؤول موقع الويب الخاص بك بالمعلومات التالية:"
+
+msgid "Image updated."
+msgstr "تم تحديث الصورة."
+
+msgid "Image permissions"
+msgstr "أذونات الصور"
+
+msgid "Add an image permission"
+msgstr "إضافة إذن صورة"
+
+msgid "Tags"
+msgstr "وسوم"
+
+msgid "Tag"
+msgstr "وسم"
+
+msgid "Add tags to the selected images"
+msgstr "إضافة وسوم إلى الصور المحددة"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d image"
+msgid_plural "New tags have been added to %(num_parent_objects)d images"
+msgstr[0] "تمت إضافة وسوم جديدة إلى %(num_parent_objects)d صورة"
+msgstr[1] "تمت إضافة وسوم جديدة إلى %(num_parent_objects)d صورة واحدة"
+msgstr[2] "تمت إضافة وسوم جديدة إلى %(num_parent_objects)d صورتين"
+msgstr[3] "تمت إضافة وسوم جديدة إلى %(num_parent_objects)d صور"
+msgstr[4] "تمت إضافة وسوم جديدة إلى %(num_parent_objects)d صورة"
+msgstr[5] "تمت إضافة وسوم جديدة إلى %(num_parent_objects)d صورة"
+
+msgid "Add to collection"
+msgstr "إضافة إلى رزمة"
+
+msgid "Add selected images to collection"
+msgstr "إضافة الصور المحددة إلى رزمة"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been added to %(collection)s"
+msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d تمت إضافة صورة إلى %(collection)s"
+msgstr[1] "%(num_parent_objects)d تمت إضافة صورة واحدة إلى  %(collection)s"
+msgstr[2] "%(num_parent_objects)d تمت إضافة صورتين إلى  %(collection)s"
+msgstr[3] "تمت إضافة %(num_parent_objects)d صور إلى %(collection)s"
+msgstr[4] "تمت إضافة %(num_parent_objects)d صورة إلى %(collection)s"
+msgstr[5] "تمت إضافة %(num_parent_objects)d صورة إلى %(collection)s"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete selected images"
+msgstr "حذف الصور المحددة"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been deleted"
+msgid_plural "%(num_parent_objects)d images have been deleted"
+msgstr[0] "%(num_parent_objects)d تم حذف صورة"
+msgstr[1] "%(num_parent_objects)d تم حذف صورة واحدة"
+msgstr[2] "%(num_parent_objects)d تم حذف صورتين"
+msgstr[3] "تم حذف %(num_parent_objects)d صور"
+msgstr[4] "تم حذف %(num_parent_objects)d صورة"
+msgstr[5] "تم حذف %(num_parent_objects)d صورتين"
+
+msgid "Title"
+msgstr "العنوان"
+
+msgid "Created"
+msgstr "تاريخ الإنشاء"
+
+msgid "Choose an image"
+msgstr "اختر صورة"
+
+msgid "Choose another image"
+msgstr "اختر صورة أخرى"
+
+msgid "Edit this image"
+msgstr "تحرير هذه الصورة"
+
+msgid "Newest"
+msgstr "الأحدث"
+
+msgid "Oldest"
+msgstr "الأقدم"
+
+msgid "Title: (A -> Z)"
+msgstr "العنوان: (أ -> ي)"
+
+msgid "Title: (Z -> A)"
+msgstr "العنوان: (ي -> أ)"
+
+msgid "File size: (low to high)"
+msgstr "حجم الملف: (من صغير إلى كبير)"
+
+msgid "File size: (high to low)"
+msgstr "حجم الملف: (من كبير إلى صغير)"
+
+msgid "Usage count: (low to high)"
+msgstr "عدد مرات الاستخدام : (من الأقل إلى الأعلى)"
+
+msgid "Usage count: (high to low)"
+msgstr "عدد مرات الاستخدام : (من الأعلى إلى الأقل )"
+
+msgid "Images"
+msgstr "الصور"
+
+msgid "The image could not be saved due to errors."
+msgstr "تعذر حفظ الصورة بسبب أخطاء."
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "تم تحديث الصورة '%(image_title)s'."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "تعذر العثور على ملف الصورة المصدر. الرجاء تغيير المصدر أو حذف الصورة."
+
+msgid "Generate URL"
+msgstr "إنشاء رابط"
+
+msgid "Delete image"
+msgstr "حذف صورة"
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "تم حذف الصورة '%(image_title)s'."
+
+msgid "The image could not be created due to errors."
+msgstr "تعذر إنشاء الصورة بسبب أخطاء."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "تمت إضافة الصورة '%(image_title)s'."
+
+msgid "Add images"
+msgstr "إضافة صور"
+
+msgid "Image"
+msgstr "صورة"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s صورة"
+msgstr[1] "%(count)s صورة"
+msgstr[2] "%(count)s صورتين"
+msgstr[3] "%(count)s صورة"
+msgstr[4] "%(count)s صورة"
+msgstr[5] "%(count)s صورة"
+
+msgid "Change image"
+msgstr "تغيير الصورة"

@@ -1,0 +1,230 @@
+@use '../../../scss/tools' as *;
+
+// Ensure consistent spacing across the whole component.
+// With the scrolling and show/hide of the field, correct spacing is critical.
+$spacing: theme('spacing.[2.5]');
+$spacing-sm: theme('spacing.4');
+$width: clamp(300px, 75vw, 1000px);
+
+.w-combobox-container {
+  background: theme('colors.surface-page');
+  color: theme('colors.text-context');
+  border-radius: theme('borderRadius.DEFAULT');
+  box-shadow: theme('boxShadow.md');
+  outline: 10px solid transparent;
+
+  // Use a single column grid on smaller screens,
+  // and two columns on larger screens.
+  display: grid;
+  grid-template-columns: 1fr;
+  // Case 1: base case
+  // Use max-content width to minimize shifting due to content wrapping,
+  // constraining width to 75% of viewport for devices above 400px width.
+  width: max-content;
+  max-width: max(300px, 75vw);
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: min(400px, 80vw) 1fr;
+  }
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: min(512px, 80vw) 1fr;
+  }
+
+  // Case 2: there's a previewable block, but the preview may or may not be active
+  // On smaller screens, the preview will be shown below. We don't want the
+  // combobox to change width when the preview is shown or hidden (e.g. due to
+  // a long description), so set a fixed width. It's OK that this will take up
+  // more than the necessary width for the combobox, as we know it's not going
+  // to be wider than 75% of the small screen anyway.
+  &:has(.w-combobox__option-preview) {
+    width: $width;
+
+    @include media-breakpoint-up(md) {
+      // On medium-up screens, the preview will be shown to the right. Revert
+      // the width back to max-content so it doesn't take up the whole `$width`
+      // when the preview is not active.
+      width: max-content;
+    }
+  }
+
+  // Case 3: the preview is currently active
+  &:has(.w-combobox-preview) {
+    @include media-breakpoint-up(md) {
+      // On larger screens, use the fixed `$width` so the width doesn't change
+      // for different blocks, which may have different description lengths.
+      width: $width;
+    }
+  }
+
+  @include dark-theme() {
+    background-color: theme('colors.surface-tooltip');
+  }
+}
+
+.w-combobox__field {
+  padding: $spacing;
+  padding-bottom: 0;
+  font-size: theme('fontSize.18');
+
+  @include media-breakpoint-up(sm) {
+    padding: $spacing-sm;
+    padding-bottom: 0;
+  }
+}
+
+.w-combobox [role='combobox'] {
+  margin-bottom: $spacing-sm;
+
+  &[disabled] {
+    display: none;
+  }
+}
+
+.w-combobox__menu {
+  max-height: min(480px, 70vh);
+  overflow-y: auto;
+}
+
+.w-combobox__optgroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
+  gap: theme('spacing.1');
+  padding: $spacing;
+  padding-top: 0;
+
+  @include media-breakpoint-up(sm) {
+    width: 100%;
+    column-gap: theme('spacing.5');
+    padding: $spacing-sm;
+    padding-top: 0;
+  }
+}
+
+.w-combobox__optgroup-label {
+  @apply w-label-3;
+  grid-column: 1 / span 2;
+  margin-bottom: $spacing;
+  font-size: 1rem;
+  font-weight: 700;
+
+  @include media-breakpoint-up(sm) {
+    margin-bottom: $spacing-sm;
+  }
+
+  @media (forced-colors: active) {
+    color: GrayText;
+  }
+}
+
+.w-combobox__option-row {
+  display: grid;
+  grid-template-columns: 1fr theme('spacing.6');
+}
+
+.w-combobox__option-preview {
+  @include show-focus-outline-inside();
+  color: theme('colors.icon-secondary');
+  background: none;
+  border: 1px solid transparent;
+  padding: 0;
+  width: 100%;
+
+  @include more-contrast-interactive();
+
+  .icon {
+    width: theme('spacing.3');
+    height: theme('spacing.3');
+  }
+
+  &:hover {
+    color: theme('colors.icon-secondary-hover');
+  }
+
+  &[aria-expanded='true'] {
+    color: theme('colors.text-link-default');
+
+    @media (forced-colors: active) {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
+}
+
+.w-combobox__option-row--col1 {
+  grid-column: 1 / span 1;
+}
+
+.w-combobox__option-row--col2 {
+  grid-column: 2 / span 1;
+}
+
+.w-combobox__option {
+  display: grid;
+  grid-template-columns: theme('spacing.8') 1fr;
+  align-items: center;
+  padding: theme('spacing.[2.5]');
+  border: 1px dotted theme('colors.border-button-small-outline-default');
+  font-size: 0.875rem;
+  line-height: theme('lineHeight.tight');
+  border-radius: theme('borderRadius.sm');
+  cursor: pointer;
+
+  &[aria-selected='true'] {
+    border-color: theme('colors.border-button-outline-default');
+    color: theme('colors.text-link-default');
+    background: transparent;
+
+    @media (forced-colors: active) {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
+}
+
+.w-combobox__option-icon {
+  color: theme('colors.icon-secondary');
+  height: theme('spacing.4');
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+  }
+
+  // Give more width to icons with wide visuals.
+  .icon-h1,
+  .icon-h2,
+  .icon-h3,
+  .icon-h4,
+  .icon-h5,
+  .icon-h6 {
+    width: theme('spacing.5');
+    height: theme('spacing.5');
+  }
+
+  // Explicitly override the selected color for SVG support.
+  [aria-selected='true'] & {
+    color: theme('colors.text-link-default');
+
+    @media (forced-colors: active) {
+      color: inherit;
+    }
+  }
+}
+
+.w-combobox__option-text {
+  // Force to CanvasText even when highlighted, because the extra div
+  // makes WHCM add a mandatory Canvas background below the text.
+  @media (forced-colors: active) {
+    color: CanvasText;
+  }
+}
+
+.w-combobox__status {
+  padding: theme('spacing.5');
+  padding-top: 0;
+
+  @media (forced-colors: active) {
+    color: GrayText;
+  }
+}

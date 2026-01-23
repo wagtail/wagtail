@@ -1,0 +1,176 @@
+==========================
+Wagtail 2.13 release notes
+==========================
+
+*May 12, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+StreamField performance and functionality updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The StreamField editing interface has been rebuilt on a client-side rendering model, powered by the `telepath <https://wagtail.github.io/telepath/>`_ library. This provides better performance, increased customizability and UI enhancements including the ability to duplicate blocks. For further background, see the blog post `Telepath - the next evolution of StreamField <https://wagtail.org/blog/telepath/>`_.
+
+This feature was developed by Matt Westcott and Karl Hobley and sponsored by `YouGov <https://yougov.co.uk/>`_, inspired by earlier work on `react-streamfield <https://github.com/wagtail/wagtail-react-streamfield>`_ completed by Bertrand Bordage through the `Wagtail's First Hatch <https://www.kickstarter.com/projects/noripyt/wagtails-first-hatch>`_ crowdfunder.
+
+Simple translation module
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In Wagtail 2.12 we shipped the new localisation support, but in order to translate content an external library had to be used, such as `wagtail-localize <https://www.wagtail-localize.org>`_.
+
+In this release, a new contrib app has been introduced called :doc:`simple_translation </reference/contrib/simple_translation>`. This allows you to create copies of pages and translatable snippets in other languages and translate them as regular Wagtail pages. It does not include any more advanced translation features such as using external services, PO files, or an interface that helps keep translations in sync with the original language.
+
+This module was contributed by Coen van der Kamp.
+
+Commenting
+~~~~~~~~~~
+
+The page editor now supports leaving comments on fields and StreamField blocks, by entering commenting mode (using the button in the top right of the editor). Inline comments are available in rich text fields using the Draftail editor.
+
+This feature was developed by Jacob Topp-Mugglestone, Karl Hobley and Simon Evans and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+Combined account settings
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The "Account settings" section available at the bottom of the admin menu has been updated to include all settings on a single form. This feature was developed by Karl Hobley.
+
+Redirect export
+~~~~~~~~~~~~~~~
+
+The redirects module now includes support for exporting the list of redirects to XLSX or CSV. This feature was developed by Martin Sandström.
+
+Sphinx Wagtail Theme
+~~~~~~~~~~~~~~~~~~~~
+
+The `documentation <https://docs.wagtail.org/>`_ now uses our brand new `Sphinx Wagtail Theme <https://github.com/wagtail/sphinx_wagtail_theme>`_, with a search feature powered by `Algolia DocSearch <https://docsearch.algolia.com/>`_.
+
+Feedback and feature requests for the theme may be reported to the `sphinx_wagtail_theme issue list <https://github.com/wagtail/sphinx_wagtail_theme/issues>`_, and to Wagtail’s issues for the search.
+
+Thank you to Storm Heg, Tibor Leupold, Thibaud Colas, Coen van der Kamp, Olly Willans, Naomi Morduch Toubman, Scott Cranfill, and Andy Chosak for making this happen!
+
+Django 3.2 support
+~~~~~~~~~~~~~~~~~~
+
+Django 3.2 is formally supported in this release. Note that Wagtail 2.13 will be the last release to support Django 2.2.
+
+Other features
+~~~~~~~~~~~~~~
+
+* Support passing ``min_num``, ``max_num`` and ``block_counts`` arguments directly to ``StreamField`` (Haydn Greatnews, Matt Westcott)
+* Add the option to set rich text images as decorative, without alt text (Helen Chapman, Thibaud Colas)
+* Add support for ``__year`` filter in Elasticsearch queries (Seb Brown)
+* Add ``PageQuerySet.defer_streamfields()`` (Andy Babic)
+* Utilize ``PageQuerySet.defer_streamfields()`` to improve efficiency in a few key places (Andy Babic)
+* Support passing multiple models as arguments to ``type()``, ``not_type()``, ``exact_type()`` and ``not_exact_type()`` methods on ``PageQuerySet`` (Andy Babic)
+* Update default attribute copying behaviour of ``Page.get_specific()`` and added the ``copy_attrs_exclude`` option (Andy Babic)
+* Update ``PageQueryset.specific(defer=True)`` to only perform a single database query (Andy Babic)
+* Switched ``register_setting``, ``register_settings_menu_item`` to use SVG icons (Thibaud Colas)
+* Add support to SVG icons for ``SearchArea`` subclasses in ``register_admin_search_area`` (Thibaud Colas)
+* Add specialized ``wagtail.reorder`` page audit log action. This was previously covered by the ``wagtail.move`` action (Storm Heg)
+* ``get_settings`` template tag now supports specifying the variable name with ``{% get_settings as var %}`` (Samir Shah)
+* Reinstate submitter's name on moderation notification email (Matt Westcott)
+* Add a new switch input widget as an alternative to checkboxes (Karl Hobley)
+* Allow ``{% pageurl %}`` fallback to be a direct URL or an object with a ``get_absolute_url`` method (Andy Babic)
+* Support slicing on StreamField / StreamBlock values (Matt Westcott)
+* Switch Wagtail choosers to use SVG icons instead of font icon (Storm Heg)
+* Save revision when restart workflow (Ihor Marhitych)
+* Add a visible indicator of unsaved changes to the page editor (Jacob Topp-Mugglestone)
+
+Bug fixes
+~~~~~~~~~
+
+* StreamField required status is now consistently handled by the ``blank`` keyword argument (Matt Westcott)
+* Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
+* Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
+* Fix pagination on 'view users in a group' (Sagar Agarwal)
+* Prevent page privacy menu from being triggered by pressing enter on a char field (Sagar Agarwal)
+* Validate host/scheme of return URLs on password authentication forms (Susan Dreher)
+* Reordering a page now includes the correct user in the audit log (Storm Heg)
+* Fix reverse migration errors in images and documents (Mike Brown)
+* Make "Collection" and "Parent" form field labels translatable (Thibaud Colas)
+* Apply enough chevron padding to all applicable select elements (Scott Cranfill)
+* Reduce database queries in the page edit view (Ihor Marhitych)
+
+
+Upgrade considerations
+======================
+
+End of Internet Explorer 11 support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail 2.13 will be the last Wagtail release to support IE11. Users accessing the admin with IE11 will be shown a warning message advising that support is being phased out.
+
+
+Updated handling of non-required StreamFields
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The rules for determining whether a StreamField is required (i.e. at least one block must be provided) have been simplified and made consistent with other field types. Non-required fields are now indicated by ``blank=True`` on the ``StreamField`` definition; the default is ``blank=False`` (the field is required). In previous versions, to make a field non-required, it was necessary to define a top-level ``StreamBlock`` with ``required=False`` (which applied the validation rule) as well as setting ``blank=True`` (which removed the asterisk from the form field). You should review your use of StreamField to check that ``blank=True`` is used on the fields you wish to make optional.
+
+
+New client-side implementation for custom StreamField blocks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For the majority of cases, the new StreamField implementation in this release will be a like-for-like upgrade, and no code changes will be necessary - this includes projects where custom block types have been defined by extending ``StructBlock``, ``ListBlock`` and ``StreamBlock``. However, certain complex customizations may need to be reimplemented to work with the new client-side rendering model:
+
+* When customizing the form template for a ``StructBlock`` using the ``form_template`` attribute, the HTML of each child block must be enclosed in an element with a ``data-contentpath`` attribute equal to the block's name. This attribute is used by the commenting framework to attach comments to the correct fields. See :ref:`custom_editing_interfaces_for_structblock`.
+* If a ``StructBlock`` subclass overrides the ``get_form_context`` method as part of customizing the form template, and that method contains logic that causes the returned context to vary depending on the block value, this will no longer work as intended. This is because ``get_form_context`` is now invoked once with the block's default (blank) value in order to construct a template for the client-side rendering to use; previously it was called for each block in the stream. In the new implementation, any Python-side processing that needs to happen on a per-block-value basis can be performed in the block's ``get_form_state`` method; the data returned from that method will then be available in the client-side ``render`` method.
+* If ``FieldBlock`` is used to wrap a Django widget with non-standard client-side behaviour - such as requiring a JavaScript function to be called on initialisation, or combining multiple HTML elements such that it is not possible to read or write its data by accessing a single element's ``value`` property - then you will need to supply a JavaScript handler object to define how the widget is rendered and populated, and how to extract data from it.
+* Packages that replace the StreamField interface at a low level, such as ``wagtail-react-streamfield``, are likely to be incompatible (but the new StreamField implementation will generally offer equivalent functionality).
+
+For further details, see :ref:`custom_streamfield_blocks`.
+
+
+Switched ``register_setting``, ``register_settings_menu_item`` to use SVG icons
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Setting menu items now use SVG icons by default. For sites reusing built-in Wagtail icons, no changes should be required. For sites using custom font icons, update the menu items’ definition to use the ``classnames`` attribute:
+
+.. code-block:: python
+
+    # With register_setting,
+    # Before:
+    @register_setting(icon='custom-cog')
+    # After:
+    @register_setting(icon='', classnames='icon icon-custom-cog')
+
+    # Or with register_settings_menu_item,
+    @hooks.register('register_settings_menu_item')
+    def register_frank_menu_item():
+        # Before:
+        return SettingMenuItem(CustomSetting, icon='custom-cog')
+        # After:
+        return SettingMenuItem(CustomSetting, icon='', classnames='icon icon-custom-cog')
+
+
+``CommentPanel``
+~~~~~~~~~~~~~~~~
+
+``Page.settings_panels`` now includes ``CommentPanel``, which is used to save and load comments. If you are overriding page settings edit handlers
+without directly extending ``Page.settings_panels`` (ie ``settings_panels = Page.settings_panels + [ FieldPanel('my_field') ]`` would need no
+change here) and want to use the new commenting system, your list of edit handlers should be updated to include ``CommentPanel``. For example:
+
+.. code-block:: python
+
+    from django.db import models
+
+    from wagtail.core.models import Page
+    from wagtail.admin.edit_handlers import CommentPanel
+
+
+    class HomePage(Page):
+        settings_panels = [
+            # My existing panels here
+            CommentPanel(),
+        ]
+
+
+Feedback
+========
+
+We would love to `receive your feedback <https://forms.gle/G5WYo6sLiZiwdfsQA>`_ on this release.

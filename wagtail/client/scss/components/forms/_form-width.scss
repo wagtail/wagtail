@@ -1,0 +1,44 @@
+@use '../../tools' as *;
+@use '../../settings' as *;
+
+.w-form-width {
+  @include max-form-width();
+}
+
+@include media-breakpoint-up(md) {
+  .minimap-open {
+    .w-form-width {
+      max-width: theme('width.[4/5]');
+    }
+  }
+
+  .side-panel-open {
+    .w-form-width {
+      // Account for dynamic width of the side panel when open.
+      max-width: max(
+        theme('width.[1/3]'),
+        calc(100% - var(--side-panel-width))
+      );
+    }
+  }
+
+  .side-panel-open.minimap-open {
+    .w-form-width {
+      // Account for additional space taken up by the minimap.
+      max-width: max(
+        theme('width.[2/5]'),
+        calc(100% - var(--side-panel-width) - 15rem)
+      );
+    }
+  }
+}
+
+.fields {
+  // Apply the desired form width for legacy `fields` container.
+  max-width: $max-form-width;
+
+  // Remove any spacing in legacy fields markup.
+  > li {
+    padding: 0;
+  }
+}

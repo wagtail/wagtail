@@ -1,0 +1,43 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    Expects a 'linkurl' parameter to use as the base URL, which may be a URL route name (must be
+    reverse-resolvable with no arguments) or a direct URL path. If omitted, links will be given
+    an href of the form "?p=123", implicitly preserving the current URL path.
+{% endcomment %}
+{% resolve_url linkurl as url_path %}
+
+<nav class="pagination" aria-label="{% trans 'Pagination' %}">
+    <div class="pagination__start">
+        <p>{% blocktrans trimmed with page_num=items.number|intcomma total_pages=items.paginator.num_pages|intcomma %}Page {{ page_num }} of {{ total_pages }}{% endblocktrans %}</p>
+    </div>
+    <ul>
+        <li class="prev">
+            <a{% if items.has_previous %} href="{{ url_path }}{% querystring p=items.previous_page_number %}"{% endif %}>
+                {% icon name="arrow-left" classname="default" %}
+                {% trans 'Previous' %}
+            </a>
+        </li>
+        {% for page_number in elided_page_range %}
+            <li class="pagination__page-number{% if page_number == items.number %} pagination__page-number--current{% endif %}">
+                {% if page_number == items.paginator.ELLIPSIS %}
+                    <span>{{ page_number }}</span>
+                {% else %}
+                    <a href="{{ url_path }}{% querystring p=page_number %}" {% if page_number == items.number %} aria-current="page"{% endif %}>
+                        {{ page_number|intcomma }}
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        <li class="next">
+            <a{% if items.has_next %} href="{{ url_path }}{% querystring p=items.next_page_number %}"{% endif %}>
+                {% trans 'Next' %}
+                {% icon name="arrow-right" classname="default" %}
+            </a>
+        </li>
+    </ul>
+    <div class="pagination__end">
+        {{ items.paginator.items_count_label|capfirst }}
+    </div>
+</nav>

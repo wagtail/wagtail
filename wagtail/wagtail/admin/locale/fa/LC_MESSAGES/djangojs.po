@@ -1,0 +1,124 @@
+#
+# Translators:
+# Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2022
+# Mostafa Heidarian <tabvar@gmail.com>, 2022
+# pyzenberg <pyzenberg@gmail.com>, 2022
+# Bardia, 2024
+# Loic Teixeira, 2024
+# Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2025
+# Ehsan jahanbakhsh <man207ej@gmail.com>, 2025
+# Amir Mahmoodi, 2025
+#
+msgid ""
+msgstr ""
+"Last-Translator: Amir Mahmoodi, 2025\n"
+"Language-Team: Persian (https://app.transifex.com/torchbox/teams/8009/fa/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Actions"
+msgstr "اعمال"
+
+msgid "Alt text"
+msgstr "متن جایگزین"
+
+msgid "Broken link"
+msgstr "لینک شکسته"
+
+msgid "Cancel"
+msgstr "انصراف"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Comment"
+msgstr "نظر"
+
+msgid "Dashboard"
+msgstr "داشبورد"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Edit '%(title)s'"
+msgstr "ویرایش '%(title)s'"
+
+msgid "Horizontal line"
+msgstr "خط افقی"
+
+msgid "Line break"
+msgstr "نقطه سرخط"
+
+msgid "Loading…"
+msgstr "در حال بارگذاری"
+
+msgid "Missing document"
+msgstr "پرونده گم شده"
+
+msgid "More actions"
+msgstr "اعمال بیشتر"
+
+msgid "No results"
+msgstr "بدون نتیجه"
+
+msgid "Page"
+msgstr "صفحه"
+
+msgid "Page explorer"
+msgstr "کاوشگر صفحه"
+
+msgid "Pages"
+msgstr "صفحه ها"
+
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+msgid "Reload saved content"
+msgstr "بارگذاری مجدد محتوای ذخیره شده"
+
+msgid "Reload the page"
+msgstr "بارگذاری مجدد صفحه"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Saving..."
+msgstr "درحال ذخیره..."
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "See all"
+msgstr "نمایش همه"
+
+msgid "Server Error"
+msgstr "خطای سرور"
+
+msgid "Show error"
+msgstr "نشان دادن خطا"
+
+msgid "Show latest content"
+msgstr "نشان دادن آخرین محتوا"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "ویراستار از کار افتاد. محتوا به آخرین نسخه ذخیره شده برگردانده شد."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "حداکثر تعداد آیتم ها %(max_num)d مورد میباشد"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "کمترین تعداد آیتم ها %(min_num)d مورد است"
+
+msgid "This field is required."
+msgstr "این فیلد لازم است."
+
+msgid "View child pages of '%(title)s'"
+msgstr "دیدن صفحات فرزند %(title)s"
+
+msgid "Yes"
+msgstr "بله"

@@ -1,0 +1,125 @@
+@use '../tools' as *;
+@use '../settings' as *;
+
+.wrapper {
+  @include clearfix();
+  @apply w-transition-sidebar;
+  height: 100vh;
+
+  @include media-breakpoint-up(sm) {
+    transform: none;
+    padding-inline-start: $menu-width;
+
+    .sidebar-collapsed & {
+      padding-inline-start: $menu-width-slim;
+    }
+  }
+}
+
+/**
+ * Increase the scroll offset to account for pages with sticky areas - header or footer.
+ * We apply this to all pages for simplicity.
+ */
+@mixin sticky-areas-scroll-offset() {
+  $gap: theme('spacing.4');
+  // For mobile viewports, expect a sticky header over two rows.
+  scroll-padding-top: calc(theme('spacing.slim-header') * 2 + $gap);
+
+  @include media-breakpoint-up(sm) {
+    scroll-padding-top: calc(theme('spacing.slim-header') + $gap);
+    // Increase the scroll offset to account for pages with sticky bottom button
+    scroll-padding-bottom: 100px;
+  }
+}
+
+.content-wrapper {
+  scroll-behavior: smooth;
+  width: 100%;
+  height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action
+  float: inline-start;
+  position: relative;
+  border-bottom: 1px solid theme('colors.border-furniture');
+
+  @include sticky-areas-scroll-offset();
+}
+
+.content {
+  @include row();
+  background: theme('colors.surface-page');
+  border-top: 0 solid transparent; // this top border provides space for the floating logo to toggle the menu
+  min-height: 100%;
+  position: relative; // yuk. necessary for positions for jquery ui widgets
+
+  @include media-breakpoint-up(sm) {
+    padding-bottom: 4em;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .content {
+    border-top: 0;
+    padding-top: 0;
+  }
+}
+
+.row {
+  @include clearfix();
+}
+
+@include media-breakpoint-up(sm) {
+  .col1 {
+    @include column(1);
+  }
+
+  .col2 {
+    @include column(2);
+  }
+
+  .col3 {
+    @include column(3);
+  }
+
+  .col4 {
+    @include column(4);
+  }
+
+  .col5 {
+    @include column(5);
+  }
+
+  .col6 {
+    @include column(6);
+  }
+
+  .col7 {
+    @include column(7);
+  }
+
+  .col8 {
+    @include column(8);
+  }
+
+  .col9 {
+    @include column(9);
+  }
+
+  .col10 {
+    @include column(10);
+  }
+
+  .col11 {
+    @include column(11);
+  }
+
+  .col12 {
+    @include column(12);
+  }
+
+  .row {
+    @include row();
+  }
+
+  .row-flush {
+    @include row-flush();
+  }
+}

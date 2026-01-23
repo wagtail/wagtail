@@ -1,0 +1,71 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block main_content %}
+    <table class="listing w-mt-8">
+        <col width="15%" />
+        <col />
+
+        <thead>
+            <tr>
+                <th>{% trans "Fields" %}</th>
+                <th>{% trans "Changes" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for comp in comparison %}
+                <tr>
+                    <td class="title" valign="top">
+                        <div class="title-wrapper">{{ comp.field_label }}:</div>
+                    </td>
+                    <td class="comparison{% if not comp.is_field %} no-padding{% endif %}">
+                        {% if comp.is_field %}
+                            {{ comp.htmldiff }}
+                        {% elif comp.is_child_relation %}
+                            {% for child_comp in comp.get_child_comparisons %}
+                                <div class="comparison__child-object {% if child_comp.is_addition %}addition{% elif child_comp.is_deletion %}deletion{% endif %}">
+                                    {% with child_comp.get_position_change as move %}
+                                        {% if move %}
+                                            <div class="help-block help-info">
+                                                {% icon name='help' %}
+                                                <p>
+                                                    {% if move > 0 %}
+                                                        {% blocktrans trimmed count counter=move %}
+                                                            Moved down 1 place.
+                                                        {% plural %}
+                                                            Moved down {{ counter }} places.
+                                                        {% endblocktrans %}
+                                                    {% elif move < 0 %}
+                                                        {% blocktrans trimmed count counter=move|abs %}
+                                                            Moved up 1 place.
+                                                        {% plural %}
+                                                            Moved up {{ counter }} places.
+                                                        {% endblocktrans %}
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                        {% endif %}
+                                    {% endwith %}
+
+                                    <dl class="comparison__list">
+                                        {% for field_comp in child_comp.get_field_comparisons %}
+                                            <dt>{{ field_comp.field_label }}</dt>
+                                            <dd>{{ field_comp.htmldiff }}</dd>
+                                        {% endfor %}
+                                    </dl>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2" class="no-results-message">
+                        <p>{% trans "There are no differences between these two versions" %}</p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

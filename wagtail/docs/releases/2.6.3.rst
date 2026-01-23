@@ -1,0 +1,18 @@
+===========================
+Wagtail 2.6.3 release notes
+===========================
+
+*October 22, 2019*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Altering Django REST Framework's ``DEFAULT_AUTHENTICATION_CLASSES`` setting no longer breaks the page explorer menu and admin API (Matt Westcott)

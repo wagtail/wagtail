@@ -1,0 +1,1044 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail API v2"
+msgstr "واجهة برمجة تطبيقات Wagtail الإصدار الثاني"
+
+msgid "Wagtail core"
+msgstr "النواة الأساسية لـ Wagtail"
+
+msgid "Add Comment"
+msgstr "إضافة تعليق"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "الحد الأدنى لعدد العناصر هو %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "الحد الأقصى لعدد العناصر هو %(max_num)d"
+
+msgid "Move up"
+msgstr "نقل للأعلى"
+
+msgid "Move down"
+msgstr "نقل للأسفل"
+
+msgid "Drag"
+msgstr "سحب"
+
+msgid "Duplicate"
+msgstr "تكرار"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Add"
+msgstr "إضافة"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: هذه الكتلة لا تحتوي على خيارات."
+
+msgid "This block has no options."
+msgstr "هذه الكتلة لا تحتوي على خيارات."
+
+msgid "This field is required."
+msgstr "هذا الحقل مطلوب."
+
+msgid "Wagtail frontend cache"
+msgstr "ذاكرة التخزين المؤقت لواجهة Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "صفحات Wagtail القابلة للتوجيه"
+
+msgid "Wagtail sitemaps"
+msgstr "خرائط موقع Wagtail"
+
+msgid "Unknown content type"
+msgstr "نوع محتوى غير معروف"
+
+msgid "Date cannot be in the future."
+msgstr "لا يمكن أن يكون التاريخ في المستقبل."
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "كلمة المرور التي أدخلتها غير صحيحة. يرجى المحاولة مرة أخرى."
+
+msgid "Comment"
+msgstr "تعليق"
+
+msgid "Locked"
+msgstr "مقفل"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "لا يمكن لأحد إجراء تغييرات أثناء قفل %(model_name)s"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>تم قفل '{title}'</b> بواسطة <b>أنت</b> في <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' مقفل</b> بواسطة <b>أنت</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr "<b>تم قفل '{title}'</b> بواسطة <b>{user}</b> في <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' مقفل</b>."
+
+msgid "Locked by you"
+msgstr "مقفل بواسطتك"
+
+msgid "Locked by another user"
+msgstr "مقفل بواسطة مستخدم آخر"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "يمكنك فقط إجراء تغييرات أثناء قفل %(model_name)s"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "يمكن فقط لـ %(user)s إجراء تغييرات أثناء قفل %(model_name)s"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "هذا %(model_name)s في انتظار المراجعة حالياً."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"هذا {model_name} في انتظار <b>'{task_name}'</b> في سير العمل "
+"<b>'{workflow_name}'</b>."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "يمكن فقط للمراجعين لهذه المهمة تعديل %(model_name)s."
+
+msgid "Unlocked"
+msgstr "غير مقفل"
+
+msgid "Locked by workflow"
+msgstr "مقفل بواسطة سير العمل"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"يمكن للمراجعين تعديل هذا %(model_name)s - اقفله لمنع المراجعين الآخرين من "
+"التعديل"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "يمكن فقط للمراجعين تعديل والموافقة على %(model_name)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr "{model_name} '{title}' مقفل ومجدول للنشر في {datetime}"
+
+msgid "Locked by schedule"
+msgstr "مقفل حسب الجدول"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "مقفل حالياً وسينشر في التاريخ المجدول"
+
+msgid "content type"
+msgstr "نوع المحتوى"
+
+msgid "timestamp (UTC)"
+msgstr "الطابع الزمني (UTC)"
+
+msgid "log entry"
+msgstr "إدخال السجل"
+
+msgid "log entries"
+msgstr "إدخالات السجل"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "إجراء السجل '%(action_name)s' غير مسجل."
+
+msgid "system"
+msgstr "النظام"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "غير معروف %(action)s"
+
+msgid "model log entry"
+msgstr "إدخال سجل النموذج"
+
+msgid "model log entries"
+msgstr "إدخالات سجل النموذج"
+
+msgid "live"
+msgstr "نشط"
+
+msgid "has unpublished changes"
+msgstr "يحتوي على تغييرات غير منشورة"
+
+msgid "first published at"
+msgstr "تاريخ النشر الأول"
+
+msgid "last published at"
+msgstr "تاريخ النشر الأخير"
+
+msgid "live revision"
+msgstr "مراجعة نشطة"
+
+msgid "go live date/time"
+msgstr "تاريخ/وقت النشر"
+
+msgid "expiry date/time"
+msgstr "تاريخ/وقت الانتهاء"
+
+msgid "expired"
+msgstr "منتهي الصلاحية"
+
+msgid "scheduled"
+msgstr "مجدول"
+
+msgid "draft"
+msgstr "مسودة"
+
+msgid "live + scheduled"
+msgstr "نشط + مجدول"
+
+msgid "live + draft"
+msgstr "نشط + مسودة"
+
+msgid "locale"
+msgstr "اللغة المحلية"
+
+msgid "locked"
+msgstr "مقفل"
+
+msgid "locked at"
+msgstr "مقفل في"
+
+msgid "locked by"
+msgstr "مقفل بواسطة"
+
+msgid "collection"
+msgstr "رزمة"
+
+msgid "collection view restriction"
+msgstr "تقييد عرض الرزمة"
+
+msgid "collection view restrictions"
+msgstr "قيود عرض الرزمة"
+
+msgid "name"
+msgstr "الاسم"
+
+msgid "collections"
+msgstr "الرزم"
+
+msgid "group"
+msgstr "مجموعة"
+
+msgid "permission"
+msgstr "إذن"
+
+msgid "group collection permission"
+msgstr "أذن مجموعة ل رزمة"
+
+msgid "group collection permissions"
+msgstr "أذونات مجموعة ل رزمة"
+
+msgid "for content type"
+msgstr "لنوع المحتوى"
+
+msgid "uploaded by user"
+msgstr "تم الرفع بواسطة المستخدم"
+
+msgid "Add/edit pages you own"
+msgstr "إضافة/تعديل الصفحات التي تملكها"
+
+msgid "Bulk delete"
+msgstr "حذف جماعي"
+
+msgid "Delete pages with children"
+msgstr "حذف الصفحات مع الصفحات الفرعية"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Edit any page"
+msgstr "تعديل أي صفحة"
+
+msgid "Lock"
+msgstr "قفل"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "قفل/فتح الصفحات التي قفلتها"
+
+msgid "Publish"
+msgstr "نشر"
+
+msgid "Publish any page"
+msgstr "نشر أي صفحة"
+
+msgid "Unlock"
+msgstr "فتح"
+
+msgid "Unlock any page"
+msgstr "فتح أي صفحة"
+
+msgid "title"
+msgstr "العنوان"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "عنوان الصفحة كما تريد أن يراه الجمهور"
+
+msgid "slug"
+msgstr "رابط مختصر"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"اسم الصفحة كما سيظهر في الروابط، مثال: http://domain.com/blog/[my-slug]/"
+
+msgid "URL path"
+msgstr "مسار URL"
+
+msgid "owner"
+msgstr "المالك"
+
+msgid "title tag"
+msgstr "وسم العنوان"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "اسم الصفحة المعروض في نتائج محركات البحث كعنوان قابل للنقر."
+
+msgid "show in menus"
+msgstr "إظهار في القوائم"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "ما إذا كان رابط لهذه الصفحة سيظهر في القوائم المولدة تلقائياً"
+
+msgid "meta description"
+msgstr "وصف التعريف"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "النص الوصفي المعروض تحت العنوان في نتائج محركات البحث."
+
+msgid "latest revision created at"
+msgstr "أحدث مراجعة تم إنشاؤها في"
+
+msgid "For search engines"
+msgstr "لمحركات البحث"
+
+msgid "For site menus"
+msgstr "لقوائم الموقع"
+
+msgid "page"
+msgstr "صفحة"
+
+msgid "pages"
+msgstr "صفحات"
+
+msgid "group page permission"
+msgstr "أذن صفحة ل مجموعة"
+
+msgid "group page permissions"
+msgstr "أذونات صفحة ل مجموعة"
+
+msgid "page view restriction"
+msgstr "تقييد عرض الصفحة"
+
+msgid "page view restrictions"
+msgstr "قيود عرض الصفحة"
+
+msgid "workflow"
+msgstr "سير العمل"
+
+msgid "workflow page"
+msgstr "صفحة سير العمل"
+
+msgid "workflow pages"
+msgstr "صفحات سير العمل"
+
+msgid "page log entry"
+msgstr "إدخال سجل الصفحة"
+
+msgid "page log entries"
+msgstr "إدخالات سجل الصفحة"
+
+msgid "Draft saved"
+msgstr "تم حفظ المسودة"
+
+msgid "comment"
+msgstr "تعليق"
+
+msgid "comments"
+msgstr "تعليقات"
+
+msgid "comment reply"
+msgstr "رد على التعليق"
+
+msgid "comment replies"
+msgstr "ردود على التعليقات"
+
+msgid "Default"
+msgstr "افتراضي"
+
+msgid "Preview in mobile size"
+msgstr "معاينة بحجم الجوال"
+
+msgid "Preview in tablet size"
+msgstr "معاينة بحجم الجهاز اللوحي"
+
+msgid "Preview in desktop size"
+msgstr "معاينة بحجم سطح المكتب"
+
+msgid "object id"
+msgstr "معرف الكائن"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "سيتم أيضاً حذف %(model_name)s"
+
+msgid "prevents deletion"
+msgstr "يمنع الحذف"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "سيتم تعيينه إلى %(model_name)s الافتراضي"
+
+msgid "will do nothing"
+msgstr "لن يفعل شيئاً"
+
+msgid "may prevent deletion"
+msgstr "قد يمنع الحذف"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "سيتم تعيينه إلى %(model_name)s محدد من النظام"
+
+msgid "will unset the reference"
+msgstr "سيقوم بإلغاء تعيين المرجع"
+
+msgid "created at"
+msgstr "تم الإنشاء في"
+
+msgid "user"
+msgstr "مستخدم"
+
+msgid "content JSON"
+msgstr "محتوى JSON"
+
+msgid "approved go live at"
+msgstr "تمت الموافقة للنشر في"
+
+msgid "revision"
+msgstr "مراجعة"
+
+msgid "revisions"
+msgstr "مراجعات"
+
+msgid "latest revision"
+msgstr "أحدث مراجعة"
+
+msgid "hostname"
+msgstr "اسم المضيف"
+
+msgid "port"
+msgstr "المنفذ"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"اضبط هذا على قيمة غير 80 إذا كنت بحاجة إلى رقم منفذ معين يظهر في عناوين URL "
+"(مثل التطوير على المنفذ 8000). لا يؤثر على معالجة الطلبات (لذلك لا يزال "
+"إعادة توجيه المنفذ يعمل)."
+
+msgid "site name"
+msgstr "اسم الموقع"
+
+msgid "Human-readable name for the site."
+msgstr "اسم قابل للقراءة للموقع."
+
+msgid "root page"
+msgstr "الصفحة الجذرية"
+
+msgid "is default site"
+msgstr "هو الموقع الافتراضي"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"إذا كان صحيحاً، سيتعامل هذا الموقع مع طلبات جميع أسماء المضيف الأخرى التي ليس "
+"لها إدخال موقع خاص بها"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "sites"
+msgstr "مواقع"
+
+msgid "default"
+msgstr "افتراضي"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s مضبوط بالفعل كموقع افتراضي. يجب عليك إلغاء ذلك قبل أن تتمكن من "
+"حفظ هذا الموقع كافتراضي."
+
+msgid "group site permission"
+msgstr "أذن مجموعة في موقع"
+
+msgid "group site permissions"
+msgstr "أذونات مجموعة في موقع"
+
+msgid "Public"
+msgstr "عام"
+
+msgid "Private, accessible with a shared password"
+msgstr "خاص، يمكن الوصول إليه بكلمة مرور مشتركة"
+
+msgid "Private, accessible to any logged-in users"
+msgstr "خاص، يمكن الوصول إليه من قبل أي مستخدمين مسجلين"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "خاص، يمكن الوصول إليه من قبل مستخدمين في مجموعات محددة"
+
+msgid "shared password"
+msgstr "كلمة مرور مشتركة"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"يجب عدم استخدام كلمات المرور المشتركة لحماية المحتوى الحساس. أي شخص لديه هذه "
+"كلمة المرور سيكون قادراً على عرض المحتوى."
+
+msgid "groups"
+msgstr "مجموعات"
+
+msgid "view restriction"
+msgstr "تقييد العرض"
+
+msgid "view restrictions"
+msgstr "قيود العرض"
+
+msgid "In progress"
+msgstr "قيد التنفيذ"
+
+msgid "Approved"
+msgstr "تمت الموافقة"
+
+msgid "Needs changes"
+msgstr "يحتاج إلى تغييرات"
+
+msgid "Cancelled"
+msgstr "تم الإلغاء"
+
+msgid "status"
+msgstr "الحالة"
+
+msgid "requested by"
+msgstr "مطلوب بواسطة"
+
+msgid "current task state"
+msgstr "حالة المهمة الحالية"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"يمكن أن يكون هناك حالة سير عمل واحدة قيد التنفيذ أو تحتاج إلى تغييرات لكل "
+"صفحة/مقتطف."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"سير العمل '%(workflow_name)s' على %(model_name)s '%(title)s': %(status)s"
+
+msgid "Not started"
+msgstr "لم يبدأ بعد"
+
+msgid "Workflow state"
+msgstr "حالة سير العمل"
+
+msgid "Workflow states"
+msgstr "حالات سير العمل"
+
+msgid "active"
+msgstr "نشط"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"يمكن إضافة سير العمل النشط إلى الصفحات/المقتطفات. تعطيل سير العمل لا يزيله "
+"من الصفحات/الأجزاء الموجودة."
+
+msgid "workflows"
+msgstr "سير العمل"
+
+msgid "workflow_tasks"
+msgstr "مهام سير العمل"
+
+msgid "task"
+msgstr "مهمة"
+
+msgid "workflow task order"
+msgstr "ترتيب مهمة سير العمل"
+
+msgid "workflow task orders"
+msgstr "ترتيبات مهام سير العمل"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"يمكن إضافة المهام النشطة إلى سير العمل. تعطيل مهمة لا يزيلها من سير العمل "
+"الموجود."
+
+msgid "tasks"
+msgstr "مهام"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"سيتم مراجعة أو الموافقة على الصفحات/المقتطفات في هذه الخطوة من سير العمل "
+"بواسطة هذه المجموعات من المستخدمين"
+
+msgid "Request changes"
+msgstr "طلب تغييرات"
+
+msgid "Approve"
+msgstr "موافقة"
+
+msgid "Approve with comment"
+msgstr "الموافقة مع تعليق"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "يمكن لأعضاء مجموعات Wagtail المختارة الموافقة على هذه المهمة"
+
+msgid "Group approval task"
+msgstr "مهمة موافقة المجموعة"
+
+msgid "Group approval tasks"
+msgstr "مهام موافقة المجموعة"
+
+msgid "Rejected"
+msgstr "مرفوض"
+
+msgid "Skipped"
+msgstr "تم تخطيه"
+
+msgid "workflow state"
+msgstr "حالة سير العمل"
+
+msgid "started at"
+msgstr "بدأ في"
+
+msgid "finished at"
+msgstr "انتهى في"
+
+msgid "finished by"
+msgstr "انتهى بواسطة"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "المهمة '%(task_name)s' على المراجعة '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "حالة المهمة"
+
+msgid "Task states"
+msgstr "حالات المهام"
+
+msgid "in moderation"
+msgstr "قيد المراجعة"
+
+msgid "live + in moderation"
+msgstr "نشط + قيد المراجعة"
+
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "اسم المستخدم وكلمة المرور غير متطابقين. يرجى المحاولة مرة أخرى."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"حسابك لا يملك صلاحية الوصول إلى هذه الصفحة. للمتابعة، يرجى تسجيل الدخول "
+"بحساب لديه صلاحية الوصول."
+
+msgid "Password required"
+msgstr "كلمة المرور مطلوبة"
+
+msgid "You need a password to access this page."
+msgstr "تحتاج إلى كلمة مرور للوصول إلى هذه الصفحة."
+
+msgid "Continue"
+msgstr "متابعة"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s مجموعة فرعية"
+msgstr[1] "%(count)s مجموعتين فرعيتين"
+msgstr[2] "%(count)s مجموعات فرعية"
+msgstr[3] "%(count)s مجموعة فرعية"
+msgstr[4] "%(count)s مجموعة فرعية"
+msgstr[5] "%(count)s رزمة فرعية"
+
+msgid "Create"
+msgstr "إنشاء"
+
+msgid "Created"
+msgstr "تم الإنشاء"
+
+msgid "Edited"
+msgstr "تم التعديل"
+
+msgid "Deleted"
+msgstr "تم الحذف"
+
+msgid "Published"
+msgstr "تم النشر"
+
+msgid "Publish scheduled draft"
+msgstr "نشر مسودة مجدولة"
+
+msgid "Published scheduled draft"
+msgstr "تم نشر المسودة المجدولة"
+
+msgid "Unpublish"
+msgstr "إلغاء النشر"
+
+msgid "Unpublished"
+msgstr "تم إلغاء النشر"
+
+msgid "Unpublish scheduled draft"
+msgstr "إلغاء نشر مسودة مجدولة"
+
+msgid "Unpublished scheduled draft"
+msgstr "تم إلغاء نشر المسودة المجدولة"
+
+msgid "Reject"
+msgstr "رفض"
+
+msgid "Rename"
+msgstr "إعادة تسمية"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "تمت إعادة التسمية من '%(old)s' إلى '%(new)s'"
+
+msgid "Renamed"
+msgstr "تمت إعادة التسمية"
+
+msgid "Revert"
+msgstr "تراجع"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"تم الرجوع إلى المراجعة السابقة بالمعرف %(revision_id)s من %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "تم الرجوع إلى المراجعة السابقة"
+
+msgid "Copy"
+msgstr "نسخ"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "تم النسخ من %(title)s"
+
+msgid "Copied"
+msgstr "تم النسخ"
+
+msgid "Copy for translation"
+msgstr "نسخ للترجمة"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "تم النسخ للترجمة من %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "تم النسخ للترجمة"
+
+msgid "Create alias"
+msgstr "إنشاء اسم مستعار"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "تم إنشاء اسم مستعار لـ %(title)s"
+
+msgid "Created an alias"
+msgstr "تم إنشاء اسم مستعار"
+
+msgid "Convert alias into ordinary page"
+msgstr "تحويل الاسم المستعار إلى صفحة عادية"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "تم تحويل الاسم المستعار '%(title)s' إلى صفحة عادية"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "تم تحويل اسم مستعار إلى صفحة عادية"
+
+msgid "Move"
+msgstr "نقل"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "تم النقل من '%(old_parent)s' إلى '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "تم النقل"
+
+msgid "Reorder"
+msgstr "إعادة ترتيب"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "تم إعادة الترتيب تحت '%(parent)s'"
+
+msgid "Reordered"
+msgstr "تم إعادة الترتيب"
+
+msgid "Schedule publication"
+msgstr "جدولة النشر"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"تم جدولة المراجعة %(revision_id)s من %(created_at)s للنشر في %(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "تم جدولة الصفحة للنشر في %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "تم جدولة الصفحة للنشر"
+
+msgid "Unschedule publication"
+msgstr "إلغاء جدولة النشر"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"تم إلغاء جدولة المراجعة %(revision_id)s من %(created_at)s للنشر في "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "تم إلغاء جدولة الصفحة للنشر في %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "تم إلغاء جدولة الصفحة من النشر"
+
+msgid "Add view restrictions"
+msgstr "إضافة قيود عرض"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "تمت إضافة قيد العرض '%(restriction)s'"
+
+msgid "Added view restriction"
+msgstr "تمت إضافة قيد عرض"
+
+msgid "Update view restrictions"
+msgstr "تحديث قيود العرض"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "تم تحديث قيد العرض إلى '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "تم تحديث قيد العرض"
+
+msgid "Remove view restrictions"
+msgstr "إزالة قيود العرض"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr "تمت إزالة قيد العرض '%(restriction)s'. الصفحة عامة الآن."
+
+msgid "Removed view restriction"
+msgstr "تمت إزالة قيد العرض"
+
+msgid "Add comment"
+msgstr "إضافة تعليق"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "تمت إضافة تعليق على الحقل %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "تمت إضافة تعليق"
+
+msgid "Edit comment"
+msgstr "تحرير تعليق"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "تم تحرير تعليق على الحقل %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "تم تحرير تعليق"
+
+msgid "Delete comment"
+msgstr "حذف تعليق"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "تم حذف تعليق على الحقل %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "تم حذف تعليق"
+
+msgid "Resolve comment"
+msgstr "حل التعليق"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "تم حل تعليق على الحقل %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "تم حل تعليق"
+
+msgid "Reply to comment"
+msgstr "الرد على التعليق"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "تم الرد على تعليق على الحقل %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "تم الرد على تعليق"
+
+msgid "Edit reply to comment"
+msgstr "تحرير الرد على التعليق"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "تم تحرير رد على تعليق على الحقل %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "تم تحرير رد"
+
+msgid "Delete reply to comment"
+msgstr "حذف الرد على التعليق"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "تم حذف رد على تعليق على الحقل %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "تم حذف رد"
+
+msgid "Workflow: start"
+msgstr "سير العمل: بدء"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "تم بدء '%(workflow)s'. الخطوة التالية '%(task)s'"
+
+msgid "Workflow started"
+msgstr "تم بدء سير العمل"
+
+msgid "Workflow: approve task"
+msgstr "سير العمل: الموافقة على المهمة"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "تمت الموافقة في '%(task)s'. الخطوة التالية '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "تمت الموافقة في '%(task)s'. اكتمل '%(workflow)s'"
+
+msgid "Workflow task approved"
+msgstr "تمت الموافقة على مهمة سير العمل"
+
+msgid "Workflow: reject task"
+msgstr "سير العمل: رفض المهمة"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "تم الرفض في '%(task)s'. طلب تغييرات"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "تم رفض مهمة سير العمل. اكتمل سير العمل"
+
+msgid "Workflow: resume task"
+msgstr "سير العمل: استئناف المهمة"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "تم إعادة إرسال '%(task)s'. تم استئناف سير العمل"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "تم إعادة إرسال مهمة سير العمل. تم استئناف سير العمل"
+
+msgid "Workflow: cancel"
+msgstr "سير العمل: إلغاء"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "تم إلغاء '%(workflow)s' في '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "تم إلغاء سير العمل"

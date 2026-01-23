@@ -1,0 +1,3 @@
+{% load i18n %}
+<p>{% trans "This collection has been made private by a parent collection." %}</p>
+<p>{% trans "You can edit the privacy settings on:" %} <a href="{% url 'wagtailadmin_collections:edit' collection_with_restriction.id %}">{{ collection_with_restriction.name }}</a></p>

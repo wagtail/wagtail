@@ -1,0 +1,87 @@
+@use 'sass:map';
+@use '../../tools' as *;
+@use '../../settings' as *;
+
+/**
+ * The field component handles form fields’ layout and ancillary elements such as error messages and help text.
+ * It doesn’t handle the style of the widgets, which are implemented independently for each widget type.
+ *
+ * Take special care when changing the field component: it can be used in forms but also in filters, headers, and any
+ * other arbitrary part of the UI. It has to be very flexible to accommodate for all those use cases.
+ */
+
+.w-field {
+  position: relative;
+}
+
+.w-field__errors {
+  .error-message {
+    @apply w-label-2;
+    color: theme('colors.text-error');
+    display: inline-block;
+    margin: 0;
+    margin-top: theme('spacing.[0.5]');
+  }
+}
+
+.w-field__errors-icon {
+  // Position and size the icon according to the text size.
+  position: relative;
+  top: 0.125em;
+  width: 1em;
+  height: 1em;
+  margin-inline-end: 0.625rem;
+  color: theme('colors.text-error');
+
+  // Avoid displaying the error message icon if we already have an icon.
+  + .error-message::before {
+    display: none;
+  }
+}
+
+.w-field__label {
+  @apply w-label-2;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.w-field__wrapper {
+  @include max-form-width();
+  // This is primarily helpful to add margins between fields, but fields can often
+  // be wrapped into groups (for example a row), so it’s safer to add a margin regardless
+  // of what the next element is.
+  margin-bottom: $form-field-spacing;
+
+  // Inside of listing tables we don't need margins because the table row will handle them.
+  table.listing td & {
+    margin-bottom: 0;
+
+    .w-field__input {
+      margin-top: 0;
+    }
+  }
+}
+
+.w-field__input {
+  position: relative;
+  margin-top: calc(theme('spacing.[2.5]') * var(--w-density-factor));
+}
+
+.w-field__icon {
+  $size: theme('spacing.4');
+  $offset: calc($text-input-height / 2 - $size / 2);
+  width: $size;
+  height: $size;
+  color: theme('colors.icon-primary');
+  position: absolute;
+  // Top padding of text input and half of text size.
+  top: $offset;
+  inset-inline-start: $offset;
+  pointer-events: none;
+
+  + input {
+    // Allows for a nice square around the icon.
+    padding-inline-start: $text-input-height;
+  }
+}

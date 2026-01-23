@@ -1,0 +1,34 @@
+{% load i18n wagtailadmin_tags wagtailcore_tags %}
+
+<section
+    class="w-whats-new w-dismissible"
+    aria-labelledby="whats-new-heading"
+    data-controller="w-dismissible"
+    data-w-dismissible-dismissed-class="w-dismissible--dismissed"
+    data-w-dismissible-id-value="{{ dismissible_id }}"
+>
+    <div class="w-whats-new__banner">
+        <button class="w-whats-new__dismiss" type="button" data-action="w-dismissible#toggle">
+            {% icon name="circle-xmark" %}
+            <span class="w-sr-only">{% trans "Close" %}</span>
+        </button>
+        <div class="w-whats-new__main-icon">
+            {% icon name="help" %}
+        </div>
+        <div class="w-whats-new__content">
+            <h2 id="whats-new-heading" class="w-whats-new__heading">
+                {% blocktrans trimmed %}
+                    Things in Wagtail {{ version }} have changed!
+                {% endblocktrans %}
+            </h2>
+            <p class="w-whats-new__details">
+                {% wagtail_feature_release_editor_guide_link as editor_guide_link %}
+                {% blocktrans trimmed %}
+                    Don't worry, we've got your back. Check out the
+                    <a class="w-whats-new__link" href="{{ editor_guide_link }}" target="_blank" rel="noreferrer">Wagtail Editor Guide</a>
+                    to get the low down on what's changed and some exciting new features!
+                {% endblocktrans %}
+            </p>
+        </div>
+    </div>
+</section>
