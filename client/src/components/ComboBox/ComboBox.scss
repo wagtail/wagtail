@@ -219,7 +219,6 @@ $width: clamp(300px, 75vw, 1000px);
 }
 
 .w-combobox__option-text {
-
   // Force to CanvasText even when highlighted, because the extra div
   // makes WHCM add a mandatory Canvas background below the text.
   @media (forced-colors: active) {
