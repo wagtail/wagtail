@@ -665,35 +665,35 @@ exports[`LocaleController should skip updating the default option if server time
   <option
     value="America/Argentina/Jujuy"
   >
-    America/Argentina/Jujuy: غرينتش-٣ (توقيت الأرجنتين الرسمي)
+    America/Argentina/Jujuy: غرينتش-3 (توقيت الأرجنتين الرسمي)
   </option>
   
       
   <option
     value="America/Indiana/Knox"
   >
-    America/Indiana/Knox: غرينتش-٦ (التوقيت الرسمي المركزي لأمريكا الشمالية)
+    America/Indiana/Knox: غرينتش-6 (التوقيت الرسمي المركزي لأمريكا الشمالية)
   </option>
   
       
   <option
     value="Antarctica/Rothera"
   >
-    Antarctica/Rothera: غرينتش-٣ (توقيت روثيرا)
+    Antarctica/Rothera: غرينتش-3 (توقيت روثيرا)
   </option>
   
       
   <option
     value="Arctic/Longyearbyen"
   >
-    Arctic/Longyearbyen: غرينتش+١ (توقيت وسط أوروبا الرسمي)
+    Arctic/Longyearbyen: غرينتش+1 (توقيت وسط أوروبا الرسمي)
   </option>
   
       
   <option
     value="Asia/Katmandu"
   >
-    Asia/Katmandu: غرينتش+٥:٤٥ (توقيت نيبال)
+    Asia/Katmandu: غرينتش+5:45 (توقيت نيبال)
   </option>
   
       
@@ -707,49 +707,49 @@ exports[`LocaleController should skip updating the default option if server time
   <option
     value="Australia/South"
   >
-    Australia/South: غرينتش+١٠:٣٠ (توقيت وسط أستراليا الصيفي)
+    Australia/South: غرينتش+10:30 (توقيت وسط أستراليا الصيفي)
   </option>
   
       
   <option
     value="Brazil/East"
   >
-    Brazil/East: غرينتش-٣ (توقيت برازيليا الرسمي)
+    Brazil/East: غرينتش-3 (توقيت برازيليا الرسمي)
   </option>
   
       
   <option
     value="Canada/Atlantic"
   >
-    Canada/Atlantic: غرينتش-٤ (التوقيت الرسمي الأطلسي)
+    Canada/Atlantic: غرينتش-4 (التوقيت الرسمي الأطلسي)
   </option>
   
       
   <option
     value="Chile/Continental"
   >
-    Chile/Continental: غرينتش-٣ (توقيت تشيلي الصيفي)
+    Chile/Continental: غرينتش-3 (توقيت تشيلي الصيفي)
   </option>
   
       
   <option
     value="EST"
   >
-    EST: غرينتش-٥ (التوقيت الرسمي الشرقي لأمريكا الشمالية)
+    EST: غرينتش-5 (التوقيت الرسمي الشرقي لأمريكا الشمالية)
   </option>
   
       
   <option
     value="Etc/GMT-7"
   >
-    Etc/GMT-7: غرينتش+٧ (غرينتش+٠٧:٠٠)
+    Etc/GMT-7: غرينتش+7 (غرينتش+07:00)
   </option>
   
       
   <option
     value="Europe/Brussels"
   >
-    Europe/Brussels: غرينتش+١ (توقيت وسط أوروبا الرسمي)
+    Europe/Brussels: غرينتش+1 (توقيت وسط أوروبا الرسمي)
   </option>
   
       
@@ -763,14 +763,14 @@ exports[`LocaleController should skip updating the default option if server time
   <option
     value="Indian/Maldives"
   >
-    Indian/Maldives: غرينتش+٥ (توقيت جزر المالديف)
+    Indian/Maldives: غرينتش+5 (توقيت جزر المالديف)
   </option>
   
       
   <option
     value="Pacific/Tarawa"
   >
-    Pacific/Tarawa: غرينتش+١٢ (توقيت جزر جيلبرت)
+    Pacific/Tarawa: غرينتش+12 (توقيت جزر جيلبرت)
   </option>
   
       
