@@ -4,19 +4,19 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { gettext } from '../utils/gettext';
 import { debounce, DebouncibleFunction } from '../utils/debounce';
 
-enum ServerErrorCode {
+export enum ServerErrorCode {
   INVALID_REVISION = 'invalid_revision',
   LOCKED = 'locked',
   VALIDATION_ERROR = 'validation_error',
 }
 
 /** Server error codes that are generalized as `server_error`. */
-enum UnhandledServerErrorCode {
+export enum UnhandledServerErrorCode {
   BLOCKED_BY_HOOK = 'blocked_by_hook',
   INTERNAL_ERROR = 'internal_error',
 }
 
-enum ClientErrorCode {
+export enum ClientErrorCode {
   NETWORK_ERROR = 'network_error',
   SERVER_ERROR = 'server_error',
 }
