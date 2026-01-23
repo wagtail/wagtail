@@ -4,6 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Jonathan Lindén, 2025
 # Martin Sandström <martin@marteinn.se>, 2020-2021,2024
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2023
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -73,31 +74,31 @@ msgid "You cannot have multiple permission records for the same page."
 msgstr "Du kan inte ha flera rättighetsinställningar för samma sida."
 
 msgid "submitted notifications"
-msgstr "Inskickade notifieringar"
+msgstr "notifikationer för inlämning"
 
 msgid "Receive notification when a page is submitted for moderation"
-msgstr "Emotta notis när sida är inlämnad för moderering"
+msgstr "Ta emot notifikation när en sida blir inlämnad för moderering"
 
 msgid "approved notifications"
-msgstr "Godkända notifieringar"
+msgstr "notifikationer för godkännande"
 
 msgid "Receive notification when your page edit is approved"
-msgstr "Emotta notis när din sideditering har godkänts"
+msgstr "Ta emot notifikation när din sidredigering blir godkänd"
 
 msgid "rejected notifications"
-msgstr "Nekande notifieringar"
+msgstr "notifikationer för avvisande"
 
 msgid "Receive notification when your page edit is rejected"
-msgstr "Emotta notis när din sideditering är avvisad"
+msgstr "Ta emot notifikation när din sidredigering blir avvisad"
 
 msgid "updated comments notifications"
-msgstr "uppdaterade kommentarnotifieringar"
+msgstr "notifikationer för uppdaterade kommentarer"
 
 msgid ""
 "Receive notification when comments have been created, resolved, or deleted "
 "on a page that you have subscribed to receive comment notifications on"
 msgstr ""
-"Ta emot notifieringar när kommentarer har skapats, lösts, eller raderats på "
+"Ta emot notifikationer när kommentarer har skapats, lösts, eller raderats på "
 "en sida som du har prenumererat att få kommentarnotifikationer från"
 
 msgid "preferred language"
@@ -127,11 +128,28 @@ msgstr "Mörkt"
 msgid "admin theme"
 msgstr "admintema"
 
+msgid "More contrast"
+msgstr "Mer kontrast"
+
+msgid "contrast"
+msgstr "kontrast"
+
 msgid "Default"
 msgstr "Standard"
 
+msgid "Snug"
+msgstr "Kompakt"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "densitet"
+
 msgid "Keyboard shortcuts"
 msgstr "Kortkommandon"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Aktivera tangentbordsgenvägar specifika för Wagtail."
 
 msgid "user profile"
 msgstr "användarprofil"
@@ -153,8 +171,8 @@ msgstr "Är du säker på att du vill tilldela denna roll till dessa användare?
 
 msgid "You don't have permission to edit this user"
 msgid_plural "You don't have permission to edit these users"
-msgstr[0] "Du saknar rättigheter att editera denna användare"
-msgstr[1] "Du saknar rättigheter att editera dessa användare"
+msgstr[0] "Du saknar rättigheter att redigera denna användare"
+msgstr[1] "Du saknar rättigheter att redigera dessa användare"
 
 msgid "Yes, assign"
 msgstr "Ja, tilldela"
@@ -245,13 +263,16 @@ msgid "Toggle all"
 msgstr "Växla alla"
 
 msgid "Toggle all add permissions"
-msgstr "Växla alla lägg till rättigheter"
+msgstr "Växla alla rättigheter för att lägga till"
 
 msgid "Toggle all change permissions"
-msgstr "Växla alla redigera rättigheter"
+msgstr "Växla alla rättigheter för att redigera"
 
 msgid "Toggle all delete permissions"
-msgstr "Växla alla radera rättigheter"
+msgstr "Växla alla rättigheter för att radera"
+
+msgid "Toggle all custom permissions"
+msgstr "Växla alla anpassade rättigheter"
 
 msgid "Other permissions"
 msgstr "Andra rättigheter"
@@ -286,6 +307,9 @@ msgstr "Roller"
 msgid "Select all users in listing"
 msgstr "Välj alla användare i lista"
 
+msgid "Sorry, no users match your query"
+msgstr "Ledsen, inga användare matchar din sökning"
+
 #, python-format
 msgid ""
 "There are no users configured. Why not <a "
@@ -294,12 +318,15 @@ msgstr ""
 "Det finns inga användare konfigurerade. Varför inte <a "
 "href=\"%(wagtailusers_add_url)s\">skapa några</a>?"
 
+msgid "Can view"
+msgstr "Kan visa"
+
 #, python-format
 msgid "user %(id)s (deleted)"
 msgstr "användare %(id)s (raderad)"
 
 msgid "Assign role to selected users"
-msgstr "Tilldela roll på valda användare"
+msgstr "Tilldela roll till valda användare"
 
 #, python-format
 msgid "%(num_parent_objects)d user has been assigned as %(role)s"
@@ -361,7 +388,7 @@ msgid "Group '%(object)s' updated."
 msgstr "Grupp '%(object)s' uppdaterad."
 
 msgid "The group could not be saved due to errors."
-msgstr "Gruppen kunde inte sparas p.g.a. fel."
+msgstr "Gruppen kunde inte sparas på grund av fel."
 
 msgid "View users in this group"
 msgstr "Visa användare i denna grupp"
@@ -395,6 +422,10 @@ msgid "Access level"
 msgstr "Behörighetsnivå"
 
 #, python-format
+msgid "More options for '%(title)s'"
+msgstr "Fler alternativ för '%(title)s'"
+
+#, python-format
 msgid "User '%(object)s' created."
 msgstr "Användare '%(object)s' skapad."
 
@@ -406,7 +437,7 @@ msgid "User '%(object)s' updated."
 msgstr "Användaren '%(object)s' uppdaterad."
 
 msgid "The user could not be saved due to errors."
-msgstr "Användaren kunde inte sparas p.g.a. fel."
+msgstr "Användaren kunde inte sparas på grund av fel."
 
 msgid "Delete user"
 msgstr "Radera användare"
