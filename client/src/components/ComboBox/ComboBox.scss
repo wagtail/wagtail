@@ -26,6 +26,7 @@ $width: clamp(300px, 75vw, 1000px);
   @include media-breakpoint-up(md) {
     grid-template-columns: min(400px, 80vw) 1fr;
   }
+
   @include media-breakpoint-up(lg) {
     grid-template-columns: min(512px, 80vw) 1fr;
   }
@@ -170,6 +171,11 @@ $width: clamp(300px, 75vw, 1000px);
   border-radius: theme('borderRadius.sm');
   cursor: pointer;
 
+  appearance: none;
+  background: transparent;
+  width: 100%;
+  text-align: start;
+
   &[aria-selected='true'] {
     border-color: theme('colors.border-button-outline-default');
     color: theme('colors.text-link-default');
@@ -213,6 +219,7 @@ $width: clamp(300px, 75vw, 1000px);
 }
 
 .w-combobox__option-text {
+
   // Force to CanvasText even when highlighted, because the extra div
   // makes WHCM add a mandatory Canvas background below the text.
   @media (forced-colors: active) {

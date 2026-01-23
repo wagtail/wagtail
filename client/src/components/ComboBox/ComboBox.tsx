@@ -253,7 +253,8 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                       key={item.type}
                       className={`w-combobox__option-row w-combobox__option-row--col${itemColumn}`}
                     >
-                      <div
+                      <button
+                        type="button"
                         {...getItemProps({ item, index: itemIndex })}
                         className="w-combobox__option"
                       >
@@ -269,7 +270,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                             ? item.render({ option: item })
                             : description}
                         </div>
-                      </div>
+                      </button>
 
                       {item.isPreviewable ? (
                         <button

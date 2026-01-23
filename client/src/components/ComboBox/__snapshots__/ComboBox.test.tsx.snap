@@ -56,7 +56,7 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
           className="w-combobox__option-row w-combobox__option-row--col1"
           key="blockquote"
         >
-          <div
+          <button
             aria-disabled={false}
             aria-selected={false}
             className="w-combobox__option"
@@ -65,6 +65,7 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             onMouseDown={[Function]}
             onMouseMove={[Function]}
             role="option"
+            type="button"
           >
             <div
               className="w-combobox__option-icon"
@@ -78,13 +79,13 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             >
               Blockquote
             </div>
-          </div>
+          </button>
         </div>
         <div
           className="w-combobox__option-row w-combobox__option-row--col1"
           key="paragraph"
         >
-          <div
+          <button
             aria-disabled={false}
             aria-selected={false}
             className="w-combobox__option"
@@ -93,6 +94,7 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             onMouseDown={[Function]}
             onMouseMove={[Function]}
             role="option"
+            type="button"
           >
             <div
               className="w-combobox__option-icon"
@@ -108,13 +110,13 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             >
               Paragraph
             </div>
-          </div>
+          </button>
         </div>
         <div
           className="w-combobox__option-row w-combobox__option-row--col1"
           key="heading-one"
         >
-          <div
+          <button
             aria-disabled={false}
             aria-selected={false}
             className="w-combobox__option"
@@ -123,6 +125,7 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             onMouseDown={[Function]}
             onMouseMove={[Function]}
             role="option"
+            type="button"
           >
             <div
               className="w-combobox__option-icon"
@@ -146,13 +149,13 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             >
               Heading 1
             </div>
-          </div>
+          </button>
         </div>
         <div
           className="w-combobox__option-row w-combobox__option-row--col2"
           key="heading-two"
         >
-          <div
+          <button
             aria-disabled={false}
             aria-selected={false}
             className="w-combobox__option"
@@ -161,6 +164,7 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             onMouseDown={[Function]}
             onMouseMove={[Function]}
             role="option"
+            type="button"
           >
             <div
               className="w-combobox__option-icon"
@@ -178,13 +182,13 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
                 H2
               </span>
             </div>
-          </div>
+          </button>
         </div>
         <div
           className="w-combobox__option-row w-combobox__option-row--col2"
           key="link"
         >
-          <div
+          <button
             aria-disabled={false}
             aria-selected={false}
             className="w-combobox__option"
@@ -193,6 +197,7 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             onMouseDown={[Function]}
             onMouseMove={[Function]}
             role="option"
+            type="button"
           >
             <div
               className="w-combobox__option-icon"
@@ -206,7 +211,7 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
             >
               Link
             </div>
-          </div>
+          </button>
         </div>
       </div>
     </div>
