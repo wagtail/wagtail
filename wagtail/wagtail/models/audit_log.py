@@ -82,7 +82,7 @@ class LogEntryQuerySet(models.QuerySet):
             else:
                 # The model class for the logged instance no longer exists,
                 # so we have no instance to return. Return None instead.
-                model_instances = {object_id: None for object_id in object_ids}
+                model_instances = dict.fromkeys(object_ids)
 
             for object_id, instance in model_instances.items():
                 instances_by_id[(content_type_id, str(object_id))] = instance
