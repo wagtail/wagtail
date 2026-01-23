@@ -293,6 +293,10 @@ export class AutosaveController extends Controller<
         }
       })
       .catch((error) => {
+        // Rethrow HydrationErrors as it's already handled
+        if (error instanceof HydrationError) throw error;
+
+        // Wrap other errors (e.g. if .text() fails)
         throw new HydrationError(
           ClientErrorCode.SERVER_ERROR,
           'Error during hydration.',

@@ -332,9 +332,9 @@ describe('AutosaveController', () => {
         const { response, error, trigger, text } = errorEventDetail;
         expect(response).toEqual(successResponse);
         expect(error).toBeInstanceOf(HydrationError);
-        expect(error.code).toBe(ClientErrorCode.SERVER_ERROR);
+        expect(error.code).toBe(ClientErrorCode.NETWORK_ERROR);
         expect(trigger).toBe(unsavedEvent);
-        expect(text).toBe('A server error occurred.');
+        expect(text).toBe('A network error occurred.');
       });
 
       it('dispatches an error event when the server responds with an error', async () => {
