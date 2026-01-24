@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import Http404
 from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
@@ -1012,6 +1012,141 @@ class TestSaveRevision(TestCase):
             christmas_event.save_revision(
                 approved_go_live_at=timezone.now() + datetime.timedelta(days=1)
             )
+
+    def test_overwrite_revision(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_that_is_not_latest(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 2)
+        christmas_event.title = "Three French hens"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 2)
+        latest_revision = christmas_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_from_other_instance(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+
+        other_event = EventPage.objects.get(
+            url_path="/home/events/tentative-unpublished-event/"
+        )
+        other_event.title = "The final event"
+        revision2 = other_event.save_revision()
+        self.assertEqual(other_event.revisions.count(), 1)
+
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision2)
+
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        latest_revision = christmas_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "A partridge in a pear tree")
+
+        self.assertEqual(other_event.revisions.count(), 1)
+        latest_revision = other_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "The final event")
+
+    def test_overwrite_revision_with_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_moderator)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(
+            user=event_moderator, overwrite_revision=revision1
+        )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_with_wrong_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_editor)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(
+                user=event_moderator, overwrite_revision=revision1
+            )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+    def test_cannot_overwrite_revision_with_omitted_user_id(self):
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_editor)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+    def test_cannot_overwrite_anonymous_revision_with_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(
+                user=event_moderator, overwrite_revision=revision1
+            )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
 
 
 class TestLiveRevision(TestCase):

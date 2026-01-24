@@ -762,7 +762,7 @@ class TestAvifQualityFilter(TestCase):
         with patch("PIL.Image.Image.save") as save:
             fil.run(image, f)
 
-        save.assert_called_with(f, "AVIF", quality=80)
+        save.assert_called_with(f, "AVIF", quality=61)
 
     def test_avif_quality_filter(self):
         fil = Filter(spec="width-400|avifquality-40|format-avif")
@@ -842,7 +842,7 @@ class TestJPEGQualityFilter(TestCase):
         with patch("PIL.Image.Image.save") as save:
             fil.run(image, f)
 
-        save.assert_called_with(f, "JPEG", quality=85, optimize=True, progressive=True)
+        save.assert_called_with(f, "JPEG", quality=76, optimize=True, progressive=True)
 
     def test_jpeg_quality_filter(self):
         fil = Filter(spec="width-400|jpegquality-40")

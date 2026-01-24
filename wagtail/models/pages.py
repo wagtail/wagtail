@@ -12,6 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import (
     FieldDoesNotExist,
+    PermissionDenied,
     ValidationError,
 )
 from django.db import models, transaction
@@ -22,11 +23,13 @@ from django.dispatch import receiver
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
+from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
 from django.utils.log import log_response
 from django.utils.text import capfirst, slugify
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import (
@@ -936,6 +939,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # in a fixture or migration that didn't explicitly handle draft_title)
         return self.draft_title or self.title
 
+    @transaction.atomic
     def save_revision(
         self,
         user=None,
@@ -944,6 +948,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         log_action=False,
         previous_revision=None,
         clean=True,
+        overwrite_revision=None,
     ):
         # Raise error if this is not the specific version of the page
         if not isinstance(self, self.specific_class):
@@ -967,14 +972,42 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # We need to ensure comments have an id in the revision, so positions can be identified correctly
             comment.save()
 
-        revision = Revision.objects.create(
-            content_object=self,
-            base_content_type=self.get_base_content_type(),
-            user=user,
-            approved_go_live_at=approved_go_live_at,
-            content=self.serializable_data(),
-            object_str=str(self),
-        )
+        if overwrite_revision:
+            # the revision being overwritten must be the latest revision for the current page, and must match
+            # the current user (if any)
+            latest_revision = self.get_latest_revision()
+            if overwrite_revision != latest_revision:
+                raise PermissionDenied(
+                    gettext(
+                        "Cannot overwrite a revision that is not the latest for "
+                        "this %(model_name)s."
+                    )
+                    % {"model_name": Page._meta.verbose_name}
+                )
+
+            if overwrite_revision.user_id != (user and user.pk):
+                raise PermissionDenied(
+                    gettext(
+                        "Cannot overwrite a revision that was not created "
+                        "by the current user."
+                    )
+                )
+
+            overwrite_revision.created_at = timezone.now()
+            overwrite_revision.content = self.serializable_data()
+            overwrite_revision.approved_go_live_at = approved_go_live_at
+            overwrite_revision.object_str = str(self)
+            overwrite_revision.save()
+            revision = overwrite_revision
+        else:
+            revision = Revision.objects.create(
+                content_object=self,
+                base_content_type=self.get_base_content_type(),
+                user=user,
+                approved_go_live_at=approved_go_live_at,
+                content=self.serializable_data(),
+                object_str=str(self),
+            )
 
         for comment in new_comments:
             comment.revision_created = revision

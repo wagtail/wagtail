@@ -235,10 +235,27 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
     template_name = "wagtailsnippets/snippets/create.html"
 
     def run_before_hook(self):
-        return self.run_hook("before_create_snippet", self.request, self.model)
+        response = self.run_hook("before_create_snippet", self.request, self.model)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    _("Request to create %(model_name)s was blocked by hook.")
+                    % {"model_name": self.model._meta.verbose_name},
+                )
+            else:
+                return response
 
     def run_after_hook(self):
-        return self.run_hook("after_create_snippet", self.request, self.object)
+        response = self.run_hook("after_create_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                return None
+            else:
+                return response
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
@@ -253,9 +270,15 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                 ),
                 locale=self.locale,
                 translations=self.translations,
+                # Show skeleton for usage info if usage_url_name is set
+                usage_url="" if self.usage_url_name else None,
             )
         ]
-        if self.preview_enabled and self.form.instance.is_previewable():
+        if (
+            not self.expects_json_response
+            and self.preview_enabled
+            and self.form.instance.is_previewable()
+        ):
             side_panels.append(
                 PreviewSidePanel(
                     self.form.instance, self.request, preview_url=self.get_preview_url()
@@ -276,15 +299,35 @@ class CopyView(generic.CopyViewMixin, CreateView):
     pass
 
 
-class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
+class EditView(
+    generic.CreateEditViewOptionalFeaturesMixin,
+    generic.EditView,
+):
     view_name = "edit"
     template_name = "wagtailsnippets/snippets/edit.html"
 
     def run_before_hook(self):
-        return self.run_hook("before_edit_snippet", self.request, self.object)
+        response = self.run_hook("before_edit_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    _("Request to edit %(model_name)s was blocked by hook.")
+                    % {"model_name": self.model._meta.verbose_name},
+                )
+            else:
+                return response
 
     def run_after_hook(self):
-        return self.run_hook("after_edit_snippet", self.request, self.object)
+        response = self.run_hook("after_edit_snippet", self.request, self.object)
+        if response:
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                return None
+            else:
+                return response
 
     def _get_action_menu(self):
         return SnippetActionMenu(
@@ -313,7 +356,11 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 last_updated_info=self.get_last_updated_info(),
             )
         ]
-        if self.preview_enabled and self.object.is_previewable():
+        if (
+            not self.expects_json_response
+            and self.preview_enabled
+            and self.object.is_previewable()
+        ):
             side_panels.append(
                 PreviewSidePanel(
                     self.object, self.request, preview_url=self.get_preview_url()

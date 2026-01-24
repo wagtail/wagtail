@@ -1,0 +1,46 @@
+name: 📚 Documentation
+description: Suggest edits for the Wagtail documentation
+labels: ['Documentation']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the Wagtail documentation!
+
+        Summarise the documentation change you're suggesting in the issue title above.
+        If you're suggesting a very specific change to the documentation, feel free to directly submit a pull request.
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Provide a clear and concise description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: docs-section
+    attributes:
+      label: Pertinent section(s) of the Wagtail docs
+      description: |
+        Insert the permalink of the section heading in the Wagtail docs. Choose the most specific section / lowest-level heading to which your suggested change would apply. (In the docs, hover over the heading to see the permalink icon.)
+      placeholder: |
+        These sections about writing page templates are relevant:
+
+        - [Page content](https://docs.wagtail.org/en/stable/topics/writing_templates.html#page-content)
+        - [Template tags & filters](https://docs.wagtail.org/en/stable/topics/writing_templates.html#template-tags-filters)
+    validations:
+      required: true
+
+  - type: textarea
+    id: working-on-this
+    attributes:
+      label: Working on this
+      description: |
+        Do you have thoughts on skills needed?
+        Are you keen to work on this yourself?
+        Please let us know here.
+      value: |
+        Anyone can contribute to this. View our [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html), add a comment to the issue once you're ready to start.
+    validations:
+      required: false

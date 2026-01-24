@@ -2,6 +2,7 @@ from urllib.parse import urlparse
 
 from django.db import models
 from django.urls import Resolver404
+from django.utils.encoding import uri_to_iri
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -153,7 +154,17 @@ class Redirect(models.Model):
         return redirect
 
     @staticmethod
-    def normalise_path(url):
+    def normalise_path(url, decode_unicode=True):
+        """
+        Normalize a URL path for storage or lookup on the Redirect model. All paths that normalize to the
+        same value are considered equivalent when looking up redirects.
+
+        :param url: The URL to normalize
+        :param decode_unicode: Whether to decode percent-encoded characters to unicode. This is a necessary step
+            for true normalization, but we allow it to be skipped to allow our lookup code to try both encoded and
+            decoded forms without a redundant round-trip to re-encode the path.
+        :return: The normalized path
+        """
         # Strip whitespace
         url = url.strip()
 
@@ -184,6 +195,11 @@ class Redirect(models.Model):
         # Add query string to path
         if query_string:
             path = path + "?" + query_string
+
+        # Reverse url-encoding so that unicode characters are written
+        # to the database as such
+        if decode_unicode:
+            path = uri_to_iri(path)
 
         return path
 

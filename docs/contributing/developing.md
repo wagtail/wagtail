@@ -19,7 +19,7 @@ Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure y
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
-Fork the [the Wagtail codebase](https://github.com/wagtail/wagtail) and clone the forked copy:
+Fork [the Wagtail codebase](https://github.com/wagtail/wagtail) and clone the forked copy:
 
 ```sh
 git clone https://github.com/username/wagtail.git

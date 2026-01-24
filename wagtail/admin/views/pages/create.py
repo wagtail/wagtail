@@ -3,7 +3,7 @@ from urllib.parse import quote, urlencode
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -16,6 +16,7 @@ from django.views.generic.base import View
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.telepath import JSContext
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     ChecksSidePanel,
@@ -23,8 +24,8 @@ from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
     PreviewSidePanel,
 )
-from wagtail.admin.utils import get_valid_next_url_from_request
-from wagtail.admin.views.generic import HookResponseMixin
+from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
+from wagtail.admin.views.generic import HookResponseMixin, JsonPostResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.models import (
     BaseViewRestriction,
@@ -71,9 +72,12 @@ def add_subpage(request, parent_page_id):
     )
 
 
-class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
+class CreateView(
+    WagtailAdminTemplateMixin, HookResponseMixin, JsonPostResponseMixin, View
+):
     template_name = "wagtailadmin/pages/create.html"
     page_title = gettext_lazy("New")
+    edit_url_name = "wagtailadmin_pages:edit"
 
     def dispatch(
         self, request, content_type_app_name, content_type_model_name, parent_page_id
@@ -110,7 +114,15 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             "before_create_page", self.request, self.parent_page, self.page_class
         )
         if response:
-            return response
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    _("Request to create %(model_name)s was blocked by hook.")
+                    % {"model_name": Page._meta.verbose_name},
+                )
+            else:
+                return response
 
         self.locale = self.parent_page.locale
         self.page = self.page_class(owner=self.request.user)
@@ -141,6 +153,9 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         )
 
         self.next_url = get_valid_next_url_from_request(self.request)
+
+        self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
+        self.autosave_enabled = self.autosave_interval > 0
 
         return super().dispatch(request)
 
@@ -192,9 +207,10 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.page_class.get_verbose_name()
 
     def get_edit_message_button(self):
-        return messages.button(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), _("Edit")
-        )
+        return messages.button(self.get_edit_url(), _("Edit"))
+
+    def get_edit_url(self):
+        return reverse(self.edit_url_name, args=(self.page.id,))
 
     def get_view_draft_message_button(self):
         return messages.button(
@@ -248,25 +264,48 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         self.set_default_privacy_setting()
 
         # Save revision
-        self.page.save_revision(user=self.request.user, log_action=True, clean=False)
+        revision = self.page.save_revision(
+            user=self.request.user, log_action=True, clean=False
+        )
 
         # Save subscription settings
         self.subscription.page = self.page
         self.subscription.save()
 
-        # Notification
-        messages.success(
-            self.request,
-            _("Page '%(page_title)s' created.")
-            % {"page_title": self.page.get_admin_display_title()},
-        )
+        if not self.expects_json_response:
+            # Notification
+            messages.success(
+                self.request,
+                _("Page '%(page_title)s' created.")
+                % {"page_title": self.page.get_admin_display_title()},
+            )
 
         response = self.run_hook("after_create_page", self.request, self.page)
         if response:
-            return response
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                pass
+            else:
+                return response
 
-        # remain on edit page for further edits
-        return self.redirect_and_remain()
+        if self.expects_json_response:
+            edit_url = self.get_edit_url()
+            hydrate_url = set_query_params(edit_url, {"_w_hydrate_create_view": "1"})
+            return JsonResponse(
+                {
+                    "success": True,
+                    "pk": self.page.pk,
+                    "revision_id": revision.pk,
+                    "revision_created_at": revision.created_at.isoformat(),
+                    "field_updates": dict(self.form.get_field_updates_for_resave()),
+                    "url": edit_url,
+                    "hydrate_url": hydrate_url,
+                }
+            )
+        else:
+            # remain on edit page for further edits
+            return self.redirect_and_remain()
 
     def publish_action(self):
         self.page = self.form.save(commit=False)
@@ -374,21 +413,27 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             return redirect("wagtailadmin_explore", self.page.get_parent().id)
 
     def redirect_and_remain(self):
-        target_url = reverse("wagtailadmin_pages:edit", args=[self.page.id])
+        target_url = self.get_edit_url()
         if self.next_url:
             # Ensure the 'next' url is passed through again if present
             target_url += "?next=%s" % quote(self.next_url)
         return redirect(target_url)
 
     def form_invalid(self, form):
-        messages.validation_error(
-            self.request,
-            _("The page could not be created due to validation errors."),
-            self.form,
-        )
-        self.has_unsaved_changes = True
+        if self.expects_json_response:
+            return self.json_error_response(
+                "validation_error",
+                _("There are validation errors, click save to highlight them."),
+            )
+        else:
+            messages.validation_error(
+                self.request,
+                _("The page could not be created due to validation errors."),
+                self.form,
+            )
+            self.has_unsaved_changes = True
 
-        return self.render_to_response(self.get_context_data())
+            return self.render_to_response(self.get_context_data())
 
     def get(self, request):
         init_new_page.send(sender=CreateView, page=self.page, parent=self.parent_page)
@@ -474,6 +519,9 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "locale": self.locale,
                 "media": media,
+                "autosave_enabled": self.autosave_enabled,
+                "autosave_interval": self.autosave_interval,
+                "autosave_indicator": AutosaveIndicator(),
             }
         )
 

@@ -3434,10 +3434,12 @@ class TestPageWorkflowReportResults(TestPageWorkflowReport):
     header_buttons_parent_selector = (
         '[data-controller="w-teleport"]'
         '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+        '[data-w-teleport-mode-value="innerHTML"]'
     )
     drilldown_selector = (
         '[data-controller="w-teleport"]'
         '[data-w-teleport-target-value="#filters-drilldown"]'
+        '[data-w-teleport-mode-value="innerHTML"]'
     )
     extra_params = "&_w_filter_fragment=true"
 
