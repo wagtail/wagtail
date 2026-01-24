@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/generic/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n l10n wagtailadmin_tags %}
 {% block bodyclass %}editor-view{% endblock %}
 
 {% block main_header %}
@@ -9,7 +9,7 @@
                 {% if header_icon %}
                     {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
                 {% endif %}
-                {{ page_subtitle|default:page_title }}
+                <span>{{ page_subtitle|default:page_title }}</span>
             </h2>
         </div>
     {% else %}
@@ -26,13 +26,23 @@
         novalidate
         {% if form_is_multipart or form.is_multipart %} enctype="multipart/form-data"{% endif %}
         data-edit-form
-        data-controller="w-unsaved"
-        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+        data-controller="w-unsaved {% if autosave_enabled %}w-autosave{% endif %}"
+        data-action="
+                     w-unsaved#submit
+                     beforeunload@window->w-unsaved#confirm
+                     {% if autosave_enabled %}
+                         w-unsaved:add->w-autosave#save:prevent
+                         w-autosave:success->w-unsaved#clear
+                     {% endif %}
+                    "
+        {% if autosave_enabled %}data-w-autosave-interval-value="{{ autosave_interval|unlocalize }}"{% endif %}
         data-w-unsaved-confirmation-value="true"
         data-w-unsaved-force-value="{{ has_unsaved_changes|yesno:'true,false' }}"
-        data-w-unsaved-watch-value="edits"
     >
         {% csrf_token %}
+        {% if revision_enabled and object.latest_revision_id %}
+            {% include "wagtailadmin/generic/includes/_loaded_revision_inputs.html" with loaded_revision_id=object.latest_revision_id loaded_revision_created_at=loaded_revision_created_at only %}
+        {% endif %}
 
         {% block form_content %}
             {% if panel %}
@@ -83,6 +93,17 @@
                     {% include "wagtailadmin/shared/unsaved_changes_warning.html" %}
                 {% endblock%}
             </footer>
+        {% endblock %}
+
+        {% block partials %}
+            {% if autosave_enabled %}
+                <div data-w-autosave-target="partials" hidden>
+                    {% comment %}
+                        Any UI updates in the autosave response will be added here
+                        as template elements, to be put into place via w-teleport.
+                    {% endcomment %}
+                </div>
+            {% endif %}
         {% endblock %}
     </form>
 {% endblock %}

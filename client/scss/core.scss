@@ -142,7 +142,9 @@ These are classes for components.
 @use 'components/breadcrumbs';
 @use 'components/pill';
 @use 'components/ping';
+@use 'components/autosave';
 @use 'components/editing-sessions';
+@use 'components/badge';
 
 @use '../src/components/Sidebar/Sidebar';
 @use '../src/components/Sidebar/SidebarPanel';

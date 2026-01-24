@@ -899,13 +899,14 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the user bar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The items support the [](template_components) pattern, but for backwards compatibility objects with a `render(request)` method are also accepted. See the user bar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
 
 ```python
 from wagtail import hooks
+from wagtail.admin.ui.components import Component
 
-class UserbarPuppyLinkItem:
-    def render(self, request):
+class UserbarPuppyLinkItem(Component):
+    def render_html(self, parent_context):
         return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
             + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
 
