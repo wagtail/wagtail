@@ -1,11 +1,14 @@
 from time import time
 
 from django.contrib.admin.utils import unquote
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import Http404, JsonResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
+from django.utils.datastructures import MultiValueDict
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
 from django.utils.translation import gettext
@@ -14,7 +17,7 @@ from django.views.generic import TemplateView, View
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.blocks.base import Block
-from wagtail.models import PreviewableMixin, RevisionMixin
+from wagtail.models import PreviewableMixin, RevisionMixin, UploadedFile
 from wagtail.utils.decorators import xframe_options_sameorigin_override
 
 
@@ -24,6 +27,7 @@ class PreviewOnEdit(View):
     http_method_names = ("post", "get", "delete")
     preview_expiration_timeout = 60 * 60 * 24  # seconds
     session_key_prefix = "wagtail-preview-"
+    files_session_key_prefix = "wagtail-preview-files-"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -39,11 +43,18 @@ class PreviewOnEdit(View):
         expired_keys = [
             k
             for k, v in self.request.session.items()
-            if k.startswith(self.session_key_prefix) and v[1] < expiration
+            if k.startswith(self.session_key_prefix)
+            and not k.startswith(self.files_session_key_prefix)
+            and v[1] < expiration
         ]
-        # Removes the session key gracefully
+        # Removes the session key gracefully and clean up associated files
         for k in expired_keys:
             self.request.session.pop(k)
+            # Also remove corresponding files session key and clean up UploadedFile records
+            files_key = k.replace(self.session_key_prefix, self.files_session_key_prefix)
+            file_ids = self.request.session.pop(files_key, {})
+            if file_ids:
+                UploadedFile.objects.filter(id__in=file_ids.values()).delete()
 
     @property
     def session_key(self):
@@ -51,6 +62,13 @@ class PreviewOnEdit(View):
         model_name = self.model._meta.model_name
         unique_key = f"{app_label}-{model_name}-{self.object.pk}"
         return f"{self.session_key_prefix}{unique_key}"
+
+    @property
+    def files_session_key(self):
+        app_label = self.model._meta.app_label
+        model_name = self.model._meta.model_name
+        unique_key = f"{app_label}-{model_name}-{self.object.pk}"
+        return f"{self.files_session_key_prefix}{unique_key}"
 
     def get_object(self):
         obj = get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
@@ -63,12 +81,15 @@ class PreviewOnEdit(View):
             return self.form_class
         return get_edit_handler(self.model).get_form_class()
 
-    def get_form(self, query_dict):
+    def get_form(self, query_dict, files=None):
         form_class = self.get_form_class()
 
         if not query_dict:
             # Query dict is empty, return null form
             return form_class(instance=self.object, for_user=self.request.user)
+
+        if files:
+            return form_class(query_dict, files, instance=self.object, for_user=self.request.user)
 
         return form_class(query_dict, instance=self.object, for_user=self.request.user)
 
@@ -78,6 +99,56 @@ class PreviewOnEdit(View):
             post_data = ""
         return QueryDict(post_data)
 
+    def _get_files_from_session(self):
+        """Retrieve uploaded files from session and return as MultiValueDict."""
+        file_mapping = self.request.session.get(self.files_session_key, {})
+        if not file_mapping:
+            return None
+
+        files = MultiValueDict()
+        for field_name, uploaded_file_id in file_mapping.items():
+            try:
+                uploaded_file = UploadedFile.objects.get(id=uploaded_file_id)
+                # Create an InMemoryUploadedFile-like object from the stored file
+                files[field_name] = uploaded_file.file
+            except UploadedFile.DoesNotExist:
+                continue
+        return files if files else None
+
+    def _save_files_to_session(self, files):
+        """Save uploaded files using UploadedFile model and store mapping in session."""
+        if not files:
+            return
+
+        content_type = ContentType.objects.get_for_model(self.model)
+        file_mapping = self.request.session.get(self.files_session_key, {})
+
+        # Clean up old files for fields that are being replaced
+        old_file_ids = [
+            file_mapping[field_name]
+            for field_name in files.keys()
+            if field_name in file_mapping
+        ]
+        if old_file_ids:
+            UploadedFile.objects.filter(id__in=old_file_ids).delete()
+
+        # Save new files
+        for field_name, uploaded_file in files.items():
+            uploaded_file_obj = UploadedFile.objects.create(
+                for_content_type=content_type,
+                file=uploaded_file,
+                uploaded_by_user=self.request.user,
+            )
+            file_mapping[field_name] = uploaded_file_obj.id
+
+        self.request.session[self.files_session_key] = file_mapping
+
+    def _clear_files_from_session(self):
+        """Remove all stored files for this preview from database and session."""
+        file_mapping = self.request.session.pop(self.files_session_key, {})
+        if file_mapping:
+            UploadedFile.objects.filter(id__in=file_mapping.values()).delete()
+
     def validate_form(self, form):
         if isinstance(form, WagtailAdminModelForm):
             form.defer_required_fields()
@@ -85,16 +156,19 @@ class PreviewOnEdit(View):
 
     def post(self, request, *args, **kwargs):
         self.remove_old_preview_data()
-        form = self.get_form(request.POST)
+        form = self.get_form(request.POST, request.FILES)
         is_valid = self.validate_form(form)
 
         if is_valid:
-            # TODO: Handle request.FILES.
+            # Store POST data in session
             request.session[self.session_key] = request.POST.urlencode(), time()
+            # Store uploaded files using UploadedFile model
+            if request.FILES:
+                self._save_files_to_session(request.FILES)
             is_available = True
         else:
             # Check previous data in session to determine preview availability
-            form = self.get_form(self._get_data_from_session())
+            form = self.get_form(self._get_data_from_session(), self._get_files_from_session())
             is_available = self.validate_form(form)
 
         return JsonResponse({"is_valid": is_valid, "is_available": is_available})
@@ -114,7 +188,7 @@ class PreviewOnEdit(View):
 
     @method_decorator(xframe_options_sameorigin_override)
     def get(self, request, *args, **kwargs):
-        form = self.get_form(self._get_data_from_session())
+        form = self.get_form(self._get_data_from_session(), self._get_files_from_session())
 
         if not self.validate_form(form):
             return self.error_response()
@@ -132,6 +206,7 @@ class PreviewOnEdit(View):
 
     def delete(self, request, *args, **kwargs):
         request.session.pop(self.session_key, None)
+        self._clear_files_from_session()
         return JsonResponse({"success": True})
 
 
@@ -141,6 +216,12 @@ class PreviewOnCreate(PreviewOnEdit):
         app_label = self.model._meta.app_label
         model_name = self.model._meta.model_name
         return f"{self.session_key_prefix}{app_label}-{model_name}"
+
+    @property
+    def files_session_key(self):
+        app_label = self.model._meta.app_label
+        model_name = self.model._meta.model_name
+        return f"{self.files_session_key_prefix}{app_label}-{model_name}"
 
     def get_object(self):
         return self.model()
