@@ -3,7 +3,7 @@ from time import time
 from django.contrib.admin.utils import unquote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.files.uploadedfile import InMemoryUploadedFile
+
 from django.http import Http404, JsonResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404
