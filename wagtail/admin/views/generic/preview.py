@@ -17,7 +17,7 @@ from django.views.generic import TemplateView, View
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.blocks.base import Block
-from wagtail.models import PreviewableMixin, RevisionMixin, UploadedFile
+
 from wagtail.utils.decorators import xframe_options_sameorigin_override
 
 
