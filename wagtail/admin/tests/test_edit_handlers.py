@@ -4,7 +4,6 @@ from functools import wraps
 from typing import Any
 from unittest import mock
 
-from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -227,11 +226,7 @@ class TestGetFormForModel(TestCase):
 
         field = form.fields["signup_link"]
         self.assertEqual(type(field), forms.URLField)
-
-        # Remove the condition and keep the assertion when the minimum Django
-        # version is >= 5.0.
-        if DJANGO_VERSION >= (5, 0):
-            self.assertEqual(field.assume_scheme, "https")
+        self.assertEqual(field.assume_scheme, "https")
 
     def test_tag_widget_is_passed_tag_model(self):
         RestaurantPageForm = get_form_for_model(

@@ -23,6 +23,7 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.models import EditingSession
 from wagtail.admin.telepath import JSContext
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.tables import LiveStatusTagColumn, TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
@@ -282,6 +283,8 @@ class CreateEditViewOptionalFeaturesMixin:
             and issubclass(self.model, LockableMixin)
             and self.view_name != "create"
         )
+        self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
+        self.autosave_enabled = self.revision_enabled and self.autosave_interval > 0
 
         # Set the object before super().setup() as LocaleMixin.setup() needs it
         self.object = self.get_object()
@@ -541,7 +544,7 @@ class CreateEditViewOptionalFeaturesMixin:
         self.new_revision = None
         if self.revision_enabled:
             overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
-            if overwrite_revision_id is not None:
+            if overwrite_revision_id:
                 try:
                     overwrite_revision = instance.revisions.get(
                         pk=overwrite_revision_id
@@ -834,6 +837,8 @@ class CreateEditViewOptionalFeaturesMixin:
         context["revision_enabled"] = self.revision_enabled
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
+        context["autosave_enabled"] = self.autosave_enabled
+        context["autosave_interval"] = self.autosave_interval
         context["workflow_history_url"] = self.get_workflow_history_url()
         context["confirm_workflow_cancellation_url"] = (
             self.get_confirm_workflow_cancellation_url()
@@ -844,6 +849,8 @@ class CreateEditViewOptionalFeaturesMixin:
         context["revisions_compare_url_name"] = self.revisions_compare_url_name
         context["editing_sessions"] = self.get_editing_sessions()
         context["loaded_revision_created_at"] = self.latest_revision_created_at
+        if self.autosave_enabled:
+            context["autosave_indicator"] = AutosaveIndicator()
         return context
 
     def is_valid(self, form):
@@ -952,6 +959,9 @@ class RevisionsRevertMixin:
         context = super().get_context_data(**kwargs)
         context["revision"] = self.revision
         context["action_url"] = self.get_revisions_revert_url()
+        # Autosave does not make much sense in this view, we want the user to
+        # explicitly confirm they want to revert to the previous revision
+        context["autosave_enabled"] = False
         return context
 
 
@@ -962,16 +972,29 @@ class JsonPostResponseMixin:
     on failure" behaviour.
     """
 
+    partials_template_name = None
+
     @cached_property
     def expects_json_response(self):
         return not self.request.accepts("text/html")
 
     def json_error_response(self, error_code, error_message):
         return JsonResponse(
-            {"success": False, "errorCode": error_code, "errorMessage": error_message},
+            {
+                "success": False,
+                "error_code": error_code,
+                "error_message": error_message,
+            },
             status=400,
         )
 
     @staticmethod
     def response_is_json(response):
         return response.headers.get("Content-Type") == "application/json"
+
+    def render_partials(self):
+        return render_to_string(
+            self.partials_template_name,
+            self.get_context_data(),
+            request=self.request,
+        )

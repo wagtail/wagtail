@@ -4,6 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Jonathan Lindén, 2025
 # Martin Sandström <martin@marteinn.se>, 2020-2024
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2021\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -249,6 +250,9 @@ msgstr "Nej, radera inte"
 msgid "Popular tags"
 msgstr "Populära taggar"
 
+msgid "Layout"
+msgstr "Layout"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -281,11 +285,30 @@ msgstr "Du har inte laddat upp några bilder i denna samling"
 msgid "You haven't uploaded any images."
 msgstr "Du har inte laddat upp några bilder."
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"Varför inte <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">ladda upp en nu</a>?"
+
 msgid "Choose a format"
 msgstr "Välj ett format"
 
 msgid "Insert image"
 msgstr "Lägg in bild"
+
+#, python-format
+msgid ""
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s Bild <span class=\"w-sr-only\">skapad i %(site_name)s</span>"
+msgstr[1] ""
+"%(total)s Bilder <span class=\"w-sr-only\">skapade i %(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Byt bildfil:"
@@ -374,6 +397,12 @@ msgstr ""
 "Du har inte laddat upp några bilder  Varför inte <a "
 "href=\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
 
+msgid "Grid layout"
+msgstr "Rutnät"
+
+msgid "List layout"
+msgstr "Lista"
+
 msgid "Preview"
 msgstr "Förhandsgranska"
 
@@ -405,12 +434,17 @@ msgid "Add to collection:"
 msgstr "Lägg till i samling:"
 
 msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr "Ange en bildbeskrivning för att följa bästa praxis för tillgänglighet."
+
+msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
 "Uppladdningen lyckades. Vänligen uppdatera den här bilden med en mer lämplig "
-"titel, om nödvändigt. Du kan också ta bort bilden helt och hållet om "
+"titel, om nödvändigt. Du kan också radera bilden helt och hållet om "
 "uppladdningen inte var nödvändig."
 
 msgid ""
@@ -514,11 +548,17 @@ msgstr "Filstorlek: (låg till hög)"
 msgid "File size: (high to low)"
 msgstr "Filstorlek: (hög till låg)"
 
+msgid "Usage count: (low to high)"
+msgstr "Antal användningar: (låg till hög)"
+
+msgid "Usage count: (high to low)"
+msgstr "Antal användningar: (hög till låg)"
+
 msgid "Images"
 msgstr "Bilder"
 
 msgid "The image could not be saved due to errors."
-msgstr "Bilden kunde inte sparas p.g.a. fel."
+msgstr "Bilden kunde inte sparas på grund av fel."
 
 #, python-format
 msgid "Image '%(image_title)s' updated."
@@ -528,8 +568,11 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
-"Filen för originalbilden kunde inte hittas. Vänligen ändra filen eller ta "
-"bort bilden."
+"Filen för originalbilden kunde inte hittas. Vänligen ändra källan eller "
+"radera bilden."
+
+msgid "Generate URL"
+msgstr "Generera URL"
 
 msgid "Delete image"
 msgstr "Radera bild"
@@ -539,7 +582,7 @@ msgid "Image '%(image_title)s' deleted."
 msgstr "Bild '%(image_title)s' raderad."
 
 msgid "The image could not be created due to errors."
-msgstr "Bilden kunde inte skapas p.g.a. fel."
+msgstr "Bilden kunde inte skapas på grund av fel."
 
 #, python-format
 msgid "Image '%(image_title)s' added."

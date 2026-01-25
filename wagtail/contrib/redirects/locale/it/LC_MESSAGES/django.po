@@ -6,7 +6,7 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2022
+# Marco Badan <marco.badan@gmail.com>, 2021-2022,2026
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -212,6 +212,19 @@ msgstr "Reindirizzamento '%(redirect_title)s' aggiunto."
 
 msgid "Search redirects"
 msgstr "Cerca reindirizzamenti"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported."
+msgstr "Il formato file di tipo \"%(extension)s\" non è supportato."
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s."
+msgstr "Il file importato ha una codifica errata: %(error_message)s."
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s."
+msgstr ""
+"%(error)s riscontrato durante il tentativo di leggere il file: %(filename)s."
 
 #, python-format
 msgid "Imported %(total)d redirect"

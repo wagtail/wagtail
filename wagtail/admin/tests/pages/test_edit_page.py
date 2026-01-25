@@ -242,6 +242,19 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
 
+        # Autosave defaults to enabled with 500ms interval
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "500")
+
     def test_loaded_revision_id_and_timestamp_included_in_form(self):
         # Ensure there's a revision for the page
         self.event_page.title = "Updated event page"
@@ -261,6 +274,37 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         loaded_timestamp = form.select_one("input[name='loaded_revision_created_at']")
         self.assertIsNotNone(loaded_timestamp)
         self.assertEqual(loaded_timestamp["value"], revision.created_at.isoformat())
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=0)
+    def test_autosave_disabled(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=2000)
+    def test_autosave_custom_interval(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "2000")
 
     def test_publish_button_shows_schedule_label_for_future_go_live(self):
         go_live_at = timezone.now() + datetime.timedelta(hours=1)
@@ -580,6 +624,49 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             revision.created_at.isoformat(),
         )
         self.assertEqual(revision.content["title"], "I've been edited!")
+        soup = self.get_soup(response_json["html"])
+        status_side_panel = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel='status']",
+                "data-w-teleport-mode-value": "innerHTML",
+            },
+        )
+        self.assertIsNotNone(status_side_panel)
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNone(form_title_heading)
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(
+            header_title.text.strip(),
+            # Looks a bit off because get_admin_display_title for SimplePage
+            # adds (simple page) suffix
+            "Editing Simple page: I've been edited! (simple page)",
+        )
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -621,8 +708,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -674,8 +761,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -770,8 +857,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -1000,8 +1087,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "locked",
-                "errorMessage": "The page could not be saved as it is locked.",
+                "error_code": "locked",
+                "error_message": "The page could not be saved as it is locked.",
             },
         )
 
@@ -2357,8 +2444,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit page was blocked by hook.",
             },
         )
 
@@ -2426,8 +2513,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit page was blocked by hook.",
             },
         )
 
@@ -3468,7 +3555,7 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
         self.assertIn(self.men_with_beards_category, updated_page.categories.all())
 
 
-class TestValidationErrorMessages(WagtailTestUtils, TestCase):
+class TestValidationerror_messages(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -3569,8 +3656,8 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "validation_error",
-                "errorMessage": "The page could not be saved due to validation errors.",
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
             },
         )
 
