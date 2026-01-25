@@ -249,21 +249,21 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             if button.is_shown(user=editor)
         ]
         self.assertEqual(
-            len([button for button in buttons if button.label == "Sort menu order"]), 0
+            len([button for button in buttons if button.label == "Order page manually"]), 0
         )
 
         # Test with a user with publish permission
         publisher = self.create_user(username="publisher", password="password")
         publisher.groups.add(Group.objects.get(name="Moderators"))
 
-        # page_listing_more_button generator yields `Sort menu order button`
+        # page_listing_more_button generator yields `Order page manually button`
         buttons = [
             button
             for button in page_listing_more_buttons(page, user=publisher)
             if button.is_shown(user=publisher)
         ]
         reorder_button = next(
-            button for button in buttons if button.label == "Sort menu order"
+            button for button in buttons if button.label == "Order page manually"
         )
 
         self.assertEqual(reorder_button.url, "/admin/pages/%d/?ordering=ord" % page.id)

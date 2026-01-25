@@ -341,7 +341,7 @@ class PageListingHistoryButton(PageMenuItem):
 
 
 class PageListingSortMenuOrderButton(PageMenuItem):
-    label = _("Sort menu order")
+    label = _("Order page manually")
     icon_name = "list-ul"
 
     def is_shown(self, user):
