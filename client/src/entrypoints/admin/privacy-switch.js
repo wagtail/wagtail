@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 $(() => {
   /* Interface to set permissions from the explorer / editor */
-  $('[data-a11y-dialog-show="set-privacy"]').on('click', function setPrivacy() {
+  function setPrivacy() {
     ModalWorkflow({
       dialogId: 'set-privacy',
       url: this.getAttribute('data-url'),
@@ -28,5 +28,12 @@ $(() => {
       },
     });
     return false;
+  }
+
+  $('[data-a11y-dialog-show="set-privacy"]').on('click', setPrivacy);
+
+  // Re-bind after side panel content is refreshed e.g. via autosave
+  $(document).on('w-autosave:success', () => {
+    $('[data-a11y-dialog-show="set-privacy"]').on('click', setPrivacy);
   });
 });
