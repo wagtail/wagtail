@@ -34,6 +34,7 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import (
     ClusterableModel,
+    get_all_child_relations,
 )
 from treebeard.mp_tree import MP_Node
 
@@ -2038,6 +2039,72 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             except KeyError:
                 pass
         setattr(obj, COMMENTS_RELATION_NAME, page_comments)
+
+        # Match child items with null IDs from the revision to existing child items
+        # in the database. This prevents duplicates when publishing a revision that
+        # was created before deferred child items were saved to the database.
+        if isinstance(obj, ClusterableModel) and self.pk:
+            for child_relation in get_all_child_relations(obj):
+                accessor_name = child_relation.get_accessor_name()
+                try:
+                    child_manager = getattr(obj, accessor_name)
+                    restored_child_items = list(child_manager.all())
+                except AttributeError:
+                    continue
+
+                # Skip if no child items or all have IDs
+                if not restored_child_items:
+                    continue
+
+                # Get existing child items from the database
+                existing_child_items = list(
+                    child_relation.related_model.objects.filter(
+                        **{child_relation.field.name: self.pk}
+                    )
+                )
+
+                # If no existing items, nothing to match
+                if not existing_child_items:
+                    continue
+
+                # Find items with null IDs in the restored data
+                restored_with_null_ids = [
+                    item for item in restored_child_items if item.pk is None
+                ]
+
+                # If no items with null IDs, nothing to do
+                if not restored_with_null_ids:
+                    continue
+
+                # Get IDs that are already represented in the restored data
+                existing_ids_in_restored = {
+                    item.pk for item in restored_child_items if item.pk is not None
+                }
+
+                # Find existing items that aren't already in the restored data
+                unmatched_existing = [
+                    item
+                    for item in existing_child_items
+                    if item.pk not in existing_ids_in_restored
+                ]
+
+                # Match by position: items with null IDs should match to existing
+                # items that aren't already represented in the restored data
+                # This handles the case where a revision was created before deferred
+                # child items were saved, so they have null IDs in the revision
+                if unmatched_existing:
+                    # Match items one-to-one by their position in the list
+                    # For Orderable models, the order should be preserved
+                    # For non-Orderable, we match by the order they appear
+                    num_to_match = min(len(restored_with_null_ids), len(unmatched_existing))
+                    for i in range(num_to_match):
+                        restored_item = restored_with_null_ids[i]
+                        existing_item = unmatched_existing[i]
+                        # Update the restored item's ID to match the existing item
+                        restored_item.pk = existing_item.pk
+                        # Also update the id attribute if it exists
+                        if hasattr(restored_item, "id"):
+                            restored_item.id = existing_item.id
 
         return obj
 
