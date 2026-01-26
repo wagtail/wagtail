@@ -259,6 +259,8 @@ PersonChooserWidget(linked_fields={
 })
 ```
 
+(chooser_viewsets_scoping)=
+
 ### Scoping chooser results with a custom ChooserViewSet
 
 In some cases, chooser results need to be filtered in a way that cannot be expressed through linked fields alone. For example, filtering based on request context or applying custom logic that is specific to a single chooser instance.
@@ -268,6 +270,7 @@ Chooser widgets and panels do not have access to the chooser viewset configurati
 This can be achieved by subclassing the chooser viewset and overriding the queryset logic:
 
 ```python
+# views.py
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
 
 class ContextFilteredSnippetChooserViewSet(SnippetChooserViewSet):
