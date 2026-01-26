@@ -259,10 +259,9 @@ PersonChooserWidget(linked_fields={
 })
 ```
 
-(chooser_viewsets_scoping)=
 
 ### Scoping chooser results with a custom ChooserViewSet
-
+(chooser_viewsets_scoping)=
 In some cases, chooser results need to be filtered in a way that cannot be expressed through linked fields alone. For example, filtering based on request context or applying custom logic that is specific to a single chooser instance.
 
 Chooser widgets and panels do not have access to the chooser viewset configuration, and therefore cannot directly control the queryset used by the chooser. To apply scoped or contextual filtering in a single, opt-in location, a custom `ChooserViewSet` should be used.
