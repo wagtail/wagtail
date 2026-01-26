@@ -223,7 +223,8 @@ If you want to create page objects within tests, you will need to go through som
 -   You also need a `Site` set up with the correct `hostname` and a `root_page`.
 
 ```python
-from wagtail.models import Page, Site
+from django.contrib.contenttypes.models import ContentType
+from wagtail.models import Locale, Page, Site
 from wagtail.rich_text import RichText
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -233,15 +234,35 @@ from home.models import HomePage, MyPage
 class MyPageTest(WagtailPageTestCase):
     @classmethod
     def setUpTestData(cls):
-        root = Page.get_first_root_node()
+        # Create a locale (required for Wagtail 6+)
+        locale = Locale.objects.get_or_create(language_code="en")[0]
+        
+        # Create root page explicitly for test environment
+        root = Page(
+            title="Root",
+            slug="root",
+            content_type=ContentType.objects.get_for_model(Page),
+            path="0001",
+            depth=1,
+            numchild=1,
+            url_path="/",
+            locale=locale,
+        )
+        root.save()
+        
+        # Create site with the root page
         Site.objects.create(
             hostname="testserver",
             root_page=root,
             is_default_site=True,
             site_name="testserver",
         )
+        
+        # Create home page
         home = HomePage(title="Home")
         root.add_child(instance=home)
+        
+        # Create test page
         cls.page = MyPage(
             title="My Page",
             slug="mypage",
