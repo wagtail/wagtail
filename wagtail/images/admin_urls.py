@@ -22,6 +22,9 @@ urlpatterns = [
     path("add/", images.CreateView.as_view(), name="add"),
     path("usage/<int:image_id>/", images.UsageView.as_view(), name="image_usage"),
     path("multiple/add/", multiple.AddView.as_view(), name="add_multiple"),
+    path(
+        "multiple/add_from_url/", multiple.AddFromURLView.as_view(), name="add_from_url"
+    ),
     path("multiple/<int:image_id>/", multiple.EditView.as_view(), name="edit_multiple"),
     path(
         "multiple/create_from_uploaded_image/<int:uploaded_file_id>/",
