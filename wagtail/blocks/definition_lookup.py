@@ -45,7 +45,14 @@ class BlockDefinitionLookup:
             module = import_module(module_name)
             cls = self.block_classes[path] = getattr(module, class_name)
 
-        return cls.construct_from_lookup(self, *args, **kwargs)
+        # return cls.construct_from_lookup(self, *args, **kwargs)
+        try:
+            return cls.construct_from_lookup(self, *args, **kwargs)
+        except TypeError as e:
+            if "child_blocks" in str(e) and not args:
+                # if its missing a child list, we feed it an empty one
+                return cls.construct_from_lookup(self, [], **kwargs)
+            raise e
 
 
 class BlockDefinitionLookupBuilder:
