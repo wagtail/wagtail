@@ -659,6 +659,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(response["Content-Type"], "application/json")
         revision = page.get_latest_revision()
         response_json = response.json()
+        edit_url = reverse("wagtailadmin_pages:edit", args=(page.pk,))
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], page.pk)
         self.assertEqual(response_json["revision_id"], revision.pk)
@@ -675,9 +676,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
                 "authors": {},
             },
         )
+        self.assertEqual(response_json["url"], edit_url)
         self.assertEqual(
-            response_json["url"],
-            reverse("wagtailadmin_pages:edit", args=(page.pk,)),
+            response_json["hydrate_url"],
+            f"{edit_url}?_w_hydrate_create_view=1",
         )
 
         self.assertEqual(page.title, post_data["title"])
