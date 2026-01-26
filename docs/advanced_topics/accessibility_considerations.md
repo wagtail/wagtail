@@ -101,9 +101,9 @@ h6:empty {
 
 The [Form builder](form_builder) uses Django’s forms API. Here are considerations specific to forms in templates:
 
--   Avoid rendering helpers such as `as_table`, `as_ul`, `as_p`, which can make forms harder to navigate for screen reader users or cause HTML validation issues (see Django ticket [#32339](https://code.djangoproject.com/ticket/32339)).
+-   Avoid rendering helpers such as `as_table`, `as_ul`, `as_p`, which can make forms harder to navigate for screen reader users or cause HTML validation issues (see Django ticket [#32339](https://code.djangoproject.com/ticket/32339), fixed in Django 5.0 but still relevant for Django 4.2).
 -   Make sure to visually distinguish required and optional fields.
--   Take the time to group related fields together in `fieldset`, with an appropriate `legend`, in particular for radios and checkboxes (see Django ticket [#32338](https://code.djangoproject.com/ticket/32338)).
+-   Take the time to group related fields together in `fieldset`, with an appropriate `legend`, in particular for radios and checkboxes (Django ticket [#32338](https://code.djangoproject.com/ticket/32338) was fixed in Django 4.1, but this remains a recommended practice).
 -   If relevant, use the appropriate `autocomplete` and `autocapitalize` attributes.
 -   For Date and Datetime fields, make sure to display the expected format or an example value (see Django ticket [#32340](https://code.djangoproject.com/ticket/32340)). Or use [input type="date"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date).
 -   For Number fields, consider whether `input type="number"` really is appropriate, or whether there may be [better alternatives such as inputmode](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/).
