@@ -244,6 +244,10 @@ class Revision(models.Model):
                 fields=["base_content_type", "object_id"],
                 name="base_content_object_idx",
             ),
+            models.Index(
+            fields=["base_content_type", "object_id", "-created_at"],
+            name="revision_lookup_optimized",
+        ),
         ]
 
 
