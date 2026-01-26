@@ -1076,6 +1076,7 @@ class EditView(
 
         context.update(
             {
+                "object": self.page,
                 "page": self.page,
                 "page_for_status": self.get_page_for_status(),
                 "content_type": self.page_content_type,
