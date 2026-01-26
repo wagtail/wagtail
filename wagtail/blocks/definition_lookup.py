@@ -45,7 +45,6 @@ class BlockDefinitionLookup:
             module = import_module(module_name)
             cls = self.block_classes[path] = getattr(module, class_name)
 
-        # return cls.construct_from_lookup(self, *args, **kwargs)
         try:
             return cls.construct_from_lookup(self, *args, **kwargs)
         except TypeError as e:
