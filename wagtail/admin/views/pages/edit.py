@@ -1014,6 +1014,7 @@ class EditView(
                     self.page, self.request, preview_url=self.get_preview_url()
                 )
             )
+            # We don't need to re-render the checks panel when hydrating create view
             if not self.hydrate_create_view:
                 side_panels.append(ChecksSidePanel(self.page, self.request))
         if (

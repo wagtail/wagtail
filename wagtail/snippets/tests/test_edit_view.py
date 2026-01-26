@@ -1304,13 +1304,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         self.assertTemplateUsed(response, "wagtailadmin/generic/edit_partials.html")
         soup = self.get_soup(response.content)
 
-        # Should reload the status and preview side panels
+        # Should reload the status and preview side panels only
         side_panels = soup.select(
             "template[data-controller='w-teleport']"
             "[data-w-teleport-target-value^='[data-side-panel=']"
             "[data-w-teleport-mode-value='innerHTML']"
         )
-        self.assertEqual(len(side_panels), 3)
+        self.assertEqual(len(side_panels), 2)
         status_side_panel = side_panels[0]
         self.assertEqual(
             status_side_panel["data-w-teleport-target-value"],
