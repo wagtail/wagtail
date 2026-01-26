@@ -17,15 +17,3 @@
 
 {# For pages, the title "heading" is the editable title field. #}
 {% block form_title_heading %}{% endblock %}
-
-{% block form %}
-    {% if hydrate_create_view %}
-        <template
-            data-controller="w-teleport"
-            data-w-teleport-target-value="form[data-edit-form]"
-            data-w-teleport-mode-value="afterbegin"
-        >
-            {% include "wagtailadmin/generic/includes/_loaded_revision_inputs.html" with loaded_revision_id=page.latest_revision_id loaded_revision_created_at=loaded_revision_created_at only %}
-        </template>
-    {% endif %}
-{% endblock %}
