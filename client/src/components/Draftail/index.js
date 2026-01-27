@@ -315,7 +315,7 @@ class BoundDraftailWidget {
 
     if (shouldInitEditor) {
       const [, setOptions] = initEditor(
-        '#' + this.input.id,
+        this.input.tagName.toLowerCase() + '#' + this.input.id, // Use tag name + ID selector to ensure uniqueness
         this.getFullOptions(),
         document.currentScript,
       );
