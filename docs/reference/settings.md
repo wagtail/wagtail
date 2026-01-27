@@ -290,6 +290,14 @@ By default, page slugs can contain any alphanumeric characters, including non-La
 
 ### `WAGTAIL_AUTOSAVE_INTERVAL`
 
+```{versionadded} 7.3
+The `WAGTAIL_AUTOSAVE_INTERVAL` setting was added.
+```
+
+```python
+WAGTAIL_AUTOSAVE_INTERVAL = 500
+```
+
 The interval (in milliseconds) to wait since the last edit, before attempting an autosave in the page or snippet editor. The default value is `500`.
 
 If set to `0`, autosave will be disabled.
