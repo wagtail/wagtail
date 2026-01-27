@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@5.4.3
 
 jobs:
   backend:
@@ -61,7 +64,6 @@ jobs:
       - run: npm run lint:css
       - run: npm run lint:format
       - run: npm run test:unit:coverage -- --runInBand
-      - run: bash <(curl -s https://codecov.io/bash) -F frontend
 
   ui_tests:
     docker:
@@ -143,7 +145,12 @@ workflows:
   test:
     jobs:
       - backend
-      - frontend
+      - frontend:
+          post-steps:
+            - codecov/upload:
+                # For PRs, add `pr-xxx:` prefix to indicate unprotected branch
+                branch: ${CIRCLE_PR_NUMBER:+pr-$CIRCLE_PR_NUMBER:$CIRCLE_BRANCH}
+                flags: frontend
       - ui_tests:
           requires:
             - frontend
