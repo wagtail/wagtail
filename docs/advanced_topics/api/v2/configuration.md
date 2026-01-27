@@ -76,14 +76,20 @@ class PostPagesAPIViewSet(PagesAPIViewSet):
 api_router.register_endpoint("posts", PostPagesAPIViewSet)
 ```
 
-Or determining which fields are exposed when the model is used in a nested context (e.g. inside a StreamField or as a related item) by overriding `nested_default_fields`:
+Or determining which fields are exposed on the API.
+
+You can use `body_fields` (for model fields) and `meta_fields` (for other attributes) to control which fields are available. By default, fields added here only appear in the detail view.
+
+To make a field appear when the model is used in a nested context (e.g. as a related item), you must **also** add it to `nested_default_fields`. Note that the field must already be present in `body_fields` or `meta_fields`.
+
+For example, `seo_title` is included in `meta_fields` by default. To make it visible in nested views:
 
 ```python
-class CustomNestedFieldsAPIViewSet(PagesAPIViewSet):
-    nested_default_fields = PagesAPIViewSet.nested_default_fields + ["title"]
+class CustomFieldsAPIViewSet(PagesAPIViewSet):
+    nested_default_fields = PagesAPIViewSet.nested_default_fields + ["seo_title"]
     name = "pages"
 
-api_router.register_endpoint("pages", CustomNestedFieldsAPIViewSet)
+api_router.register_endpoint("pages", CustomFieldsAPIViewSet)
 ```
 
 Additionally, there is a base endpoint class you can use for adding different
