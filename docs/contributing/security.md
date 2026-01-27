@@ -21,7 +21,7 @@ This information can also be found in our [security.txt](https://wagtail.org/.we
 
 Django security issues should be reported directly to the Django Project, following [Django's security policies](inv:django#internals/security) (upon which Wagtail's own policies are based).
 
-## Early Notification
+## Early notification
 
 Approximately 1 week before the public disclosure of a security vulnerability, we publish an announcement to the [Security Announcements](https://github.com/wagtail/wagtail/discussions/categories/security-announcements) discussion category. On the day of disclosure, we will post a message to the same category with details of the vulnerability and the release notes for the newly-released version(s). You can subscribe to the Security Announcements using its [RSS Feed](https://github.com/wagtail/wagtail/discussions/categories/security-announcements.atom).
 
