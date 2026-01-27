@@ -17,6 +17,11 @@ const FLOATING = 'floating';
  *    <div data-w-dialog-target="body"></div>
  * </div>
  * ```
+ *
+ * @event shown - Dispatched when the dialog is shown. `detail` contains `{ body: HTMLElement, dialog: A11yDialog }`.
+ * @event hidden - Dispatched when the dialog is hidden. `detail` contains `{ body: HTMLElement, dialog: A11yDialog }`.
+ * @event ready - Dispatched when the dialog is initialized. `detail` contains `{ body: HTMLElement, dialog: A11yDialog }`.
+ * @event confirmed - Dispatched when the confirm method is called.
  */
 export class DialogController extends Controller<HTMLElement> {
   static values = {
