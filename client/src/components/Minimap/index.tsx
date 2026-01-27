@@ -82,12 +82,21 @@ const renderMinimap = (container: HTMLElement) => {
     .map(createMinimapLink)
     .filter(Boolean);
 
+  const settingsToggles = anchorsContainer.querySelectorAll<HTMLButtonElement>(
+    '[data-streamfield-action="SETTINGS"]',
+  );
+
   const toggleAllPanels = (expanded) => {
     links.forEach((link, i) => {
       // Avoid collapsing the title field, where the collapse toggle is hidden.
       const isTitle = i === 0 && link.href.includes('title');
       if (!isTitle) {
         toggleCollapsiblePanel(link.toggle, expanded);
+      }
+    });
+    settingsToggles.forEach((toggle) => {
+      if ((toggle.getAttribute('aria-expanded') === 'true') !== expanded) {
+        toggle.click();
       }
     });
   };

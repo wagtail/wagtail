@@ -6,7 +6,7 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021,2024
+# Marco Badan <marco.badan@gmail.com>, 2021,2024,2026
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Stefano Marchetto <airbatum@gmail.com>, 2020\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021,2024,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -63,3 +63,6 @@ msgstr ""
 
 msgid "Table"
 msgstr "Tabella"
+
+msgid "Select a header option"
+msgstr "Seleziona un'opzione per l'header"

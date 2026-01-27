@@ -17,13 +17,18 @@ from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
+from wagtail.admin.telepath import registry
 from wagtail.blocks.base import get_error_json_data
 from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.blocks.list_block import ListBlockAdapter, ListBlockValidationError
 from wagtail.blocks.static_block import StaticBlockAdapter
 from wagtail.blocks.stream_block import StreamBlockAdapter, StreamBlockValidationError
-from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
+from wagtail.blocks.struct_block import (
+    BlockGroup,
+    StructBlockAdapter,
+    StructBlockValidationError,
+)
 from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
@@ -1924,6 +1929,82 @@ class TestMeta(unittest.TestCase):
         self.assertEqual(block.meta.label, "Child block")
 
 
+class TestBlockGroup(SimpleTestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.adapter = registry.find_adapter(BlockGroup)
+
+    def test_adapt(self):
+        group = BlockGroup(
+            children=["title", "body"],
+            settings=["theme"],
+            heading="Content",
+            classname="custom-class",
+            help_text="Some help text",
+            icon="folder",
+            attrs={"data-example": "value"},
+            label_format="Title: {title}, Theme: {theme}",
+        )
+        result = self.adapter.pack(group, None)
+        self.assertEqual(result[0], "wagtail.blocks.BlockGroup")
+        self.assertEqual(
+            result[1],
+            [
+                {
+                    "children": [("title", "title"), ("body", "body")],
+                    "settings": [("theme", "theme")],
+                    "heading": "Content",
+                    "cleanName": "content",
+                    "classname": "custom-class",
+                    "helpText": "Some help text",
+                    "icon": "folder",
+                    "attrs": {"data-example": "value"},
+                    "labelFormat": "Title: {title}, Theme: {theme}",
+                }
+            ],
+        )
+
+    def test_adapt_adjacent_block_groups_with_same_headings(self):
+        form_layout = BlockGroup(
+            children=[
+                BlockGroup(children=["title", "body"], heading="Some heading"),
+                BlockGroup(children=["image"], heading="Some heading"),
+                "non_nested_block",
+                # These will have default heading "Group"
+                BlockGroup(children=["foo"]),
+                BlockGroup(children=["bar"]),
+            ],
+            settings=[BlockGroup(children=["theme"], heading="Some heading")],
+        )
+        result = self.adapter.pack(form_layout, None)
+        self.assertEqual(result[0], "wagtail.blocks.BlockGroup")
+        self.assertEqual(
+            result[1],
+            [
+                {
+                    # Children and settings are list of (child, unique_name) tuples
+                    # to ensure unique names of adjacent groups with same headings
+                    # for the purpose of generating collapsible panel element IDs
+                    "children": [
+                        (form_layout.children[0], "some_heading"),
+                        (form_layout.children[1], "some_heading1"),
+                        ("non_nested_block", "non_nested_block"),
+                        (form_layout.children[3], "group"),
+                        (form_layout.children[4], "group1"),
+                    ],
+                    "settings": [(form_layout.settings[0], "some_heading2")],
+                    "heading": "Group",
+                    "cleanName": "group",
+                    "classname": "",
+                    "helpText": "",
+                    "icon": "placeholder",
+                    "attrs": {},
+                    "labelFormat": None,
+                }
+            ],
+        )
+
+
 class TestStructBlock(SimpleTestCase):
     def test_initialisation(self):
         block = blocks.StructBlock(
@@ -2121,6 +2202,72 @@ class TestStructBlock(SimpleTestCase):
         self.assertEqual(context["block_definition"], block)
         self.assertEqual(context["prefix"], "mylink")
 
+    def test_get_form_context_with_settings(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+            open_in_new_tab = blocks.BooleanBlock(required=False, default=False)
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=["link", "title"],
+                    settings=["open_in_new_tab"],
+                )
+
+        block = LinkBlock()
+        context = block.get_form_context(
+            block.to_python(
+                {
+                    "title": "Django",
+                    "link": "http://djangoproject.com",
+                    "open_in_new_tab": True,
+                }
+            ),
+            prefix="mylink",
+        )
+
+        # The context separates children and settings according to the form layout
+        children = context["children"]
+        self.assertIsInstance(children, collections.OrderedDict)
+        self.assertEqual(len(children), 2)
+        self.assertIsInstance(children["title"], blocks.BoundBlock)
+        self.assertIsInstance(children["link"], blocks.BoundBlock)
+        # Should respect the order defined in the form layout
+        self.assertEqual(
+            [child.value for child in children.values()],
+            ["http://djangoproject.com", "Django"],
+        )
+
+        settings = context["settings"]
+        self.assertIsInstance(settings, collections.OrderedDict)
+        self.assertEqual(len(settings), 1)
+        self.assertIsInstance(settings["open_in_new_tab"], blocks.BoundBlock)
+
+    def test_check_form_template_with_nested_block_groups(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+            open_in_new_tab = blocks.BooleanBlock(required=False, default=False)
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=[BlockGroup(children=["title", "link"])],
+                    settings=["open_in_new_tab"],
+                )
+                form_template = "tests/block_forms/struct_block_form_template.html"
+
+        block = LinkBlock()
+        results = block.check()
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, "wagtailcore.E007")
+        self.assertEqual(results[0].obj, block)
+        self.assertEqual(
+            results[0].msg,
+            "LinkBlock.Meta.form_layout cannot have nested BlockGroups "
+            "when using a custom form_template.",
+        )
+
     def test_adapt(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(required=False)
@@ -2144,6 +2291,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
             },
         )
 
@@ -2152,6 +2300,9 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertEqual(title_field, block.child_blocks["title"])
         self.assertEqual(link_field, block.child_blocks["link"])
+
+        # The default form layout lists the field names in order as children
+        self.assertEqual(js_args[2]["formLayout"].children, ["title", "link"])
 
     def test_adapt_with_form_template(self):
         class LinkBlock(blocks.StructBlock):
@@ -2178,6 +2329,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2256,6 +2408,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2313,6 +2466,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2343,6 +2497,7 @@ class TestStructBlock(SimpleTestCase):
                 "classname": "struct-block",
                 "collapsed": False,
                 "attrs": {},
+                "formLayout": block.meta.form_layout,
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2365,6 +2520,167 @@ class TestStructBlock(SimpleTestCase):
                 js_args = StructBlockAdapter().js_args(block)
 
                 self.assertIs(js_args[2]["collapsed"], case)
+
+    def test_adapt_with_list_form_layout(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                form_layout = ["link", "title"]
+
+        block = LinkBlock()
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        # Should be converted to a BlockGroup instance,
+        # which will be adapted on its own
+        form_layout = js_args[2]["formLayout"]
+        self.assertIsInstance(form_layout, BlockGroup)
+        self.assertEqual(form_layout, block.meta.form_layout)
+        self.assertEqual(form_layout.children, ["link", "title"])
+
+    def test_adapt_with_settings_blocks(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=["title"],
+                    settings=["link"],
+                )
+
+        block = LinkBlock()
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        # The form_layout is still a BlockGroup instance,
+        # which will be adapted on its own
+        form_layout = js_args[2]["formLayout"]
+        self.assertIsInstance(form_layout, BlockGroup)
+        self.assertEqual(form_layout, block.meta.form_layout)
+        self.assertEqual(form_layout.children, ["title"])
+        self.assertEqual(form_layout.settings, ["link"])
+
+    def test_with_nested_blockgroups_in_form_layout(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+            description = blocks.TextBlock()
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=[
+                        "link",
+                        BlockGroup(
+                            children=["title", "description"],
+                            heading="Details",
+                        ),
+                    ]
+                )
+
+        block = LinkBlock()
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        # The form_layout is still a BlockGroup instance,
+        # which will be adapted on its own
+        form_layout = js_args[2]["formLayout"]
+        self.assertIsInstance(form_layout, BlockGroup)
+        self.assertEqual(form_layout, block.meta.form_layout)
+        self.assertEqual(form_layout.children[0], "link")
+        self.assertIsInstance(form_layout.children[1], BlockGroup)
+        self.assertEqual(form_layout.children[1].children, ["title", "description"])
+
+    def test_with_missing_blocks_in_form_layout(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+            description = blocks.TextBlock()
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=["link"],
+                    settings=["title"],
+                )
+
+        block = LinkBlock()
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        form_layout = js_args[2]["formLayout"]
+        self.assertIsInstance(form_layout, BlockGroup)
+
+        # The form_layout remains as defined, even if some fields are missing
+        self.assertEqual(form_layout, block.meta.form_layout)
+        self.assertEqual(form_layout.children, ["link"])
+        self.assertEqual(form_layout.settings, ["title"])
+
+        # However, it's still in block.child_blocks, appended to the end. This
+        # ensures any code that relies on block.child_blocks to find all blocks
+        # still works, even if the form_layout isn't configured properly.
+        self.assertEqual(
+            list(block.child_blocks.keys()),
+            ["link", "title", "description"],
+        )
+        self.assertIsInstance(block.child_blocks["description"], blocks.TextBlock)
+
+    def test_adapt_with_get_form_layout(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                form_layout = BlockGroup(
+                    children=[
+                        "link",
+                        BlockGroup(
+                            children=["title"],
+                            heading="Details",
+                        ),
+                    ]
+                )
+
+        class LinkBlockWithDescription(LinkBlock):
+            description = blocks.TextBlock()
+
+            def get_form_layout(self):
+                # Create a deep copy of the parent's form layout to include the
+                # new 'description' field without mutating the parent's form layout
+                form_layout = copy.deepcopy(super().get_form_layout())
+                form_layout.children[1].children.append("description")
+                return form_layout
+
+        block = LinkBlock()
+        sub_block = LinkBlockWithDescription()
+
+        block.set_name("test_structblock")
+        sub_block.set_name("test_structblockwithdescription")
+        js_args = StructBlockAdapter().js_args(block)
+        sub_js_args = StructBlockAdapter().js_args(sub_block)
+
+        form_layout = js_args[2]["formLayout"]
+        self.assertIsInstance(form_layout, BlockGroup)
+        self.assertEqual(form_layout, block.meta.form_layout)
+        self.assertEqual(form_layout.children[0], "link")
+        self.assertIsInstance(form_layout.children[1], BlockGroup)
+        self.assertEqual(form_layout.children[1].children, ["title"])
+
+        # Different instances (including nested BlockGroups), to allow subclassing
+        # without mutating parent class's form layout
+        sub_form_layout = sub_js_args[2]["formLayout"]
+        self.assertIsInstance(sub_form_layout, BlockGroup)
+        self.assertNotEqual(form_layout, sub_form_layout)
+        self.assertEqual(sub_form_layout, sub_block.meta.form_layout)
+        self.assertEqual(sub_form_layout.children[0], "link")
+        self.assertIsInstance(sub_form_layout.children[1], BlockGroup)
+        self.assertNotEqual(form_layout.children[1], sub_form_layout.children[1])
+        self.assertEqual(sub_form_layout.children[1].children, ["title", "description"])
 
     def test_adapt_label_format(self):
         class LinkBlock(blocks.StructBlock):
@@ -3006,14 +3322,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "classname": None,
                 "attrs": {},
                 "collapsed": False,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -3043,14 +3351,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "collapsed": False,
                 "minNum": 2,
                 "maxNum": 5,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -3228,14 +3528,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "classname": "special-list-class",
                 "attrs": {},
                 "collapsed": False,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -3266,14 +3558,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "classname": "custom-list-class",
                 "attrs": {},
                 "collapsed": False,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -3939,14 +4223,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "minNum": None,
                 "blockCounts": {},
                 "required": True,
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -4716,14 +4992,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "required": True,
                 "classname": "rocket-section",
                 "attrs": {},
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 
@@ -4823,14 +5091,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "required": True,
                 "classname": "profile-block-large",
                 "attrs": {},
-                "strings": {
-                    "DELETE": "Delete",
-                    "DUPLICATE": "Duplicate",
-                    "MOVE_DOWN": "Move down",
-                    "MOVE_UP": "Move up",
-                    "DRAG": "Drag",
-                    "ADD": "Add",
-                },
             },
         )
 

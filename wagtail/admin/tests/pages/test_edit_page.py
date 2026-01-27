@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.core.files.base import ContentFile
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase, modify_settings, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -241,6 +241,70 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
+
+        # Autosave defaults to enabled with 500ms interval
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "500")
+
+    def test_loaded_revision_id_and_timestamp_included_in_form(self):
+        # Ensure there's a revision for the page
+        self.event_page.title = "Updated event page"
+        revision = self.event_page.save_revision()
+        self.assertEqual(self.event_page.revisions.count(), 1)
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        loaded_revision = form.select_one("input[name='loaded_revision_id']")
+        self.assertIsNotNone(loaded_revision)
+        self.assertEqual(int(loaded_revision["value"]), revision.pk)
+        loaded_timestamp = form.select_one("input[name='loaded_revision_created_at']")
+        self.assertIsNotNone(loaded_timestamp)
+        self.assertEqual(loaded_timestamp["value"], revision.created_at.isoformat())
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=0)
+    def test_autosave_disabled(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=2000)
+    def test_autosave_custom_interval(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "2000")
 
     def test_publish_button_shows_schedule_label_for_future_go_live(self):
         go_live_at = timezone.now() + datetime.timedelta(hours=1)
@@ -526,6 +590,292 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
 
+    def test_page_edit_post_with_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
+        # Tests simple editing
+        post_data = {
+            "title": "I've been edited!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
+            "loaded_revision_created_at": loaded_revision.created_at.isoformat(),
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 200 OK JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.child_page.pk)
+        self.assertEqual(response_json["field_updates"], {})
+
+        # Should create a new revision to be overwritten later
+        self.assertEqual(self.child_page.revisions.count(), 2)
+        self.assertNotEqual(response_json["revision_id"], loaded_revision.pk)
+        revision = self.child_page.revisions.get(pk=response_json["revision_id"])
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
+        self.assertEqual(revision.content["title"], "I've been edited!")
+        soup = self.get_soup(response_json["html"])
+        status_side_panel = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel='status']",
+                "data-w-teleport-mode-value": "innerHTML",
+            },
+        )
+        self.assertIsNotNone(status_side_panel)
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNone(form_title_heading)
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(
+            header_title.text.strip(),
+            # Looks a bit off because get_admin_display_title for SimplePage
+            # adds (simple page) suffix
+            "Editing Simple page: I've been edited! (simple page)",
+        )
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+
+        # Page fields should not be changed (because we just created a new draft)
+        self.assertEqual(child_page_new.title, self.child_page.title)
+        self.assertEqual(child_page_new.content, self.child_page.content)
+        self.assertEqual(child_page_new.slug, self.child_page.slug)
+
+        # The draft_title should have a new title
+        self.assertEqual(child_page_new.draft_title, post_data["title"])
+
+    def test_save_outdated_revision_with_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
+        self.child_page.title = "Someone else edited after the page is loaded"
+        other_revision = self.child_page.save_revision(user=self.user)
+        self.assertEqual(self.child_page.revisions.count(), 2)
+
+        post_data = {
+            "title": "Just another edit submitted after the other edit is done",
+            "content": "Some content",
+            "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Instead of creating a new revision for autosave (which means the user
+        # would unknowingly replace a newer revision), we return an error
+        # response that should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
+            },
+        )
+
+        # Page fields should still be from the published version
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.title, "Hello world!")
+
+        # The initially loaded revision, and the actual latest revision,
+        # should both be unchanged
+        self.assertEqual(self.child_page.revisions.count(), 2)
+        loaded_revision.refresh_from_db()
+        self.assertEqual(loaded_revision.content["title"], "Hello world!")
+        other_revision.refresh_from_db()
+        self.assertEqual(
+            other_revision.content["title"],
+            "Someone else edited after the page is loaded",
+        )
+        self.assertEqual(self.child_page.get_latest_revision().id, other_revision.id)
+
+    def test_save_outdated_revision_timestamp_with_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
+        loaded_revision_created_at = loaded_revision.created_at.isoformat()
+        # Simulate the loaded revision being updated via another session's autosave,
+        # which means the revision is overwritten with new content and created_at
+        self.child_page.title = "Someone else edited after the page is loaded"
+        self.child_page.save_revision(overwrite_revision=loaded_revision)
+        self.assertEqual(self.child_page.revisions.count(), 1)
+
+        post_data = {
+            "title": "Just another edit submitted after the other edit is done",
+            "content": "Some content",
+            "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
+            "loaded_revision_created_at": loaded_revision_created_at,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Instead of creating a new revision for autosave (which means the user
+        # would unknowingly replace the updated revision), we return an error
+        # response that should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
+            },
+        )
+
+        # Page fields should still be from the published version
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.title, "Hello world!")
+
+        # The initially loaded revision should prefer the other session's autosave
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision.refresh_from_db()
+        self.assertEqual(
+            loaded_revision.content["title"],
+            "Someone else edited after the page is loaded",
+        )
+        self.assertEqual(self.child_page.get_latest_revision().id, loaded_revision.id)
+
+    def test_page_edit_post_with_overwrite_revision_and_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
+        self.child_page.title = "A changed title"
+        revision = self.child_page.save_revision(user=self.user)
+        self.assertEqual(self.child_page.revisions.count(), 2)
+
+        post_data = {
+            "title": "I've been edited again!",
+            "content": "Some content",
+            "slug": "hello-world",
+            # The page was originally loaded with loaded_revision, but
+            # a successful autosave created a new revision which we now
+            # want to overwrite with a new autosave request
+            "loaded_revision_id": loaded_revision.pk,
+            "overwrite_revision_id": revision.id,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 200 OK JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        revision.refresh_from_db()
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.child_page.pk)
+        self.assertEqual(response_json["revision_id"], revision.pk)
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+
+        # Page fields should still be from the published version
+        self.assertEqual(child_page_new.title, "Hello world!")
+
+        # The draft_title should have a new title
+        self.assertEqual(child_page_new.draft_title, "I've been edited again!")
+
+        # There should still be only two revisions, but the latest one should be overwritten
+        self.assertEqual(self.child_page.revisions.count(), 2)
+        self.assertEqual(self.child_page.get_latest_revision().id, revision.id)
+        revision.refresh_from_db()
+        self.assertEqual(revision.content["title"], "I've been edited again!")
+
+    def test_overwrite_non_latest_revision(self):
+        self.child_page.title = "A changed title"
+        user_revision = self.child_page.save_revision(user=self.user)
+        self.child_page.title = "Someone else's changed title"
+        later_revision = self.child_page.save_revision()
+        self.assertEqual(self.child_page.revisions.count(), 3)
+
+        post_data = {
+            "title": "I've been edited again!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "overwrite_revision_id": user_revision.id,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
+            },
+        )
+
+        # Page fields should still be from the published version
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.title, "Hello world!")
+
+        # The passed revision for overwriting, and the actual latest revision, should both be unchanged
+        self.assertEqual(self.child_page.revisions.count(), 3)
+        user_revision.refresh_from_db()
+        self.assertEqual(user_revision.content["title"], "A changed title")
+        later_revision.refresh_from_db()
+        self.assertEqual(
+            later_revision.content["title"], "Someone else's changed title"
+        )
+        self.assertEqual(self.child_page.get_latest_revision().id, later_revision.id)
+
     def test_page_edit_post_unpublished_page(self):
         # Based on test_page_edit_post(), but tests changes on a draft page vs. live page.
         post_data = {
@@ -708,6 +1058,39 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Shouldn't be redirected
         self.assertContains(response, "The page could not be saved as it is locked")
+
+        # The page shouldn't have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertFalse(child_page_new.has_unpublished_changes)
+
+    def test_page_edit_post_when_locked_with_json_response(self):
+        # Tests that trying to edit a locked page results in an error
+
+        # Lock the page
+        self.child_page.locked = True
+        self.child_page.save()
+
+        # Post
+        post_data = {
+            "title": "I've been edited!",
+            "content": "Some content",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "locked",
+                "error_message": "The page could not be saved as it is locked.",
+            },
+        )
 
         # The page shouldn't have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -2037,6 +2420,44 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+    def test_before_edit_page_hook_with_json_response(self):
+        def non_json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_edit_page", non_json_hook_func):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit page was blocked by hook.",
+            },
+        )
+
+        with self.register_hook("before_edit_page", json_hook_func):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
     def test_before_edit_page_hook_post(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
@@ -2061,6 +2482,72 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # page should not be edited
         self.assertEqual(Page.objects.get(id=self.child_page.id).title, "Hello world!")
+
+    def test_before_edit_page_hook_post_with_json_response(self):
+        def non_json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("before_edit_page", non_json_hook_func):
+            post_data = {
+                "title": "I've been edited!",
+                "content": "Some content",
+                "slug": "hello-world-new",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit page was blocked by hook.",
+            },
+        )
+
+        # page should not be edited
+        self.assertEqual(
+            Page.objects.get(id=self.child_page.id)
+            .get_latest_revision_as_object()
+            .title,
+            "Hello world!",
+        )
+
+        with self.register_hook("before_edit_page", json_hook_func):
+            post_data = {
+                "title": "I've been edited!",
+                "content": "Some content",
+                "slug": "hello-world-new",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
+        # page should not be edited
+        self.assertEqual(
+            Page.objects.get(id=self.child_page.id)
+            .get_latest_revision_as_object()
+            .title,
+            "Hello world!",
+        )
 
     def test_after_edit_page_hook(self):
         def hook_func(request, page):
@@ -2087,6 +2574,66 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # page should be edited
         self.assertEqual(
             Page.objects.get(id=self.child_page.id).title, "I've been edited!"
+        )
+
+    def test_after_edit_page_hook_with_json_response(self):
+        def non_json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        def json_hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return JsonResponse({"status": "purple"})
+
+        with self.register_hook("after_edit_page", non_json_hook_func):
+            post_data = {
+                "title": "I've been edited!",
+                "content": "Some content",
+                "slug": "hello-world-new",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        # hook response is ignored, since it's not a JSON response
+        self.assertEqual(response.json()["success"], True)
+
+        # page should be edited
+        self.assertEqual(
+            Page.objects.get(id=self.child_page.id)
+            .get_latest_revision_as_object()
+            .title,
+            "I've been edited!",
+        )
+
+        with self.register_hook("after_edit_page", json_hook_func):
+            post_data = {
+                "title": "I've been edited again!",
+                "content": "Some content",
+                "slug": "hello-world-new",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+                post_data,
+                headers={"Accept": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "purple"})
+
+        # page should be edited
+        self.assertEqual(
+            Page.objects.get(id=self.child_page.id)
+            .get_latest_revision_as_object()
+            .title,
+            "I've been edited again!",
         )
 
     def test_after_publish_page(self):
@@ -3008,7 +3555,7 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
         self.assertIn(self.men_with_beards_category, updated_page.categories.all())
 
 
-class TestValidationErrorMessages(WagtailTestUtils, TestCase):
+class TestValidationerror_messages(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -3073,6 +3620,46 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
             error_message.parent["id"], "panel-child-content-child-title-errors"
         )
         self.assertIn("This field is required", error_message.get_text())
+
+    def test_field_error_with_json_response(self):
+        post_data = {
+            "title": "",
+            "date_from": "2017-12-25",
+            "slug": "christmas",
+            "audience": "public",
+            "location": "The North Pole",
+            "cost": "Free",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
+            },
+        )
 
     def test_non_field_error(self):
         """Non-field errors should be shown in the header message"""
@@ -3291,6 +3878,72 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
         self.assertEqual(len(awards), 2)
         self.assertEqual(awards[0].name, "Beard Of The Century")
         self.assertEqual(awards[1].name, "Bobsleigh Olympic gold medallist")
+
+    def test_post_edit_with_json_response(self):
+        self.christmas_page.unpublish()  # so that draft changes are applied to the database record
+
+        post_data = nested_form_data(
+            {
+                "title": "Christmas",
+                "date_from": "2017-12-25",
+                "date_to": "2017-12-25",
+                "slug": "christmas",
+                "audience": "public",
+                "location": "The North Pole",
+                "cost": "Free",
+                "carousel_items": inline_formset([]),
+                "speakers": inline_formset(
+                    [
+                        {
+                            "id": self.speaker.id,
+                            "first_name": "Jeff",
+                            "last_name": "Christmas",
+                            "awards": inline_formset(
+                                [
+                                    {
+                                        "id": self.speaker.awards.first().id,
+                                        "name": "Beard Of The Century",
+                                        "date_awarded": "1997-12-25",
+                                    },
+                                    {
+                                        "name": "Bobsleigh Olympic gold medallist",
+                                        "date_awarded": "2018-02-01",
+                                    },
+                                ],
+                                initial=1,
+                            ),
+                        },
+                    ],
+                    initial=1,
+                ),
+                "related_links": inline_formset([]),
+                "head_counts": inline_formset([]),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.christmas_page.id)
+        self.christmas_page.refresh_from_db()
+        self.assertEqual(
+            response_json["revision_id"], self.christmas_page.get_latest_revision().pk
+        )
+
+        new_award = self.christmas_page.speakers.first().awards.get(
+            name="Bobsleigh Olympic gold medallist"
+        )
+        self.assertEqual(
+            response_json["field_updates"],
+            {
+                "speakers-0-awards-INITIAL_FORMS": "2",
+                "speakers-0-awards-1-id": str(new_award.id),
+            },
+        )
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)

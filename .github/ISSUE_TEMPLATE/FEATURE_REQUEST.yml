@@ -1,0 +1,59 @@
+name: 🚀 Feature/enhancement request
+description: Suggest an idea for improving Wagtail
+labels: ['type:Enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest an improvement to Wagtail!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: Is your proposal related to a problem? Provide a clear and concise description of what the problem is.
+      placeholder: I'm always frustrated when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Provide a clear and concise description of what you want to happen.
+      placeholder: Describe your proposed solution here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative solutions
+      description: Let us know about other solutions you've considered, tried, or researched.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: |
+        Is there anything else you can add about the proposal?
+        You might want to link to related issues here, if you haven't already.
+    validations:
+      required: false
+
+  - type: textarea
+    id: working-on-this
+    attributes:
+      label: Working on this
+      description: |
+        Do you have thoughts on skills needed?
+        Are you keen to work on this yourself once others agree with the proposal?
+        Please let us know here.
+      value: |
+        Contribute to the discussion to help this move forward. Explain your use cases, discuss possible solutions, research how to adapt existing code, or compatibility concerns.
+
+        Once others agree with the proposed changes, anyone can contribute to this. View our [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html). Add a comment to the issue to explain what approach you are taking.
+    validations:
+      required: false

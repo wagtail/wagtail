@@ -1,18 +1,14 @@
 import { Controller } from '@hotwired/stimulus';
-import { debounce } from '../utils/debounce';
-
-declare global {
-  interface Window {
-    comments: { commentApp: { selectors: any; store: any } };
-  }
-}
+import { debounce, DebouncibleFunction } from '../utils/debounce';
+import { setOptionalInterval } from '../utils/interval';
 
 const DEFAULT_DURATIONS = {
-  initial: 10_000,
-  long: 3_000,
+  initial: 2_000,
   notify: 30,
-  short: 300,
+  check: 500,
 };
+
+export type Durations = typeof DEFAULT_DURATIONS;
 
 /**
  * Enables the controlled form to support prompting the user when they
@@ -22,21 +18,8 @@ const DEFAULT_DURATIONS = {
  * ```html
  * <form
  *   data-controller="w-unsaved"
- *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
+ *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
  *   data-w-unsaved-confirmation-value="true"
- * >
- *   <input type="text" value="something" />
- *   <button>Submit</submit>
- * </form>
- * ```
- *
- * @example - Watch comments for changes in addition to edits (default is edits only)
- * ```html
- * <form
- *   data-controller="w-unsaved"
- *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
- *   data-w-unsaved-confirmation-value="true"
- *   data-w-unsaved-watch-value="edits comments"
  * >
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
@@ -47,23 +30,9 @@ const DEFAULT_DURATIONS = {
  * ```html
  * <form
  *   data-controller="w-unsaved"
- *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
- *   data-w-unsaved-confirmation-value="true"
- *   data-w-unsaved-force-value="true"
- * >
- *   <input type="text" value="something" />
- *   <button>Submit</submit>
- * </form>
- * ```
- *
- * @example - Force the confirmation dialog without watching for edits/comments
- * ```html
- * <form
- *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
  *   data-w-unsaved-confirmation-value="true"
  *   data-w-unsaved-force-value="true"
- *   data-w-unsaved-watch-value=""
  * >
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
@@ -72,118 +41,184 @@ const DEFAULT_DURATIONS = {
  */
 export class UnsavedController extends Controller<HTMLFormElement> {
   static values = {
+    checkInterval: { default: 500, type: Number },
     confirmation: { default: false, type: Boolean },
-    durations: { default: DEFAULT_DURATIONS, type: Object },
     force: { default: false, type: Boolean },
     hasComments: { default: false, type: Boolean },
     hasEdits: { default: false, type: Boolean },
-    watch: { default: 'edits', type: String },
   };
 
+  /**
+   * Initial delay before setting up the check interval to allow other
+   * initializations to complete, in milliseconds.
+   */
+  static initialDelayValue = 2_000;
+  /** Delay before notifying about changes, in milliseconds. */
+  static notifyDelayValue = 30;
+
+  /** Duration between change checks, in milliseconds. */
+  declare checkIntervalValue: number;
   /** Whether to show the browser confirmation dialog. */
   declare confirmationValue: boolean;
-  /** Configurable duration values. */
-  declare durationsValue: typeof DEFAULT_DURATIONS;
   /**
-   * When set to `true`, the form will always be considered dirty.
+   * When set to `true`, the initial form will always be considered dirty.
    * Useful for when the user just submitted an invalid form, in which case we
    * consider the form to be dirty even on initial load.
-   *
-   * Setting this to `true` effectively disables the edit check, i.e. similar to
-   * setting `watchValue` to `''` and setting `hasEditsValue` to `true`.
    *
    * Note that the `confirmationValue` must still be set to `true` in order for
    * the browser confirmation dialog to appear.
    */
   declare forceValue: boolean;
-  /** Value (state) tracking of what changes exist (comments). */
+  /** Whether there are unsaved comment changes in the form. */
   declare hasCommentsValue: boolean;
-  /** Value (state) tracking of what changes exist (edits). */
+  /** Whether there are unsaved edits in the form. */
   declare hasEditsValue: boolean;
-  /** Determines what kinds of data will be watched, defaults to edits only. */
-  declare watchValue: string;
 
+  /** Serialized data of the initially rendered form. */
   initialFormData?: string;
-  observer?: MutationObserver;
-  runningCheck?: ReturnType<typeof debounce>;
+  /** Previous serialized form data for continuous change detection. */
+  previousFormData?: string;
+  /** Interval ID for periodic change checks. */
+  checkInterval: ReturnType<typeof setOptionalInterval> = null;
 
   initialize() {
-    this.notify = debounce(this.notify.bind(this), this.durationsValue.notify);
+    this.check = this.check.bind(this);
+    this.notify = this.notify.bind(this);
+    this.setInitialFormData = this.setInitialFormData.bind(this);
   }
 
   connect() {
-    this.clear();
-    const durations = this.durationsValue;
-    const watch = this.watchValue;
-
-    if (watch.includes('comments')) this.watchComments(durations);
-
-    if (this.forceValue) {
-      // Do not watch for edits and assume the form is dirty
-      this.hasEditsValue = true;
-    } else if (watch.includes('edits')) {
-      this.watchEdits(durations);
-    }
-
     this.dispatch('ready', { cancelable: false });
   }
 
   /**
-   * Resolve the form's `formData` into a comparable string without any comments
-   * data included and other unrelated data cleaned from the value.
+   * Resolve the form's `formData` into a comparable string with any
+   * unrelated data cleaned from the value.
    *
    * Include handling of File field data to determine a comparable value.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/File
    */
   get formData() {
-    const exclude = ['comment_', 'comments-', 'csrfmiddlewaretoken', 'next'];
+    const exclude = [
+      'csrfmiddlewaretoken',
+      'loaded_revision_id',
+      'loaded_revision_created_at',
+      'next',
+    ];
     const formData = new FormData(this.element);
-    return JSON.stringify(
-      [...formData.entries()].filter(
-        ([key]) => !exclude.some((prefix) => key.startsWith(prefix)),
-      ),
-      (_key, value) =>
-        value instanceof File
-          ? { name: value.name, size: value.size, type: value.type }
-          : value,
-    );
+    exclude.forEach((key) => formData.delete(key));
+
+    // Replace File objects with a comparable representation
+    // and remove comment form data as it's handled separately
+    for (const key of [...formData.keys()]) {
+      if (key.startsWith('comments-')) {
+        formData.delete(key);
+      } else if (formData.get(key) instanceof File) {
+        // Use getAll to handle multi-file inputs
+        const files = formData.getAll(key).flatMap((file: File) => [
+          ['name', file.name],
+          ['size', `${file.size}`],
+          ['type', file.type],
+        ]);
+        formData.set(key, new URLSearchParams(files).toString());
+      }
+    }
+
+    // Convert FormData to string for comparison, using URLSearchParams
+    // instead of JSON.stringify() to handle multi-valued fields.
+    return new URLSearchParams(
+      // FormData may contain File objects, but we've converted them above.
+      // https://github.com/microsoft/TypeScript/issues/30584
+      formData as unknown as Record<string, string>,
+    ).toString();
   }
 
   /**
-   * Check for edits to the form with a delay based on whether the form
-   * currently has edits. If called multiple times, cancel & restart the
-   * delay timer.
-   *
-   * Intentionally delay the check if there are already edits to the longer
-   * delay so that the UX is improved. Users are unlikely to go back to an
-   * original state of the form after making edits.
+   * Checks whether the form data has changed since the last call to this method.
+   * @returns whether the form data has changed
    */
-  check() {
-    // If we don't have initial form data, we can't compare changes
-    if (!this.initialFormData) return;
+  hasChanges() {
+    // Don't start checking for changes until the initial form data is set
+    if (!this.initialFormData) return false;
 
-    const { long: longDuration, short: shortDuration } = this.durationsValue;
-
-    if (this.runningCheck) {
-      this.runningCheck.cancel();
-    }
-
-    this.runningCheck = debounce(
-      () => {
-        this.hasEditsValue = this.initialFormData !== this.formData;
-      },
-      this.hasEditsValue ? longDuration : shortDuration,
+    const newPayload = this.formData;
+    const { commentApp } = window.comments || {};
+    const hasComments = !!commentApp?.selectors.selectIsDirty(
+      commentApp?.store.getState(),
     );
 
-    this.runningCheck();
+    // Consider the form changed if
+    const changed =
+      // the current form data (without comments) differs from the previous check
+      this.previousFormData !== newPayload ||
+      // or if the comment dirty state has changed from `false` to `true`
+      (hasComments && !this.hasCommentsValue);
+
+    this.hasEditsValue = this.forceValue || this.initialFormData !== newPayload;
+    this.hasCommentsValue = hasComments;
+    this.previousFormData = newPayload;
+    return changed;
+  }
+
+  /**
+   * Check for changes in the form data and notify if there are any.
+   */
+  check() {
+    if (this.hasChanges()) this.notify();
+  }
+
+  checkIntervalValueChanged(newInterval: number) {
+    if (this.forceValue) {
+      this.hasEditsValue = true;
+      return;
+    }
+
+    if (!this.initialFormData) {
+      // Set up the initial form data with the initial delay to allow other
+      // initializations to complete first.
+      debounce(this.setInitialFormData, UnsavedController.initialDelayValue)();
+    }
+
+    // Reset the check interval with the new value
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval);
+    }
+    this.checkInterval = setOptionalInterval(this.check, newInterval);
+
+    // Ensure we wait until at least the next check interval, so we only
+    // notify if there are no further consecutive changes.
+    const newNotifyDuration = newInterval + UnsavedController.notifyDelayValue;
+
+    // Reset the debounced notify with the new duration
+    if ('restore' in this.notify) {
+      this.notify.cancel();
+      this.notify = this.notify.restore();
+    }
+    this.notify = debounce(this.notify, newNotifyDuration);
+  }
+
+  /**
+   * Take a snapshot of the current form data to use as the initial state
+   * for change detection.
+   */
+  setInitialFormData() {
+    const initialFormData = this.formData;
+    this.initialFormData = initialFormData;
+    this.previousFormData = initialFormData;
+    this.dispatch('watch-edits', {
+      cancelable: false,
+      detail: { initialFormData },
+    });
   }
 
   /**
    * Clear the tracking changes values and messages.
    */
   clear() {
-    this.hasCommentsValue = false;
+    this.setInitialFormData();
     this.hasEditsValue = false;
+    this.hasCommentsValue = false;
+    this.forceValue = false;
   }
 
   /**
@@ -193,7 +228,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
   confirm(event: BeforeUnloadEvent) {
     if (!this.confirmationValue) return;
 
-    if (this.hasCommentsValue || this.hasEditsValue) {
+    if (this.hasEditsValue) {
       // Dispatch a `confirm` event that is cancelable to allow for custom handling
       // instead of the browser's default confirmation dialog.
       const confirmEvent = this.dispatch('confirm', { cancelable: true });
@@ -204,46 +239,22 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     }
   }
 
-  hasCommentsValueChanged(current: boolean, previous: boolean) {
-    if (current !== previous) this.notify();
-  }
-
   hasEditsValueChanged(current: boolean, previous: boolean) {
     if (current !== previous) this.notify();
-  }
-
-  getIsValidNode(node: Node | null) {
-    if (!node || node.nodeType !== node.ELEMENT_NODE) return false;
-
-    const validElements = ['input', 'textarea', 'select'];
-
-    return (
-      validElements.includes((node as Element).localName) ||
-      (node as Element).querySelector(validElements.join(',')) !== null
-    );
   }
 
   /**
    * Notify the user of changes to the form.
    * Dispatch events to update the footer message via dispatching events.
    */
-  notify() {
-    const comments = this.hasCommentsValue;
-    const edits = this.hasEditsValue;
-
-    if (!comments && !edits) {
+  notify: DebouncibleFunction<() => void> = () => {
+    if (!this.hasEditsValue && !this.hasCommentsValue) {
       this.dispatch('clear', { cancelable: false });
       return;
     }
 
-    const [type] = [
-      edits && comments && 'all',
-      comments && 'comments',
-      edits && 'edits',
-    ].filter(Boolean);
-
-    this.dispatch('add', { cancelable: false, detail: { type } });
-  }
+    this.dispatch('add', { cancelable: true, detail: { type: 'edits' } });
+  };
 
   /**
    * When the form is submitted, ensure that the exit confirmation
@@ -254,91 +265,10 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     this.confirmationValue = false;
   }
 
-  /**
-   * Watch for comment changes, updating the timeout to match the timings for
-   * responding to page form changes.
-   */
-  watchComments({ long: longDuration, short: shortDuration }) {
-    let updateIsCommentsDirty;
-
-    const { commentApp } = window.comments;
-
-    const initialComments = commentApp.selectors.selectIsDirty(
-      commentApp.store.getState(),
-    );
-
-    this.dispatch('watch-edits', {
-      cancelable: false,
-      detail: { initialComments },
-    });
-
-    this.hasCommentsValue = initialComments;
-
-    commentApp.store.subscribe(() => {
-      if (updateIsCommentsDirty) {
-        updateIsCommentsDirty.cancel();
-      }
-
-      updateIsCommentsDirty = debounce(
-        () => {
-          this.hasCommentsValue = commentApp.selectors.selectIsDirty(
-            commentApp.store.getState(),
-          );
-        },
-        this.hasCommentsValue ? longDuration : shortDuration,
-      );
-
-      updateIsCommentsDirty();
-    });
-  }
-
-  /**
-   * Delay snap-shotting the form’s data to avoid race conditions with form widgets that might process the values.
-   * User interaction with the form within that delay also won’t trigger the confirmation message if
-   * they are only quickly viewing the form.
-   *
-   * While the `check` method will be triggered based on Stimulus actions (e.g. change/keyup) we also
-   * want to account for input DOM notes entering/existing the UI and check when that happens.
-   */
-  watchEdits({ initial: initialDelay }) {
-    const form = this.element;
-
-    debounce(() => {
-      const initialFormData = this.formData;
-
-      this.initialFormData = initialFormData;
-
-      this.dispatch('watch-edits', {
-        cancelable: false,
-        detail: { initialFormData },
-      });
-
-      const observer = new MutationObserver((mutationList) => {
-        const hasMutationWithValidInputNode = mutationList.some(
-          (mutation) =>
-            Array.from(mutation.addedNodes).some(this.getIsValidNode) ||
-            Array.from(mutation.removedNodes).some(this.getIsValidNode),
-        );
-
-        if (hasMutationWithValidInputNode) this.check();
-      });
-
-      observer.observe(form, {
-        attributes: false,
-        childList: true,
-        subtree: true,
-      });
-
-      this.observer = observer;
-    }, initialDelay)();
-  }
-
   disconnect() {
-    if (this.runningCheck) {
-      this.runningCheck.cancel();
-    }
-    if (this.observer) {
-      this.observer.disconnect();
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval);
+      this.checkInterval = null;
     }
   }
 }

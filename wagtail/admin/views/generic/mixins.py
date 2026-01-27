@@ -3,8 +3,10 @@ import json
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
 from django.forms import Media
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -21,6 +23,7 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.models import EditingSession
 from wagtail.admin.telepath import JSContext
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.tables import LiveStatusTagColumn, TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
@@ -32,6 +35,7 @@ from wagtail.models import (
     Locale,
     LockableMixin,
     PreviewableMixin,
+    Revision,
     RevisionMixin,
     TranslatableMixin,
     WorkflowMixin,
@@ -279,6 +283,8 @@ class CreateEditViewOptionalFeaturesMixin:
             and issubclass(self.model, LockableMixin)
             and self.view_name != "create"
         )
+        self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
+        self.autosave_enabled = self.revision_enabled and self.autosave_interval > 0
 
         # Set the object before super().setup() as LocaleMixin.setup() needs it
         self.object = self.get_object()
@@ -446,16 +452,6 @@ class CreateEditViewOptionalFeaturesMixin:
             self.confirm_workflow_cancellation_url_name, args=[quote(self.object.pk)]
         )
 
-    def get_error_message(self):
-        if self.action == "cancel-workflow":
-            return None
-        if self.locked_for_user:
-            return capfirst(
-                _("The %(model_name)s could not be saved as it is locked")
-                % {"model_name": self.model._meta.verbose_name}
-            )
-        return super().get_error_message()
-
     def get_success_message(self, instance=None):
         object = instance or self.object
 
@@ -547,8 +543,23 @@ class CreateEditViewOptionalFeaturesMixin:
         # Save revision if the model inherits from RevisionMixin
         self.new_revision = None
         if self.revision_enabled:
+            overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
+            if overwrite_revision_id:
+                try:
+                    overwrite_revision = instance.revisions.get(
+                        pk=overwrite_revision_id
+                    )
+                except Revision.DoesNotExist as e:
+                    raise PermissionDenied(
+                        "Cannot overwrite a revision that does not exist"
+                    ) from e
+            else:
+                overwrite_revision = None
+
             self.new_revision = instance.save_revision(
-                user=self.request.user, clean=not self.saving_as_draft
+                user=self.request.user,
+                clean=not self.saving_as_draft,
+                overwrite_revision=overwrite_revision,
             )
 
         log(
@@ -617,8 +628,14 @@ class CreateEditViewOptionalFeaturesMixin:
 
     def form_valid(self, form):
         self.form = form
-        with transaction.atomic():
-            self.object = self.save_instance()
+        try:
+            with transaction.atomic():
+                self.object = self.save_instance()
+        except PermissionDenied as e:
+            # The revision passed to overwrite_revision was not valid
+            self.produced_error_code = "invalid_revision"
+            self.produced_error_message = str(e)
+            return self.form_invalid(form)
 
         response = self.run_action_method()
         if response is not None:
@@ -632,9 +649,18 @@ class CreateEditViewOptionalFeaturesMixin:
 
         return response
 
+    def get_success_json(self):
+        data = super().get_success_json()
+        if self.revision_enabled and self.new_revision:
+            data["revision_id"] = self.new_revision.id
+            data["revision_created_at"] = self.new_revision.created_at.isoformat()
+        return data
+
     def form_invalid(self, form):
-        # Even if the object is locked due to not having permissions,
-        # the original submitter can still cancel the workflow
+        # Even if the form is invalid, a cancel-workflow action can still proceed. This accommodates
+        # the typical case for a lockable model, where the object is locked to the submitter at the
+        # point of submission (and thus the lock would make the form submission invalid) - but also
+        # applies to other error conditions such as actual validation errors.
         if self.action == "cancel-workflow":
             self.cancel_workflow_action()
             messages.success(
@@ -645,6 +671,10 @@ class CreateEditViewOptionalFeaturesMixin:
             # Refresh the lock object as now WorkflowLock no longer applies
             self.lock = self.get_lock()
             self.locked_for_user = self.lock and self.lock.for_user(self.request.user)
+            # Unset whichever error message was set by is_valid() (most likely "this X could not be
+            # saved as it is locked") so that we just show the success message.
+            self.produced_error_message = None
+
         return super().form_invalid(form)
 
     def get_last_updated_info(self):
@@ -743,7 +773,6 @@ class CreateEditViewOptionalFeaturesMixin:
             object_id=self.object.pk,
             last_seen_at=timezone.now(),
         )
-        revision_id = self.object.latest_revision_id if self.revision_enabled else None
         return EditingSessionsModule(
             session,
             reverse(
@@ -760,8 +789,47 @@ class CreateEditViewOptionalFeaturesMixin:
                 args=(session.id,),
             ),
             [],
-            revision_id,
+            self.latest_revision and self.latest_revision.pk,
+            self.latest_revision_created_at,
         )
+
+    @cached_property
+    def latest_revision(self):
+        return self.revision_enabled and self.object and self.object.latest_revision
+
+    @cached_property
+    def latest_revision_created_at(self):
+        return self.latest_revision and self.latest_revision.created_at.isoformat()
+
+    @cached_property
+    def is_out_of_date(self):
+        if not self.latest_revision:
+            return False
+
+        latest_revision_id = str(self.latest_revision.pk)
+
+        # Two different sessions cannot have the same autosave revision, so if
+        # autosave revision is present, it is either the latest or it is not.
+        if overwrite_revision_id := self.request.POST.get("overwrite_revision_id"):
+            return overwrite_revision_id != latest_revision_id
+
+        # Client has not made an autosave revision, check the loaded revision.
+        if loaded_revision_id := self.request.POST.get("loaded_revision_id"):
+            # If the loaded revision is not the latest revision, it is outdated.
+            if loaded_revision_id != latest_revision_id:
+                return True
+
+            # It's pointing to the latest revision, but that revision may have
+            # been overwritten by another session (via autosave) since the editor
+            # loaded it. The created_at is strictly increasing, so assume the
+            # loaded revision outdated if it doesn't match the latest created_at.
+            return (
+                self.request.POST.get("loaded_revision_created_at", "")
+                != self.latest_revision_created_at
+            )
+
+        # Not enough information to deduce, assume it's up to date.
+        return False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -769,6 +837,8 @@ class CreateEditViewOptionalFeaturesMixin:
         context["revision_enabled"] = self.revision_enabled
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
+        context["autosave_enabled"] = self.autosave_enabled
+        context["autosave_interval"] = self.autosave_interval
         context["workflow_history_url"] = self.get_workflow_history_url()
         context["confirm_workflow_cancellation_url"] = (
             self.get_confirm_workflow_cancellation_url()
@@ -778,27 +848,36 @@ class CreateEditViewOptionalFeaturesMixin:
         ) and bool(self.workflow_tasks)
         context["revisions_compare_url_name"] = self.revisions_compare_url_name
         context["editing_sessions"] = self.get_editing_sessions()
+        context["loaded_revision_created_at"] = self.latest_revision_created_at
+        if self.autosave_enabled:
+            context["autosave_indicator"] = AutosaveIndicator()
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
+    def is_valid(self, form):
+        # For autosave, we only want to save the page if there are no conflicts
+        if self.expects_json_response and self.is_out_of_date:
+            self.produced_error_code = "invalid_revision"
+            self.produced_error_message = _("Saving will overwrite a newer version.")
+            return False
 
         # Make sure object is not locked
         if self.locked_for_user:
-            return self.form_invalid(form)
+            self.produced_error_code = "locked"
+            self.produced_error_message = capfirst(
+                _("The %(model_name)s could not be saved as it is locked")
+                % {"model_name": self.model._meta.verbose_name}
+            )
+            return False
 
         # If saving as draft, do not enforce full validation
         if self.saving_as_draft and isinstance(form, WagtailAdminModelForm):
             form.defer_required_fields()
-            form_is_valid = form.is_valid()
+            result = super().is_valid(form)
             form.restore_required_fields()
         else:
-            form_is_valid = form.is_valid()
+            result = super().is_valid(form)
 
-        if form_is_valid:
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return result
 
 
 class RevisionsRevertMixin:
@@ -880,4 +959,42 @@ class RevisionsRevertMixin:
         context = super().get_context_data(**kwargs)
         context["revision"] = self.revision
         context["action_url"] = self.get_revisions_revert_url()
+        # Autosave does not make much sense in this view, we want the user to
+        # explicitly confirm they want to revert to the previous revision
+        context["autosave_enabled"] = False
         return context
+
+
+class JsonPostResponseMixin:
+    """
+    Helper methods for create/edit views that return JSON responses when POSTed to with an
+    Accepts: application/json header, rather than the usual "redirect on success, HTML form
+    on failure" behaviour.
+    """
+
+    partials_template_name = None
+
+    @cached_property
+    def expects_json_response(self):
+        return not self.request.accepts("text/html")
+
+    def json_error_response(self, error_code, error_message):
+        return JsonResponse(
+            {
+                "success": False,
+                "error_code": error_code,
+                "error_message": error_message,
+            },
+            status=400,
+        )
+
+    @staticmethod
+    def response_is_json(response):
+        return response.headers.get("Content-Type") == "application/json"
+
+    def render_partials(self):
+        return render_to_string(
+            self.partials_template_name,
+            self.get_context_data(),
+            request=self.request,
+        )

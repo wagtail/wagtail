@@ -1,0 +1,37 @@
+// stylelint-disable selector-attribute-name-disallowed-list
+.w-autosave-indicator {
+  margin-inline-end: theme('spacing.5');
+}
+
+.w-autosave-indicator__state {
+  display: none;
+  align-items: center;
+  gap: theme('spacing.2');
+  white-space: nowrap;
+  color: theme('colors.text-meta');
+  cursor: pointer;
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+    flex-shrink: 0;
+  }
+}
+
+// Using Stimulus classes for toggling between states add unnecessary complexity,
+// so just use the state value attribute directly.
+[data-w-autosave-state-value='saving'] .w-autosave-indicator__state--saving,
+[data-w-autosave-state-value='saved'] .w-autosave-indicator__state--saved,
+[data-w-autosave-state-value='paused'] .w-autosave-indicator__state--paused {
+  display: flex;
+}
+
+.w-autosave-indicator__state--paused {
+  .icon {
+    color: theme('colors.warning.100');
+  }
+}
+
+.w-autosave-indicator__text {
+  @apply w-hidden md:w-inline-block;
+}
