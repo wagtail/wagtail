@@ -242,7 +242,20 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
 
-    def test_loaded_revision_id_included_in_form(self):
+        # Autosave defaults to enabled with 500ms interval
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "500")
+
+    def test_loaded_revision_id_and_timestamp_included_in_form(self):
         # Ensure there's a revision for the page
         self.event_page.title = "Updated event page"
         revision = self.event_page.save_revision()
@@ -258,6 +271,40 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         loaded_revision = form.select_one("input[name='loaded_revision_id']")
         self.assertIsNotNone(loaded_revision)
         self.assertEqual(int(loaded_revision["value"]), revision.pk)
+        loaded_timestamp = form.select_one("input[name='loaded_revision_created_at']")
+        self.assertIsNotNone(loaded_timestamp)
+        self.assertEqual(loaded_timestamp["value"], revision.created_at.isoformat())
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=0)
+    def test_autosave_disabled(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=2000)
+    def test_autosave_custom_interval(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "2000")
 
     def test_publish_button_shows_schedule_label_for_future_go_live(self):
         go_live_at = timezone.now() + datetime.timedelta(hours=1)
@@ -552,6 +599,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "content": "Some content",
             "slug": "hello-world",
             "loaded_revision_id": loaded_revision.pk,
+            "loaded_revision_created_at": loaded_revision.created_at.isoformat(),
         }
         response = self.client.post(
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
@@ -565,12 +613,60 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response_json = response.json()
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], self.child_page.pk)
+        self.assertEqual(response_json["field_updates"], {})
 
         # Should create a new revision to be overwritten later
         self.assertEqual(self.child_page.revisions.count(), 2)
         self.assertNotEqual(response_json["revision_id"], loaded_revision.pk)
         revision = self.child_page.revisions.get(pk=response_json["revision_id"])
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
         self.assertEqual(revision.content["title"], "I've been edited!")
+        soup = self.get_soup(response_json["html"])
+        status_side_panel = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel='status']",
+                "data-w-teleport-mode-value": "innerHTML",
+            },
+        )
+        self.assertIsNotNone(status_side_panel)
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNone(form_title_heading)
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(
+            header_title.text.strip(),
+            # Looks a bit off because get_admin_display_title for SimplePage
+            # adds (simple page) suffix
+            "Editing Simple page: I've been edited! (simple page)",
+        )
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -612,8 +708,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -632,6 +728,56 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             "Someone else edited after the page is loaded",
         )
         self.assertEqual(self.child_page.get_latest_revision().id, other_revision.id)
+
+    def test_save_outdated_revision_timestamp_with_json_response(self):
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision = self.child_page.get_latest_revision()
+        loaded_revision_created_at = loaded_revision.created_at.isoformat()
+        # Simulate the loaded revision being updated via another session's autosave,
+        # which means the revision is overwritten with new content and created_at
+        self.child_page.title = "Someone else edited after the page is loaded"
+        self.child_page.save_revision(overwrite_revision=loaded_revision)
+        self.assertEqual(self.child_page.revisions.count(), 1)
+
+        post_data = {
+            "title": "Just another edit submitted after the other edit is done",
+            "content": "Some content",
+            "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
+            "loaded_revision_created_at": loaded_revision_created_at,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        # Instead of creating a new revision for autosave (which means the user
+        # would unknowingly replace the updated revision), we return an error
+        # response that should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
+            },
+        )
+
+        # Page fields should still be from the published version
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.title, "Hello world!")
+
+        # The initially loaded revision should prefer the other session's autosave
+        self.assertEqual(self.child_page.revisions.count(), 1)
+        loaded_revision.refresh_from_db()
+        self.assertEqual(
+            loaded_revision.content["title"],
+            "Someone else edited after the page is loaded",
+        )
+        self.assertEqual(self.child_page.get_latest_revision().id, loaded_revision.id)
 
     def test_page_edit_post_with_overwrite_revision_and_json_response(self):
         self.assertEqual(self.child_page.revisions.count(), 1)
@@ -659,10 +805,15 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should be a 200 OK JSON response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
+        revision.refresh_from_db()
         response_json = response.json()
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], self.child_page.pk)
         self.assertEqual(response_json["revision_id"], revision.pk)
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -706,8 +857,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -936,8 +1087,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "locked",
-                "errorMessage": "The page could not be saved as it is locked.",
+                "error_code": "locked",
+                "error_message": "The page could not be saved as it is locked.",
             },
         )
 
@@ -2293,8 +2444,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit page was blocked by hook.",
             },
         )
 
@@ -2362,8 +2513,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit page was blocked by hook.",
             },
         )
 
@@ -3404,7 +3555,7 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
         self.assertIn(self.men_with_beards_category, updated_page.categories.all())
 
 
-class TestValidationErrorMessages(WagtailTestUtils, TestCase):
+class TestValidationerror_messages(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -3505,8 +3656,8 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "validation_error",
-                "errorMessage": "The page could not be saved due to validation errors.",
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
             },
         )
 
@@ -3727,6 +3878,72 @@ class TestNestedInlinePanel(WagtailTestUtils, TestCase):
         self.assertEqual(len(awards), 2)
         self.assertEqual(awards[0].name, "Beard Of The Century")
         self.assertEqual(awards[1].name, "Bobsleigh Olympic gold medallist")
+
+    def test_post_edit_with_json_response(self):
+        self.christmas_page.unpublish()  # so that draft changes are applied to the database record
+
+        post_data = nested_form_data(
+            {
+                "title": "Christmas",
+                "date_from": "2017-12-25",
+                "date_to": "2017-12-25",
+                "slug": "christmas",
+                "audience": "public",
+                "location": "The North Pole",
+                "cost": "Free",
+                "carousel_items": inline_formset([]),
+                "speakers": inline_formset(
+                    [
+                        {
+                            "id": self.speaker.id,
+                            "first_name": "Jeff",
+                            "last_name": "Christmas",
+                            "awards": inline_formset(
+                                [
+                                    {
+                                        "id": self.speaker.awards.first().id,
+                                        "name": "Beard Of The Century",
+                                        "date_awarded": "1997-12-25",
+                                    },
+                                    {
+                                        "name": "Bobsleigh Olympic gold medallist",
+                                        "date_awarded": "2018-02-01",
+                                    },
+                                ],
+                                initial=1,
+                            ),
+                        },
+                    ],
+                    initial=1,
+                ),
+                "related_links": inline_formset([]),
+                "head_counts": inline_formset([]),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.christmas_page.id)
+        self.christmas_page.refresh_from_db()
+        self.assertEqual(
+            response_json["revision_id"], self.christmas_page.get_latest_revision().pk
+        )
+
+        new_award = self.christmas_page.speakers.first().awards.get(
+            name="Bobsleigh Olympic gold medallist"
+        )
+        self.assertEqual(
+            response_json["field_updates"],
+            {
+                "speakers-0-awards-INITIAL_FORMS": "2",
+                "speakers-0-awards-1-id": str(new_award.id),
+            },
+        )
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)

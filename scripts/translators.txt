@@ -357,6 +357,7 @@ Indonesian (Indonesia) - id_ID
 -----
 Andry Widya Putra UN <andrywidyaputra.gmail.com>
 Dzikri Hakim <dzikers.gmail.com>
+Imanu Wardi
 Loic Teixeira
 M. Febrian Ramadhana <febrian.ramadhana.me>
 Matt Westcott <matthew.torchbox.com>
@@ -659,6 +660,7 @@ André Karlsson <andre.sess.se>
 Elias Johnstone <eli87as.gmail.com>
 Hannes Lohmander <c.hannes.l.gmail.com>
 Jim Brouzoulis <jim.brouzoulis.chalmers.se>
+Jonathan Lindén
 Loic Teixeira
 Ludwig Kjellström <ludwig.kjellstrom.amnesty.se>
 Martin Sandström <martin.marteinn.se>

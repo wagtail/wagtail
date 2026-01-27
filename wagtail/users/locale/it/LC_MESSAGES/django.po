@@ -6,7 +6,7 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2024
+# Marco Badan <marco.badan@gmail.com>, 2021-2026
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -129,6 +129,12 @@ msgstr "Scuro"
 msgid "admin theme"
 msgstr "tema admin"
 
+msgid "More contrast"
+msgstr "Più contrasto"
+
+msgid "contrast"
+msgstr "contrasto"
+
 msgid "Default"
 msgstr "Default"
 
@@ -142,6 +148,9 @@ msgstr "densità"
 
 msgid "Keyboard shortcuts"
 msgstr "Scorciatoie da tastiera"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Abilita le scorciatoie da tastiera personalizzate per Wagtail."
 
 msgid "user profile"
 msgstr "profilo utente"
@@ -316,6 +325,9 @@ msgid ""
 msgstr ""
 "Non ci sono utenti configurati. Perché non <a "
 "href=\"%(wagtailusers_add_url)s\">ne aggiungi qualcuno</a>?"
+
+msgid "Can view"
+msgstr "Può vedere"
 
 #, python-format
 msgid "user %(id)s (deleted)"

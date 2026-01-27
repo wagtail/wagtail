@@ -286,6 +286,14 @@ WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
+(wagtail_autosave_interval)=
+
+### `WAGTAIL_AUTOSAVE_INTERVAL`
+
+The interval (in milliseconds) to wait since the last edit, before attempting an autosave in the page or snippet editor. The default value is `500`.
+
+If set to `0`, autosave will be disabled.
+
 (wagtail_auto_update_preview_interval)=
 
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
@@ -430,7 +438,7 @@ be renamed to have an extension no matter what data they contain.
 WAGTAILIMAGES_JPEG_QUALITY = 75
 ```
 
-Change the global default for JPEG image encoding quality (default: 85).
+Change the global default for JPEG image encoding quality (default: 76).
 
 ### `WAGTAILIMAGES_WEBP_QUALITY`
 
@@ -446,7 +454,7 @@ Change the global default for WebP image encoding quality (default: 80).
 WAGTAILIMAGES_AVIF_QUALITY = 65
 ```
 
-Change the global default for AVIF image encoding quality (default: 73).
+Change the global default for AVIF image encoding quality (default: 61).
 
 ### `WAGTAILIMAGES_HEIC_QUALITY`
 

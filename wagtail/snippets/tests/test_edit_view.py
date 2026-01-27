@@ -157,8 +157,6 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             {
                 "w-unsaved#submit",
                 "beforeunload@window->w-unsaved#confirm",
-                "change->w-unsaved#check",
-                "keyup->w-unsaved#check",
             }.issubset(editor_form.attrs.get("data-action").split())
         )
         self.assertEqual(
@@ -169,11 +167,16 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             editor_form.attrs.get("data-w-unsaved-force-value"),
             "false",
         )
-        self.assertIn(
-            "edits",
-            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
-        )
+
         self.assertIsNone(editor_form.select_one("input[name='loaded_revision_id']"))
+        self.assertIsNone(
+            editor_form.select_one("input[name='loaded_revision_created_at']")
+        )
+
+        self.assertIsNotNone(editor_form)
+        self.assertNotIn("w-autosave", editor_form["data-controller"].split())
+        self.assertNotIn("w-autosave", editor_form["data-action"])
+        self.assertIsNone(editor_form.attrs.get("data-w-autosave-interval-value"))
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
@@ -246,8 +249,6 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             {
                 "w-unsaved#submit",
                 "beforeunload@window->w-unsaved#confirm",
-                "change->w-unsaved#check",
-                "keyup->w-unsaved#check",
             }.issubset(editor_form.attrs.get("data-action").split())
         )
         self.assertEqual(
@@ -258,10 +259,6 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             editor_form.attrs.get("data-w-unsaved-force-value"),
             # The form is invalid, we want to force it to be "dirty" on initial load
             "true",
-        )
-        self.assertIn(
-            "edits",
-            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
 
     def test_edit_invalid_with_json_response(self):
@@ -275,8 +272,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "validation_error",
-                "errorMessage": "The advert could not be saved due to errors.",
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
             },
         )
 
@@ -312,6 +309,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response_json = response.json()
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], snippet.pk)
+        self.assertEqual(response_json["field_updates"], {})
 
     def test_edit_with_tags(self):
         tags = ["hello", "world"]
@@ -369,8 +367,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit advert was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit advert was blocked by hook.",
             },
         )
 
@@ -433,8 +431,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to edit advert was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to edit advert was blocked by hook.",
             },
         )
 
@@ -738,6 +736,7 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             post_data={
                 "text": "bar",
                 "loaded_revision_id": initial_revision.pk,
+                "loaded_revision_created_at": initial_revision.created_at.isoformat(),
             },
             headers={"Accept": "application/json"},
         )
@@ -753,6 +752,10 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         self.assertEqual(self.test_snippet.revisions.count(), 2)
         self.assertNotEqual(response_json["revision_id"], initial_revision.pk)
         revision = self.test_snippet.revisions.get(pk=response_json["revision_id"])
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
         self.assertEqual(revision.content["text"], "bar")
 
         # The instance should be updated
@@ -789,14 +792,48 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
         self.assertEqual(self.test_snippet.revisions.count(), 2)
         revision.refresh_from_db()
         self.assertEqual(revision.content["text"], "Initial revision")
+
+    def test_save_outdated_revision_timestampwith_json_response(self):
+        self.test_snippet.text = "Initial revision"
+        revision = self.test_snippet.save_revision(user=self.user)
+        loaded_revision_created_at = revision.created_at.isoformat()
+        self.test_snippet.text = "Latest revision"
+        self.test_snippet.save_revision(user=self.user, overwrite_revision=revision)
+        self.assertEqual(self.test_snippet.revisions.count(), 1)
+        response = self.post(
+            post_data={
+                "text": "Updated revision",
+                "loaded_revision_id": revision.pk,
+                "loaded_revision_created_at": loaded_revision_created_at,
+            },
+            headers={"Accept": "application/json"},
+        )
+
+        # Instead of creating a new revision for autosave (which means the user
+        # would unknowingly replace a newer revision), we return an error
+        # response that should be a 400 response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(
+            response.json(),
+            {
+                "success": False,
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
+            },
+        )
+
+        self.assertEqual(self.test_snippet.revisions.count(), 1)
+        revision.refresh_from_db()
+        self.assertEqual(revision.content["text"], "Latest revision")
 
     def test_overwrite_revision_with_json_response(self):
         self.test_snippet.text = "Initial revision"
@@ -819,10 +856,55 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         # Should be a 200 OK JSON response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
+        revision.refresh_from_db()
+        response_json = response.json()
+        self.assertIs(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.test_snippet.pk)
+        self.assertEqual(response_json["revision_id"], revision.pk)
         self.assertEqual(
-            response.json(),
-            {"success": True, "pk": self.test_snippet.pk, "revision_id": revision.pk},
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
         )
+        self.assertEqual(response_json["field_updates"], {})
+        soup = self.get_soup(response_json["html"])
+        status_side_panel = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel='status']",
+                "data-w-teleport-mode-value": "innerHTML",
+            },
+        )
+        self.assertIsNotNone(status_side_panel)
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(form_title_heading)
+        self.assertEqual(form_title_heading.text.strip(), "Updated revision")
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(header_title.text.strip(), "Editing: Updated revision")
 
         self.assertEqual(self.test_snippet.revisions.count(), 2)
         revision.refresh_from_db()
@@ -854,8 +936,8 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_code": "invalid_revision",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -893,11 +975,11 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
             response.json(),
             {
                 "success": False,
-                "errorCode": "invalid_revision",
+                "error_code": "invalid_revision",
                 # We only naively check whether overwrite_revision_id matches
                 # the latest revision ID, and if it doesn't, we assume there's
                 # a newer revision.
-                "errorMessage": "Saving will overwrite a newer version.",
+                "error_message": "Saving will overwrite a newer version.",
             },
         )
 
@@ -971,6 +1053,49 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         loaded_revision = form.select_one("input[name='loaded_revision_id']")
         self.assertIsNotNone(loaded_revision)
         self.assertEqual(int(loaded_revision["value"]), revision.pk)
+        loaded_timestamp = form.select_one("input[name='loaded_revision_created_at']")
+        self.assertIsNotNone(loaded_timestamp)
+        self.assertEqual(loaded_timestamp["value"], revision.created_at.isoformat())
+
+        # Autosave defaults to enabled with 500ms interval
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "500")
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=0)
+    def test_autosave_disabled(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
+
+    @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=2000)
+    def test_autosave_custom_interval(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertIn("w-autosave", form["data-controller"].split())
+        self.assertTrue(
+            {
+                "w-unsaved:add->w-autosave#save:prevent",
+                "w-autosave:success->w-unsaved#clear",
+            }.issubset(form["data-action"].split())
+        )
+        self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "2000")
 
     def test_save_draft(self):
         response = self.post(post_data={"text": "Draft-enabled Bar"})

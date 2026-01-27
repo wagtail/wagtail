@@ -6,10 +6,11 @@
 # Thomas Kunambi <kunambi@gmail.com>, 2025
 # Philip Andersen <renegadevi@codeofmagi.net>, 2025
 # Martin Sandström <martin@marteinn.se>, 2025
+# Jonathan Lindén, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2025\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
@@ -89,7 +90,7 @@ msgid "Edit '%(title)s'"
 msgstr "Redigera '%(title)s'"
 
 msgid "Enter your comments..."
-msgstr "Skriva dina kommentarer..."
+msgstr "Skriv dina kommentarer..."
 
 msgid "Enter your reply..."
 msgstr "Skriv ditt svar..."

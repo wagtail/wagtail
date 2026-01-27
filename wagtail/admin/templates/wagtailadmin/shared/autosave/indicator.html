@@ -1,0 +1,36 @@
+{% load wagtailadmin_tags i18n %}
+
+{% comment %}
+    This indicator component reuses AutosaveController to listen to the events
+    that are dispatched by w-autosave on the editor form to update the
+    indicator's state accordingly.
+{% endcomment %}
+<div
+    id="w-autosave-indicator"
+    class="w-autosave-indicator"
+    data-controller="w-tooltip w-autosave"
+    data-w-tooltip-content-value=""
+    data-action="
+                 w-autosave:save@document->w-autosave#updateIndicator
+                 w-autosave:success@document->w-autosave#updateIndicator
+                 w-autosave:error@document->w-autosave#updateIndicator
+                ">
+    <div class="w-autosave-indicator__state w-autosave-indicator__state--saving">
+        {% icon name="rotate" %}
+        <span class="w-autosave-indicator__text">
+            {% translate 'Saving…' %}
+        </span>
+    </div>
+    <div class="w-autosave-indicator__state w-autosave-indicator__state--saved">
+        {% icon name="check" %}
+        <span class="w-autosave-indicator__text">
+            {% translate 'Saved' %}
+        </span>
+    </div>
+    <div class="w-autosave-indicator__state w-autosave-indicator__state--paused">
+        {% icon name="warning" %}
+        <span class="w-autosave-indicator__text">
+            {% translate 'Autosave is paused' %}
+        </span>
+    </div>
+</div>

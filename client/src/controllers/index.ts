@@ -2,6 +2,7 @@ import type { Definition } from '@hotwired/stimulus';
 
 // Order controller imports alphabetically.
 import { ActionController } from './ActionController';
+import { AutosaveController } from './AutosaveController';
 import { AutosizeController } from './AutosizeController';
 import { BlockController } from './BlockController';
 import { BulkController } from './BulkController';
@@ -41,6 +42,7 @@ import { ZoneController } from './ZoneController';
 export const coreControllerDefinitions: Definition[] = [
   // Keep this list in alphabetical order
   { controllerConstructor: ActionController, identifier: 'w-action' },
+  { controllerConstructor: AutosaveController, identifier: 'w-autosave' },
   { controllerConstructor: AutosizeController, identifier: 'w-autosize' },
   { controllerConstructor: BlockController, identifier: 'w-block' },
   { controllerConstructor: BulkController, identifier: 'w-bulk' },
