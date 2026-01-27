@@ -26,7 +26,7 @@ Additionally, each release series has its
 own branch, called `stable/A.B.x`, and bugfix/security releases will be
 issued from those branches.
 
-For more information about how Wagtail issues new releases for security purposes, please see our [security policies](https://docs.wagtail.org/en/latest/contributing/security.html).
+Releases are announced on the [Announcements](https://github.com/wagtail/wagtail/discussions/categories/announcements) discussion, whilst security releases are announced on the [Security Announcements](https://github.com/wagtail/wagtail/discussions/categories/security-announcements) discussion. For more information about how Wagtail issues new releases for security purposes, please see our [security policies](https://docs.wagtail.org/en/latest/contributing/security.html).
 
 **Feature release**
 
