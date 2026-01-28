@@ -21,6 +21,7 @@ from wagtail.test.testapp.models import (
     EventPageCarouselItem,
     EventPageRelatedLink,
     EventPageSpeaker,
+    EventPageSpeakerAward,
     GenericSnippetNoFieldIndexPage,
     GenericSnippetNoIndexPage,
     GenericSnippetPage,
@@ -319,27 +320,25 @@ class TestDescribeOnDelete(TestCase):
         management.call_command("rebuild_references_index", stdout=StringIO())
 
     def setUp(self):
-        field = VariousOnDeleteModel._meta.get_field("stream_field")
-        advertisement_content = field.stream_block.child_blocks["advertisement_content"]
-        captioned_advert = advertisement_content.child_blocks["captioned_advert"]
-
         self.advert = Advert.objects.create(text="An advertisement")
+        self.page = EventPage.objects.first()
         self.advert_uuid = AdvertWithCustomUUIDPrimaryKey.objects.create(
             text="A UUID advertisement"
         )
-
-        self.page = EventPage.objects.first()
-        page_link = f'<p>Link to <a id="{self.page.id}" linktype="page">a page</a></p>'
-
         self.image = get_image_model().objects.create(
             title="My image",
             file=get_test_image_file(),
         )
-
         self.document = get_document_model().objects.create(
             title="My document",
             file=get_test_document_file(),
         )
+
+    def test_describe_source_field_and_on_delete(self):
+        field = VariousOnDeleteModel._meta.get_field("stream_field")
+        advertisement_content = field.stream_block.child_blocks["advertisement_content"]
+        captioned_advert = advertisement_content.child_blocks["captioned_advert"]
+        page_link = f'<p>Link to <a id="{self.page.id}" linktype="page">a page</a></p>'
 
         # Each case is a tuple of (
         #   VariousOnDeleteModel init kwargs,
@@ -486,7 +485,6 @@ class TestDescribeOnDelete(TestCase):
             ),
         ]
 
-    def test_describe_source_field_and_on_delete(self):
         for (
             init_kwargs,
             referred_object,
@@ -524,7 +522,10 @@ class TestDescribeOnDelete(TestCase):
         self.assertEqual(usage.count(), 2)
         for _, references in usage:
             reference = references[0]
-            self.assertEqual(reference.describe_source_field(), "Advert")
+            self.assertEqual(
+                reference.describe_source_field(),
+                "Advert placement → Advert",
+            )
             self.assertEqual(
                 reference.describe_on_delete(),
                 "the advert placement will also be deleted",
@@ -545,7 +546,10 @@ class TestDescribeOnDelete(TestCase):
             event_page.save()
         refs = ReferenceIndex.get_references_to(root_page)
         self.assertEqual(refs.count(), 1)
-        self.assertEqual(refs[0].describe_source_field(), "Link page")
+        self.assertEqual(
+            refs[0].describe_source_field(),
+            "Event page speaker → Link page",
+        )
         self.assertEqual(
             refs[0].describe_on_delete(),
             "the event page speaker will also be deleted",
@@ -566,6 +570,32 @@ class TestDescribeOnDelete(TestCase):
         )
         with self.assertRaises(FieldDoesNotExist):
             reference.describe_source_field()
+
+    def test_foreign_key_in_nested_child_model(self):
+        root_page = Page.objects.get(id=2)
+        speaker = EventPageSpeaker(
+            first_name="Willie", last_name="Wagtail", link_page=root_page
+        )
+        event_page = EventPage.objects.first()
+        event_page.speakers.add(speaker)
+        award = EventPageSpeakerAward(
+            speaker=speaker,
+            name="Best Speaker",
+            certificate=self.document,
+        )
+        speaker.awards.add(award)
+        with self.captureOnCommitCallbacks(execute=True):
+            event_page.save()
+        refs = ReferenceIndex.get_references_to(self.document)
+        self.assertEqual(refs.count(), 1)
+        self.assertEqual(
+            refs[0].describe_source_field(),
+            "Event page speaker → Event page speaker award → Certificate",
+        )
+        self.assertEqual(
+            refs[0].describe_on_delete(),
+            "the event page speaker will also be deleted",
+        )
 
 
 class TestBulkFetch(TestCase):
