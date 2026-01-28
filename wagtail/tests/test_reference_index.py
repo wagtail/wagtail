@@ -594,7 +594,7 @@ class TestDescribeOnDelete(TestCase):
         )
         self.assertEqual(
             refs[0].describe_on_delete(),
-            "the event page speaker will also be deleted",
+            "will unset the reference",
         )
 
 
