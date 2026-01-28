@@ -128,6 +128,8 @@ class SearchController {
       this.searchFromForm();
       return false;
     });
+
+    this.multipleChoice = new Set();
   }
 
   attachSearchInput(selector) {
@@ -162,9 +164,7 @@ class SearchController {
             'form[data-multiple-choice-form] input[type="checkbox"]',
           );
           checkboxes.forEach((checkbox) => {
-            const savedState = sessionStorage.getItem(checkbox.id);
-
-            if (savedState === 'true') {
+            if (this.multipleChoice.has(checkbox.value)) {
               checkbox.setAttribute('checked', true);
             }
           });
@@ -187,6 +187,10 @@ class SearchController {
 
   searchFromForm() {
     this.search(this.form.serialize());
+  }
+
+  updateMultipleChoice(choices) {
+    this.multipleChoice = choices;
   }
 }
 
@@ -219,6 +223,7 @@ class ChooserModalOnloadHandlerFactory {
     this.creationFormEventName = opts?.creationFormEventName;
 
     this.searchController = null;
+    this.multipleChoice = new Set();
   }
 
   ajaxifyLinks(modal, containerElement) {
@@ -246,7 +251,7 @@ class ChooserModalOnloadHandlerFactory {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
 
-    this.updateMultipleChoiceSubmitLocalStorage(modal);
+    this.updateMultipleChoiceSubmitLocalStorage();
 
     const form = modal.container[0].querySelector(
       '[data-multiple-choice-form]',
@@ -266,40 +271,35 @@ class ChooserModalOnloadHandlerFactory {
     }
   }
 
-  updateMultipleChoiceSubmitLocalStorage(modal) {
-    // eslint-disable-next-line func-names
-    $(modal.body).on('change', '[data-multiple-choice-select]', function () {
-      $(this).each(() => {
-        sessionStorage.setItem($(this).prop('id'), $(this).prop('checked'));
-      });
+  updateMultipleChoiceSubmitLocalStorage() {
+    $(document).on('change', '[data-multiple-choice-select]', (e) => {
+      const el = e.currentTarget;
+
+      if (el.checked) {
+        this.multipleChoice.add(el.value);
+      } else {
+        this.multipleChoice.delete(el.value);
+      }
+      this.searchController.updateMultipleChoice(this.multipleChoice);
     });
   }
 
   // get Checkbox States and create hidden inputs on submit to update the form with the missing checkboxes.
   getMissingCheckboxes(form) {
-    for (let i = 0; i < sessionStorage.length; i += 1) {
-      const key = sessionStorage.key(i);
-      const value = sessionStorage.getItem(key);
+    this.multipleChoice.forEach((choice) => {
+      const checkbox = form.querySelector(
+        `input[type="checkbox"][value="${choice}"]`,
+      );
 
-      if (
-        key.startsWith('chooser-modal-select') &&
-        value === 'true' &&
-        (document.getElementById(key) == null ||
-          (document.getElementById(key) &&
-            document.getElementById(key).checked !== true))
-      ) {
-        const id = key.substring('chooser-modal-select-'.length);
+      if (checkbox?.checked === false || !checkbox) {
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = 'id';
-        input.value = id;
+        input.value = choice;
         form.appendChild(input);
       }
-
-      if (key.startsWith('chooser-modal-select') && value === 'true') {
-        sessionStorage.setItem(key, false);
-      }
-    }
+    });
+    this.multipleChoice.clear();
   }
 
   modalHasTabs(modal) {
