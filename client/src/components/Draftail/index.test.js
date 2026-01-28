@@ -118,7 +118,7 @@ describe('Draftail', () => {
           </div>
         `;
 
-        draftail.initEditor('#description', {});
+        draftail.initEditor('input#description', {});
 
         expect(
           document.querySelector('[name="last"]').draftailEditor,
@@ -136,7 +136,7 @@ describe('Draftail', () => {
         `;
 
         draftail.initEditor(
-          '#description',
+          'input#description',
           {},
           document.querySelector('[data-draftail-script]'),
         );
@@ -154,7 +154,7 @@ describe('Draftail', () => {
         `;
 
         draftail.initEditor(
-          '#description',
+          'input#description',
           {},
           document.querySelector('[data-draftail-script]'),
         );
@@ -162,6 +162,38 @@ describe('Draftail', () => {
         expect(
           document.querySelector('#description').draftailEditor,
         ).toBeDefined();
+      });
+
+      it('handles field name overlapping with panel content ID using tag selector', () => {
+        window.draftail = draftail;
+        document.body.innerHTML = `
+          <div id="content">
+            <div>
+              <input id="content" value="null" />
+            </div>
+          </div>
+        `;
+
+        draftail.initEditor('input#content', {});
+
+        expect(
+          document.querySelector('input#content').draftailEditor,
+        ).toBeDefined();
+      });
+
+      it('fails when field name overlaps with panel content ID without tag selector', () => {
+        window.draftail = draftail;
+        document.body.innerHTML = `
+          <div id="content">
+            <div>
+              <input id="content" value="null" />
+            </div>
+          </div>
+        `;
+
+        expect(() => {
+          draftail.initEditor('#content', {});
+        }).toThrow(SyntaxError);
       });
     });
   });
