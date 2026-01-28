@@ -40,6 +40,7 @@ exports[`EditorFallback #error #showContent 1`] = `
       >
         The editor just crashed. Content has been reset to the last saved version.
         <textarea
+          aria-label="Editor content"
           className="EditorFallback__textarea"
           readOnly={true}
           value="test"
