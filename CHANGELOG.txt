@@ -4,6 +4,7 @@ Changelog
 7.4 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Maintenance: Removed support for Django 4.2

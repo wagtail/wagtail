@@ -938,6 +938,8 @@
 * Saptami
 * Soumya-codr
 * Wenli Tsai
+* Tian Jie Wong
+* Kacper Walęga
 
 ## Translators
 
