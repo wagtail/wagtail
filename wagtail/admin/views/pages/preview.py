@@ -29,12 +29,16 @@ class PreviewOnEdit(GenericPreviewOnEdit):
     def session_key(self):
         return "{}{}".format(self.session_key_prefix, self.kwargs["page_id"])
 
+    @property
+    def files_session_key(self):
+        return "{}{}".format(self.files_session_key_prefix, self.kwargs["page_id"])
+
     def get_object(self):
         return get_object_or_404(
             Page, id=self.kwargs["page_id"]
         ).get_latest_revision_as_object()
 
-    def get_form(self, query_dict):
+    def get_form(self, query_dict, files=None):
         form_class = self.object.get_edit_handler().get_form_class()
         parent_page = self.object.get_parent().specific
 
@@ -56,6 +60,15 @@ class PreviewOnEdit(GenericPreviewOnEdit):
         if not query_dict.get("slug"):
             query_dict["slug"] = str(uuid.uuid4())
 
+        if files:
+            return form_class(
+                query_dict,
+                files,
+                instance=self.object,
+                parent_page=parent_page,
+                for_user=self.request.user,
+            )
+
         return form_class(
             query_dict,
             instance=self.object,
@@ -69,6 +82,15 @@ class PreviewOnCreate(PreviewOnEdit):
     def session_key(self):
         return "{}{}-{}-{}".format(
             self.session_key_prefix,
+            self.kwargs["content_type_app_name"],
+            self.kwargs["content_type_model_name"],
+            self.kwargs["parent_page_id"],
+        )
+
+    @property
+    def files_session_key(self):
+        return "{}{}-{}-{}".format(
+            self.files_session_key_prefix,
             self.kwargs["content_type_app_name"],
             self.kwargs["content_type_model_name"],
             self.kwargs["parent_page_id"],
@@ -106,8 +128,8 @@ class PreviewOnCreate(PreviewOnEdit):
 
         return page
 
-    def get_form(self, query_dict):
-        form = super().get_form(query_dict)
+    def get_form(self, query_dict, files=None):
+        form = super().get_form(query_dict, files)
         if self.validate_form(form):
             # Ensures our unsaved page has a suitable url.
             form.instance.set_url_path(form.parent_page)
