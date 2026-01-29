@@ -68,6 +68,13 @@
   max-width: calc(260px - theme('spacing.4'));
 }
 
+.w-drilldown__submenu select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
 .w-drilldown__submenu .w-field__label {
   @apply w-label-1;
   margin-bottom: theme('spacing.3');
