@@ -65,16 +65,33 @@ api_router.register_endpoint("pages", CustomPagesAPIViewSet)
 Or changing the desired model to use for page results.
 
 ```python
-from rest_framework.renderers import JSONRenderer
+# api.py
 
-# ...
+from wagtail.api.v2.views import PagesAPIViewSet
+
 
 class PostPagesAPIViewSet(PagesAPIViewSet):
+    """
+    Exposes only BlogPage instances on a dedicated endpoint.
+
+    This is useful when you want the listing endpoint to behave more like the
+    detail endpoint and include/filter by fields that are specific to BlogPage.
+    """
+
     model = models.BlogPage
 
 
 api_router.register_endpoint("posts", PostPagesAPIViewSet)
 ```
+
+With this configuration:
+
+-   The `/api/v2/posts/` **listing endpoint** will use `BlogPage` as its base model.
+-   Any fields exposed through `BlogPage.api_fields` are available both for the
+    `fields` query parameter and for filtering (for example, `?slug=my-slug` or
+    `?published_date=2024-01-01`), without needing to look up the page ID first.
+-   You still retain the generic `/api/v2/pages/` endpoint for cross-model listings,
+    where custom fields continue to require a `?type=` filter as described below.
 
 You can use `body_fields` (for content fields at the top level of the API response) and `meta_fields` (for fields within the response's `meta` section) to control which fields are included. By default, fields added here only appear in the detail view.
 
@@ -179,8 +196,18 @@ class BlogPage(Page):
 
 This will make `published_date`, `body`, `feed_image` and a list of
 `authors` with the `name` field available in the API. But to access these
-fields, you must select the `blog.BlogPage` type using the `?type`
-[parameter in the API itself](apiv2_custom_page_fields).
+fields on the **generic** `pages` endpoint, you must select the `blog.BlogPage`
+type using the `?type` [parameter in the API itself](apiv2_custom_page_fields),
+for example:
+
+```text
+/api/v2/pages/?type=blog.BlogPage&fields=published_date,body,feed_image,authors
+```
+
+If you want a listing endpoint that always targets `BlogPage` (and therefore
+can filter and select fields without passing `?type=` on every request), use a
+dedicated `PagesAPIViewSet` subclass as shown in the `PostPagesAPIViewSet`
+example above.
 
 (form_page_fields_api_field)=
 
