@@ -167,6 +167,7 @@ describe('Calling initEditor via event dispatching', () => {
 import Draftail from '../../components/Draftail/index';
 const { initEditor: realInitEditor } = Draftail;
 
+
 describe('DraftailRichTextArea Initialization Logic', () => {
   it('initializes the correct element when IDs are duplicated', () => {
     // Setup DOM with duplicate IDs
