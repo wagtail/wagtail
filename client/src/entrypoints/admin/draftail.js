@@ -62,7 +62,7 @@ if (!window.Draftail || !window.draftail) {
       return;
     }
 
-    window.draftail.initEditor(`#${id}`, detail, document.currentScript);
+    window.draftail.initEditor(target, detail, document.currentScript);
   });
 }
 
