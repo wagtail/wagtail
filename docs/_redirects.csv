@@ -1,0 +1,26 @@
+# Source,Target (relative to docs root or absolute)
+/en/v1.13.2/releases/index.html,/en/stable/releases/index.html
+/en/stable/reference/contrib/modeladmin/,/en/stable/reference/contrib/index.html
+/en/stable/reference/contrib/modeladmin/index.html,/en/stable/reference/contrib/index.html
+/en/v7.2.1/reference/contrib/modeladmin/,/en/stable/reference/contrib/index.html
+/en/latest/reference/contrib/modeladmin/,/en/stable/reference/contrib/index.html
+/en/v5.2.8/reference/models.html,/en/stable/reference/pages/index.html
+/en/stable/advanced_topics/snippets.html,/en/stable/topics/snippets/index.html
+/en/stable/extending/custom_admin_views.html,/en/stable/extending/admin_views.html
+/en/stable/reference/contrib/postgres_search.html,/en/stable/topics/search/backends.html#postgresql
+/en/v1.12.4/releases/index.html,/en/stable/releases/index.html
+/en/stable/advanced_topics/i18n/,/en/stable/advanced_topics/i18n.html
+/en/stable/advanced_topics/customising_admin_templates.html,/en/stable/advanced_topics/customization/admin_templates.html
+/en/v2.1/releases/index.html,/en/stable/releases/index.html
+/en/v1.13.1/releases/index.html,/en/stable/releases/index.html
+/en/stable/topics/api.html,/en/stable/advanced_topics/api/index.html
+/en/stable/getting_started/integrating_into_existing_project.html,/en/stable/getting_started/integrating_into_django.html
+/en/stable/advanced_topics/api/v2/serializers.html,/en/stable/advanced_topics/api/v2/configuration.html
+/en/stable/reference/contrib/multisite.html,/en/stable/reference/contrib/index.html
+/en/stable/advanced_topics/deployment.html,/en/stable/deployment/index.html
+/en/stable/advanced_topics/forms.html,/en/stable/reference/contrib/forms/index.html
+/en/stable/advanced_topics/api/v2/,/en/stable/advanced_topics/api/v2/usage.html
+/en/latest/images/image_serve_view.html,/en/stable/topics/images.html
+/en/stable/reference/pages/fields.html,/en/stable/reference/pages/index.html
+/en/latest/images/custom_image_model.html,/en/stable/advanced_topics/images/custom_image_model.html
+/en/stable/advanced_topics/customising_the_admin_interface/custom_blocks.html,/en/stable/topics/streamfield.html

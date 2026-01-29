@@ -683,3 +683,15 @@ Make sure that all examples are accessible and adhere to accessibility standards
 For interactive components, ensure proper keyboard navigation and screen reader support. When creating dynamic content or effects (such as animations or notifications), provide options for users to pause, stop, or adjust these features as needed.
 
 If needed, call out explicitly that the example is not compliant with accessibility and would need additional considerations before adoption.
+
+(managing_redirects)=
+
+## Managing Redirects
+
+We track 404s and necessary redirects for Read the Docs in `docs/_redirects.csv`. This file acts as a source of truth for the redirects that need to be configured in the Read the Docs dashboard.
+
+Direct access to the Read the Docs dashboard is limited to maintainers. If you identify a missing page or broken link that requires a redirect:
+
+1.  Add the mapping to `docs/_redirects.csv` (format: `from_url,to_url`).
+2.  Submit a Pull Request with this change.
+3.  A maintainer will review and apply the redirects to the dashboard.
