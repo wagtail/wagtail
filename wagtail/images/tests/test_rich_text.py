@@ -45,6 +45,14 @@ class TestEditorHtmlImageEmbedHandler(WagtailTestUtils, TestCase):
             result,
             allow_extra_attrs=True,
         )
+    def test_expand_db_attributes_for_editor_missing_id(self):
+        result = EditorHtmlImageEmbedHandler.expand_db_attributes(
+           {
+                "alt": "test-alt",
+                "format": "left",
+           } 
+        )
+        self.assertEqual(result, "")
 
     def test_expand_db_attributes_for_editor_nonexistent_image(self):
         self.assertEqual(

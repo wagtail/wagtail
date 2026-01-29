@@ -37,10 +37,14 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
     """
 
     def create_entity(self, name, attrs, state, contentstate):
+        image_id=attrs.get("id")
+        image_format_name=attrs.get("format")
+        if not image_id or not image_format_name:
+            return None
         Image = get_image_model()
         try:
-            image = Image.objects.get(id=attrs["id"])
-            image_format = get_image_format(attrs["format"])
+            image = Image.objects.get(id=image_id)
+            image_format = get_image_format(image_format_name)
             rendition = get_rendition_or_not_found(image, image_format.filter_spec)
             src = rendition.url
         except Image.DoesNotExist:
