@@ -947,7 +947,7 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         self.assertIn("こんにちは、世界", data_line)
 
     def test_list_submissions_csv_export_with_unicode_in_field(self):
-        FormField.objects.create(
+        field = FormField.objects.create(
             page=self.form_page,
             sort_order=2,
             label="Выберите самую любимую IDE для разработке на Python",
@@ -961,7 +961,7 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
             form_data={
                 "your_email": "unicode@example.com",
                 "your_message": "We don't need unicode here",
-                "u0412u044bu0431u0435u0440u0438u0442u0435_u0441u0430u043cu0443u044e_u043bu044eu0431u0438u043cu0443u044e_ide_u0434u043bu044f_u0440u0430u0437u0440u0430u0431u043eu0442u043au0435_u043du0430_python": "vim",
+                field.clean_name: "vim",
             },
         )
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
@@ -1153,7 +1153,7 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
         self.assertIn("こんにちは、世界", data_line)
 
     def test_list_submissions_csv_export_with_unicode_in_field(self):
-        FormFieldWithCustomSubmission.objects.create(
+        field = FormFieldWithCustomSubmission.objects.create(
             page=self.form_page,
             sort_order=2,
             label="Выберите самую любимую IDE для разработке на Python",
@@ -1168,7 +1168,7 @@ class TestCustomFormsSubmissionsExport(WagtailTestUtils, TestCase):
             form_data={
                 "your-email": "unicode@example.com",
                 "your-message": "We don't need unicode here",
-                "u0412u044bu0431u0435u0440u0438u0442u0435_u0441u0430u043cu0443u044e_u043bu044eu0431u0438u043cu0443u044e_ide_u0434u043bu044f_u0440u0430u0437u0440u0430u0431u043eu0442u043au0435_u043du0430_python": "vim",
+                field.clean_name: "vim",
             },
         )
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
