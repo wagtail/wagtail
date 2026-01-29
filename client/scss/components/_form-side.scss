@@ -121,5 +121,29 @@
 
   &__panel {
     @apply w-px-5 xl:w-px-10 w-py-4 w-w-full w-h-full w-overflow-y-auto w-scrollbar-thin;
+
+    
+    @media (forced-colors: active) {
+      a.w-text-text-link-default,
+      a[class*='w-text-text-link'] {
+        border: 1px solid ButtonText;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+      }
+
+      button.w-text-text-link-default,
+      button[class*='w-text-text-link'],
+      button[data-a11y-dialog-show] {
+        border: 1px solid ButtonText;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+      }
+
+      .w-dropdown__toggle {
+        border: 1px solid ButtonText !important;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+      }
+    }
   }
 }
