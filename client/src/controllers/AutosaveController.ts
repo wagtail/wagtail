@@ -4,6 +4,7 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { gettext } from '../utils/gettext';
 import { debounce, DebouncibleFunction } from '../utils/debounce';
 
+/** Server-provided error codes. */
 export enum ServerErrorCode {
   INVALID_REVISION = 'invalid_revision',
   LOCKED = 'locked',
@@ -16,6 +17,7 @@ export enum UnhandledServerErrorCode {
   INTERNAL_ERROR = 'internal_error',
 }
 
+/** Client-provided error codes. */
 export enum ClientErrorCode {
   NETWORK_ERROR = 'network_error',
   SERVER_ERROR = 'server_error',
@@ -27,6 +29,7 @@ function isHandledServerErrorCode(code: string): code is ServerErrorCode {
 
 export type KnownErrorCode = ServerErrorCode | ClientErrorCode;
 
+/** Error that occurs during hydration of a create view into an edit view. */
 export class HydrationError extends Error {
   code: ClientErrorCode;
 
@@ -39,12 +42,14 @@ export class HydrationError extends Error {
 
 export type AutosaveState = 'idle' | 'saving' | 'saved' | 'paused';
 
+/** Error response from an autosave request. */
 export interface AutosaveErrorResponse {
   success: false;
   error_code: ServerErrorCode | UnhandledServerErrorCode;
   error_message: string;
 }
 
+/** Successful response from an autosave request. */
 export interface AutosaveSuccessResponse {
   success: true;
   pk: number | string;
@@ -58,16 +63,19 @@ export interface AutosaveSuccessResponse {
 
 export type AutosaveResponse = AutosaveSuccessResponse | AutosaveErrorResponse;
 
+/** The `detail` data for a `w-autosave:save` event. */
 export interface AutosaveSaveDetail {
   trigger?: Event;
   formData: FormData;
 }
 
+/** The `detail` data for a `w-autosave:hydrate` event. */
 export interface AutosaveHydrateDetail {
   trigger?: Event;
   url: string;
 }
 
+/** The `detail` data for a `w-autosave:success` event. */
 export interface AutosaveSuccessDetail {
   trigger?: Event;
   response: AutosaveSuccessResponse;
@@ -75,12 +83,14 @@ export interface AutosaveSuccessDetail {
   timestamp: Date;
 }
 
+/** The `detail` data for a `w-autosave:deactivated` event. */
 export interface AutosaveDeactivatedDetail {
   trigger?: Event;
   response: AutosaveErrorResponse;
   error: Error;
 }
 
+/** The `detail` data for a `w-autosave:error` event. */
 export interface AutosaveErrorDetail {
   trigger?: Event;
   response?: AutosaveErrorResponse | null;
@@ -95,6 +105,20 @@ export type AutosaveEvent =
   | CustomEvent<AutosaveDeactivatedDetail>
   | CustomEvent<AutosaveErrorDetail>;
 
+/**
+ * Sends a form's data to the server for autosaving.
+ *
+ * Can also be used for an indicator component to show the current autosave state.
+ *
+ * Dispatches the following events.
+ *
+ * @fires `w-autosave:save` - before saving, cancelable.
+ * @fires `w-autosave:hydrate` - to hydrate a create view into an edit view.
+ * @fires `w-autosave:success` - on successful save and any UI updates.
+ * @fires `w-autosave:deactivated` - when autosave is deactivated due to an unrecoverable error.
+ * @fires `w-autosave:error` - on save error, e.g. due to validation errors.
+ *
+ */
 export class AutosaveController extends Controller<
   HTMLFormElement | HTMLDivElement
 > {
@@ -107,17 +131,38 @@ export class AutosaveController extends Controller<
   };
 
   declare readonly hasPartialsTarget: boolean;
-  declare readonly partialsTarget: HTMLTemplateElement;
+  /** The target element for partial HTML updates. */
+  declare readonly partialsTarget: HTMLDivElement;
 
+  /**
+   * Whether autosave is active.
+   *
+   * Autosave may be deactivated when there is an unrecoverable error,
+   * e.g. a newer revision is detected.
+   */
   declare activeValue: boolean;
+  /** The debounce interval between autosave calls, in milliseconds. */
   declare intervalValue: number;
+  /** The current revision ID of the form being edited. */
   declare revisionIdValue: number;
+  /**
+   * The current state of the autosave process.
+   *
+   * This is only set when the controller is used as an indicator component,
+   * not when controlling a form.
+   */
   declare stateValue: AutosaveState;
 
   initialize(): void {
     this.submit = this.submit.bind(this);
   }
 
+  /**
+   * Prepares a save request by gathering the form data, adding additional data
+   * (e.g. revision ID to overwrite), and dispatching a save event.
+   *
+   * Does not do anything if autosave is not active or the element is not a form.
+   */
   async save(event?: Event) {
     if (!this.activeValue || !(this.element instanceof HTMLFormElement)) return;
     const formData = new FormData(this.element);
@@ -133,6 +178,13 @@ export class AutosaveController extends Controller<
     );
   }
 
+  /**
+   * Handles the submission of the autosave form.
+   * Debouncible based on the `interval` value.
+   *
+   * @param event The save event containing the form data to submit.
+   * If the event's default is prevented, no action is taken.
+   */
   submit: DebouncibleFunction<
     (event: CustomEvent<AutosaveSaveDetail>) => Promise<void>
   > = async ({ defaultPrevented, detail: { formData, trigger: event } }) => {
@@ -305,6 +357,7 @@ export class AutosaveController extends Controller<
       });
   }
 
+  /** Applies the new debounce interval to the submit function. */
   intervalValueChanged(newInterval: number) {
     if ('restore' in this.submit) {
       this.submit = this.submit.restore();
@@ -313,7 +366,7 @@ export class AutosaveController extends Controller<
   }
 
   /**
-   * Update the indicator component's state based on events dispatched by the
+   * Updates the indicator component's state based on events dispatched by the
    * controller from the editor form.
    */
   updateIndicator(event: AutosaveEvent) {
