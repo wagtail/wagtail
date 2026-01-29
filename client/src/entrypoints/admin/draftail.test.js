@@ -1,6 +1,7 @@
 import { createEditorStateFromRaw } from 'draftail';
 import { EditorState } from 'draft-js';
 import ReactTestUtils from 'react-dom/test-utils';
+import Draftail, { initEditor as realInitEditor } from '../../components/Draftail/index';
 
 require('./draftail');
 
@@ -59,8 +60,8 @@ describe('Calling initEditor via event dispatching', () => {
   beforeAll(() => {
     /* eslint-disable no-console */
     // mock console.error to ensure it does not bubble to the logs
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => { });
+    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => { });
   });
 
   beforeEach(() => {
@@ -164,8 +165,9 @@ describe('Calling initEditor via event dispatching', () => {
   });
 });
 
-import Draftail from '../../components/Draftail/index';
-const { initEditor: realInitEditor } = Draftail;
+
+
+
 
 describe('DraftailRichTextArea Initialization Logic', () => {
   it('initializes the correct element when IDs are duplicated', () => {
@@ -234,8 +236,8 @@ describe('importing the module multiple times', () => {
     const thirdDraftail = window.draftail;
     expect(thirdDraftail).toBe(firstDraftail);
 
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => { });
+    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => { });
 
     expect(window.draftail.initEditor).not.toHaveBeenCalled();
 
