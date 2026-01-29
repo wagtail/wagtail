@@ -169,9 +169,9 @@ const initEditor = (selectorOrElement, originalOptions, currentScript) => {
     let ariaDescribedBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
-        description: gettext('Horizontal line'),
-        icon: HR_ICON,
-      }
+          description: gettext('Horizontal line'),
+          icon: HR_ICON,
+        }
       : false;
 
     const blockTypes = newOptions.blockTypes || [];

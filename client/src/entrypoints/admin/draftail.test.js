@@ -59,8 +59,8 @@ describe('Calling initEditor via event dispatching', () => {
   beforeAll(() => {
     /* eslint-disable no-console */
     // mock console.error to ensure it does not bubble to the logs
-    jest.spyOn(console, 'error').mockImplementation(() => { });
-    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => { });
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => {});
   });
 
   beforeEach(() => {
@@ -139,7 +139,7 @@ describe('Calling initEditor via event dispatching', () => {
       }),
     );
 
-    // In the current implementation (before fix), the event listener gets target.id 
+    // In the current implementation (before fix), the event listener gets target.id
     // and calls initEditor('#duplicate-id').
     // initEditor does document.querySelector('#duplicate-id').
     // Since the DIV comes first in the DOM and has the same ID, it selects the DIV.
@@ -154,7 +154,7 @@ describe('Calling initEditor via event dispatching', () => {
     // So 'initEditor' test here just checks arguments.
     // The REAL logic failure happens INSIDE initEditor.
     // So we should probably NOT mock initEditor for a true reproduction, OR we need to test initEditor itself.
-    // But initEditor is not exported for direct testing easily in this file? 
+    // But initEditor is not exported for direct testing easily in this file?
     // Actually it is: window.draftail.initEditor
   });
 
@@ -166,7 +166,6 @@ describe('Calling initEditor via event dispatching', () => {
 
 import Draftail from '../../components/Draftail/index';
 const { initEditor: realInitEditor } = Draftail;
-
 
 describe('DraftailRichTextArea Initialization Logic', () => {
   it('initializes the correct element when IDs are duplicated', () => {
@@ -235,8 +234,8 @@ describe('importing the module multiple times', () => {
     const thirdDraftail = window.draftail;
     expect(thirdDraftail).toBe(firstDraftail);
 
-    jest.spyOn(console, 'error').mockImplementation(() => { });
-    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => { });
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => {});
 
     expect(window.draftail.initEditor).not.toHaveBeenCalled();
 
