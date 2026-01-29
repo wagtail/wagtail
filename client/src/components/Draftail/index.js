@@ -131,13 +131,20 @@ export const wrapWagtailIcon = (type) => {
  * @param {object} originalOptions
  * @param {Element} currentScript
  */
-const initEditor = (selector, originalOptions, currentScript) => {
+const initEditor = (selectorOrElement, originalOptions, currentScript) => {
   // document.currentScript is not available in IE11. Use a fallback instead.
   const context = currentScript ? currentScript.parentNode : document.body;
-  // If the field is not in the current context, look for it in the whole body.
-  // Fallback for sequence.js jQuery eval-ed scripts running in document.head.
-  const field =
-    context.querySelector(selector) || document.body.querySelector(selector);
+
+  let field;
+  if (typeof selectorOrElement === 'string') {
+    // If the field is not in the current context, look for it in the whole body.
+    // Fallback for sequence.js jQuery eval-ed scripts running in document.head.
+    field =
+      context.querySelector(selectorOrElement) ||
+      document.body.querySelector(selectorOrElement);
+  } else {
+    field = selectorOrElement;
+  }
 
   const editorWrapper = document.createElement('div');
   editorWrapper.className = 'Draftail-Editor__wrapper';
@@ -162,9 +169,9 @@ const initEditor = (selector, originalOptions, currentScript) => {
     let ariaDescribedBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
-          description: gettext('Horizontal line'),
-          icon: HR_ICON,
-        }
+        description: gettext('Horizontal line'),
+        icon: HR_ICON,
+      }
       : false;
 
     const blockTypes = newOptions.blockTypes || [];
@@ -315,7 +322,7 @@ class BoundDraftailWidget {
 
     if (shouldInitEditor) {
       const [, setOptions] = initEditor(
-        '#' + this.input.id,
+        this.input,
         this.getFullOptions(),
         document.currentScript,
       );

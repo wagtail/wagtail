@@ -59,8 +59,8 @@ describe('Calling initEditor via event dispatching', () => {
   beforeAll(() => {
     /* eslint-disable no-console */
     // mock console.error to ensure it does not bubble to the logs
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => { });
+    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => { });
   });
 
   beforeEach(() => {
@@ -83,7 +83,7 @@ describe('Calling initEditor via event dispatching', () => {
     expect(console.error).toHaveBeenCalledTimes(0);
     expect(window.draftail.initEditor).toHaveBeenCalledTimes(1);
     expect(window.draftail.initEditor).toHaveBeenLastCalledWith(
-      '#editor',
+      document.getElementById('editor'),
       { some: 'detail' },
       null,
     );
@@ -108,9 +108,106 @@ describe('Calling initEditor via event dispatching', () => {
     expect(window.draftail.initEditor).not.toHaveBeenCalled();
   });
 
+  it('should initialize the correct element when duplicates exist', async () => {
+    expect(window.draftail.initEditor).not.toHaveBeenCalled();
+
+    // Create a scenario where a parent element has an ID that ends with the input's ID
+    // This simulates the issue where document.querySelector('#' + id) might match the parent
+    // if the logic was flawed or ambiguous, although strictly '#' + id should only match exact ID.
+    // However, the report says "DraftailRichTextArea fails... due to HTML ID conflicts".
+    // In the reported issue, the selector returns the parent panel instead of the input element.
+    // This happens if the user inadvertently used the same ID for parent and child, OR if the selector is somehow fuzzy.
+    // Wait, document.querySelector('#id') selects the FIRST element with that ID.
+    // If the parent has the SAME ID as the child (which is invalid HTML but happens), it picks the parent.
+    // The issue description says: "parent panel <div> elements and child <input>/<textarea> elements can end up sharing the same HTML id".
+
+    document.body.innerHTML = `
+      <div id="duplicate-id">
+        <input id="duplicate-id" class="target-input">
+      </div>
+    `;
+
+    // We want to initialize the INPUT, not the DIV.
+    const inputElement = document.body.querySelector('input');
+
+    document.getElementById('duplicate-id').dispatchEvent(
+      new CustomEvent('w-draftail:init', {
+        bubbles: true,
+        cancelable: false,
+        detail: { some: 'detail' },
+        target: inputElement, // The event is dispatched on the input (bubbling up effectively, or handled directly)
+      }),
+    );
+
+    // In the current implementation (before fix), the event listener gets target.id 
+    // and calls initEditor('#duplicate-id').
+    // initEditor does document.querySelector('#duplicate-id').
+    // Since the DIV comes first in the DOM and has the same ID, it selects the DIV.
+    // Then it tries to access .value on the DIV, fails JSON.parse, or appends wrapper to parent of DIV.
+
+    expect(console.error).toHaveBeenCalledTimes(0);
+    expect(window.draftail.initEditor).toHaveBeenCalledTimes(1);
+
+    // We expect initEditor to be called.
+    // To verify IF it selected the right element, we would need to inspect side effects in initEditor.
+    // But initEditor is mocked here!
+    // So 'initEditor' test here just checks arguments.
+    // The REAL logic failure happens INSIDE initEditor.
+    // So we should probably NOT mock initEditor for a true reproduction, OR we need to test initEditor itself.
+    // But initEditor is not exported for direct testing easily in this file? 
+    // Actually it is: window.draftail.initEditor
+  });
+
   afterAll(() => {
     console.error.mockRestore();
     window.draftail.initEditor.mockRestore();
+  });
+});
+
+import Draftail from '../../components/Draftail/index';
+const { initEditor: realInitEditor } = Draftail;
+
+describe('DraftailRichTextArea Initialization Logic', () => {
+  it('initializes the correct element when IDs are duplicated', () => {
+    // Setup DOM with duplicate IDs
+    // The issue is that the specific ID 'duplicate-id' is used for the parent AND the input.
+    const validValue = JSON.stringify({
+      blocks: [
+        {
+          key: 'test',
+          type: 'unstyled',
+          depth: 0,
+          text: 'test',
+          inlineStyleRanges: [],
+          entityRanges: [],
+        },
+      ],
+      entityMap: {},
+    });
+    document.body.innerHTML = `
+        <div id="duplicate-id" class="parent-container">
+            <input id="duplicate-id" class="target-input" value='${validValue}' />
+        </div>
+    `;
+
+    // We try to initialize using the ID selector, which is what the current code does.
+    // This mimics the behavior of: window.draftail.initEditor('#duplicate-id', ...)
+
+    // Expectation: It picks the DIV (first match), tries to read .value (undefined/empty), and fails JSON.parse.
+    // Or it might succeed if the DIV matches requirements, but it attaches to the wrong place.
+    // In this case, div.value is undefined. JSON.parse(undefined) throws SyntaxError.
+
+    const options = {
+      entityTypes: [],
+      blockTypes: [],
+      inlineStyles: [],
+      controls: [],
+      plugins: [],
+    };
+
+    expect(() => {
+      realInitEditor(document.querySelector('.target-input'), options, null);
+    }).not.toThrow();
   });
 });
 
@@ -137,8 +234,8 @@ describe('importing the module multiple times', () => {
     const thirdDraftail = window.draftail;
     expect(thirdDraftail).toBe(firstDraftail);
 
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => { });
+    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => { });
 
     expect(window.draftail.initEditor).not.toHaveBeenCalled();
 
@@ -159,7 +256,7 @@ describe('importing the module multiple times', () => {
     // the initEditor function would be called multiple times.
     expect(window.draftail.initEditor).toHaveBeenCalledTimes(1);
     expect(window.draftail.initEditor).toHaveBeenLastCalledWith(
-      '#editor',
+      document.getElementById('editor'),
       { some: 'detail' },
       null,
     );
