@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 
 from wagtail.fields import RichTextField
 from wagtail.images.rich_text import ImageEmbedHandler as FrontendImageEmbedHandler
+from wagtail.images.rich_text.contentstate import ImageElementHandler
 from wagtail.images.rich_text.editor_html import (
     ImageEmbedHandler as EditorHtmlImageEmbedHandler,
 )
@@ -45,14 +46,15 @@ class TestEditorHtmlImageEmbedHandler(WagtailTestUtils, TestCase):
             result,
             allow_extra_attrs=True,
         )
+
     def test_expand_db_attributes_for_editor_missing_id(self):
         result = EditorHtmlImageEmbedHandler.expand_db_attributes(
-           {
+            {
                 "alt": "test-alt",
                 "format": "left",
-           } 
+            }
         )
-        self.assertEqual(result, "")
+        self.assertEqual(result, '<img alt="">')
 
     def test_expand_db_attributes_for_editor_nonexistent_image(self):
         self.assertEqual(
@@ -162,3 +164,15 @@ class TestEntityFeatureChooserUrls(TestCase):
             image.data["chooserUrls"]["imageChooser"],
             reverse_lazy("wagtailimages_chooser:choose"),
         )
+
+
+class TestContentStateImageElementHandler(WagtailTestUtils, TestCase):
+    def test_contentstate_image_handler_ignores_missing_id(self):
+        handler = ImageElementHandler()
+        result = handler.create_entity(
+            name="embed",
+            attrs={"alt": "foo"},
+            state=None,
+            contentstate=None,
+        )
+        self.assertIsNone(result)

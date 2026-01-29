@@ -37,8 +37,8 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
     """
 
     def create_entity(self, name, attrs, state, contentstate):
-        image_id=attrs.get("id")
-        image_format_name=attrs.get("format")
+        image_id = attrs.get("id")
+        image_format_name = attrs.get("format")
         if not image_id or not image_format_name:
             return None
         Image = get_image_model()

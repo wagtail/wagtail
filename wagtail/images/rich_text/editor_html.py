@@ -22,8 +22,6 @@ class ImageEmbedHandler:
         data-embedtype="image" attribute), return a dict of the attributes we should
         have on the resulting <embed> element.
         """
-        if "data-id"not in tag:
-            return None
         return {
             "id": tag["data-id"],
             "format": tag["data-format"],
@@ -36,9 +34,10 @@ class ImageEmbedHandler:
         Given a dict of attributes from the <embed> tag, return the real HTML
         representation for use within the editor.
         """
-        image_id=attrs.get("id")
+        image_id = attrs.get("id")
         if not image_id:
-            return ""
+            return '<img alt="">'
+
         Image = get_image_model()
         try:
             image = Image.objects.get(id=image_id)
