@@ -1,7 +1,8 @@
 import { createEditorStateFromRaw } from 'draftail';
 import { EditorState } from 'draft-js';
 import ReactTestUtils from 'react-dom/test-utils';
-import Draftail, { initEditor as realInitEditor } from '../../components/Draftail/index';
+import Draftail from '../../components/Draftail/index';
+const { initEditor: realInitEditor } = Draftail;
 
 require('./draftail');
 
