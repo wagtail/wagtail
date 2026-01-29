@@ -763,6 +763,22 @@ WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
 
+### `WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER`
+
+```python
+WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER = "myapp.handlers.unauthenticated_group_handler"
+```
+
+This is the path to the method which will be used to handle authenticated users attempting to access a page without the required group permission. For more details, see the [](handling_group_permissions) documentation.
+
+### `WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER`
+
+```python
+WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER = "myapp.handlers.unauthenticated_doc_group_handler"
+```
+
+As above, but for group restrictions on collections. For more details, see the [](handling_group_permissions) documentation.
+
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
 
 The basic login page can be customized with a custom template.
