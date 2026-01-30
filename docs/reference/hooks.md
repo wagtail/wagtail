@@ -909,7 +909,7 @@ from wagtail.admin.ui.components import Component
 
 class UserbarPuppyLinkItem(Component):
     def render_html(self, parent_context):
-        return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
+        return '<li><a href="https://unsplash.com/s/photos/puppies" ' \
             + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
 
 @hooks.register('construct_wagtail_userbar')

@@ -942,6 +942,7 @@
 * Kacper Walęga
 * Deepanshu Tevathiya
 * Serkan Korkusuz
+* Kunal Gupta
 
 ## Translators
 
