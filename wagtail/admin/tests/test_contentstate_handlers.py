@@ -15,9 +15,9 @@ class TestPageLinkElementHandler(WagtailTestUtils, TestCase):
     def test_get_attribute_data_with_missing_id(self):
         handler = PageLinkElementHandler(None)
         attrs = {"linktype": "page"}
-        
+
         data = handler.get_attribute_data(attrs)
-        
+
         self.assertEqual(data["id"], None)
         self.assertEqual(data["url"], None)
         self.assertEqual(data["parentId"], None)
@@ -25,9 +25,9 @@ class TestPageLinkElementHandler(WagtailTestUtils, TestCase):
     def test_get_attribute_data_with_nonexistent_id(self):
         handler = PageLinkElementHandler(None)
         attrs = {"linktype": "page", "id": 9999}
-        
+
         data = handler.get_attribute_data(attrs)
-        
+
         self.assertEqual(data["id"], 9999)
         self.assertEqual(data["url"], None)
         self.assertEqual(data["parentId"], None)
@@ -35,9 +35,9 @@ class TestPageLinkElementHandler(WagtailTestUtils, TestCase):
     def test_get_attribute_data_with_valid_page(self):
         handler = PageLinkElementHandler(None)
         attrs = {"linktype": "page", "id": self.root_page.id}
-        
+
         data = handler.get_attribute_data(attrs)
-        
+
         self.assertEqual(data["id"], self.root_page.id)
         self.assertEqual(data["url"], "/")
         # The default root page (id=2) has a parent (id=1)

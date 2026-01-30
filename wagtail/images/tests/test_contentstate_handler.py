@@ -10,9 +10,9 @@ class TestImageElementHandler(WagtailTestUtils, TestCase):
     def test_create_entity_with_missing_id(self):
         handler = ImageElementHandler()
         attrs = {"format": "left", "alt": "Test Image"}
-        
+
         entity = handler.create_entity("embed", attrs, None, None)
-        
+
         self.assertEqual(entity.entity_type, "IMAGE")
         self.assertEqual(entity.mutability, "IMMUTABLE")
         self.assertEqual(entity.data["id"], None)
@@ -23,9 +23,9 @@ class TestImageElementHandler(WagtailTestUtils, TestCase):
     def test_create_entity_with_missing_format(self):
         handler = ImageElementHandler()
         attrs = {"id": 1, "alt": "Test Image"}
-        
+
         entity = handler.create_entity("embed", attrs, None, None)
-        
+
         self.assertEqual(entity.entity_type, "IMAGE")
         self.assertEqual(entity.mutability, "IMMUTABLE")
         self.assertEqual(entity.data["id"], 1)
@@ -36,9 +36,9 @@ class TestImageElementHandler(WagtailTestUtils, TestCase):
     def test_create_entity_with_invalid_id(self):
         handler = ImageElementHandler()
         attrs = {"id": 9999, "format": "left", "alt": "Test Image"}
-        
+
         entity = handler.create_entity("embed", attrs, None, None)
-        
+
         self.assertEqual(entity.entity_type, "IMAGE")
         self.assertEqual(entity.mutability, "IMMUTABLE")
         self.assertEqual(entity.data["id"], 9999)
@@ -50,9 +50,9 @@ class TestImageElementHandler(WagtailTestUtils, TestCase):
         image = Image.objects.create(title="Test Image", file=get_test_image_file())
         handler = ImageElementHandler()
         attrs = {"id": image.id, "format": "left", "alt": "Test Image"}
-        
+
         entity = handler.create_entity("embed", attrs, None, None)
-        
+
         self.assertEqual(entity.entity_type, "IMAGE")
         self.assertEqual(entity.mutability, "IMMUTABLE")
         self.assertEqual(entity.data["id"], image.id)
