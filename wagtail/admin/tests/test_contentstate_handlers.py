@@ -1,5 +1,8 @@
 from django.test import TestCase
-from wagtail.admin.rich_text.converters.html_to_contentstate import PageLinkElementHandler
+
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    PageLinkElementHandler,
+)
 from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 

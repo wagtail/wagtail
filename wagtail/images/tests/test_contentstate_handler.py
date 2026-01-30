@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from wagtail.images.rich_text.contentstate import ImageElementHandler
 from wagtail.test.utils import WagtailTestUtils
+
 from .utils import Image, get_test_image_file
 
 
