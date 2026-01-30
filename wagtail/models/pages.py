@@ -1307,17 +1307,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return (not self.is_leaf()) or self.depth == 2
 
     def _get_site_root_paths(self, request=None):
-        """
-        Return ``Site.get_site_root_paths()``, using the cached copy on the
-        request object if available.
-        """
-        # if we have a request, use that to cache site_root_paths; otherwise, use self
+        """Return the site root path mappings used for URL routing. If a request object is provided, the result is cached on the request object for the lifetime of the request to avoid repeated database queries. The cached value is stored on the cache object as `_wagtail_cached_site_root_paths`. """
+        # If we have a request, use it as the cache object; otherwise, use self
         cache_object = request if request else self
         try:
             return cache_object._wagtail_cached_site_root_paths
         except AttributeError:
             cache_object._wagtail_cached_site_root_paths = Site.get_site_root_paths()
             return cache_object._wagtail_cached_site_root_paths
+
 
     def _get_relevant_site_root_paths(self, cache_object=None):
         """
