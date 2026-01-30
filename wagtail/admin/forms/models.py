@@ -136,12 +136,14 @@ class WagtailAdminModelForm(
         self.for_user = kwargs.get("for_user")
         self.deferred_required_fields = []
         self.deferred_formset_min_nums = {}
+        self.is_deferred_validation = False
         super().__init__(*args, **kwargs)
 
     def defer_required_fields(self):
-        if self.deferred_required_fields or self.deferred_formset_min_nums:
+        if self.is_deferred_validation:
             # defer_required_fields has already been called
             return
+        self.is_deferred_validation = True
 
         for field_name in self._meta.defer_required_on_fields:
             try:
@@ -169,6 +171,8 @@ class WagtailAdminModelForm(
         for field_name in self.deferred_required_fields:
             self.fields[field_name].required = True
         self.deferred_required_fields = []
+
+        self.is_deferred_validation = False
 
     def get_field_updates_for_resave(self):
         """
