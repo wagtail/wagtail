@@ -5,6 +5,48 @@ Signals are useful for creating side-effects from page publish/unpublish events.
 
 For example, you could use signals to send publish notifications to a messaging service, or `POST` messages to another app that's consuming the API, such as a static site generator.
 
+## `published`
+
+This signal is emitted from a `Revision` when any model revision is set to `published`.
+-   `sender` - The model `class` of the published object.
+-   `instance` - The specific `model` instance that was published.
+-   `revision` - The `Revision` that was published.
+-   `kwargs` - Any other arguments passed to `published.send().`
+
+`published` and `unpublished` are generic signals that work with any model that supports revisions, not just `Page`.
+
+To listen to a signal, implement `published.connect(receiver, sender, **kwargs)`. Here's a simple
+example showing how you might notify your team when something is published:
+
+```python
+from wagtail.signals import published
+import requests
+
+
+# Announce when an event is published
+def announce_event(sender, **kwargs):
+    instance = kwargs['instance']
+    url = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+    values = {
+        "text": "New event '%s' scheduled for %s was published!" % (instance.title, instance.event_date),
+        "channel": "#events",
+        "username": "event coordinator",
+        "icon_emoji": ":calendar:"
+    }
+    response = requests.post(url, values)
+
+# Register a receiver
+published.connect(announce_event)
+```
+
+## `unpublished`
+
+This signal is emitted when any model instance is unpublished.
+
+-   `sender` - The model `class` of the unpublished object.
+-   `instance` - The specific `model` instance that was unpublished.
+-   `kwargs` - Any other arguments passed to `unpublished.send()`.
+
 ## `page_published`
 
 This signal is emitted from a `Revision` when a page revision is set to `published`.
