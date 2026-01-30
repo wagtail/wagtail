@@ -11,6 +11,7 @@ Changelog
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
+ * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
 
 
 7.3 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -42,6 +43,7 @@ Changelog
  * Fix: Optimise storage of redirect paths containing Unicode characters and ensure percent-encoded characters are matched case-insensitively (Andy Babic, Florin Barnea, Aman Bora, Matt Westcott)
  * Fix: Ensure that reference index records are deleted when the target object is deleted (bettercallok)
  * Fix: Ensure filters are applied to export button URLs in custom page listings (Ritik Arya, Sage Abdullah)
+ * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
@@ -79,6 +81,12 @@ Changelog
  * Maintenance: Ignore 'build' dir when running ESLint (Matt Westcott)
  * Maintenance: Upgrade to django-tasks 0.11.0 for Django 6.0 and Python 3.11 compatibility (Guilhem Saurel)
  * Maintenance: Switch userbar items to the template components API (Thibaud Colas)
+
+
+7.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
 
 
 7.2.1 (26.11.2025)
@@ -155,6 +163,7 @@ Changelog
 
  * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
  * Fix: Disable usage count ordering when searching on documents and images listing views, to prevent unsupported search query (Sage Abdullah)
+ * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
 
 
 7.1.2 (23.10.2025)

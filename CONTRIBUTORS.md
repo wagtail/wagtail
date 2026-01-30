@@ -941,6 +941,7 @@
 * Tian Jie Wong
 * Kacper Walęga
 * Deepanshu Tevathiya
+* Serkan Korkusuz
 
 ## Translators
 
