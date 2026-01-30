@@ -8,6 +8,7 @@ Release notes
    release_process
    7.4
    7.3
+   7.2.2
    7.2.1
    7.2
    7.1.3
