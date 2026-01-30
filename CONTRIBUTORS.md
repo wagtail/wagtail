@@ -915,6 +915,7 @@
 * arpitmak
 * Eric Matthes
 * Heric Libong
+* Serkan Korkusuz
 
 ## Translators
 
