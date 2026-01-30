@@ -622,9 +622,15 @@ describe('SessionController', () => {
           data-w-swap-json-path-value="html"
           data-w-swap-src-value="http://localhost/sessions/1/"
           data-w-action-url-value="http://localhost/sessions/1/release/"
-          data-action="w-session:ping->w-swap#submit w-swap:json->w-session#updateSessionData"
+          data-action="
+            w-session:ping->w-swap#submit
+            w-swap:json->w-session#updateSessionData
+            w-autosave:success@document->w-session#updateSessionData
+          "
         >
           <div id="w-editing-sessions"></div>
+          <input type="hidden" name="revision_id" value="" data-w-session-target="revisionId" />
+          <input type="hidden" name="revision_created_at" value="" data-w-session-target="revisionCreatedAt" />
         </form>
       `;
         element = document.querySelector('form');
@@ -700,6 +706,28 @@ describe('SessionController', () => {
         expect(document.getElementById('w-editing-sessions').innerHTML).toEqual(
           '<ul><li>Session 7</li></ul>',
         );
+
+        // Simulate a successful autosave, which should update the revision ID fields
+        // so that the current session is aware of the newly created autosave revision
+        document.dispatchEvent(
+          new CustomEvent('w-autosave:success', {
+            detail: {
+              data: {
+                revision_id: 456,
+                revision_created_at: '2024-01-01T12:34:56Z',
+              },
+            },
+            bubbles: true,
+          }),
+        );
+        await Promise.resolve();
+
+        expect(
+          element.querySelector('input[name="revision_id"]').value,
+        ).toEqual('456');
+        expect(
+          element.querySelector('input[name="revision_created_at"]').value,
+        ).toEqual('2024-01-01T12:34:56Z');
       });
 
       it('should handle unexpected data gracefully', async () => {
