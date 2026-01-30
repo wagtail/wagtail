@@ -902,6 +902,7 @@
 * M. Sumair Khokhar
 * Gaurav Verma
 * Vijay Raj
+* Serkan Korkusuz
 
 ## Translators
 
