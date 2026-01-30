@@ -21,9 +21,9 @@ export class StructBlock {
     let container = '';
     if (this.blockDef.collapsible) {
       container = new CollapsiblePanel({
-        panelId: prefix + '-section',
-        headingId: prefix + '-heading',
-        contentId: prefix + '-content',
+        panelId: `block_group-${prefix}-section`,
+        headingId: `block_group-${prefix}-heading`,
+        contentId: `block_group-${prefix}-content`,
         blockTypeIcon: h(blockDef.meta.icon),
         blockTypeLabel: h(blockDef.meta.label),
         collapsed: blockDef.meta.collapsed,
@@ -152,7 +152,7 @@ export class StructBlock {
       'wagtail:panel-toggle',
       this.setTextLabel,
     );
-    return dom.find(`#${prefix}-content`);
+    return dom.find(`#block_group-${prefix}-content`);
   }
 
   setState(state) {
