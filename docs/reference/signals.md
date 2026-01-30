@@ -5,6 +5,15 @@ Signals are useful for creating side-effects from page publish/unpublish events.
 
 For example, you could use signals to send publish notifications to a messaging service, or `POST` messages to another app that's consuming the API, such as a static site generator.
 
+## `published`
+
+This signal is emitted from a `Revision` when a revision of any model (including pages) is published.
+
+-   `sender` - The model `class` of the published object.
+-   `instance` - The specific `model` instance that was published.
+-   `revision` - The `Revision` that was published.
+-   `kwargs` - Any other arguments passed to `published.send().`
+
 ## `page_published`
 
 This signal is emitted from a `Revision` when a page revision is set to `published`.
@@ -61,6 +70,14 @@ page_published.connect(receiver, sender=BlogPostPage)
 Wagtail provides access to a list of registered page types through the `get_page_models()` function in `wagtail.models`.
 
 Read the [Django documentation](inv:django#topics/signals) for more information about specifying senders.
+
+## `unpublished`
+
+This signal is emitted when any model instance (including pages) is unpublished.
+
+-   `sender` - The model `class` of the unpublished object.
+-   `instance` - The specific `model` instance that was unpublished.
+-   `kwargs` - Any other arguments passed to `unpublished.send()`.
 
 ## `page_unpublished`
 
