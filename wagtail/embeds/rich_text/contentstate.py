@@ -34,8 +34,12 @@ class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
     """
 
     def create_entity(self, name, attrs, state, contentstate):
+        url = attrs.get("url")
+        if not url:
+            return Entity("EMBED", "IMMUTABLE", {"url": None})
+
         try:
-            embed_obj = embeds.get_embed(attrs["url"])
+            embed_obj = embeds.get_embed(url)
             embed_data = {
                 "embedType": embed_obj.type,
                 "url": embed_obj.url,
@@ -44,8 +48,8 @@ class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
                 "thumbnail": embed_obj.thumbnail_url,
                 "title": embed_obj.title,
             }
-        except EmbedException:
-            embed_data = {"url": attrs["url"]}
+        except (EmbedException, KeyError):
+            embed_data = {"url": url}
         return Entity("EMBED", "IMMUTABLE", embed_data)
 
 
