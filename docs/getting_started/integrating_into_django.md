@@ -44,13 +44,13 @@ Add the following entry to `MIDDLEWARE`:
 Add a `STATIC_ROOT` setting, if your project doesn't have one already:
 
 ```python
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / "static"
 ```
 
 Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project doesn't have these already:
 
 ```python
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
 ```
 
