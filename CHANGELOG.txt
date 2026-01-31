@@ -9,6 +9,7 @@ Changelog
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
  * Docs: Replace `http` with `https` in example URLs (Kunal Gupta)
+ * Docs: Use `pathlib.Path` for settings in "Integrating into Django" documentation (Kunal Gupta)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
