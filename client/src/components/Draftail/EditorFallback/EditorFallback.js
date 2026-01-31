@@ -118,6 +118,7 @@ class EditorFallback extends PureComponent {
                   className="EditorFallback__textarea"
                   value={content}
                   readOnly
+                  aria-label={gettext('Editor content')}
                 />
               )}
 
