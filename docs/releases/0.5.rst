@@ -21,7 +21,7 @@ The image uploader UI has been improved to allow multiple images to be uploaded 
 Image feature detection
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail can now apply face and feature detection on images using `OpenCV <http://opencv.org/>`_, and use this to intelligently crop images.
+Wagtail can now apply face and feature detection on images using `OpenCV <https://opencv.org/>`_, and use this to intelligently crop images.
 
 :ref:`image_feature_detection`
 
