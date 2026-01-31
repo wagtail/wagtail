@@ -7,7 +7,9 @@ from .sitemap_generator import Sitemap
 
 def index(request, sitemaps, **kwargs):
     sitemaps = prepare_sitemaps(request, sitemaps)
-    return sitemap_views.index(request, sitemaps, **kwargs)
+    response = sitemap_views.index(request, sitemaps, **kwargs)
+    response["Cache-Control"] = "public, max-age=3600"
+    return response
 
 
 def sitemap(request, sitemaps=None, **kwargs):
