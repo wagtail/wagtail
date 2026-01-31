@@ -343,6 +343,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             "The descriptive text displayed underneath a headline in search engine results."
         ),
     )
+    canonical_url = models.URLField(
+        verbose_name=_("canonical URL"),
+        max_length=255,
+        blank=True,
+        help_text=_(
+            "The canonical URL for this page. Leave blank to use the page's default URL."
+        ),
+    )
 
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_("latest revision created at"), null=True, editable=False
@@ -455,6 +463,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     "slug",
                     "seo_title",
                     "search_description",
+                    "canonical_url",
                 ],
                 _("For search engines"),
             ],

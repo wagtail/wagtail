@@ -77,6 +77,7 @@ Start by modifying your `mysite/templates/base.html` file as follows:
         {% if page.search_description %}
         <meta name="description" content="{{ page.search_description }}" />
         {% endif %}
+        <link rel="canonical" href="{% firstof page.canonical_url page.full_url %}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Force all links in the live preview panel to be opened in a new tab #}

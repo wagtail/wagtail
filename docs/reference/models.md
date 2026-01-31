@@ -85,6 +85,12 @@ This document contains reference information for the model classes inside the `w
 
         SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
 
+    .. attribute:: canonical_url
+
+        (URL)
+
+        The canonical URL for this page. When set, this should be output as a ``<link rel="canonical">`` tag in the page's HTML head. Leave blank to use the page's default URL.
+
     .. attribute:: show_in_menus
 
         (boolean)
