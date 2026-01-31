@@ -26,14 +26,13 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
   "Framework :: Django",
-  "Framework :: Django :: 4.2",
   "Framework :: Django :: 5.2",
   "Framework :: Django :: 6.0",
   "Framework :: Wagtail",
   "Topic :: Internet :: WWW/HTTP :: Site Management",
 ]
 dependencies = [
-  "Django>=4.2",
+  "Django>=5.2",
   "django-modelcluster>=6.4.1,<7.0",
   "django-permissionedforms>=0.1,<1.0",
   "django-taggit>=5.0,<7",
@@ -49,7 +48,7 @@ dependencies = [
   "anyascii>=0.1.5",
   "telepath>=0.3.1,<1",
   "laces>=0.1,<0.2",
-  "django-tasks>=0.8,<0.10",
+  "django-tasks>=0.9,<0.12",
   "modelsearch>=1.1,<1.2",
 ]
 
@@ -74,10 +73,11 @@ testing = [
   "responses>=0.25,<1",
   # For coverage and PEP8 linting
   "coverage>=3.7.0",
+  # NOTE: Keep linters in sync with .pre-commit-config.yaml
   "doc8==1.1.2",
   "ruff==0.9.6",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.132.0",
+  "semgrep==1.150.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting
@@ -96,6 +96,7 @@ docs = [
   "sphinx-autobuild>=0.6.0",
   "sphinx-wagtail-theme==6.5.0",
   "myst_parser==2.0.0",
+  "sphinx_llm>=0.2.1",
 ]
 
 [project.scripts]

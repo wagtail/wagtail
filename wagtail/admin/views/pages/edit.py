@@ -21,6 +21,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.models import EditingSession
 from wagtail.admin.telepath import JSContext
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.side_panels import (
@@ -50,6 +51,8 @@ from wagtail.utils.timestamps import render_timestamp
 class EditView(
     WagtailAdminTemplateMixin, HookResponseMixin, JsonPostResponseMixin, View
 ):
+    partials_template_name = "wagtailadmin/pages/edit_partials.html"
+
     def get_page_title(self):
         return _("Editing %(page_type)s") % {
             "page_type": self.page_class.get_verbose_name()
@@ -61,7 +64,8 @@ class EditView(
     def get_template_names(self):
         if self.page.alias_of_id:
             return ["wagtailadmin/pages/edit_alias.html"]
-
+        elif self.hydrate_create_view:
+            return [self.partials_template_name]
         else:
             return ["wagtailadmin/pages/edit.html"]
 
@@ -416,7 +420,10 @@ class EditView(
         else:
             self.workflow_tasks = []
 
+        self.has_unsaved_changes = False
         self.errors_debug = None
+        self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
+        self.autosave_enabled = self.autosave_interval > 0
 
         return super().dispatch(request, page_id, **kwargs)
 
@@ -460,7 +467,6 @@ class EditView(
             parent_page=self.parent,
             for_user=self.request.user,
         )
-        self.has_unsaved_changes = False
 
         return self.render_to_response(self.get_context_data())
 
@@ -487,16 +493,42 @@ class EditView(
         )
 
     @cached_property
-    def is_out_of_date(self):
-        # Check the autosave revision if present, otherwise fall back to the
-        # initially loaded revision.
-        submitted_revision_id = self.request.POST.get(
-            "overwrite_revision_id"
-        ) or self.request.POST.get("loaded_revision_id")
+    def hydrate_create_view(self):
+        return bool(self.request.GET.get("_w_hydrate_create_view"))
 
-        return submitted_revision_id and (
-            submitted_revision_id != str(self.page.latest_revision_id)
-        )
+    @cached_property
+    def latest_revision_created_at(self):
+        return self.latest_revision and self.latest_revision.created_at.isoformat()
+
+    @cached_property
+    def is_out_of_date(self):
+        if not self.latest_revision:
+            return False
+
+        latest_revision_id = str(self.latest_revision.pk)
+
+        # Two different sessions cannot have the same autosave revision, so if
+        # autosave revision is present, it is either the latest or it is not.
+        if overwrite_revision_id := self.request.POST.get("overwrite_revision_id"):
+            return overwrite_revision_id != latest_revision_id
+
+        # Client has not made an autosave revision, check the loaded revision.
+        if loaded_revision_id := self.request.POST.get("loaded_revision_id"):
+            # If the loaded revision is not the latest revision, it is outdated.
+            if loaded_revision_id != latest_revision_id:
+                return True
+
+            # It's pointing to the latest revision, but that revision may have
+            # been overwritten by another session (via autosave) since the editor
+            # loaded it. The created_at is strictly increasing, so assume the
+            # loaded revision outdated if it doesn't match the latest created_at.
+            return (
+                self.request.POST.get("loaded_revision_created_at", "")
+                != self.latest_revision_created_at
+            )
+
+        # Not enough information to deduce, assume it's up to date.
+        return False
 
     def post(self, request, *args, **kwargs):
         # Don't allow POST requests if the page is an alias
@@ -584,7 +616,7 @@ class EditView(
                 self.subscription.save()
 
                 overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
-                if overwrite_revision_id is not None:
+                if overwrite_revision_id:
                     try:
                         overwrite_revision = self.page.revisions.get(
                             pk=overwrite_revision_id
@@ -633,7 +665,15 @@ class EditView(
         # Just saving - remain on edit page for further edits
         if self.expects_json_response:
             return JsonResponse(
-                {"success": True, "pk": self.page.pk, "revision_id": revision.pk}
+                {
+                    "success": True,
+                    "pk": self.page.pk,
+                    "revision_id": revision.pk,
+                    "revision_created_at": revision.created_at.isoformat(),
+                    "field_updates": dict(self.form.get_field_updates_for_resave()),
+                    "comments": self.form.serialize_comments(self.request.user),
+                    "html": self.render_partials(),
+                }
             )
         else:
             return self.redirect_and_remain()
@@ -928,7 +968,7 @@ class EditView(
             if self.expects_json_response:
                 return self.json_error_response(
                     "validation_error",
-                    _("The page could not be saved due to validation errors."),
+                    _("There are validation errors, click save to highlight them."),
                 )
             else:
                 messages.validation_error(
@@ -968,14 +1008,20 @@ class EditView(
                 parent_page=self.page.get_parent(),
             ),
         ]
-        if self.page.is_previewable():
+        if not self.expects_json_response and self.page.is_previewable():
             side_panels.append(
                 PreviewSidePanel(
                     self.page, self.request, preview_url=self.get_preview_url()
                 )
             )
-            side_panels.append(ChecksSidePanel(self.page, self.request))
-        if self.form.show_comments_toggle:
+            # We don't need to re-render the checks panel when hydrating create view
+            if not self.hydrate_create_view:
+                side_panels.append(ChecksSidePanel(self.page, self.request))
+        if (
+            not self.expects_json_response
+            and not self.hydrate_create_view
+            and self.form.show_comments_toggle
+        ):
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)
 
@@ -1000,6 +1046,7 @@ class EditView(
             ),
             [],
             self.page.latest_revision_id,
+            self.latest_revision_created_at,
         )
 
     def get_action_menu(self):
@@ -1029,6 +1076,7 @@ class EditView(
 
         context.update(
             {
+                "object": self.page,
                 "page": self.page,
                 "page_for_status": self.get_page_for_status(),
                 "content_type": self.page_content_type,
@@ -1059,7 +1107,13 @@ class EditView(
                 and user_perms.can_unlock(),
                 "locale": self.locale,
                 "media": media,
+                "autosave_enabled": self.autosave_enabled,
+                "autosave_interval": self.autosave_interval,
+                "autosave_indicator": AutosaveIndicator(),
                 "editing_sessions": self.get_editing_sessions(),
+                "loaded_revision_created_at": self.latest_revision_created_at,
+                "is_partial": self.expects_json_response or self.hydrate_create_view,
+                "hydrate_create_view": self.hydrate_create_view,
             }
         )
 

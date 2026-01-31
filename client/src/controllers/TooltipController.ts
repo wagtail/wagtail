@@ -62,13 +62,11 @@ export class TooltipController extends Controller<HTMLElement> {
     this.tippy = tippy(this.element, this.options);
   }
 
-  contentValueChanged(newValue: string, oldValue: string) {
-    if (!oldValue || oldValue === newValue) return;
+  contentValueChanged() {
     this.tippy?.setProps(this.options);
   }
 
-  placementValueChanged(newValue: string, oldValue: string) {
-    if (!oldValue || oldValue === newValue) return;
+  placementValueChanged() {
     this.tippy?.setProps(this.options);
   }
 

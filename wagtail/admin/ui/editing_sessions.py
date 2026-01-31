@@ -13,12 +13,14 @@ class EditingSessionsModule(Component):
         release_url,
         other_sessions,
         revision_id=None,
+        revision_created_at=None,
     ):
         self.current_session = current_session
         self.ping_url = ping_url
         self.release_url = release_url
         self.sessions_list = EditingSessionsList(current_session, other_sessions)
         self.revision_id = revision_id
+        self.revision_created_at = revision_created_at
 
     def get_context_data(self, parent_context):
         ping_interval = getattr(
@@ -33,6 +35,7 @@ class EditingSessionsModule(Component):
             "ping_interval": ping_interval,
             "sessions_list": self.sessions_list,
             "revision_id": self.revision_id,
+            "revision_created_at": self.revision_created_at,
         }
 
 

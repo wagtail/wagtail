@@ -70,6 +70,7 @@ extensions = [
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
+    "sphinx_llm.txt",
 ]
 
 autodoc_type_aliases = {
@@ -165,7 +166,7 @@ pygments_style = None
 # If true, keep warnings as "system message" paragraphs in the built documents.
 # keep_warnings = False
 
-# splhinxcontrib.spelling settings
+# sphinxcontrib.spelling settings
 
 spelling_lang = "en_GB"
 spelling_word_list_filename = "spelling_wordlist.txt"

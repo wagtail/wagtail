@@ -17,7 +17,7 @@ This is the human-readable name of your Wagtail install which welcomes users upo
 ### `WAGTAILADMIN_BASE_URL`
 
 ```python
-WAGTAILADMIN_BASE_URL = 'http://example.com'
+WAGTAILADMIN_BASE_URL = 'https://example.com'
 ```
 
 This is the base URL used by the Wagtail admin site. It is used for generating absolute URLs to the admin, such as in notification emails and the user bar. This setting must not include the admin path (`/admin`) or a trailing slash.
@@ -286,6 +286,22 @@ WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
+(wagtail_autosave_interval)=
+
+### `WAGTAIL_AUTOSAVE_INTERVAL`
+
+```{versionadded} 7.3
+The `WAGTAIL_AUTOSAVE_INTERVAL` setting was added.
+```
+
+```python
+WAGTAIL_AUTOSAVE_INTERVAL = 500
+```
+
+The interval (in milliseconds) to wait since the last edit, before attempting an autosave in the page or snippet editor. The default value is `500`.
+
+If set to `0`, autosave will be disabled.
+
 (wagtail_auto_update_preview_interval)=
 
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
@@ -430,7 +446,7 @@ be renamed to have an extension no matter what data they contain.
 WAGTAILIMAGES_JPEG_QUALITY = 75
 ```
 
-Change the global default for JPEG image encoding quality (default: 85).
+Change the global default for JPEG image encoding quality (default: 76).
 
 ### `WAGTAILIMAGES_WEBP_QUALITY`
 
@@ -446,7 +462,7 @@ Change the global default for WebP image encoding quality (default: 80).
 WAGTAILIMAGES_AVIF_QUALITY = 65
 ```
 
-Change the global default for AVIF image encoding quality (default: 73).
+Change the global default for AVIF image encoding quality (default: 61).
 
 ### `WAGTAILIMAGES_HEIC_QUALITY`
 
@@ -624,7 +640,7 @@ Allows the default `LoginForm` to be extended with extra fields.
 ### `WAGTAILADMIN_LOGIN_URL`
 
 ```python
-WAGTAILADMIN_LOGIN_URL = 'http://example.com/login/'
+WAGTAILADMIN_LOGIN_URL = 'https://example.com/login/'
 ```
 
 This specifies the URL to redirect when a user attempts to access a Wagtail admin page without being logged in. If omitted, Wagtail will fall back to using the standard login view (typically `/admin/login/`).
@@ -836,7 +852,7 @@ For full documentation on API configuration, including these settings, see [](ap
 ### `WAGTAILAPI_BASE_URL`
 
 ```python
-WAGTAILAPI_BASE_URL = 'http://api.example.com/'
+WAGTAILAPI_BASE_URL = 'https://api.example.com/'
 ```
 
 Required when using frontend cache invalidation, used to generate absolute URLs to document files and invalidating the cache.
