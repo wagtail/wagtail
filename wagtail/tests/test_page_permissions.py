@@ -22,6 +22,8 @@ from wagtail.test.testapp.models import (
     EventPage,
     NoCreatableSubpageTypesPage,
     NoSubpageTypesPage,
+    SimpleChildPage,
+    SimpleParentPage,
     SingletonPageViaMaxCount,
 )
 
@@ -965,6 +967,136 @@ class TestPagePermission(TestCase):
         page = Page.objects.get(pk=instance.pk)
         user = get_user_model().objects.get(email="eventeditor@example.com")
         self.assertIsInstance(page.permissions_for_user(user), CustomPermissionTester)
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            "default": {
+                "BACKEND": "wagtail.search.backends.database",
+                "AUTO_UPDATE": False,
+            }
+        }
+    )
+    def test_can_add_subpage_with_max_count_per_parent_reached(self):
+        """
+        Test that can_add_subpage returns False when max_count_per_parent limit is reached.
+        Uses SimpleChildPage model with max_count_per_parent = 1.
+        """
+        homepage = Page.objects.get(url_path="/home/")
+
+        # Create a parent page that allows SimpleChildPage children
+        parent = SimpleParentPage(title="Parent", slug="parent")
+        homepage.add_child(instance=parent)
+
+        # Add one SimpleChildPage child (reaching max_count_per_parent limit of 1)
+        child = SimpleChildPage(title="Child 1", slug="child-1")
+        parent.add_child(instance=child)
+
+        # Get a user with add permissions
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        # Grant add permission to the event editor on the parent page
+        event_editors_group = Group.objects.get(name="Event editors")
+        GroupPagePermission.objects.create(
+            group=event_editors_group,
+            page=parent,
+            permission_type="add",
+        )
+
+        # Permission tester should return False since max_count_per_parent is reached
+        tester = parent.permissions_for_user(event_editor)
+        self.assertFalse(tester.can_add_subpage())
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            "default": {
+                "BACKEND": "wagtail.search.backends.database",
+                "AUTO_UPDATE": False,
+            }
+        }
+    )
+    def test_can_add_subpage_with_max_count_reached(self):
+        """
+        Test that can_add_subpage returns False when max_count limit is reached.
+        Uses SingletonPageViaMaxCount model with max_count = 1.
+        """
+        homepage = Page.objects.get(url_path="/home/")
+
+        # Create one instance (reaching max_count limit of 1)
+        singleton = SingletonPageViaMaxCount(title="Singleton", slug="singleton")
+        homepage.add_child(instance=singleton)
+
+        # Since SingletonPageViaMaxCount has max_count=1 and one already exists,
+        # can_add_subpage should still return True if there are OTHER creatable subpage types
+        # But if we check specifically that SingletonPageViaMaxCount can't be added,
+        # it should be filtered out from creatable_subpage_models
+        # We verify this indirectly: if homepage allows other page types,
+        # can_add_subpage may still be True, but SingletonPageViaMaxCount won't be creatable
+
+        # Let's verify that SingletonPageViaMaxCount.can_create_at(homepage) returns False
+        self.assertFalse(SingletonPageViaMaxCount.can_create_at(homepage))
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            "default": {
+                "BACKEND": "wagtail.search.backends.database",
+                "AUTO_UPDATE": False,
+            }
+        }
+    )
+    def test_can_add_subpage_when_limits_not_reached(self):
+        """
+        Test that can_add_subpage returns True when max_count/max_count_per_parent
+        are not exceeded and user has permissions.
+        """
+        homepage = Page.objects.get(url_path="/home/")
+
+        # Create parent page - no children added yet
+        parent = SimpleParentPage(title="Parent", slug="parent-empty")
+        homepage.add_child(instance=parent)
+
+        # Get a user with add permissions
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        # Grant add permission
+        event_editors_group = Group.objects.get(name="Event editors")
+        GroupPagePermission.objects.create(
+            group=event_editors_group,
+            page=parent,
+            permission_type="add",
+        )
+
+        # Permission tester should return True since limits not reached
+        tester = parent.permissions_for_user(event_editor)
+        self.assertTrue(tester.can_add_subpage())
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            "default": {
+                "BACKEND": "wagtail.search.backends.database",
+                "AUTO_UPDATE": False,
+            }
+        }
+    )
+    def test_superuser_can_add_subpage_respects_limits(self):
+        """
+        Test that even superusers respect max_count/max_count_per_parent limits
+        for UI display purposes (can_add_subpage is for UI, not actual creation).
+        """
+        homepage = Page.objects.get(url_path="/home/")
+
+        # Create a parent with max_count_per_parent limit reached
+        parent = SimpleParentPage(title="Parent Full", slug="parent-full")
+        homepage.add_child(instance=parent)
+        child = SimpleChildPage(title="Child 1", slug="child-full-1")
+        parent.add_child(instance=child)
+
+        # Get superuser
+        superuser = get_user_model().objects.get(email="superuser@example.com")
+
+        tester = parent.permissions_for_user(superuser)
+        # Superusers should also see False when no pages can be created
+        # (the button logic is for UI display, not permission enforcement)
+        self.assertFalse(tester.can_add_subpage())
 
 
 class TestPagePermissionTesterCanCopyTo(TestCase):

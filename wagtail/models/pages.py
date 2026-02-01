@@ -2184,8 +2184,19 @@ class PagePermissionTester:
         if not self.user.is_active:
             return False
         specific_class = self.page.specific_class
-        if specific_class is None or not specific_class.creatable_subpage_models():
+        if specific_class is None:
             return False
+
+        # Filter creatable models by can_create_at() to respect max_count/max_count_per_parent
+        creatable_subpage_models = [
+            page_model
+            for page_model in specific_class.creatable_subpage_models()
+            if page_model.can_create_at(self.page)
+        ]
+
+        if not creatable_subpage_models:
+            return False
+
         return self.user.is_superuser or ("add" in self.permissions)
 
     def can_edit(self):
