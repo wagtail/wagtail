@@ -1614,17 +1614,17 @@ class TestRenditionOrientation(TestCase):
 class TestRenditionFilenameCollision(TestCase):
     """
     Tests for the rendition filename collision bug fix.
-    
+
     When two different images have long, similar original filenames,
     they should generate different rendition filenames (not collide).
-    
+
     The fix includes the image ID in the rendition filename to prevent collisions.
     """
 
     def test_similar_filenames_dont_collide(self):
         """
         Test that two images with similar long filenames generate different rendition filenames.
-        
+
         This reproduces the issue from:
         https://github.com/wagtail/wagtail/issues/[issue_number]
         """
@@ -1704,7 +1704,9 @@ class TestRenditionFilenameCollision(TestCase):
 
         # Should have dots separating components
         parts = filename_only.split(".")
-        self.assertGreater(len(parts), 2, "Filename should have multiple dot-separated parts")
+        self.assertGreater(
+            len(parts), 2, "Filename should have multiple dot-separated parts"
+        )
 
     def test_very_long_similar_filenames(self):
         """
@@ -1760,7 +1762,7 @@ class TestRenditionFilenameCollision(TestCase):
         self.assertLess(
             len(filename_only),
             255,
-            f"Filename too long: {len(filename_only)} > 255 chars"
+            f"Filename too long: {len(filename_only)} > 255 chars",
         )
 
     def test_multiple_renditions_same_image_different_specs(self):
@@ -1778,7 +1780,9 @@ class TestRenditionFilenameCollision(TestCase):
 
         # All should have different filenames
         filenames = [rendition1.file.name, rendition2.file.name, rendition3.file.name]
-        self.assertEqual(len(filenames), len(set(filenames)), "All filenames should be unique")
+        self.assertEqual(
+            len(filenames), len(set(filenames)), "All filenames should be unique"
+        )
 
     def test_rendition_with_focal_point_and_similar_filenames(self):
         """
