@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 7.2.1 (26.11.2025)
 ~~~~~~~~~~~~~~~~~~
