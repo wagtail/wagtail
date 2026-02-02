@@ -212,6 +212,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 7.0.3 (28.08.2025)
 ~~~~~~~~~~~~~~~~~~
