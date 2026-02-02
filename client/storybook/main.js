@@ -5,11 +5,7 @@ module.exports = {
     '../../wagtail/**/*.@(mdx|stories.*)',
   ],
 
-  addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-controls',
-    '@storybook/addon-webpack5-compiler-babel',
-  ],
+  addons: ['@storybook/addon-docs', '@storybook/addon-webpack5-compiler-babel'],
   framework: { name: '@storybook/react-webpack5', options: {} },
 
   /**
