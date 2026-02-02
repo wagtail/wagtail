@@ -890,7 +890,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         # Reserve space for: .image_id + . + output_extension
         reserved_length = 1 + len(image_id_str) + 1 + len(output_extension)
         max_filename_length = max(1, 59 - reserved_length)
-        
+
         output_filename_without_extension = input_filename_without_extension[
             :max_filename_length
         ]
