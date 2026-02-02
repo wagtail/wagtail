@@ -419,6 +419,30 @@ class TestResponsiveImage(TestCase):
             get_test_image_filename(self.image, "width-10"),
         )
 
+    def test_get_width_srcset_filters_duplicate_widths(self):
+        """Test that duplicate width descriptors are filtered from srcset."""
+        # Create small image - requesting larger renditions will result in duplicates
+        small_image = Image.objects.create(
+            title="Small test image",
+            file=get_test_image_file(size=(100, 100)),
+        )
+
+        rendition_200 = small_image.get_rendition("fill-200x200")
+        rendition_300 = small_image.get_rendition("fill-300x300")
+        rendition_50 = small_image.get_rendition("fill-50x50")
+
+        self.assertEqual(rendition_200.width, rendition_300.width)
+
+        renditions = [rendition_200, rendition_300, rendition_50]
+        srcset = ResponsiveImage.get_width_srcset(renditions)
+
+        widths = [entry.split()[-1] for entry in srcset.split(", ")]
+
+        self.assertEqual(len(widths), len(set(widths)))
+        self.assertIn(rendition_200.url, srcset)
+        self.assertNotIn(rendition_300.url, srcset)
+        self.assertIn(rendition_50.url, srcset)
+
     def test_render(self):
         renditions = {
             "width-10": self.rendition_10,
