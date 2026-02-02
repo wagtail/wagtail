@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 
 6.3.5 (12.06.2025)
