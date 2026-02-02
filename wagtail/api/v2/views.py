@@ -94,6 +94,11 @@ class BaseAPIViewSet(GenericViewSet):
         queryset = self.paginate_queryset(queryset)
         serializer = self.get_serializer(queryset, many=True)
         return self.get_paginated_response(serializer.data)
+    
+    def get_object(self):
+        if not hasattr(self, "_cached_object"):
+            self._cached_object = super().get_object()
+        return self._cached_object
 
     def detail_view(self, request, pk):
         instance = self.get_object()
