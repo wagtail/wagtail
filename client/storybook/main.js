@@ -1,12 +1,15 @@
 module.exports = {
   stories: [
-    '../../client/**/*.stories.mdx',
+    '../../client/**/*.mdx',
     '../../client/**/*.stories.@(js|tsx)',
-    '../../wagtail/**/*.stories.*',
+    '../../wagtail/**/*.@(mdx|stories.*)',
   ],
 
-  addons: ['@storybook/addon-docs', '@storybook/addon-controls'],
-
+  addons: [
+    '@storybook/addon-docs',
+    '@storybook/addon-controls',
+    '@storybook/addon-webpack5-compiler-babel',
+  ],
   framework: { name: '@storybook/react-webpack5', options: {} },
 
   /**
@@ -53,5 +56,7 @@ module.exports = {
     return config;
   },
 
-  docs: { autodocs: true },
+  typescript: {
+    reactDocgen: 'react-docgen',
+  },
 };
