@@ -81,6 +81,7 @@ Changelog
  * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
  * Fix: Disable usage count ordering when searching on documents and images listing views, to prevent unsupported search query (Sage Abdullah)
  * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 
 7.1.2 (23.10.2025)
