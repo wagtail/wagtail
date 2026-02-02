@@ -45,6 +45,7 @@ Changelog
  * Fix: Ensure that reference index records are deleted when the target object is deleted (bettercallok)
  * Fix: Ensure filters are applied to export button URLs in custom page listings (Ritik Arya, Sage Abdullah)
  * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
