@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0.4 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
