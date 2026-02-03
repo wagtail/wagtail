@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023,2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -39,24 +39,6 @@ msgstr "Az elemek minimális száma %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Az elemek maximális száma %(max_num)d"
 
-msgid "Move up"
-msgstr "Mozgatás fel"
-
-msgid "Move down"
-msgstr "Mozgatás le"
-
-msgid "Drag"
-msgstr "Megragadás"
-
-msgid "Duplicate"
-msgstr "Másolás"
-
-msgid "Delete"
-msgstr "Törlés"
-
-msgid "Add"
-msgstr "Hozzáadás"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: ehhez a blokkhoz nincsenek beállítások."
@@ -66,6 +48,9 @@ msgstr "Ehhez az elemhez nincsenek beállítások."
 
 msgid "This field is required."
 msgstr "Ennek a mezőnek a megadása kötelező."
+
+msgid "Group"
+msgstr "Csoport"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail frontend gyorstár"
@@ -296,6 +281,9 @@ msgstr "a tartalomtípushoz "
 
 msgid "uploaded by user"
 msgstr "feltöltő"
+
+msgid "Add"
+msgstr "Hozzáadás"
 
 msgid "Add/edit pages you own"
 msgstr "Saját oldalaim létrehozása/szerkesztése"
@@ -753,6 +741,9 @@ msgstr "Létrehozva"
 
 msgid "Edited"
 msgstr "Szerkesztve"
+
+msgid "Delete"
+msgstr "Törlés"
 
 msgid "Deleted"
 msgstr "Törölve"

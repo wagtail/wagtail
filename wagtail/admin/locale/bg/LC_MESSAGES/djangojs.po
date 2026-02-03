@@ -1,16 +1,26 @@
 #
 # Translators:
-# Karl Hobley <karl@torchbox.com>, 2022
-# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2025
+# Karl Hobley <karl@torchbox.com>, 2026
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2026
+# Maria Mitova, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2025\n"
+"Last-Translator: Maria Mitova, 2026\n"
 "Language-Team: Bulgarian (https://app.transifex.com/torchbox/teams/8009/"
 "bg/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Добави"
+
+msgid "Close"
+msgstr "Затвори"
+
+msgid "Comment"
+msgstr "Коментар"
 
 msgid "Dashboard"
 msgstr "Работно Табло"
@@ -18,8 +28,26 @@ msgstr "Работно Табло"
 msgid "Delete"
 msgstr "Изтрий"
 
+msgid "Drag"
+msgstr "Плъзнете"
+
 msgid "Edit"
 msgstr "Редакция"
+
+msgid "Move down"
+msgstr "Надолу"
+
+msgid "Move up"
+msgstr "Нагоре"
+
+msgid "No"
+msgstr "Не"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Pages"
+msgstr "Страници"
 
 msgid "Preview"
 msgstr "Преглед"
@@ -29,3 +57,9 @@ msgstr "Запази"
 
 msgid "Search"
 msgstr "Търсене"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "This field is required."
+msgstr "Това поле е задължително."

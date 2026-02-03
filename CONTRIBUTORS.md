@@ -953,7 +953,7 @@
 * Bangla: Mahmud Abdur Rahman
 * Basque: Unai Zalakain
 * Belarusian: Stas Rudakou, Andrei Satsevich, Tatsiana Tsygan
-* Bulgarian: Lyuboslav Petrov
+* Bulgarian: Lyuboslav Petrov, Maria Mitova
 * Burmese: ime11
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Adeline Link, Orangle Liu, shengsheng gz
