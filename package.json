@@ -91,7 +91,7 @@
     "mini-css-extract-plugin": "^2.9.4",
     "postcss": "^8.5.6",
     "postcss-loader": "^8.2.0",
-    "prettier": "^3.6.2",
+    "prettier": "^3.8.1",
     "react-test-renderer": "^16.14.0",
     "redux-mock-store": "^1.5.5",
     "sass": "^1.93.2",
