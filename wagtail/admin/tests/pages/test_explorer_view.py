@@ -926,7 +926,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.root_page.add_child(instance=source_page)
 
         # Create an alias of the source page
-        alias_page = source_page.create_alias(update_slug="alias-page")
+        source_page.create_alias(update_slug="alias-page")
 
         # Get explorer view
         response = self.client.get(
