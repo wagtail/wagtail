@@ -128,9 +128,6 @@ def require_admin_access(view_func):
     def decorated_view(request, *args, **kwargs):
         user = request.user
 
-        if user.is_anonymous:
-            return reject_request(request)
-
         if user.has_perms(["wagtailadmin.access_admin"]):
             try:
                 with LogContext(user=user):
@@ -142,11 +139,8 @@ def require_admin_access(view_func):
 
                 return permission_denied(request)
 
-        if not request.headers.get("x-requested-with") == "XMLHttpRequest":
-            messages.error(
-                request, _("You do not have permission to access the admin.")
-            )
-
+        # User doesn't have permission (includes anonymous users)
+        # Raise PermissionDenied to return 403 instead of redirecting
         raise PermissionDenied
 
     return decorated_view
