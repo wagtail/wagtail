@@ -1,0 +1,34 @@
+{% extends "demosite/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% if page.carousel_items.all %}
+        <div class="carousel">
+            {% for item in page.carousel_items.all %}
+                <div class="carousel-item">
+                    {% image item.image fill-800x400 %}
+                    <div class="caption">{{ item.caption }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="body">{{ page.body|richtext }}</div>
+
+    {% if page.related_links.all %}
+        <div class="related-links">
+            <h2>Related links</h2>
+            <ul>
+                {% for item in page.related_links.all %}
+                    <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

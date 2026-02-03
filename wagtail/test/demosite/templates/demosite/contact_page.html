@@ -1,0 +1,13 @@
+{% extends "demosite/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+<div class="body">{{ page.body|richtext }}</div>
+
+<h2>Contact Details</h2>
+<ul>
+    <li>Email: {{ page.email }}</li>
+    <li>Phone: {{ page.telephone }}</li>
+</ul>
+{% endblock %}

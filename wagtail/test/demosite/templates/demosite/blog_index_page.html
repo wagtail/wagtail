@@ -1,0 +1,14 @@
+{% extends "demosite/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+<div class="intro">{{ page.intro|richtext }}</div>
+
+<h2>Blog Posts</h2>
+<ul>
+    {% for post in page.get_blog_entries %}
+    <li><a href="{% pageurl post %}">{{ post.title }}</a> - {{ post.date }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
