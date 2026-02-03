@@ -2,7 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-<h1>{{ page.first_name }} {{ page.last_name }}</h1>
-{% image page.image fill-200x200 %}
-<div class="biography">{{ page.biography|richtext }}</div>
+    <h1>{{ page.first_name }} {{ page.last_name }}</h1>
+    {% image page.image fill-200x200 %}
+    <div class="biography">{{ page.biography|richtext }}</div>
 {% endblock %}
