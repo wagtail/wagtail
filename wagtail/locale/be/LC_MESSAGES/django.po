@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -39,24 +39,6 @@ msgstr "Мінімальная колькасць элементаў %(min_num)d
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Максімальную колькасць элементаў %(max_num)d"
-
-msgid "Move up"
-msgstr "Падвінуць наверх"
-
-msgid "Move down"
-msgstr "Падвінусь уніз"
-
-msgid "Drag"
-msgstr "Перацягнуць"
-
-msgid "Duplicate"
-msgstr "Дублікат"
-
-msgid "Delete"
-msgstr "Выдаліць"
-
-msgid "Add"
-msgstr "дадаць"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -157,6 +139,9 @@ msgstr "правы доступу да калекцыі ў гурта"
 
 msgid "uploaded by user"
 msgstr "Запампована карыстальнікам"
+
+msgid "Add"
+msgstr "дадаць"
 
 msgid "Add/edit pages you own"
 msgstr "Дадаць / рэдагаваць свае старонкі"
@@ -359,6 +344,9 @@ msgstr "Створаны"
 
 msgid "Edited"
 msgstr "Зменена"
+
+msgid "Delete"
+msgstr "Выдаліць"
 
 msgid "Unpublish"
 msgstr "Адмяніць публікацыю"

@@ -1,14 +1,14 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
-# José Luis <alagunajs@gmail.com>, 2022
 # Loic Teixeira, 2024
-# Ragıp Ünal <ragip@ragipunal.com>, 2025
-# Py Data Geek <pydatageek@gmail.com>, 2025
+# José Luis <alagunajs@gmail.com>, 2026
+# Py Data Geek <pydatageek@gmail.com>, 2026
+# Ragıp Ünal <ragip@ragipunal.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2025\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2026\n"
 "Language-Team: Turkish (Turkey) (https://app.transifex.com/torchbox/teams/"
 "8009/tr_TR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "Eylemler"
+
+msgid "Add"
+msgstr "Ekle"
 
 msgid "Alt text"
 msgstr "Alt metin"
@@ -32,6 +35,9 @@ msgstr "Kontrol paneli"
 
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Drag"
+msgstr "Sürükle"
 
 msgid "Edit"
 msgstr "Düzenle"
@@ -50,6 +56,12 @@ msgstr "Yükleniyor…"
 
 msgid "Missing document"
 msgstr "Eksik belge"
+
+msgid "Move down"
+msgstr "Aşağı indir"
+
+msgid "Move up"
+msgstr "Yukarı çıkar"
 
 msgid "No results"
 msgstr "Sonuç yok"
@@ -86,6 +98,9 @@ msgstr "Tümünü gör"
 
 msgid "Server Error"
 msgstr "Sunucu Hatası"
+
+msgid "Settings"
+msgstr "Ayarlar"
 
 msgid "Show error"
 msgstr "Hatayı göster"

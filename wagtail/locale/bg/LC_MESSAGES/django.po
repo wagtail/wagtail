@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -19,26 +19,32 @@ msgstr ""
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Move up"
-msgstr "Нагоре"
-
-msgid "Move down"
-msgstr "Надолу"
-
-msgid "Drag"
-msgstr "Плъзнете"
-
-msgid "Delete"
-msgstr "Изтрий"
+msgid "This field is required."
+msgstr "Това поле е задължително."
 
 msgid "Password"
 msgstr "Парола"
 
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Unlocked"
+msgstr "Отключено"
+
+msgid "Add"
+msgstr "Добави"
+
 msgid "Edit"
 msgstr "Редакция"
 
+msgid "Lock"
+msgstr "Заключи"
+
 msgid "Publish"
 msgstr "Публикувай"
+
+msgid "Unlock"
+msgstr "Отключи"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Заглавието на страницата както желаете да се вижда"
@@ -77,11 +83,29 @@ msgstr "Одобрете"
 msgid "Your username and password didn't match. Please try again."
 msgstr "Вашето потребителско име и парола не съвпадат. Моля опитайте пак."
 
+msgid "Continue"
+msgstr "Продължи"
+
+msgid "Create"
+msgstr "Създай"
+
+msgid "Edited"
+msgstr "Редактирано"
+
+msgid "Delete"
+msgstr "Изтрий"
+
+msgid "Published"
+msgstr "Публикувано"
+
 msgid "Unpublish"
 msgstr "Отмени публикуването"
 
 msgid "Reject"
 msgstr "Отхвърлете"
+
+msgid "Copy"
+msgstr "Копирай"
 
 msgid "Move"
 msgstr "Премести"

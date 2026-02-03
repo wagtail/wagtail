@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -41,29 +41,14 @@ msgstr "項目の最小数は%(min_num)dです。"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "項目の最大数は%(max_num)dです。"
 
-msgid "Move up"
-msgstr "上に移動"
-
-msgid "Move down"
-msgstr "下に移動"
-
-msgid "Drag"
-msgstr "ドラッグ"
-
-msgid "Duplicate"
-msgstr "複製"
-
-msgid "Delete"
-msgstr "削除"
-
-msgid "Add"
-msgstr "追加"
-
 msgid "This block has no options."
 msgstr "このブロックはオプションがありません。"
 
 msgid "This field is required."
 msgstr "この項目は必須です。"
+
+msgid "Group"
+msgstr "グループ"
 
 msgid "Password"
 msgstr "パスワード"
@@ -163,6 +148,9 @@ msgstr "グループコレクションの権限"
 
 msgid "uploaded by user"
 msgstr "アップロードしたユーザ"
+
+msgid "Add"
+msgstr "追加"
 
 msgid "Add/edit pages you own"
 msgstr "自分のページを追加/編集"
@@ -445,6 +433,9 @@ msgstr "作成"
 
 msgid "Edited"
 msgstr "編集"
+
+msgid "Delete"
+msgstr "削除"
 
 msgid "Unpublish"
 msgstr "非公開"

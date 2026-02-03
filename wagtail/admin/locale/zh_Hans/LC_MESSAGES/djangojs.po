@@ -1,19 +1,20 @@
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2022
 # 祝沙军 <zhushajun@gmail.com>, 2022
-# Vincent Zhao <zhaopu2008@gmail.com>, 2022
 # Ed <724195301@qq.com>, 2022
 # Favo Yang <favoyang@gmail.com>, 2022
-# Yin Guanhao <sopium@mysterious.site>, 2022
 # Loic Teixeira, 2024
 # First Last <abc+github@mynook.info>, 2025
 # Ford Guo <agile.guo@gmail.com>, 2025
 # 汇民 王 <whuim@qq.com>, 2025
+# 飘 赵 <275980464@qq.com>, 2026
+# Vincent Zhao <zhaopu2008@gmail.com>, 2026
+# Yin Guanhao <sopium@mysterious.site>, 2026
+# hanfeng <appweb.cn@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: 汇民 王 <whuim@qq.com>, 2025\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/torchbox/teams/"
 "8009/zh_CN/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,6 +23,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "动作"
+
+msgid "Add"
+msgstr "新增"
 
 msgid "Add a comment"
 msgstr "添加一个评论"
@@ -65,6 +69,12 @@ msgstr "删除错误"
 msgid "Deleting"
 msgstr "删除中"
 
+msgid "Drag"
+msgstr "拖曳"
+
+msgid "Duplicate"
+msgstr "创建副本"
+
 msgid "Edit"
 msgstr "编辑"
 
@@ -100,6 +110,12 @@ msgstr "缺失文档"
 
 msgid "More actions"
 msgstr "更多动作"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Move up"
+msgstr "上移"
 
 msgid "No"
 msgstr "否"
@@ -148,15 +164,6 @@ msgstr "保存"
 msgid "Save error"
 msgstr "保存错误"
 
-msgid "Save the page to add this comment"
-msgstr "保存页面来添加此条评论。"
-
-msgid "Save the page to save this comment"
-msgstr "保存页面来保存此条评论。"
-
-msgid "Save the page to save this reply"
-msgstr "保存页面来保存此条回复。"
-
 msgid "Saving..."
 msgstr "正在保存……"
 
@@ -171,6 +178,9 @@ msgstr "查看全部"
 
 msgid "Server Error"
 msgstr "服务器错误"
+
+msgid "Settings"
+msgstr "设置"
 
 msgid "Show error"
 msgstr "显示错误"

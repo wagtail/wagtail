@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1421,13 +1421,6 @@ msgstr "가장 먼저 게시됨"
 msgid "You have <span>unsaved edits</span>"
 msgstr "당신은 <span>수정사항</span>을 저장하지 않았습니다"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "당신은 <span>댓글을 저장하지 않았습니다</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"당신은 <span>수정사항</span>과 <span>댓글</span>을 저장하지 않았습니다."
-
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
 msgstr "<b>%(modified_by)s</b>에 의해 요청됨"
@@ -1490,9 +1483,6 @@ msgstr "정렬"
 
 msgid "View Wagtail quick actions"
 msgstr "워그테일의 빠른 엑션 보기"
-
-msgid "Accessibility"
-msgstr "접근성"
 
 msgid "Warnings"
 msgstr "경고"

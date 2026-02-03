@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -19,20 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
-msgid "Move up"
-msgstr "Symyd i fyny"
-
-msgid "Move down"
-msgstr "Symyd i lawr"
-
-msgid "Delete"
-msgstr "Dileu"
-
-msgid "Add"
-msgstr "Ychwanegu"
-
 msgid "This field is required."
 msgstr "Mae angen y'r ffild hon."
+
+msgid "Group"
+msgstr "Grŵp"
 
 msgid "Password"
 msgstr "Cyfrinair"
@@ -48,6 +39,9 @@ msgstr "enw"
 
 msgid "uploaded by user"
 msgstr "wedi'i uwchlwytho gan ddefnyddiwr"
+
+msgid "Add"
+msgstr "Ychwanegu"
 
 msgid "Edit"
 msgstr "Golygu"
@@ -90,6 +84,9 @@ msgstr "grwpiau"
 
 msgid "Continue"
 msgstr "Parhau"
+
+msgid "Delete"
+msgstr "Dileu"
 
 msgid "Published"
 msgstr "Wedi cyhoeddi"

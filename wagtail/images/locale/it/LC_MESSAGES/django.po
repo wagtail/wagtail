@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2024,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -602,6 +602,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "Genera URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr "Le opzioni di filtro selezionate non sono valide."
 
 msgid "Delete image"
 msgstr "Elimina immagine"

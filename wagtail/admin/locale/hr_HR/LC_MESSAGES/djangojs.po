@@ -2,11 +2,11 @@
 # Translators:
 # Luka Matijević <lumatijev@gmail.com>, 2022
 # Loic Teixeira, 2024
-# Dino Aljević <dino8890@protonmail.com>, 2025
+# Dino Aljević <dino8890@protonmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2025\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2026\n"
 "Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/teams/"
 "8009/hr_HR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,6 +28,9 @@ msgstr[2] "%(num)s piksela"
 
 msgid "Actions"
 msgstr "Postupci"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add a comment"
 msgstr "Dodaj komentar"
@@ -62,6 +65,9 @@ msgstr "Dekorativna slika"
 msgid "Delete"
 msgstr "Izbriši"
 
+msgid "Drag"
+msgstr "Povucite"
+
 msgid "Edit"
 msgstr "Uredi"
 
@@ -79,6 +85,12 @@ msgstr "Učitavanje..."
 
 msgid "Missing document"
 msgstr "Nedostaje dokument"
+
+msgid "Move down"
+msgstr "Pomakni prema dolje"
+
+msgid "Move up"
+msgstr "Pomakni prema gore"
 
 msgid "No"
 msgstr "Ne"
@@ -118,6 +130,9 @@ msgstr "Pretraži"
 
 msgid "Server Error"
 msgstr "Greška na poslužitelju"
+
+msgid "Settings"
+msgstr "Postavke"
 
 msgid "Show error"
 msgstr "Prikaži grešku"

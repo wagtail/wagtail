@@ -7,7 +7,7 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Andrei Satsevich, 2023-2024
 # Andrei Satsevich, 2023
-# Andrei Satsevich, 2024
+# Andrei Satsevich, 2024,2026
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
@@ -35,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Twixxik, 2025\n"
+"Last-Translator: Andrei Satsevich, 2024,2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -295,6 +295,9 @@ msgstr "Нет, не удалять"
 msgid "Popular tags"
 msgstr "Популярные теги"
 
+msgid "Layout"
+msgstr "Расположение"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -450,6 +453,12 @@ msgid ""
 msgstr ""
 "Вы не загрузили ни одного изображения. Почему бы <a "
 "href=\"%(wagtailimages_add_image_url)s\">не загрузить сейчас</a>?"
+
+msgid "Grid layout"
+msgstr "Расположение сеткой"
+
+msgid "List layout"
+msgstr "Расположение списком"
 
 msgid "Preview"
 msgstr "Превью"
@@ -629,6 +638,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "Сгенерировать URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr " Выбранные вами параметры фильтрации недействительны."
 
 msgid "Delete image"
 msgstr "Удалить изображение"

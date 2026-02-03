@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -2200,14 +2200,6 @@ msgstr "Mentse el a változtatásokat, mielőtt elhagyja az oldalt"
 msgid "You have <span>unsaved edits</span>"
 msgstr "Az oldalon<span>mentetlen változtatások</span> vannak"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "Az oldalon <span>mentetlen megjegyzések</span> vannak"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Az oldalon <span>mentetlen változtatások</span> és <span>kommentek</span> "
-"vannak"
-
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2297,8 +2289,8 @@ msgstr "Sorbarendezés"
 msgid "View Wagtail quick actions"
 msgstr "Gyors akciók megtekintése"
 
-msgid "Accessibility"
-msgstr "Akadálymentesség"
+msgid "Checks"
+msgstr "Ellenőrzések"
 
 msgid "Warnings"
 msgstr "Figyelmeztetések"
@@ -2611,9 +2603,6 @@ msgstr "Megjegyzések"
 msgid "Toggle checks"
 msgstr "Ellenőrzések kapcsolása"
 
-msgid "Checks"
-msgstr "Ellenőrzések"
-
 msgid "Toggle preview"
 msgstr "Előnézet kapcsolása"
 
@@ -2795,10 +2784,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "'%(title)s' %(model_name)szárolása fel lett oldva."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "A(z) %(model_name)s mentése nem sikerült, mert zárolva van."
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s'%(object)s' frissítve."
 
@@ -2845,6 +2830,10 @@ msgstr ""
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr ""
 "A munkafolyamat a(z) '%(object)s' %(model_name)s esetén meg lett szakítva."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "A(z) %(model_name)s mentése nem sikerült, mert zárolva van."
 
 #, python-format
 msgid ""

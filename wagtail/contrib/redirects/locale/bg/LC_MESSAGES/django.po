@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -44,11 +44,17 @@ msgstr "Изтрий пренасочването %(title)s"
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Сигурен ли сте, че искате да изтриете пренасочването?"
 
+msgid "Confirm"
+msgstr "Потвърди"
+
 msgid "Preview"
 msgstr "Преглед"
 
 msgid "To"
 msgstr "До"
+
+msgid "Continue"
+msgstr "Продължи"
 
 #, python-format
 msgid ""
