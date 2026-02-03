@@ -60,7 +60,6 @@ class EditedByFilter(MultipleUserFilter):
                 pk__in=PageLogEntry.objects.filter(
                     action="wagtail.edit", user__in=value
                 )
-                .order_by()
                 .values_list("page_id", flat=True)
                 .distinct()
             )
@@ -88,7 +87,6 @@ class PageFilterSet(WagtailFilterSet):
         queryset=(
             lambda request: get_user_model().objects.filter(
                 pk__in=PageLogEntry.objects.filter(action="wagtail.edit")
-                .order_by()
                 .values_list("user_id", flat=True)
                 .distinct()
             )
@@ -97,7 +95,7 @@ class PageFilterSet(WagtailFilterSet):
     )
     site = SiteFilter(
         label=_("Site"),
-        queryset=Site.objects.all(),
+        queryset=Site.objects.select_related("root_page"),
         widget=CheckboxSelectMultiple,
     )
     has_child_pages = HasChildPagesFilter(
