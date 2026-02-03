@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.3.6 (xx.xx.xxxx) - IN DEVELOPMENT
+6.3.6 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
