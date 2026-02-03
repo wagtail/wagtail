@@ -1,4 +1,4 @@
-module.exports = {
+const storybook = {
   stories: [
     '../../client/**/*.mdx',
     '../../client/**/*.stories.@(js|tsx)',
@@ -56,3 +56,5 @@ module.exports = {
     reactDocgen: 'react-docgen',
   },
 };
+
+export default storybook;
