@@ -84,7 +84,7 @@ Changelog
  * Maintenance: Switch userbar items to the template components API (Thibaud Colas)
 
 
-7.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.2.2 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
