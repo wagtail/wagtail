@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.3 (xx.xx.xxxx) - IN DEVELOPMENT
+7.3 (03.02.2026)
 ~~~~~~~~~~~~~~~~
 
  * Add support for Django 6.0
