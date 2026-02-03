@@ -147,6 +147,6 @@ def require_admin_access(view_func):
                 request, _("You do not have permission to access the admin.")
             )
 
-        return reject_request(request)
+        raise PermissionDenied
 
     return decorated_view
