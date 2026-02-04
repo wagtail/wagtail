@@ -163,16 +163,20 @@ function applyInlineStyleToRange({
   start: number;
   end: number;
 }) {
-  return Modifier.applyInlineStyle(
+  const selection = new SelectionState({
+    anchorKey: blockKey,
+    anchorOffset: start,
+    focusKey: blockKey,
+    focusOffset: end,
+  });
+
+  const updatedContentState = Modifier.applyInlineStyle(
     contentState,
-    new SelectionState({
-      anchorKey: blockKey,
-      anchorOffset: start,
-      focusKey: blockKey,
-      focusOffset: end,
-    }),
+    selection,
     style,
   );
+
+  return updatedContentState;
 }
 
 /**
@@ -546,28 +550,115 @@ function forceResetEditorState(
   return EditorState.acceptSelection(state, state.getSelection());
 }
 
+/*
+ * Attempts to find the text range in the current block that matches the original comment text.
+ * This is used to re-anchor comments when text content changes.
+ */
+function findTextRangeInBlock(
+  block: ContentBlock,
+  targetText: string,
+  fallbackStart: number,
+  fallbackEnd: number,
+): [number, number] {
+  /* eslint-disable no-console */
+  const blockText = block.getText();
+
+  if (!targetText) {
+    return [fallbackStart, fallbackEnd];
+  }
+
+  // Try to find exact match in the block
+  const index = blockText.indexOf(targetText);
+  if (index !== -1) {
+    console.log(
+      `[findTextRangeInBlock] Found text "${targetText}" at index ${index}`,
+    );
+    return [index, index + targetText.length];
+  }
+
+  console.warn(
+    `[findTextRangeInBlock] Could not find text "${targetText}" in block, using fallback range`,
+  );
+  /* eslint-enable no-console */
+  return [fallbackStart, fallbackEnd];
+}
+
 export function addCommentsToEditor(
   contentState: ContentState,
   comments: Comment[],
   commentApp: CommentApp,
   getAnnotation: () => Annotation,
 ) {
+  /* eslint-disable no-console */
+  console.group('[Editor] addCommentsToEditor');
+  console.log('Initial contentState:', contentState.toJS());
+  console.log('Total comments received:', comments.length);
+  /* eslint-enable no-console */
+
   let newContentState = contentState;
   comments
     .filter((comment) => !comment.annotation)
     .forEach((comment) => {
+      /* eslint-disable no-console */
       commentApp.updateAnnotation(getAnnotation(), comment.localId);
+
       const style = `${COMMENT_STYLE_IDENTIFIER}${comment.localId}`;
+
       try {
         const positions = JSON.parse(comment.position);
+
         positions.forEach((position) => {
+          const block = newContentState.getBlockForKey(position.key);
+
+          if (!block) {
+            console.warn('Block not found for key:', position.key);
+            console.groupEnd();
+            return;
+          }
+
+          const blockLength = block.getLength();
+          const start = Number(position.start);
+          const end = Number(position.end);
+
+          if (!Number.isFinite(start) || !Number.isFinite(end)) {
+            console.warn('Invalid start/end values, skipping');
+            console.groupEnd();
+            return;
+          }
+
+          // Try to re-anchor the comment by finding the original text
+          const originalText = block.getText().slice(start, end);
+          const [anchoredStart, anchoredEnd] = findTextRangeInBlock(
+            block,
+            originalText,
+            start,
+            end,
+          );
+
+          const clampedStart = Math.max(
+            0,
+            Math.min(blockLength, anchoredStart),
+          );
+          const clampedEnd = Math.max(
+            clampedStart,
+            Math.min(blockLength, anchoredEnd),
+          );
+
+          if (clampedStart === clampedEnd) {
+            console.warn('Empty range after clamping, skipping');
+            console.groupEnd();
+            return;
+          }
+
           newContentState = applyInlineStyleToRange({
             contentState: newContentState,
             blockKey: position.key,
-            start: position.start,
-            end: position.end,
+            start: clampedStart,
+            end: clampedEnd,
             style,
           });
+
+          /* eslint-enable no-console */
         });
       } catch (err) {
         /* eslint-disable no-console */
@@ -577,6 +668,7 @@ export function addCommentsToEditor(
         console.error(err);
         /* esline-enable no-console */
       }
+      console.groupEnd();
     });
   return newContentState;
 }
