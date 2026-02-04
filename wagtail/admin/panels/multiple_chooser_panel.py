@@ -21,6 +21,15 @@ class MultipleChooserPanel(InlinePanel):
         kwargs["chooser_field_name"] = self.chooser_field_name
         return kwargs
 
+    def get_form_options(self):
+        opts = super().get_form_options()
+        # For MultipleChooserPanel, we don't want to pre-render blank forms
+        # based on min_num - users should select items via the modal chooser.
+        # However, we still want to validate min_num on form submission.
+        formset_opts = opts["formsets"][self.relation_name]
+        formset_opts["min_num"] = None
+        return opts
+
     @register_telepath_adapter
     class BoundPanel(InlinePanel.BoundPanel):
         template_name = "wagtailadmin/panels/multiple_chooser_panel.html"

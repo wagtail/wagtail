@@ -2159,6 +2159,30 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
             response, r"\u0022chooserFieldName\u0022: \u0022image\u0022"
         )
 
+    def test_min_num_does_not_prerender_blank_forms(self):
+        """
+        Test that MultipleChooserPanel with min_num doesn't pre-render blank forms.
+        Users should select items via the modal chooser instead.
+        """
+        # Create a panel with min_num set
+        panel = MultipleChooserPanel(
+            "gallery_images",
+            chooser_field_name="image",
+            min_num=2,
+            max_num=5,
+        )
+        # Get form options and verify min_num is None (no pre-rendering)
+        # but validate_min is still True (validation on submit)
+        from wagtail.test.testapp.models import GalleryPage
+
+        bound_panel = panel.bind_to_model(GalleryPage)
+        form_opts = bound_panel.get_form_options()
+        formset_opts = form_opts["formsets"]["gallery_images"]
+
+        # min_num should be None to prevent pre-rendering blank forms
+        self.assertIsNone(formset_opts["min_num"])
+        # validate_min should still be True to validate on submission
+        self.assertTrue(formset_opts["validate_min"])
 
 class TestMultipleChooserPanelGetComparison(TestCase):
     fixtures = ["test.json"]
