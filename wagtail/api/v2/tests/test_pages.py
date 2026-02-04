@@ -18,8 +18,6 @@ from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import WagtailTestUtils
-from django.test import TestCase
-from wagtail.test.utils import WagtailTestUtils
 
 
 def get_total_page_count():
@@ -1932,7 +1930,7 @@ class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
         )
         self.client.force_login(self.user)
 
-    def test_detail_view_does_not_duplicate_get_object_queries(self):
+    def test_detail_view_does_not_duplicate_queries(self):
         with self.assertNumQueries(16):
             response = self.client.get("/api/main/pages/2/")
             self.assertEqual(response.status_code, 200)
