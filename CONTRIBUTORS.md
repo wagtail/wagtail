@@ -943,6 +943,7 @@
 * Deepanshu Tevathiya
 * Serkan Korkusuz
 * Kunal Gupta
+* Naman Sharma S
 
 ## Translators
 
