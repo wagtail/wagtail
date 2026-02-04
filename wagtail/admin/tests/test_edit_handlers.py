@@ -2160,6 +2160,26 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         )
 
 
+    def test_min_num_does_not_render_blank_forms(self):
+        """
+        Test that MultipleChooserPanel with min_num does not render blank items.
+        The min_num should be used for validation but not for rendering initial forms.
+        """
+        panel = MultipleChooserPanel(
+            "gallery_images", chooser_field_name="image", min_num=2
+        )
+        object_list = ObjectList([panel]).bind_to_model(GalleryPage)
+        form_class = object_list.get_form_class()
+        form = form_class()
+
+        # Verify that no initial forms are rendered
+        formset = form.formsets["gallery_images"]
+        self.assertEqual(len(formset.forms), 0)
+
+        # But validation should still require min_num items
+        self.assertTrue(formset.validate_min)
+
+
 class TestMultipleChooserPanelGetComparison(TestCase):
     fixtures = ["test.json"]
 

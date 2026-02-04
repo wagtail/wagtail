@@ -16,6 +16,14 @@ class MultipleChooserPanel(InlinePanel):
         self.chooser_field_name = chooser_field_name
         super().__init__(relation_name, **kwargs)
 
+    def get_form_options(self):
+        opts = super().get_form_options()
+        # Don't render initial empty forms for MultipleChooserPanel
+        # Items should be added via the modal chooser, not pre-rendered as blank forms.
+        # Keep validate_min to enforce the minimum requirement during validation.
+        opts["formsets"][self.relation_name]["min_num"] = None
+        return opts
+
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         kwargs["chooser_field_name"] = self.chooser_field_name
