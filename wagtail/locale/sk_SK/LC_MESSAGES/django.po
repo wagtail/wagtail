@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -31,26 +31,14 @@ msgstr "Minimálne množstvo je %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maximálne množstvo je %(max_num)d"
 
-msgid "Move up"
-msgstr "Posunúť vyššie"
-
-msgid "Move down"
-msgstr "Posunúť nižšie"
-
-msgid "Drag"
-msgstr "Potiahnuť"
-
-msgid "Delete"
-msgstr "Vymazať"
-
-msgid "Add"
-msgstr "Pridať"
-
 msgid "This block has no options."
 msgstr "Tento odstavec nemá žiadne voľby."
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "Group"
+msgstr "Skupina"
 
 msgid "Password"
 msgstr "Heslo"
@@ -126,6 +114,9 @@ msgstr "oprávnenia skupiny ku kolekcii"
 
 msgid "uploaded by user"
 msgstr "nahral používateľ"
+
+msgid "Add"
+msgstr "Pridať"
 
 msgid "Add/edit pages you own"
 msgstr "Pridať/upraviť stránky ktoré vlastníte"
@@ -309,6 +300,9 @@ msgstr "Pokračovať"
 
 msgid "Edited"
 msgstr "Upravené"
+
+msgid "Delete"
+msgstr "Vymazať"
 
 msgid "Unpublish"
 msgstr "Odpublikovať"

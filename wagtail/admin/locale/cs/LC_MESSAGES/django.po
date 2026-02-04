@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jan Zelený <janzeleny@outlook.com>, 2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1114,12 +1114,6 @@ msgstr "Poprvé publikováno"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Máte <span>neuložené změny</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "You have <span>neuložené komentáře</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Máte <span>neuložené změny</span> a <span>komentáře</span>"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"

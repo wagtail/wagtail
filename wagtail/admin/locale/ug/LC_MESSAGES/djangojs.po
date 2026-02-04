@@ -1,11 +1,11 @@
 #
 # Translators:
 # Azat, 2024
-# Abduqadir Abliz <sahranbay@gmail.com>, 2025
+# Abduqadir Abliz <sahranbay@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2025\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2026\n"
 "Language-Team: Uyghur (https://app.transifex.com/torchbox/teams/8009/ug/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ug\n"
@@ -37,6 +37,9 @@ msgstr[1] "%(num)s پىكسېل"
 
 msgid "Actions"
 msgstr "مەشغۇلات"
+
+msgid "Add"
+msgstr "قوش"
 
 msgid "Add a comment"
 msgstr "ئىنكاس قوش"
@@ -83,6 +86,12 @@ msgstr "خاتالىقنى ئۆچۈر"
 msgid "Deleting"
 msgstr "ئۆچۈرۈۋاتىدۇ"
 
+msgid "Drag"
+msgstr "سۆرە"
+
+msgid "Duplicate"
+msgstr "تەكرار"
+
 msgid "Edit"
 msgstr "تەھرىر"
 
@@ -124,6 +133,12 @@ msgstr "يوقالغان پۈتۈك"
 
 msgid "More actions"
 msgstr "تېخىمۇ كۆپ مەشغۇلات"
+
+msgid "Move down"
+msgstr "تۆۋەنگە"
+
+msgid "Move up"
+msgstr "يۇقىرىغا"
 
 msgid "No"
 msgstr "ياق"
@@ -173,15 +188,6 @@ msgstr "ساقلا"
 msgid "Save error"
 msgstr "خاتالىقنى ساقلا"
 
-msgid "Save the page to add this comment"
-msgstr "بۇ ئىنكاسنى قوشۇپ بەتنى ساقلايدۇ"
-
-msgid "Save the page to save this comment"
-msgstr "بۇ ئىنكاسنى ساقلاشتا بەتنى ساقلايدۇ"
-
-msgid "Save the page to save this reply"
-msgstr "بۇ جاۋابنى ساقلاشتا بەتنى ساقلايدۇ"
-
 msgid "Saving..."
 msgstr "ساقلاۋاتىدۇ…"
 
@@ -196,6 +202,9 @@ msgstr "ھەممىنى كۆرسەت"
 
 msgid "Server Error"
 msgstr "مۇلازىمېتىر خاتالىقى"
+
+msgid "Settings"
+msgstr "تەڭشەك"
 
 msgid "Show error"
 msgstr "خاتالىقنى كۆرسەت"
