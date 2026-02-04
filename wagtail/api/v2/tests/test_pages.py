@@ -18,6 +18,8 @@ from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils import WagtailTestUtils
+from django.test import TestCase
+from wagtail.test.utils import WagtailTestUtils
 
 
 def get_total_page_count():
@@ -1917,11 +1919,6 @@ class TestPageViewSetSubclassing(PagesAPIViewSet):
             self.get_queryset().model,
             models.BlogEntryPage,
         )
-
-
-
-from django.test import TestCase
-from wagtail.test.utils import WagtailTestUtils
 
 
 class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
