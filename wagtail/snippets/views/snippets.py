@@ -274,11 +274,7 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                 usage_url="" if self.usage_url_name else None,
             )
         ]
-        if (
-            not self.expects_json_response
-            and self.preview_enabled
-            and self.form.instance.is_previewable()
-        ):
+        if self.preview_enabled and self.form.instance.is_previewable():
             side_panels.append(
                 PreviewSidePanel(
                     self.form.instance, self.request, preview_url=self.get_preview_url()
@@ -366,7 +362,9 @@ class EditView(
                     self.object, self.request, preview_url=self.get_preview_url()
                 )
             )
-            side_panels.append(ChecksSidePanel(self.object, self.request))
+            # We don't need to re-render the checks panel when hydrating create view
+            if not self.hydrate_create_view:
+                side_panels.append(ChecksSidePanel(self.object, self.request))
         return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):

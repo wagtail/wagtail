@@ -659,6 +659,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(response["Content-Type"], "application/json")
         revision = page.get_latest_revision()
         response_json = response.json()
+        edit_url = reverse("wagtailadmin_pages:edit", args=(page.pk,))
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], page.pk)
         self.assertEqual(response_json["revision_id"], revision.pk)
@@ -668,8 +669,17 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response_json["field_updates"], {})
         self.assertEqual(
-            response_json["url"],
-            reverse("wagtailadmin_pages:edit", args=(page.pk,)),
+            response_json["comments"],
+            {
+                "comments": [],
+                "user": str(self.user.pk),
+                "authors": {},
+            },
+        )
+        self.assertEqual(response_json["url"], edit_url)
+        self.assertEqual(
+            response_json["hydrate_url"],
+            f"{edit_url}?_w_hydrate_create_view=1",
         )
 
         self.assertEqual(page.title, post_data["title"])
@@ -3011,6 +3021,57 @@ class TestCommenting(WagtailTestUtils, TestCase):
         self.assertEqual("page-edit-form", form["id"])
         self.assertIn("w-init", form["data-controller"])
         self.assertEqual("", form["data-w-init-event-value"])
+
+    def test_new_comment_json(self):
+        post_data = {
+            "title": "New page",
+            "content": "hello world",
+            "slug": "hello-world",
+            "comments-TOTAL_FORMS": "1",
+            "comments-INITIAL_FORMS": "0",
+            "comments-MIN_NUM_FORMS": "0",
+            "comments-MAX_NUM_FORMS": "",
+            "comments-0-DELETE": "",
+            "comments-0-resolved": "",
+            "comments-0-id": "",
+            "comments-0-contentpath": "title",
+            "comments-0-text": "A test comment",
+            "comments-0-position": "",
+            "comments-0-replies-TOTAL_FORMS": "0",
+            "comments-0-replies-INITIAL_FORMS": "0",
+            "comments-0-replies-MIN_NUM_FORMS": "0",
+            "comments-0-replies-MAX_NUM_FORMS": "0",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        pk = response_json["pk"]
+        new_page = SimplePage.objects.get(pk=pk)
+
+        # Check the comment was added
+        comment = new_page.wagtail_admin_comments.get()
+        self.assertEqual(comment.text, "A test comment")
+
+        # Should include serialized comments data in the response
+        comments_json = response_json["comments"]
+        self.assertEqual(len(comments_json["comments"]), 1)
+        comment_json = comments_json["comments"][0]
+        self.assertEqual(comment_json["pk"], comment.pk)
+        self.assertEqual(comment_json["page"], new_page.pk)
+        self.assertEqual(comment_json["user"], str(self.user.pk))
+        self.assertEqual(comment_json["text"], "A test comment")
+        self.assertEqual(comment_json["contentpath"], "title")
+        self.assertEqual(comments_json["user"], str(self.user.pk))
+        self.assertIn(str(self.user.pk), comments_json["authors"])
 
 
 class TestCreateViewChildPagePrivacy(WagtailTestUtils, TestCase):

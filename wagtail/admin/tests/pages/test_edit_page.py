@@ -624,16 +624,37 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             revision.created_at.isoformat(),
         )
         self.assertEqual(revision.content["title"], "I've been edited!")
-        soup = self.get_soup(response_json["html"])
-        status_side_panel = soup.find(
-            "template",
+        self.assertEqual(
+            response_json["comments"],
             {
-                "data-controller": "w-teleport",
-                "data-w-teleport-target-value": "[data-side-panel='status']",
-                "data-w-teleport-mode-value": "innerHTML",
+                "comments": [],
+                "user": str(self.user.pk),
+                "authors": {},
             },
         )
-        self.assertIsNotNone(status_side_panel)
+
+        soup = self.get_soup(response_json["html"])
+
+        # Should reload only the status side panel
+        side_panels = soup.select(
+            "template[data-controller='w-teleport']"
+            "[data-w-teleport-target-value^='[data-side-panel=']"
+            "[data-w-teleport-mode-value='innerHTML']"
+        )
+        self.assertEqual(len(side_panels), 1)
+        status_side_panel = side_panels[0]
+        self.assertEqual(
+            status_side_panel["data-w-teleport-target-value"],
+            "[data-side-panel='status']",
+        )
+
+        # These dialogs will be teleported to the body, so don't rerender them
+        # as we would end up with multiple instances of each
+        workflow_status_dialog = soup.find("div", id="workflow-status-dialog")
+        self.assertIsNone(workflow_status_dialog)
+        set_privacy_dialog = soup.find("div", id="set-privacy")
+        self.assertIsNone(set_privacy_dialog)
+
         breadcrumbs = soup.find(
             "template",
             {
@@ -643,6 +664,20 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             },
         )
         self.assertIsNotNone(breadcrumbs)
+        # Should not include header buttons as they're already rendered
+        self.assertIsNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+
+        # History link should not be included as it's already present on the page
+        history_link = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel-toggle]:last-of-type",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        self.assertIsNone(history_link)
+
         form_title_heading = soup.find(
             "template",
             {
@@ -667,6 +702,28 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             # adds (simple page) suffix
             "Editing Simple page: I've been edited! (simple page)",
         )
+
+        # No form updates as we already have the loaded revision id and timestamp
+        form_adds = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "form[data-edit-form]",
+                "data-w-teleport-mode-value": "afterbegin",
+            },
+        )
+        self.assertIsNone(form_adds)
+
+        # Should not load the editing sessions module as it's already rendered
+        editing_sessions = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-autosave-indicator",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        self.assertIsNone(editing_sessions)
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -875,6 +932,142 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             later_revision.content["title"], "Someone else's changed title"
         )
         self.assertEqual(self.child_page.get_latest_revision().id, later_revision.id)
+
+    def test_get_hydrate_create_view(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+            + "?_w_hydrate_create_view=1",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/edit_partials.html")
+        soup = self.get_soup(response.content)
+
+        # Should reload the status and preview side panels
+        side_panels = soup.select(
+            "template[data-controller='w-teleport']"
+            "[data-w-teleport-target-value^='[data-side-panel=']"
+            "[data-w-teleport-mode-value='innerHTML']"
+        )
+        self.assertEqual(len(side_panels), 2)
+        status_side_panel = side_panels[0]
+        self.assertEqual(
+            status_side_panel["data-w-teleport-target-value"],
+            "[data-side-panel='status']",
+        )
+
+        # Under normal circumstances, a newly-created page would never
+        # immediately enter a workflow without a full-page reload, so don't
+        # bother rendering the workflow status dialog when hydrating a create view
+        workflow_status_dialog = soup.find("div", id="workflow-status-dialog")
+        self.assertIsNone(workflow_status_dialog)
+        # However, we should still render the set privacy dialog, since the
+        # user might want to set the page to private immediately after creating it,
+        # and a full-page reload is not required for that
+        set_privacy_dialog = soup.find("div", id="set-privacy")
+        self.assertIsNotNone(set_privacy_dialog)
+
+        # We need to change the preview URL to use the one for editing, but there is
+        # no way to declaratively change attributes via partial rendering yet, and we
+        # need to restart the controller anyway, so just re-render the whole panel
+        preview_side_panel = side_panels[1]
+        self.assertEqual(
+            preview_side_panel["data-w-teleport-target-value"],
+            "[data-side-panel='preview']",
+        )
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.child_page.id,)
+        )
+        self.assertIsNotNone(
+            preview_side_panel.select_one(f"[data-w-preview-url-value='{preview_url}']")
+        )
+
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
+        # Should include header buttons as they were not rendered in the create view
+        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+
+        # Should render the history link button as it wasn't rendered in the create view
+        history_link = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel-toggle]:last-of-type",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        history_url = reverse("wagtailadmin_pages:history", args=(self.child_page.id,))
+        self.assertIsNotNone(history_link)
+        self.assertIsNotNone(history_link.select_one(f"a[href='{history_url}']"))
+
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNone(form_title_heading)
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(
+            header_title.text.strip(),
+            "Editing Simple page: Hello world! (simple page)",
+        )
+
+        # Should include loaded revision ID and timestamp in the form for
+        # subsequent autosave requests
+        form_adds = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "form[data-edit-form]",
+                "data-w-teleport-mode-value": "afterbegin",
+            },
+        )
+        latest_revision = self.child_page.get_latest_revision()
+        self.assertIsNotNone(form_adds)
+        self.assertEqual(
+            form_adds.select_one("input[name='loaded_revision_id']")["value"],
+            str(latest_revision.pk),
+        )
+        self.assertEqual(
+            form_adds.select_one("input[name='loaded_revision_created_at']")["value"],
+            latest_revision.created_at.isoformat(),
+        )
+
+        # Should load the editing sessions module as it was not in the create view
+        editing_sessions = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-autosave-indicator",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        self.assertIsNotNone(editing_sessions)
+        self.assertEqual(
+            editing_sessions.select_one("input[name='revision_id']")["value"],
+            str(latest_revision.pk),
+        )
+        self.assertEqual(
+            editing_sessions.select_one("input[name='revision_created_at']")["value"],
+            latest_revision.created_at.isoformat(),
+        )
 
     def test_page_edit_post_unpublished_page(self):
         # Based on test_page_edit_post(), but tests changes on a draft page vs. live page.
@@ -4253,6 +4446,76 @@ class TestCommenting(WagtailTestUtils, TestCase):
         # Check the comment was added
         comment = self.child_page.wagtail_admin_comments.get()
         self.assertEqual(comment.text, "A test comment")
+
+        # Check notification email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertNeverEmailedWrongUser()
+        self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
+        self.assertEqual(
+            mail.outbox[0].subject,
+            'test@email.com has updated comments on "I\'ve been edited! (simple page)"',
+        )
+        self.assertIn('New comments:\n - "A test comment"\n\n', mail.outbox[0].body)
+
+        # Check audit log
+        log_entry = PageLogEntry.objects.get(action="wagtail.comments.create")
+        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.user, self.user)
+        self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
+        self.assertEqual(log_entry.data["comment"]["id"], comment.id)
+        self.assertEqual(log_entry.data["comment"]["contentpath"], comment.contentpath)
+        self.assertEqual(log_entry.data["comment"]["text"], comment.text)
+
+    def test_new_comment_json(self):
+        post_data = {
+            "title": "I've been edited!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "comments-TOTAL_FORMS": "1",
+            "comments-INITIAL_FORMS": "0",
+            "comments-MIN_NUM_FORMS": "0",
+            "comments-MAX_NUM_FORMS": "",
+            "comments-0-DELETE": "",
+            "comments-0-resolved": "",
+            "comments-0-id": "",
+            "comments-0-contentpath": "title",
+            "comments-0-text": "A test comment",
+            "comments-0-position": "",
+            "comments-0-replies-TOTAL_FORMS": "0",
+            "comments-0-replies-INITIAL_FORMS": "0",
+            "comments-0-replies-MIN_NUM_FORMS": "0",
+            "comments-0-replies-MAX_NUM_FORMS": "0",
+        }
+
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=[self.child_page.id]),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
+
+        # Check the comment was added
+        comment = self.child_page.wagtail_admin_comments.get()
+        self.assertEqual(comment.text, "A test comment")
+
+        # Should include serialized comments data in the response
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.child_page.id)
+        comments_json = response_json["comments"]
+        self.assertEqual(len(comments_json["comments"]), 1)
+        comment_json = comments_json["comments"][0]
+        self.assertEqual(comment_json["pk"], comment.pk)
+        self.assertEqual(comment_json["page"], self.child_page.pk)
+        self.assertEqual(comment_json["user"], str(self.user.pk))
+        self.assertEqual(comment_json["text"], "A test comment")
+        self.assertEqual(comment_json["contentpath"], "title")
+        self.assertEqual(comments_json["user"], str(self.user.pk))
+        self.assertIn(str(self.user.pk), comments_json["authors"])
 
         # Check notification email
         self.assertEqual(len(mail.outbox), 1)

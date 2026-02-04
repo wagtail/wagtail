@@ -1,12 +1,12 @@
 #
 # Translators:
 # Loic Teixeira, 2024
-# saevarom <saevar@saevar.is>, 2025
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2025
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2026
+# saevarom <saevar@saevar.is>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2025\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2026\n"
 "Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/teams/"
 "8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +45,9 @@ msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
 msgid "Actions"
 msgstr "Aðgerðir"
+
+msgid "Add"
+msgstr "Bæta við"
 
 msgid "Add a comment"
 msgstr "Bæta við athugasemd"
@@ -91,6 +94,12 @@ msgstr "Eyða villu"
 msgid "Deleting"
 msgstr "Eyði"
 
+msgid "Drag"
+msgstr "Draga"
+
+msgid "Duplicate"
+msgstr "Afrita"
+
 msgid "Edit"
 msgstr "Breyta"
 
@@ -132,6 +141,12 @@ msgstr "Vantar skrá"
 
 msgid "More actions"
 msgstr "Fleiri aðgerðir"
+
+msgid "Move down"
+msgstr "Færa niður"
+
+msgid "Move up"
+msgstr "Færa upp"
 
 msgid "No"
 msgstr "Nei"
@@ -180,15 +195,6 @@ msgstr "Vista"
 msgid "Save error"
 msgstr "Vista villu"
 
-msgid "Save the page to add this comment"
-msgstr "Vistaðu síðuna til að bæta þessari athugasemd við"
-
-msgid "Save the page to save this comment"
-msgstr "Vistaðu síðuna til að vista þessa athugasemd"
-
-msgid "Save the page to save this reply"
-msgstr "Vistaðu síðuna til að vista þetta svar"
-
 msgid "Saving..."
 msgstr "Vista..."
 
@@ -203,6 +209,9 @@ msgstr "Sjá allt"
 
 msgid "Server Error"
 msgstr "Villa á vefþjóni"
+
+msgid "Settings"
+msgstr "Stillingar"
 
 msgid "Show error"
 msgstr "Sýna villu"

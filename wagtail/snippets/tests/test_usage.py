@@ -156,7 +156,7 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         self.assertContains(response, "<td>Page</td>", html=True)
         self.assertContains(response, "<th>Field</th>", html=True)
         self.assertNotContains(response, "<th>If you confirm deletion</th>", html=True)
-        self.assertContains(response, "<li>Advert</li>", html=True)
+        self.assertContains(response, "<li>Advert placement → Advert</li>", html=True)
 
     def test_usage_with_describe_on_delete_cascade(self):
         with self.captureOnCommitCallbacks(execute=True):

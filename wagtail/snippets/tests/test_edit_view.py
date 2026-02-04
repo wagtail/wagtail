@@ -182,6 +182,108 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
         self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
 
+    def test_get_hydrate_create_view(self):
+        response = self.get(params={"_w_hydrate_create_view": "1"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/edit_partials.html")
+        soup = self.get_soup(response.content)
+
+        # Should reload only the status side panel
+        side_panels = soup.select(
+            "template[data-controller='w-teleport']"
+            "[data-w-teleport-target-value^='[data-side-panel=']"
+            "[data-w-teleport-mode-value='innerHTML']"
+        )
+        self.assertEqual(len(side_panels), 1)
+        status_side_panel = side_panels[0]
+        self.assertEqual(
+            status_side_panel["data-w-teleport-target-value"],
+            "[data-side-panel='status']",
+        )
+
+        # Workflow and privacy features are not available
+        workflow_status_dialog = soup.find("div", id="workflow-status-dialog")
+        self.assertIsNone(workflow_status_dialog)
+        set_privacy_dialog = soup.find("div", id="set-privacy")
+        self.assertIsNone(set_privacy_dialog)
+
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
+        # Should include header buttons as they were not rendered in the create view
+        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+
+        # Should render the history link button as it wasn't rendered in the create view
+        history_link = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel-toggle]:last-of-type",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        history_url = reverse(
+            self.test_snippet.snippet_viewset.get_url_name("history"),
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertIsNotNone(history_link)
+        self.assertIsNotNone(history_link.select_one(f"a[href='{history_url}']"))
+
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(form_title_heading)
+        self.assertEqual(form_title_heading.text.strip(), str(self.test_snippet))
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(header_title.text.strip(), f"Editing: {self.test_snippet}")
+
+        # Should not include any updates to the form as we don't have revisions
+        # enabled and thus don't need to add loaded revision info
+        form_adds = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "form[data-edit-form]",
+                "data-w-teleport-mode-value": "afterbegin",
+            },
+        )
+        self.assertIsNone(form_adds)
+
+        # Should load the editing sessions module as it was not in the create view
+        editing_sessions = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-autosave-indicator",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        self.assertIsNotNone(editing_sessions)
+        # without the revision info
+        self.assertIsNone(editing_sessions.select_one("input[name='revision_id']"))
+        self.assertIsNone(
+            editing_sessions.select_one("input[name='revision_created_at']")
+        )
+
     def test_non_existent_model(self):
         response = self.client.get(
             f"/admin/snippets/tests/foo/edit/{quote(self.test_snippet.pk)}/"
@@ -706,6 +808,121 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         super().setUp()
         self.test_snippet = RevisableModel.objects.create(text="foo")
 
+    def test_get_hydrate_create_view(self):
+        latest_revision = self.test_snippet.save_revision(user=self.user)
+        response = self.get(params={"_w_hydrate_create_view": "1"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/edit_partials.html")
+        soup = self.get_soup(response.content)
+
+        # Should reload only the status side panel
+        side_panels = soup.select(
+            "template[data-controller='w-teleport']"
+            "[data-w-teleport-target-value^='[data-side-panel=']"
+            "[data-w-teleport-mode-value='innerHTML']"
+        )
+        self.assertEqual(len(side_panels), 1)
+        status_side_panel = side_panels[0]
+        self.assertEqual(
+            status_side_panel["data-w-teleport-target-value"],
+            "[data-side-panel='status']",
+        )
+
+        # Workflow and privacy features are not available
+        workflow_status_dialog = soup.find("div", id="workflow-status-dialog")
+        self.assertIsNone(workflow_status_dialog)
+        set_privacy_dialog = soup.find("div", id="set-privacy")
+        self.assertIsNone(set_privacy_dialog)
+
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
+        # Should include header buttons as they were not rendered in the create view
+        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+
+        # Should render the history link button as it wasn't rendered in the create view
+        history_link = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel-toggle]:last-of-type",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        history_url = reverse(
+            self.test_snippet.snippet_viewset.get_url_name("history"),
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertIsNotNone(history_link)
+        self.assertIsNotNone(history_link.select_one(f"a[href='{history_url}']"))
+
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(form_title_heading)
+        self.assertEqual(form_title_heading.text.strip(), str(self.test_snippet))
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(header_title.text.strip(), f"Editing: {self.test_snippet}")
+
+        # Should include loaded revision ID and timestamp in the form for
+        # subsequent autosave requests
+        form_adds = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "form[data-edit-form]",
+                "data-w-teleport-mode-value": "afterbegin",
+            },
+        )
+        self.assertIsNotNone(form_adds)
+        self.assertEqual(
+            form_adds.select_one("input[name='loaded_revision_id']")["value"],
+            str(latest_revision.pk),
+        )
+        self.assertEqual(
+            form_adds.select_one("input[name='loaded_revision_created_at']")["value"],
+            latest_revision.created_at.isoformat(),
+        )
+
+        # Should load the editing sessions module as it was not in the create view
+        editing_sessions = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-autosave-indicator",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        self.assertIsNotNone(editing_sessions)
+        # with the revision info
+        self.assertEqual(
+            editing_sessions.select_one("input[name='revision_id']")["value"],
+            str(latest_revision.pk),
+        )
+        self.assertEqual(
+            editing_sessions.select_one("input[name='revision_created_at']")["value"],
+            latest_revision.created_at.isoformat(),
+        )
+
     def test_edit_snippet_with_revision(self):
         response = self.post(post_data={"text": "bar"})
         self.assertRedirects(
@@ -1069,6 +1286,150 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             }.issubset(form["data-action"].split())
         )
         self.assertEqual(form.attrs.get("data-w-autosave-interval-value"), "500")
+
+    def test_get_hydrate_create_view(self):
+        # Use FullFeaturedSnippet to test the UI hydration of all features
+        snippet = FullFeaturedSnippet.objects.create(
+            text="Hello world",
+            country_code="UK",
+            some_number=42,
+        )
+        latest_revision = snippet.save_revision(user=self.user)
+        edit_url = reverse(
+            snippet.snippet_viewset.get_url_name("edit"),
+            args=(quote(snippet.pk),),
+        )
+        response = self.client.get(edit_url, {"_w_hydrate_create_view": "1"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/edit_partials.html")
+        soup = self.get_soup(response.content)
+
+        # Should reload the status and preview side panels only
+        side_panels = soup.select(
+            "template[data-controller='w-teleport']"
+            "[data-w-teleport-target-value^='[data-side-panel=']"
+            "[data-w-teleport-mode-value='innerHTML']"
+        )
+        self.assertEqual(len(side_panels), 2)
+        status_side_panel = side_panels[0]
+        self.assertEqual(
+            status_side_panel["data-w-teleport-target-value"],
+            "[data-side-panel='status']",
+        )
+
+        # Under normal circumstances, a newly-created snippet would never
+        # immediately enter a workflow without a full-page reload, so don't
+        # bother rendering the workflow status dialog when hydrating a create view
+        workflow_status_dialog = soup.find("div", id="workflow-status-dialog")
+        self.assertIsNone(workflow_status_dialog)
+        # Privacy features are not available for snippets
+        set_privacy_dialog = soup.find("div", id="set-privacy")
+        self.assertIsNone(set_privacy_dialog)
+
+        # We need to change the preview URL to use the one for editing, but there is
+        # no way to declaratively change attributes via partial rendering yet, and we
+        # need to restart the controller anyway, so just re-render the whole panel
+        preview_side_panel = side_panels[1]
+        self.assertEqual(
+            preview_side_panel["data-w-teleport-target-value"],
+            "[data-side-panel='preview']",
+        )
+        preview_url = reverse(
+            snippet.snippet_viewset.get_url_name("preview_on_edit"),
+            args=(quote(snippet.pk),),
+        )
+        self.assertIsNotNone(
+            preview_side_panel.select_one(f"[data-w-preview-url-value='{preview_url}']")
+        )
+
+        breadcrumbs = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "header [data-w-breadcrumbs]",
+                "data-w-teleport-mode-value": "outerHTML",
+            },
+        )
+        self.assertIsNotNone(breadcrumbs)
+        # Should include header buttons as they were not rendered in the create view
+        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+
+        # Should render the history link button as it wasn't rendered in the create view
+        history_link = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "[data-side-panel-toggle]:last-of-type",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        history_url = reverse(
+            snippet.snippet_viewset.get_url_name("history"),
+            args=(quote(snippet.pk),),
+        )
+        self.assertIsNotNone(history_link)
+        self.assertIsNotNone(history_link.select_one(f"a[href='{history_url}']"))
+
+        form_title_heading = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#header-title span",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(form_title_heading)
+        self.assertEqual(form_title_heading.text.strip(), str(snippet))
+        header_title = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "head title",
+                "data-w-teleport-mode-value": "textContent",
+            },
+        )
+        self.assertIsNotNone(header_title)
+        self.assertEqual(header_title.text.strip(), f"Editing: {snippet}")
+
+        # Should include loaded revision ID and timestamp in the form for
+        # subsequent autosave requests
+        form_adds = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "form[data-edit-form]",
+                "data-w-teleport-mode-value": "afterbegin",
+            },
+        )
+        self.assertIsNotNone(form_adds)
+        self.assertEqual(
+            form_adds.select_one("input[name='loaded_revision_id']")["value"],
+            str(latest_revision.pk),
+        )
+        self.assertEqual(
+            form_adds.select_one("input[name='loaded_revision_created_at']")["value"],
+            latest_revision.created_at.isoformat(),
+        )
+
+        # Should load the editing sessions module as it was not in the create view
+        editing_sessions = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-autosave-indicator",
+                "data-w-teleport-mode-value": "afterend",
+            },
+        )
+        self.assertIsNotNone(editing_sessions)
+        # with the revision info
+        self.assertEqual(
+            editing_sessions.select_one("input[name='revision_id']")["value"],
+            str(latest_revision.pk),
+        )
+        self.assertEqual(
+            editing_sessions.select_one("input[name='revision_created_at']")["value"],
+            latest_revision.created_at.isoformat(),
+        )
 
     @override_settings(WAGTAIL_AUTOSAVE_INTERVAL=0)
     def test_autosave_disabled(self):

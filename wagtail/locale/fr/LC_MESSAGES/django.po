@@ -17,15 +17,15 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026
 # Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -52,24 +52,6 @@ msgstr "Le nombre minimum d'éléments est %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Le nombre maximum d'éléments est %(max_num)d"
 
-msgid "Move up"
-msgstr "Monter"
-
-msgid "Move down"
-msgstr "Descendre"
-
-msgid "Drag"
-msgstr "Glisser"
-
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-msgid "Delete"
-msgstr "Supprimer"
-
-msgid "Add"
-msgstr "Ajouter"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s : ce bloc n'a aucune option."
@@ -79,6 +61,9 @@ msgstr "Ce bloc n'a aucune option."
 
 msgid "This field is required."
 msgstr "Ce champ est requis."
+
+msgid "Group"
+msgstr "Groupe"
 
 msgid "Wagtail frontend cache"
 msgstr "Cache front-end Wagtail"
@@ -312,6 +297,9 @@ msgstr "pour le type de contenu"
 msgid "uploaded by user"
 msgstr "transféré par l'utilisateur"
 
+msgid "Add"
+msgstr "Ajouter"
+
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
 
@@ -412,6 +400,18 @@ msgid ""
 msgstr ""
 "Le slug '%(page_slug)s' est déjà utilisé au niveau de la page parent "
 "sélectionnée à '%(parent_url_path)s'."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Impossible d'enregistrer une version qui n'est pas la dernière pour ce(tte) "
+"%(model_name)s."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Impossible d'enregistrer une version qui n'a pas été créée par l'utilisateur "
+"courant."
 
 msgid "page"
 msgstr "page"
@@ -787,6 +787,9 @@ msgstr "Créé(e)"
 
 msgid "Edited"
 msgstr "Modifié"
+
+msgid "Delete"
+msgstr "Supprimer"
 
 msgid "Deleted"
 msgstr "Supprimée"

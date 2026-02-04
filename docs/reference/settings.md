@@ -17,7 +17,7 @@ This is the human-readable name of your Wagtail install which welcomes users upo
 ### `WAGTAILADMIN_BASE_URL`
 
 ```python
-WAGTAILADMIN_BASE_URL = 'http://example.com'
+WAGTAILADMIN_BASE_URL = 'https://example.com'
 ```
 
 This is the base URL used by the Wagtail admin site. It is used for generating absolute URLs to the admin, such as in notification emails and the user bar. This setting must not include the admin path (`/admin`) or a trailing slash.
@@ -289,6 +289,14 @@ By default, page slugs can contain any alphanumeric characters, including non-La
 (wagtail_autosave_interval)=
 
 ### `WAGTAIL_AUTOSAVE_INTERVAL`
+
+```{versionadded} 7.3
+The `WAGTAIL_AUTOSAVE_INTERVAL` setting was added.
+```
+
+```python
+WAGTAIL_AUTOSAVE_INTERVAL = 500
+```
 
 The interval (in milliseconds) to wait since the last edit, before attempting an autosave in the page or snippet editor. The default value is `500`.
 
@@ -632,7 +640,7 @@ Allows the default `LoginForm` to be extended with extra fields.
 ### `WAGTAILADMIN_LOGIN_URL`
 
 ```python
-WAGTAILADMIN_LOGIN_URL = 'http://example.com/login/'
+WAGTAILADMIN_LOGIN_URL = 'https://example.com/login/'
 ```
 
 This specifies the URL to redirect when a user attempts to access a Wagtail admin page without being logged in. If omitted, Wagtail will fall back to using the standard login view (typically `/admin/login/`).
@@ -844,7 +852,7 @@ For full documentation on API configuration, including these settings, see [](ap
 ### `WAGTAILAPI_BASE_URL`
 
 ```python
-WAGTAILAPI_BASE_URL = 'http://api.example.com/'
+WAGTAILAPI_BASE_URL = 'https://api.example.com/'
 ```
 
 Required when using frontend cache invalidation, used to generate absolute URLs to document files and invalidating the cache.

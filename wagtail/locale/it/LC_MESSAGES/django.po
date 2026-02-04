@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -44,24 +44,6 @@ msgstr "Il numero minimo di elementi è %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Il numero massimo di elementi è %(max_num)d"
 
-msgid "Move up"
-msgstr "Sposta su"
-
-msgid "Move down"
-msgstr "Sposta giù"
-
-msgid "Drag"
-msgstr "Trascina"
-
-msgid "Duplicate"
-msgstr "Duplica"
-
-msgid "Delete"
-msgstr "Elimina"
-
-msgid "Add"
-msgstr "Aggiungi"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: questo blocco non ha opzioni."
@@ -71,6 +53,9 @@ msgstr "Questo blocco non ha opzioni"
 
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio."
+
+msgid "Group"
+msgstr "Gruppo"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail cache frontend"
@@ -292,6 +277,9 @@ msgstr "per il tipo di contenuto"
 msgid "uploaded by user"
 msgstr "caricato dall'utente"
 
+msgid "Add"
+msgstr "Aggiungi"
+
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
 
@@ -390,6 +378,17 @@ msgid ""
 msgstr ""
 "Lo slug '%(page_slug)s' è già in uso nella pagina genitore in "
 "'%(parent_url_path)s'."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Impossibile sovrascrivere una revisione che non è l'ultima per questo "
+"%(model_name)s"
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Impossibile sovrascrivere una revisione non creata dall'utente corrente."
 
 msgid "page"
 msgstr "pagina"
@@ -760,6 +759,9 @@ msgstr "Creata"
 
 msgid "Edited"
 msgstr "Modificato"
+
+msgid "Delete"
+msgstr "Elimina"
 
 msgid "Deleted"
 msgstr "Eliminata"

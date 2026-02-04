@@ -200,7 +200,7 @@ Links are fundamental in documentation. Use internal links to tie your content t
 Do not let external links hide critical context for the reader. Instead, provide the core information on the page and use links for added context.
 
 ```md
-An [external link](https://wwww.example.com).
+An [external link](https://www.example.com).
 An [internal link to another document](/reference/contrib/legacy_richtext).
 An auto generated link label to a page [](/getting_started/tutorial).
 A [link to a target](register_reports_menu_item).

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: UP, 2021\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -44,24 +44,6 @@ msgstr "Najmanjše število predmetov je %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Največje število predmetov je %(max_num)d"
 
-msgid "Move up"
-msgstr "Premakni navzgor"
-
-msgid "Move down"
-msgstr "Premakni navzdol"
-
-msgid "Drag"
-msgstr "Povleci"
-
-msgid "Duplicate"
-msgstr "Podvoji"
-
-msgid "Delete"
-msgstr "Izbriši"
-
-msgid "Add"
-msgstr "Dodaj"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: ta blok nima možnosti."
@@ -71,6 +53,9 @@ msgstr "Ta blok nima možnosti."
 
 msgid "This field is required."
 msgstr "Polje je obvezno."
+
+msgid "Group"
+msgstr "Skupina"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtailov predpomnilnik ospredja"
@@ -286,6 +271,9 @@ msgstr "za vrsto vsebine"
 
 msgid "uploaded by user"
 msgstr "ki jo je naložil uporabnik"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi strani v vaši lasti"
@@ -742,6 +730,9 @@ msgstr "Ustvarjeno"
 
 msgid "Edited"
 msgstr "Urejeno"
+
+msgid "Delete"
+msgstr "Izbriši"
 
 msgid "Deleted"
 msgstr "Izbrisano"

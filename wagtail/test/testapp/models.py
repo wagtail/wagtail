@@ -339,8 +339,15 @@ class EventPageSpeakerAward(TranslatableMixin, Orderable, models.Model):
     )
     name = models.CharField("Award name", max_length=255)
     date_awarded = models.DateField(null=True, blank=True)
+    certificate = models.ForeignKey(
+        "wagtaildocs.Document",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="event_speaker_awards",
+    )
 
-    panels = ["name", "date_awarded"]
+    panels = ["name", "date_awarded", "certificate"]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass

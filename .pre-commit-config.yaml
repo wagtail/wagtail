@@ -50,7 +50,8 @@ repos:
     hooks:
       - id: djhtml
   - repo: https://github.com/semgrep/semgrep
-    rev: v1.132.0
+    # NOTE: Keep in sync with dependencies in pyproject.toml
+    rev: v1.150.0
     hooks:
       - id: semgrep
         files: \.(js|ts|tsx|html|py)$

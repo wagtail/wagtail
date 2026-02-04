@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1499,14 +1499,6 @@ msgstr "Tallenna muutokset ennen poistumista"
 msgid "You have <span>unsaved edits</span>"
 msgstr "Sinulla on <span>tallentamattomia muokkauksia</span>"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "Sinulla on <span>tallentamattomia kommentteja</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Sinulla on <span>tallentamattomia muokkauksia</span> ja <span>kommentteja</"
-"span>"
-
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -1572,9 +1564,6 @@ msgstr "Järjestä"
 
 msgid "View Wagtail quick actions"
 msgstr "Näytä Wagtailin pikatoiminnot"
-
-msgid "Accessibility"
-msgstr "Saavutettavuus"
 
 msgid "Warnings"
 msgstr "Varoitukset"

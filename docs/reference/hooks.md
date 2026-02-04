@@ -41,6 +41,8 @@ def yet_another_hook_function(arg1, arg2...)
     # your code here
 ```
 
+(unit_testing_hooks)=
+
 ## Unit testing hooks
 
 Hooks are usually registered on startup and can't be changed at runtime. But when writing unit tests, you might want to register a hook
@@ -907,7 +909,7 @@ from wagtail.admin.ui.components import Component
 
 class UserbarPuppyLinkItem(Component):
     def render_html(self, parent_context):
-        return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
+        return '<li><a href="https://unsplash.com/s/photos/puppies" ' \
             + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
 
 @hooks.register('construct_wagtail_userbar')

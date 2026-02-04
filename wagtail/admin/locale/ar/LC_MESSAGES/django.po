@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -2401,12 +2401,6 @@ msgstr "احفظ تغييراتك قبل المغادرة"
 msgid "You have <span>unsaved edits</span>"
 msgstr "لديك <span>تعديلات غير محفوظة</span>"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "لديك <span>تعليقات غير محفوظة</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "لديك <span>تعديلات غير محفوظة</span> و<span>تعليقات</span>"
-
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2497,8 +2491,8 @@ msgstr "ترتيب"
 msgid "View Wagtail quick actions"
 msgstr "عرض إجراءات Wagtail السريعة"
 
-msgid "Accessibility"
-msgstr "إمكانية الوصول"
+msgid "Checks"
+msgstr "فحوصات"
 
 msgid "Warnings"
 msgstr "تحذيرات"
@@ -2820,9 +2814,6 @@ msgstr "تعليقات"
 msgid "Toggle checks"
 msgstr "تبديل الفحوصات"
 
-msgid "Checks"
-msgstr "فحوصات"
-
 msgid "Toggle preview"
 msgstr "تبديل المعاينة"
 
@@ -3002,10 +2993,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "تم فتح %(model_name)s '%(title)s'."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "تعذر حفظ %(model_name)s لأنه مقفل"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "تم تحديث '%(object)s' '%(model_name)s'."
 
@@ -3050,6 +3037,10 @@ msgstr "تم إعادة تشغيل سير العمل على %(model_name)s '%(ob
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "تم إلغاء سير العمل على %(model_name)s '%(object)s'."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "تعذر حفظ %(model_name)s لأنه مقفل"
 
 #, python-format
 msgid ""

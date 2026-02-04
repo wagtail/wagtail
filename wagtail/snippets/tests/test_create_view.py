@@ -207,12 +207,16 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(snippet.url, "http://www.example.com/")
 
         response_json = response.json()
+        edit_url = reverse(
+            snippet.snippet_viewset.get_url_name("edit"), args=(snippet.pk,)
+        )
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], snippet.pk)
         self.assertEqual(response_json["field_updates"], {})
+        self.assertEqual(response_json["url"], edit_url)
         self.assertEqual(
-            response_json["url"],
-            reverse(snippet.snippet_viewset.get_url_name("edit"), args=(snippet.pk,)),
+            response_json["hydrate_url"],
+            f"{edit_url}?_w_hydrate_create_view=1",
         )
 
     def test_create_with_tags(self):

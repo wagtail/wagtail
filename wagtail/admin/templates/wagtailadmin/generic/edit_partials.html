@@ -69,7 +69,7 @@
 {% endblock %}
 
 {% block form %}
-    {% if hydrate_create_view and revision_enabled and object.latest_revision_id %}
+    {% if hydrate_create_view and object.latest_revision_id and loaded_revision_created_at %}
         <template
             data-controller="w-teleport"
             data-w-teleport-target-value="form[data-edit-form]"
