@@ -107,7 +107,7 @@
     "typedoc": "^0.28.7",
     "typedoc-plugin-mdn-links": "^5.0.10",
     "typescript": "^5.8.3",
-    "webpack": "^5.102.1",
+    "webpack": "^5.105.0",
     "webpack-cli": "^5.1.4",
     "yaml": "^2.8.1"
   },
