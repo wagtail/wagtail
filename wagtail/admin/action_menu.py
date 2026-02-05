@@ -286,7 +286,9 @@ class PageActionMenu:
             is_final_task = (
                 current_workflow_state and current_workflow_state.is_at_final_task
             )
-            if task:
+            if not task:
+                pass
+            else:
                 actions = task.get_actions(page, request.user)
                 workflow_menu_items = []
                 for name, label, launch_modal in actions:
