@@ -4517,19 +4517,68 @@ class TestPageWorkflowStatus(BasePageWorkflowTests):
 
         response = self.client.get(self.get_url("edit"))
         html = response.content.decode("utf-8")
+
+        self.assertContains(
+            response,
+            '<svg class="icon icon-circle-check workflow-timeline__icon" aria-hidden="true"><use href="#icon-circle-check"></use></svg>',
+            count=1,  # the "submitted" item
+            html=True,
+        )
+
         self.assertIn(
-            "In progress\n        </span>\n                        {}".format(
-                self.task_1.name
-            ),
+            f"In progress\n        </span>\n                        \n                        {self.task_1.name}",
             html,
         )
+
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-full workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-full"></use></svg>',
+            count=1,
+            html=True,
+        )
+
         self.assertIn(
-            "Not started\n        </span>\n                        {}".format(
-                self.task_2.name
-            ),
+            f"Not started\n        </span>\n                        \n                        {self.task_2.name}",
             html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-empty workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-empty"></use></svg>',
+            count=2,
+            html=True,
         )
         self.assertIn(self.get_url("history"), html)
+
+        # now approve
+        response = self.workflow_action("approve")
+        html = response.content.decode("utf-8")
+        self.assertIn(
+            f"Approved\n        </span>\n                        \n                        {self.task_1.name}",
+            html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-circle-check workflow-timeline__icon" aria-hidden="true"><use href="#icon-circle-check"></use></svg>',
+            count=2,  # the "submitted" item, and task 1
+            html=True,
+        )
+
+        self.assertIn(
+            f"In progress\n        </span>\n                        \n                        {self.task_2.name}",
+            html,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-full workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-full"></use></svg>',
+            count=1,
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<svg class="icon icon-radio-empty workflow-timeline__icon" aria-hidden="true"><use href="#icon-radio-empty"></use></svg>',
+            count=1,
+            html=True,
+        )
 
     def test_status_through_workflow_cycle(self):
         self.login(self.superuser)
