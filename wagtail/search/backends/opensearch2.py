@@ -10,6 +10,7 @@ from modelsearch.backends.opensearch2 import (
 )
 
 from wagtail.search.backends.deprecation import (
+    AsciiFoldingMixin,
     IndexOptionMixin,
     LegacyContentTypeMatchMixin,
 )
@@ -27,7 +28,9 @@ class OpenSearch2AutocompleteQueryCompiler(
     pass
 
 
-class OpenSearch2SearchBackend(IndexOptionMixin, _OpenSearch2SearchBackend):
+class OpenSearch2SearchBackend(
+    AsciiFoldingMixin, IndexOptionMixin, _OpenSearch2SearchBackend
+):
     query_compiler_class = OpenSearch2SearchQueryCompiler
     autocomplete_query_compiler_class = OpenSearch2AutocompleteQueryCompiler
 
