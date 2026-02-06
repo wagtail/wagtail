@@ -1,12 +1,12 @@
 #
 # Translators:
 # Loic Teixeira, 2024
-# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2025
-# Andrei Satsevich, 2025
+# Andrei Satsevich, 2026
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrei Satsevich, 2025\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2026\n"
 "Language-Team: Belarusian (https://app.transifex.com/torchbox/teams/8009/"
 "be/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "Дзеянні"
+
+msgid "Add"
+msgstr "дадаць"
 
 msgid "Add a comment"
 msgstr "Дадаць каментар"
@@ -42,6 +45,12 @@ msgstr "Панэль кіравання"
 msgid "Delete"
 msgstr "Выдаліць"
 
+msgid "Drag"
+msgstr "Перацягнуць"
+
+msgid "Duplicate"
+msgstr "Дублікат"
+
 msgid "Edit"
 msgstr "Рэдагаваць"
 
@@ -59,6 +68,12 @@ msgstr "Загрузка..."
 
 msgid "Missing document"
 msgstr "Дакумент адсутнічае"
+
+msgid "Move down"
+msgstr "Падвінусь уніз"
+
+msgid "Move up"
+msgstr "Падвінуць наверх"
 
 msgid "No"
 msgstr "Не"
@@ -98,6 +113,9 @@ msgstr "Усё паглядзець"
 
 msgid "Server Error"
 msgstr "Памылка Сервера"
+
+msgid "Settings"
+msgstr "Налады"
 
 msgid "Show error"
 msgstr "Паказаць памылку"

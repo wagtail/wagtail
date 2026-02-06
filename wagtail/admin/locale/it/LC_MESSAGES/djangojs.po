@@ -1,12 +1,13 @@
 #
 # Translators:
-# Alessio Di Stasio <aledista@gmail.com>, 2022
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2022
 # giammi <gian-maria.daffre@giammi.org>, 2022
 # gcm, 2022
 # Loic Teixeira, 2024
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2025
 # Stefano Marchetto <airbatum@gmail.com>, 2025
+# Edd Baldry <edd.baldry@gmail.com>, 2026
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2026
+# Alessio Di Stasio <aledista@gmail.com>, 2026
 # Marco Badan <marco.badan@gmail.com>, 2026
 #
 msgid ""
@@ -51,8 +52,17 @@ msgstr[2] "%(num)s pixel"
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
+msgid "A network error occurred."
+msgstr "Si è verificato un errore di rete."
+
+msgid "A server error occurred."
+msgstr "Si è verificato un errore del server."
+
 msgid "Actions"
 msgstr "Azioni"
+
+msgid "Add"
+msgstr "Aggiungi"
 
 msgid "Add a comment"
 msgstr "Aggiungi un commento"
@@ -63,6 +73,9 @@ msgstr "Testo alternativo"
 msgid "Are you sure?"
 msgstr "Sei sicuro/a?"
 
+msgid "Autosave in progress…"
+msgstr "Autosalvataggio in corso…"
+
 msgid "Blocks"
 msgstr "Blocchi"
 
@@ -71,6 +84,9 @@ msgstr "Link non funzionante"
 
 msgid "Cancel"
 msgstr "Annulla"
+
+msgid "Changes have been autosaved."
+msgstr "Le modifiche sono state salvate automaticamente."
 
 msgid "Character count:"
 msgstr "Conteggio caratteri:"
@@ -102,6 +118,12 @@ msgstr "Errore eliminazione"
 
 msgid "Deleting"
 msgstr "Eliminazione in corso"
+
+msgid "Drag"
+msgstr "Trascina"
+
+msgid "Duplicate"
+msgstr "Duplica"
 
 msgid "Edit"
 msgstr "Modifica"
@@ -152,6 +174,12 @@ msgstr "Documento non trovato"
 msgid "More actions"
 msgstr "Altre azioni"
 
+msgid "Move down"
+msgstr "Sposta giù"
+
+msgid "Move up"
+msgstr "Sposta su"
+
 msgid "No"
 msgstr "No"
 
@@ -201,15 +229,6 @@ msgstr "Salva"
 msgid "Save error"
 msgstr "Salva errore"
 
-msgid "Save the page to add this comment"
-msgstr "Salva la pagina per aggiungere questo commento"
-
-msgid "Save the page to save this comment"
-msgstr "Salva la pagina per salvare questo commento"
-
-msgid "Save the page to save this reply"
-msgstr "Salva la pagina per salvare questa risposta"
-
 msgid "Saving..."
 msgstr "Salvataggio in corso..."
 
@@ -224,6 +243,9 @@ msgstr "Vedi tutto"
 
 msgid "Server Error"
 msgstr "Errore del server"
+
+msgid "Settings"
+msgstr "Impostazioni"
 
 msgid "Show error"
 msgstr "Mostra errore"

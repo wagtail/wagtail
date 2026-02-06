@@ -1,16 +1,16 @@
 #
 # Translators:
-# nahuel, 2022
 # Benoît Vogel <contact@spicy-informatique.com>, 2022
 # incognitae <pierre@onoffdesign.com>, 2022
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
-# Loic Teixeira, 2025
-# Sébastien Corbin <seb.corbin@gmail.com>, 2025
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2026
+# Loic Teixeira, 2026
+# nahuel, 2026
+# Sébastien Corbin <seb.corbin@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2025\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2026\n"
 "Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -50,8 +50,17 @@ msgstr[2] "%(num)s pixels"
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr "%(time_zone_option)s : %(localized_time_zone_label)s"
 
+msgid "A network error occurred."
+msgstr "Une erreur réseau est survenue."
+
+msgid "A server error occurred."
+msgstr "Une erreur serveur est survenue."
+
 msgid "Actions"
 msgstr "Actions"
+
+msgid "Add"
+msgstr "Ajouter"
 
 msgid "Add a comment"
 msgstr "Ajouter un commentaire"
@@ -62,6 +71,9 @@ msgstr "Texte alternatif"
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr(e) ?"
 
+msgid "Autosave in progress…"
+msgstr "Enregistrement automatique en cours..."
+
 msgid "Blocks"
 msgstr "Blocs"
 
@@ -70,6 +82,9 @@ msgstr "Lien mort"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "Changes have been autosaved."
+msgstr "Les modifications ont été enregistrées automatiquement."
 
 msgid "Character count:"
 msgstr "Nombre de caractères  :"
@@ -101,6 +116,12 @@ msgstr "Supprimer l'erreur"
 
 msgid "Deleting"
 msgstr "Suppression…"
+
+msgid "Drag"
+msgstr "Glisser"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
 
 msgid "Edit"
 msgstr "Modifier"
@@ -152,6 +173,12 @@ msgstr "Document manquant"
 msgid "More actions"
 msgstr "Plus d'actions"
 
+msgid "Move down"
+msgstr "Descendre"
+
+msgid "Move up"
+msgstr "Monter"
+
 msgid "No"
 msgstr "Non"
 
@@ -200,15 +227,6 @@ msgstr "Enregistrer"
 msgid "Save error"
 msgstr "Enregistrer l'erreur"
 
-msgid "Save the page to add this comment"
-msgstr "Enregistrer la page pour ajouter ce commentaire"
-
-msgid "Save the page to save this comment"
-msgstr "Enregistrer la page pour enregistrer ce commentaire"
-
-msgid "Save the page to save this reply"
-msgstr "Enregistrer la page pour enregistrer ce commentaire"
-
 msgid "Saving..."
 msgstr "Enregistrement…"
 
@@ -223,6 +241,9 @@ msgstr "Tout voir"
 
 msgid "Server Error"
 msgstr "Erreur de serveur"
+
+msgid "Settings"
+msgstr "Paramètres"
 
 msgid "Show error"
 msgstr "Afficher l’erreur"

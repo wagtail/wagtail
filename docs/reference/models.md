@@ -33,7 +33,7 @@ This document contains reference information for the model classes inside the `w
 
         This is used for constructing the page's URL.
 
-        For example: ``http://domain.com/blog/[my-slug]/``
+        For example: ``https://domain.com/blog/[my-slug]/``
 
     .. attribute:: content_type
 

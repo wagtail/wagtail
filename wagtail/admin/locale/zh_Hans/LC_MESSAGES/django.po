@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -1479,12 +1479,6 @@ msgstr "首次发布的"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "你有<span>未保存的编辑</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "你有<span>未保存的评论</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "你有<span>未保存的编辑</span>和<span>评论</span>"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"

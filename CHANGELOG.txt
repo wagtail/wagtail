@@ -5,16 +5,20 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~~
 
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
+ * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
+ * Docs: Replace `http` with `https` in example URLs (Kunal Gupta)
+ * Docs: Use `pathlib.Path` for settings in "Integrating into Django" documentation (Kunal Gupta)
+ * Docs: Clarify example of how to implement custom embed finders (Naman Sharma S)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
  * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
 
 
-7.3 (xx.xx.xxxx) - IN DEVELOPMENT
+7.3 (03.02.2026)
 ~~~~~~~~~~~~~~~~
 
  * Add support for Django 6.0
@@ -44,6 +48,7 @@ Changelog
  * Fix: Ensure that reference index records are deleted when the target object is deleted (bettercallok)
  * Fix: Ensure filters are applied to export button URLs in custom page listings (Ritik Arya, Sage Abdullah)
  * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
@@ -83,10 +88,11 @@ Changelog
  * Maintenance: Switch userbar items to the template components API (Thibaud Colas)
 
 
-7.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.2.2 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 
 7.2.1 (26.11.2025)
@@ -158,12 +164,13 @@ Changelog
  * Maintenance: Fix linting issues B009, B010, B033 (minusf)
 
 
-7.1.3 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1.3 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
  * Fix: Disable usage count ordering when searching on documents and images listing views, to prevent unsupported search query (Sage Abdullah)
  * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 
 7.1.2 (23.10.2025)
@@ -291,10 +298,11 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
-7.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0.4 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 7.0.3 (28.08.2025)
 ~~~~~~~~~~~~~~~~~~
@@ -567,10 +575,11 @@ Changelog
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
 
 
-6.3.6 (xx.xx.xxxx) - IN DEVELOPMENT
+6.3.6 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 
 6.3.5 (12.06.2025)

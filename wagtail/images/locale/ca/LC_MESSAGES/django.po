@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2025
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2025\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2026\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -574,6 +574,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "Generar URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr "Les opcions de filtre que heu seleccionat no són vàlides."
 
 msgid "Delete image"
 msgstr "Esborra imatge"

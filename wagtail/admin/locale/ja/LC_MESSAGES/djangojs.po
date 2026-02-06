@@ -3,17 +3,19 @@
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2022
 # 溝江 智徳 <tomo.mizoe@gmail.com>, 2022
 # Daigo Shitara <stain.witness@gmail.com>, 2022
-# Tri Minh <minh.nguyentri.95@gmail.com>, 2022
 # shuhei hirota, 2022
 # kojikojikojikoji, 2022
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022
 # Loic Teixeira, 2024
 # Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2025
-# 小口英昭 <oguchi@bluff-lab.com>, 2025
+# Tri Minh <minh.nguyentri.95@gmail.com>, 2026
+# 小口英昭 <oguchi@bluff-lab.com>, 2026
+# Goto Hayato <habita.gh@gmail.com>, 2026
+# 石田秀 <ishidashu@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2025\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2026\n"
 "Language-Team: Japanese (https://app.transifex.com/torchbox/teams/8009/ja/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ja\n"
@@ -21,6 +23,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "操作"
+
+msgid "Add"
+msgstr "追加"
 
 msgid "Add a comment"
 msgstr "コメントを追加"
@@ -55,6 +60,12 @@ msgstr "削除"
 msgid "Delete error"
 msgstr "削除エラー"
 
+msgid "Drag"
+msgstr "ドラッグ"
+
+msgid "Duplicate"
+msgstr "複製"
+
 msgid "Edit"
 msgstr "編集"
 
@@ -78,6 +89,12 @@ msgstr "失われたドキュメント"
 
 msgid "More actions"
 msgstr "他のアクション"
+
+msgid "Move down"
+msgstr "下に移動"
+
+msgid "Move up"
+msgstr "上に移動"
 
 msgid "No results"
 msgstr "結果なし"
@@ -126,6 +143,9 @@ msgstr "全部表示"
 
 msgid "Server Error"
 msgstr "サーバーエラー"
+
+msgid "Settings"
+msgstr "設定"
 
 msgid "Show error"
 msgstr "エラーを表示します"
