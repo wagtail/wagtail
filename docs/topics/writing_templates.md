@@ -195,7 +195,7 @@ For sites enforcing a Content Security Policy, you can override the `wagtailembe
 
 ### `pageurl`
 
-Takes a Page object and returns a relative URL (`/foo/bar/`) if within the same Site as the current page, or absolute (`http://example.com/foo/bar/`) if not.
+Takes a Page object and returns a relative URL (`/foo/bar/`) if within the same Site as the current page, or absolute (`https://example.com/foo/bar/`) if not.
 
 ```html+django
 {% load wagtailcore_tags %}
@@ -221,7 +221,7 @@ A `fallback` keyword argument can be provided - this can be a URL string, a name
 
 ### `fullpageurl`
 
-Takes a Page object and returns its absolute URL (`http://example.com/foo/bar/`).
+Takes a Page object and returns its absolute URL (`https://example.com/foo/bar/`).
 
 ```html+django
 {% load wagtailcore_tags %}

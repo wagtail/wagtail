@@ -2,12 +2,12 @@
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
 # Loic Teixeira, 2024
-# Mitja Pagon <mitja.pagon@inueni.com>, 2025
-# Andrej Marsetič, 2025
+# Andrej Marsetič, 2026
+# Mitja Pagon <mitja.pagon@inueni.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrej Marsetič, 2025\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2026\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,6 +47,9 @@ msgstr[3] "%(num)s pikslov"
 
 msgid "Actions"
 msgstr "Dejanja"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add a comment"
 msgstr "Dodaj komentar"
@@ -93,6 +96,12 @@ msgstr "Pobriši napako"
 msgid "Deleting"
 msgstr "Brišem"
 
+msgid "Drag"
+msgstr "Povleci"
+
+msgid "Duplicate"
+msgstr "Podvoji"
+
 msgid "Edit"
 msgstr "Uredi"
 
@@ -134,6 +143,12 @@ msgstr "Manjkajoči dokument"
 
 msgid "More actions"
 msgstr "Več dejanj"
+
+msgid "Move down"
+msgstr "Premakni navzdol"
+
+msgid "Move up"
+msgstr "Premakni navzgor"
 
 msgid "No"
 msgstr "Ne"
@@ -183,15 +198,6 @@ msgstr "Shrani"
 msgid "Save error"
 msgstr "Shrani napako"
 
-msgid "Save the page to add this comment"
-msgstr "Shranite stran, da dodate ta komentar"
-
-msgid "Save the page to save this comment"
-msgstr "Shranite stran, da shranite ta komentar"
-
-msgid "Save the page to save this reply"
-msgstr "Shranite stran, da shranite ta odgovor"
-
 msgid "Saving..."
 msgstr "Shranjevanje..."
 
@@ -206,6 +212,9 @@ msgstr "Poglej vse"
 
 msgid "Server Error"
 msgstr "Napaka na strežniku"
+
+msgid "Settings"
+msgstr "Nastavitve"
 
 msgid "Show error"
 msgstr "Pokaži napako"

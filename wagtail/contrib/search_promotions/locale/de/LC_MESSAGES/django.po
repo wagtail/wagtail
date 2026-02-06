@@ -12,7 +12,7 @@
 # Oliver Engel <codeangel@posteo.de>, 2021
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2023-2025
+# Stefan Hammer <stefan@hammerworxx.com>, 2023-2026
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023-2025\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023-2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -203,9 +203,15 @@ msgstr "Hervorgehobenes Suchergebnis"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Redaktionsempfehlungen für ‚%(query)s‘ erstellt."
 
+msgid "Recommendations have not been created due to errors."
+msgstr "Empfehlungen konnten wegen eines Fehlers nicht erstellt werden."
+
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Redaktionsempfehlungen für ‚%(query)s‘ aktualisiert."
+
+msgid "Recommendations have not been saved due to errors."
+msgstr "Empfehlungen wurden wegen eines Fehlers nicht gespeichert."
 
 msgid "Editor's picks deleted."
 msgstr "Redaktionsempfehlungen gelöscht."

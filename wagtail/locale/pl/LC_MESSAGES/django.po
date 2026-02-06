@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -46,24 +46,6 @@ msgstr "Minimalna ilość elementów to %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maksymalna ilość elementów to %(max_num)d"
 
-msgid "Move up"
-msgstr "Przesuń w górę"
-
-msgid "Move down"
-msgstr "Przesuń w dół"
-
-msgid "Drag"
-msgstr "Przeciągnij"
-
-msgid "Duplicate"
-msgstr "Duplikuj"
-
-msgid "Delete"
-msgstr "Usuń"
-
-msgid "Add"
-msgstr "Dodaj"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: ten blok nie ma opcji."
@@ -73,6 +55,9 @@ msgstr "Ten block nie posiada opcji."
 
 msgid "This field is required."
 msgstr "To pole jest wymagane."
+
+msgid "Group"
+msgstr "Grupa"
 
 msgid "Wagtail frontend cache"
 msgstr "Cache frontend Wagtail"
@@ -282,6 +267,9 @@ msgstr "dla typu treści"
 
 msgid "uploaded by user"
 msgstr "wgrane przez użytkownika"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/edytuj swoje strony"
@@ -709,6 +697,9 @@ msgstr "Utworzone"
 
 msgid "Edited"
 msgstr "Edytowane"
+
+msgid "Delete"
+msgstr "Usuń"
 
 msgid "Deleted"
 msgstr "Usunięte"

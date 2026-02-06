@@ -1,15 +1,22 @@
 #
 # Translators:
 # Jaco du Plessis <jaco@jacoduplessis.co.za>, 2022
+# JaredOzzy <jaredozzy@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Jaco du Plessis <jaco@jacoduplessis.co.za>, 2022\n"
+"Last-Translator: JaredOzzy <jaredozzy@gmail.com>, 2026\n"
 "Language-Team: Afrikaans (https://app.transifex.com/torchbox/teams/8009/"
 "af/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: af\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Move down"
+msgstr "Skyf af"
+
+msgid "Move up"
+msgstr "Skyf op"
 
 msgid "Save"
 msgstr "Stoor"

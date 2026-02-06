@@ -304,7 +304,7 @@ This would add the following to the JSON:
         "id": 45529,
         "meta": {
             "type": "wagtailimages.Image",
-            "detail_url": "http://www.example.com/api/v2/images/12/",
+            "detail_url": "https://www.example.com/api/v2/images/12/",
             "download_url": "/media/images/a_test_image.jpg",
             "tags": []
         },
@@ -314,7 +314,7 @@ This would add the following to the JSON:
     },
     "feed_image_thumbnail": {
         "url": "/media/images/a_test_image.fill-100x100.jpg",
-        "full_url": "http://www.example.com/media/images/a_test_image.fill-100x100.jpg",
+        "full_url": "https://www.example.com/media/images/a_test_image.fill-100x100.jpg",
         "width": 100,
         "height": 100,
         "alt": "image alt text"
@@ -336,7 +336,7 @@ The `filter_spec` parameter in `ImageRenditionField` determines how the image wi
 Common examples include:
 
 ```python
-# Square crop and fill  
+# Square crop and fill
 APIField('thumbnail', serializer=ImageRenditionField('fill-300x300', source='image'))
 
 # Maintain aspect ratio with maximum dimensions

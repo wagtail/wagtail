@@ -29,12 +29,12 @@ INSTALLED_APPS = [
 To use `RoutablePageMixin`, you need to make your class inherit from both {class}`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page`, then define some view methods and decorate them with `path` or `re_path`.
 
 These view methods behave like ordinary Django view functions, and must return an `HttpResponse` object.
-You may use the `RoutablePageMixing.render` method to override the context and template that the default page rendering would use.  
+You may use the `RoutablePageMixing.render` method to override the context and template that the default page rendering would use.
 If you want to create a more custom response, you may want to use `django.shortcuts.render`.
 
 The `path` and `re_path` decorators from `wagtail.contrib.routable_page.models.path` are similar to [the Django `django.urls` `path` and `re_path` functions](inv:django#topics/http/urls). The former allows the use of plain paths and converters while the latter lets you specify your URL patterns as regular expressions.
 
-```{warning} 
+```{warning}
 Punctuation is currently [not supported](https://github.com/wagtail/wagtail/issues/3653) in `path` or `re_path` patterns.
 ```
 
@@ -150,7 +150,7 @@ This method only returns the part of the URL within the page. To get the full UR
 '/events/year/2015/'
 
 >>> event_page.full_url + event_page.reverse_subpage('events_for_year', args=(2015, ))
-'http://example.com/events/year/2015/'
+'https://example.com/events/year/2015/'
 ```
 
 ### Changing route names

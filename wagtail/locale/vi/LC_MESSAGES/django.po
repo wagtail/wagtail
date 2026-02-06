@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vu Pham, 2021\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
@@ -24,12 +24,6 @@ msgstr ""
 
 msgid "Add Comment"
 msgstr "Thêm Bình luận"
-
-msgid "Delete"
-msgstr "Xoá"
-
-msgid "Add"
-msgstr "Thêm"
 
 msgid "Password"
 msgstr "Mật khẩu"
@@ -57,6 +51,9 @@ msgstr "tên"
 
 msgid "uploaded by user"
 msgstr "Được tải lên bởi người dùng"
+
+msgid "Add"
+msgstr "Thêm"
 
 msgid "Edit"
 msgstr "Biên tập"
@@ -111,6 +108,9 @@ msgstr "Phê chuẩn"
 
 msgid "Approve with comment"
 msgstr "Phê chuẩn với bình luận"
+
+msgid "Delete"
+msgstr "Xoá"
 
 msgid "Deleted"
 msgstr "Đã xóa"

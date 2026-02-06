@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -40,24 +40,6 @@ msgstr "Det minsta antalet block är %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Det maximala antalet block är %(max_num)d"
 
-msgid "Move up"
-msgstr "Flytta upp"
-
-msgid "Move down"
-msgstr "Flytta ner"
-
-msgid "Drag"
-msgstr "Dra"
-
-msgid "Duplicate"
-msgstr "Duplicera"
-
-msgid "Delete"
-msgstr "Radera"
-
-msgid "Add"
-msgstr "Lägg till"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: det här blocket har inga inställningar."
@@ -67,6 +49,9 @@ msgstr "Detta block har inga inställningar."
 
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt."
+
+msgid "Group"
+msgstr "Grupp"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail frontend cache"
@@ -287,6 +272,9 @@ msgstr "för innehållstyp"
 
 msgid "uploaded by user"
 msgstr "uppladdad av användare"
+
+msgid "Add"
+msgstr "Lägg till"
 
 msgid "Add/edit pages you own"
 msgstr "Skapa/redigera sidor du äger"
@@ -726,6 +714,9 @@ msgstr "Skapad"
 
 msgid "Edited"
 msgstr "Redigerad"
+
+msgid "Delete"
+msgstr "Radera"
 
 msgid "Deleted"
 msgstr "Raderad"
