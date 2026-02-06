@@ -45,8 +45,11 @@ export class TooltipController extends Controller<HTMLElement> {
 
   static targets = ['content'];
 
+  /** The content to display in the tooltip. */
   declare contentValue: string;
+  /** The [x, y] offset for the tooltip. */
   declare offsetValue: [number, number];
+  /** The placement of the tooltip (e.g. 'top', 'bottom', 'left', 'right'). */
   declare placementValue: Placement;
   declare contentTarget: HTMLElement;
 

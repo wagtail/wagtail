@@ -7,6 +7,7 @@ const DEFAULT_CLASS = 'button-longrunning';
  * until the duration has elapsed. Will also update the button's label while in progress.
  *
  * @example
+ * @example
  * ```html
  * <button
  *   type="submit"
@@ -14,7 +15,7 @@ const DEFAULT_CLASS = 'button-longrunning';
  *   data-controller="w-progress"
  *   data-w-progress-active-class="button-longrunning-active"
  *   data-w-progress-active-value="{% trans 'Signing in…' %}"
- *   data-w-progress-duration-seconds-value="40"
+ *   data-w-progress-duration-value="5000"
  *   data-action="w-progress#activate"
  * >
  *   {% icon name="spinner" %}
@@ -32,12 +33,15 @@ export class ProgressController extends Controller<HTMLButtonElement> {
     loading: { default: false, type: Boolean },
   };
 
+  /** Class to apply when active/loading. */
   declare activeClass: string;
-  /** Label to use when loading */
+  /** Label text to show when loading. */
   declare activeValue: string;
+  /** Duration in milliseconds before resetting the state. Default 30000ms. */
   declare durationValue: number;
   /** Label to store the original text on the button */
   declare labelValue: string;
+  /** Whether the button is currently in the loading state. */
   declare loadingValue: boolean;
   declare readonly hasActiveClass: boolean;
   declare readonly hasLabelTarget: boolean;

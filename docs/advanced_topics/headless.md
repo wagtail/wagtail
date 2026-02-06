@@ -115,7 +115,7 @@ urlpatterns = [
 
 Then, the frontend can load the user bar by making a request to the `/userbar/` endpoint and render the response in the appropriate place in the DOM. The following example is a React component in a Next.js app that loads the user bar:
 
-```tsx
+```jsx
 'use client';
 
 import Script from 'next/script';
