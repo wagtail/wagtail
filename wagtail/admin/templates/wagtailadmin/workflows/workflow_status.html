@@ -29,12 +29,28 @@
                             </div>
                         </div>
                     {% else %}
-                        {% if status == "in_progress" %}{% icon name="radio-full" classname="workflow-timeline__icon" title=status_display %}{% else %}{% icon name="radio-empty" classname="workflow-timeline__icon" title=status_display %}{% endif %}
+                        {% if status == "in_progress" %}
+                            {% icon name="radio-full" classname="workflow-timeline__icon" title=status_display %}
+                        {% elif status == "approved" %}
+                            {% icon name="circle-check" classname="workflow-timeline__icon" title=status_display %}
+                        {% elif status == "rejected" %}
+                            {% icon name="circle-xmark" classname="workflow-timeline__icon" title=status_display %}
+                        {% elif status == "cancelled" %}
+                            {% icon name="error" classname="workflow-timeline__icon" title=status_display %}
+                        {% else %}
+                            {% icon name="radio-empty" classname="workflow-timeline__icon" title=status_display %}
+                        {% endif %}
                         {{ task.name }}
                         {% if task.task_state.finished_by %}
-                            {% blocktrans trimmed with approved_by=task.task_state.finished_by|user_display_name %}
-                                Approved by {{ approved_by }}
-                            {% endblocktrans %}
+                            {% if status == "cancelled" %}
+                                {% blocktrans trimmed with cancelled_by=task.task_state.finished_by|user_display_name %}
+                                    Cancelled by {{ cancelled_by }}
+                                {% endblocktrans %}
+                            {% else %}
+                                {% blocktrans trimmed with approved_by=task.task_state.finished_by|user_display_name %}
+                                    Approved by {{ approved_by }}
+                                {% endblocktrans %}
+                            {% endif %}
                         {% endif %}
                     {% endif %}
 
@@ -79,5 +95,4 @@
             {% endwith %}
         </div>
     {% endwith %}
-
 </div>
