@@ -915,6 +915,28 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:history", args=(page.id,)),
         )
 
+    def test_alias_page_shows_indicator(self):
+        """Test that alias pages display the alias indicator"""
+        # Create a source page
+        source_page = SimplePage(
+            title="Source Page",
+            slug="source-page",
+            content="Source content",
+        )
+        self.root_page.add_child(instance=source_page)
+
+        # Create an alias of the source page
+        source_page.create_alias(update_slug="alias-page")
+
+        # Get explorer view
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+
+        # Check that alias indicator appears for alias page
+        self.assertContains(response, "Alias of Source Page")
+        self.assertContains(response, "Alias page")  # sr-only text
+
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]

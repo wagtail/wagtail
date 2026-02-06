@@ -1,0 +1,17 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    Expects a variable 'page', a page object.
+    Tests whether that page is an alias, and if so, outputs an 'alias' indicator.
+{% endcomment %}
+
+{% if page.alias_of %}
+    <span
+        class="indicator"
+        title="{% blocktranslate with title=page.alias_of.get_admin_display_title %}Alias of {{ title }}{% endblocktranslate %}"
+    >
+        {% icon name="link" classname="initial" %}
+        <span class="w-sr-only">{% trans "Alias page" %}</span>
+    </span>
+{% endif %}
