@@ -15,6 +15,8 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
+from wagtail.blocks.base import Block
+
 
 from .base import (
     Block,
@@ -117,16 +119,27 @@ class BaseStreamBlock(Block):
         )
 
     def value_from_datadict(self, data, files, prefix):
-        count = int(data["%s-count" % prefix])
+        count_key = "%s-count" % prefix
+        count = int(data.get(count_key, 0))
         values_with_indexes = []
         for i in range(0, count):
             if data["%s-%d-deleted" % (prefix, i)]:
                 continue
             block_type_name = data["%s-%d-type" % (prefix, i)]
+            if not block_type_name:
+                continue
+
             try:
                 child_block = self.child_blocks[block_type_name]
             except KeyError:
                 continue
+
+            value_prefix = "%s-%d-value" % (prefix, i)
+
+            if value_prefix + "-count" not in data:
+                value = None  
+            else:
+                value = child_block.value_from_datadict(data, files, value_prefix)
 
             values_with_indexes.append(
                 (
@@ -160,20 +173,50 @@ class BaseStreamBlock(Block):
     def required(self):
         return self.meta.required
 
-    def clean(self, value, ignore_required_constraints=False):
-        required = self.required and not ignore_required_constraints
+    def clean(self, value, ignore_required_constraints=False, *, for_draft=False):
+        effective_ignore_required = (
+            ignore_required_constraints
+            or for_draft
+        )
+
         cleaned_data = []
         errors = {}
         non_block_errors = ErrorList()
-        for i, child in enumerate(value):  # child is a StreamChild instance
+
+        # Clean child blocks
+        for i, child in enumerate(value):
             try:
+                if (
+                    hasattr(child.block, "clean")
+                    and "ignore_required_constraints" in child.block.clean.__code__.co_varnames
+                ):
+                    cleaned_value = child.block.clean(
+                        child.value,
+                        ignore_required_constraints=effective_ignore_required,
+                        for_draft=for_draft,
+                    )
+                else:
+                    cleaned_value = child.block.clean(
+                        child.value,
+                        for_draft=for_draft,
+                    )
+
                 cleaned_data.append(
-                    (child.block.name, child.block.clean(child.value), child.id)
+                    (
+                        child.block.name,
+                        cleaned_value,
+                        child.id,
+                    )
                 )
             except ValidationError as e:
-                errors[i] = e
+                # In draft mode, swallow errors and keep original value
+                if for_draft:
+                    cleaned_data.append((child.block.name, child.value, child.id))
+                else:
+                    errors[i] = e
 
-        if required:
+        # Stream-level MINIMUM validation (skip in draft mode)
+        if not effective_ignore_required:
             if self.meta.min_num is not None and self.meta.min_num > len(value):
                 non_block_errors.append(
                     ValidationError(
@@ -181,9 +224,10 @@ class BaseStreamBlock(Block):
                         % {"min_num": self.meta.min_num}
                     )
                 )
-            elif len(value) == 0:
+            elif self.required and len(value) == 0:
                 non_block_errors.append(ValidationError(_("This field is required.")))
 
+        # Stream-level MAXIMUM validation (ALWAYS enforced, even in drafts)
         if self.meta.max_num is not None and self.meta.max_num < len(value):
             non_block_errors.append(
                 ValidationError(
@@ -192,6 +236,7 @@ class BaseStreamBlock(Block):
                 )
             )
 
+        # Block counts validation
         if self.meta.block_counts:
             block_counts = defaultdict(int)
             for item in value:
@@ -199,10 +244,12 @@ class BaseStreamBlock(Block):
 
             for block_name, min_max in self.meta.block_counts.items():
                 block = self.child_blocks[block_name]
-                max_num = min_max.get("max_num", None)
-                min_num = min_max.get("min_num", None)
+                min_num = min_max.get("min_num")
+                max_num = min_max.get("max_num")
                 block_count = block_counts[block_name]
-                if required and min_num is not None and min_num > block_count:
+
+                # MINIMUM validation (skip in draft mode)
+                if not effective_ignore_required and min_num is not None and min_num > block_count:
                     non_block_errors.append(
                         ValidationError(
                             "{}: {}".format(
@@ -212,6 +259,8 @@ class BaseStreamBlock(Block):
                             )
                         )
                     )
+
+                # MAXIMUM validation (ALWAYS enforced, even in draft mode)
                 if max_num is not None and max_num < block_count:
                     non_block_errors.append(
                         ValidationError(
@@ -223,11 +272,11 @@ class BaseStreamBlock(Block):
                         )
                     )
 
-        if errors or non_block_errors:
-            # The message here is arbitrary - outputting error messages is delegated to the child blocks,
-            # which only involves the 'params' list
+        # Raise errors if we have any (but only raise child block errors if not in draft mode)
+        if non_block_errors or (errors and not for_draft):
             raise StreamBlockValidationError(
-                block_errors=errors, non_block_errors=non_block_errors
+                block_errors=errors if not for_draft else {},
+                non_block_errors=non_block_errors,
             )
 
         return StreamValue(self, cleaned_data)
