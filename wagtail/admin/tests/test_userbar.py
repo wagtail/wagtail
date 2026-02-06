@@ -386,11 +386,29 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                         ".sr-only",
                         # Should include the default exclude selectors
                         {"fromShadowDom": ["wagtail-userbar"]},
+                        ".responsive-object iframe",
                         # Override via method
                         "[data-please-ignore]",
                     ],
                 },
             )
+
+    def test_default_excludes_embed_iframes(self):
+        """
+        Test that embed iframes are excluded by default to prevent
+        cross-origin security errors that break Axe.
+        Regression test for https://github.com/wagtail/wagtail/issues/11801
+        """
+        config = self.get_config()
+        self.assertEqual(
+            config["context"]["exclude"],
+            [
+                # Default exclude for the userbar
+                {"fromShadowDom": ["wagtail-userbar"]},
+                # Default exclude for embed iframes (fix for #11801)
+                ".responsive-object iframe",
+            ],
+        )
 
     def test_custom_run_only_and_rules_per_request(self):
         class CustomRunOnlyAccessibilityItem(AccessibilityItem):
