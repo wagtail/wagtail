@@ -731,6 +731,24 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         self.assertEqual(len(content["items"]), get_total_page_count())
 
 
+
+    def test_include_root(self):
+        response = self.get_response(include_root="true")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertIn(1, page_id_list)
+        self.assertEqual(content["meta"]["total_count"], get_total_page_count() + 1)
+
+    def test_include_root_false(self):
+        response = self.get_response(include_root="false")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertNotIn(1, page_id_list)
+        self.assertEqual(content["meta"]["total_count"], get_total_page_count())
+
+
 class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
     fixtures = ["demosite.json"]
 
