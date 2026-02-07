@@ -6,6 +6,7 @@ Changelog
 
  * Add `is_deferred_validation` flag to support skipping custom validation when saving drafts (Daniel Kirkham)
  * Update project template Dockerfile to build dependencies in a separate stage (Brylie Oxley, Akshat Gupta)
+ * Add `include_root` parameter to admin pages API endpoint (Divyansh Mishra)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)

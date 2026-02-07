@@ -948,6 +948,7 @@
 * Pratham Jaiswal
 * Kunal Hemnani
 * Akshat Gupta
+* Divyansh Mishra
 
 ## Translators
 
