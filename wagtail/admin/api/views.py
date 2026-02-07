@@ -69,7 +69,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     detail_only_fields = []
 
     known_query_parameters = PagesAPIViewSet.known_query_parameters.union(
-        ["for_explorer", "has_children"]
+        ["for_explorer", "has_children", "include_root"]
     )
 
     @classmethod
@@ -100,9 +100,10 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        # Hide root page
-        # TODO: Add "include_root" flag
-        queryset = queryset.exclude(depth=1).defer_streamfields().specific()
+        if self.request.GET.get("include_root") != "true":
+            queryset = queryset.exclude(depth=1)
+
+        queryset = queryset.defer_streamfields().specific()
 
         return queryset
 
