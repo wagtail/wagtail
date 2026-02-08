@@ -1,13 +1,11 @@
 from io import BytesIO
 from unittest import skipIf
 
-
 from django.conf import settings
 from django.contrib.auth.models import Permission
-from django.test import TestCase, override_settings
 from django.db import connection
+from django.test import TestCase, override_settings
 from django.urls import reverse
-
 from openpyxl.reader.excel import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
