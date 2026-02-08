@@ -86,9 +86,9 @@ def purge_revisions(days=None, pages=True, non_pages=True):
     for model in apps.get_models():
         if not model._meta.abstract and hasattr(model, "live_revision_id"):
             purgeable_revisions = purgeable_revisions.exclude(
-                id__in=model.objects.filter(
-                    live_revision_id__isnull=False
-                ).values("live_revision_id")
+                id__in=model.objects.filter(live_revision_id__isnull=False).values(
+                    "live_revision_id"
+                )
             )
 
     deleted_revisions_count = 0
