@@ -1,0 +1,34 @@
+{% extends 'wagtailadmin/reports/base_page_report_results.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block results %}
+    <table class="listing">
+        <thead>
+            <tr>
+                <th>{% trans "Page" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Scheduled by" %}</th>
+                <th>{% trans "Scheduled for" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for page in object_list %}
+                <tr>
+                    <td class="title">
+                        <a href="{% url 'wagtailadmin_pages:edit' page.id %}">
+                            {{ page.get_admin_display_title }}
+                        </a>
+                    </td>
+                    <td>{{ page.content_type.model_class.get_verbose_name }}</td>
+                    <td>{{ page.get_latest_revision.user }}</td>
+                    <td>{{ page.get_latest_revision.approved_go_live_at|default:page.expire_at }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+{% block no_results_message %}
+    <p>{% trans "No scheduled page found." %}</p>
+{% endblock %}
