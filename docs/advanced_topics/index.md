@@ -25,6 +25,7 @@ multi_site_multi_instance_multi_tenancy
 formbuilder_routablepage_redirect
 streamfield_migrations
 streamfield_validation
+programmatic_page_creation
 reference_index
 headless
 ```
