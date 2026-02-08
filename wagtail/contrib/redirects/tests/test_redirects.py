@@ -691,9 +691,7 @@ class TestCaseInsensitiveRedirects(TestCase):
 
     def test_case_insensitive_redirect_to_page(self):
         """Different case variations all match the same redirect."""
-        redirect = models.Redirect(
-            old_path="/CaseMixed", redirect_link="/target-page/"
-        )
+        redirect = models.Redirect(old_path="/CaseMixed", redirect_link="/target-page/")
         redirect.save()
 
         test_cases = ["/casemixed", "/CASEMIXED", "/CaseMixed", "/CaSeMiXeD"]
@@ -754,9 +752,7 @@ class TestCaseSensitiveRedirects(TestCase):
 
     def test_case_sensitive_with_special_characters(self):
         """Special characters don't affect case sensitivity."""
-        redirect = models.Redirect(
-            old_path="/Test-Page_123", redirect_link="/target"
-        )
+        redirect = models.Redirect(old_path="/Test-Page_123", redirect_link="/target")
         redirect.save()
 
         response = self.client.get("/Test-Page_123/")
@@ -766,10 +762,7 @@ class TestCaseSensitiveRedirects(TestCase):
         response = self.client.get("/test-page_123/")
         self.assertEqual(response.status_code, 404)
 
-    @skipIf(
-        connection.vendor == "sqlite",
-        "SQLite uses case-insensitive collation"
-    )
+    @skipIf(connection.vendor == "sqlite", "SQLite uses case-insensitive collation")
     def test_case_sensitive_matching(self):
         """Case-sensitive matching works correctly on databases that support it."""
         redirect = models.Redirect(old_path="/CaseSensitive", redirect_link="/target")
