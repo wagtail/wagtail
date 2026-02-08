@@ -912,6 +912,24 @@ Default is an empty list, there must be a list of languages to also purge the ur
 
 ## Redirects
 
+### `WAGTAIL_REDIRECTS_CASE_INSENSITIVE`
+
+(boolean, default `False`)
+
+When set to `True`, redirect matching becomes case-insensitive. This means a redirect created for `/ActionPlanOnBullying` will also match requests to `/actionplanonbullying`, `/ACTIONPLANONBULLYING`, or any other case variation.
+
+```python
+WAGTAIL_REDIRECTS_CASE_INSENSITIVE = True
+```
+
+This is particularly useful for large sites where users might type URLs with different capitalization, avoiding the need to create multiple redirect entries for the same path. For example, government websites with many campaign pages can create a single redirect that handles all case variations.
+
+When `False` (the default), redirects use exact case matching, maintaining backward compatibility with existing behavior.
+
+```{note}
+Case-insensitive matching applies to the entire path, including query strings. For example, `/Test?foo=Bar` will match `/test?foo=bar` when this setting is enabled.
+```
+
 ### `WAGTAIL_REDIRECTS_FILE_STORAGE`
 
 ```python

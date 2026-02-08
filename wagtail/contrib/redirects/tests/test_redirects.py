@@ -1,7 +1,9 @@
 from io import BytesIO
+from unittest import skipIf
 
 from django.conf import settings
 from django.contrib.auth.models import Permission
+from django.db import connection
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from openpyxl.reader.excel import load_workbook
@@ -643,6 +645,137 @@ class TestRedirects(TestCase):
 
         # should default is_permanent to True
         self.assertIs(redirect.is_permanent, True)
+
+
+@override_settings(WAGTAIL_REDIRECTS_CASE_INSENSITIVE=True)
+class TestCaseInsensitiveRedirects(TestCase):
+    fixtures = ["test.json"]
+
+    def test_case_insensitive_redirect_matching(self):
+        """Redirects match regardless of case when setting is enabled."""
+        redirect = models.Redirect(
+            old_path="/ActionPlanOnBullying", redirect_link="/new-page"
+        )
+        redirect.save()
+
+        # Try different capitalizations - all should redirect
+        test_cases = [
+            "/ActionPlanOnBullying",
+            "/actionplanonbullying",
+            "/ACTIONPLANONBULLYING",
+            "/ActionPlanOnBullying/",
+            "/AcTiOnPlAnOnBuLlYiNg",
+        ]
+
+        for test_path in test_cases:
+            with self.subTest(path=test_path):
+                response = self.client.get(test_path)
+                self.assertRedirects(
+                    response,
+                    "/new-page",
+                    status_code=301,
+                    fetch_redirect_response=False,
+                )
+
+    def test_case_insensitive_with_query_string(self):
+        """Query strings work with case-insensitive matching."""
+        redirect = models.Redirect(
+            old_path="/TestPage?foo=bar", redirect_link="/target"
+        )
+        redirect.save()
+
+        response = self.client.get("/testpage/?foo=bar")
+        self.assertRedirects(
+            response, "/target", status_code=301, fetch_redirect_response=False
+        )
+
+    def test_case_insensitive_redirect_to_page(self):
+        """Different case variations all match the same redirect."""
+        redirect = models.Redirect(old_path="/CaseMixed", redirect_link="/target-page/")
+        redirect.save()
+
+        test_cases = ["/casemixed", "/CASEMIXED", "/CaseMixed", "/CaSeMiXeD"]
+        for test_path in test_cases:
+            with self.subTest(path=test_path):
+                response = self.client.get(test_path)
+                self.assertRedirects(
+                    response,
+                    "/target-page/",
+                    status_code=301,
+                    fetch_redirect_response=False,
+                )
+
+    def test_case_insensitive_site_specific_redirect(self):
+        """Site-specific redirects respect case-insensitive setting."""
+        contact_page = Page.objects.get(url_path="/home/contact-us/")
+        site = Site.objects.create(
+            hostname="other.example.com", port=80, root_page=contact_page
+        )
+        redirect = models.Redirect(
+            old_path="/About", redirect_link="/about-page", site=site
+        )
+        redirect.save()
+
+        # Works on the right site
+        response = self.client.get("/about/", HTTP_HOST="other.example.com")
+        self.assertRedirects(
+            response, "/about-page", status_code=301, fetch_redirect_response=False
+        )
+
+        # Doesn't work on other sites
+        response = self.client.get("/about/", HTTP_HOST="localhost")
+        self.assertEqual(response.status_code, 404)
+
+
+class TestCaseSensitiveRedirects(TestCase):
+    """Default behavior remains case-sensitive for backward compatibility."""
+
+    fixtures = ["test.json"]
+
+    def test_case_sensitive_redirect_matching(self):
+        """By default, redirects only match exact case."""
+        redirect = models.Redirect(
+            old_path="/ActionPlanOnBullying", redirect_link="/new-page"
+        )
+        redirect.save()
+
+        # Exact match works
+        response = self.client.get("/ActionPlanOnBullying/")
+        self.assertRedirects(
+            response, "/new-page", status_code=301, fetch_redirect_response=False
+        )
+        # Different case returns 404
+        response = self.client.get("/actionplanonbullying/")
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get("/ACTIONPLANONBULLYING/")
+        self.assertEqual(response.status_code, 404)
+
+    def test_case_sensitive_with_special_characters(self):
+        """Special characters don't affect case sensitivity."""
+        redirect = models.Redirect(old_path="/Test-Page_123", redirect_link="/target")
+        redirect.save()
+
+        response = self.client.get("/Test-Page_123/")
+        self.assertRedirects(
+            response, "/target", status_code=301, fetch_redirect_response=False
+        )
+        response = self.client.get("/test-page_123/")
+        self.assertEqual(response.status_code, 404)
+
+    @skipIf(connection.vendor == "sqlite", "SQLite uses case-insensitive collation")
+    def test_case_sensitive_matching(self):
+        """Case-sensitive matching works correctly on databases that support it."""
+        redirect = models.Redirect(old_path="/CaseSensitive", redirect_link="/target")
+        redirect.save()
+
+        response = self.client.get("/CaseSensitive")
+        self.assertRedirects(
+            response, "/target", status_code=301, fetch_redirect_response=False
+        )
+        response = self.client.get("/casesensitive")
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get("/CASESENSITIVE")
+        self.assertEqual(response.status_code, 404)
 
 
 @override_settings(
