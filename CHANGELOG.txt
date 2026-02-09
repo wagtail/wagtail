@@ -15,6 +15,7 @@ Changelog
  * Docs: Use `pathlib.Path` for settings in "Integrating into Django" documentation (Kunal Gupta)
  * Docs: Clarify example of how to implement custom embed finders (Naman Sharma S)
  * Docs: Add documentation for using the `ReferenceIndex` API (Saptami)
+ * Docs: Retitle documentation page for settings contrib module to "Settings models" (Karl Hobley)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
