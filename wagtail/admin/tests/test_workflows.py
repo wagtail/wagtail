@@ -3154,6 +3154,33 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             "This title was edited while approving",
         )
 
+    def test_workflow_action_valid_with_cancelled_workflow(self):
+        """
+        Test that workflow_action_is_valid returns False gracefully (and doesn't crash)
+        if the workflow has been cancelled.
+        Ref: #13856
+        """
+        # 1. Get the current workflow state
+        workflow_state = self.object.current_workflow_state
+
+        # 2. Cancel the workflow
+        workflow_state.cancel(user=self.superuser)
+        self.object.refresh_from_db()
+
+        # 3. Try to POST a workflow action to the edit view
+        response = self.client.post(
+            self.get_url("edit"),
+            {
+                self.title_field: "Edited Title",
+                "workflow-action-name": "approve",
+                "action-workflow-action": "True",
+            },
+        )
+
+        # 4. Assert the page doesn't throw a 500 AttributeError.
+        # We allow 200 (stay on page) or 302 (redirect), but NOT 500.
+        self.assertLess(response.status_code, 500)
+
 
 class TestApproveRejectSnippetWorkflow(
     TestApproveRejectPageWorkflow, BaseSnippetWorkflowTests
