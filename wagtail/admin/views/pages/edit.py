@@ -568,9 +568,7 @@ class EditView(
         if not workflow_task:
             return False
 
-        available_actions = workflow_task.get_actions(
-            self.page, self.request.user
-        )
+        available_actions = workflow_task.get_actions(self.page, self.request.user)
         available_action_names = [
             name for name, verbose_name, modal in available_actions
         ]
