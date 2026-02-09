@@ -1,4 +1,4 @@
-# Settings
+# Settings Models
 
 The `wagtail.contrib.settings` module allows you to define models that hold
 settings which are either common across all site records or specific to each site.
