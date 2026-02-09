@@ -1308,10 +1308,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def _get_site_root_paths(self, request=None):
         """
-        Return ``Site.get_site_root_paths()``, using the cached copy on the
-        request object if available.
+        Return ``Site.get_site_root_paths()``using a cached copy stored on a cache object.
+        The cache object is the request (if provided) or the page instance(``self``).
         """
-        # if we have a request, use that to cache site_root_paths; otherwise, use self
+        
+        # Use a cache object to store site_root_paths. This is the request if available,
+        # otherwise the current page instance (self).
         cache_object = request if request else self
         try:
             return cache_object._wagtail_cached_site_root_paths
