@@ -23,6 +23,7 @@ sustainability_considerations
 boundblocks_and_values
 multi_site_multi_instance_multi_tenancy
 formbuilder_routablepage_redirect
+programmatic_page_creation
 streamfield_migrations
 streamfield_validation
 reference_index
