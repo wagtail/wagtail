@@ -104,19 +104,3 @@ def prevent_deleting_referenced_pages(request, page):
             "This page is referenced by other content and cannot be deleted."
         )
 ```
-
-## Known limitations
-
-### References inside complex or custom blocks
-
-The reference index may fail to detect references stored inside complex or highly customised blocks, such as `TypedTableBlock`, or blocks that store data in non-standard data structures.
-
-This limitation has been observed in practice when media is referenced inside `TypedTableBlock`, causing automated clean-up scripts to incorrectly treat those assets as unused.
-
-As a result, automated maintenance scripts that delete "unused" images or documents based solely on reference index results may incorrectly remove content that is still in use.
-
-### Relationships not covered by the reference index
-
-The reference index does not currently track all many-to-many relationships, nor references created outside of Wagtail's standard model fields (for example, identifiers stored in JSON blobs or external systems).
-
-For this reason, the reference index should be treated as advisory rather than authoritative when enforcing deletion or integrity rules.
