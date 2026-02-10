@@ -68,6 +68,8 @@ export default defineConfig(
       ],
       // does not align with the majority of legacy and newer code, some use named others use default exports
       'import-x/prefer-default-export': 'off',
+      // TODO: Remove this and enable
+      'import-x/order': 'off',
       // allow no lines between single line members (e.g. static declarations)
       'lines-between-class-members': [
         'error',
