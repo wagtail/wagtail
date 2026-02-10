@@ -3160,14 +3160,11 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         if the workflow has been cancelled.
         Ref: #13856
         """
-        # 1. Get the current workflow state
         workflow_state = self.object.current_workflow_state
 
-        # 2. Cancel the workflow
         workflow_state.cancel(user=self.superuser)
         self.object.refresh_from_db()
 
-        # 3. Try to POST a workflow action to the edit view
         response = self.client.post(
             self.get_url("edit"),
             {
@@ -3177,9 +3174,8 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             },
         )
 
-        # 4. Assert the page doesn't throw a 500 AttributeError.
-        # We allow 200 (stay on page) or 302 (redirect), but NOT 500.
-        self.assertLess(response.status_code, 500)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'name="action-approve"')
 
 
 class TestApproveRejectSnippetWorkflow(
