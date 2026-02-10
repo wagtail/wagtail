@@ -30,6 +30,7 @@ Changelog
  * Maintenance: Bump Node.js to 24 (active LTS), upgrade Jest and Storybook (Sage Abdullah)
  * Maintenance: Use Docker Elasticsearch images for GitHub CI instead of unofficial actions (Matt Westcott)
  * Maintenance: Make LocaleController tests robust against changes to timezone data in Node (Sage Abdullah)
+ * Maintenance: Fix `PermissionError` on document serve tests under Windows (Matt Westcott)
 
 
 7.3 (03.02.2026)
