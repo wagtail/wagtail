@@ -9,7 +9,7 @@ import {
   generateColorVariables,
   generateThemeColorVariables,
 } from './src/tokens/colorVariables';
-import colorThemes from './src/tokens/colorThemes';
+import * as colorThemes from './src/tokens/colorThemes';
 import {
   fontFamily,
   fontSize,

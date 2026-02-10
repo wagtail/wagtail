@@ -179,7 +179,7 @@ const typeScale = {
   },
 };
 
-module.exports = {
+export {
   systemUIFontStack,
   monoFontStack,
   fontFamily,

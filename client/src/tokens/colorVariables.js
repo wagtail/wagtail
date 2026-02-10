@@ -97,7 +97,4 @@ const generateThemeColorVariables = (themeCategories) => {
   return colorVariables;
 };
 
-module.exports = {
-  generateColorVariables,
-  generateThemeColorVariables,
-};
+export { generateColorVariables, generateThemeColorVariables };
