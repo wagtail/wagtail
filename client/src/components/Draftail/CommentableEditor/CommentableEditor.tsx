@@ -19,6 +19,7 @@ import {
   RichUtils,
   SelectionState,
 } from 'draft-js';
+import type DraftEditorLeaf from 'draft-js/lib/DraftEditorLeaf.react';
 import { filterInlineStyles } from 'draftjs-filters';
 import React, {
   MutableRefObject,
@@ -35,8 +36,6 @@ import type { CommentApp } from '../../CommentApp/main';
 import { gettext } from '../../../utils/gettext';
 
 import Icon from '../../Icon/Icon';
-
-const DraftEditorLeaf = require('draft-js/lib/DraftEditorLeaf.react');
 
 const { isOptionKeyCommand } = KeyBindingUtil;
 
@@ -457,7 +456,7 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
 
 interface DecoratorProps {
   contentState: ContentState;
-  children?: Array<typeof DraftEditorLeaf>;
+  children?: DraftEditorLeaf[];
 }
 
 function getCommentDecorator(commentApp: CommentApp) {
