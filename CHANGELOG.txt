@@ -4,18 +4,23 @@ Changelog
 7.4 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Add `is_deferred_validation` flag to support skipping custom validation when saving drafts (Daniel Kirkham)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
+ * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
  * Docs: Replace `http` with `https` in example URLs (Kunal Gupta)
  * Docs: Use `pathlib.Path` for settings in "Integrating into Django" documentation (Kunal Gupta)
  * Docs: Clarify example of how to implement custom embed finders (Naman Sharma S)
+ * Docs: Add documentation for using the `ReferenceIndex` API (Saptami)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
  * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
+ * Maintenance: Fix `hash_filelike` test case to account for line break differences on Windows (Mustansir Dabhiya)
+ * Maintenance: Fix temporary file handling in redirect import tests on Windows (Mustansir Dabhiya)
 
 
 7.3 (03.02.2026)

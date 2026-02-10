@@ -5,7 +5,7 @@ from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.models import Page
 from wagtail.test.snippets.models import MultiSectionRichTextSnippet
-from wagtail.test.testapp.models import Advert, EventPage
+from wagtail.test.testapp.models import Advert, CustomImage, EventPage
 from wagtail.test.utils.form_data import inline_formset, nested_form_data, rich_text
 
 
@@ -69,6 +69,78 @@ class TestDeferRequiredFields(TestCase):
         form.defer_required_fields()
         form.restore_required_fields()
         self.assertFalse(form.is_valid())
+
+
+class TestDeferredValidationProperty(TestCase):
+    def test_deferred_validation_property(self):
+        class CustomImageForm(WagtailAdminModelForm):
+            def clean(self):
+                cleaned_data = super().clean()
+
+                if not self.is_deferred_validation:
+                    if not cleaned_data.get("caption", "") and not cleaned_data.get(
+                        "fancy_caption", ""
+                    ):
+                        self.add_error(
+                            "caption", "Either caption or fancy_caption is required"
+                        )
+                        self.add_error(
+                            "fancy_caption",
+                            "Either caption or fancy_caption is required",
+                        )
+                return cleaned_data
+
+            class Meta:
+                model = CustomImage
+                fields = ["caption", "fancy_caption"]
+
+        # No deferred validation
+        form = CustomImageForm(
+            {
+                "caption": "",
+                "fancy_caption": "{}",
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+        form = CustomImageForm(
+            {
+                "caption": "Minimal caption",
+                "fancy_caption": "{}",
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+        # Deferred validation
+        form = CustomImageForm(
+            {
+                "caption": "",
+                "fancy_caption": "{}",
+            }
+        )
+        form.defer_required_fields()
+        self.assertTrue(form.is_valid())
+
+        # No deferred validation, when check is carried out
+        form = CustomImageForm(
+            {
+                "caption": "",
+                "fancy_caption": "{}",
+            }
+        )
+        form.defer_required_fields()
+        form.restore_required_fields()
+        self.assertFalse(form.is_valid())
+
+        form = CustomImageForm(
+            {
+                "caption": "Minimal caption",
+                "fancy_caption": "{}",
+            }
+        )
+        form.defer_required_fields()
+        form.restore_required_fields()
+        self.assertTrue(form.is_valid())
 
 
 class SnippetForm(WagtailAdminModelForm):
