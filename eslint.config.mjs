@@ -2,7 +2,7 @@
  * @see https://eslint.org/docs/user-guide/configuring
  * @type {import('eslint').Linter.Config}
  */
-module.exports = {
+export default {
   extends: [
     '@wagtail/eslint-config-wagtail',
     'plugin:@typescript-eslint/recommended',
