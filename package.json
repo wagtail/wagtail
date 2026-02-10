@@ -70,6 +70,7 @@
     "@types/react": "^16.14.21",
     "@types/react-dom": "^16.0",
     "@types/react-redux": "^7.1.34",
+    "@types/sortablejs": "^1.15.9",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
     "@wagtail/eslint-config-wagtail": "^0.6.0-rc1.0",
