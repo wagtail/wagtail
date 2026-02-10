@@ -36,7 +36,6 @@ import { gettext } from '../../../utils/gettext';
 
 import Icon from '../../Icon/Icon';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const DraftEditorLeaf = require('draft-js/lib/DraftEditorLeaf.react');
 
 const { isOptionKeyCommand } = KeyBindingUtil;
@@ -105,7 +104,7 @@ export class DraftailInlineAnnotation implements Annotation {
     return 0;
   }
 
-  static getMedianRef(refArray: Array<DecoratorRef>) {
+  static getMedianRef(refArray: DecoratorRef[]) {
     const refs = refArray.sort(
       (firstRef, secondRef) =>
         this.getHeightForRef(firstRef) - this.getHeightForRef(secondRef),
@@ -385,7 +384,7 @@ export function updateCommentPositions({
   commentApp,
 }: {
   editorState: EditorState;
-  comments: Array<Comment>;
+  comments: Comment[];
   commentApp: CommentApp;
 }) {
   const commentPositions = getCommentPositions(editorState);
@@ -625,7 +624,7 @@ interface CommentableEditorProps {
   editorRef: (editor: ReactNode) => void;
   isCommentShortcut: (e: React.KeyboardEvent) => boolean;
   // Unfortunately the EditorPlugin type isn't exported in our version of 'draft-js-plugins-editor'
-  plugins?: Record<string, unknown>[];
+  plugins?: Array<Record<string, unknown>>;
   controls?: DraftailEditorProps['controls'];
 }
 

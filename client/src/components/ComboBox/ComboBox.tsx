@@ -37,13 +37,13 @@ export interface ComboBoxProps<ComboBoxOption> {
   label?: string;
   placeholder?: string;
   inputValue?: string;
-  items: ComboBoxCategory<ComboBoxOption>[];
+  items: Array<ComboBoxCategory<ComboBoxOption>>;
   getItemLabel: (
     type: string | undefined,
     item: ComboBoxOption,
   ) => string | null | undefined;
   getItemDescription: (item: ComboBoxOption) => string | null | undefined;
-  getSearchFields: (item: ComboBoxOption) => (string | null | undefined)[];
+  getSearchFields: (item: ComboBoxOption) => Array<string | null | undefined>;
   onSelect: (change: UseComboboxStateChange<ComboBoxOption>) => void;
   noResultsText?: string;
 }
@@ -70,7 +70,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
   const [inputItems, setInputItems] = useState<ComboBoxOption[]>(flatItems);
   const [previewedIndex, setPreviewedIndex] = useState<number>(-1);
   // Re-create the categories so the two-column layout flows as expected.
-  const categories = items.reduce<ComboBoxCategory<ComboBoxOption>[]>(
+  const categories = items.reduce<Array<ComboBoxCategory<ComboBoxOption>>>(
     (cats, cat, index) => {
       if (cat.label || index === 0) {
         return [...cats, { ...cat, items: cat.items.slice() }];

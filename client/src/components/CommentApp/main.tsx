@@ -195,7 +195,7 @@ export class CommentApp {
   };
 
   actions = commentActionFunctions;
-  activationHandlers: (() => void)[] = [];
+  activationHandlers: Array<() => void> = [];
 
   constructor() {
     this.store = createStore(reducer, {

@@ -186,7 +186,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
 
   // Whenever currentPath or menu changes, work out new activePath
   React.useEffect(() => {
-    const urlPathsToNavigationPaths: [string, string][] = [];
+    const urlPathsToNavigationPaths: Array<[string, string]> = [];
     const walkMenu = (path: string, walkingMenuItems: MenuItemDefinition[]) => {
       walkingMenuItems.forEach((item) => {
         const newPath = `${path}.${item.name}`;

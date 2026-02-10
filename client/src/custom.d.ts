@@ -17,10 +17,10 @@ export interface WagtailConfig {
   CSRF_HEADER_NAME: string;
   CSRF_TOKEN: string;
   I18N_ENABLED: boolean;
-  LOCALES: {
+  LOCALES: Array<{
     code: string;
     display_name: string;
-  }[];
+  }>;
   KEYBOARD_SHORTCUTS_ENABLED: boolean;
 }
 

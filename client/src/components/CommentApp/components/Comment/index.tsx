@@ -606,7 +606,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
             );
           },
           /** Allow delay for side panel to open and comment card to fade in with animations. */
-          checkCanFocusTrap: (containers: (HTMLElement | SVGElement)[]) => {
+          checkCanFocusTrap: (containers: Array<HTMLElement | SVGElement>) => {
             const hasFocusTargetWithSidePanelOpen = containers.some(
               (container) =>
                 container.matches(
