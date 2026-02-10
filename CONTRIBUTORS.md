@@ -949,6 +949,7 @@
 * Kunal Hemnani
 * Akshat Gupta
 * Divyansh Mishra
+* Gaurav
 
 ## Translators
 
