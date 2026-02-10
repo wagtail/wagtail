@@ -1,9 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 
-type ToggleOptions = {
+interface ToggleOptions {
   /** Only toggle those within the provided group(s), a space separated set of strings. */
   group?: string;
-};
+}
 
 type ToggleAllOptions = ToggleOptions & {
   /** Override check all behavior to either force check or uncheck all */

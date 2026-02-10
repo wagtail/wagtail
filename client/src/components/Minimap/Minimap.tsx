@@ -30,9 +30,9 @@ const observerOptions = {
   threshold: 0.1,
 };
 
-type LinkIntersections = {
+interface LinkIntersections {
   [href: string]: boolean;
-};
+}
 
 const mapIntersections = (
   acc: LinkIntersections,

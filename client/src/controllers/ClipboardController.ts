@@ -1,9 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 
-type CopyOptions = {
+interface CopyOptions {
   /** Custom supplied value to copy to the clipboard. */
   value?: string;
-};
+}
 
 /**
  * Adds the ability for an element to copy the value from a target to the clipboard.

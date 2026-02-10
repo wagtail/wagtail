@@ -9,13 +9,13 @@ export interface PingResponse {
   session_id: string;
   ping_url: string;
   release_url: string;
-  other_sessions: {
+  other_sessions: Array<{
     session_id: string | null;
     user: string;
     last_seen_at: string;
     is_editing: boolean;
     revision_id: number | null;
-  }[];
+  }>;
   html: string;
 }
 
