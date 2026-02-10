@@ -1,7 +1,7 @@
 /**
  * Overrides to our base ESLint configuration specifically for our integration tests.
  */
-module.exports = {
+export default {
   rules: {
     // To support code running in Node without transpiling.
     '@typescript-eslint/no-var-requires': 'off',
