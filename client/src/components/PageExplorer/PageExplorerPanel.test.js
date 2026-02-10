@@ -81,6 +81,13 @@ describe('PageExplorerPanel', () => {
         ),
       ).toMatchSnapshot();
     });
+
+    it('passes correct options to FocusTrap', () => {
+      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
+      const focusTrapProps = wrapper.find('FocusTrap').prop('focusTrapOptions');
+      expect(focusTrapProps.clickOutsideDeactivates).toBe(true);
+      expect(focusTrapProps.allowOutsideClick).toBe(true);
+    });
   });
 
   describe('onHeaderClick', () => {
@@ -98,9 +105,9 @@ describe('PageExplorerPanel', () => {
       )
         .find('PageExplorerHeader')
         .prop('onClick')({
-        preventDefault() {},
-        stopPropagation() {},
-      });
+          preventDefault() { },
+          stopPropagation() { },
+        });
 
       expect(mockProps.gotoPage).toHaveBeenCalled();
     });
@@ -115,9 +122,9 @@ describe('PageExplorerPanel', () => {
       )
         .find('PageExplorerHeader')
         .prop('onClick')({
-        preventDefault() {},
-        stopPropagation() {},
-      });
+          preventDefault() { },
+          stopPropagation() { },
+        });
 
       expect(mockProps.gotoPage).not.toHaveBeenCalled();
     });
@@ -145,9 +152,9 @@ describe('PageExplorerPanel', () => {
       )
         .find('PageExplorerItem')
         .prop('onClick')({
-        preventDefault() {},
-        stopPropagation() {},
-      });
+          preventDefault() { },
+          stopPropagation() { },
+        });
 
       expect(mockProps.gotoPage).toHaveBeenCalled();
     });
