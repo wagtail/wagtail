@@ -12,8 +12,7 @@ export const querySelectorIncludingSelf = (elementOrNodeList, selector) => {
     ? elementOrNodeList
     : [elementOrNodeList];
 
-  for (let i = 0; i < nodeList.length; i += 1) {
-    const container = nodeList[i];
+  for (const container of nodeList) {
     if (container.nodeType === Node.ELEMENT_NODE) {
       // Check if the container itself matches the selector
       if (container.matches(selector)) {
@@ -222,9 +221,9 @@ export class BoundRadioSelect {
 
   setState(state) {
     const inputs = this.element.querySelectorAll(`input[name="${this.name}"]`);
-    for (let i = 0; i < inputs.length; i += 1) {
-      inputs[i].checked = state.includes(inputs[i].value);
-    }
+    inputs.forEach((input) => {
+      input.checked = state.includes(input.value);
+    });
   }
 
   setInvalid(invalid) {
@@ -270,8 +269,8 @@ export class BoundSelect extends BoundWidget {
 
   setState(state) {
     const options = this.input.options;
-    for (let i = 0; i < options.length; i += 1) {
-      options[i].selected = state.includes(options[i].value);
+    for (const option of options) {
+      option.selected = state.includes(option.value);
     }
   }
 }
