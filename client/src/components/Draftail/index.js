@@ -270,6 +270,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
     contentPath,
     commentApp,
   }) => {
+    // eslint-disable-next-line react-hooks/globals, react/hook-use-state
     [options, setOptions] = React.useState({ ...initialOptions });
 
     // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -

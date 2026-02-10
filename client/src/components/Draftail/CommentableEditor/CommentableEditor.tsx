@@ -318,7 +318,10 @@ function getCommentControl(
   contentPath: string,
   fieldNode: Element,
 ) {
-  return ({ getEditorState, onChange }: ControlComponentProps) => (
+  const CommentControl = ({
+    getEditorState,
+    onChange,
+  }: ControlComponentProps) => (
     <span className="Draftail-CommentControl" data-comment-add>
       <ToolbarButton
         name="comment"
@@ -343,6 +346,7 @@ function getCommentControl(
       />
     </span>
   );
+  return CommentControl;
 }
 
 function findCommentStyleRanges(
