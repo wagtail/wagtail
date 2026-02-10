@@ -69,13 +69,11 @@ It aims to detect common references created through Wagtail’s built-in models,
 
 ## Using the ReferenceIndex API
 
-The `ReferenceIndex` model exposes APIs for querying references between content objects.
+The `wagtail.models.ReferenceIndex` model provides a method for querying references between content objects:
 
-The most commonly used method is:
+`ReferenceIndex.get_references_for_object(obj)`
 
-- `ReferenceIndex.get_references_for_object(obj)`
-
-This returns a queryset of reference records representing objects that reference the given object. The queryset may be empty even if references exist outside of what the reference index is able to detect.
+This returns a queryset of reference records representing objects that reference the given object.
 
 ## Enforcing stricter deletion rules
 
