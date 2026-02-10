@@ -1,6 +1,7 @@
+import type { ThemeCategory, Token } from './colorThemes';
 import React from 'react';
 import { staticColors, Hues, Shade } from './colors';
-import colorThemes, { ThemeCategory, Token } from './colorThemes';
+import * as colorThemes from './colorThemes';
 import {
   generateColorVariables,
   generateThemeColorVariables,
