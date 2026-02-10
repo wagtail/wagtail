@@ -6,7 +6,7 @@ import { ENTITY_TYPE, DraftUtils } from 'draftail';
 import { gettext } from '../../../utils/gettext';
 import { getSelectionText } from '../DraftUtils';
 
-const $ = global.jQuery;
+const $ = window.jQuery;
 
 const EMBED = 'EMBED';
 const DOCUMENT = 'DOCUMENT';
@@ -53,7 +53,7 @@ class ModalWorkflowSource extends Component {
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
-    this.workflow = global.ModalWorkflow({
+    this.workflow = window.ModalWorkflow({
       url,
       urlParams,
       onload,
@@ -191,7 +191,7 @@ class ImageModalWorkflowSource extends ModalWorkflowSource {
     return {
       url,
       urlParams,
-      onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      onload: window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
         chosen: this.onChosen,
       },
@@ -221,7 +221,7 @@ class EmbedModalWorkflowSource extends ModalWorkflowSource {
     return {
       url: embedsChooser,
       urlParams,
-      onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      onload: window.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
         // Discard the first parameter (HTML) to only transmit the data.
         embedChosen: (_, data) => this.onChosen(data),
@@ -284,7 +284,7 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
     return {
       url,
       urlParams,
-      onload: global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      onload: window.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
         pageChosen: this.onChosen,
       },
@@ -315,7 +315,7 @@ class DocumentModalWorkflowSource extends ModalWorkflowSource {
     return {
       url: documentChooser,
       urlParams: {},
-      onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      onload: window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
         chosen: this.onChosen,
       },
