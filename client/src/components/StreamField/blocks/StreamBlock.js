@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -238,7 +239,6 @@ export class StreamBlock extends BaseSequenceBlock {
       return this.children.length;
     }
     if (!this.childBlockCounts.has(type)) {
-      // eslint-disable-next-line no-underscore-dangle
       this._updateBlockCount(type);
     }
     return this.childBlockCounts.get(type) || 0;
@@ -354,7 +354,7 @@ export class StreamBlock extends BaseSequenceBlock {
 
   insert({ type, value, id }, index, opts) {
     const childBlockDef = this.blockDef.childBlockDefsByName[type];
-    // eslint-disable-next-line no-underscore-dangle
+
     return this._insert(childBlockDef, value, id, index, opts);
   }
 
