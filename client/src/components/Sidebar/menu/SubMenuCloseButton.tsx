@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import Icon from '../../Icon/Icon';
 import { gettext } from '../../../utils/gettext';
-import { MenuAction } from '../modules/MainMenu';
+import type { MenuAction } from '../modules/MainMenu';
 
 interface SubMenuCloseButtonProps {
   isVisible: boolean;

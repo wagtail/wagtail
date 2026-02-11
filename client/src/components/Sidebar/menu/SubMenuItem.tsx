@@ -3,12 +3,12 @@ import * as React from 'react';
 import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
 
-import { isDismissed, renderMenu } from '../modules/MainMenu';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
-import { MenuItemDefinition, MenuItemProps } from './MenuItem';
+import { isDismissed, MenuItemDefinition, MenuItemProps } from './MenuItem';
 import { gettext } from '../../../utils/gettext';
 import SubMenuCloseButton from './SubMenuCloseButton';
+import { renderMenu } from '.';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
   slim: boolean;
