@@ -12,7 +12,6 @@ import storybook from 'eslint-plugin-storybook';
 export default defineConfig(
   {
     ignores: [
-      '**/node_modules/**',
       '**/*.min.js',
       '**/lib/**',
       'public/**',
@@ -46,13 +45,7 @@ export default defineConfig(
       'no-jquery': noJquery,
     },
     rules: {
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/explicit-member-accessibility': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-use-before-define': 'error',
-      // it is often helpful to pull out logic to class methods that may not use `this`
-      'class-methods-use-this': 'off',
       'import-x/extensions': [
         'error',
         'always',
@@ -66,31 +59,18 @@ export default defineConfig(
           },
         },
       ],
-      // does not align with the majority of legacy and newer code, some use named others use default exports
-      'import-x/prefer-default-export': 'off',
       // TODO: Remove this and enable
       'import-x/order': 'off',
-      // allow no lines between single line members (e.g. static declarations)
-      'lines-between-class-members': [
-        'error',
-        'always',
-        { exceptAfterSingleLine: true },
-      ],
-      'max-classes-per-file': 'off',
       // Set warning for the top 5 jQuery rules to avoid new jQuery usage in code
       'no-jquery/no-ajax': 'warn',
       'no-jquery/no-global-selector': 'warn',
       'no-jquery/no-jquery-constructor': 'warn',
       'no-jquery/no-other-methods': 'warn',
       'no-jquery/no-other-utils': 'warn',
-      // note you must disable the base rule as it can report incorrect errors
-      'no-use-before-define': 'off',
       'no-underscore-dangle': [
         'error',
         { allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_tippy'] },
       ],
-      // this rule can be confusing as it forces some non-intuitive code for variable assignment
-      'prefer-destructuring': 'off',
       'react/jsx-filename-extension': [
         'error',
         { extensions: ['.js', '.tsx'] },
@@ -99,14 +79,6 @@ export default defineConfig(
     settings: {
       'import-x/core-modules': ['jquery'],
       'react': { version: 'detect' },
-    },
-  },
-  // Rules that needs to be adjusted for TypeScript only files
-  {
-    files: ['**/*.ts'],
-    rules: {
-      '@typescript-eslint/no-shadow': 'error',
-      'no-shadow': 'off',
     },
   },
   // Rules that we are ignoring currently due to legacy code in React components only
@@ -191,7 +163,6 @@ export default defineConfig(
     ],
     languageOptions: {
       globals: {
-        ...globals.browser,
         ...globals.jest,
         ...globals.node,
       },
@@ -202,7 +173,6 @@ export default defineConfig(
       '@typescript-eslint/no-unused-expressions': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-require-imports': 'off',
-      'global-require': 'off',
       'import-x/first': 'off',
       'import-x/no-extraneous-dependencies': 'off',
       'import-x/no-relative-packages': 'off',
@@ -296,17 +266,6 @@ export default defineConfig(
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-use-before-define': 'off',
-      'camelcase': [
-        'error',
-        {
-          allow: [
-            '__unused_webpack_module',
-            '__webpack_modules__',
-            '__webpack_require__',
-          ],
-          properties: 'never',
-        },
-      ],
       'consistent-return': 'off',
       'func-names': 'off',
       'id-length': 'off',
