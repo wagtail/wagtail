@@ -213,7 +213,7 @@ class TestImageQuerySet(TransactionTestCase):
         results = Image.objects.search("Test")
         self.assertEqual(list(results), [image])
 
-        results = Image.objects.search("cool") 
+        results = Image.objects.search("cool")
         self.assertEqual(list(results), [image])
 
     def test_operators(self):
