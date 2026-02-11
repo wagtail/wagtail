@@ -4,7 +4,7 @@
 
 Wagtail’s built-in features can go a long way to meet content personalization requirements. We can configure StreamField blocks to only display for specific segments based on the request context. In the editor, preview modes give users a way to review each segment before publishing. Editorial teams can then tailor content for different audience segments within a page and preview how the content appears for each segment.
 
-This supportbs the following use cases:
+This supports the following use cases:
 
 - Time-aware variants: within specific hours, or for a limited time.
 - UTM campaign parameters or referrer segmentation.
@@ -89,3 +89,16 @@ class PersonalizationPreviewMixin:
         request.personalization_preview_segment = mode_name
         return super().serve_preview(request, mode_name)
 ```
+
+## Page-level segmentation
+
+Wagtail also has built-in support for page-level segmentation, with two of its features.
+
+### Campaign segmentation with routable pages
+
+The [routable pages](routable_page_mixin) feature can be set up to serve variations of the page at different routes. This is particularly useful to create campaign-specific links, without having to duplicate pages and have the site content expand uncontrollably over time.
+
+### Members-only content with private pages
+
+Wagtail has built-in support for [private pages](private_pages), so you can create pages or whole sections of a site that are only accessible for logged-in users, or users in specific groups.
+
