@@ -1306,13 +1306,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def _get_site_root_paths(self, request=None):
+    def _get_site_root_paths(self, cache_object=None):
         """
         Return ``Site.get_site_root_paths()``, using the cached copy on the
-        request object if available.
+        cache_object object if available.
         """
-        # if we have a request, use that to cache site_root_paths; otherwise, use self
-        cache_object = request if request else self
+        # if we have a cache_object, use that to cache site_root_paths; otherwise, use self
+        cache_object = cache_object if cache_object else self
         try:
             return cache_object._wagtail_cached_site_root_paths
         except AttributeError:
