@@ -69,7 +69,10 @@ export default defineConfig(
       'no-jquery/no-other-utils': 'warn',
       'no-underscore-dangle': [
         'error',
-        { allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_tippy'] },
+        {
+          allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_tippy'],
+          enforceInMethodNames: true,
+        },
       ],
       'react/jsx-filename-extension': [
         'error',
