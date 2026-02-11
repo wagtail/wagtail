@@ -1,10 +1,10 @@
+import type { MenuItemDefinition, MenuItemProps } from './MenuItem';
 import * as React from 'react';
 
 import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
-import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 import { gettext } from '../../../utils/gettext';
-import { isDismissed } from '../modules/MainMenu';
+import { isDismissed } from './MenuItem';
 import { WAGTAIL_CONFIG } from '../../../config/wagtailConfig';
 
 export const ActionMenuItem: React.FunctionComponent<

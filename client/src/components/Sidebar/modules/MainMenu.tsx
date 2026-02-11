@@ -9,40 +9,7 @@ import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
 import { ModuleDefinition } from '../Sidebar';
 import { updateDismissibles } from '../../../controllers/DismissibleController';
-
-export function renderMenu(
-  path: string,
-  items: MenuItemDefinition[],
-  slim: boolean,
-  state: MenuState,
-  dispatch: (action: MenuAction) => void,
-  navigate: (url: string) => Promise<void>,
-) {
-  return (
-    <>
-      {items.map((item) =>
-        item.render({
-          path: `${path}.${item.name}`,
-          slim,
-          state,
-          dispatch,
-          navigate,
-        }),
-      )}
-    </>
-  );
-}
-
-export function isDismissed(item: MenuItemDefinition, state: MenuState) {
-  return (
-    // Non-dismissibles are considered as dismissed
-    !item.attrs['data-w-dismissible-id-value'] ||
-    // Dismissed on the server
-    'data-w-dismissible-dismissed-value' in item.attrs ||
-    // Dismissed on the client
-    state.dismissibles[item.name]
-  );
-}
+import { renderMenu } from '../menu';
 
 interface SetActivePath {
   type: 'set-active-path';

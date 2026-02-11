@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
-import { MenuItemDefinition, MenuItemProps } from './MenuItem';
+import type { MenuItemDefinition, MenuItemProps } from './MenuItem';
+import { isDismissed } from './MenuItem';
 import { gettext } from '../../../utils/gettext';
-import { isDismissed } from '../modules/MainMenu';
 
 export const LinkMenuItem: React.FunctionComponent<
   MenuItemProps<LinkMenuItemDefinition>
