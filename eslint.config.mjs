@@ -185,6 +185,20 @@ export default defineConfig(
       'react/jsx-props-no-spreading': 'off',
     },
   },
+  {
+    files: ['client/tests/integration/**'],
+    languageOptions: {
+      globals: {
+        page: 'readonly',
+        TEST_ORIGIN: 'readonly',
+        __BROWSER_GLOBAL__: 'readonly',
+      },
+    },
+    rules: {
+      'import-x/no-unresolved': 'off',
+      'no-underscore-dangle': ['error', { allow: ['__BROWSER_GLOBAL__'] }],
+    },
+  },
   // Files that use jquery via a global
   {
     files: [
