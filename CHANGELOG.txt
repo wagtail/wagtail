@@ -58,6 +58,7 @@ Changelog
  * Maintenance: Upgrade Python tooling, testing, and docs dependencies (Sage Abdullah)
  * Maintenance: Support skipping transaction unit tests with a tag (Sage Abdullah)
  * Maintenance: Remove unreachable code in wagtail.py (Oluwagbeminiyi Agbedejobi)
+ * Maintenance: Upgrade django-treebeard dependency to 4.8-5.x (Samir Shah)
 
 
 7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
