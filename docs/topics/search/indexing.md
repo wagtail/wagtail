@@ -85,7 +85,7 @@ class EventPage(Page):
 
 (wagtailsearch_index_searchfield)=
 
-### `index.SearchField`
+### `SearchField`
 
 These are used for performing full-text searches on your models, usually for text fields.
 
@@ -108,7 +108,7 @@ These are used for performing full-text searches on your models, usually for tex
 
 (wagtailsearch_index_autocompletefield)=
 
-### `index.AutocompleteField`
+### `AutocompleteField`
 
 These are used for autocomplete queries that match partial words. For example, a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
 
@@ -120,13 +120,13 @@ This takes the same options as `index.SearchField`.
 
 (wagtailsearch_index_filterfield)=
 
-### `index.FilterField`
+### `FilterField`
 
 These are added to the search index but are not used for full-text searches. Instead, they allow you to run filters on your search results.
 
 (wagtailsearch_index_relatedfields)=
 
-### `index.RelatedFields`
+### `RelatedFields`
 
 This allows you to index fields from related objects. It works on all types of related fields, including their reverse accessors.
 
