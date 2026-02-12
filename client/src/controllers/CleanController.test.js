@@ -1,8 +1,8 @@
 import { Application } from '@hotwired/stimulus';
-import { CleanController } from './CleanController';
 
 import * as urlify from '../utils/urlify';
 import * as wagtailConfig from '../config/wagtailConfig';
+import { CleanController } from './CleanController';
 
 describe('CleanController', () => {
   let application;

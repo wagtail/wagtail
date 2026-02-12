@@ -1,8 +1,8 @@
 import { Application } from '@hotwired/stimulus';
 import axe from 'axe-core';
+import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import { ProgressController } from './ProgressController';
 import { PreviewController } from './PreviewController';
-import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import { UnsavedController } from './UnsavedController';
 
 jest.mock('axe-core', () => {

@@ -15,6 +15,11 @@ import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
 import { InputNotFoundError } from '../Widget/index';
 
+import ComboBox, {
+  comboBoxLabel,
+  comboBoxNoResults,
+  comboBoxTriggerLabel,
+} from '../ComboBox/ComboBox';
 import {
   ModalWorkflowSource,
   ImageModalWorkflowSource,
@@ -26,11 +31,6 @@ import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
 import MaxLength from './controls/MaxLength';
 import EditorFallback from './EditorFallback/EditorFallback';
-import ComboBox, {
-  comboBoxLabel,
-  comboBoxNoResults,
-  comboBoxTriggerLabel,
-} from '../ComboBox/ComboBox';
 import CommentableEditor, {
   splitState,
 } from './CommentableEditor/CommentableEditor';

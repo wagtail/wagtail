@@ -1,8 +1,8 @@
+import type { Action } from '../actions';
 import { combineReducers, Store as reduxStore } from 'redux';
 
 import { reducer as commentsReducer } from './comments';
 import { reducer as settingsReducer } from './settings';
-import type { Action } from '../actions';
 
 export type State = ReturnType<typeof reducer>;
 

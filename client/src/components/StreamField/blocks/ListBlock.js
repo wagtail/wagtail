@@ -3,11 +3,6 @@
 
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-  BaseSequenceBlock,
-  BaseSequenceChild,
-  BaseInsertionControl,
-} from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { gettext } from '../../../utils/gettext';
 import {
@@ -15,6 +10,11 @@ import {
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
 import { setAttrs } from '../../../utils/attrs';
+import {
+  BaseSequenceBlock,
+  BaseSequenceChild,
+  BaseInsertionControl,
+} from './BaseSequenceBlock';
 
 /**
  * Wrapper for an item inside a ListBlock

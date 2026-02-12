@@ -1,5 +1,6 @@
 import { legacy_createStore as createStore } from 'redux';
 import { basicCommentsState } from '../__fixtures__/state';
+import * as actions from '../actions/comments';
 import {
   Comment,
   CommentReply,
@@ -7,8 +8,6 @@ import {
   CommentUpdate,
   reducer,
 } from './comments';
-
-import * as actions from '../actions/comments';
 
 test('Initial comments state empty', () => {
   const state = createStore(reducer).getState();

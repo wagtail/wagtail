@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MinimapMenuItem } from './MinimapItem';
 
 import { toggleCollapsiblePanel } from '../../includes/panels';
 import { debounce } from '../../utils/debounce';
+import { MinimapMenuItem } from './MinimapItem';
 
 import Minimap from './Minimap';
 
