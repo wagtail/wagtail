@@ -67,6 +67,10 @@ class Query(models.Model):
             .order_by("-_hits")
         )
 
+    class Meta:
+        verbose_name = _("query")
+        verbose_name_plural = _("queries")
+
 
 class QueryDailyHits(models.Model):
     query = models.ForeignKey(
