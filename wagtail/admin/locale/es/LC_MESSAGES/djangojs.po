@@ -2,17 +2,17 @@
 # Translators:
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2022
 # Hector Garcia <torkoff@gmail.com>, 2022
-# José Luis <alagunajs@gmail.com>, 2022
 # Antoni Aloy <aaloy@apsl.net>, 2022
 # Loic Teixeira, 2024
-# Amós Oviedo <amos.oviedo@gmail.com>, 2025
 # Oscar Luciano Espirilla Flores, 2025
 # X Bello <xbello@gmail.com>, 2025
-# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2025
+# José Luis <alagunajs@gmail.com>, 2026
+# Amós Oviedo <amos.oviedo@gmail.com>, 2026
+# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2025\n"
+"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2026\n"
 "Language-Team: Spanish (https://app.transifex.com/torchbox/teams/8009/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
@@ -30,6 +30,9 @@ msgstr "(Nuevo)"
 
 msgid "Actions"
 msgstr "Acciones"
+
+msgid "Add"
+msgstr "Agregar"
 
 msgid "Add a comment"
 msgstr "Añadir un comentario"
@@ -76,6 +79,12 @@ msgstr "Eliminar error"
 msgid "Deleting"
 msgstr "Eliminando"
 
+msgid "Drag"
+msgstr "Arrastrar"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
 msgid "Edit"
 msgstr "Editar"
 
@@ -117,6 +126,12 @@ msgstr "Documento faltante"
 
 msgid "More actions"
 msgstr "Más acciones"
+
+msgid "Move down"
+msgstr "Bajar"
+
+msgid "Move up"
+msgstr "Subir"
 
 msgid "No"
 msgstr "No"
@@ -163,15 +178,6 @@ msgstr "Guardar"
 msgid "Save error"
 msgstr "Guardar error"
 
-msgid "Save the page to add this comment"
-msgstr "Guarda la página para añadir este comentario"
-
-msgid "Save the page to save this comment"
-msgstr "Guarda la página para guardar este comentario"
-
-msgid "Save the page to save this reply"
-msgstr "Guarda la página para guardar esta respuesta"
-
 msgid "Saving..."
 msgstr "Guardando..."
 
@@ -183,6 +189,9 @@ msgstr "Ver todo"
 
 msgid "Server Error"
 msgstr "Error de servidor"
+
+msgid "Settings"
+msgstr "Propiedades"
 
 msgid "Show error"
 msgstr "Mostrar error"

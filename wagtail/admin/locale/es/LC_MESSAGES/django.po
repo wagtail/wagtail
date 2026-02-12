@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024-2025\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1847,12 +1847,6 @@ msgstr "Modo vista previa"
 msgid "You have <span>unsaved edits</span>"
 msgstr "Tienes <span>ediciones no guardadas</span>"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "Tienes <span>comentarios no guardados</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Tienes <span>ediciones no guardadas</span> y <span>comentarios</span>"
-
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
 msgstr "Solicitado por <b>%(modified_by)s</b>"
@@ -1920,9 +1914,6 @@ msgstr "Ordenar"
 
 msgid "View Wagtail quick actions"
 msgstr "Ver acciones rápidas de Wagtail"
-
-msgid "Accessibility"
-msgstr "Accesibilidad"
 
 msgid "Add a child page"
 msgstr "Añadir página hija"

@@ -1,7 +1,32 @@
 Changelog
 =========
 
-7.3 (xx.xx.xxxx) - IN DEVELOPMENT
+7.4 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~
+
+ * Add `is_deferred_validation` flag to support skipping custom validation when saving drafts (Daniel Kirkham)
+ * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
+ * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
+ * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
+ * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
+ * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
+ * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
+ * Docs: Replace `http` with `https` in example URLs (Kunal Gupta)
+ * Docs: Use `pathlib.Path` for settings in "Integrating into Django" documentation (Kunal Gupta)
+ * Docs: Clarify example of how to implement custom embed finders (Naman Sharma S)
+ * Docs: Add documentation for using the `ReferenceIndex` API (Saptami)
+ * Docs: Retitle documentation page for settings contrib module to "Settings models" (Karl Hobley)
+ * Maintenance: Removed support for Django 4.2
+ * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
+ * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
+ * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
+ * Maintenance: Fix `hash_filelike` test case to account for line break differences on Windows (Mustansir Dabhiya)
+ * Maintenance: Fix temporary file handling in redirect import tests on Windows (Mustansir Dabhiya)
+ * Maintenance: Fix use of platform-specific date formatting in edit handler tests (Mustansir Dabhiya)
+ * Maintenance: Bump Node.js to 24 (active LTS), upgrade Jest and Storybook (Sage Abdullah)
+
+
+7.3 (03.02.2026)
 ~~~~~~~~~~~~~~~~
 
  * Add support for Django 6.0
@@ -15,6 +40,9 @@ Changelog
  * Provide a structured rendering of `StreamBlock` in comparison view (Taras Panasiuk)
  * Add support for settings and custom block layouts for StructBlock (Sage Abdullah)
  * Add llms.txt versions of the developer documentation and Wagtail user guide (Thibaud Colas)
+ * Lower default JPEG and AVIF image quality settings to provide consistent perceptual quality between formats (Thibaud Colas)
+ * Add support for custom content checks with client-side registration (Thibaud Colas)
+ * Initial support for autosave (Matt Westcott, Sage Abdullah)
  * Fix: Do not try to resolve locale during fixture load (Jake Howard, Seb Corbin)
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
@@ -25,6 +53,10 @@ Changelog
  * Fix: Fix slug auto-generation when slug field is omitted from page edit form (Pravin Kamble)
  * Fix: Ensure `request.is_preview` and `request.preview_mode` are set for password-required responses (Ishtpreet Singh)
  * Fix: Optimise storage of redirect paths containing Unicode characters and ensure percent-encoded characters are matched case-insensitively (Andy Babic, Florin Barnea, Aman Bora, Matt Westcott)
+ * Fix: Ensure that reference index records are deleted when the target object is deleted (bettercallok)
+ * Fix: Ensure filters are applied to export button URLs in custom page listings (Ritik Arya, Sage Abdullah)
+ * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
@@ -38,6 +70,11 @@ Changelog
  * Docs: Grammar fixes to contributor guidelines (Biswajeet Yadav)
  * Docs: Mention punctuation is unsupported in paths for `RoutablePageMixin` (Tibor Leupold)
  * Docs: Various typo and grammar fixes (Mustansir Dabhiya)
+ * Docs: Improve instructions for building documentation on Windows (Mustansir Dabhiya)
+ * Docs: Provide recommended image quality settings for common use cases (Thibaud Colas)
+ * Docs: Add detailed documentation on reordering within generic listing view (Ankit Chaudhary)
+ * Docs: Document early notification process for security releases (Jake Howard)
+ * Docs: Remove mention of Wagtailtrans from internationalization docs (Andreas Nüßlein)
  * Maintenance: Dropped support for Django 5.1
  * Maintenance: Updated NPM packages (LB (Ben) Johnston)
  * Maintenance: Rationalize front-end linting tasks and run concurrently (LB (Ben) Johnston)
@@ -53,6 +90,17 @@ Changelog
  * Maintenance: Refactor CreateView/EditView validation logic to support non-form validation (Matt Westcott)
  * Maintenance: Formalized support for Django 6.0 (Pravin Kamble)
  * Maintenance: Add `no-jquery` ESLint plugin to start final deprecation of jQuery (LB (Ben) Johnston)
+ * Maintenance: Add `mode` value to `w-teleport` to allow different DOM update strategies (Sage Abdullah)
+ * Maintenance: Ignore 'build' dir when running ESLint (Matt Westcott)
+ * Maintenance: Upgrade to django-tasks 0.11.0 for Django 6.0 and Python 3.11 compatibility (Guilhem Saurel)
+ * Maintenance: Switch userbar items to the template components API (Thibaud Colas)
+
+
+7.2.2 (03.02.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 
 7.2.1 (26.11.2025)
@@ -124,11 +172,13 @@ Changelog
  * Maintenance: Fix linting issues B009, B010, B033 (minusf)
 
 
-7.1.3 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1.3 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow userbar in page previews to render without needing to configure site record (Sage Abdullah)
  * Fix: Disable usage count ordering when searching on documents and images listing views, to prevent unsupported search query (Sage Abdullah)
+ * Fix: Prevent conflicting IDs in nested `StructBlock`s with blocks named `content` (Sage Abdullah, Serkan Korkusuz)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 
 7.1.2 (23.10.2025)
@@ -256,10 +306,11 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
-7.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0.4 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error on custom generic create and edit views without a header icon (Sage Abdullah)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 7.0.3 (28.08.2025)
 ~~~~~~~~~~~~~~~~~~
@@ -532,10 +583,11 @@ Changelog
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
 
 
-6.3.6 (xx.xx.xxxx) - IN DEVELOPMENT
+6.3.6 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+ * Fix: CVE-2026-25517: Improper permission handling on admin preview endpoints (thxtech, Matt Westcott, Jake Howard)
 
 
 6.3.5 (12.06.2025)

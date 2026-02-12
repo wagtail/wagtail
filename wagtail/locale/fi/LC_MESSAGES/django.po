@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -42,24 +42,6 @@ msgstr "Kohtia on oltava vähintään %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Kohtia voi olla enintään %(max_num)d"
 
-msgid "Move up"
-msgstr "Siirrä ylös"
-
-msgid "Move down"
-msgstr "Siirrä alas"
-
-msgid "Drag"
-msgstr "Vedä"
-
-msgid "Duplicate"
-msgstr "Kaksoiskappale"
-
-msgid "Delete"
-msgstr "Poista"
-
-msgid "Add"
-msgstr "Lisää"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: tällä lohkolla ei ole valintoja"
@@ -69,6 +51,9 @@ msgstr "Tällä lohkolla ei ole valintoja."
 
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
+
+msgid "Group"
+msgstr "Ryhmä"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtailin käyttöliittymän välimuisti"
@@ -261,6 +246,9 @@ msgstr "ryhmän oikeudet kokoelmaan"
 
 msgid "uploaded by user"
 msgstr "lähettänyt käyttäjä"
+
+msgid "Add"
+msgstr "Lisää"
 
 msgid "Add/edit pages you own"
 msgstr "Lisää/muokkaa sivuja jota omistat"
@@ -644,6 +632,9 @@ msgstr "Luotu"
 
 msgid "Edited"
 msgstr "Muokattu"
+
+msgid "Delete"
+msgstr "Poista"
 
 msgid "Deleted"
 msgstr "Poistettu"

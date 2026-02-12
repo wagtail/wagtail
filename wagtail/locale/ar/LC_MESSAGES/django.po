@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -41,24 +41,6 @@ msgstr "الحد الأدنى لعدد العناصر هو %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "الحد الأقصى لعدد العناصر هو %(max_num)d"
 
-msgid "Move up"
-msgstr "نقل للأعلى"
-
-msgid "Move down"
-msgstr "نقل للأسفل"
-
-msgid "Drag"
-msgstr "سحب"
-
-msgid "Duplicate"
-msgstr "تكرار"
-
-msgid "Delete"
-msgstr "حذف"
-
-msgid "Add"
-msgstr "إضافة"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: هذه الكتلة لا تحتوي على خيارات."
@@ -68,6 +50,9 @@ msgstr "هذه الكتلة لا تحتوي على خيارات."
 
 msgid "This field is required."
 msgstr "هذا الحقل مطلوب."
+
+msgid "Group"
+msgstr "مجموعة"
 
 msgid "Wagtail frontend cache"
 msgstr "ذاكرة التخزين المؤقت لواجهة Wagtail"
@@ -285,6 +270,9 @@ msgstr "لنوع المحتوى"
 
 msgid "uploaded by user"
 msgstr "تم الرفع بواسطة المستخدم"
+
+msgid "Add"
+msgstr "إضافة"
 
 msgid "Add/edit pages you own"
 msgstr "إضافة/تعديل الصفحات التي تملكها"
@@ -744,6 +732,9 @@ msgstr "تم الإنشاء"
 
 msgid "Edited"
 msgstr "تم التعديل"
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "Deleted"
 msgstr "تم الحذف"

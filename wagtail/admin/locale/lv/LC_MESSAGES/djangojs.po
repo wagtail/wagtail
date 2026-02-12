@@ -1,13 +1,13 @@
 #
 # Translators:
-# Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022
 # Loic Teixeira, 2024
-# Maris Serzans <maris.serzans@gmail.com>, 2025
-# Reinis Rozenbergs <reinisr@gmail.com>, 2025
+# Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2026
+# Maris Serzans <maris.serzans@gmail.com>, 2026
+# Reinis Rozenbergs <reinisr@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2025\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2026\n"
 "Language-Team: Latvian (https://app.transifex.com/torchbox/teams/8009/lv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: lv\n"
@@ -16,6 +16,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "Darbības"
+
+msgid "Add"
+msgstr "Pievienot"
 
 msgid "Alt text"
 msgstr "Alt teksts"
@@ -35,6 +38,12 @@ msgstr "Informācijas panelis"
 msgid "Delete"
 msgstr "Dzēst"
 
+msgid "Drag"
+msgstr "Pārvilkt"
+
+msgid "Duplicate"
+msgstr "Dublicēt"
+
 msgid "Edit"
 msgstr "Labot"
 
@@ -52,6 +61,12 @@ msgstr "Ielādē..."
 
 msgid "Missing document"
 msgstr "Trūkstošs dokuments"
+
+msgid "Move down"
+msgstr "Uz leju"
+
+msgid "Move up"
+msgstr "Uz augšu"
 
 msgid "No"
 msgstr "Nē"
@@ -91,6 +106,9 @@ msgstr "Apskatīt visu"
 
 msgid "Server Error"
 msgstr "Servera kļūda"
+
+msgid "Settings"
+msgstr "Uzstādījumi"
 
 msgid "Show error"
 msgstr "Parādīt kļūdu"

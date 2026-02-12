@@ -104,9 +104,6 @@ class ModelViewSet(ViewSet):
     attribute (e.g.
     :attr:`Orderable.sort_order_field <wagtail.models.Orderable.sort_order_field>`),
     that will be used instead. To disable reordering, set this to ``None``.
-
-    .. versionadded:: 7.2
-       The ``sort_order_field`` attribute was added in Wagtail 7.2.
     """
 
     def __init__(self, name=None, **kwargs):

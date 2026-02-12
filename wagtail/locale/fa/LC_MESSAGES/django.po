@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -31,26 +31,14 @@ msgstr "کمترین تعداد آیتم ها %(min_num)d مورد است"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "حداکثر تعداد آیتم ها %(max_num)d مورد میباشد"
 
-msgid "Move up"
-msgstr "حرکت به بالا"
-
-msgid "Move down"
-msgstr "حرکت به پایین"
-
-msgid "Drag"
-msgstr "کشیدن"
-
-msgid "Delete"
-msgstr "حذف"
-
-msgid "Add"
-msgstr "افزودن"
-
 msgid "This block has no options."
 msgstr "این قطعه هیچ گزینه ای ندارد."
 
 msgid "This field is required."
 msgstr "این فیلد لازم است."
+
+msgid "Group"
+msgstr "گروه"
 
 msgid "Password"
 msgstr "رمزعبور"
@@ -129,6 +117,9 @@ msgstr "مجوز مجموعه گروه"
 
 msgid "uploaded by user"
 msgstr "آپلود‌شده توسط کاربر"
+
+msgid "Add"
+msgstr "افزودن"
 
 msgid "Add/edit pages you own"
 msgstr "افزودن/ویرایش صفحه های خودتان"
@@ -334,6 +325,9 @@ msgstr "ساختن"
 
 msgid "Edited"
 msgstr "تصحیح شده"
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "Unpublish"
 msgstr "لغو انتشار"

@@ -11,16 +11,16 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Michel Vuijlsteke, 2025
-# Storm Heg <storm@stormbase.digital>, 2021-2025
+# Storm Heg <storm@stormbase.digital>, 2021-2026
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -271,9 +271,9 @@ msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
 msgstr ""
-"Upload is geslaagd. Maar je nieuwe afbeelding lijkt op een dubbeling van een "
-"bestaande afbeelding. Misschien was de upload niet nodig en kun je deze "
-"afbeelding verwijderen?"
+"Upload is geslaagd. Maar je nieuwe afbeelding lijkt een dubbeling te zijn "
+"van een bestaande afbeelding. Misschien was de upload niet nodig en kun je "
+"deze afbeelding verwijderen?"
 
 msgid "Existing"
 msgstr "Bestaand"
@@ -592,6 +592,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "Maak URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr "Deze combinatie van filters is niet mogelijk."
 
 msgid "Delete image"
 msgstr "Verwijder afbeelding"

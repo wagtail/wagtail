@@ -20,9 +20,9 @@ concurrency:
 # - test runs with USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 
 # Current configuration:
-# - django 4.2, python 3.10, postgres:12, psycopg 2, parallel
-# - django 4.2, python 3.10, mysql:8.0
-# - django 4.2, python 3.11, mariadb:10.5
+# - django 5.2, python 3.10, postgres:14, psycopg 2, parallel
+# - django 5.2, python 3.10, mysql:8.0
+# - django 5.2, python 3.11, mariadb:10.5
 # - django 6.0, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
 # - django 6.0, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
 # - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
@@ -30,7 +30,7 @@ concurrency:
 # - django 6.0, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/6.0.x, python 3.14, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
-# - elasticsearch 7, django 4.2, python 3.10, postgres:latest, psycopg 2
+# - elasticsearch 7, django 5.2, python 3.10, postgres:latest, psycopg 2
 # - opensearch 2, django 5.2, python 3.10, sqlite
 # - elasticsearch 8, django 6.0, python 3.14, sqlite, USE_EMAIL_USER_MODEL=yes
 
@@ -94,8 +94,8 @@ jobs:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=4.2,<4.3'
-            psycopg: 'psycopg2>=2.6'
+            django: 'Django>=5.2,<5.3'
+            psycopg: 'psycopg2>=2.8.4'
             experimental: false
             parallel: '--parallel'
           - python: '3.14'
@@ -110,19 +110,15 @@ jobs:
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
-            install_extras: |
-              pip install "django-tasks>=0.9,<0.10"
           - python: '3.14'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
-            install_extras: |
-              pip install "django-tasks>=0.9,<0.10"
     services:
       postgres:
-        image: ${{ matrix.postgres || 'postgres:12' }}
+        image: ${{ matrix.postgres || 'postgres:14' }}
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -189,10 +185,10 @@ jobs:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=4.2,<4.3'
+            django: 'Django>=5.2,<5.3'
             experimental: false
           - python: '3.11'
-            django: 'Django>=4.2,<4.3'
+            django: 'Django>=5.2,<5.3'
             experimental: false
             mysql: 'mariadb:10.5'
           - python: '3.12'
@@ -309,7 +305,7 @@ jobs:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=4.2,<4.3'
+            django: 'Django>=5.2,<5.3'
             experimental: false
 
     services:

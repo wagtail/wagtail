@@ -593,8 +593,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "validation_error",
-                "errorMessage": "The page could not be created due to validation errors.",
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
             },
         )
 
@@ -657,10 +657,30 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
+        revision = page.get_latest_revision()
         response_json = response.json()
+        edit_url = reverse("wagtailadmin_pages:edit", args=(page.pk,))
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], page.pk)
-        self.assertEqual(response_json["revision_id"], page.get_latest_revision().pk)
+        self.assertEqual(response_json["revision_id"], revision.pk)
+        self.assertEqual(
+            response_json["revision_created_at"],
+            revision.created_at.isoformat(),
+        )
+        self.assertEqual(response_json["field_updates"], {})
+        self.assertEqual(
+            response_json["comments"],
+            {
+                "comments": [],
+                "user": str(self.user.pk),
+                "authors": {},
+            },
+        )
+        self.assertEqual(response_json["url"], edit_url)
+        self.assertEqual(
+            response_json["hydrate_url"],
+            f"{edit_url}?_w_hydrate_create_view=1",
+        )
 
         self.assertEqual(page.title, post_data["title"])
         self.assertEqual(page.draft_title, post_data["title"])
@@ -1891,8 +1911,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to create page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to create page was blocked by hook.",
             },
         )
 
@@ -1971,8 +1991,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to create page was blocked by hook.",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to create page was blocked by hook.",
             },
         )
 
@@ -2240,6 +2260,56 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.context["page"].locale, fr_locale)
+
+    def test_create_shows_status_side_panel_skeleton(self):
+        self.user.first_name = "Chrismansyah"
+        self.user.last_name = "Rahadi"
+        self.user.save()
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            )
+        )
+        soup = self.get_soup(response.content)
+        panel = soup.select_one('[data-side-panel="status"]')
+        self.assertIsNotNone(panel)
+
+        def assert_panel_section(label_id, label_text, description):
+            section = panel.select_one(f'[aria-labelledby="{label_id}"]')
+            self.assertIsNotNone(section)
+            label = section.select_one(f"#{label_id}")
+            self.assertIsNotNone(label)
+            self.assertEqual(label.get_text(separator="\n", strip=True), label_text)
+            self.assertEqual(
+                section.get_text(separator="\n", strip=True),
+                f"{label_text}\n{description}",
+            )
+
+        assert_panel_section(
+            "status-sidebar-draft",
+            "Draft",
+            "To be created by Chrismansyah Rahadi",
+        )
+
+        assert_panel_section(
+            "status-sidebar-unlocked",
+            "Locking:\nUnlocked",
+            "Anyone can edit this page",
+        )
+
+        assert_panel_section(
+            "status-sidebar-visible-to-all",
+            "Page visibility:\nVisible to all",
+            "Once live anyone can view",
+        )
+
+        usage_section = panel.select("section")[-1]
+        self.assertIsNotNone(usage_section)
+        self.assertEqual(
+            usage_section.get_text(separator="\n", strip=True),
+            "Usage\nReferenced 0 times",
+        )
 
 
 class TestPermissionedFieldPanels(WagtailTestUtils, TestCase):
@@ -2951,6 +3021,57 @@ class TestCommenting(WagtailTestUtils, TestCase):
         self.assertEqual("page-edit-form", form["id"])
         self.assertIn("w-init", form["data-controller"])
         self.assertEqual("", form["data-w-init-event-value"])
+
+    def test_new_comment_json(self):
+        post_data = {
+            "title": "New page",
+            "content": "hello world",
+            "slug": "hello-world",
+            "comments-TOTAL_FORMS": "1",
+            "comments-INITIAL_FORMS": "0",
+            "comments-MIN_NUM_FORMS": "0",
+            "comments-MAX_NUM_FORMS": "",
+            "comments-0-DELETE": "",
+            "comments-0-resolved": "",
+            "comments-0-id": "",
+            "comments-0-contentpath": "title",
+            "comments-0-text": "A test comment",
+            "comments-0-position": "",
+            "comments-0-replies-TOTAL_FORMS": "0",
+            "comments-0-replies-INITIAL_FORMS": "0",
+            "comments-0-replies-MIN_NUM_FORMS": "0",
+            "comments-0-replies-MAX_NUM_FORMS": "0",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        pk = response_json["pk"]
+        new_page = SimplePage.objects.get(pk=pk)
+
+        # Check the comment was added
+        comment = new_page.wagtail_admin_comments.get()
+        self.assertEqual(comment.text, "A test comment")
+
+        # Should include serialized comments data in the response
+        comments_json = response_json["comments"]
+        self.assertEqual(len(comments_json["comments"]), 1)
+        comment_json = comments_json["comments"][0]
+        self.assertEqual(comment_json["pk"], comment.pk)
+        self.assertEqual(comment_json["page"], new_page.pk)
+        self.assertEqual(comment_json["user"], str(self.user.pk))
+        self.assertEqual(comment_json["text"], "A test comment")
+        self.assertEqual(comment_json["contentpath"], "title")
+        self.assertEqual(comments_json["user"], str(self.user.pk))
+        self.assertIn(str(self.user.pk), comments_json["authors"])
 
 
 class TestCreateViewChildPagePrivacy(WagtailTestUtils, TestCase):

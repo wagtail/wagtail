@@ -5,6 +5,7 @@
 # Translators:
 # Andreas Bergström <andreas.bergstrom@gmail.com>, 2018
 # André Karlsson <andre@sess.se>, 2017
+# Jonathan Lindén, 2025
 # Martin Sandström <martin@marteinn.se>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019,2022
 # Thomas Kunambi <kunambi@gmail.com>, 2016,2022
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016,2022\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +46,7 @@ msgstr ""
 "definierad webbplats."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Inställningen kunde inte sparas då ett fel uppstod."
+msgstr "Inställningen kunde inte sparas på grund av fel."
 
 #, python-format
 msgid "%(setting_type)s updated."

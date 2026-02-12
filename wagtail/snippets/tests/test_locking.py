@@ -362,8 +362,8 @@ class TestEditLockedSnippet(BaseLockingTestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "locked",
-                "errorMessage": f"The {self.model_name} could not be saved as it is locked",
+                "error_code": "locked",
+                "error_message": f"The {self.model_name} could not be saved as it is locked",
             },
         )
 

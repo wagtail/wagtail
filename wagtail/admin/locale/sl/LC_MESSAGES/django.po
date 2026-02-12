@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2025\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1869,12 +1869,6 @@ msgstr "Pred odhodom shranite spremembe"
 msgid "You have <span>unsaved edits</span>"
 msgstr "Imate <span>neshranjene spremembe</span>"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "Imate <span>neshranjen komentar</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Imate <span>neshranjene spremembe</span> in <span>komentarje</span>"
-
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
 msgstr "Zahteval <b>%(modified_by)s</b>"
@@ -1951,8 +1945,8 @@ msgstr "Razvrsti"
 msgid "View Wagtail quick actions"
 msgstr "Oglejte si hitra dejanja Wagtail"
 
-msgid "Accessibility"
-msgstr "Dostopnost"
+msgid "Checks"
+msgstr "Preverjanja"
 
 msgid "Warnings"
 msgstr "Opozorila"
@@ -2241,9 +2235,6 @@ msgstr "Komentrarji"
 msgid "Toggle checks"
 msgstr "Preklopi preverjanja"
 
-msgid "Checks"
-msgstr "Preverjanja"
-
 msgid "Toggle preview"
 msgstr "Preklopi predogled"
 
@@ -2422,10 +2413,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' je sedaj odklenjen."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)s ni bilo mogoče shraniti, ker je zaklenjen"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' posodobljen."
 
@@ -2436,6 +2423,10 @@ msgstr "%(model_name)s '%(object)s' ustvarjen."
 #, python-format
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr "%(model_name)s '%(object)s' ustvarjen in objavjen."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s ni bilo mogoče shraniti, ker je zaklenjen"
 
 #, python-format
 msgid ""

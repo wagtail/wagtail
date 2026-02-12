@@ -4,8 +4,8 @@
   "devDependencies": {
     "@wordpress/jest-puppeteer-axe": "^4.0.1",
     "expect-puppeteer": "^6.1.0",
-    "jest": "^27.5.1",
-    "jest-junit": "^13.0.0",
+    "jest": "^30.2.0",
+    "jest-junit": "^16.0.0",
     "puppeteer": "^22.11.2"
   }
 }

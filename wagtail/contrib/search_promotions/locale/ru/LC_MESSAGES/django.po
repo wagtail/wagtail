@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrei Satsevich, 2023-2025
+# Andrei Satsevich, 2023-2026
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2015
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Andrei Satsevich, 2023-2025\n"
+"Last-Translator: Andrei Satsevich, 2023-2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -203,9 +203,15 @@ msgstr "Продвигаемый результат поиска"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Подборка для '%(query)s' создана."
 
+msgid "Recommendations have not been created due to errors."
+msgstr "Рекомендации не были созданы из-за ошибок."
+
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Подборка для '%(query)s' обновлена."
+
+msgid "Recommendations have not been saved due to errors."
+msgstr "Рекомендации не были сохранены из-за ошибок."
 
 msgid "Editor's picks deleted."
 msgstr "Подборка удалена."

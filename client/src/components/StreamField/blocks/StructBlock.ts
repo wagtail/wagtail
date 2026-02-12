@@ -69,7 +69,7 @@ export class BlockGroup {
       'wagtail:panel-toggle',
       this.setCollapsedLabelText,
     );
-    return dom.find(`#${prefix}-content`);
+    return dom.find(`#block_group-${prefix}-content`);
   }
 
   render(container: JQuery, prefix: string) {
@@ -93,9 +93,9 @@ export class BlockGroup {
     let groupContainer: JQuery | null = null;
     if (!isRoot || this.structBlock.blockDef.collapsible) {
       const panel = new CollapsiblePanel({
-        panelId: `${prefix}-section`,
-        headingId: `${prefix}-heading`,
-        contentId: `${prefix}-content`,
+        panelId: `block_group-${prefix}-section`,
+        headingId: `block_group-${prefix}-heading`,
+        contentId: `block_group-${prefix}-content`,
         blockTypeIcon: h(opts.icon),
         blockTypeLabel: h(isRoot ? opts.label : opts.heading),
         collapsed: isRoot ? opts.collapsed : dom.hasClass('collapsed'),
@@ -138,11 +138,11 @@ export class BlockGroup {
       const hidden = 'onbeforematch' in document.body ? 'until-found' : '';
       if (hasCustomTemplate) {
         blockSettings = dom.find('[data-block-settings]');
-        blockSettings.attr('id', `${prefix}-settings`);
+        blockSettings.attr('id', `block_group-${prefix}-settings`);
         blockSettings.attr('hidden', hidden);
       } else {
         blockSettings = $(/* html */ `
-          <div id="${prefix}-settings" data-block-settings hidden="${hidden}">
+          <div id="block_group-${prefix}-settings" data-block-settings hidden="${hidden}">
           </div>
         `);
         dom.append(blockSettings);
@@ -157,14 +157,19 @@ export class BlockGroup {
         this.renderChild(
           entry,
           blockSettings,
-          `${prefix}-${id}`,
+          `block_group-${prefix}-${id}`,
           hasCustomTemplate,
         ),
       );
     }
 
     this.children = children.map(([entry, id]) =>
-      this.renderChild(entry, dom, `${prefix}-${id}`, hasCustomTemplate),
+      this.renderChild(
+        entry,
+        dom,
+        `block_group-${prefix}-${id}`,
+        hasCustomTemplate,
+      ),
     );
 
     setAttrs(dom[0], opts.attrs || {});

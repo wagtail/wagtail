@@ -5,6 +5,7 @@ import {
   addCustomChecks,
   checkImageAltText,
   getA11yReport,
+  registerCustomCheck,
 } from './a11y-result';
 
 const mockDocument = `
@@ -88,6 +89,23 @@ describe('addCustomChecks', () => {
     };
     const modifiedSpec = addCustomChecks(spec);
     expect(modifiedSpec).toEqual(spec);
+  });
+});
+
+describe('registerCustomCheck', () => {
+  it('should register a custom check', () => {
+    const mockEvaluate = jest.fn();
+    const customChecks = registerCustomCheck('my-custom-check', mockEvaluate);
+    expect(customChecks['my-custom-check']).toBe(mockEvaluate);
+
+    const spec: Spec = {
+      checks: [{ id: 'my-custom-check' }],
+    };
+    const modifiedSpec = addCustomChecks(spec);
+    const check = modifiedSpec.checks!.find(
+      (ck) => ck.id === 'my-custom-check',
+    );
+    expect(check!.evaluate).toBe(mockEvaluate);
   });
 });
 

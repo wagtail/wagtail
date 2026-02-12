@@ -4,6 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Jonathan Lindén, 2025
 # Martin Sandström <martin@marteinn.se>, 2020-2021,2023-2024
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2021-2022
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -39,24 +40,6 @@ msgstr "Det minsta antalet block är %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Det maximala antalet block är %(max_num)d"
 
-msgid "Move up"
-msgstr "Flytta upp"
-
-msgid "Move down"
-msgstr "Flytta ner"
-
-msgid "Drag"
-msgstr "Dra"
-
-msgid "Duplicate"
-msgstr "Duplicera"
-
-msgid "Delete"
-msgstr "Radera"
-
-msgid "Add"
-msgstr "Lägg till"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: det här blocket har inga inställningar."
@@ -67,6 +50,9 @@ msgstr "Detta block har inga inställningar."
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt."
 
+msgid "Group"
+msgstr "Grupp"
+
 msgid "Wagtail frontend cache"
 msgstr "Wagtail frontend cache"
 
@@ -75,6 +61,12 @@ msgstr "Wagtail routablepage"
 
 msgid "Wagtail sitemaps"
 msgstr "Wagtail sajtkarta"
+
+msgid "Unknown content type"
+msgstr "Okänd innehållstyp"
+
+msgid "Date cannot be in the future."
+msgstr "Datumet kan inte vara i framtiden."
 
 msgid "Password"
 msgstr "Lösenord"
@@ -87,6 +79,10 @@ msgstr "Kommentar"
 
 msgid "Locked"
 msgstr "Låst"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Ingen kan göra några ändringar så länge %(model_name)s är låst"
 
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
@@ -111,6 +107,15 @@ msgid "Locked by another user"
 msgstr "Låst av en annan användare"
 
 #, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Endast du kan göra några ändringar så länge %(model_name)s är låst"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Endast %(user)s kan göra några ändringar så länge %(model_name)s är låst"
+
+#, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Denna %(model_name)s väntar på moderering."
 
@@ -129,6 +134,21 @@ msgstr "Endast granskare för denna uppgift kan redigera %(model_name)s."
 msgid "Unlocked"
 msgstr "Olåst"
 
+msgid "Locked by workflow"
+msgstr "Låst av arbetsflöde"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Granskare kan redigera denna %(model_name)s. Lås den för att förhindra andra "
+"granskare från att redigera"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Endast granskare för kan redigera och godkänna %(model_name)s"
+
 #, python-brace-format
 msgid ""
 "{model_name} '{title}' is locked and has been scheduled to go live at "
@@ -136,6 +156,12 @@ msgid ""
 msgstr ""
 "{model_name} '{title}' är låst och har schemalagts att publiceras vid "
 "{datetime}"
+
+msgid "Locked by schedule"
+msgstr "Låst av schema"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "För närvarande låst, kommer publiceras på det schemalagda datumet"
 
 msgid "content type"
 msgstr "innehållstyp"
@@ -161,10 +187,10 @@ msgid "Unknown %(action)s"
 msgstr "Okänt %(action)s"
 
 msgid "model log entry"
-msgstr "modelllogpost"
+msgstr "loggpost för modell"
 
 msgid "model log entries"
-msgstr "modellloggposter"
+msgstr "loggposter för modell"
 
 msgid "live"
 msgstr "publicerad"
@@ -202,6 +228,9 @@ msgstr "live + schemalagd"
 msgid "live + draft"
 msgstr "publicerad + utkast"
 
+msgid "locale"
+msgstr "översättning"
+
 msgid "locked"
 msgstr "låst"
 
@@ -238,8 +267,14 @@ msgstr "gruppsamlingsrättighet"
 msgid "group collection permissions"
 msgstr "gruppsamlingsbehörigheter"
 
+msgid "for content type"
+msgstr "för innehållstyp"
+
 msgid "uploaded by user"
 msgstr "uppladdad av användare"
+
+msgid "Add"
+msgstr "Lägg till"
 
 msgid "Add/edit pages you own"
 msgstr "Skapa/redigera sidor du äger"
@@ -332,6 +367,14 @@ msgstr "För sökmotorer"
 msgid "For site menus"
 msgstr "För sajtmenyer"
 
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"Sluggen '%(page_slug)s' används redan inom föräldersidan vid "
+"'%(parent_url_path)s'."
+
 msgid "page"
 msgstr "sida"
 
@@ -394,6 +437,13 @@ msgstr "Förhandsgranska i desktopstorlek"
 
 msgid "object id"
 msgstr "objektid"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s kommer också raderas"
+
+msgid "prevents deletion"
+msgstr "förhindrar radering"
 
 msgid "created at"
 msgstr "skapad vid"
@@ -471,11 +521,24 @@ msgstr ""
 msgid "Public"
 msgstr "Publik"
 
+msgid "Private, accessible with a shared password"
+msgstr "Privat, åtkomlig med ett delat lösenord"
+
+msgid "Private, accessible to any logged-in users"
+msgstr "Privat, åtkomlig för alla inloggade användare"
+
 msgid "Private, accessible to users in specific groups"
-msgstr "Privat, åtkomligen för användare i specifika grupper"
+msgstr "Privat, åtkomlig för användare i specifika grupper"
 
 msgid "shared password"
 msgstr "delat lösenord"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Delade lösenord ska inte användas för att skydda känsligt innehåll. Vem som "
+"helst som har lösenordet kan se innehållet."
 
 msgid "groups"
 msgstr "grupper"
@@ -556,6 +619,13 @@ msgstr ""
 msgid "tasks"
 msgstr "uppgifter"
 
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Sidor/snuttar i detta steg i ett arbetsflöde kommer modereras eller "
+"godkännas av dessa användargrupper"
+
 msgid "Request changes"
 msgstr "Begär ändringar"
 
@@ -569,10 +639,10 @@ msgid "Members of the chosen Wagtail Groups can approve this task"
 msgstr "Medlemmar i de valda Wagtail Grupperna kan godkänna denna uppgift"
 
 msgid "Group approval task"
-msgstr "Grupp godkännande uppgift"
+msgstr "Uppgift för godkännande av grupp"
 
 msgid "Group approval tasks"
-msgstr "Grupp godkännande uppgifter"
+msgstr "Uppgifter för godkännande av grupp"
 
 msgid "Rejected"
 msgstr "Avvisad"
@@ -644,6 +714,9 @@ msgstr "Skapad"
 
 msgid "Edited"
 msgstr "Redigerad"
+
+msgid "Delete"
+msgstr "Radera"
 
 msgid "Deleted"
 msgstr "Raderad"
@@ -827,14 +900,14 @@ msgid "Added a comment"
 msgstr "Lade till en kommentar"
 
 msgid "Edit comment"
-msgstr "Editera kommentar"
+msgstr "Redigera kommentar"
 
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
-msgstr "Editerade en kommentar på fältet %(field)s: \"%(text)s\""
+msgstr "Redigerade en kommentar på fältet %(field)s: \"%(text)s\""
 
 msgid "Edited a comment"
-msgstr "Editerade en kommentar"
+msgstr "Redigerade en kommentar"
 
 msgid "Delete comment"
 msgstr "Radera kommentar"
@@ -867,14 +940,15 @@ msgid "Replied to a comment"
 msgstr "Svarade på en kommentar"
 
 msgid "Edit reply to comment"
-msgstr "Editera svar till kommentar"
+msgstr "Redigera svar till kommentar"
 
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
-msgstr "Editerade ett svar till en kommentar på fältet %(field)s: \"%(text)s\""
+msgstr ""
+"Redigerade ett svar till en kommentar på fältet %(field)s: \"%(text)s\""
 
 msgid "Edited a reply"
-msgstr "Editerade ett svar"
+msgstr "Redigerade ett svar"
 
 msgid "Delete reply to comment"
 msgstr "Radera svar på kommentar"

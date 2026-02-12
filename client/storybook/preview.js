@@ -52,3 +52,4 @@ domReady().then(() => {
 });
 
 loadIconSprite();
+export const tags = ['autodocs'];

@@ -74,7 +74,10 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         )
 
         # Form should show the content of the revision, not the current draft
-        self.assertContains(response, "The original text", count=1)
+        soup = self.get_soup(response.content)
+        textarea = soup.select_one("textarea[name='text']")
+        self.assertIsNotNone(textarea)
+        self.assertEqual(textarea.text.strip(), "The original text")
 
         # Form action url should point to the revisions_revert view
         form_tag = f'<form action="{self.revert_url}" method="POST">'
@@ -83,6 +86,15 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
 
         # Buttons should be relabelled
         self.assertContains(response, "Replace current revision", count=1)
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+
+        # Autosave should be disabled
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
 
     def test_get_revert_revision_with_non_revisable_snippet(self):
         snippet = Advert.objects.create(text="foo")
