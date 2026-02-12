@@ -22,6 +22,7 @@ Changelog
  * Maintenance: Fix `hash_filelike` test case to account for line break differences on Windows (Mustansir Dabhiya)
  * Maintenance: Fix temporary file handling in redirect import tests on Windows (Mustansir Dabhiya)
  * Maintenance: Fix use of platform-specific date formatting in edit handler tests (Mustansir Dabhiya)
+ * Maintenance: Bump Node.js to 24 (active LTS), upgrade Jest and Storybook (Sage Abdullah)
 
 
 7.3 (03.02.2026)
