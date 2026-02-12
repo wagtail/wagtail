@@ -1,21 +1,21 @@
 import type { Store } from '../../state';
+import FocusTrap from 'focus-trap-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FocusTrap from 'focus-trap-react';
 
 import { gettext } from '../../../../utils/gettext';
-import { Author, Comment, newCommentReply } from '../../state/comments';
 import {
-  updateComment,
+  addReply,
   deleteComment,
   resolveComment,
   setFocusedComment,
-  addReply,
+  updateComment,
 } from '../../actions/comments';
+import { Author, Comment, newCommentReply } from '../../state/comments';
 import { LayoutController } from '../../utils/layout';
 import { getNextReplyId } from '../../utils/sequences';
-import CommentReplyComponent from '../CommentReply';
 import { CommentHeader } from '../CommentHeader';
+import CommentReplyComponent from '../CommentReply';
 import TextArea from '../TextArea';
 
 async function saveComment(comment: Comment, store: Store) {

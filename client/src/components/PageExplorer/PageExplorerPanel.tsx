@@ -1,15 +1,15 @@
-import React from 'react';
 import FocusTrap from 'focus-trap-react';
+import React from 'react';
 
-import { gettext } from '../../utils/gettext';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import { gettext } from '../../utils/gettext';
 
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import Transition, { PUSH, POP } from '../Transition/Transition';
+import Transition, { POP, PUSH } from '../Transition/Transition';
+import PageCount from './PageCount';
 import PageExplorerHeader from './PageExplorerHeader';
 import PageExplorerItem from './PageExplorerItem';
-import PageCount from './PageCount';
-import { State as NodeState, PageState } from './reducers/nodes';
+import { PageState, State as NodeState } from './reducers/nodes';
 
 interface PageExplorerPanelProps {
   nodes: NodeState;

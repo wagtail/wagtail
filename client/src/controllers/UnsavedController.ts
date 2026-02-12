@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { debounce, DebouncibleFunction } from '../utils/debounce';
+import { DebouncibleFunction, debounce } from '../utils/debounce';
 import { setOptionalInterval } from '../utils/interval';
 
 const DEFAULT_DURATIONS = {

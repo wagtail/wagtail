@@ -1,27 +1,27 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { v4 as uuidv4 } from 'uuid';
 import tippy from 'tippy.js';
+import { v4 as uuidv4 } from 'uuid';
 
-import { escapeHtml as h } from '../../../utils/text';
-import { hasOwn } from '../../../utils/hasOwn';
-import { gettext } from '../../../utils/gettext';
-import ComboBox, {
-  comboBoxLabel,
-  comboBoxNoResults,
-  comboBoxTriggerLabel,
-} from '../../ComboBox/ComboBox';
 import { hideTooltipOnEsc } from '../../../controllers/TooltipController';
 import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
 import { setAttrs } from '../../../utils/attrs';
+import { gettext } from '../../../utils/gettext';
+import { hasOwn } from '../../../utils/hasOwn';
+import { escapeHtml as h } from '../../../utils/text';
+import ComboBox, {
+  comboBoxLabel,
+  comboBoxNoResults,
+  comboBoxTriggerLabel,
+} from '../../ComboBox/ComboBox';
 import {
+  BaseInsertionControl,
   BaseSequenceBlock,
   BaseSequenceChild,
-  BaseInsertionControl,
 } from './BaseSequenceBlock';
 
 /* global $ */

@@ -2,20 +2,20 @@
 
 /* global $ */
 
-import { v4 as uuidv4 } from 'uuid';
 import Sortable from 'sortablejs';
-import { escapeHtml as h } from '../../../utils/text';
+import { v4 as uuidv4 } from 'uuid';
 import {
   initCollapsiblePanel,
   toggleCollapsiblePanel,
 } from '../../../includes/panels';
 import { range } from '../../../utils/range';
+import { escapeHtml as h } from '../../../utils/text';
 import {
-  MoveUpButton,
-  MoveDownButton,
+  DeleteButton,
   DragButton,
   DuplicateButton,
-  DeleteButton,
+  MoveDownButton,
+  MoveUpButton,
 } from './ActionButtons';
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { StructBlockDefinition } from './StructBlock';

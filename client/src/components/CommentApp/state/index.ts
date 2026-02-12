@@ -1,5 +1,5 @@
 import type { Action } from '../actions';
-import { combineReducers, Store as reduxStore } from 'redux';
+import { Store as reduxStore, combineReducers } from 'redux';
 
 import { reducer as commentsReducer } from './comments';
 import { reducer as settingsReducer } from './settings';

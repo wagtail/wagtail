@@ -1,5 +1,5 @@
-import type { Comment } from '../state/comments';
 import type { State } from '../state';
+import type { Comment } from '../state/comments';
 import { createSelector } from 'reselect';
 
 export const selectComments = (state: State) => state.comments.comments;

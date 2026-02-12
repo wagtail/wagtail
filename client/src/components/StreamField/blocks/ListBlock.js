@@ -3,17 +3,17 @@
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { escapeHtml as h } from '../../../utils/text';
-import { gettext } from '../../../utils/gettext';
 import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
 import { setAttrs } from '../../../utils/attrs';
+import { gettext } from '../../../utils/gettext';
+import { escapeHtml as h } from '../../../utils/text';
 import {
+  BaseInsertionControl,
   BaseSequenceBlock,
   BaseSequenceChild,
-  BaseInsertionControl,
 } from './BaseSequenceBlock';
 
 /**

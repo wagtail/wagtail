@@ -1,15 +1,15 @@
+import Tippy from '@tippyjs/react';
 import * as React from 'react';
 
-import Tippy from '@tippyjs/react';
+import { updateDismissibles } from '../../../controllers/DismissibleController';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
+import { ModuleDefinition } from '../Sidebar';
+import { renderMenu } from '../menu';
 import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
-import { ModuleDefinition } from '../Sidebar';
-import { updateDismissibles } from '../../../controllers/DismissibleController';
-import { renderMenu } from '../menu';
 
 interface SetActivePath {
   type: 'set-active-path';

@@ -1,8 +1,8 @@
 import {
   CanOnlyComparePreReleaseVersionsError,
-  VersionNumberFormatError,
-  VersionNumber,
   VersionDeltaType,
+  VersionNumber,
+  VersionNumberFormatError,
 } from './version';
 
 describe('version.VersionNumber initialisation', () => {

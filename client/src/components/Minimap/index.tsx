@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { toggleCollapsiblePanel } from '../../includes/panels';
 import { debounce } from '../../utils/debounce';
-import { MinimapMenuItem } from './MinimapItem';
-
 import Minimap from './Minimap';
+import { MinimapMenuItem } from './MinimapItem';
 
 /**
  * Generate a minimap link’s data, based on the panel’s elements.

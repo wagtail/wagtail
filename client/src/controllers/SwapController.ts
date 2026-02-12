@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
-import { debounce } from '../utils/debounce';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { debounce } from '../utils/debounce';
 
 class HTTPError extends Error {
   status: number;

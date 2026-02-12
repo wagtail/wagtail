@@ -1,8 +1,8 @@
 import React from 'react';
 import { Pattern, generateDocs } from 'storybook-django/src/react';
 
-import { StimulusWrapper } from '../../../../../../client/storybook/StimulusWrapper';
 import { DropdownController } from '../../../../../../client/src/controllers/DropdownController';
+import { StimulusWrapper } from '../../../../../../client/storybook/StimulusWrapper';
 
 import template from './dropdown.html';
 

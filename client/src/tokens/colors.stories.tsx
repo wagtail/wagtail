@@ -1,11 +1,11 @@
 import type { ThemeCategory, Token } from './colorThemes';
 import React from 'react';
-import { staticColors, Hues, Shade } from './colors';
 import * as colorThemes from './colorThemes';
 import {
   generateColorVariables,
   generateThemeColorVariables,
 } from './colorVariables';
+import { Hues, Shade, staticColors } from './colors';
 
 const description = `
 Wagtail’s typographic styles are made available as separate design tokens, but in most scenarios it’s better to use one of the predefined text styles.

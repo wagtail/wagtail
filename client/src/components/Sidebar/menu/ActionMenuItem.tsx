@@ -1,12 +1,11 @@
 import type { MenuItemDefinition, MenuItemProps } from './MenuItem';
-import * as React from 'react';
 
 import Tippy from '@tippyjs/react';
-import Icon from '../../Icon/Icon';
-import { gettext } from '../../../utils/gettext';
-import { isDismissed } from './MenuItem';
+import * as React from 'react';
 import { WAGTAIL_CONFIG } from '../../../config/wagtailConfig';
-import { MenuItemDefinition, MenuItemProps } from './MenuItem';
+import { gettext } from '../../../utils/gettext';
+import Icon from '../../Icon/Icon';
+import { isDismissed } from './MenuItem';
 
 export const ActionMenuItem: React.FunctionComponent<
   MenuItemProps<ActionMenuItemDefinition>

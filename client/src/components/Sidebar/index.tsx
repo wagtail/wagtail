@@ -1,6 +1,6 @@
+import Cookies from 'js-cookie';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import Cookies from 'js-cookie';
 
 import { noop } from '../../utils/noop';
 import { Sidebar } from './Sidebar';

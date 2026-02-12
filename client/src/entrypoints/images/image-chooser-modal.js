@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {
-  ChooserModalOnloadHandlerFactory,
   ChooserModal,
+  ChooserModalOnloadHandlerFactory,
 } from '../../includes/chooserModal';
 
 class ImageChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFactory {

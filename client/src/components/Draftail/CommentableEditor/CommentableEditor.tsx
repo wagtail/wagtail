@@ -1,16 +1,7 @@
 import type DraftEditorLeaf from 'draft-js/lib/DraftEditorLeaf.react';
+import type { CommentApp } from '../../CommentApp/main';
 import type { Comment } from '../../CommentApp/state/comments';
 import type { Annotation } from '../../CommentApp/utils/annotation';
-import type { CommentApp } from '../../CommentApp/main';
-import {
-  DraftailEditor,
-  ToolbarButton,
-  createEditorStateFromRaw,
-  serialiseEditorStateToRaw,
-  InlineStyleControl,
-  ControlComponentProps,
-  DraftailEditorProps,
-} from 'draftail';
 import {
   CharacterMetadata,
   ContentBlock,
@@ -23,6 +14,15 @@ import {
   RichUtils,
   SelectionState,
 } from 'draft-js';
+import {
+  ControlComponentProps,
+  DraftailEditor,
+  DraftailEditorProps,
+  InlineStyleControl,
+  ToolbarButton,
+  createEditorStateFromRaw,
+  serialiseEditorStateToRaw,
+} from 'draftail';
 import { filterInlineStyles } from 'draftjs-filters';
 import React, {
   MutableRefObject,
@@ -32,7 +32,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { gettext } from '../../../utils/gettext';
 
 import Icon from '../../Icon/Icon';

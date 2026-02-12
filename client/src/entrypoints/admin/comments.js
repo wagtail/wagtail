@@ -1,7 +1,7 @@
-import { gettext } from '../../utils/gettext';
 import { initCommentApp } from '../../components/CommentApp/main';
 
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
+import { gettext } from '../../utils/gettext';
 
 const KEYCODE_M = 77;
 
