@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.3.7 (12.02.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Remove upper bound on Pillow dependency
+
+
 6.3.6 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
