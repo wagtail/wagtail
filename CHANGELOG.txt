@@ -306,6 +306,11 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
+7.0.5 (12.02.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Remove upper bound on Pillow dependency (Kunal Hemnani)
+
 7.0.4 (03.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
@@ -581,6 +586,11 @@ Changelog
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+6.3.7 (12.02.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Remove upper bound on Pillow dependency
 
 
 6.3.6 (03.02.2026)
