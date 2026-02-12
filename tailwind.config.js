@@ -1,14 +1,21 @@
-const baseConfig = require('./client/tailwind.config');
+import baseConfig from './client/tailwind.config';
 
 /**
  * Tailwind config file for Wagtail itself.
+ * @see https://v3.tailwindcss.com/docs/configuration
+ * @type {import('tailwindcss').Config}
  */
-module.exports = {
+const config = {
   presets: [baseConfig],
   content: [
     './wagtail/**/*.{py,html,ts,tsx}',
     './wagtail/**/static_src/**/*.js',
-    './client/**/*.{js,ts,tsx,mdx}',
+    // Make sure NOT to include the `client/scss` directory,
+    // even if we don't specify `*.scss` files here.
+    // The directory would still be scanned for files, which would cause
+    // the styles to rebuild in a loop.
+    // https://tailwindcss.com/docs/content-configuration#styles-rebuild-in-an-infinite-loop
+    './client/src/**/*.{js,ts,tsx,mdx}',
     './docs/**/*.{md,rst}',
   ],
   corePlugins: {
@@ -16,3 +23,5 @@ module.exports = {
     preflight: false,
   },
 };
+
+export default config;

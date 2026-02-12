@@ -14,13 +14,13 @@ class Operation:
         try:
             inspect.getcallargs(self.construct, *args)
         except TypeError as e:
-            raise InvalidFilterSpecError(e)
+            raise InvalidFilterSpecError(e) from e
 
         # Call construct
         try:
             self.construct(*args)
         except ValueError as e:
-            raise InvalidFilterSpecError(e)
+            raise InvalidFilterSpecError(e) from e
 
     def construct(self, *args):
         raise NotImplementedError
@@ -409,7 +409,7 @@ class WebPQualityOperation(FilterOperation):
 
 
 class FormatOperation(FilterOperation):
-    supported_formats = ["jpeg", "png", "gif", "webp", "avif", "ico"]
+    supported_formats = ["jpeg", "png", "gif", "webp", "avif", "ico", "heic"]
 
     def construct(self, format, *options):
         self.format = format

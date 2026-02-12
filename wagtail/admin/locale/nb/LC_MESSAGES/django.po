@@ -5,6 +5,8 @@
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
 # Jonathan D, 2023
+# Jonathan D, 2023
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Ole Kristian Losvik <ole@losol.no>, 2020
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2015
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
@@ -12,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Jonathan D, 2023\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -62,9 +64,6 @@ msgstr "Wagtail admin"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke tilgang på dette området."
 
-msgid "You do not have permission to access the admin"
-msgstr "Du har ikke tilgang på admin sidene"
-
 msgid "None"
 msgstr "Ingen"
 
@@ -76,6 +75,12 @@ msgstr "Til-dato"
 
 msgid "All"
 msgstr "Alle"
+
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Tag"
+msgstr "Merkelapp"
 
 msgid "Preferred language"
 msgstr "Foretrukket språk"
@@ -122,9 +127,6 @@ msgstr "Søk"
 msgid "All collections"
 msgstr "Alle samlinger"
 
-msgid "Collection"
-msgstr "Samling"
-
 msgid "Parent"
 msgstr "Forelder"
 
@@ -134,9 +136,6 @@ msgid ""
 msgstr ""
 "Velg en hierarkisk posisjon. Merk: En samling kan ikke være overordnet seg "
 "selv eller en av dens underkategorier."
-
-msgid "Please select another parent"
-msgstr "Vennligst velg en annen overordnet"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme samling."
@@ -164,9 +163,6 @@ msgstr "Du kan ikke redigere en annen brukers kommentar."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
 
 msgid "New title"
 msgstr "Ny tittel"
@@ -233,16 +229,11 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan ikke kopiere en side inn i seg selv når du kopierer undersider"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Slug-en '%(page_slug)s' er allerede i bruk innenfor foreldersiden"
-
 msgid "Select a new parent for this page."
 msgstr "Velg en ny forelderside for denne siden."
 
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Merkelapp(ene) %(value_too_long)s er over %(max_tag_length)d tegn"
+msgid "Parent page"
+msgstr "Foreldreside"
 
 msgid "Visibility"
 msgstr "Synlighet"
@@ -275,9 +266,6 @@ msgstr "Gi arbeidsflyten et navn"
 
 msgid "Add tasks to your workflow"
 msgstr "Legg til oppgaver i arbeidsflyten din"
-
-msgid "Task"
-msgstr "Oppgave"
 
 msgid "1 page selected"
 msgstr "1 side valgt"
@@ -363,12 +351,6 @@ msgstr "Alle %(objects)s elementer på skjermen valg"
 msgid "All items in listing selected"
 msgstr "Alle elementer i listen valgt"
 
-msgid "For search engines"
-msgstr "For søkemotorer"
-
-msgid "For site menus"
-msgstr "For sidemenyer"
-
 msgid "Content"
 msgstr "Innhold"
 
@@ -396,14 +378,8 @@ msgstr "Den forespurte siden ble ikke funnet."
 msgid "Go to Wagtail admin"
 msgstr "Gå til Wagtail admin"
 
-msgid "Account"
-msgstr "Konto"
-
 msgid "More actions"
 msgstr "Flere handlinger"
-
-msgid "Save account details"
-msgstr "Lagre kontodetaljer"
 
 msgid "Reset password"
 msgstr "Nullstill passord"
@@ -577,17 +553,11 @@ msgstr "Utforsk undersider av \"%(title)s\""
 msgid "Explore"
 msgstr "Utforsk"
 
-msgid "Collection privacy"
-msgstr "Samlingsvern"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Denne samlingen har blitt gjort privat av en overordnet samling."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan endre sidevernsinnstillingene på:"
-
-msgid "Save"
-msgstr "Lagre"
 
 msgid "Change privacy"
 msgstr "Endre personvern"
@@ -617,9 +587,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Samlingen kan ikke slettes, fordi den ikke er tom. Den inneholder:"
 
-msgid "Name"
-msgstr "Navn"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -640,10 +607,6 @@ msgstr "Ja, slett"
 
 msgid "No, don't delete"
 msgstr "Nei, ikke slett"
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Avpublisér %(title)s"
 
 #, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
@@ -678,6 +641,11 @@ msgstr "Vil du fortsatt publisere denne %(model_name)s?"
 msgid "Cancel"
 msgstr "Avbryt"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Handlinger"
+
 msgid "Update"
 msgstr "Oppdatér"
 
@@ -690,13 +658,6 @@ msgid ""
 msgstr ""
 "Forhåndsvisning kan ikke vises på grunn av valideringsfeil. <br /> Klikk på "
 "lagre for å markere de relevante feltene."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Sammenligner %(title)s"
-
-msgid "Comparing"
-msgstr "Sammenligner"
 
 msgid "Fields"
 msgstr "Felt"
@@ -719,10 +680,6 @@ msgstr[1] "Flyttet opp %(counter)s plasser."
 msgid "There are no differences between these two versions"
 msgstr "Det er ingen forskjeller mellom disse to versjonene"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Velkommen til %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -730,17 +687,20 @@ msgstr ""
 "Dette er kontrollpanelet ditt, hvor du kan se en oversikt over innholdet som "
 "er lagt inn."
 
+msgid "Account"
+msgstr "Konto"
+
 msgid "Your locked pages"
 msgstr "Dine låste sider"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Locked at"
 msgstr "Låst den"
 
 msgid "Edit this page"
 msgstr "Redigér denne siden"
-
-msgid "Actions"
-msgstr "Handlinger"
 
 msgid "Unlock"
 msgstr "Lås opp"
@@ -754,39 +714,29 @@ msgstr "Publisert"
 msgid "Your most recent edits"
 msgstr "Dine siste endringer"
 
-msgid "Status"
-msgstr "Status"
-
 msgid "Date"
 msgstr "Dato"
 
 msgid "Site summary"
 msgstr "Oppsummering for nettstedet"
 
-#, python-format
-msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
-msgstr ""
-"Wagtail oppdatering tilgjengelig. Din versjon: <strong>%(current_version)s</"
-"strong>. Ny versjon: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
-
 msgid "Read the release notes."
 msgstr "Les utgivelsesnotatene."
 
+msgid "Close"
+msgstr "Lukk"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Dine sider og snutter i en arbeidsflyt"
+
+msgid "Task"
+msgstr "Oppgave"
 
 msgid "Task started"
 msgstr "Oppgave startet"
 
 msgid "Changes requested at"
 msgstr "Endringer forespurt hos"
-
-msgid "Close"
-msgstr "Lukk"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -917,12 +867,6 @@ msgstr "%(model_name)s \"%(title)s\" har blitt avslått under \"%(task)s\"."
 msgid "You can preview the page here:"
 msgstr "Du kan forhåndsvise siden her:"
 
-msgid "Page privacy"
-msgstr "Sidevern"
-
-msgid "This page has been made private by a parent page."
-msgstr "Denne siden har blitt gjort privat av en foreldreside."
-
 msgid "Publishing…"
 msgstr "Publiserer..."
 
@@ -1010,24 +954,6 @@ msgstr "Kopier"
 msgid "Copy this page"
 msgstr "Kopier denne siden"
 
-msgid "This page has unsaved changes."
-msgstr "Denne siden har endringer som ikke er lagret."
-
-msgid "Action"
-msgstr "Handling"
-
-msgid "User"
-msgstr "Bruker"
-
-msgid "Live version"
-msgstr "Publisert versjon"
-
-msgid "Current draft"
-msgstr "Nåværende kladd"
-
-msgid "No log entries found."
-msgstr "Ingen loggoppføringer funnet."
-
 msgid "Configure a site now."
 msgstr "Konfigurer et nettsted nå."
 
@@ -1041,18 +967,6 @@ msgstr "Utforsk undersider av \"%(title)s\""
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Legg en underside til \"%(title)s\""
-
-msgid "Drag"
-msgstr "Dra"
-
-msgid "Disable ordering of child pages"
-msgstr "Skru av rekkefølge på undersider"
-
-msgid "Sort"
-msgstr "Sorter"
-
-msgid "Enable ordering of child pages"
-msgstr "Skru på rekkefølge på undersider"
 
 msgid "Sites menu"
 msgstr "Nettsteder-meny"
@@ -1075,23 +989,11 @@ msgstr "Bekreft"
 msgid "Add child page"
 msgstr "Legg til underside"
 
-msgid "Review this version"
-msgstr "Gjennomgå denne versjonen"
-
-msgid "Compare with current version"
-msgstr "Sammenlign med nåværende versjon"
-
-msgid "Cancel scheduled publish"
-msgstr "Avbryt planlagt publisering"
-
 msgid "Page types"
 msgstr "Sidetyper"
 
 msgid "Enter a search term above"
 msgstr "Skriv inn en søkestreng over"
-
-msgid "No pages use"
-msgstr "Ingen sider bruker"
 
 #, python-format
 msgid "Add %(label)s"
@@ -1102,6 +1004,9 @@ msgstr "Flytt opp"
 
 msgid "Move down"
 msgstr "Flytt ned"
+
+msgid "Drag"
+msgstr "Dra"
 
 msgid "Type"
 msgstr "Type"
@@ -1127,18 +1032,29 @@ msgstr "Låst"
 msgid "No locked pages found."
 msgstr "Ingen låste sider funnet."
 
+msgid "Name"
+msgstr "Navn"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "User"
+msgstr "Bruker"
+
 msgid "Edit this item"
 msgstr "Endre dette elementet"
+
+msgid "No log entries found."
+msgstr "Ingen loggoppføringer funnet."
 
 msgid "Clear"
 msgstr "Tøm"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Side %(page_num)s av %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "Brødsmuler"
+
+msgid "Continue"
+msgstr "Fortsett"
 
 msgid "Download XLSX"
 msgstr "Last ned XLSX"
@@ -1149,9 +1065,6 @@ msgstr "Last ned CSV"
 msgid "Filter"
 msgstr "Filter"
 
-msgid "Root"
-msgstr "Rot"
-
 msgid "Current page status:"
 msgstr "Nåværende sidestatus:"
 
@@ -1159,11 +1072,8 @@ msgid "Visit the live page"
 msgstr "Se den publiserte siden"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Avbryt planlagt publisering av revisjon %(revision.id)s for %(title)s"
-
-msgid "Unschedule"
-msgstr "Avbryt planlagt publisering"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Side %(page_num)s av %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr ""
@@ -1178,6 +1088,9 @@ msgstr "Nei, ikke avbryt"
 
 msgid "Other searches"
 msgstr "Andre søk"
+
+msgid "Save"
+msgstr "Lagre"
 
 msgid "Unlocked"
 msgstr "Ulåst"
@@ -1199,6 +1112,9 @@ msgstr[1] "Brukt %(usage_count)s ganger"
 
 msgid "Edited"
 msgstr "Redigert"
+
+msgid "Sort"
+msgstr "Sorter"
 
 msgid "Add a child page"
 msgstr "Legg til en underside"
@@ -1224,6 +1140,24 @@ msgstr "%(time_period)s siden"
 
 msgid "Log out"
 msgstr "Logg ut"
+
+msgid "Undo"
+msgstr "Angre"
+
+msgid "Redo"
+msgstr "Gjør om"
+
+msgid "Bold"
+msgstr "Fet"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Superscript"
+msgstr "Hevet"
+
+msgid "Subscript"
+msgstr "Senket"
 
 #, python-format
 msgid ""
@@ -1267,18 +1201,33 @@ msgstr "Samlingen \"%(object)s\" er oppdatert."
 msgid "The collection could not be saved due to errors."
 msgstr "Samlingen kunne ikke lagres grunnet feil."
 
-msgid "Delete collection"
-msgstr "Slett samlingen"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Samlingen \"%(object)s\" er slettet."
+
+msgid "Delete collection"
+msgstr "Slett samlingen"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Er du sikker på at du vil slette denne samlingen?"
 
 msgid "Home"
 msgstr "Hjem"
+
+msgid "Live version"
+msgstr "Publisert versjon"
+
+msgid "Current draft"
+msgstr "Nåværende kladd"
+
+msgid "Review this version"
+msgstr "Gjennomgå denne versjonen"
+
+msgid "Compare with current version"
+msgstr "Sammenlign med nåværende versjon"
+
+msgid "Cancel scheduled publish"
+msgstr "Avbryt planlagt publisering"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1287,10 +1236,6 @@ msgstr "%(model_name)s «%(object)s» oppdatert."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s «%(object)s» opprettet."
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Endre «%(title)s»"
 
 msgid "Inspect"
 msgstr "Inspiser"
@@ -1306,14 +1251,14 @@ msgstr "Redigerer"
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s «%(object)s» slettet."
 
-msgid "Inspecting"
-msgstr "Inspiserer"
-
 msgid "Earliest"
 msgstr "Tidligste"
 
 msgid "Latest"
 msgstr "Siste"
+
+msgid "Unschedule"
+msgstr "Avbryt planlagt publisering"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1352,9 +1297,6 @@ msgstr "Siden \"%(page_title)s\" er opprettet og publisert."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Siden \"%(page_title)s\" er opprettet og sendt til godkjenning."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Siden \"%(page_title)s\" er slettet."
@@ -1375,12 +1317,6 @@ msgstr "Siden \"%(page_title)s\" er publisert."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Siden \"%(page_title)s\" er sendt til godkjenning."
 
-msgid "The page could not be saved as it is locked"
-msgstr "Siden kunne ikke lagres fordi den er låst"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
-
 msgid "Owner"
 msgstr "Eier"
 
@@ -1390,14 +1326,6 @@ msgstr "Nettsted"
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Siden \"%(page_title)s\" er nå ulåst."
-
-#, python-format
-msgid ""
-"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
-msgstr ""
-"Permalenken '%(page_slug)s' finnes allerede under den valgte foreldersiden. "
-"Sørg for at permalenken er unik og prøv igjen"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1414,33 +1342,23 @@ msgstr "Sider som bruker"
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Siden \"%(page_title)s\" påventer ikke godkjenning."
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Forhåndsvis kladd av «%(title)s»"
+msgid "Heading 1"
+msgstr "Overskrift 1"
 
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Vis publisert versjon av  «%(title)s»"
+msgid "Heading 2"
+msgstr "Overskrift 2"
 
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Flytt siden «%(title)s»"
+msgid "Heading 3"
+msgstr "Overskrift 3"
 
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Kopier siden «%(title)s»"
+msgid "Heading 4"
+msgstr "Overskrift 4"
 
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Slett siden «%(title)s»"
+msgid "Heading 5"
+msgstr "Overskrift 5"
 
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Avpublisér siden «%(title)s»"
-
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Overskrift %(level)d"
+msgid "Heading 6"
+msgstr "Overskrift 6"
 
 msgid "Bulleted list"
 msgstr "Punktliste"
@@ -1451,20 +1369,8 @@ msgstr "Nummerert liste"
 msgid "Blockquote"
 msgstr "Blokksitat"
 
-msgid "Bold"
-msgstr "Fet"
-
-msgid "Italic"
-msgstr "Kursiv"
-
 msgid "Link"
 msgstr "Lenke"
-
-msgid "Superscript"
-msgstr "Hevet"
-
-msgid "Subscript"
-msgstr "Senket"
 
 msgid "Strikethrough"
 msgstr "Gjennomstreking"

@@ -2,6 +2,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext
 
 from wagtail.admin.ui.tables import BaseColumn, BulkActionsCheckboxColumn, Column, Table
+from wagtail.admin.ui.tables.orderable import OrderableTableMixin
 
 
 class PageTitleColumn(BaseColumn):
@@ -56,6 +57,8 @@ class ParentPageColumn(Column):
     cell_template_name = "wagtailadmin/pages/listing/_parent_page_cell.html"
 
     def get_value(self, instance):
+        if parent := getattr(instance, "_parent_page", None):
+            return parent
         return instance.get_parent()
 
 
@@ -75,9 +78,13 @@ class BulkActionsColumn(BulkActionsCheckboxColumn):
         return context
 
 
-class OrderingColumn(BaseColumn):
-    header_template_name = "wagtailadmin/pages/listing/_ordering_header.html"
-    cell_template_name = "wagtailadmin/pages/listing/_ordering_cell.html"
+class PageTypeColumn(Column):
+    def get_header_context_data(self, parent_context):
+        context = super().get_header_context_data(parent_context)
+        # Cannot order by page type while searching, due to
+        # https://github.com/wagtail/wagtail/issues/6616
+        context["is_orderable"] = not parent_context.get("is_searching")
+        return context
 
 
 class NavigateToChildrenColumn(BaseColumn):
@@ -92,23 +99,22 @@ class NavigateToChildrenColumn(BaseColumn):
         return context
 
     def render_header_html(self, parent_context):
-        return mark_safe("<th></th>")
+        # This column has no header, as the cell's function will vary between "explore child pages"
+        # and "add child page", and this link provides all the signposting needed. Render it as a
+        # <td> rather than <th> as headings cannot be empty (https://dequeuniversity.com/rules/axe/4.9/empty-table-header).
+        return mark_safe("<td></td>")
 
 
-class PageTable(Table):
+class PageTable(OrderableTableMixin, Table):
     def __init__(
         self,
         *args,
-        use_row_ordering_attributes=False,
         parent_page=None,
         show_locale_labels=False,
         actions_next_url=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-
-        # If true, attributes will be added on the <tr> element to support reordering
-        self.use_row_ordering_attributes = use_row_ordering_attributes
 
         # The parent page of the pages being listed - used to add extra context to the title text
         # of the reordering links. Leave this undefined if the pages being listed do not share a
@@ -149,11 +155,9 @@ class PageTable(Table):
 
     def get_row_attrs(self, instance):
         attrs = super().get_row_attrs(instance)
-        if self.use_row_ordering_attributes:
+        if self.reorder_url:
             attrs["id"] = "page_%d" % instance.id
-            attrs["data-w-orderable-item-id"] = instance.id
             attrs["data-w-orderable-item-label"] = instance.get_admin_display_title()
-            attrs["data-w-orderable-target"] = "item"
         return attrs
 
     def get_context_data(self, parent_context):

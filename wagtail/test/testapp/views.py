@@ -7,13 +7,20 @@ from django.template.response import TemplateResponse
 from django.urls import path
 from django.utils import timezone
 from django.utils.translation import gettext_lazy
+from django.views.generic import View
 
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import BooleanColumn, Column, UpdatedAtColumn
-from wagtail.admin.views.generic import DeleteView, EditView, IndexView
+from wagtail.admin.views.generic import (
+    CreateView,
+    DeleteView,
+    EditView,
+    IndexView,
+    InspectView,
+)
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
@@ -68,10 +75,23 @@ class TestIndexView(IndexView):
     context_object_name = "test_object"
 
 
+class TestIndexViewWithoutModel(IndexView):
+    def get_base_queryset(self):
+        return ModelWithStringTypePrimaryKey.objects.all()
+
+
 class CustomModelEditForm(forms.ModelForm):
     class Meta:
         model = ModelWithStringTypePrimaryKey
         fields = ("content",)
+
+
+class TestCreateView(CreateView):
+    model = ModelWithStringTypePrimaryKey
+    fields = ["custom_id", "content"]
+    add_url_name = "testapp_generic_create"
+    edit_url_name = "testapp_generic_edit"
+    index_url_name = "testapp_generic_index"
 
 
 class TestEditView(EditView):
@@ -226,11 +246,17 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     # search_fields derived from the model
     inspect_view_enabled = True
     inspect_view_fields = ["strid", "release_date"]
+    sort_order_field = "sort_order"
 
     panels = [
         FieldPanel("name"),
-        FieldPanel("release_date"),
+        FieldPanel("release_date", permission="tests.can_set_release_date"),
     ]
+
+
+class FCToyAlt1InspectView(InspectView):
+    def get_name_display_value(self):
+        return f"{self.object.name} ({self.object.strid})"
 
 
 class FCToyAlt1ViewSet(ModelViewSet):
@@ -239,8 +265,9 @@ class FCToyAlt1ViewSet(ModelViewSet):
     list_filter = {"name": ["icontains"]}
     form_fields = ["name"]
     menu_label = "FC Toys Alt 1"
+    inspect_view_class = FCToyAlt1InspectView
     inspect_view_enabled = True
-    inspect_view_fields_exclude = ["strid", "release_date"]
+    inspect_view_fields_exclude = ["strid", "release_date", "sort_order"]
     copy_view_enabled = False
 
     def get_index_view_kwargs(self, **kwargs):
@@ -269,6 +296,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             exclude_form_fields=(),
             search_fields=["name"],
             search_backend_name=None,
+            sort_order_field=None,
         ),
         ModelViewSet(
             name="fctoy-alt3",
@@ -278,6 +306,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             index_view_class=FeatureCompleteToyIndexView,
             list_display=["name", "strid", "release_date"],
             ordering=["strid"],
+            copy_view_enabled=False,
         ),
     )
 
@@ -305,6 +334,10 @@ class EventPageFilterSet(PageListingViewSet.filterset_class):
         fields = ["audience"]
 
 
+class EventPageIndexView(PageListingViewSet.index_view_class):
+    list_export = ["pk", "title", "audience", "event_date"]
+
+
 class EventPageListingViewSet(PageListingViewSet):
     model = EventPage
     icon = "calendar"
@@ -313,7 +346,44 @@ class EventPageListingViewSet(PageListingViewSet):
     columns = PageListingViewSet.columns + [
         Column("audience", label="Audience", sort_key="audience"),
     ]
+    index_view_class = EventPageIndexView
     filterset_class = EventPageFilterSet
 
 
 event_page_listing_viewset = EventPageListingViewSet("event_pages")
+
+
+class PlayView(View):
+    def hero(self):
+        return "Romeo"
+
+    def heroine(self):
+        return "Juliet"
+
+    def get(self, request):
+        return HttpResponse(f"{self.hero()} and {self.heroine()}")
+
+
+class PlayViewSet(ViewSet):
+    play_view_class = PlayView
+
+    @property
+    def play_view(self):
+        view_class = self.inject_view_methods(self.play_view_class, ["hero", "heroine"])
+        return self.construct_view(view_class)
+
+    def get_urlpatterns(self):
+        return super().get_urlpatterns() + [
+            path("", self.play_view, name="index"),
+        ]
+
+
+class OperaViewSet(PlayViewSet):
+    def hero(self):
+        return "Porgy"
+
+    def heroine(self):
+        return "Bess"
+
+
+opera_viewset = OperaViewSet("opera")

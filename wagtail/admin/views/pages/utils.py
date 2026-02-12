@@ -1,5 +1,8 @@
+from django.conf import settings
 from django.urls import reverse
 from django.utils.functional import cached_property
+
+from wagtail.admin import messages
 
 # Retain backwards compatibility for imports
 from wagtail.admin.utils import (  # noqa: F401
@@ -50,7 +53,6 @@ class GenericPageBreadcrumbsMixin:
     item of the generic view's generated breadcrumbs items.
     """
 
-    _show_breadcrumbs = True
     breadcrumbs_items_to_take = 1
 
     @cached_property
@@ -66,6 +68,23 @@ class GenericPageBreadcrumbsMixin:
         # which in most cases is the final item that links to the current view.
         # However, this can be customised in the case of generic views that are
         # nested inside another generic view.
-        return self.breadcrumbs_items + [
-            super().get_breadcrumbs_items()[-self.breadcrumbs_items_to_take]
-        ]
+        return (
+            self.breadcrumbs_items
+            + super().get_breadcrumbs_items()[-self.breadcrumbs_items_to_take :]
+        )
+
+
+def type_to_delete_confirmation(request, context=None):
+    """
+    Checks if a user has correctly typed the site name to confirm page deletion
+    when using a confirmation dialog.
+    """
+    wagtail_site_name = getattr(settings, "WAGTAIL_SITE_NAME", "wagtail")
+    if (
+        request.POST.get("confirm_site_name")
+        and request.POST.get("confirm_site_name") != wagtail_site_name
+    ):
+        messages.error(request, f"Please type '{wagtail_site_name}' to confirm.")
+        return False
+
+    return True

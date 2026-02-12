@@ -6,13 +6,14 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.test import RequestFactory, TestCase
+from django.test import TestCase
 from django.urls import NoReverseMatch, reverse
 from django.utils.formats import date_format, localize
 from django.utils.html import escape
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
@@ -22,10 +23,8 @@ from wagtail.test.testapp.models import (
     SearchTestModel,
     VariousOnDeleteModel,
 )
-from wagtail.test.testapp.views import FCToyAlt1ViewSet
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestModelViewSetGroup(WagtailTestUtils, TestCase):
@@ -40,8 +39,8 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
             response,
             '"name": "tests", "label": "Tests", "icon_name": "folder-open-inverse"',
         )
-        # Title-cased from verbose_name_plural
-        self.assertContains(response, "Json Stream Models")
+        # Capitalized-first from verbose_name_plural
+        self.assertContains(response, "JSON stream models")
         self.assertContains(response, reverse("streammodel:index"))
         self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
         # Set on class
@@ -58,6 +57,51 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
             reverse("blockcounts_streammodel:index"),
             "/admin/blockcounts/streammodel/",
         )
+
+    def test_menu_item_with_only_view_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        view_permission = Permission.objects.get(
+            content_type=ContentType.objects.get_for_model(JSONStreamModel),
+            codename=get_permission_codename("view", JSONStreamModel._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        # The group menu item is still shown
+        self.assertContains(
+            response,
+            '"name": "tests", "label": "Tests", "icon_name": "folder-open-inverse"',
+        )
+
+        # The menu item for the model is shown
+        self.assertContains(response, "JSON stream models")
+        self.assertContains(response, reverse("streammodel:index"))
+        self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
+
+        # The other items in the group are not shown as the user doesn't have permission
+        self.assertNotContains(response, "JSON MinMaxCount StreamModel")
+        self.assertNotContains(response, reverse("minmaxcount_streammodel:index"))
+        self.assertNotContains(response, "JSON BlockCounts StreamModel")
+        self.assertNotContains(response, reverse("blockcounts_streammodel:index"))
+
+
+class TestAdminURLs(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def test_cannot_reverse_mismatched_converter_value(self):
+        with self.assertRaises(NoReverseMatch):
+            reverse("streammodel:edit", kwargs={"pk": "123abc"})
+
+    def test_404_on_mismatched_converter_value(self):
+        response = self.client.get("/admin/streammodel/edit/123abc/")
+        self.assertEqual(response.status_code, 404)
 
 
 class TestTemplateConfiguration(WagtailTestUtils, TestCase):
@@ -207,11 +251,11 @@ class TestCustomColumns(WagtailTestUtils, TestCase):
         self.assertIsNotNone(help)
         self.assertEqual(help.text.strip(), "None")
 
-        success = soup.select_one("td:has(svg.icon-success.w-text-positive-100)")
+        success = soup.select_one("td:has(svg.icon-check.w-text-positive-100)")
         self.assertIsNotNone(success)
         self.assertEqual(success.text.strip(), "True")
 
-        error = soup.select_one("td:has(svg.icon-error.w-text-critical-100)")
+        error = soup.select_one("td:has(svg.icon-cross.w-text-text-error)")
         self.assertIsNotNone(error)
         self.assertEqual(error.text.strip(), "False")
 
@@ -419,6 +463,7 @@ class TestSearchIndexView(WagtailTestUtils, TestCase):
 
     def test_search_disabled(self):
         response = self.get("fctoy_alt1", {"q": "ork"})
+        self.assertFalse(response.context.get("search_form"))
         self.assertContains(response, "Forky")
         self.assertContains(response, "Buzz Lightyear")
         self.assertNotContains(response, "There are 2 matches")
@@ -877,10 +922,11 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_usage_view_pagination(self):
-        for i in range(25):
-            VariousOnDeleteModel.objects.create(
-                text=f"Toybox {i}", cascading_toy=self.object
-            )
+        with self.captureOnCommitCallbacks(execute=True):
+            for i in range(25):
+                VariousOnDeleteModel.objects.create(
+                    text=f"Toybox {i}", cascading_toy=self.object
+                )
 
         usage_url = reverse(
             "feature_complete_toy:usage",
@@ -914,41 +960,6 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
-
-
-class TestLegacyPatterns(WagtailTestUtils, TestCase):
-    # RemovedInWagtail70Warning: legacy integer pk-based URLs will be removed
-
-    def setUp(self):
-        self.user = self.login()
-
-    @classmethod
-    def setUpTestData(cls):
-        cls.object = JSONStreamModel.objects.create(
-            body='[{"type": "text", "value": "foo"}]',
-        )
-
-    def test_legacy_edit(self):
-        edit_url = reverse("streammodel:edit", args=(quote(self.object.pk),))
-        legacy_edit_url = "/admin/streammodel/1/"
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
-        ):
-            response = self.client.get(legacy_edit_url)
-        self.assertEqual(edit_url, "/admin/streammodel/edit/1/")
-        self.assertRedirects(response, edit_url, 301)
-
-    def test_legacy_delete(self):
-        delete_url = reverse("streammodel:delete", args=(quote(self.object.pk),))
-        legacy_delete_url = "/admin/streammodel/1/delete/"
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
-        ):
-            response = self.client.get(legacy_delete_url)
-        self.assertEqual(delete_url, "/admin/streammodel/delete/1/")
-        self.assertRedirects(response, delete_url, 301)
 
 
 class TestHistoryView(WagtailTestUtils, TestCase):
@@ -1010,6 +1021,11 @@ class TestHistoryView(WagtailTestUtils, TestCase):
 
         for rendered_row, expected_row in zip(rendered_rows, expected):
             self.assertSequenceEqual(rendered_row, expected_row)
+
+        # History view is not searchable
+        input = soup.select_one("input#id_q")
+        self.assertIsNone(input)
+        self.assertFalse(response.context.get("search_form"))
 
     def test_action_filter(self):
         response = self.client.get(self.url)
@@ -1170,15 +1186,16 @@ class TestHistoryView(WagtailTestUtils, TestCase):
 class TestUsageView(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = cls.create_test_user()
-        cls.object = FeatureCompleteToy.objects.create(name="Buzz")
-        cls.url = reverse(
-            "feature_complete_toy:usage",
-            args=(quote(cls.object.pk),),
-        )
-        cls.tbx = VariousOnDeleteModel.objects.create(
-            text="Toybox", cascading_toy=cls.object
-        )
+        with cls.captureOnCommitCallbacks(execute=True):
+            cls.user = cls.create_test_user()
+            cls.object = FeatureCompleteToy.objects.create(name="Buzz")
+            cls.url = reverse(
+                "feature_complete_toy:usage",
+                args=(quote(cls.object.pk),),
+            )
+            cls.tbx = VariousOnDeleteModel.objects.create(
+                text="Toybox", cascading_toy=cls.object
+            )
 
     def setUp(self):
         self.user = self.login(self.user)
@@ -1203,11 +1220,21 @@ class TestUsageView(WagtailTestUtils, TestCase):
         link = tds[0].select_one("a")
         self.assertIsNotNone(link)
         self.assertEqual(link.attrs.get("href"), tbx_edit_url)
+        content_path_link = tds[-1].select_one("a")
+        self.assertEqual(
+            content_path_link.attrs.get("href"),
+            tbx_edit_url + "#:w:contentpath=cascading_toy",
+        )
 
         # Link to referrer's edit view with parameters for the specific field
         link = tds[2].select_one("a")
         self.assertIsNotNone(link)
         self.assertIn(tbx_edit_url, link.attrs.get("href"))
+
+        # Usage view is not searchable
+        input = soup.select_one("input#id_q")
+        self.assertIsNone(input)
+        self.assertFalse(response.context.get("search_form"))
 
     def test_usage_without_permission(self):
         self.user.is_superuser = False
@@ -1350,7 +1377,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
             reverse("fctoy_alt1:inspect", args=(quote(self.object.pk),))
         )
         expected_fields = ["Name"]
-        expected_values = ["Test Toy"]
+        expected_values = [f"Test Toy ({self.object.pk})"]
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/inspect.html")
         soup = self.get_soup(response.content)
@@ -1358,6 +1385,25 @@ class TestInspectView(WagtailTestUtils, TestCase):
         values = [dd.text.strip() for dd in soup.select("dd")]
         self.assertEqual(fields, expected_fields)
         self.assertEqual(values, expected_values)
+
+    def test_view_permission_registered(self):
+        content_type = ContentType.objects.get_for_model(FeatureCompleteToy)
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_user_permissions = qs.filter(content_type=content_type)
+        self.assertEqual(
+            set(registered_user_permissions.values_list("codename", flat=True)),
+            {
+                "add_featurecompletetoy",
+                "change_featurecompletetoy",
+                "delete_featurecompletetoy",
+                # The "view" permission should be registered if inspect view is enabled
+                "view_featurecompletetoy",
+                # Any custom permissions should be registered too
+                "can_set_release_date",
+            },
+        )
 
     def test_disabled(self):
         # An alternate viewset for the same model without inspect_view_enabled = True
@@ -1376,7 +1422,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-    def test_only_add_permission(self):
+    def assert_minimal_permission(self, permission):
         self.user.is_superuser = False
         self.user.user_permissions.add(
             Permission.objects.get(
@@ -1384,7 +1430,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
             ),
             Permission.objects.get(
                 content_type__app_label=self.object._meta.app_label,
-                codename=get_permission_codename("add", self.object._meta),
+                codename=get_permission_codename(permission, self.object._meta),
             ),
         )
         self.user.save()
@@ -1407,6 +1453,12 @@ class TestInspectView(WagtailTestUtils, TestCase):
         self.assertEqual(len(soup.find_all("a", attrs={"href": self.edit_url})), 0)
         self.assertEqual(len(soup.find_all("a", attrs={"href": self.delete_url})), 0)
 
+    def test_only_add_permission(self):
+        self.assert_minimal_permission("add")
+
+    def test_only_view_permission(self):
+        self.assert_minimal_permission("view")
+
 
 class TestListingButtons(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -1426,6 +1478,8 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         actions = soup.select_one("tbody tr td ul.actions")
         more_dropdown = actions.select_one("li [data-controller='w-dropdown']")
         self.assertIsNotNone(more_dropdown)
+        # The aria-label should be on the toggle button, not the dropdown
+        self.assertIsNone(more_dropdown.get("aria-label"))
         more_button = more_dropdown.select_one("button")
         self.assertEqual(
             more_button.attrs.get("aria-label").strip(),
@@ -1435,22 +1489,18 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         expected_buttons = [
             (
                 "Edit",
-                f"Edit '{self.object}'",
                 reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
             ),
             (
                 "Copy",
-                f"Copy '{self.object}'",
                 reverse("feature_complete_toy:copy", args=[quote(self.object.pk)]),
             ),
             (
                 "Inspect",
-                f"Inspect '{self.object}'",
                 reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
             ),
             (
                 "Delete",
-                f"Delete '{self.object}'",
                 reverse("feature_complete_toy:delete", args=[quote(self.object.pk)]),
             ),
         ]
@@ -1458,12 +1508,81 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         rendered_buttons = more_dropdown.select("a")
         self.assertEqual(len(rendered_buttons), len(expected_buttons))
 
-        for rendered_button, (label, aria_label, url) in zip(
-            rendered_buttons, expected_buttons
-        ):
+        for rendered_button, (label, url) in zip(rendered_buttons, expected_buttons):
             self.assertEqual(rendered_button.text.strip(), label)
-            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+            # Should not render aria-label in favor of the button text
+            self.assertIsNone(rendered_button.attrs.get("aria-label"))
+
+    def test_title_cell_not_link_to_edit_view_when_no_edit_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("add", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, add_permission)
+
+        response = self.client.get(reverse("fctoy-alt2:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
+        self.assertIsNotNone(title_wrapper)
+
+        # fctoy-alt2 doesn't have inspect view enabled, so the title cell should
+        # not link anywhere
+        self.assertIsNone(title_wrapper.select_one("a"))
+        self.assertEqual(title_wrapper.text.strip(), str(self.object))
+
+        # There should be no edit link at all on the page
+        self.assertNotContains(
+            response,
+            reverse("fctoy-alt2:edit", args=[quote(self.object.pk)]),
+        )
+
+    def test_title_cell_links_to_inspect_view_when_no_edit_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        view_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("view", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
+        self.assertIsNotNone(title_wrapper)
+        link = title_wrapper.select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), self.object.name)
+        self.assertEqual(
+            link.get("href"),
+            reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
+        )
+
+        # Should contain the inspect link twice:
+        # once in the title cell and once in the dropdown
+        self.assertContains(
+            response,
+            reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
+            count=2,
+        )
+
+        # There should be no edit link at all on the page
+        self.assertNotContains(
+            response,
+            reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
+        )
 
     def test_copy_disabled(self):
         response = self.client.get(reverse("fctoy_alt1:index"))
@@ -1484,17 +1603,14 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         expected_buttons = [
             (
                 "Edit",
-                f"Edit '{self.object}'",
                 reverse("fctoy_alt1:edit", args=[quote(self.object.pk)]),
             ),
             (
                 "Inspect",
-                f"Inspect '{self.object}'",
                 reverse("fctoy_alt1:inspect", args=[quote(self.object.pk)]),
             ),
             (
                 "Delete",
-                f"Delete '{self.object}'",
                 reverse("fctoy_alt1:delete", args=[quote(self.object.pk)]),
             ),
         ]
@@ -1502,12 +1618,32 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         rendered_buttons = more_dropdown.select("a")
         self.assertEqual(len(rendered_buttons), len(expected_buttons))
 
-        for rendered_button, (label, aria_label, url) in zip(
-            rendered_buttons, expected_buttons
-        ):
+        for rendered_button, (label, url) in zip(rendered_buttons, expected_buttons):
             self.assertEqual(rendered_button.text.strip(), label)
-            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+            # Should not render aria-label in favor of the button text
+            self.assertIsNone(rendered_button.attrs.get("aria-label"))
+
+    def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("add", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, add_permission)
+
+        # The alt3 viewset doesn't have "copy" and "inspect" views enabled,
+        # so when only "add" permission is granted, the dropdown should have
+        # no items and thus not be rendered at all
+        response = self.client.get(reverse("fctoy-alt3:index"))
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        self.assertIsNone(actions)
 
 
 class TestCopyView(WagtailTestUtils, TestCase):
@@ -1532,14 +1668,11 @@ class TestCopyView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_form_is_prefilled(self):
-        request = RequestFactory().get(self.url)
-        request.user = self.user
-        view = FCToyAlt1ViewSet().copy_view_class()
-        view.setup(request)
-        view.model = self.object.__class__
-        view.kwargs = {"pk": self.object.pk}
-
-        self.assertEqual(view.get_form_kwargs()["instance"], self.object)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        name_input = soup.select_one('input[name="name"]')
+        self.assertEqual(name_input.attrs.get("value"), "Test Toy")
 
 
 class TestEditHandler(WagtailTestUtils, TestCase):
@@ -1574,6 +1707,35 @@ class TestEditHandler(WagtailTestUtils, TestCase):
             rendered_heading = panel.select_one("[data-panel-heading-text]")
             self.assertIsNotNone(rendered_heading)
             self.assertEqual(rendered_heading.text.strip(), expected_heading)
+
+    def test_field_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label=self.object._meta.app_label,
+                codename=get_permission_codename("change", self.object._meta),
+            ),
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(list(response.context["form"].fields), ["name"])
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="can_set_release_date",
+            )
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["form"].fields), ["name", "release_date"]
+        )
 
 
 class TestDefaultMessages(WagtailTestUtils, TestCase):
@@ -1643,3 +1805,361 @@ class TestDefaultMessages(WagtailTestUtils, TestCase):
             response,
             escape(f"Feature complete toy '{self.object}' deleted."),
         )
+
+
+class TestHeaderButtons(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+        cls.edit_url = reverse(
+            "feature_complete_toy:edit", args=(quote(cls.object.pk),)
+        )
+        cls.copy_url = reverse(
+            "feature_complete_toy:copy", args=(quote(cls.object.pk),)
+        )
+        cls.delete_url = reverse(
+            "feature_complete_toy:delete", args=(quote(cls.object.pk),)
+        )
+        cls.inspect_url = reverse(
+            "feature_complete_toy:inspect", args=(quote(cls.object.pk),)
+        )
+
+    def test_header_buttons_in_edit_view(self):
+        response = self.client.get(self.edit_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        header_buttons = soup.select(".w-slim-header .w-dropdown a")
+        expected_buttons = [
+            ("Copy", self.copy_url),
+            ("Delete", self.delete_url),
+            ("Inspect", self.inspect_url),
+        ]
+        self.assertEqual(
+            [(a.text.strip(), a.get("href")) for a in header_buttons],
+            expected_buttons,
+        )
+
+
+class TestIndexViewReordering(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.obj1 = FeatureCompleteToy.objects.create(name="Toy 1", sort_order=0)
+        self.obj2 = FeatureCompleteToy.objects.create(name="Toy 2", sort_order=1)
+        self.obj3 = FeatureCompleteToy.objects.create(name="Toy 3", sort_order=2)
+
+    def test_header_button_rendered(self):
+        index_url = reverse("feature_complete_toy:index")
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(index_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href='{custom_ordering_url}']"
+        )
+        self.assertIsNotNone(button)
+        self.assertEqual(button.text.strip(), "Sort item order")
+
+        # Reordering feature disabled when not sorting by sort_order
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "Name")
+
+    def test_show_ordering_column(self):
+        index_url = reverse("feature_complete_toy:index")
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # The table should have the w-orderable controller
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertEqual(table.get("data-controller"), "w-orderable")
+        self.assertEqual(
+            table.get("data-w-orderable-message-value"),
+            "'__LABEL__' has been moved successfully.",
+        )
+        self.assertEqual(
+            table.get("data-w-orderable-url-value"),
+            reverse("feature_complete_toy:reorder", args=[999999]),
+        )
+
+        # The ordering column added as the first column
+        first_th = table.select_one("thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "Sort")
+
+        # All rows have the corresponding attributes for reordering
+        rows = table.select("tbody tr")
+        self.assertEqual(len(rows), 3)
+        expected = [
+            {
+                "id": f"item_{quote(toy.pk)}",
+                "data-w-orderable-item-id": quote(toy.pk),
+                "data-w-orderable-item-label": str(toy),
+                "data-w-orderable-target": "item",
+            }
+            for toy in [self.obj1, self.obj2, self.obj3]
+        ]
+        for row, expected_attrs in zip(rows, expected):
+            for attr, value in expected_attrs.items():
+                self.assertEqual(row.get(attr), value)
+            handle = row.select_one("td button[data-w-orderable-target='handle']")
+            self.assertIsNotNone(handle)
+
+    def test_reordering_disabled_with_explicit_sort_order_field_none(self):
+        # The model has a sort_order_field, but the viewset explicitly sets
+        # sort_order_field = None
+        index_url = reverse("fctoy-alt2:index")
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Header button for enabling reordering should not be rendered
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href='{custom_ordering_url}']"
+        )
+        self.assertIsNone(button)
+
+        # Reordering feature not enabled
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "Feature complete toy")
+
+    def test_reordering_disabled_with_no_sort_order_field(self):
+        # This model has no sort_order_field defined on the model nor the viewset
+        JSONStreamModel.objects.create()
+        index_url = reverse("streammodel:index")
+        custom_ordering_url = index_url + "?ordering="
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Header button for enabling reordering should not be rendered
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href^='{custom_ordering_url}']"
+        )
+        self.assertIsNone(button)
+
+        # Reordering feature not enabled
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "JSON stream model")
+
+    def test_reordering_disabled_with_insufficient_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        view_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("view", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        index_url = reverse("feature_complete_toy:index")
+        custom_ordering_url = index_url + "?ordering=sort_order"
+        response = self.client.get(custom_ordering_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Header button for enabling reordering should not be rendered
+        button = soup.select_one(
+            f".w-slim-header .w-dropdown a[href='{custom_ordering_url}']"
+        )
+        self.assertIsNone(button)
+
+        # Reordering feature not enabled
+        table = soup.select_one("main table")
+        self.assertIsNotNone(table)
+        self.assertFalse(table.get("data-controller"))
+        first_th = soup.select_one("main thead th:first-child")
+        self.assertIsNotNone(first_th)
+        self.assertEqual(first_th.text.strip(), "Name")
+
+    def test_minimal_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        change_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("change", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, change_permission)
+
+        self.test_header_button_rendered()
+        self.test_show_ordering_column()
+
+
+class TestCreateViewReordering(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        FeatureCompleteToy.objects.bulk_create(
+            [
+                FeatureCompleteToy(name="Toy 1", sort_order=0),
+                FeatureCompleteToy(name="Toy 2", sort_order=1),
+                FeatureCompleteToy(name="Toy 3", sort_order=2),
+            ]
+        )
+
+    def test_create_sets_max_sort_order(self):
+        response = self.client.post(
+            reverse("feature_complete_toy:add"),
+            data={"name": "New Toy", "release_date": "2025-08-17"},
+        )
+        self.assertRedirects(response, reverse("feature_complete_toy:index"))
+        new_toy = FeatureCompleteToy.objects.get(name="New Toy")
+        self.assertEqual(new_toy.sort_order, 3)
+
+    def test_create_does_not_set_max_sort_order_without_sort_order_field(self):
+        response = self.client.post(
+            reverse("fctoy-alt2:add"),
+            data={"name": "New Toy", "release_date": "2025-08-17", "strid": "foo"},
+        )
+        self.assertRedirects(response, reverse("fctoy-alt2:index"))
+        new_toy = FeatureCompleteToy.objects.get(name="New Toy")
+        self.assertIsNone(new_toy.sort_order)
+
+
+class TestReorderView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        # We don't do any normalization, so the sort_order values may not be
+        # consecutive integers (e.g. after an item is deleted), and the update
+        # logic may cause the sort_order values to be negative or larger than
+        # the number of items in the queryset.
+        self.obj1 = FeatureCompleteToy.objects.create(name="Toy 1", sort_order=-3)
+        self.obj2 = FeatureCompleteToy.objects.create(name="Toy 2", sort_order=4)
+        self.obj3 = FeatureCompleteToy.objects.create(name="Toy 3", sort_order=9)
+
+    def get_url(self, obj):
+        return reverse("feature_complete_toy:reorder", args=(quote(obj.pk),))
+
+    def assertOrder(self, objs):
+        self.assertSequenceEqual(
+            [
+                (obj, obj.sort_order)
+                for obj in FeatureCompleteToy.objects.order_by("sort_order")
+            ],
+            objs,
+        )
+
+    def test_reorder_view_disabled_without_sort_order_field(self):
+        # The alt2 viewset explicitly sets sort_order_field to `None`,
+        # so the reorder view should not be available
+        with self.assertRaises(NoReverseMatch):
+            reverse("fctoy-alt2:reorder", args=(quote(self.obj1.pk),))
+
+        # This model has no sort_order_field on the model nor the viewset
+        obj = JSONStreamModel.objects.create()
+        with self.assertRaises(NoReverseMatch):
+            reverse("streammodel:reorder", args=(quote(obj.pk),))
+
+    def test_get_request_does_not_alter_order(self):
+        response = self.client.get(self.get_url(self.obj1))
+        self.assertEqual(response.status_code, 405)
+
+        # Ensure item order does not change
+        self.assertOrder([(self.obj1, -3), (self.obj2, 4), (self.obj3, 9)])
+
+    def test_post_request_without_position_argument_moves_to_the_end(self):
+        response = self.client.post(self.get_url(self.obj1))
+        self.assertEqual(response.status_code, 200)
+
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 3), (self.obj3, 8), (self.obj1, 9)])
+
+    def test_post_request_with_non_integer_position_moves_to_the_end(self):
+        response = self.client.post(self.get_url(self.obj1) + "?position=good")
+        self.assertEqual(response.status_code, 200)
+
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 3), (self.obj3, 8), (self.obj1, 9)])
+
+    def test_move_position_up(self):
+        # Move obj3 to the first position
+        response = self.client.post(self.get_url(self.obj3) + "?position=0")
+        self.assertEqual(response.status_code, 200)
+
+        # Check if obj3 is now the first item by taking obj1's sort_order and
+        # incrementing sort_order of the other items after it by 1
+        self.assertOrder([(self.obj3, -3), (self.obj1, -2), (self.obj2, 5)])
+
+    def test_move_position_down(self):
+        # Move obj1 to the second position
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 200)
+
+        # Check if obj1 is now the second item by taking obj2's sort_order
+        # and decrementing sort_order of the other items before it by 1
+        self.assertOrder([(self.obj2, 3), (self.obj1, 4), (self.obj3, 9)])
+
+    def test_move_position_to_same_position(self):
+        # Move obj1 to position 0 (where it already is)
+        response = self.client.post(self.get_url(self.obj1) + "?position=0")
+        self.assertEqual(response.status_code, 200)
+
+        # Ensure item order does not change
+        self.assertOrder([(self.obj1, -3), (self.obj2, 4), (self.obj3, 9)])
+
+    def test_move_position_with_invalid_target_position(self):
+        response = self.client.post(self.get_url(self.obj1) + "?position=99")
+        self.assertEqual(response.status_code, 200)
+
+        # The item will be moved to the last position by taking the sort_order
+        # of the last item, and the sort_order of the other items updated by -1
+        self.assertOrder([(self.obj2, 3), (self.obj3, 8), (self.obj1, 9)])
+
+    def test_insufficient_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        view_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("view", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertOrder([(self.obj1, -3), (self.obj2, 4), (self.obj3, 9)])
+
+    def test_minimal_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        change_permission = Permission.objects.get(
+            content_type__app_label=self.obj1._meta.app_label,
+            codename=get_permission_codename("change", self.obj1._meta),
+        )
+        self.user.user_permissions.add(admin_permission, change_permission)
+
+        response = self.client.post(self.get_url(self.obj1) + "?position=1")
+        self.assertEqual(response.status_code, 200)
+
+        # Check if obj1 is now the second item by taking obj2's sort_order
+        # and decrementing sort_order of the other items before it by 1
+        self.assertOrder([(self.obj2, 3), (self.obj1, 4), (self.obj3, 9)])

@@ -30,7 +30,7 @@ Draw or download an icon and save it in a template folder:
 
 The `svg` tag should:
 
--   Set the `id="icon-<name>"` attribute, icons are referenced by this name.
+-   Set the `id="icon-<name>"` attribute, icons are referenced by this `name`. The `name` should only contain lowercase letters, numbers, and hyphens.
 -   Set the `xmlns="http://www.w3.org/2000/svg"` attribute.
 -   Set the `viewBox="..."` attribute, and no `width` and `height` attributes.
 -   If the icon should be mirrored in right-to-left (RTL) languages, set the `class="icon--directional"` attribute.
@@ -76,6 +76,22 @@ Place your app before any Wagtail apps in `INSTALLED_APPS`.
 Wagtail icons live in `wagtail/admin/templates/wagtailadmin/icons/`.
 Place your own SVG files in `<your_app>/templates/wagtailadmin/icons/`.
 
+(custom_icons_userbar)=
+
+### Using custom icons in the user bar
+
+The user bar provides quick actions within page views when logged in. To customize the items shown in the user bar, you can use the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook. If you want to use custom icons within these menu items they must be made available in the correct template.
+
+```html+django
+{# <yourapp>/templates/wagtailadmin/userbar/base.html #}
+{% extends "wagtailadmin/userbar/base.html" %}
+
+{% block icons %}
+    {{ block.super }}
+    {% include "wagtailadmin/icons/toucan.svg" %}
+{% endblock %}
+```
+
 (available_icons)=
 
 ## Available icons
@@ -84,7 +100,7 @@ Enable the [styleguide](styleguide) to view the available icons and their names 
 
 Here are all available icons out of the box:
 
-<details open>
+<details open="">
 
 <summary>Toggle icons table</summary>
 

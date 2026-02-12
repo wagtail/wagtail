@@ -65,7 +65,16 @@ class ServeView(View):
             mime_type = willow_image.mime_type
 
         # Serve the file
-        return FileResponse(rendition.file, content_type=mime_type)
+        rendition.file.open("rb")
+        response = FileResponse(rendition.file, content_type=mime_type)
+
+        # Add a CSP header to prevent inline execution
+        response["Content-Security-Policy"] = "default-src 'none'"
+
+        # Prevent browsers from auto-detecting the content-type of a document
+        response["X-Content-Type-Options"] = "nosniff"
+
+        return response
 
     def redirect(self, rendition):
         # Redirect to the file's public location
@@ -79,4 +88,12 @@ class SendFileView(ServeView):
     backend = None
 
     def serve(self, rendition):
-        return sendfile(self.request, rendition.file.path, backend=self.backend)
+        response = sendfile(self.request, rendition.file.path, backend=self.backend)
+
+        # Add a CSP header to prevent inline execution
+        response["Content-Security-Policy"] = "default-src 'none'"
+
+        # Prevent browsers from auto-detecting the content-type of a document
+        response["X-Content-Type-Options"] = "nosniff"
+
+        return response

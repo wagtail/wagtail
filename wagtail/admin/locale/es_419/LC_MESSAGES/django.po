@@ -4,11 +4,12 @@
 #
 # Translators:
 # Rodrigo Yanez, 2023
+# Rodrigo Yanez, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
@@ -59,9 +60,6 @@ msgstr "Administrador de Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Lo sentimos, no tienes permiso para acceder a esta área."
 
-msgid "You do not have permission to access the admin"
-msgstr "No tienes permiso para acceder al administrador"
-
 msgid "None"
 msgstr "Ninguno"
 
@@ -73,6 +71,9 @@ msgstr "Fecha hasta"
 
 msgid "All"
 msgstr "Todos"
+
+msgid "Collection"
+msgstr "Colección"
 
 msgid "Preferred language"
 msgstr "Idioma preferido"
@@ -121,9 +122,6 @@ msgstr "Buscar"
 msgid "All collections"
 msgstr "Todas las colecciones"
 
-msgid "Collection"
-msgstr "Colección"
-
 msgid "Parent"
 msgstr "Padre"
 
@@ -133,9 +131,6 @@ msgid ""
 msgstr ""
 "Selecciona la posición jerárquica. Nota: una colección no puede convertirse "
 "en un hijo de sí misma o de uno de sus descendientes."
-
-msgid "Please select another parent"
-msgstr "Por favor, selecciona otro padre"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -165,9 +160,6 @@ msgstr "No puedes editar comentarios de otros usuarios."
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "La fecha/hora de publicación debe ser anterior a la fecha/hora de expiración"
-
-msgid "Expiry date/time must be in the future"
-msgstr "La fecha/hora de expiración debe situarse en el futuro"
 
 msgid "New title"
 msgstr "Nuevo título"
@@ -238,17 +230,8 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "No puedes copiar una página dentro de sí misma al copiar subpáginas"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "El slug '%(page_slug)s' ya está en uso dentro de la página padre"
-
 msgid "Select a new parent for this page."
 msgstr "Selecciona una nueva página padre para esta página."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr ""
-"Las etiquetas %(value_too_long)s tienen más de %(max_tag_length)d caracteres"
 
 msgid "Visibility"
 msgstr "Visibilidad"
@@ -282,9 +265,6 @@ msgstr "Ponle un nombre a tu flujo de trabajo"
 
 msgid "Add tasks to your workflow"
 msgstr "Añade tareas a tu flujo de trabajo"
-
-msgid "Task"
-msgstr "Tarea"
 
 msgid "1 page selected"
 msgstr "1 página seleccionada"
@@ -370,12 +350,6 @@ msgstr "Todos los %(objects)s elementos en esta pantalla seleccionados"
 msgid "All items in listing selected"
 msgstr "Todos los elementos en la lista seleccionados"
 
-msgid "For search engines"
-msgstr "Para motores de búsqueda"
-
-msgid "For site menus"
-msgstr "Para los menús de la página"
-
 msgid "Content"
 msgstr "Contenido"
 
@@ -403,14 +377,8 @@ msgstr "No se ha podido encontrar la página solicitada."
 msgid "Go to Wagtail admin"
 msgstr "Ir al administrador de Wagtail"
 
-msgid "Account"
-msgstr "Cuenta"
-
 msgid "More actions"
 msgstr "Más acciones"
-
-msgid "Save account details"
-msgstr "Guardar los datos de la cuenta"
 
 msgid "Reset password"
 msgstr "Restablecer contraseña"
@@ -589,17 +557,11 @@ msgstr "Explorar subpáginas de '%(title)s'"
 msgid "Explore"
 msgstr "Explorar"
 
-msgid "Collection privacy"
-msgstr "Privacidad de la colección"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Esta colección ha sido convertida en privada por una colección padre."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Puedes editar la configuración de privacidad en:"
-
-msgid "Save"
-msgstr "Guardar"
 
 msgid "Change privacy"
 msgstr "Cambiar privacidad"
@@ -629,11 +591,20 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Esta colección no se puede borrar, porque no está vacía. Contiene:"
 
-msgid "Name"
-msgstr "Nombre"
+msgid "Account"
+msgstr "Cuenta"
+
+msgid "Task"
+msgstr "Tarea"
 
 msgid "Saving…"
 msgstr "Guardando..."
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Save"
+msgstr "Guardar"
 
 msgid "Editing"
 msgstr "Editando"

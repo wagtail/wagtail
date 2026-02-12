@@ -13,6 +13,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
+   .. autoattribute:: UNDEFINED
    .. autoattribute:: name
    .. autoattribute:: url_prefix
    .. autoattribute:: url_namespace
@@ -64,7 +65,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. attribute:: model
 
-   Required; the model class that this viewset will work with. The :attr:`~django.db.models.Options.model_name` will be used
+   Required; the model class that this viewset will work with. The ``model_name`` will be used
    as the URL prefix and namespace, unless these are specified explicitly via the :attr:`~.ViewSet.name`, :attr:`~.ViewSet.url_prefix` or
    :attr:`~.ViewSet.url_namespace` attributes.
 
@@ -78,6 +79,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. automethod:: get_form_class
    .. automethod:: get_edit_handler
+   .. automethod:: get_permissions_to_register
 
    .. autoattribute:: menu_label
 
@@ -85,7 +87,10 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
       :attr:`~django.db.models.Options.verbose_name_plural`.
 
    .. autoattribute:: add_to_reference_index
+   .. autoattribute:: pk_path_converter
    .. autoattribute:: ordering
+   .. autoattribute:: sort_order_field
+      :annotation: = UNDEFINED
    .. autoattribute:: list_per_page
    .. autoattribute:: list_display
    .. autoattribute:: list_export
@@ -226,6 +231,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. autoattribute:: model
    .. autoattribute:: index_view_class
+   .. autoattribute:: choose_parent_view_class
    .. autoattribute:: columns
    .. autoattribute:: filterset_class
 ```

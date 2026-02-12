@@ -1,17 +1,20 @@
 #
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2022
-# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
+# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2026\n"
 "Language-Team: Mongolian (https://app.transifex.com/torchbox/teams/8009/"
 "mn/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Нэмэх"
 
 msgid "Alt text"
 msgstr "Зургийн тайлбар текст"
@@ -24,6 +27,9 @@ msgstr "Хянах самбар"
 
 msgid "Delete"
 msgstr "Устгах"
+
+msgid "Drag"
+msgstr "Чирэх"
 
 msgid "Edit"
 msgstr "Засах"
@@ -40,6 +46,12 @@ msgstr "Шинэ мөр лүү шилжих"
 msgid "Loading…"
 msgstr "Уншиж байна..."
 
+msgid "Move down"
+msgstr "Доошоо зөөх"
+
+msgid "Move up"
+msgstr "Дээшээ зөөх"
+
 msgid "No results"
 msgstr "Үр дүн олдсонгүй"
 
@@ -48,6 +60,9 @@ msgstr "Хуудас"
 
 msgid "Pages"
 msgstr "Хуудсууд"
+
+msgid "Preview"
+msgstr "Урдчилж харах"
 
 msgid "Reload saved content"
 msgstr "Хадгалагдсан контентыг дахин ачааллах"
@@ -67,6 +82,9 @@ msgstr "Бүгдийг харах"
 msgid "Server Error"
 msgstr "Северийн алдаа"
 
+msgid "Settings"
+msgstr "Тохиргоо"
+
 msgid "Show error"
 msgstr "Алдаа харуулах"
 
@@ -78,6 +96,12 @@ msgid ""
 msgstr ""
 "Текст засварлагчид алдаа гарлаа. Контент сүүлийн хадгалагдсан хувилбараар "
 "хадгалагдсан."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Хамгийн ихдээ %(max_num)d хэсэг байна"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Хамгийн багадаа %(min_num)d хэсэг байна"
 
 msgid "This field is required."
 msgstr "Энэ талбарыг заавал бөглөх шаардлагатай."

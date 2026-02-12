@@ -7,7 +7,6 @@ from wagtail.documents import models
 
 
 class TestCorrectDownloadUrlSerialization(TestCase):
-
     """Test asserts that in case of both `redirect` and `direct`
     WAGTAILDOCS_SERVE_METHOD settings `download_url` field
     is correctly serialized by DocumentDownloadUrlField."""

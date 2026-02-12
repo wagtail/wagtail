@@ -9,6 +9,7 @@ import { hideTooltipOnEsc } from './TooltipController';
 const hideTooltipOnBreadcrumbsChange = {
   name: 'hideTooltipOnBreadcrumbAndCollapse',
   fn({ hide }: Instance) {
+    /** Hides the tooltip when breadcrumbs expand or collapse. */
     function onBreadcrumbExpandAndCollapse() {
       hide();
     }
@@ -86,10 +87,12 @@ type TippyTheme = 'dropdown' | 'drilldown' | 'dropdown-button';
  * A Tippy.js tooltip with interactive "dropdown" options.
  *
  * @example
+ * ```html
  * <div data-controller="w-dropdown" data-w-dropdown-hide-on-click-value-"true">
- *  <button type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
- *  <div data-w-dropdown-target="content">[…]</div>
+ *   <button type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
+ *   <div data-w-dropdown-target="content">[…]</div>
  * </div>
+ * ```
  */
 export class DropdownController extends Controller<HTMLElement> {
   static targets = ['toggle', 'content'];
@@ -100,8 +103,10 @@ export class DropdownController extends Controller<HTMLElement> {
     theme: { default: 'dropdown' as TippyTheme, type: String },
   };
 
-  // Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
-  // option for outside clicks that defaults to true and we don't yet expose it.
+  /**
+   * Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
+   * option for outside clicks that defaults to true and we don't yet expose it.
+   */
   declare readonly hideOnClickValue: boolean;
   declare readonly keepMountedValue: boolean;
   declare readonly offsetValue: [number, number];
@@ -187,8 +192,8 @@ export class DropdownController extends Controller<HTMLElement> {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
         : {}),
-      ...this.themeOptions,
       trigger: 'click',
+      ...this.themeOptions,
       interactive: true,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
       getReferenceClientRect: () => this.reference.getBoundingClientRect(),
@@ -209,6 +214,17 @@ export class DropdownController extends Controller<HTMLElement> {
           maxWidth: 350,
           placement: 'bottom',
           plugins: this.plugins,
+        },
+        'popup': {
+          // This theme is somewhere between a tooltip and a dropdown.
+          // It's mostly informational, so we want it to be shown on hover and focus.
+          // However, it may also contain a small amount of interactive elements,
+          // so we also want a click trigger to make sure the popup stays open
+          // when you hover out, like a dropdown menu.
+          arrow: true,
+          placement: 'bottom',
+          plugins: this.plugins,
+          trigger: 'mouseenter focus click',
         },
         'drilldown': {
           arrow: false,
@@ -293,5 +309,16 @@ export class DropdownController extends Controller<HTMLElement> {
     return this.themeValue === 'dropdown-button'
       ? (toggleParent.parentElement as HTMLElement)
       : toggleParent;
+  }
+
+  disconnect() {
+    if (this.tippy) {
+      // Re-add the popper content to the DOM so it can be re-instantiated later if needed.
+      // This is required to support moving elements on the page.
+      this.element?.append(this.tippy.popper);
+      this.tippy.popper.hidden = true;
+      // Then destroy the tippy instance.
+      this.tippy.destroy();
+    }
   }
 }

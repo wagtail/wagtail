@@ -2,7 +2,9 @@
 global.fetch = jest.fn();
 global.Headers = jest.fn();
 
-// Helper to mock a success JSON response.
+/**
+ * Helper to mock a success JSON response.
+ */
 fetch.mockResponseSuccessJSON = (body) => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
@@ -14,7 +16,9 @@ fetch.mockResponseSuccessJSON = (body) => {
   );
 };
 
-// Helper to mock a success text response.
+/**
+ * Helper to mock a success text response.
+ */
 fetch.mockResponseSuccessText = (body) => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
@@ -26,7 +30,9 @@ fetch.mockResponseSuccessText = (body) => {
   );
 };
 
-// Helper to mock a failure response.
+/**
+ * Helper to mock a failure response.
+ */
 fetch.mockResponseFailure = () => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
@@ -36,6 +42,23 @@ fetch.mockResponseFailure = () => {
   );
 };
 
+/**
+ * Helper to mock a bad request response.
+ */
+fetch.mockResponseBadRequest = (json) => {
+  fetch.mockImplementationOnce(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(JSON.parse(json)),
+      ok: false,
+      status: 400,
+      statusText: 'Bad Request',
+    }),
+  );
+};
+
+/**
+ * Helper to mock a crash (network failure).
+ */
 fetch.mockResponseCrash = () => {
   fetch.mockImplementationOnce(() =>
     // eslint-disable-next-line prefer-promise-reject-errors
@@ -46,7 +69,9 @@ fetch.mockResponseCrash = () => {
   );
 };
 
-// Helper to mock a timeout response.
+/**
+ * Helper to mock a timeout response.
+ */
 fetch.mockResponseTimeout = () => {
   fetch.mockImplementationOnce(() => {
     const timeout = 1000;

@@ -1,18 +1,22 @@
 #
 # Translators:
 # Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2022
-# Vu Pham, 2022
-# Luan Nguyen <lihavim@gmail.com>, 2022
 # Loic Teixeira, 2022
+# Vu Pham, 2025
+# Duc Huynh <duchuynhthoai@gmail.com>, 2026
+# Luan Nguyen <lihavim@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Luan Nguyen <lihavim@gmail.com>, 2026\n"
 "Language-Team: Vietnamese (https://app.transifex.com/torchbox/teams/8009/"
 "vi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add"
+msgstr "Thêm"
 
 msgid "Add a comment"
 msgstr "Thêm bình luận"
@@ -53,6 +57,9 @@ msgstr "Trang"
 msgid "Pages"
 msgstr "Trang"
 
+msgid "Preview"
+msgstr "Xem trước"
+
 msgid "Save"
 msgstr "Lưu"
 
@@ -67,6 +74,9 @@ msgstr "Tìm kiếm"
 
 msgid "Server Error"
 msgstr "Lỗi Hệ thống"
+
+msgid "Settings"
+msgstr "Tùy chỉnh"
 
 msgid "Show error"
 msgstr "Hiển thị lỗi"

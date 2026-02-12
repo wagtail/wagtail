@@ -1,3 +1,6 @@
+@use '../../../../scss/tools' as *;
+@use '../../../../scss/settings' as *;
+
 .sidebar-sub-menu-trigger-icon {
   $root: &;
 
@@ -52,10 +55,6 @@
     overflow-y: auto;
   }
 
-  > ul > li {
-    border: 0;
-  }
-
   &__footer {
     margin: 0;
     padding: 0.9em 1.7em;
@@ -91,8 +90,15 @@
 
 .sidebar-sub-menu-item {
   &--open {
+    border-inline-start: 2px solid
+      theme('colors.border-interactive-more-contrast-dark-bg-hover');
+
     > a {
       text-shadow: -1px -1px 0 theme('colors.black-35');
     }
   }
+}
+
+.sidebar-close-menu-button {
+  @apply w-grid sm:w-hidden w-place-items-center w-text-text-label-menus-default w-p-0 w-z-sidebar-toggle w-border-transparent w-fixed w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
 }

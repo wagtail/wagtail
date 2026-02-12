@@ -1,7 +1,10 @@
-import json
-from datetime import timedelta
+import os
+import unittest
+from datetime import datetime, timedelta
+from datetime import timezone as dt_timezone
 from unittest import mock
 
+from django import forms
 from django.conf import settings
 from django.template import Context, Template, TemplateSyntaxError
 from django.test import SimpleTestCase, TestCase
@@ -9,22 +12,39 @@ from django.test.utils import override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.staticfiles import VERSION_HASH, versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
+    absolute_static,
     avatar_url,
     i18n_enabled,
     locale_label_from_id,
-    notification_static,
     timesince_last_update,
     timesince_simple,
 )
-from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
 from wagtail.coreutils import get_dummy_request
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
+
+
+class TestAvatarUrlInterceptTemplateTag(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.test_user = self.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            password="password",
+        )
+
+    def test_get_avatar_url_undefined(self):
+        url = avatar_url(self.test_user)
+        self.assertIn("www.gravatar.com", url)
+
+    @mock.patch.dict(os.environ, {"AVATAR_INTERCEPT": "True"}, clear=True)
+    def test_get_avatar_url_registered(self):
+        url = avatar_url(self.test_user)
+        self.assertEqual(url, "/some/avatar/fred.png")
 
 
 class TestAvatarTemplateTag(WagtailTestUtils, TestCase):
@@ -64,42 +84,47 @@ class TestAvatarTemplateTag(WagtailTestUtils, TestCase):
         self.assertIn("custom-avatar", url)
 
 
-class TestNotificationStaticTemplateTag(SimpleTestCase):
+class TestAbsoluteStaticTemplateTag(SimpleTestCase):
     @override_settings(STATIC_URL="/static/")
-    def test_local_notification_static(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "{}/static/wagtailadmin/images/email-header.jpg".format(
-                settings.WAGTAILADMIN_BASE_URL
-            ),
-            url,
+    def test_local_absolute_static(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            rf"^{settings.WAGTAILADMIN_BASE_URL}/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
     @override_settings(
         STATIC_URL="/static/", WAGTAILADMIN_BASE_URL="http://localhost:8000"
     )
-    def test_local_notification_static_baseurl(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "http://localhost:8000/static/wagtailadmin/images/email-header.jpg", url
+    def test_local_absolute_static_baseurl(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            r"^http://localhost:8000/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
     @override_settings(
         STATIC_URL="https://s3.amazonaws.com/somebucket/static/",
         WAGTAILADMIN_BASE_URL="http://localhost:8000",
     )
-    def test_remote_notification_static(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "https://s3.amazonaws.com/somebucket/static/wagtailadmin/images/email-header.jpg",
-            url,
+    def test_remote_absolute_static(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            r"https://s3.amazonaws.com/somebucket/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
 
 class TestVersionedStatic(SimpleTestCase):
+    def test_version_hash(self):
+        self.assertEqual(len(VERSION_HASH), 8)
+
     def test_versioned_static(self):
         result = versioned_static("wagtailadmin/js/core.js")
-        self.assertRegex(result, r"^/static/wagtailadmin/js/core.js\?v=(\w+)$")
+        self.assertRegex(result, r"^/static/wagtailadmin/js/core.js\?v=(\w{8})$")
 
     @mock.patch("wagtail.admin.staticfiles.static")
     def test_versioned_static_version_string(self, mock_static):
@@ -117,44 +142,148 @@ class TestVersionedStatic(SimpleTestCase):
         self.assertEqual(result, "http://example.org/static/wagtailadmin/js/core.js")
 
 
-@freeze_time("2020-07-01 12:00:00")
 class TestTimesinceTags(SimpleTestCase):
+    # timezone matches TIME_ZONE = "Asia/Tokyo" in tests/settings.py
+    @freeze_time("2020-07-01 12:00:00+09:00")
     def test_timesince_simple(self):
-        now = timezone.now()
+        now = timezone.make_aware(
+            datetime(2020, 7, 1, 12, 0, 0)
+        )  # aware date in Asia/Tokyo
         ts = timesince_simple(now)
         self.assertEqual(ts, "just now")
 
-        ts = timesince_simple(now - timedelta(hours=1, minutes=10))
+        now = timezone.make_aware(
+            datetime(2020, 7, 1, 3, 0, 0), timezone=dt_timezone.utc
+        )  # aware date in UTC
+        ts = timesince_simple(now)
+        self.assertEqual(ts, "just now")
+
+        seventy_minutes_ago = timezone.make_aware(datetime(2020, 7, 1, 10, 50, 0))
+        ts = timesince_simple(seventy_minutes_ago)
         self.assertEqual(ts, "1\xa0hour ago")
 
-        ts = timesince_simple(now - timedelta(weeks=2, hours=1, minutes=10))
+        two_weeks_ago = timezone.make_aware(datetime(2020, 6, 17, 10, 50, 0))
+        ts = timesince_simple(two_weeks_ago)
         self.assertEqual(ts, "2\xa0weeks ago")
 
+    @unittest.skipIf(not settings.USE_TZ, "Test assumes timezone support is active")
+    @freeze_time("2020-07-01 06:00:00+09:00")
     def test_timesince_last_update_today_shows_time(self):
-        dt = timezone.now() - timedelta(hours=1)
-        formatted_time = dt.astimezone(timezone.get_current_timezone()).strftime(
-            "%H:%M"
-        )
-
-        timesince = timesince_last_update(dt)
-        self.assertEqual(timesince, formatted_time)
+        one_hour_ago = timezone.make_aware(
+            datetime(2020, 7, 1, 5, 0, 0)
+        )  # aware date in Asia/Tokyo
+        timesince = timesince_last_update(one_hour_ago)
+        self.assertEqual(timesince, "05:00")
 
         # Check prefix output
-        timesince = timesince_last_update(dt, show_time_prefix=True)
-        self.assertEqual(timesince, f"at {formatted_time}")
+        timesince = timesince_last_update(one_hour_ago, show_time_prefix=True)
+        self.assertEqual(timesince, "at 05:00")
 
         # Check user output
-        timesince = timesince_last_update(dt, user_display_name="Gary")
-        self.assertEqual(timesince, f"{formatted_time} by Gary")
+        timesince = timesince_last_update(one_hour_ago, user_display_name="Gary")
+        self.assertEqual(timesince, "05:00 by Gary")
 
         # Check user and prefix output
         timesince = timesince_last_update(
-            dt, show_time_prefix=True, user_display_name="Gary"
+            one_hour_ago, show_time_prefix=True, user_display_name="Gary"
         )
-        self.assertEqual(timesince, f"at {formatted_time} by Gary")
+        self.assertEqual(timesince, "at 05:00 by Gary")
 
+        one_hour_ago = timezone.make_aware(
+            datetime(2020, 6, 30, 20, 0, 0), timezone=dt_timezone.utc
+        )  # aware date in UTC
+        timesince = timesince_last_update(one_hour_ago)
+        self.assertEqual(timesince, "05:00")
+
+    @unittest.skipIf(settings.USE_TZ, "Test assumes timezone support is disabled")
+    @freeze_time("2020-07-01 06:00:00")
+    def test_timesince_last_update_today_shows_time_without_tz(self):
+        one_hour_ago = datetime(2020, 7, 1, 5, 0, 0)
+        timesince = timesince_last_update(one_hour_ago)
+        self.assertEqual(timesince, "05:00")
+
+        # Check prefix output
+        timesince = timesince_last_update(one_hour_ago, show_time_prefix=True)
+        self.assertEqual(timesince, "at 05:00")
+
+        # Check user output
+        timesince = timesince_last_update(one_hour_ago, user_display_name="Gary")
+        self.assertEqual(timesince, "05:00 by Gary")
+
+        # Check user and prefix output
+        timesince = timesince_last_update(
+            one_hour_ago, show_time_prefix=True, user_display_name="Gary"
+        )
+        self.assertEqual(timesince, "at 05:00 by Gary")
+
+    @unittest.skipIf(not settings.USE_TZ, "Test assumes timezone support is active")
+    @freeze_time("2020-07-01 06:00:00+09:00")
+    def test_timesince_last_update_before_midnight_shows_timeago(self):
+        """
+        If the last update was yesterday in local time, we show "x hours ago" even if it was less
+        than 24 hours ago (and even if it matches today's date in UTC)
+        """
+        eight_hours_ago = timezone.make_aware(
+            datetime(2020, 6, 30, 21, 50, 0)
+        )  # aware date in Asia/Tokyo
+        timesince = timesince_last_update(eight_hours_ago)
+        self.assertEqual(timesince, "8\xa0hours ago")
+
+    @unittest.skipIf(settings.USE_TZ, "Test assumes timezone support is disabled")
+    @freeze_time("2020-07-01 06:00:00")
+    def test_timesince_last_update_before_midnight_shows_timeago_without_tz(self):
+        """
+        If the last update was yesterday in local time, we show "x hours ago" even if it was less
+        than 24 hours ago
+        """
+        eight_hours_ago = datetime(2020, 6, 30, 21, 50, 0)
+        timesince = timesince_last_update(eight_hours_ago)
+        self.assertEqual(timesince, "8\xa0hours ago")
+
+    @unittest.skipIf(not settings.USE_TZ, "Test assumes timezone support is active")
+    @freeze_time("2020-07-01 12:00:00+09:00")
     def test_timesince_last_update_before_today_shows_timeago(self):
-        dt = timezone.now() - timedelta(weeks=1, days=2)
+        dt = timezone.make_aware(datetime(2020, 6, 22, 12, 0, 0))
+
+        # 1) use_shorthand=False
+
+        timesince = timesince_last_update(dt, use_shorthand=False)
+        self.assertEqual(timesince, "1\xa0week, 2\xa0days ago")
+        # The prefix is not used, if the date is older than the current day.
+        self.assertEqual(
+            timesince_last_update(dt, use_shorthand=False, show_time_prefix=True),
+            timesince,
+        )
+
+        # Check user output
+        timesince = timesince_last_update(
+            dt, use_shorthand=False, user_display_name="Gary"
+        )
+        self.assertEqual(timesince, "1\xa0week, 2\xa0days ago by Gary")
+        self.assertEqual(
+            timesince_last_update(
+                dt, use_shorthand=False, user_display_name="Gary", show_time_prefix=True
+            ),
+            timesince,
+        )
+
+        # 2) use_shorthand=True
+
+        timesince = timesince_last_update(dt)
+        self.assertEqual(timesince, "1\xa0week ago")
+        self.assertEqual(timesince_last_update(dt, show_time_prefix=True), timesince)
+
+        timesince = timesince_last_update(dt, user_display_name="Gary")
+        self.assertEqual(timesince, "1\xa0week ago by Gary")
+        self.assertEqual(
+            timesince_last_update(dt, user_display_name="Gary", show_time_prefix=True),
+            timesince,
+        )
+
+    @unittest.skipIf(settings.USE_TZ, "Test assumes timezone support is disabled")
+    @freeze_time("2020-07-01 12:00:00")
+    def test_timesince_last_update_before_today_shows_timeago_without_tz(self):
+        dt = timezone.make_aware(datetime(2020, 6, 22, 12, 0, 0))
 
         # 1) use_shorthand=False
 
@@ -192,6 +321,7 @@ class TestTimesinceTags(SimpleTestCase):
         )
 
     @override_settings(USE_TZ=False)
+    @freeze_time("2020-07-01 12:00:00")
     def test_human_readable_date(self):
         now = timezone.now()
         template = """
@@ -210,6 +340,7 @@ class TestTimesinceTags(SimpleTestCase):
         self.assertIn('data-w-tooltip-content-value="July 1, 2020, 10:50 a.m."', html)
 
     @override_settings(USE_TZ=False)
+    @freeze_time("2020-07-01 12:00:00")
     def test_human_readable_date_with_date_object(self):
         today = timezone.now().date()
         template = """
@@ -227,6 +358,7 @@ class TestTimesinceTags(SimpleTestCase):
         self.assertIn('data-w-tooltip-placement-value="top"', html)
         self.assertIn('data-w-tooltip-content-value="June 30, 2020"', html)
 
+    @freeze_time("2020-07-01 12:00:00")
     def test_human_readable_date_with_args(self):
         now = timezone.now()
         template = """
@@ -264,19 +396,6 @@ class TestInternationalisationTags(TestCase):
 
         with override_settings(WAGTAIL_I18N_ENABLED=True):
             self.assertTrue(i18n_enabled())
-
-    def test_locales(self):
-        locales_output = locales_tag()
-        self.assertIsInstance(locales_output, str)
-        self.assertEqual(
-            json.loads(locales_output),
-            [
-                {"code": "en", "display_name": "English"},
-                {"code": "fr", "display_name": "French"},
-                {"code": "ro", "display_name": "Romanian"},
-                {"code": "ru", "display_name": "Russian"},
-            ],
-        )
 
     def test_locale_label_from_id(self):
         with self.assertNumQueries(1):
@@ -916,3 +1035,189 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertEqual(len(invalid_icons), 0)
         icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
         self.assertIsNotNone(icon)
+
+
+class ThemeColorSchemeTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.request = get_dummy_request()
+        self.user = self.login()
+        self.request.user = self.user
+        self.profile = UserProfile.get_for_user(self.user)
+
+    def test_default_mode(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark light")
+
+    def test_dark_mode(self):
+        self.profile.theme = "dark"
+        self.profile.save()
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark")
+
+    def test_light_mode(self):
+        self.profile.theme = "light"
+        self.profile.save()
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "light")
+
+
+class FormattedfieldTagTestCase(WagtailTestUtils, SimpleTestCase):
+    def render_template(self, template, field_name="title", **context):
+        class BasicForm(forms.Form):
+            title = forms.CharField()
+
+        form = BasicForm(data={})
+
+        html = Template("{% load wagtailadmin_tags %}" + template).render(
+            Context(
+                {
+                    "field": form[field_name],
+                    **context,
+                }
+            )
+        )
+
+        # Parse the rendered HTML for the first DOM element in the output
+        return self.get_soup(html).find()
+
+    def test_basic_usage_with_full_html(self):
+        soup = self.render_template("{% formattedfield field=field %}")
+
+        # check the outer wrapper attributes
+        self.assertEqual(
+            {"class": ["w-field__wrapper"], "data-field-wrapper": ""},
+            soup.attrs,
+        )
+
+        # check the label is correct
+        label = soup.find("label")
+        self.assertIsNotNone(label)
+        self.assertEqual(label["for"], "id_title")
+        self.assertEqual(label["id"], "id_title-label")
+        self.assertEqual(label.get_text().strip(), "Title*")
+
+        # check there is an error container
+        errors = soup.find("div", {"data-field-errors": ""})
+        self.assertIsNotNone(errors)
+        self.assertEqual(errors["class"], ["w-field__errors"])
+        self.assertEqual(errors.get_text().strip(), "This field is required.")
+
+        # check there is a help container that is empty
+        help_text = soup.find("div", {"data-field-help": ""})
+        self.assertIsNotNone(help_text)
+        self.assertEqual(help_text["class"], ["w-field__help"])
+        self.assertEqual(help_text.get_text().strip(), "")
+
+        # check there is an input
+        input = soup.find("input")
+        self.assertIsNotNone(input)
+        self.assertEqual(input["id"], "id_title")
+        self.assertEqual(input["name"], "title")
+        self.assertEqual(input["type"], "text")
+        self.assertEqual(input["required"], "")
+
+        # check the input container & input siblings
+        input_container = input.parent
+        self.assertIsNone(input.find("svg"))  # there should be no icon
+        self.assertEqual(
+            input_container.attrs, {"class": ["w-field__input"], "data-field-input": ""}
+        )  # validate input container
+
+    def test_complex_usage_with_full_html(self):
+        soup = self.render_template(
+            """{% formattedfield field=field wrapper_id="__CUSTOM_ID__" classname="extra-custom-class" sr_only_label=True icon='search' help_text='This is a help text.' show_add_comment_button=True %}"""
+        )
+
+        # check the outer wrapper attributes
+        self.assertEqual(
+            {
+                "class": ["w-field__wrapper", "extra-custom-class"],
+                "id": "__CUSTOM_ID__",
+                "data-field-wrapper": "",
+            },
+            soup.attrs,
+        )
+
+        # check the label is correct
+        label = soup.find("label")
+        self.assertIsNotNone(label)
+        self.assertEqual(label["for"], "id_title")
+        self.assertEqual(label["id"], "id_title-label")
+        self.assertEqual(label.get_text().strip(), "Title*")
+
+        # check there is an error container
+        errors = soup.find("div", {"data-field-errors": ""})
+        self.assertIsNotNone(errors)
+        self.assertEqual(errors["class"], ["w-field__errors"])
+        self.assertEqual(errors.get_text().strip(), "This field is required.")
+
+        # check there is a help container that is empty
+        help_text = soup.find("div", {"data-field-help": ""})
+        self.assertIsNotNone(help_text)
+        self.assertEqual(help_text["class"], ["w-field__help"])
+        self.assertEqual(help_text.get_text().strip(), "This is a help text.")
+
+        # check there is an input
+        input = soup.find("input")
+        self.assertIsNotNone(input)
+        self.assertEqual(input["id"], "id_title")
+        self.assertEqual(input["name"], "title")
+        self.assertEqual(input["type"], "text")
+        self.assertEqual(input["required"], "")
+
+        # check the input container & input siblings
+        input_container = input.parent
+        self.assertEqual(
+            input_container.find("svg").find("use")["href"], "#icon-search"
+        )  # there should be an icon
+        self.assertEqual(
+            input_container.attrs, {"class": ["w-field__input"], "data-field-input": ""}
+        )  # validate input container
+
+    def test_attrs_rendering(self):
+        soup = self.render_template(
+            """{% formattedfield field=field wrapper_id="__CUSTOM_ID__" classname="extra-custom-class" attrs=attrs %}""",
+            attrs={
+                "data-custom-attr": "custom-value",
+                "data-controller": "w-example w-other",
+                "data-field-wrapper": "__CANNOT_OVERRIDE_DEFAULT__",
+            },
+        )
+
+        self.assertEqual(
+            {
+                "class": ["w-field__wrapper", "extra-custom-class"],
+                "id": "__CUSTOM_ID__",
+                "data-custom-attr": "custom-value",
+                "data-controller": "w-example w-other",
+                # wrapper attribute should be preserved
+                "data-field-wrapper": "",
+            },
+            soup.attrs,
+        )

@@ -9,10 +9,14 @@ describe('slugify', () => {
         'lisboa--tima--beira-mar',
       );
     });
+
+    it('should keep leading spaces & convert to hyphens if supplied', () => {
+      expect(slugify('  I like _ßpaces')).toBe('-i-like-_paces');
+    });
   });
 
   describe('slugify with unicode slugs enabled', () => {
-    const options = { unicodeSlugsEnabled: true };
+    const options = { allowUnicode: true };
 
     it('should return a correct slug', () => {
       expect(slugify('The Price is $72.00!', options)).toBe(
@@ -31,6 +35,11 @@ describe('slugify', () => {
       expect(slugify('Lisboa é ótima à beira-mar', options)).toBe(
         'lisboa-é-ótima-à-beira-mar',
       );
+      expect(slugify('উইকিপিডিয়ায় স্বাগতম!', options)).toBe('উইকপডযয-সবগতম');
+    });
+
+    it('should keep leading spaces & convert to hyphens if supplied', () => {
+      expect(slugify('  I like _ßpaces', options)).toBe('-i-like-_ßpaces');
     });
   });
 });

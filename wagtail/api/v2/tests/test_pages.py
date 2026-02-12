@@ -683,6 +683,16 @@ class TestPageListing(WagtailTestUtils, TestCase):
             },
         )
 
+    def test_slug_field_containing_null_bytes_gives_error(self):
+        response = self.get_response(slug="\0")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            content,
+            {"message": "field filter error. null characters are not allowed for slug"},
+        )
+
     # CHILD OF FILTER
 
     def test_child_of_filter(self):
@@ -899,7 +909,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            content, {"message": "cannot order by 'random' (unknown field)"}
+            content, {"message": "cannot order by '-random' (unknown field)"}
         )
 
     def test_ordering_by_random_with_offset_gives_error(self):
@@ -984,25 +994,11 @@ class TestPageListing(WagtailTestUtils, TestCase):
 
         page_id_list = self.get_page_id_list(content)
         expected_order = [
-            15,
-            10,
-            6,
-            17,
-            20,
-            13,
-            2,
-            4,
-            9,
-            8,
-            14,
-            12,
-            18,
-            16,
-            5,
-            23,
-            19,
-            22,
             21,
+            22,
+            19,
+            23,
+            5,
         ]
         self.assertEqual(page_id_list[:5], expected_order[:5])
 
@@ -1771,6 +1767,19 @@ class TestPageFind(TestCase):
             fetch_redirect_response=False,
         )
 
+    def test_find_by_html_path_with_fields(self):
+        response = self.get_response(
+            html_path="/events-index/event-1/", fields="_,id,type"
+        )
+
+        self.assertRedirects(
+            response,
+            "http://localhost"
+            + reverse("wagtailapi_v2:pages:detail", args=[8])
+            + "?fields=_,id,type",
+            fetch_redirect_response=False,
+        )
+
     def test_find_by_html_path_nonexistent(self):
         response = self.get_response(html_path="/foo")
 
@@ -1812,7 +1821,7 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertEqual(content["body"][0]["value"], "foo")
         self.assertTrue(content["body"][0]["id"])
 
-    def test_image_block(self):
+    def test_image_chooser_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
 
         response_url = reverse("wagtailapi_v2:pages:detail", args=(stream_page.id,))
@@ -1823,7 +1832,7 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertEqual(content["body"][0]["type"], "image")
         self.assertEqual(content["body"][0]["value"], 1)
 
-    def test_image_block_with_custom_get_api_representation(self):
+    def test_image_chooser_block_with_custom_get_api_representation(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
 
         response_url = "{}?extended=1".format(
@@ -1838,6 +1847,19 @@ class TestPageDetailWithStreamField(TestCase):
             content["body"][0]["value"], {"id": 1, "title": "A missing image"}
         )
 
+    def test_image_block(self):
+        stream_page = self.make_stream_page(
+            '[{"type": "image_with_alt", "value": {"image": 1, "alt_text": "Some alt text", "decorative": false}}]'
+        )
+
+        response_url = reverse("wagtailapi_v2:pages:detail", args=(stream_page.id,))
+        response = self.client.get(response_url)
+        content = json.loads(response.content.decode("utf-8"))
+
+        self.assertEqual(content["body"][0]["type"], "image_with_alt")
+        self.assertEqual(content["body"][0]["value"]["image"], 1)
+        self.assertEqual(content["body"][0]["value"]["alt_text"], "Some alt text")
+
 
 @override_settings(
     WAGTAILFRONTENDCACHE={
@@ -1848,7 +1870,7 @@ class TestPageDetailWithStreamField(TestCase):
     },
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
-@mock.patch("wagtail.contrib.frontend_cache.backends.HTTPBackend.purge")
+@mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
 class TestPageCacheInvalidation(TestCase):
     fixtures = ["demosite.json"]
 
@@ -1863,22 +1885,26 @@ class TestPageCacheInvalidation(TestCase):
         signal_handlers.unregister_signal_handlers()
 
     def test_republish_page_purges(self, purge):
-        Page.objects.get(id=2).specific.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).specific.save_revision().publish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
     def test_unpublish_page_purges(self, purge):
-        Page.objects.get(id=2).unpublish()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).unpublish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
     def test_delete_page_purges(self, purge):
-        Page.objects.get(id=16).delete()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=16).delete()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/16/")
 
     def test_save_draft_doesnt_purge(self, purge):
-        Page.objects.get(id=2).specific.save_revision()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).specific.save_revision()
 
         purge.assert_not_called()
 
@@ -1891,3 +1917,20 @@ class TestPageViewSetSubclassing(PagesAPIViewSet):
             self.get_queryset().model,
             models.BlogEntryPage,
         )
+
+
+class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.user = self.create_superuser(
+            username="admin",
+            email="admin@example.com",
+            password="password",
+        )
+        self.client.force_login(self.user)
+
+    def test_detail_view_does_not_duplicate_queries(self):
+        with self.assertNumQueries(16):
+            response = self.client.get("/api/main/pages/2/")
+            self.assertEqual(response.status_code, 200)

@@ -1,13 +1,13 @@
 #
 # Translators:
-# Łukasz Bołdys (Lukasz Boldys), 2022
-# Miłosz Miśkiewicz, 2022
-# Loic Teixeira, 2022
-# Krzysztof Jeziorny <github@jeziorny.net>, 2023
+# Loic Teixeira, 2024
+# Krzysztof Jeziorny <github@jeziorny.net>, 2025
+# Miłosz Miśkiewicz, 2026
+# Łukasz Bołdys (Lukasz Boldys), 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2026\n"
 "Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pl\n"
@@ -31,12 +31,25 @@ msgstr[1] "%(num)s błędy"
 msgstr[2] "%(num)s błędów"
 msgstr[3] "%(num)s błędy"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s minuta"
+msgstr[1] "%(num)s minuty"
+msgstr[2] "%(num)s minut"
+msgstr[3] "%(num)s minut"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s piksel"
 msgstr[1] "%(num)s pikseli"
 msgstr[2] "%(num)s pikseli"
 msgstr[3] "%(num)s piksele"
+
+msgid "Actions"
+msgstr "Akcje"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add a comment"
 msgstr "Dodaj komentarz"
@@ -83,6 +96,12 @@ msgstr "Błąd usuwania"
 msgid "Deleting"
 msgstr "Usuwanie"
 
+msgid "Drag"
+msgstr "Przeciągnij"
+
+msgid "Duplicate"
+msgstr "Duplikuj"
+
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -125,6 +144,15 @@ msgstr "Brakujący dokument"
 msgid "More actions"
 msgstr "Więcej akcji"
 
+msgid "Move down"
+msgstr "Przesuń w dół"
+
+msgid "Move up"
+msgstr "Przesuń w górę"
+
+msgid "No"
+msgstr "Nie"
+
 msgid "No results"
 msgstr "Brak wyników"
 
@@ -139,6 +167,9 @@ msgstr "Strony"
 
 msgid "Pin toolbar"
 msgstr "Zakotwicz pasek narzędzi"
+
+msgid "Preview"
+msgstr "Podgląd"
 
 msgid "Reload saved content"
 msgstr "Odśwież zapisaną zawartość"
@@ -166,15 +197,6 @@ msgstr "Zapisz"
 msgid "Save error"
 msgstr "Błąd zapisu"
 
-msgid "Save the page to add this comment"
-msgstr "Zapisz stronę aby dodać komentarz"
-
-msgid "Save the page to save this comment"
-msgstr "Zapisz stronę aby dodać komentarz"
-
-msgid "Save the page to save this reply"
-msgstr "Zapisz stronę aby zapisać odpowiedź"
-
 msgid "Saving..."
 msgstr "Zapisywanie..."
 
@@ -189,6 +211,9 @@ msgstr "Zobacz wszystkie"
 
 msgid "Server Error"
 msgstr "Błąd serwera"
+
+msgid "Settings"
+msgstr "Ustawienia"
 
 msgid "Show error"
 msgstr "Pokaż błąd"
@@ -205,8 +230,17 @@ msgstr ""
 "Edytor napotkał błąd. Zawartość została cofnięta do ostatniej zapisanej "
 "wersji."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksymalna ilość elementów to %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimalna ilość elementów to %(min_num)d"
+
 msgid "This field is required."
 msgstr "To pole jest wymagane."
+
+msgid "Toggle section"
+msgstr "Przełącz sekcję"
 
 msgid "Toggle side panel"
 msgstr "Rozszerzanie bocznego panelu"
@@ -225,3 +259,6 @@ msgstr "Wyświetl podstrony dla '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Wpisz coś lub naciśnij '/' by wstawić blok"
+
+msgid "Yes"
+msgstr "Tak"

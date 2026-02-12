@@ -100,7 +100,7 @@ You can import `i18n` and then translate with the `translate`/`blocktranslate` t
 ```
 
 **Note**: In Wagtail code, you might see `trans` and `blocktrans` instead of `translate` and `blocktranslate`.
-This still works fine. `trans` and `blocktrans` were the tags earlier on in Django, but were replaced in [Django 3.1](https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#translate-template-tag).
+This still works fine. `trans` and `blocktrans` were the tags earlier on in Django, but [were replaced in Django 3.1](https://docs.djangoproject.com/en/stable/releases/3.1/#templates).
 
 ## Additional resources
 

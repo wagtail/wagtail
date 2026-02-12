@@ -1,12 +1,13 @@
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2022
 # Loic Teixeira, 2022
-# X Bello <xbello@gmail.com>, 2023
+# Karl Hobley <karl@torchbox.com>, 2026
+# Amós Oviedo <amos.oviedo@gmail.com>, 2026
+# X Bello <xbello@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: X Bello <xbello@gmail.com>, 2023\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2026\n"
 "Language-Team: Galician (https://app.transifex.com/torchbox/teams/8009/gl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: gl\n"
@@ -26,10 +27,33 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s erro"
 msgstr[1] "%(num)s erros"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s minuto"
+msgstr[1] "%(num)s minutos"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s píxel"
 msgstr[1] "%(num)s píxels"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "Ocorréu un erro de rede."
+
+msgid "A server error occurred."
+msgstr "Ocorréu un erro no servidor."
+
+msgid "Actions"
+msgstr "Accións"
+
+msgid "Add"
+msgstr "Engadir"
 
 msgid "Add a comment"
 msgstr "Engadir un comentario"
@@ -40,6 +64,9 @@ msgstr "Texto alternativo"
 msgid "Are you sure?"
 msgstr "Estás seguro?"
 
+msgid "Autosave in progress…"
+msgstr "Autogardado en progreso…"
+
 msgid "Blocks"
 msgstr "Bloques"
 
@@ -48,6 +75,9 @@ msgstr "Enlace roto"
 
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgid "Changes have been autosaved."
+msgstr "Autogardáronse os cambios."
 
 msgid "Character count:"
 msgstr "Total de caracteres:"
@@ -60,6 +90,10 @@ msgstr "Colapsar todo"
 
 msgid "Comment"
 msgstr "Comentario"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Complexo"
 
 msgid "Dashboard"
 msgstr "Panel de control"
@@ -75,6 +109,12 @@ msgstr "Eliminar erro"
 
 msgid "Deleting"
 msgstr "Eliminando"
+
+msgid "Drag"
+msgstr "Levar"
+
+msgid "Duplicate"
+msgstr "Duplicado"
 
 msgid "Edit"
 msgstr "Editar"
@@ -94,8 +134,15 @@ msgstr "Erro mentras se enviaban os datos de previsualización."
 msgid "Expand all"
 msgstr "Expandir todo"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Intermedio"
+
 msgid "Focus comment"
 msgstr "Enfocar comentario"
+
+msgid "Good"
+msgstr "Bo"
 
 msgid "Horizontal line"
 msgstr "Liña horizontal"
@@ -118,6 +165,15 @@ msgstr "Documento faltante"
 msgid "More actions"
 msgstr "Máis accións"
 
+msgid "Move down"
+msgstr "Baixar"
+
+msgid "Move up"
+msgstr "Subir"
+
+msgid "No"
+msgstr "Non"
+
 msgid "No results"
 msgstr "Sen resultados"
 
@@ -132,6 +188,9 @@ msgstr "Páxinas"
 
 msgid "Pin toolbar"
 msgstr "Fixar barra de ferramentas"
+
+msgid "Preview"
+msgstr "Previsualizar"
 
 msgid "Reload saved content"
 msgstr "Recargar contido gardado"
@@ -160,15 +219,6 @@ msgstr "Gardar"
 msgid "Save error"
 msgstr "Gardar erro"
 
-msgid "Save the page to add this comment"
-msgstr "Gardar a páxina para engadir este comentario"
-
-msgid "Save the page to save this comment"
-msgstr "Gardar a páxina para gardar este comentario"
-
-msgid "Save the page to save this reply"
-msgstr "Gardar a páxina para gardar esta resposta"
-
 msgid "Saving..."
 msgstr "Gardando..."
 
@@ -184,6 +234,9 @@ msgstr "Ver todo"
 msgid "Server Error"
 msgstr "Erro do Servidor"
 
+msgid "Settings"
+msgstr "Configuración"
+
 msgid "Show error"
 msgstr "Amosar erro"
 
@@ -195,10 +248,19 @@ msgstr "Partir bloque"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
-msgstr "O editor acaba de cascar. O contido volveu á ultima versión gardada."
+msgstr "O editor acaba de caerse. O contido volveu á ultima versión gardada."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "O máximo número de elementos é %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "O mínimo número de elementos é %(min_num)d"
 
 msgid "This field is required."
-msgstr "Este campo é requirido."
+msgstr "Este campo é requerido."
+
+msgid "Toggle section"
+msgstr "Permutar sección"
 
 msgid "Toggle side panel"
 msgstr "Permutar panel lateral"
@@ -217,3 +279,6 @@ msgstr "Ver as páxinas fillas de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escribe algo ou pulsa '/' para inserir un bloque"
+
+msgid "Yes"
+msgstr "Si"

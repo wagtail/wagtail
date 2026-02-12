@@ -1,7 +1,11 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n %}
 {% load wagtailimages_tags wagtailadmin_tags %}
-{% block titletag %}{% blocktrans trimmed count counter=items|length %}Add 1 document to new collection {% plural %}Add {{ counter }} documents to new collection{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Add 1 document to new collection {% plural %}Add {{ counter }} documents to new collection{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
 
 {% block header %}
     {% trans "Add documents to collection" as add_str %}

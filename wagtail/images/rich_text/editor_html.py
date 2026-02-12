@@ -1,6 +1,7 @@
 """
 editor-html conversion for contenteditable editors
 """
+
 from wagtail.admin.rich_text.converters import editor_html
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format

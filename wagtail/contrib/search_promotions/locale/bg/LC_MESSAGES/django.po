@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,25 +22,9 @@ msgstr ""
 msgid "Search term(s)/phrase"
 msgstr "Дума/Фраза за търсене"
 
-msgid "Save"
-msgstr "Запази"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Изтрий %(query)s"
-
-msgid "Delete"
-msgstr "Изтрий"
-
-msgid "Yes, delete"
-msgstr "Да, изтрий го"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Редакция на %(query)s"
-
-msgid "Editing"
-msgstr "Редактиране"
 
 msgid "Move up"
 msgstr "Нагоре"
@@ -48,20 +32,11 @@ msgstr "Нагоре"
 msgid "Move down"
 msgstr "Надолу"
 
-msgid "Search Terms"
-msgstr "Фрази за търсене"
+msgid "Drag"
+msgstr "Плъзнете"
 
-msgid "Search term(s)"
-msgstr "Дума/Фраза за търсене"
-
-msgid "Views (past week)"
-msgstr "Преглед (последната седмица)"
-
-msgid "External link"
-msgstr "Външен линк"
-
-msgid "None"
-msgstr "Нищо"
+msgid "Delete"
+msgstr "Изтрий"
 
 msgid "Popular search terms"
 msgstr "Популярни думи за търсене"
@@ -75,5 +50,14 @@ msgstr "Думи"
 msgid "No results found"
 msgstr "Не са намерени резултати"
 
-msgid "Edit"
-msgstr "Редакция"
+msgid "External link"
+msgstr "Външен линк"
+
+msgid "None"
+msgstr "Нищо"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Search term(s)"
+msgstr "Дума/Фраза за търсене"

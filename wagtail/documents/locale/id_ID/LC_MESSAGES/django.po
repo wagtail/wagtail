@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -63,11 +63,6 @@ msgstr "Penanda"
 msgid "document"
 msgstr "Dokumen"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Digunakan %(usage_count)skali"
-
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
@@ -86,27 +81,11 @@ msgstr "Ubah dokumen:"
 msgid "Add a document"
 msgstr "Tambah dokumen"
 
-msgid "Add document"
-msgstr "Tambah dokumen"
-
 msgid "Uploading…"
 msgstr "Mengunggah"
 
 msgid "Upload"
 msgstr "Unggah"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Sedang mengubah %(title)s"
-
-msgid "Editing"
-msgstr "Mengubah"
-
-msgid "Save"
-msgstr "Simpan"
-
-msgid "Delete document"
-msgstr "Hapus dokumen"
 
 msgid "Filesize"
 msgstr "Ukuran file"
@@ -116,6 +95,11 @@ msgstr "File tidak ditemukan"
 
 msgid "Usage"
 msgstr "Pemakaian"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)skali"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -139,9 +123,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Tambah beberapa dokumen"
-
-msgid "Add documents"
-msgstr "Tambah dokumen"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Seret dan lepaskan dokumen ke area ini untuk langsung diunggah."
@@ -196,14 +177,15 @@ msgstr "Dokumen tidak dapat tersimpan dikarenakan oleh error."
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokumen '%(document_title)s' diperbarui."
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Berkas tidak dapat ditemukan. Mohon untuk mengganti sumber atau hapus dokumen"
+msgid "Delete document"
+msgstr "Hapus dokumen"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumen '%(document_title)s' dihapus."
+
+msgid "Add documents"
+msgstr "Tambah dokumen"
 
 msgid "Document"
 msgstr "Dokumen"

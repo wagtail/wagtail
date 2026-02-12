@@ -1,9 +1,11 @@
 import hashlib
+import os
 import pickle
+import tempfile
 import unittest
 from io import BytesIO
-from pathlib import Path
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -28,7 +30,9 @@ from wagtail.coreutils import (
 )
 from wagtail.models import Page, Site
 from wagtail.utils.file import hash_filelike
-from wagtail.utils.utils import deep_update
+from wagtail.utils.templates import template_is_overridden
+from wagtail.utils.utils import deep_update, flatten_choices
+from wagtail.utils.version import get_main_version
 
 
 class TestCamelCaseToUnderscore(TestCase):
@@ -46,7 +50,7 @@ class TestStringToAscii(TestCase):
     def test_string_to_ascii(self):
         test_cases = [
             ("30 \U0001d5c4\U0001d5c6/\U0001d5c1", "30 km/h"),
-            ("\u5317\u4EB0", "BeiJing"),
+            ("\u5317\u4eb0", "BeiJing"),
             ("ぁ あ ぃ い ぅ う ぇ", "a a i i u u e"),
             (
                 "Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ Խ Ծ Կ Հ Ձ Ղ Ճ Մ Յ Ն",
@@ -180,14 +184,14 @@ class TestInvokeViaAttributeShortcut(SimpleTestCase):
             raise AssertionError(
                 "An error occurred when attempting to pickle %r: %s"
                 % (self.test_object, e)
-            )
+            ) from e
         try:
             self.test_object = pickle.loads(pickled)
         except Exception as e:  # noqa: BLE001
             raise AssertionError(
                 "An error occurred when attempting to unpickle %r: %s"
                 % (self.test_object, e)
-            )
+            ) from e
 
         # Confirm unpickled object works the same
         self.target_object = self.test_object.obj
@@ -522,24 +526,26 @@ class TestDeepUpdate(TestCase):
 
 
 class HashFileLikeTestCase(SimpleTestCase):
-    test_file = Path.cwd() / "LICENSE"
-
     def test_hashes_io(self):
         self.assertEqual(
             hash_filelike(BytesIO(b"test")), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
         )
 
     def test_hashes_file(self):
-        with self.test_file.open(mode="rb") as f:
-            self.assertEqual(
-                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
-            )
+        # Use a real file path to avoid Windows NamedTemporaryFile locking quirks
+        tmp_path = os.path.join(tempfile.gettempdir(), "wagtail_test.txt")
+        with open(tmp_path, "wb") as f:
+            f.write(b"test")
 
-    def test_hashes_file_bytes(self):
-        with self.test_file.open(mode="rb") as f:
-            self.assertEqual(
-                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
-            )
+        try:
+            with open(tmp_path, "rb") as f:
+                # The SHA1 of b"test" is a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+                self.assertEqual(
+                    hash_filelike(f), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+                )
+        finally:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
 
     def test_hashes_django_uploaded_file(self):
         """
@@ -568,10 +574,84 @@ class HashFileLikeTestCase(SimpleTestCase):
                 self.iterations -= 1
                 if not self.iterations:
                     return b""
-
                 return b"A" * bytes
 
         self.assertEqual(
             hash_filelike(FakeLargeFile()),
             "bd36f0c5a02cd6e9e34202ea3ff8db07b533e025",
+        )
+
+
+class TestTemplateIsOverridden(SimpleTestCase):
+    def setUp(self):
+        template_is_overridden.cache_clear()
+
+    def test_template_is_overridden_false(self):
+        self.assertIs(
+            template_is_overridden(
+                "wagtailcore/shared/block_preview.html",
+                "templates",
+            ),
+            False,
+        )
+
+    def test_template_is_overridden_true(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = os.path.join(temp_dir, "wagtailcore/shared")
+            os.makedirs(path, exist_ok=True)
+            with open(os.path.join(path, "block_preview.html"), "w") as f:
+                f.write("Custom file")
+
+            with self.settings(
+                TEMPLATES=[
+                    {**settings.TEMPLATES[0], "DIRS": [temp_dir], "NAME": "tmp"},
+                    *settings.TEMPLATES,
+                ]
+            ):
+                self.assertIs(
+                    template_is_overridden(
+                        "wagtailcore/shared/block_preview.html",
+                        "templates",
+                    ),
+                    True,
+                )
+
+
+class TestVersion(SimpleTestCase):
+    def test_get_main_version(self):
+        cases = [
+            ((6, 2, 0, "final", 0), False, "6.2"),
+            ((6, 2, 1, "final", 0), False, "6.2"),
+            ((6, 2, 0, "final", 0), True, "6.2"),
+            ((6, 2, 1, "final", 0), True, "6.2.1"),
+        ]
+        for version, include_patch, expected in cases:
+            with self.subTest(version=version, include_patch=include_patch):
+                self.assertEqual(get_main_version(version, include_patch), expected)
+
+
+class TestFlattenChoices(SimpleTestCase):
+    def test_tuple_choices(self):
+        choices = [(1, "1st"), (2, "2nd")]
+        self.assertEqual(flatten_choices(choices), {"1": "1st", "2": "2nd"})
+
+    def test_grouped_tuple_choices(self):
+        choices = [("Group", [(1, "1st"), (2, "2nd")])]
+        self.assertEqual(flatten_choices(choices), {"1": "1st", "2": "2nd"})
+
+    def test_dictionary_choices(self):
+        choices = {
+            "Martial Arts": {"judo": "Judo", "karate": "Karate"},
+            "Racket": {"badminton": "Badminton", "tennis": "Tennis"},
+            "unknown": "Unknown",
+        }
+        self.assertEqual(
+            flatten_choices(choices),
+            {
+                "judo": "Judo",
+                "karate": "Karate",
+                "badminton": "Badminton",
+                "tennis": "Tennis",
+                "unknown": "Unknown",
+            },
         )

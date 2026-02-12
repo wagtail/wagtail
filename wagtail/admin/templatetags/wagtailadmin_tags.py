@@ -1,8 +1,6 @@
 import datetime
-import json
 import re
 from urllib.parse import urljoin
-from warnings import warn
 
 from django import template
 from django.conf import settings
@@ -15,13 +13,12 @@ from django.shortcuts import resolve_url as resolve_url_func
 from django.template import Context
 from django.template.base import token_kwargs
 from django.template.defaultfilters import stringfilter
-from django.templatetags.static import static
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
+from django.utils.formats import get_format
 from django.utils.html import avoid_wrapping, json_script
-from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
@@ -29,37 +26,36 @@ from laces.templatetags.laces import component
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.icons import get_icon_sprite_url
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
+from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui import sidebar
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.utils import (
     get_admin_base_url,
+    get_keyboard_key_labels_from_request,
     get_latest_str,
     get_user_display_name,
-    get_valid_next_url_from_request,
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
-from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
+from wagtail.admin.widgets import Button, ButtonWithDropdown
+from wagtail.admin.widgets.button import ListingButton
 from wagtail.coreutils import (
-    accepts_kwarg,
     camelcase_to_underscore,
-    escape_script,
     get_content_type_label,
     get_locales_display_names,
 )
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.models import (
-    CollectionViewRestriction,
     Locale,
     Page,
     PageViewRestriction,
 )
-from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 register = template.Library()
 
@@ -208,6 +204,33 @@ def admin_url_name(obj, action):
     return obj.snippet_viewset.get_url_name(action)
 
 
+@register.simple_tag(takes_context=True)
+def build_absolute_url(context, url):
+    """
+    Usage: {% build_absolute_url url %}
+    Returns the absolute URL of the given URL based on the request's host.
+    If the request doesn't exist in the context, falls back to
+    WAGTAILADMIN_BASE_URL as the base URL.
+    If the given URL is already absolute, or the request is a dummy preview
+    request, returns it unchanged.
+    """
+    request = context.get("request")
+    # If request is not found in the context, e.g. in notification emails,
+    # fall back to WAGTAILADMIN_BASE_URL.
+    if not request:
+        return urljoin(get_admin_base_url(), url)
+    # With a dummy preview request, the host has been overwritten to be the page
+    # Site's host, which may not have been configured correctly. We don't want
+    # to fall back to WAGTAILADMIN_BASE_URL either, as that may be different
+    # from the original request's host in multi-site instances and may result in
+    # users having to log in again. So we just return the URL unchanged.
+    if getattr(request, "is_dummy", False):
+        return url
+    # Rewrite relative URLs to absolute URLs based on the request's host, but
+    # leave absolute URLs unchanged.
+    return request.build_absolute_uri(url)
+
+
 @register.simple_tag
 def latest_str(obj):
     """
@@ -235,24 +258,14 @@ def classnames(*classes):
     return " ".join([classname.strip() for classname in flattened if classname])
 
 
-@register.simple_tag(takes_context=True)
-def test_collection_is_public(context, collection):
+@register.simple_tag()
+def test_collection_is_public(collection):
     """
     Usage: {% test_collection_is_public collection as is_public %}
-    Sets 'is_public' to True iff there are no collection view restrictions in place
+    Sets 'is_public' to True if there are no collection view restrictions in place
     on this collection.
-    Caches the list of collection view restrictions in the context, to avoid repeated
-    DB queries on repeated calls.
     """
-    if "all_collection_view_restrictions" not in context:
-        context[
-            "all_collection_view_restrictions"
-        ] = CollectionViewRestriction.objects.select_related("collection").values_list(
-            "collection__name", flat=True
-        )
-
-    is_private = collection.name in context["all_collection_view_restrictions"]
-
+    is_private = collection.get_view_restrictions().exists()
     return not is_private
 
 
@@ -301,31 +314,6 @@ def base_url_setting(default=None):
 @register.simple_tag
 def allow_unicode_slugs():
     return getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
-
-
-class EscapeScriptNode(template.Node):
-    TAG_NAME = "escapescript"
-
-    def __init__(self, nodelist):
-        super().__init__()
-        warn(
-            "The `escapescript` template tag is deprecated - use `template` elements instead.",
-            category=RemovedInWagtail70Warning,
-        )
-        self.nodelist = nodelist
-
-    def render(self, context):
-        out = self.nodelist.render(context)
-        return escape_script(out)
-
-    @classmethod
-    def handle(cls, parser, token):
-        nodelist = parser.parse(("end" + EscapeScriptNode.TAG_NAME,))
-        parser.delete_first_token()
-        return cls(nodelist)
-
-
-register.tag(EscapeScriptNode.TAG_NAME, EscapeScriptNode.handle)
 
 
 # Helpers for Widget.render_with_errors, our extension to the Django widget API that allows widgets to
@@ -460,36 +448,23 @@ def page_listing_buttons(context, page, user, next_url=None):
     next_url = next_url or context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
-    buttons = []
+    hook_buttons = []
     for hook in button_hooks:
-        if accepts_kwarg(hook, "user"):
-            buttons.extend(hook(page=page, next_url=next_url, user=user))
-        else:
-            # old-style hook that accepts page_perms instead of user
-            warn(
-                "`register_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
-                f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail70Warning,
-            )
+        hook_buttons.extend(hook(page=page, next_url=next_url, user=user))
 
-            page_perms = page.permissions_for_user(user)
-            buttons.extend(hook(page, page_perms, next_url))
+    buttons = []
+    for button in hook_buttons:
+        # Allow hooks to return either Button or MenuItem instances
+        if isinstance(button, MenuItem):
+            if button.is_shown(user):
+                buttons.append(ListingButton.from_menu_item(button))
+        elif button.show:
+            buttons.append(button)
 
     buttons.sort()
 
     for hook in hooks.get_hooks("construct_page_listing_buttons"):
-        if accepts_kwarg(hook, "user"):
-            hook(buttons, page=page, user=user, context=context)
-        else:
-            # old-style hook that accepts page_perms instead of user
-            warn(
-                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
-                f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail70Warning,
-            )
-
-            page_perms = page.permissions_for_user(user)
-            hook(buttons, page, page_perms, context)
+        hook(buttons, page=page, user=user, context=context)
 
     return {"page": page, "buttons": buttons}
 
@@ -499,27 +474,23 @@ def page_listing_buttons(context, page, user, next_url=None):
 )
 def page_header_buttons(context, page, user, view_name):
     next_url = context["request"].path
-    page_perms = page.permissions_for_user(user)
     button_hooks = hooks.get_hooks("register_page_header_buttons")
 
-    buttons = []
+    hook_buttons = []
     for hook in button_hooks:
-        if accepts_kwarg(hook, "user"):
-            buttons.extend(
-                hook(page=page, user=user, next_url=next_url, view_name=view_name)
-            )
-        else:
-            # old-style hook that accepts page_perms instead of user
-            warn(
-                "`register_page_header_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
-                f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail70Warning,
-            )
+        hook_buttons.extend(
+            hook(page=page, user=user, next_url=next_url, view_name=view_name)
+        )
 
-            page_perms = page.permissions_for_user(user)
-            buttons.extend(hook(page, page_perms, next_url))
+    buttons = []
+    for button in hook_buttons:
+        # Allow hooks to return either Button or MenuItem instances
+        if isinstance(button, MenuItem):
+            if button.is_shown(user):
+                buttons.append(Button.from_menu_item(button))
+        elif button.show:
+            buttons.append(button)
 
-    buttons = [b for b in buttons if b.show]
     buttons.sort()
     return {
         "buttons": buttons,
@@ -536,18 +507,14 @@ def bulk_action_choices(context, app_label, model_name):
     bulk_action_more_list = bulk_actions_list[4:]
     bulk_actions_list = bulk_actions_list[:4]
 
-    next_url = get_valid_next_url_from_request(context["request"])
-    if not next_url:
-        next_url = context["request"].path
-
+    # These buttons are not re-rendered after AJAX search and filters are applied,
+    # so don't include a 'next' parameter and let the JS construct it later.
     bulk_action_buttons = [
-        PageListingButton(
+        ListingButton(
             action.display_name,
             reverse(
                 "wagtail_bulk_action", args=[app_label, model_name, action.action_type]
-            )
-            + "?"
-            + urlencode({"next": next_url}),
+            ),
             attrs={"aria-label": action.aria_label, "data-bulk-action-button": ""},
             priority=action.action_priority,
             classname=" ".join(action.classes | {"bulk-action-btn"}),
@@ -566,9 +533,7 @@ def bulk_action_choices(context, app_label, model_name):
                     url=reverse(
                         "wagtail_bulk_action",
                         args=[app_label, model_name, action.action_type],
-                    )
-                    + "?"
-                    + urlencode({"next": next_url}),
+                    ),
                     attrs={
                         "aria-label": action.aria_label,
                         "data-bulk-action-button": "",
@@ -584,7 +549,14 @@ def bulk_action_choices(context, app_label, model_name):
 
 
 @register.inclusion_tag("wagtailadmin/shared/avatar.html")
-def avatar(user=None, classname=None, size=None, tooltip=None):
+def avatar(
+    user=None,
+    classname=None,
+    size=None,
+    tooltip=None,
+    tooltip_html=None,
+    edit_link=False,
+):
     """
     Displays a user avatar using the avatar template
     Usage:
@@ -594,9 +566,18 @@ def avatar(user=None, classname=None, size=None, tooltip=None):
     :param user: the user to get avatar information from (User)
     :param size: default None (None|'small'|'large'|'square')
     :param tooltip: Optional tooltip to display under the avatar (string)
+    :param tooltip_html: Optional tooltip as an HTML element for rich content (string)
+    :param edit_link: Optional edit link to display underneath the avatar (boolean)
     :return: Rendered template snippet
     """
-    return {"user": user, "classname": classname, "size": size, "tooltip": tooltip}
+    return {
+        "user": user,
+        "classname": classname,
+        "size": size,
+        "tooltip": tooltip,
+        "tooltip_html": tooltip_html,
+        "edit_link": edit_link,
+    }
 
 
 @register.simple_tag
@@ -637,8 +618,19 @@ def avatar_url(user, size=50, gravatar_only=False):
     """
     A template tag that receives a user and size and return
     the appropriate avatar url for that user.
+
+    If the 'get_avatar_url' hook is defined, then that will intercept this
+    logic and point to whatever resource that function returns. In this way,
+    users can swap out the Wagtail UserProfile avatar for some other image or
+    field of their own choosing without needing to alter anything on the
+    existing models.
+
     Example usage: {% avatar_url request.user 50 %}
+
     """
+    for hook_fn in hooks.get_hooks("get_avatar_url"):
+        if url := hook_fn(user, size):
+            return url
 
     if (
         not gravatar_only
@@ -660,27 +652,47 @@ def admin_theme_classname(context):
     """
     Retrieves the theme name for the current user.
     """
-    user = context["request"].user
+    user = getattr(context.get("request"), "user", None)
     theme_name = (
         user.wagtail_userprofile.theme
         if hasattr(user, "wagtail_userprofile")
         else "system"
     )
-    return f"w-theme-{theme_name}"
+    contrast_name = (
+        user.wagtail_userprofile.contrast
+        if hasattr(user, "wagtail_userprofile")
+        else "system"
+    )
+    density_name = (
+        user.wagtail_userprofile.density
+        if hasattr(user, "wagtail_userprofile")
+        else "default"
+    )
+    contrast_name = contrast_name.split("_")[0]
+    return f"w-theme-{theme_name} w-density-{density_name} w-contrast-{contrast_name}"
+
+
+@register.simple_tag(takes_context=True)
+def admin_theme_color_scheme(context):
+    """
+    Retrieves the color-scheme of the active theme for current user.
+    """
+    user = context["request"].user
+    profile = getattr(user, "wagtail_userprofile", None)
+    theme_name = profile.theme if profile else "system"
+    if theme_name == "system":
+        return "dark light"
+    return theme_name
 
 
 @register.simple_tag
-def js_translation_strings():
-    return mark_safe(json.dumps(get_js_translation_strings()))
-
-
-@register.simple_tag
-def notification_static(path):
+def absolute_static(path):
     """
-    Variant of the {% static %}` tag for use in notification emails - tries to form
-    a full URL using WAGTAILADMIN_BASE_URL if the static URL isn't already a full URL.
+    Variant of the {% versioned_static %}` tag for use in external systems, such as
+    notification emails. Tries to form a full URL using WAGTAILADMIN_BASE_URL
+    if the static URL isn't already a full URL.
     """
-    return urljoin(base_url_setting(), static(path))
+    return urljoin(base_url_setting(), versioned_static_func(path))
 
 
 @register.simple_tag
@@ -761,7 +773,6 @@ def timesince_simple(d):
     1 week, 1 day ago -> 1 week ago
     0 minutes ago -> just now
     """
-    # Note: Duplicate code in timesince_last_update()
     time_period = timesince(d).split(",")[0]
     if time_period == avoid_wrapping(_("0 minutes")):
         return _("just now")
@@ -780,11 +791,25 @@ def timesince_last_update(
     """
     # translation usage below is intentionally verbose to be easier to work with translations
 
-    if last_update.date() == datetime.datetime.today().date():
+    current_datetime = timezone.now()
+    if timezone.is_aware(current_datetime):
+        # timezone support is enabled - make last_update timezone-aware and set to the user's
+        # timezone
+        current_datetime = timezone.localtime(current_datetime)
         if timezone.is_aware(last_update):
-            time_str = timezone.localtime(last_update).strftime("%H:%M")
+            local_datetime = timezone.localtime(last_update)
         else:
-            time_str = last_update.strftime("%H:%M")
+            local_datetime = timezone.make_aware(last_update)
+    else:
+        # timezone support is disabled - use naive datetimes
+        if timezone.is_aware(last_update):
+            local_datetime = timezone.make_naive(last_update)
+        else:
+            local_datetime = last_update
+
+    # Use an explicit timestamp if last_update is today as seen in the current user's time zone
+    if local_datetime.date() == current_datetime.date():
+        time_str = local_datetime.strftime("%H:%M")
 
         if show_time_prefix:
             if user_display_name:
@@ -804,17 +829,9 @@ def timesince_last_update(
                 return time_str
     else:
         if use_shorthand:
-            # Note: Duplicate code in timesince_simple()
-            time_period = timesince(last_update).split(",")[0]
-            if time_period == avoid_wrapping(_("0 minutes")):
-                if user_display_name:
-                    return _("just now by %(user_display_name)s") % {
-                        "user_display_name": user_display_name
-                    }
-                else:
-                    return _("just now")
+            time_period = timesince(local_datetime, now=current_datetime).split(",")[0]
         else:
-            time_period = timesince(last_update)
+            time_period = timesince(local_datetime, now=current_datetime)
 
         if user_display_name:
             return _("%(time_period)s ago by %(user_display_name)s") % {
@@ -838,19 +855,6 @@ def format_content_type(content_type):
 @register.simple_tag
 def i18n_enabled():
     return getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-
-
-@register.simple_tag
-def locales():
-    return json.dumps(
-        [
-            {
-                "code": locale.language_code,
-                "display_name": force_str(locale.get_display_name()),
-            }
-            for locale in Locale.objects.all()
-        ]
-    )
 
 
 @register.simple_tag
@@ -915,23 +919,39 @@ def wagtail_config(context):
     request = context["request"]
     config = {
         "CSRF_TOKEN": get_token(request),
-        "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(
-            getattr(settings, "CSRF_HEADER_NAME")
-        ),
+        "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(settings.CSRF_HEADER_NAME),
+        "ADMIN_API": {
+            "PAGES": reverse("wagtailadmin_api:pages:listing"),
+            "DOCUMENTS": reverse("wagtailadmin_api:documents:listing"),
+            "IMAGES": reverse("wagtailadmin_api:images:listing"),
+            # Used to add an extra query string on all API requests. Example value: '&order=-id'
+            "EXTRA_CHILDREN_PARAMETERS": "",
+        },
         "ADMIN_URLS": {
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
+            "PAGES": reverse("wagtailadmin_explore_root"),
+            "BLOCK_PREVIEW": reverse("wagtailadmin_block_preview"),
         },
+        "I18N_ENABLED": i18n_enabled(),
+        "LOCALES": [
+            {
+                "code": locale.language_code,
+                "display_name": force_str(locale.get_display_name()),
+            }
+            for locale in Locale.objects.all()
+        ],
+        "STRINGS": get_js_translation_strings(),
     }
 
-    default_settings = {
-        "WAGTAIL_AUTO_UPDATE_PREVIEW": True,
-        "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL": 500,
-    }
-    config.update(
-        {
-            option: getattr(settings, option, default)
-            for option, default in default_settings.items()
-        }
+    if locale := context.get("locale"):
+        config["ACTIVE_CONTENT_LOCALE"] = locale.language_code
+
+    user = getattr(context.get("request"), "user", None)
+
+    config["KEYBOARD_SHORTCUTS_ENABLED"] = (
+        user.wagtail_userprofile.keyboard_shortcuts
+        if hasattr(user, "wagtail_userprofile")
+        else True
     )
 
     return config
@@ -975,28 +995,33 @@ def fragment(parser, token):
     Store a template fragment as a variable.
 
     Usage:
+
+    .. code-block:: html+django
+
         {% fragment as header_title %}
             {% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}
         {% endfragment %}
+        {% include "my/custom/header.html" with title=header_title %}
 
-    Copy-paste of slippers’ fragment template tag.
-    See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L173.
+    Adopted from `slippers' fragment template tag <https://mitchel.me/slippers/docs/template-tags-filters/#fragment>`_ with a few tweaks.
 
     To strip leading and trailing whitespace produced in the fragment, use the
-    `stripped` option. This is useful if you need to check if the resulting
+    ``stripped`` option. This is useful if you need to check if the resulting
     fragment is empty (after leading and trailing spaces are removed):
+
+    .. code-block:: html+django
 
         {% fragment stripped as recipient %}
             {{ title }} {{ first_name }} {{ last_name }}
-        {% endfragment }
+        {% endfragment %}
         {% if recipient %}
             Recipient: {{ recipient }}
         {% endif %}
 
     Note that the stripped option only strips leading and trailing spaces, unlike
-    {% blocktrans trimmed %} that also does line-by-line stripping. This is because
+    ``{% blocktrans trimmed %}`` that also does line-by-line stripping. This is because
     the fragment may contain HTML tags that are sensitive to whitespace, such as
-    <pre> and <code>.
+    ``<pre>`` and ``<code>``.
     """
     error_message = "The syntax for fragment is {% fragment as variable_name %}"
 
@@ -1004,9 +1029,9 @@ def fragment(parser, token):
         tag_name, *options, target_var = token.split_contents()
         nodelist = parser.parse(("endfragment",))
         parser.delete_first_token()
-    except ValueError:
+    except ValueError as e:
         if settings.DEBUG:
-            raise template.TemplateSyntaxError(error_message)
+            raise template.TemplateSyntaxError(error_message) from e
         return ""
 
     stripped = "stripped" in options
@@ -1166,6 +1191,8 @@ def formattedfield(
     show_add_comment_button=False,
     label_text=None,
     error_message_id=None,
+    wrapper_id=None,
+    attrs=None,
 ):
     """
     Renders a form field in standard Wagtail admin layout.
@@ -1182,17 +1209,22 @@ def formattedfield(
     - `show_add_comment_button` - Display a comment control within Wagtail forms.
     - `label_text` - Manually set this if the field’s HTML is hard-coded.
     - `error_message_id` - ID of the error message container element.
+    - `wrapper_id` - ID of the overall wrapper element.
+    - `attrs` - Dict of additional HTML attributes to add to the field wrapper element, `data-field-wrapper` will be included by default.
     """
 
     label_for = id_for_label or (field and field.id_for_label) or ""
 
     context = {
         "classname": classname,
+        # Ensure data-field-wrapper is always present
+        "attrs": {**(attrs or {}), "data-field-wrapper": True},
         "show_label": show_label,
         "sr_only_label": sr_only_label,
         "icon": icon,
         "show_add_comment_button": show_add_comment_button,
         "error_message_id": error_message_id,
+        "wrapper_id": wrapper_id,
         "label_for": label_for,
         "label_id": f"{label_for}-label" if label_for else "",
         "label_text": label_text or (field and field.label) or "",
@@ -1210,9 +1242,9 @@ def formattedfield(
 
     if field:
         context["rendered_field"] = rendered_field or render_with_errors(field)
-        context[
-            "field_classname"
-        ] = f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
+        context["field_classname"] = (
+            f"w-field--{fieldtype(field)} w-field--{widgettype(field)}"
+        )
 
         errors = field.errors
         has_errors = bool(errors)
@@ -1252,6 +1284,7 @@ def formattedfieldfromcontext(context):
         "show_add_comment_button",
         "label_text",
         "error_message_id",
+        "wrapper_id",
     ):
         if arg in context:
             kwargs[arg] = context[arg]
@@ -1307,55 +1340,77 @@ def keyboard_shortcuts_dialog(context):
     appropriate shortcuts for the user's platform.
     Note: Shortcut keys are intentionally not translated.
     """
+    request = context.get("request")
+    keyboard_shortcuts_enabled = True
 
-    user_agent = context["request"].headers.get("User-Agent", "")
+    if request and getattr(request, "user", None):
+        profile = getattr(request.user, "wagtail_userprofile", None)
+        if profile is not None:
+            keyboard_shortcuts_enabled = bool(
+                getattr(profile, "keyboard_shortcuts", True)
+            )
+
+    comments_enabled = get_comments_enabled()
+    user_agent = request.headers.get("User-Agent", "") if request else ""
     is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
-    modifier = "⌘" if is_mac else "Ctrl"
+    KEYS = get_keyboard_key_labels_from_request(request) if request else {}
 
     return {
+        "keyboard_shortcuts_enabled": keyboard_shortcuts_enabled,
         "shortcuts": {
-            ("actions-common", _("Common actions")): [
-                (_("Copy"), f"{modifier} + c"),
-                (_("Cut"), f"{modifier} + x"),
-                (_("Paste"), f"{modifier} + v"),
+            # Translators: Shortcuts for admin common shortcuts that are available across the admin
+            ("admin-common", _("Application")): [
+                (_("Show keyboard shortcuts"), "?"),
+                (_("Search"), "/"),
+                (_("Toggle sidebar"), "["),
+                (_("Toggle minimap"), "]"),
+                (_("Close modal dialogs (like this one)"), f"{KEYS.ESC}"),
+            ],
+            # Translators: Shortcuts for admin actions that can be taken while working on core models
+            ("admin-core-models", _("Actions")): [
+                (_("Save changes"), f"{KEYS.MOD} + s"),
+                (_("Preview"), f"{KEYS.MOD} + p"),
+                (_("Add or show comments"), f"{KEYS.CTRL} + {KEYS.ALT} + m")
+                if comments_enabled
+                else None,
+            ],
+            # Translators: Shortcuts for common text editing features available in all fields (even if not a rich text field)
+            ("text-editing-basic", _("Text editing")): [
+                (_("Copy"), f"{KEYS.MOD} + c"),
+                (_("Cut"), f"{KEYS.MOD} + x"),
+                (_("Paste"), f"{KEYS.MOD} + v"),
                 (
                     _("Paste and match style")
                     if is_mac
                     else _("Paste without formatting"),
-                    f"{modifier} + Shift + v",
+                    f"{KEYS.MOD} + {KEYS.SHIFT} + v",
                 ),
-                (_("Undo"), f"{modifier} + z"),
+                (_("Undo"), f"{KEYS.MOD} + z"),
                 (
                     _("Redo"),
-                    f"{modifier} + Shift + z" if is_mac else f"{modifier} + y",
+                    f"{KEYS.MOD} + {KEYS.SHIFT} + z" if is_mac else f"{KEYS.MOD} + y",
                 ),
             ],
-            ("actions-model", _("Actions")): [
-                (_("Save changes"), f"{modifier} + s"),
-                (_("Preview"), f"{modifier} + p"),
+            # Translators: Shortcuts for formatting & editing features available in rich text fields
+            ("text-editing-rich-text", _("Text formatting")): [
+                (_("Insert or edit a link"), f"{KEYS.MOD} + k"),
+                (_("Bold"), f"{KEYS.MOD} + b"),
+                (_("Italic"), f"{KEYS.MOD} + i"),
+                (_("Monospace (code)"), f"{KEYS.MOD} + j"),
+                (_("Strike-through"), f"{KEYS.MOD} + {KEYS.SHIFT} + x"),
+                (_("Superscript"), f"{KEYS.MOD} + ."),
+                (_("Subscript"), f"{KEYS.MOD} + ,"),
             ],
-            ("rich-text-content", _("Text content")): [
-                (_("Insert or edit a link"), f"{modifier} + k")
-            ],
-            ("rich-text-formatting", _("Text formatting")): [
-                (_("Bold"), f"{modifier} + b"),
-                (_("Italic"), f"{modifier} + i"),
-                (_("Underline"), f"{modifier} + u"),
-                (_("Monospace (code)"), f"{modifier} + j"),
-                (_("Strike-through"), f"{modifier} + x"),
-                (_("Superscript"), f"{modifier} + ."),
-                (_("Subscript"), f"{modifier} + ,"),
-            ],
-        }
+        },
     }
 
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
 def human_readable_date(date, description=None, placement="top"):
     if isinstance(date, datetime.datetime):
-        tooltip_format = getattr(settings, "DATETIME_FORMAT", "N j, Y, P")
+        tooltip_format = get_format("DATETIME_FORMAT") or "N j, Y, P"
     elif isinstance(date, datetime.date):
-        tooltip_format = getattr(settings, "DATE_FORMAT", "N j, Y")
+        tooltip_format = get_format("DATE_FORMAT") or "N j, Y"
     return {
         "date": date,
         "description": description,
@@ -1367,3 +1422,6 @@ def human_readable_date(date, description=None, placement="top"):
 # Shadow the laces `component` tag which was extracted from Wagtail. The shadowing
 # is useful to avoid having to update all the templates that use the `component` tag.
 register.tag("component", component)
+
+
+register.simple_tag(get_icon_sprite_url, name="icon_sprite_url")

@@ -1,35 +1,43 @@
-from django.template.loader import render_to_string
+from warnings import warn
+
+from django.forms import Media
+from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
+from wagtail import hooks
+from wagtail.admin.ui.components import Component
+from wagtail.admin.utils import get_admin_base_url
+from wagtail.coreutils import accepts_kwarg
+from wagtail.models import Revision
+from wagtail.models.pages import Page
+from wagtail.users.models import UserProfile
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
-class BaseItem:
-    template = "wagtailadmin/userbar/item_base.html"
 
-    def get_context_data(self, request):
-        return {"self": self, "request": request}
+class BaseItem(Component):
+    template_name = "wagtailadmin/userbar/item_base.html"
 
-    def render(self, request):
-        return render_to_string(
-            self.template, self.get_context_data(request), request=request
-        )
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["self"] = self
+        context["request"] = parent_context.get("request")
+        return context
 
 
 class AdminItem(BaseItem):
-    template = "wagtailadmin/userbar/item_admin.html"
-
-    def render(self, request):
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        return super().render(request)
+    template_name = "wagtailadmin/userbar/item_admin.html"
 
 
 class AccessibilityItem(BaseItem):
     """A userbar item that runs the accessibility checker."""
 
+    def __init__(self, in_editor=False):
+        super().__init__()
+        self.in_editor = in_editor
+        """Whether the accessibility checker is being run in the page editor."""
+
     #: The template to use for rendering the item.
-    template = "wagtailadmin/userbar/item_accessibility.html"
+    template_name = "wagtailadmin/userbar/item_accessibility.html"
 
     #: A list of CSS selector(s) to test specific parts of the page.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
@@ -40,7 +48,7 @@ class AccessibilityItem(BaseItem):
     axe_exclude = []
 
     # Make sure that the userbar is not tested.
-    _axe_default_exclude = [{"fromShadowDOM": ["wagtail-userbar"]}]
+    _axe_default_exclude = [{"fromShadowDom": ["wagtail-userbar"]}]
 
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
@@ -55,6 +63,7 @@ class AccessibilityItem(BaseItem):
         "input-button-name",
         "link-name",
         "p-as-heading",
+        "alt-text-quality",
     ]
 
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
@@ -63,30 +72,71 @@ class AccessibilityItem(BaseItem):
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter-examples>`__.
     axe_rules = {}
 
+    #: A list to add custom Axe rules or override their properties,
+    #: alongside with ``axe_custom_checks``. Includes Wagtail’s custom rules.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
+    axe_custom_rules = [
+        {
+            "id": "alt-text-quality",
+            "impact": "serious",
+            "selector": "img[alt]",
+            "tags": ["best-practice"],
+            "any": ["check-image-alt-text"],
+            # If omitted, defaults to True and overrides configs in `axe_run_only`.
+            "enabled": True,
+        },
+    ]
+
+    #: A list to add custom Axe checks or override their properties.
+    #: Should be used in conjunction with ``axe_custom_rules``.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
+    axe_custom_checks = [
+        {
+            "id": "check-image-alt-text",
+            "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_"},
+        },
+    ]
+
     #: A dictionary that maps axe-core rule IDs to custom translatable strings
     #: to use as the error messages. If an enabled rule does not exist in this
     #: dictionary, Axe's error message for the rule will be used as fallback.
     axe_messages = {
-        "button-name": _(
-            "Button text is empty. Use meaningful text for screen reader users."
-        ),
-        "empty-heading": _(
-            "Empty heading found. Use meaningful text for screen reader users."
-        ),
-        "empty-table-header": _(
-            "Table header text is empty. Use meaningful text for screen reader users."
-        ),
-        "frame-title": _(
-            "Empty frame title found. Use a meaningful title for screen reader users."
-        ),
-        "heading-order": _("Incorrect heading hierarchy. Avoid skipping levels."),
-        "input-button-name": _(
-            "Input button text is empty. Use meaningful text for screen reader users."
-        ),
-        "link-name": _(
-            "Link text is empty. Use meaningful text for screen reader users."
-        ),
-        "p-as-heading": _("Misusing paragraphs as headings. Use proper heading tags."),
+        "button-name": {
+            "error_name": _("Button text is empty"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "empty-heading": {
+            "error_name": _("Empty heading found"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "empty-table-header": {
+            "error_name": _("Table header text is empty"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "frame-title": {
+            "error_name": _("Empty frame title found"),
+            "help_text": _("Use a meaningful title for screen reader users"),
+        },
+        "heading-order": {
+            "error_name": _("Incorrect heading hierarchy"),
+            "help_text": _("Avoid skipping levels"),
+        },
+        "input-button-name": {
+            "error_name": _("Input button text is empty"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "link-name": {
+            "error_name": _("Link text is empty"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "p-as-heading": {
+            "error_name": _("Misusing paragraphs as headings"),
+            "help_text": _("Use proper heading tags"),
+        },
+        "alt-text-quality": {
+            "error_name": _("Image alt text has inappropriate pattern"),
+            "help_text": _("Use meaningful text"),
+        },
     }
 
     def get_axe_include(self, request):
@@ -104,6 +154,14 @@ class AccessibilityItem(BaseItem):
     def get_axe_rules(self, request):
         """Returns a dictionary that maps axe-core rule IDs to a dictionary of rule options."""
         return self.axe_rules
+
+    def get_axe_custom_rules(self, request):
+        """List of rule objects per axe.run API."""
+        return self.axe_custom_rules
+
+    def get_axe_custom_checks(self, request):
+        """List of check objects per axe.run API, without evaluate function."""
+        return self.axe_custom_checks
 
     def get_axe_messages(self, request):
         """Returns a dictionary that maps axe-core rule IDs to custom translatable strings."""
@@ -139,41 +197,40 @@ class AccessibilityItem(BaseItem):
             options.pop("runOnly")
         return options
 
+    def get_axe_spec(self, request):
+        """Returns spec for Axe, including custom rules and custom checks"""
+        return {
+            "rules": self.get_axe_custom_rules(request),
+            "checks": self.get_axe_custom_checks(request),
+        }
+
     def get_axe_configuration(self, request):
         return {
             "context": self.get_axe_context(request),
             "options": self.get_axe_options(request),
             "messages": self.get_axe_messages(request),
+            "spec": self.get_axe_spec(request),
         }
 
-    def get_context_data(self, request):
-        return {
-            **super().get_context_data(request),
-            "axe_configuration": self.get_axe_configuration(request),
-        }
-
-    def render(self, request):
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        return super().render(request)
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["axe_configuration"] = self.get_axe_configuration(
+            parent_context.get("request")
+        )
+        return context
 
 
 class AddPageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_add.html"
+    template_name = "wagtailadmin/userbar/item_page_add.html"
 
     def __init__(self, page):
         self.page = page
         self.parent_page = page.get_parent()
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
-            return ""
-
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         # Don't render if user doesn't have ability to add children here
@@ -181,26 +238,23 @@ class AddPageItem(BaseItem):
         if not permission_checker.can_add_subpage():
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
 
 
 class ExplorePageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_explore.html"
+    template_name = "wagtailadmin/userbar/item_page_explore.html"
 
     def __init__(self, page):
         self.page = page
         self.parent_page = page.get_parent()
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
             return ""
 
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        # Don't render if user doesn't have ability to edit or publish sub-pages on the parent page
+        # Don't render if user doesn't have ability to edit or publish subpages on the parent page
         permission_checker = self.parent_page.permissions_for_user(request.user)
         if (
             not permission_checker.can_edit()
@@ -208,16 +262,17 @@ class ExplorePageItem(BaseItem):
         ):
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
 
 
 class EditPageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_edit.html"
+    template_name = "wagtailadmin/userbar/item_page_edit.html"
 
     def __init__(self, page):
         self.page = page
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
             return ""
@@ -230,13 +285,117 @@ class EditPageItem(BaseItem):
         except AttributeError:
             pass
 
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
         # Don't render if the user doesn't have permission to edit this page
         permission_checker = self.page.permissions_for_user(request.user)
         if not permission_checker.can_edit():
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
+
+
+def apply_userbar_hooks(request, items, page):
+    for fn in hooks.get_hooks("construct_wagtail_userbar"):
+        if accepts_kwarg(fn, "page"):
+            fn(request, items, page)
+        else:
+            warn(
+                "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position -"
+                f" {fn.__module__}.{fn.__name__} needs to be updated",
+                category=RemovedInWagtail80Warning,
+            )
+            fn(request, items)
+
+
+class Userbar(Component):
+    template_name = "wagtailadmin/userbar/base.html"
+
+    def __init__(self, *, object=None, position="bottom-right"):
+        self.object = object
+        self.position = position
+
+    def get_context_data(self, parent_context):
+        request = parent_context.get("request")
+        # Render the userbar differently within the preview panel.
+        in_preview_panel = getattr(request, "in_preview_panel", False)
+
+        if not request or request.user.is_anonymous:
+            language = None
+        else:
+            # Render the userbar using the user's preferred admin language
+            userprofile = UserProfile.get_for_user(request.user)
+            language = userprofile.get_preferred_language()
+
+        with translation.override(language):
+            try:
+                revision_id = request.revision_id
+            except AttributeError:
+                revision_id = None
+
+            if in_preview_panel:
+                items = [
+                    AccessibilityItem(),
+                ]
+            elif isinstance(self.object, Page) and self.object.pk:
+                if revision_id:
+                    revision = Revision.page_revisions.get(id=revision_id)
+                    items = [
+                        AdminItem(),
+                        ExplorePageItem(revision.content_object),
+                        EditPageItem(revision.content_object),
+                        AccessibilityItem(),
+                    ]
+                else:
+                    # Not a revision
+                    items = [
+                        AdminItem(),
+                        ExplorePageItem(self.object),
+                        EditPageItem(self.object),
+                        AddPageItem(self.object),
+                        AccessibilityItem(),
+                    ]
+            else:
+                # Not a page.
+                items = [
+                    AdminItem(),
+                    AccessibilityItem(),
+                ]
+
+            apply_userbar_hooks(request, items, self.object)
+
+            # Render the items
+            rendered_items = []
+            media = Media()
+            for item in items:
+                # Backwards compatibility for legacy items with a render method.
+                if hasattr(item, "render"):
+                    warn(
+                        "Userbar items now use the `render_html(parent_context)` method instead of `render(request)` -"
+                        f" view the `construct_wagtail_userbar` docs to update {item.__class__.__name__}",
+                        RemovedInWagtail80Warning,
+                    )
+
+                    content = item.render(request)
+                else:
+                    content = item.render_html(parent_context)
+                if content:
+                    rendered_items.append(content)
+
+                # Always append media even if the item might render nothing.
+                if hasattr(item, "media"):
+                    media += item.media
+
+            if request:
+                origin = f"{request.scheme}://{request.get_host()}"
+            else:
+                origin = get_admin_base_url() or ""
+
+            # Render the userbar items
+            return {
+                "request": request,
+                "origin": origin,
+                "items": rendered_items,
+                "media": media,
+                "position": self.position,
+                "page": self.object,
+                "revision_id": revision_id,
+            }

@@ -1,48 +1,70 @@
 import $ from 'jquery';
+import Sortable from 'sortablejs';
 import { initCollapsiblePanels } from '../../includes/panels';
 import { ExpandingFormset } from '../ExpandingFormset';
 
 /**
- * Attaches behaviour for an InlinePanel where inner panels can be created,
+ * Attaches behavior for an InlinePanel where inner panels can be created,
  * removed and re-ordered.
  *
- * @param {Object} opts
+ * @param {object} opts
  * @param {string} opts.formsetPrefix
  * @param {boolean?} opts.canOrder
  * @param {string} opts.emptyChildFormPrefix
  * @param {number} opts.maxForms
- * @param {function} opts.onAdd
- * @returns {Object}
+ * @param {Function} opts.onAdd
+ * @returns {object}
  */
 export class InlinePanel extends ExpandingFormset {
-  constructor(opts) {
-    super(opts.formsetPrefix, opts);
+  constructor(opts, initControls = true) {
+    super(opts.formsetPrefix, opts, initControls);
+    this.type = opts.type;
+    this.prefix = opts.prefix;
+    this.relationName = opts.relationName;
     this.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
 
-    for (let i = 0; i < this.formCount; i += 1) {
-      const childPrefix = this.opts.emptyChildFormPrefix.replace(
-        /__prefix__/g,
-        i,
-      );
-      this.initChildControls(childPrefix);
-    }
+    if (initControls) {
+      if (this.opts.canOrder) {
+        this.sortable = Sortable.create(this.formsElt.get(0), {
+          handle: '[data-inline-panel-child-drag]',
+          animation: 200,
+          onEnd: this.handleDragEnd.bind(this),
+          setData: (dataTransfer) => {
+            dataTransfer.setData(
+              'application/vnd.wagtail.type',
+              'inlinepanel-child',
+            );
+          },
+        });
+      }
 
-    this.updateControlStates();
-    // dispatch event for form ready
-    setTimeout(() => {
-      this.formsElt.get(0)?.dispatchEvent(
-        new CustomEvent('w-formset:ready', {
-          bubbles: true,
-          cancelable: false,
-          detail: { ...opts },
-        }),
-      );
-    });
+      for (let i = 0; i < this.formCount; i += 1) {
+        const childPrefix = this.opts.emptyChildFormPrefix.replace(
+          /__prefix__/g,
+          i,
+        );
+        this.initChildControls(childPrefix);
+      }
+
+      this.updateControlStates();
+      // dispatch event for form ready
+      setTimeout(() => {
+        this.formsElt.get(0)?.dispatchEvent(
+          new CustomEvent('w-formset:ready', {
+            bubbles: true,
+            cancelable: false,
+            detail: { ...opts },
+          }),
+        );
+      });
+    }
   }
 
+  /**
+   * Update states of listing controls in response to a change of state such as
+   * adding, deleting or moving an element.
+   */
   updateControlStates() {
-    /* Update states of listing controls in response to a change of state such as
-    adding, deleting or moving an element */
     this.updateChildCount();
     this.updateMoveButtonDisabledStates();
     this.updateAddButtonState();
@@ -312,5 +334,30 @@ export class InlinePanel extends ExpandingFormset {
         detail: { formIndex, ...this.opts },
       }),
     );
+  }
+
+  /**
+   * Update fields based on the current DOM order.
+   */
+  updateOrderValues() {
+    const forms = this.formsElt.children(':not(.deleted)');
+    forms.each((index, form) => {
+      const prefix = form.id.replace('inline_child_', '');
+      const orderInput = $(form).find(`[name="${prefix}-ORDER"]`);
+      orderInput.val(index + 1);
+    });
+  }
+
+  handleDragEnd(e) {
+    const { oldIndex, newIndex } = e;
+    if (oldIndex !== newIndex) {
+      this.updateOrderValues();
+      this.updateControlStates();
+    }
+  }
+
+  getPanelByName(name) {
+    if (name === this.relationName) return this;
+    return null;
   }
 }

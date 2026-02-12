@@ -121,12 +121,12 @@ class BlockElementHandler:
         state.has_preceding_nonatomic_block = True
 
     def handle_endtag(self, name, state, contentState):
-        assert (
-            not state.current_inline_styles
-        ), "End of block reached without closing inline style elements"
-        assert (
-            not state.current_entity_ranges
-        ), "End of block reached without closing entity elements"
+        assert not state.current_inline_styles, (
+            "End of block reached without closing inline style elements"
+        )
+        assert not state.current_entity_ranges, (
+            "End of block reached without closing entity elements"
+        )
         state.current_block = None
 
 

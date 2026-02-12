@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -101,6 +101,9 @@ msgstr "Hili ita nia zona agora dadaun"
 msgid "profile picture"
 msgstr "perfil imajen"
 
+msgid "Default"
+msgstr "Estandar"
+
 msgid "user profile"
 msgstr "perfil user"
 
@@ -125,15 +128,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Ita boot prontu dunik ita boot hakarak hamoos grupu nee?"
 
-msgid "Add group"
-msgstr "Hatama grupu"
-
-msgid "Save"
-msgstr "Rai"
-
-msgid "Delete group"
-msgstr "Hamoos grupu"
-
 msgid "Object permissions"
 msgstr "Permisaun sira ba Objetu"
 
@@ -145,12 +139,6 @@ msgstr "Hatama"
 
 msgid "Change"
 msgstr "Troka"
-
-msgid "Publish"
-msgstr "Publika"
-
-msgid "Lock"
-msgstr "Xavi"
 
 msgid "Other permissions"
 msgstr "Permisaun sira seluk"
@@ -176,36 +164,11 @@ msgstr ""
 "Laiha grupu sira maka konfigura. Tamba sa labele<a "
 "href=\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Ita boot prontu dunik ita boot hakarak hamoos usuariu nee?"
-
 msgid "Account"
 msgstr "Konta"
 
 msgid "Roles"
 msgstr "Knar"
-
-msgid "Add user"
-msgstr "Hatama usuariu"
-
-msgid "Delete user"
-msgstr "Hamoos usuariu"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Deskulpa, user sira la hanesan \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "Naran Usuariu"
-
-msgid "Status"
-msgstr "Estatus"
-
-msgid "Last Login"
-msgstr "Login ikus"
-
-msgid "Admin"
-msgstr "Administrasaun"
 
 msgid "Active"
 msgstr "Ativu"
@@ -222,6 +185,9 @@ msgstr "Hatama grupu"
 msgid "Search groups"
 msgstr "Buka grupu sira"
 
+msgid "Add group"
+msgstr "Hatama grupu"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupu '%(object)s' kria ona."
@@ -237,11 +203,23 @@ msgstr "Grupu labele rai tamba erru."
 msgid "Group '%(object)s' deleted."
 msgstr "Grupu '%(object)s' hamoos ona."
 
+msgid "Delete group"
+msgstr "Hamoos grupu"
+
 msgid "Add a user"
 msgstr "Hatama usuariu"
 
 msgid "Users"
 msgstr "Usuariu sira"
+
+msgid "Username"
+msgstr "Naran Usuariu"
+
+msgid "Admin"
+msgstr "Administrasaun"
+
+msgid "Add user"
+msgstr "Hatama usuariu"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -250,9 +228,9 @@ msgstr "Usuariu '%(object)s' troka ona"
 msgid "The user could not be saved due to errors."
 msgstr "Usuariu labele rai tamba erru."
 
+msgid "Delete user"
+msgstr "Hamoos usuariu"
+
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Usuariu '%(object)s' hamoos ona."
-
-msgid "Edit"
-msgstr "Hadia"

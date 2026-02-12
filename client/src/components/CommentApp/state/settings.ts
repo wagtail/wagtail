@@ -1,10 +1,11 @@
-import produce from 'immer';
+import { produce } from 'immer';
 import * as actions from '../actions/settings';
 import type { Author } from './comments';
 
 export interface SettingsState {
   user: Author | null;
   currentTab: string | null;
+  isReloading: boolean;
 }
 
 export type SettingsStateUpdate = Partial<SettingsState>;
@@ -13,6 +14,7 @@ export type SettingsStateUpdate = Partial<SettingsState>;
 export const INITIAL_STATE: SettingsState = {
   user: null,
   currentTab: null,
+  isReloading: false,
 };
 
 export const reducer = produce(

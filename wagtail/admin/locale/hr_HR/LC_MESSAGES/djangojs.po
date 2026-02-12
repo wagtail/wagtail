@@ -1,14 +1,14 @@
 #
 # Translators:
 # Luka Matijević <lumatijev@gmail.com>, 2022
-# Loic Teixeira, 2022
-# Dino Aljević <dino8890@protonmail.com>, 2023
+# Loic Teixeira, 2024
+# Dino Aljević <dino8890@protonmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2023\n"
-"Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/"
-"teams/8009/hr_HR/)\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2026\n"
+"Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/teams/"
+"8009/hr_HR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: hr_HR\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
@@ -25,6 +25,12 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s piksel"
 msgstr[1] "%(num)s piksela"
 msgstr[2] "%(num)s piksela"
+
+msgid "Actions"
+msgstr "Postupci"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add a comment"
 msgstr "Dodaj komentar"
@@ -59,6 +65,9 @@ msgstr "Dekorativna slika"
 msgid "Delete"
 msgstr "Izbriši"
 
+msgid "Drag"
+msgstr "Povucite"
+
 msgid "Edit"
 msgstr "Uredi"
 
@@ -77,6 +86,15 @@ msgstr "Učitavanje..."
 msgid "Missing document"
 msgstr "Nedostaje dokument"
 
+msgid "Move down"
+msgstr "Pomakni prema dolje"
+
+msgid "Move up"
+msgstr "Pomakni prema gore"
+
+msgid "No"
+msgstr "Ne"
+
 msgid "No results"
 msgstr "Nema rezultata"
 
@@ -91,6 +109,9 @@ msgstr "Stranice"
 
 msgid "Pin toolbar"
 msgstr "Prikači alatnu traku"
+
+msgid "Preview"
+msgstr "Pregled"
 
 msgid "Reload saved content"
 msgstr "Ponovno učitaj sačuvani sadržaj"
@@ -110,6 +131,9 @@ msgstr "Pretraži"
 msgid "Server Error"
 msgstr "Greška na poslužitelju"
 
+msgid "Settings"
+msgstr "Postavke"
+
 msgid "Show error"
 msgstr "Prikaži grešku"
 
@@ -120,6 +144,12 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 "Uređivač se upravo srušio. Sadržaj je vraćen na zadnju pohranjenu verziju. "
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimalni broj stavki iznosi %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimalni broj stavki iznosi %(min_num)d"
 
 msgid "This field is required."
 msgstr "Ovo polje je obavezno."
@@ -132,3 +162,6 @@ msgstr "Pogledaj djecu stranice '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Upišite nešto ili utipkajte '/' za ubacivanje bloka"
+
+msgid "Yes"
+msgstr "Da"

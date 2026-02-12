@@ -7,45 +7,61 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  * triggering a form submission where the form is created dynamically
  * in the DOM and then submitted.
  *
- * @example - triggering a click
+ * @example - Triggering a click
+ * ```html
  * <button
- *  type="button"
- *  data-controller="w-action"
- *  data-action="some-event#click"
+ *   type="button"
+ *   data-controller="w-action"
+ *   data-action="some-event#click"
  * >
- *  Go
+ *   Go
  * </button>
+ * ```
  *
- * @example - triggering a dynamic POST submission
+ * @example - Triggering a dynamic POST submission
+ * ```html
  * <button
- *  type="submit"
- *  data-controller="w-action"
- *  data-action="w-action#post"
- *  data-w-action-url-value='url/to/post/to'
+ *   type="submit"
+ *   data-controller="w-action"
+ *   data-action="w-action#post"
+ *   data-w-action-url-value='url/to/post/to'
  * >
  *  Enable
  * </button>
+ * ```
  *
- * @example - triggering a dynamic redirect
- * // note: a link is preferred normally
+ * @example - Triggering a POST request via sendBeacon
+ * ```html
+ * <button data-controller="w-action" data-action="blur->w-action#sendBeacon">
+ *   If you move focus away from this button, a POST request will be sent.
+ * </button>
+ * ```
+ *
+ * @example - Triggering a dynamic redirect (a link is normally preferred)
+ * ```html
  * <form>
  *   <select name="url" data-controller="w-action" data-action="change->w-action#redirect">
  *     <option value="/path/to/1">1</option>
  *     <option value="/path/to/2">2</option>
  *   </select>
  * </form>
+ * ```
  *
- * @example - triggering selection of the text in a field
+ * @example - Triggering selection of the text in a field
+ * ```html
  * <form>
  *   <textarea name="url" data-controller="w-action" data-action="click->w-action#select">
  *     This text will all be selected on focus.
  *   </textarea>
  * </form>
+ * ```
  *
- * @example - ensuring a button's click does not propagate
+ * @example - Ensuring a button's click does not propagate
+ * ```html
  * <div>
  *   <button type="button" data-controller="w-action" data-action="w-action#noop:stop">Go</button>
  * </div>
+ * ```
  */
 export class ActionController extends Controller<
   HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement
@@ -71,10 +87,7 @@ export class ActionController extends Controller<
    */
   noop() {}
 
-  post(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
+  private createFormElement() {
     const formElement = document.createElement('form');
 
     formElement.action = this.urlValue;
@@ -86,9 +99,11 @@ export class ActionController extends Controller<
     csrftokenElement.value = WAGTAIL_CONFIG.CSRF_TOKEN;
     formElement.appendChild(csrftokenElement);
 
-    /** If continue is false, pass the current URL as the next param
+    /**
+     * If continue is false, pass the current URL as the next param
      * so that the user is redirected back to the current page instead
-     * of continuing to the submitted page */
+     * of continuing to the submitted page
+     */
     if (!this.continueValue) {
       const nextElement = document.createElement('input');
       nextElement.type = 'hidden';
@@ -97,8 +112,45 @@ export class ActionController extends Controller<
       formElement.appendChild(nextElement);
     }
 
+    return formElement;
+  }
+
+  post(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const formElement = this.createFormElement();
     document.body.appendChild(formElement);
     formElement.submit();
+  }
+
+  /**
+   * Like post, but uses the Beacon API, which can be used to send data
+   * to a server without waiting for a response. Useful for sending analytics
+   * data or a "release" signal before navigating away from a page.
+   */
+  sendBeacon() {
+    navigator.sendBeacon(this.urlValue, new FormData(this.createFormElement()));
+  }
+
+  /**
+   * Reload the browser.
+   */
+  reload() {
+    window.location.reload();
+  }
+
+  /**
+   * Reload the browser, bypassing the browser dialog triggered by UnsavedController.
+   */
+  forceReload() {
+    window.addEventListener(
+      'w-unsaved:confirm',
+      (event) => {
+        event.preventDefault();
+      },
+      { once: true },
+    );
+    window.location.reload();
   }
 
   /**

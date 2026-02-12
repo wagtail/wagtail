@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -32,12 +32,6 @@ msgstr "推荐. 永久页面转向确保搜索引擎忘记老页面(转向始处
 msgid "created at"
 msgstr "创建于"
 
-msgid "Add redirect"
-msgstr "添加转向"
-
-msgid "Save"
-msgstr "保存"
-
 msgid "Redirects"
 msgstr "转向"
 
@@ -45,33 +39,14 @@ msgstr "转向"
 msgid "Delete redirect %(title)s"
 msgstr "删除转向%(title)s"
 
-msgid "Delete"
-msgstr "删除"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "你确定你想删除这个转向？"
-
-msgid "Yes, delete"
-msgstr "是的， 删除"
 
 msgid "Preview"
 msgstr "预览"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "编辑 %(title)s"
-
-msgid "Editing"
-msgstr "编辑"
-
-msgid "Delete redirect"
-msgstr "删除转向"
-
 msgid "To"
 msgstr "到"
-
-msgid "Edit this redirect"
-msgstr "编辑这个转向"
 
 #, python-format
 msgid ""
@@ -81,15 +56,15 @@ msgstr ""
 "没有任何已保存的转向。为什么不 <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">添加一个</a>?"
 
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "转向 '%(redirect_title)s' 已更新"
-
-msgid "Edit"
-msgstr "编辑"
+msgid "Add redirect"
+msgstr "添加转向"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "由于多个错误，转向设置无法保存。"
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "转向 '%(redirect_title)s' 已更新"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."

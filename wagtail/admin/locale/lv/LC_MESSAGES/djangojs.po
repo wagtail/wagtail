@@ -1,18 +1,24 @@
 #
 # Translators:
-# Reinis Rozenbergs <reinisr@gmail.com>, 2022
-# Maris Serzans <maris.serzans@gmail.com>, 2022
-# Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
+# Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2026
+# Maris Serzans <maris.serzans@gmail.com>, 2026
+# Reinis Rozenbergs <reinisr@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2026\n"
 "Language-Team: Latvian (https://app.transifex.com/torchbox/teams/8009/lv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+
+msgid "Actions"
+msgstr "Darbības"
+
+msgid "Add"
+msgstr "Pievienot"
 
 msgid "Alt text"
 msgstr "Alt teksts"
@@ -32,6 +38,12 @@ msgstr "Informācijas panelis"
 msgid "Delete"
 msgstr "Dzēst"
 
+msgid "Drag"
+msgstr "Pārvilkt"
+
+msgid "Duplicate"
+msgstr "Dublicēt"
+
 msgid "Edit"
 msgstr "Labot"
 
@@ -50,6 +62,15 @@ msgstr "Ielādē..."
 msgid "Missing document"
 msgstr "Trūkstošs dokuments"
 
+msgid "Move down"
+msgstr "Uz leju"
+
+msgid "Move up"
+msgstr "Uz augšu"
+
+msgid "No"
+msgstr "Nē"
+
 msgid "No results"
 msgstr "Nav rezultātu"
 
@@ -61,6 +82,9 @@ msgstr "Lapu pārlūks"
 
 msgid "Pages"
 msgstr "Lapas"
+
+msgid "Preview"
+msgstr "Priekšskatīt"
 
 msgid "Reload saved content"
 msgstr "Pārlādēt saglabāto saturu"
@@ -83,6 +107,9 @@ msgstr "Apskatīt visu"
 msgid "Server Error"
 msgstr "Servera kļūda"
 
+msgid "Settings"
+msgstr "Uzstādījumi"
+
 msgid "Show error"
 msgstr "Parādīt kļūdu"
 
@@ -93,8 +120,17 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Redaktors kļūda. Saturs ir atiestatīts uz pēdējo saglabāto versiju."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimālais skaits ir %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimālais skaits ir %(min_num)d"
+
 msgid "This field is required."
 msgstr "Šis lauks ir nepieciešams"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Apskatīt '%(title)s' zemāka līmeņa lapas"
+
+msgid "Yes"
+msgstr "Jā"

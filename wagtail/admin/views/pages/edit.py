@@ -4,11 +4,13 @@ from urllib.parse import quote
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.db.models import Prefetch, Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 from django.views.generic.base import View
@@ -17,7 +19,11 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
+from wagtail.admin.models import EditingSession
+from wagtail.admin.telepath import JSContext
+from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.side_panels import (
     ChecksSidePanel,
     CommentsSidePanel,
@@ -25,7 +31,7 @@ from wagtail.admin.ui.side_panels import (
     PreviewSidePanel,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request
-from wagtail.admin.views.generic import HookResponseMixin
+from wagtail.admin.views.generic import HookResponseMixin, JsonPostResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
@@ -35,12 +41,18 @@ from wagtail.models import (
     CommentReply,
     Page,
     PageSubscription,
+    Revision,
     WorkflowState,
+    get_default_page_content_type,
 )
 from wagtail.utils.timestamps import render_timestamp
 
 
-class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
+class EditView(
+    WagtailAdminTemplateMixin, HookResponseMixin, JsonPostResponseMixin, View
+):
+    partials_template_name = "wagtailadmin/pages/edit_partials.html"
+
     def get_page_title(self):
         return _("Editing %(page_type)s") % {
             "page_type": self.page_class.get_verbose_name()
@@ -52,7 +64,8 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
     def get_template_names(self):
         if self.page.alias_of_id:
             return ["wagtailadmin/pages/edit_alias.html"]
-
+        elif self.hydrate_create_view:
+            return [self.partials_template_name]
         else:
             return ["wagtailadmin/pages/edit.html"]
 
@@ -287,9 +300,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 reply.log_delete(page_revision=revision, user=self.request.user)
 
     def get_edit_message_button(self):
-        return messages.button(
-            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), _("Edit")
-        )
+        return messages.button(self.get_edit_url(), _("Edit"))
 
     def get_view_draft_message_button(self):
         return messages.button(
@@ -317,7 +328,13 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         else:
             return self.page
 
-    def dispatch(self, request, page_id):
+    def get_object(self):
+        return self.real_page_record.get_latest_revision_as_object()
+
+    def get_edit_url(self):
+        return reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+
+    def dispatch(self, request, page_id, **kwargs):
         self.real_page_record = get_object_or_404(
             Page.objects.prefetch_workflow_states(), id=page_id
         )
@@ -337,7 +354,14 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 "back to a branch where the model class is still present."
             )
 
-        self.page = self.real_page_record.get_latest_revision_as_object()
+        self.revision_id = kwargs.get("revision_id")
+        self.is_reverting = bool(self.revision_id)
+        self.previous_revision = None
+        if self.is_reverting:
+            self.previous_revision = get_object_or_404(
+                self.real_page_record.revisions, id=self.revision_id
+            )
+        self.page = self.get_object()
         self.parent = self.page.get_parent()
         self.scheduled_page = self.real_page_record.get_scheduled_revision_as_object()
 
@@ -354,7 +378,15 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         response = self.run_hook("before_edit_page", self.request, self.page)
         if response:
-            return response
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "blocked_by_hook",
+                    _("Request to edit %(model_name)s was blocked by hook.")
+                    % {"model_name": Page._meta.verbose_name},
+                )
+            else:
+                return response
 
         self.subscription, created = PageSubscription.objects.get_or_create(
             page=self.page,
@@ -388,11 +420,14 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         else:
             self.workflow_tasks = []
 
+        self.has_unsaved_changes = False
         self.errors_debug = None
+        self.autosave_interval = getattr(settings, "WAGTAIL_AUTOSAVE_INTERVAL", 500)
+        self.autosave_enabled = self.autosave_interval > 0
 
-        return super().dispatch(request)
+        return super().dispatch(request, page_id, **kwargs)
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         if self.lock:
             lock_message = self.lock.get_message(self.request.user)
             if lock_message:
@@ -432,8 +467,6 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             parent_page=self.parent,
             for_user=self.request.user,
         )
-        self.has_unsaved_changes = False
-        self.page_for_status = self.get_page_for_status()
 
         return self.render_to_response(self.get_context_data())
 
@@ -451,11 +484,64 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             ],
         )
 
-    def post(self, request):
+    @cached_property
+    def is_cancelling_workflow(self):
+        return (
+            bool(self.request.POST.get("action-cancel-workflow"))
+            and self.workflow_state
+            and self.workflow_state.user_can_cancel(self.request.user)
+        )
+
+    @cached_property
+    def hydrate_create_view(self):
+        return bool(self.request.GET.get("_w_hydrate_create_view"))
+
+    @cached_property
+    def latest_revision_created_at(self):
+        return self.latest_revision and self.latest_revision.created_at.isoformat()
+
+    @cached_property
+    def is_out_of_date(self):
+        if not self.latest_revision:
+            return False
+
+        latest_revision_id = str(self.latest_revision.pk)
+
+        # Two different sessions cannot have the same autosave revision, so if
+        # autosave revision is present, it is either the latest or it is not.
+        if overwrite_revision_id := self.request.POST.get("overwrite_revision_id"):
+            return overwrite_revision_id != latest_revision_id
+
+        # Client has not made an autosave revision, check the loaded revision.
+        if loaded_revision_id := self.request.POST.get("loaded_revision_id"):
+            # If the loaded revision is not the latest revision, it is outdated.
+            if loaded_revision_id != latest_revision_id:
+                return True
+
+            # It's pointing to the latest revision, but that revision may have
+            # been overwritten by another session (via autosave) since the editor
+            # loaded it. The created_at is strictly increasing, so assume the
+            # loaded revision outdated if it doesn't match the latest created_at.
+            return (
+                self.request.POST.get("loaded_revision_created_at", "")
+                != self.latest_revision_created_at
+            )
+
+        # Not enough information to deduce, assume it's up to date.
+        return False
+
+    def post(self, request, *args, **kwargs):
         # Don't allow POST requests if the page is an alias
         if self.page.alias_of_id:
             # Return 405 "Method Not Allowed" response
             return HttpResponse(status=405)
+
+        # For autosave, we only want to save the page if there are no conflicts
+        if self.expects_json_response and self.is_out_of_date:
+            return self.json_error_response(
+                "invalid_revision",
+                _("Saving will overwrite a newer version."),
+            )
 
         self.form = self.form_class(
             self.request.POST,
@@ -466,15 +552,13 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             for_user=self.request.user,
         )
 
-        self.is_cancelling_workflow = (
-            bool(self.request.POST.get("action-cancel-workflow"))
-            and self.workflow_state
-            and self.workflow_state.user_can_cancel(self.request.user)
-        )
+        if self.action_name == "save":
+            self.form.defer_required_fields()
 
         if self.form.is_valid() and not self.locked_for_user:
             return self.form_valid(self.form)
         else:
+            self.form.restore_required_fields()
             return self.form_invalid(self.form)
 
     def workflow_action_is_valid(self):
@@ -487,53 +571,82 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         ]
         return self.workflow_action in available_action_names
 
-    def form_valid(self, form):
-        self.is_reverting = bool(self.request.POST.get("revision"))
-        # If a revision ID was passed in the form, get that revision so its
-        # date can be referenced in notification messages
-        if self.is_reverting:
-            self.previous_revision = get_object_or_404(
-                self.page.revisions, id=self.request.POST.get("revision")
-            )
-
-        self.has_content_changes = self.form.has_changed()
-
+    @cached_property
+    def action_name_and_method(self):
         if self.request.POST.get("action-publish") and self.page_perms.can_publish():
-            return self.publish_action()
+            return ("publish", self.publish_action)
         elif (
             self.request.POST.get("action-submit")
             and self.page_perms.can_submit_for_moderation()
         ):
-            return self.submit_action()
+            return ("submit", self.submit_action)
         elif (
             self.request.POST.get("action-restart-workflow")
             and self.page_perms.can_submit_for_moderation()
             and self.workflow_state
             and self.workflow_state.user_can_cancel(self.request.user)
         ):
-            return self.restart_workflow_action()
+            return ("restart_workflow", self.restart_workflow_action)
         elif (
             self.request.POST.get("action-workflow-action")
             and self.workflow_action_is_valid()
         ):
-            return self.perform_workflow_action()
+            return ("perform_workflow_action", self.perform_workflow_action)
         elif self.is_cancelling_workflow:
-            return self.cancel_workflow_action()
+            return ("cancel_workflow", self.cancel_workflow_action)
         else:
-            return self.save_action()
+            return ("save", self.save_action)
+
+    @property
+    def action_name(self):
+        return self.action_name_and_method[0]
+
+    @property
+    def action_method(self):
+        return self.action_name_and_method[1]
+
+    def form_valid(self, form):
+        self.has_content_changes = self.form.has_changed()
+        return self.action_method()
 
     def save_action(self):
-        self.page = self.form.save(commit=not self.page.live)
-        self.subscription.save()
+        try:
+            with transaction.atomic():
+                self.page = self.form.save(commit=not self.page.live)
+                self.subscription.save()
 
-        # Save revision
-        revision = self.page.save_revision(
-            user=self.request.user,
-            log_action=True,  # Always log the new revision on edit
-            previous_revision=(self.previous_revision if self.is_reverting else None),
-        )
+                overwrite_revision_id = self.request.POST.get("overwrite_revision_id")
+                if overwrite_revision_id:
+                    try:
+                        overwrite_revision = self.page.revisions.get(
+                            pk=overwrite_revision_id
+                        )
+                    except Revision.DoesNotExist as e:
+                        raise PermissionDenied(
+                            "Cannot overwrite a revision that does not exist."
+                        ) from e
+                else:
+                    overwrite_revision = None
 
-        self.add_save_confirmation_message()
+                # Save revision
+                revision = self.page.save_revision(
+                    user=self.request.user,
+                    log_action=True,  # Always log the new revision on edit
+                    previous_revision=self.previous_revision,
+                    overwrite_revision=overwrite_revision,
+                    clean=False,
+                )
+        except PermissionDenied as e:
+            # The revision passed to overwrite_revision was not valid
+            if self.expects_json_response:
+                return self.json_error_response("invalid_revision", str(e))
+            else:
+                messages.error(self.request, str(e))
+                self.has_unsaved_changes = True
+                return self.render_to_response(self.get_context_data())
+
+        if not self.expects_json_response:
+            self.add_save_confirmation_message()
 
         if self.has_content_changes and "comments" in self.form.formsets:
             changes = self.get_commenting_changes()
@@ -542,10 +655,28 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         response = self.run_hook("after_edit_page", self.request, self.page)
         if response:
-            return response
+            if self.expects_json_response and not self.response_is_json(response):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                pass
+            else:
+                return response
 
         # Just saving - remain on edit page for further edits
-        return self.redirect_and_remain()
+        if self.expects_json_response:
+            return JsonResponse(
+                {
+                    "success": True,
+                    "pk": self.page.pk,
+                    "revision_id": revision.pk,
+                    "revision_created_at": revision.created_at.isoformat(),
+                    "field_updates": dict(self.form.get_field_updates_for_resave()),
+                    "comments": self.form.serialize_comments(self.request.user),
+                    "html": self.render_partials(),
+                }
+            )
+        else:
+            return self.redirect_and_remain()
 
     def publish_action(self):
         self.page = self.form.save(commit=not self.page.live)
@@ -555,7 +686,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         revision = self.page.save_revision(
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
-            previous_revision=(self.previous_revision if self.is_reverting else None),
+            previous_revision=self.previous_revision,
         )
 
         # store submitted go_live_at for messaging below
@@ -569,7 +700,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             revision,
             user=self.request.user,
             changed=self.has_content_changes,
-            previous_revision=(self.previous_revision if self.is_reverting else None),
+            previous_revision=self.previous_revision,
         )
         action.execute(skip_permission_checks=True)
 
@@ -651,7 +782,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         revision = self.page.save_revision(
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
-            previous_revision=(self.previous_revision if self.is_reverting else None),
+            previous_revision=self.previous_revision,
         )
 
         if self.has_content_changes and "comments" in self.form.formsets:
@@ -698,7 +829,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         revision = self.page.save_revision(
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
-            previous_revision=(self.previous_revision if self.is_reverting else None),
+            previous_revision=self.previous_revision,
         )
 
         if self.has_content_changes and "comments" in self.form.formsets:
@@ -780,7 +911,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         revision = self.page.save_revision(
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
-            previous_revision=(self.previous_revision if self.is_reverting else None),
+            previous_revision=self.previous_revision,
         )
 
         if self.has_content_changes and "comments" in self.form.formsets:
@@ -807,7 +938,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             return redirect("wagtailadmin_explore", self.page.get_parent().id)
 
     def redirect_and_remain(self):
-        target_url = reverse("wagtailadmin_pages:edit", args=[self.page.id])
+        target_url = self.get_edit_url()
         if self.next_url:
             # Ensure the 'next' url is passed through again if present
             target_url += "?next=%s" % quote(self.next_url)
@@ -825,15 +956,26 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 self.request.user
             )
         elif self.locked_for_user:
-            messages.error(
-                self.request, _("The page could not be saved as it is locked")
-            )
+            if self.expects_json_response:
+                return self.json_error_response(
+                    "locked", _("The page could not be saved as it is locked.")
+                )
+            else:
+                messages.error(
+                    self.request, _("The page could not be saved as it is locked.")
+                )
         else:
-            messages.validation_error(
-                self.request,
-                _("The page could not be saved due to validation errors"),
-                self.form,
-            )
+            if self.expects_json_response:
+                return self.json_error_response(
+                    "validation_error",
+                    _("There are validation errors, click save to highlight them."),
+                )
+            else:
+                messages.validation_error(
+                    self.request,
+                    _("The page could not be saved due to validation errors."),
+                    self.form,
+                )
         self.errors_debug = repr(self.form.errors) + repr(
             [
                 (name, formset.errors)
@@ -842,8 +984,6 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             ]
         )
         self.has_unsaved_changes = True
-
-        self.page_for_status = self.get_page_for_status()
 
         return self.render_to_response(self.get_context_data())
 
@@ -865,18 +1005,58 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 scheduled_object=self.scheduled_page,
                 locale=self.locale,
                 translations=self.translations,
+                parent_page=self.page.get_parent(),
             ),
         ]
-        if self.page.is_previewable():
+        if not self.expects_json_response and self.page.is_previewable():
             side_panels.append(
                 PreviewSidePanel(
                     self.page, self.request, preview_url=self.get_preview_url()
                 )
             )
-            side_panels.append(ChecksSidePanel(self.page, self.request))
-        if self.form.show_comments_toggle:
+            # We don't need to re-render the checks panel when hydrating create view
+            if not self.hydrate_create_view:
+                side_panels.append(ChecksSidePanel(self.page, self.request))
+        if (
+            not self.expects_json_response
+            and not self.hydrate_create_view
+            and self.form.show_comments_toggle
+        ):
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)
+
+    def get_editing_sessions(self):
+        EditingSession.cleanup()
+        content_type = get_default_page_content_type()
+        session = EditingSession.objects.create(
+            user=self.request.user,
+            content_type=content_type,
+            object_id=self.page.pk,
+            last_seen_at=timezone.now(),
+        )
+        return EditingSessionsModule(
+            session,
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.pk, session.id),
+            ),
+            reverse(
+                "wagtailadmin_editing_sessions:release",
+                args=(session.id,),
+            ),
+            [],
+            self.page.latest_revision_id,
+            self.latest_revision_created_at,
+        )
+
+    def get_action_menu(self):
+        return PageActionMenu(
+            self.request,
+            view="edit",
+            page=self.page,
+            lock=self.lock,
+            locked_for_user=self.locked_for_user,
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -884,28 +1064,30 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         bound_panel = self.edit_handler.get_bound_panel(
             instance=self.page, request=self.request, form=self.form
         )
-        action_menu = PageActionMenu(
-            self.request,
-            view="edit",
-            page=self.page,
-            lock=self.lock,
-            locked_for_user=self.locked_for_user,
-        )
+        action_menu = self.get_action_menu()
         side_panels = self.get_side_panels()
 
-        media = MediaContainer([bound_panel, self.form, action_menu, side_panels]).media
+        js_context = JSContext()
+        edit_handler_data = js_context.pack(bound_panel)
+
+        media = MediaContainer(
+            [bound_panel, self.form, action_menu, side_panels, js_context]
+        ).media
 
         context.update(
             {
+                "object": self.page,
                 "page": self.page,
-                "page_for_status": self.page_for_status,
+                "page_for_status": self.get_page_for_status(),
                 "content_type": self.page_content_type,
                 "edit_handler": bound_panel,
+                "edit_handler_data": edit_handler_data,
                 "errors_debug": self.errors_debug,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
                 "form": self.form,
                 "next": self.next_url,
+                "action_url": self.get_edit_url(),
                 "history_url": self.get_history_url(),
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "page_locked": self.locked_for_user,
@@ -925,6 +1107,13 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 and user_perms.can_unlock(),
                 "locale": self.locale,
                 "media": media,
+                "autosave_enabled": self.autosave_enabled,
+                "autosave_interval": self.autosave_interval,
+                "autosave_indicator": AutosaveIndicator(),
+                "editing_sessions": self.get_editing_sessions(),
+                "loaded_revision_created_at": self.latest_revision_created_at,
+                "is_partial": self.expects_json_response or self.hydrate_create_view,
+                "hydrate_create_view": self.hydrate_create_view,
             }
         )
 

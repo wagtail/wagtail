@@ -4,6 +4,7 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Ivan Waginger <ivan.waginger@gmail.com>, 2024
 # Martin Janšto <mato@jansto.sk>, 2017
 # Martin Janšto <mato@jansto.sk>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
@@ -11,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -23,8 +24,11 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Wagtail documents"
+msgstr "Wagtail dokumenty"
+
 msgid "Collection"
-msgstr "Kolekcie"
+msgstr "Kolekcia"
 
 msgid "Add"
 msgstr "Pridať"
@@ -59,8 +63,29 @@ msgstr "tagy"
 msgid "document"
 msgstr "dokument"
 
+msgid "documents"
+msgstr "dokumenty"
+
+msgid "Add tags to documents"
+msgstr "Pridať tagy k dokumentom"
+
+msgid "Yes, add"
+msgstr "Áno, pridať"
+
+msgid "No, don't add"
+msgstr "Nie, nepridať"
+
+msgid "Add documents to collection"
+msgstr "Pridať dokumenty do kolekcie"
+
+msgid "Delete documents"
+msgstr "Zmazať dokumenty"
+
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+msgid "No, don't delete"
+msgstr "Nie, nezmazať"
 
 msgid "Latest documents"
 msgstr "Posledné dokumenty"
@@ -71,27 +96,11 @@ msgstr "Zmeniť dokument"
 msgid "Add a document"
 msgstr "Pridať dokument"
 
-msgid "Add document"
-msgstr "Pridať dokument"
-
 msgid "Uploading…"
 msgstr "Odosielam…"
 
 msgid "Upload"
 msgstr "Nahrať"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Úprava %(title)s"
-
-msgid "Editing"
-msgstr "Upraviť obrázok"
-
-msgid "Save"
-msgstr "Uložiť"
-
-msgid "Delete document"
-msgstr "Zmazať dokument"
 
 msgid "Filesize"
 msgstr "Veľkosť súboru"
@@ -124,9 +133,6 @@ msgstr ""
 msgid "Add multiple documents"
 msgstr "Pridať viaceré dokumenty"
 
-msgid "Add documents"
-msgstr "Pridať dokumenty"
-
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
 "Potiahnite a pustite dokumenty do tejto plochy pre okamžité nahrávanie."
@@ -140,6 +146,9 @@ msgstr "Pridať do kolekcie:"
 msgid "Sorry, upload failed."
 msgstr "Prepáčte, ale nahrávanie zlihalo."
 
+msgid "Document updated."
+msgstr "Dokument bol aktualizovaný."
+
 msgid "You need a password to access this document."
 msgstr "K prístupu k tomuto dokumentu potrebujete heslo."
 
@@ -152,8 +161,23 @@ msgstr "Pridať oprávnenia dokumentu"
 msgid "Tags"
 msgstr "Tagy"
 
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Add tags to the selected documents"
+msgstr "Pridať tagy k vybraným dokumentom"
+
+msgid "Add to collection"
+msgstr "Pridať do kolekcie"
+
+msgid "Add selected documents to collection"
+msgstr "Pridať vybrané dokumenty do zbierky"
+
 msgid "Delete"
 msgstr "Vymazať"
+
+msgid "Delete selected documents"
+msgstr "Vymazať vybrané dokumenty"
 
 msgid "File"
 msgstr "Súbor"
@@ -184,13 +208,15 @@ msgstr "Dokument nemohol byť uložený kvôli chybám."
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokument '%(document_title)s' bol aktualizovaný"
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
+msgid "Delete document"
+msgstr "Zmazať dokument"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' bol zmazaný."
+
+msgid "Add documents"
+msgstr "Pridať dokumenty"
 
 msgid "Document"
 msgstr "Dokument"

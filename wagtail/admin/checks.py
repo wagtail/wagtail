@@ -152,7 +152,7 @@ There are no tabs on non-Page model editing within InlinePanels.""".format(
                 class_name, panel_name
             )
         else:
-            error_hint = """Ensure that {} uses `panels` instead of `{}`\
+            error_hint = """Ensure that {} uses `panels` instead of `{}` \
 or set up an `edit_handler` if you want a tabbed editing interface.
 There are no default tabs on non-Page models so there will be no \
 {} tab for the {} to render in.""".format(
@@ -177,7 +177,8 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
             Warning(
                 "The WAGTAILADMIN_BASE_URL setting is not defined",
                 hint="This should be the base URL used to access the Wagtail admin site. "
-                "Without this, URLs in notification emails will not display correctly.",
+                "Without this, admin URLs outside of the admin (e.g. notification "
+                "emails and the user bar) will not display correctly.",
                 id="wagtailadmin.W003",
             )
         )
@@ -187,16 +188,9 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
 
 @register("file_overwrite")
 def file_overwrite_check(app_configs, **kwargs):
-    from django import VERSION as DJANGO_VERSION
     from django.conf import settings
 
-    if DJANGO_VERSION >= (5, 1):
-        file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
-    else:
-        try:
-            file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
-        except AttributeError:
-            file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
+    file_storage = settings.STORAGES["default"]["BACKEND"]
 
     errors = []
 
@@ -246,43 +240,33 @@ def datetime_format_check(app_configs, **kwargs):
     """
 
     from django.conf import settings
-    from django.utils import formats, translation
+    from django.utils import formats
 
     errors = []
 
     if not getattr(settings, "USE_L10N", False):
         return errors
 
-    formats.FORMAT_SETTINGS = formats.FORMAT_SETTINGS.union(
-        [
-            "WAGTAIL_DATE_FORMAT",
-            "WAGTAIL_DATETIME_FORMAT",
-            "WAGTAIL_TIME_FORMAT",
-        ]
-    )
-
     for code, label in settings.LANGUAGES:
-        with translation.override(code):
-            for wagtail_format, django_formats in [
-                ("WAGTAIL_DATE_FORMAT", "DATE_INPUT_FORMATS"),
-                ("WAGTAIL_DATETIME_FORMAT", "DATETIME_INPUT_FORMATS"),
-                ("WAGTAIL_TIME_FORMAT", "TIME_INPUT_FORMATS"),
-            ]:
-                wagtail_format_value = getattr(settings, wagtail_format, None)
-                django_formats_value = getattr(settings, django_formats, None)
+        for wagtail_setting, django_setting in [
+            ("WAGTAIL_DATE_FORMAT", "DATE_INPUT_FORMATS"),
+            ("WAGTAIL_DATETIME_FORMAT", "DATETIME_INPUT_FORMATS"),
+            ("WAGTAIL_TIME_FORMAT", "TIME_INPUT_FORMATS"),
+        ]:
+            wagtail_format_value = getattr(settings, wagtail_setting, None)
+            if wagtail_format_value is None:
+                # Skip the iteration if wagtail_format is not present
+                continue
 
-                if wagtail_format_value is None:
-                    # Skip the iteration if wagtail_format is not present
-                    continue
-
-                input_format = formats.get_format_lazy(wagtail_format_value)
-                input_formats = formats.get_format_lazy(django_formats_value)
-                if str(input_format) not in str(input_formats):
-                    errors.append(
-                        Error(
-                            "Configuration error",
-                            hint=f"{wagtail_format} {input_format} must be in {django_formats} for language {label} ({code}).",
-                        )
+            input_formats = formats.get_format(django_setting, lang=code)
+            if wagtail_format_value not in input_formats:
+                errors.append(
+                    Error(
+                        "Configuration error",
+                        hint=f"'{wagtail_format_value}' must be in {django_setting} for language {label} ({code}).",
+                        obj=wagtail_setting,
+                        id="wagtailadmin.E003",
                     )
+                )
 
     return errors

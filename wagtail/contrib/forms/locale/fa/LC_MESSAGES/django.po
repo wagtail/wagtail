@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,12 +25,6 @@ msgstr "از تاریخ"
 
 msgid "Date to"
 msgstr "تا تاریخ"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr "یک فیلد دیگر با برچسب %(label_name)s وجود دارد. لطفا یکی را تغییر دهید"
 
 msgid "Single line text"
 msgstr "متن یک خطی"
@@ -127,6 +121,10 @@ msgstr "حذف"
 msgid "Delete selected submissions"
 msgstr "حذف ارسال های انتخاب شده"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "ارسالی برای فرم %(title)s وجود ندارد."
+
 msgid "Total submissions"
 msgstr "کل ارسال‌ها"
 
@@ -136,13 +134,6 @@ msgstr "آخرین ارسال"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "ارسال های %(form_title)s"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "ارسالی برای فرم %(title)s وجود ندارد."
-
-msgid "Filter"
-msgstr "فیلتر"
 
 msgid "Forms"
 msgstr "فرم‌ها"

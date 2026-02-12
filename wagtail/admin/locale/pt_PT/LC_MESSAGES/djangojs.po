@@ -1,20 +1,26 @@
 #
 # Translators:
-# Jose Lourenco <jose@lourenco.ws>, 2022
 # Diogo Ribeiro <pdcribeiro95@gmail.com>, 2022
-# Luís Tiago Favas <traducoes@favas.eu>, 2022
-# Tiago Henriques <trinosauro@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
+# Luís Tiago Favas <traducoes@favas.eu>, 2025
+# Tiago Henriques <trinosauro@gmail.com>, 2026
+# Jose Lourenco <jose@lourenco.ws>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Jose Lourenco <jose@lourenco.ws>, 2026\n"
 "Language-Team: Portuguese (Portugal) (https://app.transifex.com/torchbox/"
 "teams/8009/pt_PT/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
 "1000000 == 0 ? 1 : 2;\n"
+
+msgid "Actions"
+msgstr "Ações"
+
+msgid "Add"
+msgstr "Adicionar"
 
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
@@ -49,6 +55,12 @@ msgstr "Apagar"
 msgid "Delete error"
 msgstr "Apagar erro"
 
+msgid "Drag"
+msgstr "Arrastar"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
 msgid "Edit"
 msgstr "Alterar"
 
@@ -76,6 +88,15 @@ msgstr "Documento em falta"
 msgid "More actions"
 msgstr "Mais ações"
 
+msgid "Move down"
+msgstr "Descer"
+
+msgid "Move up"
+msgstr "Subir"
+
+msgid "No"
+msgstr "Não"
+
 msgid "No results"
 msgstr "Sem resultados"
 
@@ -87,6 +108,9 @@ msgstr "Explorador de páginas"
 
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "Preview"
+msgstr "Visualizar"
 
 msgid "Reload saved content"
 msgstr "Recarregar conteúdo gravado"
@@ -116,15 +140,6 @@ msgstr "Gravar"
 msgid "Save error"
 msgstr "Gravar erro"
 
-msgid "Save the page to add this comment"
-msgstr "Grave a página para adicionar este comentário"
-
-msgid "Save the page to save this comment"
-msgstr "Grave a página para gravar este comentário"
-
-msgid "Save the page to save this reply"
-msgstr "Grave a página para gravar esta resposta"
-
 msgid "Saving..."
 msgstr "A gravar..."
 
@@ -147,6 +162,12 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "O editor crashou. O conteúdo foi resposto na última versão gravada."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "O numero máximo de itens é %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "O número mínimo de itens é %(min_num)d"
+
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
@@ -158,3 +179,6 @@ msgstr "Tirar enfoque do comentário"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Ver páginas-filha de '%(title)s'"
+
+msgid "Yes"
+msgstr "Sim"

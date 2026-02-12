@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -32,12 +32,6 @@ msgstr "Datum od"
 
 msgid "Date to"
 msgstr "Datum do"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr "Obstaja še eno polje z oznako %(label_name)s, spremenite eno od njih."
 
 msgid "Single line text"
 msgstr "Enovrstično besedilo"
@@ -176,6 +170,10 @@ msgstr "Izbriši"
 msgid "Delete selected submissions"
 msgstr "Izbriši izbrane oddaje"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Ni bilo nobenih predložitev '%(title)s' obrazca."
+
 msgid "Total submissions"
 msgstr "Skupaj prispevkov"
 
@@ -186,15 +184,8 @@ msgstr "Najnovejša oddaja"
 msgid "Submissions of %(form_title)s"
 msgstr "Oddani obrazci %(form_title)s"
 
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Ni bilo nobenih predložitev '%(title)s' obrazca."
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Apply filters"
-msgstr "Uporabi filter"
+msgid "Page type"
+msgstr "Vrsta strani"
 
 msgid "Forms"
 msgstr "Obrazci"

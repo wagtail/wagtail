@@ -5,14 +5,14 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2022
+# Dan Braghis, 2014-2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Dan Braghis, 2014-2022\n"
+"Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -139,13 +139,6 @@ msgstr[0] "Sigur doriți să ștergeți acest document?"
 msgstr[1] "Sigur doriți să ștergeți aceste documente?"
 msgstr[2] "Sigur doriți să ștergeți aceste documente?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s utilizare"
-msgstr[1] "%(usage_count)s utilizări"
-msgstr[2] "%(usage_count)s de utilizări"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Nu aveți permisiunea de a șterge acest document"
@@ -173,40 +166,17 @@ msgstr "Nu ați încărcat nici un document în această colecție."
 msgid "You haven't uploaded any documents."
 msgstr "Nu ați încărcat nici un document. "
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"De ce să nu <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>încărcați unul acum</a>?"
-
 msgid "Change document:"
 msgstr "Schimbă documentul:"
 
 msgid "Add a document"
 msgstr "Adaugă un document"
 
-msgid "Add document"
-msgstr "Adaugă document"
-
 msgid "Uploading…"
 msgstr "În curs de încărcare…"
 
 msgid "Upload"
 msgstr "Încărcare"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editare %(title)s"
-
-msgid "Editing"
-msgstr "Editare"
-
-msgid "Save"
-msgstr "Salvează"
-
-msgid "Delete document"
-msgstr "Șterge document"
 
 msgid "Filesize"
 msgstr "Mărime fișier"
@@ -216,6 +186,13 @@ msgstr "Fișierul nu a fost găsit"
 
 msgid "Usage"
 msgstr "Utilizare"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s utilizare"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s de utilizări"
 
 msgid "Select all documents in listing"
 msgstr "Selectează toate documentele din listă"
@@ -244,9 +221,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Adaugă mai multe documente"
-
-msgid "Add documents"
-msgstr "Adaugă documente"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -357,13 +331,15 @@ msgstr "Documentul nu a fost salvat din cauza erorilor."
 msgid "Document '%(document_title)s' updated"
 msgstr "Documentul '%(document_title)s' a fost actualizat."
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
+msgid "Delete document"
+msgstr "Șterge document"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documentul '%(document_title)s' a fost șters."
+
+msgid "Add documents"
+msgstr "Adaugă documente"
 
 msgid "Document"
 msgstr "Document"

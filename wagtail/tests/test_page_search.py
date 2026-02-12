@@ -1,0 +1,121 @@
+from unittest import mock
+
+from django.conf import settings
+from django.db.models import F
+from django.test import TestCase, override_settings
+
+from wagtail.models import Page
+from wagtail.search import index
+from wagtail.search.backends import get_search_backend
+from wagtail.search.backends.base import (
+    BaseSearchQueryCompiler,
+    BaseSearchResults,
+    OrderByFieldError,
+)
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
+
+
+@mock.patch("wagtail.tests.DummySearchBackend", create=True)
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={"default": {"BACKEND": "wagtail.tests.DummySearchBackend"}}
+)
+class TestInsertOrUpdateObject(WagtailTestUtils, TestCase):
+    def test_converts_to_specific_page(self, backend):
+        root_page = Page.objects.get(id=1)
+        page = root_page.add_child(
+            instance=SimplePage(title="test", slug="test", content="test")
+        )
+
+        # Convert page into a generic "Page" object and add it into the index
+        unspecific_page = page.page_ptr
+
+        backend().reset_mock()
+
+        index.insert_or_update_object(unspecific_page)
+
+        # It should be automatically converted back to the specific version
+        backend().add.assert_called_with(page)
+
+
+class PageSearchTests:
+    # A TestCase with this class mixed in will be dynamically created
+    # for each search backend defined in WAGTAILSEARCH_BACKENDS, with the backend name available
+    # as self.backend_name
+
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.backend = get_search_backend(self.backend_name)
+        self.reset_index()
+        for page in Page.objects.all():
+            self.backend.add(page)
+        self.refresh_index()
+
+    def reset_index(self):
+        if self.backend.rebuilder_class:
+            index = self.backend.get_index_for_model(Page)
+            rebuilder = self.backend.rebuilder_class(index)
+            index = rebuilder.start()
+            index.add_model(Page)
+            rebuilder.finish()
+
+    def refresh_index(self):
+        index = self.backend.get_index_for_model(Page)
+        if index:
+            index.refresh()
+
+    def test_order_by_title(self):
+        list(
+            Page.objects.order_by("title").search(
+                "blah", order_by_relevance=False, backend=self.backend_name
+            )
+        )
+
+    def test_order_by_last_published_at_with_drafts_first(self):
+        qs = Page.objects.order_by(F("last_published_at").asc(nulls_first=True))
+        if self.backend.query_compiler_class.HANDLES_ORDER_BY_EXPRESSIONS:
+            qs.autocomplete("blah", order_by_relevance=False, backend=self.backend_name)
+        else:
+            with self.assertRaises(OrderByFieldError) as ctx:
+                qs.autocomplete(
+                    "blah", order_by_relevance=False, backend=self.backend_name
+                )
+            self.assertIn(
+                'Sorting search results with "OrderBy(F(last_published_at), descending=False)" is not supported by this search backend.',
+                str(ctx.exception),
+            )
+
+    def test_search_specific_queryset(self):
+        list(Page.objects.specific().search("bread", backend=self.backend_name))
+
+    def test_search_specific_queryset_with_fields(self):
+        list(
+            Page.objects.specific().search(
+                "bread", fields=["title"], backend=self.backend_name
+            )
+        )
+
+
+for backend_name in settings.WAGTAILSEARCH_BACKENDS.keys():
+    test_name = str("Test%sBackend" % backend_name.title())
+    globals()[test_name] = type(
+        test_name,
+        (
+            PageSearchTests,
+            TestCase,
+        ),
+        {"backend_name": backend_name},
+    )
+
+
+class TestBaseSearchResults(TestCase):
+    def test_get_item_no_results(self):
+        # Ensure that, if there are no results, we do not attempt to get the entire search index.
+        base_search_results = BaseSearchResults(
+            "BackendIrrelevant",
+            BaseSearchQueryCompiler(Page.objects.none(), "query"),
+        )
+        obj = base_search_results[0:0]
+        self.assertEqual(obj.start, 0)
+        self.assertEqual(obj.stop, 0)

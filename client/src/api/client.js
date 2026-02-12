@@ -14,8 +14,11 @@ const checkStatus = (response) => {
 
 const parseJSON = (response) => response.json();
 
-// Response timeout cancelling the promise (not the request).
-// See https://github.com/github/fetch/issues/175#issuecomment-216791333.
+/**
+ * Response timeout cancelling the promise (not the request).
+ *
+ * @see https://github.com/github/fetch/issues/175#issuecomment-216791333.
+ */
 const timeout = (ms, promise) => {
   const race = new Promise((resolve, reject) => {
     const timeoutId = setTimeout(() => {
@@ -38,7 +41,7 @@ const timeout = (ms, promise) => {
 };
 
 /**
- * Wrapper around fetch with sane defaults for behaviour in the face of
+ * Wrapper around fetch with sane defaults for behavior in the face of
  * errors.
  */
 const request = (method, url) => {

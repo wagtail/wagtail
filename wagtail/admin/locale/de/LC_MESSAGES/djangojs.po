@@ -1,21 +1,23 @@
 #
 # Translators:
 # Patrick Hebner <hebner.tec@gmail.com>, 2022
-# karlsander <karlsander@gmail.com>, 2022
 # Norman Uekermann <nue@melexis.com>, 2022
 # Peter Dreuw <archandha@gmx.net>, 2022
-# Henrik Kröger <hedwig@riseup.net>, 2022
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2022
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2022
 # aw.wunderweiss, 2022
-# Oliver Engel <codeangel@posteo.de>, 2022
-# Loic Teixeira, 2022
-# Ettore Atalan <atalanttore@googlemail.com>, 2023
-# Stefan Hammer <stefan@hammerworxx.com>, 2023
+# Loic Teixeira, 2024
+# Bohreromir, 2025
+# Ettore Atalan <atalanttore@googlemail.com>, 2025
+# Henrik Kröger <hedwig@riseup.net>, 2026
+# Oliver Engel <codeangel@posteo.de>, 2026
+# Karl Hobley <karl@torchbox.com>, 2026
+# karlsander <karlsander@gmail.com>, 2026
+# Stefan Hammer <stefan@hammerworxx.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2026\n"
 "Language-Team: German (https://app.transifex.com/torchbox/teams/8009/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
@@ -35,10 +37,33 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s Fehler"
 msgstr[1] "%(num)s Fehler"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s Min."
+msgstr[1] "%(num)s Min."
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s Pixel"
 msgstr[1] "%(num)s Pixel"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "Ein Netzwerkfehler ist aufgetreten."
+
+msgid "A server error occurred."
+msgstr "Ein Serverfehler ist aufgetreten."
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Add"
+msgstr "Hinzufügen"
 
 msgid "Add a comment"
 msgstr "Einen Kommentar hinzufügen"
@@ -49,6 +74,9 @@ msgstr "Alternativtext"
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
+msgid "Autosave in progress…"
+msgstr "Automatisches Speichern läuft…"
+
 msgid "Blocks"
 msgstr "Blöcke"
 
@@ -57,6 +85,9 @@ msgstr "Defekter Link"
 
 msgid "Cancel"
 msgstr "Abbrechen"
+
+msgid "Changes have been autosaved."
+msgstr "Die Änderungen wurden automatisch gespeichert."
 
 msgid "Character count:"
 msgstr "Zeichenanzahl:"
@@ -69,6 +100,10 @@ msgstr "Alle einklappen"
 
 msgid "Comment"
 msgstr "Kommentar"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Komplex"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -84,6 +119,12 @@ msgstr "Fehler löschen"
 
 msgid "Deleting"
 msgstr "Wird gelöscht"
+
+msgid "Drag"
+msgstr "Ziehen"
+
+msgid "Duplicate"
+msgstr "Duplizieren"
 
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -103,8 +144,15 @@ msgstr "Fehler beim Senden der Vorschaudaten."
 msgid "Expand all"
 msgstr "Alle ausklappen"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Fair"
+
 msgid "Focus comment"
 msgstr "Kommentar fokussieren"
+
+msgid "Good"
+msgstr "Gut"
 
 msgid "Horizontal line"
 msgstr "Horizontale Linie"
@@ -127,6 +175,15 @@ msgstr "Fehlendes Dokument"
 msgid "More actions"
 msgstr "Mehr Aktionen"
 
+msgid "Move down"
+msgstr "Nach unten"
+
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "No"
+msgstr "Nein"
+
 msgid "No results"
 msgstr "Keine Ergebnisse"
 
@@ -141,6 +198,9 @@ msgstr "Seiten"
 
 msgid "Pin toolbar"
 msgstr "Werkzeugleiste anheften"
+
+msgid "Preview"
+msgstr "Vorschau"
 
 msgid "Reload saved content"
 msgstr "Gespeicherten Inhalt erneut laden"
@@ -170,15 +230,6 @@ msgstr "Speichern"
 msgid "Save error"
 msgstr "Fehler speichern"
 
-msgid "Save the page to add this comment"
-msgstr "Speichern Sie die Seite um den Kommentar hinzuzufügen"
-
-msgid "Save the page to save this comment"
-msgstr "Speichern Sie die Seite um den Kommentar zu speichern"
-
-msgid "Save the page to save this reply"
-msgstr "Speichern Sie die Seite um diese Antwort zu speichern"
-
 msgid "Saving..."
 msgstr "Speichern..."
 
@@ -193,6 +244,9 @@ msgstr "Alles einsehen"
 
 msgid "Server Error"
 msgstr "Server-Fehler"
+
+msgid "Settings"
+msgstr "Einstellungen"
 
 msgid "Show error"
 msgstr "Fehler anzeigen"
@@ -209,8 +263,17 @@ msgstr ""
 "Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
 "Version zurückgesetzt."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Die maximale Anzahl an Elementen ist %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Die minimale Anzahl an Elementen ist %(min_num)d"
+
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
+
+msgid "Toggle section"
+msgstr "Abschnitt ein-/ausblenden"
 
 msgid "Toggle side panel"
 msgstr "Seitenleiste ein-/ausblenden"
@@ -229,3 +292,6 @@ msgstr "Unterseiten von ‚%(title)s‘ anzeigen"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Schreiben Sie etwas oder geben Sie „/“ ein, um einen Block einzufügen"
+
+msgid "Yes"
+msgstr "Ja"

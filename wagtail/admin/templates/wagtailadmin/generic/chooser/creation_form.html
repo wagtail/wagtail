@@ -5,6 +5,8 @@
     role="tabpanel"
     hidden
     aria-labelledby="tab-label-{{ view.creation_tab_id }}"
+    data-w-tabs-target="panel"
+    data-action="w-focus:focus->w-tabs#selectInside"
 >
     {% include "wagtailadmin/shared/non_field_errors.html" with form=creation_form %}
     <form data-chooser-modal-creation-form action="{{ create_action_url }}" method="POST" {% if creation_form.is_multipart %}enctype="multipart/form-data"{% endif %} novalidate>

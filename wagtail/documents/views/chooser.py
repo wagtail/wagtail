@@ -145,6 +145,7 @@ class BaseAdminDocumentChooser(BaseChooser):
             js=[
                 versioned_static("wagtaildocs/js/document-chooser-modal.js"),
                 versioned_static("wagtaildocs/js/document-chooser.js"),
+                versioned_static("wagtaildocs/js/document-chooser-telepath.js"),
             ]
         )
 

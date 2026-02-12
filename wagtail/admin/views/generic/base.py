@@ -1,28 +1,26 @@
-from collections import namedtuple
+import warnings
 
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.utils.formats import date_format
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 from django.views.generic.list import BaseListView
-from django_filters.filters import (
-    ChoiceFilter,
-    DateFromToRangeFilter,
-    ModelChoiceFilter,
-    ModelMultipleChoiceFilter,
-    MultipleChoiceFilter,
-)
 
 from wagtail.admin import messages
+from wagtail.admin.active_filters import filter_adapter_class_registry
+from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.paginator import WagtailPaginator
 from wagtail.admin.ui.tables import Column, Table
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets.button import ButtonWithDropdown
+from wagtail.search.backends import get_search_backend
+from wagtail.search.index import class_is_indexed
 
 
 class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
@@ -35,9 +33,17 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     page_title = ""
     page_subtitle = ""
     header_icon = ""
-    # Breadcrumbs are opt-in until we have a design that can be consistently applied
-    _show_breadcrumbs = False
+
     breadcrumbs_items = [{"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")}]
+    """
+    The base set of breadcrumbs items to be displayed on the page.
+    The property can be overridden by subclasses and viewsets to provide
+    custom base items, e.g. page tree breadcrumbs or add the "Snippets" item.
+
+    Views should copy and append to this list in :meth:`get_breadcrumbs_items()`
+    to define the path to the current view.
+    """
+
     template_name = "wagtailadmin/generic/base.html"
     header_buttons = []
     header_more_buttons = []
@@ -59,6 +65,12 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         return self.header_icon
 
     def get_breadcrumbs_items(self):
+        """
+        Define the current path to the view by copying the base
+        :attr:`breadcrumbs_items` and appending the list.
+
+        If breadcrumbs are not required, return an empty list.
+        """
         return self.breadcrumbs_items
 
     def get_header_buttons(self):
@@ -86,14 +98,11 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         context["page_title"] = self.get_page_title()
         context["page_subtitle"] = self.get_page_subtitle()
         context["header_icon"] = self.get_header_icon()
-
-        # Once all appropriate views use "wagtailadmin/generic/base.html" and
-        # the slim_header.html, _show_breadcrumbs can be removed
         context["header_title"] = self.get_header_title()
-        context["breadcrumbs_items"] = None
-        if self._show_breadcrumbs:
-            context["breadcrumbs_items"] = self.get_breadcrumbs_items()
-            context["header_buttons"] = self.get_header_buttons()
+
+        # Breadcrumbs are enabled by default.
+        context["breadcrumbs_items"] = self.get_breadcrumbs_items()
+        context["header_buttons"] = self.get_header_buttons()
         return context
 
     def get_template_names(self):
@@ -174,12 +183,6 @@ class BaseOperationView(BaseObjectMixin, View):
         return redirect(self.get_success_url())
 
 
-# Represents a django-filters filter that is currently in force on a listing queryset
-ActiveFilter = namedtuple(
-    "ActiveFilter", ["auto_id", "field_label", "value", "removed_filter_url"]
-)
-
-
 class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     template_name = "wagtailadmin/generic/listing.html"
     results_template_name = "wagtailadmin/generic/listing_results.html"
@@ -190,8 +193,14 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     index_url_name = None
     index_results_url_name = None
     page_kwarg = "p"
+    is_searchable = None  # Subclasses must explicitly set this to True to enable search
+    search_kwarg = "q"
+    search_fields = None
+    search_backend_name = "default"
     default_ordering = None
     filterset_class = None
+    verbose_name_plural = None
+    paginator_class = WagtailPaginator
 
     def get_template_names(self):
         if self.results_only:
@@ -200,6 +209,74 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             return [self.results_template_name]
         else:
             return super().get_template_names()
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            },
+        ]
+
+    def get_search_form(self):
+        if not self.is_searchable:
+            return None
+
+        if self.search_kwarg in self.request.GET:
+            return SearchForm(self.request.GET)
+
+        return SearchForm()
+
+    @cached_property
+    def search_form(self):
+        return self.get_search_form()
+
+    @cached_property
+    def search_query(self):
+        if self.search_form and self.search_form.is_valid():
+            return self.search_form.cleaned_data[self.search_kwarg]
+        return ""
+
+    @cached_property
+    def is_searching(self):
+        return bool(self.search_query)
+
+    def search_queryset(self, queryset):
+        if not self.is_searching:
+            return queryset
+
+        # Use Wagtail Search if the model is indexed and a search backend is defined.
+        # Django ORM can still be used on an indexed model by unsetting
+        # search_backend_name and defining search_fields on the view.
+        if class_is_indexed(queryset.model) and self.search_backend_name:
+            search_backend = get_search_backend(self.search_backend_name)
+            if queryset.model.get_autocomplete_search_fields():
+                return search_backend.autocomplete(
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
+                )
+            else:
+                # fall back on non-autocompleting search
+                warnings.warn(
+                    f"{queryset.model} is defined as Indexable but does not specify "
+                    "any AutocompleteFields. Searches within the admin will only "
+                    "respond to complete words.",
+                    category=RuntimeWarning,
+                )
+                return search_backend.search(
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
+                )
+
+        query = Q()
+        for field in self.search_fields or []:
+            query |= Q(**{field + "__icontains": self.search_query})
+        return queryset.filter(query)
 
     @cached_property
     def filters(self):
@@ -227,41 +304,17 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             queryset = self.filters.filter_queryset(queryset)
         return queryset
 
-    def get_url_without_filter_param(self, param):
-        """
-        Return the index URL with the given filter parameter removed from the query string
-        """
-        base_url = self.index_results_url.split("?")[0]
-        query_dict = self.request.GET.copy()
-        query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
-        if isinstance(param, (list, tuple)):
-            for p in param:
-                query_dict.pop(p, None)
-        else:
-            query_dict.pop(param, None)
-        query_dict["_w_filter_fragment"] = 1
-        return base_url + "?" + query_dict.urlencode()
-
-    def get_url_without_filter_param_value(self, param, value):
-        """
-        Return the index URL where the filter parameter with the given value has been removed
-        from the query string, preserving all other values for that parameter
-        """
-        base_url = self.index_results_url.split("?")[0]
-        query_dict = self.request.GET.copy()
-        query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
-        query_dict.setlist(
-            param, [v for v in query_dict.getlist(param) if v != str(value)]
-        )
-        query_dict["_w_filter_fragment"] = 1
-        return base_url + "?" + query_dict.urlencode()
-
     @cached_property
     def active_filters(self):
         filters = []
 
         if not self.filters:
             return filters
+
+        base_url = self.index_results_url.split("?")[0]
+        query_dict = self.request.GET.copy()
+        query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
+        query_dict["_w_filter_fragment"] = 1
 
         for field_name in self.filters.form.changed_data:
             filter_def = self.filters.filters[field_name]
@@ -271,76 +324,14 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             except KeyError:
                 continue  # invalid filter value
 
-            if isinstance(filter_def, ModelMultipleChoiceFilter):
-                field = filter_def.field
-                for item in value:
-                    filters.append(
-                        ActiveFilter(
-                            bound_field.auto_id,
-                            filter_def.label,
-                            field.label_from_instance(item),
-                            self.get_url_without_filter_param_value(
-                                field_name, item.pk
-                            ),
-                        )
-                    )
-            elif isinstance(filter_def, MultipleChoiceFilter):
-                choices = {str(id): label for id, label in filter_def.field.choices}
-                for item in value:
-                    filters.append(
-                        ActiveFilter(
-                            bound_field.auto_id,
-                            filter_def.label,
-                            choices.get(str(item), str(item)),
-                            self.get_url_without_filter_param_value(field_name, item),
-                        )
-                    )
-            elif isinstance(filter_def, ModelChoiceFilter):
-                field = filter_def.field
-                filters.append(
-                    ActiveFilter(
-                        bound_field.auto_id,
-                        filter_def.label,
-                        field.label_from_instance(value),
-                        self.get_url_without_filter_param(field_name),
-                    )
-                )
-            elif isinstance(filter_def, DateFromToRangeFilter):
-                start_date_display = date_format(value.start) if value.start else ""
-                end_date_display = date_format(value.stop) if value.stop else ""
-                widget = filter_def.field.widget
-                filters.append(
-                    ActiveFilter(
-                        bound_field.auto_id,
-                        filter_def.label,
-                        "%s - %s" % (start_date_display, end_date_display),
-                        self.get_url_without_filter_param(
-                            [
-                                widget.suffixed(field_name, suffix)
-                                for suffix in widget.suffixes
-                            ]
-                        ),
-                    )
-                )
-            elif isinstance(filter_def, ChoiceFilter):
-                choices = {str(id): label for id, label in filter_def.field.choices}
-                filters.append(
-                    ActiveFilter(
-                        bound_field.auto_id,
-                        filter_def.label,
-                        choices.get(str(value), str(value)),
-                        self.get_url_without_filter_param(field_name),
-                    )
-                )
-            else:
-                filters.append(
-                    ActiveFilter(
-                        bound_field.auto_id,
-                        filter_def.label,
-                        str(value),
-                        self.get_url_without_filter_param(field_name),
-                    )
-                )
+            if value == bound_field.initial:
+                continue  # filter value is the same as the default
+
+            filter_adapter_class = filter_adapter_class_registry.get(filter_def)
+            filter_adapter = filter_adapter_class(
+                filter_def, bound_field, value, base_url, query_dict
+            )
+            filters.extend(filter_adapter.get_active_filters())
 
         return filters
 
@@ -401,7 +392,20 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         queryset = self.get_base_queryset()
         queryset = self.order_queryset(queryset)
         queryset = self.filter_queryset(queryset)
+        queryset = self.search_queryset(queryset)
         return queryset
+
+    def paginate_queryset(self, queryset, page_size):
+        paginator = self.get_paginator(
+            queryset,
+            page_size,
+            orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty(),
+        )
+
+        page_number = self.request.GET.get(self.page_kwarg)
+        page = paginator.get_page(page_number)
+        return (paginator, page, page.object_list, page.has_other_pages())
 
     def get_table_kwargs(self):
         return {
@@ -433,6 +437,20 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         if self.index_results_url_name:
             return reverse(self.index_results_url_name)
 
+    @cached_property
+    def no_results_message(self):
+        if not self.verbose_name_plural:
+            return _("There are no results.")
+
+        if self.is_searching or self.is_filtering:
+            return _("No %(model_name)s match your query.") % {
+                "model_name": self.verbose_name_plural
+            }
+
+        return _("There are no %(model_name)s to display.") % {
+            "model_name": self.verbose_name_plural
+        }
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -440,6 +458,9 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         context["index_url"] = self.index_url
         context["index_results_url"] = self.index_results_url
+        context["verbose_name_plural"] = self.verbose_name_plural
+        context["no_results_message"] = self.no_results_message
+        context["ordering"] = self.ordering
         context["table"] = table
         context["media"] = table.media
         # On Django's BaseListView, a listing where pagination is applied, but the results
@@ -450,6 +471,9 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         if context["is_paginated"]:
             context["items_count"] = context["paginator"].count
+            context["elided_page_range"] = context["paginator"].get_elided_page_range(
+                self.request.GET.get(self.page_kwarg, 1)
+            )
         else:
             context["items_count"] = len(context["object_list"])
 
@@ -457,6 +481,12 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             context["filters"] = self.filters
             context["is_filtering"] = self.is_filtering
             context["media"] += self.filters.form.media
+
+        if self.search_form:
+            context["search_form"] = self.search_form
+            context["is_searching"] = self.is_searching
+            context["query_string"] = self.search_query
+            context["media"] += self.search_form.media
 
         # If we're rendering the results as an HTML fragment, the caller can pass a _w_filter_fragment=1
         # URL parameter to indicate that the filters should be rendered as a <template> block so that
@@ -466,6 +496,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             and self.filters
             and self.results_only
         )
+        # Ensure that the header buttons get re-rendered for the results-only view,
+        # in case they make use of the search/filter state
         context["render_buttons_fragment"] = (
             context.get("header_buttons") and self.results_only
         )

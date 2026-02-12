@@ -1,5 +1,8 @@
-.preview-panel {
+@use '../tools' as *;
+
+.w-preview {
   --w-preview-background-color: var(--w-color-white);
+  --w-preview-color-scheme: normal;
   --preview-width-ratio: min(
     1,
     var(--preview-panel-width, 450) / var(--preview-device-width, 375)
@@ -37,6 +40,16 @@
     &:empty {
       // Ensure that sites without a background show with a fallback, only when iframe has loaded
       background-color: var(--w-preview-background-color);
+      // Sites that do not have a background but have color-scheme will have the
+      // colors (background, text, etc.) automatically styled by the browser.
+      // If the color-scheme matches Wagtail's current color-scheme, the browser
+      // will give the iframe a transparent background. If we only set the
+      // white background-color above, the white background will be used
+      // while the rest of the content follows the color-scheme of the site,
+      // which might result in white text on a white background.
+      // Since we cannot know the actual value of the content's color-scheme,
+      // we set the color-scheme to normal to ensure the iframe stays opaque.
+      color-scheme: var(--w-preview-color-scheme);
     }
 
     [dir='rtl'] & {
@@ -59,6 +72,11 @@
     gap: 0.75rem;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
+    padding-inline: 1rem;
+
+    @include more-contrast() {
+      border-color: theme('colors.border-furniture-more-contrast');
+    }
   }
 
   &__size-button {
@@ -73,7 +91,12 @@
     place-items: center;
     cursor: pointer;
 
-    &:focus-within {
+    &--selected,
+    &--selected:hover {
+      @apply w-bg-surface-menus w-text-text-button w-transform-none w-border w-border-transparent;
+    }
+
+    &:focus-within:has(:focus-visible) {
       @include focus-outline;
     }
 
@@ -89,25 +112,25 @@
         @include svg-icon(0.9rem);
       }
     }
-
-    input[type='radio'] {
-      position: absolute;
-      width: 0;
-      height: 0;
-      opacity: 0;
-    }
   }
 
   &__refresh-button.button--icon {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
     position: absolute;
-    top: 1.25rem;
+    top: 1rem;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
     inset-inline-end: 1.5rem;
 
-    .icon {
-      @include svg-icon(0.9rem);
+    // Use element and class selectors to beat .button-longrunning specificity
+    svg.icon,
+    svg.icon-spinner {
+      margin-inline-end: 0;
+      width: 1rem;
+      height: 1rem;
     }
   }
 
@@ -115,12 +138,6 @@
     position: absolute;
     top: 1.25rem;
     inset-inline-end: 1.5rem;
-  }
-
-  &--mobile &__size-button--mobile,
-  &--tablet &__size-button--tablet,
-  &--desktop &__size-button--desktop {
-    @apply w-bg-surface-menus w-text-text-button w-transform-none w-border w-border-transparent;
   }
 
   &__controls {
@@ -131,7 +148,7 @@
 
     // Show the border only if there's an error,
     // but always show it if there are multiple preview modes
-    .preview-panel--has-errors &:not(&--multiple),
+    .w-preview--has-errors &:not(&--multiple),
     &--multiple {
       @apply w-border-border-furniture w-border-t;
       padding-top: 1rem;
@@ -183,5 +200,23 @@
 
   &__mode-select {
     @apply w-outline-offset-inside;
+  }
+
+  // A hidden element that is only rendered for functionality purposes,
+  // but is not visible to the user. Used by radio inputs for preview sizes and
+  // the iframe while it's loading. We nest the selector rather than suffixing
+  // the parent selector to beat the specificity of input[type="radio"] styles
+  .w-preview__proxy {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+
+    // Remove mask-image from radio inputs to avoid loading the default icon,
+    // use extra specificity to beat the default styles
+    &:is(input[type='radio'])::before {
+      content: none;
+      mask-image: none;
+    }
   }
 }

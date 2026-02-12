@@ -1,5 +1,5 @@
 // stylelint-disable selector-attribute-name-disallowed-list
-@import '../../../node_modules/tippy.js/dist/tippy';
+@use '../../../node_modules/tippy.js/dist/tippy';
 
 .tippy-box {
   // Special font size 12px for tooltips
@@ -25,6 +25,18 @@
 // Dropdown theme for tippy tooltips
 .tippy-box[data-theme='dropdown'] {
   @apply w-rounded;
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}
+
+.tippy-box[data-theme='popup'] {
+  @apply w-rounded w-bg-surface-page w-text-inherit w-shadow-md;
+
+  &[data-placement^='bottom'] > .tippy-arrow::before {
+    @apply w-border-b-surface-page;
+  }
 
   .tippy-content {
     @apply w-p-0;

@@ -3,6 +3,8 @@
 // Core button styles
 
 @use 'sass:color';
+@use '../tools' as *;
+@use '../settings' as *;
 
 .button {
   border-radius: theme('borderRadius.sm');
@@ -257,6 +259,8 @@
       text-align: center;
       height: inherit;
       width: inherit;
+      // Allow overflow for an error badge
+      overflow: visible;
 
       &:hover {
         color: theme('colors.icon-secondary-hover');
@@ -321,35 +325,142 @@
 }
 
 .w-header-button {
-  // Temporarily copied from .c-sf-add-button
   display: flex;
   align-items: center;
   justify-content: center;
   gap: theme('spacing.1');
-  height: theme('spacing.slim-header');
+  height: theme('spacing.8');
+  min-width: theme('spacing.8');
   appearance: none;
+  background-color: initial;
+  border: 1px solid transparent;
   color: theme('colors.text-button-outline-default');
-  padding: 0;
+  padding: 0 theme('spacing[1.5]');
+  font-size: theme('fontSize.14');
+  font-weight: theme('fontWeight.medium');
   cursor: pointer;
 
-  &--icon-only {
-    width: theme('spacing.7');
-  }
+  @include more-contrast-interactive();
 
   .icon {
     width: theme('spacing.4');
     height: theme('spacing.4');
     padding: theme('spacing.[0.5]');
-    border: 1px solid theme('colors.text-button-outline-default');
+    border: 1px solid currentColor;
     border-radius: theme('borderRadius.full');
     transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    border-color: theme('colors.border-button-outline-hover');
+    background-color: theme('colors.surface-button-outline-hover');
   }
 
   &:hover,
   &:focus-visible {
     .icon {
+      // This ideally should use a solid variant of the icon instead.
       color: theme('colors.surface-page');
+      border-color: theme('colors.text-button-outline-hover');
       background-color: theme('colors.text-button-outline-hover');
     }
+    color: theme('colors.text-link-hover');
   }
+}
+
+.w-slim-header-action-button {
+  position: relative;
+  width: theme('spacing.10');
+  height: theme('spacing.10');
+  padding: 0;
+  border: 1px solid theme('borderColor.border-field-default');
+  border-radius: theme('borderRadius.sm');
+  color: theme('colors.text-link-default');
+  background-color: theme('backgroundColor.surface-header');
+
+  @include more-contrast-interactive();
+
+  .icon {
+    width: theme('fontSize.16');
+    height: theme('fontSize.16');
+  }
+
+  &:hover {
+    border-color: theme('colors.border-field-hover');
+  }
+}
+
+.w-layout-toggle-button-right {
+  border-start-start-radius: theme('borderRadius.sm');
+  border-end-start-radius: theme('borderRadius.sm');
+}
+
+.w-layout-toggle-button-left {
+  border-start-end-radius: theme('borderRadius.sm');
+  border-end-end-radius: theme('borderRadius.sm');
+  margin-inline-start: -1px;
+}
+
+.w-layout-toggle-button {
+  position: relative;
+  width: theme('spacing.10');
+  height: 100%;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: theme('backgroundColor.surface-header');
+  border: 1px solid theme('borderColor.border-field-default');
+  transition: background-color 0.1s ease;
+
+  input[type='radio'] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .icon {
+    width: theme('fontSize.16');
+    height: theme('fontSize.16');
+    color: theme('colors.text-meta');
+    transition: color 0.1s ease;
+  }
+
+  &:hover {
+    background-color: theme('colors.surface-field');
+    border-color: theme('colors.border-field-hover');
+    z-index: 2;
+  }
+
+  &:has(input[type='radio']:checked),
+  input[type='radio']:checked + & {
+    background-color: theme('colors.surface-field');
+  }
+
+  &:has(input[type='radio']:checked) .icon {
+    color: theme('colors.text-link-default');
+
+    @media (prefers-color-scheme: light) {
+      color: theme('colors.primary.DEFAULT');
+    }
+  }
+
+  &:focus {
+    @include focus-outline;
+    z-index: 1;
+  }
+}
+
+.w-layout-switch-control {
+  position: relative;
+  width: theme('spacing.20');
+  height: theme('spacing.10');
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

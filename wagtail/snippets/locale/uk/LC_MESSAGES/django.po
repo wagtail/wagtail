@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
-"2020,2023-2024\n"
+"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
+"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -49,9 +49,6 @@ msgstr "Скасувати робочий процес"
 msgid "Unpublish"
 msgstr "Зняти з публікації"
 
-msgid "Delete"
-msgstr "Видалити"
-
 msgid "Save"
 msgstr "Зберегти"
 
@@ -65,6 +62,9 @@ msgstr "%(label)s і Опублікувати"
 msgid "Wagtail snippets"
 msgstr "Уривки Wagtail"
 
+msgid "Delete"
+msgstr "Видалити"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' видалено."
@@ -75,14 +75,6 @@ msgstr "Видалити %(snippet_type_name)s"
 
 msgid "Delete "
 msgstr "Видалити"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Використано %(usage_count)s раз"
-msgstr[1] "Використано %(usage_count)s рази"
-msgstr[2] "Використано %(usage_count)s разів"
-msgstr[3] "Використано %(usage_count)s разів"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -113,33 +105,6 @@ msgstr "Замінити поточну чернетку"
 msgid "Save draft"
 msgstr "Зберегти чернетку"
 
-msgid "Actions"
-msgstr "Дії"
-
-msgid "Live version"
-msgstr "Версія наживо"
-
-msgid "Current draft"
-msgstr "Поточна чернетка"
-
-msgid "Preview"
-msgstr "Попередній перегляд"
-
-msgid "Edit"
-msgstr "Редагувати"
-
-msgid "Review this version"
-msgstr "Переглянути цю версію"
-
-msgid "Compare with previous version"
-msgstr "Порівняти з попередньою версією"
-
-msgid "Compare with current version"
-msgstr "Порівняти з поточною версією"
-
-msgid "Cancel scheduled publish"
-msgstr "Скасувати заплановану публікацію"
-
 msgid "Choose"
 msgstr "Вибрати"
 
@@ -152,12 +117,6 @@ msgstr "Ім'я"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Більше опцій для '%(title)s'"
-
-msgid "Action"
-msgstr "Дія"
-
-msgid "Date"
-msgstr "Дата"
 
 msgid "Home"
 msgstr "Головна"

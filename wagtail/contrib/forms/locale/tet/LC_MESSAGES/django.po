@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Joanico Barros <joanico@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -27,14 +27,6 @@ msgstr "Data husi"
 
 msgid "Date to"
 msgstr "Data to'o"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr ""
-"Iha neba atributu seluk ho label %(label_name)s, favor troka ida husi sira "
-"ne'e. "
 
 msgid "Single line text"
 msgstr "Testu lina ida"
@@ -147,6 +139,10 @@ msgstr "Hamoos"
 msgid "Delete selected submissions"
 msgstr "Hamoos submisaun nebe hila ona"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Neba sei la iha nafatin submisaun husi %(title)sformulariu."
+
 msgid "Total submissions"
 msgstr "Total submisaun"
 
@@ -156,13 +152,6 @@ msgstr "Submisaun foun"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Submisaun husi%(form_title)s"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Neba sei la iha nafatin submisaun husi %(title)sformulariu."
-
-msgid "Filter"
-msgstr "Filtru"
 
 msgid "Forms"
 msgstr "Formulariu"

@@ -3,6 +3,7 @@ from django.shortcuts import resolve_url
 from django.template.defaulttags import token_kwargs
 from django.template.loader import render_to_string
 from django.utils.encoding import force_str
+from django.utils.functional import Promise
 from django.utils.html import conditional_escape
 
 from wagtail import VERSION, __version__
@@ -120,6 +121,8 @@ def richtext(value):
     elif value is None:
         html = ""
     else:
+        if isinstance(value, Promise):
+            value = str(value)
         if isinstance(value, str):
             html = expand_db_html(value)
         else:
@@ -174,10 +177,10 @@ def include_block(parser, token):
     try:
         tag_name = tokens.pop(0)
         block_var_token = tokens.pop(0)
-    except IndexError:
+    except IndexError as e:
         raise template.TemplateSyntaxError(
             "%r tag requires at least one argument" % tag_name
-        )
+        ) from e
 
     block_var = parser.compile_filter(block_var_token)
 

@@ -72,6 +72,7 @@ const fontFamily = {
  * These values are used in combinations create typography defaults
  */
 const fontSize = {
+  11: '0.6875rem',
   14: '0.875rem',
   15: '0.9375rem',
   16: '1rem',

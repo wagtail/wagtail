@@ -919,6 +919,85 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         self.assertEqual(results.first().subscribers_count, 1)
         self.assertEqual(results.last().subscribers_count, 1)
 
+    def test_specific_subquery_select_related(self):
+        with self.assertNumQueries(2):
+            pages = list(
+                Page.objects.type(EventPage)
+                .specific()
+                .select_related("feed_image", for_specific_subqueries=True)
+            )
+        self.assertEqual(len(pages), 4)
+        with self.assertNumQueries(0):
+            for page in pages:
+                self.assertTrue(page.feed_image)
+
+    def test_specific_subquery_select_related_without_fields(
+        self,
+    ):
+        with self.assertRaises(ValueError):
+            Page.objects.all().select_related(for_specific_subqueries=True)
+
+    def test_specific_subquery_select_related_negation(self):
+        with self.assertNumQueries(2):
+            pages = list(
+                Page.objects.type(EventPage)
+                .specific()
+                .select_related("feed_image", for_specific_subqueries=True)
+                .select_related(
+                    None, for_specific_subqueries=True
+                )  # This should negate the above line
+            )
+        with self.assertNumQueries(4):
+            for page in pages:
+                self.assertTrue(page.feed_image)
+
+    def test_specific_subquery_prefetch_related(self):
+        with self.assertNumQueries(3):
+            pages = list(
+                Page.objects.type(EventPage)
+                .specific()
+                .prefetch_related("categories", for_specific_subqueries=True)
+            )
+        self.assertEqual(len(pages), 4)
+        with self.assertNumQueries(0):
+            for page in pages:
+                self.assertFalse(page.categories.all())
+
+    def test_specific_subquery_prefetch_related_without_lookups(self):
+        with self.assertRaises(ValueError):
+            Page.objects.all().prefetch_related(for_specific_subqueries=True)
+
+    def test_specific_subquery_prefetch_related_negation(self):
+        with self.assertNumQueries(2):
+            pages = list(
+                Page.objects.type(EventPage)
+                .specific()
+                .prefetch_related("categories", for_specific_subqueries=True)
+                .prefetch_related(
+                    None, for_specific_subqueries=True
+                )  # This should negate the above line
+            )
+        self.assertEqual(len(pages), 4)
+        with self.assertNumQueries(4):
+            for page in pages:
+                self.assertFalse(page.categories.all())
+
+    def test_specific_subquery_select_related_and_prefetch_related(self):
+        with self.assertNumQueries(3):
+            pages = list(
+                Page.objects.type(EventPage)
+                .specific()
+                .select_related("feed_image", for_specific_subqueries=True)
+                .prefetch_related(
+                    "feed_image__renditions", for_specific_subqueries=True
+                )
+            )
+        self.assertEqual(len(pages), 4)
+        with self.assertNumQueries(0):
+            for page in pages:
+                self.assertTrue(page.feed_image)
+                self.assertFalse(page.feed_image.renditions.all())
+
     def test_specific_query_with_alias(self):
         """
         Ensure alias() works with specific() queries.

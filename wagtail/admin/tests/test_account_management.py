@@ -1,6 +1,7 @@
+import io
 import unittest
+import zoneinfo
 
-import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -10,7 +11,9 @@ from django.core import mail
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
+from PIL import Image
 
+from wagtail.admin.forms.account import AvatarPreferencesForm
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES,
     get_available_admin_languages,
@@ -19,6 +22,7 @@ from wagtail.admin.localization import (
 from wagtail.admin.views.account import AccountView, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -116,6 +120,25 @@ class TestAuthentication(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the login page
         self.assertRedirects(response, reverse("wagtailadmin_login"))
+
+        # Check that the user was logged out
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    @override_settings(WAGTAILADMIN_LOGIN_URL="fallback")
+    def test_logout_redirect_with_custom_login_url(self):
+        """
+        This tests that if the WAGTAILADMIN_LOGIN_URL setting is customized,
+        the user will be redirected to that URL when logging out of the admin.
+        """
+        # Login
+        self.login()
+
+        # Get logout page
+        response = self.client.post(reverse("wagtailadmin_logout"))
+
+        # Check that the user was redirected to the URL set for the
+        # WAGTAILADMIN_LOGIN_URL setting
+        self.assertRedirects(response, reverse("fallback"))
 
         # Check that the user was logged out
         self.assertNotIn("_auth_user_id", self.client.session)
@@ -231,18 +254,24 @@ class TestAccountSectionUtilsMixin:
             "locale-preferred_language": "es",
             "locale-current_time_zone": "Europe/London",
             "theme-theme": "dark",
+            "theme-density": "default",
+            "theme-contrast": "system",
+            "keyboard-shortcuts": "true",
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse("wagtailadmin_account"), post_data)
 
 
-class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
+class TestAccountSection(
+    AdminTemplateTestUtils, TestAccountSectionUtilsMixin, WagtailTestUtils, TestCase
+):
     """
     This tests that the accounts section is working
     """
 
     def setUp(self):
         self.user = self.login()
+        get_available_admin_time_zones.cache_clear()
 
     def test_account_view(self):
         """
@@ -273,8 +302,19 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         # Form media should be included on the page
         self.assertContains(response, "vendor/colorpicker.js")
 
+        # Form should use the multipart/form-data encoding type
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
         # Check if the default title exists
         self.assertContains(response, "Name and Email")
+
+        soup = self.get_soup(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Account"}], response.content
+        )
+        heading = soup.select_one("main h2")
+        self.assertIsNotNone(heading)
+        self.assertEqual(heading.text.strip(), "Account")
 
     def test_change_name_post(self):
         response = self.post_form(
@@ -476,7 +516,10 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
         # check that the updated language preference is now indicated in HTML header
         response = self.client.get(reverse("wagtailadmin_home"))
-        self.assertContains(response, '<html lang="es" dir="ltr" class="w-theme-dark">')
+        self.assertContains(
+            response,
+            '<html lang="es" dir="ltr" class="w-theme-dark w-density-default w-contrast-system">',
+        )
 
     def test_unset_language_preferences(self):
         profile = UserProfile.get_for_user(self.user)
@@ -511,6 +554,17 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.assertListEqual(
             get_available_admin_languages(), WAGTAILADMIN_PROVIDED_LANGUAGES
         )
+
+    @override_settings(LANGUAGE_CODE="id")
+    def test_default_language_follows_server_setting(self):
+        response = self.client.get(reverse("wagtailadmin_account"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        option = soup.select_one(
+            'select[name="locale-preferred_language"] option[value=""]'
+        )
+        self.assertIsNotNone(option)
+        self.assertEqual(option.text.strip(), "Use server language: Bahasa Indonesia")
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[("en", "English")])
     def test_not_show_options_if_only_one_language_is_permitted(self):
@@ -563,7 +617,26 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_available_admin_time_zones_by_default(self):
-        self.assertListEqual(get_available_admin_time_zones(), pytz.common_timezones)
+        self.assertListEqual(
+            get_available_admin_time_zones(),
+            sorted(zoneinfo.available_timezones()),
+        )
+
+        response = self.client.get(reverse("wagtailadmin_account"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        select = soup.select_one('select[name="locale-current_time_zone"]')
+        self.assertIsNotNone(select)
+        self.assertEqual(select.get("data-controller"), "w-init w-locale")
+        self.assertEqual(
+            select.get("data-action"),
+            "w-init:ready->w-locale#localizeTimeZoneOptions",
+        )
+        self.assertEqual(
+            select.get("data-w-locale-server-time-zone-param"),
+            settings.TIME_ZONE,
+        )
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(WAGTAIL_USER_TIME_ZONES=["Europe/London"])
@@ -602,6 +675,36 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
         self.assertEqual(profile.theme, "light")
 
+    def test_change_contrast_post(self):
+        response = self.post_form(
+            {
+                "theme-contrast": "more_contrast",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
+
+        self.assertEqual(profile.contrast, "more_contrast")
+
+    def test_change_density_post(self):
+        response = self.post_form(
+            {
+                "theme-density": "snug",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
+
+        self.assertEqual(profile.density, "snug")
+
     def test_sensitive_post_parameters(self):
         request = RequestFactory().post("wagtailadmin_account", data={})
         request.user = self.user
@@ -609,12 +712,46 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.assertTrue(hasattr(request, "sensitive_post_parameters"))
         self.assertEqual(request.sensitive_post_parameters, "__ALL__")
 
+    def test_change_keyboard_shortcut_preference(self):
+        response = self.post_form(
+            {
+                "keyboard_shortcuts": "false",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(
+            get_user_model().objects.get(pk=self.user.pk)
+        )
+
+        # Check that the keyboard shortcut preferences are as submitted
+        self.assertFalse(profile.keyboard_shortcuts)
+
 
 class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
     def setUp(self):
         self.user = self.login()
         self.avatar = get_test_image_file()
         self.other_avatar = get_test_image_file()
+
+    def create_image_file(self, size=(800, 800), color="red", name="test.png"):
+        img = Image.new("RGB", size, color=color)
+        img_byte_arr = io.BytesIO()
+
+        ext = name.split(".")[-1].upper()
+        if ext == "JPG":
+            ext = "JPEG"
+
+        img.save(img_byte_arr, format=ext)
+        img_byte_arr.seek(0)
+
+        content_type = f"image/{ext.lower()}" if ext != "JPEG" else "image/jpeg"
+
+        return SimpleUploadedFile(
+            name=name, content=img_byte_arr.read(), content_type=content_type
+        )
 
     def test_account_view(self):
         """
@@ -672,6 +809,7 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
         """
         profile = UserProfile.get_for_user(self.user)
         profile.avatar = self.avatar
+        old_url = profile.avatar.url
         profile.save()
 
         # Upload a new avatar
@@ -681,7 +819,8 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
 
         # Check the avatar was changed
         profile.refresh_from_db()
-        self.assertIn("test.png", profile.avatar.url)
+        self.assertEqual("/media/test.png", old_url)
+        self.assertTrue(profile.avatar.url.endswith(".png"))
 
     def test_clear_removes_current_avatar(self):
         """
@@ -698,7 +837,71 @@ class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtil
 
         # Check the avatar was changed
         profile.refresh_from_db()
-        self.assertIn("test.png", profile.avatar.url)
+        self.assertTrue(profile.avatar)
+
+    def test_avatar_resize_large_image(self):
+        """Ensure that large uploaded images are resized to a maximum of 400x400."""
+        uploaded_file = self.create_image_file(size=(800, 800), name="large_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertLessEqual(resized_image.width, 400)
+        self.assertLessEqual(resized_image.height, 400)
+
+    def test_avatar_no_resize_small_image(self):
+        uploaded_file = self.create_image_file(size=(300, 300), name="small_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        image = Image.open(avatar_file)
+        self.assertEqual(image.size, (300, 300))
+
+    def test_avatar_resize_width_greater_than_height(self):
+        uploaded_file = self.create_image_file(size=(500, 300), name="wide_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertEqual(resized_image.size, (400, 240))
+
+        original_ratio = 500 / 300
+        new_ratio = resized_image.width / resized_image.height
+        self.assertAlmostEqual(original_ratio, new_ratio, places=2)
+
+    def test_avatar_resize_height_greater_than_width(self):
+        uploaded_file = self.create_image_file(size=(300, 500), name="tall_image.jpg")
+        form = AvatarPreferencesForm(files={"avatar": uploaded_file})
+        self.assertTrue(form.is_valid())
+
+        avatar_file = form.clean_avatar()
+        resized_image = Image.open(avatar_file)
+        self.assertEqual(resized_image.size, (240, 400))
+
+        original_ratio = 300 / 500
+        new_ratio = resized_image.width / resized_image.height
+        self.assertAlmostEqual(original_ratio, new_ratio, places=2)
+
+    def test_avatar_preserves_original_format(self):
+        # Test JPG format
+        jpg_file = self.create_image_file(size=(500, 500), name="test.jpg")
+        form = AvatarPreferencesForm(files={"avatar": jpg_file})
+        self.assertTrue(form.is_valid())
+        avatar_file = form.clean_avatar()
+        self.assertTrue(avatar_file.name.endswith(".jpg"))
+
+        # Test PNG format
+        png_file = self.create_image_file(size=(500, 500), name="test.png")
+        form = AvatarPreferencesForm(files={"avatar": png_file})
+        self.assertTrue(form.is_valid())
+        avatar_file = form.clean_avatar()
+        self.assertTrue(avatar_file.name.endswith(".png"))
+
+        resized_image = Image.open(avatar_file)
+        self.assertIsNotNone(resized_image.format)
 
 
 class TestAccountManagementForNonModerator(WagtailTestUtils, TestCase):

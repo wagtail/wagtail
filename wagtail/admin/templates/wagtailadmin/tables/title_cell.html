@@ -9,7 +9,7 @@
         {% endfragment %}
         {% block title %}
             {% if link_url %}
-                <a {% include "wagtailadmin/shared/attrs.html" with attrs=link_attrs %}>{{ title }}</a>
+                <a{% include "wagtailadmin/shared/attrs.html" with attrs=link_attrs %}>{{ title }}</a>
             {% elif label_id %}
                 <label for="{{ label_id }}">{{ title }}</label>
             {% else %}
@@ -17,11 +17,13 @@
             {% endif %}
         {% endblock %}
     </div>
-    {% if buttons %}
-        <ul class="actions">
-            {% block buttons %}
-                {% include "wagtailadmin/shared/buttons.html" %}
-            {% endblock %}
-        </ul>
-    {% endif %}
+    {% block extra %}
+        {% if buttons %}
+            <ul class="actions">
+                {% block buttons %}
+                    {% include "wagtailadmin/shared/buttons.html" %}
+                {% endblock %}
+            </ul>
+        {% endif %}
+    {% endblock %}
 </td>

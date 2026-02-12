@@ -4,11 +4,13 @@
     {% if is_searching %}
         {% block search_results_count %}
             <h2 role="alert">
-                {% blocktrans trimmed count counter=results.paginator.count %}
-                    There is {{ counter }} match
-                {% plural %}
-                    There are {{ counter }} matches
-                {% endblocktrans %}
+                {% with result_count=results.paginator.count %}
+                    {% blocktrans trimmed with counter=result_count|intcomma count counter_val=result_count %}
+                        There is {{ counter }} match
+                    {% plural %}
+                        There are {{ counter }} matches
+                    {% endblocktrans %}
+                {% endwith %}
             </h2>
         {% endblock %}
     {% else %}

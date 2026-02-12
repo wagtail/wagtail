@@ -1,7 +1,18 @@
 import os
 
 from django.contrib.messages import constants as message_constants
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
+
+from wagtail.test.numberformat import patch_number_formats
+
+WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT = (
+    os.environ.get("WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT", "0") == "1"
+)
+if WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT:
+    # Patch Django number formatting functions to raise exceptions if a number is output directly
+    # on a template (which is liable to cause bugs when USE_THOUSAND_SEPARATOR is in use).
+    patch_number_formats()
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "false").lower() == "true"
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
@@ -39,8 +50,12 @@ if DATABASES["default"]["ENGINE"] == "sql_server.pyodbc":
 
 # explicitly set charset / collation to utf8 on mysql
 if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
-    DATABASES["default"]["TEST"]["CHARSET"] = "utf8"
-    DATABASES["default"]["TEST"]["COLLATION"] = "utf8_general_ci"
+    DATABASES["default"]["OPTIONS"] = {
+        "charset": "utf8mb4",
+        "collation": "utf8mb4_general_ci",
+    }
+    DATABASES["default"]["TEST"]["CHARSET"] = "utf8mb4"
+    DATABASES["default"]["TEST"]["COLLATION"] = "utf8mb4_general_ci"
 
 
 SECRET_KEY = "not needed"
@@ -66,9 +81,9 @@ STORAGES = {
 }
 
 if os.environ.get("STATICFILES_STORAGE", "") == "manifest":
-    STORAGES["staticfiles"][
-        "BACKEND"
-    ] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    STORAGES["staticfiles"]["BACKEND"] = (
+        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    )
 
 
 USE_TZ = not os.environ.get("DISABLE_TIMEZONE")
@@ -91,6 +106,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "wagtail.test.context_processors.do_not_use_static_url",
                 "wagtail.contrib.settings.context_processors.settings",
+                "wagtail.test.context_processors.count_calls",
             ],
             "debug": True,  # required in order to catch template errors
         },
@@ -125,6 +141,9 @@ MIDDLEWARE = (
 )
 
 INSTALLED_APPS = [
+    # Place wagtail.test.earlypage first, to test the behaviour of page models
+    # that are defined before wagtail.admin is loaded
+    "wagtail.test.earlypage",
     # Install wagtailredirects with its appconfig
     # There's nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly
@@ -133,7 +152,6 @@ INSTALLED_APPS = [
     "wagtail.test.demosite",
     "wagtail.test.snippets",
     "wagtail.test.routablepage",
-    "wagtail.test.search",
     "wagtail.test.i18n",
     "wagtail.test.streamfield_migrations",
     "wagtail.contrib.simple_translation",
@@ -150,7 +168,6 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.sites",
     "wagtail.locales",
-    "wagtail.users",
     "wagtail.snippets",
     "wagtail.documents",
     "wagtail.admin",
@@ -158,6 +175,7 @@ INSTALLED_APPS = [
     "wagtail",
     "taggit",
     "rest_framework",
+    "django_filters",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -199,38 +217,60 @@ WAGTAILSEARCH_BACKENDS = {
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 if os.environ.get("USE_EMAIL_USER_MODEL"):
+    INSTALLED_APPS.append("wagtail.users")
     INSTALLED_APPS.append("wagtail.test.emailuser")
     AUTH_USER_MODEL = "emailuser.EmailUser"
     print("EmailUser (no username) user model active")  # noqa: T201
 else:
+    # this appconfig takes the place of wagtail.users
+    INSTALLED_APPS.append("wagtail.test.apps.CustomUsersAppConfig")
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"
-    # Extra user field for custom user edit and create form tests. This setting
-    # needs to here because it is used at the module level of wagtailusers.forms
-    # when the module gets loaded. The decorator 'override_settings' does not work
-    # in this scenario.
-    WAGTAIL_USER_CUSTOM_FIELDS = ["country", "attachment"]
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
-    WAGTAILSEARCH_BACKENDS["postgresql"] = {
-        "BACKEND": "wagtail.search.backends.database",
-        "AUTO_UPDATE": False,
-        "SEARCH_CONFIG": "english",
-    }
+    INSTALLED_APPS.append("django.contrib.postgres")
+
+# Tests in wagtail.tests.test_page_search.PageSearchTests will be run against each backend defined
+# in WAGTAILSEARCH_BACKENDS. Define an additional one to test the FTS-enabled backend for the
+# currently active database.
+
+WAGTAILSEARCH_BACKENDS["database"] = {
+    "BACKEND": "wagtail.search.backends.database",
+    "AUTO_UPDATE": False,
+    "SEARCH_CONFIG": "english",
+}
 
 if "ELASTICSEARCH_URL" in os.environ:
-    if os.environ.get("ELASTICSEARCH_VERSION") == "8":
-        backend = "wagtail.search.backends.elasticsearch8"
-    elif os.environ.get("ELASTICSEARCH_VERSION") == "7":
-        backend = "wagtail.search.backends.elasticsearch7"
+    # Define an 'elasticsearch' backend; along with wagtail.tests.test_page_search.PageSearchTests
+    # this is also used for the Elasticsearch-specific tests in wagtail.images.tests.test_models and
+    # wagtail.documents.tests.test_search. We also want to run these tests under Opensearch; for
+    # simplicity we use the backend name 'elasticsearch' in this case too.
+    if elasticsearch_version := os.environ.get("ELASTICSEARCH_VERSION"):
+        backend = f"wagtail.search.backends.elasticsearch{elasticsearch_version}"
+    elif opensearch_version := os.environ.get("OPENSEARCH_VERSION"):
+        backend = f"wagtail.search.backends.opensearch{opensearch_version}"
+    else:
+        raise ImproperlyConfigured(
+            "If ELASTICSEARCH_URL is defined, either ELASTICSEARCH_VERSION or OPENSEARCH_VERSION must be defined too"
+        )
 
-    WAGTAILSEARCH_BACKENDS["elasticsearch"] = {
+    elasticsearch_opts = {
         "BACKEND": backend,
         "URLS": [os.environ["ELASTICSEARCH_URL"]],
         "TIMEOUT": 10,
         "max_retries": 1,
         "AUTO_UPDATE": False,
         "INDEX_SETTINGS": {"settings": {"index": {"number_of_shards": 1}}},
+        "OPTIONS": {
+            "ca_certs": os.environ.get("ELASTICSEARCH_CA_CERTS"),
+        },
+    }
+    WAGTAILSEARCH_BACKENDS["elasticsearch"] = elasticsearch_opts
+
+    # RemovedInWagtail80Warning
+    WAGTAILSEARCH_BACKENDS["elasticsearch_with_index_option"] = {
+        **elasticsearch_opts,
+        "INDEX": "wagtailtest",  # Deprecated option
     }
 
 

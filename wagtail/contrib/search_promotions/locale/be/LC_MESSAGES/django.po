@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -51,21 +51,9 @@ msgstr "апісанне"
 msgid "search promotion"
 msgstr "пошукавае прасоўванне"
 
-msgid "Add search promotion"
-msgstr "Дадаць пошукавае прасоўванне"
-
-msgid "Add search pick"
-msgstr "Дадаць пошуковую падборку"
-
-msgid "Save"
-msgstr "Захаваць"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Выдаліць %(query)s"
-
-msgid "Delete"
-msgstr "Выдаліць"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -73,48 +61,32 @@ msgstr ""
 "Вы ўпэўнены, што жадаеце выдаліць усе прасунутыя вынікі па гэтым пошукаваму "
 "запыту?"
 
-msgid "Yes, delete"
-msgstr "Так, выдаліць"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Рэдактаванне %(query)s"
-
-msgid "Editing"
-msgstr "Рэдактаванне"
-
 msgid "Move up"
 msgstr "Перамясціць уверх"
 
 msgid "Move down"
 msgstr "Перамясціць уніз"
 
+msgid "Drag"
+msgstr "Перацягнуць"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
 msgid "Promoted search results"
 msgstr "Высокі вынік пошуку"
 
-msgid "Search Terms"
-msgstr "Умовы пошуку"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "На жаль, няма вынікаў рэкламы \"<em>%(query_string)s</em>\""
 
-msgid "Add new promoted result"
-msgstr "Дадаць новы высокі вынік пошуку"
-
-msgid "Search term(s)"
-msgstr "Пошукавы(я) запыт(ы)"
-
-msgid "Promoted results"
-msgstr "Рэклама вынікаў"
-
-msgid "Views (past week)"
-msgstr "Прагляды (за тыдзень)"
-
-msgid "Edit this promotion"
-msgstr "Змяніць гэтую рэкламу"
-
-msgid "External link"
-msgstr "Знешняя спасылка"
-
-msgid "None"
-msgstr "Нікодны"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Ніякіх рэкламных вынікаў не было знойдзена, супадаючых з <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 
 msgid "Popular search terms"
 msgstr "Папулярныя пошукавыя запыты"
@@ -131,42 +103,34 @@ msgstr "Нічога не знойдзена"
 msgid "Choose from popular search terms"
 msgstr "Выбраць з папулярных пошукавых запытаў"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Ёсць %(counter)s супадзенне"
-msgstr[1] "Ёсць %(counter)s супадзенняў"
-msgstr[2] "Ёсць %(counter)s супадзенняў"
-msgstr[3] "Ёсць %(counter)s супадзенняў"
+msgid "External link"
+msgstr "Знешняя спасылка"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr "На жаль, няма вынікаў рэкламы \"<em>%(query_string)s</em>\""
+msgid "None"
+msgstr "Нікодны"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Ніякіх рэкламных вынікаў не было знойдзена, супадаючых з <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgid "Date"
+msgstr "Дата"
+
+msgid "Search term(s)"
+msgstr "Пошукавы(я) запыт(ы)"
+
+msgid "Add new promoted result"
+msgstr "Дадаць новы высокі вынік пошуку"
+
+msgid "Promoted results"
+msgstr "Рэклама вынікаў"
+
+msgid "Promoted search result"
+msgstr "Высокі вынік пошуку"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Зроблена падборка для '%(query)s'."
 
-msgid "Edit"
-msgstr "Рэдактаваць"
-
-msgid "Recommendations have not been created due to errors"
-msgstr "Рэкамендацыі не былі створаны з-за памылкі"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Падборка для «%(query)s» абнаўляецца."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Рэкамендацыі не былі захаваныя з-за памылкі"
 
 msgid "Editor's picks deleted."
 msgstr "Падборка выдалена."

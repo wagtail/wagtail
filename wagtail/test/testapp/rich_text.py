@@ -7,7 +7,7 @@ class CustomRichTextArea(widgets.Textarea):
         # mock rendering for individual custom widget
 
         return mark_safe(
-            '<template data-controller="custom-editor" data-id="{0}">{1}</template>'.format(
+            '<template data-controller="custom-editor" data-id="{}">{}</template>'.format(
                 attrs["id"],
                 super().render(name, value, attrs),
             )
@@ -22,7 +22,7 @@ class LegacyRichTextArea(widgets.Textarea):
     def render(self, name, value, attrs=None, renderer=None):
         # mock rendering for individual custom widget
         return mark_safe(
-            '<template data-controller="legacy-editor" data-id="{0}">{1}</template>'.format(
+            '<template data-controller="legacy-editor" data-id="{}">{}</template>'.format(
                 attrs["id"],
                 super().render(name, value, attrs),
             )

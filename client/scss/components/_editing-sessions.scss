@@ -1,0 +1,93 @@
+.w-editing-sessions {
+  @apply w-mr-auto sm:w-pr-8 sm:w-mr-5 sm:w-border-r w-border-border-furniture;
+}
+
+.w-editing-sessions__list {
+  @apply w-flex w-p-0 w-m-0;
+}
+
+.w-editing-sessions__avatar {
+  @apply w-mx-px w-w-7 w-h-7 w-border-2 w-border-surface-field hover:w-border-positive-100;
+}
+
+.w-editing-sessions__decorated-avatar {
+  @apply w-relative w-rounded-full;
+
+  .icon {
+    @apply w-w-4 w-h-4 w-absolute -w-bottom-2 w-left-[.45rem] w-z-20 w-stroke-surface-header w-shadow-white;
+  }
+}
+
+.w-editing-sessions__decorator-filler {
+  /* HACK: fill the 'hole' inside the warning icon with a solid bg-surface-header */
+  @apply w-block w-w-[.1875rem] w-h-2 w-absolute w-bottom-[-.3125rem] w-left-[.90625rem] w-bg-surface-header w-z-10;
+}
+
+.w-editing-sessions__popup {
+  @apply w-flex w-flex-col w-items-center w-justify-center w-gap-1;
+}
+
+.w-editing-sessions__message {
+  @apply w-label-2 w-flex w-items-center w-gap-1.5;
+
+  .icon {
+    @apply w-w-5 w-h-5;
+  }
+}
+
+.w-editing-sessions__name {
+  @apply w-font-semibold;
+}
+
+.w-editing-sessions__session {
+  @apply w-p-0 w-bg-transparent;
+
+  [aria-expanded='true']
+    .w-editing-sessions__decorated-avatar
+    :where(.icon, .w-editing-sessions__decorator-filler) {
+    @apply w-hidden;
+  }
+}
+
+.w-editing-sessions__session--saved {
+  .w-editing-sessions__avatar {
+    @apply w-border-text-error;
+  }
+
+  .icon {
+    @apply w-text-text-error;
+  }
+}
+
+.w-editing-sessions__session--editing {
+  .w-editing-sessions__avatar {
+    @apply w-border-warning-100;
+  }
+
+  .icon {
+    @apply w-text-warning-100;
+  }
+}
+
+.w-editing-sessions__session--more {
+  .w-editing-sessions__avatar {
+    @apply w-flex w-items-center w-justify-center w-bg-surface-page w-font-bold w-text-11;
+  }
+}
+
+.w-editing-sessions__more-list {
+  @apply w-flex w-flex-col w-gap-4 w-p-2 w-m-0;
+}
+
+.w-editing-sessions__list-item {
+  @apply w-flex w-items-center w-text-14;
+}
+
+.w-editing-sessions-dialog-buttons {
+  @apply w-mt-8 w-flex w-flex-wrap w-gap-4;
+
+  .button + .button {
+    // Reset default left margin for buttons in a row
+    @apply w-ml-0;
+  }
+}

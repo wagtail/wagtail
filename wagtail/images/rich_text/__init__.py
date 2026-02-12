@@ -1,5 +1,3 @@
-from django.core.exceptions import ObjectDoesNotExist
-
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.rich_text import EmbedHandler
@@ -15,18 +13,28 @@ class ImageEmbedHandler(EmbedHandler):
         return get_image_model()
 
     @classmethod
-    def expand_db_attributes(cls, attrs):
+    def expand_db_attributes(cls, attrs: dict) -> str:
+        return cls.expand_db_attributes_many([attrs])[0]
+
+    @classmethod
+    def expand_db_attributes_many(cls, attrs_list: list[dict]) -> list[str]:
         """
         Given a dict of attributes from the <embed> tag, return the real HTML
         representation for use on the front-end.
         """
-        try:
-            image = cls.get_instance(attrs)
-        except ObjectDoesNotExist:
-            return '<img alt="">'
+        images = cls.get_many(attrs_list)
 
-        image_format = get_image_format(attrs["format"])
-        return image_format.image_to_html(image, attrs.get("alt", ""))
+        tags = []
+        for attrs, image in zip(attrs_list, images):
+            if image:
+                image_format = get_image_format(attrs["format"])
+                tag = image_format.image_to_html(image, attrs.get("alt", ""))
+            else:
+                tag = '<img alt="">'
+
+            tags.append(tag)
+
+        return tags
 
     @classmethod
     def extract_references(cls, attrs):

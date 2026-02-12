@@ -10,7 +10,7 @@ describe('InitController', () => {
     jest.clearAllTimers();
   });
 
-  describe('default behaviour', () => {
+  describe('default behavior', () => {
     const handleEvent = jest.fn();
     document.addEventListener('w-init:ready', handleEvent);
 

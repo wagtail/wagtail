@@ -37,7 +37,9 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     def test_image_file_deleted_oncommit(self):
         with transaction.atomic():
             image = get_image_model().objects.create(
-                title="Test Image", file=get_test_image_file()
+                title="Test Image",
+                description="A test description",
+                file=get_test_image_file(),
             )
             filename = image.file.name
             self.assertTrue(image.file.storage.exists(filename))
@@ -48,7 +50,9 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     def test_rendition_file_deleted_oncommit(self):
         with transaction.atomic():
             image = get_image_model().objects.create(
-                title="Test Image", file=get_test_image_file()
+                title="Test Image",
+                description="A test description",
+                file=get_test_image_file(),
             )
             rendition = image.get_rendition("original")
             filename = rendition.file.name

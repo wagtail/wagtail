@@ -1,22 +1,41 @@
-import axe from 'axe-core';
+/**
+ * This entrypoint is not bundled with any polyfills to keep it as light as possible,
+ * please stick to old JS APIs and avoid importing anything that might require a vendored module.
+ * More background can be found in `webpack.config.js`.
+ */
+
+import axe, { Check } from 'axe-core';
 
 import A11yDialog from 'a11y-dialog';
 import { Application } from '@hotwired/stimulus';
-import { getAxeConfiguration, renderA11yResults } from './a11y-result';
+import {
+  getAxeConfiguration,
+  getA11yReport,
+  renderA11yResults,
+  registerCustomCheck,
+  addCustomChecks,
+  WagtailAxeConfiguration,
+} from './a11y-result';
+import { wagtailPreviewPlugin } from './previewPlugin';
+import { contentExtractorPluginInstance } from './contentMetrics';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
+import { getWagtailMessage, WagtailMessage } from '../utils/message';
 
-/*
-This entrypoint is not bundled with any polyfills to keep it as light as possible
-Please stick to old JS APIs and avoid importing anything that might require a vendored module
-More background can be found in webpack.config.js
-
-This component implements a roving tab index for keyboard navigation
-Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
-*/
-
+/**
+ * The Wagtail Userbar component, which provides a user interface for
+ * navigating and interacting with the Wagtail admin interface.
+ *
+ * This component implements a roving tab index for keyboard navigation.
+ * @see https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex - Learn more about roving tabIndex
+ */
 export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
+  declare dialog: A11yDialog;
+  declare dialogBody: HTMLElement;
+  /** Target origin for cross-domain `window.postMessage` calls. */
+  declare origin: string;
+  declare axeConfig: WagtailAxeConfiguration | null;
 
   connectedCallback() {
     const template = document.querySelector<HTMLTemplateElement>(
@@ -44,6 +63,18 @@ export class Userbar extends HTMLElement {
       return;
     }
 
+    const inCrossOriginIframe = this.inCrossOriginIframe;
+
+    // Get the origin from the data attribute only if we are in a cross-origin
+    // iframe, as it's only needed in that case. Using the data attribute in a
+    // same-origin iframe will cause issues if it is not set to the correct
+    // value, which can happen in page previews if the page's site root host is
+    // different from the host where the admin is accessed.
+    this.origin =
+      (inCrossOriginIframe &&
+        userbar.getAttribute('data-wagtail-userbar-origin')) ||
+      window.location.origin;
+
     const listItems = list.querySelectorAll('li');
     const isActiveClass = 'w-userbar--active';
 
@@ -52,11 +83,11 @@ export class Userbar extends HTMLElement {
     // Avoid Web Component FOUC while stylesheets are loading.
     userbar.style.display = 'none';
 
-    /*
-    querySelector for all items that can be focused
-    tabIndex has been removed for roving tabindex compatibility
-    source: https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus
-    */
+    /**
+     * querySelector for all items that can be focused
+     * tabIndex has been removed for roving tabindex compatibility
+     * @see https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus
+     */
     const focusableItemSelector = `a[href],
     button:not([disabled]),
     input:not([disabled])`;
@@ -115,18 +146,20 @@ export class Userbar extends HTMLElement {
       shadowRoot.activeElement &&
       shadowRoot.activeElement.closest('.w-userbar-nav');
 
-    // Reset all focusable menu items to `tabIndex = -1`
+    /**
+     * Reset all focusable menu items to `tabIndex = -1`
+     */
     const resetItemsTabIndex = () => {
       listItems.forEach((listItem) => {
-        // eslint-disable-next-line no-param-reassign
         (listItem.firstElementChild as HTMLElement).tabIndex = -1;
       });
     };
 
-    // Focus element using a roving tab index
+    /**
+     * Focus element using a roving tab index
+     */
     const focusElement = (el: HTMLElement) => {
       resetItemsTabIndex();
-      // eslint-disable-next-line no-param-reassign
       el.tabIndex = 0;
       setTimeout(() => {
         el.focus();
@@ -180,14 +213,14 @@ export class Userbar extends HTMLElement {
       });
     };
 
-    /*
-    This handler is responsible for keyboard input when items inside the userbar are focused.
-    It should only listen when the userbar is open.
-
-    It is responsible for:
-    - Shifting focus using the arrow / home / end keys.
-    - Closing the menu when 'Escape' is pressed.
-    */
+    /**
+     * This handler is responsible for keyboard input when items inside the userbar are focused.
+     * It should only listen when the userbar is open.
+     *
+     * It is responsible for:
+     * - Shifting focus using the arrow / home / end keys.
+     * - Closing the menu when 'Escape' is pressed.
+     */
     const handleUserbarItemsKeyDown = (event: KeyboardEvent) => {
       // Only handle keyboard input if the userbar is open
       if (trigger.getAttribute('aria-expanded') === 'true') {
@@ -237,10 +270,10 @@ export class Userbar extends HTMLElement {
       hideUserbar();
     };
 
-    /*
-    This handler is responsible for opening the userbar with the arrow keys
-    if it's focused and not open yet. It should always be listening.
-    */
+    /**
+     * This handler is responsible for opening the userbar with the arrow keys
+     * if it's focused and not open yet. It should always be listening.
+     */
     const handleTriggerKeyDown = (event: KeyboardEvent) => {
       // Check if the userbar is focused (but not open yet) and should be opened by keyboard input
       if (
@@ -290,41 +323,67 @@ export class Userbar extends HTMLElement {
     // On initialisation, all menu items should be disabled for roving tab index
     resetItemsTabIndex();
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      await this.initialiseAxe();
-    });
+    this.handleMessage = this.handleMessage.bind(this);
+    this.onWindowLoad = this.onWindowLoad.bind(this);
+
+    // If we are in a cross-origin iframe, request the parent to restore the
+    // scroll position of the preview panel's previous iframe to this one.
+    if (inCrossOriginIframe) {
+      window.addEventListener('message', this.handleMessage);
+    }
+
+    // The page may already be loaded, e.g. when the userbar is loaded via AJAX.
+    // In this case, we need to call the initialisation function immediately.
+    if (document.readyState === 'complete') {
+      this.onWindowLoad();
+    } else {
+      // Use `load` event instead of `DOMContentLoaded`, as the document may be
+      // in the "interactive" state, which likely means `DOMContentLoaded` has
+      // already fired. See onWindowLoad() for more details.
+      window.addEventListener('load', this.onWindowLoad);
+    }
   }
 
-  /*
-  Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
-  Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI.
-  See documentation: https://github.com/dequelabs/axe-core/tree/develop/doc
-  */
+  /**
+   * Initialization code that must happen after the window has fully loaded.
+   *
+   * @remarks
+   * We want to make sure that the PreviewController:
+   * - has moved the id of the iframe (that is used by Axe) to the new iframe
+   *   before we run Axe
+   * - has set up the scroll restoration message event listener
+   *
+   * Both of which are done in the `load` event handler of the iframe's window.
+   */
+  async onWindowLoad() {
+    this.postMessage({
+      type: 'w-preview:request-scroll',
+      origin: window.location.origin,
+    });
+    await this.initializeAxe();
+  }
 
-  // Initialise axe accessibility checker
-  async initialiseAxe() {
-    const accessibilityTrigger = this.shadowRoot?.getElementById(
-      'accessibility-trigger',
-    );
+  /**
+   * Register a custom check for Axe, to power a custom checker rule.
+   */
+  registerCheck(id: string, evaluate: Check['evaluate']) {
+    registerCustomCheck(id, evaluate);
+  }
 
-    const config = getAxeConfiguration(this.shadowRoot);
+  /**
+   * Initialize Axe
+   * Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
+   * Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI.
+   * @see https://github.com/dequelabs/axe-core/tree/develop/doc
+   */
+  async initializeAxe() {
+    // Collect content data from the live preview via Axe plugin for content metrics calculation
+    this.axeConfig = getAxeConfiguration(this.shadowRoot);
+    if (!this.shadowRoot || !this.axeConfig) return;
 
-    if (!this.shadowRoot || !accessibilityTrigger || !config) return;
-
-    // Initialise Axe based on the configurable context (whole page body by default) and options ('empty-heading', 'p-as-heading' and 'heading-order' rules by default)
-    const results = await axe.run(config.context, config.options);
-
-    const a11yErrorsNumber = results.violations.reduce(
-      (sum, violation) => sum + violation.nodes.length,
-      0,
-    );
-
-    if (results.violations.length) {
-      const a11yErrorBadge = document.createElement('span');
-      a11yErrorBadge.textContent = String(a11yErrorsNumber);
-      a11yErrorBadge.classList.add('w-userbar-axe-count');
-      this.trigger.appendChild(a11yErrorBadge);
-    }
+    axe.configure(addCustomChecks(this.axeConfig.spec));
+    axe.registerPlugin(wagtailPreviewPlugin);
+    axe.plugins.wagtailPreview.add(contentExtractorPluginInstance);
 
     const stimulus = Application.start(
       this.shadowRoot.firstElementChild as Element,
@@ -348,11 +407,30 @@ export class Userbar extends HTMLElement {
       },
     );
 
-    const { body: modalBody, dialog: modal } = await modalReady;
+    const { dialog, body } = await modalReady;
+    this.dialog = dialog;
+    this.dialogBody = body;
 
-    // Disable TS linter check for legacy code in 3rd party `A11yDialog` element
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    const accessibilityTrigger = this.shadowRoot.getElementById(
+      'accessibility-trigger',
+    );
+
+    const toggleAxeResults = () => {
+      if (!this.dialog.shown) {
+        this.dialog.show();
+      } else {
+        this.dialog.hide();
+      }
+    };
+
+    accessibilityTrigger?.addEventListener('click', toggleAxeResults);
+
+    await this.runAxe();
+  }
+
+  async runAxe() {
+    if (!this.shadowRoot) return;
+
     const accessibilityResultsBox = this.shadowRoot.querySelector(
       '#accessibility-results',
     );
@@ -360,29 +438,39 @@ export class Userbar extends HTMLElement {
     const a11yRowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
       '#w-a11y-result-row-template',
     );
-    const a11ySelectorTemplate =
-      this.shadowRoot.querySelector<HTMLTemplateElement>(
-        '#w-a11y-result-selector-template',
-      );
     const a11yOutlineTemplate =
       this.shadowRoot.querySelector<HTMLTemplateElement>(
         '#w-a11y-result-outline-template',
       );
 
     if (
+      !this.axeConfig ||
       !accessibilityResultsBox ||
       !a11yRowTemplate ||
-      !a11ySelectorTemplate ||
       !a11yOutlineTemplate
     ) {
       return;
+    }
+
+    // Collect content data from the live preview via Axe plugin for content metrics calculation
+    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig);
+
+    this.trigger.querySelector('[data-w-userbar-axe-count]')?.remove();
+    if (results.violations.length) {
+      const a11yErrorBadge = document.createElement('span');
+      a11yErrorBadge.textContent = String(a11yErrorsNumber);
+      a11yErrorBadge.classList.add('w-userbar-axe-count');
+      a11yErrorBadge.setAttribute(
+        'data-w-userbar-axe-count',
+        String(a11yErrorsNumber),
+      );
+      this.trigger.appendChild(a11yErrorBadge);
     }
 
     const innerErrorBadges = this.shadowRoot.querySelectorAll<HTMLSpanElement>(
       '[data-a11y-result-count]',
     );
     innerErrorBadges.forEach((badge) => {
-      // eslint-disable-next-line no-param-reassign
       badge.textContent = String(a11yErrorsNumber) || '0';
       badge.classList.toggle('has-errors', results.violations.length > 0);
     });
@@ -431,6 +519,7 @@ export class Userbar extends HTMLElement {
         z-index: 129;
         outline: 1px solid #CD4444;
         box-shadow: 0px 0px 12px 1px #FF0000;
+        pointer-events: none;
         `;
       };
 
@@ -449,23 +538,77 @@ export class Userbar extends HTMLElement {
       });
     };
 
-    const toggleAxeResults = () => {
-      if (accessibilityResultsBox.getAttribute('aria-hidden') === 'true') {
-        modal.show();
+    renderA11yResults(
+      this.dialogBody,
+      results,
+      this.axeConfig,
+      a11yRowTemplate,
+      onClickSelector,
+    );
 
-        renderA11yResults(
-          modalBody,
-          results,
-          config,
-          a11yRowTemplate,
-          a11ySelectorTemplate,
-          onClickSelector,
-        );
-      } else {
-        modal.hide();
-      }
-    };
+    // Notify the parent window when the userbar (and thus Axe) has been
+    // initialized and is ready, so that it can re-run Axe against this window.
+    // We do this here instead of in connectedCallback() or initializeAxe() to
+    // make sure that the message is sent only after Axe has finished running,
+    // otherwise the PreviewController's Axe may try to run Axe in this window
+    // while a previous run is still in progress, which will cause an error.
+    // This also allows custom code in the frontend to trigger a re-run of the
+    // checks both in the frontend and in the editor by calling this method.
+    this.postAxeReady();
+  }
 
-    accessibilityTrigger.addEventListener('click', toggleAxeResults);
+  get inCrossOriginIframe() {
+    try {
+      // Check if we can access the top window's origin.
+      // If we can, it's not a cross-origin iframe.
+      return !window.top?.origin;
+    } catch {
+      // If an error is thrown (e.g. SecurityError), it's likely cross-origin,
+      // e.g. in a headless setup.
+      return true;
+    }
+  }
+
+  postMessage(message: WagtailMessage) {
+    // Don't post messages if this window is not in an iframe.
+    if (window.top === window) return;
+    window.top?.postMessage({ wagtail: message }, this.origin);
+  }
+
+  postAxeReady() {
+    this.postMessage({ type: 'w-userbar:axe-ready' });
+  }
+
+  handleMessage(event: MessageEvent) {
+    const data = getWagtailMessage(event);
+    if (!data) return;
+
+    switch (data.type) {
+      case 'w-preview:get-scroll-position':
+        // This window is the old iframe
+        // and the preview panel requested the scroll position
+        this.postMessage({
+          type: 'w-preview:set-scroll-position',
+          x: window.scrollX,
+          y: window.scrollY,
+          origin: window.location.origin,
+        });
+        break;
+
+      case 'w-preview:set-scroll-position':
+        // This window is the new iframe
+        // and the preview panel sent the scroll position to be restored
+        window.scrollTo({ top: data.y, left: data.x, behavior: 'instant' });
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  disconnectedCallback() {
+    if (this.inCrossOriginIframe) {
+      window.removeEventListener('message', this.handleMessage);
+    }
   }
 }

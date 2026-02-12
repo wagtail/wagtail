@@ -34,6 +34,7 @@ class PageHistoryFilterSet(history.HistoryFilterSet):
 class PageWorkflowHistoryViewMixin:
     model = Page
     pk_url_kwarg = "page_id"
+    edit_url_name = "wagtailadmin_pages:edit"
 
     def dispatch(self, request, *args, **kwargs):
         if not self.object.permissions_for_user(request.user).can_edit():
@@ -44,17 +45,23 @@ class PageWorkflowHistoryViewMixin:
         return super().get_context_data(**kwargs, page=self.object)
 
 
-class WorkflowHistoryView(PageWorkflowHistoryViewMixin, history.WorkflowHistoryView):
+class WorkflowHistoryView(
+    PageWorkflowHistoryViewMixin,
+    GenericPageBreadcrumbsMixin,
+    history.WorkflowHistoryView,
+):
     header_icon = "doc-empty-inverse"
-    workflow_history_url_name = "wagtailadmin_pages:workflow_history"
     workflow_history_detail_url_name = "wagtailadmin_pages:workflow_history_detail"
 
 
 class WorkflowHistoryDetailView(
-    PageWorkflowHistoryViewMixin, history.WorkflowHistoryDetailView
+    PageWorkflowHistoryViewMixin,
+    GenericPageBreadcrumbsMixin,
+    history.WorkflowHistoryDetailView,
 ):
-    object_icon = "doc-empty-inverse"
+    header_icon = "doc-empty-inverse"
     workflow_history_url_name = "wagtailadmin_pages:workflow_history"
+    breadcrumbs_items_to_take = 2
 
 
 class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):

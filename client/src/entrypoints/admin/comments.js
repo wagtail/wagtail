@@ -1,25 +1,32 @@
 import { gettext } from '../../utils/gettext';
 import { initCommentApp } from '../../components/CommentApp/main';
 
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
+
 const KEYCODE_M = 77;
 
 /**
- * Entry point loaded when the comments system is in use.
+ * Entrypoint loaded when the comments system is in use.
  */
 window.comments = (() => {
   const commentApp = initCommentApp();
 
   /**
    * Returns true if the provided keyboard event is using the 'add/focus comment' keyboard
-   * shortcut
+   * shortcut and custom keyboard shortcuts enabled by user in settings.
    */
   function isCommentShortcut(e) {
-    return (e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === KEYCODE_M;
+    return (
+      WAGTAIL_CONFIG.KEYBOARD_SHORTCUTS_ENABLED &&
+      (e.ctrlKey || e.metaKey) &&
+      e.altKey &&
+      e.keyCode === KEYCODE_M
+    );
   }
 
   function getContentPath(fieldNode) {
     // Return the total contentpath for an element as a string, in the form field.streamfield_uid.block...
-    if (fieldNode.closest('[data-contentpath-disabled]')) {
+    if (!fieldNode || fieldNode.closest('[data-contentpath-disabled]')) {
       return '';
     }
     let element = fieldNode.closest('[data-contentpath]');
@@ -262,32 +269,20 @@ window.comments = (() => {
       );
     }
     const data = JSON.parse(dataElement.textContent);
-    commentApp.renderApp(
-      commentsElement,
-      commentsOutputElement,
-      data.user,
-      data.comments,
-      new Map(Object.entries(data.authors)),
-    );
+    commentApp.renderApp(commentsElement, commentsOutputElement, data);
 
     formElement
       .querySelectorAll('[data-component="add-comment-button"]')
       .forEach(initAddCommentButton);
 
     // Attach the commenting app to the tab navigation, if it exists
-    const tabNavElement = formElement.querySelector(
-      '[data-tabs] [role="tablist"]',
-    );
-    if (tabNavElement) {
-      commentApp.setCurrentTab(
-        tabNavElement
-          .querySelector('[role="tab"][aria-selected="true"]')
-          .getAttribute('href')
-          .replace('#', ''),
+    const tabs = formElement.querySelector('[data-controller~="w-tabs"]');
+    if (tabs) {
+      const initialTab = tabs.getAttribute('data-w-tabs-active-panel-id-value');
+      commentApp.setCurrentTab(initialTab);
+      tabs.addEventListener('w-tabs:changed', ({ detail: { current } }) =>
+        setTimeout(() => commentApp.setCurrentTab(current)),
       );
-      tabNavElement.addEventListener('switch', (e) => {
-        commentApp.setCurrentTab(e.detail.tab);
-      });
     }
 
     // Show comments app
@@ -348,6 +343,12 @@ window.comments = (() => {
     },
     { once: true },
   );
+
+  document.addEventListener('w-autosave:success', ({ detail }) => {
+    if (detail?.data?.comments) {
+      commentApp.updateData(detail.data.comments);
+    }
+  });
 
   return {
     commentApp,

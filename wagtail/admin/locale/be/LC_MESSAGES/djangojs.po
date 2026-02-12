@@ -1,12 +1,12 @@
 #
 # Translators:
-# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2022
-# Loic Teixeira, 2022
-# Andrei Satsevich, 2023
+# Loic Teixeira, 2024
+# Andrei Satsevich, 2026
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2026\n"
 "Language-Team: Belarusian (https://app.transifex.com/torchbox/teams/8009/"
 "be/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,6 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Actions"
+msgstr "Дзеянні"
+
+msgid "Add"
+msgstr "дадаць"
 
 msgid "Add a comment"
 msgstr "Дадаць каментар"
@@ -39,6 +45,12 @@ msgstr "Панэль кіравання"
 msgid "Delete"
 msgstr "Выдаліць"
 
+msgid "Drag"
+msgstr "Перацягнуць"
+
+msgid "Duplicate"
+msgstr "Дублікат"
+
 msgid "Edit"
 msgstr "Рэдагаваць"
 
@@ -57,6 +69,15 @@ msgstr "Загрузка..."
 msgid "Missing document"
 msgstr "Дакумент адсутнічае"
 
+msgid "Move down"
+msgstr "Падвінусь уніз"
+
+msgid "Move up"
+msgstr "Падвінуць наверх"
+
+msgid "No"
+msgstr "Не"
+
 msgid "No results"
 msgstr "Няма вынікаў"
 
@@ -68,6 +89,9 @@ msgstr "Агляд старонак"
 
 msgid "Pages"
 msgstr "Старонкі"
+
+msgid "Preview"
+msgstr "Папярэдні прагляд"
 
 msgid "Reload saved content"
 msgstr " Обнавиць захаваны змест"
@@ -90,6 +114,9 @@ msgstr "Усё паглядзець"
 msgid "Server Error"
 msgstr "Памылка Сервера"
 
+msgid "Settings"
+msgstr "Налады"
+
 msgid "Show error"
 msgstr "Паказаць памылку"
 
@@ -100,8 +127,17 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Рэдактар ​​зламаўся. Змест быў скінут да апошняй захаванай версіі."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максімальную колькасць элементаў %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Мінімальная колькасць элементаў %(min_num)d"
+
 msgid "This field is required."
 msgstr "Патрабуецца запоўніць гэтае поле."
 
 msgid "View child pages of '%(title)s'"
 msgstr "Прагляд даччынай старонкі «%(title)s»"
+
+msgid "Yes"
+msgstr "Так"

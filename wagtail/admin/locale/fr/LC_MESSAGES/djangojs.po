@@ -1,15 +1,16 @@
 #
 # Translators:
-# nahuel, 2022
 # Benoît Vogel <contact@spicy-informatique.com>, 2022
 # incognitae <pierre@onoffdesign.com>, 2022
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
-# Loic Teixeira, 2023
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2026
+# Loic Teixeira, 2026
+# nahuel, 2026
+# Sébastien Corbin <seb.corbin@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2026\n"
 "Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -31,11 +32,35 @@ msgstr[0] "%(num)s erreur"
 msgstr[1] "%(num)s erreurs"
 msgstr[2] "%(num)s erreurs"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s mins"
+msgstr[2] "%(num)s mins"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixels"
 msgstr[2] "%(num)s pixels"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s : %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "Une erreur réseau est survenue."
+
+msgid "A server error occurred."
+msgstr "Une erreur serveur est survenue."
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Add"
+msgstr "Ajouter"
 
 msgid "Add a comment"
 msgstr "Ajouter un commentaire"
@@ -46,6 +71,9 @@ msgstr "Texte alternatif"
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr(e) ?"
 
+msgid "Autosave in progress…"
+msgstr "Enregistrement automatique en cours..."
+
 msgid "Blocks"
 msgstr "Blocs"
 
@@ -54,6 +82,9 @@ msgstr "Lien mort"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "Changes have been autosaved."
+msgstr "Les modifications ont été enregistrées automatiquement."
 
 msgid "Character count:"
 msgstr "Nombre de caractères  :"
@@ -66,6 +97,10 @@ msgstr "Tout replier"
 
 msgid "Comment"
 msgstr "Commenter"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Complexe"
 
 msgid "Dashboard"
 msgstr "Tableau de bord"
@@ -81,6 +116,12 @@ msgstr "Supprimer l'erreur"
 
 msgid "Deleting"
 msgstr "Suppression…"
+
+msgid "Drag"
+msgstr "Glisser"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
 
 msgid "Edit"
 msgstr "Modifier"
@@ -101,8 +142,15 @@ msgstr ""
 msgid "Expand all"
 msgstr "Tout déplier"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Juste"
+
 msgid "Focus comment"
 msgstr "Mettre le commentaire au premier-plan"
+
+msgid "Good"
+msgstr "Bon"
 
 msgid "Horizontal line"
 msgstr "Ligne horizontale"
@@ -125,6 +173,15 @@ msgstr "Document manquant"
 msgid "More actions"
 msgstr "Plus d'actions"
 
+msgid "Move down"
+msgstr "Descendre"
+
+msgid "Move up"
+msgstr "Monter"
+
+msgid "No"
+msgstr "Non"
+
 msgid "No results"
 msgstr "Aucun résultat"
 
@@ -140,8 +197,11 @@ msgstr "Pages"
 msgid "Pin toolbar"
 msgstr "Épingler la barre d'outils"
 
+msgid "Preview"
+msgstr "Prévisualiser"
+
 msgid "Reload saved content"
-msgstr "Recharger le contenu sauvegardé"
+msgstr "Recharger le contenu enregistré"
 
 msgid "Reload the page"
 msgstr "Recharger la page"
@@ -167,15 +227,6 @@ msgstr "Enregistrer"
 msgid "Save error"
 msgstr "Enregistrer l'erreur"
 
-msgid "Save the page to add this comment"
-msgstr "Enregistrer la page pour ajouter ce commentaire"
-
-msgid "Save the page to save this comment"
-msgstr "Enregistrer la page pour enregistrer ce commentaire"
-
-msgid "Save the page to save this reply"
-msgstr "Enregistrer la page pour enregistrer ce commentaire"
-
 msgid "Saving..."
 msgstr "Enregistrement…"
 
@@ -191,6 +242,9 @@ msgstr "Tout voir"
 msgid "Server Error"
 msgstr "Erreur de serveur"
 
+msgid "Settings"
+msgstr "Paramètres"
+
 msgid "Show error"
 msgstr "Afficher l’erreur"
 
@@ -203,11 +257,20 @@ msgstr "Scinder le bloc"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
-"L’éditeur a rencontré un problème. Le dernier contenu sauvegardé a été "
-"restauré."
+"L’éditeur a rencontré un problème. Le contenu a été réinitialisé à la "
+"dernière version enregistrée."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Le nombre maximum d'éléments est %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Le nombre minimum d'éléments est %(min_num)d"
 
 msgid "This field is required."
 msgstr "Ce champ est requis."
+
+msgid "Toggle section"
+msgstr "Afficher/masquer la section"
 
 msgid "Toggle side panel"
 msgstr "Afficher/masquer le panneau latéral"
@@ -226,3 +289,6 @@ msgstr "Voir les sous-pages de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Écrivez quelque chose ou tapez « / » pour insérer un bloc"
+
+msgid "Yes"
+msgstr "Oui"

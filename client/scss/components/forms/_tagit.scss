@@ -1,3 +1,5 @@
+@use './input-base' as *;
+
 .tagit {
   @include input-base();
 

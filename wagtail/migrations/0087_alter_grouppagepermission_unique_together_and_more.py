@@ -17,12 +17,12 @@ class Migration(migrations.Migration):
         migrations.AddConstraint(
             model_name="grouppagepermission",
             constraint=models.CheckConstraint(
-                check=models.Q(
+                name="permission_or_permission_type_not_null",
+                condition=models.Q(
                     ("permission__isnull", False),
                     ("permission_type__isnull", False),
                     _connector="OR",
                 ),
-                name="permission_or_permission_type_not_null",
             ),
         ),
         migrations.AddConstraint(

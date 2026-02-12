@@ -11,7 +11,7 @@ describe('CloneController', () => {
     jest.clearAllTimers();
   });
 
-  describe('default behaviour', () => {
+  describe('default behavior', () => {
     const addedListener = jest.fn();
 
     document.addEventListener('w-clone:added', addedListener);
@@ -90,7 +90,7 @@ describe('CloneController', () => {
     });
   });
 
-  describe('additional behaviour', () => {
+  describe('additional behavior', () => {
     beforeAll(() => {
       application?.stop();
       document.body.innerHTML = `
@@ -337,6 +337,112 @@ describe('CloneController', () => {
       await Promise.resolve(jest.advanceTimersByTime(550));
 
       expect(document.querySelectorAll('.message')).toHaveLength(0);
+    });
+  });
+
+  describe('preventing addition of elements', () => {
+    beforeEach(() => {
+      application?.stop();
+
+      document.body.innerHTML = /* html */ `
+        <div
+          class="messages"
+          data-controller="w-clone"
+          data-action="w-clone:add@document->w-clone#add"
+        >
+          <ul data-w-clone-target="container"></ul>
+          <template data-w-clone-target="template">
+            <li class="success"><span></span></li>
+          </template>
+        </div>
+      `;
+
+      application = Application.start();
+      application.register('w-clone', CloneController);
+    });
+
+    it('should not add the message if the event was prevented', async () => {
+      const addedListener = jest.fn();
+      document.addEventListener('w-clone:added', addedListener, { once: true });
+      const text = 'first message text';
+
+      // Set up a one-time event listener on the body so it's prevented before
+      // it bubbles to the document-level listener in the controller
+      const blocker = jest.fn((event) => event.preventDefault());
+      document.body.addEventListener('w-clone:add', blocker, { once: true });
+      document.body.dispatchEvent(
+        new CustomEvent('w-clone:add', {
+          detail: { text },
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+
+      // the item should not be added
+      const item = document.querySelector('li');
+
+      expect(item).toBeNull();
+
+      expect(addedListener).not.toHaveBeenCalled();
+      expect(blocker).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('using non-standard templates', () => {
+    const setUp = async (templateHTML) => {
+      document.body.innerHTML = /* html */ `
+        <div
+          class="messages"
+          data-controller="w-clone"
+          data-action="w-clone:add@document->w-clone#add"
+        >
+          <ul data-w-clone-target="container"></ul>
+          ${templateHTML}
+        </div>
+      `;
+
+      await Promise.resolve();
+    };
+
+    beforeEach(() => {
+      application?.stop();
+      application = Application.start();
+      application.register('w-clone', CloneController);
+    });
+
+    it('should ignore templates that do not have a root element', async () => {
+      await setUp(/* html */ `
+        <template data-w-clone-target="template">
+          Text without an element
+        </template>
+      `);
+
+      const text = 'first message text';
+      document.dispatchEvent(
+        new CustomEvent('w-clone:add', { detail: { text } }),
+      );
+
+      const items = document.querySelectorAll('li');
+      expect(items).toHaveLength(0);
+    });
+
+    it('should allow specific element where the text is set', async () => {
+      await setUp(/* html */ `
+        <template data-w-clone-target="template" data-selector="p">
+          <li><h2>Message</h2><p></p></li>
+        </template>
+      `);
+
+      const text = 'first message text';
+      document.dispatchEvent(
+        new CustomEvent('w-clone:add', { detail: { text } }),
+      );
+
+      const items = document.querySelectorAll('li');
+      expect(items).toHaveLength(1);
+      expect(items[0].innerHTML).toEqual(
+        '<h2>Message</h2><p>first message text</p>',
+      );
     });
   });
 });

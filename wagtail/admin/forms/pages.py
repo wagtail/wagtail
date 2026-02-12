@@ -25,12 +25,16 @@ class CopyForm(forms.Form):
             initial=self.page.slug,
             label=_("New slug"),
             allow_unicode=allow_unicode,
-            widget=widgets.SlugInput,
+            widget=widgets.SlugInput(locale=self.page.locale),
         )
         self.fields["new_parent_page"] = forms.ModelChoiceField(
             initial=self.page.get_parent(),
             queryset=Page.objects.all(),
-            widget=widgets.AdminPageChooser(can_choose_root=True, user_perms="copy_to"),
+            widget=widgets.AdminPageChooser(
+                target_models=self.page.specific_class.allowed_parent_page_models(),
+                can_choose_root=True,
+                user_perms="copy_to",
+            ),
             label=_("New parent page"),
             help_text=_("This copy will be a child of this given parent page."),
         )
@@ -125,15 +129,27 @@ class CopyForm(forms.Form):
 
 class PageViewRestrictionForm(BaseViewRestrictionForm):
     def __init__(self, *args, **kwargs):
+        # get the list of private page options from the page
+        private_page_options = kwargs.pop("private_page_options", [])
+
         super().__init__(*args, **kwargs)
 
-        if not getattr(settings, "WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE", True):
+        if not getattr(settings, "WAGTAIL_PRIVATE_PAGE_OPTIONS", {}).get(
+            "SHARED_PASSWORD", True
+        ):
             self.fields["restriction_type"].choices = [
                 choice
                 for choice in PageViewRestriction.RESTRICTION_CHOICES
                 if choice[0] != PageViewRestriction.PASSWORD
             ]
             del self.fields["password"]
+        # Remove the fields that are not allowed for the page
+        self.fields["restriction_type"].choices = [
+            choice
+            for choice in self.fields["restriction_type"].choices
+            if choice[0] in private_page_options
+            or choice[0] == PageViewRestriction.NONE
+        ]
 
     class Meta:
         model = PageViewRestriction
@@ -189,6 +205,13 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             del self.formsets["comments"]
         return super().is_valid()
 
+    def serialize_comments(self, user):
+        if comments := self.formsets.get("comments"):
+            data = comments.serialize(self.is_bound, user)
+        else:
+            data = {"comments": [], "user": user.pk, "authors": {}}
+        return data
+
     def clean(self):
         cleaned_data = super().clean()
         if "slug" in self.cleaned_data:
@@ -198,13 +221,22 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
                     "slug",
                     forms.ValidationError(
                         _(
-                            "The slug '%(page_slug)s' is already in use within the parent page"
+                            "The slug '%(page_slug)s' is already in use within the parent page."
                         )
                         % {"page_slug": page_slug}
                     ),
                 )
 
         return cleaned_data
+
+    @property
+    def media(self):
+        media = super().media
+        if self.show_comments_toggle:
+            media += forms.Media(
+                js=["wagtailadmin/js/comments.js"],
+            )
+        return media
 
 
 class MoveForm(forms.Form):
@@ -226,3 +258,39 @@ class MoveForm(forms.Form):
             label=_("New parent page"),
             help_text=_("Select a new parent for this page."),
         )
+
+
+class ParentChooserForm(forms.Form):
+    def __init__(self, child_page_type, user, *args, **kwargs):
+        self.child_page_type = child_page_type
+        self.user = user
+        super().__init__(*args, **kwargs)
+        self.fields["parent_page"] = forms.ModelChoiceField(
+            queryset=Page.objects.all(),
+            widget=widgets.AdminPageChooser(
+                target_models=self.child_page_type.allowed_parent_page_models(),
+                can_choose_root=True,
+                user_perms="add_subpage",
+            ),
+            label=_("Parent page"),
+            help_text=_("The new page will be a child of this given parent page."),
+        )
+
+    def clean_parent_page(self):
+        parent_page = self.cleaned_data["parent_page"].specific_deferred
+        if not parent_page.permissions_for_user(self.user).can_add_subpage():
+            raise forms.ValidationError(
+                _('You do not have permission to create a page under "%(page_title)s".')
+                % {"page_title": parent_page.get_admin_display_title()}
+            )
+        if not self.child_page_type.can_create_at(parent_page):
+            raise forms.ValidationError(
+                _(
+                    'You cannot create a page of type "%(page_type)s" under "%(page_title)s".'
+                )
+                % {
+                    "page_type": self.child_page_type.get_verbose_name(),
+                    "page_title": parent_page.get_admin_display_title(),
+                }
+            )
+        return parent_page

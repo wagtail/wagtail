@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -47,7 +47,7 @@ class PublishRevisionAction:
         user=None,
         changed: bool = True,
         log_action: bool = True,
-        previous_revision: Optional[Revision] = None,
+        previous_revision: Revision | None = None,
     ):
         self.revision = revision
         self.object = self.revision.as_object()
@@ -64,7 +64,7 @@ class PublishRevisionAction:
             and not self.permission_policy.user_has_permission(self.user, "publish")
         ):
             raise PublishPermissionError(
-                "You do not have permission to publish this object"
+                "You do not have permission to publish this object."
             )
 
     def log_scheduling_action(self):
@@ -94,9 +94,8 @@ class PublishRevisionAction:
         )
 
         if isinstance(self.object, WorkflowMixin):
-            workflow_state = self.object.current_workflow_state
-            if workflow_state and getattr(
-                settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+            if getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True) and (
+                workflow_state := self.object.current_workflow_state
             ):
                 workflow_state.cancel(user=self.user)
 
@@ -107,7 +106,7 @@ class PublishRevisionAction:
         user,
         changed,
         log_action: bool,
-        previous_revision: Optional[Revision] = None,
+        previous_revision: Revision | None = None,
     ):
         from wagtail.models import Revision
 
@@ -115,11 +114,11 @@ class PublishRevisionAction:
             object.has_unpublished_changes = True
             # Instead set the approved_go_live_at of this revision
             revision.approved_go_live_at = object.go_live_at
-            revision.save()
+            revision.save(update_fields=["approved_go_live_at"])
             # And clear the approved_go_live_at of any other revisions
             object.revisions.exclude(id=revision.id).update(approved_go_live_at=None)
             # if we are updating a currently live object skip the rest
-            if object.live_revision:
+            if object.live_revision_id:
                 # Log scheduled publishing
                 if log_action:
                     self.log_scheduling_action()

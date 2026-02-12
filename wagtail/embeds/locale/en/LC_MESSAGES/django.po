@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Wagtail embeds"
 msgstr ""
 
-#: blocks.py:85 views/chooser.py:63
+#: blocks.py:86 views/chooser.py:63
 msgid "Cannot find an embed for this URL."
 msgstr ""
 
@@ -62,6 +62,6 @@ msgid ""
 "Please try again later."
 msgstr ""
 
-#: wagtail_hooks.py:51
+#: wagtail_hooks.py:38
 msgid "Embed"
 msgstr ""

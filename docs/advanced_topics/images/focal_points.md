@@ -1,3 +1,5 @@
+(image_focal_points)=
+
 # Focal points
 
 Focal points are used to indicate to Wagtail the area of an image that contains the subject.
@@ -18,6 +20,8 @@ attribute on the rendition to position the rendition based on the focal point in
 <div style="background-image: url('{{ image.url }}'); {{ image.background_position_style }}">
 </div>
 ```
+
+For sites enforcing a Content Security Policy, you can apply those styles via a `<style>` tag with a `nonce` attribute.
 
 ## Accessing the focal point in templates
 

@@ -1,6 +1,5 @@
-import itertools
-import re
-from typing import Any, Mapping, Union
+from collections.abc import Mapping
+from typing import Any
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -9,11 +8,12 @@ from django.db.models import Exists, IntegerField, Max, OuterRef, Q
 from django.db.models.functions import Cast
 from django.forms import Media
 from django.http import Http404, HttpResponse
-from django.template.loader import render_to_string
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
 from wagtail import hooks
+from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.icons import get_icons
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
@@ -35,11 +35,10 @@ User = get_user_model()
 
 
 class UpgradeNotificationPanel(Component):
-    name = "upgrade_notification"
     template_name = "wagtailadmin/home/upgrade_notification.html"
-    order = 100
+    dismissible_id = "last_upgrade_check"
 
-    def get_upgrade_check_setting(self) -> Union[bool, str]:
+    def get_upgrade_check_setting(self) -> bool | str:
         return getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True)
 
     def upgrade_check_lts_only(self) -> bool:
@@ -48,8 +47,19 @@ class UpgradeNotificationPanel(Component):
             return True
         return False
 
+    def get_dismissible_value(self, user) -> str:
+        if profile := getattr(user, "wagtail_userprofile", None):
+            return profile.dismissibles.get(self.dismissible_id)
+        return None
+
     def get_context_data(self, parent_context: Mapping[str, Any]) -> Mapping[str, Any]:
-        return {"lts_only": self.upgrade_check_lts_only()}
+        return {
+            "lts_only": self.upgrade_check_lts_only(),
+            "dismissible_id": self.dismissible_id,
+            "dismissible_value": self.get_dismissible_value(
+                parent_context["request"].user
+            ),
+        }
 
     def render_html(self, parent_context: Mapping[str, Any] = None) -> str:
         if (
@@ -67,7 +77,7 @@ class WhatsNewInWagtailVersionPanel(Component):
     order = 110
     _version = "4"
 
-    def get_whats_new_banner_setting(self) -> Union[bool, str]:
+    def get_whats_new_banner_setting(self) -> bool | str:
         return getattr(settings, "WAGTAIL_ENABLE_WHATS_NEW_BANNER", True)
 
     def get_dismissible_id(self) -> str:
@@ -284,20 +294,27 @@ class RecentEditsPanel(Component):
 
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
     template_name = "wagtailadmin/home.html"
-    page_title = gettext_lazy("Dashboard")
+    page_title = _("Dashboard")
+    permission_policy = page_permission_policy
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         panels = self.get_panels()
+        site_summary = SiteSummaryPanel(self.request)
         site_details = self.get_site_details()
 
-        context["media"] = self.get_media(panels)
+        context["media"] = self.get_media([*panels, site_summary])
         context["panels"] = sorted(panels, key=lambda p: p.order)
+        context["site_summary"] = site_summary
+        context["upgrade_notification"] = UpgradeNotificationPanel()
+        context["search_form"] = SearchForm(placeholder=_("Search all pages…"))
         context["user"] = self.request.user
 
         return {**context, **site_details}
 
-    def get_media(self, panels=[]):
+    def get_media(self, panels=None):
+        if panels is None:
+            panels = []
         media = Media()
 
         for panel in panels:
@@ -308,10 +325,8 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
     def get_panels(self):
         request = self.request
         panels = [
-            SiteSummaryPanel(request),
             # Disabled until a release warrants the banner.
             # WhatsNewInWagtailVersionPanel(),
-            UpgradeNotificationPanel(),
             WorkflowObjectsToModeratePanel(),
             UserObjectsInWorkflowModerationPanel(),
             RecentEditsPanel(),
@@ -350,32 +365,5 @@ def default(request):
     raise Http404
 
 
-icon_comment_pattern = re.compile(r"<!--.*?-->")
-_icons_html = None
-
-
-def icons():
-    global _icons_html
-    if _icons_html is None:
-        icon_hooks = hooks.get_hooks("register_icons")
-        all_icons = sorted(
-            itertools.chain.from_iterable(hook([]) for hook in icon_hooks)
-        )
-        combined_icon_markup = ""
-        for icon in all_icons:
-            symbol = (
-                render_to_string(icon)
-                .replace('xmlns="http://www.w3.org/2000/svg"', "")
-                .replace("svg", "symbol")
-            )
-            symbol = icon_comment_pattern.sub("", symbol)
-            combined_icon_markup += symbol
-
-        _icons_html = render_to_string(
-            "wagtailadmin/shared/icons.html", {"icons": combined_icon_markup}
-        )
-    return _icons_html
-
-
 def sprite(request):
-    return HttpResponse(icons())
+    return HttpResponse(get_icons(), content_type="image/svg+xml; charset=utf-8")

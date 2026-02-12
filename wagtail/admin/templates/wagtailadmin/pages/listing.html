@@ -1,0 +1,24 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load wagtailadmin_tags i18n %}
+{% comment %}
+    A base template for listing pages in the Wagtail admin. This is used as-is
+    by non-explorable listings, e.g. in a `PageListingViewSet`'s `IndexView` and
+    in the main "Search" view. It is also extended by explorable_index.html for
+    additional functionality.
+{% endcomment %}
+
+{% block bulk_actions %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=_("Select all pages in listing") app_label='wagtailcore' model_name='page' objects=page_obj %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% comment %}
+    The first column will display checkboxes only if ordering is not being carried out, in which case
+    that column will have the drag and drop buttons to enable ordering
+    {% endcomment %}
+    {% if not show_ordering_column %}
+        <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+    {% endif %}
+{% endblock %}

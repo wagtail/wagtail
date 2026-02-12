@@ -1,23 +1,17 @@
-from typing import Any, Dict
+from typing import Any
 
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
+from django.utils.functional import classproperty
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.forms.search import SearchForm
-from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.ui.tables.pages import (
-    BulkActionsColumn,
     NavigateToChildrenColumn,
-    PageStatusColumn,
-    PageTable,
-    PageTitleColumn,
-    ParentPageColumn,
 )
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
+from wagtail.admin.views.pages.listing import PageListingMixin
 from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
 from wagtail.search.query import MATCH_ALL
@@ -49,7 +43,7 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
     return pages, all_pages
 
 
-class BaseSearchView(PermissionCheckedMixin, BaseListingView):
+class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
     permission_policy = page_permission_policy
     any_permission_required = {
         "add",
@@ -60,43 +54,27 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         "unlock",
     }
     paginate_by = 20
-    page_kwarg = "p"
-    context_object_name = "pages"
-    table_class = PageTable
+    page_title = _("Search")
+    header_icon = "search"
     index_url_name = "wagtailadmin_pages:search"
+    index_results_url_name = "wagtailadmin_pages:search_results"
+    # We override get_queryset here that has a custom search implementation
+    is_searchable = True
+    # The queryset always gets passed to the search backend even if
+    # the search query is empty, so we are always "searching"
+    is_searching = True
+    # This view has its own filtering mechanism that doesn't use django-filter
+    filterset_class = None
+    template_name = "wagtailadmin/pages/search.html"
+    results_template_name = "wagtailadmin/pages/search_results.html"
 
-    columns = [
-        BulkActionsColumn("bulk_actions"),
-        PageTitleColumn(
-            "title",
-            classname="title",
-            label=_("Title"),
-            sort_key="title",
-        ),
-        ParentPageColumn("parent", label=_("Parent")),
-        DateColumn(
-            "latest_revision_created_at",
-            label=_("Updated"),
-            sort_key="latest_revision_created_at",
-            width="12%",
-        ),
-        Column(
-            "type",
-            label=_("Type"),
-            accessor="page_type_display_name",
-            width="12%",
-        ),
-        PageStatusColumn(
-            "status",
-            label=_("Status"),
-            sort_key="live",
-            width="12%",
-        ),
-        NavigateToChildrenColumn("navigate", width="10%"),
-    ]
+    @classproperty
+    def columns(cls):
+        columns = PageListingMixin.columns.copy()
+        columns.append(NavigateToChildrenColumn("navigate", width="10%"))
+        return columns
 
     def get(self, request):
-        self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
         self.content_types = []
         self.ordering = None
 
@@ -113,26 +91,26 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         if "content_type" in request.GET:
             try:
                 app_label, model_name = request.GET["content_type"].split(".")
-            except ValueError:
-                raise Http404
+            except ValueError as e:
+                raise Http404 from e
 
             try:
                 self.selected_content_type = ContentType.objects.get_by_natural_key(
                     app_label, model_name
                 )
-            except ContentType.DoesNotExist:
-                raise Http404
+            except ContentType.DoesNotExist as e:
+                raise Http404 from e
 
         else:
             self.selected_content_type = None
 
-        self.q = self.request.GET.get("q", "")
-
         return super().get(request)
 
     def get_queryset(self) -> QuerySet[Any]:
-        pages = self.all_pages = (
-            Page.objects.all().prefetch_related("content_type").specific()
+        pages = self.all_pages = Page.objects.all().filter(
+            pk__in=page_permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
         )
         if self.show_locale_labels:
             pages = pages.select_related("locale")
@@ -143,15 +121,17 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         if self.selected_content_type:
             pages = pages.filter(content_type=self.selected_content_type)
 
+        pages = self.annotate_queryset(pages)
+
         # Parse query and filter
         pages, self.all_pages = page_filter_search(
-            self.q, pages, self.all_pages, self.ordering
+            self.search_query, pages, self.all_pages, self.ordering
         )
 
         # Facets
         if pages.supports_facet:
             self.content_types = [
-                (ContentType.objects.get(id=content_type_id), count)
+                (ContentType.objects.get_for_id(content_type_id), count)
                 for content_type_id, count in self.all_pages.facet(
                     "content_type_id"
                 ).items()
@@ -159,33 +139,13 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
 
         return pages
 
-    def get_table_kwargs(self):
-        kwargs = super().get_table_kwargs()
-        kwargs["show_locale_labels"] = self.show_locale_labels
-        return kwargs
-
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context.update(
             {
                 "all_pages": self.all_pages,
-                "query_string": self.q,
                 "content_types": self.content_types,
                 "selected_content_type": self.selected_content_type,
-                "ordering": self.ordering,
             }
         )
         return context
-
-
-class SearchView(BaseSearchView):
-    template_name = "wagtailadmin/pages/search.html"
-
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = SearchForm(self.request.GET)
-        return context
-
-
-class SearchResultsView(BaseSearchView):
-    template_name = "wagtailadmin/pages/search_results.html"

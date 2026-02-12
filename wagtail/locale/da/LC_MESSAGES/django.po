@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -18,18 +18,6 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Move up"
-msgstr "Bevæg op"
-
-msgid "Move down"
-msgstr "Bevæg ned"
-
-msgid "Delete"
-msgstr "Slet"
-
-msgid "Add"
-msgstr "Tilføj"
-
 msgid "This field is required."
 msgstr "Dette felt er påkrævet."
 
@@ -38,6 +26,12 @@ msgstr "Låst"
 
 msgid "Unlocked"
 msgstr "Ulåst"
+
+msgid "uploaded by user"
+msgstr "uploaded af en bruger"
+
+msgid "Add"
+msgstr "Tilføj"
 
 msgid "Edit"
 msgstr "Rediger"
@@ -54,11 +48,14 @@ msgstr "Lås op"
 msgid "title"
 msgstr "Titel"
 
+msgid "For search engines"
+msgstr "Til søgemaskiner"
+
+msgid "For site menus"
+msgstr "For site-menuer"
+
 msgid "created at"
 msgstr "oprettet"
-
-msgid "Approve"
-msgstr "Godkend"
 
 msgid "default"
 msgstr "standardindstilling"
@@ -66,8 +63,14 @@ msgstr "standardindstilling"
 msgid "Public"
 msgstr "Offentlig"
 
+msgid "Approve"
+msgstr "Godkend"
+
 msgid "Edited"
 msgstr "Redigeret"
+
+msgid "Delete"
+msgstr "Slet"
 
 msgid "Unpublish"
 msgstr "Afpublicer"

@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2023-2024
 # Andrei Satsevich, 2023
-# Andrei Satsevich, 2024
+# Andrei Satsevich, 2024,2026
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # sergeybe <sergeybe@gmail.com>, 2020
 # sergeybe <sergeybe@gmail.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Twixxik, 2025
 # Vassily <zuber.kg@gmail.com>, 2017
 # Vassily <zuber.kg@gmail.com>, 2017
 # Виктор Виктор <spam.vitek@gmail.com>, 2020-2021
@@ -19,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Andrei Satsevich, 2024\n"
+"Last-Translator: Andrei Satsevich, 2024,2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -55,9 +57,6 @@ msgstr "Отменить рабочий процесс"
 msgid "Unpublish"
 msgstr "Отменить публикацию"
 
-msgid "Delete"
-msgstr "Удалить"
-
 msgid "Save"
 msgstr "Сохранить"
 
@@ -70,6 +69,9 @@ msgstr "%(label)s и Опубликовать"
 
 msgid "Wagtail snippets"
 msgstr "Фрагменты Wagtail"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Delete selected snippets"
 msgstr "Удалить выбранные фрагменты"
@@ -92,14 +94,6 @@ msgstr "Удалить %(snippet_type_name)s"
 
 msgid "Delete "
 msgstr "Удалить"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Используемо %(usage_count)s раз"
-msgstr[1] "Используемо %(usage_count)s раз"
-msgstr[2] "Используемо %(usage_count)s раз"
-msgstr[3] "Используемое %(usage_count)sраз"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -139,8 +133,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">создать сейчас</a>?,"
 
+msgid "Scheduling…"
+msgstr "Планирование…"
+
 msgid "Publishing…"
 msgstr "Публикуется..."
+
+msgid "Schedule to publish"
+msgstr "Запланировать публикацию"
 
 msgid "Publish this version"
 msgstr "Опубликовать эту версию"
@@ -157,35 +157,8 @@ msgstr "Изменить текущую версию"
 msgid "Save draft"
 msgstr "Сохранить черновик"
 
-msgid "Actions"
-msgstr "Действия"
-
 msgid "Select all snippets in listing"
 msgstr "Выбрать все фрагменты из списка"
-
-msgid "Live version"
-msgstr "Опубликованная версия"
-
-msgid "Current draft"
-msgstr "Черновик"
-
-msgid "Preview"
-msgstr "Предварительный просмотр"
-
-msgid "Edit"
-msgstr "Правка"
-
-msgid "Review this version"
-msgstr "Проверить эту версию"
-
-msgid "Compare with previous version"
-msgstr "Сравнить с предыдущей версией"
-
-msgid "Compare with current version"
-msgstr "Сравнить с текущей версией"
-
-msgid "Cancel scheduled publish"
-msgstr "Отменить запланированную публикацию"
 
 msgid "Choose"
 msgstr "Выбрать"
@@ -203,19 +176,13 @@ msgstr "Экземпляры"
 msgid "More options for '%(title)s'"
 msgstr "Дополнительные опции для '%(title)s'"
 
-msgid "Action"
-msgstr "Действие"
-
-msgid "Date"
-msgstr "Дата"
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "Запрос на создание %(model_name)s был заблокирован хуком."
 
 #, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Редактировать %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "%(model_name)s история"
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "Запрос на редактирование %(model_name)s был заблокирован хуком."
 
 msgid "Home"
 msgstr "Главная"

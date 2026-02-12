@@ -89,12 +89,12 @@ default_table_options = {
 
 ### Configuration Options
 
-Every key in the `table_options` dictionary maps to a [handsontable](https://handsontable.com/) option. These settings can be changed to alter the behaviour of tables in Wagtail. The following options are available:
+Every key in the `table_options` dictionary maps to a [handsontable](https://handsontable.com/) option. These settings can be changed to alter the behavior of tables in Wagtail. The following options are available:
 
 -   [minSpareRows](https://handsontable.com/docs/6.2.2/Options.html#minSpareRows) - The number of rows to append to the end of an empty grid. The default setting is 0.
 -   [startRows](https://handsontable.com/docs/6.2.2/Options.html#startRows) - The default number of rows for a new table.
 -   [startCols](https://handsontable.com/docs/6.2.2/Options.html#startCols) - The default number of columns for new tables.
--   [colHeaders](https://handsontable.com/docs/6.2.2/Options.html#colHeaders) - Can be set to `True` or `False`. This setting designates if new tables should be created with column headers. **Note:** this only sets the behaviour for newly created tables. Page editors can override this by checking the “Column header” checkbox in the table editor in the Wagtail admin.
+-   [colHeaders](https://handsontable.com/docs/6.2.2/Options.html#colHeaders) - Can be set to `True` or `False`. This setting designates if new tables should be created with column headers. **Note:** this only sets the behavior for newly created tables. Page editors can override this by checking the “Column header” checkbox in the table editor in the Wagtail admin.
 -   [rowHeaders](https://handsontable.com/docs/6.2.2/Options.html#rowHeaders) - Operates the same as `colHeaders` to designate if new tables should be created with the first column as a row header. Just like `colHeaders` this option can be overridden by the page editor in the Wagtail admin.
 -   [contextMenu](https://handsontable.com/docs/6.2.2/Options.html#contextMenu) - Enables or disables the Handsontable right-click menu. By default this is set to `True`. Alternatively you can provide a list or a dictionary with [specific options](https://handsontable.com/docs/6.2.2/demo-context-menu.html#page-specific).
 -   [editor](https://handsontable.com/docs/6.2.2/Options.html#editor) - Defines the editor used for table cells. The default setting is text.

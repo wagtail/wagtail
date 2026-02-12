@@ -1,7 +1,10 @@
+import uuid
+
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext
 
 from wagtail.admin.views.generic.preview import PreviewOnEdit as GenericPreviewOnEdit
 from wagtail.models import Page
@@ -14,9 +17,9 @@ def view_draft(request, page_id):
         raise PermissionDenied
 
     try:
-        preview_mode = page.default_preview_mode
-    except IndexError:
-        raise PermissionDenied
+        preview_mode = request.GET.get("mode", page.default_preview_mode)
+    except IndexError as e:
+        raise PermissionDenied from e
 
     return page.make_preview_request(request, preview_mode)
 
@@ -27,9 +30,13 @@ class PreviewOnEdit(GenericPreviewOnEdit):
         return "{}{}".format(self.session_key_prefix, self.kwargs["page_id"])
 
     def get_object(self):
-        return get_object_or_404(
+        page = get_object_or_404(
             Page, id=self.kwargs["page_id"]
         ).get_latest_revision_as_object()
+        page_perms = page.permissions_for_user(self.request.user)
+        if not page_perms.can_edit():
+            raise PermissionDenied
+        return page
 
     def get_form(self, query_dict):
         form_class = self.object.get_edit_handler().get_form_class()
@@ -42,6 +49,16 @@ class PreviewOnEdit(GenericPreviewOnEdit):
                 parent_page=parent_page,
                 for_user=self.request.user,
             )
+
+        query_dict = query_dict.copy()
+
+        if not query_dict.get("title"):
+            query_dict["title"] = gettext("Placeholder title")
+
+        # Generate a random slug if one is not provided, use UUID to ensure
+        # uniqueness without needing to hit the database
+        if not query_dict.get("slug"):
+            query_dict["slug"] = str(uuid.uuid4())
 
         return form_class(
             query_dict,
@@ -69,11 +86,16 @@ class PreviewOnCreate(PreviewOnEdit):
             content_type = ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name
             )
-        except ContentType.DoesNotExist:
-            raise Http404
+        except ContentType.DoesNotExist as e:
+            raise Http404 from e
 
         page = content_type.model_class()()
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
+
+        parent_page_perms = parent_page.permissions_for_user(self.request.user)
+        if not parent_page_perms.can_add_subpage():
+            raise PermissionDenied
+
         # We need to populate treebeard's path / depth fields in order to
         # pass validation. We can't make these 100% consistent with the rest
         # of the tree without making actual database changes (such as
@@ -95,9 +117,9 @@ class PreviewOnCreate(PreviewOnEdit):
 
     def get_form(self, query_dict):
         form = super().get_form(query_dict)
-        if form.is_valid():
+        if self.validate_form(form):
             # Ensures our unsaved page has a suitable url.
             form.instance.set_url_path(form.parent_page)
 
-            form.instance.full_clean()
+            form.instance.minimal_clean()
         return form

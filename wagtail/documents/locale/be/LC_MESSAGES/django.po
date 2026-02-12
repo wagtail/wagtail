@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -70,14 +70,6 @@ msgstr "Так, дадаць"
 msgid "No, don't add"
 msgstr "Не, не дадаваць"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Выкарыстоўваецца %(usage_count)s раз"
-msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
-msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
-msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
-
 msgid "Yes, delete"
 msgstr "Так, выдаліць"
 
@@ -99,27 +91,11 @@ msgstr "Змяніць дакумент:"
 msgid "Add a document"
 msgstr "Дадаць дакумент"
 
-msgid "Add document"
-msgstr "Дадаць дакумент"
-
 msgid "Uploading…"
 msgstr "Запампоўваецца..."
 
 msgid "Upload"
 msgstr "Запампаваць"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Рэдагаванне %(title)s"
-
-msgid "Editing"
-msgstr "Рэдагаванне"
-
-msgid "Save"
-msgstr "Захаваць"
-
-msgid "Delete document"
-msgstr "Выдаліць дакумент"
 
 msgid "Filesize"
 msgstr "Памер файла"
@@ -129,6 +105,14 @@ msgstr "Файл не знойдзены"
 
 msgid "Usage"
 msgstr "Выкарыстоўванне"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Выкарыстоўваецца %(usage_count)s раз"
+msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
+msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
+msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -153,9 +137,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Дадаць некалькі дакументаў"
-
-msgid "Add documents"
-msgstr "Дадаць дакументы"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Перацягні дакументы ў гэтую вобласць для неадкладнай загрузкі."
@@ -222,13 +203,15 @@ msgstr "Дакумент на можа быць захаваны з-за пам�
 msgid "Document '%(document_title)s' updated"
 msgstr "Дакумент '%(document_title)s' абноўлены"
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Файл не знойдзены. Калі ласка, змяніце крыніцу ці выдаліце дакумент."
+msgid "Delete document"
+msgstr "Выдаліць дакумент"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Дакумент '%(document_title)s' выдалены."
+
+msgid "Add documents"
+msgstr "Дадаць дакументы"
 
 msgid "Document"
 msgstr "Дакумент"

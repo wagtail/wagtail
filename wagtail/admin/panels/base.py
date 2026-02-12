@@ -5,6 +5,7 @@ from wagtail.admin.forms.models import (
     WagtailAdminDraftStateFormMixin,
     WagtailAdminModelForm,
 )
+from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.admin.ui.components import Component
 from wagtail.blocks import StreamValue
 from wagtail.coreutils import safe_snake_case
@@ -57,8 +58,8 @@ class Panel:
     with the field list and other parameters collated from all panels in the structure.
     It then handles rendering that form as HTML.
 
-    The following parameters can be used to customise how the panel is displayed.
-    For more details, see :ref:`customising_panels`.
+    The following parameters can be used to customize how the panel is displayed.
+    For more details, see :ref:`customizing_panels`.
 
     :param heading: The heading text to display for the panel.
     :param classname: A CSS class name to add to the panel's HTML element.
@@ -223,6 +224,7 @@ class Panel:
 
         return value
 
+    @register_telepath_adapter
     class BoundPanel(Component):
         """
         A template component for a panel that has been associated with a model instance, form, and request.
@@ -324,3 +326,14 @@ class Panel:
                 self.request,
                 self.form.__class__.__name__,
             )
+
+        telepath_adapter_name = "wagtail.panels.Panel"
+
+        def js_opts(self):
+            return {
+                "type": type(self.panel).__name__,
+                "prefix": self.prefix,
+            }
+
+        def telepath_pack(self, context):
+            return (self.telepath_adapter_name, [self.js_opts()])

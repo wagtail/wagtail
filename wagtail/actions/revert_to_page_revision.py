@@ -49,7 +49,7 @@ class RevertToPageRevisionAction:
             and not self.page.permissions_for_user(self.user).can_edit()
         ):
             raise RevertToPageRevisionPermissionError(
-                "You do not have permission to edit this page"
+                "You do not have permission to edit this page."
             )
 
     def execute(self, skip_permission_checks=False):

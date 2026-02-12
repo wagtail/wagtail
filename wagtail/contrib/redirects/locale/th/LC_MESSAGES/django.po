@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -69,12 +69,6 @@ msgstr "ชั่วคราว"
 msgid "redirect"
 msgstr "กำหนดทิศทางใหม่"
 
-msgid "Add redirect"
-msgstr "เพิ่มทิศทางใหม่"
-
-msgid "Save"
-msgstr "เซฟ,เก็บรักษา"
-
 msgid "Redirects"
 msgstr "การกำหนดหลายทิศทาง"
 
@@ -82,27 +76,11 @@ msgstr "การกำหนดหลายทิศทาง"
 msgid "Delete redirect %(title)s"
 msgstr "ลบการกำหนดทิศทาง %(title)s"
 
-msgid "Delete"
-msgstr "ลบ"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้งการกำหนดทิศทางใหม่นี้?"
 
-msgid "Yes, delete"
-msgstr "ใช่,ลบทิ้ง"
-
 msgid "Preview"
 msgstr "ภาพตัวอย่าง"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "กำลังแก้ไข %(title)s"
-
-msgid "Editing"
-msgstr "กำลังแก้ไข"
-
-msgid "Delete redirect"
-msgstr "ลบการกำหนดทิศทางทิ้ง"
 
 msgid "From"
 msgstr "จาก"
@@ -112,12 +90,6 @@ msgstr "ถึง"
 
 msgid "Continue"
 msgstr "ต่อ,ต่อเนื่อง"
-
-msgid "Site"
-msgstr "เว็บไซด์"
-
-msgid "Edit this redirect"
-msgstr "แก้ไขการกำหนดทิศทางนี้"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -131,26 +103,29 @@ msgstr ""
 "ไม่มีการกำคุณไม่หนดทิศทางถูกสร้างขึ้น ทำไมคุณไม่<a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">เพิ่มหนึ่งอัน</a>?"
 
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกอัพเดทแล้ว"
+msgid "Add redirect"
+msgstr "เพิ่มทิศทางใหม่"
 
-msgid "Edit"
-msgstr "แก้ไข"
+msgid "Site"
+msgstr "เว็บไซด์"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "การกำหนดทิศทางไม่สามารถเซฟได้ในขณะที่เกิดข้อผิดพลาด"
 
 #, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกอัพเดทแล้ว"
+
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกลบทิ้งแล้ว"
+
+msgid "The redirect could not be created due to errors."
+msgstr "การกำหนดทิศทางไม่สามารถถูกสร้างขึ้นได้ในขณะที่เกิดข้อผิดพลาด"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกเพิ่มแล้ว"
-
-msgid "The redirect could not be created due to errors."
-msgstr "การกำหนดทิศทางไม่สามารถถูกสร้างขึ้นได้ในขณะที่เกิดข้อผิดพลาด"
 
 msgid "Search redirects"
 msgstr "ค้นหาหลายการกำหนดทิศทาง"

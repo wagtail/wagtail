@@ -11,9 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2023-2024\n"
+"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
+"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -100,12 +101,6 @@ msgstr "перенаправлення"
 msgid "redirects"
 msgstr "перенаправлення"
 
-msgid "Add redirect"
-msgstr "Додати перенарпавлення"
-
-msgid "Save"
-msgstr "Зберегти"
-
 msgid "Redirects"
 msgstr "Список перенаправлень"
 
@@ -119,14 +114,8 @@ msgstr "Імпортувати"
 msgid "Delete redirect %(title)s"
 msgstr "Видалити перенаправлення %(title)s"
 
-msgid "Delete"
-msgstr "Видалити"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Ви впевнені, що бажаєте видалити це перенаправлення?"
-
-msgid "Yes, delete"
-msgstr "Так, видалити"
 
 msgid "Confirm import"
 msgstr "Підтвердити імпорт"
@@ -139,16 +128,6 @@ msgstr "Скасувати"
 
 msgid "Preview"
 msgstr "Попередній перегляд"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Редагування %(title)s"
-
-msgid "Editing"
-msgstr "Редагування"
-
-msgid "Delete redirect"
-msgstr "Видалити перенаправлення"
 
 msgid "Summary"
 msgstr "Інформація"
@@ -172,26 +151,6 @@ msgstr "Помилка"
 msgid "Continue"
 msgstr "Продовжити"
 
-msgid "Export redirects"
-msgstr "Експортувати перенаправлення"
-
-msgid "Site"
-msgstr "Сайт"
-
-msgid "Edit this redirect"
-msgstr "Редагувати це перенаправлення"
-
-msgid "No redirects found."
-msgstr "Перенаправлень не знайдено."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Знайдено %(counter)s співпадіння"
-msgstr[1] "Знайдено %(counter)s співпадінь"
-msgstr[2] "Знайдено %(counter)s співпадінь"
-msgstr[3] "Знайдено %(counter)s співпадінь"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -205,41 +164,32 @@ msgstr ""
 "Ще немає жодного перенаправлення. Чому б не <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">створити якесь</a>?"
 
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "Перенаправлення '%(redirect_title)s' оновлено."
+msgid "Add redirect"
+msgstr "Додати перенарпавлення"
 
-msgid "Edit"
-msgstr "Редагувати"
+msgid "Site"
+msgstr "Сайт"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "Перенаправлення не може бути збережене через помилки."
 
 #, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Перенаправлення '%(redirect_title)s' оновлено."
+
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Перенаправлення '%(redirect_title)s' видалено."
+
+msgid "The redirect could not be created due to errors."
+msgstr "Перенаправлення не може бути створене через помилки."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Перенаправлення '%(redirect_title)s' додано."
 
-msgid "The redirect could not be created due to errors."
-msgstr "Перенаправлення не може бути створене через помилки."
-
 msgid "Search redirects"
 msgstr "Пошук перенаправлень"
-
-#, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "Формат файлу \"%(extension)s\" не підтримується"
-
-#, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "Імпортований файл має неправильне кодування: %(error_message)s"
-
-#, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s помилок при читанні файлу: %(filename)s "
 
 #, python-format
 msgid "Imported %(total)d redirect"
@@ -248,6 +198,3 @@ msgstr[0] "Імпортовано %(total)d перенапрвлення"
 msgstr[1] "Імпортовано %(total)d перенапрвлень"
 msgstr[2] "Імпортовано %(total)d перенапрвлень"
 msgstr[3] "Імпортовано %(total)d перенапрвлень"
-
-msgid "Export Redirects"
-msgstr "Екпортувати Перенаправлення"

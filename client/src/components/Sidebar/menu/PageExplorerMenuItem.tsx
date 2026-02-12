@@ -12,6 +12,7 @@ import {
 } from '../../PageExplorer/actions';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
+import SubMenuCloseButton from './SubMenuCloseButton';
 
 export const PageExplorerMenuItem: React.FunctionComponent<
   MenuItemProps<PageExplorerMenuItemDefinition>
@@ -69,6 +70,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
   const className =
     'sidebar-menu-item sidebar-page-explorer-item' +
     (isActive ? ' sidebar-menu-item--active' : '') +
+    (isOpen ? ' sidebar-sub-menu-item--open' : '') +
     (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '');
 
   const sidebarTriggerIconClassName =
@@ -97,6 +99,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
           depth={depth}
           widthPx={485}
         >
+          <SubMenuCloseButton isVisible={isVisible} dispatch={dispatch} />
           {store.current && (
             <Provider store={store.current}>
               <PageExplorer

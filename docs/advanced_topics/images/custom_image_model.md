@@ -30,14 +30,22 @@ class CustomImage(AbstractImage):
         # 'caption',
     )
 
+    @property
+    def default_alt_text(self):
+        # Force editors to add specific alt text if description is empty.
+        # Do not use image title which is typically derived from file name.
+        return getattr(self, "description", None)
 
 class CustomRendition(AbstractRendition):
     image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
 
     class Meta:
-        unique_together = (
-            ('image', 'filter_spec', 'focal_point_key'),
-        )
+       constraints = [
+            models.UniqueConstraint(
+                fields=("image", "filter_spec", "focal_point_key"),
+                name="unique_rendition",
+            )
+        ]
 ```
 
 Then set the `WAGTAILIMAGES_IMAGE_MODEL` setting to point to it:
@@ -76,17 +84,17 @@ The following methods can be overridden on your custom `Image` or `Rendition` mo
 
 ```{eval-rst}
 .. automodule:: wagtail.images.models
-    :noindex:
+    :no-index:
 
 .. class:: AbstractImage
-    :noindex:
+    :no-index-entry:
 
     .. automethod:: get_upload_to
 
 .. class:: AbstractRendition
-    :noindex:
+    :no-index-entry:
 
     .. automethod:: get_upload_to
 ```
 
-Refer to the Django [`FileField.upload_to`](https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.FileField.upload_to) function to further understand how the function works.
+Refer to the Django [`FileField.upload_to`](django.db.models.FileField.upload_to) function to further understand how the function works.

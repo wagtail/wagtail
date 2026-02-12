@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -48,9 +48,6 @@ msgstr "Administrasaun Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Deskulpa, ita boot laiha permisaun atu assesu ba area ida nee."
 
-msgid "You do not have permission to access the admin"
-msgstr "It boot laiha permisaun atu assesu ba administrasaun"
-
 msgid "None"
 msgstr "Mamuk"
 
@@ -59,6 +56,9 @@ msgstr "Data husi"
 
 msgid "Date to"
 msgstr "Data to'o"
+
+msgid "Collection"
+msgstr "Kolleksaun"
 
 msgid "Preferred language"
 msgstr "Prefere lian"
@@ -104,9 +104,6 @@ msgstr "Buka"
 msgid "All collections"
 msgstr "Koleksaun hotu-hotu"
 
-msgid "Collection"
-msgstr "Kolleksaun"
-
 msgid "Parent"
 msgstr "Inan-aman"
 
@@ -125,9 +122,6 @@ msgstr "Hamoos"
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 "Ita tenki hatama tempu no loron publika molok tempu no loron expirasuan "
-
-msgid "Expiry date/time must be in the future"
-msgstr "Ita boot tenki hatama tempu no loron expirasuan iha futuru"
 
 msgid "New title"
 msgstr "Titlu foun"
@@ -183,6 +177,9 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Ita boot labele kopia pajina iha rasik laran bainhira kopia pajina oan sira"
 
+msgid "Parent page"
+msgstr "inan-aman"
+
 msgid "Visibility"
 msgstr "Visibilidade"
 
@@ -215,9 +212,6 @@ msgstr "Deskulpa! Ita boot husu ba pajina, maibee ami la hetan."
 
 msgid "Go to Wagtail admin"
 msgstr "Ba administrasaun Wagtail"
-
-msgid "Account"
-msgstr "Konta"
 
 msgid "Reset password"
 msgstr "Inisiu troka seña"
@@ -311,17 +305,11 @@ msgstr "Esplora pajina iha  '%(title)s' nia okos"
 msgid "Explore"
 msgstr "Esplora"
 
-msgid "Collection privacy"
-msgstr "Rekolla privasidade"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Koleksaun nee halo privadu ona husi koleksaun inan-aman"
 
 msgid "You can edit the privacy settings on:"
 msgstr "Ita boot bele troka konfigurasaun privado iha:"
-
-msgid "Save"
-msgstr "Rai"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -348,9 +336,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Koleksaun nee labele hamoos tanba laos mamuk. Iha laran:"
 
-msgid "Name"
-msgstr "Naran"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -365,25 +350,19 @@ msgstr "Sin, hamoos"
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "La publika %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Sin, subar"
 
 msgid "No, don't unpublish"
 msgstr "Lae, la subar"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Asaun sira"
+
 msgid "Update"
 msgstr "Troka"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparasaun %(title)s"
-
-msgid "Comparing"
-msgstr "Comparasaun"
 
 msgid "Fields"
 msgstr "Attributu sira"
@@ -391,21 +370,20 @@ msgstr "Attributu sira"
 msgid "Changes"
 msgstr "Troka sira"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Benvindu ba %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
 "Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
 
+msgid "Account"
+msgstr "Konta"
+
+msgid "Status"
+msgstr "Estadu"
+
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
-
-msgid "Actions"
-msgstr "Asaun sira"
 
 msgid "Draft"
 msgstr "Esbosu"
@@ -415,9 +393,6 @@ msgstr "Ativu"
 
 msgid "Your most recent edits"
 msgstr "Ita boot nia troka sira"
-
-msgid "Status"
-msgstr "Estadu"
 
 msgid "Date"
 msgstr "Data"
@@ -471,12 +446,6 @@ msgstr "Pájina \"%(title)s\" rejeita ona "
 
 msgid "You can preview the page here:"
 msgstr "Ita-boot bele prevee pájina neʼe:"
-
-msgid "Page privacy"
-msgstr "Pájina privasidade"
-
-msgid "This page has been made private by a parent page."
-msgstr "Pájina ida ne'e, sai privadu husi pájina hun ida."
 
 msgid "Publishing…"
 msgstr "Publika hela..."
@@ -561,15 +530,6 @@ msgstr "Kópia "
 msgid "Copy this page"
 msgstr "Kópia pájina ne'e   "
 
-msgid "This page has unsaved changes."
-msgstr "Pajina ne'e iha sasan troka la salva ona."
-
-msgid "Live version"
-msgstr "revisaun publiku"
-
-msgid "Current draft"
-msgstr "Esbosu agora dadaun"
-
 msgid "Configure a site now."
 msgstr "Konfigura situs ida agora"
 
@@ -583,18 +543,6 @@ msgstr "Esplora pajina iha '%(title)s' nia okos"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Aumenta pajina iha '%(title)s' okos"
-
-msgid "Drag"
-msgstr "Rasta"
-
-msgid "Disable ordering of child pages"
-msgstr "Xavi orden pajina"
-
-msgid "Sort"
-msgstr "Orden"
-
-msgid "Enable ordering of child pages"
-msgstr "Loke pajina orden"
 
 msgid "Sites menu"
 msgstr "Munu situs"
@@ -614,17 +562,11 @@ msgstr "Pajina nee la publiku"
 msgid "Add child page"
 msgstr "Aumenta pajina iha okos"
 
-msgid "Cancel scheduled publish"
-msgstr "Kansela orariu publiku"
-
 msgid "Page types"
 msgstr "Tipu pajina sira"
 
 msgid "Enter a search term above"
 msgstr "Hatama termu buka iha leten"
-
-msgid "No pages use"
-msgstr "Laiha pajina nebee uza"
 
 #, python-format
 msgid "Add %(label)s"
@@ -635,6 +577,9 @@ msgstr "Muda ba leten"
 
 msgid "Move down"
 msgstr "Muda ba kraik"
+
+msgid "Drag"
+msgstr "Rasta"
 
 msgid "Type"
 msgstr "Tipu"
@@ -648,21 +593,20 @@ msgstr "Pajina sira"
 msgid "Locked"
 msgstr "Xavi tiha ona"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pajina %(page_num)s husi %(total_pages)s"
+msgid "Name"
+msgstr "Naran"
 
 msgid "Breadcrumb"
 msgstr "Hatudu dalan korta"
+
+msgid "Continue"
+msgstr "Kontinua"
 
 msgid "Download CSV"
 msgstr "Download CSV"
 
 msgid "Filter"
 msgstr "Filtru"
-
-msgid "Root"
-msgstr "Abut"
 
 msgid "Current page status:"
 msgstr "Status pajina dadaun"
@@ -671,11 +615,8 @@ msgid "Visit the live page"
 msgstr "Vizita pajina publiku"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hamoos orariu revizaun %(revision.id)s ba %(title)s"
-
-msgid "Unschedule"
-msgstr "Hamoos orariu"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pajina %(page_num)s husi %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ita serteza hakarak hamoos orariu revizaun nee?"
@@ -688,6 +629,9 @@ msgstr "Lae, la hamoos"
 
 msgid "Other searches"
 msgstr "Buka seluk"
+
+msgid "Save"
+msgstr "Rai"
 
 msgid "Unlocked"
 msgstr "Loke tiha ona"
@@ -709,6 +653,9 @@ msgstr[0] "Uza dala %(usage_count)s"
 msgid "Edited"
 msgstr "Hadia tiha ona"
 
+msgid "Sort"
+msgstr "Orden"
+
 msgid "Add a child page"
 msgstr "Hatama pajina oan"
 
@@ -727,6 +674,12 @@ msgstr "%(time_period)s liubá"
 
 msgid "Log out"
 msgstr "Sai"
+
+msgid "Undo"
+msgstr " La halo "
+
+msgid "Redo"
+msgstr "Halo fila fali"
 
 msgid "Password"
 msgstr "Seña"
@@ -754,18 +707,27 @@ msgstr "Koleksaun '%(object)s' hadia ona."
 msgid "The collection could not be saved due to errors."
 msgstr "Koleksaun iha erru, labele rai"
 
-msgid "Delete collection"
-msgstr "Hamoos Koleksaun"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Koleksaun '%(object)s' hamoos ona."
+
+msgid "Delete collection"
+msgstr "Hamoos Koleksaun"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ita boot serteza hamoos koleksaun nee?"
 
 msgid "Home"
 msgstr "Uma"
+
+msgid "Live version"
+msgstr "revisaun publiku"
+
+msgid "Current draft"
+msgstr "Esbosu agora dadaun"
+
+msgid "Cancel scheduled publish"
+msgstr "Kansela orariu publiku"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -774,10 +736,6 @@ msgstr "%(model_name)s '%(object)s' hadia ona."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' kria ona"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr " Edit '%(title)s'"
 
 msgid "Inspect"
 msgstr "Inspeksaun"
@@ -789,11 +747,11 @@ msgstr "Hadia hela"
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' hamoos ona."
 
-msgid "Inspecting"
-msgstr "Inspeksaun tiha ona"
-
 msgid "Latest"
 msgstr " Mak tardi liu"
+
+msgid "Unschedule"
+msgstr "Hamoos orariu"
 
 #, python-format
 msgid "Edit this %(object)s"

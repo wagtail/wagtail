@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -28,26 +28,10 @@ msgstr "חיפוש מושגים/משפט"
 msgid "Please specify at least one recommendation for this search term."
 msgstr "אנא ציין לפחות המלצה אחת למונח חיפוש זה"
 
-msgid "Save"
-msgstr "שמור"
-
-msgid "Delete"
-msgstr "מחיקה"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "האם אתם בטוחים כי ברצונכם למחוק את כל התוצאות המקודמות עבור מונח חיפוש זה?"
-
-msgid "Yes, delete"
-msgstr "כן, מחק"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "עריכת %(query)s"
-
-msgid "Editing"
-msgstr "עריכה"
 
 msgid "Move up"
 msgstr "העבר מעלה"
@@ -55,23 +39,14 @@ msgstr "העבר מעלה"
 msgid "Move down"
 msgstr "העבר מטה"
 
+msgid "Drag"
+msgstr "גרור"
+
+msgid "Delete"
+msgstr "מחיקה"
+
 msgid "Promoted search results"
 msgstr "תוצאות חיפוש מקודמות "
-
-msgid "Search Terms"
-msgstr "מושגי חיפוש"
-
-msgid "Add new promoted result"
-msgstr "הוסף תוצאה מקודמת חדשה"
-
-msgid "Promoted results"
-msgstr "תוצאות מקודמות "
-
-msgid "External link"
-msgstr "קישור חיצוני"
-
-msgid "None"
-msgstr "אף אחת"
 
 msgid "Popular search terms"
 msgstr "מושגי חיפוש פופולארים"
@@ -88,22 +63,31 @@ msgstr "לא נמצאו תוצאות "
 msgid "Choose from popular search terms"
 msgstr "בחירה ממושגי חיפוש פופולארים"
 
+msgid "External link"
+msgstr "קישור חיצוני"
+
+msgid "None"
+msgstr "אף אחת"
+
+msgid "Date"
+msgstr "תאריך"
+
+msgid "Add new promoted result"
+msgstr "הוסף תוצאה מקודמת חדשה"
+
+msgid "Promoted results"
+msgstr "תוצאות מקודמות "
+
+msgid "Promoted search result"
+msgstr "קדם תוצאת חיפוש"
+
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "בחירת העורך עבור '%(query)s' נוצרה"
 
-msgid "Edit"
-msgstr "ערוך"
-
-msgid "Recommendations have not been created due to errors"
-msgstr "המלצות לא נשמרו בעקבות שגיאה"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "בחירת העורך עבור '%(query)s' עודכנה"
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "ההמלצות לא נשמרו עקב שגיאות"
 
 msgid "Editor's picks deleted."
 msgstr "בחירת העורך נמחקה"

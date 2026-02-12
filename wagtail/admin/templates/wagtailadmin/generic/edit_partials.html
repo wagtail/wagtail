@@ -1,0 +1,100 @@
+{% load wagtailadmin_tags %}
+
+{% block title %}
+    <template
+        data-controller="w-teleport"
+        data-w-teleport-target-value="head title"
+        data-w-teleport-mode-value="textContent"
+    >
+        {{ header_title }}
+    </template>
+{% endblock %}
+
+{% block side_panels %}
+    {% for panel in side_panels %}
+        <template
+            data-controller="w-teleport"
+            data-w-teleport-target-value="[data-side-panel='{{ panel.name }}']"
+            data-w-teleport-mode-value="innerHTML"
+        >
+            {% include "wagtailadmin/shared/side_panels/includes/side_panel.html" with panel=panel %}
+        </template>
+    {% endfor %}
+{% endblock side_panels %}
+
+{% block breadcrumbs %}
+    <template
+        data-controller="w-teleport"
+        data-w-teleport-target-value="header [data-w-breadcrumbs]"
+        data-w-teleport-mode-value="outerHTML"
+    >
+        {% block breadcrumbs_content %}
+            {% breadcrumbs breadcrumbs_items icon_name=icon_name %}
+        {% endblock %}
+
+        {% block header_buttons %}
+            {% if hydrate_create_view %}
+                {% fragment as actions %}
+                    {% for button in header_buttons %}
+                        {% component button %}
+                    {% endfor %}
+                {% endfragment %}
+
+                {% include "wagtailadmin/shared/headers/_actions.html" with actions=actions %}
+            {% endif %}
+        {% endblock %}
+    </template>
+{% endblock %}
+
+{% block history_link %}
+    {% if hydrate_create_view and history_url %}
+        <template
+            data-controller="w-teleport"
+            data-w-teleport-target-value="[data-side-panel-toggle]:last-of-type"
+            data-w-teleport-mode-value="afterend"
+        >
+            {% include "wagtailadmin/shared/headers/_history_icon_link.html" with history_url=history_url only %}
+        </template>
+    {% endif %}
+{% endblock %}
+
+{% block form_title_heading %}
+    <template
+        data-controller="w-teleport"
+        data-w-teleport-target-value="#header-title span"
+        data-w-teleport-mode-value="textContent"
+    >
+        {{ page_subtitle|default:page_title }}
+    </template>
+{% endblock %}
+
+{% block form %}
+    {% if hydrate_create_view and object.latest_revision_id and loaded_revision_created_at %}
+        <template
+            data-controller="w-teleport"
+            data-w-teleport-target-value="form[data-edit-form]"
+            data-w-teleport-mode-value="afterbegin"
+        >
+            {% include "wagtailadmin/generic/includes/_loaded_revision_inputs.html" with loaded_revision_id=object.latest_revision_id loaded_revision_created_at=loaded_revision_created_at only %}
+        </template>
+    {% endif %}
+{% endblock %}
+
+{% block editing_sessions %}
+    {% comment %}
+        The create view is not initially loaded with the editing sessions module,
+        as it requires the instance to exist. Once the instance is created, we
+        load the module into place adjacent to the autosave indicator.
+    {% endcomment %}
+    {% if hydrate_create_view and editing_sessions %}
+        <template
+            data-controller="w-teleport"
+            data-w-teleport-target-value="#w-autosave-indicator"
+            data-w-teleport-mode-value="afterend"
+        >
+            {% component editing_sessions %}
+        </template>
+    {% endif %}
+{% endblock %}
+
+{% block extra %}{% endblock %}

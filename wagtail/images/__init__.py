@@ -15,7 +15,7 @@ def get_image_model():
     """
     Get the image model from the ``WAGTAILIMAGES_IMAGE_MODEL`` setting.
     Useful for developers making Wagtail plugins that need the image model.
-    Defaults to the standard :class:`~wagtail.images.models.Image` model
+    Defaults to the standard ``wagtail.images.models.Image`` model
     if no custom model is defined.
     """
     from django.apps import apps
@@ -23,12 +23,12 @@ def get_image_model():
     model_string = get_image_model_string()
     try:
         return apps.get_model(model_string, require_ready=False)
-    except ValueError:
+    except ValueError as e:
         raise ImproperlyConfigured(
             "WAGTAILIMAGES_IMAGE_MODEL must be of the form 'app_label.model_name'"
-        )
-    except LookupError:
+        ) from e
+    except LookupError as e:
         raise ImproperlyConfigured(
             "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed"
             % model_string
-        )
+        ) from e

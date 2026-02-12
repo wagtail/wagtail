@@ -5,7 +5,7 @@
 # Translators:
 # Dominik Lech, 2022
 # Dominik Lech, 2022
-# Krzysztof Jeziorny <github@jeziorny.net>, 2021
+# Krzysztof Jeziorny <github@jeziorny.net>, 2021,2024
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2021,2023\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,16 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Obrazy Wagtail"
+
+msgid "Image is decorative"
+msgstr "Obrazek jest dekoracyjny"
+
+msgid "Alt text"
+msgstr "Tekst alternatywny"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Proszę dodaj tekst alternatywny do obrazka lub oznacz go jako dekoracyjny"
 
 #, python-format
 msgid ""
@@ -91,16 +101,6 @@ msgstr "Kolekcja"
 msgid "Format"
 msgstr "Format"
 
-msgid "Image is decorative"
-msgstr "Obrazek jest dekoracyjny"
-
-msgid "Alt text"
-msgstr "Tekst alternatywny"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Proszę dodaj tekst alternatywny do obrazka lub oznacz go jako dekoracyjny"
-
 msgid "Filter"
 msgstr "Filtr"
 
@@ -154,6 +154,9 @@ msgstr "tytuł"
 
 msgid "file"
 msgstr "plik"
+
+msgid "description"
+msgstr "opis"
 
 msgid "width"
 msgstr "szerokość"
@@ -252,14 +255,6 @@ msgstr[1] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
 msgstr[2] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
 msgstr[3] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Użyto %(usage_count)s raz"
-msgstr[1] "Użyto %(usage_count)s razy"
-msgstr[2] "Użyto %(usage_count)s razy"
-msgstr[3] "Użyto %(usage_count)s razy"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Nie posiadasz uprawnień do usunięcia tego obrazu"
@@ -308,13 +303,6 @@ msgstr "Nie przesłano żadnych obrazów do tej kolekcji"
 msgid "You haven't uploaded any images."
 msgstr "Nie przesłałeś żadnych obrazów."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Dlaczego nie <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>wgrać jednego teraz</a>?"
-
 msgid "Choose a format"
 msgstr "Wybierz format"
 
@@ -327,27 +315,17 @@ msgstr "Zmień plik obrazu:"
 msgid "Add an image"
 msgstr "Dodaj obraz"
 
-msgid "Add image"
-msgstr "Dodaj obraz"
+msgid "Uploading…"
+msgstr "Wgrywanie…"
 
-msgid "Save"
-msgstr "Zapisz"
+msgid "Upload"
+msgstr "Prześlij"
 
 msgid "Keep new image"
 msgstr "Zachowaj nowy obraz"
 
 msgid "Delete new image"
 msgstr "Usuń nowy obraz"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Edycja obrazu %(title)s"
-
-msgid "Editing"
-msgstr "Edycja"
-
-msgid "Delete image"
-msgstr "Usuń obraz"
 
 msgid "Image focal point"
 msgstr "Punkt ogniskowy zdjęcia"
@@ -386,17 +364,16 @@ msgstr "Plik nie został odnaleziony"
 msgid "Usage"
 msgstr "Użycie"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Użyto %(usage_count)s raz"
+msgstr[1] "Użyto %(usage_count)s razy"
+msgstr[2] "Użyto %(usage_count)s razy"
+msgstr[3] "Użyto %(usage_count)s razy"
+
 msgid "Sort by"
 msgstr "Sortuj przez"
-
-msgid "Entries per page"
-msgstr "Wpisów na stronę"
-
-msgid "Popular Tags:"
-msgstr "Popularne Tagi:"
-
-msgid "Clear"
-msgstr "Wyczyść"
 
 msgid "Select all images in listing"
 msgstr "Zaznacz wszystkie dobrazy na liście"
@@ -427,11 +404,20 @@ msgstr "Podgląd"
 msgid "URL"
 msgstr "URL"
 
+msgid "Image URL"
+msgstr "URL obrazu"
+
+msgid "Copy URL"
+msgstr "Kopiuj URL"
+
+msgid "Copied to clipboard"
+msgstr "Skopiowano do schowka"
+
+msgid "Copying to clipboard failed"
+msgstr "Kopiowanie do schowka nie powiodło się"
+
 msgid "Add multiple images"
 msgstr "Dodaj wiele obrazów"
-
-msgid "Add images"
-msgstr "Dodaj obrazki"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Przeciągnij i upusć obrazki w to miejsce żeby je natychmiast przesłać"
@@ -441,6 +427,11 @@ msgstr "Lub wybierz z komputera"
 
 msgid "Add to collection:"
 msgstr "Dodaj do kolekcji:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr "Prosimy podaj opis obrazu, by spełniać warunki dostępności."
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -522,11 +513,11 @@ msgstr[1] "%(num_parent_objects)d obrazów zostało usunięte"
 msgstr[2] "%(num_parent_objects)d obrazów zostało usunięte"
 msgstr[3] "%(num_parent_objects)d obrazów zostało usunięte"
 
-msgid "Upload"
-msgstr "Prześlij"
+msgid "Title"
+msgstr "Tytuł"
 
-msgid "Uploading…"
-msgstr "Wgrywanie…"
+msgid "Created"
+msgstr "Utworzone"
 
 msgid "Choose an image"
 msgstr "Wybierz obraz"
@@ -558,15 +549,12 @@ msgstr "Rozmiar pliku: (większy do mniejszego)"
 msgid "Images"
 msgstr "Obrazy"
 
+msgid "The image could not be saved due to errors."
+msgstr "Obraz nie mógł zostać zapisany z powodu błędów."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Uaktualniono obraz '%(image_title)s'."
-
-msgid "Edit again"
-msgstr "Ponowna edycja"
-
-msgid "The image could not be saved due to errors."
-msgstr "Obraz nie mógł zostać zapisany z powodu błędów."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -575,16 +563,25 @@ msgstr ""
 "Plik źródłowy obrazu nie mógł zostać znaleziony. Proszę zmień źródło lub "
 "usuń obraz."
 
+msgid "Generate URL"
+msgstr "Wygeneruj URL"
+
+msgid "Delete image"
+msgstr "Usuń obraz"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Usunięto obraz '%(image_title)s'."
+
+msgid "The image could not be created due to errors."
+msgstr "Obraz nie mógł zostać stworzony z powodu błędów."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Dodano obraz '%(image_title)s'."
 
-msgid "The image could not be created due to errors."
-msgstr "Obraz nie mógł zostać stworzony z powodu błędów."
+msgid "Add images"
+msgstr "Dodaj obrazki"
 
 msgid "Image"
 msgstr "Obraz"

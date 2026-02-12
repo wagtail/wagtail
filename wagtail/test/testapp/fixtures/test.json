@@ -29,6 +29,7 @@
       "content_type": ["wagtailcore", "page"],
       "path": "0001",
       "url_path": "/",
+      "locale_id": 1,
       "slug": "root"
     }
   },
@@ -46,6 +47,7 @@
       "content_type": ["wagtailcore", "page"],
       "path": "00010001",
       "url_path": "/home/",
+      "locale_id": 1,
       "slug": "home",
       "first_published_at": "2014-01-01T12:00:00.000Z",
       "last_published_at": "2014-02-01T12:00:00.000Z"
@@ -63,6 +65,7 @@
       "depth": 3,
       "content_type": ["tests", "eventindex"],
       "path": "000100010001",
+      "locale_id": 1,
       "url_path": "/home/events/",
       "slug": "events"
     }
@@ -87,6 +90,7 @@
       "depth": 4,
       "content_type": ["tests", "eventpage"],
       "path": "0001000100010001",
+      "locale_id": 1,
       "url_path": "/home/events/christmas/",
       "slug": "christmas",
       "owner": 2
@@ -117,6 +121,7 @@
       "depth": 4,
       "content_type": ["tests", "singleeventpage"],
       "path": "0001000100010005",
+      "locale_id": 1,
       "url_path": "/home/events/saint-patrick/",
       "slug": "saint-patrick",
       "owner": 2
@@ -146,6 +151,7 @@
     "model": "tests.eventpagespeaker",
     "fields": {
       "page": 4,
+      "locale_id": 1,
       "first_name": "Father",
       "last_name": "Christmas",
       "sort_order": 0
@@ -164,6 +170,7 @@
       "depth": 4,
       "content_type": ["tests", "eventpage"],
       "path": "0001000100010002",
+      "locale_id": 1,
       "url_path": "/home/events/tentative-unpublished-event/",
       "slug": "tentative-unpublished-event",
       "owner": 2
@@ -193,6 +200,7 @@
       "depth": 4,
       "content_type": ["tests", "eventpage"],
       "path": "0001000100010003",
+      "locale_id": 1,
       "url_path": "/home/events/someone-elses-event/",
       "slug": "someone-elses-event",
       "owner": 3
@@ -222,6 +230,7 @@
       "depth": 3,
       "content_type": ["tests", "simplepage"],
       "path": "000100010002",
+      "locale_id": 1,
       "url_path": "/home/about-us/",
       "slug": "about-us",
       "first_published_at": "2014-01-01T12:00:00.000Z",
@@ -248,6 +257,7 @@
       "depth": 3,
       "content_type": ["tests", "formpage"],
       "path": "000100010003",
+      "locale_id": 1,
       "url_path": "/home/contact-us/",
       "slug": "contact-us"
     }
@@ -274,6 +284,7 @@
       "depth": 4,
       "content_type": ["tests", "eventpage"],
       "path": "0001000100010004",
+      "locale_id": 1,
       "url_path": "/home/events/final-event/",
       "slug": "final-event",
       "owner": 3
@@ -349,6 +360,7 @@
       "depth": 3,
       "content_type": ["tests", "pagewitholdstyleroutemethod"],
       "path": "000100010004",
+      "locale_id": 1,
       "url_path": "/home/old-style-route/",
       "slug": "old-style-route"
     }
@@ -373,6 +385,7 @@
       "depth": 3,
       "content_type": ["tests", "simplepage"],
       "path": "000100010005",
+      "locale_id": 1,
       "url_path": "/home/secret-plans/",
       "slug": "secret-plans"
     }
@@ -397,6 +410,7 @@
       "depth": 4,
       "content_type": ["tests", "eventpage"],
       "path": "0001000100050001",
+      "locale_id": 1,
       "url_path": "/home/secret-plans/steal-underpants/",
       "slug": "steal-underpants"
     }
@@ -424,6 +438,7 @@
       "depth": 3,
       "content_type": ["wagtailcore", "page"],
       "path": "000100010006",
+      "locale_id": 1,
       "url_path": "/home/my-locked-page/",
       "slug": "my-locked-page",
       "locked": true
@@ -441,6 +456,7 @@
       "depth": 4,
       "content_type": ["tests", "businessindex"],
       "path": "0001000100010006",
+      "locale_id": 1,
       "url_path": "/home/events/businessy-events/",
       "slug": "businessy-events",
       "owner": 2
@@ -464,6 +480,7 @@
       "depth": 5,
       "content_type": ["tests", "businesssubindex"],
       "path": "00010001000100060001",
+      "locale_id": 1,
       "url_path": "/home/events/businessy-events/board-meetings/",
       "slug": "board-meetings",
       "owner": 2
@@ -487,6 +504,7 @@
       "depth": 3,
       "content_type": ["tests", "formpagewithcustomsubmission"],
       "path": "000100010007",
+      "locale_id": 1,
       "url_path": "/home/contact-us-one-more-time/",
       "slug": "contact-us-one-more-time"
     }
@@ -583,6 +601,7 @@
       "depth": 3,
       "content_type": ["tests", "simplepage"],
       "path": "000100010008",
+      "locale_id": 1,
       "url_path": "/home/secret-event-editor-plans/",
       "slug": "secret-event-editor-plans"
     }
@@ -606,6 +625,7 @@
       "depth": 3,
       "content_type": ["tests", "simplepage"],
       "path": "000100010009",
+      "locale_id": 1,
       "url_path": "/home/secret-login-plans/",
       "slug": "secret-login-plans"
     }
@@ -629,6 +649,7 @@
       "depth": 2,
       "content_type": ["wagtailcore", "page"],
       "path": "00010002",
+      "locale_id": 1,
       "url_path": "/does-not-exist/",
       "slug": "does-not-exist"
     }
@@ -645,6 +666,7 @@
       "depth": 3,
       "content_type": ["tests", "pagewithexcludedcopyfield"],
       "path": "000100010010",
+      "locale_id": 1,
       "url_path": "/home/page-with-exclude-fields-in-copy/",
       "slug": "page-with-exclude-fields-in-copy"
     }
@@ -879,6 +901,15 @@
     }
   },
   {
+    "pk": 2,
+    "model": "wagtaildocs.Document",
+    "fields": {
+      "title": "another test document",
+      "created_at": "2020-01-01T12:00:00.000Z",
+      "file": "documents/another_test.pdf"
+    }
+  },
+  {
     "pk": 1,
     "model": "wagtailcore.pageviewrestriction",
     "fields": {
@@ -913,6 +944,17 @@
       "width": 1000,
       "height": 1000,
       "created_at": "2014-01-01T12:00:00.000Z"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailimages.image",
+    "fields": {
+      "title": "Another image",
+      "file": "original_images/another.jpg",
+      "width": 1000,
+      "height": 1000,
+      "created_at": "2020-01-01T12:00:00.000Z"
     }
   },
   {
@@ -1006,6 +1048,13 @@
     "model": "tests.modelwithstringtypeprimarykey",
     "fields": {
       "content": "non-url-safe pk modelwithstringtypeprimarykey model"
+    }
+  },
+  {
+    "pk": "web_407269_1",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "unquote-sensitive modelwithstringtypeprimarykey model"
     }
   }
 ]

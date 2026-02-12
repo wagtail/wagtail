@@ -74,7 +74,6 @@ const updateScrollPosition = (list: HTMLOListElement) => {
   }
 
   // Scroll changes require mutating this property.
-  // eslint-disable-next-line no-param-reassign
   list.scrollTop = newScroll;
 };
 
@@ -222,6 +221,8 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
             className="w-minimap__toggle"
             // Not the most correct label, but matches side panels with similar toggles.
             aria-label={gettext('Toggle side panel')}
+            data-controller="w-kbd"
+            data-w-kbd-key-value="]"
           >
             <Icon name="expand-right" />
           </button>

@@ -1,18 +1,18 @@
 #
 # Translators:
-# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2022
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2022
-# Oscar Luciano Espirilla Flores, 2022
 # Hector Garcia <torkoff@gmail.com>, 2022
-# José Luis <alagunajs@gmail.com>, 2022
 # Antoni Aloy <aaloy@apsl.net>, 2022
-# Amós Oviedo <amos.oviedo@gmail.com>, 2022
-# Loic Teixeira, 2022
-# X Bello <xbello@gmail.com>, 2023
+# Loic Teixeira, 2024
+# Oscar Luciano Espirilla Flores, 2025
+# X Bello <xbello@gmail.com>, 2025
+# José Luis <alagunajs@gmail.com>, 2026
+# Amós Oviedo <amos.oviedo@gmail.com>, 2026
+# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: X Bello <xbello@gmail.com>, 2023\n"
+"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2026\n"
 "Language-Team: Spanish (https://app.transifex.com/torchbox/teams/8009/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
@@ -27,6 +27,12 @@ msgstr "(1 elemento nuevo en este menú)"
 
 msgid "(New)"
 msgstr "(Nuevo)"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Add"
+msgstr "Agregar"
 
 msgid "Add a comment"
 msgstr "Añadir un comentario"
@@ -73,6 +79,12 @@ msgstr "Eliminar error"
 msgid "Deleting"
 msgstr "Eliminando"
 
+msgid "Drag"
+msgstr "Arrastrar"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
 msgid "Edit"
 msgstr "Editar"
 
@@ -115,6 +127,15 @@ msgstr "Documento faltante"
 msgid "More actions"
 msgstr "Más acciones"
 
+msgid "Move down"
+msgstr "Bajar"
+
+msgid "Move up"
+msgstr "Subir"
+
+msgid "No"
+msgstr "No"
+
 msgid "No results"
 msgstr "Sin resultados"
 
@@ -126,6 +147,9 @@ msgstr "Explorador de página"
 
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "Preview"
+msgstr "Vista previa"
 
 msgid "Reload saved content"
 msgstr "Recargar contenido guardado"
@@ -154,15 +178,6 @@ msgstr "Guardar"
 msgid "Save error"
 msgstr "Guardar error"
 
-msgid "Save the page to add this comment"
-msgstr "Guarda la página para añadir este comentario"
-
-msgid "Save the page to save this comment"
-msgstr "Guarda la página para guardar este comentario"
-
-msgid "Save the page to save this reply"
-msgstr "Guarda la página para guardar esta respuesta"
-
 msgid "Saving..."
 msgstr "Guardando..."
 
@@ -174,6 +189,9 @@ msgstr "Ver todo"
 
 msgid "Server Error"
 msgstr "Error de servidor"
+
+msgid "Settings"
+msgstr "Propiedades"
 
 msgid "Show error"
 msgstr "Mostrar error"
@@ -190,8 +208,17 @@ msgstr ""
 "El editor simplemente se colgó. El contenido se ha restablecido a la última "
 "versión guardada."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "El máximo número de elementos es %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "El mínimo número de elementos es %(min_num)d"
+
 msgid "This field is required."
 msgstr "Este campo es necesario."
+
+msgid "Toggle section"
+msgstr "Alternar sección"
 
 msgid "Toggle side panel"
 msgstr "Alternar menú lateral"
@@ -207,3 +234,6 @@ msgstr "Ver páginas hijas de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escribe algo o pulsa '/' para insertar un bloque"
+
+msgid "Yes"
+msgstr "Sí"

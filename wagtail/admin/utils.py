@@ -1,7 +1,10 @@
+import re
+from types import SimpleNamespace
 from urllib.parse import parse_qs, urlsplit, urlunsplit
 
 from django.conf import settings
 from django.utils.http import url_has_allowed_host_and_scheme, urlencode
+from django.utils.translation import gettext
 
 
 def get_admin_base_url():
@@ -30,10 +33,19 @@ def get_latest_str(obj):
     from wagtail.models import DraftStateMixin, Page
 
     if isinstance(obj, Page):
-        return obj.specific_deferred.get_admin_display_title()
-    if isinstance(obj, DraftStateMixin) and obj.latest_revision:
-        return obj.latest_revision.object_str
-    return str(obj)
+        result = obj.specific_deferred.get_admin_display_title()
+    elif isinstance(obj, DraftStateMixin) and obj.latest_revision:
+        result = obj.latest_revision.object_str
+    else:
+        result = str(obj)
+
+    if result.strip() == "":
+        result = gettext("%(classname)s object (%(id)s)") % {
+            "classname": obj.__class__.__name__,
+            "id": obj.pk,
+        }
+
+    return result
 
 
 def get_user_display_name(user):
@@ -70,3 +82,30 @@ def set_query_params(url: str, params: dict):
     querydict = {key: value for key, value in querydict.items() if value is not None}
     query = urlencode(querydict, doseq=True)
     return urlunsplit((scheme, netloc, path, query, fragment))
+
+
+def get_keyboard_key_labels_from_request(request):
+    """
+    Returns an instance of SimpleNamespace based on the user's keyboard layout
+    based on the User-Agent header in the request.
+
+    These are intentionally not translated, as they are key labels that are assumed
+    to be consistent across all languages.
+    """
+
+    user_agent = request.headers.get("User-Agent", "")
+    is_mac_os = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
+
+    labels = {
+        "ALT": "⌥" if is_mac_os else "Alt",
+        "CMD": "⌘" if is_mac_os else "Ctrl",
+        "CTRL": "^" if is_mac_os else "Ctrl",
+        "DEL": "Delete",
+        "ENTER": "Return" if is_mac_os else "Enter",
+        "ESC": "Esc",
+        "MOD": "⌘" if is_mac_os else "Ctrl",
+        "SHIFT": "Shift",
+        "TAB": "Tab",
+    }
+
+    return SimpleNamespace(**labels)

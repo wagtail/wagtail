@@ -1,0 +1,18 @@
+{% load i18n wagtailadmin_tags %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <ul class="workflow-tasks">
+        {% for task in tasks %}
+            <a href="{% url 'wagtailadmin_workflows:edit_task' task.task_id %}">
+                <li class="workflow-tasks__task" data-controller="w-tooltip" data-w-tooltip-content-value="{% blocktrans trimmed with forloop.counter|intcomma as step_number %}Step {{ step_number }}{% endblocktrans %}: {{ task.task.name }}">
+                    <div class="workflow-tasks__step">{% blocktrans trimmed with forloop.counter|intcomma as step_number %}Step {{ step_number }}{% endblocktrans %}</div>
+                    <h4 class="workflow-tasks__name">{{ task.task.name }}</h4>
+                </li>
+            </a>
+        {% endfor %}
+        {% if extra_count > 0 %}
+            <li class="workflow-tasks__extra-tasks">
+                {% blocktrans trimmed with counter=extra_count|intcomma count counter_val=extra_count %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+            </li>
+        {% endif %}
+    </ul>
+</td>

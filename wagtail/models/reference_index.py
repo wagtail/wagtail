@@ -1,8 +1,12 @@
 import uuid
+from itertools import groupby
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRel
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, models
+from django.db.models import CharField, Count, OuterRef, Subquery
+from django.db.models.functions import Cast, Coalesce
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
@@ -19,7 +23,7 @@ class ReferenceGroups:
     Groups records in a ReferenceIndex queryset by their source object.
 
     Args:
-        qs: (QuerySet[ReferenceIndex]) A QuerySet on the ReferenceIndex model
+        qs: (QuerySet[ReferenceIndex] | list[ReferenceIndex]) A QuerySet or list of ReferenceIndex instances
 
     Yields:
         A tuple (source_object, references) for each source object that appears
@@ -29,7 +33,10 @@ class ReferenceGroups:
     """
 
     def __init__(self, qs):
-        self.qs = qs.order_by("base_content_type", "object_id")
+        if isinstance(qs, models.QuerySet):
+            self.qs = qs.order_by("base_content_type", "object_id")
+        else:
+            self.qs = sorted(qs, key=lambda x: (x.base_content_type_id, x.object_id))
 
     def __iter__(self):
         reference_fk = None
@@ -56,7 +63,14 @@ class ReferenceGroups:
 
     @cached_property
     def _count(self):
-        return self.qs.values("base_content_type", "object_id").distinct().count()
+        if isinstance(self.qs, models.QuerySet) and not self.qs._result_cache:
+            return self.qs.values("base_content_type", "object_id").distinct().count()
+        return len(
+            {
+                (reference.base_content_type_id, reference.object_id)
+                for reference in self.qs
+            }
+        )
 
     @cached_property
     def is_protected(self):
@@ -83,6 +97,22 @@ class ReferenceIndexQuerySet(models.QuerySet):
         references grouped by their source instance.
         """
         return ReferenceGroups(self)
+
+    def group_by_source_object_in_bulk(self):
+        """
+        Returns a dict that maps (to_content_type_id, to_object_id) to a
+        ReferenceGroups object for this queryset that will yield references
+        grouped by their source instance for each referenced instance.
+        """
+        qs = self.order_by(
+            "to_content_type", "to_object_id", "base_content_type", "object_id"
+        )
+        return {
+            key: ReferenceGroups(list(references))
+            for key, references in groupby(
+                qs, key=lambda x: (x.to_content_type_id, x.to_object_id)
+            )
+        }
 
 
 class ReferenceIndex(models.Model):
@@ -174,6 +204,16 @@ class ReferenceIndex(models.Model):
                 "to_object_id",
                 "content_path_hash",
             )
+        ]
+        indexes = [
+            models.Index(
+                name="referenceindex_source_object",
+                fields=["base_content_type", "object_id"],
+            ),
+            models.Index(
+                name="referenceindex_target_object",
+                fields=["to_content_type", "to_object_id"],
+            ),
         ]
 
     @classmethod
@@ -384,7 +424,7 @@ class ReferenceIndex(models.Model):
                             to_content_type_id,
                             to_object_id,
                             f"{relation_name}.item.{model_path}",
-                            f"{relation_name}.{str(child_object.id)}.{content_path}",
+                            f"{relation_name}.{str(child_object.pk)}.{content_path}",
                         )
                         for to_content_type_id, to_object_id, model_path, content_path in cls._extract_references_from_object(
                             child_object
@@ -525,6 +565,21 @@ class ReferenceIndex(models.Model):
         ).delete()
 
     @classmethod
+    def remove_references_to(cls, object):
+        """
+        Deletes all inbound references to the given object.
+
+        Use this when deleting the object itself to prevent orphaned references.
+
+        Args:
+            object (Model): The model instance to delete ReferenceIndex records for (as a target)
+        """
+        base_content_type = cls._get_base_content_type(object)
+        cls.objects.filter(
+            to_content_type=base_content_type, to_object_id=object.pk
+        ).delete()
+
+    @classmethod
     def get_references_for_object(cls, object):
         """
         Returns all outbound references for the given object.
@@ -557,6 +612,57 @@ class ReferenceIndex(models.Model):
         )
 
     @classmethod
+    def get_references_to_in_bulk(cls, objects):
+        """
+        Returns all inbound references for the given objects.
+
+        Args:
+            objects: An iterable of model instances to fetch ReferenceIndex
+            records for, which may be of different models
+
+        Returns:
+            A QuerySet of ReferenceIndex records
+        """
+        if isinstance(objects, models.QuerySet):
+            return cls.objects.filter(
+                to_content_type_id=cls._get_base_content_type(objects.model).pk,
+                to_object_id__in=objects.values_list(
+                    Cast("pk", output_field=models.CharField()),
+                    flat=True,
+                ),
+            )
+        if not objects:
+            return cls.objects.none()
+
+        objects_by_ct = groupby(
+            sorted(objects, key=lambda obj: cls._get_base_content_type(obj).pk),
+            key=lambda obj: cls._get_base_content_type(obj).pk,
+        )
+        condition = models.Q()
+        for content_type_id, objs in objects_by_ct:
+            condition |= models.Q(
+                to_content_type_id=content_type_id,
+                to_object_id__in=[str(obj.pk) for obj in objs],
+            )
+        return cls.objects.filter(condition)
+
+    @classmethod
+    def get_count_references_to_in_bulk(cls, objects):
+        references = cls.get_references_to_in_bulk(objects)
+        qs = references.values("to_content_type", "to_object_id").annotate(
+            count=Count("pk")
+        )
+        counts = {}
+        for entry in qs:
+            counts[(entry["to_content_type"], entry["to_object_id"])] = entry["count"]
+        return {
+            object: counts.get(
+                (cls._get_base_content_type(object).pk, str(object.pk)), 0
+            )
+            for object in objects
+        }
+
+    @classmethod
     def get_grouped_references_to(cls, object):
         """
         Returns all inbound references for the given object, grouped by the object
@@ -569,6 +675,45 @@ class ReferenceIndex(models.Model):
             A ReferenceGroups object
         """
         return cls.get_references_to(object).group_by_source_object()
+
+    @classmethod
+    def get_grouped_references_to_in_bulk(cls, objects):
+        """
+        Returns all inbound references for the given objects, grouped by the object
+        they are found on for each given object.
+
+        Args:
+            object: An iterable of model instances to fetch ReferenceIndex records for
+
+        Returns:
+            An dict that maps a model instance to a ReferenceGroups object
+        """
+        references = cls.get_references_to_in_bulk(objects)
+        grouped_references = references.group_by_source_object_in_bulk()
+        return {
+            object: grouped_references.get(
+                (cls._get_base_content_type(object).pk, str(object.pk)),
+                ReferenceGroups([]),
+            )
+            for object in objects
+        }
+
+    @classmethod
+    def usage_count_subquery(cls, model):
+        return Coalesce(
+            Subquery(
+                ReferenceIndex.objects.filter(
+                    to_content_type=ContentType.objects.get_for_model(model),
+                    to_object_id=Cast(OuterRef("pk"), output_field=CharField()),
+                )
+                .values("object_id", "to_object_id")
+                .distinct()
+                .values("to_object_id")
+                .annotate(count=Count("object_id", distinct=True))
+                .values("count")
+            ),
+            0,
+        )
 
     @property
     def _content_type(self):
@@ -609,6 +754,11 @@ class ReferenceIndex(models.Model):
             return models.SET_NULL
 
     @cached_property
+    def model_path_components(self):
+        """The components of the model_path as a list."""
+        return self.model_path.split(".")
+
+    @cached_property
     def source_field(self):
         """
         The field from which the reference was extracted.
@@ -616,20 +766,45 @@ class ReferenceIndex(models.Model):
         (e.g. ManyToOneRel), a StreamField, or any other field that defines
         extract_references().
         """
-        model_path_components = self.model_path.split(".")
-        field_name = model_path_components[0]
-        field = self._content_type.model_class()._meta.get_field(field_name)
-        return field
+        field_name = self.model_path_components[0]
+        model_class = self._content_type.model_class()
+        try:
+            field = model_class._meta.get_field(field_name)
+        except FieldDoesNotExist:
+            # For related fields, get_field() only works with the
+            # related_query_name, but we store the reference information using
+            # get_accessor_name() which uses the related_name. In the case where
+            # the two are different, we use get_fields() to find the field
+            # that matches the related_name.
+            for field in model_class._meta.get_fields():
+                if (
+                    isinstance(field, models.ForeignObjectRel)
+                    and field.related_name == field_name
+                ):
+                    return field
+            raise
+        else:
+            return field
 
     @cached_property
     def related_field(self):
-        # The field stored on the reference index can be a related field or a
-        # reverse related field, depending on whether the reference was extracted
-        # directly from a ForeignKey or through a parent ClusterableModel. This
-        # property normalises to the related field.
-        if isinstance(self.source_field, models.ForeignObjectRel):
-            return self.source_field.remote_field
-        return self.source_field
+        """
+        The final field in which the reference exists.
+
+        The field stored on the reference index can be a related field or a
+        reverse related field, depending on whether the reference was extracted
+        directly from a ``ForeignKey`` or through a parent ``ClusterableModel``.
+        This property normalizes to the related field.
+        """
+        # Drill through nested inline models to find where the reference exists.
+        # Increment idx by 2 each time to skip over the `.item.` component.
+        field = self.source_field
+        idx = 2
+        while isinstance(field, models.ForeignObjectRel):
+            related_model_opts = field.related_model._meta
+            field = related_model_opts.get_field(self.model_path_components[idx])
+            idx += 2
+        return field
 
     @cached_property
     def reverse_related_field(self):
@@ -645,12 +820,23 @@ class ReferenceIndex(models.Model):
         For other fields, this returns the verbose name of the field.
         """
         field = self.source_field
-        model_path_components = self.model_path.split(".")
+        model_path_components = self.model_path_components
 
-        # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name. So get the name of the child field instead
-        if isinstance(field, models.ManyToOneRel):
-            child_field = field.related_model._meta.get_field(model_path_components[2])
-            return capfirst(child_field.verbose_name)
+        # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name,
+        # so get the name of the child field instead. While we don't yet support
+        # ManyToManyRel, check for ForeignObjectRel (common base class of both
+        # ManyToOneRel and ManyToManyRel) to future-proof this.
+        if isinstance(field, models.ForeignObjectRel):
+            labels = []
+            idx = 0
+            child_field = field
+            while isinstance(child_field, models.ForeignObjectRel):
+                related_model_opts = child_field.related_model._meta
+                labels.append(capfirst(related_model_opts.verbose_name))
+                idx += 2
+                child_field = related_model_opts.get_field(model_path_components[idx])
+            labels.append(capfirst(child_field.verbose_name))
+            return " → ".join(labels)
         elif isinstance(field, StreamField):
             label = f"{capfirst(field.verbose_name)}"
             block = field.stream_block

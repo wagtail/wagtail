@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -120,6 +120,9 @@ msgstr "τίτλος"
 msgid "file"
 msgstr "αρχείο"
 
+msgid "description"
+msgstr "περιγραφή"
+
 msgid "width"
 msgstr "πλάτος"
 
@@ -137,12 +140,6 @@ msgstr "ετικέτες"
 
 msgid "image"
 msgstr "Εικόνα"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
-msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
@@ -171,21 +168,11 @@ msgstr "Αλλαγή αρχείου εικόνας:"
 msgid "Add an image"
 msgstr "Προσθήκη εικόνας"
 
-msgid "Add image"
-msgstr "Προσθήκη εικόνας"
+msgid "Uploading…"
+msgstr "Ανέβασμα εικόνας …"
 
-msgid "Save"
-msgstr "Αποθήκευση"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Επεξεργασία εικόνας %(title)s"
-
-msgid "Editing"
-msgstr "Διόρθωση"
-
-msgid "Delete image"
-msgstr "Διαγραφή εικόνας"
+msgid "Upload"
+msgstr "Ανέβασμα"
 
 msgid "URL Generator"
 msgstr "Παραγωγή URL"
@@ -204,6 +191,12 @@ msgstr "Το αρχείο δεν βρέθηκε"
 
 msgid "Usage"
 msgstr "Χρήση"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
+msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -234,9 +227,6 @@ msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Προσθήκη πολλαπλών εικόνων"
-
-msgid "Add images"
-msgstr "Προσθήκη εικόνων"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
@@ -279,11 +269,11 @@ msgstr "Ετικέτες"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-msgid "Upload"
-msgstr "Ανέβασμα"
+msgid "Title"
+msgstr "Τίτλος"
 
-msgid "Uploading…"
-msgstr "Ανέβασμα εικόνας …"
+msgid "Created"
+msgstr "Δημιουργήθηκε"
 
 msgid "Choose an image"
 msgstr "Επιλέξατε εικόνα"
@@ -297,15 +287,12 @@ msgstr "Επεξεργασία αυτής της εικόνας"
 msgid "Images"
 msgstr "Εικόνες"
 
+msgid "The image could not be saved due to errors."
+msgstr "Δεν ήταν δυνατή η αποθήκευση της εικόνας."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Η εικόνα '%(image_title)s' ενημερώθηκε."
-
-msgid "Edit again"
-msgstr "Επεξεργασία ξανά"
-
-msgid "The image could not be saved due to errors."
-msgstr "Δεν ήταν δυνατή η αποθήκευση της εικόνας."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -314,16 +301,22 @@ msgstr ""
 "Το αρχείο προέλευσης της εικόνας δεν θα μπορεσε να βρεθεί. Παρακαλούμε να "
 "αλλάξετε την πηγή ή να διαγράψετε την εικόνα."
 
+msgid "Delete image"
+msgstr "Διαγραφή εικόνας"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Η εικόνα '%(image_title)s' διαγράφηκε."
+
+msgid "The image could not be created due to errors."
+msgstr "Δεν ήταν δυνατή η δημιουργία της εικόνας."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Η εικόνα '%(image_title)s' δημιουργήθηκε."
 
-msgid "The image could not be created due to errors."
-msgstr "Δεν ήταν δυνατή η δημιουργία της εικόνας."
+msgid "Add images"
+msgstr "Προσθήκη εικόνων"
 
 #, python-format
 msgid "%(count)s image"

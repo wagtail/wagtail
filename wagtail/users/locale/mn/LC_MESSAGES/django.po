@@ -6,13 +6,14 @@
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
 # Soft Exim, 2022
 # visual, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Soft Exim, 2022\n"
+"Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -113,6 +114,9 @@ msgstr "Өөрийн цагийн бүсийг сонгоно уу."
 msgid "profile picture"
 msgstr "профайл зураг"
 
+msgid "Default"
+msgstr "Өгөгдмөл"
+
 msgid "user profile"
 msgstr "хэрэглэгчийн профайл"
 
@@ -168,18 +172,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Энэ бүлгийг үнэхээр устгах уу?"
 
-msgid "Add group"
-msgstr "Бүлэг нэмэх"
-
-msgid "View users in this group"
-msgstr "Группын гишүүдийг харах"
-
-msgid "Save"
-msgstr "Хадгалах"
-
-msgid "Delete group"
-msgstr "Бүлэг устгах"
-
 msgid "Object permissions"
 msgstr "Объектын хандах эрх"
 
@@ -191,15 +183,6 @@ msgstr "Нэмэх"
 
 msgid "Change"
 msgstr "Солих"
-
-msgid "Publish"
-msgstr "Нийтлэх"
-
-msgid "Lock"
-msgstr "Түгжих"
-
-msgid "Unlock"
-msgstr "Түгжээг тайлах"
 
 msgid "Custom permissions"
 msgstr "Тохируулсан эрхүүд"
@@ -229,59 +212,26 @@ msgstr ""
 "href=\"%(wagtailusers_create_group_url)s\">Шинийг үүсгэж</a> яагаад болохгүй "
 "гэж?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Энэ хэрэглэгчийг үнэхээр устгах уу?"
-
 msgid "Account"
 msgstr "Хэрэглэгчийн эрх"
 
 msgid "Roles"
 msgstr "Дүрүүд"
 
-msgid "Add user"
-msgstr "Хэрэглэгч нэмэх"
-
-msgid "Delete user"
-msgstr "Хэрэглэгч устгах"
-
 msgid "Select all users in listing"
 msgstr "Жагсаалтын бүх хэрэглэгчийг сонгох"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Уучлаарай \"<em>%(query_string)s</em>\" хайлтаар хэрэглэгч олдсонгүй."
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"%(group_name)s группт хэрэглэгч алга. Яагаад <a "
-"href=\"%(wagtailusers_add_url)s\">хэрэглэгч</a> нэмж болохгүй гэж? "
-
-msgid "Username"
-msgstr "Хэрэглэгчийн нэр"
-
-msgid "Status"
-msgstr "Төлөв"
-
-msgid "Last Login"
-msgstr "Сүүлд нэвтэрсэн"
-
-msgid "Admin"
-msgstr "Админ"
-
-msgid "Active"
-msgstr "Идэвхитэй"
-
-msgid "Inactive"
-msgstr "Идэвхгүй"
 
 msgid "Assign role to selected users"
 msgstr "Сонгосон хэрэгчидэд эрх олгох"
 
 msgid "Delete selected users"
 msgstr "Сонгосон хэрэглэгчдийг устгах"
+
+msgid "Active"
+msgstr "Идэвхитэй"
+
+msgid "Inactive"
+msgstr "Идэвхгүй"
 
 msgid "Change the active state for selected users"
 msgstr "Сонгосон хэрэглэгчдийн идэвхитэй төлвийг өөрчлөх"
@@ -295,6 +245,9 @@ msgstr "Бүлэг нэмэх"
 msgid "Search groups"
 msgstr "Бүлэг хайх"
 
+msgid "Add group"
+msgstr "Бүлэг нэмэх"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "'%(object)s' бүлэг үүслээ."
@@ -306,15 +259,30 @@ msgstr "'%(object)s' бүлэг шинэчлэгдлээ."
 msgid "The group could not be saved due to errors."
 msgstr "Дараах алдаануудаас болж бүлэг хадгалагдсангүй."
 
+msgid "View users in this group"
+msgstr "Группын гишүүдийг харах"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s' бүлэг устгагдлаа."
+
+msgid "Delete group"
+msgstr "Бүлэг устгах"
 
 msgid "Add a user"
 msgstr "Хэрэглэгч нэмэх"
 
 msgid "Users"
 msgstr "Хэрэглэгчид"
+
+msgid "Username"
+msgstr "Хэрэглэгчийн нэр"
+
+msgid "Admin"
+msgstr "Админ"
+
+msgid "Add user"
+msgstr "Хэрэглэгч нэмэх"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -323,9 +291,9 @@ msgstr "'%(object)s' хэрэглэгч шинэчлэгдлээ."
 msgid "The user could not be saved due to errors."
 msgstr "Дараах алдаануудаас болж хэрэглэгч хадгалагдсангүй."
 
+msgid "Delete user"
+msgstr "Хэрэглэгч устгах"
+
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "'%(object)s' хэрэглэгч устгагдлаа."
-
-msgid "Edit"
-msgstr "Засах"

@@ -18,9 +18,6 @@ class TestPagesSummary(WagtailTestUtils, TestCase):
         cls.wagtail_root.add_child(instance=cls.test_page)
 
         cls.test_page_group = Group.objects.create(name="Test page")
-        GroupPagePermission.objects.create(
-            group=cls.test_page_group, page=cls.test_page, permission_type="change"
-        )
 
     @classmethod
     def tearDownClass(cls):
@@ -57,25 +54,33 @@ class TestPagesSummary(WagtailTestUtils, TestCase):
         self.assertSummaryContainsLinkToPage(self.wagtail_root.pk)
 
     def test_summary_includes_page_count_without_wagtail_root(self):
-        self.assertSummaryContains(f"<span>{Page.objects.count() - 1}</span> Pages")
+        self.assertSummaryContains(f"{Page.objects.count() - 1} Pages")
 
     def test_summary_shows_zero_pages_if_none_exist_except_wagtail_root(self):
         Page.objects.exclude(pk=self.wagtail_root.pk).delete()
-        self.assertSummaryContains("<span>0</span> Pages")
+        self.assertSummaryContains("0 Pages")
 
     def test_user_with_no_page_permissions_is_not_shown_panel(self):
         self.user.is_superuser = False
         self.user.save()
         self.assertFalse(PagesSummaryItem(self.request).is_shown())
 
-    def test_user_with_limited_page_permissions_summary_links_to_their_root(self):
+    def test_user_with_limited_page_permissions(self):
+        permissions = {"add", "change", "publish", "bulk_delete", "lock", "unlock"}
         self.user.is_superuser = False
         self.user.save()
         self.user.groups.add(self.test_page_group)
-        self.assertSummaryContainsLinkToPage(self.test_page.pk)
 
-    def test_user_with_limited_page_permissions_sees_proper_page_count(self):
-        self.user.is_superuser = False
-        self.user.save()
-        self.user.groups.add(self.test_page_group)
-        self.assertSummaryContains("<span>1</span> Page")
+        for permission in permissions:
+            with self.subTest(permission=permission):
+                permission_obj = GroupPagePermission.objects.create(
+                    group=self.test_page_group,
+                    page=self.test_page,
+                    permission_type=permission,
+                )
+                # Should link to the permission's page rather than Wagtail's root
+                self.assertSummaryContainsLinkToPage(self.test_page.pk)
+                # Should show the correct page count
+                self.assertSummaryContains("1 Page")
+                permission_obj.delete()
+                self.test_page_group.page_permissions.all().delete()

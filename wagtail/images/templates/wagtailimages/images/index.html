@@ -3,9 +3,6 @@
 
 {% block extra_js %}
     {{ block.super }}
-    <script>
-        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'IMAGE';
-    </script>
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
@@ -18,11 +15,14 @@
                 {% endfor %}
             </select>
         {% endrawformattedfield %}
+        <div id="layout-switch-control" class="w-layout-switch-control">
+            {% include "wagtailimages/images/layout_toggle_button.html" %}
+        </div>
     {% endfragment %}
     {% include "wagtailimages/images/image_listing_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url title=header_title search_url=index_results_url search_form=search_form filters=filters buttons=header_buttons icon_name=header_icon extra_form_fields=extra_form_fields only %}
 {% endblock %}
 
 {% block bulk_actions %}
     {% trans "Select all images in listing" as select_all_text %}
-    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=model_opts.app_label model_name=model_opts.model_name objects=page_obj parent=current_collection.id %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=model_opts.app_label model_name=model_opts.model_name objects=page_obj parent=current_collection.id item_type="IMAGE" %}
 {% endblock %}

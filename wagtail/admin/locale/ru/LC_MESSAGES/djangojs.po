@@ -3,18 +3,20 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2022
 # Nikita Tonkoshkur <humapen@gmail.com>, 2022
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2022
-# sergeybe <sergeybe@gmail.com>, 2022
-# Eugene <eugene.mechanism@gmail.com>, 2022
 # Мирон Левицкий <miron200504@gmail.com>, 2022
-# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2022
-# Loic Teixeira, 2022
-# Влад <integration.into.society@gmail.com>, 2023
 # Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023
+# Loic Teixeira, 2024
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2025
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2026
+# Влад <integration.into.society@gmail.com>, 2026
+# sergeybe <sergeybe@gmail.com>, 2026
+# Eugene <eugene.mechanism@gmail.com>, 2026
+# Andrei Satsevich, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023\n"
+"Last-Translator: Andrei Satsevich, 2026\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
@@ -38,12 +40,37 @@ msgstr[1] "%(num)s ошибки"
 msgstr[2] "%(num)s ошибок"
 msgstr[3] "%(num)s ошибок"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s минута"
+msgstr[1] "%(num)s минуты"
+msgstr[2] "%(num)s минут"
+msgstr[3] "%(num)s минут"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s пиксель"
 msgstr[1] "%(num)s пикселя"
 msgstr[2] "%(num)s пикселей"
 msgstr[3] "%(num)s пикселей"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "Произошла сетевая ошибка."
+
+msgid "A server error occurred."
+msgstr "Произошла ошибка сервера."
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Add"
+msgstr "Добавить"
 
 msgid "Add a comment"
 msgstr "Добавить комментарий"
@@ -54,6 +81,9 @@ msgstr "Текст подсказки"
 msgid "Are you sure?"
 msgstr "Вы уверены?"
 
+msgid "Autosave in progress…"
+msgstr "Автосохранение в процессе…"
+
 msgid "Blocks"
 msgstr "Блоки"
 
@@ -62,6 +92,9 @@ msgstr "Битая ссылка"
 
 msgid "Cancel"
 msgstr "Отменить"
+
+msgid "Changes have been autosaved."
+msgstr "Изменения были автоматически сохранены."
 
 msgid "Character count:"
 msgstr "Количество символов:"
@@ -74,6 +107,10 @@ msgstr "Свернуть все"
 
 msgid "Comment"
 msgstr "Оставить комментарий"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Комплексно"
 
 msgid "Dashboard"
 msgstr "Панель управления"
@@ -89,6 +126,12 @@ msgstr "Удалить ошибку"
 
 msgid "Deleting"
 msgstr "Удаление"
+
+msgid "Drag"
+msgstr "Перетянуть"
+
+msgid "Duplicate"
+msgstr "Дубликат"
 
 msgid "Edit"
 msgstr "Редактировать"
@@ -108,8 +151,15 @@ msgstr "Ошибка при отправке данных предварител
 msgid "Expand all"
 msgstr "Развернуть все"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Прямо"
+
 msgid "Focus comment"
 msgstr "Сфокусироваться на комментарии"
+
+msgid "Good"
+msgstr "Хорошо"
 
 msgid "Horizontal line"
 msgstr "Горизонтальная линия"
@@ -132,6 +182,15 @@ msgstr "Документ отсутствует"
 msgid "More actions"
 msgstr "Больше действий"
 
+msgid "Move down"
+msgstr "Двигать вниз"
+
+msgid "Move up"
+msgstr "Двигать вверх"
+
+msgid "No"
+msgstr "Нет"
+
 msgid "No results"
 msgstr "Нет результатов"
 
@@ -146,6 +205,9 @@ msgstr "Страницы"
 
 msgid "Pin toolbar"
 msgstr "Закрепить панель инструментов"
+
+msgid "Preview"
+msgstr "Предварительный просмотр"
 
 msgid "Reload saved content"
 msgstr "Перезагрузить сохранённое содержание"
@@ -174,15 +236,6 @@ msgstr "Сохранить"
 msgid "Save error"
 msgstr "Сохранить ошибку"
 
-msgid "Save the page to add this comment"
-msgstr "Сохраните страницу, чтобы добавить этот комментарий"
-
-msgid "Save the page to save this comment"
-msgstr "Сохраните страницу, чтобы сохранить этот комментарий"
-
-msgid "Save the page to save this reply"
-msgstr "Сохраните страницу, чтобы добавить этот ответ"
-
 msgid "Saving..."
 msgstr "Сохранение..."
 
@@ -197,6 +250,9 @@ msgstr "Смотреть все"
 
 msgid "Server Error"
 msgstr "Ошибка Сервера"
+
+msgid "Settings"
+msgstr "Настройки"
 
 msgid "Show error"
 msgstr "Показать ошибку"
@@ -213,8 +269,17 @@ msgstr ""
 "Редактор только что сломался. Содержимое было возвращено к последней "
 "сохранённой версии."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максимальное количество элементов: %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Минимальное количество элементов: %(min_num)d"
+
 msgid "This field is required."
 msgstr "Это поле обязательно для заполнения."
+
+msgid "Toggle section"
+msgstr "Переключить раздел"
 
 msgid "Toggle side panel"
 msgstr "Переключить боковую панель"
@@ -233,3 +298,6 @@ msgstr "Показать дочерние страницы '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Напишите что-нибудь или введите «/», чтобы вставить блок"
+
+msgid "Yes"
+msgstr "Да"

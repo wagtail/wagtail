@@ -4,10 +4,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.admin.forms.models import register_form_field_override
+from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.admin.views.generic import chooser as chooser_views
 from wagtail.admin.widgets.chooser import BaseChooser
 from wagtail.blocks import ChooserBlock
-from wagtail.telepath import register as register_telepath_adapter
 
 from .base import ViewSet
 
@@ -29,7 +29,7 @@ class ChooserViewSet(ViewSet):
     )  #: Label for the 'choose' button in the chooser widget, when an item has already been chosen
     edit_item_text = _("Edit")  #: Label for the 'edit' button in the chooser widget
 
-    per_page = 10  #: Number of results to show per page
+    per_page = ViewSet.UNDEFINED  #: Number of results to show per page
 
     #: A list of URL query parameters that should be passed on unmodified as part of any links or
     #: form submissions within the chooser modal workflow.

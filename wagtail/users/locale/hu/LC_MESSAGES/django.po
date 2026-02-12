@@ -4,15 +4,15 @@
 #
 # Translators:
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023,2025
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023,2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -129,6 +129,29 @@ msgstr "Sötét"
 msgid "admin theme"
 msgstr "admin téma"
 
+msgid "More contrast"
+msgstr "Több kontraszt"
+
+msgid "contrast"
+msgstr "kontraszt"
+
+msgid "Default"
+msgstr "Alapértelmezett"
+
+msgid "Snug"
+msgstr "Tömör"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "sűrűség"
+
+msgid "Keyboard shortcuts"
+msgstr "Billenytűkombinációk"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Wagtail-specifikus billentyű parancsok engedélyezése"
+
 msgid "user profile"
 msgstr "felhasználói profil"
 
@@ -223,18 +246,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Biztosan törli a csoportot?"
 
-msgid "Add group"
-msgstr "Csoport hozzáadása"
-
-msgid "View users in this group"
-msgstr "Csoport tagjainak megtekintése"
-
-msgid "Save"
-msgstr "Mentés"
-
-msgid "Delete group"
-msgstr "Csoport törlése"
-
 msgid "Object permissions"
 msgstr "Rekord jogosultságok"
 
@@ -247,17 +258,23 @@ msgstr "Hozzáadás"
 msgid "Change"
 msgstr "Megváltoztatás"
 
-msgid "Publish"
-msgstr "Közzététel"
-
-msgid "Lock"
-msgstr "Zárol"
-
-msgid "Unlock"
-msgstr "Feloldás"
-
 msgid "Custom permissions"
 msgstr "Egyedi engedélyek"
+
+msgid "Toggle all"
+msgstr "Összes kapcsolása"
+
+msgid "Toggle all add permissions"
+msgstr "Összes létrehozási jog kapcsolása"
+
+msgid "Toggle all change permissions"
+msgstr "Összes szerkesztési jog kapcsolása"
+
+msgid "Toggle all delete permissions"
+msgstr "Összes törlési jog kapcsolása"
+
+msgid "Toggle all custom permissions"
+msgstr "Összes egyedi jogosultság kapcsolása"
 
 msgid "Other permissions"
 msgstr "Egyéb engedélyek"
@@ -285,37 +302,18 @@ msgstr ""
 "Nincs csoport hozzáadva. Miért nem <a "
 "href=\"%(wagtailusers_create_group_url)s\">ad hozzá egyet</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Biztosan törli ezt a felhasználót?"
-
 msgid "Account"
 msgstr "Fiók"
 
 msgid "Roles"
 msgstr "Szerepkörök"
 
-msgid "Add user"
-msgstr "Felhasználó hozzáadása"
-
-msgid "Delete user"
-msgstr "Felhasználó törlése"
-
 msgid "Select all users in listing"
 msgstr "Összes felhasználó kiválasztása a listában"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgid "Sorry, no users match your query"
 msgstr ""
-"Sajnáljuk, de egyetlen felhasználó sem felel meg a következő feltételeknek: "
-"\"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"A(z) %(group_name)s csoporba nem tartozik felhasználó. Miért nem <a "
-"href=\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
+"Sajnáljuk, de egyetlen felhasználó sem felel meg a keresési feltételeknek"
 
 #, python-format
 msgid ""
@@ -325,26 +323,8 @@ msgstr ""
 "Nincs felhasználó létrehozva. Miért nem <a "
 "href=\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
 
-msgid "Username"
-msgstr "Felhasználónév"
-
-msgid "Access level"
-msgstr "Elérés szintje"
-
-msgid "Status"
-msgstr "Állapot"
-
-msgid "Last Login"
-msgstr "Utolsó belépés"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Aktív"
-
-msgid "Inactive"
-msgstr "Kikapcsolt"
+msgid "Can view"
+msgstr "Megtekintheti"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -367,6 +347,12 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d felhasználó törölve"
 msgstr[1] "%(num_parent_objects)d felhasználó törölve"
+
+msgid "Active"
+msgstr "Aktív"
+
+msgid "Inactive"
+msgstr "Kikapcsolt"
 
 msgid "Mark as active"
 msgstr "Aktívnak jelölés"
@@ -395,6 +381,9 @@ msgstr "Csoport hozzáadása"
 msgid "Search groups"
 msgstr "Csoportok keresése"
 
+msgid "Add group"
+msgstr "Csoport hozzáadása"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Csoport létrehozva: '%(object)s'"
@@ -406,9 +395,21 @@ msgstr "Csoport frissítve: '%(object)s'"
 msgid "The group could not be saved due to errors."
 msgstr "Hiba történt a csoport mentése közben."
 
+msgid "View users in this group"
+msgstr "Csoport tagjainak megtekintése"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Csoport törölve: '%(object)s'"
+
+msgid "Delete group"
+msgstr "Csoport törlése"
+
+msgid "Last login"
+msgstr "Utolsó bejelentkezés"
+
+msgid "Group"
+msgstr "Csoport"
 
 msgid "Add a user"
 msgstr "Felhasználó hozzáadása"
@@ -416,9 +417,25 @@ msgstr "Felhasználó hozzáadása"
 msgid "Users"
 msgstr "Felhasználók"
 
+msgid "Username"
+msgstr "Felhasználónév"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Access level"
+msgstr "Elérés szintje"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "'%(title)s' további lehetőségei"
+
 #, python-format
 msgid "User '%(object)s' created."
 msgstr "Felhasználó létrehozva: '%(object)s'."
+
+msgid "Add user"
+msgstr "Felhasználó hozzáadása"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -427,17 +444,9 @@ msgstr "Felhasználó frissítve: '%(object)s'"
 msgid "The user could not be saved due to errors."
 msgstr "Hiba történt a felhasználó mentése közben."
 
+msgid "Delete user"
+msgstr "Felhasználó törlése"
+
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Felhasználó törölve: '%(object)s'"
-
-msgid "Edit"
-msgstr "Szerkeszt"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "'%(name)s' felhasználó szerkesztése"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "'%(name)s' felhasználó törlése"

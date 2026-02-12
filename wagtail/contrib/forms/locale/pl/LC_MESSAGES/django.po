@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Krzysztof Jeziorny <github@jeziorny.net>, 2024
 # Miłosz Miśkiewicz, 2016-2017
 # Miłosz Miśkiewicz, 2017-2020,2023
 # Miłosz Miśkiewicz, 2016
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
+"Last-Translator: Miłosz Miśkiewicz, 2016-2017\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -31,12 +32,6 @@ msgstr "Data od"
 
 msgid "Date to"
 msgstr "Data do"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr "Istnieje inne pole o nazwie %(label_name)s, proszę zmień jedno z nich."
 
 msgid "Single line text"
 msgstr "Tekst w jednej linii"
@@ -176,6 +171,10 @@ msgstr "Usuń"
 msgid "Delete selected submissions"
 msgstr "Usuń wybrane zgłoszenia"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Brak zgłoszeń formularza '%(title)s'"
+
 msgid "Total submissions"
 msgstr "Wszystkich zgłoszeń"
 
@@ -186,15 +185,8 @@ msgstr "Ostatnie zgłoszenie"
 msgid "Submissions of %(form_title)s"
 msgstr "Zgłoszenia formularza %(form_title)s"
 
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Brak zgłoszeń formularza '%(title)s'"
-
-msgid "Filter"
-msgstr "Filtr"
-
-msgid "Apply filters"
-msgstr "Zastosuj filtry"
+msgid "Page type"
+msgstr "Typ strony"
 
 msgid "Forms"
 msgstr "Formularze"

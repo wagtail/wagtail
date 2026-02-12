@@ -9,12 +9,14 @@ titlesonly:
 pages/index
 streamfield/index
 contrib/index
+ui/index
 management_commands
+models
 hooks
 signals
 settings
 project_template
 jinja2
-panel_api
+panels
 viewsets
 ```

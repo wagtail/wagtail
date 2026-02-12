@@ -1,14 +1,20 @@
 #
 # Translators:
-# Fauzaan Gasim, 2024
+# Fauzaan Gasim, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Fauzaan Gasim, 2024\n"
+"Last-Translator: Fauzaan Gasim, 2026\n"
 "Language-Team: Divehi (https://app.transifex.com/torchbox/teams/8009/dv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: dv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Actions"
+msgstr "އަމަލުތައް"
+
+msgid "Add"
+msgstr "އިތުރު"
 
 msgid "Alt text"
 msgstr "ބަދަލު ލިޔުންކޮޅު"
@@ -28,6 +34,12 @@ msgstr "ޑޭޝްބޯޑް"
 msgid "Delete"
 msgstr "ޑިލީޓްކުރެވޭ"
 
+msgid "Drag"
+msgstr "ލަސްކުރުން"
+
+msgid "Duplicate"
+msgstr "ޑަބިލިކޭޓް ކުރުން"
+
 msgid "Edit"
 msgstr "އެޑިޓް"
 
@@ -37,11 +49,23 @@ msgstr "%(title)s އެޑިޓް ކުރޭ"
 msgid "More actions"
 msgstr "އިތުރު ހަރަކާތްތައް"
 
+msgid "Move down"
+msgstr "ތިރިޔަށް ދޭ"
+
+msgid "Move up"
+msgstr "މައްޗަށް ދޭ"
+
+msgid "No"
+msgstr "ނޫން"
+
 msgid "Page"
 msgstr "ސަފްހާ"
 
 msgid "Pages"
 msgstr "ސަފްހާތައް"
+
+msgid "Preview"
+msgstr "ޕްރިވިއު"
 
 msgid ""
 "Report this error to your website administrator with the following "
@@ -60,8 +84,23 @@ msgstr "ހޯދާ"
 msgid "Server Error"
 msgstr "ސަރވަރ ގެ މައްސަލައެއް ޖެހިއްޖެ"
 
+msgid "Settings"
+msgstr "ސެޓިންގސް"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "އެންމެ ގިނަ ތަކެތީގެ އަދަދަކީ %(max_num)d އެވެ"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "އެންމެ މަދު ތަކެތީގެ އަދަދަކީ %(min_num)d އެވެ"
+
 msgid "This field is required."
 msgstr "މި ބައި ކޮންމެހެންވެސް ބޭނުންވާނެ"
 
+msgid "Toggle section"
+msgstr "ޓޮގްލް ސެކްޝަން"
+
 msgid "Toggle side panel"
 msgstr "ސައިޑް ޕެނަލް ޓޮގްލް ކޮށްލާ"
+
+msgid "Yes"
+msgstr "އާނ"

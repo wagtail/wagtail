@@ -1,0 +1,8 @@
+{% load i18n wagtailadmin_tags %}
+<td class="w-truncate w-max-w-0">
+    {% if url %}
+        <a href="{{ url }}" class="nolink">{{ value }}</a>
+    {% else %}
+        {{ value }}
+    {% endif %}
+</td>

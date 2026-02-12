@@ -20,7 +20,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     /* Set up submissions of the search form to open in the modal. */
     modal.ajaxifyForm($('form.search-form', modal.body));
 
-    /* Set up search-as-you-type behaviour on the search box */
+    /* Set up search-as-you-type behavior on the search box */
     const searchUrl = $('form.search-form', modal.body).attr('action');
 
     /* save initial page browser HTML, so that we can restore it if the search box gets cleared */
@@ -69,8 +69,20 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       $(this).data('timer', wait);
     });
 
-    /* Set up behaviour of choose-page links in the newly-loaded search results,
-    to pass control back to the calling page */
+    function updateMultipleChoiceSubmitEnabledState() {
+      // update the enabled state of the multiple choice submit button depending on whether
+      // any items have been selected
+      if ($('[data-multiple-choice-select]:checked', modal.body).length) {
+        $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
+      } else {
+        $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
+      }
+    }
+
+    /**
+     * Set up behavior of choose-page links in the newly-loaded search results,
+     * to pass control back to the calling page.
+     */
     function ajaxifySearchResults() {
       // eslint-disable-next-line func-names
       $('.page-results a.choose-page', modal.body).on('click', function () {
@@ -95,16 +107,11 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         modal.loadUrl(this.href);
         return false;
       });
-    }
 
-    function updateMultipleChoiceSubmitEnabledState() {
-      // update the enabled state of the multiple choice submit button depending on whether
-      // any items have been selected
-      if ($('[data-multiple-choice-select]:checked', modal.body).length) {
-        $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
-      } else {
-        $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
-      }
+      updateMultipleChoiceSubmitEnabledState();
+      $('[data-multiple-choice-select]', modal.body).on('change', () => {
+        updateMultipleChoiceSubmitEnabledState();
+      });
     }
 
     function ajaxifyBrowseResults() {
@@ -117,7 +124,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         return false;
       });
 
-      /* Set up behaviour of choose-page links, to pass control back to the calling page */
+      /* Set up behavior of choose-page links, to pass control back to the calling page */
       // eslint-disable-next-line func-names
       $('a.choose-page', modal.body).on('click', function () {
         const pageData = $(this).data();

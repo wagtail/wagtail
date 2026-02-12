@@ -7,14 +7,14 @@
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # LB (Ben Johnston) <mail@lb.ee>, 2019
-# Marco Badan <marco.badan@gmail.com>, 2021
+# Marco Badan <marco.badan@gmail.com>, 2021,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -35,9 +35,19 @@ msgstr "Data al"
 
 #, python-format
 msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr "C'è un altro campo con l'etichetta %(label_name)s."
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
+msgstr ""
+"Il nome '%(duplicate_clean_name)s' è già assegnato a questo campo e non può "
+"essere modificato. Inserisci un'etichetta diversa per il campo in conflitto."
+
+#, python-format
+msgid ""
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
+msgstr ""
+"Il nome del campo '%(duplicate_clean_name)s' è in conflitto con un altro "
+"campo. Modifica l'etichetta."
 
 msgid "Single line text"
 msgstr "Testo linea singola"
@@ -108,8 +118,21 @@ msgstr "richiesto"
 msgid "choices"
 msgstr "voci"
 
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Elenco di scelte separate da virgola o a capo. Applicabile solo a checkbox, "
+"radio e menu a discesa."
+
 msgid "default value"
 msgstr "valore di default"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Valore predefinito. Valori separati da virgola o a capo supportati per le "
+"caselle di controllo."
 
 msgid "help text"
 msgstr "testo di aiuto"
@@ -150,11 +173,21 @@ msgstr "Elimina dati form %(title)s"
 msgid "Delete form data"
 msgstr "Elimina dati form"
 
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Sei sicuro di voler eliminare questo invio del modulo?"
+msgstr[1] "Sei sicuro di voler eliminare questi invii del modulo?"
+msgstr[2] "Sei sicuro di voler eliminare questi invii del modulo?"
+
 msgid "Delete"
 msgstr "Elimina"
 
 msgid "Delete selected submissions"
 msgstr "Elimina invii selezionati"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Non ci sono invii del form '%(title)s' "
 
 msgid "Total submissions"
 msgstr "Invii totali"
@@ -166,15 +199,8 @@ msgstr "Ultimi invii"
 msgid "Submissions of %(form_title)s"
 msgstr "Invio di %(form_title)s"
 
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Non ci sono invii del form '%(title)s' "
-
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Apply filters"
-msgstr "Applica filtri"
+msgid "Page type"
+msgstr "Tipologia pagina"
 
 msgid "Forms"
 msgstr "Modulistica"
@@ -194,3 +220,6 @@ msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] "Un invio è stato eliminato."
 msgstr[1] "%(count)d invii sono stati eliminati."
 msgstr[2] "%(count)d invii sono stati eliminati."
+
+msgid "Form data"
+msgstr "Dati del modulo"

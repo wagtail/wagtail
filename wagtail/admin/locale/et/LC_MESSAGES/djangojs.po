@@ -1,16 +1,22 @@
 #
 # Translators:
 # Ragnar Rebase <rrebase@gmail.com>, 2022
-# Erlend Eelmets <debcf78e@opayq.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
+# Erlend Eelmets <debcf78e@opayq.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2026\n"
 "Language-Team: Estonian (https://app.transifex.com/torchbox/teams/8009/et/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Actions"
+msgstr "Toimingud"
+
+msgid "Add"
+msgstr "Lisama"
 
 msgid "Alt text"
 msgstr "Alt-tekst"
@@ -33,6 +39,9 @@ msgstr "Armatuurlaud"
 msgid "Delete"
 msgstr "Kustuta"
 
+msgid "Drag"
+msgstr "Vedama"
+
 msgid "Edit"
 msgstr "Muuda"
 
@@ -51,6 +60,15 @@ msgstr "Laadimine ..."
 msgid "Missing document"
 msgstr "Puuduv dokument"
 
+msgid "Move down"
+msgstr "Mine alla"
+
+msgid "Move up"
+msgstr "Üles liikuma"
+
+msgid "No"
+msgstr "Ei"
+
 msgid "No results"
 msgstr "Tulemused puuduvad"
 
@@ -62,6 +80,9 @@ msgstr "Leheuurija"
 
 msgid "Pages"
 msgstr "Lehed"
+
+msgid "Preview"
+msgstr "Eelvaade"
 
 msgid "Reload saved content"
 msgstr "Salvestatud sisu uuesti laadimine"
@@ -81,6 +102,9 @@ msgstr "Vaata kõiki"
 msgid "Server Error"
 msgstr "Serveri viga"
 
+msgid "Settings"
+msgstr "Sätted"
+
 msgid "Show error"
 msgstr "Kuva viga"
 
@@ -92,8 +116,17 @@ msgid ""
 msgstr ""
 "Redaktorjooksis kokku. Sisu on lähtestatud viimati salvestatud versioonile."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimaalne üksuste arv on %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimaalne üksuste arv on %(min_num)d"
+
 msgid "This field is required."
 msgstr "Selle välja täitmine on kohustuslik."
 
 msgid "View child pages of '%(title)s'"
 msgstr "Kuva üksuse „%(title)s” alamlehed"
+
+msgid "Yes"
+msgstr "Jah"

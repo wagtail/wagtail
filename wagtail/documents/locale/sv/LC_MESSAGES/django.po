@@ -4,6 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Jonathan Lindén, 2025
 # Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2022
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2022\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -131,12 +132,6 @@ msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "Är du säker på att du vill radera detta dokument?"
 msgstr[1] "Är du säker på att du vill radera dessa dokument?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Använd %(usage_count)s gång"
-msgstr[1] "Använd %(usage_count)s gånger"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Du saknar rättigheter att radera detta dokument"
@@ -162,11 +157,13 @@ msgid "You haven't uploaded any documents."
 msgstr "Du har inte laddat upp några dokument."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"Varför inte <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>ladda upp en nu</a>?"
+"Varför inte <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">ladda upp en nu</a>?"
 
 msgid "Change document:"
 msgstr "Ändra dokument:"
@@ -174,27 +171,11 @@ msgstr "Ändra dokument:"
 msgid "Add a document"
 msgstr "Lägg till ett dokument"
 
-msgid "Add document"
-msgstr "Lägg till dokument"
-
 msgid "Uploading…"
 msgstr "Laddar upp…"
 
 msgid "Upload"
 msgstr "Ladda upp"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Redigerar %(title)s"
-
-msgid "Editing"
-msgstr "Redigerar"
-
-msgid "Save"
-msgstr "Spara"
-
-msgid "Delete document"
-msgstr "Ta bort dokument"
 
 msgid "Filesize"
 msgstr "Filstorlek"
@@ -204,6 +185,12 @@ msgstr "Filen hittades inte"
 
 msgid "Usage"
 msgstr "Användning"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)s gång"
+msgstr[1] "Använd %(usage_count)s gånger"
 
 msgid "Select all documents in listing"
 msgstr "Välj alla dokument i listan"
@@ -228,11 +215,18 @@ msgstr ""
 "Du har inte laddat upp några dokument. Varför inte <a "
 "href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
+#, python-format
+msgid ""
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s Dokument <span class=\"w-sr-only\">skapat i %(site_name)s</span>"
+msgstr[1] ""
+"%(total)s Dokument <span class=\"w-sr-only\">skapade i %(site_name)s</span>"
+
 msgid "Add multiple documents"
 msgstr "Lägg till flera dokument"
-
-msgid "Add documents"
-msgstr "Lägg till dokument"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Dra och släpp dokument inom det här området för att ladda upp direkt."
@@ -328,25 +322,34 @@ msgstr "Dokument"
 msgid "Title"
 msgstr "Titel"
 
+msgid "The document could not be created due to errors."
+msgstr "Dokumentet kunde inte skapas på grund av fel."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dokument '%(document_title)s' lades till."
 
 msgid "The document could not be saved due to errors."
-msgstr "Dokumentet kunde inte sparas p.g.a. fel."
+msgstr "Dokumentet kunde inte sparas på grund av fel."
 
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokument '%(document_title)s' laddades upp"
 
 msgid ""
-"The file could not be found. Please change the source or delete the document"
+"The file could not be found. Please change the source or delete the document."
 msgstr ""
-"Filen kunde inte hittas. Vänligen ändra källan eller ta bort dokumentet."
+"Filen kunde inte hittas. Vänligen ändra källan eller radera dokumentet."
+
+msgid "Delete document"
+msgstr "Radera dokument"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
-msgstr "Dokument '%(document_title)s' borttaget."
+msgstr "Dokument '%(document_title)s' raderat."
+
+msgid "Add documents"
+msgstr "Lägg till dokument"
 
 msgid "Document"
 msgstr "Dokument"

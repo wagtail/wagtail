@@ -128,7 +128,7 @@ The search operator specifies how the search should behave when the user has typ
 
 Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevant. The "and" operator only returns results that contain all search terms but requires the user to be more precise with their query.
 
-We recommend using the "or" operator when ordering by relevance and the "and" operator when ordering by anything else (note: the database backend doesn't currently support ordering by relevance).
+We recommend using the "or" operator when ordering by relevance and the "and" operator when ordering by anything else.
 
 Here's an example of using the `operator` keyword argument:
 
@@ -197,10 +197,17 @@ For example:
 >>> from wagtail.search.query import Fuzzy
 
 >>> Page.objects.search(Fuzzy("Hallo"))
-[<Page: Hello World>]
+[<Page: Hello World>, <Page: Hello>]
 ```
 
 Fuzzy matching is supported by the Elasticsearch search backend only.
+
+The `operator` keyword argument is also supported on `Fuzzy` objects, defaulting to "or":
+
+```python
+>>> Page.objects.search(Fuzzy("Hallo wurld", operator="and"))
+[<Page: Hello World>]
+```
 
 (wagtailsearch_complex_queries)=
 

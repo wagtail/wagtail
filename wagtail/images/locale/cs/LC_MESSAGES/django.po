@@ -4,9 +4,11 @@
 #
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
-# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2018,2020,2024
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jan Feřtek, 2023
+# Jan Feřtek, 2023
+# Jan Zelený <janzeleny@outlook.com>, 2025
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2022
@@ -15,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Jan Feřtek, 2023\n"
+"Last-Translator: Jan Zelený <janzeleny@outlook.com>, 2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +31,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail obrázky"
+
+msgid "Image is decorative"
+msgstr "Obrázek je dekorační"
+
+msgid "Alt text"
+msgstr "Alternativní text"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Prosím buď zadejte alternativní text pro váš obrázek a nebo jej označte jako "
+"dekorační"
 
 #, python-format
 msgid ""
@@ -46,6 +59,14 @@ msgstr "Podporované formáty: %(supported_formats)s."
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Nepodporovaný formát obrázku. Podporovány jsou formáty %(supported_formats)s"
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Neplatný obrázek typu .%(extension)s. Přípona neodpovídá formátu souboru "
+"(%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -80,17 +101,6 @@ msgstr "Soubor (kolekce)"
 
 msgid "Format"
 msgstr "Formát"
-
-msgid "Image is decorative"
-msgstr "Obrázek je dekorační"
-
-msgid "Alt text"
-msgstr "Alternativní text"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Prosím buď zadejte alternativní text pro váš obrázek a nebo jej označte jako "
-"dekorační"
 
 msgid "Filter"
 msgstr "Filtr"
@@ -146,6 +156,9 @@ msgstr "název"
 msgid "file"
 msgstr "soubor"
 
+msgid "description"
+msgstr "popis"
+
 msgid "width"
 msgstr "šířka"
 
@@ -168,12 +181,49 @@ msgid "images"
 msgstr "obrázky"
 
 #, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Použito %(usage_count)sx"
-msgstr[1] "Použito %(usage_count)sx"
-msgstr[2] "Použito %(usage_count)sx"
-msgstr[3] "Použito %(usage_count)sx"
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Přidat štítky k 1 obrázku"
+msgstr[1] "Přidat štítky k %(counter)s obrázkům"
+msgstr[2] "Přidat štítky k %(counter)s obrázkům"
+msgstr[3] "Přidat štítky k %(counter)s obrázkům"
+
+msgid "Add tags to images"
+msgstr "Přidat štítky k obrázkům"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Opravdu chcete oštítkovat následující obrázek? "
+msgstr[1] "Opravdu chcete oštítkovat následující obrázky? "
+msgstr[2] "Opravdu chcete oštítkovat následující obrázky? "
+msgstr[3] "Opravdu chcete oštítkovat následující obrázky? "
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "Nemáte oprávnění přidávat k tomuto obrázku štítky"
+msgstr[1] "Nemáte oprávnění přidávat k těmto obrázkům štítky"
+msgstr[2] "Nemáte oprávnění přidávat k těmto obrázkům štítky"
+msgstr[3] "Nemáte oprávnění přidávat k těmto obrázkům štítky"
+
+msgid "Yes, add"
+msgstr "Ano, přidat"
+
+msgid "No, don't add"
+msgstr "Ne, nepřidávat"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Přidat 1 obrázek do nové kolekce "
+msgstr[1] "Přidat %(counter)s obrázky do nové kolekce"
+msgstr[2] "Přidat %(counter)s obrázku do nové kolekce"
+msgstr[3] "Přidat %(counter)s obrázků do nové kolekce"
+
+msgid "Add images to collection"
+msgstr "Přidat obrázky do kolekce"
+
+msgid "Delete images"
+msgstr "Smazat obrázky"
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -193,6 +243,10 @@ msgstr "Nový"
 msgid "Latest images"
 msgstr "Poslední obrázky"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Vybrat %(title)s"
+
 msgid "Choose a format"
 msgstr "Zvolte formát"
 
@@ -205,21 +259,11 @@ msgstr "Změnit soubor obrázku:"
 msgid "Add an image"
 msgstr "Přidat obrázek"
 
-msgid "Add image"
-msgstr "Přidat obrázek"
+msgid "Uploading…"
+msgstr "Nahrávání…"
 
-msgid "Save"
-msgstr "Uložit"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Úprava obrázku %(title)s"
-
-msgid "Editing"
-msgstr "Úprava"
-
-msgid "Delete image"
-msgstr "Smazat obrázek"
+msgid "Upload"
+msgstr "Nahrát"
 
 msgid "URL Generator"
 msgstr "Generátor URL"
@@ -254,14 +298,16 @@ msgstr "Soubor nenalezen"
 msgid "Usage"
 msgstr "Použití"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)sx"
+msgstr[1] "Použito %(usage_count)sx"
+msgstr[2] "Použito %(usage_count)sx"
+msgstr[3] "Použito %(usage_count)sx"
+
 msgid "Sort by"
 msgstr "Řadit podle"
-
-msgid "Entries per page"
-msgstr "Počet položek na stránce"
-
-msgid "Popular Tags:"
-msgstr "Oblíbené štítky"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -290,11 +336,11 @@ msgstr "Náhled"
 msgid "URL"
 msgstr "URL"
 
+msgid "Copied to clipboard"
+msgstr "Zkopírováno do schránky"
+
 msgid "Add multiple images"
 msgstr "Přidat více obrázků"
-
-msgid "Add images"
-msgstr "Přidat obrázky"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
@@ -335,11 +381,11 @@ msgstr "Tagy"
 msgid "Delete"
 msgstr "Smazat"
 
-msgid "Upload"
-msgstr "Nahrát"
+msgid "Title"
+msgstr "Název"
 
-msgid "Uploading…"
-msgstr "Nahrávání…"
+msgid "Created"
+msgstr "Vytvořeno"
 
 msgid "Choose an image"
 msgstr "Zvolit obrázek"
@@ -371,15 +417,12 @@ msgstr "Velikost souboru (sestupně)"
 msgid "Images"
 msgstr "Obrázky"
 
+msgid "The image could not be saved due to errors."
+msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Obrázek '%(image_title)s' byl upraven."
-
-msgid "Edit again"
-msgstr "Upravit znovu"
-
-msgid "The image could not be saved due to errors."
-msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -388,16 +431,22 @@ msgstr ""
 "Zdrojový soubor obrázku není možné nalézt. Prosím změňte zdroj nebo obrázek "
 "smažte."
 
+msgid "Delete image"
+msgstr "Smazat obrázek"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Obrázek '%(image_title)s' byl smazán."
+
+msgid "The image could not be created due to errors."
+msgstr "Obrázek nelze vytvořit, zkontrolujte správné vyplnění polí."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Obrázek '%(image_title)s' byl přidán."
 
-msgid "The image could not be created due to errors."
-msgstr "Obrázek nelze vytvořit, zkontrolujte správné vyplnění polí."
+msgid "Add images"
+msgstr "Přidat obrázky"
 
 msgid "Image"
 msgstr "Obrázek"

@@ -14,7 +14,7 @@ def get_document_model_string():
 def get_document_model():
     """
     Get the document model from the ``WAGTAILDOCS_DOCUMENT_MODEL`` setting.
-    Defaults to the standard :class:`~wagtail.documents.models.Document` model
+    Defaults to the standard ``wagtail.documents.models.Document`` model
     if no custom model is defined.
     """
     from django.apps import apps
@@ -22,12 +22,12 @@ def get_document_model():
     model_string = get_document_model_string()
     try:
         return apps.get_model(model_string, require_ready=False)
-    except ValueError:
+    except ValueError as e:
         raise ImproperlyConfigured(
             "WAGTAILDOCS_DOCUMENT_MODEL must be of the form 'app_label.model_name'"
-        )
-    except LookupError:
+        ) from e
+    except LookupError as e:
         raise ImproperlyConfigured(
             "WAGTAILDOCS_DOCUMENT_MODEL refers to model '%s' that has not been installed"
             % model_string
-        )
+        ) from e

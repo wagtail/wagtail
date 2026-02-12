@@ -8,8 +8,10 @@ type AddOptions = {
   clear?: boolean;
   /** Content for the message, HTML not supported. */
   text?: string;
-  /** Clone template type (found using data-type on template targets).
-   * e.g. Message status level based on Django's message types. */
+  /**
+   * Clone template type (found using data-type on template targets).
+   * e.g. Message status level based on Django's message types.
+   */
   type?: 'success' | 'error' | 'warning' | string;
 };
 
@@ -19,6 +21,7 @@ type AddOptions = {
  * Additionally, it will allow for clearing all previously added elements.
  *
  * @example - Using with the w-messages identifier
+ * ```html
  * <div
  *   data-controller="w-messages"
  *   data-action="w-messages:add@document->w-messages#add"
@@ -28,8 +31,9 @@ type AddOptions = {
  *   <ul data-w-messages-target="container"></ul>
  *   <template data-w-messages-target="template">
  *     <li data-message-status="error-or-success"><span></span></li>
- *  </template>
+ *   </template>
  * </div>
+ * ```
  *
  * @example - Using to show a temporary element with auto-clearing
  * ```html
@@ -39,12 +43,12 @@ type AddOptions = {
  *  data-w-clone-auto-clear-value="5_000"
  * >
  *   <div data-w-clone-target="container"></div>
- *   <template data-w-clone-target="template">
- *     <p>Page has loaded, this will be removed in 5 seconds.</p>
- *   </template>
+ *     <template data-w-clone-target="template">
+ *       <p>Page has loaded, this will be removed in 5 seconds.</p>
+ *     </template>
  *   </div>
  * </div>
- *
+ * ```
  */
 export class CloneController extends Controller<HTMLElement> {
   static classes = ['added', 'hide', 'show'];
@@ -82,6 +86,8 @@ export class CloneController extends Controller<HTMLElement> {
    * added custom text inside the added element.
    */
   add(event?: CustomEvent<AddOptions> & { params?: AddOptions }) {
+    if (event?.defaultPrevented) return;
+
     const {
       clear = false,
       text = '',
@@ -92,10 +98,15 @@ export class CloneController extends Controller<HTMLElement> {
 
     if (clear) this.clear();
 
-    const content = this.getTemplateContent(type);
-    if (!content) return;
+    const template = this.getTemplateElement(type);
+    const templateRoot = template?.content.firstElementChild;
+    if (!templateRoot) return;
+    const content = templateRoot.cloneNode(true) as HTMLElement;
+    const textSelector = template.dataset.selector;
 
-    const textElement = content.lastElementChild;
+    const textElement =
+      (textSelector && content.querySelector(textSelector)) ||
+      content.lastElementChild;
 
     if (textElement instanceof HTMLElement && text) {
       textElement.textContent = text;
@@ -106,7 +117,7 @@ export class CloneController extends Controller<HTMLElement> {
     debounce(() => {
       this.element.classList.remove(...this.hideClasses);
       this.element.classList.add(...this.showClasses);
-      this.dispatch('added');
+      this.dispatch('added', { cancelable: false });
     }, this.showDelayValue || null /* run immediately if zero */)().then(() => {
       // Once complete, check if we should automatically clear the content after a delay
       const autoClearValue = this.autoClearValue || null;
@@ -141,7 +152,7 @@ export class CloneController extends Controller<HTMLElement> {
     debounce(noop, clearDelayValue)().then(() => {
       if (!this?.isClearing) return;
       this.containerTarget.innerHTML = '';
-      this.dispatch('cleared');
+      this.dispatch('cleared', { cancelable: false });
       this.isClearing = false;
     });
   }
@@ -151,12 +162,11 @@ export class CloneController extends Controller<HTMLElement> {
    * a matching target, finally fall back on the first template target if nothing
    * is found.
    */
-  getTemplateContent(type?: string | null): HTMLElement | null {
-    const template =
+  getTemplateElement(type?: string | null): HTMLTemplateElement | null {
+    return (
       (type &&
         this.templateTargets.find(({ dataset }) => dataset.type === type)) ||
-      this.templateTarget;
-    const content = template.content.firstElementChild?.cloneNode(true);
-    return content instanceof HTMLElement ? content : null;
+      this.templateTarget
+    );
   }
 }

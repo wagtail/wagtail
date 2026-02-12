@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -63,9 +63,6 @@ msgstr "ממשק הניהול של Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "אין לך הרשאות גישה לממשק הניהול"
 
-msgid "You do not have permission to access the admin"
-msgstr "אין לך הרשאות גישה לממשק הניהול"
-
 msgid "None"
 msgstr "אף אחת"
 
@@ -77,6 +74,9 @@ msgstr "עד לתאריך"
 
 msgid "All"
 msgstr "הכל"
+
+msgid "Collection"
+msgstr "אוסף"
 
 msgid "Preferred language"
 msgstr "שפה מועדפת"
@@ -119,9 +119,6 @@ msgstr "ערך לחיפוש"
 msgid "Search"
 msgstr "חיפוש"
 
-msgid "Collection"
-msgstr "אוסף"
-
 msgid "Parent"
 msgstr "הורה"
 
@@ -142,9 +139,6 @@ msgstr "מחק"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוקף"
-
-msgid "Expiry date/time must be in the future"
-msgstr "זמן תפוגה חייב להיות בעתיד"
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -218,9 +212,6 @@ msgstr "כותרת"
 msgid "Page title"
 msgstr "כותרת העמוד"
 
-msgid "Account"
-msgstr "חשבון"
-
 msgid "Reset password"
 msgstr "איתחול סיסמה"
 
@@ -276,9 +267,6 @@ msgstr "לסייר"
 msgid "You can edit the privacy settings on:"
 msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
 
-msgid "Save"
-msgstr "שמור"
-
 msgid "Privacy"
 msgstr "פרטיות"
 
@@ -288,15 +276,8 @@ msgstr "ציבורי"
 msgid "Private"
 msgstr "פרטי"
 
-msgid "Name"
-msgstr "שם"
-
 msgid "Yes, delete"
 msgstr "כן, מחק"
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "הסתר את %(title)s"
 
 msgid "Yes, unpublish it"
 msgstr "כן, בטל את הפרסום"
@@ -304,14 +285,16 @@ msgstr "כן, בטל את הפרסום"
 msgid "Update"
 msgstr "עדכן"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "ברוך הבא לנחליאלי CMS של %(site_name)s"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "זהו לוח המחוונים, על גביו יופיע מידע מועיל לגבי תוכן שתצרו"
+
+msgid "Account"
+msgstr "חשבון"
+
+msgid "Status"
+msgstr "מצב"
 
 msgid "Edit this page"
 msgstr "ערכו עמוד זה"
@@ -324,9 +307,6 @@ msgstr "חי"
 
 msgid "Your most recent edits"
 msgstr "עריכות אחרונות"
-
-msgid "Status"
-msgstr "מצב"
 
 msgid "Date"
 msgstr "תאריך"
@@ -373,12 +353,6 @@ msgstr "העמוד \"%(title)s\" נדחה"
 
 msgid "You can preview the page here:"
 msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
-
-msgid "Page privacy"
-msgstr "הגדרות פרטיות של העמוד"
-
-msgid "This page has been made private by a parent page."
-msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"
 
 msgid "Publishing…"
 msgstr "מפרסם..."
@@ -443,9 +417,6 @@ msgstr "העתק"
 msgid "Copy this page"
 msgstr "העתק עמוד זה"
 
-msgid "User"
-msgstr "משתמש"
-
 msgid "This page is locked to further editing"
 msgstr "עמוד זה נעול לעריכה"
 
@@ -456,15 +427,6 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
-
-msgid "Drag"
-msgstr "גרור"
-
-msgid "Disable ordering of child pages"
-msgstr "כיבוי סידור של תתי-עמודים"
-
-msgid "Enable ordering of child pages"
-msgstr "הפעלת סידור של תתי-עמודים"
 
 msgid "Previous"
 msgstr "קודם"
@@ -481,9 +443,6 @@ msgstr "הוספת תת-עמוד"
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
 
-msgid "No pages use"
-msgstr "אף עמוד בשימוש"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "הוסף %(label)s "
@@ -493,6 +452,9 @@ msgstr "עברו מעלה"
 
 msgid "Move down"
 msgstr "עברו מטה"
+
+msgid "Drag"
+msgstr "גרור"
 
 msgid "Type"
 msgstr "סוג"
@@ -506,12 +468,14 @@ msgstr "עמודים"
 msgid "Locked"
 msgstr "נעול"
 
+msgid "Name"
+msgstr "שם"
+
+msgid "User"
+msgstr "משתמש"
+
 msgid "Edit this item"
 msgstr "ערוך פריט זה"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 
 msgid "Download CSV"
 msgstr "הורד CSV"
@@ -519,8 +483,15 @@ msgstr "הורד CSV"
 msgid "Filter"
 msgstr "מסנן"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "עמוד %(page_num)s מתוך %(total_pages)s"
+
 msgid "Other searches"
 msgstr "חיפושים אחרים"
+
+msgid "Save"
+msgstr "שמור"
 
 msgid "Unlocked"
 msgstr "בלתי נעול"
@@ -585,18 +556,9 @@ msgstr "עמוד %(page_title)s נוצר ופורסם"
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "עמוד %(page_title)s נוצר והוזן לעריכה"
 
-msgid "The page could not be created due to validation errors"
-msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "עמוד %(page_title)s נמחק"
-
-msgid "The page could not be saved as it is locked"
-msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
-
-msgid "The page could not be saved due to validation errors"
-msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 
 msgid "Owner"
 msgstr "בעלים"

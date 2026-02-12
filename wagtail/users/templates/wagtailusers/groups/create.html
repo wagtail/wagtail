@@ -1,29 +1,26 @@
 {% extends "wagtailadmin/generic/create.html" %}
 {% load wagtailusers_tags i18n wagtailadmin_tags %}
 
-{% block main_content %}
-    <form action="{% url 'wagtailusers_groups:add' %}" method="POST" novalidate>
-        {% csrf_token %}
+{% block form_content %}
+    {% block fields %}
+        {% comment %}
+            This block is not documented, but developers might assume its existence
+            based on the docs for custom user forms.
+        {% endcomment %}
 
-        <ul class="fields">
-            {% block fields %}
-                <li>{% formattedfield form.name %}</li>
-                {% block extra_fields %}{% endblock extra_fields %}
-            {% endblock fields %}
-            <li>
-                {% format_permissions permission_bound_field=form.permissions %}
-            </li>
+        {% panel id="name" heading=form.name.label id_for_label=form.name.id_for_label is_required=True %}
+            {% formattedfield field=form.name show_label=False %}
+        {% endpanel %}
+
+        <div class="w-form-width">
+            {# This block is documented in the docs for customizing group views #}
+            {% block extra_fields %}{% endblock extra_fields %}
+
+            {% format_permissions permission_bound_field=form.permissions %}
+
             {% for panel in permission_panels %}
-                <li>
-                    {{ panel.as_admin_panel }}
-                </li>
+                {{ panel.as_admin_panel }}
             {% endfor %}
-            <li><input type="submit" value="{% trans 'Add group' %}" class="button" /></li>
-        </ul>
-    </form>
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailusers/groups/includes/group_form_js.html" %}
+        </div>
+    {% endblock %}
 {% endblock %}

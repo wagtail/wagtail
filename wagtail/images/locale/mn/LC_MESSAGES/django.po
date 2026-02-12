@@ -9,13 +9,14 @@
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
 # Soft Exim, 2022
 # visual, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Soft Exim, 2022\n"
+"Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Зургууд"
+
+msgid "Alt text"
+msgstr "Зургийн тайлбар текст"
 
 #, python-format
 msgid ""
@@ -69,9 +73,6 @@ msgstr "Баруун-зэрэгцүүлэх"
 
 msgid "Collection"
 msgstr "Цуглуулга"
-
-msgid "Alt text"
-msgstr "Зургийн тайлбар текст"
 
 msgid "Filter"
 msgstr "Шүүлтүүр"
@@ -121,6 +122,9 @@ msgstr "гарчиг"
 msgid "file"
 msgstr "файл"
 
+msgid "description"
+msgstr "тайлбар"
+
 msgid "width"
 msgstr "өргөн"
 
@@ -141,12 +145,6 @@ msgstr "зураг"
 
 msgid "images"
 msgstr "зургууд"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s удаа ашигласан"
-msgstr[1] "Used %(usage_count)s times"
 
 msgid "Yes, delete"
 msgstr "Тийм, устга"
@@ -175,21 +173,11 @@ msgstr "Зургийн файл солих:"
 msgid "Add an image"
 msgstr "Зураг нэмэх"
 
-msgid "Add image"
-msgstr "Зураг нэмэх"
+msgid "Uploading…"
+msgstr "Хуулж байна..."
 
-msgid "Save"
-msgstr "Хадгалах"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "%(title)s зургийг засч байна"
-
-msgid "Editing"
-msgstr "Засч байна"
-
-msgid "Delete image"
-msgstr "Зургийг устгах"
+msgid "Upload"
+msgstr "Хуулах"
 
 msgid "URL Generator"
 msgstr "URL Үүсгэгч"
@@ -224,6 +212,12 @@ msgid "Usage"
 msgstr "Хэрэглээ"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашигласан"
+msgstr[1] "Used %(usage_count)s times"
+
+#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Уучлаарай, \"<em>%(query_string)s</em>\" хайлтад тохирох зураг олдсонгүй"
@@ -236,9 +230,6 @@ msgstr "URL хаяг"
 
 msgid "Add multiple images"
 msgstr "Олон зураг нэмэх"
-
-msgid "Add images"
-msgstr "Зураг нэмэх"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Энэ хэсэгт зургуудаа чирж оруулж сайт руу хуулна уу."
@@ -270,11 +261,8 @@ msgstr "Шошго"
 msgid "Delete"
 msgstr "Устгах"
 
-msgid "Upload"
-msgstr "Хуулах"
-
-msgid "Uploading…"
-msgstr "Хуулж байна..."
+msgid "Title"
+msgstr "Гарчиг"
 
 msgid "Choose an image"
 msgstr "Зургаа сонгоно уу"
@@ -288,31 +276,34 @@ msgstr "Энэ зургийг засах"
 msgid "Images"
 msgstr "Зургууд"
 
+msgid "The image could not be saved due to errors."
+msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "'%(image_title)s' зураг засагдлаа."
-
-msgid "Edit again"
-msgstr "Дахин засах"
-
-msgid "The image could not be saved due to errors."
-msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "Эх зураг олдсонгүй. Эх зургийг солих эсвэл устгана уу."
 
+msgid "Delete image"
+msgstr "Зургийг устгах"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "'%(image_title)s' зураг устлаа."
+
+msgid "The image could not be created due to errors."
+msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "'%(image_title)s' зураг нэмэгдлээ."
 
-msgid "The image could not be created due to errors."
-msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
+msgid "Add images"
+msgstr "Зураг нэмэх"
 
 msgid "Image"
 msgstr "Зураг"

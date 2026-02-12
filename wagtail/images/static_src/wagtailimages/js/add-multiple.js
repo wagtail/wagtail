@@ -1,23 +1,12 @@
 $(function () {
-  // prevents browser default drag/drop
-  $(document).on('drop dragover', function (e) {
-    e.preventDefault();
-  });
-
   $('#fileupload').fileupload({
     dataType: 'html',
     sequentialUploads: true,
     dropZone: $('.drop-zone'),
-    acceptFileTypes: window.fileupload_opts.accepted_file_types,
-    maxFileSize: window.fileupload_opts.max_file_size,
     previewMinWidth: 150,
     previewMaxWidth: 150,
     previewMinHeight: 150,
     previewMaxHeight: 150,
-    messages: {
-      acceptFileTypes: window.fileupload_opts.errormessages.accepted_file_types,
-      maxFileSize: window.fileupload_opts.errormessages.max_file_size,
-    },
     add: function (e, data) {
       var $this = $(this);
       var that = $this.data('blueimp-fileupload') || $this.data('fileupload');
@@ -105,15 +94,17 @@ $(function () {
 
     /**
      * Allow a custom title to be defined by an event handler for this form.
-     * If event.preventDefault is called, the original behaviour of using the raw
+     * If event.preventDefault is called, the original behavior of using the raw
      * filename (with extension) as the title is preserved.
      *
      * @example
+     * ```js
      * document.addEventListener('wagtail:images-upload', function(event) {
      *   // remove file extension
      *   var newTitle = (event.detail.data.title || '').replace(/\.[^.]+$/, '');
      *   event.detail.data.title = newTitle;
      * });
+     * ```
      *
      * @param {HtmlElement[]} form
      * @returns {{name: 'string', value: *}[]}
@@ -121,7 +112,6 @@ $(function () {
     formData: function (form) {
       var filename = this.files[0].name;
       var data = { title: filename.replace(/\.[^.]+$/, '') };
-      var maxTitleLength = window.fileupload_opts.max_title_length;
 
       var event = form.get(0).dispatchEvent(
         new CustomEvent('wagtail:images-upload', {
@@ -130,12 +120,12 @@ $(function () {
           detail: {
             data: data,
             filename: filename,
-            maxTitleLength: maxTitleLength,
+            maxTitleLength: this.maxTitleLength,
           },
         }),
       );
 
-      // default behaviour (title is just file name)
+      // default behavior (title is just file name)
       return event
         ? form.serializeArray().concat({ name: 'title', value: data.title })
         : form.serializeArray();

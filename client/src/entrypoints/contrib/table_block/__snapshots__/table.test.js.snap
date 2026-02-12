@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
 "<div>
@@ -42,7 +42,7 @@ exports[`telepath: wagtail.widgets.TableInput translation 1`] = `
       <div class="w-field__wrapper" data-field-wrapper="">
         <label class="w-field__label" for="the-id-table-header-choice">En-têtes de tableau</label>
           <select id="the-id-table-header-choice" name="table-header-choice">
-            <option value="">Select a header option</option>
+            <option value="">Sélectionnez une option d'en-tête</option>
             <option value="row">
                 Afficher la première ligne sous forme d'en-tête
             </option>

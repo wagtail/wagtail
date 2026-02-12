@@ -1,22 +1,21 @@
 #
 # Translators:
-# Douglas Miranda <douglasmirandasilva@gmail.com>, 2022
 # Guilherme Nabanete <neoheartz@gmail.com>, 2022
 # Ed Wurch <ewurch@gmail.com>, 2022
-# Éder Brito <britoederr@gmail.com>, 2022
 # Gladson <gladsonbrito@gmail.com>, 2022
 # Iuri L. Machado, 2022
-# Luiz Boaretto <lboaretto@gmail.com>, 2022
-# Loic Teixeira, 2022
 # LB (Ben Johnston) <mail@lb.ee>, 2023
 # A M, 2023
 # Felipe Lobato, 2023
+# Loic Teixeira, 2024
+# Luiz Boaretto <lboaretto@gmail.com>, 2026
+# Douglas Miranda <douglasmirandasilva@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Felipe Lobato, 2023\n"
-"Language-Team: Portuguese (Brazil) (https://app.transifex.com/torchbox/"
-"teams/8009/pt_BR/)\n"
+"Last-Translator: Douglas Miranda <douglasmirandasilva@gmail.com>, 2026\n"
+"Language-Team: Portuguese (Brazil) (https://app.transifex.com/torchbox/teams/"
+"8009/pt_BR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
@@ -30,6 +29,24 @@ msgstr "(1 novo item neste menu)"
 
 msgid "(New)"
 msgstr "(Novo)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s erro"
+msgstr[1] "%(num)s erros"
+msgstr[2] "%(num)s erros"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixels"
+msgstr[2] "%(num)s pixels"
+
+msgid "Actions"
+msgstr "Ações"
+
+msgid "Add"
+msgstr "Adicionar"
 
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
@@ -76,6 +93,12 @@ msgstr "Remover erro"
 msgid "Deleting"
 msgstr "Deletando"
 
+msgid "Drag"
+msgstr "Arrastar"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
 msgid "Edit"
 msgstr "Editar"
 
@@ -118,6 +141,15 @@ msgstr "Documento ausente"
 msgid "More actions"
 msgstr "Mais ações"
 
+msgid "Move down"
+msgstr "Mover para baixo"
+
+msgid "Move up"
+msgstr "Mover para cima"
+
+msgid "No"
+msgstr "Não"
+
 msgid "No results"
 msgstr "Nenhum resultado"
 
@@ -132,6 +164,9 @@ msgstr "Páginas"
 
 msgid "Pin toolbar"
 msgstr "Fixar barra de ferramentas"
+
+msgid "Preview"
+msgstr "Pré-visualizar"
 
 msgid "Reload saved content"
 msgstr "Recarregar conteúdo salvo"
@@ -160,15 +195,6 @@ msgstr "Salvar"
 msgid "Save error"
 msgstr "Salvar erro"
 
-msgid "Save the page to add this comment"
-msgstr "Salve a página para adicionar este comentário"
-
-msgid "Save the page to save this comment"
-msgstr "Salve a página para salvar este comentário"
-
-msgid "Save the page to save this reply"
-msgstr "Salve a página para salvar esta resposta"
-
 msgid "Saving..."
 msgstr "Salvando..."
 
@@ -183,6 +209,9 @@ msgstr "Ver todos"
 
 msgid "Server Error"
 msgstr "Erro de servidor"
+
+msgid "Settings"
+msgstr "Configurações"
 
 msgid "Show error"
 msgstr "Mostrar erro"
@@ -199,8 +228,17 @@ msgstr ""
 "O editor simplesmente travou. O conteúdo foi redefinido para a última versão "
 "salva."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "O número máximo de itens é %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "O número mínimo de itens é %(min_num)d"
+
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
+
+msgid "Toggle section"
+msgstr "Alternar seção"
 
 msgid "Toggle side panel"
 msgstr "Alternar barra lateral"
@@ -219,3 +257,6 @@ msgstr "Ver páginas filho de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escreva algo ou digite '/' para inserir um bloco"
+
+msgid "Yes"
+msgstr "Sim"

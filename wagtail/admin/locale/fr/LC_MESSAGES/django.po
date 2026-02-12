@@ -3,15 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # Adrien <laadrien@gmail.com>, 2014
 # André Bouatchidzé <a@anbz.net>, 2015
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Aurélien Debord <contact@aureliendebord.com>, 2017
 # Aurel Pere, 2024
+# Aurel Pere, 2024
+# Axel H., 2016
 # Axel Haustant, 2016
-# Axel Haustant, 2016
+# Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018,2023-2024
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2024
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
@@ -28,16 +32,16 @@
 # incognitae <pierre@onoffdesign.com>, 2016
 # Romain Dorgueil <romain@dorgueil.net>, 2018
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026
 # Sophy O <sophy.ouch@erudit.org>, 2017
 # Tom Dyson <tom@torchbox.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Aurel Pere, 2024\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2026\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -80,14 +84,25 @@ msgstr "Page verrouillée"
 msgid "%(label)s and Publish"
 msgstr " %(label)s et Publier"
 
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "tout"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
+
 msgid "Wagtail admin"
 msgstr "Administration Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Désolé, vous n'avez pas les autorisations pour accéder à cette zone."
 
-msgid "You do not have permission to access the admin"
-msgstr "Vous n’avez pas l’autorisation d’accéder à l’administration"
+msgid "You do not have permission to access the admin."
+msgstr "Vous n’avez pas l’autorisation d’accéder à l’administration."
 
 msgid "None"
 msgstr "Aucun(e)"
@@ -98,11 +113,36 @@ msgstr "Date depuis le"
 msgid "Date to"
 msgstr "Date jusqu’au"
 
+msgid "Minimum"
+msgstr "Minimum"
+
+msgid "Maximum"
+msgstr "Maximum"
+
 msgid "Locale"
 msgstr "Région"
 
 msgid "All"
 msgstr "Tous"
+
+msgid "Usage count"
+msgstr "Nombre d'utilisations"
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Tag"
+msgstr "Mot-clé"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Filtrer jusqu'à dix mot-clés les plus populaires."
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "Utiliser la langue du serveur : %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "Utiliser le fuseau horaire du serveur"
 
 msgid "Preferred language"
 msgstr "Langue préférée"
@@ -150,9 +190,6 @@ msgstr "Rechercher"
 msgid "All collections"
 msgstr "Toutes les collections"
 
-msgid "Collection"
-msgstr "Collection"
-
 msgid "Parent"
 msgstr "Parent"
 
@@ -163,8 +200,8 @@ msgstr ""
 "Sélectionner la position hiérarchique. Note : Une collection ne peut pas "
 "être enfant d'elle-même ou d'un de ses enfants."
 
-msgid "Please select another parent"
-msgstr "Veuillez sélectionner un autre parent"
+msgid "Please select another parent."
+msgstr "Veuillez sélectionner un autre parent."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
@@ -193,8 +230,8 @@ msgstr "Vous ne pouvez pas modifier le commentaire d'un autre utilisateur."
 msgid "Go live date/time must be before expiry date/time"
 msgstr "La date de publication doit être antérieure à la date d'expiration"
 
-msgid "Expiry date/time must be in the future"
-msgstr "La date d'expiration doit être dans le futur"
+msgid "Expiry date/time must be in the future."
+msgstr "La date d'expiration doit être dans le futur."
 
 msgid "New title"
 msgstr "Nouveau titre"
@@ -266,22 +303,38 @@ msgstr ""
 "pages"
 
 #, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr ""
-"Le slug « %(page_slug)s » est déjà utilisé au niveau de la page parent "
-"sélectionnée. "
+msgid "The slug '%(page_slug)s' is already in use within the parent page."
+msgstr "Le slug '%(page_slug)s' est déjà utilisé au niveau de la page parent "
 
 msgid "Select a new parent for this page."
 msgstr "Sélectionner une nouvelle page parente pour cette page"
+
+msgid "Parent page"
+msgstr "Page parente"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "La nouvelle page sera enfant de cette page parente."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr ""
+"Vous n'avez pas la permission de créer une page sous \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"VOus ne pouvez pas créer une page de type \"%(page_type)s\" sous "
+"\"%(page_title)s\"."
 
 msgid "Search…"
 msgstr "Rechercher..."
 
 #, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters."
 msgstr ""
 "Le(s) mot(s)-clé(s) %(value_too_long)s sont trop longs de %(max_tag_length)d "
-"caractères"
+"caractères."
 
 msgid "Visibility"
 msgstr "Visibilité"
@@ -315,8 +368,8 @@ msgstr "Donnez un nom à votre workflow"
 msgid "Add tasks to your workflow"
 msgstr "Ajoutez des tâches à votre workflow"
 
-msgid "Task"
-msgstr "Tâche"
+msgid "task"
+msgstr "tâche"
 
 msgid "1 page selected"
 msgstr "1 page sélectionnée"
@@ -402,11 +455,14 @@ msgstr "Les %(objects)s éléments sur cet écran"
 msgid "All items in listing selected"
 msgstr "Tous les éléments dans la liste"
 
-msgid "For search engines"
-msgstr "Pour les moteurs de recherche"
+msgid "Can access Wagtail admin"
+msgstr "Peut accéder à l'administration Wagtail"
 
-msgid "For site menus"
-msgstr "Pour les menus du site"
+msgid "item"
+msgstr "élément"
+
+msgid "items"
+msgstr "éléments"
 
 msgid "Content"
 msgstr "Contenu"
@@ -435,14 +491,8 @@ msgstr "La page demandée est introuvable."
 msgid "Go to Wagtail admin"
 msgstr "Aller sur l’administration de Wagtail"
 
-msgid "Account"
-msgstr "Compte"
-
 msgid "More actions"
 msgstr "Plus d'actions"
-
-msgid "Save account details"
-msgstr "Enregistrer les informations du compte"
 
 msgid "Reset password"
 msgstr "Réinitialiser le mot de passe"
@@ -502,6 +552,9 @@ msgstr "Transférer une photo de profil :"
 
 msgid "Sidebar"
 msgstr "Barre latérale"
+
+msgid "Go to the first error"
+msgstr "Aller à la première erreur"
 
 msgid "Go back"
 msgstr "Retour"
@@ -624,17 +677,11 @@ msgstr "Ajouter une sous-page à « %(title)s »"
 msgid "Explore"
 msgstr "Explorer"
 
-msgid "Collection privacy"
-msgstr "Confidentialité de la collection"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Cette collection a été rendue privée par une collection parente."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Vous pouvez modifier les paramètres de confidentialité sur :"
-
-msgid "Save"
-msgstr "Sauvegarder"
 
 msgid "Change privacy"
 msgstr "Modifier les règles de confidentialité"
@@ -666,9 +713,6 @@ msgstr ""
 "Cette collection ne peut être supprimée, car elle n’est pas vide. Elle "
 "contient :"
 
-msgid "Name"
-msgstr "Nom"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -689,10 +733,6 @@ msgstr "Oui, supprimer"
 
 msgid "No, don't delete"
 msgstr "Non, ne pas supprimer"
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Dépublier %(title)s"
 
 #, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
@@ -735,21 +775,21 @@ msgstr "Êtes vous sûr(e) de toujours vouloir publier ce(tte) %(model_name)s ?"
 msgid "Cancel"
 msgstr "Annuler"
 
-#, python-format
-msgid "No %(model_name)s match your query."
-msgstr "Aucun(e) %(model_name)s ne correspond à votre requête."
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Comment"
+msgstr "Commenter"
 
 #, python-format
 msgid ""
 "There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
 "one</a>?"
 msgstr ""
-"Il n'y a aucun(e) %(model_name)s à afficher. Pourquoi ne pas <a "
-"href=\"%(add_url)s\">en ajouter un(e)</a> ?"
-
-#, python-format
-msgid "There are no %(model_name)s to display."
-msgstr "Il n'y a aucun(e) %(model_name)s à afficher."
+"Il n'y a pas de %(model_name)s à afficher. Pourquoi ne pas <a "
+"href=\"%(add_url)s\">en ajouter</a> ?"
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -764,13 +804,6 @@ msgstr ""
 "La prévisualisation ne peut être affichée à cause d'erreurs de validations."
 "<br /> Cliquez sur enregistrer pour mettre en avant les champs "
 "correspondants."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparaison de %(title)s"
-
-msgid "Comparing"
-msgstr "Comparaison"
 
 msgid "Fields"
 msgstr "Champs"
@@ -795,10 +828,6 @@ msgstr[2] "Monter de %(counter)s positions."
 msgid "There are no differences between these two versions"
 msgstr "Il n'y a aucune différence entre les deux versions"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Bienvenue sur le CMS Wagtail %(site_name)s"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -806,17 +835,30 @@ msgstr ""
 "Ceci est votre tableau de bord sur lequel des informations importantes sur "
 "le contenu que vous avez créé seront affichées."
 
+msgid "Account"
+msgstr "Compte"
+
+#, python-format
+msgid "Wagtail %(current_version)s editor guide"
+msgstr "Guide de l'éditeur pour Wagtail %(current_version)s"
+
 msgid "Your locked pages"
 msgstr "Vos pages verrouillées"
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Privacy and access"
+msgstr "Confidentialité et accès"
+
+msgid "Status"
+msgstr "Statut"
 
 msgid "Locked at"
 msgstr "Verrouillé à"
 
 msgid "Edit this page"
 msgstr "Modifier cette page"
-
-msgid "Actions"
-msgstr "Actions"
 
 msgid "Unlock"
 msgstr "Déverrouiller"
@@ -830,9 +872,6 @@ msgstr "Publié"
 msgid "Your most recent edits"
 msgstr "Vos modifications les plus récentes"
 
-msgid "Status"
-msgstr "Statut"
-
 msgid "Date"
 msgstr "Date"
 
@@ -841,36 +880,38 @@ msgstr "Sommaire du site"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Page <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Page <span class=\"w-sr-only\">créée dans %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">créees dans "
-"%(site_name)s</span>"
+"%(total)s Pages <span class=\"w-sr-only\">créées dans%(site_name)s</span>"
 msgstr[2] ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">créees dans "
-"%(site_name)s</span>"
+"%(total)s Pages <span class=\"w-sr-only\">crées dans %(site_name)s</span>"
+
+msgid "Wagtail upgrade available"
+msgstr "Mise à jour Wagtail disponible"
 
 #, python-format
 msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
+"Your version: <strong>%(current_version)s</strong>. New version: <strong "
+"data-w-upgrade-target=\"latestVersion\"></strong>."
 msgstr ""
-"Une mise à jour de Wagtail est disponible. Votre version : "
-"<strong>%(current_version)s</strong>. Nouvelle version : <strong data-w-"
-"upgrade-target=\"latestVersion\"></strong>."
+"Votre version : <strong>%(current_version)s</strong>. Nouvelle version : "
+"<strong data-w-upgrade-target=\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Lire les notes de mise à jour."
 
+msgid "Close"
+msgstr "Fermer"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Vos pages et fragments dans un workflow"
+
+msgid "Task"
+msgstr "Tâche"
 
 msgid "Task started"
 msgstr "Tâche commencée"
@@ -880,9 +921,6 @@ msgstr "Modifications demandées à"
 
 msgid "Awaiting"
 msgstr "En attente"
-
-msgid "Close"
-msgstr "Fermer"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1207,28 +1245,17 @@ msgstr ""
 "%(model_name)s « %(title)s » a été soumis(e) dans le workflow "
 "« %(workflow)s »."
 
-msgid "Page privacy"
-msgstr "Page privée"
+msgid "Changing the privacy for this page has been disabled."
+msgstr "La modification de confidentialité pour cette page a été désactivée."
 
-msgid "This page has been made private by a parent page."
-msgstr "Cette page a été rendue privée par une page parente."
-
-msgid "Save the page before leaving"
-msgstr "Enregistrer la page avant de quitter"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "Vous avez des <span>modifications non enregistrées</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Vous avez des <span>commentaires non enregistrés</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Vous avez <span>des modifications</span> et <span>des commentaires non "
-"enregistrés</span> "
+msgid "Scheduling…"
+msgstr "En cours de programmation..."
 
 msgid "Publishing…"
 msgstr "Publication..."
+
+msgid "Schedule to publish"
+msgstr "Programmer pour publication"
 
 msgid "Publish this version"
 msgstr "Publier cette version"
@@ -1522,14 +1549,6 @@ msgstr[2] ""
 "Cela supprimera également %(descendant_count)s sous-page(s) et les "
 "%(translation_count)s traductions associées."
 
-#, python-format
-msgid "This action will delete total <b>%(total_pages)s</b> pages."
-msgstr "Cette action supprimera <b>%(total_pages)s</b> pages."
-
-#, python-format
-msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
-msgstr "Veuillez taper <b>%(wagtail_site_name)s</b> pour confirmer."
-
 msgid "Yes, delete it"
 msgstr "Oui, le supprimer"
 
@@ -1679,9 +1698,6 @@ msgstr "Copier"
 msgid "Copy this page"
 msgstr "Copier cette page"
 
-msgid "This page has unsaved changes."
-msgstr "Cette page contient des changements non enregistrés."
-
 msgid "This page is an alias of another page."
 msgstr "Cette page est l'alias d'une autre page"
 
@@ -1690,34 +1706,6 @@ msgstr "Modifier la page originale"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Convertir cet alias en une page ordinaire"
-
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Historique de page pour %(subtitle)s"
-
-msgid "Action"
-msgstr "Action"
-
-msgid "User"
-msgstr "Utilisateur"
-
-msgid "Date / Time"
-msgstr "Date/Heure"
-
-msgid "Comment"
-msgstr "Commenter"
-
-msgid "Live version"
-msgstr "Version publiée"
-
-msgid "Current draft"
-msgstr "Brouillon actuel"
-
-msgid "No log entries found."
-msgstr "Aucune entrée de journal trouvée."
-
-msgid "Select all pages in listing"
-msgstr "Sélectionner toutes les pages dans la liste"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1761,6 +1749,9 @@ msgstr ""
 "Il n'y a pas d'enregistrement de site pour cet emplacement. Les pages créées "
 "ici ne seront pas accessibles par URL."
 
+msgid "Select all pages in listing"
+msgstr "Sélectionner toutes les pages dans la liste"
+
 msgid "This page is locked, by you, to further editing"
 msgstr ""
 "Cette page est verrouillée, par vous, pour toute modification ultérieure"
@@ -1776,27 +1767,10 @@ msgstr "Explorer les sous-pages de « %(title)s »"
 msgid "Add a child page to '%(title)s'"
 msgstr "Ajouter une sous-page à « %(title)s »"
 
-msgid "Drag"
-msgstr "Glisser"
-
-#, python-format
-msgid "Item %(index)s of %(total)s"
-msgstr "Élément %(index)s sur %(total)s"
-
-msgid "Disable ordering of child pages"
-msgstr "Désactiver le tri des sous-pages"
-
-msgid "Sort"
-msgstr "Tri"
-
-msgid "Enable ordering of child pages"
-msgstr "Activer le tri des sous-pages"
-
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr ""
-"%(start_index)s-%(end_index)s sur %(items_count)s entités pour la totalite "
-"du site."
+"%(start_index)s-%(end_index)s sur %(items_count)s pour la totalité du site."
 
 msgid "No results across entire site."
 msgstr "Aucun résultat dans l'ensemble du site."
@@ -1810,7 +1784,7 @@ msgid ""
 "%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
 "ellipsis\">%(title)s</span>'."
 msgstr ""
-"%(start_index)s-%(end_index)s sur %(items_count)sitems dans '<span class=\"w-"
+"%(start_index)s-%(end_index)s sur %(items_count)s dans '<span class=\"w-"
 "title-ellipsis\">%(title)s</span>'."
 
 #, python-format
@@ -1823,7 +1797,7 @@ msgstr "Rechercher dans tout le site"
 
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s sur %(items_count)sitems"
+msgstr "%(start_index)s-%(end_index)s sur %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Menu des sites"
@@ -1850,14 +1824,8 @@ msgstr "Confirmer"
 msgid "Add child page"
 msgstr "Ajouter une sous-page"
 
-msgid "Review this version"
-msgstr "Passer en revue cette version"
-
-msgid "Compare with current version"
-msgstr "Comparer avec la version actuelle"
-
-msgid "Cancel scheduled publish"
-msgstr "Annuler la publication programmée"
+msgid "Page types"
+msgstr "Type de pages"
 
 #, python-format
 msgid "There is one matching page"
@@ -1866,18 +1834,12 @@ msgstr[0] "Il y a une page correspondante"
 msgstr[1] "Il y a %(counter)s pages correspondantes"
 msgstr[2] "Il y a %(counter)s pages correspondantes"
 
-msgid "Page types"
-msgstr "Type de pages"
-
 #, python-format
 msgid "Sorry, no pages match <em>%(query_string)s</em>"
 msgstr "Désolé, aucune page ne correspond à « <em>%(query_string)s</em> »"
 
 msgid "Enter a search term above"
 msgstr "Entrez un terme de recherche ci-dessus"
-
-msgid "No pages use"
-msgstr "Aucune page utilisée"
 
 #, python-format
 msgid "Add %(label)s"
@@ -1889,6 +1851,9 @@ msgstr "Monter"
 msgid "Move down"
 msgstr "Descendre"
 
+msgid "Drag"
+msgstr "Glisser"
+
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
 msgstr ""
@@ -1899,10 +1864,10 @@ msgstr "Choisissez quand cette page devra être publiée ou expirée"
 
 msgid ""
 "This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"\"Schedule to publish\" option"
 msgstr ""
 "Cette programmation de publication ne prendra effet que lorsque vous "
-"cliquerez sur l'option « Publier »"
+"sélectionnerez l'option \"Programmer pour publication\""
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr ""
@@ -1956,9 +1921,6 @@ msgstr "Dernière page modifiée"
 msgid "Last edit"
 msgstr "Dernière modification"
 
-msgid "No page types found."
-msgstr "Aucun type de page trouvé."
-
 msgid "Locking status"
 msgstr "Status de verrouillage"
 
@@ -1980,11 +1942,26 @@ msgstr "Verrouillé"
 msgid "No locked pages found."
 msgstr "Aucune page verrouillée trouvée"
 
+msgid "No page types found."
+msgstr "Aucun type de page trouvé."
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Date / Time"
+msgstr "Date/Heure"
+
 msgid "Edit this item"
 msgstr "Modifier cet item"
 
-msgid "By Task"
-msgstr "Par tâche"
+msgid "No log entries found."
+msgstr "Aucune entrée de journal trouvée."
 
 msgid "Workflow"
 msgstr "Workflow"
@@ -2004,18 +1981,26 @@ msgstr "Tâche incomplète"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Aucune page ou fragment n'ont encore été soumis pour modération"
 
-msgid "By Workflow"
-msgstr "Par Workflow"
-
 msgid "Completed at"
 msgstr "Terminé à"
+
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s :"
 
 msgid "Clear"
 msgstr "Effacer"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Page %(page_num)s sur %(total_pages)s."
+msgid "Saved"
+msgstr "Enregistré"
+
+msgid "Autosave is paused"
+msgstr "L'enregistrement automatique est en pause"
+
+msgid "Edit account avatar"
+msgstr "Modifier l'avatar du compte"
 
 msgid "Toggle breadcrumbs"
 msgstr "Afficher/masquer le fil d'Ariane"
@@ -2023,8 +2008,86 @@ msgstr "Afficher/masquer le fil d'Ariane"
 msgid "Breadcrumb"
 msgstr "Fil d'Ariane"
 
+#, python-format
+msgid "This action will delete <b>%(total_pages_formatted)s</b> page in total."
+msgid_plural ""
+"This action will delete <b>%(total_pages_formatted)s</b> pages in total."
+msgstr[0] ""
+"Cette action supprimera <b>%(total_pages_formatted)s</b> page au total."
+msgstr[1] ""
+"Cette action supprimera <b>%(total_pages_formatted)s</b> pages au total."
+msgstr[2] ""
+"Cette action supprimera <b>%(total_pages_formatted)s</b> pages au total."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Veuillez taper <b>%(wagtail_site_name)s</b> pour confirmer."
+
 msgid "Close dialog"
 msgstr "Fermer"
+
+msgid "You saved a new version in another window"
+msgstr "Vous avez enregistré une nouvelle version dans une autre fenêtre"
+
+msgid "System"
+msgstr "Système"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s a enregistré une nouvelle version"
+
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+msgid "You have unsaved changes in another window"
+msgstr "Vous avez des modifications non enregistrées dans une autre fenêtre"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s a des modifications non enregistrées"
+
+msgid "Currently viewing"
+msgstr "Consulté actuellement par"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Un autre utilisateur est en train de consulter"
+msgstr[1] "%(num_user)s autres utilisateurs sont en train de consulter"
+msgstr[2] "%(num_user)s autres utilisateurs sont en train de consulter"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"Continuer écrasera les modifications effectuées dans l'autre fenêtre. "
+"Rafraîchir la page vous affichera les nouvelles modifications, mais vous "
+"perdrez toutes vos modifications non enregistrées dans la fenêtre actuelle."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"Continuer écrasera les modifications effectuées par %(user_name)s. "
+"Rafraîchir la page vous affichera les nouvelles modifications, mais vous "
+"perdrez toutes vos modifications non enregistrées."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr ""
+"Rafraîchir la page signifie que vous perdrez toutes vos modifications non "
+"enregistrées"
+
+msgid "Refresh page"
+msgstr "Rafraîchir la page"
+
+msgid "Continue"
+msgstr "Continuer"
+
+msgid "Refresh the page"
+msgstr "Rafraîchir la page"
 
 msgid "Download XLSX"
 msgstr "Télécharger en XLSX"
@@ -2053,8 +2116,36 @@ msgstr "Retour"
 msgid "History"
 msgstr "Historique"
 
-msgid "Root"
-msgstr "Racine"
+msgid "account"
+msgstr "compte"
+
+msgid "Keyboard shortcuts"
+msgstr "Raccourcis clavier"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently disabled; manage your %(account_link)s to "
+"enable them."
+msgstr ""
+"Les raccourcis clavier sont actuellement désactivés, gérer votre "
+"%(account_link)s pour les activer."
+
+msgid "All keyboard shortcuts"
+msgstr "Tous les raccourcis clavier"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "Keyboard shortcut"
+msgstr "Raccourci clavier"
+
+#, python-format
+msgid ""
+"Keyboard shortcuts are currently enabled; manage your %(account_link)s to "
+"disable them."
+msgstr ""
+"Les raccourcis clavier sont actuellement activés, gérer votre "
+"%(account_link)s pour les désactiver."
 
 msgid "Current page status:"
 msgstr "Status actuel de la page :"
@@ -2065,21 +2156,18 @@ msgstr "Voir la page publiée"
 msgid "Visible to all. Visit the live page"
 msgstr "Visible par tous. Voir la page publiée"
 
-msgid "Private. Visit the live page"
-msgstr "Privée. Voir la page publiée"
-
 msgid "Visible to all"
 msgstr "Visible pour tous"
 
-msgid "Toggle section"
-msgstr "Afficher/masquer la section"
+msgid "Private. Visit the live page"
+msgstr "Privée. Voir la page publiée"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Déprogrammer la version %(revision.id)s de %(title)s"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Page %(page_num)s sur %(total_pages)s"
 
-msgid "Unschedule"
-msgstr "Déprogrammer"
+msgid "Toggle section"
+msgstr "Afficher/masquer la section"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Êtes-vous sûr de vouloir déprogrammer cette version ?"
@@ -2093,6 +2181,9 @@ msgstr "Non, ne pas déprogrammer"
 msgid "Other searches"
 msgstr "Autres recherches"
 
+msgid "Save"
+msgstr "Sauvegarder"
+
 msgid "Minimap"
 msgstr "Sommaire"
 
@@ -2104,6 +2195,58 @@ msgstr "Afficher/masquer le panneau latéral"
 
 msgid "Side panel width"
 msgstr "Largeur du panneau latéral"
+
+msgid "Show issue"
+msgstr "Afficher le problème"
+
+msgid "Content metrics"
+msgstr "Métriques de contenu"
+
+msgid "Words"
+msgstr "Mots"
+
+msgid "Reading time"
+msgstr "Durée de lecture"
+
+msgid "Readability"
+msgstr "Lisibilité"
+
+msgid "This data explained"
+msgstr "Ces données expliquées"
+
+msgid "How we calculate our metrics"
+msgstr "Comment nous calculons ces indicateurs"
+
+msgid ""
+"We extract the main content from the page preview, remove all formatting, "
+"and calculate the number of words."
+msgstr ""
+"Nous extrayons le contenu principal de la prévisualisation, en retirant tout "
+"formatage, puis calculons le nombre de mots."
+
+msgid ""
+"We calculate reading time from word count, using different reading speeds "
+"for different languages."
+msgstr ""
+"Nous calculons la durée de lecture depuis le nombre de mots, en utilisant "
+"différentes vitesse de lecture pour chaque langue."
+
+msgid ""
+"We use a readability formula based on length of words and sentences. Long "
+"sentences and words result in a worse readability score."
+msgstr ""
+"Nous utilisons une formule de lisibilité basée sur la longueur des mots et "
+"des phrases. De longues phrases et mots conduisent à un score de lisibilité "
+"moins bon."
+
+#, python-format
+msgid ""
+"See our <a href=\"%(guide_link)s\" target=\"_blank\">content checks guide</"
+"a> for more information on how content metrics are calculated."
+msgstr ""
+"Consulter notre <a href=\"%(guide_link)s\" target=\"_blank\">guide sur les "
+"vérifications de contenu</a>pour plus d'information sur comment les "
+"indicateurs sont calculés."
 
 msgid "Issues found"
 msgstr "Problèmes trouvés"
@@ -2187,6 +2330,10 @@ msgid "View details"
 msgstr "Voir les détails"
 
 #, python-format
+msgid "To be created by %(user)s"
+msgstr "Sera créé par %(user)s"
+
+#, python-format
 msgid "by %(user)s"
 msgstr "par %(user)s"
 
@@ -2199,7 +2346,7 @@ msgstr "Programmation invalide"
 msgid "Go-live:"
 msgstr "Publication :"
 
-msgid "Once published:"
+msgid "Once scheduled:"
 msgstr "Une fois publié :"
 
 msgid "No publishing schedule set"
@@ -2208,20 +2355,14 @@ msgstr "Aucune programmation de publication"
 msgid "Set schedule"
 msgstr "Programmer"
 
-msgid "Preview in mobile size"
-msgstr "Prévisualiser au format mobile"
-
-msgid "Preview in tablet size"
-msgstr "Prévisualiser au format tablette"
-
-msgid "Preview in desktop size"
-msgstr "Prévisualiser au format ordinateur de bureau"
-
 msgid "Preview in new tab"
 msgstr "Prévisualiser dans un nouvel onglet"
 
 msgid "Loading"
 msgstr "Chargement…"
+
+msgid "Refreshing…"
+msgstr "Rafraîchissement..."
 
 msgid "Preview is out of date"
 msgstr "La prévisualisation n'est pas à jour"
@@ -2239,6 +2380,15 @@ msgstr "Mode prévisualisation"
 msgid "First published"
 msgstr "Première publication"
 
+msgid "Autosave is <span>paused</span>"
+msgstr "L'enregistrement automatique est <span>en pause</span>"
+
+msgid "Save your changes before leaving"
+msgstr "Enregistrer vos changements avant de quitter"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Vous avez des <span>modifications non enregistrées</span>"
+
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2251,13 +2401,7 @@ msgid ""
 "One or more references to this %(model_name)s prevent it from being deleted."
 msgstr ""
 "Une ou plusieurs références vers ce(tte) %(model_name)s l'empêche d'être "
-"supprimé."
-
-msgid "Edit / Review"
-msgstr "Modifier / Vérifier"
-
-msgid "Workflow history"
-msgstr "Historique du workflow"
+"supprimé(e)."
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -2301,13 +2445,6 @@ msgstr "Workflow terminé"
 msgid "%(action)s by <b>%(who)s</b>"
 msgstr "%(action)s par <b>%(who)s</b>"
 
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Historique du workflow pour %(title)s"
-
-msgid "Workflow history for"
-msgstr "Historique du workflow pour"
-
 msgid "Approved task"
 msgstr "Tâche approuvée"
 
@@ -2332,11 +2469,24 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Aller à contenu principal"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Élément %(index)s sur %(total)s"
+
+msgid "Disable custom ordering"
+msgstr "Désactiver le tri personnalisé"
+
+msgid "Sort"
+msgstr "Tri"
+
+msgid "Enable custom ordering"
+msgstr "Activer le tri personnalisé"
+
 msgid "View Wagtail quick actions"
 msgstr "Voir les actions rapides Wagtail"
 
-msgid "Accessibility"
-msgstr "Accessibilité"
+msgid "Checks"
+msgstr "Vérifications"
 
 msgid "Warnings"
 msgstr "Alertes"
@@ -2374,12 +2524,6 @@ msgstr "Assignez votre workflow à des pages"
 
 msgid "Assign your workflow to snippets"
 msgstr "Assignez votre workflow à des fragments"
-
-msgid "Creating…"
-msgstr "En cours de création..."
-
-msgid "Create"
-msgstr "Créer"
 
 #, python-format
 msgid ""
@@ -2424,14 +2568,9 @@ msgstr "Page"
 msgid "Assign to another page"
 msgstr "Assigner à une autre page"
 
-msgid "Hide disabled workflows"
-msgstr "Cacher les workflow désactivés"
-
-msgid "Show disabled workflows"
-msgstr "Afficher les workflows désactivés"
-
-msgid "Used by"
-msgstr "Utilisé par"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Étape %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2446,10 +2585,6 @@ msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 type de fragment"
 msgstr[1] "%(counter)s types de fragments"
 msgstr[2] "%(counter)s types de fragments"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Étape %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2480,6 +2615,12 @@ msgstr "Existant"
 msgid "Choose a different task type"
 msgstr "Choisir un type de tâche différent"
 
+msgid "Creating…"
+msgstr "En cours de création..."
+
+msgid "Create"
+msgstr "Créer"
+
 msgid "Task type"
 msgstr "Type de tâche"
 
@@ -2494,17 +2635,13 @@ msgid "You haven't created any tasks."
 msgstr "Vous n’avez pas encore transféré de tâches."
 
 msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>create one now</a>?"
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">create one now</a>?"
 msgstr ""
-"Pourquoi ne pas <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
-"trigger>en créer un</a> ?"
-
-msgid "Hide disabled tasks"
-msgstr "Cacher les tâches désactivées"
-
-msgid "Show disabled tasks"
-msgstr "Afficher les tâches désactivées"
+"Pourquoi ne pas <a class=\"create-one-now\" href=\"#tab-new\" data-"
+"action=\"w-tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-"
+"focus-param=\"true\">en créer un(e) maintenant</a> ?"
 
 #, python-format
 msgid ""
@@ -2519,13 +2656,6 @@ msgid ""
 msgstr ""
 "Il n'y a pas de tâche d'activer. Pourquoi ne pas <a href=\"%(add_url)s\">en "
 "ajouter une</a> ?"
-
-#, python-format
-msgid "Pages that use workflow '%(name)s'"
-msgstr "Pages qui utilisent ce workflow « %(name)s »"
-
-msgid "Pages that use workflow"
-msgstr "Pages qui utilisent un workflow"
 
 msgid "Submitted"
 msgstr "Soumis"
@@ -2579,10 +2709,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s par %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "À l'instant par %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "Il y a %(time_period)s par %(user_display_name)s"
 
@@ -2600,6 +2726,78 @@ msgstr "Envoyé vers %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+#. Translators: Shortcuts for admin common shortcuts that are available across
+#. the admin
+msgid "Application"
+msgstr "Application"
+
+msgid "Show keyboard shortcuts"
+msgstr "Afficher les raccourcis clavier"
+
+msgid "Toggle sidebar"
+msgstr "Afficher/masquer la barre latérale"
+
+msgid "Toggle minimap"
+msgstr "Activer/désactiver le sommaire"
+
+msgid "Close modal dialogs (like this one)"
+msgstr "Fermer les fenêtres modales (comme celle-ci)"
+
+msgid "Save changes"
+msgstr "Enregistrer les changements"
+
+msgid "Add or show comments"
+msgstr "Ajouter ou afficher les commentaires"
+
+#. Translators: Shortcuts for common text editing features available in all
+#. fields (even if not a rich text field)
+msgid "Text editing"
+msgstr "Édition de text"
+
+msgid "Cut"
+msgstr "Couper"
+
+msgid "Paste"
+msgstr "Coller"
+
+msgid "Paste and match style"
+msgstr "Coller et appliquer le style"
+
+msgid "Paste without formatting"
+msgstr "Coller sans le style de formatage"
+
+msgid "Undo"
+msgstr "Annuler"
+
+msgid "Redo"
+msgstr "Rétablir"
+
+#. Translators: Shortcuts for formatting & editing features available in rich
+#. text fields
+msgid "Text formatting"
+msgstr "Formatage de texte"
+
+msgid "Insert or edit a link"
+msgstr "Insérer ou modifier un lien"
+
+msgid "Bold"
+msgstr "Gras"
+
+msgid "Italic"
+msgstr "Italique"
+
+msgid "Monospace (code)"
+msgstr "Monospace (code)"
+
+msgid "Strike-through"
+msgstr "Barré"
+
+msgid "Superscript"
+msgstr "Exposant"
+
+msgid "Subscript"
+msgstr "Indice"
 
 msgid "Toggle status"
 msgstr "Afficher/masquer le statut"
@@ -2620,11 +2818,11 @@ msgstr "Commentaires"
 msgid "Toggle checks"
 msgstr "Activer/désactiver les vérifications"
 
-msgid "Checks"
-msgstr "Vérifications"
-
 msgid "Toggle preview"
 msgstr "Afficher/masquer la prévisualisation"
+
+msgid "(blank)"
+msgstr "(vide)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2633,6 +2831,17 @@ msgstr "Trier par « %(label)s » en ordre croissant."
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Trier par « %(label)s » en ordre décroissant."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' a été déplacée avec succès"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Utiliser le bouton de défilement et appuyer sur les touches haut ou bas pour "
+"déplacer l'élément, puis appuyer sur entrée pour soumettre la modification."
 
 #, python-format
 msgid ""
@@ -2649,47 +2858,51 @@ msgstr ""
 "Trier les sous-pages de « %(parent)s » par « %(label)s » par ordre "
 "décroissant."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du bouton est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Button text is empty"
+msgstr "Le texte du bouton est vide"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du titre est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Use meaningful text for screen reader users"
+msgstr "Utiliser un texte parlant pour les utilisateurs de lecteur d'écran"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte de l'en-tête du tableau est vide. Utilisez un texte significatif "
-"pour les utilisateurs de lecteurs d'écran."
+msgid "Empty heading found"
+msgstr "Titre vide trouvé"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Le titre du cadre intégré (frame) est vide. Utilisez un texte significatif "
-"pour les utilisateurs de lecteurs d'écran."
+msgid "Table header text is empty"
+msgstr "Le texte d'entête de tableau est vide"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr ""
-"Hiérarchie des titres incorrecte. Veuillez éviter de sauter des niveaux de "
-"titres."
+msgid "Empty frame title found"
+msgstr "Titre d'iframe vide trouvé"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du bouton de saisie est vide. Utilisez un texte significatif pour "
-"les utilisateurs de lecteurs d'écran."
+msgid "Use a meaningful title for screen reader users"
+msgstr "Utiliser un titre parlant pour les utilisateurs de lecteur d'écran"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du lien est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Incorrect heading hierarchy"
+msgstr "Hiérarchie de titre incorrecte"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Mauvais usage de paragraphes comme titres. Utilisez plutôt une balise titre."
+msgid "Avoid skipping levels"
+msgstr "Éviter de sauter des niveaux"
+
+msgid "Input button text is empty"
+msgstr "Le texte du bouton d'action est vide"
+
+msgid "Link text is empty"
+msgstr "Le texte du lien est vide"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Utilisation de paragraphes en tant que titre"
+
+msgid "Use proper heading tags"
+msgstr "Utiliser des balises de titre appropriées"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "Le texte alternatif de l'image a un motif inapproprié"
+
+msgid "Use meaningful text"
+msgstr "Utiliser un texte parlant"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "objet %(classname)s (%(id)s)"
 
 msgid "Profile"
 msgstr "Compte"
@@ -2735,12 +2948,12 @@ msgstr "Collection « %(object)s » mise à jour."
 msgid "The collection could not be saved due to errors."
 msgstr "La collection ne peut être enregistrée du fait d'erreurs."
 
-msgid "Delete collection"
-msgstr "Supprimer la collection"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Collection « %(object)s » supprimée."
+
+msgid "Delete collection"
+msgstr "Supprimer la collection"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
@@ -2748,17 +2961,41 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
 msgid "Home"
 msgstr "Accueil"
 
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Aucun(e) %(model_name)s ne correspond à votre requête."
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Il n'y a pas de %(model_name)s à afficher."
+
+msgid "Live version"
+msgstr "Version publiée"
+
+msgid "Current draft"
+msgstr "Brouillon actuel"
+
+msgid "Review this version"
+msgstr "Passer en revue cette version"
+
+msgid "Compare with current version"
+msgstr "Comparer avec la version actuelle"
+
+msgid "Cancel scheduled publish"
+msgstr "Annuler la publication programmée"
+
+msgid "Workflow history"
+msgstr "Historique du workflow"
+
 msgid "Workflow progress"
 msgstr "Avancée du workflow"
+
+msgid "Edit / Review"
+msgstr "Modifier / Vérifier"
 
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s « %(title)s » est maintenant déverrouillé(e)."
-
-#, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr ""
-"Le/la %(model_name)s n'a pu être enregistré(e) car il/elle est verrouillé(e)"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -2809,6 +3046,14 @@ msgstr "Le workflow pour %(model_name)s « %(object)s » a été relancé."
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "Le workflow pour %(model_name)s « %(object)s » a été annulé."
 
+msgid "Saving will overwrite a newer version."
+msgstr "Enregistrer écrira une nouvelle version."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr ""
+"Le/la %(model_name)s n'a pu être enregistré(e) car il/elle est verrouillé(e)"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this %(model_name)s from "
@@ -2841,23 +3086,14 @@ msgstr ""
 "planifié(e) pour la publication."
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Modifier « %(title)s »"
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
 
-#, python-format
-msgid "Copy '%(title)s'"
-msgstr "Copier '%(title)s'"
+msgid "Sort item order"
+msgstr "Ajuster l'ordre des éléments"
 
 msgid "Inspect"
 msgstr "Inspecter"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspecter « %(title)s »"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Supprimer « %(title)s »"
 
 #, python-format
 msgid "More options for '%(title)s'"
@@ -2875,6 +3111,10 @@ msgstr "Le(la) %(model_name)s n'a pas pu être créé(e) à cause d'erreurs."
 msgid "New: %(model_name)s"
 msgstr "Nouvel(le) : %(model_name)s"
 
+msgid "There are validation errors, click save to highlight them."
+msgstr ""
+"Il y a des erreurs de validation, cliquer sur enregistrer pour les afficher."
+
 msgid "Editing"
 msgstr "Modification"
 
@@ -2890,8 +3130,8 @@ msgstr "%(model_name)s « %(object)s » supprimé(e)."
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer ce(tte) %(model_name)s ?"
 
-msgid "Inspecting"
-msgstr "Inspection"
+msgid "Compare"
+msgstr "Comparer"
 
 msgid "Earliest"
 msgstr "Première"
@@ -2907,9 +3147,16 @@ msgstr "« ​%(object)s » a été dépublié(e)."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Version %(revision_id)s de « %(object)s » déprogrammé(e)."
 
+msgid "Unschedule"
+msgstr "Déprogrammer"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "version %(revision_id)s de « %(object)s »"
+
+#, python-format
+msgid "Preview for %(block_label)s (%(block_type)s)"
+msgstr "Prévisualisation de %(block_label)s (%(block_type)s)"
 
 msgid "If you confirm deletion"
 msgstr "Si vous confirmez la suppression"
@@ -2940,39 +3187,28 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
+msgid "Search all pages…"
+msgstr "Rechercher toutes les pages..."
+
+#, python-format
+msgid "Privacy is inherited from the ancestor page - %(ancestor_page)s"
+msgstr "La confidentialité est héritée de la page parente - %(ancestor_page)s"
+
 msgid "Delete selected pages"
 msgstr "Supprimer les pages sélectionnées"
 
-msgid "1 page has been deleted"
-msgstr "1 page a été supprimée"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been deleted"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been deleted"
+msgstr "%(parent_pages)s et %(child_pages)s ont été supprimées"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 page et %(num_child_objects)d sous-page ont été supprimées"
-msgstr[1] "1 page et %(num_child_objects)d sous-pages ont été supprimées"
-msgstr[2] "1 page et %(num_child_objects)d sous-pages ont été supprimées"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d pages ont été supprimées"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-page ont été "
-"supprimées"
-msgstr[1] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
-"supprimées"
-msgstr[2] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
-"supprimées"
+msgid "%(num_parent_objects)d page has been deleted"
+msgid_plural "%(num_parent_objects)d pages have been deleted"
+msgstr[0] "%(num_parent_objects)d page a été supprimée"
+msgstr[1] "%(num_parent_objects)d pages ont été supprimées"
+msgstr[2] "%(num_parent_objects)d pages ont été supprimées"
 
 msgid "Select a new parent page"
 msgstr "Sélectionner une nouvelle page parente"
@@ -2987,74 +3223,58 @@ msgstr[0] "%(num_pages)d page a été déplacée"
 msgstr[1] "%(num_pages)d pages ont été déplacées"
 msgstr[2] "%(num_pages)d pages ont été déplacées"
 
+#, python-format
+msgid "%(num_parent_objects)d page"
+msgid_plural "%(num_parent_objects)d pages"
+msgstr[0] "%(num_parent_objects)d page"
+msgstr[1] "%(num_parent_objects)d pages"
+msgstr[2] "%(num_parent_objects)d pages"
+
+#, python-format
+msgid "%(num_child_objects)d child page"
+msgid_plural "%(num_child_objects)d child pages"
+msgstr[0] "%(num_child_objects)d sous-page"
+msgstr[1] "%(num_child_objects)d sous-pages"
+msgstr[2] "%(num_child_objects)d sous-pages"
+
 msgid "Publish selected pages"
 msgstr "Publier les pages sélectionnées"
 
-msgid "1 page has been published"
-msgstr "1 page a été publiée"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been published"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been published"
+msgstr "%(parent_pages)s et %(child_pages)s ont été publiées"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 page et %(num_child_objects)d sous-page ont été publiées"
-msgstr[1] "1 page et %(num_child_objects)d sous-pages ont été publiées"
-msgstr[2] "1 page et %(num_child_objects)d sous-pages ont été publiées"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d pages ont été publiées"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-page ont été "
-"publiées"
-msgstr[1] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
-"publiées"
-msgstr[2] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
-"publiées"
+msgid "%(num_parent_objects)d page has been published"
+msgid_plural "%(num_parent_objects)d pages have been published"
+msgstr[0] "%(num_parent_objects)d page a été publiée"
+msgstr[1] "%(num_parent_objects)d pages ont été publiées"
+msgstr[2] "%(num_parent_objects)d pages ont été publiées"
 
 msgid "Unpublish selected pages"
 msgstr "Dépublier les pages sélectionnées"
 
-msgid "1 page has been unpublished"
-msgstr "1 page a été dépubliée"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been unpublished"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been unpublished"
+msgstr "%(parent_pages)s et %(child_pages)s ont été dépubliées"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "1 page et %(num_child_objects)d sous-page ont été dépubliées"
-msgstr[1] "1 page et %(num_child_objects)d sous-pages ont été dépubliées"
-msgstr[2] "1 page et %(num_child_objects)d sous-pages ont été dépubliées"
+msgid "%(num_parent_objects)d page has been unpublished"
+msgid_plural "%(num_parent_objects)d pages have been unpublished"
+msgstr[0] "%(num_parent_objects)d page a été dépubliée"
+msgstr[1] "%(num_parent_objects)d pages ont été dépubliées"
+msgstr[2] "%(num_parent_objects)d pages ont été dépubliées"
+
+msgid "Choose parent"
+msgstr "Choisir un parent"
 
 #, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d pages ont été dépubliées"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-page ont été "
-"dépubliées"
-msgstr[1] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
-"dépubliées"
-msgstr[2] ""
-"%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
-"dépubliées"
+msgid "Create a new %(model_name)s"
+msgstr "Créer un(e) nouveau(elle) %(model_name)s"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -3068,6 +3288,10 @@ msgstr "Page « %(page_title)s » et %(subpages_count)s sous-pages copiées."
 #, python-format
 msgid "Page '%(page_title)s' copied."
 msgstr "Page « %(page_title)s » copiée."
+
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "La requête pour créer %(model_name)s a été bloquée par un hook."
 
 msgid "View draft"
 msgstr "Voir le brouillon"
@@ -3091,8 +3315,8 @@ msgstr "Page « %(page_title)s » créée et publiée."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Page « %(page_title)s » créée et soumise pour modération."
 
-msgid "The page could not be created due to validation errors"
-msgstr "La page ne peut être créée du fait d'erreurs de validation"
+msgid "The page could not be created due to validation errors."
+msgstr "La page ne peut être créée du fait d'erreurs de validation."
 
 #, python-format
 msgid "Page '%(page_title)s' deleted."
@@ -3113,6 +3337,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "La page « %(page_title)s » a été mise à jour."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "La requête pour modifier %(model_name)s a été bloquée par un hook."
 
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."
@@ -3156,20 +3384,14 @@ msgstr "La page « %(page_title)s » a été soumise pour modération."
 msgid "Workflow on page '%(page_title)s' has been restarted."
 msgstr "Le workflow de la page « %(page_title)s » a été relancé."
 
-msgid "The page could not be saved as it is locked"
-msgstr "La page n'a pu être enregistrée car elle est verrouillée"
+msgid "The page could not be saved as it is locked."
+msgstr "La page n'a pu être enregistrée car elle est verrouillée."
 
-msgid "The page could not be saved due to validation errors"
+msgid "The page could not be saved due to validation errors."
 msgstr "La page ne peut être enregistrée du fait d'erreurs de validation."
 
-msgid "Hide commenting actions"
-msgstr "Cacher les actions de commentaires"
-
-msgid "Page history"
-msgstr "Historique de la page"
-
-msgid "Page type"
-msgstr "Type de page"
+msgid "Is commenting action"
+msgstr "Est une action de commentaire"
 
 msgid "Date updated"
 msgstr "Date mise à jour"
@@ -3192,19 +3414,11 @@ msgstr "Any"
 msgid "Yes"
 msgstr "Oui"
 
+msgid "Page type"
+msgstr "Type de page"
+
 msgid "Exploring"
 msgstr "Exploration"
-
-msgid ""
-"Focus on the drag button and press up or down arrows to move the item, then "
-"press enter to submit the change."
-msgstr ""
-"Utiliser le bouton de défilement et appuyer sur les touches haut ou bas pour "
-"bouger l'item, puis appuyer sur entrée pour soumettre la modification"
-
-#, python-format
-msgid "'%(page_title)s' has been moved successfully."
-msgstr "'%(page_title)s' a été déplacée avec succès"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -3213,14 +3427,17 @@ msgstr "La page « %(page_title)s » est maintenant déverrouillée."
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use at the selected parent page. Make "
-"sure the slug is unique and try again"
+"sure the slug is unique and try again."
 msgstr ""
-"Le slug « %(page_slug)s » est déjà utilisé au niveau de la page parent "
+"Le slug '%(page_slug)s' est déjà utilisé au niveau de la page parent "
 "sélectionnée. Assurez-vous que le slug est unique et réessayez."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Page « %(page_title)s » déplacée."
+
+msgid "Placeholder title"
+msgstr "Titre provisoire"
 
 #, python-format
 msgid ""
@@ -3236,6 +3453,9 @@ msgstr "Page « %(page_title)s » dépubliée."
 
 msgid "Pages using"
 msgstr "Pages utilisant"
+
+msgid "Page types usage"
+msgstr "Utilisation des types de page"
 
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
@@ -3273,9 +3493,6 @@ msgstr "Date/Heure"
 msgid "Locked pages"
 msgstr "Pages verrouillées"
 
-msgid "Page types usage"
-msgstr "Utilisation des types de page"
-
 msgid "Show"
 msgstr "Afficher"
 
@@ -3294,14 +3511,26 @@ msgstr "Type de page/fragment"
 msgid "Page/Snippet Title"
 msgstr "Titre de page/fragment"
 
+msgid "By task"
+msgstr "Par tâche"
+
 msgid "Workflow tasks"
 msgstr "Tâches de workflow"
 
 msgid "Requested By"
 msgstr "Demandé par"
 
+msgid "By workflow"
+msgstr "Par workflow"
+
+msgid "Show disabled"
+msgstr "Afficher les désactivés"
+
 msgid "Add a workflow"
 msgstr "Ajouter un workflow"
+
+msgid "Used by"
+msgstr "Utilisé par"
 
 msgid "New workflow"
 msgstr "Nouveau workflow"
@@ -3362,9 +3591,6 @@ msgstr "Nouvelle tâche de workflow"
 msgid "Task '%(object)s' created."
 msgstr "La tâche « %(object)s » a été créée."
 
-msgid "Editing workflow task"
-msgstr "Modification de tâche de workflow"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "La tâche « %(object)s » a été mise à jour."
@@ -3412,44 +3638,26 @@ msgstr "La tâche « %(task_name)s » a été activée."
 msgid "Choose another"
 msgstr "Choisir un(e) autre"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "Prévisualiser la version brouillon de « %(title)s »"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "Voir la version publiée de « %(title)s »"
-
-#, python-format
-msgid "Move page '%(title)s'"
-msgstr "Déplacer la page « %(title)s »"
-
-#, python-format
-msgid "Copy page '%(title)s'"
-msgstr "Copier la page « %(title)s »"
-
-#, python-format
-msgid "Delete page '%(title)s'"
-msgstr "Supprimer la page « %(title)s »"
-
-#, python-format
-msgid "Unpublish page '%(title)s'"
-msgstr "Dépublier la page « %(title)s »"
-
-#, python-format
-msgid "View page history for '%(title)s'"
-msgstr "Voir l'historique de la page pour « %(title)s »"
-
 msgid "Sort menu order"
 msgstr "Ordre de tri des sous-pages"
 
-#, python-format
-msgid "Change ordering of child pages of '%(title)s'"
-msgstr "Modifier l'ordre des sous-pages de « %(title)s »"
+msgid "Heading 1"
+msgstr "Titre de niveau 1"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "En-tête %(level)d "
+msgid "Heading 2"
+msgstr "Titre de niveau 2"
+
+msgid "Heading 3"
+msgstr "Titre de niveau 3"
+
+msgid "Heading 4"
+msgstr "Titre de niveau 4"
+
+msgid "Heading 5"
+msgstr "Titre de niveau 5"
+
+msgid "Heading 6"
+msgstr "Titre de niveau 6"
 
 msgid "Bulleted list"
 msgstr "Liste à puce"
@@ -3460,20 +3668,8 @@ msgstr "Liste numérotée"
 msgid "Blockquote"
 msgstr "Bloc de citation"
 
-msgid "Bold"
-msgstr "Gras"
-
-msgid "Italic"
-msgstr "Italique"
-
 msgid "Link"
 msgstr "Lien"
-
-msgid "Superscript"
-msgstr "Exposant"
-
-msgid "Subscript"
-msgstr "Indice"
 
 msgid "Strikethrough"
 msgstr "Barré"
@@ -3490,6 +3686,9 @@ msgstr "Ce qui est nouveau avec Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Guide du redacteur"
+
+msgid "Shortcuts"
+msgstr "Raccourcis"
 
 msgid "Help"
 msgstr "Aide"

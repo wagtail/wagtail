@@ -1,12 +1,13 @@
 #
 # Translators:
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2022
-# Loic Teixeira, 2022
-# Istvan Farkas <istvan.farkas@gmail.com>, 2023
+# Loic Teixeira, 2024
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2026
+# Istvan Farkas <istvan.farkas@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2023\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2026\n"
 "Language-Team: Hungarian (https://app.transifex.com/torchbox/teams/8009/"
 "hu/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,10 +28,27 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s hiba"
 msgstr[1] "%(num)s hiba"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s perc"
+msgstr[1] "%(num)s perc"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixel"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "Actions"
+msgstr "Akciók"
+
+msgid "Add"
+msgstr "Hozzáadás"
 
 msgid "Add a comment"
 msgstr "Megjegyzés hozzáadása"
@@ -77,6 +95,12 @@ msgstr "Hiba a törlés közben"
 msgid "Deleting"
 msgstr "Törlés"
 
+msgid "Drag"
+msgstr "Megragadás"
+
+msgid "Duplicate"
+msgstr "Másolás"
+
 msgid "Edit"
 msgstr "Szerkesztés"
 
@@ -119,6 +143,15 @@ msgstr "Hiányzó dokumentum"
 msgid "More actions"
 msgstr "További akciók"
 
+msgid "Move down"
+msgstr "Mozgatás le"
+
+msgid "Move up"
+msgstr "Mozgatás fel"
+
+msgid "No"
+msgstr "Nem"
+
 msgid "No results"
 msgstr "Nincs találat"
 
@@ -133,6 +166,9 @@ msgstr "Oldalak"
 
 msgid "Pin toolbar"
 msgstr "Eszköztár kitűzése"
+
+msgid "Preview"
+msgstr "Előnézet"
 
 msgid "Reload saved content"
 msgstr "Mentett tartalom újratöltése"
@@ -160,15 +196,6 @@ msgstr "Mentés"
 msgid "Save error"
 msgstr "Hiba a mentés közben"
 
-msgid "Save the page to add this comment"
-msgstr "Mentse el az oldalt a megjegyzés hozzáadásához"
-
-msgid "Save the page to save this comment"
-msgstr "Mentse el az oldalt a megjegyzés rögzítéséhez"
-
-msgid "Save the page to save this reply"
-msgstr "Mentse el az oldalt a válasz rögzítéséhez"
-
 msgid "Saving..."
 msgstr "Mentés..."
 
@@ -183,6 +210,9 @@ msgstr "Összes megjelenítése"
 
 msgid "Server Error"
 msgstr "Szerverhiba"
+
+msgid "Settings"
+msgstr "Beállítások"
 
 msgid "Show error"
 msgstr "Hiba megtekintése"
@@ -199,8 +229,17 @@ msgstr ""
 "A szerkesztő összeomlott. A tartalom vissza lett állítva az utolsó mentett "
 "verzióra."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Az elemek maximális száma %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Az elemek minimális száma %(min_num)d"
+
 msgid "This field is required."
 msgstr "Ennek a mezőnek a megadása kötelező."
+
+msgid "Toggle section"
+msgstr "Szekció kapcsolása"
 
 msgid "Toggle side panel"
 msgstr "Oldalsáv kapcsolása"
@@ -219,3 +258,6 @@ msgstr "'%(title)s' gyerekoldalainak megtekintése"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Írjon valamit, vagy nyomja meg a \"/\" gombot egy blokk beszúrásához"
+
+msgid "Yes"
+msgstr "Igen"

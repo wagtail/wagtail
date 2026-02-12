@@ -4,15 +4,16 @@
 #
 # Translators:
 # Joren Štekeļs, 2024
+# Joren Štekeļs, 2024
 # Maris Serzans <maris.serzans@gmail.com>, 2015
 # Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Joren Štekeļs, 2024\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -61,9 +62,6 @@ msgstr "Wagtail administrācija"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
 
-msgid "You do not have permission to access the admin"
-msgstr "Jums nav tiesību pieklūt administrācijas videi"
-
 msgid "None"
 msgstr "Nav"
 
@@ -78,6 +76,9 @@ msgstr "Lokalizācija"
 
 msgid "All"
 msgstr "Viss"
+
+msgid "Collection"
+msgstr "Kolekcija"
 
 msgid "Preferred language"
 msgstr "Vēlamā valoda"
@@ -124,9 +125,6 @@ msgstr "Meklēt"
 msgid "All collections"
 msgstr "Visas kolekcijas"
 
-msgid "Collection"
-msgstr "Kolekcija"
-
 msgid "Parent"
 msgstr "Augstāka līmeņa vienība"
 
@@ -136,9 +134,6 @@ msgid ""
 msgstr ""
 "Atlasīt hierarhisko pozīciju. Piezīme: kolekcija nevar piederēt pati sev vai "
 "kādai no tās apakšpozīcijām."
-
-msgid "Please select another parent"
-msgstr "Lūdzu, izvēlieties citu valodu"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
@@ -166,9 +161,6 @@ msgstr "Jūs nevarat rediģēt cita lietotāja komentārus"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Publicēšanas datumam/laikam jābūt pirms beigu datuma/laika"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Beigu datumam/laikam jābūt nākotnē"
 
 msgid "New title"
 msgstr "Jauns virsraksts"
@@ -236,20 +228,14 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Kopējot apakšlapas nav iespējams kopēt lapu uz sevi pašu"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr ""
-"Tekstuālais identifikators \"%(page_slug)s\" jau tiek izmanots vecāklapā"
-
 msgid "Select a new parent for this page."
 msgstr "Izvēlieties jaunu vecāklapu šai lapai"
 
+msgid "Parent page"
+msgstr "Augstāka līmeņa lapa"
+
 msgid "Search…"
 msgstr "Meklēt..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Birka(s) %(value_too_long)s pārsniedz %(max_tag_length)d rakstzīmes "
 
 msgid "Visibility"
 msgstr "Redzamība"
@@ -283,9 +269,6 @@ msgstr "Piešķir darbplūsmai nosaukumu"
 
 msgid "Add tasks to your workflow"
 msgstr "Pievieno uzdevumus savai darbplūsmai "
-
-msgid "Task"
-msgstr "Uzdevums"
 
 msgid "1 page selected"
 msgstr "1 lapa ir atlasīta"
@@ -334,9 +317,6 @@ msgstr "Pieprasīto lapu nav iespējams atrast"
 
 msgid "Go to Wagtail admin"
 msgstr "Doties uz Wagtail administrāciju"
-
-msgid "Account"
-msgstr "Konts"
 
 msgid "Reset password"
 msgstr "Mainīt paroli"
@@ -429,17 +409,11 @@ msgstr "Pārlūkot '%(title)s' apakšlapas"
 msgid "Explore"
 msgstr "Pārlūkot"
 
-msgid "Collection privacy"
-msgstr "Kolekcijas privātums"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Šo kolekciju privātu ir padarījusi augstāka līmeņa kolekcija."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Mainīt privātuma iestatījumus:"
-
-msgid "Save"
-msgstr "Saglabāt"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -466,25 +440,22 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Nevar izdzēst šo kolekciju, jo tā nac tukša. Tā satur:"
 
-msgid "Name"
-msgstr "Nosaukums"
-
 msgid "Yes, delete"
 msgstr "Dzēst"
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Atsaukt %(title)s publicēšanu"
 
 msgid "Yes, unpublish it"
 msgstr "Atsaukt publicēšanu"
 
+#. Translators: Shortcuts for admin actions that can be taken while working on
+#. core models
+msgid "Actions"
+msgstr "Darbības"
+
+msgid "Comment"
+msgstr "Komentārs"
+
 msgid "Update"
 msgstr "Atjaunot"
-
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Sveicināti %(site_name)s Wagtail CMS"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
@@ -493,17 +464,20 @@ msgstr ""
 "Šis ir jūsu informācijas panelis, kurā saņemsiet noderīgu informāciju par "
 "saturu ko esat izveidojis."
 
+msgid "Account"
+msgstr "Konts"
+
 msgid "Your locked pages"
 msgstr "Jūsu slēgtās lapas"
+
+msgid "Status"
+msgstr "Statuss"
 
 msgid "Locked at"
 msgstr "Slēgta plkst."
 
 msgid "Edit this page"
 msgstr "Labot šo lapu"
-
-msgid "Actions"
-msgstr "Darbības"
 
 msgid "Unlock"
 msgstr "Atslēgt"
@@ -517,17 +491,20 @@ msgstr "Aktīva"
 msgid "Your most recent edits"
 msgstr "Neseni labojumi"
 
-msgid "Status"
-msgstr "Statuss"
-
 msgid "Date"
 msgstr "Datums"
 
 msgid "Site summary"
 msgstr "Kopsavilkums"
 
+msgid "Close"
+msgstr "Aizvērt"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Jūsu lapas un fragmenti darbplūsmā"
+
+msgid "Task"
+msgstr "Uzdevums"
 
 msgid "Task started"
 msgstr "Uzdevums uzsākts"
@@ -537,9 +514,6 @@ msgstr "Pieprasītās izmaiņas"
 
 msgid "Awaiting"
 msgstr "Gaida"
-
-msgid "Close"
-msgstr "Aizvērt"
 
 msgid "Awaiting your review"
 msgstr "Gaida jūsu pārbaudi"
@@ -590,9 +564,6 @@ msgstr "Lapa \"%(title)s\" tika noraidīta"
 
 msgid "You can preview the page here:"
 msgstr "Priekšskatīt lapu:"
-
-msgid "Page privacy"
-msgstr "Lapas privātuma iestatījumi"
 
 msgid "Saving…"
 msgstr "Saglabā..."
@@ -651,18 +622,6 @@ msgstr "Kopēt"
 msgid "Copy this page"
 msgstr "Kopēt šo lapu"
 
-msgid "This page has unsaved changes."
-msgstr "Šai lapai ir nesaglabātas izmaiņas"
-
-msgid "User"
-msgstr "Lietotājs"
-
-msgid "Comment"
-msgstr "Komentārs"
-
-msgid "Current draft"
-msgstr "Patreizējā sagatave"
-
 msgid "Configure a site now."
 msgstr "Konfigurēt vietni"
 
@@ -676,15 +635,6 @@ msgstr "Pārlūkot lapas '%(title)s' zemāka līmeņa lapas."
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Pievienot  zemāka līmeņa lapas pie '%(title)s'"
-
-msgid "Drag"
-msgstr "Pārvilkt"
-
-msgid "Disable ordering of child pages"
-msgstr "Atspējot apakšlapu kārtošanu"
-
-msgid "Enable ordering of child pages"
-msgstr "Iespējot apakšlapu kārtošanu"
 
 msgid "Previous"
 msgstr "Iepriekšējais"
@@ -701,9 +651,6 @@ msgstr "Pievienot apakšlapu"
 msgid "Enter a search term above"
 msgstr "Lūdzu ievadiet meklēšanas terminu"
 
-msgid "No pages use"
-msgstr "Neviena lapa nelieto"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Pievienot %(label)s"
@@ -713,6 +660,9 @@ msgstr "Uz augšu"
 
 msgid "Move down"
 msgstr "Uz leju"
+
+msgid "Drag"
+msgstr "Pārvilkt"
 
 msgid "Type"
 msgstr "Veids"
@@ -725,6 +675,12 @@ msgstr "Lapas"
 
 msgid "Locked"
 msgstr "Slēgts"
+
+msgid "Name"
+msgstr "Nosaukums"
+
+msgid "User"
+msgstr "Lietotājs"
 
 msgid "Edit this item"
 msgstr "Rediģēt šo vienību"
@@ -744,18 +700,21 @@ msgstr "Neviena lapa/fragments vēl netika iesniegts moderēšanai"
 msgid "Completed at"
 msgstr "Pabeigts plkst."
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
-
 msgid "Download CSV"
 msgstr "Lejupielādēt CSV failu"
 
 msgid "Filter"
 msgstr "Atsijāt"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām"
+
 msgid "Other searches"
 msgstr "Citi meklējumi"
+
+msgid "Save"
+msgstr "Saglabāt"
 
 msgid "Unlocked"
 msgstr "Atslēgts"
@@ -800,6 +759,12 @@ msgstr "Vairāk"
 msgid "Log out"
 msgstr "Iziet"
 
+msgid "Undo"
+msgstr "Atsaukt"
+
+msgid "Redo"
+msgstr "Atcelt atsaukšanu"
+
 msgid "Password"
 msgstr "Parole"
 
@@ -826,12 +791,12 @@ msgstr "Kolekcija '%(object)s' atjaunota."
 msgid "The collection could not be saved due to errors."
 msgstr "Kļūdu dēļ šo kolekciju nebija iespējams saglabāt."
 
-msgid "Delete collection"
-msgstr "Dzēst kolekciju"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Kolekcija '%(object)s' dzēsta."
+
+msgid "Delete collection"
+msgstr "Dzēst kolekciju"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Vai tiešām vēlaties dzēst šo kolekciju?"
@@ -839,9 +804,8 @@ msgstr "Vai tiešām vēlaties dzēst šo kolekciju?"
 msgid "Home"
 msgstr "Sākumlapa"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Rediģēt '%(title)s'"
+msgid "Current draft"
+msgstr "Patreizējā sagatave"
 
 msgid "Editing"
 msgstr "Labo"
@@ -883,9 +847,6 @@ msgstr "Lapa '%(page_title)s' izveidota un publicēta."
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "Lapa '%(page_title)s' izveidota un iesniegta moderācijai."
 
-msgid "The page could not be created due to validation errors"
-msgstr "Validācijas kļūdas dēļ šo lapu nav iespējams izveidot"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Lapa '%(page_title)s' dzēsta."
@@ -905,12 +866,6 @@ msgstr "Lapa '%(page_title)s' ir publicēta."
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Lapa '%(page_title)s' ir nosūtīta moderācijai."
-
-msgid "The page could not be saved as it is locked"
-msgstr "Lapu nav iespējams saglabāt jo tā ir bloķēta"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "Validācijas kļūdu dēļ lapu nav iespējams saglabāt"
 
 msgid "Owner"
 msgstr "Īpašnieks"

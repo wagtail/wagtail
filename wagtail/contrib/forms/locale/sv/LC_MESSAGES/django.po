@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020,2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -33,14 +33,6 @@ msgstr "Datum från"
 
 msgid "Date to"
 msgstr "Datum till"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr ""
-"Det finns ett annat fält med etiketten %(label_name)s, vänligen ändra en av "
-"dem."
 
 msgid "Single line text"
 msgstr "Text, enkelrad"
@@ -177,6 +169,10 @@ msgstr "Radera"
 msgid "Delete selected submissions"
 msgstr "Radera valda inlämningar"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Det finns inga mottagna formulär från '%(title)s'."
+
 msgid "Total submissions"
 msgstr "Antal inlämningar"
 
@@ -187,15 +183,8 @@ msgstr "Senaste inlämning"
 msgid "Submissions of %(form_title)s"
 msgstr "Mottagna från %(form_title)s "
 
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Det finns inga mottagna formulär från '%(title)s'."
-
-msgid "Filter"
-msgstr "Filtrera"
-
-msgid "Apply filters"
-msgstr "Filtrera"
+msgid "Page type"
+msgstr "Sidtyp"
 
 msgid "Forms"
 msgstr "Formulär"

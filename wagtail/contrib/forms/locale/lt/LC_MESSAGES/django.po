@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -28,13 +28,6 @@ msgstr "Data nuo"
 
 msgid "Date to"
 msgstr "Data iki"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr ""
-"Yra kitas laukas su etikete %(label_name)s, prašome pakeisti vieną iš jų."
 
 msgid "Single line text"
 msgstr "Vienos linijos tekstas"
@@ -144,6 +137,10 @@ msgstr "Ištrinti"
 msgid "Delete selected submissions"
 msgstr "Ištrinti pasirinktus pateikimus"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nebuvo jokiu '%(title)s' formos pateikimų."
+
 msgid "Total submissions"
 msgstr "Viso pateikimų"
 
@@ -153,16 +150,6 @@ msgstr "Paskutinis pateikimas"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "%(form_title)s pateikimai"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Nebuvo jokiu '%(title)s' formos pateikimų."
-
-msgid "Filter"
-msgstr "Filtras"
-
-msgid "Apply filters"
-msgstr "Taikyti filtrus"
 
 msgid "Forms"
 msgstr "Formos"

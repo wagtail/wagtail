@@ -27,25 +27,25 @@
  * debounced().catch((error) => console.log(error)); // logs error (TypeError: window.nothingHere is undefined) after 500ms
  *
  */
-export const debounce = <A extends any[], R = any>(
-  func: (...args: A) => R,
+export const debounce = <F extends AnyFunction>(
+  func: F,
   wait: number | null = 0,
-): { (...args: A): Promise<R | unknown>; cancel(): void } => {
+): DebouncedFunction<F> => {
   let timeoutId: number | undefined;
 
-  const debounced = (...args: any[]) => {
+  const debounced = (...args: Parameters<F>) => {
     window.clearTimeout(timeoutId);
     if (typeof wait !== 'number' || Number.isNaN(wait)) {
       try {
-        return Promise.resolve(func(...(args as A)));
+        return Promise.resolve<ReturnType<F>>(func(...args));
       } catch (error) {
         return Promise.reject(error);
       }
     } else {
-      return new Promise((resolve, reject) => {
+      return new Promise<ReturnType<F>>((resolve, reject) => {
         timeoutId = window.setTimeout(() => {
           try {
-            resolve(func(...(args as A)));
+            resolve(func(...args));
           } catch (error) {
             reject(error);
           }
@@ -59,5 +59,22 @@ export const debounce = <A extends any[], R = any>(
     window.clearTimeout(timeoutId);
   };
 
+  debounced.restore = () => func;
+
   return debounced;
 };
+
+type FunctionType<A extends any[] = [], R = void> = (...args: A) => R;
+type AnyFunction = FunctionType<any, any>;
+
+/** A function that has been debounced. */
+export type DebouncedFunction<F extends AnyFunction> = {
+  (...args: Parameters<F>): Promise<ReturnType<F>>;
+  cancel(): void;
+  restore(): F;
+};
+
+/** A function that can be debounced. */
+export type DebouncibleFunction<F extends AnyFunction> =
+  | DebouncedFunction<F>
+  | F;

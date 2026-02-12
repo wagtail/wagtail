@@ -6,7 +6,7 @@
 
 # Customizing admin views for snippets
 
-Additional customizations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customizations provided by `ModelViewSet` such as customizing the listing view (e.g. adding custom columns, and filters), creating a custom menu item, and more.
+Additional customizations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customizations provided by `ModelViewSet` such as [customizing the listing view](modelviewset_listing) (e.g. adding custom columns, and filters), creating a custom menu item, and more.
 
 Before proceeding, ensure that you register the snippet model using `register_snippet` as a function instead of a decorator, as described in [](wagtailsnippets_registering).
 
@@ -44,7 +44,8 @@ class MemberFilterSet(WagtailFilterSet):
 And the following is the snippet's corresponding `SnippetViewSet` subclass:
 
 ```python
-from wagtail.admin.panels import FieldPanel
+# wagtail_hooks.py
+from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
@@ -95,10 +96,6 @@ Additionally, you can customize the base queryset for the listing view by overri
 
 ## Copy view
 
-```{versionadded} 6.0
-
-```
-
 The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`. Refer to [the copy view customizations for `ModelViewSet`](modelviewset_copy) for more details.
 
 ## Inspect view
@@ -110,6 +107,8 @@ The inspect view is disabled by default, as it's not often useful for most model
 ## Templates
 
 Template customizations work the same way as for `ModelViewSet`, except that the {attr}`~.ModelViewSet.template_prefix` defaults to `wagtailsnippets/snippets/`. Refer to [the template customizations for `ModelViewSet`](modelviewset_templates) for more details.
+
+(wagtailsnippets_menu_item)=
 
 ## Menu item
 
@@ -163,6 +162,8 @@ class MarketingViewSetGroup(SnippetViewSetGroup):
 register_snippet(MarketingViewSetGroup)
 ```
 
+By default, the sidebar "Snippets" menu item will only show snippet models that haven't been configured with their own menu items.
 If all snippet models have their own menu items, the "Snippets" menu item will not be shown.
+This behaviour can be changed using the [](wagtailsnippets_menu_show_all) setting.
 
 Various additional attributes are available to customize the viewset - see {class}`~SnippetViewSet`.

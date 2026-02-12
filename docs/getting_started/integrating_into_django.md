@@ -2,13 +2,17 @@
 
 Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 4.2 and 5.0. First, install the `wagtail` package from PyPI:
+```{note}
+We highly recommend working through the [Getting Started tutorial](tutorial), even if you are not planning to create a standalone Wagtail project. This will ensure you have a good understanding of Wagtail concepts.
+```
+
+Wagtail is currently compatible with Django 5.2 and 6.0. First, install the `wagtail` package from PyPI:
 
 ```sh
 pip install wagtail
 ```
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
 ## Settings
 
@@ -40,14 +44,20 @@ Add the following entry to `MIDDLEWARE`:
 Add a `STATIC_ROOT` setting, if your project doesn't have one already:
 
 ```python
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / "static"
 ```
 
 Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project doesn't have these already:
 
 ```python
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
+```
+
+Set the `DATA_UPLOAD_MAX_NUMBER_FIELDS` setting to 10000 or higher. This specifies the maximum number of fields allowed in a form submission, and it is recommended to increase this from Django's default of 1000, as particularly complex page models can exceed this limit within Wagtail's page editor:
+
+```python
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 ```
 
 Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the Wagtail admin backend:
@@ -59,7 +69,7 @@ WAGTAIL_SITE_NAME = 'My Example Site'
 Add a `WAGTAILADMIN_BASE_URL` - this is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails:
 
 ```python
-WAGTAILADMIN_BASE_URL = 'http://example.com'
+WAGTAILADMIN_BASE_URL = 'https://example.com'
 ```
 
 If this setting is not present, Wagtail will fall back to `request.site.root_url` or to the hostname of the request. Although this setting is not strictly required, it is highly recommended because leaving it out may produce unusable URLs in notification emails.
@@ -70,7 +80,7 @@ Add a `WAGTAILDOCS_EXTENSIONS` setting to specify the file types that Wagtail wi
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
 ```
 
-Various other settings are available to configure Wagtail's behaviour - see [Settings](/reference/settings).
+Various other settings are available to configure Wagtail's behavior - see [Settings](/reference/settings).
 
 ## URL configuration
 
@@ -111,7 +121,7 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
-Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](inv:django#howto/static-files/deployment).
+Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](<inv:django#howto/static-files/index:serving files uploaded by a user during development>) and [Deploying static files](inv:django#howto/static-files/deployment).
 
 With this configuration in place, you are ready to run `python manage.py migrate` to create the database tables used by Wagtail.
 
@@ -119,8 +129,8 @@ With this configuration in place, you are ready to run `python manage.py migrate
 
 Wagtail uses Django’s default user model by default. Superuser accounts receive automatic access to the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface); use `python manage.py createsuperuser` if you don't already have one. Wagtail supports custom user models with some restrictions. Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
 
-## Start developing
+## Define page models and start developing
 
-You're now ready to add a new app to your Django project through `python manage.py startapp`. Remember to add the new app to `INSTALLED_APPS` in your settings.py file and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
+Before you can create pages, you must define one or more page models, as described in [Your first Wagtail site](/getting_started/tutorial). The `wagtail start` project template provides a `home` app containing an initial `HomePage` model - when integrating Wagtail into an existing project, you will need to create this app yourself through `python manage.py startapp`. (Remember to add it to `INSTALLED_APPS` in your settings.py file.)
 
-Note that there's one small difference when you're not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which doesn't include any content fields beyond the title. You probably want to replace this with your own `HomePage` class. If you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
+The initial "Welcome to your new Wagtail site!" page is a placeholder using the base `Page` model, and is not directly usable. After defining your own home page model, you should create a new page at the root level through the Wagtail admin interface, and set this as the site's homepage (under Settings / Sites). You can then delete the placeholder page.

@@ -1,15 +1,18 @@
+from __future__ import annotations
+
+import concurrent.futures
 import hashlib
 import itertools
 import logging
 import os.path
 import re
 import time
-from collections import OrderedDict, defaultdict
-from concurrent.futures import ThreadPoolExecutor
+from collections import OrderedDict, defaultdict, namedtuple
+from collections.abc import Iterable
 from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Any
 
 import willow
 from django.apps import apps
@@ -17,9 +20,9 @@ from django.conf import settings
 from django.core import checks
 from django.core.cache import DEFAULT_CACHE_ALIAS, InvalidCacheBackendError, caches
 from django.core.cache.backends.base import BaseCache
+from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
+from django.core.files.storage import InvalidStorageError, default_storage, storages
 from django.db import models
 from django.db.models import Q
 from django.forms.utils import flatatt
@@ -36,7 +39,6 @@ from wagtail.images.exceptions import (
     InvalidFilterSpecError,
     UnknownOutputImageFormatError,
 )
-from wagtail.images.fields import image_format_name_to_content_type
 from wagtail.images.image_operations import (
     FilterOperation,
     FormatOperation,
@@ -44,6 +46,7 @@ from wagtail.images.image_operations import (
     TransformOperation,
 )
 from wagtail.images.rect import Rect
+from wagtail.images.utils import to_svg_safe_spec
 from wagtail.models import CollectionMember, ReferenceIndex
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -59,6 +62,8 @@ IMAGE_FORMAT_EXTENSIONS = {
     "gif": ".gif",
     "webp": ".webp",
     "svg": ".svg",
+    "ico": ".ico",
+    "heic": ".heic",
 }
 
 
@@ -128,8 +133,19 @@ def get_rendition_storage():
     """
     storage = getattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", default_storage)
     if isinstance(storage, str):
-        module = import_string(storage)
-        storage = module()
+        try:
+            # First see if the string is a storage alias
+            storage = storages[storage]
+        except InvalidStorageError:
+            # Otherwise treat the string as a dotted path
+            try:
+                module = import_string(storage)
+                storage = module()
+            except ImportError as e:
+                raise ImproperlyConfigured(
+                    "WAGTAILIMAGES_RENDITION_STORAGE must be either a valid storage alias or dotted module path."
+                ) from e
+
     return storage
 
 
@@ -155,7 +171,7 @@ class ImageFileMixin:
                 # Have to catch everything, because the exception
                 # depends on the file subclass, and therefore the
                 # storage being used.
-                raise SourceImageIOError(str(e))
+                raise SourceImageIOError(str(e)) from e
 
             self.save(update_fields=["file_size"])
 
@@ -175,14 +191,14 @@ class ImageFileMixin:
                 else:
                     # Some external storage backends don't allow reopening
                     # the file. Get a fresh file instance. #1397
-                    storage = self._meta.get_field("file").storage
+                    storage = self.file.storage
                     image_file = storage.open(self.file.name, "rb")
 
                 close_file = True
         except OSError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
-            raise SourceImageIOError(str(e))
+            raise SourceImageIOError(str(e)) from e
 
         # Seek to beginning
         image_file.seek(0)
@@ -248,6 +264,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         width_field="width",
         height_field="height",
     )
+    description = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("description"),
+        default="",
+    )
     width = models.IntegerField(verbose_name=_("width"), editable=False)
     height = models.IntegerField(verbose_name=_("height"), editable=False)
     created_at = models.DateTimeField(
@@ -277,6 +299,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     )
 
     objects = ImageQuerySet.as_manager()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.decorative = False
+        self.contextual_alt_text = None
 
     def _set_file_hash(self):
         with self.open_file() as f:
@@ -350,6 +377,36 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def __str__(self):
         return self.title
+
+    def __eq__(self, other):
+        """
+        Customise the definition of equality so that two Image instances referring to the same
+        image but different contextual alt text or decorative status are considered different.
+        All other aspects are copied from Django's base `Model` implementation.
+        """
+        if not isinstance(other, models.Model):
+            return NotImplemented
+
+        if self._meta.concrete_model != other._meta.concrete_model:
+            return False
+
+        my_pk = self.pk
+        if my_pk is None:
+            return self is other
+
+        return (
+            my_pk == other.pk
+            and other.contextual_alt_text == self.contextual_alt_text
+            and other.decorative == self.decorative
+        )
+
+    def __hash__(self):
+        """
+        Match the semantics of the custom equality definition.
+        """
+        if self.pk is None:
+            raise TypeError("Model instances without primary key value are unhashable")
+        return hash((self.pk, self.contextual_alt_text, self.decorative))
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
@@ -428,12 +485,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         """Get the Rendition model for this Image model"""
         return cls.renditions.rel.related_model
 
-    def _get_prefetched_renditions(self) -> Union[Iterable["AbstractRendition"], None]:
+    def _get_prefetched_renditions(self) -> Iterable[AbstractRendition] | None:
         if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
             return self.renditions.all()
         return getattr(self, "prefetched_renditions", None)
 
-    def _add_to_prefetched_renditions(self, rendition: "AbstractRendition") -> None:
+    def _add_to_prefetched_renditions(self, rendition: AbstractRendition) -> None:
         # Reuse this rendition if requested again from this object
         try:
             self._prefetched_objects_cache["renditions"]._result_cache.append(rendition)
@@ -444,7 +501,32 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         except AttributeError:
             pass
 
-    def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
+    def clean_filter_for_svg(self, filter: Filter) -> Filter:
+        """
+        Given a Filter object, check if its spec contains a 'preserve-svg' directive. If so,
+        remove it from the spec (along with any rasterising operations, in the case that this
+        image is an SVG) and return a new Filter object with the cleaned spec.
+        """
+        spec_elements = filter.spec.split("|")
+        if "preserve-svg" in spec_elements:
+            # remove 'preserve-svg' from filter specs for all image types
+            clean_spec = "|".join(
+                item for item in spec_elements if item != "preserve-svg"
+            )
+            if not clean_spec:
+                # no formatting directives were included in filter
+                raise InvalidFilterSpecError(
+                    "Filter should include at least one formatting directive other than 'preserve-svg'"
+                )
+            if self.is_svg():
+                # remove rasterizing directives
+                clean_spec = to_svg_safe_spec(clean_spec)
+
+            return Filter(spec=clean_spec)
+
+        return filter
+
+    def get_rendition(self, filter: Filter | str) -> AbstractRendition:
         """
         Returns a ``Rendition`` instance with a ``file`` field value (an
         image) reflecting the supplied ``filter`` value and focal point values
@@ -457,6 +539,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         if isinstance(filter, str):
             filter = Filter(spec=filter)
+        elif not isinstance(filter, Filter):
+            raise InvalidFilterSpecError(
+                "Unrecognised filter format - string or Filter instance expected"
+            )
+
+        filter = self.clean_filter_for_svg(filter)
 
         try:
             rendition = self.find_existing_rendition(filter)
@@ -472,7 +560,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         return rendition
 
-    def find_existing_rendition(self, filter: "Filter") -> "AbstractRendition":
+    def find_existing_rendition(self, filter: Filter) -> AbstractRendition:
         """
         Returns an existing ``Rendition`` instance with a ``file`` field value
         (an image) reflecting the supplied ``filter`` value and focal point
@@ -488,10 +576,10 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         try:
             return self.find_existing_renditions(filter)[filter]
-        except KeyError:
-            raise Rendition.DoesNotExist
+        except KeyError as e:
+            raise Rendition.DoesNotExist from e
 
-    def create_rendition(self, filter: "Filter") -> "AbstractRendition":
+    def create_rendition(self, filter: Filter) -> AbstractRendition:
         """
         Creates and returns a ``Rendition`` instance with a ``file`` field
         value (an image) reflecting the supplied ``filter`` value and focal
@@ -512,9 +600,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         )
         return rendition
 
-    def get_renditions(
-        self, *filters: Union["Filter", str]
-    ) -> Dict[str, "AbstractRendition"]:
+    def get_renditions(self, *filters: Filter | str) -> dict[str, AbstractRendition]:
         """
         Returns a ``dict`` of ``Rendition`` instances with image files reflecting
         the supplied ``filters``, keyed by filter spec patterns.
@@ -523,9 +609,17 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         model will be returned.
         """
         Rendition = self.get_rendition_model()
-        # We don’t support providing mixed Filter and string arguments in the same call.
-        if isinstance(filters[0], str):
-            filters = [Filter(spec) for spec in dict.fromkeys(filters).keys()]
+
+        clean_filters = []
+        for filter in filters:
+            if isinstance(filter, str):
+                filter = Filter(spec=filter)
+
+            filter = self.clean_filter_for_svg(filter)
+            clean_filters.append(filter)
+
+        # Remove duplicate filters from the list while preserving order
+        filters = list(dict.fromkeys(clean_filters))
 
         # Find existing renditions where possible
         renditions = self.find_existing_renditions(*filters)
@@ -552,8 +646,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return {filter.spec: renditions[filter] for filter in filters}
 
     def find_existing_renditions(
-        self, *filters: "Filter"
-    ) -> Dict["Filter", "AbstractRendition"]:
+        self, *filters: Filter
+    ) -> dict[Filter, AbstractRendition]:
         """
         Returns a dictionary of existing ``Rendition`` instances with ``file``
         values (images) reflecting the supplied ``filters`` and the focal point
@@ -564,8 +658,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         created before, the return value will be an empty dict.
         """
         Rendition = self.get_rendition_model()
-        filters_by_spec: Dict[str, Filter] = {f.spec: f for f in filters}
-        found: Dict[Filter, AbstractRendition] = {}
+        filters_by_spec: dict[str, Filter] = {f.spec: f for f in filters}
+        found: dict[Filter, AbstractRendition] = {}
 
         # Interrogate prefetched values first (where available)
         prefetched_renditions = self._get_prefetched_renditions()
@@ -575,7 +669,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # prefetched value, and further cache/database lookups are avoided.
 
             # group renditions by the filters of interest
-            potential_matches: Dict[Filter, List[AbstractRendition]] = defaultdict(list)
+            potential_matches: dict[Filter, list[AbstractRendition]] = defaultdict(list)
             for rendition in prefetched_renditions:
                 try:
                     filter = filters_by_spec[rendition.filter_spec]
@@ -607,6 +701,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ]
             for rendition in Rendition.cache_backend.get_many(cache_keys).values():
                 filter = filters_by_spec[rendition.filter_spec]
+                # The retrieved rendition needs to be associated with the current image instance, so that any
+                # locally-set properties such as contextual_alt_text are respected
+                rendition.image = self
                 found[filter] = rendition
 
             # For items not found in the cache, look in the database
@@ -623,9 +720,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                     found[filter] = rendition
         return found
 
-    def create_renditions(
-        self, *filters: "Filter"
-    ) -> Dict["Filter", "AbstractRendition"]:
+    def create_renditions(self, *filters: Filter) -> dict[Filter, AbstractRendition]:
         """
         Creates multiple ``Rendition`` instances with image files reflecting the supplied
         ``filters``, and returns them as a ``dict`` keyed by the relevant ``Filter`` instance.
@@ -650,37 +745,31 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             filter = filters[0]
             return {filter: self.create_rendition(filter)}
 
-        return_value: Dict[Filter, AbstractRendition] = {}
-        filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
+        return_value: dict[Filter, AbstractRendition] = {}
+        filter_map: dict[str, Filter] = {f.spec: f for f in filters}
 
+        # Read file contents into memory
         with self.open_file() as file:
             original_image_bytes = file.read()
 
         to_create = []
 
-        def _generate_single_rendition(filter):
-            # Using ContentFile here ensures we generate all renditions. Simply
-            # passing self.file required several page reloads to generate all
-            image_file = self.generate_rendition_file(
-                filter, source=ContentFile(original_image_bytes, name=self.file.name)
-            )
-            to_create.append(
-                Rendition(
-                    image=self,
-                    filter_spec=filter.spec,
-                    focal_point_key=filter.get_cache_key(self),
-                    file=image_file,
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            for future in concurrent.futures.as_completed(
+                executor.submit(
+                    self.generate_rendition_instance,
+                    filter,
+                    BytesIO(original_image_bytes),
                 )
-            )
-
-        with ThreadPoolExecutor() as executor:
-            executor.map(_generate_single_rendition, filters)
+                for filter in filters
+            ):
+                to_create.append(future.result())
 
         # Rendition generation can take a while. So, if other processes have created
         # identical renditions in the meantime, we should find them to avoid clashes.
         # NB: Clashes can still occur, because there is no get_or_create() equivalent
         # for multiple objects. However, this will reduce that risk considerably.
-        files_for_deletion: List[File] = []
+        files_for_deletion: list[File] = []
 
         # Assemble Q() to identify potential clashes
         lookup_q = Q()
@@ -695,7 +784,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             filter = filter_map[existing.filter_spec]
             return_value[filter] = existing
 
-            for new in to_create:
+            for new in list(to_create):
                 if (
                     new.filter_spec == existing.filter_spec
                     and new.focal_point_key == existing.focal_point_key
@@ -715,7 +804,24 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         return return_value
 
-    def generate_rendition_file(self, filter: "Filter", *, source: File = None) -> File:
+    def generate_rendition_instance(
+        self, filter: Filter, source: BytesIO
+    ) -> AbstractRendition:
+        """
+        Use the supplied ``source`` image to create and return an
+        **unsaved** ``Rendition`` instance, with a ``file`` value reflecting
+        the supplied ``filter`` value and focal point values from this object.
+        """
+        return self.get_rendition_model()(
+            image=self,
+            filter_spec=filter.spec,
+            focal_point_key=filter.get_cache_key(self),
+            file=self.generate_rendition_file(
+                filter, source=File(source, name=self.file.name)
+            ),
+        )
+
+    def generate_rendition_file(self, filter: Filter, *, source: File = None) -> File:
         """
         Generates an in-memory image matching the supplied ``filter`` value
         and focal point value from this object, wraps it in a ``File`` object
@@ -802,9 +908,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     @property
     def default_alt_text(self):
         # by default the alt text field (used in rich text insertion) is populated
-        # from the title. Subclasses might provide a separate alt field, and
-        # override this
-        return self.title
+        # from the description. In the absence of that, it is populated from the title.
+        # Subclasses might provide a separate alt field, and override this
+        return getattr(self, "description", None) or self.title
 
     def is_editable_by_user(self, user):
         from wagtail.images.permissions import permission_policy
@@ -819,6 +925,7 @@ class Image(AbstractImage):
     admin_form_fields = (
         "title",
         "file",
+        "description",
         "collection",
         "tags",
         "focal_point_x",
@@ -852,7 +959,7 @@ class Filter:
         self.spec = spec
 
     @classmethod
-    def expand_spec(self, spec: Union["str", Iterable["str"]]) -> List["str"]:
+    def expand_spec(self, spec: str | Iterable[str]) -> list[str]:
         """
         Converts a spec pattern with brace-expansions, into a list of spec patterns.
         For example, "width-{100,200}" becomes ["width-100", "width-200"].
@@ -970,11 +1077,12 @@ class Filter:
                 # Developer specified an output format
                 output_format = env["output-format"]
             else:
-                # Convert bmp and webp to png by default
+                # Convert avif, bmp and webp to png, and heic to jpg, by default
                 default_conversions = {
                     "avif": "png",
                     "bmp": "png",
                     "webp": "png",
+                    "heic": "jpeg",
                 }
 
                 # Convert unanimated GIFs to PNG as well
@@ -995,7 +1103,7 @@ class Filter:
                 if "jpeg-quality" in env:
                     quality = env["jpeg-quality"]
                 else:
-                    quality = getattr(settings, "WAGTAILIMAGES_JPEG_QUALITY", 85)
+                    quality = getattr(settings, "WAGTAILIMAGES_JPEG_QUALITY", 76)
 
                 # If the image has an alpha channel, give it a white background
                 if willow.has_alpha():
@@ -1031,8 +1139,22 @@ class Filter:
                 elif "avif-quality" in env:
                     quality = env["avif-quality"]
                 else:
-                    quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 80)
+                    quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 61)
                 return willow.save_as_avif(output, quality=quality)
+            elif output_format == "heic":
+                # Allow changing of HEIC compression quality. Safari is the only browser that supports HEIC,
+                # so there is little value in outputting it - for that reason, we make it work if someone
+                # explicitly requests it, but these settings are not documented.
+                if (
+                    "output-format-options" in env
+                    and "lossless" in env["output-format-options"]
+                ):
+                    return willow.save_as_heic(output, lossless=True)
+                elif "heic-quality" in env:
+                    quality = env["heic-quality"]
+                else:
+                    quality = getattr(settings, "WAGTAILIMAGES_HEIC_QUALITY", 80)
+                return willow.save_as_heic(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
             elif output_format == "ico":
@@ -1057,6 +1179,14 @@ class Filter:
 
         return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]
 
+    def __eq__(self, value):
+        if isinstance(value, Filter):
+            return self.spec == value.spec
+        return False
+
+    def __hash__(self):
+        return hash(self.spec)
+
 
 class ResponsiveImage:
     """
@@ -1067,14 +1197,14 @@ class ResponsiveImage:
 
     def __init__(
         self,
-        renditions: Dict[str, "AbstractRendition"],
-        attrs: Optional[Dict[str, Any]] = None,
+        renditions: dict[str, AbstractRendition],
+        attrs: dict[str, Any] | None = None,
     ):
         self.renditions = list(renditions.values())
         self.attrs = attrs
 
     @classmethod
-    def get_width_srcset(cls, renditions_list: List["AbstractRendition"]):
+    def get_width_srcset(cls, renditions_list: list[AbstractRendition]):
         if len(renditions_list) == 1:
             # No point in using width descriptors if there is a single image.
             return renditions_list[0].url
@@ -1097,10 +1227,13 @@ class ResponsiveImage:
     def __bool__(self):
         return bool(self.renditions)
 
-    def __eq__(self, other: "ResponsiveImage"):
+    def __eq__(self, other: ResponsiveImage):
         if isinstance(other, ResponsiveImage):
             return self.renditions == other.renditions and self.attrs == other.attrs
         return False
+
+
+FileFormat = namedtuple("FileFormat", ["name", "mime_type"])
 
 
 class Picture(ResponsiveImage):
@@ -1109,20 +1242,26 @@ class Picture(ResponsiveImage):
     # Defines the order of <source> elements in the tag when format operations
     # are in use, and the priority order to identify the "fallback" format.
     # The browser will pick the first supported format in this list.
-    source_format_order = ["avif", "webp", "jpeg", "png", "gif"]
+    source_format_order = [
+        FileFormat("avif", "image/avif"),
+        FileFormat("webp", "image/webp"),
+        FileFormat("jpeg", "image/jpeg"),
+        FileFormat("png", "image/png"),
+        FileFormat("gif", "image/gif"),
+    ]
 
     def __init__(
         self,
-        renditions: Dict[str, "AbstractRendition"],
-        attrs: Optional[Dict[str, Any]] = None,
+        renditions: dict[str, AbstractRendition],
+        attrs: dict[str, Any] | None = None,
     ):
         super().__init__(renditions, attrs)
         # Store renditions grouped by format separately for access from templates.
         self.formats = self.get_formats(renditions)
 
     def get_formats(
-        self, renditions: Dict[str, "AbstractRendition"]
-    ) -> Dict[str, List["AbstractRendition"]]:
+        self, renditions: dict[str, AbstractRendition]
+    ) -> dict[str, list[AbstractRendition]]:
         """
         Group renditions by the format they are for, if any.
         If there is only one format, no grouping is required.
@@ -1142,8 +1281,8 @@ class Picture(ResponsiveImage):
 
     def get_fallback_format(self):
         for fmt in reversed(self.source_format_order):
-            if fmt in self.formats:
-                return fmt
+            if fmt.name in self.formats:
+                return fmt.name
 
     def __html__(self):
         # If there aren’t multiple formats, render a vanilla img tag with srcset.
@@ -1159,9 +1298,9 @@ class Picture(ResponsiveImage):
         sources = []
 
         for fmt in self.source_format_order:
-            if fmt != fallback_format and fmt in self.formats:
-                srcset = self.get_width_srcset(self.formats[fmt])
-                mime = image_format_name_to_content_type(fmt)
+            if fmt.name != fallback_format and fmt.name in self.formats:
+                srcset = self.get_width_srcset(self.formats[fmt.name])
+                mime = fmt.mime_type
                 sources.append(f'<source srcset="{srcset}" {sizes}type="{mime}">')
 
         if len(fallback_renditions) > 1:
@@ -1196,7 +1335,16 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @property
     def alt(self):
-        return self.image.default_alt_text
+        # 'decorative' and 'contextual_alt_text' exist only for ImageBlock
+        if hasattr(self.image, "decorative") and self.image.decorative:
+            return ""
+        elif (
+            hasattr(self.image, "contextual_alt_text")
+            and self.image.contextual_alt_text
+        ):
+            return self.image.contextual_alt_text
+        else:
+            return self.image.default_alt_text
 
     @property
     def attrs(self):
@@ -1252,20 +1400,61 @@ class AbstractRendition(ImageFileMixin, models.Model):
             <div style="background-image: url('{{ image.url }}'); {{ image.background_position_style }}">
             </div>
         """
+        horz = self.background_position_x
+        vert = self.background_position_y
+        return f"background-position: {horz} {vert};"
+
+    @property
+    def background_position_x(self):
+        """
+        Returns the horizontal background position as a percentage string.
+
+        This positions the rendition horizontally according to the focal point's x coordinate.
+        If no focal point is set, defaults to 50% (center).
+
+        Returns:
+            str: The horizontal position as a percentage (e.g., "25%")
+
+        This can be passed as a data attribute to then be used in JavaScript to set the `background-position-x` CSS property instead of using inline styles.
+            <div class="my-bg-image" data-background-position-x="{{ image.background_position_x }}">
+            </div>
+        """
         focal_point = self.focal_point
         if focal_point:
             horz = int((focal_point.x * 100) // self.width)
-            vert = int((focal_point.y * 100) // self.height)
-            return f"background-position: {horz}% {vert}%;"
+            return f"{horz}%"
         else:
-            return "background-position: 50% 50%;"
+            return "50%"
 
-    def img_tag(self, extra_attributes={}):
+    @property
+    def background_position_y(self):
+        """
+        Returns the vertical background position as a percentage string.
+
+        This positions the rendition vertically according to the focal point's y coordinate.
+        If no focal point is set, defaults to 50% (center).
+
+        Returns:
+            str: The vertical position as a percentage (e.g., "25%")
+
+        This can be passed as a data attribute to then be used in JavaScript to set the `background-position-y` CSS property instead of using inline styles.
+            <div class="my-bg-image" data-background-position-y="{{ image.background_position_y }}">
+            </div>
+        """
+        focal_point = self.focal_point
+        if focal_point:
+            vert = int((focal_point.y * 100) // self.height)
+            return f"{vert}%"
+        else:
+            return "50%"
+
+    def img_tag(self, extra_attributes=None):
         attrs = self.attrs_dict.copy()
 
         attrs.update(apps.get_app_config("wagtailimages").default_attrs)
 
-        attrs.update(extra_attributes)
+        if extra_attributes:
+            attrs.update(extra_attributes)
 
         return mark_safe(f"<img{flatatt(attrs)}>")
 
@@ -1284,16 +1473,32 @@ class AbstractRendition(ImageFileMixin, models.Model):
     def check(cls, **kwargs):
         errors = super().check(**kwargs)
         if not cls._meta.abstract:
-            if not any(
-                set(constraint) == {"image", "filter_spec", "focal_point_key"}
+            # Allow unique constraint to be defined via `unique_together` or
+            # a `UniqueConstraint` in `constraints`.
+            unique_constraint_fields = {"image", "filter_spec", "focal_point_key"}
+            in_unique_together = any(
+                set(constraint) == unique_constraint_fields
                 for constraint in cls._meta.unique_together
-            ):
+            )
+            in_unique_constraint = any(
+                isinstance(constraint, models.UniqueConstraint)
+                and constraint.condition is None
+                and set(constraint.fields) == unique_constraint_fields
+                for constraint in cls._meta.constraints
+            )
+
+            if not in_unique_together and not in_unique_constraint:
                 errors.append(
                     checks.Error(
-                        "Custom rendition model %r has an invalid unique_together setting"
-                        % cls,
-                        hint="Custom rendition models must include the constraint "
-                        "('image', 'filter_spec', 'focal_point_key') in their unique_together definition.",
+                        "Custom rendition model '%s' must include a unique constraint "
+                        "on the 'image', 'filter_spec', and 'focal_point_key' fields."
+                        % cls._meta.label,
+                        hint=(
+                            "Add models.UniqueConstraint(fields=("
+                            '"image", "filter_spec", "focal_point_key"), '
+                            'name="unique_rendition") to %s.Meta.constraints.'
+                            % (cls.__name__,)
+                        ),
                         obj=cls,
                         id="wagtailimages.E001",
                     )

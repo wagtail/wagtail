@@ -97,7 +97,7 @@ class BaseLogEntryManager(models.Manager):
         return LogEntryQuerySet(self.model, using=self._db)
 
     def get_instance_title(self, instance):
-        return str(instance)
+        return str(instance) or f"{instance.__class__.__name__} object ({instance.pk})"
 
     def log_action(self, instance, action, **kwargs):
         """
@@ -158,9 +158,7 @@ class BaseLogEntryManager(models.Manager):
                 content_type = ContentType.objects.get_for_id(
                     permission.content_type_id
                 )
-                if user.has_perm(
-                    "%s.%s" % (content_type.app_label, permission.codename)
-                ):
+                if user.has_perm(f"{content_type.app_label}.{permission.codename}"):
                     allowed_content_type_ids.add(permission.content_type_id)
 
             user._allowed_content_type_ids = allowed_content_type_ids

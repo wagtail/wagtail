@@ -2,6 +2,10 @@
 
 # Extending client-side behavior
 
+```{note}
+This document provides an overview of how to extend Wagtail's client-side behavior. For a more detailed API reference of Wagtail's JavaScript components, see [](javascript_components).
+```
+
 Many kinds of common customizations can be done without reaching into JavaScript, but depending on what parts of the client-side interaction you want to leverage or customize, you may need to employ React, Stimulus, or plain (vanilla) JS.
 
 [React](https://reactjs.org/) is used for more complex parts of Wagtail, such as the sidebar, commenting system, and the Draftail rich-text editor.
@@ -23,7 +27,7 @@ Within Wagtail's admin interface, there are a few ways to add JavaScript.
 
 The simplest way is to add global JavaScript files via hooks, see [](insert_editor_js) and [](insert_global_admin_js).
 
-For JavaScript added when a specific Widget is used you can add an inner `Media` class to ensure that the file is loaded when the widget is used, see [Django's docs on their form `Media` class](https://docs.djangoproject.com/en/stable/topics/forms/media/#assets-as-a-static-definition).
+For JavaScript added when a specific Widget is used you can add an inner `Media` class to ensure that the file is loaded when the widget is used, see [Django's docs on their form `Media` class](inv:django#assets-as-a-static-definition).
 
 In a similar way, Wagtail's [](./template_components) provide a `media` property or `Media` class to add scripts when rendered.
 
@@ -59,7 +63,7 @@ The [Stimulus handbook](https://stimulus.hotwired.dev/handbook/introduction) is 
 
 Wagtail exposes two client-side globals for using Stimulus.
 
-1. `window.wagtail.app` the core admin Stimulus application instance.
+1. `window.wagtail.app` the core admin Stimulus [`WagtailApplication`](../reference/ui/client/classes/includes_initStimulus.WagtailApplication){.external} instance.
 2. `window.StimulusModule` Stimulus module as exported from `@hotwired/stimulus`.
 
 First, create a custom [Stimulus controller](https://stimulus.hotwired.dev/reference/controllers) that extends the base `window.StimulusModule.Controller` using [JavaScript class inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). If you are using a build tool you can import your base controller via `import { Controller } from '@hotwired/stimulus';`.
@@ -103,13 +107,13 @@ Finally, load the JavaScript file into Wagtail's admin with a hook.
 ```python
 # myapp/wagtail_hooks.py
 from django.templatetags.static import static
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 from wagtail import hooks
 
 @hooks.register('insert_global_admin_js')
 def global_admin_js():
-    return mark_safe(
+    return format_html(
         f'<script src="{static("js/example.js")}"></script>',
     )
 ```
@@ -344,6 +348,8 @@ window.wagtail.app.register('word-count', WordCountController);
 
 You may want to avoid bundling Stimulus with your JavaScript output and treat the global as an external/alias module, refer to your build system documentation for instructions on how to do this.
 
+(extending_client_side_react)=
+
 ## Extending with React
 
 To customize or extend the [React](https://reactjs.org/) components, you may need to use React too, as well as other related libraries.
@@ -397,4 +403,6 @@ window.draftail.TooltipEntity;
 -   [](streamfield_widget_api)
 -   [](custom_streamfield_blocks_media)
 
-(extending_client_side_react)=
+## Extending the editor
+
+-   [](editor_api)

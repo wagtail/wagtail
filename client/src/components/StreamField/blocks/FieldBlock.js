@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { escapeHtml as h } from '../../../utils/text';
 import Icon from '../../Icon/Icon';
+import { setAttrs } from '../../../utils/attrs';
 
 export class FieldBlock {
   constructor(
@@ -39,6 +40,7 @@ export class FieldBlock {
 
     this.prefix = prefix;
 
+    // Attributes to be set on the widget (input) element
     const options = { attributes: this.getAttributes() };
 
     try {
@@ -55,7 +57,7 @@ export class FieldBlock {
       console.error(e);
       this.setError({
         messages: [
-          'This widget failed to render, please check the console for details',
+          'This widget failed to render, please check the console for details.',
         ],
       });
       return;
@@ -100,6 +102,9 @@ export class FieldBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    // Attributes to be set on the field wrapper element
+    setAttrs(this.field, this.blockDef.meta.attrs || {});
   }
 
   setCapabilityOptions(capability, options) {
@@ -122,17 +127,22 @@ export class FieldBlock {
       .querySelectorAll('.error-message')
       .forEach((element) => element.remove());
 
+    // The widget knows exactly where the <input> is, so we let it handle the
+    // invalid state to e.g. set the aria-invalid attribute. Use optional
+    // chaining as custom widgets may not have implemented this method, or the
+    // widget itself may have failed to render in the first place.
+    this.widget?.setInvalid?.(!!error);
+
     if (error) {
       this.field.classList.add('w-field--error');
       errorContainer.querySelector('.icon').removeAttribute('hidden');
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      error.messages.forEach((message) => {
-        const messageItem = document.createElement('span');
-        messageItem.textContent = message;
-        errorElement.appendChild(messageItem);
-      });
+
+      const errorText = document.createTextNode(error.messages.join(' '));
+
+      errorElement.appendChild(errorText);
       errorContainer.appendChild(errorElement);
     } else {
       this.field.classList.remove('w-field--error');

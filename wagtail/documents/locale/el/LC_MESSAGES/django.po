@@ -6,6 +6,7 @@
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # Dimitri Fekas, 2022
 # fekioh, 2022
+# fekioh, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
@@ -18,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -74,12 +75,6 @@ msgstr "αρχεία"
 msgid "Add tags to documents"
 msgstr "Προσθήκη ετικετών σε αρχεία"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
-msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
-
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
 
@@ -100,27 +95,11 @@ msgstr "Αλλαγή εγγράφου:"
 msgid "Add a document"
 msgstr "Προσθήκη εγγράφου"
 
-msgid "Add document"
-msgstr "Προσθήκη εγγράφου"
-
 msgid "Uploading…"
 msgstr "Ανέβασμα εγγράφου .."
 
 msgid "Upload"
 msgstr "Ανέβασμα"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Διόρθωση %(title)s"
-
-msgid "Editing"
-msgstr "Διόρθωση"
-
-msgid "Save"
-msgstr "Αποθήκευση"
-
-msgid "Delete document"
-msgstr "Διαγραφή εγγράφου"
 
 msgid "Filesize"
 msgstr "Μέγεθος Αρχείου"
@@ -130,6 +109,12 @@ msgstr "Το αρχείο δεν βρέθηκε"
 
 msgid "Usage"
 msgstr "Χρήση"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
+msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -154,9 +139,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Προσθήκη πολλαπλών εγγράφων"
-
-msgid "Add documents"
-msgstr "Προσθήκη εγγράφου"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Σύρετε έγγραφα σε αυτή την περιοχή ώστε να ανέβουν απευθείας."
@@ -217,15 +199,15 @@ msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφ
 msgid "Document '%(document_title)s' updated"
 msgstr "Έγινε διόρθωση του εγγράφου '%(document_title)s'"
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
-"διαγράψετε το έγγραφο"
+msgid "Delete document"
+msgstr "Διαγραφή εγγράφου"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Το έγγραφο '%(document_title)s' διαγράφηκε."
+
+msgid "Add documents"
+msgstr "Προσθήκη εγγράφου"
 
 msgid "Document"
 msgstr "Έγγραφο"

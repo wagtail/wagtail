@@ -1,13 +1,14 @@
 #
 # Translators:
-# Aarni Koskela, 2022
-# Valter Maasalo <vmaasalo@gmail.com>, 2022
-# Loic Teixeira, 2022
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2023
+# Loic Teixeira, 2024
+# Valter Maasalo <vmaasalo@gmail.com>, 2025
+# Rauli Laine <rauli.laine@iki.fi>, 2026
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2026
+# Aarni Koskela, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2023\n"
+"Last-Translator: Aarni Koskela, 2026\n"
 "Language-Team: Finnish (https://app.transifex.com/torchbox/teams/8009/fi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fi\n"
@@ -27,10 +28,27 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s virhe"
 msgstr[1] "%(num)s virhettä"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s min"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pikseli"
 msgstr[1] "%(num)s pikseliä"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "Actions"
+msgstr "Toimet"
+
+msgid "Add"
+msgstr "Lisää"
 
 msgid "Add a comment"
 msgstr "Lisää kommentti"
@@ -62,6 +80,10 @@ msgstr "Supista kaikki"
 msgid "Comment"
 msgstr "Kommentti"
 
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Monimutkainen"
+
 msgid "Dashboard"
 msgstr "Kojelauta"
 
@@ -76,6 +98,12 @@ msgstr "Poistamisvirhe"
 
 msgid "Deleting"
 msgstr "Poistetaan"
+
+msgid "Drag"
+msgstr "Vedä"
+
+msgid "Duplicate"
+msgstr "Kaksoiskappale"
 
 msgid "Edit"
 msgstr "Muokkaa"
@@ -95,8 +123,15 @@ msgstr "Virhe lähettäessä esikatseludataa."
 msgid "Expand all"
 msgstr "Laajenna kaikki"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Kelvollinen"
+
 msgid "Focus comment"
 msgstr "Kohdista kommentti"
+
+msgid "Good"
+msgstr "Hyvä"
 
 msgid "Horizontal line"
 msgstr "Vaakaviiva"
@@ -114,10 +149,19 @@ msgid "Main menu"
 msgstr "Päävalikko"
 
 msgid "Missing document"
-msgstr "Puuttuva asiakirja"
+msgstr "Puuttuva dokumentti"
 
 msgid "More actions"
 msgstr "Lisää toimintoja"
+
+msgid "Move down"
+msgstr "Siirrä alas"
+
+msgid "Move up"
+msgstr "Siirrä ylös"
+
+msgid "No"
+msgstr "Ei"
 
 msgid "No results"
 msgstr "Ei tuloksia"
@@ -133,6 +177,9 @@ msgstr "Sivut"
 
 msgid "Pin toolbar"
 msgstr "Kiinnitä työkalupalkki"
+
+msgid "Preview"
+msgstr "Esikatsele"
 
 msgid "Reload saved content"
 msgstr "Lataa tallennettu sisältö"
@@ -160,15 +207,6 @@ msgstr "Tallenna"
 msgid "Save error"
 msgstr "Tallennusvirhe"
 
-msgid "Save the page to add this comment"
-msgstr "Tallenna sivu lisätäksesi tämän kommentin"
-
-msgid "Save the page to save this comment"
-msgstr "Tallenna sivu tallentaaksesi tämän kommentin"
-
-msgid "Save the page to save this reply"
-msgstr "Tallenna sivu tallentaaksesi tämän vastauksen"
-
 msgid "Saving..."
 msgstr "Tallennetaan..."
 
@@ -180,6 +218,9 @@ msgstr "Katso kaikki"
 
 msgid "Server Error"
 msgstr "Palvelinvirhe"
+
+msgid "Settings"
+msgstr "Asetukset"
 
 msgid "Show error"
 msgstr "Näytä virheilmoitus"
@@ -195,6 +236,12 @@ msgid ""
 msgstr ""
 "Tekstinkäsittely joutui virhetilaan. Sisällöksi on palautettu viimeisin "
 "tallennettu versio. "
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Kohtia voi olla enintään %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Kohtia on oltava vähintään %(min_num)d"
 
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
@@ -216,3 +263,6 @@ msgstr "Näytä sivun '%(title)s' alasivut"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Kirjoita jotain tai kirjoita ‘/’ lisätäksesi lohkon"
+
+msgid "Yes"
+msgstr "Kyllä"

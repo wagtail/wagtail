@@ -1,20 +1,10 @@
-/** @typedef {{
-    hex: string;
-    hsl: string;
-    bgUtility: string;
-    textUtility: string;
-    cssVariable: string;
-    usage: string;
-    contrastText: string;
-}} Shade */
-
-/** @typedef {{
-    [jsName: string | number]: Shade;
-}} Hues */
-
-/** @typedef {{
-    [jsName: string]: Hues;
-}} Colors */
+/**
+ * @typedef {{ hex: string; hsl: string; bgUtility: string; textUtility: string; cssVariable: string; usage: string; contrastText: string; }} Shade
+ *
+ * @typedef {{ [jsName: string | number]: Shade; }} Hues
+ *
+ * @typedef {{ [jsName: string]: Hues; }} Colors
+ */
 
 /** @type {Colors} */
 const staticColors = {
@@ -212,12 +202,21 @@ const staticColors = {
     },
     100: {
       hex: '#1D7792',
-      hsl: 'hsl(193 66.9% 34.3%)',
+      hsl: 'hsl(193.9 66.9% 34.3%)',
       bgUtility: 'w-bg-info-100',
       textUtility: 'w-text-info-100',
       cssVariable: '--w-color-info-100',
       usage: 'Background and icons for information messages',
       contrastText: 'white',
+    },
+    75: {
+      hex: '#80B6C7',
+      hsl: 'hsl(194.4, 38.8%, 64.1%)',
+      bgUtility: 'w-bg-info-75',
+      textUtility: 'w-text-info-75',
+      cssVariable: '--w-color-info-75',
+      usage: 'Info text in the dark theme',
+      contrastText: 'primary',
     },
     50: {
       hex: '#E2F5FC',
@@ -257,6 +256,16 @@ const staticColors = {
       textUtility: 'w-text-warning-100',
       cssVariable: '--w-color-warning-100',
       usage: 'Background and icons for potentially dangerous states',
+      contrastText: 'primary',
+    },
+    75: {
+      hex: '#FDD074',
+      hsl: 'hsl(40.3, 97.2%, 72.4%)',
+      bgUtility: 'w-bg-warning-75',
+      textUtility: 'w-text-warning-75',
+      cssVariable: '--w-color-warning-75',
+      usage:
+        'Background only, for potentially dangerous states, in enhanced-contrast theme',
       contrastText: 'primary',
     },
     50: {

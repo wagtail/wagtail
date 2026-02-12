@@ -1,15 +1,16 @@
 #
 # Translators:
 # Andreas Lans <andreas.lans@gmail.com>, 2022
-# Philip Andersen <renegadevi@codeofmagi.net>, 2022
-# Thomas Kunambi <kunambi@gmail.com>, 2022
-# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
-# Loic Teixeira, 2022
-# Martin Sandström <martin@marteinn.se>, 2023
+# Loic Teixeira, 2024
+# Philip Andersen <renegadevi@codeofmagi.net>, 2025
+# Martin Sandström <martin@marteinn.se>, 2025
+# Jonathan Lindén, 2025
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2026
+# Thomas Kunambi <kunambi@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2023\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
@@ -34,6 +35,12 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixlar"
 
+msgid "Actions"
+msgstr "Handlingar"
+
+msgid "Add"
+msgstr "Lägg till"
+
 msgid "Add a comment"
 msgstr "Lägg till kommentar"
 
@@ -42,6 +49,9 @@ msgstr "Alternativ text"
 
 msgid "Are you sure?"
 msgstr "Är du säker?"
+
+msgid "Blocks"
+msgstr "Block"
 
 msgid "Broken link"
 msgstr "Bruten länk"
@@ -76,6 +86,12 @@ msgstr "Raderingsfel"
 msgid "Deleting"
 msgstr "Raderar"
 
+msgid "Drag"
+msgstr "Dra"
+
+msgid "Duplicate"
+msgstr "Duplicera"
+
 msgid "Edit"
 msgstr "Redigera"
 
@@ -83,7 +99,7 @@ msgid "Edit '%(title)s'"
 msgstr "Redigera '%(title)s'"
 
 msgid "Enter your comments..."
-msgstr "Skriva dina kommentarer..."
+msgstr "Skriv dina kommentarer..."
 
 msgid "Enter your reply..."
 msgstr "Skriv ditt svar..."
@@ -118,6 +134,15 @@ msgstr "Dokument saknas"
 msgid "More actions"
 msgstr "Fler åtgärder"
 
+msgid "Move down"
+msgstr "Flytta ner"
+
+msgid "Move up"
+msgstr "Flytta upp"
+
+msgid "No"
+msgstr "Nej"
+
 msgid "No results"
 msgstr "Inga resultat funna"
 
@@ -129,6 +154,9 @@ msgstr "Sidutforskare"
 
 msgid "Pages"
 msgstr "Sidor"
+
+msgid "Preview"
+msgstr "Förhandsgranska"
 
 msgid "Reload saved content"
 msgstr "Ladda om sparat innehåll"
@@ -158,15 +186,6 @@ msgstr "Spara"
 msgid "Save error"
 msgstr "Fel vid sparande"
 
-msgid "Save the page to add this comment"
-msgstr "Spara sidan för att lägga till denna kommentar"
-
-msgid "Save the page to save this comment"
-msgstr "Spara sidan för att spara denna kommentar"
-
-msgid "Save the page to save this reply"
-msgstr "Spara sidan för att spara detta svar"
-
 msgid "Saving..."
 msgstr "Sparar..."
 
@@ -178,6 +197,9 @@ msgstr "Visa alla"
 
 msgid "Server Error"
 msgstr "Serverfel"
+
+msgid "Settings"
+msgstr "Inställningar"
 
 msgid "Show error"
 msgstr "Visa fel"
@@ -194,8 +216,17 @@ msgstr ""
 "Textredigeraren kraschade. Innehållet har återställts till den senaste "
 "sparade versionen."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Det maximala antalet block är %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Det minsta antalet block är %(min_num)d"
+
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt."
+
+msgid "Toggle section"
+msgstr "Växla sektion"
 
 msgid "Toggle side panel"
 msgstr "Växla sidopanel"
@@ -211,3 +242,6 @@ msgstr "Visa undersidor av '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Skriv något eller tryck på ‘/’ för att lägga till ett block"
+
+msgid "Yes"
+msgstr "Ja"

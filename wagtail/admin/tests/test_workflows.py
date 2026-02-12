@@ -20,11 +20,13 @@ from wagtail.admin.mail import (
     WorkflowStateApprovalEmailNotifier,
     WorkflowStateRejectionEmailNotifier,
 )
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.utils import (
     get_admin_base_url,
     get_latest_str,
     get_user_display_name,
 )
+from wagtail.locks import BasicLock
 from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
@@ -40,10 +42,14 @@ from wagtail.models import (
 )
 from wagtail.signals import page_published, published
 from wagtail.test.testapp.models import (
+    CustomLockTask,
+    CustomWorkflowLock,
     FullFeaturedSnippet,
     ModeratedModel,
+    MultiPreviewModesPage,
     SimplePage,
     SimpleTask,
+    UserApprovalTask,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
@@ -115,14 +121,39 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="add_workflow"))
 
-    def get(self, params={}):
+    def create_workflows(self):
+        home_page = Page.objects.get(depth=2)
+        workflows = [
+            Workflow.objects.create(name=f"test_workflow_{i}", active=True)
+            for i in range(5)
+        ]
+        task = SimpleTask.objects.create(name="test_task")
+        workflow_tasks = [
+            WorkflowTask(workflow=workflow, task=task) for workflow in workflows
+        ]
+        WorkflowTask.objects.bulk_create(workflow_tasks)
+        workflow_pages = [
+            WorkflowPage(
+                workflow=workflow,
+                page=home_page.add_child(
+                    instance=SimplePage(title="Simple", content="Very simple")
+                ),
+            )
+            for workflow in workflows
+        ]
+        WorkflowPage.objects.bulk_create(workflow_pages)
+
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:index"), params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Workflows"}],
+            response.content,
+        )
 
         # Initially there should be no workflows listed
         self.assertContains(response, "There are no enabled workflows.")
@@ -136,6 +167,42 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertNotContains(response, "There are no enabled workflows.")
         self.assertContains(response, "test_workflow")
 
+    def test_multiple_snippets_assigned_to_workflow(self):
+        Workflow.objects.create(name="Nocontenttypes")
+        multi_ct_workflow = Workflow.objects.create(name="Multicontenttypes")
+        for model in [FullFeaturedSnippet, ModeratedModel]:
+            WorkflowContentType.objects.create(
+                workflow=multi_ct_workflow,
+                content_type=ContentType.objects.get_for_model(model),
+            )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        cells = [
+            text
+            for td in soup.select("main table td")
+            if (text := td.get_text(separator=" | ", strip=True))
+        ]
+        self.assertEqual(
+            cells,
+            [
+                "Multicontenttypes",
+                "0 pages | 2 snippet types",
+                "Nocontenttypes",
+                "0 pages | 0 snippet types",
+            ],
+        )
+
+    def test_num_queries(self):
+        self.create_workflows()
+        self.get()
+        with self.assertNumQueries(23):
+            self.get()
+        self.create_workflows()
+        with self.assertNumQueries(33):
+            self.get()
+
     def test_deactivated(self):
         Workflow.objects.create(name="test_workflow", active=False)
 
@@ -147,11 +214,30 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertContains(
             response, '<span class="w-status">Disabled</span>', html=True
         )
+        # Should display the "Show disabled" option as a filter
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNotNone(active_filter)
+        self.assertEqual(
+            active_filter.get_text(separator=" ", strip=True),
+            "Show disabled: Yes",
+        )
+        show_disabled_yes = soup.select_one('input[name="show_disabled"][value="true"]')
+        self.assertIsNotNone(show_disabled_yes)
+        self.assertTrue(show_disabled_yes.has_attr("checked"))
 
         # If we set 'show_disabled' to 'False', the workflow should not be displayed
         response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled workflows.")
+        # Should not display any active filters,
+        # and the "Show disabled" option should be set to "No" by default
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNone(active_filter)
+        show_disabled_no = soup.select_one('input[name="show_disabled"][value="false"]')
+        self.assertIsNotNone(show_disabled_no)
+        self.assertTrue(show_disabled_no.has_attr("checked"))
 
     def test_permissions(self):
         self.login(user=self.editor)
@@ -169,13 +255,92 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_ordering(self):
+        workflows = sorted(
+            [
+                # Mix up the creation order to ensure we're not ordering by PK
+                Workflow.objects.create(name="workflow_1"),
+                Workflow.objects.create(name="workflow_3"),
+                Workflow.objects.create(name="workflow_2"),
+            ],
+            key=lambda workflow: workflow.name,
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "-name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows[::-1])
+        self.assertEqual(response.context["object_list"].query.order_by, ("-name",))
+
+    def test_search(self):
+        Workflow.objects.create(name="foo workflow")
+        Workflow.objects.create(name="bar workflow")
+        Workflow.objects.create(name="bar world workflow")
+
+        response = self.get(params={"q": "bAr"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "bar workflow")
+        self.assertContains(response, "bar world workflow")
+        self.assertNotContains(response, "foo workflow")
+
+    def test_search_results(self):
+        Workflow.objects.create(name="foo workflow")
+        Workflow.objects.create(name="bar workflow")
+        Workflow.objects.create(name="bar world workflow")
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:index_results"),
+            {"q": "AR"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertContains(response, "bar workflow")
+        self.assertContains(response, "bar world workflow")
+        self.assertNotContains(response, "foo workflow")
+
+    def test_pagination(self):
+        Workflow.objects.bulk_create(
+            [Workflow(name=f"workflow_{i}") for i in range(1, 50)]
+        )
+
+        url = reverse("wagtailadmin_workflows:index")
+
+        response = self.get({"p": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 20)
+        self.assertContains(response, url + "?p=1")
+        self.assertContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=3")
+
+        response = self.get({"p": 4})
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
+
 
 class TestWorkflowPermissions(WagtailTestUtils, TestCase):
+    url_name = "wagtailadmin_reports:workflow"
+
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:workflow"), params)
+    def get(self, params=None):
+        return self.client.get(reverse(self.url_name), params)
 
     def test_simple(self):
         response = self.get()
@@ -218,6 +383,10 @@ class TestWorkflowPermissions(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class TestWorkflowTaskPermissions(TestWorkflowPermissions):
+    url_name = "wagtailadmin_reports:workflow_tasks"
+
+
 class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
@@ -248,17 +417,57 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
             FullFeaturedSnippet
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailadmin_workflows:add"), post_data)
 
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Workflows", "url": "/admin/workflows/list/"},
+                {"label": "New: Workflow", "url": ""},
+            ],
+            response.content,
+        )
+
+        # Check the correct data attributes have been set on the form
+        soup = self.get_soup(response.content)
+        workflow_pages_panel = soup.find(id="workflow-pages-section")
+        self.assertIn(
+            "w-formset",
+            workflow_pages_panel.attrs["data-controller"],
+        )
+        self.assertEqual(
+            "totalFormsInput",
+            workflow_pages_panel.find(id="id_pages-TOTAL_FORMS").attrs[
+                "data-w-formset-target"
+            ],
+        )
+        self.assertEqual(
+            "template",
+            workflow_pages_panel.find("template").attrs["data-w-formset-target"],
+        )
+
+        tbody = workflow_pages_panel.find("table").find("tbody")
+        self.assertEqual(
+            "forms",
+            tbody.attrs["data-w-formset-target"],
+        )
+
+        row = tbody.find("tr")
+        self.assertEqual(
+            "child",
+            row.attrs["data-w-formset-target"],
+        )
+        self.assertEqual(
+            "deleteInput",
+            row.find(id="id_pages-0-DELETE").attrs["data-w-formset-target"],
+        )
 
     def test_post(self):
         response = self.post(
@@ -431,7 +640,7 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
 class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
-        self.login()
+        self.user = self.login()
         self.workflow = Workflow.objects.create(name="workflow_to_edit")
         self.task_1 = SimpleTask.objects.create(name="first_task")
         self.task_2 = SimpleTask.objects.create(name="second_task")
@@ -467,12 +676,12 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_workflows:edit", args=[self.workflow.id]), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_workflows:edit", args=[self.workflow.id]), post_data
         )
@@ -481,10 +690,51 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/workflows/list/", "label": "Workflows"},
+                {"url": "", "label": str(self.workflow)},
+            ],
+            response.content,
+        )
 
         # Check that the list of pages has the page to which this workflow is assigned
         self.assertContains(response, self.page.title)
+
+        # Check the correct data attributes have been set on the form
+        soup = self.get_soup(response.content)
+
+        workflow_pages_panel = soup.find(id="workflow-pages-section")
+        self.assertIn(
+            "w-formset",
+            workflow_pages_panel.attrs["data-controller"],
+        )
+        self.assertEqual(
+            "totalFormsInput",
+            workflow_pages_panel.find(id="id_pages-TOTAL_FORMS").attrs[
+                "data-w-formset-target"
+            ],
+        )
+        self.assertEqual(
+            "template",
+            workflow_pages_panel.find("template").attrs["data-w-formset-target"],
+        )
+
+        tbody = workflow_pages_panel.find("table").find("tbody")
+        self.assertEqual(
+            "forms",
+            tbody.attrs["data-w-formset-target"],
+        )
+
+        row = tbody.find("tr")
+        self.assertEqual(
+            "child",
+            row.attrs["data-w-formset-target"],
+        )
+        self.assertEqual(
+            "deleteInput",
+            row.find(id="id_pages-0-DELETE").attrs["data-w-formset-target"],
+        )
 
     def test_post(self):
         response = self.post(
@@ -660,6 +910,52 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         link = WorkflowContentType.objects.get(content_type=self.snippet_content_type)
         self.assertEqual(link.workflow, other_workflow)
 
+    def test_render_enable_button_if_workflow_disabled(self):
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_workflow_disabled_minimal_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_workflow"),
+            Permission.objects.get(codename="change_workflow"),
+        )
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_workflow_disabled_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="change_workflow"),
+        )
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNone(enable_button)
+
     def test_pages_and_content_types_ignored_if_workflow_disabled(self):
         self.workflow.active = False
         self.workflow.save()
@@ -732,7 +1028,7 @@ class TestRemoveWorkflow(WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_workflows:remove", args=[self.page.id, self.workflow.id]
@@ -786,14 +1082,17 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_workflows:task_index"), params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_index.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Workflow tasks"}],
+            response.content,
+        )
 
         # Initially there should be no tasks listed
         self.assertContains(response, "There are no enabled tasks")
@@ -818,12 +1117,32 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(
             response, '<span class="w-status">Disabled</span>', html=True
         )
+        # Should display the "Show disabled" option as a filter
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNotNone(active_filter)
+        self.assertEqual(
+            active_filter.get_text(separator=" ", strip=True),
+            "Show disabled: Yes",
+        )
+        show_disabled_yes = soup.select_one('input[name="show_disabled"][value="true"]')
+        self.assertIsNotNone(show_disabled_yes)
+        self.assertTrue(show_disabled_yes.has_attr("checked"))
 
         # The listing should not contain task if show_disabled query parameter is 'False'
         response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled tasks")
         self.assertNotContains(response, "test_task")
+
+        # Should not display any active filters,
+        # and the "Show disabled" option should be set to "No" by default
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNone(active_filter)
+        show_disabled_no = soup.select_one('input[name="show_disabled"][value="false"]')
+        self.assertIsNotNone(show_disabled_no)
+        self.assertTrue(show_disabled_no.has_attr("checked"))
 
     def test_permissions(self):
         self.login(user=self.editor)
@@ -840,6 +1159,193 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_ordering(self):
+        tasks = sorted(
+            [
+                # Mix up the creation order to ensure we're not ordering by PK
+                Task.objects.create(name="task_1"),
+                Task.objects.create(name="task_3"),
+                Task.objects.create(name="task_2"),
+            ],
+            key=lambda task: task.name,
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "-name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks[::-1])
+        self.assertEqual(response.context["object_list"].query.order_by, ("-name",))
+
+    def test_search(self):
+        Task.objects.create(name="foo task")
+        Task.objects.create(name="bar task")
+        Task.objects.create(name="bar world task")
+
+        response = self.get(params={"q": "bAr"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "bar task")
+        self.assertContains(response, "bar world task")
+        self.assertNotContains(response, "foo task")
+
+    def test_search_results(self):
+        Task.objects.create(name="foo task")
+        Task.objects.create(name="bar task")
+        Task.objects.create(name="bar world task")
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:task_index_results"),
+            {"q": "AR"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertContains(response, "bar task")
+        self.assertContains(response, "bar world task")
+        self.assertNotContains(response, "foo task")
+
+    def test_task_type_filter(self):
+        SimpleTask.objects.create(name="easy task")
+        SimpleTask.objects.create(name="medium task")
+        GroupApprovalTask.objects.create(name="complex task")
+
+        simple_ct = ContentType.objects.get_for_model(SimpleTask).pk
+        group_approval_ct = ContentType.objects.get_for_model(GroupApprovalTask).pk
+
+        response = self.get(params={"content_type": [simple_ct]})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertNotContains(response, "complex task")
+
+        # Should display the active filter
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_content_type"]')
+        self.assertIsNotNone(active_filter)
+        self.assertEqual(
+            active_filter.get_text(separator=" ", strip=True),
+            "Type: Simple task",
+        )
+        simple_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{simple_ct}"]'
+        )
+        self.assertIsNotNone(simple_ct_box)
+        self.assertTrue(simple_ct_box.has_attr("checked"))
+        group_approval_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{group_approval_ct}"]'
+        )
+        self.assertIsNotNone(group_approval_ct_box)
+        self.assertFalse(group_approval_ct_box.has_attr("checked"))
+
+        # Should allow multiple content types to be selected
+        response = self.get(params={"content_type": [simple_ct, group_approval_ct]})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertContains(response, "complex task")
+
+        # Should display the active filters
+        soup = self.get_soup(response.content)
+        active_filters = soup.select('[data-w-active-filter-id="id_content_type"]')
+        self.assertCountEqual(
+            [filter.get_text(separator=" ", strip=True) for filter in active_filters],
+            {"Type: Simple task", "Type: Group approval task"},
+        )
+        simple_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{simple_ct}"]'
+        )
+        self.assertIsNotNone(simple_ct_box)
+        self.assertTrue(simple_ct_box.has_attr("checked"))
+        group_approval_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{group_approval_ct}"]'
+        )
+        self.assertIsNotNone(group_approval_ct_box)
+        self.assertTrue(group_approval_ct_box.has_attr("checked"))
+
+    def test_task_type_filter_hidden_if_single_task_type(self):
+        SimpleTask.objects.create(name="easy task")
+        SimpleTask.objects.create(name="medium task")
+        GroupApprovalTask.objects.create(name="complex task")
+
+        simple_ct = ContentType.objects.get_for_model(SimpleTask).pk
+
+        with mock.patch(
+            "wagtail.admin.views.workflows.get_task_types"
+        ) as get_task_types:
+            get_task_types.return_value = [SimpleTask]
+            response = self.get({"content_type": [simple_ct]})
+
+        # Should not be filtered
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertContains(response, "complex task")
+
+        # Should not display the content type filter
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active_filters")
+        self.assertIsNone(active_filters)
+        content_type_filter = soup.select_one('input[name="content_type"]')
+        self.assertIsNone(content_type_filter)
+
+    def test_pagination(self):
+        Task.objects.bulk_create([Task(name=f"task_{i}") for i in range(1, 120)])
+
+        url = reverse("wagtailadmin_workflows:task_index")
+
+        response = self.get({"p": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 50)
+        self.assertContains(response, url + "?p=1")
+        self.assertContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=3")
+
+        response = self.get({"p": 4})
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/task_index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
+
+    def test_num_queries(self):
+        workflows = [Workflow.objects.create(name=f"workflow_{i}") for i in range(7)]
+        tasks = [Task.objects.create(name=f"task_{i}") for i in range(20)]
+        WorkflowTask.objects.bulk_create(
+            [
+                WorkflowTask(workflow=workflow, task=task, sort_order=0)
+                for workflow in workflows
+                for task in tasks
+            ]
+        )
+        self.get()
+
+        with self.assertNumQueries(12):
+            response = self.get()
+        self.assertContains(response, "+2 more", count=20)
+
+        tasks = [Task.objects.create(name=f"task_{i}") for i in range(21, 41)]
+        WorkflowTask.objects.bulk_create(
+            [
+                WorkflowTask(workflow=workflow, task=task, sort_order=0)
+                for workflow in workflows
+                for task in tasks
+            ]
+        )
+
+        with self.assertNumQueries(12):
+            response = self.get()
+        self.assertContains(response, "+2 more", count=40)
 
 
 class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -864,7 +1370,7 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="add_task"))
 
-    def get(self, url_kwargs=None, params={}):
+    def get(self, url_kwargs=None, params=None):
         url_kwargs = url_kwargs or {}
         url_kwargs.setdefault("app_label", SimpleTask._meta.app_label)
         url_kwargs.setdefault("model_name", SimpleTask._meta.model_name)
@@ -872,7 +1378,7 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             reverse("wagtailadmin_workflows:add_task", kwargs=url_kwargs), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_workflows:add_task",
@@ -888,7 +1394,13 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create_task.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Tasks", "url": "/admin/workflows/tasks/index/"},
+                {"label": "New: Simple task", "url": ""},
+            ],
+            response.content,
+        )
 
     def test_get_with_non_task_model(self):
         response = self.get(
@@ -972,7 +1484,7 @@ class TestSelectTaskTypeView(WagtailTestUtils, TestCase):
 class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
-        self.login()
+        self.user = self.login()
         self.task = GroupApprovalTask.objects.create(name="test_task")
 
         self.editor = self.create_user(
@@ -992,12 +1504,12 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(
             reverse("wagtailadmin_workflows:edit_task", args=[self.task.id]), params
         )
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_workflows:edit_task", args=[self.task.id]), post_data
         )
@@ -1006,7 +1518,13 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit_task.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/workflows/tasks/index/", "label": "Tasks"},
+                {"url": "", "label": str(self.task)},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         self.assertEqual(self.task.groups.count(), 0)
@@ -1045,6 +1563,52 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_render_enable_button_if_task_disabled(self):
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_task_disabled_minimal_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_task"),
+            Permission.objects.get(codename="change_task"),
+        )
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_task_disabled_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="change_task"),
+        )
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNone(enable_button)
+
     def test_admin_url_finder(self):
         editor_url_finder = AdminURLFinder(self.editor)
         self.assertIsNone(editor_url_finder.get_edit_url(self.task))
@@ -1053,7 +1617,7 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(moderator_url_finder.get_edit_url(self.task), expected_url)
 
 
-class BasePageWorkflowTests(WagtailTestUtils, TestCase):
+class BasePageWorkflowTests(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     model_name = "page"
 
     def setUp(self):
@@ -1430,7 +1994,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # submit for approval
@@ -1446,7 +2010,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
@@ -1460,7 +2024,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         self.reject()
@@ -1476,7 +2040,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After cancel, as a submitter, should only see save and submit buttons
@@ -1489,7 +2053,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
     def test_workflow_action_menu_items_when_reverting(self):
@@ -1509,7 +2073,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # submit for approval
@@ -1525,7 +2089,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After submit, as a moderator, should only see save button
@@ -1539,7 +2103,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         self.reject()
@@ -1555,7 +2119,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After cancel, as a submitter, should only see save button
@@ -1569,7 +2133,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
     @override_settings(WAGTAILADMIN_BASE_URL="http://admin.example.com")
@@ -1716,7 +2280,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
 
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
         self.assertNotContains(
             response,
@@ -1781,7 +2345,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # submit for approval
@@ -1798,7 +2362,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
@@ -1812,7 +2376,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         self.reject()
@@ -1828,7 +2392,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
     def test_workflow_action_menu_items_when_reverting(self):
@@ -1848,7 +2412,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # submit for approval
@@ -1865,7 +2429,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After submit, as a moderator, should only see save button
@@ -1879,7 +2443,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         self.reject()
@@ -1895,7 +2459,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
     def test_submit_for_approval_changes_lock_status(self):
@@ -2062,11 +2626,53 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
     def test_workflow_dashboard_panel(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertContains(response, "Awaiting your review")
-        # check that ActivateWorkflowActionsForDashboard is present and passes a valid csrf token
-        self.assertRegex(
-            response.content.decode("utf-8"),
-            r"ActivateWorkflowActionsForDashboard\(\'\w+\'\)",
+        soup = self.get_soup(response.content)
+        # check that the workflow-action script is present with the correct data-activate attribute
+        workflow_action_js = versioned_static("wagtailadmin/js/workflow-action.js")
+        scripts = soup.select(f"script[src='{workflow_action_js}']")
+        self.assertEqual(len(scripts), 1)
+        script = scripts[0]
+        self.assertIsNotNone(script)
+        self.assertEqual(script.get("data-activate"), "dashboard")
+        # Should no longer contain inline JS for activating the workflow actions
+        self.assertNotContains(response, "ActivateWorkflowActionsForDashboard")
+
+    def test_workflow_action_script_included(self):
+        response = self.client.get(self.get_url("edit"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        # check that the workflow-action script is present with the correct
+        # data-activate and data-confirm-cancellation-url attributes
+        workflow_action_js = versioned_static("wagtailadmin/js/workflow-action.js")
+        scripts = soup.select(f"script[src='{workflow_action_js}']")
+        self.assertEqual(len(scripts), 1)
+        script = scripts[0]
+        self.assertIsNotNone(script)
+        self.assertEqual(script.get("data-activate"), "editor")
+        self.assertEqual(
+            script.get("data-confirm-cancellation-url"),
+            self.get_url("confirm_workflow_cancellation"),
         )
+        # Should no longer contain inline JS for activating the workflow actions
+        self.assertNotContains(response, "ActivateWorkflowActionsForEditView")
+
+    @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=False)
+    def test_workflow_action_script_included_without_cancel_confirmation(self):
+        response = self.client.get(self.get_url("edit"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        # check that the workflow-action script is present with the correct data-activate attribute
+        workflow_action_js = versioned_static("wagtailadmin/js/workflow-action.js")
+        scripts = soup.select(f"script[src='{workflow_action_js}']")
+        self.assertEqual(len(scripts), 1)
+        script = scripts[0]
+        self.assertIsNotNone(script)
+        self.assertEqual(script.get("data-activate"), "editor")
+        # data-confirm-cancellation-url attribute should not be present as
+        # WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH is set to False
+        self.assertIsNone(script.get("data-confirm-cancellation-url"))
+        # Should no longer contain inline JS for activating the workflow actions
+        self.assertNotContains(response, "ActivateWorkflowActionsForEditView")
 
     def test_workflow_action_get(self):
         """
@@ -2102,6 +2708,62 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             html,
         )
         self.assertIn("Comment", html)
+
+    def test_workflow_action_get_custom_template(self):
+        """
+        https://github.com/wagtail/wagtail/issues/12222
+        Custom tasks can override Task.get_template_for_action() to use a custom
+        template for the workflow action modal.
+        """
+        # Add a custom task to the workflow
+        custom_task = UserApprovalTask.objects.create(
+            name="user_approval_1",
+            user=self.moderator,
+        )
+        WorkflowTask.objects.create(
+            workflow=self.workflow,
+            task=custom_task,
+            sort_order=2,
+        )
+        self.approve()  # Approve the GroupApprovalTask
+
+        # Refresh from DB
+        self.object = self.object_class.objects.get(pk=self.object.pk)
+
+        response = self.client.get(
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/workflows/approve_with_style.html")
+        self.assertTemplateNotUsed(
+            response, "wagtailadmin/shared/workflow_action_modal.html"
+        )
+        html = json.loads(response.content)["html"]
+        soup = self.get_soup(html)
+        form = soup.select_one("form")
+        self.assertIsNotNone(form)
+        self.assertEqual(
+            form["action"],
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+        )
+        submit = form.select_one("button[type=submit]")
+        self.assertIsNotNone(submit)
+        self.assertEqual(submit.text.strip(), "Ship it!")
+        self.assertNotIn("Comment", html)
 
     def test_workflow_action_view_bad_id(self):
         """
@@ -2333,6 +2995,62 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         )
         self.assertIn("Comment", html)
 
+    def test_collect_workflow_action_data_get_custom_template(self):
+        """
+        https://github.com/wagtail/wagtail/issues/12222
+        Custom tasks can override Task.get_template_for_action() to use a custom
+        template for the workflow action modal.
+        """
+        # Add a custom task to the workflow
+        custom_task = UserApprovalTask.objects.create(
+            name="user_approval_1",
+            user=self.moderator,
+        )
+        WorkflowTask.objects.create(
+            workflow=self.workflow,
+            task=custom_task,
+            sort_order=2,
+        )
+        self.approve()  # Approve the GroupApprovalTask
+
+        # Refresh from DB
+        self.object = self.object_class.objects.get(pk=self.object.pk)
+
+        response = self.client.get(
+            self.get_url(
+                "collect_workflow_action_data",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/workflows/approve_with_style.html")
+        self.assertTemplateNotUsed(
+            response, "wagtailadmin/shared/workflow_action_modal.html"
+        )
+        html = json.loads(response.content)["html"]
+        soup = self.get_soup(html)
+        form = soup.select_one("form")
+        self.assertIsNotNone(form)
+        self.assertEqual(
+            form["action"],
+            self.get_url(
+                "collect_workflow_action_data",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+        )
+        submit = form.select_one("button[type=submit]")
+        self.assertIsNotNone(submit)
+        self.assertEqual(submit.text.strip(), "Ship it!")
+        self.assertNotIn("Comment", html)
+
     def test_collect_workflow_action_data_post(self):
         """
         This tests that a POST request to the collect_workflow_action_data view (for the approve action) returns a modal response with the validated data
@@ -2452,6 +3170,11 @@ class TestApproveRejectSnippetWorkflowNotLockable(TestApproveRejectSnippetWorkfl
 @freeze_time("2020-03-31 12:00:00")
 class TestPageWorkflowReport(BasePageWorkflowTests):
     export_formats = ["xlsx", "csv"]
+    workflow_url_name = "wagtailadmin_reports:workflow"
+    workflow_tasks_url_name = "wagtailadmin_reports:workflow_tasks"
+    header_buttons_parent_selector = "#w-slim-header-buttons"
+    drilldown_selector = ".w-drilldown"
+    extra_params = ""
 
     def setUp(self):
         super().setUp()
@@ -2460,6 +3183,15 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.submitter.save()
         self.post("submit", follow=True)
         self.login(user=self.moderator)
+
+    def assertBreadcrumbs(self, breadcrumbs, html):
+        self.assertBreadcrumbsItemsRendered(breadcrumbs, html)
+
+    def assertPageTitle(self, soup, title):
+        self.assertEqual(soup.select_one("title").text.strip(), title)
+
+    def get(self, url, params=None):
+        return self.client.get(url, params)
 
     def setup_workflow_and_tasks(self):
         self.workflow = Workflow.objects.create(name="test_workflow")
@@ -2481,46 +3213,136 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         return response.getvalue().decode()
 
     def test_workflow_report(self):
-        response = self.client.get(reverse("wagtailadmin_reports:workflow"))
+        response = self.get(reverse(self.workflow_url_name))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello world!")
         self.assertContains(response, "test_workflow")
         self.assertContains(response, "Sebastian Mitter")
         self.assertContains(response, "March 31, 2020")
+        self.assertBreadcrumbs(
+            [{"url": "", "label": "Workflows"}],
+            response.content,
+        )
+        soup = self.get_soup(response.content)
+        by_task_link = soup.select_one(
+            f"{self.header_buttons_parent_selector} .w-header-button"
+        )
+        self.assertIsNotNone(by_task_link)
+        self.assertEqual(
+            by_task_link.get("href"),
+            reverse("wagtailadmin_reports:workflow_tasks"),
+        )
+        self.assertEqual(list(by_task_link.children)[-1].strip(), "By task")
+        self.assertIsNone(soup.select_one(".w-active-filters"))
+        self.assertPageTitle(soup, "Workflows - Wagtail")
 
-        response = self.client.get(reverse("wagtailadmin_reports:workflow_tasks"))
+        response = self.get(reverse(self.workflow_tasks_url_name))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello world!")
+        self.assertBreadcrumbs(
+            [{"url": "", "label": "Workflow tasks"}],
+            response.content,
+        )
+        soup = self.get_soup(response.content)
+        by_task_link = soup.select_one(
+            f"{self.header_buttons_parent_selector} .w-header-button"
+        )
+        self.assertIsNotNone(by_task_link)
+        self.assertEqual(
+            by_task_link.get("href"),
+            reverse("wagtailadmin_reports:workflow"),
+        )
+        self.assertEqual(list(by_task_link.children)[-1].strip(), "By workflow")
+        self.assertIsNone(soup.select_one(".w-active-filters"))
+        self.assertPageTitle(soup, "Workflow tasks - Wagtail")
 
     def test_workflow_report_filtered(self):
         # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
-        response = self.client.get(
-            reverse("wagtailadmin_reports:workflow"), {"reviewable": "true"}
-        )
+        response = self.get(reverse(self.workflow_url_name), {"reviewable": "true"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello world!")
         self.assertContains(response, "test_workflow")
         self.assertContains(response, "Sebastian Mitter")
         self.assertContains(response, "March 31, 2020")
 
-        response = self.client.get(
-            reverse("wagtailadmin_reports:workflow_tasks"), {"reviewable": "true"}
+        # Should render the export buttons inside the header "more" dropdown
+        # with the filtered URL
+        soup = self.get_soup(response.content)
+        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown a")
+        unfiltered_url = reverse(self.workflow_url_name)
+        filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
+        self.assertEqual(len(links), 2)
+        self.assertEqual(
+            [link.get("href") for link in links],
+            [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
+        )
+
+        # Should render the active filter pill
+        active_filter = soup.select_one(".w-active-filters .w-pill__content")
+        clear_button = soup.select_one(".w-active-filters .w-pill__remove")
+        self.assertIsNotNone(active_filter)
+        self.assertIsNotNone(clear_button)
+        self.assertNotIn("reviewable", clear_button.attrs.get("data-w-swap-src-value"))
+        self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
+
+        # Should render the filter inside the drilldown component
+        inputs = soup.select(
+            f"{self.drilldown_selector} input[name='reviewable'][type='radio']"
+        )
+        self.assertEqual(len(inputs), 2)
+        self.assertEqual(inputs[0].get("value"), "")
+        self.assertIsNone(inputs[0].get("checked"))
+        self.assertEqual(inputs[1].get("value"), "true")
+        self.assertEqual(inputs[1].get("checked"), "")
+
+        response = self.get(
+            reverse(self.workflow_tasks_url_name),
+            {"reviewable": "true"},
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello world!")
 
+        # Should render the export buttons inside the header "more" dropdown
+        # with the filtered URL
+        soup = self.get_soup(response.content)
+        links = soup.select(f"{self.header_buttons_parent_selector} .w-dropdown a")
+        unfiltered_url = reverse(self.workflow_tasks_url_name)
+        filtered_url = f"{unfiltered_url}?reviewable=true{self.extra_params}"
+        self.assertEqual(len(links), 2)
+        self.assertEqual(
+            [link.get("href") for link in links],
+            [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
+        )
+
+        # Should render the active filter pill
+        active_filter = soup.select_one(".w-active-filters .w-pill__content")
+        clear_button = soup.select_one(".w-active-filters .w-pill__remove")
+        self.assertIsNotNone(active_filter)
+        self.assertIsNotNone(clear_button)
+        self.assertNotIn("reviewable", clear_button.attrs.get("data-w-swap-src-value"))
+        self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
+
+        # Should render the filter inside the drilldown component
+        inputs = soup.select(
+            f"{self.drilldown_selector} input[name='reviewable'][type='radio']"
+        )
+        self.assertEqual(len(inputs), 2)
+        self.assertEqual(inputs[0].get("value"), "")
+        self.assertIsNone(inputs[0].get("checked"))
+        self.assertEqual(inputs[1].get("value"), "true")
+        self.assertEqual(inputs[1].get("checked"), "")
+
         # the submitter cannot review the task, so the workflow state shouldn't show up when reports are filtered by reviewable
         self.login(self.submitter)
-        response = self.client.get(
-            reverse("wagtailadmin_reports:workflow"), {"reviewable": "true"}
-        )
+        response = self.get(reverse(self.workflow_url_name), {"reviewable": "true"})
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Hello world!")
         self.assertNotContains(response, "Sebastian Mitter")
         self.assertNotContains(response, "March 31, 2020")
 
-        response = self.client.get(
-            reverse("wagtailadmin_reports:workflow_tasks"), {"reviewable": "true"}
+        response = self.get(
+            reverse(self.workflow_tasks_url_name),
+            {"reviewable": "true"},
         )
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Hello world!")
@@ -2528,8 +3350,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
     def test_workflow_report_export(self):
         for export_format in self.export_formats:
             with self.subTest(export_format=export_format):
-                response = self.client.get(
-                    reverse("wagtailadmin_reports:workflow"),
+                response = self.get(
+                    reverse(self.workflow_url_name),
                     {"export": export_format},
                 )
                 content = self.get_file_content(response, export_format)
@@ -2539,8 +3361,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertIn("submitter", content)
                 self.assertIn("2020-03-31", content)
 
-                response = self.client.get(
-                    reverse("wagtailadmin_reports:workflow_tasks"),
+                response = self.get(
+                    reverse(self.workflow_tasks_url_name),
                     {"export": export_format},
                 )
                 content = self.get_file_content(response, export_format)
@@ -2552,8 +3374,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             with self.subTest(export_format=export_format):
                 # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
                 self.login(self.moderator)
-                response = self.client.get(
-                    reverse("wagtailadmin_reports:workflow"),
+                response = self.get(
+                    reverse(self.workflow_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
                 content = self.get_file_content(response, export_format)
@@ -2563,8 +3385,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertIn("submitter", content)
                 self.assertIn("2020-03-31", content)
 
-                response = self.client.get(
-                    reverse("wagtailadmin_reports:workflow_tasks"),
+                response = self.get(
+                    reverse(self.workflow_tasks_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
                 content = self.get_file_content(response, export_format)
@@ -2573,8 +3395,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
 
                 # the submitter cannot review the task, so the workflow state shouldn't show up when reports are filtered by reviewable
                 self.login(self.submitter)
-                response = self.client.get(
-                    reverse("wagtailadmin_reports:workflow"),
+                response = self.get(
+                    reverse(self.workflow_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
                 content = self.get_file_content(response, export_format)
@@ -2583,8 +3405,8 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertNotIn("submitter", content)
                 self.assertNotIn("2020-03-31", content)
 
-                response = self.client.get(
-                    reverse("wagtailadmin_reports:workflow_tasks"),
+                response = self.get(
+                    reverse(self.workflow_tasks_url_name),
                     {"reviewable": "true", "export": export_format},
                 )
                 content = self.get_file_content(response, export_format)
@@ -2593,7 +3415,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
 
     def test_workflow_report_deleted(self):
         self.object.delete()
-        response = self.client.get(reverse("wagtailadmin_reports:workflow"))
+        response = self.get(reverse(self.workflow_url_name))
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Hello world!")
         # test_workflow is only rendered in the filter, not the results
@@ -2601,12 +3423,45 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertNotContains(response, "Sebastian Mitter")
         self.assertNotContains(response, "March 31, 2020")
 
-        response = self.client.get(reverse("wagtailadmin_reports:workflow_tasks"))
+        response = self.get(reverse(self.workflow_tasks_url_name))
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Hello world!")
 
 
+class TestPageWorkflowReportResults(TestPageWorkflowReport):
+    workflow_url_name = "wagtailadmin_reports:workflow_results"
+    workflow_tasks_url_name = "wagtailadmin_reports:workflow_tasks_results"
+    header_buttons_parent_selector = (
+        '[data-controller="w-teleport"]'
+        '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+        '[data-w-teleport-mode-value="innerHTML"]'
+    )
+    drilldown_selector = (
+        '[data-controller="w-teleport"]'
+        '[data-w-teleport-target-value="#filters-drilldown"]'
+        '[data-w-teleport-mode-value="innerHTML"]'
+    )
+    extra_params = "&_w_filter_fragment=true"
+
+    def assertBreadcrumbs(self, breadcrumbs, html):
+        self.assertBreadcrumbsNotRendered(html)
+
+    def assertPageTitle(self, soup, title):
+        self.assertIsNone(soup.select_one("title"))
+
+    def get(self, url, params=None):
+        params = params or {}
+        params["_w_filter_fragment"] = "true"
+        return super().get(url, params)
+
+
 class TestSnippetWorkflowReport(TestPageWorkflowReport, BaseSnippetWorkflowTests):
+    pass
+
+
+class TestSnippetWorkflowReportResults(
+    TestPageWorkflowReportResults, BaseSnippetWorkflowTests
+):
     pass
 
 
@@ -2617,6 +3472,12 @@ class TestNonLockableSnippetWorkflowReport(
     # GenericRelation to WorkflowState and Revision, but it should not break
     # the report page.
     # See https://github.com/wagtail/wagtail/issues/11300 for more details.
+    model = ModeratedModel
+
+
+class TestNonLockableSnippetWorkflowReportResults(
+    TestPageWorkflowReportResults, BaseSnippetWorkflowTests
+):
     model = ModeratedModel
 
 
@@ -2885,7 +3746,7 @@ class TestSnippetNotificationPreferencesHTML(TestSnippetNotificationPreferences)
     pass
 
 
-class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
+class TestDisableViews(BasePageWorkflowTests):
     def test_disable_workflow(self):
         """Test that deactivating a workflow sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
@@ -3029,6 +3890,47 @@ class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
         self.workflow.refresh_from_db()
         self.assertIs(self.workflow.active, True)
 
+    def test_enable_workflow_minimal_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_workflow"),
+        )
+        self.login(self.superuser)
+        self.workflow.active = False
+        self.workflow.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        )
+        self.assertEqual(response.status_code, 302)
+        self.workflow.refresh_from_db()
+        self.assertIs(self.workflow.active, True)
+
+    def test_enable_workflow_no_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+        )
+        self.login(self.superuser)
+        self.workflow.active = False
+        self.workflow.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.workflow.refresh_from_db()
+        self.assertIs(self.workflow.active, False)
+
     def test_enable_task(self):
         self.login(self.superuser)
         self.task_1.active = False
@@ -3040,6 +3942,47 @@ class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
         self.assertEqual(response.status_code, 302)
         self.task_1.refresh_from_db()
         self.assertIs(self.task_1.active, True)
+
+    def test_enable_task_minimal_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_task"),
+        )
+        self.login(self.superuser)
+        self.task_1.active = False
+        self.task_1.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable_task", args=(self.task_1.pk,))
+        )
+        self.assertEqual(response.status_code, 302)
+        self.task_1.refresh_from_db()
+        self.assertIs(self.task_1.active, True)
+
+    def test_enable_task_no_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+        )
+        self.login(self.superuser)
+        self.task_1.active = False
+        self.task_1.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable_task", args=(self.task_1.pk,))
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.task_1.refresh_from_db()
+        self.assertIs(self.task_1.active, False)
 
 
 class TestDisableViewsWithSnippetWorkflows(TestDisableViews, BaseSnippetWorkflowTests):
@@ -3405,12 +4348,15 @@ class TestTaskChooserChosenView(WagtailTestUtils, TestCase):
 
 class TestWorkflowUsageView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
         self.workflow = Workflow.objects.get()
 
         self.root_page = Page.objects.get(depth=1)
         self.home_page = Page.objects.get(depth=2)
 
+        self.child_page_with_default_workflow = self.home_page.add_child(
+            instance=SimplePage(title="A page", content="I'm a page")
+        )
         self.child_page_with_another_workflow = self.home_page.add_child(
             instance=SimplePage(title="Another page", content="I'm another page")
         )
@@ -3425,11 +4371,109 @@ class TestWorkflowUsageView(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/listing.html")
 
-        object_set = {page.id for page in response.context["used_by"].object_list}
-        self.assertIn(self.root_page.id, object_set)
-        self.assertIn(self.home_page.id, object_set)
-        self.assertNotIn(self.child_page_with_another_workflow.id, object_set)
+        object_set = {page.id for page in response.context["object_list"]}
+        # Should not contain child_page_with_another_workflow. It should also
+        # not contain the root page, as it's irrelevant (you'll never be able to
+        # edit and submit it to the workflow)
+        self.assertEqual(
+            object_set,
+            {self.home_page.id, self.child_page_with_default_workflow.id},
+        )
+
+    def test_with_no_permission(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # No GroupPagePermission created
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage", args=[self.workflow.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Only a page permission is created, but no workflow permission, not enough
+        permission = GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.first(),
+            permission_type="change",
+        )
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage", args=[self.workflow.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Delete page permission and add workflow permission, also not enough
+        permission.delete()
+        group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailcore", codename="change_workflow"
+            )
+        )
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage", args=[self.workflow.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_with_minimal_permissions(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailcore", codename="change_workflow"
+            ),
+        )
+        GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.first(),
+            permission_type="change",
+        )
+
+        # With a workflow permission and a page permission, the user should be
+        # able to access the view
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage", args=[self.workflow.id])
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_search_and_filtered_results(self):
+        page_1 = SimplePage(title="Hello wagtail", content="test")
+        page_2 = SimplePage(title="Hello django", content="test")
+        self.home_page.add_child(instance=page_1)
+        self.home_page.add_child(instance=page_2)
+        self.home_page.add_child(instance=MultiPreviewModesPage(title="Hello python"))
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage_results", args=[self.workflow.id]),
+            {
+                "content_type": ContentType.objects.get_for_model(SimplePage).id,
+                "q": "hello",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing_results.html")
+
+        object_set = {page.id for page in response.context["object_list"]}
+        self.assertEqual(object_set, {page_1.id, page_2.id})
 
 
 @freeze_time("2020-06-01 12:00:00")
@@ -3707,7 +4751,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
         self.object.save_revision()
 
     def test_workflowstate_email_notifier_get_recipient_users__without_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state = self.object.current_workflow_state
@@ -3722,7 +4766,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__with_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state = self.object.current_workflow_state
@@ -3738,7 +4782,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__without_requested_by(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state: WorkflowState = self.object.current_workflow_state
@@ -3757,7 +4801,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__with_same_requested_by_and_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state: WorkflowState = self.object.current_workflow_state
@@ -3812,3 +4856,34 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
             with self.subTest(f"Testing with {notification}_notifications"):
                 notifier.notification = notification
                 self.assertSetEqual(notifier.get_valid_recipients(self.object), set())
+
+
+class TestCustomWorkflowLockOnTask(BasePageWorkflowTests):
+    def setup_workflow_and_tasks(self):
+        self.workflow = Workflow.objects.create(name="test_workflow")
+        self.task_1 = CustomLockTask.objects.create(name="test_task_1")
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_1, sort_order=1
+        )
+
+    def test_custom_lock_class(self):
+        self.post("submit")
+        response = self.client.get(self.get_url("edit"))
+        self.assertContains(response, "If there is a door, there must be a key")
+        self.assertIsInstance(self.object.get_lock(), CustomWorkflowLock)
+
+    @mock.patch.object(CustomLockTask, "lock_class", new_callable=mock.PropertyMock)
+    def test_typeerror_if_custom_lock_class_inherits_basic_locks(self, mock_property):
+        mock_property.return_value = BasicLock
+
+        self.post("submit")
+
+        with self.assertRaises(TypeError):
+            self.client.get(self.get_url("edit"))
+
+
+class TestCustomWorkflowLockOnTaskWithSnippets(
+    TestCustomWorkflowLockOnTask,
+    BaseSnippetWorkflowTests,
+):
+    pass

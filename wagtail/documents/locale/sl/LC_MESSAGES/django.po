@@ -5,16 +5,16 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022-2023
+# Andrej Marsetič, 2022-2024
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -151,14 +151,6 @@ msgstr[1] "Ali ste prepričani, da želite izbrisati ta dva dokument?"
 msgstr[2] "Ali ste prepričani, da želite izbrisati ta dokument?"
 msgstr[3] "Ali ste prepričani, da želite izbrisati ta dokument?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Uporabljeno %(usage_count)s krat "
-msgstr[1] "Uporabljeno %(usage_count)s krat"
-msgstr[2] "Uporabljeno %(usage_count)s krat"
-msgstr[3] "Uporabljeno %(usage_count)s krat"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Nimate dovoljenja za brisanje tega dokumenta"
@@ -185,20 +177,10 @@ msgstr "V to zbirko niste naložili nobenega dokumenta."
 msgid "You haven't uploaded any documents."
 msgstr "Naložili niste nobenega dokumenta."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Zakaj ne bi <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>enega naložili zdaj</a>?"
-
 msgid "Change document:"
 msgstr "Spremeni dokument:"
 
 msgid "Add a document"
-msgstr "Dodaj dokument"
-
-msgid "Add document"
 msgstr "Dodaj dokument"
 
 msgid "Uploading…"
@@ -206,19 +188,6 @@ msgstr "Nalagam..."
 
 msgid "Upload"
 msgstr "Prenos"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Urejanje %(title)s"
-
-msgid "Editing"
-msgstr "Urejanje"
-
-msgid "Save"
-msgstr "Shrani"
-
-msgid "Delete document"
-msgstr "Izbriši dokument"
 
 msgid "Filesize"
 msgstr "Velikost"
@@ -228,6 +197,14 @@ msgstr "Datoteka ne obstaja"
 
 msgid "Usage"
 msgstr "Uporaba"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uporabljeno %(usage_count)s krat "
+msgstr[1] "Uporabljeno %(usage_count)s krat"
+msgstr[2] "Uporabljeno %(usage_count)s krat"
+msgstr[3] "Uporabljeno %(usage_count)s krat"
 
 msgid "Select all documents in listing"
 msgstr "Izberite vse dokumente na seznamu"
@@ -254,9 +231,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Dodaj več dokumentov"
-
-msgid "Add documents"
-msgstr "Dodaj dokumente"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Povlecite in spustite dokumente v tem delu za takojšnji prenos."
@@ -314,6 +288,15 @@ msgstr "Dodaj v zbirko"
 msgid "Add selected documents to collection"
 msgstr "Dodajte izbrane dokumente v zbirko"
 
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "V %(collection)s je bilo dodan %(num_parent_objects)d dokument"
+msgstr[1] "V %(collection)s sta bila dodana %(num_parent_objects)d dokumenta"
+msgstr[2] "V %(collection)s je bilo dodanih %(num_parent_objects)d dokumentov"
+msgstr[3] "V %(collection)s je bilo dodanih %(num_parent_objects)d dokumentov"
+
 msgid "Delete"
 msgstr "Izbriši"
 
@@ -360,15 +343,15 @@ msgstr "Dokumenta, zaradi napak, ni bilo možno shraniti."
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokument '%(document_title)s' prenesen"
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Datoteke ni bilo možno najti. Spremenite izvor datoteke, ali izbrišite "
-"dokument"
+msgid "Delete document"
+msgstr "Izbriši dokument"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' izbrisan."
+
+msgid "Add documents"
+msgstr "Dodaj dokumente"
 
 msgid "Document"
 msgstr "Dokument"

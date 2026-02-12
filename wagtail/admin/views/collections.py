@@ -30,7 +30,6 @@ class Index(IndexView):
             accessor="1",
         )
     ]
-    _show_breadcrumbs = True
 
     def get_queryset(self):
         return self.permission_policy.instances_user_has_any_permission_for(
@@ -51,7 +50,6 @@ class Create(CreateView):
     edit_url_name = "wagtailadmin_collections:edit"
     index_url_name = "wagtailadmin_collections:index"
     header_icon = "folder-open-1"
-    _show_breadcrumbs = True
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -76,13 +74,11 @@ class Edit(EditView):
     template_name = "wagtailadmin/collections/edit.html"
     success_message = gettext_lazy("Collection '%(object)s' updated.")
     error_message = gettext_lazy("The collection could not be saved due to errors.")
-    delete_item_label = gettext_lazy("Delete collection")
     edit_url_name = "wagtailadmin_collections:edit"
     index_url_name = "wagtailadmin_collections:index"
     delete_url_name = "wagtailadmin_collections:delete"
     context_object_name = "collection"
     header_icon = "folder-open-1"
-    _show_breadcrumbs = True
 
     def _user_may_move_collection(self, user, instance):
         """
@@ -137,17 +133,6 @@ class Edit(EditView):
         if "parent" in self.form.changed_data:
             instance.move(self.form.cleaned_data["parent"], "sorted-child")
         return instance
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["can_delete"] = (
-            self.permission_policy.instances_user_has_permission_for(
-                self.request.user, "delete"
-            )
-            .filter(pk=self.object.pk)
-            .first()
-        )
-        return context
 
 
 class Delete(DeleteView):

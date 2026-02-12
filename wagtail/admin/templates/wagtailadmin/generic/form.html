@@ -1,13 +1,15 @@
 {% extends "wagtailadmin/generic/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n l10n wagtailadmin_tags %}
 {% block bodyclass %}editor-view{% endblock %}
 
 {% block main_header %}
     {% if breadcrumbs_items %}
         <div class="nice-padding w-mt-8">
             <h2 class="w-relative w-h1" id="header-title">
-                {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
-                {{ page_subtitle }}
+                {% if header_icon %}
+                    {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
+                {% endif %}
+                <span>{{ page_subtitle|default:page_title }}</span>
             </h2>
         </div>
     {% else %}
@@ -17,27 +19,91 @@
 
 {% block main_content %}
     {% block before_form %}{% endblock %}
-    <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
+    <form
+        id="w-editor-form"
+        action="{{ action_url }}"
+        method="POST"
+        novalidate
+        {% if form_is_multipart or form.is_multipart %} enctype="multipart/form-data"{% endif %}
+        data-edit-form
+        data-controller="w-unsaved {% if autosave_enabled %}w-autosave{% endif %}"
+        data-action="
+                     w-unsaved#submit
+                     beforeunload@window->w-unsaved#confirm
+                     {% if autosave_enabled %}
+                         w-unsaved:add->w-autosave#save:prevent
+                         w-autosave:success->w-unsaved#clear
+                     {% endif %}
+                    "
+        {% if autosave_enabled %}data-w-autosave-interval-value="{{ autosave_interval|unlocalize }}"{% endif %}
+        data-w-unsaved-confirmation-value="true"
+        data-w-unsaved-force-value="{{ has_unsaved_changes|yesno:'true,false' }}"
+    >
         {% csrf_token %}
-
-        {% if panel %}
-            {{ panel.render_form_content }}
-        {% else %}
-            {% block hidden_fields %}
-                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-            {% endblock %}
-
-            <ul class="fields">
-                {% block visible_fields %}
-                    {% for field in form.visible_fields %}
-                        <li>{% formattedfield field %}</li>
-                    {% endfor %}
-                {% endblock %}
-            </ul>
+        {% if revision_enabled and object.latest_revision_id %}
+            {% include "wagtailadmin/generic/includes/_loaded_revision_inputs.html" with loaded_revision_id=object.latest_revision_id loaded_revision_created_at=loaded_revision_created_at only %}
         {% endif %}
 
-        {% block actions %}
-            <button type="submit" class="button">{{ submit_button_label }}</button>
+        {% block form_content %}
+            {% if panel %}
+                {{ panel.render_form_content }}
+            {% else %}
+                {% block hidden_fields %}
+                    {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+                {% endblock %}
+
+                <ul class="fields">
+                    {% block visible_fields %}
+                        {% for field in form.visible_fields %}
+                            <li>{% formattedfield field %}</li>
+                        {% endfor %}
+                    {% endblock %}
+                </ul>
+            {% endif %}
+        {% endblock %}
+
+        {% block footer %}
+            <footer class="footer w-grid md:w-grid-flow-col">
+                <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
+                    {% block actions %}
+                        {% fragment as main_action %}
+                            {% block main_action %}
+                                <button
+                                    type="submit"
+                                    class="button button-longrunning"
+                                    data-controller="w-progress w-kbd"
+                                    data-action="w-progress#activate"
+                                    data-w-kbd-key-value="mod+s"
+                                    data-w-kbd-scope-value="global"
+                                    data-w-progress-active-value="{{ submit_button_active_label }}"
+                                >
+                                    {% icon name="spinner" %}
+                                    <em data-w-progress-target="label">{{ submit_button_label }}</em>
+                                </button>
+                            {% endblock %}
+                        {% endfragment %}
+
+                        {% fragment stripped as extra_actions %}{% block extra_actions %}{% endblock %}{% endfragment %}
+
+                        {% include "wagtailadmin/shared/action_menu/menu.html" with show_menu=extra_actions default_menu_item=main_action menu_items_fragment=extra_actions %}
+
+                    {% endblock %}
+                </nav>
+                {% block unsaved_changes_warning %}
+                    {% include "wagtailadmin/shared/unsaved_changes_warning.html" %}
+                {% endblock%}
+            </footer>
+        {% endblock %}
+
+        {% block partials %}
+            {% if autosave_enabled %}
+                <div data-w-autosave-target="partials" hidden>
+                    {% comment %}
+                        Any UI updates in the autosave response will be added here
+                        as template elements, to be put into place via w-teleport.
+                    {% endcomment %}
+                </div>
+            {% endif %}
         {% endblock %}
     </form>
 {% endblock %}
@@ -45,6 +111,7 @@
 {% block extra_js %}
     {{ block.super }}
     {{ media.js }}
+    {% if edit_handler_data %}{{ edit_handler_data|json_script:"w-edit-handler-data" }}{% endif %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}
 

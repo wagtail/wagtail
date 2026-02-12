@@ -4,9 +4,13 @@ from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse, reverse_lazy
+from django.utils import translation
 
 from wagtail.admin.rich_text import DraftailRichTextArea, get_rich_text_editor_widget
-from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
+from wagtail.admin.rich_text.converters.editor_html import (
+    EditorHTMLConverter,
+    PageLinkHandler,
+)
 from wagtail.admin.rich_text.editors.draftail.features import Feature
 from wagtail.blocks import RichTextBlock
 from wagtail.models import Page, get_page_models
@@ -508,6 +512,17 @@ class TestPageLinkHandler(WagtailTestUtils, TestCase):
             % events_page_id,
         )
 
+    def test_editorhtmlconverter_from_database_format(self):
+        events_page_id = Page.objects.get(url_path="/home/events/").pk
+        db_html = '<a linktype="page" id="%d">foo</a>' % events_page_id
+        converter = EditorHTMLConverter(features=["link"])
+        editor_html = converter.from_database_format(db_html)
+        self.assertEqual(
+            editor_html,
+            '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">foo</a>'
+            % events_page_id,
+        )
+
 
 class TestWidgetNotHidden(SimpleTestCase):
     def test_draftail(self):
@@ -622,3 +637,16 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         self.assertIn("/admin/images/chooser/", html)
         self.assertIn("/admin/embeds/chooser/", html)
         self.assertIn("/admin/documents/chooser/", html)
+
+
+class TestDraftailLazyTranslations(SimpleTestCase):
+    def test_context_i18n(self):
+        widget = DraftailRichTextArea(features=["h2"])
+        context_default_language = widget.get_context(None, None, {})
+        with translation.override("de"):
+            context_de = widget.get_context(None, None, {})
+        # At least the description of the h2 feature should be different
+        self.assertNotEqual(
+            context_default_language["widget"]["attrs"]["data-w-init-detail-value"],
+            context_de["widget"]["attrs"]["data-w-init-detail-value"],
+        )

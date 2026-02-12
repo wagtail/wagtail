@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,7 +10,7 @@ import {
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
-import { range } from '../../../utils/range';
+import { gettext } from '../../../utils/gettext';
 import ComboBox, {
   comboBoxLabel,
   comboBoxNoResults,
@@ -22,40 +21,39 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import { setAttrs } from '../../../utils/attrs';
 
 /* global $ */
 
 class StreamChild extends BaseSequenceChild {
-  /*
-  wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
-  such as id
-  */
+  /**
+   * wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
+   * such as id
+   * @returns {object} - The state of the child block
+   */
   getState() {
     return {
       type: this.type,
       value: this.block.getState(),
-      id: this.id,
+      id: this.id || null,
     };
   }
 
   getDuplicatedState() {
-    return {
-      ...super.getDuplicatedState(),
-      type: this.type,
-    };
+    return { ...super.getDuplicatedState(), type: this.type };
   }
 
   setState({ type, value, id }) {
     this.type = type;
     this.block.setState(value);
-    this.id = id;
+    this.id = id === undefined ? null : id;
   }
 
   getValue() {
     return {
       type: this.type,
       value: this.block.getValue(),
-      id: this.id,
+      id: this.id || null,
     };
   }
 
@@ -98,13 +96,12 @@ class StreamBlockMenu extends BaseInsertionControl {
     }
 
     this.combobox = document.createElement('div');
-    this.canAddBlock = true;
-    this.disabledBlockTypes = new Set();
 
     this.tooltip = tippy(this.addButton.get(0), {
       content: this.combobox,
       trigger: 'click',
       interactive: true,
+      maxWidth: 'none',
       theme: 'dropdown',
       arrow: false,
       placement: 'bottom',
@@ -118,21 +115,16 @@ class StreamBlockMenu extends BaseInsertionControl {
 
   get blockItems() {
     return this.groupedChildBlockDefs.map(([group, blockDefs]) => {
-      const groupItems = blockDefs
-        // Allow adding all blockDefs even when disabled, so validation only impedes when saving.
-        // Keeping the previous filtering here for future reference.
-        // .filter((blockDef) => !this.disabledBlockTypes.has(blockDef.name))
-        .map((blockDef) => ({
-          type: blockDef.name,
-          label: blockDef.meta.label,
-          icon: blockDef.meta.icon,
-        }));
+      const groupItems = blockDefs.map((blockDef) => ({
+        type: blockDef.name,
+        label: blockDef.meta.label,
+        description: blockDef.meta.description,
+        icon: blockDef.meta.icon,
+        blockDefId: blockDef.meta.blockDefId,
+        isPreviewable: blockDef.meta.isPreviewable,
+      }));
 
-      return {
-        label: group || '',
-        type: group || '',
-        items: groupItems,
-      };
+      return { label: group || '', type: group || '', items: groupItems };
     });
   }
 
@@ -160,21 +152,7 @@ class StreamBlockMenu extends BaseInsertionControl {
     this.close();
   }
 
-  setNewBlockRestrictions(canAddBlock, disabledBlockTypes) {
-    this.canAddBlock = canAddBlock;
-    this.disabledBlockTypes = disabledBlockTypes;
-    // Disable/enable menu open button
-    if (this.canAddBlock) {
-      this.addButton.removeAttr('disabled');
-    } else {
-      this.addButton.attr('disabled', 'true');
-    }
-  }
-
   open() {
-    if (!this.canAddBlock) {
-      return;
-    }
     this.addButton.attr('aria-expanded', 'true');
     this.tooltip.show();
   }
@@ -212,6 +190,8 @@ export class StreamBlock extends BaseSequenceBlock {
         </div>
       `).insertBefore(dom);
     }
+    this.container = dom;
+    this.element = dom.get(0);
 
     // StreamChild objects for the current (non-deleted) child blocks
     this.children = [];
@@ -238,11 +218,14 @@ export class StreamBlock extends BaseSequenceBlock {
         block.collapse();
       });
     }
-    this.container = dom;
 
     if (initialError) {
       this.setError(initialError);
     }
+
+    this.initDragNDrop();
+
+    setAttrs(this.container[0], this.blockDef.meta.attrs || {});
   }
 
   getBlockGroups() {
@@ -255,6 +238,7 @@ export class StreamBlock extends BaseSequenceBlock {
       return this.children.length;
     }
     if (!this.childBlockCounts.has(type)) {
+      // eslint-disable-next-line no-underscore-dangle
       this._updateBlockCount(type);
     }
     return this.childBlockCounts.get(type) || 0;
@@ -275,45 +259,70 @@ export class StreamBlock extends BaseSequenceBlock {
     this.childBlockCounts.set(type, currentBlockCount);
   }
 
-  /*
+  /**
    * Called whenever a block is added or removed
-   *
    * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
    */
   blockCountChanged() {
     super.blockCountChanged();
-    this.canAddBlock = true;
     this.childBlockCounts.clear();
 
-    if (
-      typeof this.blockDef.meta.maxNum === 'number' &&
-      this.children.length >= this.blockDef.meta.maxNum
-    ) {
-      this.canAddBlock = false;
+    const errorMessages = [];
+
+    const maxNum = this.blockDef.meta.maxNum;
+    if (typeof maxNum === 'number' && this.children.length > maxNum) {
+      const message = gettext(
+        'The maximum number of items is %(max_num)d',
+      ).replace('%(max_num)d', `${maxNum}`);
+      errorMessages.push(message);
+    }
+
+    const minNum = this.blockDef.meta.minNum;
+    if (typeof minNum === 'number' && this.children.length < minNum) {
+      const message = gettext(
+        'The minimum number of items is %(min_num)d',
+      ).replace('%(min_num)d', `${minNum}`);
+      errorMessages.push(message);
     }
 
     // Check if there are any block types that have count limits
-    this.disabledBlockTypes = new Set();
-    for (const blockType in this.blockDef.meta.blockCounts) {
-      if (hasOwn(this.blockDef.meta.blockCounts, blockType)) {
-        const maxNum = this.getBlockMax(blockType);
+    for (const [blockType, constraints] of Object.entries(
+      this.blockDef.meta.blockCounts,
+    )) {
+      const blockMaxNum = constraints.max_num;
+      if (typeof blockMaxNum === 'number') {
+        const currentBlockCount = this.getBlockCount(blockType);
 
-        if (typeof maxNum === 'number') {
-          const currentBlockCount = this.getBlockCount(blockType);
+        if (currentBlockCount > blockMaxNum) {
+          const childBlockDef = this.blockDef.childBlockDefsByName[blockType];
+          const message = gettext(
+            'The maximum number of items is %(max_num)d',
+          ).replace('%(max_num)d', `${blockMaxNum}`);
+          const messageWithPrefix = `${childBlockDef.meta.label}: ${message}`;
+          errorMessages.push(messageWithPrefix);
+        }
+      }
 
-          if (currentBlockCount >= maxNum) {
-            this.disabledBlockTypes.add(blockType);
-          }
+      const blockMinNum = constraints.min_num;
+      if (typeof blockMinNum === 'number') {
+        const currentBlockCount = this.getBlockCount(blockType);
+
+        if (currentBlockCount < blockMinNum) {
+          const childBlockDef = this.blockDef.childBlockDefsByName[blockType];
+          const message = gettext(
+            'The minimum number of items is %(min_num)d',
+          ).replace('%(min_num)d', `${blockMinNum}`);
+          const messageWithPrefix = `${childBlockDef.meta.label}: ${message}`;
+          errorMessages.push(messageWithPrefix);
         }
       }
     }
 
-    range(0, this.inserters.length).forEach((i) => {
-      this.inserters[i].setNewBlockRestrictions(
-        this.canAddBlock,
-        this.disabledBlockTypes,
-      );
-    });
+    if (errorMessages.length) {
+      this.setError({ messages: errorMessages });
+    } else {
+      this.setError({});
+    }
   }
 
   _createChild(
@@ -339,21 +348,23 @@ export class StreamBlock extends BaseSequenceBlock {
   }
 
   _createInsertionControl(placeholder, opts) {
-    // eslint-disable-next-line no-param-reassign
     opts.groupedChildBlockDefs = this.blockDef.groupedChildBlockDefs;
     return new StreamBlockMenu(placeholder, opts);
   }
 
   insert({ type, value, id }, index, opts) {
     const childBlockDef = this.blockDef.childBlockDefsByName[type];
+    // eslint-disable-next-line no-underscore-dangle
     return this._insert(childBlockDef, value, id, index, opts);
   }
 
+  /**
+   * Called when an 'insert new block' action is triggered: given a dict of data from the insertion control.
+   * For a StreamBlock, the dict of data consists of 'type' (the chosen block type name, as a string).
+   *
+   * @returns {Array} - The block definition, initial state, and id for the new block
+   */
   _getChildDataForInsertion({ type }) {
-    /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
-    return the block definition and initial state to be used for the new block.
-    For a StreamBlock, the dict of data consists of 'type' (the chosen block type name, as a string).
-    */
     const blockDef = this.blockDef.childBlockDefsByName[type];
     const initialState = this.blockDef.initialChildStates[type];
     return [blockDef, initialState, uuidv4()];
@@ -381,7 +392,7 @@ export class StreamBlock extends BaseSequenceBlock {
     );
     child.setState({
       type: initialState.type,
-      id: initialState.id,
+      id: initialState.id || null,
       value: valueBefore,
     });
     const oldContentPath = child.getContentPath();
@@ -419,6 +430,7 @@ export class StreamBlock extends BaseSequenceBlock {
 
     if (error.blockErrors) {
       // Block errors (to be propagated to child blocks)
+      // eslint-disable-next-line no-restricted-syntax
       for (const blockIndex in error.blockErrors) {
         if (hasOwn(error.blockErrors, blockIndex)) {
           this.children[blockIndex].setError(error.blockErrors[blockIndex]);

@@ -10,16 +10,17 @@
 # mahulst, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
-# Storm Heg <storm@stormbase.digital>, 2021-2024
+# Michel Vuijlsteke, 2025
+# Storm Heg <storm@stormbase.digital>, 2021-2026
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +31,15 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail afbeeldingen"
+
+msgid "Image is decorative"
+msgstr "Afbeelding is decoratief"
+
+msgid "Alt text"
+msgstr "Alt tekst"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "Voeg alt tekst toe of markeer de afbeelding als decoratief"
 
 #, python-format
 msgid ""
@@ -46,7 +56,7 @@ msgstr "Ondersteunde bestandsformaten: %(supported_formats)s."
 #, python-format
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
-"Geen ondersteund afbeeldingsformaat. ondersteunde formaten: "
+"Geen ondersteund afbeeldingsformaat. Ondersteunde formaten: "
 "%(supported_formats)s."
 
 #, python-format
@@ -69,8 +79,9 @@ msgid ""
 "This file has too many pixels (%(num_pixels)s). Maximum pixels "
 "%(max_pixels_count)s."
 msgstr ""
-"Dit bestand bevat teveel pixels (%(num_pixels)s). Het maximum aantal "
-"toegestane pixels is %(max_pixels_count)s."
+"Deze afbeelding bevat teveel pixels (%(num_pixels)s). Het maximum aantal "
+"toegestane pixels is %(max_pixels_count)s. Snij de afbeelding bij of verlaag "
+"de resolutie en probeer het opnieuw."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %(max_filesize)s."
@@ -90,15 +101,6 @@ msgstr "Collectie"
 
 msgid "Format"
 msgstr "Formaat"
-
-msgid "Image is decorative"
-msgstr "Afbeelding is decoratief"
-
-msgid "Alt text"
-msgstr "Alt tekst"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr "Voeg alt tekst toe of markeer de afbeelding als decoratief"
 
 msgid "Filter"
 msgstr "Filter"
@@ -128,7 +130,7 @@ msgid "Height"
 msgstr "Hoogte"
 
 msgid "Closeness"
-msgstr "Nabijheid"
+msgstr "Uitsnijdingsniveau rondom focusgebied"
 
 msgid "Add"
 msgstr "Toevoegen"
@@ -154,6 +156,9 @@ msgstr "titel"
 msgid "file"
 msgstr "bestand"
 
+msgid "description"
+msgstr "omschrijving"
+
 msgid "width"
 msgstr "breedte"
 
@@ -164,7 +169,7 @@ msgid "created at"
 msgstr "gemaakt op"
 
 msgid "uploaded by user"
-msgstr "geupload door gebruiker"
+msgstr "geüpload door gebruiker"
 
 msgid "tags"
 msgstr "tags"
@@ -245,12 +250,6 @@ msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Weet je zeker dat je deze afbeelding wilt verwijderen?"
 msgstr[1] "Weet je zeker dat je deze afbeeldingen wilt verwijderen?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s keer gebruikt"
-msgstr[1] "%(usage_count)s keer gebruikt"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Je hebt niet de juiste rechten om deze afbeelding te verwijderen"
@@ -265,12 +264,16 @@ msgstr "Nee, niet verwijderen"
 msgid "Popular tags"
 msgstr "Populaire tags"
 
+msgid "Layout"
+msgstr "Weergave"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
 msgstr ""
-"Upload is geslaagd. Echter lijkt je nieuwe afbeelding een dubbeling van een "
-"bestaande afbeelding te zijn. Je kunt deze indien nodig verwijderen."
+"Upload is geslaagd. Maar je nieuwe afbeelding lijkt een dubbeling te zijn "
+"van een bestaande afbeelding. Misschien was de upload niet nodig en kun je "
+"deze afbeelding verwijderen?"
 
 msgid "Existing"
 msgstr "Bestaand"
@@ -298,11 +301,13 @@ msgid "You haven't uploaded any images."
 msgstr "Je hebt nog geen afbeeldingen geüpload."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>Upload er "
-"nu eentje!</a>"
+"Waarom <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload je er niet eentje</a>?"
 
 msgid "Choose a format"
 msgstr "Kies een formaat"
@@ -312,17 +317,15 @@ msgstr "Voeg afbeelding in"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Afbeelding <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span>"
+"%(total)s Afbeelding <span class=\"w-sr-only\">aangemaakt in %(site_name)s</"
+"span>"
 msgstr[1] ""
-"<span>%(total)s</span> Afbeeldingen <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span>"
+"%(total)s Afbeeldingen <span class=\"w-sr-only\">aangemaakt in%(site_name)s</"
+"span>"
 
 msgid "Change image file:"
 msgstr "Wijzig bestand:"
@@ -330,27 +333,17 @@ msgstr "Wijzig bestand:"
 msgid "Add an image"
 msgstr "Voeg een afbeelding toe"
 
-msgid "Add image"
-msgstr "Voeg afbeelding toe"
+msgid "Uploading…"
+msgstr "Bezig met uploaden…"
 
-msgid "Save"
-msgstr "Opslaan"
+msgid "Upload"
+msgstr "Uploaden"
 
 msgid "Keep new image"
 msgstr "Bewaar nieuwe afbeelding"
 
 msgid "Delete new image"
 msgstr "Nieuwe afbeelding verwijderen"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Wijzig afbeelding %(title)s"
-
-msgid "Editing"
-msgstr "Wijzigen"
-
-msgid "Delete image"
-msgstr "Verwijder afbeelding"
 
 msgid "Image focal point"
 msgstr "Afbeelding focusgebied"
@@ -388,24 +381,23 @@ msgstr "Bestand niet gevonden"
 msgid "Usage"
 msgstr "Gebruik"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s keer gebruikt"
+msgstr[1] "%(usage_count)s keer gebruikt"
+
 msgid "Sort by"
 msgstr "Sorteer op"
-
-msgid "Entries per page"
-msgstr "Items per pagina"
-
-msgid "Popular Tags:"
-msgstr "Populaire tags:"
-
-msgid "Clear"
-msgstr "Leegmaken"
 
 msgid "Select all images in listing"
 msgstr "Selecteer alle afbeeldingen in lijst"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "Sorry, geen afbeelding overeenkomst \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen enkele afbeelding komt overeen met je zoekopdracht: "
+"<em>%(query_string)s</em>"
 
 #, python-format
 msgid ""
@@ -413,7 +405,7 @@ msgid ""
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Er zijn nog geen afbeeldingen toegevoegd aan deze collectie. Waarom <a "
-"href=\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
+"href=\"%(wagtailimages_add_image_url)s\">upload je er niet nu een</a>?"
 
 #, python-format
 msgid ""
@@ -421,7 +413,13 @@ msgid ""
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Er zijn nog geen afbeeldingen toegevoegd. Waarom <a "
-"href=\"%(wagtailimages_add_image_url)s\">uploadt je er niet nu een</a>?"
+"href=\"%(wagtailimages_add_image_url)s\">upload je er niet nu een</a>?"
+
+msgid "Grid layout"
+msgstr "Grid"
+
+msgid "List layout"
+msgstr "Lijst"
 
 msgid "Preview"
 msgstr "Voorbeeld"
@@ -444,9 +442,6 @@ msgstr "Kopiëren naar klembord mislukt"
 msgid "Add multiple images"
 msgstr "Voeg meerdere afbeeldingen toe"
 
-msgid "Add images"
-msgstr "Voeg afbeeldingen toe"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Sleep afbeeldingen naar dit gebied om ze direct te uploaden."
 
@@ -457,26 +452,33 @@ msgid "Add to collection:"
 msgstr "Voeg toe aan collectie:"
 
 msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr ""
+"Voeg alsjeblieft een beschrijving van de afbeelding toe om te voldoen aan "
+"toegankelijkheidseisen."
+
+msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
 "Upload geslaagd. Voorzie deze afbeelding van een betere titel, indien nodig. "
-"Je kunt ook de afbeelding helemaal verwijderen indien de upload onnodig "
-"bleek. "
+"Je kunt de afbeelding ook verwijderen indien deze toch niet nodig is."
 
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of this "
 "existing image. You may delete it if it wasn't required."
 msgstr ""
-"Upload is geslaagd. Echter lijkt je nieuwe afbeelding een dubbeling van deze "
-"bestaande afbeelding te zijn. Je kunt deze indien nodig verwijderen."
+"Upload is geslaagd. Maar je nieuwe afbeelding lijkt een dubbeling van deze "
+"bestaande afbeelding te zijn. Je kunt je net geüploade afbeelding "
+"verwijderen indien nodig"
 
 msgid "Sorry, upload failed."
-msgstr "Sorry, upload ging fout."
+msgstr "Sorry, de upload is mislukt"
 
 msgid "Server Error"
-msgstr "Server error"
+msgstr "Serverfout"
 
 msgid ""
 "Report this error to your website administrator with the following "
@@ -532,11 +534,11 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d afbeelding is verwijderd"
 msgstr[1] "%(num_parent_objects)d afbeeldingen zijn verwijderd"
 
-msgid "Upload"
-msgstr "Uploaden"
+msgid "Title"
+msgstr "Titel"
 
-msgid "Uploading…"
-msgstr "Bezig met uploaden…"
+msgid "Created"
+msgstr "Aangemaakt"
 
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
@@ -565,36 +567,51 @@ msgstr "Bestandsgrootte: (klein naar groot)"
 msgid "File size: (high to low)"
 msgstr "Bestandsgrootte: (groot naar klein)"
 
+msgid "Usage count: (low to high)"
+msgstr "Aantal keer gebruikt (weinig tot vaak)"
+
+msgid "Usage count: (high to low)"
+msgstr "Aantal keer gebruikt (vaak tot weinig)"
+
 msgid "Images"
 msgstr "Afbeeldingen"
+
+msgid "The image could not be saved due to errors."
+msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."
 
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Afbeelding '%(image_title)s' is bijgewerkt."
 
-msgid "Edit again"
-msgstr "Bewerk opnieuw"
-
-msgid "The image could not be saved due to errors."
-msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."
-
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
-"Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
+"Het bronbestand van de afbeelding kon niet worden gevonden. Upload een nieuw "
 "bronbestand of verwijder de afbeelding."
+
+msgid "Generate URL"
+msgstr "Maak URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr "Deze combinatie van filters is niet mogelijk."
+
+msgid "Delete image"
+msgstr "Verwijder afbeelding"
 
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Afbeelding '%(image_title)s' verwijderd."
 
+msgid "The image could not be created due to errors."
+msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
+
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Afbeelding '%(image_title)s' toegevoegd."
 
-msgid "The image could not be created due to errors."
-msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
+msgid "Add images"
+msgstr "Voeg afbeeldingen toe"
 
 msgid "Image"
 msgstr "Afbeelding"

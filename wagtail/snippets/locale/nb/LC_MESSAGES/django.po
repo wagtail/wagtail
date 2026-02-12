@@ -5,12 +5,13 @@
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
 # Jonathan D, 2023
+# Jonathan D, 2023
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -44,9 +45,6 @@ msgstr "Avbryt arbeidsflyt"
 msgid "Unpublish"
 msgstr "Avpublisér"
 
-msgid "Delete"
-msgstr "Slett"
-
 msgid "Save"
 msgstr "Lagre"
 
@@ -59,6 +57,9 @@ msgstr "%(label)s og Publiser"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail-snutter"
+
+msgid "Delete"
+msgstr "Slett"
 
 msgid "Delete selected snippets"
 msgstr "Slett valgte snutter"
@@ -79,12 +80,6 @@ msgstr "Slett %(snippet_type_name)s"
 
 msgid "Delete "
 msgstr "Slett"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Brukt %(usage_count)s gang"
-msgstr[1] "Brukt %(usage_count)s ganger"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -140,35 +135,8 @@ msgstr "Erstatt nåværende revisjon"
 msgid "Save draft"
 msgstr "Lagre kladd"
 
-msgid "Actions"
-msgstr "Handlinger"
-
 msgid "Select all snippets in listing"
 msgstr "Velg alle snutter i listen"
-
-msgid "Live version"
-msgstr "Publisert versjon"
-
-msgid "Current draft"
-msgstr "Nåværende kladd"
-
-msgid "Preview"
-msgstr "Forhåndsvis"
-
-msgid "Edit"
-msgstr "Rediger"
-
-msgid "Review this version"
-msgstr "Gjennomgå denne versjonen"
-
-msgid "Compare with previous version"
-msgstr "Sammenlign med forrige versjon"
-
-msgid "Compare with current version"
-msgstr "Sammenlign med nåværende versjon"
-
-msgid "Cancel scheduled publish"
-msgstr "Avbryt planlagt publisering"
 
 msgid "Choose"
 msgstr "Velg"
@@ -185,20 +153,6 @@ msgstr "Forekomster"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Flere alternativer for '%(title)s'"
-
-msgid "Action"
-msgstr "Handling"
-
-msgid "Date"
-msgstr "Dato"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Rediger denne %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "%(model_name)s historikk"
 
 msgid "Home"
 msgstr "Hjem"

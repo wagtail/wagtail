@@ -15,12 +15,11 @@ Those are the same standards used to assess the [sustainability of Wagtail](http
 
 Here are the guidelines we would recommend applying to Wagtail websites:
 
--   [Sustainable Web Design Strategies](https://sustainablewebdesign.org/strategies/)
+-   [Sustainable Web Design W3C Interest Group](https://www.w3.org/groups/ig/sustainableweb/) working draft of the [Web Sustainability Guidelines](https://w3c.github.io/sustainableweb-wsg/)
+-   [Sustainable Web Design](https://sustainablewebdesign.org/)
 -   [GR491](https://gr491.isit-europe.org/en/)
 -   [Green Design Principles by Microsoft (PDF)](https://wxcteam.microsoft.com/download/Microsoft-Green-Design-Principles.pdf)
 -   [Green Software Foundation Patterns](https://patterns.greensoftware.foundation/catalog/web/)
-
-The [Sustainable Web Design W3C Community Group](https://www.w3.org/community/sustyweb/) is also working on _Web Environmental Sustainability Guidelines_, which will be highly relevant once published.
 
 ## Quantifying emissions
 

@@ -2,7 +2,10 @@ import os.path
 
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.text import capfirst
+from django.utils.translation import gettext_lazy
 
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
 from wagtail.admin.views.generic.multiple_upload import (
     CreateFromUploadView as BaseCreateFromUploadView,
@@ -13,16 +16,22 @@ from wagtail.admin.views.generic.multiple_upload import (
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
-from wagtail.images.fields import get_allowed_image_extensions
 from wagtail.images.forms import get_image_form, get_image_multi_form
 from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
-from wagtail.images.utils import find_image_duplicates
+from wagtail.images.utils import (
+    find_image_duplicates,
+    get_accept_attributes,
+    get_allowed_image_extensions,
+)
 
 
-class AddView(BaseAddView):
+class AddView(WagtailAdminTemplateMixin, BaseAddView):
     permission_policy = ImagesPermissionPolicyGetter()
     template_name = "wagtailimages/multiple/add.html"
+    header_icon = "image"
+    page_title = gettext_lazy("Add images")
 
+    index_url_name = "wagtailimages:index"
     edit_object_url_name = "wagtailimages:edit_multiple"
     delete_object_url_name = "wagtailimages:delete_multiple"
     edit_object_form_prefix = "image"
@@ -34,6 +43,15 @@ class AddView(BaseAddView):
     edit_upload_form_prefix = "uploaded-image"
     context_upload_name = "uploaded_image"
     context_upload_id_name = "uploaded_file_id"
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(self.model._meta.verbose_name_plural),
+            },
+            {"url": "", "label": self.get_page_title()},
+        ]
 
     def get_model(self):
         return get_image_model()
@@ -89,6 +107,7 @@ class AddView(BaseAddView):
                 "max_filesize": self.form.fields["file"].max_upload_size,
                 "max_title_length": self.form.fields["title"].max_length,
                 "allowed_extensions": get_allowed_image_extensions(),
+                "accept_attributes": get_accept_attributes(),
                 "error_max_file_size": self.form.fields["file"].error_messages[
                     "file_too_large_unknown_size"
                 ],

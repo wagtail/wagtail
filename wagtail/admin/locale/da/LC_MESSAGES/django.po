@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -50,9 +50,6 @@ msgstr "Wagtail admin"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke rettigheder til at tilgå dette område"
-
-msgid "You do not have permission to access the admin"
-msgstr "Du mangler rettigheden til, at bruge admin-interfacet"
 
 msgid "None"
 msgstr "Intet"
@@ -127,9 +124,6 @@ msgstr "Slet"
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Gå live dato/tidspunkt skal forekomme før udløbende dato/tidspunkt"
 
-msgid "Expiry date/time must be in the future"
-msgstr "Udløbende dato/tidspunkt skal være i fremtiden"
-
 msgid "New title"
 msgstr "Ny titel"
 
@@ -196,12 +190,6 @@ msgstr "Dette felt er påkrævet."
 msgid "Please select at least one group."
 msgstr "Vælg venligst mindst én gruppe."
 
-msgid "For search engines"
-msgstr "Til søgemaskiner"
-
-msgid "For site menus"
-msgstr "For site-menuer"
-
 msgid "Content"
 msgstr "Indhold"
 
@@ -225,9 +213,6 @@ msgstr "Den anmodede side kunne ikke findes."
 
 msgid "Go to Wagtail admin"
 msgstr "Gå til Wagtail admin"
-
-msgid "Account"
-msgstr "Konto"
 
 msgid "Reset password"
 msgstr "Genindstil adgangskode"
@@ -306,17 +291,11 @@ msgstr "Udforsk undersider af '%(title)s'?"
 msgid "Explore"
 msgstr "Udforsk"
 
-msgid "Collection privacy"
-msgstr "Indsamling af privatfølsomme data"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Denne samling er blevet gjort privat af en forældre samling."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan sætte opdatere dine konto indstillinger her:"
-
-msgid "Save"
-msgstr "Gem"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -333,15 +312,8 @@ msgstr "Offentlig"
 msgid "Private"
 msgstr "Privat"
 
-msgid "Name"
-msgstr "Navn"
-
 msgid "Yes, delete"
 msgstr "Ja, slet"
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Afpublicer %(title)s"
 
 msgid "Yes, unpublish it"
 msgstr "Ja, afpublicer den"
@@ -352,22 +324,17 @@ msgstr "Nej, afpublicer den ikke"
 msgid "Update"
 msgstr "Opdater"
 
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Sammenligner %(title)s"
-
-msgid "Comparing"
-msgstr "Sammenligner"
-
 msgid "Fields"
 msgstr "Felter"
 
 msgid "Changes"
 msgstr "Ændringer"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Velkommen til %(site_name)s Wagtail CMS"
+msgid "Account"
+msgstr "Konto"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Rediger denne side"
@@ -383,9 +350,6 @@ msgstr "Live"
 
 msgid "Your most recent edits"
 msgstr "Dine seneste redigeringer"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "Date"
 msgstr "Dato"
@@ -428,12 +392,6 @@ msgstr "Du kan redigere siden her:"
 
 msgid "You can preview the page here:"
 msgstr "Du kan få en forhåndsvisning af siden her:"
-
-msgid "Page privacy"
-msgstr "Side privatliv"
-
-msgid "This page has been made private by a parent page."
-msgstr "Denne side er blevet lavet privat af en forældreside."
 
 msgid "Publishing…"
 msgstr "Udgiver..."
@@ -505,15 +463,6 @@ msgstr "Kopi"
 msgid "Copy this page"
 msgstr "Kopier denne side"
 
-msgid "This page has unsaved changes."
-msgstr "Denne side har ugemte ændringer."
-
-msgid "Live version"
-msgstr "Live version"
-
-msgid "Current draft"
-msgstr "Nuværende skitse"
-
 msgid "Configure a site now."
 msgstr "Konfigurer en side nu."
 
@@ -524,15 +473,6 @@ msgstr "Udforsk undersider af '%(title)s'?"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Tilføj en underside til '%(title)s'"
-
-msgid "Drag"
-msgstr "Træk"
-
-msgid "Disable ordering of child pages"
-msgstr "Deaktiver arrangering af undersider"
-
-msgid "Enable ordering of child pages"
-msgstr "Aktiver arrangering af undersider"
 
 msgid "Sites menu"
 msgstr "Sidemenu"
@@ -559,6 +499,9 @@ msgstr "Bevæg op"
 msgid "Move down"
 msgstr "Bevæg ned"
 
+msgid "Drag"
+msgstr "Træk"
+
 msgid "Type"
 msgstr "Type"
 
@@ -571,11 +514,14 @@ msgstr "Sider"
 msgid "Locked"
 msgstr "Låst"
 
+msgid "Name"
+msgstr "Navn"
+
 msgid "Edit this item"
 msgstr "Rediger denne enhed"
 
-msgid "Root"
-msgstr "Rod"
+msgid "Save"
+msgstr "Gem"
 
 msgid "Unlocked"
 msgstr "Ulåst"
@@ -608,12 +554,26 @@ msgstr "%(time_period)s siden"
 msgid "Log out"
 msgstr "Log ud"
 
+msgid "Undo"
+msgstr "Gå tilbage"
+
+msgid "Redo"
+msgstr "Gå frem"
+
+msgid "Bold"
+msgstr "Fed"
+
+msgid "Italic"
+msgstr "Skråskrift"
+
 msgid "Home"
 msgstr "Hjem"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Rediger '%(title)s'"
+msgid "Live version"
+msgstr "Live version"
+
+msgid "Current draft"
+msgstr "Nuværende skitse"
 
 msgid "Editing"
 msgstr "Redigerer"
@@ -680,12 +640,6 @@ msgstr "Liste med prikker"
 
 msgid "Numbered list"
 msgstr "Liste med numre"
-
-msgid "Bold"
-msgstr "Fed"
-
-msgid "Italic"
-msgstr "Skråskrift"
 
 msgid "Link"
 msgstr "Link"

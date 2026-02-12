@@ -5,13 +5,15 @@
 # Translators:
 # Amir Mahmoodi, 2022
 # Amir Mahmoodi, 2022
+# Bardia, 2024
+# Bardia, 2024
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -36,11 +38,14 @@ msgstr "دوباره ثبت کردن در %(task_name)s"
 msgid "Submit to %(workflow_name)s"
 msgstr "ثبت کردن در %(workflow_name)s"
 
+msgid "Restart workflow "
+msgstr "بازنشانی رویه"
+
+msgid "Cancel workflow "
+msgstr "لغو رویه کاری"
+
 msgid "Unpublish"
 msgstr "لغو انتشار"
-
-msgid "Delete"
-msgstr "حذف"
 
 msgid "Save"
 msgstr "ذخیره"
@@ -49,10 +54,14 @@ msgid "Locked"
 msgstr "قفل شده"
 
 #, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s دفعه استفاده شده"
-msgstr[1] "%(usage_count)s دفعه استفاده شده"
+msgid "%(label)s and Publish"
+msgstr "%(label)s و انتشار"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete "
+msgstr "حذف"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -83,32 +92,8 @@ msgstr "جایگزینی پیشنویس فعلی"
 msgid "Save draft"
 msgstr "ذخیره پیشنویس"
 
-msgid "Actions"
-msgstr "اعمال"
-
-msgid "Live version"
-msgstr "نسخه منتشر شده"
-
-msgid "Current draft"
-msgstr "پیشنویس فعلی"
-
-msgid "Preview"
-msgstr "پیش‌نمایش"
-
-msgid "Edit"
-msgstr "ویرایش"
-
-msgid "Review this version"
-msgstr "بازنگری این نسخه"
-
-msgid "Compare with previous version"
-msgstr "مقایسه با نسخه‌ی قبلی"
-
-msgid "Compare with current version"
-msgstr "مقایسه با نسخه‌ی فعلی"
-
-msgid "Cancel scheduled publish"
-msgstr "لغو انتشار زمانبندی شده"
+msgid "Select all snippets in listing"
+msgstr "انتخاب تمامی اسنیپت های لیست"
 
 msgid "Choose"
 msgstr "انتخاب"
@@ -119,8 +104,8 @@ msgstr "قطعه‌ها"
 msgid "Name"
 msgstr "نام"
 
-msgid "Date"
-msgstr "تاریخ"
+msgid "Instances"
+msgstr "موارد"
 
 msgid "Home"
 msgstr "خانه"

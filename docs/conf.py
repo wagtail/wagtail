@@ -17,11 +17,23 @@ from datetime import datetime
 
 import django
 import sphinx_wagtail_theme
+from sphinx.builders.html import StandaloneHTMLBuilder
 
 from wagtail import VERSION, __version__
 
+# use png images as fallback, required to build pdf
+StandaloneHTMLBuilder.supported_image_types = ["image/gif", "image/png"]
+
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
+
+# Relative path to the root of the documentation, used for linking to the
+# Typedoc-generated sub-docs. RTD allows optional language and version.
+base_path = ""
+if rtd_lang := os.environ.get("READTHEDOCS_LANGUAGE", ""):
+    base_path += f"/{rtd_lang}"
+if rtd_version := os.environ.get("READTHEDOCS_VERSION", ""):
+    base_path += f"/{rtd_version}"
 
 html_theme = "sphinx_wagtail_theme"
 html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
@@ -58,6 +70,34 @@ extensions = [
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
+    "sphinx_llm.txt",
+]
+
+autodoc_type_aliases = {
+    "File": "django.core.files.File",
+}
+
+# Silence warnings that are not due to missing references:
+nitpick_ignore = [
+    # Sphinx currently cannot resolve type hint names, warns "target not found":
+    ("py:class", "wagtail.images.models.Filter"),
+    ("py:class", "wagtail.url_routing.RouteResult"),
+    ("py:class", "wagtail.blocks.base.Block"),
+    ("py:class", "wagtail.blocks.field_block.BaseChoiceBlock"),
+    ("py:class", "wagtail.blocks.field_block.ChooserBlock"),
+    # Warnings due factors other than type hints:
+    ("py:class", "wagtail.documents.views.chooser.BaseDocumentChooserBlock"),
+    ("py:class", "wagtail.blocks.struct_block.BaseStructBlock"),
+    ("py:class", "wagtail.blocks.stream_block.BaseStreamBlock"),
+]
+
+# We have .txt and .ico files in the static directory that trigger unknown mime
+# type warnings when building the epub and are ignored by the builder. For the
+# table markup files, they are already rendered in the output. Other files are
+# not relevant to the epub. Suppress the warnings so we don't have to explicitly
+# list the files in `epub_exclude_files`.
+suppress_warnings = [
+    "epub.unknown_project_files",
 ]
 
 if not on_rtd:
@@ -77,7 +117,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Wagtail Documentation"
-copyright = f"{datetime.now().year}, Torchbox and contributors. BSD license"
+copyright = f"{datetime.now().year}, Wagtail core team and contributors. BSD license"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -126,7 +166,7 @@ pygments_style = None
 # If true, keep warnings as "system message" paragraphs in the built documents.
 # keep_warnings = False
 
-# splhinxcontrib.spelling settings
+# sphinxcontrib.spelling settings
 
 spelling_lang = "en_GB"
 spelling_word_list_filename = "spelling_wordlist.txt"
@@ -136,14 +176,50 @@ intersphinx_mapping = {
     "django": (
         "https://docs.djangoproject.com/en/stable/",
         "https://docs.djangoproject.com/en/stable/_objects/",
-    )
+    ),
+    "python": (
+        "https://docs.python.org/3/",
+        None,
+    ),
+    "treebeard": (
+        "https://django-treebeard.readthedocs.io/en/stable/",
+        None,
+    ),
+    "sphinx": (
+        "https://www.sphinx-doc.org/en/master/",
+        None,
+    ),
+    "myst": (
+        "https://myst-parser.readthedocs.io/en/stable/",
+        None,
+    ),
 }
 
 myst_url_schemes = {
     "https": None,
     "http": None,
     "mailto": None,
+    "client": {
+        "url": "%s/reference/ui/client/{{path}}.html#{{fragment}}" % base_path,
+        "title": "{{path}}",
+        "classes": ["pre"],
+    },
+    "controller": {
+        "url": (
+            "%s/reference/ui/client/classes/controllers_{{path}}.{{path}}.html#{{fragment}}"
+            % base_path
+        ),
+        "title": "{{path}}",
+        "classes": ["pre"],
+    },
 }
+
+myst_enable_extensions = [
+    # To support the `.external` link modifier. See:
+    # https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#customising-external-url-resolution
+    # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-inline
+    "attrs_inline",
+]
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -227,6 +303,9 @@ htmlhelp_basename = "Wagtaildoc"
 
 # -- Options for LaTeX output ---------------------------------------------
 
+# Xelatex engine is required to include unicode characters in the doc
+latex_engine = "xelatex"
+
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     # 'papersize': 'letterpaper',
@@ -240,7 +319,13 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ("index", "Wagtail.tex", "Wagtail Documentation", "Torchbox", "manual"),
+    (
+        "index",
+        "Wagtail.tex",
+        "Wagtail Documentation",
+        "Wagtail core team and contributors",
+        "manual",
+    ),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -267,7 +352,15 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [("index", "wagtail", "Wagtail Documentation", ["Torchbox"], 1)]
+man_pages = [
+    (
+        "index",
+        "wagtail",
+        "Wagtail Documentation",
+        ["Wagtail core team and contributors"],
+        1,
+    )
+]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -282,9 +375,9 @@ texinfo_documents = [
         "index",
         "Wagtail",
         "Wagtail Documentation",
-        "Torchbox",
+        "Wagtail core team and contributors",
         "Wagtail",
-        "One line description of project.",
+        "An open source content management system built on Django.",
         "Miscellaneous",
     ),
 ]
@@ -301,6 +394,43 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 # texinfo_no_detailmenu = False
 
+# -- Options for Epub output ---------------------------------------------------
+
+# Bibliographic Dublin Core info.
+epub_title = project
+epub_author = "Wagtail core team and contributors"
+epub_publisher = "Wagtail"
+epub_copyright = copyright
+
 
 def setup(app):
     app.add_js_file("js/banner.js")
+
+    # Django-specific roles, from
+    # https://github.com/django/django/blob/main/docs/_ext/djangodocs.py:
+    app.add_crossref_type(
+        directivename="setting",
+        rolename="setting",
+        indextemplate="pair: %s; setting",
+    )
+    app.add_crossref_type(
+        directivename="templatetag",
+        rolename="ttag",
+        indextemplate="pair: %s; template tag",
+    )
+    app.add_crossref_type(
+        directivename="templatefilter",
+        rolename="tfilter",
+        indextemplate="pair: %s; template filter",
+    )
+    app.add_crossref_type(
+        directivename="fieldlookup",
+        rolename="lookup",
+        indextemplate="pair: %s; field lookup type",
+    )
+
+    # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
+    # type annotations - see https://github.com/wagtail/wagtail/pull/12777
+    from django.http import HttpRequest
+
+    HttpRequest.__module__ = "django.http"

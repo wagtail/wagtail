@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -42,9 +42,6 @@ msgstr "Batalkan alur kerja"
 msgid "Unpublish"
 msgstr "Batal Publikasi"
 
-msgid "Delete"
-msgstr "Hapus"
-
 msgid "Save"
 msgstr "Simpan"
 
@@ -58,17 +55,15 @@ msgstr "%(label)s dan Publikasikan"
 msgid "Wagtail snippets"
 msgstr "Wagtail potongan"
 
+msgid "Delete"
+msgstr "Hapus"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Hapus %(snippet_type_name)s"
 
 msgid "Delete "
 msgstr "Hapus"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Digunakan %(usage_count)s kali"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -93,21 +88,6 @@ msgstr "Gantikan konsep saat ini"
 msgid "Save draft"
 msgstr "Simpan konsep"
 
-msgid "Live version"
-msgstr "Versi aktif"
-
-msgid "Current draft"
-msgstr "Konsep saat ini"
-
-msgid "Preview"
-msgstr "Pratinjau"
-
-msgid "Edit"
-msgstr "Ubah"
-
-msgid "Cancel scheduled publish"
-msgstr "Batalkan publikasi terjadwal"
-
 msgid "Choose"
 msgstr "Pilih"
 
@@ -116,9 +96,6 @@ msgstr "Potongan"
 
 msgid "Name"
 msgstr "Nama"
-
-msgid "Date"
-msgstr "Tanggal"
 
 msgid "Home"
 msgstr "Beranda"

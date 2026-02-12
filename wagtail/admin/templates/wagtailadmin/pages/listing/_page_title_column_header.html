@@ -4,7 +4,7 @@
 {% block after_label %}
     {% if result_scope == "whole_tree" %}
         {% if items_count %}
-            {% blocktranslate trimmed %}
+            {% blocktranslate trimmed with start_index=start_index|intcomma end_index=end_index|intcomma items_count=items_count|intcomma %}
                 {{ start_index }}-{{ end_index }} of {{ items_count }} across entire site.
             {% endblocktranslate %}
         {% else %}
@@ -17,7 +17,7 @@
         </a>
     {% elif result_scope == "parent" %}
         {% if items_count %}
-            {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
+            {% blocktranslate trimmed with title=parent_page.get_admin_display_title start_index=start_index|intcomma end_index=end_index|intcomma items_count=items_count|intcomma %}
                 {{ start_index }}-{{ end_index }} of {{ items_count }} in '<span class="w-title-ellipsis">{{ title }}</span>'.
             {% endblocktranslate %}
         {% else %}
@@ -29,7 +29,7 @@
             {% translate "Search the whole site" %}
         </a>
     {% else %}
-        {% blocktranslate trimmed %}
+        {% blocktranslate trimmed with start_index=start_index|intcomma end_index=end_index|intcomma items_count=items_count|intcomma %}
             {{ start_index }}-{{ end_index }} of {{ items_count }}
         {% endblocktranslate %}
     {% endif %}

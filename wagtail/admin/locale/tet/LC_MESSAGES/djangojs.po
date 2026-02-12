@@ -1,20 +1,26 @@
 #
 # Translators:
-# Onorio de Jesus Afonso <onorio@catalpa.io>, 2022
-# Mariano de Deus <dedeus_mariano@yahoo.com>, 2022
 # Mario <mario@catalpa.io>, 2022
-# Joanico Barros <joanico@catalpa.io>, 2022
-# Peter Coward <peter@catalpa.io>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
+# Mariano de Deus <dedeus_mariano@yahoo.com>, 2025
+# Peter Coward <peter@catalpa.io>, 2026
+# Joanico Barros <joanico@catalpa.io>, 2026
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Onorio de Jesus Afonso <onorio@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (https://app.transifex.com/torchbox/teams/8009/"
 "tet/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Actions"
+msgstr "Asaun sira"
+
+msgid "Add"
+msgstr "Hatama"
 
 msgid "Alt text"
 msgstr "Alt testu"
@@ -30,6 +36,9 @@ msgstr "Painel kontrolu"
 
 msgid "Delete"
 msgstr "Hamoos"
+
+msgid "Drag"
+msgstr "Rasta"
 
 msgid "Edit"
 msgstr "Hadia"
@@ -49,6 +58,12 @@ msgstr "Tula"
 msgid "Missing document"
 msgstr "Dokumentu lakon"
 
+msgid "Move down"
+msgstr "Muda ba karik"
+
+msgid "Move up"
+msgstr "Muda ba leten"
+
 msgid "No results"
 msgstr "La iha rezultadu"
 
@@ -60,6 +75,9 @@ msgstr "Explora pajina"
 
 msgid "Pages"
 msgstr "Pajina sira"
+
+msgid "Preview"
+msgstr "Pré-visualizasaun"
 
 msgid "Reload saved content"
 msgstr "Reload konteúdu ne'ebe salva ona"
@@ -79,6 +97,9 @@ msgstr "Haree hotu"
 msgid "Server Error"
 msgstr "Servidor erru"
 
+msgid "Settings"
+msgstr "Konfigurasaun"
+
 msgid "Show error"
 msgstr "Hatudu erru"
 
@@ -88,6 +109,12 @@ msgstr "Hatudu konteúdu ikus"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Numeru maximum sasan %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Numeru minimum sasan %(min_num)d"
 
 msgid "This field is required."
 msgstr "Presiza hatama dadus nee"

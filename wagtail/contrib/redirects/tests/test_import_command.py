@@ -32,23 +32,35 @@ class TestImportCommand(TestCase):
             call_command("import_redirects", src=f, stdout=out)
 
     def test_empty_file_raises_error(self):
-        empty_file = tempfile.NamedTemporaryFile()
-
-        with self.assertRaisesMessage(Exception, f"File '{empty_file.name}' is empty"):
-            out = StringIO()
-            call_command("import_redirects", src=empty_file.name, stdout=out)
+        empty_file = tempfile.NamedTemporaryFile(delete=False)
+        empty_file.close()
+        try:
+            with self.assertRaisesMessage(
+                Exception, f"File '{empty_file.name}' is empty"
+            ):
+                out = StringIO()
+                call_command("import_redirects", src=empty_file.name, stdout=out)
+        finally:
+            if os.path.exists(empty_file.name):
+                os.remove(empty_file.name)
 
     def test_header_are_not_imported(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects", src=invalid_file.name, stdout=out, format="csv"
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 0)
+            out = StringIO()
+            call_command(
+                "import_redirects", src=invalid_file.name, stdout=out, format="csv"
+            )
+
+            self.assertEqual(Redirect.objects.count(), 0)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_format_gets_picked_up_from_file_extension(self):
         f = f"{TEST_ROOT}/files/example.csv"
@@ -65,36 +77,48 @@ class TestImportCommand(TestCase):
         self.assertEqual(Redirect.objects.count(), 3)
 
     def test_redirect_gets_imported(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha,http://omega.test/")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects", src=invalid_file.name, stdout=out, format="csv"
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha,http://omega.test/")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 1)
-        redirect = Redirect.objects.first()
-        self.assertEqual(redirect.old_path, "/alpha")
-        self.assertEqual(redirect.redirect_link, "http://omega.test/")
-        self.assertIs(redirect.is_permanent, True)
+            out = StringIO()
+            call_command(
+                "import_redirects", src=invalid_file.name, stdout=out, format="csv"
+            )
+
+            self.assertEqual(Redirect.objects.count(), 1)
+            redirect = Redirect.objects.first()
+            self.assertEqual(redirect.old_path, "/alpha")
+            self.assertEqual(redirect.redirect_link, "http://omega.test/")
+            self.assertIs(redirect.is_permanent, True)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_trailing_slash_gets_stripped(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha/,http://omega.test/")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects", src=invalid_file.name, stdout=out, format="csv"
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha/,http://omega.test/")
+            invalid_file.close()
 
-        redirect = Redirect.objects.first()
-        self.assertEqual(redirect.old_path, "/alpha")
-        self.assertEqual(redirect.redirect_link, "http://omega.test/")
+            out = StringIO()
+            call_command(
+                "import_redirects", src=invalid_file.name, stdout=out, format="csv"
+            )
+
+            redirect = Redirect.objects.first()
+            self.assertEqual(redirect.old_path, "/alpha")
+            self.assertEqual(redirect.redirect_link, "http://omega.test/")
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_site_id_does_not_exist(self):
         with self.assertRaisesMessage(Exception, "Site matching query does not exist"):
@@ -102,231 +126,315 @@ class TestImportCommand(TestCase):
             call_command("import_redirects", src="random", site=5, stdout=out)
 
     def test_redirect_gets_added_to_site(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha/,http://omega.test/")
-        invalid_file.seek(0)
-
-        current_site = Site.objects.first()
-        site = Site.objects.create(
-            hostname="random.test", root_page=current_site.root_page
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha/,http://omega.test/")
+            invalid_file.close()
 
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            site=site.pk,
-            stdout=out,
-            format="csv",
-        )
+            current_site = Site.objects.first()
+            site = Site.objects.create(
+                hostname="random.test", root_page=current_site.root_page
+            )
 
-        redirect = Redirect.objects.first()
-        self.assertEqual(redirect.old_path, "/alpha")
-        self.assertEqual(redirect.redirect_link, "http://omega.test/")
-        self.assertEqual(redirect.site, site)
+            out = StringIO()
+            call_command(
+                "import_redirects",
+                src=invalid_file.name,
+                site=site.pk,
+                stdout=out,
+                format="csv",
+            )
+
+            redirect = Redirect.objects.first()
+            self.assertEqual(redirect.old_path, "/alpha")
+            self.assertEqual(redirect.redirect_link, "http://omega.test/")
+            self.assertEqual(redirect.site, site)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_temporary_redirect(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha/,http://omega.test/")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            permanent=False,
-            stdout=out,
-            format="csv",
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha/,http://omega.test/")
+            invalid_file.close()
 
-        redirect = Redirect.objects.first()
-        self.assertEqual(redirect.old_path, "/alpha")
-        self.assertEqual(redirect.redirect_link, "http://omega.test/")
-        self.assertIs(redirect.is_permanent, False)
+            out = StringIO()
+            call_command(
+                "import_redirects",
+                src=invalid_file.name,
+                permanent=False,
+                stdout=out,
+                format="csv",
+            )
+
+            redirect = Redirect.objects.first()
+            self.assertEqual(redirect.old_path, "/alpha")
+            self.assertEqual(redirect.redirect_link, "http://omega.test/")
+            self.assertIs(redirect.is_permanent, False)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_duplicate_from_links_get_skipped(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha/,http://omega.test/\n")
-        invalid_file.write("/alpha/,http://omega2.test/\n")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            permanent=False,
-            format="csv",
-            stdout=out,
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha/,http://omega.test/\n")
+            invalid_file.write("/alpha/,http://omega2.test/\n")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 1)
+            out = StringIO()
+            call_command(
+                "import_redirects",
+                src=invalid_file.name,
+                permanent=False,
+                format="csv",
+                stdout=out,
+            )
+
+            self.assertEqual(Redirect.objects.count(), 1)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_non_absolute_to_links_get_skipped(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha/,/omega.test/\n")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            permanent=False,
-            stdout=out,
-            format="csv",
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha/,/omega.test/\n")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 0)
-        self.assertIn("Errors: 1", out.getvalue())
+            out = StringIO()
+            call_command(
+                "import_redirects",
+                src=invalid_file.name,
+                permanent=False,
+                stdout=out,
+                format="csv",
+            )
+
+            self.assertEqual(Redirect.objects.count(), 0)
+            self.assertIn("Errors: 1", out.getvalue())
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_from_links_are_converted_to_relative(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("http://alpha.test/alpha/,http://omega.test/\n")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects", src=invalid_file.name, format="csv", stdout=out
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("http://alpha.test/alpha/,http://omega.test/\n")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 1)
-        redirect = Redirect.objects.first()
-        self.assertEqual(redirect.old_path, "/alpha")
-        self.assertEqual(redirect.redirect_link, "http://omega.test/")
+            out = StringIO()
+            call_command(
+                "import_redirects", src=invalid_file.name, format="csv", stdout=out
+            )
+
+            self.assertEqual(Redirect.objects.count(), 1)
+            redirect = Redirect.objects.first()
+            self.assertEqual(redirect.old_path, "/alpha")
+            self.assertEqual(redirect.redirect_link, "http://omega.test/")
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_column_index_are_used(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("priority,from,year,to\n")
-        invalid_file.write("5,/alpha,2020,http://omega.test/")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            f"--src={invalid_file.name}",
-            "--from=1",
-            "--to=3",
-            "--format=csv",
-            stdout=out,
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("priority,from,year,to\n")
+            invalid_file.write("5,/alpha,2020,http://omega.test/")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 1)
-        redirect = Redirect.objects.first()
-        self.assertEqual(redirect.old_path, "/alpha")
-        self.assertEqual(redirect.redirect_link, "http://omega.test/")
-        self.assertIs(redirect.is_permanent, True)
+            out = StringIO()
+            call_command(
+                "import_redirects",
+                f"--src={invalid_file.name}",
+                "--from=1",
+                "--to=3",
+                "--format=csv",
+                stdout=out,
+            )
+
+            self.assertEqual(Redirect.objects.count(), 1)
+            redirect = Redirect.objects.first()
+            self.assertEqual(redirect.old_path, "/alpha")
+            self.assertEqual(redirect.redirect_link, "http://omega.test/")
+            self.assertIs(redirect.is_permanent, True)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_nothing_gets_saved_on_dry_run(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha,http://omega.test/")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            format="csv",
-            dry_run=True,
-            stdout=out,
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha,http://omega.test/")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 0)
+            out = StringIO()
+            call_command(
+                "import_redirects",
+                src=invalid_file.name,
+                format="csv",
+                dry_run=True,
+                stdout=out,
+            )
 
-    @patch(
-        "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
-        return_value="Y",
-    )
-    def test_successful_ask_imports_redirect(self, get_input):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha,http://omega.test/")
-        invalid_file.seek(0)
+            self.assertEqual(Redirect.objects.count(), 0)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            format="csv",
-            ask=True,
-            stdout=out,
+    def test_successful_ask_imports_redirect(self):
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha,http://omega.test/")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 1)
+            # Any input that starts with "y" of any case should be accepted as a yes
+            inputs = ["Y", "yessica haircut"]
 
-    @patch(
-        "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
-        return_value="N",
-    )
-    def test_native_ask_imports_redirect(self, get_input):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/alpha,http://omega.test/")
-        invalid_file.seek(0)
+            for input in inputs:
+                with (
+                    self.subTest(input=input),
+                    patch(
+                        "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
+                        return_value=input,
+                    ),
+                ):
+                    out = StringIO()
+                    call_command(
+                        "import_redirects",
+                        src=invalid_file.name,
+                        format="csv",
+                        ask=True,
+                        stdout=out,
+                    )
+                    self.assertEqual(Redirect.objects.count(), 1)
+                    Redirect.objects.all().delete()
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            format="csv",
-            ask=True,
-            stdout=out,
+    def test_native_ask_imports_redirect(self):
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/alpha,http://omega.test/")
+            invalid_file.close()
 
-        self.assertEqual(Redirect.objects.count(), 0)
+            inputs = ["N", "", "whatever"]
+
+            for input in inputs:
+                with (
+                    self.subTest(input=input),
+                    patch(
+                        "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
+                        return_value=input,
+                    ) as mock_input,
+                ):
+                    out = StringIO()
+                    call_command(
+                        "import_redirects",
+                        src=invalid_file.name,
+                        format="csv",
+                        ask=True,
+                        stdout=out,
+                    )
+                    # The provided option that has an uppercase letter (which
+                    # denotes a default) is N, so the empty string or any other
+                    # unrecognized input should behave as if the user had entered N.
+                    mock_input.assert_called_once_with(
+                        "1. Found /alpha -> http://omega.test/ Create? y/N: "
+                    )
+                    self.assertEqual(Redirect.objects.count(), 0)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_offset_parameter(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/one,http://one.test/\n")
-        invalid_file.write("/two,http://two.test/\n")
-        invalid_file.write("/three,http://three.test/\n")
-        invalid_file.write("/four,http://four.test/")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            format="csv",
-            offset=2,
-            stdout=out,
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/one,http://one.test/\n")
+            invalid_file.write("/two,http://two.test/\n")
+            invalid_file.write("/three,http://three.test/\n")
+            invalid_file.write("/four,http://four.test/")
+            invalid_file.close()
 
-        redirects = Redirect.objects.all()
+            out = StringIO()
+            call_command(
+                "import_redirects",
+                src=invalid_file.name,
+                format="csv",
+                offset=2,
+                stdout=out,
+            )
 
-        self.assertEqual(len(redirects), 2)
-        self.assertEqual(redirects[0].old_path, "/three")
-        self.assertEqual(redirects[0].redirect_link, "http://three.test/")
-        self.assertIs(redirects[0].is_permanent, True)
-        self.assertEqual(redirects[1].old_path, "/four")
-        self.assertEqual(redirects[1].redirect_link, "http://four.test/")
+            redirects = Redirect.objects.all()
+
+            self.assertEqual(len(redirects), 2)
+            self.assertEqual(redirects[0].old_path, "/three")
+            self.assertEqual(redirects[0].redirect_link, "http://three.test/")
+            self.assertIs(redirects[0].is_permanent, True)
+            self.assertEqual(redirects[1].old_path, "/four")
+            self.assertEqual(redirects[1].redirect_link, "http://four.test/")
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)
 
     def test_limit_parameter(self):
-        invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
-        invalid_file.write("from,to\n")
-        invalid_file.write("/one,http://one.test/\n")
-        invalid_file.write("/two,http://two.test/\n")
-        invalid_file.write("/three,http://three.test/\n")
-        invalid_file.write("/four,http://four.test/")
-        invalid_file.seek(0)
-
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            format="csv",
-            limit=1,
-            stdout=out,
+        invalid_file = tempfile.NamedTemporaryFile(
+            mode="w+", encoding="utf-8", delete=False
         )
+        try:
+            invalid_file.write("from,to\n")
+            invalid_file.write("/one,http://one.test/\n")
+            invalid_file.write("/two,http://two.test/\n")
+            invalid_file.write("/three,http://three.test/\n")
+            invalid_file.write("/four,http://four.test/")
+            invalid_file.close()
 
-        redirects = Redirect.objects.all()
+            out = StringIO()
+            call_command(
+                "import_redirects",
+                src=invalid_file.name,
+                format="csv",
+                limit=1,
+                stdout=out,
+            )
 
-        self.assertEqual(len(redirects), 1)
-        self.assertEqual(redirects[0].old_path, "/one")
-        self.assertEqual(redirects[0].redirect_link, "http://one.test/")
-        self.assertIs(redirects[0].is_permanent, True)
+            redirects = Redirect.objects.all()
+
+            self.assertEqual(len(redirects), 1)
+            self.assertEqual(redirects[0].old_path, "/one")
+            self.assertEqual(redirects[0].redirect_link, "http://one.test/")
+            self.assertIs(redirects[0].is_permanent, True)
+        finally:
+            if os.path.exists(invalid_file.name):
+                os.remove(invalid_file.name)

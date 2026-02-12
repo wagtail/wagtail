@@ -30,4 +30,4 @@ class RedirectsReportFilterSet(WagtailFilterSet):
 
     class Meta:
         model = Redirect
-        exclude = []
+        fields = ["is_permanent", "site"]

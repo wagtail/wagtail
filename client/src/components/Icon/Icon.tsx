@@ -1,8 +1,10 @@
 import * as React from 'react';
 
-export interface IconProps {
-  name: string;
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  /** Optional svg `path` instead of the `use` based on the icon name. */
+  children?: React.ReactNode;
   className?: string;
+  name: string;
   title?: string;
 }
 
@@ -10,13 +12,21 @@ export interface IconProps {
  * Provide a `title` as an accessible label intended for screen readers.
  */
 const Icon: React.FunctionComponent<IconProps> = ({
-  name,
+  children,
   className,
+  name,
   title,
+  ...props
 }) => (
   <>
-    <svg className={`icon icon-${name} ${className || ''}`} aria-hidden="true">
-      <use href={`#icon-${name}`} />
+    <svg
+      {...props}
+      className={['icon', `icon-${name}`, className || '']
+        .filter(Boolean)
+        .join(' ')}
+      aria-hidden="true"
+    >
+      {children || <use href={`#icon-${name}`} />}
     </svg>
     {title && <span className="w-sr-only">{title}</span>}
   </>

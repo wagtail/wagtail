@@ -6,6 +6,7 @@
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # Dimitri Fekas, 2022
 # fekioh, 2022
+# fekioh, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
@@ -18,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -40,21 +41,6 @@ msgstr "Ο ελάχιστος αριθμός στοιχείων είναι %(min
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Ο μέγιστος αριθμός στοιχείων είναι %(max_num)d"
 
-msgid "Move up"
-msgstr "Πάνω"
-
-msgid "Move down"
-msgstr "Κάτω"
-
-msgid "Duplicate"
-msgstr "Αναπαραγωγή"
-
-msgid "Delete"
-msgstr "Διαγραφή"
-
-msgid "Add"
-msgstr "Προσθήκη"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: αυτό το μπλοκ δεν έχει επιλογές"
@@ -64,6 +50,9 @@ msgstr "Αυτό το block δεν έχει επιλογές."
 
 msgid "This field is required."
 msgstr "Το πεδίο αυτό είναι απαραίτητο"
+
+msgid "Group"
+msgstr "Ομάδα"
 
 msgid "Password"
 msgstr "Κωδικός"
@@ -79,6 +68,9 @@ msgstr "Κλειδωμένο"
 
 msgid "Unlocked"
 msgstr "Ξεκλειδωμενο"
+
+msgid "content type"
+msgstr "Τύπος περιεχομένου"
 
 msgid "live"
 msgstr "live"
@@ -116,9 +108,6 @@ msgstr "τρέχουσα + προγραμματισμένη"
 msgid "live + draft"
 msgstr "live + draft "
 
-msgid "Default"
-msgstr "Προεπιλογή"
-
 msgid "locked"
 msgstr "κλειδωμένο"
 
@@ -128,11 +117,29 @@ msgstr "κλειδώθηκε στις"
 msgid "locked by"
 msgstr "κλειδώθηκε από"
 
-msgid "in moderation"
-msgstr "υπό έλεγχο"
+msgid "collection"
+msgstr "συλλογή"
 
-msgid "live + in moderation"
-msgstr "τρέχουσα + υπό έλεγχο"
+msgid "name"
+msgstr "όνομα"
+
+msgid "collections"
+msgstr "συλλογές"
+
+msgid "group"
+msgstr "ομάδα"
+
+msgid "permission"
+msgstr "άδεια"
+
+msgid "group collection permission"
+msgstr "άδεια ομάδας συλλογών"
+
+msgid "uploaded by user"
+msgstr "ανέβηκε από το χρήστη"
+
+msgid "Add"
+msgstr "Προσθήκη"
 
 msgid "Add/edit pages you own"
 msgstr "Προσθέστε/επεξεργαστείτε σελίδες που σας ανήκουν"
@@ -183,9 +190,6 @@ msgstr ""
 "Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://"
 "domain.com/blog/[my-slug]/"
 
-msgid "content type"
-msgstr "Τύπος περιεχομένου"
-
 msgid "URL path"
 msgstr "Διεύθυνση URL"
 
@@ -223,29 +227,17 @@ msgstr ""
 msgid "latest revision created at"
 msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
 
+msgid "For search engines"
+msgstr "Για μηχανές αναζήτησης"
+
+msgid "For site menus"
+msgstr "Για τα μενού του ιστότοπου"
+
 msgid "page"
 msgstr "σελίδα"
 
 msgid "pages"
 msgstr "σελίδες"
-
-msgid "created at"
-msgstr "δημιουργία στις"
-
-msgid "user"
-msgstr "χρήστης"
-
-msgid "content JSON"
-msgstr "περιεχόμενο JSON"
-
-msgid "approved go live at"
-msgstr "εγκρίθηκε να δημοσιευθεί στις"
-
-msgid "group"
-msgstr "ομάδα"
-
-msgid "permission"
-msgstr "άδεια"
 
 msgid "group page permission"
 msgstr "άδεια ομάδας σελίδων"
@@ -268,55 +260,23 @@ msgstr "σελίδα ροής εργασιών"
 msgid "workflow pages"
 msgstr "σελίδες ροής εργασιών"
 
-msgid "workflow_tasks"
-msgstr "ροή_εργασιών_εργασίες"
-
-msgid "task"
-msgstr "εργασία"
-
-msgid "workflow task order"
-msgstr "σειρά εργασιών της ροής εργασιών"
-
-msgid "workflow task orders"
-msgstr "σειρές εργασιών της ροής εργασιών"
-
-msgid "name"
-msgstr "όνομα"
-
-msgid "active"
-msgstr "εν ενεργεία"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Εργασίες εν ενεργεία μπορούν να προστεθούν σε ροές εργασιών . Η "
-"απενεργοποίηση μιας εργασίας δεν την διαγράφει από υπάρχοντες ροές "
-"εργασιών.  "
-
-msgid "tasks"
-msgstr "εργασίες"
-
-msgid "workflows"
-msgstr "ροές εργασιών"
-
-msgid "groups"
-msgstr "ομάδες"
-
-msgid "Approve"
-msgstr "Έγκριση"
-
 msgid "Draft saved"
 msgstr "Προσχέδιο αποθηκεύτηκε"
 
-msgid "collection"
-msgstr "συλλογή"
+msgid "Default"
+msgstr "Προεπιλογή"
 
-msgid "collections"
-msgstr "συλλογές"
+msgid "created at"
+msgstr "δημιουργία στις"
 
-msgid "group collection permission"
-msgstr "άδεια ομάδας συλλογών"
+msgid "user"
+msgstr "χρήστης"
+
+msgid "content JSON"
+msgstr "περιεχόμενο JSON"
+
+msgid "approved go live at"
+msgstr "εγκρίθηκε να δημοσιευθεί στις"
 
 msgid "hostname"
 msgstr "Όνομα κεντρικού υπολογιστή"
@@ -373,18 +333,50 @@ msgstr ""
 msgid "Public"
 msgstr "Δημόσια"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Ιδιωτικό, προσβάσιμο μόνο σε εγγεγραμμένους χρήστες"
-
-msgid "Private, accessible with the following password"
-msgstr "Ιδιωτικό, προσβάσιμο με τον ακόλουθο κωδικό"
-
 msgid "Private, accessible to users in specific groups"
 msgstr ""
 "Ιδιωτικό, προσβάσιμο μόνο σε χρήστες που ανήκουν σε συγκεκριμένες ομάδες"
 
-msgid "password"
-msgstr "κωδικός"
+msgid "groups"
+msgstr "ομάδες"
+
+msgid "active"
+msgstr "εν ενεργεία"
+
+msgid "workflows"
+msgstr "ροές εργασιών"
+
+msgid "workflow_tasks"
+msgstr "ροή_εργασιών_εργασίες"
+
+msgid "task"
+msgstr "εργασία"
+
+msgid "workflow task order"
+msgstr "σειρά εργασιών της ροής εργασιών"
+
+msgid "workflow task orders"
+msgstr "σειρές εργασιών της ροής εργασιών"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Εργασίες εν ενεργεία μπορούν να προστεθούν σε ροές εργασιών . Η "
+"απενεργοποίηση μιας εργασίας δεν την διαγράφει από υπάρχοντες ροές "
+"εργασιών.  "
+
+msgid "tasks"
+msgstr "εργασίες"
+
+msgid "Approve"
+msgstr "Έγκριση"
+
+msgid "in moderation"
+msgstr "υπό έλεγχο"
+
+msgid "live + in moderation"
+msgstr "τρέχουσα + υπό έλεγχο"
 
 msgid "Log in"
 msgstr "Είσοδος"
@@ -416,6 +408,9 @@ msgstr "Δημιουργήθηκε"
 
 msgid "Edited"
 msgstr "Διορθωμένη"
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "Deleted"
 msgstr "Διαγράφηκε"

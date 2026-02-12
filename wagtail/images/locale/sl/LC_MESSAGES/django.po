@@ -5,7 +5,7 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022-2023
+# Andrej Marsetič, 2022-2024
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
 # UP, 2021
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: UP, 2021\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
+
+msgid "Image is decorative"
+msgstr "Slika je dekorativna"
+
+msgid "Alt text"
+msgstr "Nadomestno besedilo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Dodajte nekaj nadomestnega besedila za svojo sliko ali jo označite kot "
+"okrasno"
 
 #, python-format
 msgid ""
@@ -88,17 +99,6 @@ msgstr "Zbirka"
 msgid "Format"
 msgstr "Format"
 
-msgid "Image is decorative"
-msgstr "Slika je dekorativna"
-
-msgid "Alt text"
-msgstr "Nadomestno besedilo"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Dodajte nekaj nadomestnega besedila za svojo sliko ali jo označite kot "
-"okrasno"
-
 msgid "Filter"
 msgstr "Filter"
 
@@ -152,6 +152,9 @@ msgstr "naziv"
 
 msgid "file"
 msgstr "datoteka"
+
+msgid "description"
+msgstr "opis"
 
 msgid "width"
 msgstr "širina"
@@ -254,14 +257,6 @@ msgstr[1] "Ali ste prepričani, da želite izbrisati te dve slike?"
 msgstr[2] "Ali ste prepričani, da želite izbrisati te slike?"
 msgstr[3] "Ali ste prepričani, da želite izbrisati te slike?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Uporabljeno %(usage_count)s  krat"
-msgstr[1] "Uporabljeno %(usage_count)s krat"
-msgstr[2] "Uporabljeno %(usage_count)s krat"
-msgstr[3] "Uporabljeno %(usage_count)s krat"
-
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Nimate dovoljenja za brisanje te slike"
@@ -310,13 +305,6 @@ msgstr "V to zbirko niste naložili nobene slike."
 msgid "You haven't uploaded any images."
 msgstr "Naložili niste nobene datoteke. Zakaj je ne bi naložili sedaj?"
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Zakaj ne bi <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>enega naložili zdaj</a>?"
-
 msgid "Choose a format"
 msgstr "Izberite obliko zapisa"
 
@@ -329,27 +317,17 @@ msgstr "Spremeni datoteko slike:"
 msgid "Add an image"
 msgstr "Dodaj sliko"
 
-msgid "Add image"
-msgstr "Dodaj sliko"
+msgid "Uploading…"
+msgstr "Nalagam..."
 
-msgid "Save"
-msgstr "Shrani"
+msgid "Upload"
+msgstr "Prenos"
 
 msgid "Keep new image"
 msgstr "Ohrani novo sliko"
 
 msgid "Delete new image"
 msgstr "Izbriši novo sliko"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Urejanje slike %(title)s"
-
-msgid "Editing"
-msgstr "Urejanje"
-
-msgid "Delete image"
-msgstr "Izbriši sliko"
 
 msgid "Image focal point"
 msgstr "Fokalna točka slike"
@@ -388,17 +366,16 @@ msgstr "Datoteka ne obstaja"
 msgid "Usage"
 msgstr "Uporaba"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uporabljeno %(usage_count)s  krat"
+msgstr[1] "Uporabljeno %(usage_count)s krat"
+msgstr[2] "Uporabljeno %(usage_count)s krat"
+msgstr[3] "Uporabljeno %(usage_count)s krat"
+
 msgid "Sort by"
 msgstr "Razvrsti po"
-
-msgid "Entries per page"
-msgstr "Vnosov na stran"
-
-msgid "Popular Tags:"
-msgstr "Priljubljene oznake:"
-
-msgid "Clear"
-msgstr "Počisti"
 
 msgid "Select all images in listing"
 msgstr "Izberite vse slike na seznamu"
@@ -429,11 +406,20 @@ msgstr "Predogled"
 msgid "URL"
 msgstr "URL"
 
+msgid "Image URL"
+msgstr "URL naslov slike"
+
+msgid "Copy URL"
+msgstr "Kopiraj URL"
+
+msgid "Copied to clipboard"
+msgstr "Kopirano v odložišče"
+
+msgid "Copying to clipboard failed"
+msgstr "Kopiranje v odložišče ni uspelo"
+
 msgid "Add multiple images"
 msgstr "Dodaj več slik"
-
-msgid "Add images"
-msgstr "Dodaj sliko"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Povlecite in spustite slike v tem delu za takojšnji prenos."
@@ -526,11 +512,11 @@ msgstr[1] "%(num_parent_objects)d sliki so bili izbrisani"
 msgstr[2] "%(num_parent_objects)d slike so bile izbrisane"
 msgstr[3] "%(num_parent_objects)d slike so bile izbrisane"
 
-msgid "Upload"
-msgstr "Prenos"
+msgid "Title"
+msgstr "Naziv"
 
-msgid "Uploading…"
-msgstr "Nalagam..."
+msgid "Created"
+msgstr "Ustvarjeno"
 
 msgid "Choose an image"
 msgstr "Izberi sliko"
@@ -562,15 +548,12 @@ msgstr "Velikost datoteke: (od velike proti majhni)"
 msgid "Images"
 msgstr "Slike"
 
+msgid "The image could not be saved due to errors."
+msgstr "Slike, zaradi napak, ni bilo možno shraniti."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Slika '%(image_title)s' posodobljena."
-
-msgid "Edit again"
-msgstr "Uredi ponovno"
-
-msgid "The image could not be saved due to errors."
-msgstr "Slike, zaradi napak, ni bilo možno shraniti."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -579,16 +562,22 @@ msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvorno datoteko, ali izbrišite "
 "sliko"
 
+msgid "Delete image"
+msgstr "Izbriši sliko"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Slike '%(image_title)s' izbrisana."
+
+msgid "The image could not be created due to errors."
+msgstr "Slike, zaradi napak, ni bilo možno ustvariti."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Slika '%(image_title)s' dodana."
 
-msgid "The image could not be created due to errors."
-msgstr "Slike, zaradi napak, ni bilo možno ustvariti."
+msgid "Add images"
+msgstr "Dodaj sliko"
 
 msgid "Image"
 msgstr "Slika"

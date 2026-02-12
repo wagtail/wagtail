@@ -1,10 +1,12 @@
 import React from 'react';
-import { ADMIN_URLS } from '../../config/wagtailConfig';
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 
 import { gettext } from '../../utils/gettext';
 import Link from '../Link/Link';
 import Icon from '../Icon/Icon';
 import { PageState } from './reducers/nodes';
+
+const { ADMIN_URLS } = WAGTAIL_CONFIG;
 
 interface SelectLocaleProps {
   locale?: string;

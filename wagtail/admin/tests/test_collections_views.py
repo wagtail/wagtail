@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
@@ -5,7 +7,11 @@ from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.documents.models import Document
-from wagtail.models import Collection, GroupCollectionPermission
+from wagtail.models import (
+    Collection,
+    CollectionViewRestriction,
+    GroupCollectionPermission,
+)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
@@ -49,7 +55,7 @@ class TestCollectionsIndexViewAsSuperuser(
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_simple(self):
@@ -112,7 +118,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, WagtailTestUtils, Te
         super().setUp()
         self.login(self.marketing_user, password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_marketing_user_no_permissions(self):
@@ -197,10 +203,10 @@ class TestAddCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.login()
         self.root_collection = Collection.get_first_root_node()
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_get(self):
@@ -239,10 +245,10 @@ class TestAddCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase)
         super().setUp()
         self.login(self.marketing_user, password="password")
 
-    def get(self, params={}):
+    def get(self, params=None):
         return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
         return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_marketing_user_no_permissions(self):
@@ -310,7 +316,7 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
         self.l2 = self.l1.add_child(name="Level 2")
         self.l3 = self.l2.add_child(name="Level 3")
 
-    def get(self, params={}, collection_id=None):
+    def get(self, params=None, collection_id=None):
         return self.client.get(
             reverse(
                 "wagtailadmin_collections:edit",
@@ -319,7 +325,7 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
             params,
         )
 
-    def post(self, post_data={}, collection_id=None):
+    def post(self, post_data=None, collection_id=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_collections:edit",
@@ -331,7 +337,11 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Delete collection")
+        delete_url = reverse(
+            "wagtailadmin_collections:delete",
+            args=(self.collection.id,),
+        )
+        self.assertContains(response, delete_url)
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": "/admin/collections/", "label": "Collections"},
@@ -398,12 +408,12 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         )
         self.login(self.marketing_user, password="password")
 
-    def get(self, collection_id, params={}):
+    def get(self, collection_id, params=None):
         return self.client.get(
             reverse("wagtailadmin_collections:edit", args=(collection_id,)), params
         )
 
-    def post(self, collection_id, post_data={}):
+    def post(self, collection_id, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_collections:edit", args=(collection_id,)), post_data
         )
@@ -495,7 +505,11 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         response = self.get(collection_id=self.marketing_collection.id)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["form"].fields.keys()), ["name"])
-        self.assertNotContains(response, "Delete collection")
+        delete_url = reverse(
+            "wagtailadmin_collections:delete",
+            args=(self.marketing_collection.id,),
+        )
+        self.assertNotContains(response, delete_url)
 
     def test_cannot_move_collection_permissions_are_assigned_to_with_minimal_permission(
         self,
@@ -546,9 +560,26 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         self.test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post()
 
     def test_page_shows_delete_link_only_if_delete_permitted(self):
+        delete_url = reverse(
+            "wagtailadmin_collections:delete",
+            args=(self.marketing_sub_collection.id,),
+        )
         # Retrieve edit form and check fields
         response = self.get(collection_id=self.marketing_sub_collection.id)
-        self.assertNotContains(response, "Delete collection")
+        self.assertNotContains(response, delete_url)
+
+        # Add delete permission to a different collection and try again,
+        # ensure that it checks against the tree structure, and not just a
+        # "delete collection" permission on any collection
+        # See https://github.com/wagtail/wagtail/issues/10084
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.marketing_sub_collection_2,
+            permission=self.delete_permission,
+        )
+        response = self.get(collection_id=self.marketing_sub_collection.id)
+        self.assertNotContains(response, delete_url)
+
         # Add delete permission to parent collection and try again
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
@@ -556,7 +587,7 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
             permission=self.delete_permission,
         )
         response = self.get(collection_id=self.marketing_sub_collection.id)
-        self.assertContains(response, "Delete collection")
+        self.assertContains(response, delete_url)
 
 
 class TestDeleteCollectionAsSuperuser(
@@ -567,7 +598,7 @@ class TestDeleteCollectionAsSuperuser(
         self.root_collection = Collection.get_first_root_node()
         self.collection = self.root_collection.add_child(name="Holiday snaps")
 
-    def get(self, params={}, collection_id=None):
+    def get(self, params=None, collection_id=None):
         return self.client.get(
             reverse(
                 "wagtailadmin_collections:delete",
@@ -576,7 +607,7 @@ class TestDeleteCollectionAsSuperuser(
             params,
         )
 
-    def post(self, post_data={}, collection_id=None):
+    def post(self, post_data=None, collection_id=None):
         return self.client.post(
             reverse(
                 "wagtailadmin_collections:delete",
@@ -672,12 +703,12 @@ class TestDeleteCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCa
         )
         self.login(self.marketing_user, password="password")
 
-    def get(self, collection_id, params={}):
+    def get(self, collection_id, params=None):
         return self.client.get(
             reverse("wagtailadmin_collections:delete", args=(collection_id,)), params
         )
 
-    def post(self, collection_id, post_data={}):
+    def post(self, collection_id, post_data=None):
         return self.client.post(
             reverse("wagtailadmin_collections:delete", args=(collection_id,)), post_data
         )
@@ -737,3 +768,117 @@ class TestDeleteCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCa
 
         # Check that the collection was not deleted
         self.assertTrue(Collection.objects.get(id=self.marketing_sub_collection.id))
+
+
+class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
+    def setUp(self):
+        super().setUp()
+        self.login()
+
+    def get(self, collection_id, params=None):
+        return self.client.get(
+            reverse("wagtailadmin_collections:set_privacy", args=(collection_id,)),
+            params,
+        )
+
+    def test_privacy_for_collection(self):
+        response = self.get(self.finance_collection.id)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/set_privacy.html")
+        self.assertEqual(response.context["object"], self.finance_collection)
+        self.assertEqual(
+            response.context["action_url"],
+            "/admin/collections/{}/privacy/".format(self.finance_collection.id),
+        )
+
+    def test_get_private_child(self):
+        CollectionViewRestriction.objects.create(
+            collection=self.root_collection,
+            restriction_type="password",
+            password="password123",
+        )
+        response = self.get(self.marketing_sub_collection.pk)
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/collection_privacy/ancestor_privacy.html"
+        )
+        self.assertContains(
+            response,
+            "This collection has been made private by a parent collection.",
+        )
+
+        # Should render without any heading, as the dialog already has a heading
+        soup = self.get_soup(json.loads(response.content)["html"])
+        self.assertIsNone(soup.select_one("header"))
+        self.assertIsNone(soup.select_one("h1"))
+
+        # Should link to the edit page for the collection with the restriction
+        link = soup.select_one("a")
+        parent_edit_url = reverse(
+            "wagtailadmin_collections:edit",
+            args=(self.root_collection.pk,),
+        )
+        self.assertEqual(link.get("href"), parent_edit_url)
+
+
+class TestCollectionPrivacyStatusLabels(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+        self.root_collection = Collection.get_first_root_node()
+        self.public_collection = self.root_collection.add_child(name="Public_photos1")
+        self.private_collection = self.root_collection.add_child(name="Private_photos1")
+        CollectionViewRestriction.objects.create(
+            collection=self.private_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+        self.root_collection.refresh_from_db()
+        self.private_collection.refresh_from_db()
+        self.public_collection.refresh_from_db()
+
+        self.sub_private_collection = self.private_collection.add_child(
+            name="Sub_private_photos1"
+        )
+
+        self.sub_public_collection = self.public_collection.add_child(
+            name="Sub_public_photos1"
+        )
+
+    def test_admin_displays_private_tag_for_private_base_collections(self):
+        request = self.client.get(
+            reverse("wagtailadmin_collections:edit", args=[self.private_collection.pk])
+        )
+
+        self.assertTrue('class="privacy-indicator private"' in str(request.content))
+        self.assertFalse('class="privacy-indicator "' in str(request.content))
+
+    def test_admin_displays_private_tag_for_private_sub_collections(self):
+        request = self.client.get(
+            reverse(
+                "wagtailadmin_collections:edit", args=[self.sub_private_collection.pk]
+            )
+        )
+
+        self.assertTrue('class="privacy-indicator private"' in str(request.content))
+        self.assertFalse('class="privacy-indicator public"' in str(request.content))
+
+    def test_admin_displays_public_tag_for_public_base_collections(self):
+        request = self.client.get(
+            reverse("wagtailadmin_collections:edit", args=[self.public_collection.pk])
+        )
+
+        self.assertTrue('class="privacy-indicator public"' in str(request.content))
+        self.assertFalse('class="privacy-indicator private"' in str(request.content))
+
+    def test_admin_displays_public_tag_for_public_sub_collections(self):
+        request = self.client.get(
+            reverse(
+                "wagtailadmin_collections:edit", args=[self.sub_public_collection.pk]
+            )
+        )
+
+        self.assertTrue('class="privacy-indicator public"' in str(request.content))
+        self.assertFalse('class="privacy-indicator private"' in str(request.content))

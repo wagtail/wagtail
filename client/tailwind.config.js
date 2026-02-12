@@ -1,15 +1,16 @@
-const plugin = require('tailwindcss/plugin');
-const vanillaRTL = require('tailwindcss-vanilla-rtl');
+import plugin from 'tailwindcss/plugin';
+import vanillaRTL from 'tailwindcss-vanilla-rtl';
+
 /**
  * Design Tokens
  */
-const { staticColors, transparencies } = require('./src/tokens/colors');
-const {
+import { staticColors, transparencies } from './src/tokens/colors';
+import {
   generateColorVariables,
   generateThemeColorVariables,
-} = require('./src/tokens/colorVariables');
-const colorThemes = require('./src/tokens/colorThemes');
-const {
+} from './src/tokens/colorVariables';
+import colorThemes from './src/tokens/colorThemes';
+import {
   fontFamily,
   fontSize,
   fontWeight,
@@ -17,19 +18,19 @@ const {
   lineHeight,
   listStyleType,
   typeScale,
-} = require('./src/tokens/typography');
-const { breakpoints } = require('./src/tokens/breakpoints');
-const {
+} from './src/tokens/typography';
+import { breakpoints } from './src/tokens/breakpoints';
+import {
   borderRadius,
   borderWidth,
   boxShadow,
-} = require('./src/tokens/objectStyles');
-const { spacing } = require('./src/tokens/spacing');
+} from './src/tokens/objectStyles';
+import { spacing } from './src/tokens/spacing';
 
 /**
  * Plugins
  */
-const scrollbarThin = require('./src/plugins/scrollbarThin');
+import scrollbarThin from './src/plugins/scrollbarThin';
 
 /**
  * Functions
@@ -49,7 +50,6 @@ const themeColors = Object.fromEntries(
 
 const lightThemeColors = colorThemes.light.reduce((colorTokens, category) => {
   Object.entries(category.tokens).forEach(([name, token]) => {
-    // eslint-disable-next-line no-param-reassign
     colorTokens[name] = `var(${token.cssVariable})`;
   });
   return colorTokens;
@@ -58,7 +58,7 @@ const lightThemeColors = colorThemes.light.reduce((colorTokens, category) => {
 /**
  * Root Tailwind config, reusable for other projects.
  */
-module.exports = {
+const config = {
   prefix: 'w-',
   theme: {
     screens: {
@@ -113,6 +113,8 @@ module.exports = {
           'inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
       },
       zIndex: {
+        'footer-actions': '32',
+        'minimap': '80',
         'header': '100',
         'sidebar': '110',
         'sidebar-toggle': '120',
@@ -135,9 +137,8 @@ module.exports = {
     scrollbarThin,
     /**
      * forced-colors media query for Windows High-Contrast mode support
-     * See:
-     * - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
-     * - https://github.com/tailwindlabs/tailwindcss/blob/v3.0.23/src/corePlugins.js#L168-L171
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
+     * @see https://github.com/tailwindlabs/tailwindcss/blob/v3.0.23/src/corePlugins.js#L168-L171
      */
     plugin(({ addVariant }) => {
       addVariant('forced-colors', '@media (forced-colors: active)');
@@ -165,6 +166,7 @@ module.exports = {
         ':root, :host': {
           '--w-font-sans': fontFamily.sans.join(', '),
           '--w-font-mono': fontFamily.mono.join(', '),
+          '--w-density-factor': '1',
           ...transparencies,
           ...generateColorVariables(staticColors),
           ...generateThemeColorVariables(colorThemes.light),
@@ -180,11 +182,21 @@ module.exports = {
           ...generateThemeColorVariables(colorThemes.dark),
           'color-scheme': 'dark',
         },
+        '.w-density-snug': {
+          '--w-density-factor': '0.5',
+        },
       });
     }),
     /** Support for aria-expanded=true variant */
     plugin(({ addVariant }) => {
       addVariant('expanded', '&[aria-expanded=true]');
+    }),
+    /** Support for increased contrast theme */
+    plugin(({ addVariant }) => {
+      addVariant('more-contrast', [
+        '.contrast-more &',
+        '@media (prefers-contrast: more) { .contrast-system & }',
+      ]);
     }),
   ],
   corePlugins: {
@@ -203,3 +215,5 @@ module.exports = {
     },
   },
 };
+
+export default config;

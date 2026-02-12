@@ -1,8 +1,6 @@
 import csv
 from io import BytesIO, StringIO
 
-import openpyxl
-
 
 class Dataset(list):
     def __init__(self, rows=(), headers=None):
@@ -66,6 +64,8 @@ class XLSX:
         """
         Create dataset from the first sheet of a xlsx workbook.
         """
+        import openpyxl
+
         workbook = openpyxl.load_workbook(BytesIO(data), read_only=True, data_only=True)
         sheet = workbook.worksheets[0]
         try:

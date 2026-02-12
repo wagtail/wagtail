@@ -1,18 +1,25 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
-# José Luis <alagunajs@gmail.com>, 2022
-# Py Data Geek <pydatageek@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
+# José Luis <alagunajs@gmail.com>, 2026
+# Py Data Geek <pydatageek@gmail.com>, 2026
+# Ragıp Ünal <ragip@ragipunal.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
-"Language-Team: Turkish (Turkey) (https://app.transifex.com/torchbox/"
-"teams/8009/tr_TR/)\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2026\n"
+"Language-Team: Turkish (Turkey) (https://app.transifex.com/torchbox/teams/"
+"8009/tr_TR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Actions"
+msgstr "Eylemler"
+
+msgid "Add"
+msgstr "Ekle"
 
 msgid "Alt text"
 msgstr "Alt metin"
@@ -28,6 +35,9 @@ msgstr "Kontrol paneli"
 
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Drag"
+msgstr "Sürükle"
 
 msgid "Edit"
 msgstr "Düzenle"
@@ -47,6 +57,12 @@ msgstr "Yükleniyor…"
 msgid "Missing document"
 msgstr "Eksik belge"
 
+msgid "Move down"
+msgstr "Aşağı indir"
+
+msgid "Move up"
+msgstr "Yukarı çıkar"
+
 msgid "No results"
 msgstr "Sonuç yok"
 
@@ -58,6 +74,9 @@ msgstr "Sayfa bulucu"
 
 msgid "Pages"
 msgstr "Sayfalar"
+
+msgid "Preview"
+msgstr "Önizleme"
 
 msgid "Reload saved content"
 msgstr "Kayıtlı içeriği yeniden yükle"
@@ -80,6 +99,9 @@ msgstr "Tümünü gör"
 msgid "Server Error"
 msgstr "Sunucu Hatası"
 
+msgid "Settings"
+msgstr "Ayarlar"
+
 msgid "Show error"
 msgstr "Hatayı göster"
 
@@ -89,6 +111,12 @@ msgstr "Son içeriği göster"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editör çöktü. İçerik son kaydedilen sürüme sıfırlandı."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Azami öğe sayısı %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Asgari öğe sayısı %(min_num)d"
 
 msgid "This field is required."
 msgstr "Bu alan gerekli."

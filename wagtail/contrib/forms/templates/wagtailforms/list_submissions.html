@@ -1,7 +1,8 @@
-{% extends "wagtailadmin/generic/index_results.html" %}
-{% load i18n %}
+{% extends "wagtailadmin/generic/listing_results.html" %}
+{% load i18n l10n %}
 {% block results %}
     <form class="w-overflow-auto" data-controller="w-bulk" data-w-bulk-action-inactive-class="w-invisible" action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
+        <input type="hidden" value="{{ next_url }}" name="next">
         <table class="listing">
             <col />
             <col />
@@ -20,7 +21,7 @@
                 {% for row in data_rows %}
                     <tr>
                         <td>
-                            <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id }}" data-action="w-bulk#toggle" data-w-bulk-target="item" />
+                            <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id|unlocalize }}" data-action="w-bulk#toggle" data-w-bulk-target="item" />
                         </td>
                         {% for cell in row.fields %}
                             <td>

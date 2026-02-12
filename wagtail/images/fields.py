@@ -6,16 +6,11 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.forms.fields import FileField, ImageField
+from django.forms.widgets import FileInput
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
-
-def get_allowed_image_extensions():
-    return getattr(
-        settings,
-        "WAGTAILIMAGES_EXTENSIONS",
-        ["avif", "gif", "jpg", "jpeg", "png", "webp"],
-    )
+from wagtail.images.utils import get_accept_attributes, get_allowed_image_extensions
 
 
 def ImageFileExtensionValidator(value):
@@ -32,6 +27,8 @@ class WagtailImageField(ImageField):
     default_validators = [ImageFileExtensionValidator]
 
     def __init__(self, *args, **kwargs):
+        self.allowed_image_extensions = get_allowed_image_extensions()
+
         super().__init__(*args, **kwargs)
 
         # Get max upload size from settings
@@ -42,8 +39,6 @@ class WagtailImageField(ImageField):
             settings, "WAGTAILIMAGES_MAX_IMAGE_PIXELS", 128 * 1000000
         )
         self.max_upload_size_text = filesizeformat(self.max_upload_size)
-
-        self.allowed_image_extensions = get_allowed_image_extensions()
 
         self.supported_formats_text = ", ".join(self.allowed_image_extensions).upper()
 
@@ -163,7 +158,7 @@ class WagtailImageField(ImageField):
             # Annotate the python representation of the FileField with the image
             # property so subclasses can reuse it for their own validation
             f.image = willow.Image.open(file)
-            f.content_type = image_format_name_to_content_type(f.image.format_name)
+            f.content_type = f.image.mime_type
 
         except Exception as exc:  # noqa: BLE001
             # Willow doesn't recognize it as an image.
@@ -182,30 +177,16 @@ class WagtailImageField(ImageField):
 
         return f
 
+    def widget_attrs(self, widget):
+        attrs = super().widget_attrs(widget)
 
-def image_format_name_to_content_type(image_format_name):
-    """
-    Convert a Willow image format name to a content type.
-    TODO: Replace once https://github.com/wagtail/Willow/pull/102 and
-          a new Willow release is out
-    """
-    if image_format_name == "svg":
-        return "image/svg+xml"
-    elif image_format_name == "jpeg":
-        return "image/jpeg"
-    elif image_format_name == "png":
-        return "image/png"
-    elif image_format_name == "gif":
-        return "image/gif"
-    elif image_format_name == "bmp":
-        return "image/bmp"
-    elif image_format_name == "tiff":
-        return "image/tiff"
-    elif image_format_name == "webp":
-        return "image/webp"
-    elif image_format_name == "avif":
-        return "image/avif"
-    elif image_format_name == "ico":
-        return "image/x-icon"
-    else:
-        raise ValueError("Unknown image format name")
+        if (
+            isinstance(widget, FileInput)
+            and "accept" not in widget.attrs
+            and attrs.get("accept") == "image/*"
+        ):
+            # File upload dialogs will often not allow selecting heic or avif if the accept attribute is
+            # given as "image/*" - we need to add explicit mimetypes for these
+            attrs["accept"] = get_accept_attributes()
+
+        return attrs

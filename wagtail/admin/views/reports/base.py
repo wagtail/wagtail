@@ -1,11 +1,13 @@
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.views.generic.base import BaseListingView
+from wagtail.admin.views.generic import BaseListingView, PermissionCheckedMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.permissions import page_permission_policy
 
 
-class ReportView(SpreadsheetExportMixin, BaseListingView):
+class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView):
     template_name = "wagtailadmin/reports/base_report.html"
+    results_template_name = "wagtailadmin/reports/base_report_results.html"
     title = ""
     paginate_by = 50
 
@@ -26,11 +28,6 @@ class ReportView(SpreadsheetExportMixin, BaseListingView):
         )
         return self.render_to_response(context)
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["title"] = self.title
-        return context
-
     def render_to_response(self, context, **response_kwargs):
         if self.is_export:
             return self.as_spreadsheet(
@@ -40,7 +37,7 @@ class ReportView(SpreadsheetExportMixin, BaseListingView):
 
 
 class PageReportView(ReportView):
-    template_name = "wagtailadmin/reports/base_page_report.html"
+    results_template_name = "wagtailadmin/reports/base_page_report_results.html"
     export_headings = {
         "latest_revision_created_at": _("Updated"),
         "status_string": _("Status"),
@@ -52,3 +49,5 @@ class PageReportView(ReportView):
         "status_string",
         "content_type.model_class._meta.verbose_name.title",
     ]
+    context_object_name = "pages"
+    permission_policy = page_permission_policy

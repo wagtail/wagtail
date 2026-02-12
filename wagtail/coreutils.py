@@ -3,9 +3,9 @@ import inspect
 import logging
 import re
 import unicodedata
+from collections.abc import Iterable
 from hashlib import md5
-from typing import TYPE_CHECKING, Any, Dict, Iterable, Union
-from warnings import warn
+from typing import TYPE_CHECKING, Any
 
 from anyascii import anyascii
 from django.apps import apps
@@ -24,8 +24,6 @@ from django.utils.encoding import force_str
 from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
 from django.utils.translation import gettext_lazy as _
-
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 if TYPE_CHECKING:
     from wagtail.models import Site
@@ -72,7 +70,7 @@ def resolve_model_string(model_string, default_app=None):
     if isinstance(model_string, str):
         try:
             app_label, model_name = model_string.split(".")
-        except ValueError:
+        except ValueError as e:
             if default_app is not None:
                 # If we can't split, assume a model in current app
                 app_label = default_app
@@ -82,7 +80,7 @@ def resolve_model_string(model_string, default_app=None):
                     "Can not resolve {!r} into a model. Model names "
                     "should be in the form app_label.model_name".format(model_string),
                     model_string,
-                )
+                ) from e
 
         return apps.get_model(app_label, model_name)
 
@@ -91,22 +89,6 @@ def resolve_model_string(model_string, default_app=None):
 
     else:
         raise ValueError(f"Can not resolve {model_string!r} into a model", model_string)
-
-
-SCRIPT_RE = re.compile(r"<(-*)/script>")
-
-
-def escape_script(text):
-    """
-    Escape `</script>` tags in 'text' so that it can be placed within a `<script>` block without
-    accidentally closing it. A '-' character will be inserted for each time it is escaped:
-    `<-/script>`, `<--/script>` etc.
-    """
-    warn(
-        "The `escape_script` hook is deprecated - use `template` elements instead.",
-        category=RemovedInWagtail70Warning,
-    )
-    return SCRIPT_RE.sub(r"<-\1/script>", text)
 
 
 SLUGIFY_RE = re.compile(r"[^\w\s-]", re.UNICODE)
@@ -146,7 +128,7 @@ def cautious_slugify(value):
 
 def safe_snake_case(value):
     """
-    Convert a string to ASCII similar to Django's slugify, with catious handling of
+    Convert a string to ASCII similar to Django's slugify, with cautious handling of
     non-ASCII alphanumeric characters. See `cautious_slugify`.
 
     Any inner whitespace, hyphens or dashes will be converted to underscores and
@@ -256,7 +238,7 @@ def find_available_slug(parent, requested_slug, ignore_page_id=None):
     return slug
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_content_languages():
     """
     Cache of settings.WAGTAIL_CONTENT_LANGUAGES in a dictionary for easy lookups by key.
@@ -394,10 +376,10 @@ def multigetattr(item, accessor):
                     ValueError,  # invalid literal for int()
                     KeyError,  # current is a dict without `int(bit)` key
                     TypeError,  # unsubscriptable object
-                ):
+                ) as e:
                     raise AttributeError(
                         f"Failed lookup for key [{bit}] in {current!r}"
-                    )
+                    ) from e
 
         if callable(current):
             if getattr(current, "alters_data", False):
@@ -443,14 +425,7 @@ def safe_md5(data=b"", usedforsecurity=True):
     to use the digest for secure purposes and to please just go ahead and
     allow it to happen.
     """
-
-    # Although ``accepts_kwarg`` works great on Python 3.8+, on Python 3.7 it
-    # raises a ValueError, saying "no signature found for builtin". So, back
-    # to the try/except.
-    try:
-        return md5(data, usedforsecurity=usedforsecurity)
-    except TypeError:
-        return md5(data)
+    return md5(data, usedforsecurity=usedforsecurity)
 
 
 class BatchProcessor:
@@ -552,7 +527,7 @@ class BatchCreator(BatchProcessor):
         if self.max_size and len(self.items) == self.max_size:
             self.process()
 
-    def extend(self, iterable: Iterable[Union[Model, Dict[str, Any]]]) -> None:
+    def extend(self, iterable: Iterable[Model | dict[str, Any]]) -> None:
         for value in iterable:
             if isinstance(value, self.model):
                 self.add(instance=value)
@@ -585,3 +560,59 @@ def make_wagtail_template_fragment_key(fragment_name, page, site, vary_on=None):
         vary_on = []
     vary_on.extend([page.cache_key, site.id])
     return make_template_fragment_key(fragment_name, vary_on)
+
+
+def get_js_regex(
+    regex: re.Pattern | str | bytes | None = None,
+    base_js_flags: str | None = "gu",
+) -> list[str]:
+    """
+    Converts a Python regex (or pattern string) to an array of
+    JavaScript regex params list, that can be used for ``new RegExp(..._)``.
+
+    It assumes that any provided pattern string is already correctly escaped.
+
+    JavaScript does not have a 'default' flag like re.UNICODE,
+    in addition, the global flag is required for finding all occurrences.
+    So the ``base_js_flags`` argument is used to set the assumed common flags
+    and defaults to 'gu' (global, unicode) which would cover common usage.
+    """
+    if not regex:
+        # When calling new RegExp()/RegExp('') in JavaScript with no arguments, it will match nothing.
+        return []
+
+    if isinstance(regex, re.Pattern):
+        flags = regex.flags
+
+    else:
+        # compile the regex, assuming it's a string (or bytestring when attempting to use re.LOCALE)
+        regex = re.compile(regex)
+        flags = regex.flags
+
+    flag_map = {
+        re.IGNORECASE: "i",  # Ignore case
+        re.MULTILINE: "m",  # Multiline mode
+        re.DOTALL: "s",  # Dot (.) matches newlines
+    }
+
+    # Throw an error if unsupported flags are provided
+    if flags & re.LOCALE:
+        # Python re.LOCALE flag is not supported in JavaScript and it's not encouraged in the Python docs.
+        raise ValueError("Python re.LOCALE flag is not supported in JavaScript.")
+    if flags & re.VERBOSE:
+        # Python re.VERBOSE flag is not supported in JavaScript, unless we add custom cleaning logic in the future.
+        raise ValueError("Python re.VERBOSE flag is not supported in JavaScript.")
+
+    js_flags = []
+
+    for py_flag, js_flag in flag_map.items():
+        if flags & py_flag:
+            js_flags.append(js_flag)
+
+    # Add base flags, remove duplicates, and sort to ensure consistent order
+    final_flags = "".join(sorted(set(base_js_flags + "".join(js_flags))))
+
+    # Clean the pattern of any inline flags, these are not supported in JavaScript
+    pattern = re.sub(r"(?i)(\(\?[a-z]+\))", "", regex.pattern)
+
+    return [pattern, final_flags]

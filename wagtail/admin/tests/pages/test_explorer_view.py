@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail import hooks
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import Button
 from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
 from wagtail.test.testapp.models import (
@@ -16,7 +17,6 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestPageExplorer(WagtailTestUtils, TestCase):
@@ -93,6 +93,17 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             count=3,
         )
 
+        # Should render bulk actions markup
+        bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
+        soup = self.get_soup(response.content)
+        script = soup.select_one(f"script[src='{bulk_actions_js}']")
+        self.assertIsNotNone(script)
+        bulk_actions = soup.select("[data-bulk-action-button]")
+        self.assertTrue(bulk_actions)
+        # 'next' parameter is constructed client-side later based on filters state
+        for action in bulk_actions:
+            self.assertNotIn("next=", action["href"])
+
     def test_explore_results(self):
         explore_results_url = reverse(
             "wagtailadmin_explore_results", args=(self.root_page.id,)
@@ -133,13 +144,15 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
         self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
 
         # Administrator (or user with add_site permission) should see the
         # sites link with its icon
-        self.assertContains(
-            response,
-            '<a href="/admin/sites/" title="Sites menu"><svg',
-        )
+        url = reverse("wagtailsites:index")
+        link = soup.select_one(f'td a[href="{url}"]')
+        self.assertIsNotNone(link)
+        icon = link.select_one("svg use[href='#icon-site']")
+        self.assertIsNotNone(icon)
 
     def test_ordering(self):
         response = self.client.get(
@@ -155,6 +168,52 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, [self.child_page.id, self.new_page.id, self.old_page.id]
         )
+
+    def test_ordering_by_content_type(self):
+        # Delete the child_page to avoid nondeterministic ordering with the
+        # new_page when ordering by content type, as they are the same type
+        self.child_page.delete()
+
+        event_page = SingleEventPage(
+            title="Wagtail Space 2025",
+            location="virtual",
+            audience="public",
+            cost="free",
+            date_from="2025-06-16",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        orderings = {
+            "content_type__model": (
+                # SimplePage, SingleEventPage, StandardIndex
+                [self.new_page.id, event_page.id, self.old_page.id],
+                "-content_type__model",
+            ),
+            "-content_type__model": (
+                # StandardIndex, SingleEventPage, SimplePage
+                [self.old_page.id, event_page.id, self.new_page.id],
+                "content_type__model",
+            ),
+        }
+        url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        for ordering, (pages, reverse_param) in orderings.items():
+            with self.subTest(ordering=ordering):
+                response = self.client.get(url, {"ordering": ordering})
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/pages/explorable_index.html"
+                )
+                self.assertEqual(response.context["ordering"], ordering)
+
+                # Child pages should be ordered by content type
+                page_ids = [page.id for page in response.context["pages"]]
+                self.assertEqual(page_ids, pages)
+
+                # The type column should contain a link to order by content type
+                soup = self.get_soup(response.content)
+                thead = soup.select_one("main table thead")
+                link = thead.select_one(f"a[href='{url}?ordering={reverse_param}']")
+                self.assertIsNotNone(link)
 
     def test_ordering_search_results_by_created_at(self):
         response = self.client.get(
@@ -177,6 +236,16 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # The type column should not contain a link to order by content type
+        soup = self.get_soup(response.content)
+        headings = soup.select("main table thead th")
+        type_th = None
+        for heading in headings:
+            if heading.text.strip() == "Type":
+                type_th = heading
+        self.assertIsNotNone(type_th)
+        self.assertIsNone(type_th.select_one("a"))
 
     def test_change_default_child_page_ordering_attribute(self):
         # save old get_default_order to reset at end of test
@@ -282,7 +351,31 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Pages must not be paginated
-        self.assertNotIsInstance(response.context["pages"], paginator.Page)
+        self.assertNotIsInstance(response.context["page_obj"], paginator.Page)
+
+    def test_reordering_disabled_when_searching_or_filtering(self):
+        standard_index_ct = ContentType.objects.get_for_model(StandardIndex).pk
+        cases = [
+            {"q": "old"},
+            {"content_type": standard_index_ct},
+            {"content_type": standard_index_ct, "q": "old"},
+        ]
+        for query in cases:
+            with self.subTest(query=query):
+                response = self.client.get(
+                    reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+                    {"ordering": "ord", **query},
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/pages/explorable_index.html"
+                )
+                self.assertEqual(
+                    response.context["ordering"],
+                    "-latest_revision_created_at",
+                )
+                # Pages is paginated
+                self.assertIsInstance(response.context["page_obj"], paginator.Page)
 
     def test_construct_explorer_page_queryset_hook(self):
         # testapp implements a construct_explorer_page_queryset hook
@@ -313,30 +406,6 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, [self.old_page.id, self.new_page.id, self.child_page.id]
         )
-
-    def test_construct_page_listing_buttons_hook_with_old_signature(self):
-        def add_dummy_button(buttons, page, page_perms, context=None):
-            item = Button(
-                label="Dummy Button",
-                url="/dummy-button",
-                priority=10,
-            )
-            buttons.append(item)
-
-        with hooks.register_temporarily(
-            "construct_page_listing_buttons", add_dummy_button
-        ):
-            with self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms`",
-            ):
-                response = self.client.get(
-                    reverse("wagtailadmin_explore", args=(self.root_page.id,))
-                )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
-        self.assertContains(response, "Dummy Button")
-        self.assertContains(response, "/dummy-button")
 
     def test_construct_page_listing_buttons_hook_with_new_signature(self):
         def add_dummy_button(buttons, page, user, context=None):
@@ -382,6 +451,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
         # Check that we got the correct page
+        self.assertIsInstance(response.context["page_obj"], paginator.Page)
         self.assertEqual(response.context["page_obj"].number, 2)
         self.assertContains(response, "51-100 of 153")
 
@@ -394,7 +464,11 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_pages()
@@ -404,7 +478,14 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
     def test_no_pagination_with_custom_ordering(self):
         self.make_pages()
@@ -632,6 +713,24 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertIn("Simple page", page_type_labels)
         self.assertNotIn("Page", page_type_labels)
 
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_filter_by_locale_and_search(self):
+        fr_locale = Locale.objects.create(language_code="fr")
+        self.root_page.copy_for_translation(fr_locale, copy_parents=True)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"locale": "en", "q": "hello"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertIn(self.child_page.id, page_ids)
+        self.assertContainsActiveFilter(
+            response,
+            "Locale: English",
+            "locale=en",
+        )
+
     def test_filter_by_date_updated(self):
         new_page_child = SimplePage(
             title="New page child",
@@ -650,7 +749,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
         self.assertContainsActiveFilter(
             response,
-            "Date updated: Jan. 1, 2015 -",
+            "Date updated: Jan. 1, 2015 - any",
             "latest_revision_created_at_from=2015-01-01",
         )
 
@@ -919,6 +1018,25 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
             response, """<a href="/admin/sites/">Configure a site now.</a>"""
         )
 
+    def test_searching_at_root(self):
+        self.login(username="superuser", password="password")
+
+        # Message about root level should not show when searching or filtering
+        response = self.client.get(reverse("wagtailadmin_explore_root"), {"q": "hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            "The root level is where you can add new sites to your Wagtail installation.",
+        )
+        response = self.client.get(
+            reverse("wagtailadmin_explore_root"), {"has_child_pages": "true"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            "The root level is where you can add new sites to your Wagtail installation.",
+        )
+
     def test_admin_at_non_site_page(self):
         self.login(username="superuser", password="password")
         response = self.client.get(
@@ -936,6 +1054,29 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response, """<a href="/admin/sites/">Configure a site now.</a>"""
+        )
+
+    def test_searching_at_non_site_page(self):
+        self.login(username="superuser", password="password")
+
+        # Message about unroutable pages should not show when searching or filtering
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.no_site_page.id,)),
+            {"q": "hello"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            "There is no site set up for this location.",
+        )
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.no_site_page.id,)),
+            {"has_child_pages": "true"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            "There is no site set up for this location.",
         )
 
     def test_admin_at_site_page(self):
@@ -1182,7 +1323,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
         # Bob should only see the welcome for example.com, not testserver
-        self.assertContains(response, "Welcome to the example.com Wagtail CMS")
+        self.assertContains(response, "example.com")
         self.assertNotContains(response, "testserver")
 
     def test_breadcrumb_with_no_user_permissions(self):
@@ -1271,7 +1412,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(47):
+        with self.assertNumQueries(44):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

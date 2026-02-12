@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.conf import settings
 from django.forms.models import modelform_factory
@@ -42,6 +44,12 @@ class BaseImageForm(BaseCollectionMemberForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_file = self.instance.file
+        # Dynamically set sync value target to the id of the file input rather
+        # than hardcoding it
+        if "title" in self.fields and "file" in self.fields:
+            self.fields["file"].widget.attrs["data-w-sync-target-value"] = (
+                f"#{self['title'].id_for_label}"
+            )
 
     def save(self, commit=True):
         if "file" in self.changed_data:
@@ -68,7 +76,15 @@ class BaseImageForm(BaseCollectionMemberForm):
         # a bit pointless here
         widgets = {
             "tags": AdminTagWidget,
-            "file": forms.FileInput(),
+            "file": forms.FileInput(
+                attrs={
+                    "data-controller": "w-sync",
+                    "data-action": "input->w-sync#apply",
+                    "data-w-sync-bubbles-param": "true",
+                    "data-w-sync-name-value": "wagtail:images-upload",
+                    "data-w-sync-normalize-value": "true",
+                }
+            ),
             "focal_point_x": forms.HiddenInput(attrs={"class": "focal_point_x"}),
             "focal_point_y": forms.HiddenInput(attrs={"class": "focal_point_y"}),
             "focal_point_width": forms.HiddenInput(
@@ -190,9 +206,45 @@ class URLGeneratorForm(forms.Form):
             ("fill", _("Resize to fill")),
         ),
     )
-    width = forms.IntegerField(label=_("Width"), min_value=0)
-    height = forms.IntegerField(label=_("Height"), min_value=0)
-    closeness = forms.IntegerField(label=_("Closeness"), min_value=0, initial=0)
+    width = forms.IntegerField(
+        label=_("Width"),
+        min_value=0,
+        widget=forms.NumberInput(
+            attrs={
+                "disabled": True,
+                "data-w-rules-target": "enable",
+                "data-w-rules": json.dumps(
+                    {"filter_method": ["width", "max", "min", "fill"]}
+                ),
+            },
+        ),
+    )
+    height = forms.IntegerField(
+        label=_("Height"),
+        min_value=0,
+        widget=forms.NumberInput(
+            attrs={
+                "disabled": True,
+                "data-w-rules-target": "enable",
+                "data-w-rules": json.dumps(
+                    {"filter_method": ["height", "max", "min", "fill"]}
+                ),
+            }
+        ),
+    )
+    closeness = forms.IntegerField(
+        label=_("Closeness"),
+        min_value=0,
+        max_value=100,
+        initial=0,
+        widget=forms.NumberInput(
+            attrs={
+                "disabled": True,
+                "data-w-rules-target": "enable",
+                "data-w-rules": json.dumps({"filter_method": ["fill"]}),
+            }
+        ),
+    )
 
 
 GroupImagePermissionFormSet = collection_member_permission_formset_factory(

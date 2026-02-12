@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020-2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020-2022,2025
 # saevarom <saevar@saevar.is>, 2015,2019,2022
 # saevarom <saevar@saevar.is>, 2015,2019,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2019,2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2016,2018,2020-2022,2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -105,12 +106,6 @@ msgstr "tilvísun"
 msgid "redirects"
 msgstr "tilvísanir"
 
-msgid "Add redirect"
-msgstr "Bæta við tilvísun"
-
-msgid "Save"
-msgstr "Vista"
-
 msgid "Redirects"
 msgstr "Tilvísanir"
 
@@ -135,14 +130,8 @@ msgstr "Lesa inn"
 msgid "Delete redirect %(title)s"
 msgstr "Eyða tilvísun %(title)s"
 
-msgid "Delete"
-msgstr "Eyða"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Ertu viss um að þú viljir eyða þessari tilvísun?"
-
-msgid "Yes, delete"
-msgstr "Já, eyða"
 
 msgid "Confirm import"
 msgstr "Staðfesta innlestur"
@@ -155,16 +144,6 @@ msgstr "Hætta við"
 
 msgid "Preview"
 msgstr "Forskoða"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Breyti %(title)s"
-
-msgid "Editing"
-msgstr "Breyti"
-
-msgid "Delete redirect"
-msgstr "Eyða tilvísun"
 
 msgid "Summary"
 msgstr "Samantekt"
@@ -187,24 +166,6 @@ msgstr "Villa"
 msgid "Continue"
 msgstr "Áfram"
 
-msgid "Export redirects"
-msgstr "Flytja út tilvísanir"
-
-msgid "Site"
-msgstr "Vefsvæði"
-
-msgid "Edit this redirect"
-msgstr "Breyta þessari tilvísun"
-
-msgid "No redirects found."
-msgstr "Engar tilvísanir fundust"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Það er %(counter)s niðurstaða"
-msgstr[1] " Það eru %(counter)s niðurstöður        "
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -219,49 +180,49 @@ msgstr ""
 "Engar tilvísanir hér. Viltu <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">búa til tilvísun</a>?"
 
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "Tilvísun '%(redirect_title)s' uppfærð."
+msgid "Add redirect"
+msgstr "Bæta við tilvísun"
 
-msgid "Edit"
-msgstr "Breyta"
+msgid "Site"
+msgstr "Vefsvæði"
 
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 "Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
 
 #, python-format
-msgid "Redirect '%(redirect_title)s' deleted."
-msgstr "Tilvísun '%(redirect_title)s' eytt."
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Tilvísun '%(redirect_title)s' uppfærð."
 
 #, python-format
-msgid "Redirect '%(redirect_title)s' added."
-msgstr "Tilvísun '%(redirect_title)s' var bætt við."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Tilvísun '%(redirect_title)s' eytt."
 
 msgid "The redirect could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
 
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Tilvísun '%(redirect_title)s' var bætt við."
+
 msgid "Search redirects"
 msgstr "Leita í tilvísunum"
 
 #, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "Skráarsnið af tegundinni \"%(extension)s\" er ekki stutt"
+msgid "File format of type \"%(extension)s\" is not supported."
+msgstr "Skráarsniðið \"%(extension)s\" er ekki stutt."
 
 #, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "Innlesin skrá er vitlaust kóðuð: %(error_message)s"
+msgid "Imported file has a wrong encoding: %(error_message)s."
+msgstr "Innlesin skrá er vitlaust stafakóðuð: %(error_message)s"
 
 #, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s fundust við að lesa inn skrána: %(filename)s"
+msgid "%(error)s encountered while trying to read file: %(filename)s."
+msgstr "%(error)s villur fundust við að lesa skrána: %(filename)s."
 
 #, python-format
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Las inn %(total)d tilvísun"
 msgstr[1] "Las inn %(total)d tilvísanir"
-
-msgid "Export Redirects"
-msgstr "Flytja út tilvísanir"

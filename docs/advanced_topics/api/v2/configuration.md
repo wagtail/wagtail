@@ -1,6 +1,6 @@
 (api_v2_configuration)=
 
-# Wagtail API v2 Configuration Guide
+# Wagtail API v2 configuration guide
 
 This section of the docs will show you how to set up a public API for your
 Wagtail site.
@@ -42,10 +42,10 @@ can hook into the rest of your project.
 
 Wagtail provides multiple endpoint classes you can use:
 
--   Pages {class}`wagtail.api.v2.views.PagesAPIViewSet`
--   Images {class}`wagtail.images.api.v2.views.ImagesAPIViewSet`
--   Documents {class}`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
--   Redirects {class}`wagtail.contrib.redirects.api.RedirectsAPIViewSet` see [](redirects_api_endpoint)
+-   Pages `wagtail.api.v2.views.PagesAPIViewSet`
+-   Images `wagtail.images.api.v2.views.ImagesAPIViewSet`
+-   Documents `wagtail.documents.api.v2.views.DocumentsAPIViewSet`
+-   Redirects `wagtail.contrib.redirects.api.RedirectsAPIViewSet` see [](redirects_api_endpoint)
 
 You can subclass any of these endpoint classes to customize their functionality.
 For example, in this case, if you need to change the `APIViewSet` by setting a desired renderer class:
@@ -74,6 +74,20 @@ class PostPagesAPIViewSet(PagesAPIViewSet):
 
 
 api_router.register_endpoint("posts", PostPagesAPIViewSet)
+```
+
+You can use `body_fields` (for content fields at the top level of the API response) and `meta_fields` (for fields within the response's `meta` section) to control which fields are included. By default, fields added here only appear in the detail view.
+
+To make a field appear when the model is used in a nested context (e.g. as a related item), you must **also** add it to `nested_default_fields`. Note that the field must already be present in `body_fields` or `meta_fields`.
+
+For example, `seo_title` is included in `meta_fields` by default. To make it visible in nested views:
+
+```python
+class CustomFieldsAPIViewSet(PagesAPIViewSet):
+    nested_default_fields = PagesAPIViewSet.nested_default_fields + ["seo_title"]
+    name = "pages"
+
+api_router.register_endpoint("pages", CustomFieldsAPIViewSet)
 ```
 
 Additionally, there is a base endpoint class you can use for adding different
@@ -231,6 +245,31 @@ This adds two fields to the API (other fields omitted for brevity):
 }
 ```
 
+### Rich text in the API
+
+In the above example, we serialize the `body` field using Wagtail’s storage format for rich text, described in [](../../../extending/rich_text_internals). This is useful when the API client will directly manipulate the identifiers referencing external data within rich text, such as fetching more data about page links or images by ID.
+
+It’s also often useful for the API to directly provide a “display” representation, similarly to the `|richtext` template filter. This can be done with a custom serializer:
+
+```python
+from rest_framework.fields import CharField
+from wagtail.rich_text import expand_db_html
+
+
+class RichTextSerializer(CharField):
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return expand_db_html(representation)
+```
+
+We can then change our `api_fields` definition so `body` uses this new serializer:
+
+```python
+APIField('body', serializer=RichTextSerializer()),
+```
+
+(api_v2_images)=
+
 ### Images in the API
 
 The `ImageRenditionField` serializer
@@ -265,7 +304,7 @@ This would add the following to the JSON:
         "id": 45529,
         "meta": {
             "type": "wagtailimages.Image",
-            "detail_url": "http://www.example.com/api/v2/images/12/",
+            "detail_url": "https://www.example.com/api/v2/images/12/",
             "download_url": "/media/images/a_test_image.jpg",
             "tags": []
         },
@@ -275,7 +314,7 @@ This would add the following to the JSON:
     },
     "feed_image_thumbnail": {
         "url": "/media/images/a_test_image.fill-100x100.jpg",
-        "full_url": "http://www.example.com/media/images/a_test_image.fill-100x100.jpg",
+        "full_url": "https://www.example.com/media/images/a_test_image.fill-100x100.jpg",
         "width": 100,
         "height": 100,
         "alt": "image alt text"
@@ -289,6 +328,76 @@ When you are using another storage backend, such as S3, `download_url` will retu
 a URL to the image if your media files are properly configured.
 
 For cases where the source image set may contain SVGs, the `ImageRenditionField` constructor takes a `preserve_svg` argument. The behavior of `ImageRenditionField` when `preserve_svg` is `True` is as described for the `image` template tag's `preserve-svg` argument (see the documentation on [](svg_images)).
+
+#### Filter specifications
+
+The `filter_spec` parameter in `ImageRenditionField` determines how the image will be resized and processed. For a complete list of available operations and their syntax, see the [filter specifications documentation](../../../topics/images).
+
+Common examples include:
+
+```python
+# Square crop and fill
+APIField('thumbnail', serializer=ImageRenditionField('fill-300x300', source='image'))
+
+# Maintain aspect ratio with maximum dimensions
+APIField('preview', serializer=ImageRenditionField('max-800x600', source='image'))
+
+# Exact dimensions without cropping
+APIField('banner', serializer=ImageRenditionField('width-1200', source='image'))
+
+# Chained operations (multiple filters combined)
+APIField('compressed_thumb', serializer=ImageRenditionField('fill-200x200|jpegquality-60', source='image'))
+```
+
+The generated rendition URLs will be included in the API response, allowing clients to directly access optimized versions of images without additional processing.
+
+### Authentication
+
+To protect the access to your API, you can implement an [authentication](https://www.django-rest-framework.org/api-guide/authentication/) method provided by the Django REST Framework, for example the [Token Authentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication):
+
+```python
+# api.py
+
+from rest_framework.permissions import IsAuthenticated
+
+# ...
+
+class CustomPagesAPIViewSet(PagesAPIViewSet):
+    name = "pages"
+    permission_classes = (IsAuthenticated,)
+
+
+api_router.register_endpoint("pages", CustomPagesAPIViewSet)
+```
+
+Extend settings with
+
+```python
+# settings.py
+
+INSTALLED_APPS = [
+    ...
+
+    'rest_framework.authtoken',
+
+    ...
+]
+
+...
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication"
+    ],
+}
+```
+
+Don't forget to run the app's migrations.
+
+Your API endpoint will be accessible only with the Authorization header containing the generated `Token exampleSecretToken123xyz`.
+Tokens can be generated in the Django admin under Auth Token or using the `manage.py` command `drf_create_token`.
+
+Note: If you use `TokenAuthentication` in production you must ensure that your API is only available over `https`.
 
 ## Additional settings
 
@@ -316,3 +425,4 @@ endpoints.
 
 This allows you to change the maximum number of results a user can request at a
 time. This applies to all endpoints. Set to `None` for no limit.
+Combine with [`?limit` and `?offset` query parameters](apiv2_pagination) to retrieve the desired number of results.

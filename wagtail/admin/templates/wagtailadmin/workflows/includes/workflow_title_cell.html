@@ -1,0 +1,7 @@
+{% extends "wagtailadmin/tables/title_cell.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block title %}
+    {{ block.super }}
+    {% if not instance.active %}{% status _("Disabled") %}{% endif %}
+{% endblock %}

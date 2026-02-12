@@ -1,11 +1,12 @@
 #
 # Translators:
-# Matas Dailyda <matas@dailyda.com>, 2022
-# Naglis Jonaitis, 2022
+# Loic Teixeira, 2024
+# Naglis Jonaitis, 2026
+# Matas Dailyda <matas@dailyda.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Naglis Jonaitis, 2022\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>, 2026\n"
 "Language-Team: Lithuanian (https://app.transifex.com/torchbox/teams/8009/"
 "lt/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,6 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Actions"
+msgstr "Veiksmai"
+
+msgid "Add"
+msgstr "Pridėti"
 
 msgid "Add a comment"
 msgstr "Pridėti komentarą"
@@ -47,6 +54,12 @@ msgstr "Klaida ištrinant"
 msgid "Deleting"
 msgstr "Ištrinama"
 
+msgid "Drag"
+msgstr "Tempti"
+
+msgid "Duplicate"
+msgstr "Dubliuoti"
+
 msgid "Edit"
 msgstr "Redaguoti"
 
@@ -71,6 +84,12 @@ msgstr "Trūkstamas dokumentas"
 msgid "More actions"
 msgstr "Daugiau veiksmų"
 
+msgid "Move down"
+msgstr "Perkelti žemyn"
+
+msgid "Move up"
+msgstr "Perkelti aukštyn"
+
 msgid "No results"
 msgstr "Nėra rezultatų"
 
@@ -82,6 +101,9 @@ msgstr "Puslapių naršyklė"
 
 msgid "Pages"
 msgstr "Puslapiai"
+
+msgid "Preview"
+msgstr "Peržiūrėti"
 
 msgid "Reload saved content"
 msgstr "Įkelti išsaugotą turinį iš naujo"
@@ -104,15 +126,6 @@ msgstr "Išsaugoti"
 msgid "Save error"
 msgstr "Klaida išsaugant"
 
-msgid "Save the page to add this comment"
-msgstr "Komentaras bus pridėtas išsaugojus puslapį"
-
-msgid "Save the page to save this comment"
-msgstr "Komentaras bus išsaugotas išsaugojus puslapį"
-
-msgid "Save the page to save this reply"
-msgstr "Išsaugokite puslapį, jei norite išsaugoti šį atsakymą"
-
 msgid "Saving..."
 msgstr "Saugojama..."
 
@@ -125,6 +138,9 @@ msgstr "Žiūrėti viską"
 msgid "Server Error"
 msgstr "Serverio klaida"
 
+msgid "Settings"
+msgstr "Nustatymai"
+
 msgid "Show error"
 msgstr "Rodyti klaidą"
 
@@ -133,6 +149,12 @@ msgstr "Rodyti naujausią turinį"
 
 msgid "Split block"
 msgstr "Skaidyti bloką"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Didžiausias vienetų kiekis %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Mažiausias vienetų kiekis %(min_num)d"
 
 msgid "This field is required."
 msgstr "Šis laukas yra privalomas."

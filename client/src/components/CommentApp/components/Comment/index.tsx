@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
 
 import { gettext } from '../../../../utils/gettext';
-import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 import { Author, Comment, newCommentReply } from '../../state/comments';
 import {
@@ -84,11 +83,6 @@ export interface CommentProps {
 export default class CommentComponent extends React.Component<CommentProps> {
   renderReplies({ hideNewReply = false } = {}): React.ReactFragment | null {
     const { comment, isFocused, store, user } = this.props;
-
-    if (!comment.remoteId) {
-      // Hide replies UI if the comment itself isn't saved yet
-      return null;
-    }
 
     const onChangeNewReply = (value: string) => {
       store.dispatch(
@@ -523,15 +517,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
       };
     }
 
-    let notice = '';
-    if (!comment.remoteId) {
-      // Save the page to add this comment
-      notice = gettext('Save the page to add this comment');
-    } else if (comment.text !== comment.originalText) {
-      // Save the page to save this comment
-      notice = gettext('Save the page to save this comment');
-    }
-
     return (
       <>
         <CommentHeader
@@ -543,14 +528,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
-        {notice && (
-          <div className="comment__notice-placeholder">
-            <div className="comment__notice" role="status">
-              <Icon name="info-circle" />
-              {notice}
-            </div>
-          </div>
-        )}
         {this.renderReplies()}
       </>
     );
@@ -617,22 +594,35 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     return (
       <FocusTrap
-        focusTrapOptions={
-          {
-            preventScroll: true,
-            clickOutsideDeactivates: true,
-            onDeactivate: () => {
-              this.props.store.dispatch(
-                setFocusedComment(null, {
-                  updatePinnedComment: true,
-                  forceFocus: false,
-                }),
-              );
-            },
-            initialFocus: '[data-focus-target="true"]',
-            delayFocus: false,
-          } as any
-        } // For some reason, the types for FocusTrap props don't yet include preventScroll.
+        focusTrapOptions={{
+          preventScroll: true,
+          clickOutsideDeactivates: true,
+          onDeactivate: () => {
+            this.props.store.dispatch(
+              setFocusedComment(null, {
+                updatePinnedComment: true,
+                forceFocus: false,
+              }),
+            );
+          },
+          /** Allow delay for side panel to open and comment card to fade in with animations. */
+          checkCanFocusTrap: (containers: (HTMLElement | SVGElement)[]) => {
+            const hasFocusTargetWithSidePanelOpen = containers.some(
+              (container) =>
+                container.matches(
+                  '[data-form-side="comments"].form-side--comments [data-focus-target="true"]',
+                ),
+            );
+
+            if (hasFocusTargetWithSidePanelOpen) return Promise.resolve();
+
+            return new Promise((resolve) => {
+              setTimeout(resolve, 250);
+            });
+          },
+          initialFocus: '[data-focus-target="true"]',
+          delayInitialFocus: true,
+        }}
         active={this.props.isFocused && this.props.forceFocus}
       >
         <li

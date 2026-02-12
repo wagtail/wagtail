@@ -56,6 +56,19 @@ A number of additional constraints apply to `<a linktype="...">` and `<embed emb
 -   `embed` elements must use XML self-closing tag syntax (those that end in `/>` instead of a closing `</embed>` tag)
 -   The only HTML entities permitted in attribute values are `&lt;`, `&gt;`, `&amp;` and `&quot;`
 
+(rich_text_manual_conversion)=
+
+### Manual conversion
+
+For scenarios where neither a `RichTextBlock` nor the `|richtext` filter are appropriate, directly use Wagtail’s `expand_db_html` utility function. It expands internal references to CMS content (images, embeds, documents, page links), to create HTML ready for display.
+
+```python
+from wagtail.rich_text import expand_db_html
+
+# Converts the stored rich text data format to HTML suitable for rendering.
+expand_db_html(page.body)
+```
+
 ## The feature registry
 
 Any app within your project can define extensions to Wagtail's rich text handling, such as new `linktype` and `embedtype` rules. An object known as the _feature registry_ serves as a central source of truth about how rich text should behave. This object can be accessed through the [Register Rich Text Features](register_rich_text_features) hook, which is called on startup to gather all definitions relating to rich text:
@@ -92,9 +105,17 @@ You can create custom rewrite handlers to support your own new `linktype` and `e
 
     .. method:: expand_db_attributes(attrs)
 
-        Required. The ``expand_db_attributes`` method is expected to take a dictionary of attributes from a database rich text ``<a>`` tag (``<embed>`` for ``EmbedHandler``) and use it to generate valid frontend HTML.
+        Optional. The ``expand_db_attributes`` method is expected to take a dictionary of attributes from a database rich text ``<a>`` tag (``<embed>`` for ``EmbedHandler``) and use it to generate valid frontend HTML.
 
         For example, ``PageLinkHandler.expand_db_attributes`` might receive ``{'id': 123}``, use it to retrieve the Wagtail page with ID 123, and render a link to its URL like ``<a href="/path/to/page/123">``.
+
+        Either this method or ``expand_db_attributes_many`` must be defined in a custom rewrite handler.
+
+    .. method:: expand_db_attributes_many(attrs_list)
+
+        Optional. The ``expand_db_attributes_many`` method works similarly to ``expand_db_attributes`` but instead takes a list of attribute dictionaries and returns a list of HTML tags. This method is used by rewrite handlers to work in bulk, for example leveraging the ability to make one database query instead of multiple.
+
+        Either this method or ``expand_db_attributes`` must be defined in a custom rewrite handler. If not defined, the default implementation of ``expand_db_attributes_many`` works by making a series of calls to ``expand_db_attributes``.
 
     .. method:: get_model()
 
@@ -106,14 +127,23 @@ You can create custom rewrite handlers to support your own new `linktype` and `e
 
     .. method:: get_instance(attrs)
 
-        Optional. The static or classmethod ``get_instance`` method also only applies to those handlers that are used to render content related to Django models. This method is expected to take a dictionary of attributes from a database rich text ``<a>`` tag (``<embed>`` for ``EmbedHandler``) and use it to return the specific Django model instance being referred to.
+        Optional. The classmethod ``get_instance`` method also only applies to those handlers that are used to render content related to Django models. This method is expected to take a dictionary of attributes from a database rich text ``<a>`` tag (``<embed>`` for ``EmbedHandler``) and use it to return the specific Django model instance being referred to.
 
         For example, ``PageLinkHandler.get_instance`` might receive ``{'id': 123}`` and return the instance of the Wagtail ``Page`` class with ID 123.
 
+        This method should raise an exception if the provided attributes cannot be used to retrieve a
+        Django model instance, for example if the provided ``id`` attribute is invalid.
+
         If left undefined, a default implementation of this method will query the ``id`` model field on the class returned by ``get_model`` using the provided ``id`` attribute; this can be overridden in your own handlers should you want to use some other model field.
+
+    .. method:: get_many(attrs_list)
+
+        Optional. The classmethod ``get_many`` method works similarly to ``get_instance`` but instead takes a list of attribute dictionaries and returns a list of Django model instances.
+
+        Any instances that cannot be retrieved will be represented by ``None`` in the returned list.
 ```
 
-Below is an example custom rewrite handler that implements these methods to add support for rich text linking to user email addresses. It supports the conversion of rich text tags like `<a linktype="user" username="wagtail">` to valid HTML like `<a href="mailto:hello@wagtail.org">`. This example assumes that equivalent front-end functionality has been added to allow users to insert these kinds of links into their rich text editor.
+Below is an example custom rewrite handler that implements some of these methods to add support for rich text linking to user email addresses. It supports the conversion of rich text tags like `<a linktype="user" username="wagtail">` to valid HTML like `<a href="mailto:hello@wagtail.org">`. This example assumes that equivalent front-end functionality has been added to allow users to insert these kinds of links into their rich text editor.
 
 ```python
 from django.contrib.auth import get_user_model

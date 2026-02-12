@@ -54,7 +54,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('body'),
-        InlinePanel('related_links', heading="Related links", label="Related link"),
+        InlinePanel('related_links'),
     ]
 
     promote_panels = [
@@ -123,7 +123,7 @@ There are a few attributes for defining how the page's fields will be arranged i
 
 Each of these attributes is set to a list of `Panel` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
-Here's a summary of the `Panel` classes that Wagtail provides out of the box. See [Panel types](/reference/pages/panels) for full descriptions.
+Here's a summary of the `Panel` classes that Wagtail provides out of the box. See [Panel types](/reference/panels) for full descriptions.
 
 **Basic**
 
@@ -142,7 +142,7 @@ These are used for structuring fields in the interface.
 
 #### Customizing the page editor interface
 
-The page editor can be customized further. See [Customizing the editing interface](/advanced_topics/customisation/page_editing_interface).
+The page editor can be customized further. See [Customizing the editing interface](/advanced_topics/customization/page_editing_interface).
 
 (page_type_business_rules)=
 
@@ -333,10 +333,7 @@ class BlogPage(Page):
 
 Wagtail allows the nesting of other models within a page. This is useful for creating repeated fields, such as related links or items to display in a carousel. Inline model content is also versioned with the rest of the page.
 
-Each inline model requires the following:
-
--   It must inherit from {class}`wagtail.models.Orderable`
--   It must have a `ParentalKey` to the parent model
+An inline model must have a `ParentalKey` pointing to the parent model. It can also inherit from {class}`wagtail.models.Orderable` to allow reordering of items in the admin interface.
 
 ````{note}
 The model inlining feature is provided by [django-modelcluster](https://github.com/wagtail/django-modelcluster) and the `ParentalKey` field type must be imported from there:
@@ -374,7 +371,7 @@ To add this to the admin interface, use the `InlinePanel` edit panel class:
 content_panels = [
     ...
 
-    InlinePanel('related_links', label="Related links"),
+    InlinePanel('related_links'),
 ]
 ```
 

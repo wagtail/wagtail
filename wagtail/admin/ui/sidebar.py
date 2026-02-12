@@ -1,13 +1,12 @@
-from typing import Any, List, Mapping
-from warnings import warn
+from collections.abc import Mapping
+from typing import Any
 
 from django import forms
 from django.urls import reverse
 from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, adapter
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.admin.telepath import Adapter, adapter
 
 
 class BaseSidebarAdapter(Adapter):
@@ -30,18 +29,12 @@ class MenuItem:
         label: str,
         icon_name: str = "",
         classname: str = "",
-        classnames: str = "",
         attrs: Mapping[str, Any] = None,
     ):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for sidebar MenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
         self.name = name
         self.label = label
         self.icon_name = icon_name
-        self.classname = classname or classnames
+        self.classname = classname
         self.attrs = attrs or {}
 
     def js_args(self):
@@ -65,19 +58,13 @@ class LinkMenuItem(MenuItem):
         url: str,
         icon_name: str = "",
         classname: str = "",
-        classnames: str = "",
         attrs: Mapping[str, Any] = None,
     ):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for sidebar LinkMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
         super().__init__(
             name,
             label,
             icon_name=icon_name,
-            classname=classname or classnames,
+            classname=classname,
             attrs=attrs,
         )
         self.url = url
@@ -108,20 +95,14 @@ class ActionMenuItem(MenuItem):
         action: str,
         icon_name: str = "",
         classname: str = "",
-        classnames: str = "",
         method: str = "POST",
         attrs: Mapping[str, Any] = None,
     ):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for sidebar ActionMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
         super().__init__(
             name,
             label,
             icon_name=icon_name,
-            classname=classname or classnames,
+            classname=classname,
             attrs=attrs,
         )
         self.action = action
@@ -152,23 +133,17 @@ class SubMenuItem(MenuItem):
         self,
         name: str,
         label: str,
-        menu_items: List[MenuItem],
+        menu_items: list[MenuItem],
         icon_name: str = "",
         classname: str = "",
-        classnames: str = "",
         footer_text: str = "",
         attrs: Mapping[str, Any] = None,
     ):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for sidebar SubMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
         super().__init__(
             name,
             label,
             icon_name=icon_name,
-            classname=classname or classnames,
+            classname=classname,
             attrs=attrs,
         )
         self.menu_items = menu_items
@@ -203,20 +178,14 @@ class PageExplorerMenuItem(LinkMenuItem):
         start_page_id: int,
         icon_name: str = "",
         classname: str = "",
-        classnames: str = "",
         attrs: Mapping[str, Any] = None,
     ):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for sidebar PageExplorerMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
         super().__init__(
             name,
             label,
             url,
             icon_name=icon_name,
-            classname=classname or classnames,
+            classname=classname,
             attrs=attrs,
         )
         self.start_page_id = start_page_id
@@ -262,7 +231,7 @@ class SearchModule:
 @adapter("wagtail.sidebar.MainMenuModule", base=BaseSidebarAdapter)
 class MainMenuModule:
     def __init__(
-        self, menu_items: List[MenuItem], account_menu_items: List[MenuItem], user
+        self, menu_items: list[MenuItem], account_menu_items: list[MenuItem], user
     ):
         self.menu_items = menu_items
         self.account_menu_items = account_menu_items

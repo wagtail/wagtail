@@ -5,6 +5,7 @@ from django.core import validators
 from django.forms.widgets import TextInput
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.compat import URLField
 from wagtail.models import Locale
 from wagtail.search.backends import get_search_backend
 
@@ -21,7 +22,7 @@ class URLOrAbsolutePathValidator(validators.URLValidator):
             return super().__call__(value)
 
 
-class URLOrAbsolutePathField(forms.URLField):
+class URLOrAbsolutePathField(URLField):
     widget = TextInput
     default_validators = [URLOrAbsolutePathValidator()]
 
@@ -132,13 +133,13 @@ class LocaleFilterMixin(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        locales = Locale.objects.all()
-        if locales:
+        choices = [
+            (locale.language_code, locale.get_display_name())
+            for locale in Locale.objects.all()
+        ]
+        if choices:
             self.fields["locale"] = forms.ChoiceField(
-                choices=[
-                    (locale.language_code, locale.get_display_name())
-                    for locale in locales
-                ],
+                choices=[("", _("All")), *choices],
                 required=False,
                 widget=forms.Select(attrs={"data-chooser-modal-search-filter": True}),
             )

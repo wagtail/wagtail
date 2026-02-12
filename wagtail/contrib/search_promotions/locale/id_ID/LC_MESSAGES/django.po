@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -49,21 +49,9 @@ msgstr "deskripsi"
 msgid "search promotion"
 msgstr "promosi pencarian"
 
-msgid "Add search promotion"
-msgstr "Tambah promosi pencarian"
-
-msgid "Add search pick"
-msgstr "Tambah pilihan pencarian"
-
-msgid "Save"
-msgstr "Simpan"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Hapus %(query)s"
-
-msgid "Delete"
-msgstr "Hapus"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -71,48 +59,34 @@ msgstr ""
 "Apakah anda yakin untuk menghapus semua hasil terpromosi untuk kata kunci "
 "pencarian ini?"
 
-msgid "Yes, delete"
-msgstr "Ya, hapus"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Mengubah %(query)s"
-
-msgid "Editing"
-msgstr "Mengubah"
-
 msgid "Move up"
 msgstr "Geser ke atas"
 
 msgid "Move down"
 msgstr "Geser ke bawah"
 
+msgid "Drag"
+msgstr "Seret"
+
+msgid "Delete"
+msgstr "Hapus"
+
 msgid "Promoted search results"
 msgstr "Hasil pencarian terpromosi"
 
-msgid "Search Terms"
-msgstr "Kata kunci pencarian"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Maaf, tidak ada hasil terpromosi yang sesuai dengan \"<em>%(query_string)s</"
+"em>\""
 
-msgid "Add new promoted result"
-msgstr "Tambah hasil terpromosi baru"
-
-msgid "Search term(s)"
-msgstr "Kata kunci pencarian()"
-
-msgid "Promoted results"
-msgstr "Hasil terpromosi"
-
-msgid "Views (past week)"
-msgstr "Tampilan (seminggu lalu)"
-
-msgid "Edit this promotion"
-msgstr "Ubah promosi ini"
-
-msgid "External link"
-msgstr "Tautan luar"
-
-msgid "None"
-msgstr "Tidak ada"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Tidak ada hasil terpromosi yang dibuat. Mengapa tidak <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">menambahnya</a>?"
 
 msgid "Popular search terms"
 msgstr "Kata kunci pencarian populer"
@@ -129,36 +103,34 @@ msgstr "Tidak ada hasil"
 msgid "Choose from popular search terms"
 msgstr "Pilih dari kata kunci pencarian populer"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Maaf, tidak ada hasil terpromosi yang sesuai dengan \"<em>%(query_string)s</"
-"em>\""
+msgid "External link"
+msgstr "Tautan luar"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Tidak ada hasil terpromosi yang dibuat. Mengapa tidak <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">menambahnya</a>?"
+msgid "None"
+msgstr "Tidak ada"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Search term(s)"
+msgstr "Kata kunci pencarian()"
+
+msgid "Add new promoted result"
+msgstr "Tambah hasil terpromosi baru"
+
+msgid "Promoted results"
+msgstr "Hasil terpromosi"
+
+msgid "Promoted search result"
+msgstr "Hasil pencarian terpromosi"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Pilihan editor untuk '%(query)s' telah dibuat."
 
-msgid "Edit"
-msgstr "Ubah"
-
-msgid "Recommendations have not been created due to errors"
-msgstr "Rekomendasi tidak dapat dibuat karena suatu kesalahan."
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Pilihan editor untuk '%(query)s' telah diperbarui."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Rekomendasi tidak dapat disimpan karena suatu kesalahan."
 
 msgid "Editor's picks deleted."
 msgstr "Pilihan editor dihapus."

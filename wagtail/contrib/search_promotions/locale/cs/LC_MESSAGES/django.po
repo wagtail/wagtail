@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -52,36 +52,14 @@ msgstr "popis"
 msgid "search promotion"
 msgstr "upřednostňování hledání"
 
-msgid "Add search promotion"
-msgstr "Přidat upřednostněné hledání"
-
-msgid "Add search pick"
-msgstr "Přidat volbu hledání"
-
-msgid "Save"
-msgstr "Uložit"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Smazat %(query)s"
-
-msgid "Delete"
-msgstr "Smazat"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Opravdu chcete smazat všechny upřednostněné výsledky pro tento hledaný výraz?"
-
-msgid "Yes, delete"
-msgstr "Ano, smazat"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Úprava %(query)s"
-
-msgid "Editing"
-msgstr "Úprava"
 
 msgid "Move up"
 msgstr "Posunout nahoru"
@@ -89,44 +67,28 @@ msgstr "Posunout nahoru"
 msgid "Move down"
 msgstr "Posunout dolů"
 
+msgid "Drag"
+msgstr "Přetáhnout myší"
+
+msgid "Delete"
+msgstr "Smazat"
+
 msgid "Promoted search results"
 msgstr "Upřednostněné výsledky hledání"
 
-msgid "Search Terms"
-msgstr "Hledat výrazy"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné "
+"upřednostněné výsledky"
 
-msgid "Add new promoted result"
-msgstr "Přidat nový upřednostněný výsledek"
-
-msgid "Search term(s)"
-msgstr "Hledaný výraz(y)"
-
-msgid "Order by search term alphabetically"
-msgstr "Seřazeno podle vyhledávacích pojmů abecedně"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Seřazeno podle vyhledávacích pojmů od konce abecedy"
-
-msgid "Promoted results"
-msgstr "Upřednostněné výsledky"
-
-msgid "Views (past week)"
-msgstr "Zobrazení (poslední týden)"
-
-msgid "Order by views (lowest first)"
-msgstr "Seřazeno podle pohledů (od nejnižších)"
-
-msgid "Order by views (highest first)"
-msgstr "Seřazeno podle pohledů (od nejvyšších)"
-
-msgid "Edit this promotion"
-msgstr "Upravit toto upřednostnění"
-
-msgid "External link"
-msgstr "Externí odkaz"
-
-msgid "None"
-msgstr "Nic"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nebyly nalezeny žádné upřednostněné výsledky. Nové upřednostněné vyhledávání "
+"můžete přidat <a href=\"%(wagtailsearchpromotions_add_url)s\">zde</a>?"
 
 msgid "Popular search terms"
 msgstr "Oblíbené hledané výrazy"
@@ -143,36 +105,34 @@ msgstr "Nebyly nalezeny žádné výsledky"
 msgid "Choose from popular search terms"
 msgstr "Vybrat z nejčastěji hledaných výrazů"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné "
-"upřednostněné výsledky"
+msgid "External link"
+msgstr "Externí odkaz"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Nebyly nalezeny žádné upřednostněné výsledky. Nové upřednostněné vyhledávání "
-"můžete přidat <a href=\"%(wagtailsearchpromotions_add_url)s\">zde</a>?"
+msgid "None"
+msgstr "Nic"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Search term(s)"
+msgstr "Hledaný výraz(y)"
+
+msgid "Add new promoted result"
+msgstr "Přidat nový upřednostněný výsledek"
+
+msgid "Promoted results"
+msgstr "Upřednostněné výsledky"
+
+msgid "Promoted search result"
+msgstr "Upřednostněný výsledek hledání"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Editorův výběr pro '%(query)s' byl vytvořen."
 
-msgid "Edit"
-msgstr "Upravit"
-
-msgid "Recommendations have not been created due to errors"
-msgstr "Doporučení nelze vytvořit, zkontrolujte správné vyplnění polí."
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Editorův výběr pro '%(query)s' byl upraven."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Doporučení nelze uložit, zkontrolujte správné vyplnění polí."
 
 msgid "Editor's picks deleted."
 msgstr "Editorův výběr byl smazán."

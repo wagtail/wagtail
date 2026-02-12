@@ -7,7 +7,7 @@
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2017
 # Eetu Häivälä, 2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022,2024
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -134,12 +134,6 @@ msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "Haluatko varmasti poistaa tämän dokumentin?"
 msgstr[1] "Haluatko varmasti poistaa nämä dokumentit?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Käytetty %(usage_count)s kerran"
-msgstr[1] "Käytetty %(usage_count)s kertaa"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Oikeutesi eivät riitä tämän dokumentin poistamiseen"
@@ -166,20 +160,10 @@ msgstr "Et ole tuonut dokumentteja tähän kokoelmaan."
 msgid "You haven't uploaded any documents."
 msgstr "Et ole tuonut dokumenttejä."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Mitä jos vaikka <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>lähettäisit dokumentin nyt</a>?"
-
 msgid "Change document:"
 msgstr "Vaihda dokumentti:"
 
 msgid "Add a document"
-msgstr "Lisää dokumentti"
-
-msgid "Add document"
 msgstr "Lisää dokumentti"
 
 msgid "Uploading…"
@@ -187,19 +171,6 @@ msgstr "Lähetetään…"
 
 msgid "Upload"
 msgstr "Lähetä"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Muokataan %(title)s"
-
-msgid "Editing"
-msgstr "Muokataan"
-
-msgid "Save"
-msgstr "Tallenna"
-
-msgid "Delete document"
-msgstr "Poista dokumentti"
 
 msgid "Filesize"
 msgstr "Tiedostokoko"
@@ -209,6 +180,12 @@ msgstr "Tiedostoa ei löydy"
 
 msgid "Usage"
 msgstr "Käyttö"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
 
 msgid "Select all documents in listing"
 msgstr "Valitse listauksen kaikki dokumentit"
@@ -235,11 +212,20 @@ msgstr ""
 "Et ole lisännyt yhtään dokumenttia. Mikset vaikka <a "
 "href=\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
 
+#, python-format
+msgid ""
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s dokumentti <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
+msgstr[1] ""
+"%(total)s dokumenttia <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
+
 msgid "Add multiple documents"
 msgstr "Lisää useampi dokumentti"
-
-msgid "Add documents"
-msgstr "Lisää dokumentteja"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Raahaa ja pudota dokumentteja tälle alueelle lähettääksesi ne heti."
@@ -336,6 +322,9 @@ msgstr "Dokumentit"
 msgid "Title"
 msgstr "Otsikko"
 
+msgid "The document could not be created due to errors."
+msgstr "Dokumenttia ei voitu luoda virheiden vuoksi."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dokumentti '%(document_title)s' lisätty."
@@ -347,13 +336,15 @@ msgstr "Dokumenttia ei voitu tallentaa virheiden vuoksi."
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokumentti '%(document_title)s' päivitetty"
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
+msgid "Delete document"
+msgstr "Poista dokumentti"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumentti '%(document_title)s' poistettu."
+
+msgid "Add documents"
+msgstr "Lisää dokumentteja"
 
 msgid "Document"
 msgstr "Dokumentti"

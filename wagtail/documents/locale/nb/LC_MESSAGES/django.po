@@ -5,15 +5,16 @@
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
 # Jonathan D, 2023
+# Jonathan D, 2023
 # Ole Kristian Losvik <ole@losol.no>, 2020
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Jonathan D, 2023\n"
+"Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -135,12 +136,6 @@ msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "Er du sikker på at du vil slette dette dokumentet?"
 msgstr[1] "Er du sikker på at du vil slette disse dokumentene?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Brukt %(usage_count)s gang"
-msgstr[1] "Brukt %(usage_count)s ganger"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Du har ikke tillatelse til å slette dette dokumentet"
@@ -165,40 +160,17 @@ msgstr "Du har ikke lastet opp noen dokumenter til denne samlingen."
 msgid "You haven't uploaded any documents."
 msgstr "Du har ikke lastet opp noen dokumenter."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Hvorfor ikke <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>laste en opp nå</a>?"
-
 msgid "Change document:"
 msgstr "Bytt ut dokument:"
 
 msgid "Add a document"
 msgstr "Legg til et dokument"
 
-msgid "Add document"
-msgstr "Legg til dokument"
-
 msgid "Uploading…"
 msgstr "Laster opp…"
 
 msgid "Upload"
 msgstr "Last opp"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Endrer %(title)s"
-
-msgid "Editing"
-msgstr "Endrer"
-
-msgid "Save"
-msgstr "Lagre"
-
-msgid "Delete document"
-msgstr "Slett dokument"
 
 msgid "Filesize"
 msgstr "Filstørrelse"
@@ -208,6 +180,12 @@ msgstr "Fil ikke funnet"
 
 msgid "Usage"
 msgstr "Bruk"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
 
 msgid "Select all documents in listing"
 msgstr "Velg alle dokumenter i listen"
@@ -234,9 +212,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Legg til flere dokumenter"
-
-msgid "Add documents"
-msgstr "Legg til dokumenter"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Dra og slipp dokumenter i dette feltet for å laste opp umiddelbart."
@@ -343,13 +318,15 @@ msgstr "Dokumentet kunne ikke lagres grunnet feil."
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokumentet \"%(document_title)s\" er oppdatert"
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
+msgid "Delete document"
+msgstr "Slett dokument"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumentet \"%(document_title)s\" er slettet."
+
+msgid "Add documents"
+msgstr "Legg til dokumenter"
 
 msgid "Document"
 msgstr "Dokument"

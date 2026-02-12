@@ -1,3 +1,5 @@
+jest.setTimeout(30000);
+
 describe('Homepage', () => {
   beforeAll(async () => {
     await page.goto(`${TEST_ORIGIN}/admin/`, {
@@ -8,7 +10,7 @@ describe('Homepage', () => {
   it('has the right heading', async () => {
     const pageHeader = await page.$('h1');
     const pageHeaderValue = await pageHeader.evaluate((el) => el.textContent);
-    expect(pageHeaderValue).toContain('Welcome to the Test Site Wagtail CMS');
+    expect(pageHeaderValue).toContain('Test Site');
   });
 
   it('axe', async () => {

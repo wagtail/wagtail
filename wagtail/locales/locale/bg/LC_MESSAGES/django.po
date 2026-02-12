@@ -5,15 +5,16 @@
 #
 # Translators:
 # Karl Hobley <karl@torchbox.com>, 2021
+# Maria Mitova, 2026
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>, 2021\n"
+"Last-Translator: Maria Mitova, 2026\n"
 "Language-Team: Bulgarian (https://app.transifex.com/torchbox/teams/8009/"
 "bg/)\n"
 "MIME-Version: 1.0\n"
@@ -22,5 +23,11 @@ msgstr ""
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Language"
+msgstr "Език"
+
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
+
+msgid "Back"
+msgstr "Назад"

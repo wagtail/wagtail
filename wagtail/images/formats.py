@@ -1,10 +1,7 @@
-from warnings import warn
-
 from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.utils.apps import get_app_submodules
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .shortcuts import get_rendition_or_not_found
 
@@ -23,14 +20,6 @@ class Format:
 
     def __repr__(self):
         return f"Format({self})"
-
-    @property
-    def classnames(self):
-        warn(
-            "The class property `classnames` is deprecated - use `classname` instead.",
-            category=RemovedInWagtail70Warning,
-        )
-        return self.classname
 
     def editor_attributes(self, image, alt_text):
         """
@@ -83,8 +72,8 @@ def unregister_image_format(format_name):
     try:
         del FORMATS_BY_NAME[format_name]
         FORMATS = [fmt for fmt in FORMATS if fmt.name != format_name]
-    except KeyError:
-        raise KeyError("Image format '%s' is not registered" % format_name)
+    except KeyError as e:
+        raise KeyError("Image format '%s' is not registered" % format_name) from e
 
 
 def get_image_formats():

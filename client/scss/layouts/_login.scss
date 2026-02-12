@@ -1,30 +1,19 @@
-@mixin login-fullscreen-background() {
-  @at-root {
-    :root {
-      --w-login-fullscreen-background: radial-gradient(
-        100% 300.28% at 100% 0%,
-        theme('colors.primary.DEFAULT') 0%,
-        theme('colors.primary.DEFAULT') 32.94%,
-        theme('colors.primary.DEFAULT') 49.9%,
-        theme('colors.primary.DEFAULT') 50.2%,
-        theme('colors.secondary.DEFAULT') 100%
-      );
-    }
-  }
+@use '../tools' as *;
 
-  // support older browsers that do not support radial gradient 'at' usage
-  background: theme('colors.surface-menus');
-  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
-  background: var(
-    --w-login-fullscreen-background,
-    theme('colors.primary.DEFAULT')
+:root {
+  --w-login-fullscreen-background: radial-gradient(
+    100% 300.28% at 100% 0%,
+    theme('colors.primary.DEFAULT') 0%,
+    theme('colors.primary.DEFAULT') 32.94%,
+    theme('colors.primary.DEFAULT') 49.9%,
+    theme('colors.primary.DEFAULT') 50.2%,
+    theme('colors.secondary.DEFAULT') 100%
   );
 }
 
 .login {
-  @include login-fullscreen-background;
-
   color: theme('colors.text-label');
+  background: var(--w-login-fullscreen-background);
 
   .wrapper {
     align-items: center;

@@ -6,6 +6,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import Adapter, register
 from wagtail.blocks.base import (
     Block,
     DeclarativeSubBlocksMetaclass,
@@ -13,7 +14,6 @@ from wagtail.blocks.base import (
     get_error_list_json_data,
     get_help_icon,
 )
-from wagtail.telepath import Adapter, register
 
 
 class TypedTableBlockValidationError(ValidationError):
@@ -87,6 +87,14 @@ class BaseTypedTableBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
+    @classmethod
+    def construct_from_lookup(cls, lookup, child_blocks, **kwargs):
+        if child_blocks:
+            child_blocks = [
+                (name, lookup.get_block(index)) for name, index in child_blocks
+            ]
+        return cls(child_blocks, **kwargs)
+
     def value_from_datadict(self, data, files, prefix):
         caption = data["%s-caption" % prefix]
 
@@ -131,29 +139,51 @@ class BaseTypedTableBlock(Block):
         )
 
     def get_prep_value(self, table):
-        if table:
-            return {
-                "columns": [
-                    {"type": col["block"].name, "heading": col["heading"]}
-                    for col in table.columns
-                ],
-                "rows": [
-                    {
-                        "values": [
-                            column["block"].get_prep_value(val)
-                            for column, val in zip(table.columns, row["values"])
-                        ]
-                    }
-                    for row in table.row_data
-                ],
-                "caption": table.caption,
-            }
-        else:
-            return {
-                "columns": [],
-                "rows": [],
-                "caption": "",
-            }
+        return {
+            "columns": [
+                {"type": col["block"].name, "heading": col["heading"]}
+                for col in table.columns
+            ],
+            "rows": [
+                {
+                    "values": [
+                        column["block"].get_prep_value(val)
+                        for column, val in zip(table.columns, row["values"])
+                    ]
+                }
+                for row in table.row_data
+            ],
+            "caption": table.caption,
+        }
+
+    def get_api_representation(self, table, context=None):
+        return {
+            "columns": [
+                {"type": col["block"].name, "heading": col["heading"]}
+                for col in table.columns
+            ],
+            "rows": [
+                {
+                    "values": [
+                        column["block"].get_api_representation(val, context=context)
+                        for column, val in zip(table.columns, row["values"])
+                    ]
+                }
+                for row in table.row_data
+            ],
+            "caption": table.caption,
+        }
+
+    def normalize(self, value):
+        if value is None:
+            return TypedTable(
+                columns=[],
+                row_data=[],
+                caption="",
+            )
+        elif isinstance(value, TypedTable):
+            return value
+        return self.to_python(value)
 
     def to_python(self, value):
         if value:
@@ -187,62 +217,46 @@ class BaseTypedTableBlock(Block):
             )
 
     def get_form_state(self, table):
-        if table:
-            return {
-                "columns": [
-                    {"type": col["block"].name, "heading": col["heading"]}
-                    for col in table.columns
-                ],
-                "rows": [
-                    {
-                        "values": [
-                            column["block"].get_form_state(val)
-                            for column, val in zip(table.columns, row["values"])
-                        ]
-                    }
-                    for row in table.row_data
-                ],
-                "caption": table.caption,
-            }
-        else:
-            return {
-                "columns": [],
-                "rows": [],
-                "caption": "",
-            }
+        return {
+            "columns": [
+                {"type": col["block"].name, "heading": col["heading"]}
+                for col in table.columns
+            ],
+            "rows": [
+                {
+                    "values": [
+                        column["block"].get_form_state(val)
+                        for column, val in zip(table.columns, row["values"])
+                    ]
+                }
+                for row in table.row_data
+            ],
+            "caption": table.caption,
+        }
 
     def clean(self, table):
-        if table:
-            # a dict where each key is a row index, and the value is a dict of errors on that row keyed by column index
-            cell_errors = {}
-            cleaned_rows = []
-            for row_index, row in enumerate(table.row_data):
-                row_errors = {}
-                row_data = []
-                for col_index, column in enumerate(table.columns):
-                    val = row["values"][col_index]
-                    try:
-                        row_data.append(column["block"].clean(val))
-                    except ValidationError as e:
-                        row_errors[col_index] = e
+        cell_errors = {}
+        cleaned_rows = []
+        for row_index, row in enumerate(table.row_data):
+            row_errors = {}
+            row_data = []
+            for col_index, column in enumerate(table.columns):
+                val = row["values"][col_index]
+                try:
+                    row_data.append(column["block"].clean(val))
+                except ValidationError as e:
+                    row_errors[col_index] = e
 
-                if row_errors:
-                    cell_errors[row_index] = row_errors
-                else:
-                    cleaned_rows.append({"values": row_data})
-
-            if cell_errors:
-                raise TypedTableBlockValidationError(cell_errors=cell_errors)
+            if row_errors:
+                cell_errors[row_index] = row_errors
             else:
-                return TypedTable(
-                    columns=table.columns, row_data=cleaned_rows, caption=table.caption
-                )
+                cleaned_rows.append({"values": row_data})
 
+        if cell_errors:
+            raise TypedTableBlockValidationError(cell_errors=cell_errors)
         else:
             return TypedTable(
-                columns=[],
-                row_data=[],
-                caption="",
+                columns=table.columns, row_data=cleaned_rows, caption=table.caption
             )
 
     def deconstruct(self):
@@ -256,6 +270,17 @@ class BaseTypedTableBlock(Block):
         """
         path = "wagtail.contrib.typed_table_block.blocks.TypedTableBlock"
         args = [list(self.child_blocks.items())]
+        kwargs = self._constructor_kwargs
+        return (path, args, kwargs)
+
+    def deconstruct_with_lookup(self, lookup):
+        path = "wagtail.contrib.typed_table_block.blocks.TypedTableBlock"
+        args = [
+            [
+                (name, lookup.add_block(block))
+                for name, block in self.child_blocks.items()
+            ]
+        ]
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 
@@ -273,6 +298,69 @@ class BaseTypedTableBlock(Block):
         else:
             return ""
 
+    def get_searchable_content(self, value):
+        """extract all searchable content from the typed table block (caption, headings, cells)."""
+        content = []
+
+        if not value:
+            return content
+
+        if value.caption:
+            content.append(str(value.caption))
+
+        for col in value.columns:
+            heading = col.get("heading")
+
+            if heading:
+                content.append(str(heading))
+
+        for row in value.row_data:
+            for col, cell in zip(value.columns, row["values"]):
+                block = col.get("block")
+                if hasattr(block, "get_searchable_content"):
+                    content.extend(block.get_searchable_content(cell))
+                elif cell is not None:
+                    content.append(str(cell))
+
+        return content
+
+    def extract_references(self, value):
+        """
+        Extract references from all cells in the typed table block.
+
+        This method scans all table cells and yields any references found in blocks
+        that support reference extraction (e.g., RichTextBlock with embedded images,
+        PageChooserBlock, etc.).
+        """
+        if not value:
+            return
+
+        for row_index, row in enumerate(value.row_data):
+            for col_index, (column, cell_value) in enumerate(
+                zip(value.columns, row["values"])
+            ):
+                block = column["block"]
+                for (
+                    model,
+                    object_id,
+                    model_path,
+                    content_path,
+                ) in block.extract_references(cell_value):
+                    # Format paths to include table structure information
+                    # model_path describes the field structure (for migrations/schema)
+                    # content_path describes the specific instance location
+                    model_path = (
+                        f"rows.item.values.{col_index}.{model_path}"
+                        if model_path
+                        else f"rows.item.values.{col_index}"
+                    )
+                    content_path = (
+                        f"rows.{row_index}.values.{col_index}.{content_path}"
+                        if content_path
+                        else f"rows.{row_index}.values.{col_index}"
+                    )
+                    yield model, object_id, model_path, content_path
+
     class Meta:
         default = None
         icon = "table"
@@ -288,8 +376,12 @@ class TypedTableBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
+            "attrs": block.meta.form_attrs or {},
             "strings": {
                 "CAPTION": _("Caption"),
                 "CAPTION_HELP_TEXT": _(

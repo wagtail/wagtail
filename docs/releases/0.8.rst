@@ -37,7 +37,7 @@ Bug fixes
 * Fixed TypeError when getting embed HTML with oembed on Python 3
 * Made HTML whitelisting in rich text fields more robust at catching disallowed URL schemes such as ``jav\tascript:``
 * ``created_at`` timestamps on page revisions were not being preserved on page copy, causing revisions to get out of sequence
-* When copying pages recursively, revisions of sub-pages were being copied regardless of the ``copy_revisions`` flag
+* When copying pages recursively, revisions of subpages were being copied regardless of the ``copy_revisions`` flag
 * Updated the migration dependencies within the project template to ensure that Wagtail's own migrations consistently apply first
 * The cache of site root paths is now cleared when a site is deleted
 * Search indexing now prevents pages from being indexed multiple times, as both the base Page model and the specific subclass

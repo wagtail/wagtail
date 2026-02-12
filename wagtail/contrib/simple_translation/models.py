@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db.models import Model
+from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.models import Locale
@@ -17,7 +18,7 @@ class SimpleTranslation(Model):
     class Meta:
         default_permissions = []
         permissions = [
-            ("submit_translation", "Can submit translations"),
+            ("submit_translation", _("Can submit translations")),
         ]
 
 

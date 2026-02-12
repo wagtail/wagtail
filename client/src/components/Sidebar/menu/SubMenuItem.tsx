@@ -8,6 +8,7 @@ import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 import { gettext } from '../../../utils/gettext';
+import SubMenuCloseButton from './SubMenuCloseButton';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
   slim: boolean;
@@ -130,6 +131,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
       </Tippy>
       <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth}>
         <div className="sidebar-sub-menu-panel">
+          <SubMenuCloseButton isVisible={isVisible} dispatch={dispatch} />
           <h2
             id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}
             className={`${item.classNames} w-h4`}

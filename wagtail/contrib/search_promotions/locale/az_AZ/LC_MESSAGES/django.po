@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Azerbaijani (Azerbaijan) (http://app.transifex.com/torchbox/"
@@ -18,14 +18,8 @@ msgstr ""
 "Language: az_AZ\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Save"
-msgstr "Yadda saxla"
-
 msgid "Delete"
 msgstr "Silmək"
-
-msgid "Editing"
-msgstr "Düzəliş edilir"
 
 msgid "None"
 msgstr "Boşluq"

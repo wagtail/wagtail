@@ -1,7 +1,6 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/form.html" %}
 {% load wagtailadmin_tags %}
-{% load i18n %}
-{% block bodyclass %}editor-view{% endblock %}
+{% load i18n l10n %}
 
 {% block content %}
     {% get_comments_enabled as comments_enabled %}
@@ -15,12 +14,19 @@
         novalidate
         {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
         data-edit-form
-        data-controller="w-init w-unsaved"
-        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+        data-controller="w-init w-unsaved {% if autosave_enabled %}w-autosave{% endif %}"
+        data-action="
+                     w-unsaved#submit
+                     beforeunload@window->w-unsaved#confirm
+                     {% if autosave_enabled %}
+                         w-unsaved:add->w-autosave#save:prevent
+                         w-autosave:success->w-unsaved#clear
+                     {% endif %}
+                    "
+        {% if autosave_enabled %}data-w-autosave-interval-value="{{ autosave_interval|unlocalize }}"{% endif %}
         data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
-        data-w-unsaved-confirmation-value="{{ _("This page has unsaved changes.") }}"
+        data-w-unsaved-confirmation-value="true"
         data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
-        data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
     >
         {% csrf_token %}
 
@@ -34,38 +40,23 @@
 
         {{ edit_handler.render_form_content }}
 
-        <footer class="footer w-grid md:w-grid-flow-col">
-            <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
-                {{ action_menu.render_html }}
-                {% block extra_footer_actions %}
-                {% endblock %}
-            </nav>
-            {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
-        </footer>
+        {% block footer %}
+            {{ block.super }}
+            {# Reuse the footer container, but redefine the actions content down below to use component classes #}
+        {% endblock %}
+        {% block partials %}
+            {{ block.super }}
+        {% endblock %}
     </form>
 
 {% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {{ media.css }}
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-
-    {% comment %}
-        Additional js from widgets media. Allows for custom widgets in admin panel.
-    {% endcomment %}
-    {{ media.js }}
-
-    <script>
-        // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
-        // This value may be used by JS widgets on the form
-        {% if locale %}
-            window.wagtailConfig = window.wagtailConfig || {};
-            window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
-        {% endif %}
-    </script>
-{% endblock %}
+{% block actions %}
+    {{ action_menu.render_html }}
+    {% block extra_footer_actions %}
+        {% comment %}
+            While undocumented, this block is used by some packages to add
+            additional actions *outside* of the dropdown menu.
+        {% endcomment %}
+    {% endblock %}
+{% endblock%}

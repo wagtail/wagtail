@@ -4,6 +4,8 @@ from django.utils.translation import gettext as _
 
 from wagtail.coreutils import InvokeViaAttributeShortcut
 from wagtail.models import Site
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permission_policies.sites import SitePermissionPolicy
 
 from .registry import register_setting
 
@@ -57,6 +59,10 @@ class AbstractSetting(models.Model):
         super().__init__(*args, **kwargs)
         # Per-instance page URL cache
         self._page_url_cache = {}
+
+    @classmethod
+    def get_permission_policy(cls):
+        return ModelPermissionPolicy(cls)
 
     @cached_property
     def page_url(self):
@@ -114,6 +120,10 @@ class BaseSiteSetting(AbstractSetting):
 
     class Meta:
         abstract = True
+
+    @classmethod
+    def get_permission_policy(cls):
+        return SitePermissionPolicy(cls)
 
     @classmethod
     def for_request(cls, request):

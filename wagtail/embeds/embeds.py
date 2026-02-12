@@ -9,7 +9,21 @@ from .finders import get_finders
 from .models import Embed
 
 
-def get_embed(url, max_width=None, max_height=None, finder=None):
+def get_finder_for_embed(url, max_width=None, max_height=None):
+    for finder in get_finders():
+        if finder.accept(url):
+            kwargs = {}
+            if accepts_kwarg(finder.find_embed, "max_height"):
+                kwargs["max_height"] = max_height
+            return finder.find_embed(url, max_width=max_width, **kwargs)
+
+    raise EmbedUnsupportedProviderException
+
+
+def get_embed(url, max_width=None, max_height=None):
+    """
+    Retrieve an embed for the given URL using the configured finders.
+    """
     embed_hash = get_embed_hash(url, max_width, max_height)
 
     # Check database
@@ -18,20 +32,7 @@ def get_embed(url, max_width=None, max_height=None, finder=None):
     except Embed.DoesNotExist:
         pass
 
-    # Get/Call finder
-    if not finder:
-
-        def finder(url, max_width=None, max_height=None):
-            for finder in get_finders():
-                if finder.accept(url):
-                    kwargs = {}
-                    if accepts_kwarg(finder.find_embed, "max_height"):
-                        kwargs["max_height"] = max_height
-                    return finder.find_embed(url, max_width=max_width, **kwargs)
-
-            raise EmbedUnsupportedProviderException
-
-    embed_dict = finder(url, max_width, max_height)
+    embed_dict = get_finder_for_embed(url, max_width, max_height)
 
     # Make sure width and height are valid integers before inserting into database
     try:

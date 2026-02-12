@@ -6,16 +6,16 @@
 # Translators:
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Loic Teixeira, 2022
-# Andrej Marsetič, 2023
+# Andrej Marsetič, 2024
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Andrej Marsetič, 2023\n"
+"Last-Translator: Andrej Marsetič, 2024\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,9 @@ msgstr[1] "Prevedite nadrejeni strani."
 msgstr[2] "Prevedite nadrejene strani."
 msgstr[3] "Prevedite nadrejene strani."
 
+msgid "Can submit translations"
+msgstr "Lahko predloži prevode"
+
 msgid "Submit"
 msgstr "Pošlji"
 
@@ -92,7 +95,3 @@ msgstr "Uspešno ustvarjeno %(locales)s za %(model_name)s '%(object)s'"
 
 msgid "Translate this page"
 msgstr "Prevedi to stran"
-
-#, python-format
-msgid "Translate '%(title)s'"
-msgstr "Prevedite '%(title)s'"

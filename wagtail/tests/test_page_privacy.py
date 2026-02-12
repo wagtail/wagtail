@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.models import Page, PageViewRestriction
 from wagtail.test.utils import WagtailTestUtils
@@ -27,6 +27,11 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
         self.assertEqual(
             response.templates[0].name, "wagtailcore/password_required.html"
         )
+
+        # test that preview attributes are set on the request
+        request = response.context["request"]
+        self.assertFalse(request.is_preview)
+        self.assertIsNone(request.preview_mode)
 
         submit_url = "/_util/authenticate_with_password/%d/%d/" % (
             self.view_restriction.id,
@@ -78,6 +83,23 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
                 },
             )
             self.assertRedirects(response, "/")
+
+    @override_settings(
+        WAGTAIL_PASSWORD_REQUIRED_TEMPLATE="tests/custom_page_password_required.html"
+    )
+    def test_anonymous_user_must_authenticate_with_custom_password_required_template(
+        self,
+    ):
+        response = self.client.get("/secret-plans/")
+
+        self.assertNotEqual(
+            "wagtailcore/password_required.html",
+            response.templates[0].name,
+        )
+        self.assertEqual(
+            "tests/custom_page_password_required.html",
+            response.templates[0].name,
+        )
 
     def test_view_restrictions_apply_to_subpages(self):
         underpants_page = Page.objects.get(
@@ -214,3 +236,13 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
         response = self.client.get("/secret-login-plans/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<title>Secret login plans</title>")
+
+    def test_password_protected_page_headers(self):
+        response = self.client.get("/secret-plans/")
+        self.assertEqual(
+            response.templates[0].name, "wagtailcore/password_required.html"
+        )
+        self.assertIn("no-cache", response["Cache-Control"])
+        self.assertIn("no-store", response["Cache-Control"])
+        self.assertIn("must-revalidate", response["Cache-Control"])
+        self.assertIn("max-age=0", response["Cache-Control"])

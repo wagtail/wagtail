@@ -7,14 +7,15 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import register
+from wagtail.admin.telepath.widgets import WidgetAdapter
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page
-from wagtail.telepath import register
-from wagtail.widget_adapters import WidgetAdapter
 
 
 class BaseChooser(widgets.Input):
@@ -156,8 +157,10 @@ class BaseChooser(widgets.Input):
         # so let's make sure it fails early in the process
         try:
             id_ = attrs["id"]
-        except (KeyError, TypeError):
-            raise TypeError("BaseChooser cannot be rendered without an 'id' attribute")
+        except (KeyError, TypeError) as e:
+            raise TypeError(
+                "BaseChooser cannot be rendered without an 'id' attribute"
+            ) from e
 
         value_data = self.get_value_data(value)
         widget_html = self.render_html(name, value_data, attrs)
@@ -240,17 +243,17 @@ class AdminPageChooser(BaseChooser):
             for model in target_models:
                 try:
                     cleaned_target_models.append(resolve_model_string(model))
-                except (ValueError, LookupError):
+                except (ValueError, LookupError) as e:
                     raise ImproperlyConfigured(
                         "Could not resolve %r into a model. "
                         "Model names should be in the form app_label.model_name"
                         % (model,)
-                    )
+                    ) from e
         else:
             cleaned_target_models = [Page]
 
         if len(cleaned_target_models) == 1 and cleaned_target_models[0] is not Page:
-            model_name = cleaned_target_models[0]._meta.verbose_name.title()
+            model_name = capfirst(cleaned_target_models[0]._meta.verbose_name)
             self.choose_one_text += " (" + model_name + ")"
 
         self.user_perms = user_perms

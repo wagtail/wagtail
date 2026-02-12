@@ -1,15 +1,18 @@
 import datetime
+import json
 import unittest
 from unittest.mock import Mock
 
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import Http404
 from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
+from django.urls import reverse
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
@@ -48,6 +51,7 @@ from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     EventPageSpeaker,
+    ExcludedCopyPageNote,
     GenericSnippetPage,
     ManyToManyBlogPage,
     MTIBasePage,
@@ -68,6 +72,7 @@ from wagtail.test.testapp.models import (
     TaggedPage,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.url_routing import RouteResult
 
 
 def get_ct(model):
@@ -99,6 +104,19 @@ class TestValidation(TestCase):
             homepage.add_child(instance=hello_page)
 
         hello_page = SimplePage(title="", slug="hello-world", content="hello")
+        with self.assertRaises(ValidationError):
+            homepage.add_child(instance=hello_page)
+
+    def test_title_is_required_for_draft_page(self):
+        homepage = Page.objects.get(url_path="/home/")
+
+        hello_page = SimplePage(slug="hello-world", content="hello", live=False)
+        with self.assertRaises(ValidationError):
+            homepage.add_child(instance=hello_page)
+
+        hello_page = SimplePage(
+            title="", slug="hello-world", content="hello", live=False
+        )
         with self.assertRaises(ValidationError):
             homepage.add_child(instance=hello_page)
 
@@ -179,6 +197,20 @@ class TestValidation(TestCase):
         self.assertEqual(retrieved_page.draft_title, "Hello world edited")
 
 
+class TestAsyncMethods(TestCase):
+    def test_asave_with_update_fields_none_saves_all_fields(self):
+        root = Page.get_first_root_node()
+        page = Page(title="Original title", slug="async-page")
+        root.add_child(instance=page)
+
+        # Call asave using async_to_sync
+        page.title = "Updated title"
+        async_to_sync(page.asave)()
+
+        refreshed = Page.objects.get(id=page.id)
+        assert refreshed.title == "Updated title"
+
+
 @override_settings(
     ALLOWED_HOSTS=[
         "localhost",
@@ -210,6 +242,50 @@ class TestSiteRouting(TestCase):
         )
         self.unrecognised_port = "8000"
         self.unrecognised_hostname = "unknown.site.com"
+
+    def test_route_for_request_query_count(self):
+        request = get_dummy_request(site=self.events_site)
+        with self.assertNumQueries(2):
+            # expect queries for site & page
+            Page.route_for_request(request, request.path)
+        with self.assertNumQueries(0):
+            # subsequent lookups should be cached on the request
+            Page.route_for_request(request, request.path)
+
+    def test_route_for_request_value(self):
+        request = get_dummy_request(site=self.events_site)
+        self.assertFalse(hasattr(request, "_wagtail_route_for_request"))
+        result = Page.route_for_request(request, request.path)
+        self.assertTrue(isinstance(result, RouteResult))
+        self.assertEqual(
+            (result[0], result[1], result[2]),
+            (self.events_site.root_page.specific, [], {}),
+        )
+        self.assertTrue(hasattr(request, "_wagtail_route_for_request"))
+        self.assertIs(request._wagtail_route_for_request, result)
+
+    def test_route_for_request_cached(self):
+        request = get_dummy_request(site=self.events_site)
+        m = Mock()
+        request._wagtail_route_for_request = m
+        with self.assertNumQueries(0):
+            self.assertEqual(Page.route_for_request(request, request.path), m)
+
+    def test_route_for_request_suppresses_404(self):
+        request = get_dummy_request(path="does-not-exist", site=self.events_site)
+        self.assertIsNone(Page.route_for_request(request, request.path))
+
+    def test_find_for_request(self):
+        request_200 = get_dummy_request(site=self.events_site)
+        self.assertEqual(
+            Page.find_for_request(request_200, request_200.path),
+            self.events_site.root_page.specific,
+        )
+        request_404 = get_dummy_request(path="does-not-exist", site=self.events_site)
+        self.assertEqual(
+            Page.find_for_request(request_404, request_404.path),
+            None,
+        )
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
@@ -280,6 +356,12 @@ class TestSiteRouting(TestCase):
             self.assertEqual(
                 Site.find_for_request(request), self.alternate_port_events_site
             )
+
+    def test_site_with_disallowed_host(self):
+        request = get_dummy_request()
+        request.META["HTTP_HOST"] = "disallowed:80"
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
 
 
 class TestRouting(TestCase):
@@ -501,6 +583,20 @@ class TestRouting(TestCase):
             self.assertEqual(
                 christmas_page.get_url(request=request), "/events/christmas/"
             )
+
+    def test_cached_parent_obj_set(self):
+        homepage = Page.objects.get(url_path="/home/")
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        request = get_dummy_request(path="/events/christmas/")
+        (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
+        self.assertEqual(found_page, christmas_page)
+
+        # parent cache should be set
+        events_page = Page.objects.get(url_path="/home/events/").specific
+        with self.assertNumQueries(0):
+            parent = found_page.get_parent(update=False)
+            self.assertEqual(parent, events_page)
 
 
 @override_settings(
@@ -902,6 +998,155 @@ class TestSaveRevision(TestCase):
             e.exception.args[0],
             "page.save_revision() must be called on the specific version of the page. Call page.specific.save_revision() instead.",
         )
+
+    def test_validate_on_save_revision(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.date_from = None
+        with self.assertRaises(ValidationError):
+            christmas_event.save_revision()
+
+    def test_validate_on_schedule_revision(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.date_from = None
+        with self.assertRaises(ValidationError):
+            christmas_event.save_revision(
+                approved_go_live_at=timezone.now() + datetime.timedelta(days=1)
+            )
+
+    def test_overwrite_revision(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_that_is_not_latest(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 2)
+        christmas_event.title = "Three French hens"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 2)
+        latest_revision = christmas_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_from_other_instance(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+
+        other_event = EventPage.objects.get(
+            url_path="/home/events/tentative-unpublished-event/"
+        )
+        other_event.title = "The final event"
+        revision2 = other_event.save_revision()
+        self.assertEqual(other_event.revisions.count(), 1)
+
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that is not the latest for this page.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision2)
+
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        latest_revision = christmas_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "A partridge in a pear tree")
+
+        self.assertEqual(other_event.revisions.count(), 1)
+        latest_revision = other_event.get_latest_revision()
+        self.assertEqual(latest_revision.content["title"], "The final event")
+
+    def test_overwrite_revision_with_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_moderator)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        revision2 = christmas_event.save_revision(
+            user=event_moderator, overwrite_revision=revision1
+        )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        self.assertEqual(revision1.id, revision2.id)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "Two turtle doves")
+
+    def test_cannot_overwrite_revision_with_wrong_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_editor)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(
+                user=event_moderator, overwrite_revision=revision1
+            )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+    def test_cannot_overwrite_revision_with_omitted_user_id(self):
+        event_editor = get_user_model().objects.get(email="eventeditor@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision(user=event_editor)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(overwrite_revision=revision1)
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
+
+    def test_cannot_overwrite_anonymous_revision_with_user_id(self):
+        event_moderator = get_user_model().objects.get(
+            email="eventmoderator@example.com"
+        )
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.title = "A partridge in a pear tree"
+        revision1 = christmas_event.save_revision()
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        christmas_event.title = "Two turtle doves"
+        with self.assertRaisesMessage(
+            PermissionDenied,
+            "Cannot overwrite a revision that was not created by the current user.",
+        ):
+            christmas_event.save_revision(
+                user=event_moderator, overwrite_revision=revision1
+            )
+        self.assertEqual(christmas_event.revisions.count(), 1)
+        revision1.refresh_from_db()
+        self.assertEqual(revision1.content["title"], "A partridge in a pear tree")
 
 
 class TestLiveRevision(TestCase):
@@ -1901,24 +2146,34 @@ class TestCopyPage(TestCase):
 
     def test_copy_page_with_additional_excluded_fields(self):
         homepage = Page.objects.get(url_path="/home/")
-        page = homepage.add_child(
-            instance=PageWithExcludedCopyField(
-                title="Discovery",
-                slug="disco",
-                content="NCC-1031",
-                special_field="Context is for Kings",
-            )
+        page = PageWithExcludedCopyField(
+            title="Discovery",
+            slug="disco",
+            content="NCC-1031",
+            special_field="Context is for Kings",
+            special_stream=[("item", "non-default item")],
         )
+        page.special_notes = [ExcludedCopyPageNote(note="Some note")]
+        homepage.add_child(instance=page)
         page.save_revision()
         new_page = page.copy(to=homepage, update_attrs={"slug": "disco-2"})
-        exclude_field = new_page.latest_revision.content["special_field"]
+        revision_content = new_page.latest_revision.content
 
         self.assertEqual(page.title, new_page.title)
         self.assertNotEqual(page.id, new_page.id)
         self.assertNotEqual(page.path, new_page.path)
-        # special_field is in the list to be excluded
-        self.assertNotEqual(page.special_field, new_page.special_field)
-        self.assertEqual(new_page.special_field, exclude_field)
+
+        # special_field and special_stream are in the list to be excluded,
+        # and should revert to the default
+        self.assertEqual(new_page.special_field, "Very Special")
+        self.assertEqual(revision_content["special_field"], "Very Special")
+        self.assertEqual(new_page.special_stream[0].value, "default item")
+        stream_data = json.loads(revision_content["special_stream"])
+        self.assertEqual(stream_data[0]["value"], "default item")
+
+        # The special_notes relation should be cleared on the new page
+        self.assertEqual(new_page.special_notes.count(), 0)
+        self.assertEqual(revision_content["special_notes"], [])
 
     def test_page_with_generic_relation(self):
         """Test that a page with a GenericRelation will have that relation ignored when
@@ -3529,15 +3784,46 @@ class TestPageWithContentJSON(TestCase):
             "locked_by",
             "locked_at",
             "latest_revision_created_at",
-            "first_published_at",
         ):
             self.assertEqual(
                 getattr(original_page, attr_name), getattr(updated_page, attr_name)
             )
 
+        # first_published_at has special behavior: it's only preserved if the content doesn't provide a value
+        # Since we provided a value in the content, it should use that value instead of preserving the original
+        self.assertNotEqual(
+            original_page.first_published_at, updated_page.first_published_at
+        )
+
         # The url_path should reflect the new slug value, but the
         # rest of the path should have remained unchanged
         self.assertEqual(updated_page.url_path, "/home/about-them/")
+
+    def test_with_content_json_preserves_first_published_at_when_none(self):
+        original_page = SimplePage.objects.get(url_path="/home/about-us/")
+
+        # When first_published_at is None in content, it should preserve the original value
+        content_with_none = original_page.serializable_data()
+        content_with_none["first_published_at"] = None
+
+        updated_page_none = original_page.with_content_json(content_with_none)
+
+        self.assertEqual(
+            original_page.first_published_at, updated_page_none.first_published_at
+        )
+
+    def test_with_content_json_uses_first_published_at_when_provided(self):
+        original_page = SimplePage.objects.get(url_path="/home/about-us/")
+
+        # When first_published_at has a value in content, it should use that value
+        content_with_value = original_page.serializable_data()
+        content_with_value["first_published_at"] = "2000-01-01T00:00:00Z"
+
+        updated_page_value = original_page.with_content_json(content_with_value)
+
+        self.assertNotEqual(
+            original_page.first_published_at, updated_page_value.first_published_at
+        )
 
 
 class TestUnpublish(TestCase):
@@ -3917,3 +4203,136 @@ class TestPageCacheKey(TestCase):
         self.page.slug = "something-else"
         self.page.save()
         self.assertNotEqual(self.page.cache_key, original_cache_key)
+
+
+class TestPageCachedParentObjExists(TestCase):
+    fixtures = ["test.json"]
+
+    def test_cached_parent_obj_exists(self):
+        # https://github.com/wagtail/wagtail/pull/11737
+
+        # Test if _cached_parent_obj is set after using page.get_parent()
+        # This is treebeard specific, we don't know if their API will change.
+        homepage = Page.objects.get(url_path="/home/")
+        homepage._cached_parent_obj = "_cached_parent_obj_exists"
+        parent = homepage.get_parent(update=False)
+        self.assertEqual(
+            parent,
+            "_cached_parent_obj_exists",
+            "Page.get_parent() (treebeard) no longer uses _cached_parent_obj to cache the parent object",
+        )
+
+
+class TestPageServeWithPasswordRestriction(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.test_page = Page(
+            title="Test Page",
+            slug="test",
+        )
+        self.root_page.add_child(instance=self.test_page)
+
+        self.password_restriction = PageViewRestriction.objects.create(
+            page=self.test_page,
+            restriction_type=PageViewRestriction.PASSWORD,
+            password="password123",
+        )
+
+    def test_page_with_password_restriction_authenticated_has_cache_headers(self):
+        auth_url = reverse(
+            "wagtailcore_authenticate_with_password",
+            args=[self.password_restriction.id, self.test_page.id],
+        )
+
+        post_response = self.client.post(
+            auth_url,
+            {
+                "password": "password123",
+                "return_url": "/test/",
+            },
+        )
+
+        self.assertRedirects(post_response, "/test/")
+
+        response = self.client.get("/test/")
+
+        self.assertTrue("Cache-Control" in response)
+        self.assertIn("max-age=0", response["Cache-Control"])
+        self.assertIn("no-cache", response["Cache-Control"])
+        self.assertIn("no-store", response["Cache-Control"])
+        self.assertIn("must-revalidate", response["Cache-Control"])
+        self.assertIn("private", response["Cache-Control"])
+        self.assertTrue("Expires" in response)
+
+    def test_page_with_password_restriction_has_cache_headers(self):
+        response = self.client.get("/test/")
+
+        self.assertTrue("Cache-Control" in response)
+        self.assertIn("max-age=0", response["Cache-Control"])
+        self.assertIn("no-cache", response["Cache-Control"])
+        self.assertIn("no-store", response["Cache-Control"])
+        self.assertIn("must-revalidate", response["Cache-Control"])
+        self.assertIn("private", response["Cache-Control"])
+        self.assertTrue("Expires" in response)
+
+    def test_page_without_password_restriction_has_no_cache_headers(self):
+        self.password_restriction.delete()
+
+        response = self.client.get("/test/")
+
+        self.assertFalse("Cache-Control" in response)
+        self.assertFalse("Expires" in response)
+
+
+class TestPageNaturalKey(TestCase):
+    def setUp(self):
+        self.home_page = Page.objects.get(slug="home")
+
+    def test_page_natural_key(self):
+        natural_key = self.home_page.natural_key()
+        self.assertEqual(natural_key, ("/home/",))
+
+        retrieved_page = Page.objects.get_by_natural_key("/home/")
+        self.assertEqual(retrieved_page, self.home_page)
+
+
+class TestPageCreationWithoutPromotePanels(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.root_page = Page.objects.get(url_path="/home/")
+
+    def _submit_page_form(self, model_name, title):
+        url = reverse(
+            "wagtailadmin_pages:add", args=("tests", model_name, self.root_page.id)
+        )
+
+        get_response = self.client.get(url)
+        self.assertEqual(get_response.status_code, 200)
+
+        form = get_response.context["form"]
+        post_data = form.data.copy()
+
+        for key, value in list(post_data.items()):
+            if value is None:
+                post_data[key] = ""
+
+        post_data.update(
+            {
+                "title": title,
+                "action-save": "Save draft",
+            }
+        )
+
+        post_response = self.client.post(url, post_data)
+        return post_response
+
+    def test_create_simple_page_with_auto_slug(self):
+        response_1 = self._submit_page_form("nopromotepage", "New York")
+        self.assertEqual(response_1.status_code, 302)
+        self.assertTrue(Page.objects.filter(title="New York", slug="new-york").exists())
+
+        response_2 = self._submit_page_form("nopromotepage", "New York")
+        self.assertEqual(response_2.status_code, 302)
+        self.assertTrue(
+            Page.objects.filter(title="New York", slug="new-york-2").exists()
+        )

@@ -1,4 +1,3 @@
-import itertools
 from collections import defaultdict
 
 from django import template
@@ -6,10 +5,10 @@ from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import camel_case_to_spaces
+from django.utils.translation import gettext_noop
 
-from wagtail import hooks
 from wagtail.admin.models import Admin
-from wagtail.users.permission_order import CONTENT_TYPE_ORDER
+from wagtail.users.permission_order import get_content_type_order_lookup
 
 register = template.Library()
 
@@ -53,6 +52,14 @@ def normalize_permission_label(permission: Permission):
     return label
 
 
+# normalize_permission_label will return "Can view" for Django's standard "Can view X" permission.
+# formatted_permissions.html passes these labels through {% trans %} - since this is a variable
+# within the template it will not be picked up by makemessages, so we define a translation here
+# instead.
+
+VIEW_PERMISSION_LABEL = gettext_noop("Can view")
+
+
 @register.inclusion_tag("wagtailusers/groups/includes/formatted_permissions.html")
 def format_permissions(permission_bound_field):
     """
@@ -65,7 +72,6 @@ def format_permissions(permission_bound_field):
             'add': checkbox,
             'change': checkbox,
             'delete': checkbox,
-            'publish': checkbox,  # only if the model extends DraftStateMixin
             'custom': list_of_checkboxes_for_custom_permissions
         },
     ]
@@ -86,9 +92,10 @@ def format_permissions(permission_bound_field):
     # get a distinct and ordered list of the content types that these permissions relate to.
     # relies on Permission model default ordering, dict.fromkeys() retaining that order
     # from the queryset, and the stability of sorted().
+    content_type_order = get_content_type_order_lookup()
     content_type_ids = sorted(
         dict.fromkeys(permissions.values_list("content_type_id", flat=True)),
-        key=lambda ct: CONTENT_TYPE_ORDER.get(ct, float("inf")),
+        key=lambda ct: content_type_order.get(ct, float("inf")),
     )
 
     # iterate over permission_bound_field to build a lookup of individual renderable
@@ -101,13 +108,10 @@ def format_permissions(permission_bound_field):
 
     # Permissions that are known by Wagtail, to be shown under their own columns.
     # Other permissions will be shown under the "custom permissions" column.
-    main_permission_names = ["add", "change", "delete", "publish", "lock", "unlock"]
+    main_permission_names = ["add", "change", "delete"]
 
     # Only show the columns for these permissions if any of the model has them.
     extra_perms_exist = {
-        "publish": False,
-        "lock": False,
-        "unlock": False,
         "custom": False,
     }
     # Batch the permission query for all content types, then group by content type
@@ -181,12 +185,3 @@ def format_permissions(permission_bound_field):
         "other_perms": other_perms,
         "extra_perms_exist": extra_perms_exist,
     }
-
-
-@register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
-def user_listing_buttons(context, user):
-    button_hooks = hooks.get_hooks("register_user_listing_buttons")
-    buttons = sorted(
-        itertools.chain.from_iterable(hook(context, user) for hook in button_hooks)
-    )
-    return {"user": user, "buttons": buttons}

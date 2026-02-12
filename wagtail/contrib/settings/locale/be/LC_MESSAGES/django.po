@@ -4,14 +4,15 @@
 #
 # Translators:
 # Andrei Satsevich, 2023
+# Andrei Satsevich, 2023
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -25,18 +26,15 @@ msgstr ""
 msgid "default"
 msgstr "па змаўчанні"
 
+msgid "Sites"
+msgstr "Сайты"
+
 #, python-format
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s для %(site)s"
 
 msgid "Site"
 msgstr "Сайт"
-
-msgid "Saving…"
-msgstr "Захаванне"
-
-msgid "Save"
-msgstr "Захаваць"
 
 msgid "Settings"
 msgstr "Налады"

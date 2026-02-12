@@ -31,7 +31,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('custom_form_fields', label="Form fields"),
+        InlinePanel('custom_form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -80,7 +80,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -139,7 +139,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -212,7 +212,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -305,7 +305,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -447,7 +447,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -588,7 +588,7 @@ class FormPage(AbstractEmailForm):
 
 (custom_form_submission_listing)=
 
-## Customise form submissions listing in Wagtail Admin
+## Customize form submissions listing in Wagtail Admin
 
 The Admin listing of form submissions can be customized by setting the attribute `submissions_list_view_class` on your FormPage model.
 
@@ -629,8 +629,73 @@ class FormPage(AbstractEmailForm):
     # content_panels = ...
 ```
 
-```{versionchanged} 6.1
-The `SubmissionsListView` class is now a subclass of Wagtail's generic `BaseListingView`. As a result, the `ordering` attribute has been renamed to `default_ordering`.
+(custom_form_field_type_widgets)=
+
+## Customizing the widget of built-in field types
+
+When rendering a form, each field type will be rendered using its default widget, the widget used can be overridden as follows.
+
+Define your custom widget, in this example we will override the email type with an enhanced `EmailInput` widget.
+
+```py
+# myapp/widgets.py
+from django import forms
+from django.utils.translation import gettext as _
+
+#... other imports
+
+class CustomEmailInputWidget(forms.EmailInput):
+    """
+    This is a custom input type for the email field, with refined
+    extra attributes for cross-browser compatibility.
+    """
+
+    def __init__(self, attrs={}):
+
+        attrs = {
+            "autocapitalize": "off",
+            "autocomplete": "email",
+            "autocorrect": "off",
+            "placeholder": _("email@example.com"),
+            "spellcheck": "false",
+            **attrs, # let supplied attrs override the new defaults
+        }
+
+        super().__init__(attrs=attrs)
+```
+
+Override the `create_TYPE_field` method for the `email` type, assigning the widget to the field's options that have been defined by user entry.
+
+```python
+from wagtail.contrib.forms.forms import FormBuilder
+
+from myapp.widgets import CustomEmailInputWidget
+
+
+class CustomFormBuilder(FormBuilder):
+    # Override any of the `create_TYPE_field` to apply to different field types
+    # e.g., create_singleline_field, create_checkboxes_field, create_url_field
+    def create_email_field(self, field, options):
+        options["widget"] = CustomEmailInputWidget
+        return super().create_email_field(field, options)
+
+    # Alternatively, you can instantiate the widget directly with custom attributes
+    def create_singleline_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom-class"})
+        return super().create_singleline_field(field, options)
+```
+
+As per other customizations, ensure you have set the `form_builder` attribute on your form page model.
+
+```python
+from wagtail.contrib.forms.models import AbstractEmailForm
+
+
+class FormPage(AbstractEmailForm):
+    # intro, thank_you_text, edit_handlers, etc...
+
+    # use custom form builder defined above
+    form_builder = CustomFormBuilder
 ```
 
 ## Adding a custom field type
@@ -828,4 +893,33 @@ class EmailFormPage(EmailFormMixin, FormMixin, BasePage):
     intro = RichTextField(blank=True)
     # ...
 
+```
+
+(form_builder_custom_admin_validation)=
+
+## Custom validation for admin form pages
+
+By default, pages that inherit from `FormMixin` will validate that each field added by an editor has a unique `clean_name`.
+
+If you need to add custom validation, create a subclass of `WagtailAdminFormPageForm` and add your own `clean` definition and set the `base_form_class` on your `Page` model.
+
+```{note}
+Validation only applies when editors use the form builder to add fields in the Wagtail admin,
+not when the form is submitted by end users.
+```
+
+```python
+from wagtail.models import Page
+from wagtail.contrib.forms.models import FormMixin, WagtailAdminFormPageForm
+
+
+class CustomWagtailAdminFormPageForm(WagtailAdminFormPageForm):
+    def clean(self):
+        cleaned_data = super().clean()
+        # Insert custom validation here, see `WagtailAdminFormPageForm.clean` for an example
+        return cleaned_data
+
+
+class FormPage(AbstractForm):
+    base_form_class = CustomWagtailAdminFormPageForm
 ```

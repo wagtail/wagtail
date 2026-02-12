@@ -1,5 +1,3 @@
-from typing import Dict, List, Union
-
 from django.test import SimpleTestCase
 
 from .wagtail_tests import WagtailTestUtils
@@ -9,9 +7,9 @@ class AdminTemplateTestUtils:
     base_breadcrumb_items = [{"label": "Home", "url": "/admin/"}]
 
     def assertBreadcrumbsItemsRendered(
-        self: Union[WagtailTestUtils, SimpleTestCase],
-        items: List[Dict[str, str]],
-        html: Union[str, bytes],
+        self: WagtailTestUtils | SimpleTestCase,
+        items: list[dict[str, str]],
+        html: str | bytes,
     ):
         soup = self.get_soup(html)
         # Select with a class instead of a data-controller attribute because
@@ -79,8 +77,8 @@ class AdminTemplateTestUtils:
                 )
 
     def assertBreadcrumbsNotRendered(
-        self: Union[WagtailTestUtils, SimpleTestCase],
-        html: Union[str, bytes],
+        self: WagtailTestUtils | SimpleTestCase,
+        html: str | bytes,
     ):
         soup = self.get_soup(html)
         # Select with a class instead of a data-controller attribute because

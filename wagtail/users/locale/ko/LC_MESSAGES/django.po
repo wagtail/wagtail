@@ -6,13 +6,14 @@
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020
+# sl kim <vizuan@gmail.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
+"Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +85,9 @@ msgstr "거절 알림"
 msgid "Receive notification when your page edit is rejected"
 msgstr "당신의 페이지 수정 건이 거절되었을 때 알림을 받습니다"
 
+msgid "updated comments notifications"
+msgstr "댓글 변경 알림"
+
 msgid "preferred language"
 msgstr "선호하는 언어"
 
@@ -99,14 +103,55 @@ msgstr "현재 타임존 선택"
 msgid "profile picture"
 msgstr "프로필 사진"
 
+msgid "Default"
+msgstr "기본값"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "밀도"
+
 msgid "user profile"
 msgstr "사용자 프로필"
 
 msgid "user profiles"
 msgstr "사용자 프로필"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "%(counter)s명에게 역할 지정"
+
+msgid "Assign role"
+msgstr "역할 지정"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "정말 이 사용자들에게 역할을 지정하시겠습니까?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "당신은 이 사용자를 편집할 권한이 없습니다"
+
+msgid "Yes, assign"
+msgstr "네. 지정합니다"
+
+msgid "No, don't assign"
+msgstr "아니오, 지정하지 않습니다"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "%(counter)s명의 사용자를 삭제"
+
 msgid "Delete"
 msgstr "삭제"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "정말 이 사용자들을 삭제하시겠습니까?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "당신은 이 사용자들을 삭제할 수 있는 권한이 없습니다"
 
 msgid "Yes, delete"
 msgstr "네, 지우겠습니다."
@@ -122,15 +167,6 @@ msgstr "이 그룹을 지우면 그룹 안의 모든 구성원들의 권한도 �
 msgid "Are you sure you want to delete this group?"
 msgstr "이 그룹을 정말 삭제할까요?"
 
-msgid "Add group"
-msgstr "그룹 추가"
-
-msgid "Save"
-msgstr "저장"
-
-msgid "Delete group"
-msgstr "그룹 삭제"
-
 msgid "Object permissions"
 msgstr "오브젝트 권한"
 
@@ -142,15 +178,6 @@ msgstr "추가"
 
 msgid "Change"
 msgstr "변화"
-
-msgid "Publish"
-msgstr "게시"
-
-msgid "Lock"
-msgstr "잠금"
-
-msgid "Unlock"
-msgstr "잠금 풀기"
 
 msgid "Other permissions"
 msgstr "다른 권한"
@@ -176,36 +203,14 @@ msgstr ""
 "그룹이 설정되어 있지 않습니다. 지금 그룹을 <a "
 "href=\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "이 사용자를 확실히 삭제하시겠습니까?"
-
 msgid "Account"
 msgstr "계정"
 
 msgid "Roles"
 msgstr "역할"
 
-msgid "Add user"
-msgstr "사용자 추가"
-
-msgid "Delete user"
-msgstr "사용자 삭제"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 사용자가 없습니다"
-
-msgid "Username"
-msgstr "사용자명"
-
-msgid "Status"
-msgstr "상태"
-
-msgid "Last Login"
-msgstr "최근 로그인"
-
-msgid "Admin"
-msgstr "관리자"
+msgid "Sorry, no users match your query"
+msgstr "죄송합니다. 해당하는 사용자가 없습니다"
 
 msgid "Active"
 msgstr "활성화"
@@ -222,6 +227,9 @@ msgstr "그룹 추가"
 msgid "Search groups"
 msgstr "그룹 검색"
 
+msgid "Add group"
+msgstr "그룹 추가"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "'%(object)s' 그룹이 생성 되었습니다."
@@ -237,11 +245,26 @@ msgstr "에러로 인해 그룹이 생성될 수 없습니다."
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s' 그룹이 삭제 되었습니다."
 
+msgid "Delete group"
+msgstr "그룹 삭제"
+
+msgid "Group"
+msgstr "그룹"
+
 msgid "Add a user"
 msgstr "사용자 추가"
 
 msgid "Users"
 msgstr "사용자"
+
+msgid "Username"
+msgstr "사용자명"
+
+msgid "Admin"
+msgstr "관리자"
+
+msgid "Add user"
+msgstr "사용자 추가"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -250,9 +273,9 @@ msgstr "'%(object)s' 사용자가 업데이트 되었습니다."
 msgid "The user could not be saved due to errors."
 msgstr "에러로 인해 사용자를 저장할 수 없습니다."
 
+msgid "Delete user"
+msgstr "사용자 삭제"
+
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "'%(object)s' 사용자가 삭제되었습니다."
-
-msgid "Edit"
-msgstr "수정"

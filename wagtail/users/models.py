@@ -6,6 +6,8 @@ from django.db import models
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.localization import get_available_admin_languages
+
 
 def upload_avatar_to(instance, filename):
     filename, ext = os.path.splitext(filename)
@@ -72,16 +74,45 @@ class UserProfile(models.Model):
 
     dismissibles = models.JSONField(default=dict, blank=True)
 
-    class AdminThemes(models.TextChoices):
+    class AdminColorThemes(models.TextChoices):
         SYSTEM = "system", _("System default")
         LIGHT = "light", _("Light")
         DARK = "dark", _("Dark")
 
     theme = models.CharField(
         verbose_name=_("admin theme"),
-        choices=AdminThemes.choices,
-        default=AdminThemes.SYSTEM,
+        choices=AdminColorThemes.choices,
+        default=AdminColorThemes.SYSTEM,
         max_length=40,
+    )
+
+    class AdminContrastThemes(models.TextChoices):
+        SYSTEM = "system", _("System default")
+        MORE_CONTRAST = "more_contrast", _("More contrast")
+
+    contrast = models.CharField(
+        verbose_name=_("contrast"),
+        choices=AdminContrastThemes.choices,
+        default=AdminContrastThemes.SYSTEM,
+        max_length=40,
+    )
+
+    class AdminDensityThemes(models.TextChoices):
+        DEFAULT = "default", _("Default")
+        SNUG = "snug", _("Snug")
+
+    density = models.CharField(
+        # Translators: "Density" is the term used to describe the amount of space between elements in the user interface
+        verbose_name=_("density"),
+        choices=AdminDensityThemes.choices,
+        default=AdminDensityThemes.DEFAULT,
+        max_length=40,
+    )
+
+    keyboard_shortcuts = models.BooleanField(
+        verbose_name=_("Keyboard shortcuts"),
+        default=True,
+        help_text=_("Enable custom keyboard shortcuts specific to Wagtail."),
     )
 
     @classmethod
@@ -89,7 +120,11 @@ class UserProfile(models.Model):
         return cls.objects.get_or_create(user=user)[0]
 
     def get_preferred_language(self):
-        return self.preferred_language or get_language()
+        if self.preferred_language:
+            return self.preferred_language
+        if (language := get_language()) in dict(get_available_admin_languages()):
+            return language
+        return settings.LANGUAGE_CODE
 
     def get_current_time_zone(self):
         return self.current_time_zone or settings.TIME_ZONE

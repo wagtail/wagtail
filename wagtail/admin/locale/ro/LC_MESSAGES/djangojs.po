@@ -1,13 +1,14 @@
 #
 # Translators:
-# Bogdan Mateescu, 2022
 # Julian C <jcuotpc@gmail.com>, 2022
 # Alex Morega, 2023
-# Dan Braghis, 2023
+# Loic Teixeira, 2024
+# Bogdan Mateescu, 2025
+# Dan Braghis, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dan Braghis, 2023\n"
+"Last-Translator: Dan Braghis, 2026\n"
 "Language-Team: Romanian (https://app.transifex.com/torchbox/teams/8009/ro/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ro\n"
@@ -34,6 +35,12 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixeli"
 msgstr[2] "%(num)s de pixeli"
+
+msgid "Actions"
+msgstr "Acțiuni"
+
+msgid "Add"
+msgstr "Adaugă"
 
 msgid "Add a comment"
 msgstr "Adaugă un comentariu"
@@ -80,6 +87,12 @@ msgstr "Eroare de ștergere"
 msgid "Deleting"
 msgstr "În curs de ștergere"
 
+msgid "Drag"
+msgstr "Glisează"
+
+msgid "Duplicate"
+msgstr "Duplică"
+
 msgid "Edit"
 msgstr "Editează"
 
@@ -122,6 +135,15 @@ msgstr "Document lipsă"
 msgid "More actions"
 msgstr "Mai multe acțiuni"
 
+msgid "Move down"
+msgstr "Deplasează în jos"
+
+msgid "Move up"
+msgstr "Deplasează în sus"
+
+msgid "No"
+msgstr "Nu"
+
 msgid "No results"
 msgstr "Nici un rezultat"
 
@@ -136,6 +158,9 @@ msgstr "Pagini"
 
 msgid "Pin toolbar"
 msgstr "Fixează bara de instrumente"
+
+msgid "Preview"
+msgstr "Examinare"
 
 msgid "Reload saved content"
 msgstr "Reîncarcă conținutul salvat"
@@ -165,15 +190,6 @@ msgstr "Salvează"
 msgid "Save error"
 msgstr "Eroare de salvare"
 
-msgid "Save the page to add this comment"
-msgstr "Salvează pagina pentru a adăuga acest comentariu"
-
-msgid "Save the page to save this comment"
-msgstr "Salvează pagina pentru a păstra acest comentariu"
-
-msgid "Save the page to save this reply"
-msgstr "Salvează pagina pentru a păstra acest răspuns"
-
 msgid "Saving..."
 msgstr "În curs de salvare..."
 
@@ -189,6 +205,9 @@ msgstr "Vezi toate"
 msgid "Server Error"
 msgstr "Eroare de server"
 
+msgid "Settings"
+msgstr "Setări"
+
 msgid "Show error"
 msgstr "Afișează eroare"
 
@@ -202,8 +221,17 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Numărul maxim de articole este %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Numărul minim de articole este %(min_num)d"
+
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."
+
+msgid "Toggle section"
+msgstr "Comută secțiunea"
 
 msgid "Toggle side panel"
 msgstr "Comută panou lateral"
@@ -222,3 +250,6 @@ msgstr "Vezi pagini descendente la '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Scrie ceva, sau ‘/‘ pentru a insera un bloc"
+
+msgid "Yes"
+msgstr "Da"

@@ -33,7 +33,7 @@ For more information, see the Django documentation for the [application director
 
 ### Page content
 
-The data/content entered into each page is accessed/output through Django's `{{ double-brace }}` notation. Each field from the model must be accessed by prefixing `page.`. For example the page title `{{ page.title }}` or another field `{{ page.author }}`.
+The data/content entered into each page is accessed/output through Django's `{{ double-brace }}` notation. Each field from the model must be accessed by prefixing `page.`. For example the page title `{{ page.title }}` or an author field `{{ page.author }}`.
 
 A custom variable name can be configured on the page model {attr}`wagtail.models.Page.context_object_name`. If a custom name is defined, `page` is still available for use in shared templates.
 
@@ -138,7 +138,7 @@ See [](responsive_images) for full documentation.
 
 ## Rich text (filter)
 
-This filter takes a chunk of HTML content and renders it as safe HTML on the page. Importantly, it also expands internal shorthand references to embedded images and links made in the Wagtail editor, into fully-baked HTML ready for display.
+The `richtext` filter takes a chunk of HTML content and renders it as safe HTML on the page. Importantly, it also expands internal shorthand references to embedded images and links made in the Wagtail editor, into fully-baked HTML ready for display.
 
 Only fields using `RichTextField` need this applied in the template.
 
@@ -163,7 +163,13 @@ As Wagtail does not impose any styling of its own on templates, images, and embe
 
 where `body` is a container element in your template surrounding the images.
 
-Making embedded media resizable is also possible, but typically requires custom style rules matching the media's aspect ratio. To assist in this, Wagtail provides built-in support for responsive embeds, which can be enabled by setting `WAGTAILEMBEDS_RESPONSIVE_HTML = True` in your project settings. This adds a CSS class of `responsive-object` and an inline `padding-bottom` style to the embed, to be used in conjunction with the following CSS:
+Making embedded media resizable is also possible, but typically requires custom style rules matching the media's aspect ratio. To assist in this, Wagtail provides built-in support for responsive embeds, which can be enabled by setting `WAGTAILEMBEDS_RESPONSIVE_HTML = True` in your project settings. This adds a CSS class of `responsive-object` and an inline `padding-bottom` style to the embed:
+
+```{literalinclude} ../../wagtail/embeds/templates/wagtailembeds/embed_frontend.html
+:language: html+django
+```
+
+The built-in template (`wagtailembeds/embed_frontend.html`) above is to be used in conjunction with the following CSS:
 
 ```css
 .responsive-object {
@@ -181,13 +187,15 @@ Making embedded media resizable is also possible, but typically requires custom 
 }
 ```
 
+For sites enforcing a Content Security Policy, you can override the `wagtailembeds/embed_frontend.html` template to apply the inline styles via a `<style>` tag with a `nonce` attribute.
+
 ## Internal links (tag)
 
 (pageurl_tag)=
 
 ### `pageurl`
 
-Takes a Page object and returns a relative URL (`/foo/bar/`) if within the same Site as the current page, or absolute (`http://example.com/foo/bar/`) if not.
+Takes a Page object and returns a relative URL (`/foo/bar/`) if within the same Site as the current page, or absolute (`https://example.com/foo/bar/`) if not.
 
 ```html+django
 {% load wagtailcore_tags %}
@@ -213,7 +221,7 @@ A `fallback` keyword argument can be provided - this can be a URL string, a name
 
 ### `fullpageurl`
 
-Takes a Page object and returns its absolute URL (`http://example.com/foo/bar/`).
+Takes a Page object and returns its absolute URL (`https://example.com/foo/bar/`).
 
 ```html+django
 {% load wagtailcore_tags %}
@@ -241,7 +249,7 @@ Like `pageurl`, this will try to provide a relative link if possible but will de
 
 ## Static files (tag)
 
-Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, such as when moving from development to a live environment.
+The `static` tag is used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, such as when moving from development to a live environment.
 
 ```html+django
 {% load static %}
@@ -269,7 +277,7 @@ Returns the Site object corresponding to the current request.
 
 ## Wagtail user bar
 
-This tag provides a contextual flyout menu for logged-in users. The menu gives editors the ability to edit the current page or add a child page, besides the options to show the page in the Wagtail page explorer or jump to the Wagtail admin dashboard. Moderators are also given the ability to accept or reject a page being previewed as part of content moderation.
+The `wagtailuserbar` tag provides a contextual flyout menu for logged-in users. The menu gives editors the ability to edit the current page or add a child page, besides the options to show the page in the Wagtail page explorer or jump to the Wagtail admin dashboard.
 
 This tag may be used on standard Django views, without page object. The user bar will contain one item pointing to the admin.
 
@@ -311,6 +319,8 @@ wagtail-userbar::part(userbar) {
 
 To customize the items shown in the user bar, you can use the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
+The user bar is also available as a [template component](template_components), which allows it to be rendered independently and [loaded by a headless frontend](headless_user_bar).
+
 ## Varying output between preview and live
 
 Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a `request.is_preview` variable to distinguish between preview and live:
@@ -331,7 +341,7 @@ if the page supports [multiple preview modes](wagtail.models.Page.preview_modes)
 
 ## Template fragment caching
 
-Django supports [template fragment caching](https://docs.djangoproject.com/en/stable/topics/cache/#template-fragment-caching), which allows caching portions of a template. Using Django's `{% cache %}` tag natively with Wagtail can be [dangerous](https://github.com/wagtail/wagtail/issues/5074) as it can result in preview content being shown to end users. Instead, Wagtail provides 2 extra template tags which can be loaded from `wagtail_cache`:
+Django supports [template fragment caching](<inv:django:std:label#topics/cache:template fragment caching>), which allows caching portions of a template. Using Django's `{% cache %}` tag natively with Wagtail can be [dangerous](https://github.com/wagtail/wagtail/issues/5074) as it can result in preview content being shown to end users. Instead, Wagtail provides 2 extra template tags which can be loaded from `wagtail_cache`:
 
 (wagtailcache)=
 
@@ -342,7 +352,7 @@ The `{% wagtailcache %}` tag functions similarly to Django's `{% cache %}` tag, 
 ```html+django
 {% load wagtail_cache %}
 
-{% wagtailcache 500 "sidebar" %}
+{% wagtailcache 500 sidebar %}
     <!-- sidebar -->
 {% endwagtailcache %}
 ```
@@ -358,7 +368,7 @@ Much like `{% cache %}`, you can use [`make_template_fragment_key`](django.core.
 ```html+django
 {% load wagtail_cache %}
 
-{% wagtailpagecache 500 "hero" %}
+{% wagtailpagecache 500 hero %}
     <!-- hero -->
 {% endwagtailpagecache %}
 ```
@@ -368,7 +378,7 @@ This is identical to:
 ```html+django
 {% wagtail_site as current_site %}
 
-{% wagtailcache 500 "hero" page.cache_key current_site.id %}
+{% wagtailcache 500 hero page.cache_key current_site.id %}
     <!-- hero -->
 {% endwagtailcache %}
 ```

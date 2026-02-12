@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,21 +53,9 @@ msgstr "περιγραφή"
 msgid "search promotion"
 msgstr "αναζήτηση προώθησης"
 
-msgid "Add search promotion"
-msgstr "Προσθήκη αναζήτησης προώθησης"
-
-msgid "Add search pick"
-msgstr "Προσθήκη search pick"
-
-msgid "Save"
-msgstr "Αποθήκευση"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Διαγραφή %(query)s"
-
-msgid "Delete"
-msgstr "Διαγραφή"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -75,48 +63,34 @@ msgstr ""
 "Είστε σίγουρος ότι θέλετε να διαγράψετε όλες τις επιλογές συντακτών για τον "
 "εν λόγω όρο αναζήτησης;"
 
-msgid "Yes, delete"
-msgstr "Ναι, να διαγραφεί"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Επεξεργασία %(query)s"
-
-msgid "Editing"
-msgstr "Διόρθωση"
-
 msgid "Move up"
 msgstr "Πάνω"
 
 msgid "Move down"
 msgstr "Κάτω"
 
+msgid "Drag"
+msgstr "Τραβήξτε"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
 msgid "Promoted search results"
 msgstr "Προωθουνται τα αποτέλεσματα αναζήτησης"
 
-msgid "Search Terms"
-msgstr "Όροι αναζήτησης"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Λυπούμαστε, καμία ανακατεύθυνση δε ταιριάζει με το \"<em>%(query_string)s</"
+"em>\""
 
-msgid "Add new promoted result"
-msgstr "Προσθήκη νέου προωθείμενου αποτελέσματος"
-
-msgid "Search term(s)"
-msgstr "Όροι αναζήτησης"
-
-msgid "Promoted results"
-msgstr "Προωθημενα αποτελέσματα"
-
-msgid "Views (past week)"
-msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
-
-msgid "Edit this promotion"
-msgstr "Επεξεργασία αυτής της προώθησης"
-
-msgid "External link"
-msgstr "Εξωτερική σύνδεση"
-
-msgid "None"
-msgstr "Καμία"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Δεν δημιουργήθηκαν προωθημένα αποτελέσματα. Γιατί να μην <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">προσθέσετε ένα</a>;"
 
 msgid "Popular search terms"
 msgstr "Δημοφιλείς όροι αναζήτησης"
@@ -133,36 +107,34 @@ msgstr "Δε βρέθηκαν αποτελέσματα"
 msgid "Choose from popular search terms"
 msgstr "Επιλέξτε από δημοφιλείς όρους αναζήτησης"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Λυπούμαστε, καμία ανακατεύθυνση δε ταιριάζει με το \"<em>%(query_string)s</"
-"em>\""
+msgid "External link"
+msgstr "Εξωτερική σύνδεση"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Δεν δημιουργήθηκαν προωθημένα αποτελέσματα. Γιατί να μην <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">προσθέσετε ένα</a>;"
+msgid "None"
+msgstr "Καμία"
+
+msgid "Date"
+msgstr "Ημερομηνία"
+
+msgid "Search term(s)"
+msgstr "Όροι αναζήτησης"
+
+msgid "Add new promoted result"
+msgstr "Προσθήκη νέου προωθείμενου αποτελέσματος"
+
+msgid "Promoted results"
+msgstr "Προωθημενα αποτελέσματα"
+
+msgid "Promoted search result"
+msgstr "Προωθείται το αποτέλεσμα αναζήτησης"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Επιτυχής δημιουργία επιλογή συντακτών για το '%(query)s'."
 
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-msgid "Recommendations have not been created due to errors"
-msgstr "Οι συστάσεις δεν έχουν δημιουργηθεί λόγω σφαλμάτων"
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Επιτυχής διόθρωση επιλογής συντακτών για το '%(query)s'."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Οι συστάσεις δεν έχουν αποθηκευτεί λόγω σφαλμάτων"
 
 msgid "Editor's picks deleted."
 msgstr "Επιτυχής διαγραφή επιλογής συντακτών."

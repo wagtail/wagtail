@@ -4,12 +4,13 @@
 #
 # Translators:
 # Jonathan D, 2023
+# Jonathan D, 2023
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -23,18 +24,15 @@ msgstr ""
 msgid "default"
 msgstr "standard"
 
+msgid "Sites"
+msgstr "Nettsteder"
+
 #, python-format
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s for %(site)s"
 
 msgid "Site"
 msgstr "Nettsted"
-
-msgid "Saving…"
-msgstr "Lagrer…"
-
-msgid "Save"
-msgstr "Lagre"
 
 msgid "Settings"
 msgstr "Innstillinger"

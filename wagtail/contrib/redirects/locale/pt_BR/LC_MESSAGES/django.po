@@ -11,16 +11,17 @@
 # Iuri L. Machado, 2021-2022
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2018
-# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2022
+# Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2022
+# Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2022
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
+"Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -115,12 +116,6 @@ msgstr "redirecionamento"
 msgid "redirects"
 msgstr "redirecionamentos"
 
-msgid "Add redirect"
-msgstr "Adicionar Redirecionamentos"
-
-msgid "Save"
-msgstr "Salvar"
-
 msgid "Redirects"
 msgstr "Redirecionamentos"
 
@@ -146,14 +141,8 @@ msgstr "Importar"
 msgid "Delete redirect %(title)s"
 msgstr "Excluir redirecionamento %(title)s"
 
-msgid "Delete"
-msgstr "Excluir"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Você tem certeza que deseja excluir esse redirecionamento?"
-
-msgid "Yes, delete"
-msgstr "Sim, exclua"
 
 msgid "Confirm import"
 msgstr "Confirmar importação"
@@ -166,16 +155,6 @@ msgstr "Cancelar"
 
 msgid "Preview"
 msgstr "Pré-visualizar"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editando %(title)s"
-
-msgid "Editing"
-msgstr "Editando"
-
-msgid "Delete redirect"
-msgstr "Excluir redirecionamento"
 
 msgid "Summary"
 msgstr "Sumário"
@@ -199,25 +178,6 @@ msgstr "Erro"
 msgid "Continue"
 msgstr "Continuar"
 
-msgid "Export redirects"
-msgstr "Exportar redirecionamentos"
-
-msgid "Site"
-msgstr "Site"
-
-msgid "Edit this redirect"
-msgstr "Edite esse redirecionamento"
-
-msgid "No redirects found."
-msgstr "Nenhum redirecionamento foi encontrado."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Encontrados %(counter)s resultados"
-msgstr[1] "Encontrados %(counter)s resultados"
-msgstr[2] "Encontrados %(counter)s resultados"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -231,41 +191,32 @@ msgstr ""
 "Não há redirecionamentos criados. Por que não foi <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
 
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "Redirecionar '%(redirect_title)s' atualizado."
+msgid "Add redirect"
+msgstr "Adicionar Redirecionamentos"
 
-msgid "Edit"
-msgstr "Editar"
+msgid "Site"
+msgstr "Site"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "O redirecionamento não pôde ser salvo devido a erros."
 
 #, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Redirecionar '%(redirect_title)s' atualizado."
+
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Redirecionamento %(redirect_title)s excluído."
+
+msgid "The redirect could not be created due to errors."
+msgstr "O redirecionamento não pode ser criado devido a erros."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Redirecionamento %(redirect_title)s adicionado."
 
-msgid "The redirect could not be created due to errors."
-msgstr "O redirecionamento não pode ser criado devido a erros."
-
 msgid "Search redirects"
 msgstr "Pesquisar redirecionamentos"
-
-#, python-format
-msgid "File format of type \"%(extension)s\" is not supported"
-msgstr "O formato do arquivo com extensão \"%(extension)s\" não é suportado"
-
-#, python-format
-msgid "Imported file has a wrong encoding: %(error_message)s"
-msgstr "O arquivo importado têm uma codificação errada: %(error_message)s"
-
-#, python-format
-msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s erros encontrados ao tentar ler o arquivo: %(filename)s"
 
 #, python-format
 msgid "Imported %(total)d redirect"
@@ -273,6 +224,3 @@ msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Foi importado %(total)dredirecionamento"
 msgstr[1] "Foram importados %(total)d redirecionamentos"
 msgstr[2] "Foram importados %(total)d redirecionamentos"
-
-msgid "Export Redirects"
-msgstr "Exportar Redirecionamentos"

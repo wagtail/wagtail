@@ -94,7 +94,7 @@ Admin
 * ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
 * Page model fields without a ``FieldPanel`` are no longer displayed in the form
 * No longer need to specify the base model on ``InlinePanel`` definitions
-* Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface. See :ref:`customising_the_tabbed_interface`.
+* Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface. See :ref:`customizing_the_tabbed_interface`.
 
 
 **Other admin changes**
@@ -200,7 +200,7 @@ should work fine without them.
 ``RoutablePage`` now uses decorator syntax for defining views
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In previous versions of Wagtail, page types that used the :class:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` had endpoints configured by setting their :attr:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin.subpage_urls` attribute to a list of urls with view names. This will not work on Django 1.8 as view names can no longer be passed into a url (see: https://docs.djangoproject.com/en/stable/releases/1.8/#django-conf-urls-patterns).
+In previous versions of Wagtail, page types that used :ref:`routable_page_mixin` had endpoints configured by setting their ``subpage_urls`` attribute to a list of urls with view names. This will not work on Django 1.8 as view names can no longer be passed into a url (see: https://docs.djangoproject.com/en/stable/releases/1.8/#django-conf-urls-patterns).
 
 Wagtail 1.0 introduces a new syntax where each view function is annotated with a ``@route`` decorator - see :ref:`routable_page_mixin`.
 
@@ -229,7 +229,7 @@ This has now been changed to add some ``meta`` information:
         "id": 1,
         "meta": {
             "type": "wagtailimages.Image",
-            "detail_url": "http://api.example.com/api/v1/images/1/"
+            "detail_url": "https://api.example.com/api/v1/images/1/"
         }
     }
 
@@ -339,7 +339,7 @@ Previously, the forms for creating and editing images followed Django's default 
 ``construct_wagtail_edit_bird`` hook has been renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously you could customise the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
+Previously you could customize the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
 The hook has been renamed to ``construct_wagtail_userbar``.
 
 The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.

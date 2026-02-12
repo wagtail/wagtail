@@ -4,6 +4,7 @@ from contextlib import contextmanager
 from mimetypes import guess_type
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.dispatch import Signal
@@ -37,7 +38,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_("tags"))
 
-    file_size = models.PositiveIntegerField(null=True, editable=False)
+    file_size = models.PositiveBigIntegerField(null=True, editable=False)
     # A SHA-1 hash of the file contents
     file_hash = models.CharField(max_length=40, blank=True, editable=False)
 
@@ -56,6 +57,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
             ],
         ),
         index.FilterField("uploaded_by_user"),
+        index.FilterField("created_at"),
     ]
 
     def clean(self):
@@ -71,7 +73,10 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         allowed_extensions = getattr(settings, "WAGTAILDOCS_EXTENSIONS", None)
         if allowed_extensions:
             validate = FileExtensionValidator(allowed_extensions)
-            validate(self.file)
+            try:
+                validate(self.file)
+            except ValidationError as e:
+                raise ValidationError({"file": e.messages[0]}) from e
 
     def is_stored_locally(self):
         """
@@ -97,7 +102,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
             else:
                 # Some external storage backends don't allow reopening
                 # the file. Get a fresh file instance. #1397
-                storage = self._meta.get_field("file").storage
+                storage = self.file.storage
                 f = storage.open(f.name, "rb")
 
             close_file = True

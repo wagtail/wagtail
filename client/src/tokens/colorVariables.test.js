@@ -17,13 +17,13 @@ describe('generateColorVariables', () => {
   });
 
   /**
-   * If this test breaks, it means we’ve either changed our color palette, or changed how we make each of the colors customisable.
-   * If the change is intentional, we will then need to update our `custom_user_interface_colours` documentation.
-   * - Open Storybook’s color customisation story in a browser
+   * If this test breaks, it means we’ve either changed our color palette, or changed how we make each of the colors customizable.
+   * If the change is intentional, we will then need to update our `custom_user_interface_colors` documentation.
+   * - Open Storybook’s color customization story in a browser
    * - Use your browser’s DevTools to copy the relevant story markup to our Markdown documentation.
    * - Leave the copied content exactly as-is when pasting, to avoid any Markdown formatting issues.
    */
-  it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
+  it('is stable (update custom_user_interface_colors documentation when this changes)', () => {
     const colorVariables = generateColorVariables(staticColors);
     expect(colorVariables).toMatchInlineSnapshot(`
       {
@@ -80,7 +80,7 @@ describe('generateColorVariables', () => {
         "--w-color-grey-800-lightness": "11.4%",
         "--w-color-grey-800-saturation": "0%",
         "--w-color-info-100": "hsl(var(--w-color-info-100-hue) var(--w-color-info-100-saturation) var(--w-color-info-100-lightness))",
-        "--w-color-info-100-hue": "calc(var(--w-color-info-125-hue) - 1)",
+        "--w-color-info-100-hue": "calc(var(--w-color-info-125-hue) - 0.1)",
         "--w-color-info-100-lightness": "calc(var(--w-color-info-125-lightness) + 6.5%)",
         "--w-color-info-100-saturation": "calc(var(--w-color-info-125-saturation) + 0.7%)",
         "--w-color-info-125": "hsl(var(--w-color-info-125-hue) var(--w-color-info-125-saturation) var(--w-color-info-125-lightness))",
@@ -91,6 +91,10 @@ describe('generateColorVariables', () => {
         "--w-color-info-50-hue": "calc(var(--w-color-info-125-hue) + 2.2)",
         "--w-color-info-50-lightness": "calc(var(--w-color-info-125-lightness) + 65.9%)",
         "--w-color-info-50-saturation": "calc(var(--w-color-info-125-saturation) + 15.1%)",
+        "--w-color-info-75": "hsl(var(--w-color-info-75-hue) var(--w-color-info-75-saturation) var(--w-color-info-75-lightness))",
+        "--w-color-info-75-hue": "calc(var(--w-color-info-125-hue) + 0.4)",
+        "--w-color-info-75-lightness": "calc(var(--w-color-info-125-lightness) + 36.3%)",
+        "--w-color-info-75-saturation": "calc(var(--w-color-info-125-saturation) - 27.4%)",
         "--w-color-positive-100": "hsl(var(--w-color-positive-100-hue) var(--w-color-positive-100-saturation) var(--w-color-positive-100-lightness))",
         "--w-color-positive-100-hue": "162.1",
         "--w-color-positive-100-lightness": "31.6%",
@@ -139,6 +143,10 @@ describe('generateColorVariables', () => {
         "--w-color-warning-50-hue": "calc(var(--w-color-warning-100-hue) - 2.3)",
         "--w-color-warning-50-lightness": "calc(var(--w-color-warning-100-lightness) + 41.8%)",
         "--w-color-warning-50-saturation": "calc(var(--w-color-warning-100-saturation) - 21.3%)",
+        "--w-color-warning-75": "hsl(var(--w-color-warning-75-hue) var(--w-color-warning-75-saturation) var(--w-color-warning-75-lightness))",
+        "--w-color-warning-75-hue": "calc(var(--w-color-warning-100-hue) + 0.7)",
+        "--w-color-warning-75-lightness": "calc(var(--w-color-warning-100-lightness) + 23.4%)",
+        "--w-color-warning-75-saturation": "calc(var(--w-color-warning-100-saturation) - 2.8%)",
         "--w-color-white": "hsl(var(--w-color-white-hue) var(--w-color-white-saturation) var(--w-color-white-lightness))",
         "--w-color-white-hue": "0",
         "--w-color-white-lightness": "100%",
@@ -149,7 +157,7 @@ describe('generateColorVariables', () => {
 });
 
 describe('transparencies', () => {
-  it('is stable (update custom_user_interface_colours documentation when this changes)', () => {
+  it('is stable (update custom_user_interface_colors documentation when this changes)', () => {
     expect(transparencies).toMatchInlineSnapshot(`
       {
         "--w-color-black-10": "rgba(0, 0, 0, 0.10)",
@@ -185,7 +193,7 @@ describe('generateThemeColorVariables', () => {
     ]);
   });
 
-  it('light theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
+  it('light theme is stable (update custom_user_interface_colors documentation when this changes)', () => {
     expect(generateThemeColorVariables(colorThemes.light))
       .toMatchInlineSnapshot(`
       {
@@ -196,6 +204,11 @@ describe('generateThemeColorVariables', () => {
         "--w-color-border-field-hover": "var(--w-color-grey-200)",
         "--w-color-border-field-inactive": "var(--w-color-grey-150)",
         "--w-color-border-furniture": "var(--w-color-grey-100)",
+        "--w-color-border-furniture-more-contrast": "var(--w-color-grey-200)",
+        "--w-color-border-interactive-more-contrast": "var(--w-color-grey-500)",
+        "--w-color-border-interactive-more-contrast-dark-bg": "var(--w-color-grey-150)",
+        "--w-color-border-interactive-more-contrast-dark-bg-hover": "var(--w-color-white)",
+        "--w-color-border-interactive-more-contrast-hover": "var(--w-color-black)",
         "--w-color-box-shadow-md": "var(--w-color-black-25)",
         "--w-color-focus": "#00A885",
         "--w-color-icon-primary": "var(--w-color-primary)",
@@ -207,12 +220,15 @@ describe('generateThemeColorVariables', () => {
         "--w-color-surface-button-hover": "var(--w-color-secondary-400)",
         "--w-color-surface-button-inactive": "var(--w-color-grey-400)",
         "--w-color-surface-button-outline-hover": "var(--w-color-secondary-50)",
+        "--w-color-surface-dashboard-panel": "var(--w-color-white)",
         "--w-color-surface-field": "var(--w-color-white)",
         "--w-color-surface-field-inactive": "var(--w-color-grey-50)",
         "--w-color-surface-header": "var(--w-color-grey-50)",
+        "--w-color-surface-info-panel": "var(--w-color-info-50)",
         "--w-color-surface-menu-item-active": "var(--w-color-primary-200)",
         "--w-color-surface-menus": "var(--w-color-primary)",
         "--w-color-surface-page": "var(--w-color-white)",
+        "--w-color-surface-status-label": "var(--w-color-info-50)",
         "--w-color-surface-tooltip": "var(--w-color-primary-200)",
         "--w-color-text-button": "var(--w-color-white)",
         "--w-color-text-button-critical-outline-hover": "var(--w-color-critical-200)",
@@ -226,13 +242,15 @@ describe('generateThemeColorVariables', () => {
         "--w-color-text-label-menus-default": "var(--w-color-white-80)",
         "--w-color-text-link-default": "var(--w-color-secondary)",
         "--w-color-text-link-hover": "var(--w-color-secondary-400)",
+        "--w-color-text-link-info": "var(--w-color-secondary-400)",
         "--w-color-text-meta": "var(--w-color-grey-400)",
         "--w-color-text-placeholder": "var(--w-color-grey-400)",
+        "--w-color-text-status-label": "var(--w-color-info-100)",
       }
     `);
   });
 
-  it('dark theme is stable (update custom_user_interface_colours documentation when this changes)', () => {
+  it('dark theme is stable (update custom_user_interface_colors documentation when this changes)', () => {
     expect(generateThemeColorVariables(colorThemes.dark))
       .toMatchInlineSnapshot(`
       {
@@ -243,6 +261,11 @@ describe('generateThemeColorVariables', () => {
         "--w-color-border-field-hover": "var(--w-color-grey-200)",
         "--w-color-border-field-inactive": "var(--w-color-grey-500)",
         "--w-color-border-furniture": "var(--w-color-grey-500)",
+        "--w-color-border-furniture-more-contrast": "var(--w-color-grey-400)",
+        "--w-color-border-interactive-more-contrast": "var(--w-color-grey-150)",
+        "--w-color-border-interactive-more-contrast-dark-bg": "var(--w-color-grey-150)",
+        "--w-color-border-interactive-more-contrast-dark-bg-hover": "var(--w-color-white)",
+        "--w-color-border-interactive-more-contrast-hover": "var(--w-color-white)",
         "--w-color-box-shadow-md": "var(--w-color-black-50)",
         "--w-color-focus": "#00A885",
         "--w-color-icon-primary": "var(--w-color-grey-150)",
@@ -254,12 +277,15 @@ describe('generateThemeColorVariables', () => {
         "--w-color-surface-button-hover": "var(--w-color-secondary-400)",
         "--w-color-surface-button-inactive": "var(--w-color-grey-400)",
         "--w-color-surface-button-outline-hover": "var(--w-color-grey-700)",
+        "--w-color-surface-dashboard-panel": "var(--w-color-grey-800)",
         "--w-color-surface-field": "var(--w-color-grey-600)",
         "--w-color-surface-field-inactive": "var(--w-color-grey-500)",
         "--w-color-surface-header": "var(--w-color-grey-700)",
+        "--w-color-surface-info-panel": "var(--w-color-info-100)",
         "--w-color-surface-menu-item-active": "var(--w-color-grey-700)",
         "--w-color-surface-menus": "var(--w-color-grey-800)",
         "--w-color-surface-page": "var(--w-color-grey-600)",
+        "--w-color-surface-status-label": "var(--w-color-grey-600)",
         "--w-color-surface-tooltip": "var(--w-color-grey-500)",
         "--w-color-text-button": "var(--w-color-white)",
         "--w-color-text-button-critical-outline-hover": "var(--w-color-critical-50)",
@@ -273,8 +299,10 @@ describe('generateThemeColorVariables', () => {
         "--w-color-text-label-menus-default": "var(--w-color-white-80)",
         "--w-color-text-link-default": "var(--w-color-secondary-100)",
         "--w-color-text-link-hover": "var(--w-color-secondary-75)",
+        "--w-color-text-link-info": "var(--w-color-grey-50)",
         "--w-color-text-meta": "var(--w-color-grey-150)",
         "--w-color-text-placeholder": "var(--w-color-grey-200)",
+        "--w-color-text-status-label": "var(--w-color-info-75)",
       }
     `);
   });

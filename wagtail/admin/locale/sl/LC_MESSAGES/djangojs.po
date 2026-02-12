@@ -1,13 +1,13 @@
 #
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
-# Mitja Pagon <mitja.pagon@inueni.com>, 2022
-# Loic Teixeira, 2022
-# Andrej Marsetič, 2023
+# Loic Teixeira, 2024
+# Andrej Marsetič, 2026
+# Mitja Pagon <mitja.pagon@inueni.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrej Marsetič, 2023\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2026\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,12 +31,25 @@ msgstr[1] "%(num)s napaki"
 msgstr[2] "%(num)s napak"
 msgstr[3] "%(num)s napak"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s minuta"
+msgstr[1] "%(num)s minuti"
+msgstr[2] "%(num)s minut"
+msgstr[3] "%(num)s minut"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s piksel"
 msgstr[1] "%(num)s piksla"
 msgstr[2] "%(num)s pikslov"
 msgstr[3] "%(num)s pikslov"
+
+msgid "Actions"
+msgstr "Dejanja"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add a comment"
 msgstr "Dodaj komentar"
@@ -83,6 +96,12 @@ msgstr "Pobriši napako"
 msgid "Deleting"
 msgstr "Brišem"
 
+msgid "Drag"
+msgstr "Povleci"
+
+msgid "Duplicate"
+msgstr "Podvoji"
+
 msgid "Edit"
 msgstr "Uredi"
 
@@ -125,6 +144,15 @@ msgstr "Manjkajoči dokument"
 msgid "More actions"
 msgstr "Več dejanj"
 
+msgid "Move down"
+msgstr "Premakni navzdol"
+
+msgid "Move up"
+msgstr "Premakni navzgor"
+
+msgid "No"
+msgstr "Ne"
+
 msgid "No results"
 msgstr "Ni zadetkov"
 
@@ -139,6 +167,9 @@ msgstr "Strani"
 
 msgid "Pin toolbar"
 msgstr "Pripni orodno vrstico"
+
+msgid "Preview"
+msgstr "Predogled"
 
 msgid "Reload saved content"
 msgstr "Ponovno naložite shranjeno vsebino"
@@ -167,15 +198,6 @@ msgstr "Shrani"
 msgid "Save error"
 msgstr "Shrani napako"
 
-msgid "Save the page to add this comment"
-msgstr "Shranite stran, da dodate ta komentar"
-
-msgid "Save the page to save this comment"
-msgstr "Shranite stran, da shranite ta komentar"
-
-msgid "Save the page to save this reply"
-msgstr "Shranite stran, da shranite ta odgovor"
-
 msgid "Saving..."
 msgstr "Shranjevanje..."
 
@@ -190,6 +212,9 @@ msgstr "Poglej vse"
 
 msgid "Server Error"
 msgstr "Napaka na strežniku"
+
+msgid "Settings"
+msgstr "Nastavitve"
 
 msgid "Show error"
 msgstr "Pokaži napako"
@@ -206,8 +231,17 @@ msgstr ""
 "Urejevalnik se je pravkar zrušil. Vsebina je bila ponastavljena na zadnjo "
 "shranjeno različico"
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Največje število predmetov je %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Najmanjše število predmetov je %(min_num)d"
+
 msgid "This field is required."
 msgstr "Polje je obvezno."
+
+msgid "Toggle section"
+msgstr "Preklop razdelka"
 
 msgid "Toggle side panel"
 msgstr "Preklopi stransko ploščo"
@@ -226,3 +260,6 @@ msgstr "Ogled podrejenih strani za  '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Napišite nekaj ali pritisnite \"/\" za dodajanje bloka"
+
+msgid "Yes"
+msgstr "Da"

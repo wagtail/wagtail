@@ -1,7 +1,8 @@
+/* global PageChooserModal */
+
 import { Chooser, ChooserFactory } from '.';
 
 export class PageChooser extends Chooser {
-  // eslint-disable-next-line no-undef
   chooserModalClass = PageChooserModal;
 
   titleStateKey = 'adminTitle';
@@ -44,7 +45,6 @@ export class PageChooser extends Chooser {
 
 export class PageChooserFactory extends ChooserFactory {
   widgetClass = PageChooser;
-  // eslint-disable-next-line no-undef
   chooserModalClass = PageChooserModal;
 
   getModalOptions() {

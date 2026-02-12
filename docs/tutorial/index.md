@@ -5,7 +5,7 @@
 maxdepth: 2
 ---
 customize_homepage
-create-footer_for_all_pages
+create_footer_for_all_pages
 set_up_site_menu
 style_your_site
 create_contact_page

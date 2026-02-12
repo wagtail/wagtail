@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.core.exceptions import ImproperlyConfigured
 from django.forms import Media, MediaDefiningClass
 from django.utils.functional import cached_property
@@ -8,7 +6,6 @@ from wagtail import hooks
 from wagtail.admin.ui.sidebar import LinkMenuItem as LinkMenuItemComponent
 from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
 from wagtail.coreutils import cautious_slugify
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class MenuItem(metaclass=MediaDefiningClass):
@@ -18,19 +15,13 @@ class MenuItem(metaclass=MediaDefiningClass):
         url,
         name=None,
         classname="",
-        classnames="",
         icon_name="",
         attrs=None,
         order=1000,
     ):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for MenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
         self.label = label
         self.url = url
-        self.classname = classname or classnames
+        self.classname = classname
         self.icon_name = icon_name
         self.name = name or cautious_slugify(str(label))
         self.attrs = attrs or {}
@@ -42,9 +33,6 @@ class MenuItem(metaclass=MediaDefiningClass):
         checks etc should go here. By default, menu items are shown all the time
         """
         return True
-
-    def is_active(self, request):
-        return request.path.startswith(str(self.url))
 
     def render_component(self, request):
         return LinkMenuItemComponent(
@@ -121,13 +109,6 @@ class Menu:
 
         return items
 
-    def active_menu_items(self, request):
-        return [
-            item
-            for item in self.menu_items_for_request(request)
-            if item.is_active(request)
-        ]
-
     @property
     def media(self):
         media = Media()
@@ -153,9 +134,6 @@ class SubmenuMenuItem(MenuItem):
     def is_shown(self, request):
         # show the submenu if one or more of its children is shown
         return bool(self.menu.menu_items_for_request(request))
-
-    def is_active(self, request):
-        return bool(self.menu.active_menu_items(request))
 
     def render_component(self, request):
         return SubMenuItemComponent(
@@ -228,7 +206,7 @@ class WagtailMenuRegisterable:
             url=self.menu_url,
             name=self.menu_name,
             icon_name=self.menu_icon,
-            order=order or self.menu_order,
+            order=order if order is not None else self.menu_order,
         )
 
     @cached_property
@@ -286,7 +264,7 @@ class WagtailMenuRegisterableGroup(WagtailMenuRegisterable):
             menu=Menu(items=self.get_submenu_items()),
             name=self.menu_name,
             icon_name=self.menu_icon,
-            order=order or self.menu_order,
+            order=order if order is not None else self.menu_order,
         )
 
 

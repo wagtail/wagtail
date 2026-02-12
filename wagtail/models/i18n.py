@@ -1,5 +1,4 @@
 import uuid
-from typing import Dict
 
 from django.apps import apps
 from django.conf import settings
@@ -9,6 +8,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import translation
 from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 
 from wagtail.actions.copy_for_translation import CopyForTranslationAction
@@ -56,7 +56,7 @@ class Locale(models.Model):
     @classmethod
     def get_default(cls):
         """
-        Returns the default Locale based on the site's LANGUAGE_CODE setting
+        Returns the default Locale based on the site's ``LANGUAGE_CODE`` setting.
         """
         return cls.objects.get_for_language(settings.LANGUAGE_CODE)
 
@@ -97,7 +97,7 @@ class Locale(models.Model):
     def __str__(self):
         return force_str(self.get_display_name())
 
-    def _get_language_info(self) -> Dict[str, str]:
+    def _get_language_info(self) -> dict[str, str]:
         return translation.get_language_info(self.language_code)
 
     @property
@@ -177,7 +177,11 @@ class Locale(models.Model):
 class TranslatableMixin(models.Model):
     translation_key = models.UUIDField(default=uuid.uuid4, editable=False)
     locale = models.ForeignKey(
-        Locale, on_delete=models.PROTECT, related_name="+", editable=False
+        Locale,
+        on_delete=models.PROTECT,
+        related_name="+",
+        editable=False,
+        verbose_name=_("locale"),
     )
     locale.wagtail_reference_index_ignore = True
 
@@ -305,7 +309,7 @@ class TranslatableMixin(models.Model):
         """
         Finds the translation in the specified locale.
 
-        If there is no translation in that locale, this returns None.
+        If there is no translation in that locale, this returns ``None``.
         """
         try:
             return self.get_translation(locale)
@@ -467,16 +471,14 @@ def get_translatable_models(include_subclasses=False):
 
 @receiver(pre_save)
 def set_locale_on_new_instance(sender, instance, **kwargs):
+    if kwargs["raw"]:
+        # When loading fixtures, don't add a locale since it may not exist
+        return
+
     if not isinstance(instance, TranslatableMixin):
         return
 
     if instance.locale_id is not None:
-        return
-
-    # If this is a fixture load, use the global default Locale
-    # as the page tree is probably in flux
-    if kwargs["raw"]:
-        instance.locale = Locale.get_default()
         return
 
     instance.locale = instance.get_default_locale()

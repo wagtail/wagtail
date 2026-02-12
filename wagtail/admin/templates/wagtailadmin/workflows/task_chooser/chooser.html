@@ -2,9 +2,9 @@
 {% include "wagtailadmin/shared/header.html" with title=_("Choose a task") merged=1 icon="thumbtack" %}
 
 {% if can_create %}
-    <div class="w-tabs" data-tabs data-tabs-disable-url>
+    <div class="w-tabs" data-controller="w-tabs" data-w-tabs-use-location-value="false">
         <div class="w-tabs__wrapper w-overflow-hidden">
-            <div role="tablist" class="w-tabs__list w-w-full">
+            <div role="tablist" class="w-tabs__list w-w-full" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='new' title=_("New") %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='existing' title=_("Existing") %}
             </div>
@@ -17,6 +17,8 @@
                 role="tabpanel"
                 aria-labelledby="tab-label-new"
                 hidden
+                data-w-tabs-target="panel"
+                data-action="w-focus:focus->w-tabs#selectInside"
             >
                 {% include "wagtailadmin/workflows/task_chooser/includes/create_tab.html" %}
             </section>
@@ -26,6 +28,8 @@
                 role="tabpanel"
                 aria-labelledby="tab-label-existing"
                 hidden
+                data-w-tabs-target="panel"
+                data-action="w-focus:focus->w-tabs#selectInside"
             >
                 <form
                     class="task-search"

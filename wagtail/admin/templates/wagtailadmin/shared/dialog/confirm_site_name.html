@@ -1,0 +1,18 @@
+{% load i18n wagtailadmin_tags %}
+
+<p id="id_confirm_site_name-warning" class="status-msg failure">
+    {% blocktrans count counter=total_pages trimmed with total_pages_formatted=total_pages|intcomma %}
+        This action will delete <b>{{ total_pages_formatted }}</b> page in total.
+    {% plural %}
+        This action will delete <b>{{ total_pages_formatted }}</b> pages in total.
+    {% endblocktrans %}
+</p>
+
+<label class="w-label-3" for="id_confirm_site_name">
+    {% blocktrans trimmed %}
+        Please type <b>{{ wagtail_site_name }}</b> to confirm.
+    {% endblocktrans %}
+</label>
+
+<input type="text" name="confirm_site_name" class="w-mb-4"
+       id="id_confirm_site_name" aria-describedby="id_confirm_site_name-warning" required>

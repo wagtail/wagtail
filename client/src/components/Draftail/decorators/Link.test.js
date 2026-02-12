@@ -5,6 +5,7 @@ import {
   convertFromHTML,
   ContentState,
   EditorState,
+  convertToRaw,
 } from 'draft-js';
 
 import Link, { getLinkAttributes, getValidLinkURL, onPasteLink } from './Link';
@@ -118,6 +119,7 @@ describe.each`
   ${'http://test.example.co.uk'} | ${'http://test.example.co.uk'}
   ${'https://example.com'}       | ${'https://example.com'}
   ${'https://xn--ls8h.la'}       | ${'https://xn--ls8h.la'}
+  ${'http://sp.a http://c.e'}    | ${false}
   ${'ftp://example.com'}         | ${'ftp://example.com'}
   ${'ftps://example.com'}        | ${'ftps://example.com'}
   ${'//example.com'}             | ${false}
@@ -128,14 +130,14 @@ describe.each`
   ${'file://test'}               | ${false}
 `('getValidLinkURL', ({ text, result }) => {
   test(text, () => {
-    const schemes = ['http:', 'https:', 'ftp:', 'ftps:'];
-    expect(getValidLinkURL(text, schemes)).toBe(result);
+    expect(getValidLinkURL(text)).toBe(result);
   });
 });
 
 describe('onPasteLink', () => {
   let editorState;
   let setEditorState;
+  let testOnPasteOutput;
 
   beforeEach(() => {
     const { contentBlocks } = convertFromHTML('<p>hello</p>');
@@ -143,6 +145,14 @@ describe('onPasteLink', () => {
     editorState = EditorState.createWithContent(contentState);
 
     setEditorState = jest.fn((state) => state);
+
+    testOnPasteOutput = (text, html) => {
+      expect(onPasteLink(text, html, editorState, { setEditorState })).toBe(
+        'handled',
+      );
+      const content = setEditorState.mock.calls[0][0].getCurrentContent();
+      return convertToRaw(content);
+    };
   });
 
   it('discards invalid URLs', () => {
@@ -152,7 +162,7 @@ describe('onPasteLink', () => {
     expect(setEditorState).not.toHaveBeenCalled();
   });
 
-  it('creates link onto selected text', () => {
+  it('single link onto selected text', () => {
     const selection = editorState.getSelection().merge({
       focusOffset: 4,
     });
@@ -171,7 +181,7 @@ describe('onPasteLink', () => {
     ).toBe('https://example.com/selected');
   });
 
-  it('creates link with paste as link text when collapsed', () => {
+  it('single link without selection', () => {
     expect(
       onPasteLink('https://example.com/collapsed', null, editorState, {
         setEditorState,
@@ -185,5 +195,126 @@ describe('onPasteLink', () => {
     expect(
       content.getEntity(content.getLastCreatedEntityKey()).getData().url,
     ).toBe('https://example.com/collapsed');
+  });
+
+  it('multiple plain-text links and emails', () => {
+    const input =
+      'http://a.co/ ftp://b.co/ test@example.com https://c.co/ ftps://d.co';
+    const raw = testOnPasteOutput(input, null);
+    expect(raw.blocks[0]).toMatchObject({
+      text: `${input}hello`,
+      entityRanges: [
+        { offset: 0, length: 12, key: 0 },
+        { offset: 13, length: 11, key: 1 },
+        { offset: 25, length: 16, key: 2 },
+        { offset: 42, length: 13, key: 3 },
+        { offset: 56, length: 11, key: 4 },
+      ],
+    });
+    expect(raw.entityMap).toMatchObject({
+      0: {
+        type: 'LINK',
+        mutability: 'MUTABLE',
+        data: { url: 'http://a.co/' },
+      },
+      1: { data: { url: 'ftp://b.co/' } },
+      2: { data: { url: 'mailto:test@example.com' } },
+      3: { data: { url: 'https://c.co/' } },
+      4: { data: { url: 'ftps://d.co' } },
+    });
+  });
+
+  it('multiple URLs and emails within HTML', () => {
+    const input = `
+    <p><span>start</span></p>
+    <p><span>l1 http://a.co/</span></p>
+    <p><span>l2a test@example.com l2b</span></p>
+    <p><span>https://c.co/ l3</span></p>
+    <p><span>end</span></p>
+    `;
+    const raw = testOnPasteOutput(input.replace(/<[^>]+/g), input);
+    expect(raw.blocks).toMatchObject([
+      { text: 'start', entityRanges: [] },
+      {
+        text: 'l1 http://a.co/',
+        entityRanges: [{ offset: 3, length: 12, key: 0 }],
+      },
+      {
+        text: 'l2a test@example.com l2b',
+        entityRanges: [{ offset: 4, length: 16, key: 1 }],
+      },
+      {
+        text: 'https://c.co/ l3',
+        entityRanges: [{ offset: 0, length: 13, key: 2 }],
+      },
+      { text: 'endhello', entityRanges: [] },
+    ]);
+    expect(raw.entityMap).toMatchObject({
+      0: { data: { url: 'http://a.co/' } },
+      1: { data: { url: 'mailto:test@example.com' } },
+      2: { data: { url: 'https://c.co/' } },
+    });
+  });
+
+  it('preserves existing rich text', () => {
+    const input = `
+    <h2><span>Heading</span></h2>
+    <p><span>http://a.co/</span></p>
+    <p><span><a href="http://test.co/">link</a></span></p>
+    `;
+    const raw = testOnPasteOutput(input.replace(/<[^>]+/g), input);
+    expect(raw.blocks).toMatchObject([
+      { type: 'header-two', text: 'Heading', entityRanges: [] },
+      {
+        text: 'http://a.co/',
+        entityRanges: [{ offset: 0, length: 12, key: 0 }],
+      },
+      { text: 'linkhello', entityRanges: [{ offset: 0, length: 4, key: 1 }] },
+    ]);
+    expect(raw.entityMap).toMatchObject({
+      0: { data: { url: 'http://a.co/' } },
+      1: { data: { url: 'http://test.co/' } },
+    });
+  });
+
+  it('skips linking punctuation chars', () => {
+    const punctuation = {
+      // Characters that will be removed.
+      '.': '',
+      '?': '',
+      '!': '',
+      ':': '',
+      ';': '',
+      ',': '',
+      // Syriac Harklean Metobelus
+      '܌': '',
+      '؟': '',
+      '،': '',
+      '‼': '',
+      '﹒': '',
+      // Characters that will be preserved.
+      '…': '…',
+      '-': '-',
+      '_': '_',
+      '–': '–',
+      '+': '+',
+      '=': '=',
+    };
+    const input = Object.keys(punctuation)
+      .map((punc) => `<p><span>http://a.co/t${punc}/${punc}</span></p>`)
+      .join(' ');
+    const raw = testOnPasteOutput(input.replace(/<[^>]+/g), input);
+
+    expect(raw.blocks.map(({ text }) => text)).toMatchSnapshot();
+    expect(
+      Object.values(raw.entityMap).map((entity) => entity.data.url),
+    ).toMatchSnapshot();
+
+    const expectedLength = Object.keys(punctuation).map(
+      (punc) => `http://a.co/t${punc}/`.length + punctuation[punc].length,
+    );
+    expect(
+      raw.blocks.map(({ entityRanges }) => entityRanges[0].length),
+    ).toEqual(expectedLength);
   });
 });

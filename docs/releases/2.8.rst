@@ -141,7 +141,7 @@ The ``get_document_model`` function should now be imported from ``wagtail.docume
 Removed ``Page`` and ``Site`` models from Django admin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``Page`` and ``Site`` models are no longer editable through the Django admin backend. If required these models can be re-registered within your own project using `Django's ModelAdmin <https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#modeladmin-objects>`_:
+The ``Page`` and ``Site`` models are no longer editable through the Django admin backend. If required these models can be re-registered within your own project using Django's :py:class:`~django.contrib.admin.ModelAdmin`:
 
 
 .. code-block:: python

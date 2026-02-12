@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use '../../settings' as *;
 
 .error-message {
   border: 1px solid transparent; // ensure visible separation in Windows High Contrast mode

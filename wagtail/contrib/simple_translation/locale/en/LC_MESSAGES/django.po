@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,11 +54,15 @@ msgid_plural "Translate the parent pages."
 msgstr[0] ""
 msgstr[1] ""
 
+#: models.py:21
+msgid "Can submit translations"
+msgstr ""
+
 #: templates/simple_translation/admin/submit_translation.html:26
 msgid "Submit"
 msgstr ""
 
-#: views.py:22 wagtail_hooks.py:63 wagtail_hooks.py:80 wagtail_hooks.py:111
+#: views.py:22 wagtail_hooks.py:67 wagtail_hooks.py:85 wagtail_hooks.py:115
 msgid "Translate"
 msgstr ""
 
@@ -87,11 +91,6 @@ msgstr ""
 msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
 msgstr ""
 
-#: wagtail_hooks.py:84
+#: wagtail_hooks.py:89
 msgid "Translate this page"
-msgstr ""
-
-#: wagtail_hooks.py:114
-#, python-format
-msgid "Translate '%(title)s'"
 msgstr ""

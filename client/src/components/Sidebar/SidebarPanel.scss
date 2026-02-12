@@ -1,3 +1,6 @@
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+
 .sidebar-panel {
   // With CSS variable allows panels with different widths to animate properly
   --width: #{$menu-width};
@@ -27,6 +30,10 @@
   &--visible {
     visibility: visible;
     box-shadow: 2px 0 2px theme('colors.black-35');
+  }
+
+  .sidebar-page-explorer-item & {
+    overflow: hidden;
   }
 
   // Showing the submenu options panel in mobile mode

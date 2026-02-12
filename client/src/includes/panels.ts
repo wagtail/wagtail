@@ -1,3 +1,5 @@
+import { getElementByContentPath } from '../utils/contentPath';
+
 /**
  * Switches a collapsible panel from expanded to collapsed, or vice versa.
  * Updates the DOM and fires custom events for other code to hook into.
@@ -41,7 +43,7 @@ export const toggleCollapsiblePanel = (
 };
 
 /**
- * Initialises event handlers for a collapsible panel,
+ * Initializes event handlers for a collapsible panel,
  * and applies the correct initial state based on classes.
  */
 export function initCollapsiblePanel(toggle: HTMLButtonElement) {
@@ -50,7 +52,7 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
     `#${toggle.getAttribute('aria-controls')}`,
   );
 
-  // Avoid initialising the same panel twice.
+  // Avoid initializing the same panel twice.
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (!content || !panel || panel.collapsibleInitialised) {
@@ -105,12 +107,20 @@ export function initCollapsiblePanels(
 /**
  * Smooth scroll onto any active panel.
  * Needs to run after the whole page is loaded so the browser can resolve any
- * JS-rendered :target.
+ * JS-rendered elements.
  */
 export function initAnchoredPanels(
-  anchorTarget = document.querySelector<HTMLElement>('[data-panel]:target'),
+  anchorTarget = window.location.hash
+    ? document.getElementById(window.location.hash.slice(1))
+    : null,
 ) {
-  if (anchorTarget) {
-    anchorTarget.scrollIntoView({ behavior: 'smooth' });
+  const target = anchorTarget?.matches('[data-panel]')
+    ? anchorTarget
+    : getElementByContentPath();
+
+  if (target) {
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 }

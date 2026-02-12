@@ -4,15 +4,16 @@
 #
 # Translators:
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+# Imanu Wardi, 2025
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Last-Translator: Imanu Wardi, 2025\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
-msgstr "Wagtail pengguna"
+msgstr "Pengguna Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Harus diisi. Gunakan hanya huruf, angka, dan simbol @/./+/-/."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Hanya dapat berisi karakter huruf, angka dan @/./+/-/_ saja."
@@ -102,6 +106,9 @@ msgstr "Pilih zona waktu saat ini"
 msgid "profile picture"
 msgstr "gambar profil"
 
+msgid "Default"
+msgstr "Utama"
+
 msgid "user profile"
 msgstr "profil pengguna"
 
@@ -120,15 +127,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Apakah Anda yakin ingin menghapus grup ini?"
 
-msgid "Add group"
-msgstr "Tambah grup"
-
-msgid "Save"
-msgstr "Simpan"
-
-msgid "Delete group"
-msgstr "Hapus grup"
-
 msgid "Object permissions"
 msgstr "Izin objek"
 
@@ -140,15 +138,6 @@ msgstr "Tambah"
 
 msgid "Change"
 msgstr "Ubah"
-
-msgid "Publish"
-msgstr "Publikasi"
-
-msgid "Lock"
-msgstr "Kunci"
-
-msgid "Unlock"
-msgstr "Buka kunci"
 
 msgid "Other permissions"
 msgstr "Izin lain-lain"
@@ -174,34 +163,11 @@ msgstr ""
 "Tidak ada grup yang terkonfigurasi. Mengapa <a "
 "href=\"%(wagtailusers_create_group_url)s\">tidak menambahnya</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Apakah anda yakin untuk menghapus pengguna ini?"
-
 msgid "Account"
 msgstr "Akun"
 
 msgid "Roles"
 msgstr "Role"
-
-msgid "Add user"
-msgstr "Tambah pengguna"
-
-msgid "Delete user"
-msgstr "Hapus pengguna"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Maaf, tidak ada pengguna yang sesuai dengan \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "Username"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Admin"
-msgstr "Admin"
 
 msgid "Active"
 msgstr "Aktif"
@@ -218,6 +184,9 @@ msgstr "Tambah grup"
 msgid "Search groups"
 msgstr "Pencarian Grup"
 
+msgid "Add group"
+msgstr "Tambah grup"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grup '%(object)s' dibuat."
@@ -233,11 +202,23 @@ msgstr "Grup tidak dapat disimpan karena suatu kesalahan."
 msgid "Group '%(object)s' deleted."
 msgstr "Grup '%(object)s' dihapus."
 
+msgid "Delete group"
+msgstr "Hapus grup"
+
 msgid "Add a user"
 msgstr "Tambah pengguna"
 
 msgid "Users"
 msgstr "Pengguna"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Add user"
+msgstr "Tambah pengguna"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -246,9 +227,9 @@ msgstr "Pengguna '%(object)s' berhasil diperbaharui."
 msgid "The user could not be saved due to errors."
 msgstr "Pengguna tidak dapat disimpan karena suatu kesalahan."
 
+msgid "Delete user"
+msgstr "Hapus pengguna"
+
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Pengguna '%(object)s' dihapus."
-
-msgid "Edit"
-msgstr "Ubah"

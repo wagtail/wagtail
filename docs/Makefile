@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    = -W --keep-going -n -jauto
+SPHINXOPTS    = --fail-on-warning -n -jauto
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
@@ -60,7 +60,7 @@ spelling:
 	@echo "Spellcheck complete."
 
 lint:
-	doc8 --config ../setup.cfg
+	doc8 --config ../pyproject.toml
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml

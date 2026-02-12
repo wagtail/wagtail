@@ -1,10 +1,12 @@
 import datetime
 
-from django.test import TestCase
+from django.contrib.auth.models import Permission
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.views.generic.preview import PreviewOnEdit
 from wagtail.test.testapp.models import (
     EventCategory,
@@ -58,11 +60,12 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_create_with_invalid_data(self):
         self.assertNotIn(self.session_key_prefix, self.client.session)
 
-        response = self.client.post(self.preview_on_add_url, {"text": ""})
+        response = self.client.post(self.preview_on_add_url, {"categories": [999999]})
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
@@ -89,6 +92,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_create_with_m2m_field(self):
         response = self.client.post(self.preview_on_add_url, self.post_data)
@@ -111,6 +115,62 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "An edited previewable snippet")
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_create_with_deferred_required_fields(self):
+        response = self.client.post(
+            self.preview_on_add_url,
+            {"categories": [self.holidays_category.id]},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        self.assertIn(self.session_key_prefix, self.client.session)
+
+        response = self.client.get(self.preview_on_add_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+
+        # The text is empty
+        self.assertContains(response, "<title>(Default Preview)</title>", html=True)
+        self.assertContains(response, "<h1></h1>", html=True)
+
+        # The category is Holidays (only)
+        self.assertNotContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_create_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.post(self.preview_on_add_url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_create_get_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.get(self.preview_on_add_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_preview_on_edit_with_m2m_field(self):
         response = self.client.post(self.preview_on_edit_url, self.post_data)
@@ -146,7 +206,7 @@ class TestPreview(WagtailTestUtils, TestCase):
 
         # Send an invalid update request
         response = self.client.post(
-            self.preview_on_edit_url, {**self.post_data, "text": ""}
+            self.preview_on_edit_url, {**self.post_data, "categories": [999999]}
         )
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(
@@ -164,6 +224,36 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "tests/previewable_model.html")
         self.assertContains(response, "An edited previewable snippet")
         self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_edit_with_deferred_required_fields(self):
+        response = self.client.post(
+            self.preview_on_edit_url,
+            {"categories": [self.holidays_category.id]},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        self.assertIn(self.edit_session_key, self.client.session)
+
+        response = self.client.get(self.preview_on_edit_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+
+        # The text is empty
+        self.assertContains(response, "<title>(Default Preview)</title>", html=True)
+        self.assertContains(response, "<h1></h1>", html=True)
+
+        # The category is Holidays (only)
+        self.assertNotContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
     def test_preview_on_edit_expiry(self):
@@ -199,6 +289,32 @@ class TestPreview(WagtailTestUtils, TestCase):
                 self.client.session,
             )
 
+    def test_preview_on_edit_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.post(self.preview_on_edit_url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_edit_get_without_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+        response = self.client.get(self.preview_on_edit_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
     def test_preview_on_create_clear_preview_data(self):
         # Set a fake preview session data for the page
         self.client.session[self.session_key_prefix] = "test data"
@@ -228,6 +344,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_edit_clear_preview_data(self):
         # Set a fake preview session data for the page
@@ -257,6 +374,54 @@ class TestPreview(WagtailTestUtils, TestCase):
             response,
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
+        )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
+
+    def test_userbar_in_preview(self):
+        self.client.post(self.preview_on_edit_url, self.post_data)
+        host = "other.example.com:8000"
+        response = self.client.get(self.preview_on_edit_url, headers={"host": host})
+
+        # Snippets have no concept of the current site or fully qualified URLs,
+        # so the original request's host should be preserved.
+        self.assertEqual(
+            response.context["request"].get_host(),
+            "other.example.com:8000",
+        )
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+        soup = self.get_soup(response.content)
+        userbar = soup.select_one("wagtail-userbar")
+        self.assertIsNotNone(userbar)
+        template = soup.select_one("#wagtail-userbar-template")
+        self.assertIsNotNone(template)
+
+        # Previews use a dummy request object, so the userbar should use
+        # relative URLs to avoid using the wrong host.
+        admin_url = reverse("wagtailadmin_home")
+        admin_link = template.select_one(f'a[href$="{admin_url}"]')
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link["href"], admin_url)
+
+        # Previews use a dummy request object, so the userbar should use
+        # relative URLs to avoid using the wrong host.
+        css_links = soup.select("link[rel='stylesheet']")
+        self.assertEqual(
+            [link.get("href") for link in css_links],
+            [
+                versioned_static("wagtailadmin/css/core.css"),
+                "/path/to/my/custom.css",
+            ],
+        )
+        scripts = soup.select("script[src]")
+        self.assertEqual(
+            [script.get("src") for script in scripts],
+            [
+                versioned_static("wagtailadmin/js/vendor.js"),
+                versioned_static("wagtailadmin/js/userbar.js"),
+            ],
         )
 
     def test_preview_revision(self):
@@ -296,31 +461,33 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        # Should show the preview panel
-        self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
-
         # Should have the preview side panel toggle button
         soup = self.get_soup(response.content)
+        self.assertIsNotNone(soup.select_one('[data-side-panel="preview"]'))
         toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
         self.assertIsNotNone(toggle_button)
         self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
         self.assertEqual("mod+p", toggle_button["data-w-kbd-key-value"])
 
+        # Should set the preview URL value on the controller
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
+
         # Should show the iframe
-        self.assertContains(
-            response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
-        )
+        iframe = controller.select_one("#w-preview-iframe")
+        self.assertIsNotNone(iframe)
+        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
 
         # Should show the new tab button with the default mode set
-        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
+        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
+        self.assertIsNotNone(new_tab_button)
+        self.assertEqual(new_tab_button["href"], new_tab_url)
+        self.assertEqual(new_tab_button["target"], "_blank")
 
         # Should not show the preview mode selection
-        self.assertNotContains(
-            response,
-            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
-        )
+        mode_select = controller.select_one('[data-w-preview-target="mode"]')
+        self.assertIsNone(mode_select)
 
     def test_show_preview_panel_on_create_with_multiple_modes(self):
         create_url = self.get_url(self.multiple, "add")
@@ -333,58 +500,73 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the preview panel
         self.assertContains(response, 'data-side-panel-toggle="preview"')
         self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should set the preview URL value on the controller
+        soup = self.get_soup(response.content)
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
         # Should show the iframe
-        self.assertContains(
-            response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
-        )
+        iframe = controller.select_one("#w-preview-iframe")
+        self.assertIsNotNone(iframe)
+        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
 
         # Should show the new tab button with the default mode set and correctly quoted
-        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
+        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
+        self.assertIsNotNone(new_tab_button)
+        self.assertEqual(new_tab_button["href"], new_tab_url)
+        self.assertEqual(new_tab_button["target"], "_blank")
 
-        # should show the preview mode selection
-        self.assertContains(
-            response,
-            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
-        )
-        self.assertContains(response, '<option value="">Normal</option>')
-
-        # Should respect the default_preview_mode
-        self.assertContains(
-            response, '<option value="alt#1" selected>Alternate</option>'
-        )
+        # should show the preview mode selection with the default mode selected
+        mode_select = controller.select_one('[data-w-preview-target="mode"]')
+        self.assertIsNotNone(mode_select)
+        self.assertEqual(mode_select["id"], "id_preview_mode")
+        default_option = mode_select.select_one('option[value="alt#1"]')
+        self.assertIsNotNone(default_option)
+        self.assertIsNotNone(default_option.get("selected"))
+        other_option = mode_select.select_one('option[value=""]')
+        self.assertIsNotNone(other_option)
+        self.assertEqual(other_option.text.strip(), "Normal")
+        self.assertIsNone(other_option.get("selected"))
 
     def test_show_preview_panel_on_edit_with_single_mode(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
         preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
         new_tab_url = preview_url + "?mode="
         response = self.client.get(edit_url)
 
         self.assertEqual(response.status_code, 200)
 
-        # Should show the preview panel
-        self.assertContains(response, 'data-side-panel-toggle="preview"')
-        self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
+        # Should have the preview side panel toggle button
+        soup = self.get_soup(response.content)
+        self.assertIsNotNone(soup.select_one('[data-side-panel="preview"]'))
+        toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
+        self.assertIsNotNone(toggle_button)
+        self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
+        self.assertEqual("mod+p", toggle_button["data-w-kbd-key-value"])
+
+        # Should set the preview URL value on the controller
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
         # Should show the iframe
-        self.assertContains(
-            response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
-        )
+        iframe = controller.select_one("#w-preview-iframe")
+        self.assertIsNotNone(iframe)
+        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
 
         # Should show the new tab button with the default mode set
-        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
+        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
+        self.assertIsNotNone(new_tab_button)
+        self.assertEqual(new_tab_button["href"], new_tab_url)
+        self.assertEqual(new_tab_button["target"], "_blank")
 
         # Should not show the preview mode selection
-        self.assertNotContains(
-            response,
-            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
-        )
+        mode_select = controller.select_one('[data-w-preview-target="mode"]')
+        self.assertIsNone(mode_select)
 
     def test_show_preview_panel_on_edit_with_multiple_modes(self):
         edit_url = self.get_url(self.multiple, "edit", args=(self.multiple.pk,))
@@ -399,28 +581,105 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the preview panel
         self.assertContains(response, 'data-side-panel-toggle="preview"')
         self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should set the preview URL value on the controller
+        soup = self.get_soup(response.content)
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
+
+        # Should have a default interval of 500ms and should render the hidden spinner
+        interval_value = controller.get("data-w-preview-auto-update-interval-value")
+        self.assertEqual(interval_value, "500")
+        spinner = controller.select_one('[data-w-preview-target="spinner"]')
+        self.assertIsNotNone(spinner)
+        self.assertIsNotNone(spinner.get("hidden"))
+        self.assertIsNotNone(spinner.select_one("svg.icon-spinner"))
+
+        # Should not render any buttons (the refresh button in particular)
+        refresh_button = controller.select_one("button")
+        self.assertIsNone(refresh_button)
 
         # Should show the iframe
-        self.assertContains(
-            response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
-        )
+        iframe = controller.select_one("#w-preview-iframe")
+        self.assertIsNotNone(iframe)
+        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
 
         # Should show the new tab button with the default mode set and correctly quoted
-        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
+        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
+        self.assertIsNotNone(new_tab_button)
+        self.assertEqual(new_tab_button["href"], new_tab_url)
+        self.assertEqual(new_tab_button["target"], "_blank")
 
-        # should show the preview mode selection
-        self.assertContains(
-            response,
-            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
-        )
-        self.assertContains(response, '<option value="">Normal</option>')
+        # should show the preview mode selection with the default mode selected
+        mode_select = controller.select_one('[data-w-preview-target="mode"]')
+        self.assertIsNotNone(mode_select)
+        self.assertEqual(mode_select["id"], "id_preview_mode")
+        default_option = mode_select.select_one('option[value="alt#1"]')
+        self.assertIsNotNone(default_option)
+        self.assertIsNotNone(default_option.get("selected"))
+        other_option = mode_select.select_one('option[value=""]')
+        self.assertIsNotNone(other_option)
+        self.assertEqual(other_option.text.strip(), "Normal")
+        self.assertIsNone(other_option.get("selected"))
 
-        # Should respect the default_preview_mode
-        self.assertContains(
-            response, '<option value="alt#1" selected>Alternate</option>'
+    @override_settings(WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL=12345)
+    def test_custom_auto_update_interval(self):
+        edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
+        preview_url = self.get_url(
+            self.single, "preview_on_edit", args=(self.single.pk,)
         )
+        response = self.client.get(edit_url)
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+
+        # Should set the custom interval value on the controller
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
+        interval_value = controller.get("data-w-preview-auto-update-interval-value")
+        self.assertEqual(interval_value, "12345")
+
+        # Should render the spinner
+        spinner = controller.select_one('[data-w-preview-target="spinner"]')
+        self.assertIsNotNone(spinner)
+        self.assertIsNotNone(spinner.get("hidden"))
+        self.assertIsNotNone(spinner.select_one("svg.icon-spinner"))
+
+        # Should not render any buttons (the refresh button in particular)
+        refresh_button = controller.select_one("button")
+        self.assertIsNone(refresh_button)
+
+    @override_settings(WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL=0)
+    def test_disable_auto_update_using_zero_interval(self):
+        edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
+        preview_url = self.get_url(
+            self.single, "preview_on_edit", args=(self.single.pk,)
+        )
+        response = self.client.get(edit_url)
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+
+        # Should set the interval value on the controller
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
+        interval_value = controller.get("data-w-preview-auto-update-interval-value")
+        self.assertEqual(interval_value, "0")
+
+        # Should not render the spinner
+        spinner = controller.select_one('[data-w-preview-target="spinner"]')
+        self.assertIsNone(spinner)
+
+        # Should render the refresh button with the w-progress controller
+        refresh_button = controller.select_one("button")
+        self.assertIsNotNone(refresh_button)
+        self.assertEqual(refresh_button.get("data-controller"), "w-progress")
+        self.assertEqual(refresh_button.text.strip(), "Refresh")
 
     def test_show_preview_on_revisions_list(self):
         latest_revision = self.multiple.save_revision(log_action=True)
@@ -459,7 +718,8 @@ class TestDisablePreviewWithEmptyModes(WagtailTestUtils, TestCase):
         preview_url = self.get_url("preview_on_add")
         self.assertNotContains(response, 'data-side-panel-toggle="preview"')
         self.assertNotContains(response, 'data-side-panel="preview"')
-        self.assertNotContains(response, 'data-action="%s"' % preview_url)
+        self.assertNotContains(response, 'data-controller="w-preview"')
+        self.assertNotContains(response, preview_url)
 
     def test_disable_preview_on_edit(self):
         response = self.client.get(self.get_url("edit", args=(self.snippet.pk,)))
@@ -468,7 +728,8 @@ class TestDisablePreviewWithEmptyModes(WagtailTestUtils, TestCase):
         preview_url = self.get_url("preview_on_edit", args=(self.snippet.pk,))
         self.assertNotContains(response, 'data-side-panel-toggle="preview"')
         self.assertNotContains(response, 'data-side-panel="preview"')
-        self.assertNotContains(response, 'data-action="%s"' % preview_url)
+        self.assertNotContains(response, 'data-controller="w-preview"')
+        self.assertNotContains(response, preview_url)
 
     def test_disable_preview_on_revisions_list(self):
         latest_revision = self.snippet.save_revision(log_action=True)

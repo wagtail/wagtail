@@ -1,4 +1,5 @@
-/* eslint-disable no-underscore-dangle */
+/* global $ */
+
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -7,21 +8,20 @@ import {
   BaseInsertionControl,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
-import { range } from '../../../utils/range';
+import { gettext } from '../../../utils/gettext';
 import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import { setAttrs } from '../../../utils/attrs';
 
-/* global $ */
-
+/**
+ * Wrapper for an item inside a ListBlock
+ */
 class ListChild extends BaseSequenceChild {
-  /*
-  wrapper for an item inside a ListBlock
-  */
   getState() {
     return {
-      id: this.id,
+      id: this.id || null,
       value: this.block.getState(),
     };
   }
@@ -32,7 +32,7 @@ class ListChild extends BaseSequenceChild {
 
   setState({ value, id }) {
     this.block.setState(value);
-    this.id = id;
+    this.id = id === undefined ? null : id;
   }
 
   setValue(value) {
@@ -50,17 +50,18 @@ class ListChild extends BaseSequenceChild {
   }
 }
 
+/**
+ * Represents a position in the DOM where a new list item can be inserted.
+ *
+ * @remarks
+ * This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
+ */
 class InsertPosition extends BaseInsertionControl {
-  /*
-  Represents a position in the DOM where a new list item can be inserted.
-
-  This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
-  */
   constructor(placeholder, opts) {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
     const animate = opts && opts.animate;
-    const title = h(opts.strings.ADD);
+    const title = h(gettext('Add'));
     const button = $(`
       <button type="button" title="${title}" data-streamfield-list-add class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
@@ -133,25 +134,33 @@ export class ListBlock extends BaseSequenceBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    this.initDragNDrop();
+
+    setAttrs(this.container[0], this.blockDef.meta.attrs || {});
   }
 
+  /**
+   * State for a ListBlock is a list of {id, value} objects, but
+   * ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
+   */
   setState(blocks) {
-    // State for a ListBlock is a list of {id, value} objects, but
-    // ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
     this.clear();
     blocks.forEach(({ value, id }, i) => {
-      this.insert(value, i, { id: id || uuidv4() });
+      const validId = id === undefined ? uuidv4() : id;
+      this.insert(value, i, { id: id || validId });
     });
   }
 
+  /**
+   * Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
+   * return the block definition and initial state to be used for the new block.
+   * For a ListBlock, no data is passed from the insertion control, as there is a single fixed child block definition.
+   */
   _getChildDataForInsertion() {
-    /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
-    return the block definition and initial state to be used for the new block.
-    For a ListBlock, no data is passed from the insertion control, as there is a single fixed child block definition.
-    */
     const blockDef = this.blockDef.childBlockDef;
     const initialState = this.blockDef.initialChildState;
-    return [blockDef, initialState];
+    return [blockDef, initialState, uuidv4()];
   }
 
   _createChild(
@@ -180,7 +189,7 @@ export class ListBlock extends BaseSequenceBlock {
     return new InsertPosition(placeholder, opts);
   }
 
-  /*
+  /**
    * Called whenever a block is added or removed
    *
    * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
@@ -188,22 +197,38 @@ export class ListBlock extends BaseSequenceBlock {
   blockCountChanged() {
     super.blockCountChanged();
 
-    if (typeof this.blockDef.meta.maxNum === 'number') {
-      if (this.children.length >= this.blockDef.meta.maxNum) {
-        /* prevent adding new blocks */
-        range(0, this.inserters.length).forEach((i) => {
-          this.inserters[i].disable();
-        });
-      } else {
-        /* allow adding new blocks */
-        range(0, this.inserters.length).forEach((i) => {
-          this.inserters[i].enable();
-        });
+    const errorMessages = [];
+    const maxNum = this.blockDef.meta.maxNum;
+
+    if (typeof maxNum === 'number') {
+      if (this.children.length > maxNum) {
+        const message = gettext(
+          'The maximum number of items is %(max_num)d',
+        ).replace('%(max_num)d', `${maxNum}`);
+        errorMessages.push(message);
       }
+    }
+
+    const minNum = this.blockDef.meta.minNum;
+
+    if (typeof minNum === 'number') {
+      if (this.children.length < minNum) {
+        const message = gettext(
+          'The minimum number of items is %(min_num)d',
+        ).replace('%(min_num)d', `${minNum}`);
+        errorMessages.push(message);
+      }
+    }
+
+    if (errorMessages.length) {
+      this.setError({ messages: errorMessages });
+    } else {
+      this.setError({});
     }
   }
 
   insert(value, index, opts) {
+    // eslint-disable-next-line no-underscore-dangle
     return this._insert(
       this.blockDef.childBlockDef,
       value,

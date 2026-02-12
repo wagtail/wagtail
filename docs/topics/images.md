@@ -65,8 +65,8 @@ The syntax for `srcset_image` is the same as `image`, with two exceptions:
 {% srcset_image [image] [resize-rule-with-brace-expansion] sizes="[my source sizes]" %}
 ```
 
-- The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule, and one width descriptor per URL. The first provided size will always be used as the `src` attribute, and define the image’s width and height attributes, as a fallback.
-- The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
+-   The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule, and one width descriptor per URL. The first provided size will always be used as the `src` attribute, and define the image’s width and height attributes, as a fallback.
+-   The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
 
 Here is an example of `srcset_image` in action, generating a `srcset` attribute:
 
@@ -230,7 +230,7 @@ Wagtail does not allow deforming or stretching images. Image dimension ratios wi
 
 Wagtail provides two shortcuts to give greater control over the `img` element:
 
-### 1. Adding attributes to the {% image %} tag
+### 1. Adding attributes to the `{% image %}` tag
 
 Extra attributes can be specified with the syntax `attribute="value"`:
 
@@ -298,7 +298,7 @@ Image height after resizing.
 
 ### `alt`
 
-Alternative text for the image, typically taken from the image title.
+Alternative text for the image, contextual alt text or `default_alt_text` if not.
 
 ### `attrs`
 
@@ -315,7 +315,7 @@ Same as `url`, but always returns a full absolute URL. This requires `WAGTAILADM
 This is useful for images that will be re-used outside of the current site, such as social share images:
 
 ```html+django
-<meta name="twitter:image" content="{{ tmp_photo.full_url }}">
+<meta name="og:image" content="{{ tmp_photo.full_url }}">
 ```
 
 If your site defines a custom image model using `AbstractImage`, any additional fields you add to an image (such as a copyright holder) is **not** included in the rendition.
@@ -340,7 +340,7 @@ class CustomImagesAppConfig(WagtailImagesAppConfig):
     default_attrs = {"decoding": "async", "loading": "lazy"}
 ```
 
-Then, replace `wagtail.images` in `settings.INSTALLED_APPS` with the path to `CustomUsersAppConfig`:
+Then, replace `wagtail.images` in `settings.INSTALLED_APPS` with the path to `CustomImagesAppConfig`:
 
 ```python
 INSTALLED_APPS = [
@@ -394,15 +394,15 @@ Wagtail comes with three pre-defined image formats, but more can be defined in P
 
 ### `Full width`
 
-Creates an image rendition using `width-800`, giving the <img> tag the CSS class `full-width`.
+Creates an image rendition using `width-800`, giving the `<img>` tag the CSS class `full-width`.
 
 ### `Left-aligned`
 
-Creates an image rendition using `width-500`, giving the <img> tag the CSS class `left`.
+Creates an image rendition using `width-500`, giving the `<img>` tag the CSS class `left`.
 
 ### `Right-aligned`
 
-Creates an image rendition using `width-500`, giving the <img> tag the CSS class `right`.
+Creates an image rendition using `width-500`, giving the `<img>` tag the CSS class `right`.
 
 ```{note}
 The CSS classes added to images do **not** come with any accompanying stylesheets or inline styles. For example, the `left` class will do nothing, by default. The developer is expected to add these classes to their front-end CSS files, to define exactly what they want `left`, `right` or `full-width` to mean.
@@ -442,12 +442,15 @@ You can encode the image into lossless AVIF or WebP format by using `format-avif
 {% image page.photo width-400 format-webp-lossless %}
 ```
 
+(favicon_generation)=
+
 ### Favicon generation
 
 You can save images as a `.ico` file using `format-ico`, which is especially useful when managing a site's favicon through the Admin.
 
 ```html+django
-<link rel="icon" href="{% image favicon_image format-ico %}" />
+{% image favicon_image format-ico as favicon_image_formatted %}
+<link rel="icon" type="image/x-icon" href="{{ favicon_image_formatted.url }}"/>
 ```
 
 (image_background_colour)=
@@ -471,8 +474,18 @@ representing the color you would like to use:
 
 ## Image quality
 
-Wagtail's JPEG image quality settings default to 85 (which is quite high). AVIF and WebP default to 80.
-This can be changed either globally or on a per-tag basis.
+Wagtail’s default image quality settings are suitable for most kinds and sizes of images on most websites. JPEG image quality settings default to 76, WebP to 80, AVIF to 61. Those values are set to achieve similar perceptual quality across the different formats, at a quality level where few to no artifacts are visible and file size is low.
+
+Those values can be changed either globally or on a per-tag basis. To achieve the best results, adjust image quality per tag to match the scenario. Compression artifacts are more visible on larger images and less of an issue for thumbnails. They are more distracting for computer graphics, less noticeable for decorative photography.
+
+Here are our recommended settings for common scenarios:
+
+| Intended use                | JPEG quality | AVIF quality | WebP quality |
+|-----------------------------|--------------|--------------|--------------|
+| Full-size photography       | 85           | 73           | 87           |
+| General-purpose web content | 76 (default) | 61 (default) | 80 (default) |
+| Large thumbnails (256x256)  | 65           | 54           | 70           |
+| Small thumbnails (64x64)    | 55           | 49           | 57           |
 
 ### Changing globally
 
@@ -534,7 +547,7 @@ See [](image_renditions).
 Wagtail supports the use of Scalable Vector Graphics alongside raster images. To allow Wagtail users to upload and use SVG images, add "svg" to the list of allowed image extensions by configuring `WAGTAILIMAGES_EXTENSIONS`:
 
 ```python
-WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
+WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
 ```
 
 SVG images can be included in templates via the `image` template tag, as with raster images. However, operations that require SVG images to be rasterized are not currently supported. This includes direct format conversion, e.g. `format-webp`, and `bgcolor` directives. Crop and resize operations do not require rasterization, so may be used freely (see [](available_resizing_methods)).
@@ -553,6 +566,10 @@ In this example, any of the image objects that are SVGs will only have the `fill
 
 ### Security considerations
 
+```{warning}
+Any system that allows user-uploaded files is a potential security risk.
+```
+
 Wagtail's underlying image library, Willow, is configured to mitigate known XML parser exploits (e.g. billion laughs, quadratic blowup) by rejecting suspicious files.
 
 When including SVG images in templates via the `image` tag, they will be rendered as HTML `img` elements. In this case, `script` elements in SVGs will not be executed, mitigating XSS attacks.
@@ -562,4 +579,18 @@ If a user navigates directly to the URL of the SVG file embedded scripts may be 
 -   setting `Content-Security-Policy: default-src 'none'` will prevent scripts from being loaded or executed (as well as other resources - a more relaxed policy of `script-src 'none'` may also be suitable); and
 -   setting `Content-Disposition: attachment` will cause the file to be downloaded rather than being immediately rendered in the browser, meaning scripts will not be executed (note: this will not prevent scripts from running if a user downloads and subsequently opens the SVG file in their browser).
 
-The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed.
+The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed. For the built-in [](using_images_outside_wagtail), a Content-Security-Policy header is automatically set for you.
+
+(heic_heif_images)=
+
+## HEIC / HEIF images
+
+HEIC / HEIF images are not widely supported on the web, but may be encountered when exporting images from Apple devices. Wagtail does not allow upload of these by default, but this can be enabled by adding `"heic"` to `WAGTAILIMAGES_EXTENSIONS`:
+
+```python
+WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "heic"]
+```
+
+Note that to upload HEIC / HEIF images, the file extension must be `.heic` and not `.heif` or other extensions.
+
+These images will be automatically converted to JPEG format when rendered (see [](customizing_output_formats)).

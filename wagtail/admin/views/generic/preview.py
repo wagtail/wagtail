@@ -7,19 +7,26 @@ from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
-from django.views.generic import View
+from django.utils.functional import cached_property
+from django.utils.translation import gettext
+from django.views.generic import TemplateView, View
 
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import get_edit_handler
+from wagtail.blocks.base import Block
 from wagtail.models import PreviewableMixin, RevisionMixin
 from wagtail.utils.decorators import xframe_options_sameorigin_override
 
+from .permissions import PermissionCheckedMixin
 
-class PreviewOnEdit(View):
+
+class PreviewOnEdit(PermissionCheckedMixin, View):
     model = None
     form_class = None
     http_method_names = ("post", "get", "delete")
     preview_expiration_timeout = 60 * 60 * 24  # seconds
     session_key_prefix = "wagtail-preview-"
+    permission_required = "change"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -50,6 +57,8 @@ class PreviewOnEdit(View):
 
     def get_object(self):
         obj = get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
+        if not self.user_has_permission_for_instance(self.permission_required, obj):
+            raise PermissionDenied
         if isinstance(obj, RevisionMixin):
             obj = obj.get_latest_revision_as_object()
         return obj
@@ -74,10 +83,15 @@ class PreviewOnEdit(View):
             post_data = ""
         return QueryDict(post_data)
 
+    def validate_form(self, form):
+        if isinstance(form, WagtailAdminModelForm):
+            form.defer_required_fields()
+        return form.is_valid()
+
     def post(self, request, *args, **kwargs):
         self.remove_old_preview_data()
         form = self.get_form(request.POST)
-        is_valid = form.is_valid()
+        is_valid = self.validate_form(form)
 
         if is_valid:
             # TODO: Handle request.FILES.
@@ -86,7 +100,7 @@ class PreviewOnEdit(View):
         else:
             # Check previous data in session to determine preview availability
             form = self.get_form(self._get_data_from_session())
-            is_available = form.is_valid()
+            is_available = self.validate_form(form)
 
         return JsonResponse({"is_valid": is_valid, "is_available": is_available})
 
@@ -97,24 +111,27 @@ class PreviewOnEdit(View):
             {"object": self.object},
         )
 
+    def get_extra_request_attrs(self):
+        return {
+            "in_preview_panel": self.request.GET.get("in_preview_panel") == "true",
+            "is_editing": True,
+        }
+
     @method_decorator(xframe_options_sameorigin_override)
     def get(self, request, *args, **kwargs):
         form = self.get_form(self._get_data_from_session())
 
-        if not form.is_valid():
+        if not self.validate_form(form):
             return self.error_response()
 
         form.save(commit=False)
 
         try:
             preview_mode = request.GET.get("mode", self.object.default_preview_mode)
-        except IndexError:
-            raise PermissionDenied
+        except IndexError as e:
+            raise PermissionDenied from e
 
-        extra_attrs = {
-            "in_preview_panel": request.GET.get("in_preview_panel") == "true",
-            "is_editing": True,
-        }
+        extra_attrs = self.get_extra_request_attrs()
 
         return self.object.make_preview_request(request, preview_mode, extra_attrs)
 
@@ -124,6 +141,8 @@ class PreviewOnEdit(View):
 
 
 class PreviewOnCreate(PreviewOnEdit):
+    permission_required = "add"
+
     @property
     def session_key(self):
         app_label = self.model._meta.app_label
@@ -159,7 +178,55 @@ class PreviewRevision(View):
             preview_mode = request.GET.get(
                 "mode", self.revision_object.default_preview_mode
             )
-        except IndexError:
-            raise PermissionDenied
+        except IndexError as e:
+            raise PermissionDenied from e
 
         return self.revision_object.make_preview_request(request, preview_mode)
+
+
+@method_decorator(xframe_options_sameorigin_override, name="get")
+class StreamFieldBlockPreview(TemplateView):
+    http_method_names = ("get",)
+
+    @cached_property
+    def block_id(self):
+        return self.request.GET.get("id")
+
+    @cached_property
+    def block_def(self) -> Block:
+        if not (block := Block.definition_registry.get(self.block_id)):
+            raise Http404
+        return block
+
+    @cached_property
+    def block_value(self):
+        return self.block_def.get_preview_value()
+
+    @cached_property
+    def page_title(self):
+        return gettext("Preview for %(block_label)s (%(block_type)s)") % {
+            "block_label": self.block_def.label,
+            "block_type": self.block_def.__class__.__name__,
+        }
+
+    @cached_property
+    def base_context(self):
+        # Do NOT use the name `block` in the context, as it will conflict with
+        # the current block inside a template {% block %} tag.
+        # If any changes are made here that needs to be publicly documented,
+        # make sure to update the docs for `Block.get_preview_context`.
+        return {
+            "request": self.request,
+            "block_def": self.block_def,
+            "block_class": self.block_def.__class__,
+            "bound_block": self.block_def.bind(self.block_value),
+            "page_title": self.page_title,
+        }
+
+    def get_template_names(self):
+        return self.block_def.get_preview_template(self.block_value, self.base_context)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.base_context)
+        return self.block_def.get_preview_context(self.block_value, context)

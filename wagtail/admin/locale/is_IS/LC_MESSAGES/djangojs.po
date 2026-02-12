@@ -1,14 +1,14 @@
 #
 # Translators:
-# Loic Teixeira, 2022
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023
-# saevarom <saevar@saevar.is>, 2023
+# Loic Teixeira, 2024
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2026
+# saevarom <saevar@saevar.is>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: saevarom <saevar@saevar.is>, 2023\n"
-"Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
-"teams/8009/is_IS/)\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2026\n"
+"Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/teams/"
+"8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
@@ -27,10 +27,27 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s villa"
 msgstr[1] "%(num)s villur"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s mín."
+msgstr[1] "%(num)s mín."
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixill"
 msgstr[1] "%(num)s pixlar"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "Actions"
+msgstr "Aðgerðir"
+
+msgid "Add"
+msgstr "Bæta við"
 
 msgid "Add a comment"
 msgstr "Bæta við athugasemd"
@@ -77,6 +94,12 @@ msgstr "Eyða villu"
 msgid "Deleting"
 msgstr "Eyði"
 
+msgid "Drag"
+msgstr "Draga"
+
+msgid "Duplicate"
+msgstr "Afrita"
+
 msgid "Edit"
 msgstr "Breyta"
 
@@ -119,6 +142,15 @@ msgstr "Vantar skrá"
 msgid "More actions"
 msgstr "Fleiri aðgerðir"
 
+msgid "Move down"
+msgstr "Færa niður"
+
+msgid "Move up"
+msgstr "Færa upp"
+
+msgid "No"
+msgstr "Nei"
+
 msgid "No results"
 msgstr "Engar niðurstöður"
 
@@ -133,6 +165,9 @@ msgstr "Síður"
 
 msgid "Pin toolbar"
 msgstr "Festa tækjastiku"
+
+msgid "Preview"
+msgstr "Forskoða"
 
 msgid "Reload saved content"
 msgstr "Endurhlaða vistuðu efni"
@@ -160,15 +195,6 @@ msgstr "Vista"
 msgid "Save error"
 msgstr "Vista villu"
 
-msgid "Save the page to add this comment"
-msgstr "Vistaðu síðuna til að bæta þessari athugasemd við"
-
-msgid "Save the page to save this comment"
-msgstr "Vistaðu síðuna til að vista þessa athugasemd"
-
-msgid "Save the page to save this reply"
-msgstr "Vistaðu síðuna til að vista þetta svar"
-
 msgid "Saving..."
 msgstr "Vista..."
 
@@ -183,6 +209,9 @@ msgstr "Sjá allt"
 
 msgid "Server Error"
 msgstr "Villa á vefþjóni"
+
+msgid "Settings"
+msgstr "Stillingar"
 
 msgid "Show error"
 msgstr "Sýna villu"
@@ -199,8 +228,17 @@ msgstr ""
 "Ritillinn lenti í villu. Efnið hefur verið endurstillt í síðustu vistuðu "
 "útgáfu."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Fjöldi eininga má mest vera %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Fjöldi eininga má minnst vera %(min_num)d"
+
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Toggle section"
+msgstr "Sýna/fela síðuhluta"
 
 msgid "Toggle side panel"
 msgstr "Sýna/fela hliðarstiku"
@@ -219,3 +257,6 @@ msgstr "Skoða undirsíður '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Skrifaðu eitthvað eða sláðu inn '/' til að setja inn blok"
+
+msgid "Yes"
+msgstr "Já"

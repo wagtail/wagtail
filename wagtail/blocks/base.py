@@ -2,7 +2,6 @@ import collections
 import itertools
 import json
 import re
-import warnings
 from functools import lru_cache
 from importlib import import_module
 
@@ -17,9 +16,9 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.coreutils import accepts_kwarg
-from wagtail.telepath import JSContext
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.admin.telepath import JSContext
+from wagtail.admin.telepath import register as register_telepath_adapter
+from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
     "BaseBlock",
@@ -55,13 +54,16 @@ class BaseBlock(type):
 class Block(metaclass=BaseBlock):
     name = ""
     creation_counter = 0
+    definition_registry = {}
 
     TEMPLATE_VAR = "value"
+    DEFAULT_PREVIEW_TEMPLATE = "wagtailcore/shared/block_preview.html"
 
     class Meta:
         label = None
         icon = "placeholder"
         classname = None
+        form_attrs = None
         group = ""
 
     # Attributes of Meta which can legally be modified after the block has been instantiated.
@@ -94,8 +96,20 @@ class Block(metaclass=BaseBlock):
         self.creation_counter = Block.creation_counter
         Block.creation_counter += 1
         self.definition_prefix = "blockdef-%d" % self.creation_counter
+        Block.definition_registry[self.definition_prefix] = self
 
         self.label = self.meta.label or ""
+
+    @classmethod
+    def construct_from_lookup(cls, lookup, *args, **kwargs):
+        """
+        See `wagtail.blocks.definition_lookup.BlockDefinitionLookup`.
+        Construct a block instance from the provided arguments, using the given BlockDefinitionLookup
+        object to perform any necessary lookups.
+        """
+        # In the base implementation, no lookups take place - args / kwargs are passed
+        # on to the constructor as-is
+        return cls(*args, **kwargs)
 
     def set_name(self, name):
         self.name = name
@@ -138,15 +152,20 @@ class Block(metaclass=BaseBlock):
         """
         return BoundBlock(self, value, prefix=prefix, errors=errors)
 
+    def _evaluate_callable(self, value):
+        return value() if callable(value) else value
+
     def get_default(self):
         """
         Return this block's default value (conventionally found in self.meta.default),
-        converted to the value type expected by this block. This caters for the case
-        where that value type is not something that can be expressed statically at
-        model definition type (e.g. something like StructValue which incorporates a
+        converted to the value type expected by this block. If the default is a callable
+        (e.g. a function), it will be evaluated at runtime. This caters for
+        the case where that value type is not something that can be expressed statically at
+        model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        return self.meta.default
+        default = self._evaluate_callable(getattr(self.meta, "default", None))
+        return self.normalize(default)
 
     def clean(self, value):
         """
@@ -159,6 +178,15 @@ class Block(metaclass=BaseBlock):
         """
         return value
 
+    def normalize(self, value):
+        """
+        Given a value for any acceptable type for this block (e.g. string or RichText for a RichTextBlock;
+        dict or StructValue for a StructBlock), return a value of the block's native type (e.g. RichText
+        for RichTextBlock, StructValue for StructBlock). In simple cases this will return the value
+        unchanged.
+        """
+        return value
+
     def to_python(self, value):
         """
         Convert 'value' from a simple (JSON-serialisable) value to a (possibly complex) Python value to be
@@ -167,6 +195,9 @@ class Block(metaclass=BaseBlock):
         like the original value but provides a native HTML rendering when inserted into a template; or it
         might be something totally different (e.g. an image chooser will use the image ID as the clean
         value, and turn this back into an actual image object here).
+
+        For blocks that are usable at the top level of a StreamField, this must also accept any type accepted
+        by normalize. (This is because Django calls `Field.to_python` from `Field.clean`.)
         """
         return value
 
@@ -197,8 +228,9 @@ class Block(metaclass=BaseBlock):
 
     def get_context(self, value, parent_context=None):
         """
-        Return a dict of context variables (derived from the block value and combined with the parent_context)
-        to be used as the template context when rendering this value through a template.
+        Return a dict of context variables (derived from the block ``value`` and combined with the
+        ``parent_context``) to be used as the template context when rendering this value through a
+        template. See :ref:`the usage example <streamfield_get_context>` for more details.
         """
 
         context = parent_context or {}
@@ -212,11 +244,9 @@ class Block(metaclass=BaseBlock):
 
     def get_template(self, value=None, context=None):
         """
-        Return the template to use for rendering the block if specified on meta class.
-        This extraction was added to make dynamic templates possible if you override this method
-
-        value contains the current value of the block, allowing overridden methods to
-        select the proper template based on the actual block value.
+        Return the template to use for rendering the block if specified.
+        This method allows for dynamic templates based on the block instance and a given ``value``.
+        See :ref:`the usage example <streamfield_get_template>` for more details.
         """
         return getattr(self.meta, "template", None)
 
@@ -226,16 +256,7 @@ class Block(metaclass=BaseBlock):
         use a template (with the passed context, supplemented by the result of get_context) if a
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
-        args = {"context": context}
-        if accepts_kwarg(self.get_template, "value"):
-            args["value"] = value
-        else:
-            warnings.warn(
-                f"{self.__class__.__name__}.get_template should accept a 'value' argument as first argument",
-                RemovedInWagtail70Warning,
-            )
-
-        template = self.get_template(**args)
+        template = self.get_template(value, context=context)
         if not template:
             return self.render_basic(value, context=context)
 
@@ -245,6 +266,103 @@ class Block(metaclass=BaseBlock):
             new_context = self.get_context(value, parent_context=dict(context))
 
         return mark_safe(render_to_string(template, new_context))
+
+    def get_preview_context(self, value, parent_context=None):
+        """
+        Return a dict of context variables to be used as the template context
+        when rendering the block's preview. The ``value`` argument is the value
+        returned by :meth:`get_preview_value`. The ``parent_context`` argument
+        contains the following variables:
+
+        - ``request``: The current request object.
+        - ``block_def``: The block instance.
+        - ``block_class``: The block class.
+        - ``bound_block``: A ``BoundBlock`` instance representing the block and its value.
+
+        If :ref:`the global preview template <streamfield_global_preview_template>`
+        is used, the block will be rendered as the main content using
+        ``{% include_block %}``, which in turn uses :meth:`get_context`. As a
+        result, the context returned by this method will be available as the
+        ``parent_context`` for ``get_context()`` when the preview is rendered.
+        """
+        # NOTE: see StreamFieldBlockPreview.base_context for the context variables
+        # that can be documented.
+        return parent_context or {}
+
+    def get_preview_template(self, value, context=None):
+        """
+        Return the template to use for rendering the block's preview. The ``value``
+        argument is the value returned by :meth:`get_preview_value`. The ``context``
+        argument contains the variables listed for the ``parent_context`` argument
+        of :meth:`get_preview_context` above (and not the context returned by that
+        method itself).
+
+        Note that the preview template is used to render a complete HTML page of
+        the preview, not just an HTML fragment for the block. The method returns
+        the ``preview_template`` attribute from the block's options if provided,
+        and falls back to
+        :ref:`the global preview template <streamfield_global_preview_template>`
+        otherwise.
+
+        If the global preview template is used, the block will be rendered as the
+        main content using ``{% include_block %}``, which in turn uses
+        :meth:`get_template`.
+        """
+        return (
+            getattr(self.meta, "preview_template", None)
+            or self.DEFAULT_PREVIEW_TEMPLATE
+        )
+
+    def get_preview_value(self):
+        """
+        Return the placeholder value that will be used for rendering the block's
+        preview. By default, the value is the ``preview_value`` from the block's
+        options if provided. If it's a callable, it will be evaluated at runtime.
+        If ``preview_value`` is not provided, the ``default`` is used as fallback.
+        This method can also be overridden to provide a dynamic preview value.
+        """
+        if hasattr(self.meta, "preview_value"):
+            value = self._evaluate_callable(self.meta.preview_value)
+            return self.normalize(value)
+        return self.get_default()
+
+    @cached_property
+    def _has_default(self):
+        return getattr(self.meta, "default", None) is not None
+
+    @cached_property
+    def is_previewable(self):
+        """
+        Determine whether the block is previewable in the block picker. By
+        default, it automatically detects when a custom template is used or the
+        :ref:`the global preview template <streamfield_global_preview_template>`
+        is overridden and a preview value is provided. If the block is
+        previewable by other means, override this property to return ``True``.
+        To turn off previews for the block, set it to ``False``.
+        """
+        has_specific_template = (
+            hasattr(self.meta, "preview_template")
+            or self.__class__.get_preview_template is not Block.get_preview_template
+        )
+        has_preview_value = (
+            hasattr(self.meta, "preview_value")
+            or self._has_default
+            or self.__class__.get_preview_context is not Block.get_preview_context
+            or self.__class__.get_preview_value is not Block.get_preview_value
+        )
+        has_global_template = template_is_overridden(
+            self.DEFAULT_PREVIEW_TEMPLATE,
+            "templates",
+        )
+        return has_specific_template or (has_preview_value and has_global_template)
+
+    def get_description(self):
+        """
+        Return the description of the block to be shown to editors as part of the preview.
+        For :ref:`field block types <field_block_types>`, it will fall back to
+        ``help_text`` if not provided.
+        """
+        return getattr(self.meta, "description", "")
 
     def get_api_representation(self, value, context=None):
         """
@@ -364,7 +482,11 @@ class Block(metaclass=BaseBlock):
         """
         return False
 
-    def deconstruct(self):
+    @cached_property
+    def canonical_module_path(self):
+        """
+        Return the module path string that should be used to refer to this block in migrations.
+        """
         # adapted from django.utils.deconstruct.deconstructible
         module_name = self.__module__
         name = self.__class__.__name__
@@ -382,15 +504,28 @@ class Block(metaclass=BaseBlock):
         # if the module defines a DECONSTRUCT_ALIASES dictionary, see if the class has an entry in there;
         # if so, use that instead of the real path
         try:
-            path = module.DECONSTRUCT_ALIASES[self.__class__]
+            return module.DECONSTRUCT_ALIASES[self.__class__]
         except (AttributeError, KeyError):
-            path = f"{module_name}.{name}"
+            return f"{module_name}.{name}"
 
+    def deconstruct(self):
         return (
-            path,
+            self.canonical_module_path,
             self._constructor_args[0],
             self._constructor_args[1],
         )
+
+    def deconstruct_with_lookup(self, lookup):
+        """
+        Like `deconstruct`, but with a `wagtail.blocks.definition_lookup.BlockDefinitionLookupBuilder`
+        object available so that any block instances within the definition can be added to the lookup
+        table to obtain an ID (potentially shared with other matching block definitions, thus reducing
+        the overall definition size) to be used in place of the block. The resulting deconstructed form
+        returned here can then be restored into a block object using `Block.construct_from_lookup`.
+        """
+        # In the base implementation, no substitutions happen, so we ignore the lookup and just call
+        # deconstruct
+        return self.deconstruct()
 
     def __eq__(self, other):
         """
@@ -399,14 +534,9 @@ class Block(metaclass=BaseBlock):
         attributes identified in MUTABLE_META_ATTRIBUTES, so checking these along with the result of
         deconstruct (which captures the constructor arguments) is sufficient to identify (valid) differences.
 
-        This was originally necessary as a workaround for https://code.djangoproject.com/ticket/24340
-        in Django <1.9; the deep_deconstruct function used to detect changes for migrations did not
-        recurse into the block lists, and left them as Block instances. This __eq__ method therefore
-        came into play when identifying changes within migrations.
-
-        As of Django >=1.9, this *probably* isn't required any more. However, it may be useful in
-        future as a way of identifying blocks that can be re-used within StreamField definitions
-        (https://github.com/wagtail/wagtail/issues/4298#issuecomment-367656028).
+        This was implemented as a workaround for a Django <1.9 bug and is quite possibly not used by Wagtail
+        any more, but has been retained as it provides a sensible definition of equality (and there's no
+        reason to break it).
         """
 
         if not isinstance(other, Block):
@@ -525,6 +655,7 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
 # ========================
 
 
+@register_telepath_adapter
 class BlockWidget(forms.Widget):
     """Wraps a block object as a widget so that it can be incorporated into a Django form"""
 
@@ -532,10 +663,14 @@ class BlockWidget(forms.Widget):
         super().__init__(attrs=attrs)
         self.block_def = block_def
         self._js_context = None
+        self._block_json = None
 
     def _build_block_json(self):
-        self._js_context = JSContext()
-        self._block_json = json.dumps(self._js_context.pack(self.block_def))
+        try:
+            self._js_context = JSContext()
+            self._block_json = json.dumps(self._js_context.pack(self.block_def))
+        except Exception as e:  # noqa: BLE001
+            raise ValueError("Error while serializing block definition: %s" % e) from e
 
     @property
     def js_context(self):
@@ -546,7 +681,7 @@ class BlockWidget(forms.Widget):
 
     @property
     def block_json(self):
-        if self._js_context is None:
+        if self._block_json is None:
             self._build_block_json()
 
         return self._block_json
@@ -585,9 +720,8 @@ class BlockWidget(forms.Widget):
     def media(self):
         return self.js_context.media + forms.Media(
             js=[
-                # needed for initBlockWidget, although these will almost certainly be
+                # this will almost certainly be
                 # pulled in by the block adapters too
-                versioned_static("wagtailadmin/js/telepath/telepath.js"),
                 versioned_static("wagtailadmin/js/telepath/blocks.js"),
             ],
             css={
@@ -602,6 +736,9 @@ class BlockWidget(forms.Widget):
 
     def value_omitted_from_data(self, data, files, name):
         return self.block_def.value_omitted_from_data(data, files, name)
+
+    def telepath_pack(self, context):
+        return ("wagtail.widgets.BlockWidget", [])
 
 
 class BlockField(forms.Field):
@@ -618,7 +755,22 @@ class BlockField(forms.Field):
         super().__init__(**kwargs)
 
     def clean(self, value):
-        return self.block.clean(value)
+        from wagtail.blocks.stream_block import StreamBlock
+
+        if isinstance(self.block, StreamBlock):
+            # StreamBlock is the only block type that is formally-supported as the top level block
+            # of a BlockField, but it's possible that other block types could be used, so check
+            # this explicitly.
+            # self.block has a `required` attribute that is consistent with the StreamField's `blank`
+            # attribute and thus the `required` attribute of BlockField - but if the latter has been
+            # assigned dynamically (e.g. by defer_required_fields) we want this to take precedence.
+            # We do this through the `ignore_required_constraints` flag recognised by
+            # StreamBlock.clean.
+            return self.block.clean(
+                value, ignore_required_constraints=not self.required
+            )
+        else:
+            return self.block.clean(value)
 
     def has_changed(self, initial_value, data_value):
         return self.block.get_prep_value(initial_value) != self.block.get_prep_value(

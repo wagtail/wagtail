@@ -1,21 +1,15 @@
-/** @typedef {{
-    value: svar(--w-color-trin)g;
-    bgUtility: string;
-    textUtility: string;
-    cssVariable: string;
-}} Token */
+/**
+ * @typedef {{ value: string; bgUtility: string; textUtility: string; cssVariable: string; }} Token
+ *
+ * @typedef {{ [token: string]: Token; }} CategoryTokens
+ *
+ * @typedef {{ label: string; tokens: CategoryTokens; }} ThemeCategory
+ */
 
-/** @typedef {{
-    [token: string]: Token;
-}} CategoryTokens */
-
-/** @typedef {{
-    label: string;
-    tokens: CategoryTokens;
-}} ThemeCategory */
-
-// The focus outline color is defined without reusing a named color variable
-// because it shouldn’t be reused for anything else in the UI.
+/**
+ * The focus outline color is defined without reusing a named color variable
+ * because it shouldn’t be reused for anything else in the UI.
+ */
 const focusToken = {
   value: '#00A885',
   bgUtility: 'w-bg-focus',
@@ -99,6 +93,24 @@ const light = [
         bgUtility: 'w-bg-surface-button-critical-hover',
         textUtility: 'w-text-surface-button-critical-hover',
         cssVariable: '--w-color-surface-button-critical-hover',
+      },
+      'surface-status-label': {
+        value: 'var(--w-color-info-50)',
+        bgUtility: 'w-bg-surface-status-label',
+        textUtility: 'w-text-surface-status-label',
+        cssVariable: '--w-color-surface-status-label',
+      },
+      'surface-info-panel': {
+        value: 'var(--w-color-info-50)',
+        bgUtility: 'w-bg-surface-info-panel',
+        textUtility: 'w-text-surface-info-panel',
+        cssVariable: '--w-color-surface-info-panel',
+      },
+      'surface-dashboard-panel': {
+        value: 'var(--w-color-white)',
+        bgUtility: 'w-bg-surface-dashboard-panel',
+        textUtility: 'w-text-surface-dashboard-panel',
+        cssVariable: '--w-color-surface-dashboard-panel',
       },
     },
   },
@@ -189,6 +201,18 @@ const light = [
         textUtility: 'w-text-text-button-critical-outline-hover',
         cssVariable: '--w-color-text-button-critical-outline-hover',
       },
+      'text-status-label': {
+        value: 'var(--w-color-info-100)',
+        bgUtility: 'w-bg-text-status-label',
+        textUtility: 'w-text-text-status-label',
+        cssVariable: '--w-color-text-status-label',
+      },
+      'text-link-info': {
+        value: 'var(--w-color-secondary-400)',
+        bgUtility: 'w-bg-text-link-info',
+        textUtility: 'w-text-text-link-info',
+        cssVariable: '--w-color-text-link-info',
+      },
     },
   },
   {
@@ -264,6 +288,36 @@ const light = [
         bgUtility: 'w-bg-border-button-outline-hover',
         textUtility: 'w-text-border-button-outline-hover',
         cssVariable: '--w-color-border-button-outline-hover',
+      },
+      'border-interactive-more-contrast': {
+        value: 'var(--w-color-grey-500)',
+        bgUtility: 'w-bg-border-interactive-more-contrast',
+        textUtility: 'w-text-border-interactive-more-contrast',
+        cssVariable: '--w-color-border-interactive-more-contrast',
+      },
+      'border-interactive-more-contrast-hover': {
+        value: 'var(--w-color-black)',
+        bgUtility: 'w-bg-border-interactive-more-contrast-hover',
+        textUtility: 'w-text-border-interactive-more-contrast-hover',
+        cssVariable: '--w-color-border-interactive-more-contrast-hover',
+      },
+      'border-interactive-more-contrast-dark-bg': {
+        value: 'var(--w-color-grey-150)',
+        bgUtility: 'w-bg-border-interactive-more-contrast-dark-bg',
+        textUtility: 'w-text-border-interactive-more-contrast-dark-bg',
+        cssVariable: '--w-color-border-interactive-more-contrast-dark-bg',
+      },
+      'border-interactive-more-contrast-dark-bg-hover': {
+        value: 'var(--w-color-white)',
+        bgUtility: 'w-bg-border-interactive-more-contrast-dark-bg-hover',
+        textUtility: 'w-text-border-interactive-more-contrast-dark-bg-hover',
+        cssVariable: '--w-color-border-interactive-more-contrast-dark-bg-hover',
+      },
+      'border-furniture-more-contrast': {
+        value: 'var(--w-color-grey-200)',
+        bgUtility: 'w-bg-border-furniture-more-contrast',
+        textUtility: 'w-text-border-furniture-more-contrast',
+        cssVariable: '--w-color-border-furniture-more-contrast',
       },
     },
   },
@@ -358,6 +412,24 @@ const dark = [
         textUtility: 'w-text-surface-button-critical-hover',
         cssVariable: '--w-color-surface-button-critical-hover',
       },
+      'surface-status-label': {
+        value: 'var(--w-color-grey-600)',
+        bgUtility: 'w-bg-surface-status-label',
+        textUtility: 'w-text-surface-status-label',
+        cssVariable: '--w-color-surface-status-label',
+      },
+      'surface-info-panel': {
+        value: 'var(--w-color-info-100)',
+        bgUtility: 'w-bg-surface-info-panel',
+        textUtility: 'w-text-surface-info-panel',
+        cssVariable: '--w-color-surface-info-panel',
+      },
+      'surface-dashboard-panel': {
+        value: 'var(--w-color-grey-800)',
+        bgUtility: 'w-bg-surface-dashboard-panel',
+        textUtility: 'w-text-surface-dashboard-panel',
+        cssVariable: '--w-color-surface-dashboard-panel',
+      },
     },
   },
   {
@@ -447,6 +519,18 @@ const dark = [
         textUtility: 'w-text-text-button-critical-outline-hover',
         cssVariable: '--w-color-text-button-critical-outline-hover',
       },
+      'text-status-label': {
+        value: 'var(--w-color-info-75)',
+        bgUtility: 'w-bg-text-status-label',
+        textUtility: 'w-text-text-status-label',
+        cssVariable: '--w-color-text-status-label',
+      },
+      'text-link-info': {
+        value: 'var(--w-color-grey-50)',
+        bgUtility: 'w-bg-text-link-info',
+        textUtility: 'w-text-text-link-info',
+        cssVariable: '--w-color-text-link-info',
+      },
     },
   },
   {
@@ -522,6 +606,36 @@ const dark = [
         bgUtility: 'w-bg-border-button-outline-hover',
         textUtility: 'w-text-border-button-outline-hover',
         cssVariable: '--w-color-border-button-outline-hover',
+      },
+      'border-interactive-more-contrast': {
+        value: 'var(--w-color-grey-150)',
+        bgUtility: 'w-bg-border-interactive-more-contrast',
+        textUtility: 'w-text-border-interactive-more-contrast',
+        cssVariable: '--w-color-border-interactive-more-contrast',
+      },
+      'border-interactive-more-contrast-hover': {
+        value: 'var(--w-color-white)',
+        bgUtility: 'w-bg-border-interactive-more-contrast-hover',
+        textUtility: 'w-text-border-interactive-more-contrast-hover',
+        cssVariable: '--w-color-border-interactive-more-contrast-hover',
+      },
+      'border-interactive-more-contrast-dark-bg': {
+        value: 'var(--w-color-grey-150)',
+        bgUtility: 'w-bg-border-interactive-more-contrast-dark-bg',
+        textUtility: 'w-text-border-interactive-more-contrast-dark-bg',
+        cssVariable: '--w-color-border-interactive-more-contrast-dark-bg',
+      },
+      'border-interactive-more-contrast-dark-bg-hover': {
+        value: 'var(--w-color-white)',
+        bgUtility: 'w-bg-border-interactive-more-contrast-dark-bg-hover',
+        textUtility: 'w-text-border-interactive-more-contrast-dark-bg-hover',
+        cssVariable: '--w-color-border-interactive-more-contrast-dark-bg-hover',
+      },
+      'border-furniture-more-contrast': {
+        value: 'var(--w-color-grey-400)',
+        bgUtility: 'w-bg-border-furniture-more-contrast',
+        textUtility: 'w-text-border-furniture-more-contrast',
+        cssVariable: '--w-color-border-furniture-more-contrast',
       },
     },
   },

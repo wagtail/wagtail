@@ -13,7 +13,7 @@ The following organisations and individuals supported the [Wagtail's First Hatch
 -   [Taywa](https://www.taywa.ch/)
 -   [Rock Kitchen Harris](https://www.rkh.co.uk/)
 -   [The Motley Fool](https://www.fool.com/)
--   [R Strother Scott](https://twitter.com/rstrotherscott)
+-   [R Strother Scott](https://x.com/rstrotherscott)
 -   [Beyond Media](https://www.beyond.works/)
 
 The features below were developed thanks to the sponsorship of these organsations:
@@ -38,7 +38,7 @@ The features below were developed thanks to the sponsorship of these organsation
 
 -   Page aliases - [The Mozilla Foundation](https://foundation.mozilla.org/en/)
 
--   Hooks for Snippet customisation - [The Mozilla Foundation](https://foundation.mozilla.org/en/)
+-   Hooks for Snippet customization - [The Mozilla Foundation](https://foundation.mozilla.org/en/)
 
 -   Utility for testing hooks - [The Mozilla Foundation](https://foundation.mozilla.org/en/)
 

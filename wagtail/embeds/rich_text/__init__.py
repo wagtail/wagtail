@@ -18,7 +18,7 @@ class MediaEmbedHandler(EmbedHandler):
         return get_embed(attrs["url"])
 
     @staticmethod
-    def expand_db_attributes(attrs):
+    def expand_db_attributes(attrs: dict) -> str:
         """
         Given a dict of attributes from the <embed> tag, return the real HTML
         representation for use on the front-end.

@@ -2,6 +2,7 @@ from collections import namedtuple
 
 from django.apps import apps
 from django.conf import settings
+from django.contrib.auth.models import Group, Permission
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -155,12 +156,13 @@ class Site(models.Model):
 
         if not hasattr(request, "_wagtail_site"):
             site = Site._find_for_request(request)
-            setattr(request, "_wagtail_site", site)
+            request._wagtail_site = site
         return request._wagtail_site
 
     @staticmethod
     def _find_for_request(request):
-        hostname = split_domain_port(request.get_host())[0]
+        # Use `_get_raw_host` to avoid ALLOWED_HOSTS checks
+        hostname = split_domain_port(request._get_raw_host())[0]
         port = request.get_port()
         site = None
         try:
@@ -206,15 +208,15 @@ class Site(models.Model):
     def get_site_root_paths():
         """
         Return a list of `SiteRootPath` instances, most specific path
-        first - used to translate url_paths into actual URLs with hostnames
+        first - used to translate url_paths into actual URLs with hostnames.
 
         Each root path is an instance of the `SiteRootPath` named tuple,
         and have the following attributes:
 
-        - `site_id` - The ID of the Site record
-        - `root_path` - The internal URL path of the site's home page (for example '/home/')
-        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
-        - `language_code` - The language code of the site (for example 'en')
+        - ``site_id`` - The ID of the Site record
+        - ``root_path`` - The internal URL path of the site's home page (for example '/home/')
+        - ``root_url`` - The scheme/domain name of the site (for example 'https://www.example.com/')
+        - ``language_code`` - The language code of the site (for example 'en')
         """
         result = cache.get(
             SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
@@ -267,3 +269,50 @@ class Site(models.Model):
     @staticmethod
     def clear_site_root_paths_cache():
         cache.delete(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+
+
+class GroupSitePermissionManager(models.Manager):
+    def get_by_natural_key(self, group, site, permission):
+        return self.get(group=group, site=site, permission=permission)
+
+
+class GroupSitePermission(models.Model):
+    """
+    A rule indicating that a group has permission for some action (e.g. "edit social media settings")
+    within a specified site.
+    """
+
+    group = models.ForeignKey(
+        Group,
+        verbose_name=_("group"),
+        related_name="site_permissions",
+        on_delete=models.CASCADE,
+    )
+    site = models.ForeignKey(
+        Site,
+        verbose_name=_("site"),
+        related_name="group_permissions",
+        on_delete=models.CASCADE,
+    )
+    permission = models.ForeignKey(
+        Permission, verbose_name=_("permission"), on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return "Group %d ('%s') has permission '%s' on site %d ('%s')" % (
+            self.group.id,
+            self.group,
+            self.permission,
+            self.site.id,
+            self.site,
+        )
+
+    def natural_key(self):
+        return (self.group, self.site, self.permission)
+
+    objects = GroupSitePermissionManager()
+
+    class Meta:
+        unique_together = ("group", "site", "permission")
+        verbose_name = _("group site permission")
+        verbose_name_plural = _("group site permissions")

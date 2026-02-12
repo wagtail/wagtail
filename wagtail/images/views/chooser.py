@@ -10,6 +10,13 @@ from django.views.generic.base import View
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.ui.tables import (
+    BaseColumn,
+    Column,
+    DateColumn,
+    TitleColumn,
+    UsageCountColumn,
+)
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
@@ -27,6 +34,7 @@ from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import find_image_duplicates
+from wagtail.models import ReferenceIndex
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -43,6 +51,7 @@ class ImageChosenResponseMixin(ChosenResponseMixin):
             "width": preview_image.width,
             "height": preview_image.height,
         }
+        response_data["default_alt_text"] = image.default_alt_text
         return response_data
 
 
@@ -72,18 +81,26 @@ class ImageCreationFormMixin(CreationFormMixin):
 class BaseImageChooseView(BaseChooseView):
     template_name = "wagtailimages/chooser/chooser.html"
     results_template_name = "wagtailimages/chooser/results.html"
-    per_page = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
     ordering = "-created_at"
     construct_queryset_hook_name = "construct_image_chooser_queryset"
 
+    @property
+    def per_page(self):
+        # Make per_page into a property so that we can read back WAGTAILIMAGES_CHOOSER_PAGE_SIZE
+        # at runtime.
+        return getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 20)
+
     def get_object_list(self):
-        return (
+        # Get images (filtered by user permission)
+        images = (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["choose"]
             )
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
+
+        return images
 
     def filter_object_list(self, objects):
         tag_name = self.request.GET.get("tag")
@@ -110,6 +127,14 @@ class BaseImageChooseView(BaseChooseView):
         self.model = get_image_model()
         return super().get(request)
 
+    def get_usage_counts(self, results):
+        # Use a separate, more efficient query that only gets usage counts for
+        # objects on the current page
+        # See https://github.com/wagtail/wagtail/issues/13561
+        if self.layout == "grid":
+            return {}
+        return ReferenceIndex.get_count_references_to_in_bulk(list(results))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         chosen_url_name = (
@@ -118,13 +143,60 @@ class BaseImageChooseView(BaseChooseView):
             else "wagtailimages_chooser:chosen"
         )
 
+        counts = self.get_usage_counts(context["results"])
         for image in context["results"]:
             image.chosen_url = self.append_preserved_url_parameters(
                 reverse(chosen_url_name, args=(image.id,))
             )
+            image.usage_count = counts.get(image, 0)
 
         context["collections"] = self.collections
+        context["layout"] = self.layout
         return context
+
+    @cached_property
+    def layout(self):
+        return self.request.GET.get("layout", "grid")
+
+    @cached_property
+    def columns(self):
+        if self.layout == "grid":
+            return []
+        else:
+            columns = [
+                ImagePreviewColumn(
+                    "preview",
+                    label=_("Preview"),
+                    accessor="image",
+                    classname="image-preview",
+                ),
+                TitleColumnWithFilename(
+                    "title",
+                    label=_("Title"),
+                    get_url=lambda obj: obj.chosen_url,
+                    width="35%",
+                    classname="title-with-filename",
+                ),
+                Column("collection", label=_("Collection"), accessor="collection.name"),
+                DateColumn(
+                    "created_at",
+                    label=_("Created"),
+                ),
+                UsageCountColumn(
+                    "usage_count",
+                    label=_("Usage"),
+                    width="16%",
+                ),
+            ]
+        return columns
+
+
+class ImagePreviewColumn(BaseColumn):
+    cell_template_name = "wagtailimages/chooser/image_preview_column_cell.html"
+
+
+class TitleColumnWithFilename(TitleColumn):
+    cell_template_name = "wagtailimages/chooser/title_column_cell.html"
 
 
 class ImageChooseViewMixin(ChooseViewMixin):
@@ -306,7 +378,10 @@ class ImageChooserViewSet(ChooserViewSet):
     select_format_view_class = ImageSelectFormatView
     permission_policy = permission_policy
     register_widget = False
-    preserve_url_parameters = ChooserViewSet.preserve_url_parameters + ["select_format"]
+    preserve_url_parameters = ChooserViewSet.preserve_url_parameters + [
+        "select_format",
+        "layout",
+    ]
 
     icon = "image"
     choose_one_text = _("Choose an image")

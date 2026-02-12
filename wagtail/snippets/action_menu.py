@@ -1,4 +1,5 @@
 """Handles rendering of the list of actions in the footer of the snippet create/edit views."""
+
 from functools import lru_cache
 
 from django.conf import settings
@@ -6,6 +7,7 @@ from django.contrib.admin.utils import quote
 from django.forms import Media
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -48,6 +50,13 @@ class ActionMenuItem(Component):
         context = parent_context.copy()
         url = self.get_url(parent_context)
 
+        instance = parent_context.get("instance")
+        is_scheduled = (
+            parent_context.get("draftstate_enabled")
+            and instance
+            and instance.go_live_at
+            and instance.go_live_at > timezone.now()
+        )
         context.update(
             {
                 "label": self.label,
@@ -56,6 +65,7 @@ class ActionMenuItem(Component):
                 "classname": self.classname,
                 "icon_name": self.icon_name,
                 "request": parent_context["request"],
+                "is_scheduled": is_scheduled,
                 "is_revision": parent_context["view"] == "revisions_revert",
             }
         )
@@ -197,7 +207,6 @@ class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = "action-unpublish"
     icon_name = "download"
-    classname = "action-secondary"
 
     def is_shown(self, context):
         if context.get("locked_for_user"):
@@ -210,27 +219,6 @@ class UnpublishMenuItem(ActionMenuItem):
     def get_url(self, context):
         instance = context["instance"]
         url_name = instance.snippet_viewset.get_url_name("unpublish")
-        return reverse(url_name, args=[quote(instance.pk)])
-
-
-class DeleteMenuItem(ActionMenuItem):
-    name = "action-delete"
-    label = _("Delete")
-    icon_name = "bin"
-    classname = "action-secondary"
-
-    def is_shown(self, context):
-        delete_permission = get_permission_name("delete", context["model"])
-
-        return (
-            context["view"] == "edit"
-            and context["request"].user.has_perm(delete_permission)
-            and not context.get("locked_for_user")
-        )
-
-    def get_url(self, context):
-        instance = context["instance"]
-        url_name = instance.snippet_viewset.get_url_name("delete")
         return reverse(url_name, args=[quote(instance.pk)])
 
 
@@ -258,7 +246,6 @@ def get_base_snippet_action_menu_items(model):
     """
     menu_items = [
         SaveMenuItem(order=0),
-        DeleteMenuItem(order=10),
     ]
     if issubclass(model, DraftStateMixin):
         menu_items += [
@@ -341,6 +328,9 @@ class SnippetActionMenu:
             self.default_item = None
 
     def render_html(self):
+        if not self.default_item:
+            return ""
+
         rendered_menu_items = [
             menu_item.render_html(self.context) for menu_item in self.menu_items
         ]
@@ -358,7 +348,7 @@ class SnippetActionMenu:
 
     @cached_property
     def media(self):
-        media = Media()
+        media = self.default_item.media if self.default_item else Media()
         for item in self.menu_items:
             media += item.media
         return media

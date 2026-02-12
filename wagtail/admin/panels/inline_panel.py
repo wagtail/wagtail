@@ -1,12 +1,15 @@
 import functools
+import json
 
 from django import forms
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.utils.functional import cached_property
+from django.utils.text import capfirst
 
 from wagtail.admin import compare
+from wagtail.admin.telepath import register as register_telepath_adapter
 
-from .base import Panel
+from .base import Panel, get_form_for_model
 from .group import MultiFieldPanel
 from .model_utils import extract_panel_definitions_from_model_class
 
@@ -26,7 +29,13 @@ class InlinePanel(Panel):
         super().__init__(*args, **kwargs)
         self.relation_name = relation_name
         self.panels = panels
-        self.heading = heading or label
+        self.heading = (
+            heading
+            if heading
+            else capfirst(label)
+            if label
+            else capfirst(relation_name.replace("_", " "))
+        )
         self.label = label
         self.min_num = min_num
         self.max_num = max_num
@@ -60,27 +69,45 @@ class InlinePanel(Panel):
 
     def get_form_options(self):
         child_form_opts = self.child_edit_handler.get_form_options()
+
+        formset_opts = {
+            "fields": child_form_opts.get("fields", []),
+            "widgets": child_form_opts.get("widgets", {}),
+            "min_num": self.min_num,
+            "validate_min": self.min_num is not None,
+            "max_num": self.max_num,
+            "validate_max": self.max_num is not None,
+            "formsets": child_form_opts.get("formsets"),
+        }
+
+        defer_required_on_fields = child_form_opts.get("defer_required_on_fields")
+        if defer_required_on_fields:
+            # Options inside `formsets` are processed by django-modelcluster's
+            # ClusterForm, which doesn't recognise the `defer_required_on_fields`
+            # option. Instead, we'll use get_form_for_model to build a form class
+            # with that option baked in, and pass that as the `form` option.
+            base_form = get_form_for_model(
+                self.db_field.related_model,
+                defer_required_on_fields=defer_required_on_fields,
+            )
+            formset_opts["form"] = base_form
+
         return {
             "formsets": {
-                self.relation_name: {
-                    "fields": child_form_opts.get("fields", []),
-                    "widgets": child_form_opts.get("widgets", {}),
-                    "min_num": self.min_num,
-                    "validate_min": self.min_num is not None,
-                    "max_num": self.max_num,
-                    "validate_max": self.max_num is not None,
-                    "formsets": child_form_opts.get("formsets"),
-                }
+                self.relation_name: formset_opts,
             }
         }
 
     def on_model_bound(self):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
+        if not self.label:
+            self.label = self.db_field.related_model._meta.verbose_name
 
     def classes(self):
         return super().classes() + ["w-panel--nested"]
 
+    @register_telepath_adapter
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/inline_panel.html"
 
@@ -102,7 +129,9 @@ class InlinePanel(Panel):
 
                 # ditto for the ORDER field, if present
                 if self.formset.can_order:
-                    subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+                    subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput(
+                        attrs={"value": index + 1}
+                    )
 
                 self.children.append(
                     self.child_edit_handler.get_bound_panel(
@@ -150,11 +179,30 @@ class InlinePanel(Panel):
                     compare.ChildRelationComparison,
                     self.panel.db_field,
                     field_comparisons,
-                    label=self.label,
+                    label=self.heading,
                 )
             ]
 
+        telepath_adapter_name = "wagtail.panels.InlinePanel"
+
+        def js_opts(self):
+            return {
+                "type": type(self.panel).__name__,
+                "formsetPrefix": f"id_{self.formset.prefix}",
+                "emptyChildFormPrefix": self.empty_child.form.prefix,
+                "canOrder": self.formset.can_order,
+                "maxForms": self.formset.max_num,
+                "relationName": self.panel.relation_name,
+            }
+
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
+            context["options_json"] = json.dumps(self.js_opts())
             context["can_order"] = self.formset.can_order
             return context
+
+        def telepath_pack(self, context):
+            # pass initControls = False so that we do not initialize controls while calling
+            # the constructor; this prevents attaching event handlers multiple times if the
+            # object is unpacked multiple times
+            return (self.telepath_adapter_name, [self.js_opts(), False])

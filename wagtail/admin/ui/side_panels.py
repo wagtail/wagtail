@@ -1,11 +1,12 @@
+from django.conf import settings
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
-from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.admin.userbar import AccessibilityItem
+from wagtail.admin.userbar import AccessibilityItem, apply_userbar_hooks
 from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
+from wagtail.models.view_restrictions import BaseViewRestriction
 
 
 class BaseSidePanel(Component):
@@ -21,13 +22,7 @@ class BaseSidePanel(Component):
             self.panel = panel
 
         def get_context_data(self, parent_context):
-            # Inherit classes from fragments defined in slim_header.html
-            inherit = {
-                "nav_icon_button_classes",
-                "nav_icon_classes",
-                "nav_icon_counter_classes",
-            }
-            context = {key: parent_context.get(key) for key in inherit}
+            context = {}
             context["toggle"] = self
             context["panel"] = self.panel
             context["count"] = 0
@@ -97,16 +92,15 @@ class StatusSidePanel(BaseSidePanel):
                 "wagtailadmin/shared/side_panels/includes/status/locale.html"
             )
 
-        if self.object.pk:
-            if self.locking_enabled:
-                templates.append(
-                    "wagtailadmin/shared/side_panels/includes/status/locked.html"
-                )
+        if self.locking_enabled:
+            templates.append(
+                "wagtailadmin/shared/side_panels/includes/status/locked.html"
+            )
 
-            if self.usage_url:
-                templates.append(
-                    "wagtailadmin/shared/side_panels/includes/status/usage.html"
-                )
+        if self.usage_url is not None:
+            templates.append(
+                "wagtailadmin/shared/side_panels/includes/status/usage.html"
+            )
 
         return templates
 
@@ -210,10 +204,11 @@ class StatusSidePanel(BaseSidePanel):
         }
 
     def get_usage_context(self):
+        usage_count = 0
+        if self.object.pk:
+            usage_count = ReferenceIndex.get_grouped_references_to(self.object).count()
         return {
-            "usage_count": ReferenceIndex.get_grouped_references_to(
-                self.object
-            ).count(),
+            "usage_count": usage_count,
             "usage_url": self.usage_url,
         }
 
@@ -228,16 +223,22 @@ class StatusSidePanel(BaseSidePanel):
         context["history_url"] = self.history_url
         context["status_templates"] = self.get_status_templates(context)
         context["last_updated_info"] = self.last_updated_info
+        context["is_partial"] = parent_context.get("is_partial", False)
+        context["hydrate_create_view"] = parent_context.get(
+            "hydrate_create_view", False
+        )
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
-        if self.object.pk and self.usage_url:
+        if self.usage_url is not None:
             context.update(self.get_usage_context())
         return context
 
 
 class PageStatusSidePanel(StatusSidePanel):
     def __init__(self, *args, **kwargs):
+        self.parent_page = kwargs.pop("parent_page", None)
         super().__init__(*args, **kwargs)
+        self.usage_url = ""
         if self.object.pk:
             self.usage_url = reverse("wagtailadmin_pages:usage", args=(self.object.pk,))
 
@@ -279,6 +280,19 @@ class PageStatusSidePanel(StatusSidePanel):
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
                 }
             )
+        else:
+            # set is_public context for new pages based on parent page settings and default privacy setting
+            # this gets set in the template if the page is not new
+            if (
+                page.get_default_privacy_setting(self.request)["type"]
+                != BaseViewRestriction.NONE
+            ):
+                context.update({"is_public": False})
+            else:
+                is_public = (
+                    Page.objects.filter(id=self.parent_page.id).public().exists()
+                )
+                context.update({"is_public": is_public})
 
         context.update(
             {
@@ -320,9 +334,9 @@ class ChecksSidePanel(BaseSidePanel):
 
     def get_axe_configuration(self):
         # Retrieve the Axe configuration from the userbar.
-        userbar_items = [AccessibilityItem()]
-        for fn in hooks.get_hooks("construct_wagtail_userbar"):
-            fn(self.request, userbar_items)
+        userbar_items = [AccessibilityItem(in_editor=True)]
+        page = self.object if issubclass(self.model, Page) else None
+        apply_userbar_hooks(self.request, userbar_items, page)
 
         for item in userbar_items:
             if isinstance(item, AccessibilityItem):
@@ -350,8 +364,13 @@ class PreviewSidePanel(BaseSidePanel):
         super().__init__(object, request)
         self.preview_url = preview_url
 
+    @property
+    def auto_update_interval(self):
+        return getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL", 500)
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["preview_url"] = self.preview_url
         context["has_multiple_modes"] = len(self.object.preview_modes) > 1
+        context["auto_update_interval"] = self.auto_update_interval
         return context

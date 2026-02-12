@@ -37,7 +37,7 @@ const createMinimapLink = (
   const ariaLevel = heading.getAttribute('aria-level');
   const headingLevel = `h${ariaLevel || heading.tagName[1] || 2}`;
   const errorCount = [].slice
-    .call(panel.querySelectorAll('.error-message'))
+    .call(panel.querySelectorAll(':not([hidden]):is(.error-message)'))
     .filter((err) => err.closest('[data-panel]') === panel).length;
 
   return {
@@ -60,9 +60,13 @@ const createMinimapLink = (
  */
 const renderMinimap = (container: HTMLElement) => {
   let anchorsContainer: HTMLElement = document.body;
-  const tabs = document.querySelector('[data-tabs]');
+  // Find a tabs container that is not within a panel and has panel anchors inside it.
+  // This is likely a top-level tabs container rendered via TabbedInterface.
+  const tabs = document.querySelector(
+    `[data-controller~="w-tabs"]:not([data-panel] [data-controller~="w-tabs"]):has([data-panel-anchor])`,
+  );
 
-  // Render the minimap based on the active tab when there are tabs.
+  // Render the minimap based on the active tab when there are such tabs.
   if (tabs) {
     const activeTab = tabs.querySelector('[role="tab"][aria-selected="true"]');
     const panelId = activeTab?.getAttribute('aria-controls');
@@ -78,12 +82,21 @@ const renderMinimap = (container: HTMLElement) => {
     .map(createMinimapLink)
     .filter(Boolean);
 
+  const settingsToggles = anchorsContainer.querySelectorAll<HTMLButtonElement>(
+    '[data-streamfield-action="SETTINGS"]',
+  );
+
   const toggleAllPanels = (expanded) => {
     links.forEach((link, i) => {
       // Avoid collapsing the title field, where the collapse toggle is hidden.
       const isTitle = i === 0 && link.href.includes('title');
       if (!isTitle) {
         toggleCollapsiblePanel(link.toggle, expanded);
+      }
+    });
+    settingsToggles.forEach((toggle) => {
+      if ((toggle.getAttribute('aria-expanded') === 'true') !== expanded) {
+        toggle.click();
       }
     });
   };
@@ -101,7 +114,7 @@ const renderMinimap = (container: HTMLElement) => {
 };
 
 /**
- * Initialise the minimap within the target element,
+ * Initialize the minimap within the target element,
  * making sure it re-renders when the visible content changes.
  */
 export const initMinimap = (
@@ -119,7 +132,8 @@ export const initMinimap = (
 
   const updateMinimap = debounce(renderMinimap.bind(null, container), 100);
 
-  document.addEventListener('wagtail:tab-changed', updateMinimap);
+  document.addEventListener('w-tabs:changed', updateMinimap);
+  document.addEventListener('w-tabs:ready', updateMinimap);
   document.addEventListener('wagtail:panel-init', updateMinimap);
 
   // Make sure the positioning of the minimap is always correct.
@@ -127,7 +141,7 @@ export const initMinimap = (
     container.style.setProperty('--offset-top', `${container.offsetTop}px`);
   const updateOffsetTop = debounce(setOffsetTop, 100);
 
-  document.addEventListener('resize', updateOffsetTop);
+  window.addEventListener('resize', updateOffsetTop);
 
   setOffsetTop();
   updateMinimap(container);

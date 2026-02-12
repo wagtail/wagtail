@@ -90,7 +90,7 @@ class CreatePageAliasAction:
             and not parent.permissions_for_user(self.user).can_publish_subpage()
         ):
             raise CreatePageAliasPermissionError(
-                "You do not have permission to publish a page at the destination"
+                "You do not have permission to publish a page at the destination."
             )
 
     def _create_alias(
@@ -120,6 +120,7 @@ class CreatePageAliasAction:
             "path",
             "index_entries",
             "postgres_index_entries",
+            "latest_revision",  # for page aliases do not have revisions
         ]
 
         update_attrs = {

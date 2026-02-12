@@ -4,11 +4,12 @@
 #
 # Translators:
 # Rodrigo Yanez, 2023
+# Rodrigo Yanez, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Venezuela) (http://app.transifex.com/torchbox/"
@@ -47,17 +48,14 @@ msgstr "Administrador de Wagtail"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Lo sentimos, no tiene permiso para acceder a esta área."
 
-msgid "You do not have permission to access the admin"
-msgstr "Usted no tiene permiso para acceder al administrador"
-
 msgid "Settings"
 msgstr "Configuración"
 
-msgid "Save"
-msgstr "Guardar"
-
 msgid "Saving…"
 msgstr "Guardando..."
+
+msgid "Save"
+msgstr "Guardar"
 
 msgid "Site"
 msgstr "Página"

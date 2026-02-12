@@ -5,7 +5,7 @@ describe('TooltipController', () => {
   let application;
 
   beforeEach(async () => {
-    document.body.innerHTML = `
+    document.body.innerHTML = /* html */ `
 <section>
   <button
     type="button"
@@ -23,6 +23,16 @@ describe('TooltipController', () => {
     data-w-tooltip-placement-value="top"
     data-action="custom:show->w-tooltip#show custom:hide->w-tooltip#hide"
   >
+    CONTENT
+  </button>
+  <button
+    type="button"
+    id="tooltip-html"
+    data-controller="w-tooltip"
+  >
+    <div class="custom-style" data-w-tooltip-target="content" hidden>
+      <strong>Rich</strong> tooltip
+    </div>
     CONTENT
   </button>
 </section>`;
@@ -105,6 +115,34 @@ describe('TooltipController', () => {
     expect(tooltip.dataset.placement).toEqual('top');
   });
 
+  it('should allow HTML via content target', async () => {
+    const tooltipTrigger = document.getElementById('tooltip-html');
+
+    // on init, Tippy will immediately unmount the content from the DOM
+    // to be shown later when triggered
+    expect(tooltipTrigger.textContent.trim()).toEqual('CONTENT');
+    expect(tooltipTrigger.querySelector('strong')).toBeNull();
+
+    expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(0);
+
+    tooltipTrigger.dispatchEvent(new Event('mouseenter'));
+
+    await Promise.resolve();
+
+    const tooltip = document.querySelector('[role="tooltip"]');
+    expect(tooltip.textContent.trim()).toEqual('Rich tooltip');
+
+    // Should contain the div and it should not be hidden
+    const placedDiv = tooltip.querySelector('.custom-style');
+    expect(placedDiv).toBeTruthy();
+    expect(placedDiv.hidden).toBe(false);
+
+    // Should retain the rich content as HTML
+    const strong = tooltip.querySelector('strong');
+    expect(strong).toBeTruthy();
+    expect(strong.textContent).toEqual('Rich');
+  });
+
   it('should destroy the tippy instance on disconnect', async () => {
     const tooltipTrigger = document.getElementById('tooltip-default');
 
@@ -155,6 +193,39 @@ describe('TooltipController', () => {
     await Promise.resolve();
 
     expect(tooltip.textContent).toEqual('NEW content!');
+  });
+
+  it('should allow setting the content attribute that was initially empty', async () => {
+    // create a new tooltip trigger with empty content initially
+    document.body.innerHTML = /* html */ `
+      <button
+        id="tooltip-late-set"
+        type="button"
+        data-controller="w-tooltip"
+        data-w-tooltip-content-value=""
+      >
+        CONTENT
+      </button>
+    `;
+
+    await Promise.resolve();
+
+    // Set the content value after initialization
+    const tooltipTrigger = document.getElementById('tooltip-late-set');
+    tooltipTrigger.setAttribute(
+      'data-w-tooltip-content-value',
+      'Now it has content!',
+    );
+
+    await Promise.resolve();
+
+    expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(0);
+
+    tooltipTrigger.dispatchEvent(new Event('mouseenter'));
+
+    const tooltip = document.querySelector('[role="tooltip"]');
+
+    expect(tooltip.textContent).toEqual('Now it has content!');
   });
 
   it('should support passing the offset value', async () => {

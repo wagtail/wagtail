@@ -1,9 +1,11 @@
+import copy
 import datetime
 from decimal import Decimal
 
 from django import forms
 from django.db.models import Model
 from django.db.models.fields import BLANK_CHOICE_DASH
+from django.utils.choices import CallableChoiceIterator
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
@@ -12,22 +14,18 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import Adapter, register
+from wagtail.compat import URLField
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
     RichText,
     RichTextMaxLengthValidator,
+    RichTextMinLengthValidator,
     extract_references_from_rich_text,
     get_text_for_indexing,
 )
-from wagtail.telepath import Adapter, register
 
 from .base import Block
-
-try:
-    from django.utils.choices import CallableChoiceIterator
-except ImportError:
-    # DJANGO_VERSION < 5.0
-    from django.forms.fields import CallableChoiceIterator
 
 
 class FieldBlock(Block):
@@ -80,6 +78,9 @@ class FieldBlock(Block):
             self.field.prepare_value(self.value_for_form(value))
         )
 
+    def get_description(self):
+        return super().get_description() or self.field.help_text or ""
+
     class Meta:
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
@@ -109,9 +110,13 @@ class FieldBlockAdapter(Adapter):
 
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "classname": " ".join(classname),
+            "attrs": block.meta.form_attrs or {},
             "showAddCommentButton": getattr(
                 block.field.widget, "show_add_comment_button", True
             ),
@@ -221,6 +226,7 @@ class FloatBlock(FieldBlock):
     def __init__(
         self,
         required=True,
+        help_text=None,
         max_value=None,
         min_value=None,
         validators=(),
@@ -229,6 +235,7 @@ class FloatBlock(FieldBlock):
     ):
         self.field = forms.FloatField(
             required=required,
+            help_text=help_text,
             max_value=max_value,
             min_value=min_value,
             validators=validators,
@@ -311,7 +318,7 @@ class URLBlock(FieldBlock):
         validators=(),
         **kwargs,
     ):
-        self.field = forms.URLField(
+        self.field = URLField(
             required=required,
             help_text=help_text,
             max_length=max_length,
@@ -668,6 +675,7 @@ class RichTextBlock(FieldBlock):
         editor="default",
         features=None,
         max_length=None,
+        min_length=None,
         validators=(),
         search_index=True,
         **kwargs,
@@ -675,6 +683,10 @@ class RichTextBlock(FieldBlock):
         if max_length is not None:
             validators = list(validators) + [
                 RichTextMaxLengthValidator(max_length),
+            ]
+        if min_length is not None:
+            validators = list(validators) + [
+                RichTextMinLengthValidator(min_length),
             ]
         self.field_options = {
             "required": required,
@@ -687,12 +699,6 @@ class RichTextBlock(FieldBlock):
         self.search_index = search_index
         super().__init__(**kwargs)
 
-    def get_default(self):
-        if isinstance(self.meta.default, RichText):
-            return self.meta.default
-        else:
-            return RichText(self.meta.default)
-
     def to_python(self, value):
         # convert a source-HTML string from the JSONish representation
         # to a RichText object
@@ -702,6 +708,11 @@ class RichTextBlock(FieldBlock):
         # convert a RichText object back to a source-HTML string to go into
         # the JSONish representation
         return value.source
+
+    def normalize(self, value):
+        if isinstance(value, RichText):
+            return value
+        return RichText(value and force_str(value))
 
     @cached_property
     def field(self):
@@ -757,9 +768,12 @@ class RawHTMLBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_default(self):
-        return mark_safe(self.meta.default or "")
+        return self.normalize(self._evaluate_callable(self.meta.default or ""))
 
     def to_python(self, value):
+        return mark_safe(value)
+
+    def normalize(self, value):
         return mark_safe(value)
 
     def get_prep_value(self, value):
@@ -815,11 +829,22 @@ class ChooserBlock(FieldBlock):
         """Return the model instances for the given list of primary keys.
 
         The instances must be returned in the same order as the values and keep None values.
+        If the same ID appears multiple times, a distinct object instance is created for each one.
         """
         objects = self.model_class.objects.in_bulk(values)
-        return [
-            objects.get(id) for id in values
-        ]  # Keeps the ordering the same as in values.
+        seen_ids = set()
+        result = []
+
+        for id in values:
+            obj = objects.get(id)
+            if obj is not None and id in seen_ids:
+                # this object is already in the result list, so we need to make a copy
+                obj = copy.copy(obj)
+
+            result.append(obj)
+            seen_ids.add(id)
+
+        return result
 
     def get_prep_value(self, value):
         # the native value (a model instance or None) should serialise to a PK or None

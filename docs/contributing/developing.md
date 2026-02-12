@@ -1,6 +1,6 @@
 (developing_for_wagtail)=
 
-# Development
+# Setting up a development environment
 
 Setting up a local copy of [the Wagtail git repository](https://github.com/wagtail/wagtail) is slightly more involved than running a release package of Wagtail, as it requires [Node.js](https://nodejs.org/) and npm for building JavaScript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
@@ -10,16 +10,16 @@ You can also set up a cloud development environment that you can work with in a 
 
 (Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack)!)
 
-If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and [virtual environments](https://docs.python.org/3/tutorial/venv.html) to manage Python packages.
+If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and [virtual environments](inv:python#tutorial/venv) to manage Python packages.
 
 ## Setting up the Wagtail codebase
 
 The preferred way to install the correct version of Node is to use [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `fnm install` from the project root.
 Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure you install the version as declared in the project's root `.nvmrc` file.
 
-You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
+You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
-Fork the [the Wagtail codebase](https://github.com/wagtail/wagtail) and clone the forked copy:
+Fork [the Wagtail codebase](https://github.com/wagtail/wagtail) and clone the forked copy:
 
 ```sh
 git clone https://github.com/username/wagtail.git
@@ -29,7 +29,13 @@ cd wagtail
 **With your preferred [virtualenv activated](virtual_environment_creation),** install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 ```sh
-pip install -e ."[testing,docs]" -U
+pip install -e ."[testing,docs]" --config-settings editable-mode=strict -U
+```
+
+Or, on Windows
+
+```doscon
+pip install -e .[testing,docs] --config-settings editable-mode=strict -U
 ```
 
 Install the tool chain for building static assets:
@@ -47,7 +53,13 @@ npm run build
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/) as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, to install the local Wagtail development instance in your virtualenv for your Wagtail site:
 
 ```sh
-pip install -e path/to/wagtail"[testing, docs]" -U
+pip install -e path/to/wagtail"[testing,docs]" --config-settings editable-mode=strict -U
+```
+
+Or, on Windows
+
+```doscon
+pip install -e path/to/wagtail[testing,docs] --config-settings editable-mode=strict -U
 ```
 
 Here, `path/to/wagtail` is the path to your local Wagtail copy.
@@ -62,10 +74,9 @@ If you are confident with Python and Node development on Windows and wish to pro
 
 We recommend [Chocolatey](https://chocolatey.org/install) for managing packages in Windows. Once Chocolatey is installed you can then install the [`make`](https://community.chocolatey.org/packages/make) utility in order to run common build and development commands.
 
-To effectively collaborate with other developers on different operating systems, we use CRLF to handle our line endings. You can configure this in Git using:
+We use LF for our line endings. To effectively collaborate with other developers on different operating systems, use Git's automatic CRLF handling by setting the `core.autocrlf` config to `true`:
 
 ```doscon
-#  Configures how Git handles line endings and sets the value to True
 git config --global core.autocrlf true
 ```
 
@@ -146,7 +157,7 @@ DATABASE_ENGINE=django.db.backends.mysql python runtests.py
 This will create a new database called `test_wagtail` in MySQL and run
 the tests against it.
 
-If you need to use different connection settings, use the following environment variables which correspond to the respective keys within Django's [DATABASES](https://docs.djangoproject.com/en/stable/ref/settings/#databases) settings dictionary:
+If you need to use different connection settings, use the following environment variables which correspond to the respective keys within Django's [`DATABASES`](inv:django#DATABASES) settings dictionary:
 
 -   `DATABASE_ENGINE`
 -   `DATABASE_NAME`
@@ -157,23 +168,25 @@ If you need to use different connection settings, use the following environment 
 
 It is also possible to set `DATABASE_DRIVER`, which corresponds to the `driver` value within `OPTIONS` if an SQL Server engine is used.
 
-### Testing Elasticsearch
+### Testing Elasticsearch and OpenSearch
 
-You can test Wagtail against Elasticsearch by passing the argument `--elasticsearch7` or `--elasticsearch8` (corresponding to the version of Elasticsearch you want to test against):
+You can test Wagtail against Elasticsearch or OpenSearch by passing one of the arguments `--elasticsearch7`, `--elasticsearch8`, `--elasticsearch9`, `--opensearch2`, `--opensearch3` (corresponding to the version of Elasticsearch or OpenSearch you want to test against):
 
 ```sh
 python runtests.py --elasticsearch8
 ```
 
-Wagtail will attempt to connect to a local instance of Elasticsearch
+Wagtail will attempt to connect to a local instance of Elasticsearch or OpenSearch
 (`http://localhost:9200`) and use the index `test_wagtail`.
 
-If your Elasticsearch instance is located somewhere else, you can set the
+If your instance is located somewhere else, you can set the
 `ELASTICSEARCH_URL` environment variable to point to its location:
 
 ```sh
 ELASTICSEARCH_URL=https://my-elasticsearch-instance:9200 python runtests.py --elasticsearch8
 ```
+
+Note that the environment variable `ELASTICSEARCH_URL` is used for both Elasticsearch and OpenSearch.
 
 ### Unit tests for JavaScript
 
@@ -201,56 +214,6 @@ npm run test:integration
 
 Integration tests target `http://127.0.0.1:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port, or test a remote Wagtail instance: `TEST_ORIGIN=http://127.0.0.1:9000 npm run test:integration`.
 
-### Browser and device support
-
-Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
-
-| Browser       | Device/OS  | Version(s)         |
-| ------------- | ---------- | ------------------ |
-| Mobile Safari | iOS Phone  | Last 2: 16, 17     |
-| Mobile Safari | iOS Tablet | Last 2: 16, 17     |
-| Chrome        | Android    | Last 2             |
-| Chrome        | Desktop    | Last 2             |
-| MS Edge       | Windows    | Last 2             |
-| Firefox       | Desktop    | Latest             |
-| Firefox ESR   | Desktop    | Latest             |
-| Safari        | macOS      | Last 3: 15, 16, 17 |
-
-We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
-
-**Unsupported browsers / devices include:**
-
-| Browser       | Device/OS | Version(s) |
-| ------------- | --------- | ---------- |
-| Stock browser | Android   | All        |
-| IE            | Desktop   | All        |
-| Safari        | Windows   | All        |
-
-### Accessibility targets
-
-We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is [WCAG2.1](https://www.w3.org/TR/WCAG21/), AA level. Here are specific assistive technologies we aim to test for, and ultimately support:
-
--   [NVDA](https://www.nvaccess.org/download/) on Windows with Firefox ESR
--   [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on macOS with Safari
--   [Windows Magnifier](https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier) and macOS Zoom
--   Windows Speech Recognition and macOS Dictation
--   Mobile [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on iOS, or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
--   Windows [High-contrast mode](https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696)
-
-We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialized training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
-
--   [@wordpress/jest-puppeteer-axe](https://github.com/WordPress/gutenberg/tree/trunk/packages/jest-puppeteer-axe) running Axe checks as part of integration tests.
--   [Axe](https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd) Chrome extension for more comprehensive automated tests of a given page.
--   [Accessibility Insights for Web](https://accessibilityinsights.io/docs/en/web/overview) Chrome extension for semi-automated tests, and manual audits.
-
-### Known accessibility issues
-
-Wagtail’s administration interface isn’t fully accessible at the moment. We actively work on fixing issues both as part of ongoing maintenance and bigger overhauls. To learn about known issues, check out:
-
--   The [WCAG2.1 AA for CMS admin](https://github.com/wagtail/wagtail/projects/5) issues backlog.
--   Our [2021 accessibility audit](https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit).
-
-The audit also states which parts of Wagtail have and haven’t been tested, how issues affect WCAG 2.1 compliance, and the likely impact on users.
 
 ## Compiling static assets
 
@@ -268,22 +231,6 @@ This must be done after every change to the source files. To watch the source fi
 npm start
 ```
 
-## Using the pattern library
-
-Wagtail’s UI component library is built with [Storybook](https://storybook.js.org/) and [django-pattern-library](https://github.com/torchbox/django-pattern-library). To run it locally,
-
-```sh
-export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
-# Assumes the current environment contains a valid installation of Wagtail for local development.
-./wagtail/test/manage.py migrate
-./wagtail/test/manage.py createcachetable
-./wagtail/test/manage.py runserver 0:8000
-# In a separate terminal:
-npm run storybook
-```
-
-The last command will start Storybook at `http://localhost:6006/`. It will proxy specific requests to Django at `http://localhost:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port for Django: `TEST_ORIGIN=http://localhost:9000 npm run storybook`.
-
 ## Compiling the documentation
 
 The Wagtail documentation is built by Sphinx. To install Sphinx and compile the documentation, run:
@@ -292,7 +239,7 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 # Starting from the wagtail root directory:
 
 # Install the documentation dependencies
-pip install -e .[docs]
+pip install -e .[docs] --config-settings editable-mode=strict
 # or if using zsh as your shell:
 #    pip install -e '.[docs]' -U
 # Compile the docs
@@ -336,7 +283,23 @@ cd docs/
 make livehtml
 ```
 
-## Automatically lint and code format on commits
+(linting_and_formatting)=
+## Linting and formatting
+
+Wagtail makes use of various tools to ensure consistency and readability across the codebase:
+
+- [Ruff](https://github.com/astral-sh/ruff) for formatting and linting Python code, including enforcing [PEP8](https://peps.python.org/pep-0008/) and [isort](https://pycqa.github.io/isort/) rules
+- [djhtml](https://github.com/rtts/djhtml) and [Curlylint](https://www.curlylint.org/) for formatting and linting HTML templates
+- [Prettier](https://prettier.io/), [Stylelint](https://stylelint.io/) and [ESLint](https://eslint.org/) for formatting and linting JavaScript and CSS code
+
+All contributions should follow these standards, and you are encouraged to run these tools locally to avoid delays in your contributions being accepted. Here are the available commands:
+
+-   `make lint` will run all linting, `make lint-server` lints Python and template code, and `make lint-client` lints JS/CSS.
+-   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
+
+Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
+
+### Automatically lint and code format on commits
 
 [pre-commit](https://pre-commit.com/) is configured to automatically run code linting and formatting checks with every commit. To install pre-commit into your git hooks run:
 
@@ -346,7 +309,7 @@ pre-commit install
 
 pre-commit should now run on every commit you make.
 
-(developing_using_a_fork)
+(developing_using_a_fork)=
 
 ## Using forks for installation
 
@@ -354,12 +317,12 @@ Sometimes it may be necessary to install Wagtail from a fork. For example your s
 
 The Wagtail release process includes steps for static asset building and translations updated which means you cannot update your requirements file to point a particular git commit in the main repository.
 
-To install from your fork, from the root of your Wagtail git checkout (and assuming the tooling for building the static assets has previously been installed using `npm install`), run:
+To install from your fork, ensure you have installed `build` (`python -m pip install build`) and the tooling for building the static assets (`npm install`). Then, from the root of your Wagtail git checkout, run:
 
 ```sh
-python ./setup.py sdist
+python -m build
 ```
 
-This will create a `.tar.gz` package within `dist/,` which can be installed with `pip`.
+This will create a `.tar.gz` and `.whl` packages within `dist/,` which can be installed with `pip`.
 
 For remote deployments, it's usually most convenient to upload this to a public URL somewhere and place that URL in your project's requirements in place of the standard `wagtail` line.

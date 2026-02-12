@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -63,12 +63,6 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokumendid"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Kasutatud %(usage_count)s korda"
-msgstr[1] "Kasutatud %(usage_count)s korda"
-
 msgid "Yes, delete"
 msgstr "Jah, kustuta"
 
@@ -90,27 +84,11 @@ msgstr "Muuda dokumenti:"
 msgid "Add a document"
 msgstr "Lisage dokument"
 
-msgid "Add document"
-msgstr "Lisage dokument"
-
 msgid "Uploading…"
 msgstr "Üleslaadimine ..."
 
 msgid "Upload"
 msgstr "Laadi üles"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)s muutmine"
-
-msgid "Editing"
-msgstr "Redigeerimine"
-
-msgid "Save"
-msgstr "Salvesta"
-
-msgid "Delete document"
-msgstr "Kustuta dokument"
 
 msgid "Filesize"
 msgstr "Faili suurus"
@@ -120,6 +98,12 @@ msgstr "Faili ei leitud"
 
 msgid "Usage"
 msgstr "Kasutamine"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -143,9 +127,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Lisage mitu dokumenti"
-
-msgid "Add documents"
-msgstr "Lisage dokumendid"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Kohe üleslaadimiseks lohistage dokumendid sellesse piirkonda."
@@ -212,13 +193,15 @@ msgstr "Vigade tõttu ei õnnestunud dokumenti salvestada."
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokumendi '%(document_title)s' värskendamine on toimunud"
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
+msgid "Delete document"
+msgstr "Kustuta dokument"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' on kustutatud."
+
+msgid "Add documents"
+msgstr "Lisage dokumendid"
 
 msgid "Document"
 msgstr "Dokument"

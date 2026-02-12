@@ -1,9 +1,11 @@
 @use 'sass:color';
+@use '../settings' as *;
 
 .w-status {
   border-radius: 2px;
   text-align: center;
   display: inline-block;
+  word-break: normal;
   // stylelint-disable-next-line property-disallowed-list
   text-transform: uppercase;
   padding: 0 0.5em;
@@ -18,7 +20,6 @@
 
   &.w-status--primary {
     color: theme('colors.text-meta');
-    border: 1px solid theme('colors.text-meta');
     background: theme('colors.surface-page');
   }
 
@@ -28,10 +29,14 @@
   }
 
   &--label {
-    color: theme('colors.text-context');
-    background: theme('colors.border-button-small-outline-default');
-    border: theme('colors.border-button-small-outline-default');
-    font-weight: 500;
+    padding: theme('spacing.px') theme('spacing.2');
+    color: theme('colors.text-status-label');
+    font-weight: theme('fontWeight.medium');
+    background: theme('colors.surface-status-label');
+    border: 1px solid theme('colors.text-status-label');
+    border-radius: theme('borderRadius.xl');
+    // stylelint-disable-next-line property-disallowed-list
+    text-transform: none;
   }
 }
 
@@ -52,8 +57,10 @@ button.w-status:hover {
   color: theme('colors.text-button-outline-hover');
 }
 
-// Special case for text-transform: uppercase.
 .page-status-tag {
+  @apply w-inline-flex w-items-center w-justify-center w-whitespace-nowrap w-px-1 w-ml-3 w-text-11 w-rounded-sm w-bg-transparent w-text-text-meta w-border w-border-border-furniture w-no-underline w-font-semibold hover:w-border-surface-menus hover:w-text-text-label w-transition more-contrast:w-border more-contrast:w-border-border-interactive-more-contrast hover:more-contrast:w-border-border-interactive-more-contrast-hover;
+
+  // Special case for text-transform: uppercase.
   // stylelint-disable-next-line property-disallowed-list
   text-transform: uppercase;
 }

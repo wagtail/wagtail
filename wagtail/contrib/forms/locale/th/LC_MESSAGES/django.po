@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -28,12 +28,6 @@ msgstr "จากวันที่"
 
 msgid "Date to"
 msgstr "ถึงวันที่"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr "มีช่องใส่ข้อมูลอื่นที่มีป้ายกำกับ %(label_name)s, กรุณาเปลี่ยนอันใดอันหนึ่ง"
 
 msgid "Single line text"
 msgstr "ข้อความบรรทัดเดียว"
@@ -138,6 +132,10 @@ msgstr "ลบ"
 msgid "Delete selected submissions"
 msgstr "การส่งที่เราเลือกลบแล้ว"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "ไม่เคยมีการส่งของ '%(title)s' รูปแบบ"
+
 msgid "Total submissions"
 msgstr "การส่งทั้งหมด"
 
@@ -147,13 +145,6 @@ msgstr "การส่งล่าสุด"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "การส่งของ %(form_title)s"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "ไม่เคยมีการส่งของ '%(title)s' รูปแบบ"
-
-msgid "Filter"
-msgstr "คัดกรอง"
 
 msgid "Forms"
 msgstr "แบบฟอร์ม"

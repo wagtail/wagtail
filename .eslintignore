@@ -2,6 +2,7 @@ node_modules
 *.min.js
 **/lib/
 public/
+build/
 coverage/
 **/vendor/
 docs/_build
@@ -15,3 +16,4 @@ wagtail/users/static
 wagtail/contrib/*/static
 .mypy_cache
 /storybook-static
+/coverage_html_report

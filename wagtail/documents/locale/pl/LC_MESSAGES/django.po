@@ -6,6 +6,7 @@
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # Dominik Lech, 2022
 # Dominik Lech, 2022
+# Krzysztof Jeziorny <github@jeziorny.net>, 2024
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -152,14 +153,6 @@ msgstr[1] "Czy jesteś pewny, że chcesz usunąć te dokumenty?"
 msgstr[2] "Czy jesteś pewny, że chcesz usunąć te dokumenty?"
 msgstr[3] "Czy jesteś pewny, że chcesz usunąć te dokumenty?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Użyto %(usage_count)s raz"
-msgstr[1] "Użyto %(usage_count)s razy"
-msgstr[2] "Użyto %(usage_count)s razy"
-msgstr[3] "Użyto %(usage_count)s razy"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Nie posiadasz uprawnień do usunięcia tego dokumentu"
@@ -187,20 +180,10 @@ msgstr "Nie przesłano żadnych dokumentów do tej kolekcji."
 msgid "You haven't uploaded any documents."
 msgstr "Nie przesłano żadnych dokumentów."
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr ""
-"Dlaczego nie <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>wgrać jednego teraz</a>?"
-
 msgid "Change document:"
 msgstr "Zmień dokument:"
 
 msgid "Add a document"
-msgstr "Dodaj dokument"
-
-msgid "Add document"
 msgstr "Dodaj dokument"
 
 msgid "Uploading…"
@@ -208,19 +191,6 @@ msgstr "Wgrywanie…"
 
 msgid "Upload"
 msgstr "Prześlij"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Edycja %(title)s"
-
-msgid "Editing"
-msgstr "Edycja"
-
-msgid "Save"
-msgstr "Zapisz"
-
-msgid "Delete document"
-msgstr "Usuń dokument"
 
 msgid "Filesize"
 msgstr "Rozmiar pliku"
@@ -230,6 +200,14 @@ msgstr "Plik nie został odnaleziony"
 
 msgid "Usage"
 msgstr "Użycie"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Użyto %(usage_count)s raz"
+msgstr[1] "Użyto %(usage_count)s razy"
+msgstr[2] "Użyto %(usage_count)s razy"
+msgstr[3] "Użyto %(usage_count)s razy"
 
 msgid "Select all documents in listing"
 msgstr "Wybierz wszystkie dokumenty na liście"
@@ -257,9 +235,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Dodaj wiele dokumentów"
-
-msgid "Add documents"
-msgstr "Dodaj dokumenty"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -365,6 +340,9 @@ msgstr "Dokumenty"
 msgid "Title"
 msgstr "Tytuł"
 
+msgid "The document could not be created due to errors."
+msgstr "Dokument nie mógł zostać utworzony z powodu błędów."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dodano dokument '%(document_title)s'."
@@ -376,14 +354,15 @@ msgstr "Dokument nie mógł zostać zapisany z powodu błędów."
 msgid "Document '%(document_title)s' updated"
 msgstr "Uaktualniono dokument '%(document_title)s'"
 
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-"Plik nie mógł zostać odnaleziony. Proszę zmień źródło lub usuń dokument"
+msgid "Delete document"
+msgstr "Usuń dokument"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Usunięto dokument '%(document_title)s'"
+
+msgid "Add documents"
+msgstr "Dodaj dokumenty"
 
 msgid "Document"
 msgstr "Dokument"

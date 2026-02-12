@@ -1,4 +1,4 @@
-# UI guidelines
+# UI coding guidelines
 
 Wagtail’s user interface is built with:
 
@@ -7,28 +7,71 @@ Wagtail’s user interface is built with:
 -   **JavaScript** with [TypeScript](https://www.typescriptlang.org/)
 -   **SVG** for our icons, minified with [SVGO](https://jakearchibald.github.io/svgomg/)
 
-## Linting and formatting
+## Browser and device support
 
-Here are the available commands:
+Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
 
--   `make lint` will run all linting, `make lint-server` lints templates, and `make lint-client` lints JS/CSS.
--   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
+| Browser       | Device/OS  | Version(s)         |
+| ------------- | ---------- | ------------------ |
+| Mobile Safari | iOS Phone  | Last 2: 17, 18     |
+| Mobile Safari | iOS Tablet | Last 2: 17, 18     |
+| Chrome        | Android    | Last 2             |
+| Chrome        | Desktop    | Last 2             |
+| MS Edge       | Windows    | Last 2             |
+| Firefox       | Desktop    | Latest             |
+| Firefox ESR   | Desktop    | Latest: 140        |
+| Safari        | macOS      | Last 3: 16, 17, 18 |
 
-Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
+We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
+
+**Unsupported browsers / devices include:**
+
+| Browser       | Device/OS | Version(s) |
+| ------------- | --------- | ---------- |
+| Stock browser | Android   | All        |
+| IE            | Desktop   | All        |
+| Safari        | Windows   | All        |
+
+(accessibility_targets)=
+## Accessibility targets
+
+We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is [WCAG2.1](https://www.w3.org/TR/WCAG21/), AA level. Here are specific assistive technologies we aim to test for, and ultimately support:
+
+-   [NVDA](https://www.nvaccess.org/download/) on Windows with Firefox ESR
+-   [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on macOS with Safari
+-   [Windows Magnifier](https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier) and macOS Zoom
+-   [Windows voice access](https://support.microsoft.com/en-gb/topic/use-voice-access-to-control-your-pc-author-text-with-your-voice-4dcd23ee-f1b9-4fd1-bacc-862ab611f55d) and [macOS Voice Control](https://support.apple.com/en-gb/102225)
+-   [iOS VoiceOver](https://support.apple.com/en-gb/guide/iphone/iph3e2e415f/ios), or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
+-   [Windows Contrast themes](https://support.microsoft.com/en-us/windows/change-color-contrast-in-windows-fedc744c-90ac-69df-aed5-c8a90125e696)
+
+We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialized training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
+
+-   [@wordpress/jest-puppeteer-axe](https://github.com/WordPress/gutenberg/tree/trunk/packages/jest-puppeteer-axe) running Axe checks as part of integration tests.
+-   [Axe](https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd) Chrome extension for more comprehensive automated tests of a given page.
+-   [Accessibility Insights for Web](https://accessibilityinsights.io/docs/en/web/overview) Chrome extension for semi-automated tests, and manual audits.
+
+### Known accessibility issues
+
+Wagtail’s administration interface isn’t fully accessible at the moment. We actively work on fixing issues both as part of ongoing maintenance and bigger overhauls. To learn about known issues, check out:
+
+-   The [WCAG2.1 AA for CMS admin](https://github.com/wagtail/wagtail/projects/5) issues backlog.
+-   Our [2021 accessibility audit](https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit).
+
+The audit also states which parts of Wagtail have and haven’t been tested, how issues affect WCAG 2.1 compliance, and the likely impact on users.
 
 ## HTML guidelines
 
-We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](https://www.curlylint.org/) for linting.
+We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](https://www.curlylint.org/) for linting. See [](linting_and_formatting).
 
 -   Write [valid](https://validator.w3.org/nu/), [semantic](https://html5doctor.com/element-index/) HTML.
 -   Follow [ARIA authoring practices](https://w3c.github.io/aria-practices/), in particular, [No ARIA is better than Bad ARIA](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria).
 -   Use IDs for semantics only, classes for styling, `data-` attributes for JavaScript behavior.
 -   Order attributes with `id` first, then `class`, then any `data-` or other attributes with Stimulus `data-controller` first.
--   For comments, use [Django template syntax](https://docs.djangoproject.com/en/stable/ref/templates/language/#comments) instead of HTML.
+-   For comments, use [Django template syntax](inv:django#template-comments) instead of HTML.
 
 ## CSS guidelines
 
-We use [Prettier](https://prettier.io/) for formatting and [Stylelint](https://stylelint.io/) for linting.
+We use [Prettier](https://prettier.io/) for formatting and [Stylelint](https://stylelint.io/) for linting. See [](linting_and_formatting).
 
 -   We follow [BEM](https://getbem.com/) and [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), with a large amount of utilities created with [Tailwind](https://tailwindcss.com/).
 -   Familiarise yourself with our [stylelint-config-wagtail](https://github.com/wagtail/stylelint-config-wagtail) configuration, which details our preferred code style.
@@ -54,6 +97,7 @@ For all of our styles, we use:
 -   Global CSS variables for colors, so they can be changed by site implementers.
 -   Global CSS variables for font family, so they can be changed by site implementers.
 -   A `--w-direction-factor` CSS variable, set to `1` by default and `-1` for RTL languages, to allow reversing of calculations of physical values (transforms, background positions) and mirroring of icons and visuals with directional elements like arrows.
+-   The `--w-density-factor` CSS variable, to let users control the information density of the UI. Set to `1` by default, and lower or higher values to reduce or increase the spacing and size of UI elements.
 
 ### Tailwind usage
 
@@ -91,7 +135,7 @@ Also known as Windows High Contrast mode, or Contrast Themes. This is a feature 
 
 ## JavaScript guidelines
 
-We use [Prettier](https://prettier.io/) for formatting and [ESLint](https://eslint.org/) for linting.
+We use [Prettier](https://prettier.io/) for formatting and [ESLint](https://eslint.org/) for linting. See [](linting_and_formatting).
 
 -   We follow a somewhat relaxed version of the [Airbnb styleguide](https://github.com/airbnb/javascript).
 -   Familiarise yourself with our [eslint-config-wagtail](https://github.com/wagtail/eslint-config-wagtail) configuration, which details our preferred code style.
@@ -170,3 +214,53 @@ When adding or updating an icon,
 5. Add the icon to Wagtail’s own implementation of the `register_icons` hook, in alphabetical order.
 6. Go to the styleguide and copy the Wagtail icons table according to instructions in the template, pasting the result in `wagtail_icons_table.txt`.
 7. If the icon requires [right-to-left mirroring](https://rtlstyling.com/posts/rtl-styling#bidirectional-icons), add the `class="icon--directional"` attribute.
+
+## Images
+
+Images in Wagtail's admin interface are displayed using a consistent set of patterns and components. We use the [`{% image %}` template tag](image_tag) for rendering images with automatic resizing.
+
+-   Always use `max-` resize rules for consistent image sizes. In the CMS, we only use `max-165x165` and `max-800x600` to improve performance. Further resizing can be done with CSS.
+-   Add the `loading="lazy"` attribute where appropriate, in particular when a view would display more than one image.
+-   Avoid manually setting an `alt` attribute, so the image tag defaults to using the image description or title.
+-   Use the `show-transparency` CSS class so users can visualize any transparent area of the visuals.
+
+(styleguide)=
+## UI Styleguide
+
+Developers working on the Wagtail UI or creating new UI components may wish to test their work against our Styleguide, which is provided as the contrib module "wagtailstyleguide".
+
+To install the styleguide module on your site, add it to the list of `INSTALLED_APPS` in your settings:
+
+```python
+INSTALLED_APPS = (
+    # ...
+    'wagtail.contrib.styleguide',
+    # ...
+)
+```
+
+This will add a 'Styleguide' item to the Settings menu in the admin.
+
+At present the styleguide is static: new UI components must be added to it manually, and there are no specific hooks into it for other modules to use. It will include the output of the [](insert_editor_js) hook for any custom edit forms JavaScript that may be used.
+
+We hope to support specific styleguide hooks in the future.
+
+The styleguide doesn't currently provide examples of all the core interface components; notably the Page, Document, Image and Snippet chooser interfaces are not currently represented.
+
+(pattern_library)=
+
+## Using the pattern library
+
+Wagtail’s UI component library is built with [Storybook](https://storybook.js.org/) and [django-pattern-library](https://github.com/torchbox/django-pattern-library). To run it locally,
+
+```sh
+export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
+# Assumes the current environment contains a valid installation of Wagtail for local development.
+./wagtail/test/manage.py migrate
+./wagtail/test/manage.py createcachetable
+./wagtail/test/manage.py runserver 0:8000
+# In a separate terminal:
+npm run storybook
+```
+
+The last command will start Storybook at `http://localhost:6006/`. It will proxy specific requests to Django at `http://localhost:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port for Django: `TEST_ORIGIN=http://localhost:9000 npm run storybook`.

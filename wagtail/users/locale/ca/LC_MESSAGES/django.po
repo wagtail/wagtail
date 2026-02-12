@@ -6,14 +6,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -128,6 +128,29 @@ msgstr "Fosc"
 msgid "admin theme"
 msgstr "tema de l'administració"
 
+msgid "More contrast"
+msgstr "Més contrast"
+
+msgid "contrast"
+msgstr "contrast"
+
+msgid "Default"
+msgstr "Per defecte"
+
+msgid "Snug"
+msgstr "Ajustat"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "densitat"
+
+msgid "Keyboard shortcuts"
+msgstr "Dreceres de teclat"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Habilitar dreceres de teclat personalitzades específiques de Wagtail"
+
 msgid "user profile"
 msgstr "perfil d'usuari"
 
@@ -221,18 +244,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Segur que voleu eliminar aquest grup?"
 
-msgid "Add group"
-msgstr "Afegir grup"
-
-msgid "View users in this group"
-msgstr "Veure usuaris d'aquest grup"
-
-msgid "Save"
-msgstr "Desar"
-
-msgid "Delete group"
-msgstr "Eliminar grup"
-
 msgid "Object permissions"
 msgstr "Permisos d'objecte"
 
@@ -245,17 +256,23 @@ msgstr "Afegir"
 msgid "Change"
 msgstr "Canviar"
 
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Lock"
-msgstr "Bloqueja"
-
-msgid "Unlock"
-msgstr "Desbloquejar"
-
 msgid "Custom permissions"
 msgstr "Permisos personalitzats"
+
+msgid "Toggle all"
+msgstr "Commutar tot"
+
+msgid "Toggle all add permissions"
+msgstr "Commutar tots els permisos d'addició"
+
+msgid "Toggle all change permissions"
+msgstr "Commutar tots els permisos d'edició"
+
+msgid "Toggle all delete permissions"
+msgstr "Commutar tots els permisos de supressió"
+
+msgid "Toggle all custom permissions"
+msgstr "Commutar tots els permisos personalitzats"
 
 msgid "Other permissions"
 msgstr "Altres permisos"
@@ -271,7 +288,7 @@ msgstr "Afegir un permís de pàgina"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
-msgstr "No s'ha trobat cap grup que concordi amb \"%(query)s\""
+msgstr "No s'ha trobat cap grup que coincideixi amb \"%(query)s\""
 
 #, python-format
 msgid ""
@@ -281,35 +298,17 @@ msgstr ""
 "No hi ha cap grup configurat. Per què no n'<a "
 "href=\"%(wagtailusers_create_group_url)s\">afegiu un</a>?"
 
-msgid "Are you sure you want to delete this user?"
-msgstr "Segur que voleu eliminar aquest usuari?"
-
 msgid "Account"
 msgstr "Compte"
 
 msgid "Roles"
 msgstr "Perfils"
 
-msgid "Add user"
-msgstr "Afegir usuari"
-
-msgid "Delete user"
-msgstr "Eliminar usuari"
-
 msgid "Select all users in listing"
 msgstr "Seleccionar tots els usuaris de la llista"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Ho sentim, cap usuari coincideix amb \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"El grup %(group_name)s no té cap usuari configurat. En voleu <a "
-"href=\"%(wagtailusers_add_url)s\">afegir</a>?"
+msgid "Sorry, no users match your query"
+msgstr "No s'ha trobat cap usuari que coincideixi amb la vostra consulta."
 
 #, python-format
 msgid ""
@@ -319,26 +318,8 @@ msgstr ""
 "No hi ha cap usuari configurat. En voleu <a "
 "href=\"%(wagtailusers_add_url)s\">afegir</a>?"
 
-msgid "Username"
-msgstr "Nom d'usuari"
-
-msgid "Access level"
-msgstr "Nivell d'accés"
-
-msgid "Status"
-msgstr "Estat"
-
-msgid "Last Login"
-msgstr "Últim inici de sessió"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Actiu"
-
-msgid "Inactive"
-msgstr "Inactiu"
+msgid "Can view"
+msgstr "Pot visualitzar"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -361,6 +342,12 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "S'ha esborrat %(num_parent_objects)d usuari"
 msgstr[1] "S'han esborrat %(num_parent_objects)d usuaris"
+
+msgid "Active"
+msgstr "Actiu"
+
+msgid "Inactive"
+msgstr "Inactiu"
 
 msgid "Mark as active"
 msgstr "Marcar com a actiu"
@@ -389,6 +376,9 @@ msgstr "Afegir un grup"
 msgid "Search groups"
 msgstr "Cercar grups"
 
+msgid "Add group"
+msgstr "Afegir grup"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "S'ha creat el grup '%(object)s'."
@@ -400,9 +390,21 @@ msgstr "S'ha actualitzat el grup '%(object)s'."
 msgid "The group could not be saved due to errors."
 msgstr "No s'ha pogut desar el grup a causa d'errors."
 
+msgid "View users in this group"
+msgstr "Veure usuaris d'aquest grup"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "S'ha eliminat el grup '%(object)s'."
+
+msgid "Delete group"
+msgstr "Eliminar grup"
+
+msgid "Last login"
+msgstr "Últim inici de sessió"
+
+msgid "Group"
+msgstr "Grup"
 
 msgid "Add a user"
 msgstr "Afegir un usuari"
@@ -410,9 +412,25 @@ msgstr "Afegir un usuari"
 msgid "Users"
 msgstr "Usuaris"
 
+msgid "Username"
+msgstr "Nom d'usuari"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Access level"
+msgstr "Nivell d'accés"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Més opcions per '%(title)s'"
+
 #, python-format
 msgid "User '%(object)s' created."
 msgstr "S'ha creat l'usuari '%(object)s'."
+
+msgid "Add user"
+msgstr "Afegir usuari"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -421,17 +439,9 @@ msgstr "Usuari '%(object)s' actualitzat."
 msgid "The user could not be saved due to errors."
 msgstr "No s'ha pogut desar l'usuari degut a errors."
 
+msgid "Delete user"
+msgstr "Eliminar usuari"
+
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "S'ha eliminat l'usuari '%(object)s'."
-
-msgid "Edit"
-msgstr "Editar"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Editar l'usuari '%(name)s'"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Esborrar l'usuari '%(name)s'"

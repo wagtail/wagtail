@@ -1,7 +1,11 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans trimmed count counter=items|length %}Delete 1 page {% plural %}Delete {{ counter }} pages{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Delete 1 page {% plural %}Delete {{ counter }} pages{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
 
 {% block header %}
     {% include "wagtailadmin/shared/header.html" with title=_("Delete") icon="doc-empty-inverse" %}
@@ -9,20 +13,26 @@
 
 {% block items_with_access %}
     {% if items %}
-        <p>{% trans "Are you sure you want to delete these pages?" %}</p>
+        {% if not is_protected %}
+            <p>{% trans "Are you sure you want to delete these pages?" %}</p>
+        {% endif %}
         <ul>
             {% for page in items %}
                 <li>
                     <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer">{{ page.item.get_admin_display_title }}</a>
                     {% if page.descendant_count %}
                         <p>
-                            {% blocktrans trimmed count counter=page.descendant_count %}
-                                This will also delete one more subpage.
-                            {% plural %}
-                                This will also delete {{ counter }} more subpages.
-                            {% endblocktrans %}
+                            {% with counter_val=page.descendant_count %}
+                                {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}
+                                    This will also delete one more subpage.
+                                {% plural %}
+                                    This will also delete {{ counter }} more subpages.
+                                {% endblocktrans %}
+                            {% endwith %}
                         </p>
                     {% endif %}
+
+                    {% include "wagtailadmin/shared/usage_summary.html" with model_opts=model_opts usage_url=page.usage_url usage_count=page.usage_count is_protected=page.is_protected %}
                 </li>
             {% endfor %}
         </ul>
@@ -37,10 +47,10 @@
 {% endblock items_with_no_access %}
 
 {% block form_section %}
-    {% if items %}
+    {% if items and not is_protected %}
         {% trans 'Yes, delete' as action_button_text %}
         {% trans "No, don't delete" as no_action_button_text %}
-        {% include 'wagtailadmin/bulk_actions/confirmation/form.html' with action_button_class="serious" %}
+        {% include 'wagtailadmin/pages/bulk_actions/confirm_delete_form.html' with action_button_class="serious" %}
     {% else %}
         {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
     {% endif %}

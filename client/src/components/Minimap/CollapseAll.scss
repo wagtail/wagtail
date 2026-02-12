@@ -1,3 +1,5 @@
+@use '../../../scss/tools' as *;
+
 .w-minimap__collapse-all {
   display: none;
   // Keep the icon at a stable position and reduce the amount of shifting of the button.
@@ -6,7 +8,9 @@
   align-items: center;
   justify-content: space-between;
   border-color: theme('colors.border-button-small-outline-default');
-  z-index: calc($minimap-z-index + 1);
+  z-index: calc(theme('zIndex.minimap') + 1);
+
+  @include more-contrast-interactive();
 
   &.button-secondary {
     // Important for overlap with "Comment notifications" switch.
@@ -29,10 +33,10 @@
 
   &--floating {
     position: absolute;
-    top: $minimap-top-offset;
+    top: var(--offset-top);
     inset-inline-end: 0;
-    margin-top: theme('spacing.3');
-    margin-inline-end: theme('spacing.3');
+    margin-top: theme('spacing.5');
+    margin-inline-end: theme('spacing.10');
 
     .side-panel-open & {
       inset-inline-end: var(--side-panel-width, 0);

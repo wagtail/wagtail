@@ -1,12 +1,13 @@
 #
 # Translators:
-# David Llop, 2022
 # Loic Teixeira, 2022
-# Roger Pons <rogerpons@gmail.com>, 2023
+# Karl Hobley <karl@torchbox.com>, 2026
+# David Llop, 2026
+# Roger Pons <rogerpons@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2026\n"
 "Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ca\n"
@@ -26,10 +27,33 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s error"
 msgstr[1] "%(num)s errors"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s mins"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s píxel"
 msgstr[1] "%(num)s píxels"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "S'ha produït un error de xarxa."
+
+msgid "A server error occurred."
+msgstr "S'ha produït un error de servidor."
+
+msgid "Actions"
+msgstr "Accions"
+
+msgid "Add"
+msgstr "Afegir"
 
 msgid "Add a comment"
 msgstr "Afegir un comentari"
@@ -40,6 +64,9 @@ msgstr "Text alternatiu"
 msgid "Are you sure?"
 msgstr "N'esteu segur?"
 
+msgid "Autosave in progress…"
+msgstr "Desat automàtic en progrés..."
+
 msgid "Blocks"
 msgstr "Blocs"
 
@@ -48,6 +75,9 @@ msgstr "Enllaç no vàlid"
 
 msgid "Cancel"
 msgstr "Cancel·lar"
+
+msgid "Changes have been autosaved."
+msgstr "Els canvis han estat desats automàticament."
 
 msgid "Character count:"
 msgstr "Nombre de caràcters:"
@@ -60,6 +90,10 @@ msgstr "Col·lapsar tot"
 
 msgid "Comment"
 msgstr "Comentari"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Complex"
 
 msgid "Dashboard"
 msgstr "Tauler de control"
@@ -75,6 +109,12 @@ msgstr "Esborrar error"
 
 msgid "Deleting"
 msgstr "Esborrant"
+
+msgid "Drag"
+msgstr "Agafa"
+
+msgid "Duplicate"
+msgstr "Duplicar"
 
 msgid "Edit"
 msgstr "Editar"
@@ -94,8 +134,15 @@ msgstr "S'ha produït un error mentre s'enviaven les dades de previsualització.
 msgid "Expand all"
 msgstr "Ampliar tot"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Adequat"
+
 msgid "Focus comment"
 msgstr "Comentari d'enfocament"
+
+msgid "Good"
+msgstr "Bo"
 
 msgid "Horizontal line"
 msgstr "Línia horitzontal"
@@ -118,6 +165,15 @@ msgstr "Document no trobat"
 msgid "More actions"
 msgstr "Més accions"
 
+msgid "Move down"
+msgstr "Baixa"
+
+msgid "Move up"
+msgstr "Puja"
+
+msgid "No"
+msgstr "No"
+
 msgid "No results"
 msgstr "Cap resultat"
 
@@ -132,6 +188,9 @@ msgstr "Pàgines"
 
 msgid "Pin toolbar"
 msgstr "Fixar barra d'eines"
+
+msgid "Preview"
+msgstr "Previsualització"
 
 msgid "Reload saved content"
 msgstr "Recarrega el contingut desat"
@@ -160,15 +219,6 @@ msgstr "Desar"
 msgid "Save error"
 msgstr "Desar error"
 
-msgid "Save the page to add this comment"
-msgstr "Deseu la pàgina per afegir aquest comentari"
-
-msgid "Save the page to save this comment"
-msgstr "Deseu la pàgina per desar aquest comentari"
-
-msgid "Save the page to save this reply"
-msgstr "Deseu la pàgina per desar aquesta resposta"
-
 msgid "Saving..."
 msgstr "Desant..."
 
@@ -184,6 +234,9 @@ msgstr "Mostra tot"
 msgid "Server Error"
 msgstr "Error del servidor"
 
+msgid "Settings"
+msgstr "Configuració"
+
 msgid "Show error"
 msgstr "Mostra l'error"
 
@@ -198,8 +251,17 @@ msgid ""
 msgstr ""
 "L'editor ha fallat. El contingut ha estat reiniciat a l'última versió desada."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "El nombre màxim d'elements és %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "El nombre mínim d'elements és %(min_num)d"
+
 msgid "This field is required."
 msgstr "Aquest camp és obligatori."
+
+msgid "Toggle section"
+msgstr "Commutar secció"
 
 msgid "Toggle side panel"
 msgstr "Communtar panell lateral"
@@ -218,3 +280,6 @@ msgstr "Mostra pàgines filles de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escriviu alguna cosa o teclegeu '/' per inserir un bloc"
+
+msgid "Yes"
+msgstr "Sí"

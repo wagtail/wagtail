@@ -4,11 +4,12 @@
 #
 # Translators:
 # Fauzaan Gasim, 2024
+# Fauzaan Gasim, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -19,15 +20,15 @@ msgstr ""
 "Language: dv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Alt text"
+msgstr "ބަދަލު ލިޔުންކޮޅު"
+
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "%(supported_formats)s ސަޕޯޓްކުރާ ފޯމެޓް"
 
 msgid "Collection"
 msgstr "ކަލެކްޝަން"
-
-msgid "Alt text"
-msgstr "ބަދަލު ލިޔުންކޮޅު"
 
 msgid "Filter"
 msgstr "ފިލްޓަރ ކުރޭ"
@@ -65,12 +66,6 @@ msgstr "ލައްބަ އިތުރުކުރޭ"
 msgid "No, don't add"
 msgstr "ނޫން އިތުރު ނުކުރާތި"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)sފަހަރު ބޭނުން ކުރެވިއްޖެ"
-msgstr[1] " %(usage_count)s ފަހަރު ބޭނުންކުރެވިއްޖެ "
-
 msgid "Yes, delete"
 msgstr "ލައްބަ! ފުހެލާ"
 
@@ -87,19 +82,11 @@ msgstr "އާ"
 msgid "Select %(title)s"
 msgstr "%(title)s ސެލެކްޓް ކުރޭ"
 
-msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
-msgstr "މިހާރު އެއްޗެއް އަޕްލޯޑް ކޮށްލަން ވީނު؟"
+msgid "Uploading…"
+msgstr "އަޕްލޯޑް ވަނީ . . . "
 
-msgid "Save"
-msgstr "ސޭވްކުރޭ"
-
-msgid "Editing"
-msgstr "އެޑިޓްކުރަނީ"
-
-msgid "Delete image"
-msgstr "އިމޭޖް ޑިލީޓްކުރޭ"
+msgid "Upload"
+msgstr "އަޕްލޯޑް ކުރޭ"
 
 msgid "Filesize"
 msgstr "ފައިލް ސައިޒް"
@@ -110,11 +97,11 @@ msgstr "ފައިލް ނުފެނުން"
 msgid "Usage"
 msgstr "ބޭނުންކުރުން"
 
-msgid "Entries per page"
-msgstr "ސަފްހާއަކަށް ވާ އެންޓްރީތައް"
-
-msgid "Clear"
-msgstr "ސާފުކޮށްލާ"
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)sފަހަރު ބޭނުން ކުރެވިއްޖެ"
+msgstr[1] " %(usage_count)s ފަހަރު ބޭނުންކުރެވިއްޖެ "
 
 msgid "Preview"
 msgstr "ޕްރިވިއު"
@@ -151,17 +138,20 @@ msgstr "ކަލެކްޝަނަށް އިތުރުކުރޭ:"
 msgid "Delete"
 msgstr "ޑިލީޓްކުރެވޭ"
 
-msgid "Upload"
-msgstr "އަޕްލޯޑް ކުރޭ"
+msgid "Title"
+msgstr "މަޤާމު"
 
-msgid "Uploading…"
-msgstr "އަޕްލޯޑް ވަނީ . . . "
+msgid "Created"
+msgstr "އުފެއްދިއެވެ"
 
 msgid "Choose an image"
 msgstr "އިމޭޖެއް ނަގާ"
 
 msgid "Edit this image"
 msgstr "މި އިމޭޖް އެޑިޓްކުރޭ"
+
+msgid "Delete image"
+msgstr "އިމޭޖް ޑިލީޓްކުރޭ"
 
 msgid "Change image"
 msgstr "އިމޭޖް ބަދަލު ކުރޭ"

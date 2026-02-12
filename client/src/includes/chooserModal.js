@@ -1,6 +1,8 @@
+/* global ModalWorkflow */
+
 import $ from 'jquery';
-import { initTabs } from './tabs';
 import { gettext } from '../utils/gettext';
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
 const validateCreationForm = (form) => {
   let hasErrors = false;
@@ -67,6 +69,11 @@ const submitCreationForm = (modal, form, { errorContainerSelector }) => {
   });
 };
 
+/**
+ * Legacy function, no longer used, this has been migrated to SyncController instead.
+ *
+ * @deprecated RemovedInWagtail80
+ */
 const initPrefillTitleFromFilename = (
   modal,
   { fileFieldSelector, titleFieldSelector, eventName },
@@ -86,7 +93,7 @@ const initPrefillTitleFromFilename = (
         parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
       const data = { title: filename.replace(/\.[^.]+$/, '') };
 
-      // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
+      // allow an event handler to customize data or call event.preventDefault to stop any title pre-filling
       const form = fileWidget.closest('form').get(0);
 
       if (eventName) {
@@ -243,9 +250,6 @@ class ChooserModalOnloadHandlerFactory {
       return false;
     });
 
-    // Reinitialize tabs to hook up tab event listeners in the modal
-    if (this.modalHasTabs(modal)) initTabs();
-
     this.updateMultipleChoiceSubmitEnabledState(modal);
     $('[data-multiple-choice-select]', containerElement).on('change', () => {
       this.updateMultipleChoiceSubmitEnabledState(modal);
@@ -302,10 +306,6 @@ class ChooserModalOnloadHandlerFactory {
     this.multipleChoice.clear();
   }
 
-  modalHasTabs(modal) {
-    return $('[data-tabs]', modal.body).length;
-  }
-
   ajaxifyCreationForm(modal) {
     /* Convert the creation form to an AJAX submission */
     $(this.creationFormSelector, modal.body).on('submit', (event) => {
@@ -317,7 +317,14 @@ class ChooserModalOnloadHandlerFactory {
       return false;
     });
 
-    /* If this form has a file and title field, set up the title to be prefilled from the title */
+    /**
+     * If this form has a file and title field, set up the title to be prefilled from the title
+     *
+     * The code below is no longer used for image and document choosers, keeping until we remove
+     * in a future major release.
+     *
+     * @deprecated RemovedInWagtail80
+     */
     if (
       this.creationFormFileFieldSelector &&
       this.creationFormTitleFieldSelector
@@ -365,7 +372,7 @@ class ChooserModalOnloadHandlerFactory {
     $(this.creationFormTabSelector, modal.body).replaceWith(
       jsonData.htmlFragment,
     );
-    if (this.modalHasTabs(modal)) initTabs();
+
     this.ajaxifyCreationForm(modal);
   }
 
@@ -408,11 +415,17 @@ class ChooserModal {
     if (opts.linkedFieldFilters) {
       Object.assign(urlParams, opts.linkedFieldFilters);
     }
+    if (WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE) {
+      // The user is editing a piece of translated content.
+      // Pass the locale along as a request parameter. If this
+      // model is also translatable, the results will be
+      // pre-filtered by this locale.
+      urlParams.locale = WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE;
+    }
     return urlParams;
   }
 
   open(opts, callback) {
-    // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.getURL(opts || {}),
       urlParams: this.getURLParams(opts || {}),

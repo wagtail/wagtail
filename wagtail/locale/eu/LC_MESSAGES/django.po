@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Basque (http://app.transifex.com/torchbox/wagtail/language/"
@@ -18,15 +18,6 @@ msgstr ""
 "Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Move up"
-msgstr "Gora mugitu"
-
-msgid "Move down"
-msgstr "Behera mugitu"
-
-msgid "Delete"
-msgstr "Ezabatu"
-
 msgid "Approve"
 msgstr "Baieztatu"
 
@@ -34,6 +25,9 @@ msgid "Your username and password didn't match. Please try again."
 msgstr ""
 "Zure erabiltzaileak eta pasahitzak ez dute bat egin. Mesedez saiatu "
 "beranduago."
+
+msgid "Delete"
+msgstr "Ezabatu"
 
 msgid "Reject"
 msgstr "Ezeztatu"

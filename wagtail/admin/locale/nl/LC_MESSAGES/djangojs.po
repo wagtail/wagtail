@@ -1,16 +1,18 @@
 #
 # Translators:
 # mahulst, 2022
-# Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Loic Teixeira, 2022
-# Thijs Kramer <thijskramer@gmail.com>, 2023
-# Storm Heg <storm@stormbase.digital>, 2023
+# Thijs Kramer <thijskramer@gmail.com>, 2025
+# Rob Moorman <rob@moori.nl>, 2026
+# Harmen <sigmo@sigmo.nl>, 2026
+# Loic Teixeira, 2026
+# Samuel Leeuwenburg, 2026
+# Storm Heg <storm@stormbase.digital>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -30,10 +32,33 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s foutmelding"
 msgstr[1] "%(num)s foutmeldingen"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s min"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixels"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "Er is een probleem met de internetverbinding."
+
+msgid "A server error occurred."
+msgstr "Er heeft zich een serverfout voorgedaan."
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "Add"
+msgstr "Toevoegen"
 
 msgid "Add a comment"
 msgstr "Voeg opmerking toe"
@@ -44,6 +69,9 @@ msgstr "Alt tekst"
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
 
+msgid "Autosave in progress…"
+msgstr "Bezig met automatisch opslaan..."
+
 msgid "Blocks"
 msgstr "Blokken"
 
@@ -52,6 +80,9 @@ msgstr "Defecte link"
 
 msgid "Cancel"
 msgstr "Annuleren"
+
+msgid "Changes have been autosaved."
+msgstr "Wijzigingen zijn automatisch opgeslagen."
 
 msgid "Character count:"
 msgstr "Aantal tekens:"
@@ -64,6 +95,10 @@ msgstr "Alles samenvouwen"
 
 msgid "Comment"
 msgstr "Opmerking"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Moeilijk"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -79,6 +114,12 @@ msgstr "Verwijder fout"
 
 msgid "Deleting"
 msgstr "Bezig met verwijderen"
+
+msgid "Drag"
+msgstr "Sleep"
+
+msgid "Duplicate"
+msgstr "Dupliceer"
 
 msgid "Edit"
 msgstr "Bewerk"
@@ -98,8 +139,15 @@ msgstr "Fout tijdens het versturen van voorvertoning-data"
 msgid "Expand all"
 msgstr "Alles uitvouwen"
 
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Redelijk"
+
 msgid "Focus comment"
 msgstr "Focus opmerking"
+
+msgid "Good"
+msgstr "Goed"
 
 msgid "Horizontal line"
 msgstr "Horizontale lijn"
@@ -122,6 +170,15 @@ msgstr "Ontbrekend document"
 msgid "More actions"
 msgstr "Meer acties"
 
+msgid "Move down"
+msgstr "Omlaag"
+
+msgid "Move up"
+msgstr "Verplaats naar boven"
+
+msgid "No"
+msgstr "Nee"
+
 msgid "No results"
 msgstr "Geen resultaten"
 
@@ -136,6 +193,9 @@ msgstr "Pagina's"
 
 msgid "Pin toolbar"
 msgstr "Toolbar vastzetten"
+
+msgid "Preview"
+msgstr "Voorvertoning"
 
 msgid "Reload saved content"
 msgstr "Herlaad opgeslagen inhoud"
@@ -163,15 +223,6 @@ msgstr "Opslaan"
 msgid "Save error"
 msgstr "Opslaan mislukt"
 
-msgid "Save the page to add this comment"
-msgstr "Sla de pagina op om deze opmerking toe te voegen"
-
-msgid "Save the page to save this comment"
-msgstr "Sla de pagina op om deze opmerking te bewaren"
-
-msgid "Save the page to save this reply"
-msgstr "Sla de pagina op om deze reactie te bewaren"
-
 msgid "Saving..."
 msgstr "Bezig met opslaan..."
 
@@ -186,6 +237,9 @@ msgstr "Toon"
 
 msgid "Server Error"
 msgstr "Server Error"
+
+msgid "Settings"
+msgstr "Instellingen"
 
 msgid "Show error"
 msgstr "Toon fout"
@@ -202,8 +256,17 @@ msgstr ""
 "De editor is zojuist vastgelopen. De inhoud is teruggezet naar de laatst "
 "opgeslagen versie."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Het maximale aantal items is %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Het minimale aantal items is %(min_num)d"
+
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
+
+msgid "Toggle section"
+msgstr "Toon/verberg sectie"
 
 msgid "Toggle side panel"
 msgstr "Toon/verberg zijbalk"
@@ -222,3 +285,6 @@ msgstr "Toon onderliggende pagina's van '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Schrijf iets of typ ‘/’ om een nieuw blok in te voegen"
+
+msgid "Yes"
+msgstr "Ja"

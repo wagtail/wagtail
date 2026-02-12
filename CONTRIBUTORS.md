@@ -5,7 +5,8 @@
 * Cynthia Kiser (Caltech)
 * Dan Braghis (Torchbox)
 * Dawn Wages (The Wharton School)
-* Jacob Topp-Mugglestone (Torchbox)
+* Emily Topp-Mugglestone (Torchbox)
+* Jake Howard (Torchbox)
 * Kalob Taulien
 * LB Johnston
 * Matthew Westcott (Torchbox)
@@ -14,6 +15,7 @@
 * Sævar Öfjörð Magnússon (Overcast)
 * Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
+* Sébastien Corbin
 * Stefan Hammer (wunderweiss)
 * Storm Heg
 * Thibaud Colas (Torchbox)
@@ -718,7 +720,6 @@
 * Kevin Chung (kev-odin)
 * valnuro
 * Vitaly Babiy
-* Sébastien Corbin
 * Sahil Jangra
 * Henry Harutyunyan
 * Alex Morega
@@ -742,7 +743,6 @@
 * Sandro Rodrigues
 * Brian Mugo
 * Panagiotis H.M. Issaris
-* Damilola Oladele
 * Olumide Micheal
 * Chiemezuo Akujobi
 * Krish Soni
@@ -810,65 +810,202 @@
 * David Buxton
 * Abdelrahman Hamada
 * Divdeploy
+* Ihar Marhitych
+* Sebastian Muthwill
+* Drikus Roor
+* Alec Baron
+* Saksham Misra
+* Nigel van Keulen
+* Matthias Brück
+* Julie Rymer
+* Byron Peebles
+* Arnar Tumi Þorsteinsson
+* Roel Koper
+* Inju Michorius
+* Jeroen de Vries
+* Romein van Buren
+* Chris Shenton
+* Nathanaël Jourdane
+* Vaughn Dickson
+* Ansuman Shukla
+* Nayanshi Singh
+* Daniel Black
+* Atif Khan
+* Sanjeev Holla S
+* Shubham Mukati
+* Matthew Scouten
+* Ishwari8104
+* Rahul Samant
+* Gabriel Getzie
+* Rohit Singh
+* Robin Varghese
+* Victoria Ottah
+* Bart Cieliński
+* alexkiro
+* Ankit Kumar
+* Frank Yiu
+* Shaurya Panchal
+* Sumana Sree Angajala
+* Srishti Jaiswal
+* Alessandro Chitarrini
+* Joel William
+* Ataf Fazledin Ahamed
+* Ayaan Qadri
+* manu
+* Aayushman Singh
+* Steven Steinwand
+* Clifford Gama
+* Noah van der Meer
+* Strapchay
+* Alex Fulcher
+* Harsh Dange
+* Mauro Soche
+* Krystian Magdziarz
+* Guilhem Saurel
+* James Harrington
+* Unyime Emmanuel Udoh
+* Joren Hammudoglu
+* Rishabh Sharma
+* Mike Gifford
+* Stéphane Blondon
+* Jatin Bhardwaj
+* Mohamed Rabiaa
+* Bernhard Bliem
+* Mahmoud Nasser
+* Prabhpreet Kaur
+* Baptiste Mispelon
+* Mohammad Fathi Rahman
+* Ashish Nagmoti
+* Dhruvi Patel
+* Sylvain Boissel
+* Jordan Teichmann
+* Aditya (megatrron)
+* Arthur Tripp
+* Ian Meigh
+* Jigyasu Rajput
+* Antoine Rodriguez
+* Gorlik
+* manu
+* Maciek Baron
+* Vishesh Garg
+* Paul Craciunoiu
+* Richard Allen
+* Dimaco
+* Charan T M
+* Andrew Hosgood
+* Mustopha Mubarak O
+* Ziyao Yan
+* Anees Asghar
+* Rachel Smith
+* Talha Rizwan
+* Ellie Walsh-O'Neill
+* M. Sumair Khokhar
+* Gaurav Verma
+* Amir Mahmoodi
+* Vijay Raj
+* Yousef Al-Hadhrami (Yemeni)
+* Hunzlah Malik
+* Tosinibikunle
+* Lynwee
+* Andrew Selzer
+* Lasse Schmieding
+* Shivam Kumar
+* Pravin Kamble
+* Martin Fitzpatrick
+* arpitmak
+* Eric Matthes
+* Heric Libong
+* Harshit Ranjan
+* Paul Souders
+* Samya Aggarwal
+* Bhavesh Sharma
+* Nick Ivons
+* Vishrut Ramraj
+* Vivek Subramani
+* Aman Bora
+* Ishtpreet Singh
+* Jashvirsingh Taak
+* Vignesh Shivhare
+* Akhil Muraleedharan
+* Lee Hart
+* Biswajeet Yadav
+* Taras Panasiuk
+* Florin Barnea
+* Mustansir Dabhiya
+* bettercallok
+* Ritik Arya
+* Ankit Chaudhary
+* Saptami
+* Soumya-codr
+* Wenli Tsai
+* Tian Jie Wong
+* Kacper Walęga
+* Deepanshu Tevathiya
+* Serkan Korkusuz
+* Kunal Gupta
+* Naman Sharma S
+* Siddheshwar Kadam
+* Pratham Jaiswal
 
 ## Translators
 
 * Afrikaans: Jaco du Plessis, Jared Osborn
-* Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mahmoud Marayef, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
+* Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Abdullah Bamuhrez, Tarek Berkane, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mahmoud Marayef, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
 * Armenian: Vachagan
 * Azerbaijani: Mirza Iskandarov
 * Bangla: Mahmud Abdur Rahman
 * Basque: Unai Zalakain
 * Belarusian: Stas Rudakou, Andrei Satsevich, Tatsiana Tsygan
-* Bulgarian: Lyuboslav Petrov
+* Bulgarian: Lyuboslav Petrov, Maria Mitova
 * Burmese: ime11
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Adeline Link, Orangle Liu, shengsheng gz
-* Chinese (Simplified): Ed, Yin Guanhao, hanfeng, Fan Hei, Yi Huang, Daniel Hwang, Jian Li, Monty Ng, Terry Peng, Aosp T, Listeng Teng, Feng Wang, whuim, Favo Yang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
+* Chinese (Simplified): Ed, Yu Cheng, Yin Guanhao, hanfeng, Fan Hei, Yi Huang, Daniel Hwang, Jian Li, Monty Ng, Terry Peng, Aosp T, Listeng Teng, Feng Wang, whuim, Favo Yang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Traditional): gogobook, Andy Kong, Lihan Li, Ocin Leung, Yunchi Pang, Jp Shieh, Chih Wang, Brian Xu, Yeh Yen-Ke, Yu Hsun Lee
 * Croatian (Croatia): Dino Aljević, Marko Burazin, Ivica Dosen, Luka Matijević
-* Czech: Ales Dvorak, Jan Feřtek, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Kryštof Pilnáček, Tomáš Podivínský, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
+* Czech: Ales Dvorak, Jan Feřtek, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Kryštof Pilnáček, Tomáš Podivínský, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Jan Zelený, Mirek Zvolský
 * Danish: Benjamin Bach, Mads Kronborg, MRostgaard, Asger Sørensen
 * Divehi: Fauzaan Gasim
-* Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Harmen, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp
+* Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Harmen, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp, Joeri Vlekken, Richard Voorhorst, Michel Vuijlsteke
 * English (India): Neeraj PY, Apoorv Saini
 * Estonian: Erlend Eelmets, Martin, Ragnar Rebase
 * Finnish: Jiri Grönroos, Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Sébastien Corbin, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Aurel Pere, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Christophe Chauvet, Sébastien Corbin, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Lucie Laporte, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Aurel Pere, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: X Bello, Amós Oviedo
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Bohreromir, Matti Borchers, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi
+* German: Ettore Atalan, Bohreromir, Matti Borchers, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Christian González, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi
 * Greek: Jim Dal, Dimitri Fekas, fekioh, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Haitian: Hantz Vius
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Gilad Levi, Men770, Adi Ron, Oleg Sverdlov
 * Hindi: Apoorv Saini
 * Hungarian: Istvan Farkas, Laszlo Molnar, Kornél Novák Mergulhão, BN, Patrik Radics, Aron Santa
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
-* Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Reshi Mahendra, Geek Pantura, Andry Widya Putra, Ronggo Radityo, M. Febrian Ramadhana
-* Italian: Sandro Badalamenti, Marco Badan, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, gcm, Giacomo Ghizzani, LB (Ben Johnston), Marco Lerco, Stefano Marchetto, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
+* Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Reshi Mahendra, Geek Pantura, Andry Widya Putra, Ronggo Radityo, M. Febrian Ramadhana, Imanu Wardi
+* Italian: Sandro Badalamenti, Marco Badan, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, gcm, Giacomo Ghizzani, LB (Ben Johnston), Marco Lerco, Stefano Marchetto, Carlo Miron, Fabio Piras, Alessio Di Stasio, Andrea Tagliazucchi, tognee
 * Japanese: Sangmin Ahn, Goto Hayato, Shuhei Hirota, Shu Ishida, bayside kent, Yudai Kobayashi, Tri Minh, Koji Miyazawa, Tetsuya Morimoto, Tomo Mizoe, Hideaki Oguchi, Safu9, Hiroki Sawano, Kinoshita Shinji, Daigo Shitara, Okosama Star, Shimizu Taku, umepon0626, Takuya Yamamoto
-* Korean: Kyungil Choi, Jihan Chung, mirusu400
+* Korean: Kyungil Choi, Jihan Chung, mirusu400, sl kim
 * Latvian: Aleksandrs Korņijenko, Reinis Rozenbergs, Maris Serzans, Joren Štekeļs
 * Lithuanian: Matas Dailyda, Naglis Jonaitis
 * Maori: Awatea Randall
 * Mongolian: Myagmarjav Enkhbileg, Delgermurun Purevkhuu, Soft Exim, visual
 * Norwegian Bokmål: Eirik Krogstad, Ole Kristian Losvik, Robin Skahjem-Eriksen, Stein Strindhaug
-* Persian: Vessal Daneshvar, Mohsen Hassani, Mostafa Heidarian, Ehsan Jahanbakhsh, Mohammad reza Jelveh, Amir Mahmoodi, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Salar Yazdani, Py Zenberg
+* Persian: Vessal Daneshvar, Mohsen Hassani, Mostafa Heidarian, Ehsan Jahanbakhsh, Mohammad reza Jelveh, Bardia Khoshroo, Amir Mahmoodi, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Salar Yazdani, Py Zenberg
 * Polish: X Bello, Łukasz Bołdys, Krzysztof Jeziorny, Konrad Lalik, Dominik Lech, Miron Levitsky, Mateusz, Miłosz Miśkiewicz, Piotr Moskal, Kacper Podpora, Bartek Sielicki, Grzegorz Wasilewski, Bartosz Wiśniewski
-* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Éder Brito, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Hernandison Da Silva Bispo, Vitor Hugo da Silva Lima, Gustavo Simões, Rodrigo de Almeida Sottomaior Macedo, Gilson Filho, Joao Garcia, Felipe Lobato, João Luiz Lorencetti, A M, Iuri L. Machado, Marcio Mazza, Douglas Miranda, Guilherme Nabanete, Fabio Santos, Ed Wurch
-* Portuguese (Portugal): Gladson Brito, Hugo Cachitas, Thiago Cangussu, Luís Tiago Favas, Diogo Gomes, Tiago Henriques, Felipe Lobato, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Diogo Ribeiro, Diogo Silva, Manuela Silva
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Éder Brito, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Hernandison Da Silva Bispo, Vitor Hugo da Silva Lima, Gustavo Simões, Rodrigo de Almeida Sottomaior Macedo, Gilson Filho, Joao Garcia, Felipe Lobato, João Luiz Lorencetti, A M, Iuri L. Machado, Marcio Mazza, Douglas Miranda, Guilherme Nabanete, Fabio Santos, Arthur Sturzbecher, Ed Wurch
+* Portuguese (Portugal): Gladson Brito, Hugo Cachitas, Thiago Cangussu, Luís Tiago Favas, Daniel Freira, Diogo Gomes, Tiago Henriques, Felipe Lobato, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Diogo Ribeiro, Diogo Silva, Manuela Silva
 * Romanian: Dan Braghis, Julian C, Bogdan Mateescu, Alex Morega, Madalin Popa
-* Russian: ajk, Anatoly, Andrei Audzei, Paul Bid, Vitaly Chekryzhev, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Dmitry Kostelyanets, Miron Levitskiy, Arseni M, Sergey Mazanov, Eugene MechanisM, Rustam Mirzaev, Zhdan Parfenov, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Andrei Satsevich, Mikhail Sidorov, Alexey Sveshnikov, Nikita Tonkoshkur, Alexey Trofimov, Tatsiana Tsygan, Viktor, Nikita Viktorovich, Vassiliy Vorobyov, Vlad
+* Russian: ajk, Anatoly, Andrei Audzei, Paul Bid, Vitaly Chekryzhev, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Dmitry Kostelyanets, Miron Levitskiy, Arseni M, Sergey Mazanov, Eugene MechanisM, Rustam Mirzaev, Zhdan Parfenov, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Andrei Satsevich, Mikhail Sidorov, Alexey Sveshnikov, Nikita Tonkoshkur, Alexey Trofimov, Tatsiana Tsygan, Twixxik, Viktor, Nikita Viktorovich, Vassiliy Vorobyov, Vlad
 * Serbian: Nikola Kadić
-* Slovak (Slovakia): Stevo Backor, dellax, Jozef Gáborík, Martin Janšto, Jozef Karabelly
+* Slovak (Slovakia): Stevo Backor, dellax, Jozef Gáborík, Martin Janšto, Jozef Karabelly, Ivan Waginger
 * Slovenian: Andrej Marsetič, Mitja Pagon, Lev Predan Kowarski, Urban Prevc, Matej Stavanja
 * Spanish: Antoni Aloy, Mauricio Baeza, Lautaro Bringas, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, Hector Garcia, José Luis, Florian Merges, Oluwadamilare Ogunbanjo, Amós Oviedo, Maylon Pedroso, Enrique Sánchez-Reboto García, Joaquín Tita, Daniel Wohlgemuth, Rodrigo Yanez, Unai Zalakain
-* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström, Tomas Walch
+* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Jonathan Lindén, Hannes Lohmander, Martin Sandström, Tomas Walch
 * Tamil: Ramakrishnan Sathyanarayanan
 * Tetum: Alessandro, Joanico Barros, Peter Coward, Mariano de Deus, Onorio de Jesus Afonso, Mario Alves Pinto
 * Thai: Amawalee Combe, Jon Combe, Siramol Khunchai, Walaksawan Vervoort
-* Turkish: Saadettin Yasir Akel, Umut Bektaş, Halit Çelik, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, Fatih Koç koç, José Luis, Py Data, Ahmet Sarıcan, Halim Turan, Ragıp Ünal, Suayip Uzulmez
+* Turkish: Saadettin Yasir Akel, Abdullah Bamuhrez, Umut Bektaş, Halit Çelik, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, Ertuğrul Keremoğlu, Fatih Koç koç, José Luis, Py Data, Ahmet Sarıcan, Halim Turan, Ragıp Ünal, Suayip Uzulmez, Cihad GÜNDOĞDU
 * Turkish (Türkiye): Saadettin Yasir Akel, Basitlik İyidir, Umut Bektaş, Aydın Zafer Cengiz, lzm dgl, Cihad Gündoǧdu, Ahmet Serdar Karadeniz, Fatih Koç koç, José Luis, Py Data, Halim Turan, Ragıp Ünal
 * Ukrainian: Yuri Fabirovsky, Vladislav Herasimenko, Mikolai Incognito, Anastasiia La, Sergiy Shkodenko, Viktor Shytiuk, Ivan Tyshchenko, Zoriana Zaiats, Mykola Zamkovoi
-* Vietnamese: Amelia Dao, Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen, Vu Pham
-* Welsh: Philip Crisp, Adam Hughes
+* Uyghur: Abduqadir Abliz, Azat
+* Vietnamese: Amelia Dao, Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen, Vu Pham, stdpi
+* Welsh: Philip Lindsay-Crisp, Adam Hughes

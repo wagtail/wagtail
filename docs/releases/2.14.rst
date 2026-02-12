@@ -16,7 +16,7 @@ New features
 ~~~~~~~~~~~~
 
  * Added ``ancestor_of`` API filter. See :ref:`apiv2_filter_by_tree_position`. (Jaap Roes)
- * Added support for customising group management views. See :ref:`customizing_group_views`. (Jan Seifert)
+ * Added support for customizing group management views. See :ref:`customizing_group_views`. (Jan Seifert)
  * Added ``full_url`` property to image renditions (Shreyash Srivastava)
  * Added locale selector when choosing translatable snippets (Karl Hobley)
  * Added ``WAGTAIL_WORKFLOW_ENABLED`` setting for enabling / disabling moderation workflows globally (Matt Westcott)
@@ -46,7 +46,7 @@ Bug fixes
  * Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
  * Ensure HTML title is populated on project template 404 page (Matt Westcott)
  * Respect cache_age parameters on embeds (Gordon Pendleton)
- * Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
+ * Page comparison view now reflects request-level customizations to edit handlers (Matt Westcott)
  * Add ``block.super`` to remaining ``extra_js`` & ``extra_css`` blocks (Andrew Stone)
  * Ensure that ``editor`` and ``features`` arguments on RichTextField are preserved by ``clone()`` (Daniel Fairhead)
  * Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)

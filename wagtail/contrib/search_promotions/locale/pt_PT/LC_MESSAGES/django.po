@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -55,21 +55,9 @@ msgstr "descrição"
 msgid "search promotion"
 msgstr "promoção de pesquisa"
 
-msgid "Add search promotion"
-msgstr "Adicionar promoção de pesquisa"
-
-msgid "Add search pick"
-msgstr "Adicionar escolha de pesquisa"
-
-msgid "Save"
-msgstr "Gravar"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Apagar %(query)s"
-
-msgid "Delete"
-msgstr "Apagar"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -77,60 +65,34 @@ msgstr ""
 "Tem a certeza que quer apagar todos os resultados promovidos para este termo "
 "de pesquisa?"
 
-msgid "Yes, delete"
-msgstr "Sim, apagar"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "A alterar %(query)s"
-
-msgid "Editing"
-msgstr "A alterar"
-
 msgid "Move up"
 msgstr "Subir"
 
 msgid "Move down"
 msgstr "Descer"
 
+msgid "Drag"
+msgstr "Arrastar"
+
+msgid "Delete"
+msgstr "Apagar"
+
 msgid "Promoted search results"
 msgstr "Resultados de pesquisa promovidos"
 
-msgid "Search Terms"
-msgstr "Pesquisar Termos"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Desculpe, nenhum resultado promovido corresponde a \"<em>%(query_string)s</"
+"em>\""
 
-msgid "Add new promoted result"
-msgstr "Adicionar novo resultado promovido"
-
-msgid "Search term(s)"
-msgstr "Pesquisar termo(s)"
-
-msgid "Order by search term alphabetically"
-msgstr "Ordenar por termos de pesquisa em ordem alfabética"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Ordenar por termos de pesquisa em ordem alfabética decrescente"
-
-msgid "Promoted results"
-msgstr "Resultados promovidos"
-
-msgid "Views (past week)"
-msgstr "Visualizações (última semana)"
-
-msgid "Order by views (lowest first)"
-msgstr "Ordenar por número de visitas (por ordem crescente)"
-
-msgid "Order by views (highest first)"
-msgstr "Ordenar por número de visitas (por ordem decrescente)"
-
-msgid "Edit this promotion"
-msgstr "Alterar esta promoção"
-
-msgid "External link"
-msgstr "Link externo"
-
-msgid "None"
-msgstr "Nenhuma"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Ainda não foram criados resultados promovidos. Que tal <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>"
 
 msgid "Popular search terms"
 msgstr "Termos de pesquisa populares"
@@ -147,43 +109,34 @@ msgstr "Nenhum resultado encontrado"
 msgid "Choose from popular search terms"
 msgstr "Escolha entre os termos de pesquisa mais populares"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Encontrado %(counter)s resultado"
-msgstr[1] "Encontrados %(counter)s resultados"
-msgstr[2] "Encontrados %(counter)s resultados"
+msgid "External link"
+msgstr "Link externo"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Desculpe, nenhum resultado promovido corresponde a \"<em>%(query_string)s</"
-"em>\""
+msgid "None"
+msgstr "Nenhuma"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Ainda não foram criados resultados promovidos. Que tal <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>"
+msgid "Date"
+msgstr "Data"
+
+msgid "Search term(s)"
+msgstr "Pesquisar termo(s)"
+
+msgid "Add new promoted result"
+msgstr "Adicionar novo resultado promovido"
+
+msgid "Promoted results"
+msgstr "Resultados promovidos"
+
+msgid "Promoted search result"
+msgstr "Resultado de pesquisa promovido"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Escolhas do editor para '%(query)s' criadas."
 
-msgid "Edit"
-msgstr "Alterar"
-
-msgid "Recommendations have not been created due to errors"
-msgstr "As recomendações não foram criadas devido a erros."
-
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Escolhas do editor para '%(query)s' atualizadas."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "As recomendações não foram guardadas devido a erros."
 
 msgid "Editor's picks deleted."
 msgstr "Escolhas do editor apagadas."

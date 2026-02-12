@@ -4,16 +4,16 @@
 #
 # Translators:
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Storm Heg <storm@stormbase.digital>, 2021-2024
+# Storm Heg <storm@stormbase.digital>, 2021-2025
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -139,12 +139,6 @@ msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "Weet je zeker dat je dit document wilt verwijderen?"
 msgstr[1] "Weet je zeker dat je deze documenten wilt verwijderen?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s keer gebruikt"
-msgstr[1] "%(usage_count)s keer gebruikt"
-
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
 msgstr[0] "Je hebt niet de juiste rechten om dit document te verwijderen"
@@ -172,11 +166,13 @@ msgid "You haven't uploaded any documents."
 msgstr "Je hebt nog geen documenten geüpload."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
-"trigger>upload one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
 msgstr ""
-"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>Upload er "
-"nu eentje!</a>"
+"Waarom <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload je er niet eentje</a>?"
 
 msgid "Change document:"
 msgstr "Wijzig document:"
@@ -184,27 +180,11 @@ msgstr "Wijzig document:"
 msgid "Add a document"
 msgstr "Voeg een document toe"
 
-msgid "Add document"
-msgstr "Voeg document toe"
-
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
 
 msgid "Upload"
 msgstr "Uploaden"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Wijzigen %(title)s"
-
-msgid "Editing"
-msgstr "Wijzigen"
-
-msgid "Save"
-msgstr "Opslaan"
-
-msgid "Delete document"
-msgstr "Verwijder document"
 
 msgid "Filesize"
 msgstr "Bestandsgrootte"
@@ -214,6 +194,12 @@ msgstr "Bestand niet gevonden"
 
 msgid "Usage"
 msgstr "Gebruik"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s keer gebruikt"
+msgstr[1] "%(usage_count)s keer gebruikt"
 
 msgid "Select all documents in listing"
 msgstr "Selecteer alle documenten in lijst"
@@ -242,23 +228,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span> "
+"%(total)s Document <span class=\"w-sr-only\">aangemaakt in %(site_name)s</"
+"span>"
 msgstr[1] ""
-"<span>%(total)s</span> Documenten <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span>"
+"%(total)s Documenten <span class=\"w-sr-only\">aangemaakt in %(site_name)s</"
+"span>"
 
 msgid "Add multiple documents"
 msgstr "Voeg meerdere documenten toe"
-
-msgid "Add documents"
-msgstr "Voeg documenten toe"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Sleep documenten naar dit gebied om ze direct te uploaden."
@@ -354,6 +335,9 @@ msgstr "Documenten"
 msgid "Title"
 msgstr "Titel"
 
+msgid "The document could not be created due to errors."
+msgstr "Het document kon niet worden aangemaakt vanwege fouten."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Document '%(document_title)s' toegevoegd."
@@ -366,14 +350,20 @@ msgid "Document '%(document_title)s' updated"
 msgstr "Document '%(document_title)s' is bijgewerkt"
 
 msgid ""
-"The file could not be found. Please change the source or delete the document"
+"The file could not be found. Please change the source or delete the document."
 msgstr ""
-"Het bestand kon niet worden gevonden. Kies een ander bronbestand of "
-"verwijder het document."
+"Het bestand kon niet worden gevonden. Upload een ander bestand of verwijder "
+"het document."
+
+msgid "Delete document"
+msgstr "Verwijder document"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Document '%(document_title)s' verwijderd."
+
+msgid "Add documents"
+msgstr "Voeg documenten toe"
 
 msgid "Document"
 msgstr "Document"

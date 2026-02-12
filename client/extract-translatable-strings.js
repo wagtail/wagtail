@@ -9,6 +9,10 @@ extractor
         text: 0,
         context: 1,
       },
+      comments: {
+        otherLineLeading: true,
+        regex: /^Translators:.*/,
+      },
     }),
     JsExtractors.callExpression('gettext_noop', {
       arguments: {

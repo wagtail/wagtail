@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -23,20 +23,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
 "1 == 0) ? 1: 2;\n"
 
-msgid "Move up"
-msgstr "העבר מעלה"
-
-msgid "Move down"
-msgstr "העבר מטה"
-
-msgid "Delete"
-msgstr "מחק"
-
-msgid "Add"
-msgstr "הוספה"
-
 msgid "This field is required."
 msgstr "שדה חובה"
+
+msgid "Group"
+msgstr "קבוצה "
 
 msgid "Password"
 msgstr "סיסמא"
@@ -62,8 +53,8 @@ msgstr "טיוטה"
 msgid "live + draft"
 msgstr "לייב + טיוטה"
 
-msgid "Default"
-msgstr "ברירת מחדל"
+msgid "Add"
+msgstr "הוספה"
 
 msgid "Add/edit pages you own"
 msgstr "הוספת/עריכת דפים שאתה הבעלים שלהם"
@@ -87,11 +78,8 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "האם קישור לעמוד זה יופיע בתפריטים המיוצרים אוטומטית"
 
-msgid "groups"
-msgstr "קבוצות"
-
-msgid "Approve"
-msgstr "אשרו"
+msgid "Default"
+msgstr "ברירת מחדל"
 
 msgid "default"
 msgstr "ברירת מחדל"
@@ -99,11 +87,17 @@ msgstr "ברירת מחדל"
 msgid "Public"
 msgstr "ציבורי"
 
-msgid "Private, accessible with the following password"
-msgstr "פרטי, זמין עם הסיסמה הבאה"
+msgid "groups"
+msgstr "קבוצות"
+
+msgid "Approve"
+msgstr "אשרו"
 
 msgid "Edited"
 msgstr "ערוך"
+
+msgid "Delete"
+msgstr "מחק"
 
 msgid "Unpublish"
 msgstr "ביטול פרסום"

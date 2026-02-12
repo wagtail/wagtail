@@ -1,8 +1,10 @@
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path from 'path';
+import CopyPlugin from 'copy-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-// Generates a path to the output bundle to be loaded in the browser.
+/**
+ * Generates a path to the output bundle to be loaded in the browser.
+ */
 const getOutputPath = (app, folder, filename) => {
   const exceptions = {
     'documents': 'wagtaildocs',
@@ -25,7 +27,7 @@ const exposedDependencies = {
   'draft-js': 'DraftJS',
 };
 
-module.exports = function exports(env, argv) {
+export default function exports(env, argv) {
   const isProduction = argv.mode === 'production';
 
   const entrypoints = {
@@ -37,14 +39,12 @@ module.exports = function exports(env, argv) {
       'core',
       'date-time-chooser',
       'draftail',
-      'expanding-formset',
       'filtered-select',
       'icons',
       'modal-workflow',
       'page-chooser-modal',
       'page-chooser',
       'page-chooser-telepath',
-      'preview-panel',
       'privacy-switch',
       'sidebar',
       'task-chooser-modal',
@@ -61,6 +61,7 @@ module.exports = function exports(env, argv) {
       'image-chooser',
       'image-chooser-modal',
       'image-chooser-telepath',
+      'image-block',
     ],
     'documents': [
       'document-chooser',
@@ -73,7 +74,6 @@ module.exports = function exports(env, argv) {
   };
 
   const entry = {};
-  // eslint-disable-next-line no-restricted-syntax
   for (const [appName, moduleNames] of Object.entries(entrypoints)) {
     moduleNames.forEach((moduleName) => {
       entry[moduleName] = {
@@ -177,11 +177,6 @@ module.exports = function exports(env, argv) {
             to: 'wagtail/contrib/search_promotions/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
-          {
-            from: 'wagtail/users/static_src/',
-            to: 'wagtail/users/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
         ],
       }),
     ],
@@ -222,7 +217,7 @@ module.exports = function exports(env, argv) {
                   // Manually set Sass output so it’s identical in production and development. See:
                   // https://github.com/tailwindlabs/tailwindcss/issues/11027
                   // https://github.com/webpack-contrib/sass-loader/issues/1129
-                  outputStyle: 'expanded',
+                  style: 'expanded',
                 },
               },
             },
@@ -231,10 +226,16 @@ module.exports = function exports(env, argv) {
       ].concat(
         Object.keys(exposedDependencies).map((name) => {
           const globalName = exposedDependencies[name];
+          const url = import.meta.resolve(name);
+          // import.meta.resolve returns a full URL with the file:// protocol.
+          // Webpack doesn't support it yet, so only take the pathname to match
+          // the behavior of require.resolve.
+          // https://github.com/webpack/schema-utils/issues/209
+          const test = new URL(url).pathname;
 
           // Create expose-loader configs for each Wagtail dependency.
           return {
-            test: require.resolve(name),
+            test,
             use: [
               {
                 loader: 'expose-loader',
@@ -292,4 +293,4 @@ module.exports = function exports(env, argv) {
       version: false,
     },
   };
-};
+}

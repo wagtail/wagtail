@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -128,14 +128,6 @@ msgstr[1] "Ydych chi'n siŵr eich bod am ddileu'r dogfennau hyn?"
 msgstr[2] "Ydych chi'n siŵr eich bod am ddileu'r dogfennau hyn?"
 msgstr[3] "Ydych chi'n siŵr eich bod am ddileu'r dogfennau hyn?"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Wedi defnyddio %(usage_count)s waith"
-msgstr[1] "Wedi defnyddio %(usage_count)s o weithiau"
-msgstr[2] "Wedi defnyddio %(usage_count)s o weithiau"
-msgstr[3] "Wedi defnyddio %(usage_count)s o weithiau"
-
 msgid "Yes, delete"
 msgstr "Ia, dileu"
 
@@ -148,16 +140,6 @@ msgstr "Wrthi'n uwchlwytho…"
 msgid "Upload"
 msgstr "Uwchlwytho"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Golygu %(title)s"
-
-msgid "Editing"
-msgstr "Golygu"
-
-msgid "Save"
-msgstr "Cadw"
-
 msgid "Filesize"
 msgstr "Maint ffeil"
 
@@ -167,6 +149,14 @@ msgstr "Ffeil heb ei chanfod"
 msgid "Usage"
 msgstr "Defnydd"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Wedi defnyddio %(usage_count)s waith"
+msgstr[1] "Wedi defnyddio %(usage_count)s o weithiau"
+msgstr[2] "Wedi defnyddio %(usage_count)s o weithiau"
+msgstr[3] "Wedi defnyddio %(usage_count)s o weithiau"
+
 msgid "Or choose from your computer"
 msgstr "Neu dewiswch o'ch cyfrifiadur"
 
@@ -175,6 +165,9 @@ msgstr "Ychwanegu at y casgliad:"
 
 msgid "Sorry, upload failed."
 msgstr "Mae'n ddrwg gennym, ni fu modd uwchlwytho."
+
+msgid "Tags"
+msgstr "Tagiau"
 
 msgid "Tag"
 msgstr "Tag"

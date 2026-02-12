@@ -1,12 +1,16 @@
 import datetime
 import json
 
-from django.db.models import F, JSONField
+from django.db import connection
+from django.db.models import F, JSONField, TextField
 from django.db.models.functions import Cast
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail.blocks.migrations.operations import RenameStreamChildrenOperation
+from wagtail.blocks.migrations.operations import (
+    RenameStreamChildrenOperation,
+    StreamChildrenToListBlockOperation,
+)
 from wagtail.test.streamfield_migrations import factories, models
 from wagtail.test.streamfield_migrations.testutils import MigrationTestMixin
 
@@ -24,8 +28,8 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
     ]
     app_name = None
 
-    def setUp(self):
-        instances = [
+    def _get_test_instances(self):
+        return [
             self.factory(
                 content__0__char1="Test char 1",
                 content__1__char1="Test char 2",
@@ -43,6 +47,9 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
                 content__2__char2="Test char 3",
             ),
         ]
+
+    def setUp(self):
+        instances = self._get_test_instances()
 
         self.original_raw_data = {}
         self.original_revisions = {}
@@ -102,9 +109,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
 
         self.apply_migration()
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
@@ -128,9 +133,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
         revisions_from = timezone.now() + datetime.timedelta(days=2)
         self.apply_migration(revisions_from=revisions_from)
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
@@ -159,9 +162,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
         revisions_from = timezone.now() - datetime.timedelta(days=2)
         self.apply_migration(revisions_from=revisions_from)
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
@@ -209,3 +210,123 @@ class TestPage(BaseMigrationTest):
 
     def test_migrate_revisions_from_date(self):
         self._test_migrate_revisions_from_date()
+
+
+class TestNullStreamField(BaseMigrationTest):
+    """
+    Migrations are processed if the underlying JSON is null.
+
+    This might occur if we're operating on a StreamField that was added to a model that
+    had existing records.
+    """
+
+    model = models.SamplePage
+    factory = factories.SamplePageFactory
+    has_revisions = True
+    app_name = "streamfield_migration_tests"
+
+    def _get_test_instances(self):
+        return self.factory.create_batch(1, content=None)
+
+    def setUp(self):
+        super().setUp()
+
+        # Bypass StreamField/StreamBlock processing that cast a None stream field value
+        # to the empty StreamValue, and set the underlying JSON to null.
+        with connection.cursor() as cursor:
+            cursor.execute(f"UPDATE {self.model._meta.db_table} SET content = 'null'")
+
+    def assert_null_content(self):
+        """
+        The raw JSON of all instances for this test is null.
+        """
+
+        instances = self.model.objects.all().annotate(
+            raw_content=Cast(F("content"), TextField())
+        )
+
+        for instance in instances:
+            with self.subTest(instance=instance):
+                self.assertEqual(instance.raw_content, "null")
+
+    def test_migrate_stream_data(self):
+        self.assert_null_content()
+        self.apply_migration()
+        self.assert_null_content()
+
+
+class StreamChildrenToListBlockOperationTestCase(BaseMigrationTest):
+    model = models.SamplePage
+    factory = factories.SamplePageFactory
+    has_revisions = True
+    app_name = "streamfield_migration_tests"
+
+    def _get_test_instances(self):
+        return self.factory.create_batch(
+            size=3,
+            # Each content stream field has a single char block instance.
+            content__0__char1__value="Char Block 1",
+        )
+
+    def test_state_not_shared_across_instances(self):
+        """
+        StreamChildrenToListBlockOperation doesn't share state across model instances.
+
+        As a single operation instance is used to transform the data of multiple model
+        instances, we should not store model instance state on the operation instance.
+        See https://github.com/wagtail/wagtail/issues/12391.
+        """
+
+        self.apply_migration(
+            operations_and_block_paths=[
+                (
+                    StreamChildrenToListBlockOperation(
+                        block_name="char1", list_block_name="list1"
+                    ),
+                    "",
+                )
+            ]
+        )
+        for instance in self.model.objects.all().annotate(
+            raw_content=Cast(F("content"), JSONField())
+        ):
+            new_block = instance.raw_content[0]
+            self.assertEqual(new_block["type"], "list1")
+            self.assertEqual(len(new_block["value"]), 1)
+            self.assertEqual(new_block["value"][0]["type"], "item")
+            self.assertEqual(new_block["value"][0]["value"], "Char Block 1")
+
+
+class TestRevisionHandling(BaseMigrationTest):
+    """
+    Test the handling of revisions in StreamField data migrations.
+    """
+
+    model = models.SamplePage
+    factory = factories.SamplePageFactory
+    has_revisions = False  # We'll create them manually.
+    app_name = "streamfield_migration_tests"
+
+    def _get_test_instances(self):
+        return self.factory()
+
+    def setUp(self):
+        self.instance = self._get_test_instances()
+
+    def test_undefined_field_handled(self):
+        """
+        Revisions not having the targeted field are handled.
+
+        See https://github.com/wagtail/wagtail/issues/12408.
+        """
+
+        # Create a revision
+        revision = self.instance.save_revision()
+
+        # Delete the `content' field from the revision content, to simulate a revision
+        # created before the creation of the field.
+        del revision.content["content"]
+        revision.save()
+
+        # Should not throw a KeyError.
+        self.apply_migration()

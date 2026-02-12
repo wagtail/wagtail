@@ -45,6 +45,7 @@ Index
    advanced_topics/index
    extending/index
    reference/index
+   deployment/index
    support
    editor_manual/index
    contributing/index

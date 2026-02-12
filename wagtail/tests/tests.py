@@ -1,4 +1,5 @@
 import json
+import re
 
 from django import template
 from django.core.cache import cache
@@ -9,9 +10,11 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
+from django.utils.translation import gettext_lazy
 
 from wagtail.coreutils import (
     get_dummy_request,
+    get_js_regex,
     make_wagtail_template_fragment_key,
     resolve_model_string,
 )
@@ -536,6 +539,10 @@ class TestRichtextTag(TestCase):
         self.assertEqual(result, "Hello world!")
         self.assertIsInstance(result, SafeString)
 
+    def test_call_with_lazy(self):
+        result = richtext(gettext_lazy("test"))
+        self.assertEqual(result, "test")
+
     def test_call_with_none(self):
         result = richtext(None)
         self.assertEqual(result, "")
@@ -804,4 +811,94 @@ class TestWagtailPageCacheTag(TestCase):
             )
         self.assertEqual(
             e.exception.args[0], "'wagtailpagecache' tag requires at least 2 arguments."
+        )
+
+
+class TestRegexJavaScriptConversion(TestCase):
+    """
+    Tests for the get_js_regex function that converts Python regex to JavaScript regex.
+    """
+
+    def test_empty_value(self):
+        self.assertEqual(get_js_regex(), [])
+        self.assertEqual(get_js_regex(None), [])
+        self.assertEqual(get_js_regex(""), [])
+
+    def test_compiled_regex(self):
+        self.assertEqual(get_js_regex(re.compile(r"\D")), ["\\D", "gu"])
+
+    def test_string(self):
+        self.assertEqual(get_js_regex(r"\D"), ["\\D", "gu"])
+
+    def test_regex_with_flags(self):
+        self.assertEqual(
+            get_js_regex(re.compile(r"w{1,3}", re.IGNORECASE)), ["w{1,3}", "giu"]
+        )
+        self.assertEqual(
+            get_js_regex(re.compile(r".*", re.MULTILINE | re.S)), [".*", "gmsu"]
+        )
+
+    def test_custom_base_js_flags(self):
+        self.assertEqual(get_js_regex(r"\D", base_js_flags="g"), ["\\D", "g"])
+        self.assertEqual(
+            get_js_regex(re.compile(r"\D", re.MULTILINE), base_js_flags="g"),
+            ["\\D", "gm"],
+        )
+        self.assertEqual(get_js_regex(r"\D", base_js_flags=""), ["\\D", ""])
+
+    def test_regex_with_inline_flags(self):
+        self.assertEqual(get_js_regex(r"(?i)\D"), ["\\D", "giu"])
+        self.assertEqual(
+            get_js_regex(re.compile(r"(?i)\D", re.MULTILINE)), ["\\D", "gimu"]
+        )
+
+    def test_regex_with_invalid_flag_locale(self):
+        """
+        Using the re.LOCALE flag is discouraged in Python docs & not supported in JavaScript
+        """
+
+        with self.assertRaises(ValueError) as error:
+            get_js_regex(re.compile(rb"\w", re.LOCALE))
+
+        self.assertEqual(
+            str(error.exception),
+            "Python re.LOCALE flag is not supported in JavaScript.",
+        )
+
+        with self.assertRaises(ValueError) as error:
+            get_js_regex(rb"(?L)\w")
+
+        self.assertEqual(
+            str(error.exception),
+            "Python re.LOCALE flag is not supported in JavaScript.",
+        )
+
+    def test_regex_with_invalid_flag_verbose(self):
+        """
+        Until we do advanced cleaning on the Verbose style of regex
+        we will not support it in JavaScript.
+        """
+
+        with self.assertRaises(ValueError) as error:
+            get_js_regex(r"(?x)\d{ 3 }")
+
+        self.assertEqual(
+            str(error.exception),
+            "Python re.VERBOSE flag is not supported in JavaScript.",
+        )
+
+        with self.assertRaises(ValueError) as error:
+            verbose_regex = re.compile(
+                r"""
+                \d+  # match one or more digits
+                \s*  # match zero or more whitespace characters
+                \w+  # match one or more word characters
+            """,
+                re.X,
+            )
+            get_js_regex(verbose_regex)
+
+        self.assertEqual(
+            str(error.exception),
+            "Python re.VERBOSE flag is not supported in JavaScript.",
         )

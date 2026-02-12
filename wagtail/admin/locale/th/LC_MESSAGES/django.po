@@ -6,14 +6,15 @@
 # Amawalee Combe <dang@getsalebox.com>, 2019
 # Jon Combe <jon@naremit.com>, 2019
 # Siramol Khunchai, 2024
+# Siramol Khunchai, 2024
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Siramol Khunchai, 2024\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -55,9 +56,6 @@ msgstr "แอดมินแว็กเทล"
 msgid "Sorry, you do not have permission to access this area."
 msgstr "ขออภัย, คุณไม่สามารถเปิดหน้านี้ได้"
 
-msgid "You do not have permission to access the admin"
-msgstr "คุณไม่ได้รับอนุญาตให้เข้าถึงผู้ดูแลระบบ"
-
 msgid "None"
 msgstr "ไม่มี"
 
@@ -66,6 +64,9 @@ msgstr "จากวันที่"
 
 msgid "Date to"
 msgstr "ถึงวันที่"
+
+msgid "Collection"
+msgstr "ชุด"
 
 msgid "Preferred language"
 msgstr "ภาษาที่ต้องการใช้"
@@ -111,9 +112,6 @@ msgstr "ค้นหา"
 msgid "All collections"
 msgstr "ทุกชุด"
 
-msgid "Collection"
-msgstr "ชุด"
-
 msgid "Parent"
 msgstr "หน้าหลัก,หน้าแรก"
 
@@ -123,9 +121,6 @@ msgid ""
 msgstr ""
 "เลือกตำแหน่งตามลำดับชั้น. หมายเหตุ: collection หนึ่งไม่สามารถเป็น child หรือเป็นหนึ่งใน "
 "descendants ของตัวเองได้"
-
-msgid "Please select another parent"
-msgstr "โปรดเลือก parent อื่น"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "คุณไม่สามารถมีใบอนุญาติที่จดทะเบียนซ้ำกันได้"
@@ -153,9 +148,6 @@ msgstr "คุณไม่สามารถแก้ไขความคิด
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "วันและเวลาที่เผยแพร่ต้องมาก่อนวันและเวลาที่หมดอายุ"
-
-msgid "Expiry date/time must be in the future"
-msgstr "วันที่ / เวลาหมดอายุจะต้องเป็นวันเวลาในอนาคต"
 
 msgid "New title"
 msgstr "หัวข้อใหม่"
@@ -208,19 +200,14 @@ msgstr "Slugนี้ถูกใช้อยู่ในบริเวณห�
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "คุณไม่สามารถที่จะคัดลอกหน้าแรกมาใส่ในหน้าย่อยได้"
 
-#, python-format
-msgid "The slug '%(page_slug)s' is already in use within the parent page"
-msgstr "Slug '%(page_slug)s' ถูกใช้ไปแล้วภายใต้หน้าหลักนี้"
-
 msgid "Select a new parent for this page."
 msgstr "เลือกหน้าหลักใหม่สำหรับหน้านี้"
 
+msgid "Parent page"
+msgstr "หน้าแรก,หน้าหลัก"
+
 msgid "Search…"
 msgstr "ค้นหา..."
-
-#, python-format
-msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-msgstr "Tag(s) %(value_too_long)s มีความยาวเกิน %(max_tag_length)d ตัวอักษร"
 
 msgid "Visibility"
 msgstr "ความชัดเจน"
@@ -263,9 +250,6 @@ msgstr "ไม่พบหน้าที่ต้องการหา"
 
 msgid "Go to Wagtail admin"
 msgstr "ไปยังหน้า Wagtail admin"
-
-msgid "Account"
-msgstr "ชื่อบัญชี"
 
 msgid "Reset password"
 msgstr "ตั้งรหัสใหม่อีกครั้ง"
@@ -356,17 +340,11 @@ msgstr "สำรวจหน้าย่อยของ '%(title)s'"
 msgid "Explore"
 msgstr "สำรวจ"
 
-msgid "Collection privacy"
-msgstr "การเก็บรวบรวมข้อมูลส่วนตัว"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "ข้อมูลส่วนตัวเหล่านี้ถูกเก็บไว้โดยฐานข้อมูล"
 
 msgid "You can edit the privacy settings on:"
 msgstr "คุณสามารถแก้ไขข้อมูลส่วนตัวตามนี้"
-
-msgid "Save"
-msgstr "เซฟ , เก็บรักษาข้อมูล"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -385,9 +363,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "ข้อความนี้ไม่สามารถลบออกได้เนื่องจากยังมีเนื้อหาเก่าอยู่"
 
-msgid "Name"
-msgstr "ชื่อ"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -398,10 +373,6 @@ msgid "Yes, delete"
 msgstr ""
 "ใช่,\n"
 "ลบ"
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "ยกเลิกการเผยแพร่ %(title)s"
 
 #, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
@@ -428,27 +399,22 @@ msgstr "คุณยังต้องการจะเผยแพร่ %(mod
 msgid "Update"
 msgstr "ล่าสุด"
 
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "กำลังเปรียบเทียบ %(title)s"
-
-msgid "Comparing"
-msgstr "กำลังเปรียบเทียบ"
-
 msgid "Fields"
 msgstr "หัวข้อ"
 
 msgid "Changes"
 msgstr "เปลี่ยน"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "ยินดีต้อนรับสู่ %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "นี่คือหน้าจอที่ช่วยในการให้ข้อมูลเกี่ยวกับการแสดงเนื้อหาที่คุณสร้าง"
+
+msgid "Account"
+msgstr "ชื่อบัญชี"
+
+msgid "Status"
+msgstr "สถานะ"
 
 msgid "Edit this page"
 msgstr "แก้ไขหน้านี้"
@@ -461,9 +427,6 @@ msgstr "กำลังเผยแพร่"
 
 msgid "Your most recent edits"
 msgstr "ที่คุณแก้ไขล่าสุด"
-
-msgid "Status"
-msgstr "สถานะ"
 
 msgid "Date"
 msgstr "วันที่"
@@ -520,21 +483,6 @@ msgstr "หน้านี้ \"%(title)s\"ไม่ผ่านการอน�
 
 msgid "You can preview the page here:"
 msgstr "คุณสามารถดูภาพตัวอย่างได้จากตรงนี้"
-
-msgid "Page privacy"
-msgstr "ความเป็นส่วนตัวของหน้านี้"
-
-msgid "This page has been made private by a parent page."
-msgstr "หน้านี้ถูกตั้งค่าส่วนตัวโดยหน้าหลัก"
-
-msgid "Save the page before leaving"
-msgstr "บันทึกหน้านี้ก่อนออกไป"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "คุณมี <span>การแก้ไขที่ยังไม่ได้บันทึก</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "คุณมี <span>การแก้ไข</span> และ <span>ความคิดเห็น</span> ที่ยังไม่ได้บันทึก"
 
 msgid "Publishing…"
 msgstr "กำลังเผยแพร่..."
@@ -674,15 +622,6 @@ msgstr "ก๊อปปี้ , คัดลอก"
 msgid "Copy this page"
 msgstr "ก๊อปปี้หน้านี้ , คัดลอกหน้านี้"
 
-msgid "This page has unsaved changes."
-msgstr "หน้านี้มีการเปลี่ยนแปลงที่ยังไม่ได้เซฟเอาไว้"
-
-msgid "Live version"
-msgstr "เวอร์ชันที่กำลังเผยพร่"
-
-msgid "Current draft"
-msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
-
 msgid "Configure a site now."
 msgstr "โครงสร้างเว็บไซด์ในขณะนี้"
 
@@ -696,15 +635,6 @@ msgstr "สำรวจหน้าย่อยของ '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "เพิ่มหน้าย่อยที่ '%(title)s'"
-
-msgid "Drag"
-msgstr "ลาก"
-
-msgid "Disable ordering of child pages"
-msgstr "การเรียงไม่สามารถทำได้ในหย้าย่อย"
-
-msgid "Enable ordering of child pages"
-msgstr "การเรียงลำดับสามารถทำได้ในหน้าย่อย"
 
 msgid "Sites menu"
 msgstr "เมนูของเว็บไซด์"
@@ -721,17 +651,11 @@ msgstr "หน้านี้ถูกป้องกันจากสาธา
 msgid "Add child page"
 msgstr "หน้าย่อย"
 
-msgid "Cancel scheduled publish"
-msgstr "ยกเลิกกำหนดการเผยแพร่"
-
 msgid "Page types"
 msgstr "รูปแบบหน้า"
 
 msgid "Enter a search term above"
 msgstr "เข้าสู่การค้นหาคำที่หาอยู่"
-
-msgid "No pages use"
-msgstr "ไม่มีหน้าท่ีใช้"
 
 #, python-format
 msgid "Add %(label)s"
@@ -743,10 +667,8 @@ msgstr "เลื่อนขึ้น"
 msgid "Move down"
 msgstr "เลื่อนลง"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr "กำหนดการเผยแพร่นี้จะมีผลหลังจากที่คุณเลือก \"เผยแพร่\" แล้วเท่านั้น"
+msgid "Drag"
+msgstr "ลาก"
 
 msgid "Set publishing schedule"
 msgstr "ตั้งกำหนดการเผยแพร่"
@@ -769,12 +691,14 @@ msgstr "หลายหน้า"
 msgid "Locked"
 msgstr "ล็อกเรียบร้อยแล้ว"
 
+msgid "Name"
+msgstr "ชื่อ"
+
 msgid "Edit this item"
 msgstr "แก้ไขชิ้นนี้"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "หน้า %(page_num)s ของ%(total_pages)s."
+msgid "Continue"
+msgstr "ต่อ,ต่อเนื่อง"
 
 msgid "Download CSV"
 msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
@@ -782,18 +706,12 @@ msgstr "ดาวโหลด ช่องที่ให้เขียนต�
 msgid "Filter"
 msgstr "คัดกรอง"
 
-msgid "Root"
-msgstr "ต้นฉบับ"
-
 msgid "Visit the live page"
 msgstr "ไปยังหน้าที่เผยแพร่"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "ยกเลิกการแก้ไขตาราง %(revision.id)s สำหรับ %(title)s"
-
-msgid "Unschedule"
-msgstr "ยกเลิกตาราง"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "หน้า %(page_num)s ของ%(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "คุณแน่ใจว่าคุณอยากจะยกเลิกการแก้ไขนี้"
@@ -808,6 +726,9 @@ msgstr "ไม่, ไม่ต้องยกเลิกตาราง"
 
 msgid "Other searches"
 msgstr "ค้นหาอย่างอื่น"
+
+msgid "Save"
+msgstr "เซฟ , เก็บรักษาข้อมูล"
 
 msgid "Unlocked"
 msgstr "ปลดล็อก"
@@ -826,14 +747,14 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
 
-msgid "Once published:"
-msgstr "เผยแพร่แล้ว:"
-
 msgid "No publishing schedule set"
 msgstr "ไม่ได้ตั้งกำหนดการเผยแพร่"
 
 msgid "First published"
 msgstr "เผยแพร่ครั้งแรก"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "คุณมี <span>การแก้ไขที่ยังไม่ได้บันทึก</span>"
 
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
@@ -862,6 +783,18 @@ msgstr "%(time_period)s ที่ผ่านมา"
 
 msgid "Log out"
 msgstr "ออกจากระบบ"
+
+msgid "Undo"
+msgstr "ถอยหลัง"
+
+msgid "Redo"
+msgstr "ทำใหม่"
+
+msgid "Bold"
+msgstr "ตัวอักษรหนา"
+
+msgid "Italic"
+msgstr "ตัวอักษรเอียง"
 
 msgid "Password"
 msgstr "รหัสผ่าน"
@@ -898,6 +831,15 @@ msgstr "คุณแน่ใจว่าคุณต้องการลบท
 msgid "Home"
 msgstr "หน้าหลักของเว็บไซด์"
 
+msgid "Live version"
+msgstr "เวอร์ชันที่กำลังเผยพร่"
+
+msgid "Current draft"
+msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
+
+msgid "Cancel scheduled publish"
+msgstr "ยกเลิกกำหนดการเผยแพร่"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
 msgstr "%(model_name)s '%(object)s' กำลังมีกำหนดการที่จะเผยแพร่"
@@ -921,24 +863,20 @@ msgstr "%(model_name)s '%(object)s' มีการอัปเดตและ�
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr "%(model_name)s '%(object)s' ถูกสร้างและเผยแพร่"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "แก้ไข'%(title)s'"
-
 msgid "Inspect"
 msgstr "ตรวจ"
 
 msgid "Editing"
 msgstr "กำลังแก้ไข"
 
-msgid "Inspecting"
-msgstr "กำลังตรวจ"
-
 msgid "Earliest"
 msgstr "ที่เก่าแก่ที่สุด"
 
 msgid "Latest"
 msgstr "ล่าสุด"
+
+msgid "Unschedule"
+msgstr "ยกเลิกตาราง"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -977,9 +915,6 @@ msgstr "หน้า'%(page_title)s'ถูกสร้างและตีพ�
 msgid "Page '%(page_title)s' created and submitted for moderation."
 msgstr "หน้า'%(page_title)s'ถูกสร้างและถูกส่งสำหรับตรวจ"
 
-msgid "The page could not be created due to validation errors"
-msgstr "หน้านี้ไม่สามารถถูกสร้างในระหว่างที่การยืนยันเกิดข้อผิดพลาด"
-
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr ""
@@ -1008,12 +943,6 @@ msgstr "หน้า%(page_title)s ได้จัดพิมพ์เรีย
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "หน้า'%(page_title)s'ถูกส่งสำหรับตรวจแล้ว"
 
-msgid "The page could not be saved as it is locked"
-msgstr "หน้านี้ไม่สามารถเซฟได้เนื่องจากมันถูกล็อกอยู่"
-
-msgid "The page could not be saved due to validation errors"
-msgstr "หน้านี้ไม่สามารถถูกเซฟระหว่างการยืนยันที่เกิดข้อผิดพลาด"
-
 msgid "Site"
 msgstr "เว็บไซด์"
 
@@ -1038,25 +967,11 @@ msgstr "หน้านี้กำลังถูกใช้อยู่"
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "หน้า%(page_title)s ปัจจุบันนี้ไม่รอตรวจ"
 
-#, python-format
-msgid "Preview draft version of '%(title)s'"
-msgstr "ดูตัวอย่างเวอร์ชั่นฉบับร่างของ '%(title)s'"
-
-#, python-format
-msgid "View live version of '%(title)s'"
-msgstr "ดูเวอร์ชั่นที่เผยแพร่ของ '%(title)s'"
-
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"
 
 msgid "Numbered list"
 msgstr "รายการตัวเลข"
-
-msgid "Bold"
-msgstr "ตัวอักษรหนา"
-
-msgid "Italic"
-msgstr "ตัวอักษรเอียง"
 
 msgid "Link"
 msgstr "ลิงค์"

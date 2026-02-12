@@ -39,8 +39,8 @@ class Setting(dict):
         """
         try:
             app_label, model_name = key.split(".", 1)
-        except ValueError:
-            raise KeyError(f"Invalid model name: `{key}`")
+        except ValueError as e:
+            raise KeyError(f"Invalid model name: `{key}`") from e
 
         Model = registry.get_by_natural_key(app_label, model_name)
         if Model is None:

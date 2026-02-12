@@ -1,4 +1,5 @@
 from io import BytesIO
+from pathlib import Path
 from unittest.mock import patch
 
 from django.test import TestCase, override_settings
@@ -11,6 +12,7 @@ from wagtail.images.exceptions import (
 )
 from wagtail.images.image_operations import TransformOperation
 from wagtail.images.models import Filter, Image
+from wagtail.images.shortcuts import get_rendition_or_not_found
 from wagtail.images.tests.utils import (
     get_test_image_file,
     get_test_image_file_avif,
@@ -637,11 +639,10 @@ class TestFormatFilter(TestCase):
         )
 
         f = BytesIO()
-        with patch("PIL.Image.Image.save") as save:
+        with patch("willow.plugins.pillow.PillowImage.save_as_avif") as save_as_avif:
             fil.run(image, f)
 
-        # quality=80 is default for The Willow and PIL libraries
-        save.assert_called_with(f, "AVIF", quality=-1, chroma=444)
+        save_as_avif.assert_called_with(f, lossless=True)
 
     def test_jpeg(self):
         fil = Filter(spec="width-400|format-jpeg")
@@ -693,6 +694,16 @@ class TestFormatFilter(TestCase):
 
         self.assertEqual(out.format_name, "ico")
 
+    def test_ico_rendition(self):
+        fil = Filter(spec="width-400|format-ico")
+        good_image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        rendition = get_rendition_or_not_found(good_image, fil)
+        self.assertEqual(Path(rendition.file.name).suffix, ".ico")
+
     def test_webp_lossless(self):
         fil = Filter(spec="width-400|format-webp-lossless")
         image = Image.objects.create(
@@ -706,6 +717,29 @@ class TestFormatFilter(TestCase):
 
         # quality=80 is default for the Willow and PIL libraries
         save.assert_called_with(f, "WEBP", quality=80, lossless=True)
+
+    def test_heic(self):
+        fil = Filter(spec="width-400|format-heic")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, "heic")
+
+    def test_heic_lossless(self):
+        fil = Filter(spec="width-400|format-heic-lossless")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "HEIF", quality=-1, chroma=444)
 
     def test_invalid(self):
         fil = Filter(spec="width-400|format-foo")
@@ -728,7 +762,7 @@ class TestAvifQualityFilter(TestCase):
         with patch("PIL.Image.Image.save") as save:
             fil.run(image, f)
 
-        save.assert_called_with(f, "AVIF", quality=80)
+        save.assert_called_with(f, "AVIF", quality=61)
 
     def test_avif_quality_filter(self):
         fil = Filter(spec="width-400|avifquality-40|format-avif")
@@ -808,7 +842,7 @@ class TestJPEGQualityFilter(TestCase):
         with patch("PIL.Image.Image.save") as save:
             fil.run(image, f)
 
-        save.assert_called_with(f, "JPEG", quality=85, optimize=True, progressive=True)
+        save.assert_called_with(f, "JPEG", quality=76, optimize=True, progressive=True)
 
     def test_jpeg_quality_filter(self):
         fil = Filter(spec="width-400|jpegquality-40")

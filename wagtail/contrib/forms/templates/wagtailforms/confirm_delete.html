@@ -17,6 +17,7 @@
         </p>
         <form action="{% url 'wagtailforms:delete_submissions' page.id %}?{{ request.GET.urlencode }}" method="POST">
             {% csrf_token %}
+            <input type="hidden" value="{{ next_url }}" name="next">
             <input type="submit" value="{% trans 'Delete' %}" class="button serious">
         </form>
     </div>

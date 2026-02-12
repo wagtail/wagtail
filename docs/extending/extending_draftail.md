@@ -1,6 +1,6 @@
 (extending_the_draftail_editor)=
 
-# Extending the Draftail Editor
+# Extending the Draftail editor
 
 Wagtail’s rich text editor is built with [Draftail](https://www.draftail.org/), which supports different types of extensions.
 
@@ -72,7 +72,7 @@ For detailed configuration options, head over to the [Draftail documentation](ht
 
 ### Creating new inline styles
 
-In addition to the initial example, inline styles take a `style` property to define what CSS rules will be applied to text in the editor. Be sure to read the [Draftail documentation](https://www.draftail.org/docs/formatting-options) on inline styles.
+As noted in the initial example, the configuration passed to `InlineStyleFeature` can include a `style` property to define what CSS rules will be applied to text in the editor. Be sure to read the [Draftail documentation](https://www.draftail.org/docs/formatting-options) on inline styles.
 
 Finally, the DB to/from conversion uses an `InlineStyleElementHandler` to map from a given tag (`<mark>` in the example above) to a Draftail type, and the inverse mapping is done with [Draft.js exporter configuration](https://github.com/springload/draftjs_exporter) of the `style_map`.
 
@@ -156,7 +156,9 @@ They want to write articles about the stock market, refer to specific stocks any
 
 The editor toolbar could contain a "stock chooser" that displays a list of available stocks, then inserts the user’s selection as a textual token. For our example, we will just pick a stock at random:
 
-![Draftail entity stock source](../_static/images/draftail_entity_stock_source.gif)
+```{eval-rst}
+.. image:: ../_static/images/draftail_entity_stock_source.*
+```
 
 Those tokens are then saved in the rich text on publish. When the news article is displayed on the site, we then insert live market data coming from an API next to each token:
 
@@ -302,7 +304,7 @@ const Stock = (props) => {
 
 This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript.
 
-Finally, we register the JS components of our plugin:
+Finally, we call `registerPlugin` on the Draftail global to register the JS components of our plugin:
 
 ```javascript
 // Register the plugin directly on script execution so the editor loads it when initializing.

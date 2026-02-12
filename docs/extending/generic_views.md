@@ -8,6 +8,8 @@
 
 Wagtail provides several generic views for handling common tasks such as creating / editing model instances and chooser modals. For convenience, these views are bundled in [viewsets](viewsets_reference).
 
+(modelviewset)=
+
 ## ModelViewSet
 
 The {class}`~wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing, and deleting model instances. For example, if we have the following model:
@@ -87,6 +89,87 @@ If you would like to make further customizations to the filtering mechanism, you
 
 You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~ModelViewSet.export_filename` attribute can be used to customize the file name of the exported spreadsheet.
 
+(modelviewset_reordering)=
+
+### Reordering
+
+Reordering allows content editors to manually arrange items in the listing view by dragging and dropping them. This is useful when you need a custom order that doesn't follow standard sorting, such as prioritizing featured content or organizing items by importance.
+
+To enable reordering, add an integer field to your model for storing positions, then set its name as your viewset's {attr}`~ModelViewSet.sort_order_field` attribute. A "Sort item order" button will appear in the listing view to order the list by the `sort_order_field` and activate the drag-and-drop interface. If you want the custom ordering to be the default for the listing view, set the ordering field as the viewset's {attr}`~ModelViewSet.ordering` attribute as well.
+
+The following model uses the `sort_order` field to store the ordering position.
+
+```python
+from django.db import models
+
+
+class Employee(models.Model):
+    full_name = models.CharField(max_length=100)
+    role = models.CharField(max_length=50)
+
+    # Set default sort_order to 0 to avoid NULL values
+    sort_order = models.IntegerField(default=0, blank=True, db_index=True)
+```
+
+The following viewset definition enables the reordering feature and activates it as the default ordering of the listing:
+
+```python
+from wagtail.admin.viewsets.model import ModelViewSet
+from .models import Employee
+
+
+class EmployeeViewSet(ModelViewSet):
+    model = Employee
+    icon = "user"
+    add_to_admin_menu = True
+
+    form_fields = ["full_name", "role"]
+    list_display = ["full_name", "role"]
+    sort_order_field = "sort_order"  # Enables the menu for drag-and-drop reordering
+    ordering = ["sort_order"]  # Activates the drag-and-drop interface by default
+
+
+employee_viewset = EmployeeViewSet("employee")
+```
+
+Note that the sort order field should be excluded from `form_fields` - Wagtail handles it automatically through the drag-and-drop interface.
+
+
+#### Working with existing data
+
+When enabling drag-and-drop reordering using `sort_order_field`, it is important that all existing records have a valid and unique value for that field.
+
+If a model already contains records and the sort order field is empty, null, or contains duplicate values, the reordering feature may not behave reliably. This is because each item must have a distinct position value to determine its order correctly.
+
+#### Preparing existing data
+
+Before enabling reordering, you should ensure that all existing records have sequential values assigned to the sort order field. The recommended approach is to use a data migration to populate the field for existing rows.
+
+```python
+# Example data migration
+
+from django.db import migrations, models
+
+
+def populate_sort_order(apps, schema_editor):
+    Employee = apps.get_model('myapp', 'Employee')
+    for i, employee in enumerate(Employee.objects.order_by('id')):
+        employee.sort_order = i
+        employee.save()
+
+
+class Migration(migrations.Migration):
+    dependencies = [
+        # ...
+    ]
+    operations = [
+        migrations.RunPython(
+            populate_sort_order,
+            migrations.RunPython.noop,
+        ),
+    ]
+```
+
 (modelviewset_create_edit)=
 
 ### Create and edit views
@@ -98,10 +181,6 @@ If neither `panels` nor `edit_handler` is defined and the {meth}`~ModelViewSet.g
 (modelviewset_copy)=
 
 ### Copy view
-
-```{versionadded} 6.0
-
-```
 
 The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`.
 
@@ -225,7 +304,7 @@ class BlogPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('country'),
-        FieldPanel('person', widget=PersonChooserWidget(linked_fields={
+        FieldPanel('author', widget=PersonChooserWidget(linked_fields={
             # pass the country selected in the id_country input to the person chooser
             # as a URL parameter `country`
             'country': '#id_country',

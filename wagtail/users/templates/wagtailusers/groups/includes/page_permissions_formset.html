@@ -1,7 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% trans "Page permissions" as heading %}
-{% panel id="page-permissions" heading=heading icon="folder-open-inverse" %}
+{% panel id="page-permissions" heading=heading icon="folder-open-inverse" attrs=formset.attrs %}
 
     {{ formset.management_form }}
 
@@ -16,21 +16,20 @@
     <table class="listing">
         <col />
         {% for i in formset.permission_types %}
-            <col width="15%" />
+            <col width="5%" />
         {% endfor %}
-        <col />
+        <col width="10%" />
         <thead>
             <tr>
                 <th>{% trans "Page" %}</th>
                 {% for identifier, short_label, long_label in formset.permission_types %}
                     <th title="{{ long_label }}">{{ short_label }}</th>
                 {% endfor %}
-                <th></th>
             </tr>
         </thead>
-        <tbody id="id_{{ formset.prefix }}-FORMS">
+        <tbody id="id_{{ formset.prefix }}-FORMS" data-w-formset-target="forms">
             {% for form in formset.forms %}
-                <tr id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+                <tr id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} hidden data-w-formset-target="deleted"{% else %}data-w-formset-target="child"{% endif %}>
                     {% if form.non_field_errors %}
                         <p class="error-message">
                             {% for error in form.non_field_errors %}
@@ -44,14 +43,14 @@
         </tbody>
     </table>
 
-    <template id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
-        <tr id="inline_child_{{ formset.empty_form.prefix }}">
+    <template id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE" data-w-formset-target="template">
+        <tr id="inline_child_{{ formset.empty_form.prefix }}" data-w-formset-target="child">
             {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=formset.empty_form only %}
         </tr>
     </template>
 
     <p class="add">
-        <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button">{% icon name="plus" wrapped=1 %}{% trans "Add a page permission" %}</button>
+        <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button" data-action="w-formset#add">{% icon name="plus" wrapped=1 %}{% trans "Add a page permission" %}</button>
     </p>
 
 {% endpanel %}

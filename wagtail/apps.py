@@ -1,6 +1,8 @@
 from django.apps import AppConfig, apps
 from django.utils.translation import gettext_lazy as _
 
+from . import checks  # NOQA: F401
+
 
 class WagtailAppConfig(AppConfig):
     name = "wagtail"
@@ -19,5 +21,3 @@ class WagtailAppConfig(AppConfig):
         from wagtail.signal_handlers import register_signal_handlers
 
         register_signal_handlers()
-
-        from wagtail import widget_adapters  # noqa: F401

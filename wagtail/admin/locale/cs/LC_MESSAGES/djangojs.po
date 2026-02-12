@@ -1,21 +1,27 @@
 #
 # Translators:
-# Jiri Stepanek <stepiiicz@gmail.com>, 2022
 # Martin Galda <martingalda9@gmail.com>, 2022
-# IT Management <hudan@itmanagement.cz>, 2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2022
-# Marek Turnovec <aesculap@gmail.com>, 2022
-# Mirek Zvolský <zvolsky@seznam.cz>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
+# IT Management <hudan@itmanagement.cz>, 2025
+# Marek Turnovec <aesculap@gmail.com>, 2026
+# Mirek Zvolský <zvolsky@seznam.cz>, 2026
+# Jiri Stepanek <stepiiicz@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Jiri Stepanek <stepiiicz@gmail.com>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/torchbox/teams/8009/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Actions"
+msgstr "Akce"
+
+msgid "Add"
+msgstr "Přidat"
 
 msgid "Add a comment"
 msgstr "Přidej komentář"
@@ -50,6 +56,12 @@ msgstr "Zrušit"
 msgid "Delete error"
 msgstr "Chyba při rušení"
 
+msgid "Drag"
+msgstr "Přetáhnout myší"
+
+msgid "Duplicate"
+msgstr "Duplikovat"
+
 msgid "Edit"
 msgstr "Upravit"
 
@@ -74,6 +86,15 @@ msgstr "Chybějící dokument"
 msgid "More actions"
 msgstr "Další akce"
 
+msgid "Move down"
+msgstr "Posunout dolů"
+
+msgid "Move up"
+msgstr "Posunout nahoru"
+
+msgid "No"
+msgstr "Ne"
+
 msgid "No results"
 msgstr "Žádné výsledky"
 
@@ -85,6 +106,9 @@ msgstr "Explorer"
 
 msgid "Pages"
 msgstr "Stránky"
+
+msgid "Preview"
+msgstr "Náhled"
 
 msgid "Reload saved content"
 msgstr "Znovu načíst uložený obsah"
@@ -119,6 +143,9 @@ msgstr "Zobrazit vše"
 msgid "Server Error"
 msgstr "Chyba serveru"
 
+msgid "Settings"
+msgstr "Nastavení"
+
 msgid "Show error"
 msgstr "Zobrazit chyby"
 
@@ -129,8 +156,17 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maximální počet položek je %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimální počet položek je %(min_num)d"
+
 msgid "This field is required."
 msgstr "Toto pole je vyžadováno."
+
+msgid "Toggle section"
+msgstr "Přepnout výběr"
 
 msgid "Toggle side panel"
 msgstr "Přepnout postranní panel"
@@ -140,3 +176,6 @@ msgstr "Nezvýrazňovat komentář"
 
 msgid "View child pages of '%(title)s'"
 msgstr "Ukázat podstránky '%(title)s'"
+
+msgid "Yes"
+msgstr "Ano"

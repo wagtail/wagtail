@@ -4,11 +4,10 @@ import {
   updateDismissibles,
 } from './DismissibleController';
 
-jest.mock('../config/wagtailConfig.js', () => ({
+jest.mock('../config/wagtailConfig.ts', () => ({
   WAGTAIL_CONFIG: {
+    ...jest.requireActual('../config/wagtailConfig.ts').WAGTAIL_CONFIG,
     ADMIN_URLS: { DISMISSIBLES: '/admin/dismissibles/' },
-    CSRF_HEADER_NAME: 'X-CSRFToken',
-    CSRF_TOKEN: 'test-token',
   },
 }));
 
@@ -32,6 +31,10 @@ describe('DismissibleController', () => {
 
     application = Application.start();
     application.register('w-dismissible', DismissibleController);
+  });
+
+  afterEach(() => {
+    global.fetch.mockClear();
   });
 
   it("should add a 'dismissed' class and attribute when the dismiss button is clicked", () => {
@@ -63,9 +66,56 @@ describe('DismissibleController', () => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': 'test-token',
+        'x-xsrf-token': 'potato',
       },
       body: JSON.stringify(data),
+      mode: 'same-origin',
+    });
+  });
+
+  it('should toggle the client-side state without calling the server if the ID is missing', async () => {
+    const button = document.querySelector('button');
+    const mainContent = document.querySelector('#main-content');
+    mainContent.removeAttribute('data-w-dismissible-id-value');
+    await Promise.resolve();
+
+    expect(mainContent.classList).toHaveLength(0);
+    expect(
+      mainContent.getAttribute('data-w-dismissible-dismissed-value'),
+    ).toBeFalsy();
+    expect(mainContent.classList).not.toContain('w-dismissible--dismissed');
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    button.click();
+
+    expect(mainContent.classList).toContain('w-dismissible--dismissed');
+    expect(mainContent.getAttribute('data-w-dismissible-dismissed-value')).toBe(
+      'true',
+    );
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('should allow customizing the update value via params', async () => {
+    expect.assertions(1);
+
+    const mainContent = document.querySelector('#main-content');
+    mainContent.setAttribute(
+      'data-w-dismissible-id-value',
+      'last_upgrade_check',
+    );
+    const button = document.querySelector('button');
+    button.setAttribute('data-w-dismissible-value-param', '6.3.1');
+    await Promise.resolve();
+
+    button.click();
+
+    await expect(global.fetch).toHaveBeenCalledWith('/admin/dismissibles/', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-xsrf-token': 'potato',
+      },
+      body: JSON.stringify({ last_upgrade_check: '6.3.1' }),
       mode: 'same-origin',
     });
   });
@@ -84,7 +134,7 @@ describe('updateDismissibles', () => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': 'test-token',
+        'x-xsrf-token': 'potato',
       },
       body: JSON.stringify(data),
       mode: 'same-origin',
@@ -97,6 +147,6 @@ describe('updateDismissibles', () => {
     updateDismissibles(data);
 
     global.fetch.mockRejectedValueOnce(new Error('error'));
-    await expect(updateDismissibles(data)).rejects.toThrowError('error');
+    await expect(updateDismissibles(data)).rejects.toThrow('error');
   });
 });

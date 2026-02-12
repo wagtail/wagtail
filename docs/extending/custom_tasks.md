@@ -1,3 +1,5 @@
+(custom_tasks)=
+
 # Adding new Task types
 
 The Workflow system allows users to create tasks, which represent stages of moderation.
@@ -125,7 +127,9 @@ class UserApprovalTask(Task):
     task_state_class = UserApprovalTaskState
 ```
 
-## Customising behaviour
+(custom_tasks_behavior)=
+
+## Customizing behavior
 
 Both `Task` and `TaskState` have a number of methods that can be overridden to implement custom behavior. Here are some of the most useful:
 
@@ -146,6 +150,27 @@ This returns `True` if the object should be locked and uneditable by the user. I
 ```python
 def locked_for_user(self, obj, user):
     return user != self.user
+```
+
+(custom_task_lock_class)=
+
+`Task.lock_class`:
+
+An attribute that defines the lock class used when the task is locked for the user. Defaults to `wagtail.locks.WorkflowLock`.
+Note that your task's custom lock class must inherit from `wagtail.locks.WorkflowLock`.
+
+```python
+from wagtail.locks import WorkflowLock
+from wagtail.models import Task
+
+
+class MyWorkflowLock(WorkflowLock):
+    def get_message(self, user):
+        return f"{user}, you shall not pass!"
+
+
+class UserApprovalTask(Task):
+    lock_class = MyWorkflowLock
 ```
 
 `Task.get_actions(obj, user)`:
@@ -300,9 +325,4 @@ class MyAppConfig(AppConfig):
     def ready(self):
         from .signal_handlers import register_signal_handlers
         register_signal_handlers()
-```
-
-```{note}
-In Django versions before 3.2 your `AppConfig` subclass needs to be set as `default_app_config` in `<project>/__init__.py`.
-See the [relevant section in the Django docs](https://docs.djangoproject.com/en/3.1/ref/applications/#for-application-authors) for the version you are using.
 ```

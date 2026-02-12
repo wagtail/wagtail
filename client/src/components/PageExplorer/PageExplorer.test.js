@@ -1,8 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import {
+  applyMiddleware,
+  combineReducers,
+  legacy_createStore as createStore,
+} from 'redux';
+import { thunk } from 'redux-thunk';
 import * as actions from './actions';
 import explorer from './reducers/explorer';
 import nodes from './reducers/nodes';
@@ -13,7 +17,7 @@ const rootReducer = combineReducers({
   nodes,
 });
 
-const store = createStore(rootReducer, {}, applyMiddleware(thunkMiddleware));
+const store = createStore(rootReducer, {}, applyMiddleware(thunk));
 
 describe('PageExplorer', () => {
   it('exists', () => {
