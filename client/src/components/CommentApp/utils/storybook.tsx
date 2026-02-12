@@ -10,10 +10,9 @@ import {
   newCommentReply,
   NewReplyOptions,
 } from '../state/comments';
+import CommentComponent from '../components/Comment/index';
 import { LayoutController } from './layout';
 import { getNextCommentId } from './sequences';
-
-import CommentComponent from '../components/Comment/index';
 
 export function RenderCommentsForStorybook({
   store,

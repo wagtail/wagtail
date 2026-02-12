@@ -1,7 +1,8 @@
+import type { ContextObject } from 'axe-core';
+import type { ProgressController } from './ProgressController';
 import axe from 'axe-core';
 
 import { Controller } from '@hotwired/stimulus';
-import type { ContextObject } from 'axe-core';
 import {
   getAxeConfiguration,
   getA11yReport,
@@ -21,7 +22,6 @@ import {
 } from '../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { gettext } from '../utils/gettext';
-import type { ProgressController } from './ProgressController';
 import { GetScrollPosition, getWagtailMessage } from '../utils/message';
 import { debounce, DebouncibleFunction } from '../utils/debounce';
 

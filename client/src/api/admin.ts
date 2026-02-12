@@ -1,6 +1,5 @@
-import client from './client';
-
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import client from './client';
 
 const { ADMIN_API } = WAGTAIL_CONFIG;
 

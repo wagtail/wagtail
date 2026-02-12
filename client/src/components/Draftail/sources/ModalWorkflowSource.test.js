@@ -9,13 +9,13 @@ import {
   RichUtils,
   Modifier,
 } from 'draft-js';
+import * as DraftUtils from '../DraftUtils';
 import {
   ImageModalWorkflowSource,
   EmbedModalWorkflowSource,
   LinkModalWorkflowSource,
   DocumentModalWorkflowSource,
 } from './ModalWorkflowSource';
-import * as DraftUtils from '../DraftUtils';
 
 global.ModalWorkflow = () => {};
 

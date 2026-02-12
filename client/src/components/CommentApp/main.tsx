@@ -1,8 +1,8 @@
+import type { Annotation } from './utils/annotation';
 import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { legacy_createStore as createStore } from 'redux';
 
-import type { Annotation } from './utils/annotation';
 import { LayoutController } from './utils/layout';
 import { getOrDefault } from './utils/maps';
 import { getNextCommentId, getNextReplyId } from './utils/sequences';

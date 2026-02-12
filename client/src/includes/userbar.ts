@@ -8,6 +8,9 @@ import axe, { Check } from 'axe-core';
 
 import A11yDialog from 'a11y-dialog';
 import { Application } from '@hotwired/stimulus';
+import { DialogController } from '../controllers/DialogController';
+import { TeleportController } from '../controllers/TeleportController';
+import { getWagtailMessage, WagtailMessage } from '../utils/message';
 import {
   getAxeConfiguration,
   getA11yReport,
@@ -18,9 +21,6 @@ import {
 } from './a11y-result';
 import { wagtailPreviewPlugin } from './previewPlugin';
 import { contentExtractorPluginInstance } from './contentMetrics';
-import { DialogController } from '../controllers/DialogController';
-import { TeleportController } from '../controllers/TeleportController';
-import { getWagtailMessage, WagtailMessage } from '../utils/message';
 
 /**
  * The Wagtail Userbar component, which provides a user interface for

@@ -6,6 +6,7 @@ import Icon from '../../Icon/Icon';
 import { gettext } from '../../../utils/gettext';
 import { isDismissed } from './MenuItem';
 import { WAGTAIL_CONFIG } from '../../../config/wagtailConfig';
+import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 
 export const ActionMenuItem: React.FunctionComponent<
   MenuItemProps<ActionMenuItemDefinition>

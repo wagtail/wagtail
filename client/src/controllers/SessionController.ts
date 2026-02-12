@@ -1,8 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
+import { setOptionalInterval } from '../utils/interval';
 import { DialogController } from './DialogController';
 import { SwapController } from './SwapController';
 import { ActionController } from './ActionController';
-import { setOptionalInterval } from '../utils/interval';
 import { AutosaveSuccessResponse } from './AutosaveController';
 
 export interface PingResponse {

@@ -5,8 +5,8 @@ import Icon from '../../Icon/Icon';
 
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
-import { isDismissed, MenuItemDefinition, MenuItemProps } from './MenuItem';
 import { gettext } from '../../../utils/gettext';
+import { isDismissed, MenuItemDefinition, MenuItemProps } from './MenuItem';
 import SubMenuCloseButton from './SubMenuCloseButton';
 import { renderMenu } from '.';
 

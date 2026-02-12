@@ -6,9 +6,9 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
-import { CollapsiblePanel } from './CollapsiblePanel';
 import { initCollapsiblePanel } from '../../../includes/panels';
 import { setAttrs } from '../../../utils/attrs';
+import { CollapsiblePanel } from './CollapsiblePanel';
 import { SettingsButton } from './ActionButtons';
 
 /**

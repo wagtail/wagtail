@@ -1,6 +1,6 @@
-import * as React from 'react';
 import type { MenuAction, MenuState } from '../modules/MainMenu';
 import type { MenuItemDefinition } from './MenuItem';
+import * as React from 'react';
 
 export function renderMenu(
   path: string,

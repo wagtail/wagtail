@@ -4,11 +4,6 @@ import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
 import tippy from 'tippy.js';
 
-import {
-  BaseSequenceBlock,
-  BaseSequenceChild,
-  BaseInsertionControl,
-} from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
 import { gettext } from '../../../utils/gettext';
@@ -23,6 +18,11 @@ import {
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
 import { setAttrs } from '../../../utils/attrs';
+import {
+  BaseSequenceBlock,
+  BaseSequenceChild,
+  BaseInsertionControl,
+} from './BaseSequenceBlock';
 
 /* global $ */
 

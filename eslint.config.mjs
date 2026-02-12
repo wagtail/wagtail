@@ -59,8 +59,15 @@ export default defineConfig(
           },
         },
       ],
-      // TODO: Remove this and enable
-      'import-x/order': 'off',
+      'import-x/order': [
+        'error',
+        {
+          groups: ['type', 'builtin', 'external', 'parent', 'sibling', 'index'],
+          distinctGroup: true,
+          sortTypesGroup: true,
+          named: true,
+        },
+      ],
       // Set warning for the top 5 jQuery rules to avoid new jQuery usage in code
       'no-jquery/no-ajax': 'warn',
       'no-jquery/no-global-selector': 'warn',
