@@ -1,9 +1,9 @@
 import type { Store } from '../../state';
-import type { Comment, CommentReply, Author } from '../../state/comments';
+import type { Author, Comment, CommentReply } from '../../state/comments';
 import React from 'react';
 
 import { gettext } from '../../../../utils/gettext';
-import { updateReply, deleteReply } from '../../actions/comments';
+import { deleteReply, updateReply } from '../../actions/comments';
 import { CommentHeader } from '../CommentHeader';
 import TextArea from '../TextArea';
 

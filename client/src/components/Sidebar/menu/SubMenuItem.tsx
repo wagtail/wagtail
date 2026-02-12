@@ -1,12 +1,12 @@
+import Tippy from '@tippyjs/react';
 import * as React from 'react';
 
-import Tippy from '@tippyjs/react';
+import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
-import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
-import { gettext } from '../../../utils/gettext';
-import { isDismissed, MenuItemDefinition, MenuItemProps } from './MenuItem';
+import { SidebarPanel } from '../SidebarPanel';
+import { MenuItemDefinition, MenuItemProps, isDismissed } from './MenuItem';
 import SubMenuCloseButton from './SubMenuCloseButton';
 import { renderMenu } from '.';
 

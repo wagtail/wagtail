@@ -16,4 +16,4 @@ const addErrorMessages = (container, messages) => {
   });
 };
 
-export { removeErrorMessages, addErrorMessages };
+export { addErrorMessages, removeErrorMessages };

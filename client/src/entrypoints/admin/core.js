@@ -3,11 +3,11 @@ import Telepath from 'telepath-unpack';
 
 import { Icon, Portal } from '../..';
 import { ExpandingFormset } from '../../components/ExpandingFormset';
-import { coreControllerDefinitions } from '../../controllers';
-import { Panel, PanelGroup, FieldPanel } from '../../components/Panel';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
+import { FieldPanel, Panel, PanelGroup } from '../../components/Panel';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
+import { coreControllerDefinitions } from '../../controllers';
 import { initStimulus } from '../../includes/initStimulus';
 
 import { escapeHtml } from '../../utils/text';

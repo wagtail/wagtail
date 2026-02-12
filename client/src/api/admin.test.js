@@ -1,5 +1,5 @@
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
-import { getPageChildren, getPage } from './admin';
+import { getPage, getPageChildren } from './admin';
 import client from './client';
 
 const { ADMIN_API } = WAGTAIL_CONFIG;

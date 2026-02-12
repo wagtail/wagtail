@@ -1,15 +1,15 @@
 /* global $ */
 
-import { escapeHtml as h } from '../../../utils/text';
-import { hasOwn } from '../../../utils/hasOwn';
+import { initCollapsiblePanel } from '../../../includes/panels';
 import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
-import { initCollapsiblePanel } from '../../../includes/panels';
 import { setAttrs } from '../../../utils/attrs';
-import { CollapsiblePanel } from './CollapsiblePanel';
+import { hasOwn } from '../../../utils/hasOwn';
+import { escapeHtml as h } from '../../../utils/text';
 import { SettingsButton } from './ActionButtons';
+import { CollapsiblePanel } from './CollapsiblePanel';
 
 /**
  * Common options for both `StructBlock.Meta` and `BlockGroup`.

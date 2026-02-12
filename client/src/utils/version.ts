@@ -115,7 +115,7 @@ class VersionNumber {
 
 export {
   CanOnlyComparePreReleaseVersionsError,
-  VersionNumberFormatError,
   VersionDeltaType,
   VersionNumber,
+  VersionNumberFormatError,
 };

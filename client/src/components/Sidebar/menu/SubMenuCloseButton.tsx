@@ -2,8 +2,8 @@ import type { MenuAction } from '../modules/MainMenu';
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 
-import Icon from '../../Icon/Icon';
 import { gettext } from '../../../utils/gettext';
+import Icon from '../../Icon/Icon';
 
 interface SubMenuCloseButtonProps {
   isVisible: boolean;

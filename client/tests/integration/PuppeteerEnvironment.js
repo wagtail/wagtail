@@ -1,8 +1,8 @@
 const { readFile } = require('fs').promises;
 const os = require('os');
 const path = require('path');
-const puppeteer = require('puppeteer');
 const NodeEnvironment = require('jest-environment-node').TestEnvironment;
+const puppeteer = require('puppeteer');
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 

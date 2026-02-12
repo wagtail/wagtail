@@ -1,5 +1,5 @@
+import { UseComboboxStateChange, useCombobox } from 'downshift';
 import React, { useEffect, useState } from 'react';
-import { useCombobox, UseComboboxStateChange } from 'downshift';
 
 import { gettext } from '../../utils/gettext';
 import ComboBoxPreview from '../ComboBoxPreview/ComboBoxPreview';

@@ -1,12 +1,12 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import {
-  convertFromRaw,
-  convertFromHTML,
   ContentState,
   EditorState,
+  convertFromHTML,
+  convertFromRaw,
   convertToRaw,
 } from 'draft-js';
+import { shallow } from 'enzyme';
+import React from 'react';
 
 import Link, { getLinkAttributes, getValidLinkURL, onPasteLink } from './Link';
 

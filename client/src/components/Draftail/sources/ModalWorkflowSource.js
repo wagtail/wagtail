@@ -1,7 +1,7 @@
+import { AtomicBlockUtils, EditorState, Modifier, RichUtils } from 'draft-js';
+import { DraftUtils, ENTITY_TYPE } from 'draftail';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import { AtomicBlockUtils, Modifier, RichUtils, EditorState } from 'draft-js';
-import { ENTITY_TYPE, DraftUtils } from 'draftail';
 
 import { gettext } from '../../../utils/gettext';
 import { getSelectionText } from '../DraftUtils';
@@ -332,9 +332,9 @@ class DocumentModalWorkflowSource extends ModalWorkflowSource {
 }
 
 export {
-  ModalWorkflowSource,
-  ImageModalWorkflowSource,
-  EmbedModalWorkflowSource,
-  LinkModalWorkflowSource,
   DocumentModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  ImageModalWorkflowSource,
+  LinkModalWorkflowSource,
+  ModalWorkflowSource,
 };

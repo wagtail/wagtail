@@ -1,6 +1,6 @@
 import axe, {
-  Check,
   AxeResults,
+  Check,
   ContextObject,
   CrossTreeSelector,
   NodeResult,

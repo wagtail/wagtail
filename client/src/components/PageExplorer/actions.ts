@@ -1,10 +1,10 @@
 import { ThunkAction } from 'redux-thunk';
 
 import * as admin from '../../api/admin';
-import { createAction } from '../../utils/actions';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import { createAction } from '../../utils/actions';
 
-import { State, Action } from './reducers';
+import { Action, State } from './reducers';
 
 type ThunkActionType = ThunkAction<void, State, unknown, Action>;
 

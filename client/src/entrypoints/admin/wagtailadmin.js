@@ -1,9 +1,9 @@
-import initSidePanel from '../../includes/sidePanel';
+import { initMinimap } from '../../components/Minimap';
 import {
   initAnchoredPanels,
   initCollapsiblePanels,
 } from '../../includes/panels';
-import { initMinimap } from '../../components/Minimap';
+import initSidePanel from '../../includes/sidePanel';
 
 /**
  * Add in here code to run once the page is loaded.

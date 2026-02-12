@@ -1,9 +1,9 @@
-import { defineConfig } from 'eslint/config';
 import wagtail from '@wagtail/eslint-config-wagtail';
-import globals from 'globals';
+import { defineConfig } from 'eslint/config';
 
 import noJquery from 'eslint-plugin-no-jquery';
 import storybook from 'eslint-plugin-storybook';
+import globals from 'globals';
 
 /**
  * ESLint flat configuration for Wagtail
@@ -57,15 +57,6 @@ export default defineConfig(
             ts: 'never',
             tsx: 'never',
           },
-        },
-      ],
-      'import-x/order': [
-        'error',
-        {
-          groups: ['type', 'builtin', 'external', 'parent', 'sibling', 'index'],
-          distinctGroup: true,
-          sortTypesGroup: true,
-          named: true,
         },
       ],
       // Set warning for the top 5 jQuery rules to avoid new jQuery usage in code

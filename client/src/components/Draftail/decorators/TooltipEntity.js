@@ -1,9 +1,9 @@
+import { Icon } from 'draftail';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Icon } from 'draftail';
 
-import Tooltip from '../Tooltip/Tooltip';
 import Portal from '../../Portal/Portal';
+import Tooltip from '../Tooltip/Tooltip';
 
 /**
  * Shortens the given label if it goes beyond a predetermined limit.

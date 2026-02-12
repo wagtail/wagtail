@@ -1,8 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { DebouncibleFunction, debounce } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
-import { debounce, DebouncibleFunction } from '../utils/debounce';
 
 /** Server-provided error codes. */
 export enum ServerErrorCode {

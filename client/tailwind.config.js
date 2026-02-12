@@ -4,12 +4,20 @@ import vanillaRTL from 'tailwindcss-vanilla-rtl';
 /**
  * Design Tokens
  */
-import { staticColors, transparencies } from './src/tokens/colors';
+import scrollbarThin from './src/plugins/scrollbarThin';
+import { breakpoints } from './src/tokens/breakpoints';
+import * as colorThemes from './src/tokens/colorThemes';
 import {
   generateColorVariables,
   generateThemeColorVariables,
 } from './src/tokens/colorVariables';
-import * as colorThemes from './src/tokens/colorThemes';
+import { staticColors, transparencies } from './src/tokens/colors';
+import {
+  borderRadius,
+  borderWidth,
+  boxShadow,
+} from './src/tokens/objectStyles';
+import { spacing } from './src/tokens/spacing';
 import {
   fontFamily,
   fontSize,
@@ -19,18 +27,10 @@ import {
   listStyleType,
   typeScale,
 } from './src/tokens/typography';
-import { breakpoints } from './src/tokens/breakpoints';
-import {
-  borderRadius,
-  borderWidth,
-  boxShadow,
-} from './src/tokens/objectStyles';
-import { spacing } from './src/tokens/spacing';
 
 /**
  * Plugins
  */
-import scrollbarThin from './src/plugins/scrollbarThin';
 
 /**
  * Functions
