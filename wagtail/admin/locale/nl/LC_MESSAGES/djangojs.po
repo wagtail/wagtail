@@ -1,16 +1,18 @@
 #
 # Translators:
 # mahulst, 2022
-# Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2025
-# Loic Teixeira, 2025
-# Storm Heg <storm@stormbase.digital>, 2025
+# Rob Moorman <rob@moori.nl>, 2026
+# Harmen <sigmo@sigmo.nl>, 2026
+# Loic Teixeira, 2026
+# Samuel Leeuwenburg, 2026
+# Storm Heg <storm@stormbase.digital>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -46,8 +48,17 @@ msgstr[1] "%(num)s pixels"
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
+msgid "A network error occurred."
+msgstr "Er is een probleem met de internetverbinding."
+
+msgid "A server error occurred."
+msgstr "Er heeft zich een serverfout voorgedaan."
+
 msgid "Actions"
 msgstr "Acties"
+
+msgid "Add"
+msgstr "Toevoegen"
 
 msgid "Add a comment"
 msgstr "Voeg opmerking toe"
@@ -58,6 +69,9 @@ msgstr "Alt tekst"
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
 
+msgid "Autosave in progress…"
+msgstr "Bezig met automatisch opslaan..."
+
 msgid "Blocks"
 msgstr "Blokken"
 
@@ -66,6 +80,9 @@ msgstr "Defecte link"
 
 msgid "Cancel"
 msgstr "Annuleren"
+
+msgid "Changes have been autosaved."
+msgstr "Wijzigingen zijn automatisch opgeslagen."
 
 msgid "Character count:"
 msgstr "Aantal tekens:"
@@ -97,6 +114,12 @@ msgstr "Verwijder fout"
 
 msgid "Deleting"
 msgstr "Bezig met verwijderen"
+
+msgid "Drag"
+msgstr "Sleep"
+
+msgid "Duplicate"
+msgstr "Dupliceer"
 
 msgid "Edit"
 msgstr "Bewerk"
@@ -147,6 +170,12 @@ msgstr "Ontbrekend document"
 msgid "More actions"
 msgstr "Meer acties"
 
+msgid "Move down"
+msgstr "Omlaag"
+
+msgid "Move up"
+msgstr "Verplaats naar boven"
+
 msgid "No"
 msgstr "Nee"
 
@@ -194,15 +223,6 @@ msgstr "Opslaan"
 msgid "Save error"
 msgstr "Opslaan mislukt"
 
-msgid "Save the page to add this comment"
-msgstr "Sla de pagina op om deze opmerking toe te voegen"
-
-msgid "Save the page to save this comment"
-msgstr "Sla de pagina op om deze opmerking te bewaren"
-
-msgid "Save the page to save this reply"
-msgstr "Sla de pagina op om deze reactie te bewaren"
-
 msgid "Saving..."
 msgstr "Bezig met opslaan..."
 
@@ -217,6 +237,9 @@ msgstr "Toon"
 
 msgid "Server Error"
 msgstr "Server Error"
+
+msgid "Settings"
+msgstr "Instellingen"
 
 msgid "Show error"
 msgstr "Toon fout"

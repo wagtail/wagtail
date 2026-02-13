@@ -1,12 +1,14 @@
 #
 # Translators:
-# Martin Janšto <mato@jansto.sk>, 2022
 # Loic Teixeira, 2024
-# dellax <michalnebbia@gmail.com>, 2025
+# karabellyj <jozefkarabelly@gmail.com>, 2026
+# Martin Janšto <mato@jansto.sk>, 2026
+# dellax <michalnebbia@gmail.com>, 2026
+# Stevo Backor, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: dellax <michalnebbia@gmail.com>, 2025\n"
+"Last-Translator: Stevo Backor, 2026\n"
 "Language-Team: Slovak (Slovakia) (https://app.transifex.com/torchbox/teams/"
 "8009/sk_SK/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,6 +19,9 @@ msgstr ""
 msgid "Actions"
 msgstr "Akcie"
 
+msgid "Add"
+msgstr "Pridať"
+
 msgid "Close"
 msgstr "Zavrieť"
 
@@ -26,11 +31,20 @@ msgstr "Nástenka"
 msgid "Delete"
 msgstr "Vymazať"
 
+msgid "Drag"
+msgstr "Potiahnuť"
+
 msgid "Edit"
 msgstr "Upraviť"
 
 msgid "Edit '%(title)s'"
 msgstr "Upraviť '%(title)s'"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
+msgid "Move up"
+msgstr "Posunúť vyššie"
 
 msgid "No results"
 msgstr "Žiadne výsledky"
@@ -58,6 +72,9 @@ msgstr "Vidieť všetko"
 
 msgid "Server Error"
 msgstr "Chyba servera"
+
+msgid "Settings"
+msgstr "Nastavenia"
 
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maximálne množstvo je %(max_num)d"

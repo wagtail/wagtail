@@ -2,11 +2,12 @@
 # Translators:
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2022
 # Loic Teixeira, 2024
-# Istvan Farkas <istvan.farkas@gmail.com>, 2025
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2026
+# Istvan Farkas <istvan.farkas@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2025\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2026\n"
 "Language-Team: Hungarian (https://app.transifex.com/torchbox/teams/8009/"
 "hu/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +46,9 @@ msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
 msgid "Actions"
 msgstr "Akciók"
+
+msgid "Add"
+msgstr "Hozzáadás"
 
 msgid "Add a comment"
 msgstr "Megjegyzés hozzáadása"
@@ -91,6 +95,12 @@ msgstr "Hiba a törlés közben"
 msgid "Deleting"
 msgstr "Törlés"
 
+msgid "Drag"
+msgstr "Megragadás"
+
+msgid "Duplicate"
+msgstr "Másolás"
+
 msgid "Edit"
 msgstr "Szerkesztés"
 
@@ -132,6 +142,12 @@ msgstr "Hiányzó dokumentum"
 
 msgid "More actions"
 msgstr "További akciók"
+
+msgid "Move down"
+msgstr "Mozgatás le"
+
+msgid "Move up"
+msgstr "Mozgatás fel"
 
 msgid "No"
 msgstr "Nem"
@@ -180,15 +196,6 @@ msgstr "Mentés"
 msgid "Save error"
 msgstr "Hiba a mentés közben"
 
-msgid "Save the page to add this comment"
-msgstr "Mentse el az oldalt a megjegyzés hozzáadásához"
-
-msgid "Save the page to save this comment"
-msgstr "Mentse el az oldalt a megjegyzés rögzítéséhez"
-
-msgid "Save the page to save this reply"
-msgstr "Mentse el az oldalt a válasz rögzítéséhez"
-
 msgid "Saving..."
 msgstr "Mentés..."
 
@@ -203,6 +210,9 @@ msgstr "Összes megjelenítése"
 
 msgid "Server Error"
 msgstr "Szerverhiba"
+
+msgid "Settings"
+msgstr "Beállítások"
 
 msgid "Show error"
 msgstr "Hiba megtekintése"

@@ -68,16 +68,16 @@ sitemap will look like:
 
 For tools like Google Search Tools to properly index your site, you need to set
 a valid, crawlable hostname. If you change the site's hostname from
-`localhost` to `mysite.com`, `sitemap.xml` will contain the correct URLs:
+`localhost` to `mysite.com`, `sitemap.xml` will contain the correct URLs. If you
+change the site's port to `443`, the `https` scheme will be used:
 
 ```xml
 <url>
-    <loc>http://mysite.com/about/</loc>
+    <loc>https://mysite.com/about/</loc>
     <lastmod>2015-09-26</lastmod>
 </url>
 ```
 
-If you change the site's port to `443`, the `https` scheme will be used.
 Find out more about [working with Sites](site_model_ref).
 
 ## Customizing

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -32,21 +32,6 @@ msgstr "De må være minst %(min_num)d elementer"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "De må være maks %(max_num)d elementer"
 
-msgid "Move up"
-msgstr "Flytt opp"
-
-msgid "Move down"
-msgstr "Flytt ned"
-
-msgid "Drag"
-msgstr "Dra"
-
-msgid "Delete"
-msgstr "Slett"
-
-msgid "Add"
-msgstr "Legg til"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: denne blokken har ingen alternativer."
@@ -56,6 +41,9 @@ msgstr "Denne blokken har ingen alternativer."
 
 msgid "This field is required."
 msgstr "Dette feltet er påkrevet."
+
+msgid "Group"
+msgstr "Gruppe"
 
 msgid "Password"
 msgstr "Passord"
@@ -143,6 +131,9 @@ msgstr "gruppetillatelser for samling"
 
 msgid "uploaded by user"
 msgstr "opplastet av bruker"
+
+msgid "Add"
+msgstr "Legg til"
 
 msgid "Add/edit pages you own"
 msgstr "Legg til/rediger sider du eier"
@@ -345,6 +336,9 @@ msgstr "Opprettet"
 
 msgid "Edited"
 msgstr "Redigert"
+
+msgid "Delete"
+msgstr "Slett"
 
 msgid "Unpublish"
 msgstr "Avpublisér"

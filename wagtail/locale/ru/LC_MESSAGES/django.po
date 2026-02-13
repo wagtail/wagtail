@@ -9,7 +9,7 @@
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrei Satsevich, 2023
 # Andrei Satsevich, 2023
-# Andrei Satsevich, 2023-2024
+# Andrei Satsevich, 2023-2024,2026
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Twixxik, 2025\n"
+"Last-Translator: Andrei Satsevich, 2023-2024,2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -62,24 +62,6 @@ msgstr "Минимальное количество элементов: %(min_nu
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Максимальное количество элементов: %(max_num)d"
 
-msgid "Move up"
-msgstr "Двигать вверх"
-
-msgid "Move down"
-msgstr "Двигать вниз"
-
-msgid "Drag"
-msgstr "Перетянуть"
-
-msgid "Duplicate"
-msgstr "Дубликат"
-
-msgid "Delete"
-msgstr "Удалить"
-
-msgid "Add"
-msgstr "Добавить"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: у этого блока нет опций."
@@ -89,6 +71,9 @@ msgstr "Этот блок не имеет опций."
 
 msgid "This field is required."
 msgstr "Требуется заполнить это поле."
+
+msgid "Group"
+msgstr "Группа"
 
 msgid "Wagtail frontend cache"
 msgstr "Фронтенд кеш Wagtail"
@@ -311,6 +296,9 @@ msgstr "для типа содержимого"
 msgid "uploaded by user"
 msgstr "загружено пользователем"
 
+msgid "Add"
+msgstr "Добавить"
+
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
 
@@ -401,6 +389,26 @@ msgstr "Для поисковых систем"
 
 msgid "For site menus"
 msgstr "Для меню сайта"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"Слаг «%(page_slug)s» уже используется на родительской странице по адресу "
+"«%(parent_url_path)s»."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Невозможно перезаписать версию, которая не является последней для "
+"%(model_name)s."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Невозможно перезаписать ревизию, которая не была создана текущим "
+"пользователем."
 
 msgid "page"
 msgstr "страница"
@@ -774,6 +782,9 @@ msgstr "Создан"
 
 msgid "Edited"
 msgstr "Редактировано"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Deleted"
 msgstr "Удален"

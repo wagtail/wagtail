@@ -1,6 +1,7 @@
 Afrikaans - af
 -----
 Jaco du Plessis <jaco.jacoduplessis.co.za>
+JaredOzzy <jaredozzy.gmail.com>
 
 Arabic - ar
 -----
@@ -54,6 +55,7 @@ Bulgarian - bg
 -----
 Karl Hobley <karl.torchbox.com>
 Lyuboslav  Petrov <petrov.lyuboslav.gmail.com>
+Maria Mitova
 
 Burmese - my
 -----
@@ -63,6 +65,7 @@ Catalan - ca
 -----
 Antoni Aloy <aaloy.apsl.net>
 David Llop
+Karl Hobley <karl.torchbox.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 Roger Pons <rogerpons.gmail.com>
@@ -246,6 +249,7 @@ nahuel
 Galician - gl
 -----
 Amós Oviedo <amos.oviedo.gmail.com>
+Karl Hobley <karl.torchbox.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 X Bello <xbello.gmail.com>
@@ -269,6 +273,7 @@ Henrik Kröger <hedwig.riseup.net>
 Herbert Poul
 Jannis
 Johannes Spielmann <j.spielmannsolutions.com>
+Karl Hobley <karl.torchbox.com>
 Krzysztof Jeziorny <github.jeziorny.net>
 Loic Teixeira
 Martin Löhle <martin.loehle.web-forest.de>
@@ -415,6 +420,7 @@ umepon0626 <ryuichi-astrona.ymobile.ne.jp>
 Korean - ko
 -----
 Jihan Chung <jihanchung20.gmail.com>
+Karl Hobley <karl.torchbox.com>
 Kyu Choi
 Kyungil Choi <hanpama.gmail.com>
 Loic Teixeira

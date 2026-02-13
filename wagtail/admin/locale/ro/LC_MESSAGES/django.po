@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -2024,12 +2024,6 @@ msgstr "Prima publicare"
 msgid "You have <span>unsaved edits</span>"
 msgstr "Aveți <span>editări nesalvate</span>"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "Aveți <span>comentarii nesalvate</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Aveți <span>editări</span> și <span>comentarii</span> nesalvate"
-
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2116,8 +2110,8 @@ msgstr "Sortează"
 msgid "View Wagtail quick actions"
 msgstr "Vezi acțiunile Wagtail rapide"
 
-msgid "Accessibility"
-msgstr "Accesibilitate"
+msgid "Checks"
+msgstr "Verificări"
 
 msgid "Warnings"
 msgstr "Avertismente"
@@ -2423,9 +2417,6 @@ msgstr "Comentarii"
 msgid "Toggle checks"
 msgstr "Comută verificări"
 
-msgid "Checks"
-msgstr "Verificări"
-
 msgid "Toggle preview"
 msgstr "Comută previzualizarea"
 
@@ -2539,10 +2530,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' este deblocat."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)s nu poate fi salvat deoarece este blocat"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' a fost actualizat(ă)."
 
@@ -2589,6 +2576,10 @@ msgstr "Fluxul de lucru pe %(model_name)s '%(object)s' a fost repornit."
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "Fluxul de lucru pe %(model_name)s '%(object)s' a fost anulat."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s nu poate fi salvat deoarece este blocat"
 
 #, python-format
 msgid ""

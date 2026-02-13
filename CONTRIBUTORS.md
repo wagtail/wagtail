@@ -936,6 +936,17 @@
 * Ritik Arya
 * Ankit Chaudhary
 * Saptami
+* Soumya-codr
+* Wenli Tsai
+* Tian Jie Wong
+* Kacper Walęga
+* Deepanshu Tevathiya
+* Serkan Korkusuz
+* Kunal Gupta
+* Naman Sharma S
+* Siddheshwar Kadam
+* Pratham Jaiswal
+* Kunal Hemnani
 
 ## Translators
 
@@ -946,7 +957,7 @@
 * Bangla: Mahmud Abdur Rahman
 * Basque: Unai Zalakain
 * Belarusian: Stas Rudakou, Andrei Satsevich, Tatsiana Tsygan
-* Bulgarian: Lyuboslav Petrov
+* Bulgarian: Lyuboslav Petrov, Maria Mitova
 * Burmese: ime11
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Adeline Link, Orangle Liu, shengsheng gz

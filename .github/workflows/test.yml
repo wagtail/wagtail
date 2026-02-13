@@ -255,21 +255,21 @@ jobs:
           - python: '3.14'
             django: 'Django>=6.0,<6.1'
             emailuser: emailuser
+    services:
+      elasticsearch8:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.11.2
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: false
+          ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -s http://localhost:9200/_cluster/health | grep 'status' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
     steps:
-      - name: Configure sysctl limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - uses: getong/elasticsearch-action@v1.3
-        with:
-          elasticsearch version: 8.8.0
-          host port: 9200
-          container port: 9200
-          host node port: 9300
-          node port: 9300
-          discovery type: 'single-node'
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
@@ -316,17 +316,19 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
+      elasticsearch7:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+        env:
+          discovery.type: single-node
+          ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -s http://localhost:9200/_cluster/health | grep 'status' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
     steps:
-      - name: Configure sysctl limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - uses: elastic/elastic-github-actions/elasticsearch@master
-        with:
-          stack-version: 7.6.1
       - uses: actions/checkout@v6
         with:
           persist-credentials: false

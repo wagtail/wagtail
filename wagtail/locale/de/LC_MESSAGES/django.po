@@ -29,7 +29,7 @@
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -40,9 +40,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -68,24 +68,6 @@ msgstr "Die minimale Anzahl an Elementen ist %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Die maximale Anzahl an Elementen ist %(max_num)d"
 
-msgid "Move up"
-msgstr "Nach oben"
-
-msgid "Move down"
-msgstr "Nach unten"
-
-msgid "Drag"
-msgstr "Ziehen"
-
-msgid "Duplicate"
-msgstr "Duplizieren"
-
-msgid "Delete"
-msgstr "Löschen"
-
-msgid "Add"
-msgstr "Hinzufügen"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: dieser Block hat keine Einstellmöglichkeiten."
@@ -95,6 +77,9 @@ msgstr "Dieser Block hat keine Einstellmöglichkeiten."
 
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
+
+msgid "Group"
+msgstr "Gruppe"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail Frontend-Cache"
@@ -107,6 +92,9 @@ msgstr "Wagtail Sitemaps"
 
 msgid "Unknown content type"
 msgstr "Unbekannter Inhaltstyp"
+
+msgid "Date cannot be in the future."
+msgstr "Das Datum darf nicht in der Zukunft liegen."
 
 msgid "Password"
 msgstr "Passwort"
@@ -322,6 +310,9 @@ msgstr "für Inhaltstyp"
 msgid "uploaded by user"
 msgstr "Hochgeladen von Benutzer"
 
+msgid "Add"
+msgstr "Hinzufügen"
+
 msgid "Add/edit pages you own"
 msgstr "Hinzufügen/Bearbeiten von Seiten, die Sie besitzen"
 
@@ -413,6 +404,26 @@ msgstr "Für Suchmaschinen"
 
 msgid "For site menus"
 msgstr "Für Seitenmenü"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"Der Kurztitel '%(page_slug)s' wird innerhalb der übergeordneten Seite unter "
+"'%(parent_url_path)s' bereits verwendet."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Eine Revision, die nicht die aktuellste für dieses %(model_name)s-Objekt "
+"ist, kann nicht überschrieben werden."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Eine Revision, die nicht vom aktuellen Benutzer erstellt wurde, kann nicht "
+"überschrieben werden."
 
 msgid "page"
 msgstr "Seite"
@@ -572,6 +583,12 @@ msgid ""
 msgstr ""
 "%(hostname)s ist bereits als Standardseite eingestellt. Sie müssen diese "
 "Einstellung ändern bevor Sie diese Seite als Standard einstellen können."
+
+msgid "group site permission"
+msgstr "Gruppen-Website-Berechtigung"
+
+msgid "group site permissions"
+msgstr "Gruppen-Website-Berechtigungen"
 
 msgid "Public"
 msgstr "Öffentlich"
@@ -781,6 +798,9 @@ msgstr "Erstellt"
 
 msgid "Edited"
 msgstr "Bearbeitet"
+
+msgid "Delete"
+msgstr "Löschen"
 
 msgid "Deleted"
 msgstr "Gelöscht"

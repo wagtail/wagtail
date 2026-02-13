@@ -1,20 +1,19 @@
 #
 # Translators:
-# Douglas Miranda <douglasmirandasilva@gmail.com>, 2022
 # Guilherme Nabanete <neoheartz@gmail.com>, 2022
 # Ed Wurch <ewurch@gmail.com>, 2022
-# Éder Brito <britoederr@gmail.com>, 2022
 # Gladson <gladsonbrito@gmail.com>, 2022
 # Iuri L. Machado, 2022
 # LB (Ben Johnston) <mail@lb.ee>, 2023
 # A M, 2023
 # Felipe Lobato, 2023
 # Loic Teixeira, 2024
-# Luiz Boaretto <lboaretto@gmail.com>, 2025
+# Luiz Boaretto <lboaretto@gmail.com>, 2026
+# Douglas Miranda <douglasmirandasilva@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2025\n"
+"Last-Translator: Douglas Miranda <douglasmirandasilva@gmail.com>, 2026\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/torchbox/teams/"
 "8009/pt_BR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +44,9 @@ msgstr[2] "%(num)s pixels"
 
 msgid "Actions"
 msgstr "Ações"
+
+msgid "Add"
+msgstr "Adicionar"
 
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
@@ -91,6 +93,12 @@ msgstr "Remover erro"
 msgid "Deleting"
 msgstr "Deletando"
 
+msgid "Drag"
+msgstr "Arrastar"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
 msgid "Edit"
 msgstr "Editar"
 
@@ -132,6 +140,12 @@ msgstr "Documento ausente"
 
 msgid "More actions"
 msgstr "Mais ações"
+
+msgid "Move down"
+msgstr "Mover para baixo"
+
+msgid "Move up"
+msgstr "Mover para cima"
 
 msgid "No"
 msgstr "Não"
@@ -181,15 +195,6 @@ msgstr "Salvar"
 msgid "Save error"
 msgstr "Salvar erro"
 
-msgid "Save the page to add this comment"
-msgstr "Salve a página para adicionar este comentário"
-
-msgid "Save the page to save this comment"
-msgstr "Salve a página para salvar este comentário"
-
-msgid "Save the page to save this reply"
-msgstr "Salve a página para salvar esta resposta"
-
 msgid "Saving..."
 msgstr "Salvando..."
 
@@ -204,6 +209,9 @@ msgstr "Ver todos"
 
 msgid "Server Error"
 msgstr "Erro de servidor"
+
+msgid "Settings"
+msgstr "Configurações"
 
 msgid "Show error"
 msgstr "Mostrar erro"

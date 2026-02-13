@@ -754,6 +754,11 @@ class ReferenceIndex(models.Model):
             return models.SET_NULL
 
     @cached_property
+    def model_path_components(self):
+        """The components of the model_path as a list."""
+        return self.model_path.split(".")
+
+    @cached_property
     def source_field(self):
         """
         The field from which the reference was extracted.
@@ -761,8 +766,7 @@ class ReferenceIndex(models.Model):
         (e.g. ManyToOneRel), a StreamField, or any other field that defines
         extract_references().
         """
-        model_path_components = self.model_path.split(".")
-        field_name = model_path_components[0]
+        field_name = self.model_path_components[0]
         model_class = self._content_type.model_class()
         try:
             field = model_class._meta.get_field(field_name)
@@ -784,13 +788,23 @@ class ReferenceIndex(models.Model):
 
     @cached_property
     def related_field(self):
-        # The field stored on the reference index can be a related field or a
-        # reverse related field, depending on whether the reference was extracted
-        # directly from a ForeignKey or through a parent ClusterableModel. This
-        # property normalises to the related field.
-        if isinstance(self.source_field, models.ForeignObjectRel):
-            return self.source_field.remote_field
-        return self.source_field
+        """
+        The final field in which the reference exists.
+
+        The field stored on the reference index can be a related field or a
+        reverse related field, depending on whether the reference was extracted
+        directly from a ``ForeignKey`` or through a parent ``ClusterableModel``.
+        This property normalizes to the related field.
+        """
+        # Drill through nested inline models to find where the reference exists.
+        # Increment idx by 2 each time to skip over the `.item.` component.
+        field = self.source_field
+        idx = 2
+        while isinstance(field, models.ForeignObjectRel):
+            related_model_opts = field.related_model._meta
+            field = related_model_opts.get_field(self.model_path_components[idx])
+            idx += 2
+        return field
 
     @cached_property
     def reverse_related_field(self):
@@ -806,12 +820,23 @@ class ReferenceIndex(models.Model):
         For other fields, this returns the verbose name of the field.
         """
         field = self.source_field
-        model_path_components = self.model_path.split(".")
+        model_path_components = self.model_path_components
 
-        # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name. So get the name of the child field instead
-        if isinstance(field, models.ManyToOneRel):
-            child_field = field.related_model._meta.get_field(model_path_components[2])
-            return capfirst(child_field.verbose_name)
+        # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name,
+        # so get the name of the child field instead. While we don't yet support
+        # ManyToManyRel, check for ForeignObjectRel (common base class of both
+        # ManyToOneRel and ManyToManyRel) to future-proof this.
+        if isinstance(field, models.ForeignObjectRel):
+            labels = []
+            idx = 0
+            child_field = field
+            while isinstance(child_field, models.ForeignObjectRel):
+                related_model_opts = child_field.related_model._meta
+                labels.append(capfirst(related_model_opts.verbose_name))
+                idx += 2
+                child_field = related_model_opts.get_field(model_path_components[idx])
+            labels.append(capfirst(child_field.verbose_name))
+            return " → ".join(labels)
         elif isinstance(field, StreamField):
             label = f"{capfirst(field.verbose_name)}"
             block = field.stream_block
