@@ -210,9 +210,14 @@ class TestServeView(TestCase):
         mock_doc.file.path = None
         mock_doc.file.url = None
 
-        with mock.patch(
-            "wagtail.documents.views.serve.get_object_or_404", return_value=mock_doc
-        ), mock.patch("wagtail.documents.views.serve.hooks.get_hooks", return_value=[]):
+        with (
+            mock.patch(
+                "wagtail.documents.views.serve.get_object_or_404", return_value=mock_doc
+            ),
+            mock.patch(
+                "wagtail.documents.views.serve.hooks.get_hooks", return_value=[]
+            ),
+        ):
             url = reverse(
                 "wagtaildocs_serve", args=(self.document.id, self.document.filename)
             )
@@ -239,9 +244,14 @@ class TestServeView(TestCase):
         mock_doc.file.path = None
         mock_doc.file.url = None
 
-        with mock.patch(
-            "wagtail.documents.views.serve.get_object_or_404", return_value=mock_doc
-        ), mock.patch("wagtail.documents.views.serve.hooks.get_hooks", return_value=[]):
+        with (
+            mock.patch(
+                "wagtail.documents.views.serve.get_object_or_404", return_value=mock_doc
+            ),
+            mock.patch(
+                "wagtail.documents.views.serve.hooks.get_hooks", return_value=[]
+            ),
+        ):
             url = reverse(
                 "wagtaildocs_serve", args=(self.document.id, self.document.filename)
             )
