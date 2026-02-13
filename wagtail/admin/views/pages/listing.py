@@ -23,7 +23,7 @@ from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
 )
-from wagtail.admin.ui.tables import DateColumn
+from wagtail.admin.ui.tables import DateColumn, LocaleColumn
 from wagtail.admin.ui.tables.pages import (
     BulkActionsColumn,
     NavigateToChildrenColumn,
@@ -140,6 +140,7 @@ class PageListingMixin:
             sort_key="title",
             classname="title",
         ),
+        LocaleColumn(),
         ParentPageColumn("parent", label=_("Parent")),
         DateColumn(
             "latest_revision_created_at",
