@@ -1142,7 +1142,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     if hasattr(child_object, "locale_id"):
                         child_object.locale_id = alias_updated.locale_id
 
-                    if not alias_is_translation and hasattr(child_object, "translation_key"):
+                    if not alias_is_translation and hasattr(
+                        child_object, "translation_key"
+                    ):
                         child_object.translation_key = uuid.uuid4()
 
                 for (rel, previous_id), child_objects in child_object_map.items():
@@ -1176,9 +1178,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
             page_published.send(
-                sender=specific_class,
+                sender=self.specific_class,
                 instance=alias_updated,
                 revision=revision,
+                alias=True,
             )
 
             # Update any aliases of that alias
