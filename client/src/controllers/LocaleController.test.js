@@ -13,6 +13,23 @@ afterEach(() => {
   }
 });
 
+beforeAll(() => {
+  jest
+    .spyOn(Intl, 'DateTimeFormat')
+    .mockImplementation((locale, { timeZone, timeZoneName }) => ({
+      formatToParts: jest.fn(() => [
+        {
+          type: 'timeZoneName',
+          value: `${timeZone} in ${locale} with ${timeZoneName} format`,
+        },
+      ]),
+    }));
+});
+
+afterAll(() => {
+  Intl.DateTimeFormat.mockRestore();
+});
+
 describe('LocaleController', () => {
   let app;
   let select;
@@ -74,8 +91,9 @@ describe('LocaleController', () => {
       expect(selected).toBeTruthy();
       expect(selected.value).toEqual('');
       expect(selected.textContent).toEqual(
-        'Use server time zone: GMT (Greenwich Mean Time)',
+        'Use server time zone: Europe/London in en-US with short format (Europe/London in en-US with long format)',
       );
+
       expect(select).toMatchSnapshot();
     });
   });
@@ -97,7 +115,7 @@ describe('LocaleController', () => {
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
     expect(selected.textContent).toEqual(
-      'Use server time zone: WIB (Waktu Indonesia Barat)',
+      'Use server time zone: Asia/Jakarta in id-ID with short format (Asia/Jakarta in id-ID with long format)',
     );
     expect(select).toMatchSnapshot();
   });
@@ -141,7 +159,7 @@ describe('LocaleController', () => {
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
     expect(selected.textContent).toEqual(
-      'Use server time zone: GMT+9 (Waktu Standar Jepang)',
+      'Use server time zone: Asia/Tokyo in id-ID with short format (Asia/Tokyo in id-ID with long format)',
     );
     expect(select).toMatchSnapshot();
   });
@@ -171,8 +189,8 @@ describe('LocaleController', () => {
     const selected = select.selectedOptions[0];
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
-    expect(selected.textContent).toBe(
-      'Use server time zone : UTC+1 (heure normale d’Europe centrale)',
+    expect(selected.textContent).toEqual(
+      'Use server time zone : Europe/Paris in fr-FR with short format (Europe/Paris in fr-FR with long format)',
     );
     expect(select).toMatchSnapshot();
   });
