@@ -1104,21 +1104,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for alias in self.specific_class.objects.filter(alias_of=self).exclude(
             id__in=_updated_ids
         ):
-            # FIXME: Switch to the same fields that are excluded from copy
-            # We can't do this right now because we can't exclude fields from with_content_json
-            exclude_fields = [
-                "id",
-                "path",
-                "depth",
-                "numchild",
-                "url_path",
-                "path",
-                "index_entries",
-                "postgres_index_entries",
-            ]
+            exclude_fields = (
+                self.specific_class.default_exclude_fields_in_copy
+                + self.specific_class.exclude_fields_in_copy
+            )
 
             # Copy field content
-            alias_updated = alias.with_content_json(_content)
+            alias_updated = alias.with_content_json(_content, exclude_fields=exclude_fields)
 
             # Publish the alias if it's currently in draft
             alias_updated.live = True
@@ -1948,7 +1940,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         context["action_url"] = action_url
         return TemplateResponse(request, password_required_template, context)
 
-    def with_content_json(self, content):
+    def with_content_json(self, content, exclude_fields=None):
         """
         Returns a new version of the page with field values updated to reflect changes
         in the provided ``content`` (which usually comes from a previously-saved
@@ -1989,6 +1981,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             del content["comments"]
 
         obj = self.specific_class.from_serializable_data(content)
+
+        if exclude_fields:
+            for field_name in exclude_fields:
+                if field_name == "id":
+                    continue
+
+                if hasattr(self, field_name):
+                    val = getattr(self, field_name)
+                    try:
+                        setattr(obj, field_name, val)
+                    except (TypeError, AttributeError):
+                        # Skip fields that cannot be directly assigned (e.g., related managers)
+                        continue
 
         # These should definitely never change between revisions
         obj.id = self.id
