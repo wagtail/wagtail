@@ -1143,8 +1143,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                         child_object.locale_id = alias_updated.locale_id
 
                     if not alias_is_translation and hasattr(child_object, "translation_key"):
-                        import uuid
-
                         child_object.translation_key = uuid.uuid4()
 
                 for (rel, previous_id), child_objects in child_object_map.items():
