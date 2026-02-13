@@ -1110,7 +1110,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
             # Copy field content
-            alias_updated = alias.with_content_json(_content, exclude_fields=exclude_fields)
+            alias_updated = alias.with_content_json(
+                _content, exclude_fields=exclude_fields
+            )
 
             # Publish the alias if it's currently in draft
             alias_updated.live = True
@@ -1992,7 +1994,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     try:
                         setattr(obj, field_name, val)
                     except (TypeError, AttributeError):
-                        # Skip fields that cannot be directly assigned (e.g., related managers)
+                        # Skip fields that cannot be directly assigned
+                        # (e.g., related managers)
                         continue
 
         # These should definitely never change between revisions
