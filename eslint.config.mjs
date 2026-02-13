@@ -178,6 +178,7 @@ export default defineConfig(
   {
     files: [
       'client/extract-translatable-strings.js',
+      'client/src/plugins/scrollbarThin.js',
       'client/tests/**',
       'tailwind.config.js',
       'webpack.config.js',
