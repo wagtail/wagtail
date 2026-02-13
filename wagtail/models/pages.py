@@ -1104,10 +1104,21 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for alias in self.specific_class.objects.filter(alias_of=self).exclude(
             id__in=_updated_ids
         ):
-            exclude_fields = (
-                self.specific_class.default_exclude_fields_in_copy
-                + self.specific_class.exclude_fields_in_copy
-            )
+            # Determine fields to exclude. We must include the core tree fields
+            # and then add the user-defined exclusions from the model's exclude_fields_in_copy.
+            # We do NOT use default_exclude_fields_in_copy here because it includes
+            # child relations which SHOULD be synced for aliases.
+            specific_class = self.specific_class
+            exclude_fields = [
+                "id",
+                "path",
+                "depth",
+                "numchild",
+                "url_path",
+                "path",
+                "index_entries",
+                "postgres_index_entries",
+            ] + list(specific_class.exclude_fields_in_copy)
 
             # Copy field content
             alias_updated = alias.with_content_json(
@@ -1124,25 +1135,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
             # Process child objects
-            # This has two jobs:
-            #  - If the alias is in a different locale, this updates the
-            #    locale of any translatable child objects to match
-            #  - If the alias is not a translation of the original, this
-            #    changes the translation_key field of all child objects
-            #    so they do not clash
             if child_object_map:
                 alias_is_translation = alias.translation_key == self.translation_key
 
                 def process_child_object(child_object):
-                    if isinstance(child_object, TranslatableMixin):
-                        # Child object's locale must always match the page
-                        child_object.locale = alias_updated.locale
+                    if hasattr(child_object, "locale_id"):
+                        child_object.locale_id = alias_updated.locale_id
 
-                        # If the alias isn't a translation of the original page,
-                        # change the child object's translation_keys so they are
-                        # not either
-                        if not alias_is_translation:
-                            child_object.translation_key = uuid.uuid4()
+                    if not alias_is_translation and hasattr(child_object, "translation_key"):
+                        import uuid
+
+                        child_object.translation_key = uuid.uuid4()
 
                 for (rel, previous_id), child_objects in child_object_map.items():
                     if previous_id is None:
@@ -1167,11 +1170,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             alias_updated.save(clean=False)
 
+            # Update child aliases
+            alias_updated.update_aliases(
+                revision=revision,
+                _content=_content,
+                _updated_ids=_updated_ids + [self.id],
+            )
+
             page_published.send(
-                sender=alias_updated.specific_class,
+                sender=specific_class,
                 instance=alias_updated,
                 revision=revision,
-                alias=True,
             )
 
             # Update any aliases of that alias
