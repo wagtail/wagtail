@@ -24,6 +24,7 @@ Changelog
  * Maintenance: Fix temporary file handling in redirect import tests on Windows (Mustansir Dabhiya)
  * Maintenance: Fix use of platform-specific date formatting in edit handler tests (Mustansir Dabhiya)
  * Maintenance: Bump Node.js to 24 (active LTS), upgrade Jest and Storybook (Sage Abdullah)
+ * Maintenance: Use Docker Elasticsearch images for GitHub CI instead of unofficial actions (Matt Westcott)
 
 
 7.3 (03.02.2026)
