@@ -101,8 +101,17 @@ def serve(request, document_id, document_filename):
         # see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
         response["Content-Disposition"] = doc.content_disposition
 
+        # Safely set Content-Length from cached file_size or doc.file.size
         # FIXME: storage backends are not guaranteed to implement 'size'
-        response["Content-Length"] = doc.file.size
+        file_size = getattr(doc, "file_size", None)
+        if file_size is None:
+            try:
+                file_size = doc.file.size
+            except (AttributeError, NotImplementedError):
+                pass
+
+        if file_size is not None:
+            response["Content-Length"] = file_size
 
     # Add a CSP header to prevent inline execution
     if getattr(settings, "WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT", True):

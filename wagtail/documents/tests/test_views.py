@@ -175,6 +175,81 @@ class TestServeView(TestCase):
 
         _get_sendfile.clear()
 
+    def test_serve_view_when_size_is_not_implemented(self):
+        # Create a mock document with no local file to hit the correct code path
+        mock_doc = mock.Mock()
+        mock_doc.filename = self.document.filename
+        mock_doc.content_type = self.document.content_type
+        mock_doc.content_disposition = self.document.content_disposition
+        mock_doc.file_size = None
+
+        # Mock a file-like object where size is not implemented
+        class SizeFailFile:
+            def __init__(self):
+                self.closed = False
+
+            @property
+            def size(self):
+                raise AttributeError("Size not implemented")
+
+            def tell(self):
+                return 0
+
+            def seek(self, pos, whence=0):
+                pass
+
+            def __iter__(self):
+                yield b"test content"
+
+            def close(self):
+                self.closed = True
+
+        mock_file = SizeFailFile()
+        mock_doc.file = mock_file
+
+        mock_doc.file.path = None
+        mock_doc.file.url = None
+
+        with mock.patch(
+            "wagtail.documents.views.serve.get_object_or_404", return_value=mock_doc
+        ), mock.patch("wagtail.documents.views.serve.hooks.get_hooks", return_value=[]):
+            url = reverse(
+                "wagtaildocs_serve", args=(self.document.id, self.document.filename)
+            )
+            # This should succeed when size is not implemented by the storage backend
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, 200)
+            self.assertNotIn("Content-Length", response)
+
+    def test_serve_view_uses_cached_file_size(self):
+        mock_doc = mock.Mock()
+        mock_doc.filename = self.document.filename
+        mock_doc.content_type = self.document.content_type
+        mock_doc.content_disposition = self.document.content_disposition
+        mock_doc.file_size = 1234
+
+        # doc.file.size should not be accessed
+        mock_file = mock.Mock()
+        mock_file.tell.return_value = 0
+        mock_file.seek.return_value = 0
+        type(mock_file).size = mock.PropertyMock(
+            side_effect=Exception("Should not be accessed")
+        )
+        mock_doc.file = mock_file
+        mock_doc.file.path = None
+        mock_doc.file.url = None
+
+        with mock.patch(
+            "wagtail.documents.views.serve.get_object_or_404", return_value=mock_doc
+        ), mock.patch("wagtail.documents.views.serve.hooks.get_hooks", return_value=[]):
+            url = reverse(
+                "wagtaildocs_serve", args=(self.document.id, self.document.filename)
+            )
+            response = self.client.get(url)
+
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response["Content-Length"], "1234")
+
 
 @override_settings(WAGTAILDOCS_SERVE_METHOD="redirect")
 class TestServeViewWithRedirect(TestCase):
