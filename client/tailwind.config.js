@@ -1,15 +1,16 @@
-const plugin = require('tailwindcss/plugin');
-const vanillaRTL = require('tailwindcss-vanilla-rtl');
+import plugin from 'tailwindcss/plugin';
+import vanillaRTL from 'tailwindcss-vanilla-rtl';
+
 /**
  * Design Tokens
  */
-const { staticColors, transparencies } = require('./src/tokens/colors');
-const {
+import { staticColors, transparencies } from './src/tokens/colors';
+import {
   generateColorVariables,
   generateThemeColorVariables,
-} = require('./src/tokens/colorVariables');
-const colorThemes = require('./src/tokens/colorThemes');
-const {
+} from './src/tokens/colorVariables';
+import colorThemes from './src/tokens/colorThemes';
+import {
   fontFamily,
   fontSize,
   fontWeight,
@@ -17,19 +18,19 @@ const {
   lineHeight,
   listStyleType,
   typeScale,
-} = require('./src/tokens/typography');
-const { breakpoints } = require('./src/tokens/breakpoints');
-const {
+} from './src/tokens/typography';
+import { breakpoints } from './src/tokens/breakpoints';
+import {
   borderRadius,
   borderWidth,
   boxShadow,
-} = require('./src/tokens/objectStyles');
-const { spacing } = require('./src/tokens/spacing');
+} from './src/tokens/objectStyles';
+import { spacing } from './src/tokens/spacing';
 
 /**
  * Plugins
  */
-const scrollbarThin = require('./src/plugins/scrollbarThin');
+import scrollbarThin from './src/plugins/scrollbarThin';
 
 /**
  * Functions
@@ -57,7 +58,7 @@ const lightThemeColors = colorThemes.light.reduce((colorTokens, category) => {
 /**
  * Root Tailwind config, reusable for other projects.
  */
-module.exports = {
+const config = {
   prefix: 'w-',
   theme: {
     screens: {
@@ -214,3 +215,5 @@ module.exports = {
     },
   },
 };
+
+export default config;
