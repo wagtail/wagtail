@@ -76,14 +76,10 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
             )
         )
 
-        results = list(
-            Page.objects.specific().search("Bread", fields=["title"])
-        )
+        results = list(Page.objects.specific().search("Bread", fields=["title"]))
         self.assertIn(page, results)
 
-        results = list(
-            Page.objects.specific().search("Special", fields=["seo_title"])
-        )
+        results = list(Page.objects.specific().search("Special", fields=["seo_title"]))
         self.assertIn(page, results)
 
         results = list(
