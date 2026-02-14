@@ -147,6 +147,86 @@ preprocessing, set the preprocessing_function to ``None``.
 
 ```
 
+### Adding custom fields to report exports
+
+In addition to exporting model fields directly, ``ReportView`` supports
+dynamically generated export fields by prefixing the field name with
+``custom.`` in the ``list_export`` attribute.
+
+When a field name begins with ``custom.``, Wagtail will look for a
+corresponding ``get_<field_name>`` method on the report view
+(without the ``custom.`` prefix).
+
+For example:
+
+```python
+from wagtail.admin.views.reports import ReportView
+
+class CustomReportView(ReportView):
+    list_export = [
+        "title",
+        "custom.word_count",
+    ]
+
+    export_headings = {
+        "title": "Title",
+        "custom.word_count": "Word count",
+    }
+
+    def get_word_count(self, obj):
+        return len(obj.body.split())
+```
+
+In this example, Wagtail calls ``get_word_count()`` for every item in the export because of the ``custom.word_count`` entry.
+
+### Using ``custom_field_preprocess`` for advanced handling
+
+You can use ``custom_field_preprocess`` to control how custom fields are processed for different export formats (such as CSV or XLSX).
+
+```python
+class AdvancedReportView(ReportView):
+    list_export = ["title", "custom.edit_link"]
+
+    export_headings = {
+        "title": "Title",
+        "custom.edit_link": "Edit URL",
+    }
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.custom_field_preprocess = {
+            "custom.edit_link": {
+                self.FORMAT_CSV: self.get_edit_link,
+                self.FORMAT_XLSX: self.get_edit_link,
+            }
+        }
+
+    def get_edit_link(self, obj):
+        return self.request.build_absolute_uri(obj.get_edit_url())
+```
+
+### Overriding ``to_row_dict``
+
+You might also need to override ``to_row_dict`` if your custom field doesn't match an actual model attribute. This will make sure that the export accepts ``custom.`` fields appropriately.
+
+```python
+from collections import OrderedDict
+from wagtail.coreutils import multigetattr
+
+class AdvancedReportView(ReportView):
+    def to_row_dict(self, item):
+        return OrderedDict(
+            (field, multigetattr(item, field))
+            if not field.startswith("custom.")
+            else (field, item)
+            for field in self.list_export
+        )
+
+```
+
+This ensures that custom-prefixed fields are processed correctly during export.
+
+
 ## Example report for pages with unpublished changes
 
 For this example, we'll add a report which shows any pages with unpublished changes.
