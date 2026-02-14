@@ -945,6 +945,8 @@
 * Kunal Gupta
 * Naman Sharma S
 * Siddheshwar Kadam
+* Pratham Jaiswal
+* Kunal Hemnani
 
 ## Translators
 
