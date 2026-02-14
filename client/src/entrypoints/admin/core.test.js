@@ -15,7 +15,12 @@ describe('core', () => {
   });
 
   it('exposes components for reuse', () => {
-    expect(Object.keys(window.wagtail.components)).toEqual(['Icon', 'Portal']);
+    expect(Object.keys(window.wagtail.components)).toEqual([
+      'Icon',
+      'Portal',
+      'Widget',
+      'BoundWidget',
+    ]);
   });
 
   it('exposes the Stimulus module for reuse', () => {
