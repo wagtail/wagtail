@@ -76,4 +76,16 @@ class SnippetChooserViewSet(ChooserViewSet):
 
     @cached_property
     def widget_class(self):
-        return AdminSnippetChooser(model=self.model, icon=self.icon)
+        widget_class_name = "%sChooserWidget" % self.model.__name__
+        return type(
+            widget_class_name,
+            (AdminSnippetChooser,),
+            {
+                "model": self.model,
+                "choose_one_text": self.choose_one_text,
+                "choose_another_text": self.choose_another_text,
+                "link_to_chosen_text": self.edit_item_text,
+                "chooser_modal_url_name": self.get_url_name("choose"),
+                "icon": self.icon,
+            },
+        )

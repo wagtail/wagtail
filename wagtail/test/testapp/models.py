@@ -2717,3 +2717,31 @@ class CommentableJSONPage(Page):
             ("text", CharBlock()),
         ]
     )
+
+
+class ToFieldCategory(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+register_snippet(ToFieldCategory)
+
+
+class ToFieldPost(models.Model):
+    title = models.CharField(max_length=255)
+    category = models.ForeignKey(
+        ToFieldCategory,
+        to_field="slug",
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel("category"),
+    ]
+
+
+register_snippet(ToFieldPost)
