@@ -34,6 +34,12 @@ Changelog
  * Maintenance: Fix `PermissionError` on document serve tests under Windows (Matt Westcott)
 
 
+7.3.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix duplicate inline panel items when editing snippets with autosave enabled (Sage Abdullah)
+
+
 7.3 (03.02.2026)
 ~~~~~~~~~~~~~~~~
 

@@ -623,8 +623,9 @@ class CreateView(
         return self.form.is_bound
 
     def get_context_data(self, **kwargs):
+        self.form = self.form if hasattr(self, "form") else self.get_form()
+        kwargs["form"] = self.form
         context = super().get_context_data(**kwargs)
-        self.form = context.get("form")
         side_panels = self.get_side_panels()
         context["action_url"] = self.add_url
         context["submit_button_label"] = self.submit_button_label
@@ -1082,8 +1083,18 @@ class EditView(
         return bool(self.request.GET.get("_w_hydrate_create_view"))
 
     def get_context_data(self, **kwargs):
+        # We want to set self.form for use in other methods/properties below.
+        # If form is not passed as a kwarg to super(), Django instantiates a new
+        # form and adds it to the context (without setting self.form). This is
+        # normal for GET requests. However, for POST requests (e.g. when
+        # rendering template partials after autosave), we already instantiated
+        # the form and set self.form. Make sure to reuse the form instead of
+        # letting Django instantiate another one (and worse, overwriting
+        # self.form with the fresh instance). For consistency, we instantiate
+        # the form ourselves for GET requests too, and pass it to super().
+        self.form = self.form if hasattr(self, "form") else self.get_form()
+        kwargs["form"] = self.form
         context = super().get_context_data(**kwargs)
-        self.form = context.get("form")
         side_panels = self.get_side_panels()
         context["action_url"] = self.get_edit_url()
         context["history_url"] = self.get_history_url()
