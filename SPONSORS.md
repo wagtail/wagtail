@@ -16,7 +16,7 @@ The following organisations and individuals supported the [Wagtail's First Hatch
 -   [R Strother Scott](https://x.com/rstrotherscott)
 -   [Beyond Media](https://www.beyond.works/)
 
-The features below were developed thanks to the sponsorship of these organsations:
+The features below were developed thanks to the sponsorship of these organisations:
 
 -   Collections for images and documents - [University of South Wales](https://www.southwales.ac.uk/)
 
