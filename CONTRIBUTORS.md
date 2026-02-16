@@ -947,6 +947,7 @@
 * Siddheshwar Kadam
 * Pratham Jaiswal
 * Kunal Hemnani
+* Akshat Gupta
 
 ## Translators
 
