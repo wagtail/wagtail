@@ -21,7 +21,7 @@ COPY requirements.txt /
 RUN pip install -r /requirements.txt
 
 # Install the application server.
-RUN pip install "gunicorn==20.0.4"
+RUN pip install "gunicorn==25.1.0"
 
 
 # RUNTIME STAGE
