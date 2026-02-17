@@ -296,6 +296,23 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
 
         self.assertContains(response, "Another useless header button")
 
+    def test_hide_dropdown_on_breadcrumbs_open_and_close(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.root_page.id,))
+        )
+
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        dropdown = soup.select_one(".w-slim-header .w-dropdown")
+        self.assertIsNotNone(dropdown)
+        self.assertLessEqual(
+            {
+                "w-breadcrumbs:opened@document->w-dropdown#hide",
+                "w-breadcrumbs:closed@document->w-dropdown#hide",
+            },
+            set(dropdown.get("data-action").split()),
+        )
+
     def test_delete_button_with_next_url(self):
         """
         Ensure that the built in delete button supports a next_url provided.

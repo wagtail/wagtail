@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.forms.utils import flatatt
 from django.http.request import HttpHeaders
 from django.middleware.csrf import get_token
 from django.shortcuts import resolve_url as resolve_url_func
@@ -492,8 +493,17 @@ def page_header_buttons(context, page, user, view_name):
             buttons.append(button)
 
     buttons.sort()
+    attrs = {
+        # Hide the dropdown when the breadcrumbs are opened or closed, which
+        # would make the dropddown's position off from the toggle button.
+        "data-action": (
+            "w-breadcrumbs:opened@document->w-dropdown#hide "
+            "w-breadcrumbs:closed@document->w-dropdown#hide"
+        ),
+    }
     return {
         "buttons": buttons,
+        "attrs": flatatt(attrs),
     }
 
 
