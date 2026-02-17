@@ -67,6 +67,7 @@ export class RevealController extends Controller<HTMLElement> {
   declare readonly toggleTargets: HTMLButtonElement[];
 
   cleanUpPeekListener?: () => void;
+  initializing = true;
 
   /**
    * Connect the controller, setting up the peeking listener if required,
@@ -112,6 +113,7 @@ export class RevealController extends Controller<HTMLElement> {
     new Promise((resolve) => {
       setTimeout(resolve);
     }).then(() => {
+      this.initializing = false;
       this.dispatch('ready', {
         cancelable: false,
         detail: { closed: this.closedValue },
@@ -130,7 +132,7 @@ export class RevealController extends Controller<HTMLElement> {
     const closedClasses = this.closedClasses;
     const openedClasses = this.openedClasses;
     const contentTargets = this.contentTargets;
-    const isInitial = previouslyClosed === undefined;
+    const isInitial = previouslyClosed === undefined || this.initializing;
     const isPeeking = this.peekingValue;
     const openedContentClasses = this.openedContentClasses;
     const toggles = this.toggles;
@@ -138,8 +140,10 @@ export class RevealController extends Controller<HTMLElement> {
     if (!isPeeking) this.updateToggleIcon(shouldClose);
 
     if (shouldClose) {
-      const event = this.dispatch('closing', { cancelable: true });
-      if (event.defaultPrevented) return;
+      if (!isInitial) {
+        const event = this.dispatch('closing', { cancelable: true });
+        if (event.defaultPrevented) return;
+      }
       toggles.forEach((toggle) => {
         toggle.setAttribute('aria-expanded', 'false');
       });
@@ -149,10 +153,14 @@ export class RevealController extends Controller<HTMLElement> {
       });
       this.element.classList.add(...closedClasses);
       this.element.classList.remove(...openedClasses);
-      this.dispatch('closed', { cancelable: false });
+      if (!isInitial) {
+        this.dispatch('closed', { cancelable: false });
+      }
     } else {
-      const event = this.dispatch('opening', { cancelable: true });
-      if (event.defaultPrevented) return;
+      if (!isInitial) {
+        const event = this.dispatch('opening', { cancelable: true });
+        if (event.defaultPrevented) return;
+      }
       toggles.forEach((toggle) => {
         toggle.setAttribute('aria-expanded', 'true');
       });
@@ -162,7 +170,9 @@ export class RevealController extends Controller<HTMLElement> {
       });
       this.element.classList.remove(...closedClasses);
       this.element.classList.add(...openedClasses);
-      this.dispatch('opened', { cancelable: false });
+      if (!isInitial) {
+        this.dispatch('opened', { cancelable: false });
+      }
     }
 
     if (isInitial) return;
