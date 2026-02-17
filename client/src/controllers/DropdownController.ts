@@ -3,43 +3,6 @@ import tippy, { Content, Props, Instance } from 'tippy.js';
 import { hideTooltipOnEsc } from './TooltipController';
 
 /**
- * Prevents the tooltip from staying open when the breadcrumbs
- * expand and push the toggle button in the layout.
- */
-const hideTooltipOnBreadcrumbsChange = {
-  name: 'hideTooltipOnBreadcrumbAndCollapse',
-  fn({ hide }: Instance) {
-    /** Hides the tooltip when breadcrumbs expand or collapse. */
-    function onBreadcrumbExpandAndCollapse() {
-      hide();
-    }
-
-    return {
-      onShow() {
-        document.addEventListener(
-          'w-breadcrumbs:opened',
-          onBreadcrumbExpandAndCollapse,
-        );
-        document.addEventListener(
-          'w-breadcrumbs:closed',
-          onBreadcrumbExpandAndCollapse,
-        );
-      },
-      onHide() {
-        document.removeEventListener(
-          'w-breadcrumbs:closed',
-          onBreadcrumbExpandAndCollapse,
-        );
-        document.removeEventListener(
-          'w-breadcrumbs:opened',
-          onBreadcrumbExpandAndCollapse,
-        );
-      },
-    };
-  },
-};
-
-/**
  * Hides tooltip when clicking inside.
  */
 const hideTooltipOnClickInside = {
@@ -290,11 +253,7 @@ export class DropdownController extends Controller<HTMLElement> {
   }
 
   get plugins() {
-    const plugins = [
-      hideTooltipOnBreadcrumbsChange,
-      hideTooltipOnEsc,
-      rotateToggleIcon,
-    ];
+    const plugins = [hideTooltipOnEsc, rotateToggleIcon];
     if (this.hideOnClickValue) {
       plugins.push(hideTooltipOnClickInside);
     }
