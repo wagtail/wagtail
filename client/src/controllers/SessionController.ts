@@ -72,7 +72,7 @@ export class SessionController extends Controller<HTMLElement> {
   declare readonly hasUnsavedChangesTarget: boolean;
   declare readonly hasWDialogOutlet: boolean;
   /** Reload buttons in the sessions' popups */
-  declare readonly reloadTargets: HTMLButtonElement[];
+  declare readonly reloadTargets: HTMLAnchorElement[];
   /** The hidden input to store the current revision created at datetime. */
   declare readonly revisionCreatedAtTarget: HTMLInputElement;
   /** The hidden input to store the current revision ID */
@@ -260,17 +260,17 @@ export class SessionController extends Controller<HTMLElement> {
    * show the "unsaved changes" dialog based on the unsaved changes state.
    * @param button The reload button to update
    */
-  reloadTargetConnected(button: HTMLButtonElement): void {
+  reloadTargetConnected(button: HTMLAnchorElement): void {
     if (
       this.hasUnsavedChangesTarget &&
       this.unsavedChangesTarget.checked &&
       button.dataset.dialogId
     ) {
-      button.removeAttribute('data-action');
+      button.setAttribute('data-action', 'w-action#noop:prevent');
       button.setAttribute('data-a11y-dialog-show', button.dataset.dialogId);
     } else {
       button.removeAttribute('data-a11y-dialog-show');
-      button.setAttribute('data-action', 'w-action#reload');
+      button.setAttribute('data-action', 'w-action#reload:prevent');
     }
   }
 
