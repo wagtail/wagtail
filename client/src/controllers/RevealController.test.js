@@ -6,6 +6,8 @@ jest.useFakeTimers();
 
 describe('RevealController', () => {
   const eventNames = [
+    'w-breadcrumbs:closed',
+    'w-breadcrumbs:opened',
     'w-reveal:closed',
     'w-reveal:opened',
     'w-reveal:ready',
@@ -83,6 +85,103 @@ describe('RevealController', () => {
           .querySelector('section')
           .getAttribute('data-w-reveal-closed-value'),
       ).toEqual(null);
+    });
+
+    it('should not dispatch opened/closed events on initial connect for w-breadcrumbs', async () => {
+      await setup(
+        `
+      <header>
+        <div
+          class="w-breadcrumbs collapsed"
+          data-controller="w-breadcrumbs"
+          data-w-breadcrumbs-close-icon-class="icon-cross"
+          data-w-breadcrumbs-closed-value="true"
+          data-w-breadcrumbs-open-icon-class="icon-breadcrumb-expand"
+          data-w-breadcrumbs-opened-content-class="w-max-w-4xl"
+          data-w-breadcrumbs-peek-target-value="header"
+        >
+          <button
+            type="button"
+            class="w-flex w-items-center"
+            aria-expanded="false"
+            data-w-breadcrumbs-target="toggle"
+            data-action="w-breadcrumbs#toggle mouseenter->w-breadcrumbs#peek"
+          >
+            <svg class="icon icon-breadcrumb-expand" aria-hidden="true">
+              <use href="#icon-breadcrumb-expand"></use>
+            </svg>
+          </button>
+          <ol>
+            <li class="item" data-w-breadcrumbs-target="content" hidden>
+              Breadcrumb item 1
+            </li>
+          </ol>
+        </div>
+      </header>`,
+        'w-breadcrumbs',
+      );
+
+      expect(events['w-breadcrumbs:closed']).toHaveLength(0);
+      expect(events['w-breadcrumbs:opened']).toHaveLength(0);
+    });
+
+    it('should not dispatch opened/closed events when restoring state from local storage for w-breadcrumbs', async () => {
+      localStorage.setItem('wagtail:w-breadcrumbs:header', 'closed');
+
+      await setup(
+        `
+      <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-storage-key-value="header">
+        <button aria-controls="my-content" aria-expanded="true" type="button" data-action="w-breadcrumbs#toggle" data-w-breadcrumbs-target="toggle">Toggle</button>
+      </section>`,
+        'w-breadcrumbs',
+      );
+
+      expect(events['w-breadcrumbs:closed']).toHaveLength(0);
+      expect(events['w-breadcrumbs:opened']).toHaveLength(0);
+
+      localStorage.removeItem('wagtail:w-breadcrumbs:header');
+    });
+
+    it('should dispatch opened/closed events on toggle for w-breadcrumbs', async () => {
+      await setup(
+        `
+      <header>
+        <div
+          class="w-breadcrumbs collapsed"
+          data-controller="w-breadcrumbs"
+          data-w-breadcrumbs-close-icon-class="icon-cross"
+          data-w-breadcrumbs-closed-value="true"
+          data-w-breadcrumbs-open-icon-class="icon-breadcrumb-expand"
+          data-w-breadcrumbs-opened-content-class="w-max-w-4xl"
+          data-w-breadcrumbs-peek-target-value="header"
+        >
+          <button
+            type="button"
+            class="w-flex w-items-center"
+            aria-expanded="false"
+            data-w-breadcrumbs-target="toggle"
+            data-action="w-breadcrumbs#toggle mouseenter->w-breadcrumbs#peek"
+          >
+            <svg class="icon icon-breadcrumb-expand" aria-hidden="true">
+              <use href="#icon-breadcrumb-expand"></use>
+            </svg>
+          </button>
+          <ol>
+            <li class="item" data-w-breadcrumbs-target="content" hidden>
+              Breadcrumb item 1
+            </li>
+          </ol>
+        </div>
+      </header>`,
+        'w-breadcrumbs',
+      );
+
+      const toggleButton = document.querySelector('button');
+      await Promise.resolve(toggleButton.click());
+      expect(events['w-breadcrumbs:opened']).toHaveLength(1);
+
+      await Promise.resolve(toggleButton.click());
+      expect(events['w-breadcrumbs:closed']).toHaveLength(1);
     });
   });
 
