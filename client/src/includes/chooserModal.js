@@ -230,7 +230,7 @@ class ChooserModalOnloadHandlerFactory {
     this.creationFormEventName = opts?.creationFormEventName;
 
     this.searchController = null;
-    this.multipleChoice = new Set();
+    this.multipleChoice = new Map();
   }
 
   ajaxifyLinks(modal, containerElement) {
@@ -255,11 +255,54 @@ class ChooserModalOnloadHandlerFactory {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
 
-    this.updateMultipleChoiceSubmitLocalStorage();
+    // Listener for syncing multipleChoice for the current page
+    $(modal.container).on('change', '[data-multiple-choice-select]', (e) => {
+      const el = e.currentTarget;
+
+      if (el.checked) {
+        const label = e.currentTarget
+          .closest('tr')
+          .querySelector('td.title')
+          .textContent.trim();
+        this.multipleChoice.set(el.value, label);
+      } else {
+        this.multipleChoice.delete(el.value);
+      }
+      this.searchController.updateMultipleChoice(this.multipleChoice);
+    });
+
+    // Listener for removing active choices from multipleChoice for other pages/search
+    $(modal.container).on('click', '.w-active-choices button', (e) => {
+      const liElement = e.currentTarget.closest('li');
+      this.multipleChoice.delete(liElement.dataset.key);
+      this.updateMultipleChoiceSubmitEnabledState(modal);
+      liElement.remove();
+    });
 
     const form = modal.container[0].querySelector(
       '[data-multiple-choice-form]',
     );
+
+    // Creates a pill for each hidden choice
+    const choicesContainer =
+      modal.container[0].querySelector('.w-active-choices');
+    this.multipleChoice.forEach((value, key) => {
+      const checkbox = form.querySelector(
+        `input[type="checkbox"][value="${key}"]`,
+      );
+      const choice = form.querySelector(`li.w-pill[data-key="${key}"]`);
+      if (!checkbox && !choice) {
+        const liElement = document.createElement('li');
+        liElement.classList.add('w-pill');
+        liElement.dataset.key = key;
+        liElement.innerHTML = `<span class="w-pill__content">${value}</span>
+          <button class="w-pill__remove" type="button" aria-label="${gettext('Clear')}">
+              <svg class="icon icon-cross w-h-4 w-w-4" aria-hidden="true"><use href="#icon-cross"></use></svg>
+          </button>`;
+        choicesContainer.appendChild(liElement);
+      }
+    });
+
     form.addEventListener('submit', () => {
       this.getMissingCheckboxes(form);
     });
@@ -268,38 +311,28 @@ class ChooserModalOnloadHandlerFactory {
   updateMultipleChoiceSubmitEnabledState(modal) {
     // update the enabled state of the multiple choice submit button depending on whether
     // any items have been selected
-    if ($('[data-multiple-choice-select]:checked', modal.body).length) {
+    if (
+      $('[data-multiple-choice-select]:checked', modal.body).length +
+      this.multipleChoice.size
+    ) {
       $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
     } else {
       $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
     }
   }
 
-  updateMultipleChoiceSubmitLocalStorage() {
-    $(document).on('change', '[data-multiple-choice-select]', (e) => {
-      const el = e.currentTarget;
-
-      if (el.checked) {
-        this.multipleChoice.add(el.value);
-      } else {
-        this.multipleChoice.delete(el.value);
-      }
-      this.searchController.updateMultipleChoice(this.multipleChoice);
-    });
-  }
-
   // get Checkbox States and create hidden inputs on submit to update the form with the missing checkboxes.
   getMissingCheckboxes(form) {
-    this.multipleChoice.forEach((choice) => {
+    this.multipleChoice.forEach((value, key) => {
       const checkbox = form.querySelector(
-        `input[type="checkbox"][value="${choice}"]`,
+        `input[type="checkbox"][value="${key}"]`,
       );
 
       if (checkbox?.checked === false || !checkbox) {
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = 'id';
-        input.value = choice;
+        input.value = key;
         form.appendChild(input);
       }
     });
