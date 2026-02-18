@@ -431,6 +431,91 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertContains(response, "Dummy Button")
         self.assertContains(response, "/dummy-button")
 
+    def test_show_child_pages_button_appears_for_pages_with_children(self):
+        # Add a child to old_page so it has children
+        grandchild_page = SimplePage(
+            title="Grandchild page",
+            slug="grandchild-page",
+            content="I am a grandchild",
+        )
+        self.old_page.add_child(instance=grandchild_page)
+        self.old_page.refresh_from_db()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Button should appear for pages with children
+        self.assertContains(response, "Show child pages")
+
+        # Button should link to the page's children
+        expected_url = reverse("wagtailadmin_explore", args=[self.old_page.id])
+        self.assertContains(response, expected_url)
+
+        # Button should not appear for pages without children
+        leaf_page = SimplePage(
+            title="Leaf page",
+            slug="leaf-page",
+            content="I have no children",
+        )
+        self.root_page.add_child(instance=leaf_page)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+
+        leaf_page.refresh_from_db()
+        self.assertEqual(leaf_page.numchild, 0)
+
+    def test_show_child_pages_button_url_and_priority(self):
+        # Create a parent page with children
+        parent_page = SimplePage(
+            title="Parent page",
+            slug="parent-page",
+            content="I have children",
+        )
+        self.root_page.add_child(instance=parent_page)
+
+        child = SimplePage(
+            title="Child of parent",
+            slug="child-of-parent",
+            content="child content",
+        )
+        parent_page.add_child(instance=child)
+        parent_page.refresh_from_db()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Button should appear with correct text
+        self.assertContains(response, "Show child pages")
+
+        # Button URL should point to parent page's children
+        expected_url = reverse("wagtailadmin_explore", args=[parent_page.id])
+        self.assertContains(response, expected_url)
+
+        # Button should appear after "Add child page" and before "Move"
+        content = response.content.decode("utf-8")
+
+        add_child_pos = content.find("Add child page")
+        show_child_pos = content.find("Show child pages")
+        move_pos = content.find(">Move<")
+
+        if add_child_pos != -1 and show_child_pos != -1 and move_pos != -1:
+            self.assertLess(
+                add_child_pos,
+                show_child_pos,
+                "'Show child pages' should appear after 'Add child page'",
+            )
+            self.assertLess(
+                show_child_pos,
+                move_pos,
+                "'Show child pages' should appear before 'Move'",
+            )
+
     def make_pages(self):
         for i in range(150):
             self.root_page.add_child(

@@ -276,6 +276,18 @@ class PageListingAddChildPageButton(PageMenuItem):
         return self.page.permissions_for_user(user).can_add_subpage()
 
 
+class PageListingShowChildPagesButton(PageMenuItem):
+    label = _("Show child pages")
+    icon_name = "folder-open-inverse"
+
+    def is_shown(self, user):
+        return self.page.numchild > 0
+
+    @cached_property
+    def url(self):
+        return reverse("wagtailadmin_explore", args=[self.page.id])
+
+
 class PageListingMoveButton(PageMenuItem):
     label = _("Move")
     icon_name = "arrow-right-full"
@@ -358,6 +370,7 @@ def page_listing_more_buttons(page, user, next_url=None):
     yield PageListingViewDraftButton(page=page, priority=4)
     yield PageListingViewLiveButton(page=page, url=page.url, priority=6)
     yield PageListingAddChildPageButton(page=page, next_url=next_url, priority=8)
+    yield PageListingShowChildPagesButton(page=page, priority=9)
     yield PageListingMoveButton(page=page, priority=10)
     yield PageListingCopyButton(page=page, next_url=next_url, priority=20)
     yield PageListingDeleteButton(page=page, next_url=next_url, priority=30)
