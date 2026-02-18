@@ -4,7 +4,7 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.html import escape
@@ -414,6 +414,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             self.assertNotIn("next=", action["href"])
 
 
+@tag("transaction")
 class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
@@ -543,6 +544,7 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertIsNone(usage_count_th.select_one("a"))
 
 
+@tag("transaction")
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
@@ -2080,6 +2082,7 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.assertContains(response, "<td>Root</td>", html=True)
 
 
+@tag("transaction")
 class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 

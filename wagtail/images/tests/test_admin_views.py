@@ -10,7 +10,13 @@ from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploaded
 from django.db.models.lookups import In
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
-from django.test import RequestFactory, TestCase, TransactionTestCase, override_settings
+from django.test import (
+    RequestFactory,
+    TestCase,
+    TransactionTestCase,
+    override_settings,
+    tag,
+)
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.utils.html import escape, escapejs
@@ -705,6 +711,7 @@ class TestBulkActionsColumn(WagtailTestUtils, TestCase):
         self.assertNotIn("parent", context)
 
 
+@tag("transaction")
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 
@@ -885,6 +892,7 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertIsNone(usage_count_th.select_one("a"))
 
 
+@tag("transaction")
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 
@@ -2297,6 +2305,7 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
             self.get({"layout": "list"})
 
 
+@tag("transaction")
 class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 
