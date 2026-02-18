@@ -52,6 +52,11 @@ def autocreate_redirects_on_slug_change(
     if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
         return None
 
+    if not instance.live and not getattr(
+        settings, "WAGTAILREDIRECTS_AUTO_CREATE_ON_DRAFT", True
+    ):
+        return None
+
     # Determine sites to create redirects for
     sites = Site.objects.filter(
         id__in=[
@@ -70,6 +75,11 @@ def autocreate_redirects_on_page_move(
     **kwargs,
 ) -> None:
     if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
+        return None
+
+    if not instance.live and not getattr(
+        settings, "WAGTAILREDIRECTS_AUTO_CREATE_ON_DRAFT", True
+    ):
         return None
 
     if url_path_after == url_path_before:
