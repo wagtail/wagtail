@@ -7,6 +7,7 @@ from django.urls import path
 from django.urls.exceptions import NoReverseMatch
 
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import (
+    routablefullpageurl,
     routablepageurl,
 )
 from wagtail.models import Page, Site
@@ -505,6 +506,47 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
     def test_templatetag_reverse_external_view_without_append_slash(self):
         with mock.patch("wagtail.models.pages.WAGTAIL_APPEND_SLASH", False):
             url = routablepageurl(
+                self.context, self.routable_page, "external_view", "joe-bloggs"
+            )
+            expected = (
+                "http://localhost/"
+                + self.routable_page.slug
+                + "/"
+                + "external/joe-bloggs/"
+            )
+
+        self.assertEqual(url, expected)
+
+
+class TestRoutableFullPageUrlTemplateTag(TestCase):
+    def setUp(self):
+        self.home_page = Page.objects.get(id=2)
+        self.routable_page = self.home_page.add_child(
+            instance=RoutablePageTest(
+                title="Routable Page",
+                live=True,
+            )
+        )
+
+        self.rf = RequestFactory()
+        self.request = self.rf.get(self.routable_page.url)
+        self.context = {"request": self.request}
+
+    def test_templatetag_reverse_index_route(self):
+        url = routablefullpageurl(self.context, self.routable_page, "index_route")
+        self.assertEqual(url, "http://localhost/%s/" % self.routable_page.slug)
+
+    def test_templatetag_reverse_archive_by_year_view(self):
+        url = routablefullpageurl(
+            self.context, self.routable_page, "archive_by_year", "2014"
+        )
+        self.assertEqual(
+            url, "http://localhost/%s/archive/year/2014/" % self.routable_page.slug
+        )
+
+    def test_templatetag_reverse_external_view_without_append_slash(self):
+        with mock.patch("wagtail.models.pages.WAGTAIL_APPEND_SLASH", False):
+            url = routablefullpageurl(
                 self.context, self.routable_page, "external_view", "joe-bloggs"
             )
             expected = (
