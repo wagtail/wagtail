@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from wagtail.models.restriction_registry import restriction_registry
 
 
 class BaseViewRestriction(models.Model):
@@ -16,15 +17,17 @@ class BaseViewRestriction(models.Model):
     PASSWORD = "password"
     GROUPS = "groups"
     LOGIN = "login"
+    PREMIUMUSERS = "Premium users"
 
     RESTRICTION_CHOICES = (
         (NONE, _("Public")),
         (PASSWORD, _("Private, accessible with a shared password")),
         (LOGIN, _("Private, accessible to any logged-in users")),
         (GROUPS, _("Private, accessible to users in specific groups")),
+        (PREMIUMUSERS,_("private key is accessible to Preimum Users")),
     )
 
-    restriction_type = models.CharField(max_length=20, choices=RESTRICTION_CHOICES)
+    restriction_type = models.CharField(max_length=20, choices=restriction_registry.get_choices)
     password = models.CharField(
         verbose_name=_("shared password"),
         max_length=255,
@@ -53,6 +56,12 @@ class BaseViewRestriction(models.Model):
 
                 if not any(group in current_user_groups for group in self.groups.all()):
                     return False
+        #New Pluggable logic 
+        checker = restriction_registry.get_check(self.restriction_type)
+        if checker:
+            # If a checker exists, run it!
+            # If the checker returns False, the request is denied.
+            return checker(request.user, self)
 
         return True
 
