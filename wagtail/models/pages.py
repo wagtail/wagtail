@@ -1039,9 +1039,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if not previous_revision:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.edit"
+                    ),
                     user=user,
                     revision=revision,
                     content_changed=changed,
@@ -1049,9 +1049,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.revert",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.revert"
+                    ),
                     user=user,
                     data={
                         "revision": {
@@ -1307,11 +1307,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return (not self.is_leaf()) or self.depth == 2
 
     def _get_site_root_paths(self, request=None):
-        """
-        Return ``Site.get_site_root_paths()``, using the cached copy on the
-        request object if available.
-        """
-        # if we have a request, use that to cache site_root_paths; otherwise, use self
+        """Return the site root path mappings used for URL routing. The result is cached on a cache object to avoid repeated database queries. The cache object may be a request object or a model instance, and the cached value is stored as `_wagtail_cached_site_root_paths`."""
+        # If we have a request, use it as the cache object; otherwise, use self
         cache_object = request if request else self
         try:
             return cache_object._wagtail_cached_site_root_paths
@@ -2468,9 +2465,11 @@ class PageViewRestriction(BaseViewRestriction):
         if specific_instance:
             log(
                 instance=specific_instance,
-                action="wagtail.view_restriction.create"
-                if is_new
-                else "wagtail.view_restriction.edit",
+                action=(
+                    "wagtail.view_restriction.create"
+                    if is_new
+                    else "wagtail.view_restriction.edit"
+                ),
                 user=user,
                 data={
                     "restriction": {
