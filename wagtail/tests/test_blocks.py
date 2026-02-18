@@ -1084,6 +1084,75 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ],
         )
 
+    def test_to_python_with_optgroups_preserves_type(self):
+        block = blocks.ChoiceBlock(
+            choices=[
+                (
+                    "Alcoholic",
+                    [
+                        (1, "Gin"),
+                        (2, "Whisky"),
+                    ],
+                ),
+                (
+                    "Non-alcoholic",
+                    [
+                        (3, "Tea"),
+                        (4, "Coffee"),
+                    ],
+                ),
+            ],
+        )
+
+        value_from_json = "1"
+        result = block.to_python(value_from_json)
+
+        self.assertEqual(result, 1)
+        self.assertIsInstance(result, int)
+
+    def test_multiple_choice_block_preserves_types(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                (1, "One"),
+                (2, "Two"),
+                (3, "Three"),
+            ],
+        )
+
+        value_from_json = ["1", "3"]
+        result = block.to_python(value_from_json)
+
+        self.assertEqual(result, [1, 3])
+        for item in result:
+            self.assertIsInstance(item, int)
+
+    def test_multiple_choice_block_with_optgroups_preserves_types(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                (
+                    "Alcoholic",
+                    [
+                        (1, "Gin"),
+                        (2, "Whisky"),
+                    ],
+                ),
+                (
+                    "Non-alcoholic",
+                    [
+                        (3, "Tea"),
+                        (4, "Coffee"),
+                    ],
+                ),
+            ],
+        )
+
+        value_from_json = ["2", "4"]
+        result = block.to_python(value_from_json)
+
+        self.assertEqual(result, [2, 4])
+        for item in result:
+            self.assertIsInstance(item, int)
+
     def test_named_groups_with_blank_option(self):
         block = blocks.ChoiceBlock(
             choices=[
@@ -1322,6 +1391,18 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         )
         form_state = block.get_form_state("tea")
         self.assertEqual(form_state, ["tea"])
+
+    def test_choiceblock_preserves_integer_type(self):
+        block = blocks.ChoiceBlock(choices=[(1, "One"), (2, "Two")])
+        value = block.to_python("1")
+        self.assertEqual(value, 1)
+        self.assertIsInstance(value, int)
+
+    def test_choiceblock_does_not_coerce_string_choices(self):
+        block = blocks.ChoiceBlock(choices=[("1", "One"), ("2", "Two")])
+        value = block.to_python("1")
+        self.assertEqual(value, "1")
+        self.assertIsInstance(value, str)
 
 
 class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):

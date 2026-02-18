@@ -592,6 +592,29 @@ class BaseChoiceBlock(FieldBlock):
         # descendant block type
         icon = "placeholder"
 
+    def normalize_choice(self, value):
+        """Given a choice value(can be list of values) coming from JSON deserialization,
+        it returns the value(s) converted to the original choice key type.
+        """
+
+        # Preserve None values
+        if value is None:
+            return None
+
+        text_value = force_str(value)
+
+        for key, label in self.field.choices:
+            if isinstance(label, (list, tuple)):
+                # Optgroup
+                for subkey, sublabel in label:
+                    if text_value == force_str(subkey):
+                        return subkey
+            else:
+                if text_value == force_str(key):
+                    return key
+
+        return value
+
 
 class ChoiceBlock(BaseChoiceBlock):
     def get_field(self, **kwargs):
@@ -602,6 +625,17 @@ class ChoiceBlock(BaseChoiceBlock):
         if blank_choice is None:
             blank_choice = not (self._default and self._required)
         return super()._get_callable_choices(choices, blank_choice=blank_choice)
+
+    def to_python(self, value):
+        return self.normalize_choice(value)
+
+    def clean(self, value):
+        value = super().clean(value)
+        return self.normalize_choice(value)
+
+    def normalize(self, value):
+        value = super().normalize(value)
+        return self.normalize_choice(value)
 
     def deconstruct(self):
         """
@@ -636,6 +670,29 @@ class MultipleChoiceBlock(BaseChoiceBlock):
     def _get_callable_choices(self, choices, blank_choice=False):
         """Override to default blank choice to False"""
         return super()._get_callable_choices(choices, blank_choice=blank_choice)
+
+    def to_python(self, value):
+        if value is None:
+            return value
+        if isinstance(value, (list, tuple)):
+            return [self.normalize_choice(v) for v in value]
+        return [self.normalize_choice(value)]
+
+    def clean(self, value):
+        value = super().clean(value)
+        if value is None:
+            return value
+        if isinstance(value, (list, tuple)):
+            return [self.normalize_choice(v) for v in value]
+        return self.normalize_choice(value)
+
+    def normalize(self, value):
+        value = super().normalize(value)
+        if value is None:
+            return value
+        if isinstance(value, (list, tuple)):
+            return [self.normalize_choice(v) for v in value]
+        return self.normalize_choice(value)
 
     def deconstruct(self):
         """
