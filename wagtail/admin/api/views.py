@@ -6,6 +6,7 @@ from django.urls import path
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 
+from wagtail.api.v2.utils import parse_boolean
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.models import Page
 
@@ -69,7 +70,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     detail_only_fields = []
 
     known_query_parameters = PagesAPIViewSet.known_query_parameters.union(
-        ["for_explorer", "has_children"]
+        ["for_explorer", "has_children", "include_root"]
     )
 
     @classmethod
@@ -100,9 +101,10 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        # Hide root page
-        # TODO: Add "include_root" flag
-        queryset = queryset.exclude(depth=1).defer_streamfields().specific()
+        if not parse_boolean(self.request.GET.get("include_root", "false")):
+            queryset = queryset.exclude(depth=1)
+
+        queryset = queryset.defer_streamfields().specific()
 
         return queryset
 

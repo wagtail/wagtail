@@ -946,6 +946,10 @@
 * Naman Sharma S
 * Siddheshwar Kadam
 * Pratham Jaiswal
+* Kunal Hemnani
+* Akshat Gupta
+* Divyansh Mishra
+* Gaurav Takhi
 
 ## Translators
 
