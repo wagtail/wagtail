@@ -489,3 +489,79 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertIsNotNone(translate_button)
         self.assertEqual(translate_button.text.strip(), "Translate")
         self.assertIsNotNone(translate_button.select_one("svg.icon-globe"))
+
+
+@override_settings(
+    LANGUAGES=[
+        ("en", "English"),
+        ("fr", "French"),
+        ("de", "German"),
+    ],
+    WAGTAIL_CONTENT_LANGUAGES=[
+        ("en", "English"),
+        ("fr", "French"),
+        ("de", "German"),
+    ],
+    WAGTAIL_I18N_ENABLED=True,
+)
+class TestSitemapView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.en_locale = Locale.objects.first()
+        self.fr_locale = Locale.objects.create(language_code="fr")
+        self.de_locale = Locale.objects.create(language_code="de")
+
+        self.en_homepage = Page.objects.get(depth=2)
+        self.en_homepage.copy_for_translation(self.fr_locale).save_revision().publish()
+        self.en_homepage.copy_for_translation(self.de_locale).save_revision().publish()
+
+        self.en_blog_index = TestPage(title="Blog", slug="blog")
+        self.en_homepage.add_child(instance=self.en_blog_index)
+        self.en_blog_index.copy_for_translation(
+            self.fr_locale
+        ).save_revision().publish()
+        self.en_blog_index.copy_for_translation(self.de_locale).save_revision()
+
+        self.en_blog_post = TestPage(title="Blog post", slug="blog-post")
+        self.en_blog_index.add_child(instance=self.en_blog_post)
+
+    def test_sitemap_view_with_alternates(self):
+        response = self.client.get("/sitemap.xml")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/xml")
+        self.assertContains(
+            response, 'rel="alternate" hreflang="en" href="http://localhost/"'
+        )
+        self.assertContains(
+            response, 'rel="alternate" hreflang="fr" href="http://localhost/"'
+        )
+        self.assertContains(
+            response, 'rel="alternate" hreflang="de" href="http://localhost/"'
+        )
+        self.assertContains(
+            response, 'rel="alternate" hreflang="en" href="http://localhost/blog/"'
+        )
+        self.assertContains(
+            response, 'rel="alternate" hreflang="fr" href="http://localhost/blog/"'
+        )
+        self.assertNotContains(
+            response, 'rel="alternate" hreflang="de" href="http://localhost/blog/"'
+        )
+        self.assertContains(response, "<loc>http://localhost/blog/blog-post/</loc>")
+        self.assertNotContains(
+            response,
+            'rel="alternate" hreflang="en" href="http://localhost/blog/blog-post/"',
+        )
+
+    def test_sitemap_view_without_alternates(self):
+        with override_settings(WAGTAIL_I18N_ENABLED=False):
+            response = self.client.get("/sitemap.xml")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/xml")
+        self.assertContains(response, "<loc>http://localhost/</loc>")
+        self.assertNotContains(response, 'rel="alternate"')
+
+        response = self.client.get("/sitemap-simple.xml")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/xml")
+        self.assertContains(response, "<loc>http://localhost/</loc>")
+        self.assertNotContains(response, 'rel="alternate"')
