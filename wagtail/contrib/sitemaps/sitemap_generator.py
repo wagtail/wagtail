@@ -1,4 +1,6 @@
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
+from django.db.models.functions import Coalesce
+from django.utils.functional import cached_property
 
 # Note: avoid importing models here. This module is imported from __init__.py
 # which causes it to be loaded early in startup if wagtail.contrib.sitemaps is
@@ -13,12 +15,19 @@ class Sitemap(DjangoSitemap):
     def location(self, obj):
         return obj.get_full_url(self.request)
 
-    def lastmod(self, obj):
-        # fall back on latest_revision_created_at if last_published_at is null
-        # (for backwards compatibility from before last_published_at was added)
-        return obj.last_published_at or obj.latest_revision_created_at
+    def get_latest_lastmod(self):
+        return (
+            self.items()
+            .annotate(
+                lastmod=Coalesce("last_published_at", "latest_revision_created_at")
+            )
+            .order_by("-lastmod")
+            .values_list("lastmod", flat=True)
+            .first()
+        )
 
-    def get_wagtail_site(self):
+    @cached_property
+    def wagtail_site(self):
         from wagtail.models import Site
 
         site = Site.find_for_request(self.request)
@@ -28,27 +37,30 @@ class Sitemap(DjangoSitemap):
 
     def items(self):
         return (
-            self.get_wagtail_site()
-            .root_page.get_descendants(inclusive=True)
+            self.wagtail_site.root_page.get_descendants(inclusive=True)
             .live()
             .public()
             .order_by("path")
-            .defer_streamfields()
-            .specific()
+            .specific(defer=True)
         )
 
     def _urls(self, page, protocol, domain):
         urls = []
-        last_mods = set()
+        latest_lastmod = None
+        all_items_lastmod = True  # track if all items have a lastmod
 
         for item in self.paginator.page(page).object_list.iterator():
-            url_info_items = item.get_sitemap_urls(self.request)
-
-            for url_info in url_info_items:
+            for url_info in item.get_sitemap_urls(self.request):
                 urls.append(url_info)
-                last_mods.add(url_info.get("lastmod"))
+                if all_items_lastmod:
+                    lastmod = url_info.get("lastmod")
+                    all_items_lastmod = lastmod is not None
+                    if all_items_lastmod and (
+                        latest_lastmod is None or lastmod > latest_lastmod
+                    ):
+                        latest_lastmod = lastmod
 
-        # last_mods might be empty if the whole site is private
-        if last_mods and None not in last_mods:
-            self.latest_lastmod = max(last_mods)
+        if all_items_lastmod and latest_lastmod:
+            self.latest_lastmod = latest_lastmod
+
         return urls
