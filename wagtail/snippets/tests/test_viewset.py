@@ -9,7 +9,13 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.template.defaultfilters import date
-from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
+from django.test import (
+    SimpleTestCase,
+    TestCase,
+    TransactionTestCase,
+    override_settings,
+    tag,
+)
 from django.urls import NoReverseMatch, resolve, reverse
 from django.utils.timezone import now
 from openpyxl import load_workbook
@@ -590,6 +596,7 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
         self.assertNotIn("some_number_max=200", params)
 
 
+@tag("transaction")
 class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 

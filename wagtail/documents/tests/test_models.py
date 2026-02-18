@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.base import ContentFile
 from django.db import transaction
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 
 from wagtail.documents import (
@@ -18,6 +18,7 @@ from wagtail.test.testapp.models import CustomDocument, ReimportedDocumentModel
 from wagtail.test.utils import WagtailTestUtils
 
 
+@tag("transaction")
 class TestDocumentQuerySet(TransactionTestCase):
     fixtures = ["test_empty.json"]
 
@@ -169,6 +170,7 @@ class TestDocumentFilenameProperties(TestCase):
         self.extensionless_document.file.delete()
 
 
+@tag("transaction")
 class TestFilesDeletedForDefaultModels(TransactionTestCase):
     """
     Because we expect file deletion to only happen once a transaction is

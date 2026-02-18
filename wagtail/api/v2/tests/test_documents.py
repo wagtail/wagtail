@@ -1,7 +1,7 @@
 import json
 from unittest import mock
 
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, tag
 from django.test.utils import override_settings
 from django.urls import reverse
 
@@ -360,6 +360,7 @@ class TestDocumentListing(TestCase):
         self.assertEqual(content, {"message": "offset must be a positive integer"})
 
 
+@tag("transaction")
 class TestDocumentListingSearch(TransactionTestCase):
     fixtures = ["demosite.json"]
 

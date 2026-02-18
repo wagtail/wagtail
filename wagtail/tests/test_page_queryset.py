@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
 from django.db.models import Count, Q
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, tag
 
 from wagtail.models import Locale, Page, PageViewRestriction, Site, Workflow
 from wagtail.search.query import MATCH_ALL
@@ -681,6 +681,7 @@ class TestPageQueryInSite(TestCase):
         self.assertNotIn(self.about_us_page, site_2_pages)
 
 
+@tag("transaction")
 class TestPageQuerySetSearch(TransactionTestCase):
     fixtures = ["test.json"]
 
@@ -1201,6 +1202,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
             self.assertEqual(result_2, benchmark_result)
 
 
+@tag("transaction")
 class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_specific.json"]
 
