@@ -102,6 +102,12 @@ class TestDeferredValidationProperty(TestCase):
             }
         )
         self.assertFalse(form.is_valid())
+        self.assertFalse(
+            any(
+                hasattr(field, "is_deferred_validation")
+                for field in form.fields.values()
+            )
+        )
 
         form = CustomImageForm(
             {
@@ -110,6 +116,12 @@ class TestDeferredValidationProperty(TestCase):
             }
         )
         self.assertTrue(form.is_valid())
+        self.assertFalse(
+            any(
+                hasattr(field, "is_deferred_validation")
+                for field in form.fields.values()
+            )
+        )
 
         # Deferred validation
         form = CustomImageForm(
@@ -120,6 +132,13 @@ class TestDeferredValidationProperty(TestCase):
         )
         form.defer_required_fields()
         self.assertTrue(form.is_valid())
+        self.assertTrue(
+            all(
+                hasattr(field, "is_deferred_validation")
+                and field.is_deferred_validation
+                for field in form.fields.values()
+            )
+        )
 
         # No deferred validation, when check is carried out
         form = CustomImageForm(
@@ -129,8 +148,21 @@ class TestDeferredValidationProperty(TestCase):
             }
         )
         form.defer_required_fields()
+        self.assertTrue(
+            all(
+                hasattr(field, "is_deferred_validation")
+                and field.is_deferred_validation
+                for field in form.fields.values()
+            )
+        )
         form.restore_required_fields()
         self.assertFalse(form.is_valid())
+        self.assertFalse(
+            any(
+                hasattr(field, "is_deferred_validation")
+                for field in form.fields.values()
+            )
+        )
 
         form = CustomImageForm(
             {
@@ -139,8 +171,21 @@ class TestDeferredValidationProperty(TestCase):
             }
         )
         form.defer_required_fields()
+        self.assertTrue(
+            all(
+                hasattr(field, "is_deferred_validation")
+                and field.is_deferred_validation
+                for field in form.fields.values()
+            )
+        )
         form.restore_required_fields()
         self.assertTrue(form.is_valid())
+        self.assertFalse(
+            any(
+                hasattr(field, "is_deferred_validation")
+                for field in form.fields.values()
+            )
+        )
 
 
 class SnippetForm(WagtailAdminModelForm):
