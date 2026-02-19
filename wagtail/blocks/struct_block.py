@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
-from wagtail.coreutils import safe_snake_case
+from wagtail.coreutils import accepts_kwarg, safe_snake_case
 
 from .base import (
     Block,
@@ -301,12 +301,20 @@ class BaseStructBlock(Block):
             for name, block in self.child_blocks.items()
         )
 
-    def clean(self, value):
+    def clean(self, value, is_deferred_validation=False):
         result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
         for name, val in value.items():
             try:
-                result.append((name, self.child_blocks[name].clean(val)))
+                clean = self.child_blocks[name].clean
+                if accepts_kwarg(clean, "is_deferred_validation"):
+                    cleaned_block = clean(
+                        val,
+                        is_deferred_validation=is_deferred_validation,
+                    )
+                else:
+                    cleaned_block = clean(val)
+                result.append((name, cleaned_block))
             except ValidationError as e:
                 errors[name] = e
 

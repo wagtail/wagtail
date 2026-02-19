@@ -15,6 +15,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
+from wagtail.coreutils import accepts_kwarg
 
 from .base import (
     Block,
@@ -167,9 +168,15 @@ class BaseStreamBlock(Block):
         non_block_errors = ErrorList()
         for i, child in enumerate(value):  # child is a StreamChild instance
             try:
-                cleaned_data.append(
-                    (child.block.name, child.block.clean(child.value), child.id)
-                )
+                clean = child.block.clean
+                if accepts_kwarg(clean, "is_deferred_validation"):
+                    cleaned_block = clean(
+                        child.value,
+                        is_deferred_validation=is_deferred_validation,
+                    )
+                else:
+                    cleaned_block = clean(child.value)
+                cleaned_data.append((child.block.name, cleaned_block, child.id))
             except ValidationError as e:
                 errors[i] = e
 

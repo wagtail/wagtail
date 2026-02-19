@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
+from wagtail.coreutils import accepts_kwarg
 
 from .base import (
     Block,
@@ -197,7 +198,7 @@ class ListBlock(Block):
     def value_omitted_from_data(self, data, files, prefix):
         return ("%s-count" % prefix) not in data
 
-    def clean(self, value):
+    def clean(self, value, is_deferred_validation=False):
         # value is expected to be a ListValue, but if it's been assigned through external code it might
         # be a plain list; normalise it to a ListValue
         value = self.normalize(value)
@@ -207,17 +208,29 @@ class ListBlock(Block):
         non_block_errors = ErrorList()
         for index, bound_block in enumerate(value.bound_blocks):
             try:
+                clean = self.child_block.clean
+                if accepts_kwarg(clean, "is_deferred_validation"):
+                    cleaned_block = clean(
+                        bound_block.value,
+                        is_deferred_validation=is_deferred_validation,
+                    )
+                else:
+                    cleaned_block = clean(bound_block.value)
                 result.append(
                     ListValue.ListChild(
                         self.child_block,
-                        self.child_block.clean(bound_block.value),
+                        cleaned_block,
                         id=bound_block.id,
                     )
                 )
             except ValidationError as e:
                 block_errors[index] = e
 
-        if self.meta.min_num is not None and self.meta.min_num > len(value):
+        if (
+            not is_deferred_validation
+            and self.meta.min_num is not None
+            and self.meta.min_num > len(value)
+        ):
             non_block_errors.append(
                 ValidationError(
                     _("The minimum number of items is %(min_num)d")

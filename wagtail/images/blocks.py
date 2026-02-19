@@ -180,9 +180,12 @@ class ImageBlock(StructBlock):
         struct_value = super().value_from_datadict(data, files, prefix)
         return self._struct_value_to_image(struct_value)
 
-    def clean(self, value):
+    def clean(self, value, is_deferred_validation=False):
         try:
-            self.child_blocks["image"].clean(value)
+            self.child_blocks["image"].clean(
+                value,
+                is_deferred_validation=is_deferred_validation,
+            )
         except ValidationError as e:
             raise StructBlockValidationError(
                 block_errors={"image": e},
