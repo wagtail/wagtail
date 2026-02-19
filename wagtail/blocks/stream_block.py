@@ -160,8 +160,8 @@ class BaseStreamBlock(Block):
     def required(self):
         return self.meta.required
 
-    def clean(self, value, ignore_required_constraints=False):
-        required = self.required and not ignore_required_constraints
+    def clean(self, value, is_deferred_validation=False):
+        required = self.required and not is_deferred_validation
         cleaned_data = []
         errors = {}
         non_block_errors = ErrorList()
