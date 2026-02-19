@@ -160,8 +160,13 @@ class BaseStreamBlock(Block):
     def required(self):
         return self.meta.required
 
-    def clean(self, value, is_deferred_validation=False):
-        required = self.required and not is_deferred_validation
+    def defer_required_validation(self):
+        super().defer_required_validation()
+        for child_block in self.child_blocks.values():
+            child_block.defer_required_validation()
+
+    def clean(self, value):
+        required = self.required and not self.is_deferred_validation
         cleaned_data = []
         errors = {}
         non_block_errors = ErrorList()
@@ -231,6 +236,11 @@ class BaseStreamBlock(Block):
             )
 
         return StreamValue(self, cleaned_data)
+
+    def restore_deferred_validation(self):
+        super().restore_deferred_validation()
+        for child_block in self.child_blocks.values():
+            child_block.restore_deferred_validation()
 
     def to_python(self, value):
         if isinstance(value, StreamValue):

@@ -47,7 +47,7 @@ from wagtail.test.testapp.models import (
     TaggedPage,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.test.utils.form_data import inline_formset, nested_form_data
+from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
 from wagtail.utils.timestamps import render_timestamp
@@ -1166,6 +1166,41 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.unpublished_page.refresh_from_db()
         self.assertEqual(self.unpublished_page.content, "")
 
+    def test_save_draft_streampage_with_empty_blocks_in_body(self):
+        page = StreamPage(title="Stream page", live=False)
+        self.root_page.add_child(instance=page)
+        page.save_revision()
+
+        post_data = nested_form_data(
+            {
+                "title": "Stream page edited",
+                "slug": "stream-page-edited",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(page.id,)),
+            post_data,
+        )
+        page.refresh_from_db()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(page.title, "Stream page edited")
+        self.assertEqual(len(page.body), 7)
+        self.assertFalse(page.live)
+
     def test_required_field_validation_enforced_on_publish(self):
         post_data = {
             "title": "Hello unpublished world! edited",
@@ -1179,6 +1214,42 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "This field is required.")
+
+    def test_publish_streampage_with_empty_blocks_in_body(self):
+        page = StreamPage(title="Stream page", live=False)
+        self.root_page.add_child(instance=page)
+        page.save_revision()
+
+        post_data = nested_form_data(
+            {
+                "title": "Stream page edited",
+                "slug": "stream-page-edited",
+                "action-publish": "Publish",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(page.id,)),
+            post_data,
+        )
+        page.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(page.title, "Stream page")
+        self.assertEqual(len(page.body), 0)
+        self.assertFalse(page.live)
 
     def test_required_asterisk_on_reshowing_form(self):
         """

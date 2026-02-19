@@ -231,6 +231,11 @@ class TestImageBlock(TestImageChooserBlock):
             str(context.exception.block_errors["alt_text"]),
         )
 
+        cleaned_value = block.clean_deferred(block.to_python(value))
+        self.assertEqual(cleaned_value, self.image)
+        self.assertIsNone(cleaned_value.contextual_alt_text)
+        self.assertFalse(cleaned_value.decorative)
+
     def test_to_python_with_int(self):
         block = ImageBlock()
         value = block.to_python(self.image.id)

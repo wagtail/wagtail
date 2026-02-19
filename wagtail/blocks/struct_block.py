@@ -301,6 +301,11 @@ class BaseStructBlock(Block):
             for name, block in self.child_blocks.items()
         )
 
+    def defer_required_validation(self):
+        super().defer_required_validation()
+        for block in self.child_blocks.values():
+            block.defer_required_validation()
+
     def clean(self, value):
         result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
@@ -314,6 +319,11 @@ class BaseStructBlock(Block):
             raise StructBlockValidationError(errors)
 
         return self._to_struct_value(result)
+
+    def restore_deferred_validation(self):
+        super().restore_deferred_validation()
+        for block in self.child_blocks.values():
+            block.restore_deferred_validation()
 
     def to_python(self, value):
         """Recursively call to_python on children and return as a StructValue"""
