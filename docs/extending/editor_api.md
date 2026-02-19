@@ -25,7 +25,7 @@ await previewController?.runContentChecks();
 
 Extracting the previewed content using the `PreviewController` can be useful for different use cases. One example is generating a meta description for the page using a Large Language Model (LLM). The following example demonstrates a [custom Stimulus controller](extending_client_side_stimulus) that uses an LLM from the browser's [Summarizer API](https://developer.mozilla.org/en-US/docs/Web/API/Summarizer) to generate the page's meta description.
 
-```javascript
+```text
 /* js/summarize.js */
 
 class SummarizeController extends window.StimulusModule.Controller {

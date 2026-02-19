@@ -3,7 +3,7 @@ import Sortable from 'sortablejs';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
-enum Direction {
+export enum Direction {
   Up = 'UP',
   Down = 'DOWN',
 }
@@ -23,6 +23,8 @@ enum Direction {
  *   <input type="button" data-w-orderable-target="item" data-w-orderable-item-id="3" value="Item 3"/>
  * </fieldset>
  * ```
+ *
+ * @event ready - Dispatched when the controller is ready. `detail: { order: string[] }`
  */
 export class OrderableController extends Controller<HTMLElement> {
   static classes = ['active', 'chosen', 'drag', 'ghost'];
