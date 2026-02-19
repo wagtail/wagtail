@@ -81,10 +81,10 @@ class EmbedBlock(blocks.URLBlock):
                 getattr(self.meta, "max_height", None),
             )
 
-    def clean(self, value):
+    def clean(self, value, is_deferred_validation=False):
         if isinstance(value, EmbedValue) and not value.html:
             raise ValidationError(_("Cannot find an embed for this URL."))
-        return super().clean(value)
+        return super().clean(value, is_deferred_validation=is_deferred_validation)
 
     def normalize(self, value):
         if isinstance(value, EmbedValue):

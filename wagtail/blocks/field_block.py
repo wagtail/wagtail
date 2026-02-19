@@ -62,11 +62,16 @@ class FieldBlock(Block):
     def value_omitted_from_data(self, data, files, prefix):
         return self.field.widget.value_omitted_from_data(data, files, prefix)
 
-    def clean(self, value):
+    def clean(self, value, is_deferred_validation=False):
         # We need an annoying value_for_form -> value_from_form round trip here to account for
         # the possibility that the form field is set up to validate a different value type to
         # the one this block works with natively
-        return self.value_from_form(self.field.clean(self.value_for_form(value)))
+        original_required = self.required
+        self.field.required = self.required and not is_deferred_validation
+        try:
+            return self.value_from_form(self.field.clean(self.value_for_form(value)))
+        finally:
+            self.field.required = original_required
 
     @property
     def required(self):
@@ -866,7 +871,7 @@ class ChooserBlock(FieldBlock):
     def get_form_state(self, value):
         return self.widget.get_value_data(value)
 
-    def clean(self, value):
+    def clean(self, value, is_deferred_validation=False):
         # ChooserBlock works natively with model instances as its 'value' type (because that's what you
         # want to work with when doing front-end templating), but ModelChoiceField.clean expects an ID
         # as the input value (and returns a model instance as the result). We don't want to bypass
@@ -876,7 +881,7 @@ class ChooserBlock(FieldBlock):
         # around that...
         if isinstance(value, self.model_class):
             value = value.pk
-        return super().clean(value)
+        return super().clean(value, is_deferred_validation=is_deferred_validation)
 
     def extract_references(self, value):
         if value is not None and issubclass(self.model_class, Model):
