@@ -883,11 +883,20 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         if cache_key:
             output_extension = cache_key + "." + output_extension
 
-        # Truncate filename to prevent it going over 60 chars
+        # Include image ID in filename to prevent collisions with similar filenames
+        # Format: original_filename.image_id.filter_spec.ext
+        image_id_str = str(self.pk)
+        # Calculate available space for original filename
+        # Reserve space for: .image_id + . + output_extension
+        reserved_length = 1 + len(image_id_str) + 1 + len(output_extension)
+        max_filename_length = max(1, 59 - reserved_length)
+
         output_filename_without_extension = input_filename_without_extension[
-            : (59 - len(output_extension))
+            :max_filename_length
         ]
-        output_filename = output_filename_without_extension + "." + output_extension
+        output_filename = (
+            f"{output_filename_without_extension}.{image_id_str}.{output_extension}"
+        )
 
         return File(generated_image.f, name=output_filename)
 

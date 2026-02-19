@@ -1609,3 +1609,205 @@ class TestRenditionOrientation(TestCase):
         self.assertEqual(rendition.height, 450)
         # Check actual image dimensions and orientation
         self.assert_orientation_landscape_image_is_correct(rendition)
+
+
+class TestRenditionFilenameCollision(TestCase):
+    """
+    Tests for the rendition filename collision bug fix.
+
+    When two different images have long, similar original filenames,
+    they should generate different rendition filenames (not collide).
+
+    The fix includes the image ID in the rendition filename to prevent collisions.
+    """
+
+    def test_similar_filenames_dont_collide(self):
+        """
+        Test that two images with similar long filenames generate different rendition filenames.
+
+        This reproduces the issue from:
+        https://github.com/wagtail/wagtail/issues/[issue_number]
+        """
+        # Create two images with long, similar filenames
+        image1 = Image.objects.create(
+            title="Image 1",
+            file=get_test_image_file("ChatGPT_Image_9._Jan._2026_12_49_27.png"),
+        )
+        image2 = Image.objects.create(
+            title="Image 2",
+            file=get_test_image_file("ChatGPT_Image_9._Jan._20262C_13_18_10.png"),
+        )
+
+        # Generate renditions with the same filter
+        rendition1 = image1.get_rendition("fill-746x560|format-webp")
+        rendition2 = image2.get_rendition("fill-746x560|format-webp")
+
+        # URLs should be different
+        self.assertNotEqual(rendition1.url, rendition2.url)
+        self.assertNotEqual(rendition1.file.name, rendition2.file.name)
+
+    def test_rendition_filename_includes_image_id(self):
+        """
+        Test that rendition filenames include the image ID.
+        """
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file("ChatGPT_Image_9._Jan._2026_12_49_27.png"),
+        )
+
+        rendition = image.get_rendition("fill-746x560|format-webp")
+
+        # Check that image ID is in the filename
+        filename = rendition.file.name
+        image_id_str = str(image.pk)
+        self.assertIn(image_id_str, filename)
+
+    def test_different_images_same_filter_different_filenames(self):
+        """
+        Test that different images with identical content produce different rendition filenames.
+        """
+        # Create two images with the exact same file
+        image1 = Image.objects.create(
+            title="Image 1",
+            file=get_test_image_file(),
+        )
+        image2 = Image.objects.create(
+            title="Image 2",
+            file=get_test_image_file(),
+        )
+
+        # Generate renditions with the same filter
+        rendition1 = image1.get_rendition("width-200")
+        rendition2 = image2.get_rendition("width-200")
+
+        # Filenames should be different due to image ID
+        self.assertNotEqual(rendition1.file.name, rendition2.file.name)
+
+    def test_rendition_filename_format(self):
+        """
+        Test the rendition filename format: original_filename.image_id.filter_spec.ext
+        """
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file("test.png"),
+        )
+
+        rendition = image.get_rendition("width-100")
+        filename = rendition.file.name
+
+        # Extract the filename without path
+        filename_only = filename.split("/")[-1]
+
+        # Should contain the image ID
+        image_id_str = str(image.pk)
+        self.assertIn(image_id_str, filename_only)
+
+        # Should have dots separating components
+        parts = filename_only.split(".")
+        self.assertGreater(
+            len(parts), 2, "Filename should have multiple dot-separated parts"
+        )
+
+    def test_very_long_similar_filenames(self):
+        """
+        Test with extremely long similar filenames to ensure truncation doesn't cause collisions.
+        """
+        long_name_1 = (
+            "A_very_long_filename_with_many_characters_that_should_be_truncated_"
+            "but_still_unique_because_of_image_id_001.png"
+        )
+        long_name_2 = (
+            "A_very_long_filename_with_many_characters_that_should_be_truncated_"
+            "but_still_unique_because_of_image_id_002.png"
+        )
+
+        image1 = Image.objects.create(
+            title="Image 1",
+            file=get_test_image_file(long_name_1),
+        )
+        image2 = Image.objects.create(
+            title="Image 2",
+            file=get_test_image_file(long_name_2),
+        )
+
+        rendition1 = image1.get_rendition("fill-800x600")
+        rendition2 = image2.get_rendition("fill-800x600")
+
+        # Should have different filenames
+        self.assertNotEqual(rendition1.file.name, rendition2.file.name)
+
+    def test_rendition_filename_length_within_limits(self):
+        """
+        Test that rendition filenames don't exceed filesystem limits.
+        Most filesystems have a 255 character limit for filenames.
+        """
+        long_name = (
+            "this_is_a_very_long_filename_"
+            "with_many_characters_to_test_truncation_"
+            "1234567890_1234567890_1234567890.png"
+        )
+
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(long_name),
+        )
+
+        rendition = image.get_rendition("fill-800x600|format-webp")
+        filename = rendition.file.name
+
+        # Extract just the filename part (after the last slash)
+        filename_only = filename.split("/")[-1]
+
+        # Should be under 255 characters (filesystem limit)
+        self.assertLess(
+            len(filename_only),
+            255,
+            f"Filename too long: {len(filename_only)} > 255 chars",
+        )
+
+    def test_multiple_renditions_same_image_different_specs(self):
+        """
+        Test that the same image with different filter specs produces different filenames.
+        """
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file("test.png"),
+        )
+
+        rendition1 = image.get_rendition("width-100")
+        rendition2 = image.get_rendition("width-200")
+        rendition3 = image.get_rendition("fill-400x300")
+
+        # All should have different filenames
+        filenames = [rendition1.file.name, rendition2.file.name, rendition3.file.name]
+        self.assertEqual(
+            len(filenames), len(set(filenames)), "All filenames should be unique"
+        )
+
+    def test_rendition_with_focal_point_and_similar_filenames(self):
+        """
+        Test that focal points don't interfere with collision prevention.
+        """
+        image1 = Image.objects.create(
+            title="Image 1",
+            file=get_test_image_file("similar_filename_prefix.png"),
+            focal_point_x=100,
+            focal_point_y=100,
+            focal_point_width=50,
+            focal_point_height=50,
+        )
+        image2 = Image.objects.create(
+            title="Image 2",
+            file=get_test_image_file("similar_filename_prefix.png"),
+            focal_point_x=200,
+            focal_point_y=200,
+            focal_point_width=50,
+            focal_point_height=50,
+        )
+
+        # Generate renditions that use focal points
+        rendition1 = image1.get_rendition("fill-200x200")
+        rendition2 = image2.get_rendition("fill-200x200")
+
+        # Should have different filenames
+        self.assertNotEqual(rendition1.file.name, rendition2.file.name)
