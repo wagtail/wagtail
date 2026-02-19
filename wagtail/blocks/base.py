@@ -2,6 +2,7 @@ import collections
 import itertools
 import json
 import re
+import warnings
 from functools import lru_cache
 from importlib import import_module
 
@@ -19,6 +20,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import JSContext
 from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.coreutils import accepts_kwarg
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
@@ -768,6 +770,13 @@ class BlockField(forms.Field):
                 is_deferred_validation=getattr(self, "is_deferred_validation", False),
             )
         else:
+            warnings.warn(
+                f"{self.block.__class__.__name__}.clean() does not accept an "
+                "is_deferred_validation argument; deferred validation may not work "
+                "correctly for this block type",
+                RemovedInWagtail90Warning,
+                stacklevel=2,
+            )
             return self.block.clean(value)
 
     def has_changed(self, initial_value, data_value):

@@ -1,4 +1,5 @@
 import collections
+import warnings
 from typing import Union
 
 from django import forms
@@ -14,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
 from wagtail.coreutils import accepts_kwarg, safe_snake_case
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .base import (
     Block,
@@ -313,6 +315,13 @@ class BaseStructBlock(Block):
                         is_deferred_validation=is_deferred_validation,
                     )
                 else:
+                    warnings.warn(
+                        f"{self.child_blocks[name].__class__.__name__}.clean() "
+                        "does not accept an is_deferred_validation argument; deferred "
+                        "validation may not work correctly for this block type",
+                        RemovedInWagtail90Warning,
+                        stacklevel=2,
+                    )
                     cleaned_block = clean(val)
                 result.append((name, cleaned_block))
             except ValidationError as e:

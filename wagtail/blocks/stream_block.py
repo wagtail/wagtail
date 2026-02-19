@@ -1,6 +1,7 @@
 import itertools
 import json
 import uuid
+import warnings
 from collections import OrderedDict, defaultdict
 from collections.abc import Mapping, MutableSequence
 from pickle import PickleError
@@ -16,6 +17,7 @@ from django.utils.translation import gettext as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import Adapter, register
 from wagtail.coreutils import accepts_kwarg
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .base import (
     Block,
@@ -175,6 +177,13 @@ class BaseStreamBlock(Block):
                         is_deferred_validation=is_deferred_validation,
                     )
                 else:
+                    warnings.warn(
+                        f"{child.block.__class__.__name__}.clean() does not "
+                        "accept an is_deferred_validation argument; deferred "
+                        "validation may not work correctly for this block type",
+                        RemovedInWagtail90Warning,
+                        stacklevel=2,
+                    )
                     cleaned_block = clean(child.value)
                 cleaned_data.append((child.block.name, cleaned_block, child.id))
             except ValidationError as e:
