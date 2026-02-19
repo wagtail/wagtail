@@ -27,7 +27,7 @@ $(function () {
           });
 
           data.context.find('.preview .thumb').each(function (index, elm) {
-            $(elm).find('.icon').remove();
+            $(elm).find('.icon').hide();
             $(elm).append(data.files[index].preview);
           });
         })
@@ -133,6 +133,11 @@ $(function () {
 
     done: function (e, data) {
       var itemElement = $(data.context);
+
+      var thumb = itemElement.find('.preview .thumb');
+      if (thumb.find('canvas').length === 0) {
+        thumb.find('.icon').show();
+      }
       var response = JSON.parse(data.result);
 
       if (response.success) {
