@@ -764,10 +764,11 @@ class BlockField(forms.Field):
             # self.block has a `required` attribute that is consistent with the StreamField's `blank`
             # attribute and thus the `required` attribute of BlockField - but if the latter has been
             # assigned dynamically (e.g. by defer_required_fields) we want this to take precedence.
-            # We do this through the `ignore_required_constraints` flag recognised by
+            # We do this through the `is_deferred_validation` flag recognised by
             # StreamBlock.clean.
             return self.block.clean(
-                value, ignore_required_constraints=not self.required
+                value,
+                is_deferred_validation=getattr(self, "is_deferred_validation", False),
             )
         else:
             return self.block.clean(value)
