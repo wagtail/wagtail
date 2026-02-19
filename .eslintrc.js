@@ -58,6 +58,9 @@ module.exports = {
     ],
     // this rule can be confusing as it forces some non-intuitive code for variable assignment
     'prefer-destructuring': 'off',
+
+    'jsx-a11y/control-has-associated-label': ['error', { depth: 3 }],
+    'jsx-a11y/label-has-associated-control': ['error', { depth: 3 }],
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
   },
   settings: {
@@ -158,7 +161,6 @@ module.exports = {
         'global-require': 'off',
         'import/first': 'off',
         'import/no-extraneous-dependencies': 'off',
-        'jsx-a11y/control-has-associated-label': 'off',
         'no-new': 'off',
         'no-unused-expressions': 'off',
         'react/function-component-definition': 'off',

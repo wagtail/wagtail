@@ -26,7 +26,11 @@ const definitions = [
 
 const Template = ({ value = '', debug = false }) => (
   <StimulusWrapper debug={debug} definitions={definitions}>
-    <textarea data-controller="w-autosize" defaultValue={value} />
+    <textarea
+      data-controller="w-autosize"
+      defaultValue={value}
+      aria-label="Autosize"
+    />
   </StimulusWrapper>
 );
 

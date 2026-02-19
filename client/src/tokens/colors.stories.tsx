@@ -207,7 +207,9 @@ const colorCustomisationsDemo = (
     <table className="wagtail-color-swatch">
       <thead>
         <tr>
-          <th aria-label="Swatch" />
+          <th>
+            <span className="w-sr-only">Swatch</span>
+          </th>
           <th>Variable</th>
           <th>Usage</th>
         </tr>
@@ -221,7 +223,9 @@ const colorCustomisationsDemo = (
             )
             .map(([_, shade]) => (
               <tr key={shade.hex}>
-                <td style={{ backgroundColor: `var(${shade.cssVariable})` }} />
+                <td style={{ backgroundColor: `var(${shade.cssVariable})` }}>
+                  <span className="w-sr-only">{shade.hex}</span>
+                </td>
                 <td>
                   <code>{shade.cssVariable}</code>
                 </td>
@@ -249,11 +253,15 @@ const colorCustomisationsDemo = (
           </tr>
           {Object.values(category.tokens).map((token) => (
             <tr key={token.cssVariable}>
-              <td style={{ backgroundColor: `var(${token.cssVariable})` }} />
+              <td style={{ backgroundColor: `var(${token.cssVariable})` }}>
+                <span className="w-sr-only">{token.cssVariable}</span>
+              </td>
               <td
                 className="w-theme-dark"
                 style={{ backgroundColor: `var(${token.cssVariable})` }}
-              />
+              >
+                <span className="w-sr-only">{token.cssVariable}</span>
+              </td>
               <td>
                 <code>{token.cssVariable}</code>
               </td>
