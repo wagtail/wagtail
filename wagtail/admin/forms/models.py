@@ -147,6 +147,11 @@ class WagtailAdminModelForm(
 
         for field_name in self._meta.defer_required_on_fields:
             try:
+                # Set a flag on the field to indicate a deferred validation
+                # is in effect, regardless of its required attribute, to allow
+                # custom form fields to adjust their validation behaviour accordingly.
+                self.fields[field_name].is_deferred_validation = True
+
                 if self.fields[field_name].required:
                     self.fields[field_name].required = False
                     self.deferred_required_fields.append(field_name)
@@ -171,6 +176,12 @@ class WagtailAdminModelForm(
         for field_name in self.deferred_required_fields:
             self.fields[field_name].required = True
         self.deferred_required_fields = []
+
+        for field_name in self._meta.defer_required_on_fields:
+            try:
+                del self.fields[field_name].is_deferred_validation
+            except (KeyError, AttributeError):
+                pass
 
         self.is_deferred_validation = False
 
