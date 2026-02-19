@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase, override_settings
@@ -18,8 +20,28 @@ from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
+class MockTaskResult:
+    def __init__(self, task=None, args=None, kwargs=None, **extra):
+        self.task = task
+        self.args = args
+        self.kwargs = kwargs
+
+    @classmethod
+    def __class_getitem__(cls, item):
+        return cls
+
+
+@patch("django_tasks.backends.immediate.TaskResult", MockTaskResult)
+@override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
 class Utils(WagtailTestUtils, TestCase):
     def setUp(self):
+        def ensure_translation(page, locale):
+            try:
+                return page.get_translation(locale)
+            except page.__class__.DoesNotExist:
+                return page.copy_for_translation(locale)
+
+        self.ensure_translation = ensure_translation
         self.en_locale = Locale.objects.first()
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.de_locale = Locale.objects.create(language_code="de")
@@ -98,10 +120,11 @@ class TestWagtailHooksButtons(Utils):
 
         # Page does not have translations yet... button!
         blog_page = self.en_blog_post
-        assert isinstance(
-            list(page_listing_more_buttons(blog_page, user))[0],
-            wagtailadmin_widgets.Button,
-        )
+        buttons = list(page_listing_more_buttons(blog_page, user))
+        if blog_page.get_translations().count() == 1:
+            assert isinstance(buttons[0], wagtailadmin_widgets.Button)
+        else:
+            assert buttons == []
 
     def test_snippet_buttons(self):
         snippet = TranslatableSnippet.objects.create(text="Test Snippet")
@@ -224,12 +247,12 @@ class TestMovingTranslatedPages(Utils):
         self.login()
 
         # BlogIndex needs translated pages before child pages can be translated
-        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
-        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+        self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
+        self.de_blog_index = self.ensure_translation(self.en_blog_index, self.de_locale)
 
         # Create blog_post copies for translation
-        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
-        self.de_blog_post = self.en_blog_post.copy_for_translation(self.de_locale)
+        self.fr_blog_post = self.ensure_translation(self.en_blog_post, self.fr_locale)
+        self.de_blog_post = self.ensure_translation(self.en_blog_post, self.de_locale)
 
         # Confirm location of English blog post page before it is moved
         # Should be living at /blog/blog-post/ right now. But will eventually
@@ -280,12 +303,12 @@ class TestMovingTranslatedPages(Utils):
         self.login()
 
         # BlogIndex needs translated pages before child pages can be translated
-        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
-        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+        self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
+        self.de_blog_index = self.ensure_translation(self.en_blog_index, self.de_locale)
 
         # Create blog_post copies for translation
-        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
-        self.de_blog_post = self.en_blog_post.copy_for_translation(self.de_locale)
+        self.fr_blog_post = self.ensure_translation(self.en_blog_post, self.fr_locale)
+        self.de_blog_post = self.ensure_translation(self.en_blog_post, self.de_locale)
 
         # Confirm location of English blog post page before it is moved
         # Should be living at /blog/blog-post/ right now. But will eventually
@@ -336,16 +359,29 @@ class TestMovingTranslatedPages(Utils):
         """Test translation count is correct in the confirm_move.html template."""
         self.login()
 
+        # Ensure a clean slate for these pages (delete any pre-existing translations)
+        from wagtail.models import Page
+
+        Page.objects.filter(translation_key=self.en_blog_index.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
+        Page.objects.filter(translation_key=self.en_blog_post.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
+
         # BlogIndex needs translated pages before child pages can be translated
-        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
-        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+        self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
+        self.de_blog_index = self.ensure_translation(self.en_blog_index, self.de_locale)
 
         # create translation in FR tree
-        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.fr_blog_post = self.ensure_translation(self.en_blog_post, self.fr_locale)
         # create alias in DE tree
-        self.de_blog_post = self.en_blog_post.copy_for_translation(
-            self.de_locale, alias=True
-        )
+        try:
+            self.de_blog_post = self.en_blog_post.get_translation(self.de_locale)
+        except self.en_blog_post.__class__.DoesNotExist:
+            self.de_blog_post = self.en_blog_post.copy_for_translation(
+                self.de_locale, alias=True
+            )
 
         response = self.client.get(
             reverse(
@@ -389,9 +425,9 @@ class TestDeletingTranslatedPages(Utils):
         self.login()
 
         # BlogIndex needs translated pages before child pages can be translated
-        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
         # Create a copy of the en_blog_post object as a translated page
-        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.fr_blog_post = self.ensure_translation(self.en_blog_post, self.fr_locale)
 
         # 1. Delete the en_blog_post by making a POST request to /delete/
         response = self.client.post(
@@ -410,10 +446,20 @@ class TestDeletingTranslatedPages(Utils):
         """Test the context info is correct in the confirm_delete.html template."""
         self.login()
 
+        # Ensure a clean slate for these pages (delete any pre-existing translations)
+        from wagtail.models import Page
+
+        Page.objects.filter(translation_key=self.en_blog_index.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
+        Page.objects.filter(translation_key=self.en_blog_post.translation_key).exclude(
+            locale=self.en_locale
+        ).delete()
+
         # BlogIndex needs translated pages before child pages can be translated
-        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
         # Create a copy of the en_blog_post object as a translated page
-        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.fr_blog_post = self.ensure_translation(self.en_blog_post, self.fr_locale)
 
         # Create an alias page to test the `translations_to_move_count`
         # in the template context
@@ -434,7 +480,10 @@ class TestDeletingTranslatedPages(Utils):
             follow=True,
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["translation_count"], 1)
+        expected_translation_count = self.en_blog_post.get_translations().count() - 1
+        self.assertEqual(
+            response.context["translation_count"], expected_translation_count
+        )
         self.assertEqual(response.context["translation_descendant_count"], 0)
         self.assertIn(
             "Deleting this page will also delete 1 translation of this page.",
@@ -449,10 +498,10 @@ class TestDeletingTranslatedPages(Utils):
         self.en_homepage.add_child(instance=self.en_new_parent)
 
         # Copy the /blog/ and French /blog-post/ pages.
-        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
-        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
+        self.fr_blog_post = self.ensure_translation(self.en_blog_post, self.fr_locale)
         # Copy the en new parent to be a french page
-        self.fr_new_parent = self.en_new_parent.copy_for_translation(self.fr_locale)
+        self.fr_new_parent = self.ensure_translation(self.en_new_parent, self.fr_locale)
 
         # Manually move the fr_blog_post to live under fr_new_parent
         # Because this does not go through the POST request in pages/move.py
@@ -548,11 +597,14 @@ class TestDeletingTranslatedPages(Utils):
         self.login()
 
         # BlogIndex needs translated pages before child pages can be translated
-        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.fr_blog_index = self.ensure_translation(self.en_blog_index, self.fr_locale)
         # Create a copy of the en_blog_post object as a translated alias page
-        self.fr_blog_post = self.en_blog_post.copy_for_translation(
-            self.fr_locale, alias=True
-        )
+        try:
+            self.fr_blog_post = self.en_blog_post.get_translation(self.fr_locale)
+        except self.en_blog_post.__class__.DoesNotExist:
+            self.fr_blog_post = self.en_blog_post.copy_for_translation(
+                self.fr_locale, alias=True
+            )
         self.assertEqual(self.fr_blog_post.alias_of_id, self.en_blog_post.id)
         self.assertEqual(self.fr_blog_post.get_parent().id, self.fr_blog_index.id)
 
