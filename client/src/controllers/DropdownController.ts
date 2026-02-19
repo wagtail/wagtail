@@ -60,6 +60,70 @@ const hideTooltipOnClickInside = {
 };
 
 /**
+ * Auto-hides a three‑dot action menu when the pointer leaves BOTH
+ * the toggle button and the rendered dropdown content.
+ * The dropdown must be inside a <section data-panel>
+ */
+const hideTooltipOnMouseLeave = {
+  name: 'hideTooltipOnMouseLeave',
+  fn(instance: Instance) {
+    if (
+      instance.props.theme !== 'dropdown' ||
+      !instance.reference.closest('section[data-panel]')
+    ) {
+      return {};
+    }
+
+    let hideTimeout: number | undefined;
+
+    const cancel = () => {
+      if (hideTimeout !== undefined) {
+        clearTimeout(hideTimeout);
+        hideTimeout = undefined;
+      }
+    };
+
+    // Schedule hiding the tooltip after a short delay
+    // to allow for pointer travel between the reference and the popper.
+    const schedule = () => {
+      cancel();
+      hideTimeout = window.setTimeout(() => instance.hide(), 150);
+    };
+
+    const handleLeave = (e: MouseEvent) => {
+      const next = e.relatedTarget as Node | null;
+      if (!next || !instance.popper.contains(next)) {
+        schedule();
+      }
+    };
+
+    const handleEnter = cancel;
+
+    const add = (el: Element) => {
+      el.addEventListener('mouseleave', handleLeave);
+      el.addEventListener('mouseenter', handleEnter);
+    };
+
+    const remove = (el: Element) => {
+      el.removeEventListener('mouseleave', handleLeave);
+      el.removeEventListener('mouseenter', handleEnter);
+    };
+
+    return {
+      onShow() {
+        add(instance.popper);
+        add(instance.reference);
+      },
+      onHide() {
+        cancel();
+        remove(instance.popper);
+        remove(instance.reference);
+      },
+    };
+  },
+};
+
+/**
  * If the toggle button has a toggle arrow,
  * rotate it when open and closed.
  */
@@ -294,6 +358,7 @@ export class DropdownController extends Controller<HTMLElement> {
       hideTooltipOnBreadcrumbsChange,
       hideTooltipOnEsc,
       rotateToggleIcon,
+      hideTooltipOnMouseLeave,
     ];
     if (this.hideOnClickValue) {
       plugins.push(hideTooltipOnClickInside);
