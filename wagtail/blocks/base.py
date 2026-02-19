@@ -18,6 +18,7 @@ from django.utils.text import capfirst
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import JSContext
 from wagtail.admin.telepath import register as register_telepath_adapter
+from wagtail.coreutils import accepts_kwarg
 from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
@@ -167,7 +168,7 @@ class Block(metaclass=BaseBlock):
         default = self._evaluate_callable(getattr(self.meta, "default", None))
         return self.normalize(default)
 
-    def clean(self, value):
+    def clean(self, value, is_deferred_validation=False):
         """
         Validate value and return a cleaned version of it, or throw a ValidationError if validation fails.
         The thrown ValidationError instance will subsequently be passed to render() to display the
@@ -755,17 +756,13 @@ class BlockField(forms.Field):
         super().__init__(**kwargs)
 
     def clean(self, value):
-        from wagtail.blocks.stream_block import StreamBlock
-
-        if isinstance(self.block, StreamBlock):
-            # StreamBlock is the only block type that is formally-supported as the top level block
-            # of a BlockField, but it's possible that other block types could be used, so check
-            # this explicitly.
-            # self.block has a `required` attribute that is consistent with the StreamField's `blank`
-            # attribute and thus the `required` attribute of BlockField - but if the latter has been
-            # assigned dynamically (e.g. by defer_required_fields) we want this to take precedence.
-            # We do this through the `is_deferred_validation` flag recognised by
-            # StreamBlock.clean.
+        # During deferred validation, form fields (including BlockField) have an
+        # is_deferred_validation attribute set to True. Pass this on to the block's
+        # clean method so that it can adjust its validation behavior if necessary.
+        # StreamBlock is the only block type that is formally-supported as the top
+        # level block of a BlockField, but it's possible that other block types could
+        # be used, as long as they know how to handle the is_deferred_validation flag.
+        if accepts_kwarg(self.block.clean, "is_deferred_validation"):
             return self.block.clean(
                 value,
                 is_deferred_validation=getattr(self, "is_deferred_validation", False),
