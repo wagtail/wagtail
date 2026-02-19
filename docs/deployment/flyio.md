@@ -356,7 +356,7 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -407,10 +407,48 @@ The explanation of some of the code in your `mysite/settings/production.py` file
 3. `SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")` ensures that Django can detect a secure HTTPS connection if you deploy your site behind a reverse proxy like Heroku.
 4. `SECURE_SSL_REDIRECT = True` enforces HTTPS redirect. This ensures that all connections to the site are secure.
 5. `ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")` defines the hostnames that can access your site. It retrieves its values from the `DJANGO_ALLOWED_HOSTS` environment variable. If no specific hosts are defined, it defaults to allowing all hosts.
-6. `EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"` configures your site to use the console email backend. You can configure this to use a proper email backend for sending emails.
+6. `EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"` configures your site to use SMTP email backend. Used to send actual emails using third-party email service provider.
+
+**Note:** Fly.io does not support email services out of the box. You need to set up third-party SMTP service providers to send emails from your Django application.
+
 7. `WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"` configures the file storage for Wagtail's redirects. Here, you set it to use cache.
 
-Now, complete the configuration of your environment variables by modifying your `.env.production` file as follows:
+---
+
+### Setting Up Email Backends in Development and Production
+
+1. **Console Email Backend for Development**:
+   - The tutorial uses `ConsoleBackend` for development. This backend outputs email messages to the console, allowing you to test email functionality locally without sending real emails.
+   - Configure this in `mysite/settings/dev.py` with `DEBUG = True`:
+
+     ```python
+     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+     ```
+
+2. **SMTP Backend for Production (Using Mailgun)**:
+   - For production (`DEBUG = False`), use an SMTP email backend to send actual emails.
+   - Configure this in `mysite/settings/production.py` with `DEBUG = False`:
+   
+    ```python
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    ```
+
+   - We reccomend using Mailgun for this. Steps to set it up:
+     - Sign up for Mailgun and verify your domain.
+     - Add your SMTP credentials to `.env.production`:
+
+       ```env
+       EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+       EMAIL_HOST="smtp.mailgun.org"
+       EMAIL_PORT=587
+       EMAIL_USE_TLS=True
+       EMAIL_HOST_USER="your_mailgun_username"
+       EMAIL_HOST_PASSWORD="your_mailgun_password"
+       ```
+
+   - **Other Providers**: If you prefer a different SMTP provider, search for “SMTP email providers” to find one that suits your needs.
+
+Now, complete the configuration of your environment variables by modifying your .env.production file as follows:
 
 | Environment variable        | Instruction                                                                                           |
 | --------------------------- | ----------------------------------------------------------------------------------------------------- |
