@@ -16,8 +16,8 @@ from wagtail.contrib.frontend_cache.backends import (
     CloudfrontBackend,
     HTTPBackend,
 )
-from wagtail.contrib.frontend_cache.utils import get_backends
-from wagtail.models import Page
+from wagtail.contrib.frontend_cache.utils import _get_page_cached_urls, get_backends
+from wagtail.models import Page, Site
 from wagtail.test.testapp.models import EventIndex, EventPage
 
 from .utils import (
@@ -491,6 +491,38 @@ class TestCachePurgingFunctions(TestCase):
 
     def setUp(self):
         PURGED_URLS.clear()
+
+    def test_get_page_cached_urls_without_append_slash(self):
+        root = Page.objects.get(url_path="/")
+
+        Site.objects.update_or_create(
+            hostname="localhost",
+            defaults={
+                "root_page": root,
+                "is_default_site": True,
+            },
+        )
+
+        page = EventIndex(title="Test events", slug="test-events")
+        root.add_child(instance=page)
+        page.save_revision().publish()
+
+        page = page.specific
+
+        # Force get_full_url to simulate no trailing slash case
+        page.get_full_url = lambda cache_object=None: "http://localhost/test-events"
+
+        page.specific_deferred.get_cached_paths = lambda: ["/", "/archive"]
+
+        urls = _get_page_cached_urls(page)
+
+        self.assertEqual(
+            urls,
+            [
+                "http://localhost/test-events/",
+                "http://localhost/test-events/archive",
+            ],
+        )
 
     def test_purge_url_from_cache(self):
         with self.captureOnCommitCallbacks(execute=True):
