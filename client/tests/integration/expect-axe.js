@@ -12,13 +12,8 @@ const AxeBuilder = require('@axe-core/playwright').default;
 async function expectToPassAxeTests(page, options = {}) {
   const builder = new AxeBuilder({ page });
 
-  if (options.exclude) {
-    builder.exclude(options.exclude);
-  }
-
-  if (options.include) {
-    builder.include(options.include);
-  }
+  builder.exclude(options.exclude);
+  builder.include(options.include);
 
   const results = await builder.analyze();
 
@@ -52,5 +47,3 @@ expect.extend({
     }
   },
 });
-
-module.exports = { expectToPassAxeTests };
