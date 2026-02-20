@@ -1,8 +1,7 @@
 jest.setTimeout(30000);
 
 describe('Editor', () => {
-  const globalEditorExcludes =
-    '.skiplink, .sidebar__collapse-toggle, #wagtail-sidebar, li[aria-controls^="tab-"]';
+  const globalEditorExcludes = '[aria-describedby^="placeholder-"]';
   beforeAll(async () => {
     await page.goto(`${TEST_ORIGIN}/admin/pages/add/demosite/standardpage/2/`);
   });
@@ -15,7 +14,7 @@ describe('Editor', () => {
 
   it('axe', async () => {
     await expect(page).toPassAxeTests({
-      exclude: `${globalEditorExcludes}, [aria-describedby^="placeholder-"]`,
+      exclude: `${globalEditorExcludes}`,
     });
   });
 
@@ -25,7 +24,7 @@ describe('Editor', () => {
     const trigger = await page.$('#id_carousel_items-ADD');
     trigger.click();
     await expect(page).toPassAxeTests({
-      exclude: `${globalEditorExcludes}, [aria-describedby^="placeholder-"]`,
+      exclude: `${globalEditorExcludes}`,
     });
   });
 
@@ -36,7 +35,7 @@ describe('Editor', () => {
       page.waitForSelector('.embed-form', { visible: true }),
     ]);
     await expect(page).toPassAxeTests({
-      exclude: `${globalEditorExcludes}, [aria-describedby^="placeholder-"], .modal`,
+      exclude: `${globalEditorExcludes}, .modal`,
     });
     await Promise.all([
       await page.keyboard.press('Escape'),
@@ -51,7 +50,7 @@ describe('Editor', () => {
       page.waitForSelector('.image-search', { visible: true }),
     ]);
     await expect(page).toPassAxeTests({
-      exclude: `${globalEditorExcludes}, [aria-describedby^="placeholder-"], .modal`,
+      exclude: `${globalEditorExcludes}, .modal`,
     });
     await Promise.all([
       await page.keyboard.press('Escape'),
@@ -66,7 +65,7 @@ describe('Editor', () => {
       page.waitForSelector('.page-results', { visible: true }),
     ]);
     await expect(page).toPassAxeTests({
-      exclude: `${globalEditorExcludes}, [aria-describedby^="placeholder-"], .modal`,
+      exclude: `${globalEditorExcludes}, .modal`,
     });
     await Promise.all([
       await page.keyboard.press('Escape'),
