@@ -88,6 +88,25 @@ WAGTAILFRONTENDCACHE = {
 }
 ```
 
+#### Purge option
+
+By default, only exact URL matches are purged. This presents challenges when requests contain query string parameters (for example when using pagination). Instead, the Cloudflare backend can be configured to purge by prefix, which purges regardless of any query string parameters stored in the cache.
+
+```python
+# settings.py
+
+WAGTAILFRONTENDCACHE = {
+    'cloudflare': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
+        'BEARER_TOKEN': 'your cloudflare bearer token',
+        'ZONEID': 'your cloudflare domain zone id',
+        'PURGE_OPTION': 'PREFIX'  # Defaults to 'URL'
+    },
+}
+```
+
+This option may result in more cache misses, since all child pages will also be purged (for example purges of `/events/` will also purge the `/events/past/` page).
+
 (frontendcache_aws_cloudfront)=
 
 ### Amazon CloudFront
