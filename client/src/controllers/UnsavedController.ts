@@ -1,12 +1,12 @@
 import { Controller } from '@hotwired/stimulus';
-import { debounce, DebouncibleFunction } from '../utils/debounce';
+import { DebouncibleFunction, debounce } from '../utils/debounce';
 import { setOptionalInterval } from '../utils/interval';
 
 const DEFAULT_DURATIONS = {
   initial: 2_000,
   notify: 30,
   check: 500,
-};
+} as const;
 
 export type Durations = typeof DEFAULT_DURATIONS;
 
@@ -41,7 +41,7 @@ export type Durations = typeof DEFAULT_DURATIONS;
  */
 export class UnsavedController extends Controller<HTMLFormElement> {
   static values = {
-    checkInterval: { default: 500, type: Number },
+    checkInterval: { default: DEFAULT_DURATIONS.check, type: Number },
     confirmation: { default: false, type: Boolean },
     force: { default: false, type: Boolean },
     hasComments: { default: false, type: Boolean },
@@ -52,9 +52,9 @@ export class UnsavedController extends Controller<HTMLFormElement> {
    * Initial delay before setting up the check interval to allow other
    * initializations to complete, in milliseconds.
    */
-  static initialDelayValue = 2_000;
+  static initialDelayValue = DEFAULT_DURATIONS.initial;
   /** Delay before notifying about changes, in milliseconds. */
-  static notifyDelayValue = 30;
+  static notifyDelayValue = DEFAULT_DURATIONS.notify;
 
   /** Duration between change checks, in milliseconds. */
   declare checkIntervalValue: number;

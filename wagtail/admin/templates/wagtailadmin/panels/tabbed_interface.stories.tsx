@@ -1,8 +1,8 @@
 import React from 'react';
 import { Pattern, generateDocs } from 'storybook-django/src/react';
-import template from './tabbed_interface.html';
 import { TabsController } from '../../../../../client/src/controllers/TabsController';
 import { StimulusWrapper } from '../../../../../client/storybook/StimulusWrapper';
+import template from './tabbed_interface.html';
 
 const { docs, argTypes } = generateDocs(template);
 

@@ -75,7 +75,7 @@ export class RulesController extends Controller<
   declare form;
   declare rulesCache: Record<
     string,
-    { match: Match; rules: [string, string[]][] }
+    { match: Match; rules: Array<[string, string[]]> }
   >;
 
   initialize() {
@@ -205,7 +205,7 @@ export class RulesController extends Controller<
       .map(([fieldName = '', validValues = ''] = []) => [
         fieldName,
         castArray(validValues).map(String),
-      ]) as [string, string[]][];
+      ]) as Array<[string, string[]]>;
 
     const [, [match = Match.All] = []] =
       rules.find(([key]) => key === '') || [];

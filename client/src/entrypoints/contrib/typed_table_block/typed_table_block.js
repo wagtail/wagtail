@@ -1,11 +1,11 @@
 /* global $ */
 
-import { escapeHtml as h } from '../../../utils/text';
-import { range } from '../../../utils/range';
 import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import { range } from '../../../utils/range';
+import { escapeHtml as h } from '../../../utils/text';
 
 export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {

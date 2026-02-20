@@ -1,14 +1,14 @@
 import React, {
-  useEffect,
-  useState,
-  useRef,
-  useMemo,
   useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
 
+import { toggleCollapsiblePanel } from '../../includes/panels';
 import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
-import { toggleCollapsiblePanel } from '../../includes/panels';
 import Icon from '../Icon/Icon';
 
 import CollapseAll from './CollapseAll';
@@ -30,9 +30,9 @@ const observerOptions = {
   threshold: 0.1,
 };
 
-type LinkIntersections = {
+interface LinkIntersections {
   [href: string]: boolean;
-};
+}
 
 const mapIntersections = (
   acc: LinkIntersections,

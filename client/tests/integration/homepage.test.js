@@ -24,9 +24,7 @@ describe('Homepage', () => {
       '.sidebar-page-explorer-item [aria-haspopup="dialog"]',
     );
     await trigger.click();
-    await expect(page).toPassAxeTests({
-      include: '.sidebar-main-menu',
-    });
+    await expect(page).toPassAxeTests();
   });
 
   it('axe sidebar sub-menu', async () => {
@@ -34,8 +32,6 @@ describe('Homepage', () => {
       '.sidebar-sub-menu-item [aria-haspopup="menu"]',
     );
     await trigger.click();
-    await expect(page).toPassAxeTests({
-      include: '.sidebar-main-menu',
-    });
+    await expect(page).toPassAxeTests();
   });
 });

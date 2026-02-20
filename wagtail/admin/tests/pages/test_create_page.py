@@ -102,13 +102,12 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:add_subpage", args=(simple_parent_page.id,))
         )
-        self.assertEqual(response.status_code, 200)
-        # if there is no page_type available then this message should be shown.
-        self.assertContains(
-            response, "Sorry, you cannot create a page at this location."
-        )
-        self.assertNotContains(
-            response, "Choose which type of page you'd like to create."
+        # Raises a permission denied error
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
         )
 
     def test_add_subpage_with_one_valid_subpage_type(self):

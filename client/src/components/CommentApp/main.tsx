@@ -1,40 +1,40 @@
+import type { Annotation } from './utils/annotation';
 import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { legacy_createStore as createStore } from 'redux';
 
-import type { Annotation } from './utils/annotation';
-import { LayoutController } from './utils/layout';
-import { getOrDefault } from './utils/maps';
-import { getNextCommentId, getNextReplyId } from './utils/sequences';
-import { Store, reducer } from './state';
-import {
-  Comment,
-  newCommentReply,
-  newComment,
-  Author,
-  INITIAL_STATE as INITIAL_COMMENTS_STATE,
-} from './state/comments';
-import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from './state/settings';
 import {
   addComment,
   addReply,
-  setFocusedComment,
-  updateComment,
   commentActionFunctions,
   invalidateContentPath,
   reset,
+  setFocusedComment,
+  updateComment,
 } from './actions/comments';
 import { updateGlobalSettings } from './actions/settings';
-import {
-  selectComments,
-  selectCommentsForContentPathFactory,
-  selectCommentFactory,
-  selectFocused,
-  selectIsDirty,
-  selectCommentCount,
-} from './selectors';
 import CommentComponent from './components/Comment';
 import { CommentFormSetComponent } from './components/Form';
+import {
+  selectCommentCount,
+  selectCommentFactory,
+  selectComments,
+  selectCommentsForContentPathFactory,
+  selectFocused,
+  selectIsDirty,
+} from './selectors';
+import { Store, reducer } from './state';
+import {
+  Author,
+  Comment,
+  INITIAL_STATE as INITIAL_COMMENTS_STATE,
+  newComment,
+  newCommentReply,
+} from './state/comments';
+import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from './state/settings';
+import { LayoutController } from './utils/layout';
+import { getOrDefault } from './utils/maps';
+import { getNextCommentId, getNextReplyId } from './utils/sequences';
 
 // This is done as this is serialized pretty directly from the Django model
 export interface InitialCommentReply {
@@ -195,7 +195,7 @@ export class CommentApp {
   };
 
   actions = commentActionFunctions;
-  activationHandlers: (() => void)[] = [];
+  activationHandlers: Array<() => void> = [];
 
   constructor() {
     this.store = createStore(reducer, {

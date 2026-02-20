@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { ModuleDefinition, Sidebar } from './Sidebar';
-import { SearchModuleDefinition } from './modules/Search';
-import { MainMenuModuleDefinition } from './modules/MainMenu';
-import { PageExplorerMenuItemDefinition } from './menu/PageExplorerMenuItem';
-import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
-import { SubMenuItemDefinition } from './menu/SubMenuItem';
-import { WagtailBrandingModuleDefinition } from './modules/WagtailBranding';
 import { range } from '../../utils/range';
+import { ModuleDefinition, Sidebar } from './Sidebar';
+import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { MenuItemDefinition } from './menu/MenuItem';
+import { PageExplorerMenuItemDefinition } from './menu/PageExplorerMenuItem';
+import { SubMenuItemDefinition } from './menu/SubMenuItem';
+import { MainMenuModuleDefinition } from './modules/MainMenu';
+import { SearchModuleDefinition } from './modules/Search';
+import { WagtailBrandingModuleDefinition } from './modules/WagtailBranding';
 
 export default {
   title: 'Sidebar/Sidebar',

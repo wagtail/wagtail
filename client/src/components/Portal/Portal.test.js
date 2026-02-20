@@ -1,5 +1,5 @@
+import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import Portal from './Portal';
 
 const func = expect.any(Function);

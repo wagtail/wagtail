@@ -1,11 +1,11 @@
 import axe, { AxeResults, Spec } from 'axe-core';
 import {
-  sortAxeViolations,
   WagtailAxeConfiguration,
   addCustomChecks,
   checkImageAltText,
   getA11yReport,
   registerCustomCheck,
+  sortAxeViolations,
 } from './a11y-result';
 
 const mockDocument = `

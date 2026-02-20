@@ -1,10 +1,10 @@
+import Tippy from '@tippyjs/react';
 import * as React from 'react';
 
-import Tippy from '@tippyjs/react';
+import { KeyboardAction } from '../../../controllers/KeyboardController';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 import { ModuleDefinition, SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
-import { KeyboardAction } from '../../../controllers/KeyboardController';
 
 interface SearchInputProps {
   slim: boolean;

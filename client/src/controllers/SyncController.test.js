@@ -1,7 +1,6 @@
 import { Application } from '@hotwired/stimulus';
-import { SyncController } from './SyncController';
-
 import { range } from '../utils/range';
+import { SyncController } from './SyncController';
 
 jest.useFakeTimers();
 jest.spyOn(global, 'setTimeout');

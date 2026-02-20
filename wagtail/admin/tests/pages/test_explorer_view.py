@@ -11,7 +11,9 @@ from wagtail.admin.widgets import Button
 from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
 from wagtail.test.testapp.models import (
     CustomPermissionPage,
+    SimpleChildPage,
     SimplePage,
+    SimpleParentPage,
     SingleEventPage,
     StandardIndex,
 )
@@ -914,6 +916,29 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             response,
             reverse("wagtailadmin_pages:history", args=(page.id,)),
         )
+
+    def test_add_child_not_shown_when_no_subpage_type_available_to_create(self):
+        simple_parent_page = SimpleParentPage(
+            title="Simple parent",
+            slug="simple-parent",
+        )
+        self.root_page.add_child(instance=simple_parent_page)
+        simple_child_page = SimpleChildPage(
+            title="Simple child",
+            slug="simple-child",
+        )
+        simple_parent_page.add_child(instance=simple_child_page)
+        url = reverse("wagtailadmin_explore", args=(simple_parent_page.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        add_subpage_url = reverse(
+            "wagtailadmin_pages:add_subpage",
+            args=(simple_parent_page.id,),
+        )
+        # Should not show the "Add child page" button in the header
+        add_subpage_link = soup.select_one(f'a[href="{add_subpage_url}"]')
+        self.assertIsNone(add_subpage_link)
 
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):

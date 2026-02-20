@@ -12,6 +12,7 @@ Changelog
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
  * Fix: Set `verbose_name_plural` for Query model in search promotions app (Saptami)
  * Fix: Truncate overly long task names in workflow admin view (Gaurav Takhi)
+ * Fix: Hide "Add child page" button when no child pages can be created as per `max_count` or `max_count_per_parent` (Lasse Schmieding)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
@@ -32,6 +33,8 @@ Changelog
  * Maintenance: Use Docker Elasticsearch images for GitHub CI instead of unofficial actions (Matt Westcott)
  * Maintenance: Make LocaleController tests robust against changes to timezone data in Node (Sage Abdullah)
  * Maintenance: Fix `PermissionError` on document serve tests under Windows (Matt Westcott)
+ * Maintenance: Update JavaScript linting to ESLint 9, with updated linting rules and related fixes (Sage Abdullah)
+ * Maintenance: Replace Puppeteer with Playwright for integration tests (Sage Abdullah)
 
 
 7.3.1 (xx.xx.xxxx) - IN DEVELOPMENT

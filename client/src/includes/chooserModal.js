@@ -1,8 +1,8 @@
 /* global ModalWorkflow */
 
 import $ from 'jquery';
-import { gettext } from '../utils/gettext';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { gettext } from '../utils/gettext';
 
 const validateCreationForm = (form) => {
   let hasErrors = false;
@@ -384,11 +384,11 @@ class ChooserModal {
 }
 
 export {
-  validateCreationForm,
-  submitCreationForm,
-  initPrefillTitleFromFilename,
-  SearchController,
-  ChooserModalOnloadHandlerFactory,
-  chooserModalOnloadHandlers,
   ChooserModal,
+  ChooserModalOnloadHandlerFactory,
+  SearchController,
+  chooserModalOnloadHandlers,
+  initPrefillTitleFromFilename,
+  submitCreationForm,
+  validateCreationForm,
 };

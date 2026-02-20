@@ -21,7 +21,7 @@ const definitions = [
 ];
 
 const Template = ({ debug = false }) => {
-  const [sourceValues, setSourceValue] = React.useState({});
+  const [sourceValues, setSourceValues] = React.useState({});
   return (
     <StimulusWrapper debug={debug} definitions={definitions}>
       <form
@@ -32,7 +32,7 @@ const Template = ({ debug = false }) => {
           node.addEventListener(
             'w-clean:applied',
             ({ target, detail: { sourceValue } }) => {
-              setSourceValue((state) => ({
+              setSourceValues((state) => ({
                 ...state,
                 [target.id]: sourceValue,
               }));

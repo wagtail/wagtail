@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import-x/extensions
 import { createDjangoAPIMiddleware } from 'storybook-django/src/middleware.js';
 
 // Target the Django server with IPV4 address explicitly to avoid DNS resolution of localhost to IPV6.
