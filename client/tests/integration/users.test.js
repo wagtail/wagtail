@@ -8,8 +8,6 @@ describe('Users', () => {
   it('axe', async () => {
     const toggle = await page.$('[aria-label="Select all"]');
     await toggle.click();
-    await expect(page).toPassAxeTests({
-      exclude: '.skiplink, .sidebar__collapse-toggle, #wagtail-sidebar',
-    });
+    await expect(page).toPassAxeTests();
   });
 });
