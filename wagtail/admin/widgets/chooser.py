@@ -138,10 +138,7 @@ class BaseChooser(widgets.Input):
         and the client-side rendering code (via telepath) that contains all the information needed
         for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
         """
-        if self.to_field_name:
-            instance_id = getattr(instance, self.to_field_name)
-        else:
-            instance_id = instance.pk
+        instance_id = getattr(instance, self.to_field_name or "pk")
 
         return {
             "id": instance_id,
