@@ -19,8 +19,9 @@ class AdminSnippetChooser(BaseChooser):
     classname = "snippet-chooser"
     js_constructor = "SnippetChooser"
 
-    def __init__(self, model, **kwargs):
-        self.model = model
+    def __init__(self, model=None, **kwargs):
+        if model is not None:
+            self.model = model
         name = self.model._meta.verbose_name
         self.choose_one_text = _("Choose %(object)s") % {"object": name}
         self.choose_another_text = _("Choose another %(object)s") % {"object": name}
