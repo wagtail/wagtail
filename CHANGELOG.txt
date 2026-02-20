@@ -33,6 +33,7 @@ Changelog
  * Maintenance: Use Docker Elasticsearch images for GitHub CI instead of unofficial actions (Matt Westcott)
  * Maintenance: Make LocaleController tests robust against changes to timezone data in Node (Sage Abdullah)
  * Maintenance: Fix `PermissionError` on document serve tests under Windows (Matt Westcott)
+ * Maintenance: Update JavaScript linting to ESLint 9, with updated linting rules and related fixes (Sage Abdullah)
 
 
 7.3.1 (xx.xx.xxxx) - IN DEVELOPMENT
