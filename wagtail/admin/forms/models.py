@@ -161,6 +161,9 @@ class WagtailAdminModelForm(
                 formset.min_num = 0
 
     def restore_required_fields(self):
+        if not self.is_deferred_validation:
+            # Has been restored or defer_required_fields has not been called
+            return
         for name, formset in self.formsets.items():
             for form in formset:
                 form.restore_required_fields()
