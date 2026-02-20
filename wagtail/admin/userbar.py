@@ -385,7 +385,7 @@ class Userbar(Component):
                     media += item.media
 
             if request:
-                origin = f"{request.scheme}://{request.get_host()}"
+                origin = f"//{request.get_host()}"
             else:
                 origin = get_admin_base_url() or ""
 

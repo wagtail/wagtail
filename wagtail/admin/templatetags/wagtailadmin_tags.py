@@ -1,6 +1,6 @@
 import datetime
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 
 from django import template
 from django.conf import settings
@@ -208,7 +208,7 @@ def admin_url_name(obj, action):
 def build_absolute_url(context, url):
     """
     Usage: {% build_absolute_url url %}
-    Returns the absolute URL of the given URL based on the request's host.
+    Returns the protocol-relative URL of the given URL based on the request's host.
     If the request doesn't exist in the context, falls back to
     WAGTAILADMIN_BASE_URL as the base URL.
     If the given URL is already absolute, or the request is a dummy preview
@@ -228,7 +228,10 @@ def build_absolute_url(context, url):
         return url
     # Rewrite relative URLs to absolute URLs based on the request's host, but
     # leave absolute URLs unchanged.
-    return request.build_absolute_uri(url)
+    url = request.build_absolute_uri(url)
+    # Remove the scheme to make it a protocol-relative URL, as Django may not
+    # detect the correct scheme when the request is behind a reverse proxy.
+    return urlsplit(url)._replace(scheme="").geturl()
 
 
 @register.simple_tag
