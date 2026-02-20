@@ -1,6 +1,7 @@
 import datetime
 import json
 import unittest
+from unittest import mock
 from unittest.mock import Mock
 
 from asgiref.sync import async_to_sync
@@ -1350,6 +1351,160 @@ class TestLiveRevision(TestCase):
                     )
                 ),
             )
+
+
+class TestPublishRevisionAtomicity(TestCase):
+    """
+    Test that _publish_revision() is atomic — a failed publish must not
+    wipe approved_go_live_at from an existing scheduled revision.
+    """
+
+    fixtures = ["test.json"]
+
+    def _schedule_page(self, page, go_live_at):
+        """
+        Helper: save a revision with a future go_live_at and publish it
+        so that the revision gets approved_go_live_at set (i.e. scheduled).
+        Returns the scheduled revision.
+        """
+        page.go_live_at = go_live_at
+        revision = page.save_revision()
+        revision.publish()
+        return revision
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_failed_immediate_publish_preserves_scheduled_revision(self):
+        """
+        When a page has a scheduled revision and we attempt an immediate
+        publish that fails (e.g. due to a ValidationError in save()),
+        the existing scheduled revision's approved_go_live_at must not
+        be cleared.
+        """
+        page = SimplePage.objects.get(url_path="/home/about-us/")
+        go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc)
+
+        # Schedule a revision for a future date.
+        scheduled_revision = self._schedule_page(page, go_live_at)
+        scheduled_revision.refresh_from_db()
+        self.assertEqual(scheduled_revision.approved_go_live_at, go_live_at)
+
+        # Now create a new revision with no go_live_at (immediate publish)
+        # and force save() to fail.
+        page.refresh_from_db()
+        page.go_live_at = None
+        new_revision = page.save_revision()
+
+        with mock.patch.object(
+            SimplePage, "save", side_effect=ValidationError("simulated failure")
+        ):
+            with self.assertRaises(ValidationError):
+                new_revision.publish()
+
+        # The scheduled revision must still have its approved_go_live_at.
+        scheduled_revision.refresh_from_db()
+        self.assertEqual(
+            scheduled_revision.approved_go_live_at,
+            go_live_at,
+            "Scheduled revision's approved_go_live_at was cleared by a failed publish",
+        )
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_failed_publish_preserves_page_state(self):
+        """
+        When publish fails, the page's live/has_unpublished_changes flags
+        must remain unchanged.
+        """
+        page = SimplePage.objects.get(url_path="/home/about-us/")
+        go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc)
+
+        self._schedule_page(page, go_live_at)
+        page.refresh_from_db()
+        live_before = page.live
+        has_unpublished_before = page.has_unpublished_changes
+
+        # Attempt immediate publish that fails.
+        page.go_live_at = None
+        new_revision = page.save_revision()
+
+        with mock.patch.object(
+            SimplePage, "save", side_effect=ValidationError("simulated failure")
+        ):
+            with self.assertRaises(ValidationError):
+                new_revision.publish()
+
+        page.refresh_from_db()
+        self.assertEqual(page.live, live_before)
+        self.assertEqual(page.has_unpublished_changes, has_unpublished_before)
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_failed_publish_with_slug_conflict_preserves_scheduled_revision(self):
+        """
+        A real-world scenario: a slug conflict that arises between
+        save_revision() and publish() should not destroy a scheduled
+        revision.
+        """
+        homepage = Page.objects.get(url_path="/home/")
+        page = SimplePage.objects.get(url_path="/home/about-us/")
+        go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc)
+
+        # Schedule a revision.
+        scheduled_revision = self._schedule_page(page, go_live_at)
+        scheduled_revision.refresh_from_db()
+        self.assertIsNotNone(scheduled_revision.approved_go_live_at)
+
+        # Save a new revision for immediate publish (no go_live_at).
+        page.refresh_from_db()
+        page.go_live_at = None
+        new_revision = page.save_revision()
+
+        # Introduce a slug conflict AFTER the revision was saved:
+        # 1) Create a sibling with the target slug.
+        homepage.add_child(
+            instance=SimplePage(title="Conflict", slug="conflict-slug", content="x")
+        )
+        # 2) Modify the revision's stored content to use the conflicting slug.
+        content = new_revision.content
+        content["slug"] = "conflict-slug"
+        new_revision.content = content
+        new_revision.save(update_fields=["content"])
+
+        # Publishing should fail due to the slug conflict detected in
+        # Page.save() -> full_clean() -> _check_slug_is_unique().
+        with self.assertRaises(ValidationError):
+            new_revision.publish()
+
+        # The scheduled revision must still be intact.
+        scheduled_revision.refresh_from_db()
+        self.assertEqual(
+            scheduled_revision.approved_go_live_at,
+            go_live_at,
+            "Slug conflict during publish destroyed the scheduled revision",
+        )
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_successful_publish_clears_scheduled_revision(self):
+        """
+        Sanity check: a successful immediate publish SHOULD clear
+        approved_go_live_at from all revisions.
+        """
+        page = SimplePage.objects.get(url_path="/home/about-us/")
+        go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc)
+
+        scheduled_revision = self._schedule_page(page, go_live_at)
+        scheduled_revision.refresh_from_db()
+        self.assertIsNotNone(scheduled_revision.approved_go_live_at)
+
+        # Publish immediately (no go_live_at) — this should succeed.
+        page.refresh_from_db()
+        page.go_live_at = None
+        new_revision = page.save_revision()
+        new_revision.publish()
+
+        # After a successful publish, the old schedule should be cleared.
+        scheduled_revision.refresh_from_db()
+        self.assertIsNone(scheduled_revision.approved_go_live_at)
+        page.refresh_from_db()
+        self.assertTrue(page.live)
 
 
 class TestPageGetSpecific(TestCase):
