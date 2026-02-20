@@ -62,11 +62,20 @@ class FieldBlock(Block):
     def value_omitted_from_data(self, data, files, prefix):
         return self.field.widget.value_omitted_from_data(data, files, prefix)
 
+    def defer_required_validation(self):
+        super().defer_required_validation()
+        self._original_required = self.required
+        self.field.required = False
+
     def clean(self, value):
         # We need an annoying value_for_form -> value_from_form round trip here to account for
         # the possibility that the form field is set up to validate a different value type to
         # the one this block works with natively
         return self.value_from_form(self.field.clean(self.value_for_form(value)))
+
+    def restore_deferred_validation(self):
+        super().restore_deferred_validation()
+        self.field.required = self._original_required
 
     @property
     def required(self):

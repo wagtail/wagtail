@@ -99,6 +99,7 @@ class Block(metaclass=BaseBlock):
         Block.definition_registry[self.definition_prefix] = self
 
         self.label = self.meta.label or ""
+        self.is_deferred_validation = False
 
     @classmethod
     def construct_from_lookup(cls, lookup, *args, **kwargs):
@@ -167,6 +168,9 @@ class Block(metaclass=BaseBlock):
         default = self._evaluate_callable(getattr(self.meta, "default", None))
         return self.normalize(default)
 
+    def defer_required_validation(self):
+        self.is_deferred_validation = True
+
     def clean(self, value):
         """
         Validate value and return a cleaned version of it, or throw a ValidationError if validation fails.
@@ -177,6 +181,16 @@ class Block(metaclass=BaseBlock):
         error_dict is unreliable because Django tends to hack around with these when nested.)
         """
         return value
+
+    def restore_deferred_validation(self):
+        self.is_deferred_validation = False
+
+    def clean_deferred(self, value):
+        self.defer_required_validation()
+        try:
+            return self.clean(value)
+        finally:
+            self.restore_deferred_validation()
 
     def normalize(self, value):
         """
@@ -755,20 +769,14 @@ class BlockField(forms.Field):
         super().__init__(**kwargs)
 
     def clean(self, value):
-        from wagtail.blocks.stream_block import StreamBlock
-
-        if isinstance(self.block, StreamBlock):
-            # StreamBlock is the only block type that is formally-supported as the top level block
-            # of a BlockField, but it's possible that other block types could be used, so check
-            # this explicitly.
-            # self.block has a `required` attribute that is consistent with the StreamField's `blank`
-            # attribute and thus the `required` attribute of BlockField - but if the latter has been
-            # assigned dynamically (e.g. by defer_required_fields) we want this to take precedence.
-            # We do this through the `ignore_required_constraints` flag recognised by
-            # StreamBlock.clean.
-            return self.block.clean(
-                value, ignore_required_constraints=not self.required
-            )
+        # During deferred validation, form fields (including BlockField) have an
+        # is_deferred_validation attribute set to True. Use this to determine
+        # whether to call the block's clean_deferred method (which will perform any
+        # necessary setup/teardown for deferred validation, and then call clean)
+        # or to call clean directly.
+        is_deferred_validation = getattr(self, "is_deferred_validation", False)
+        if is_deferred_validation:
+            return self.block.clean_deferred(value)
         else:
             return self.block.clean(value)
 
