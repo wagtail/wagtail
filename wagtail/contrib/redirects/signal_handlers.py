@@ -26,7 +26,7 @@ class BatchRedirectCreator(BatchCreator):
         # with the items in `self.items`
         clashes_q = Q()
         for item in self.items:
-            clashes_q |= Q(old_path=item.old_path, site_id=item.site_id)
+            clashes_q |= Q(hash=item.hash, site_id=item.site_id)
         Redirect.objects.filter(automatically_created=True).filter(clashes_q).delete()
 
     def post_process(self):
@@ -158,8 +158,10 @@ def create_redirects(page: Page, page_old: Page, sites: Iterable[Site]) -> None:
     # Add redirects for urls that have changed
     changed_urls = old_urls - new_urls
     for site, old_path, route_path in changed_urls:
+        redirect_hash = Redirect.get_redirect_hash(old_path)
         batch.add(
             old_path=old_path,
+            hash=redirect_hash,
             site=site,
             redirect_page=page,
             redirect_page_route_path=route_path,
@@ -184,8 +186,10 @@ def create_redirects(page: Page, page_old: Page, sites: Iterable[Site]) -> None:
         # Add redirects for urls that have changed
         changed_urls = old_urls - new_urls
         for site, old_path, route_path in changed_urls:
+            redirect_hash = Redirect.get_redirect_hash(old_path)
             batch.add(
                 old_path=old_path,
+                hash=redirect_hash,
                 site=site,
                 redirect_page=descendant,
                 redirect_page_route_path=route_path,
