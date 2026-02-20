@@ -1,6 +1,6 @@
 from django.core import mail
 from django.core.exceptions import ValidationError
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import (
@@ -9,6 +9,7 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page_with_redirect,
     make_types_test_form_page,
 )
+from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
@@ -868,7 +869,7 @@ class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
             field_type="number",
         )
 
-        self.assertEqual(field.clean_name, "telefon_nummer")
+        self.assertEqual(field.clean_name, "telefón_nummer")
 
 
 class TestFormFieldCleanNameCreationOverride(WagtailTestUtils, TestCase):
@@ -900,4 +901,81 @@ class TestFormFieldCleanNameCreationOverride(WagtailTestUtils, TestCase):
             required=True,
         )
 
-        self.assertEqual(field.clean_name, "number_field--quanti_gelato")
+        self.assertEqual(field.clean_name, "number_field--quanti_gelàto")
+
+
+class TestFormFieldCleanNameTruncate(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.login(username="siteeditor", password="password")
+        self.form_page = Page.objects.get(
+            url_path="/home/contact-us-one-more-time/"
+        ).specific
+
+    def test_labels_get_unique_clean_name(self):
+        """Duplicate clean_name should get unqiue suffix counter"""
+        label = "some text"
+
+        field1 = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label=label,
+            field_type="singleline",
+            required=True,
+        )
+        field2 = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label=label,
+            field_type="singleline",
+            required=True,
+        )
+
+        self.assertNotEqual(field1.clean_name, field2.clean_name)
+        self.assertEqual(field1.clean_name, "some_text")
+        self.assertTrue(field2.clean_name.startswith("some_text_"))
+
+    def test_long_unicode_label_can_be_saved(self):
+        """Long unicode labels should be truncated to 64 characters to avoid DataError"""
+        label = "نهائي كأس العالم لكرة القدم 2010 أقيم في يوم 11 يوليو 2010 على ملعب ستاد البنك الوطني الأول بجوهانسبرغ في جنوب أفريقيا، وجمع النهائي بين هولندا وإسبانيا حيث فازت أسبانيا بهدف وحيد سجله أندريس إنييستا قبل"
+
+        field = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label=label,
+            field_type="singleline",
+            required=True,
+        )
+        self.assertLessEqual(len(field.clean_name), 64)
+
+    def test_long_unicode_label_get_unique_clean_name(self):
+        """Long unicode labels should get unique suffix counter"""
+        label = "نهائي كأس العالم لكرة القدم 2010 أقيم في يوم 11 يوليو 2010 على ملعب ستاد البنك الوطني الأول بجوهانسبرغ في جنوب أفريقيا، وجمع النهائي بين هولندا وإسبانيا حيث فازت أسبانيا بهدف وحيد سجله أندريس إنييستا قبل"
+
+        field1 = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label=label,
+            field_type="singleline",
+            required=True,
+        )
+        field2 = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label=label,
+            field_type="singleline",
+            required=True,
+        )
+
+        self.assertLessEqual(len(field1.clean_name), 64)
+        self.assertLessEqual(len(field2.clean_name), 64)
+        self.assertNotEqual(field1.clean_name, field2.clean_name)
+        self.assertTrue(field2.clean_name.endswith("_1"))
+
+
+class TestCleanNameUtils(SimpleTestCase):
+    def test_unicode_preserved_and_truncated(self):
+        label = "نهائي كأس العالم لكرة القدم 2010 أقيم في يوم 11 يوليو 2010"
+        name = get_field_clean_name(label)
+
+        self.assertIn("يوليو", name)
+        self.assertLessEqual(len(name), 64)
+
+    def test_empty_label_fallback(self):
+        self.assertEqual(get_field_clean_name("🔥🔥🔥"), "field_name")

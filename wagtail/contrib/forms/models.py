@@ -154,8 +154,21 @@ class AbstractFormField(Orderable):
 
         is_new = self.pk is None
         if is_new:
-            clean_name = self.get_field_clean_name()
-            self.clean_name = clean_name
+            base_name = self.get_field_clean_name()
+            self.clean_name = base_name
+
+            existing_names = set(
+                self.__class__.objects.filter(page_id=self.page_id).values_list(
+                    "clean_name", flat=True
+                )
+            )
+
+            MAXLEN = 64
+            counter = 1
+            while self.clean_name in existing_names:
+                suffix = f"_{counter}"
+                self.clean_name = base_name[: MAXLEN - len(suffix)].rstrip("_") + suffix
+                counter += 1
 
         super().save(*args, **kwargs)
 
