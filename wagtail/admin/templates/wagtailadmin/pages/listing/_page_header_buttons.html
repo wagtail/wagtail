@@ -2,7 +2,7 @@
 
 {% trans "Actions" as title %}
 <nav aria-label="{{ title }}">
-    {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=title toggle_classname="w-p-0 w-outline-offset-inside w-relative w-z-30" toggle_tooltip_offset="[0, -2]" %}
+    {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=title toggle_classname="w-p-0 w-outline-offset-inside w-relative w-z-30" toggle_tooltip_offset="[0, -2]" attrs=attrs %}
         {% block content %}
             {% for button in buttons %}
                 {% component button %}
