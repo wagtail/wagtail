@@ -111,7 +111,7 @@ def _get_page_cached_urls(page, cache_object=None):
         return []
 
     return [
-        page_url + path.lstrip("/")
+        (page_url.rstrip("/") + "/" + path.lstrip("/")) if path != "/" else page_url
         for path in page.specific_deferred.get_cached_paths()
     ]
 

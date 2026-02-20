@@ -851,3 +851,28 @@ class TestPurgeBatchClass(TestCase):
             "Couldn't purge 'http://localhost/events/' from Cloudflare. HTTPError: 500",
             log_output.output[0],
         )
+
+
+class TestGetPageCachedUrls(TestCase):
+    fixtures = ["test.json"]
+
+    @override_settings(WAGTAIL_APPEND_SLASH=False)
+    def test_get_page_cached_urls_without_append_slash(self):
+        page = EventIndex.objects.get(url_path="/home/events/")
+
+        # Mock get_full_url to simulate WAGTAIL_APPEND_SLASH=False behavior
+        # where the page URL does not have a trailing slash.
+        with mock.patch.object(
+            Page, "get_full_url", return_value="http://localhost/events"
+        ):
+            from .utils import _get_page_cached_urls
+
+            urls = _get_page_cached_urls(page)
+
+            # EventIndex.get_cached_paths returns ['/', '/past/']
+            # We expect ['http://localhost/events', 'http://localhost/events/past/']
+            self.assertIn("http://localhost/events", urls)
+            self.assertIn("http://localhost/events/past/", urls)
+
+            # Ensure we don't have malformed URLs like "http://localhost/eventspast/"
+            self.assertNotIn("http://localhost/eventspast/", urls)
