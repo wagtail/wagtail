@@ -62,6 +62,31 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         )
         self.assertContains(response, f'href="{expected_new_page_copy_url}"')
 
+    def test_search_specific_queryset_with_fields(self):
+        root_page = Page.objects.get(id=2)
+
+        page = root_page.add_child(
+            instance=SimplePage(
+                title="Bread title",
+                slug="bread-page",
+                content="Nothing here",
+                seo_title="Special SEO",
+                search_description="Delicious bread description",
+                live=True,
+            )
+        )
+
+        results = list(Page.objects.specific().search("Bread", fields=["title"]))
+        self.assertIn(page, results)
+
+        results = list(Page.objects.specific().search("Special", fields=["seo_title"]))
+        self.assertIn(page, results)
+
+        results = list(
+            Page.objects.specific().search("Delicious", fields=["search_description"])
+        )
+        self.assertIn(page, results)
+
     def test_search_searchable_fields(self):
         # Find root page
         root_page = Page.objects.get(id=2)
