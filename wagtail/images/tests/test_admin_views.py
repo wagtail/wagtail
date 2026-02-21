@@ -2327,6 +2327,22 @@ class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], image)
 
+    def test_search_by_description(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+            description="orange flowers in a garden",
+        )
+        Image.objects.create(
+            title="Another image",
+            file=get_test_image_file(),
+            description="blue sky over mountains",
+        )
+
+        response = self.get({"q": "orange flowers"})
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], image)
+
 
 class TestImageChooserChosenView(WagtailTestUtils, TestCase):
     def setUp(self):
