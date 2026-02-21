@@ -1,15 +1,17 @@
 from django.db import migrations
-
+from django.db.models import OuterRef, Subquery
 
 def populate_latest_revision_created_at(apps, schema_editor):
     Page = apps.get_model("wagtailcore.Page")
+    PageRevision = apps.get_model("wagtailcore.PageRevision")
 
-    for page in Page.objects.all():
-        latest_revision = page.revisions.order_by("-created_at").first()
-
-        if latest_revision is not None:
-            page.latest_revision_created_at = latest_revision.created_at
-            page.save(update_fields=["latest_revision_created_at"])
+    Page.objects.update(
+        latest_revision_created_at=Subquery(
+            PageRevision.objects.filter(page=OuterRef("pk"))
+            .order_by("-created_at")
+            .values("created_at")[:1]
+        )
+    )
 
 
 class Migration(migrations.Migration):
