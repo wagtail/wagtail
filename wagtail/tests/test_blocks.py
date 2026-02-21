@@ -4182,6 +4182,26 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         html = value[0].render_as_block(context={"language": "fr"})
         self.assertEqual('<h1 lang="fr">Bonjour</h1>', html)
 
+    def test_stream_child_has_block_id_in_context(self):
+        block = blocks.StreamBlock(
+            [
+                (
+                    "heading",
+                    blocks.CharBlock(
+                        template="tests/blocks/heading_with_id_block.html"
+                    ),
+                ),
+            ]
+        )
+        import uuid
+
+        test_id = str(uuid.uuid4())
+        value = block.to_python([{"type": "heading", "value": "Hello", "id": test_id}])
+        html = value[0].render_as_block()
+        # Check that block_id is present and matches the input id
+        self.assertIn(f'id="{test_id}"', html)
+        self.assertIn('">Hello</h1>', html)
+
     def test_adapt(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
