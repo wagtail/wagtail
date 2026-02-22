@@ -63,7 +63,7 @@
                                         </span>
                                     {% endif %}
                                 {% endfragment %}
-                                {% if item.url is not None %}
+                                {% if item.url is not None and not forloop.last %}
                                     <a class="{{ breadcrumb_link_classes }}" href="{{ item.url }}">
                                         {{ icon }}
                                         {{ item.label }}
