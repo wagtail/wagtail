@@ -33,7 +33,7 @@ describe('OrderableController', () => {
       id="orderable"
       data-controller="w-orderable"
       data-w-orderable-active-class="is-active"
-      data-w-orderable-message-value="'__LABEL__' has been updated!"
+      data-w-orderable-messages-value='{"success":"&apos;__LABEL__&apos; has been updated!","error":"Failed to reorder items. Please try again."}'
       data-w-orderable-url-value="/base/url/999999"
     >
       <li id="item-73" data-w-orderable-target="item" data-w-orderable-item-id="73" data-w-orderable-item-label="Beef">

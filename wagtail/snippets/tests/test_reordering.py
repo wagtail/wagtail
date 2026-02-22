@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
@@ -56,9 +58,14 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
         table = soup.select_one("main table")
         self.assertIsNotNone(table)
         self.assertEqual(table.get("data-controller"), "w-orderable")
+        messages = json.loads(table.get("data-w-orderable-messages-value"))
         self.assertEqual(
-            table.get("data-w-orderable-message-value"),
-            "'__LABEL__' has been moved successfully.",
+            messages["success"],
+            "'__LABEL__' has been updated!",
+        )
+        self.assertEqual(
+            messages["error"],
+            "Failed to reorder items. Please try again.",
         )
         self.assertEqual(
             table.get("data-w-orderable-url-value"),

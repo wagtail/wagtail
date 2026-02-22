@@ -30,7 +30,7 @@ export class OrderableController extends Controller<HTMLElement> {
   static values = {
     animation: { default: 200, type: Number },
     container: { default: '', type: String },
-    message: { default: '', type: String },
+    messages: { default: {}, type: Object },
     url: String,
   };
 
@@ -45,13 +45,14 @@ export class OrderableController extends Controller<HTMLElement> {
   declare readonly hasChosenClass: boolean;
   declare readonly hasDragClass: boolean;
   declare readonly hasGhostClass: boolean;
+  declare readonly hasMessagesValue: boolean;
 
   /** Transition animation duration for re-ordering. */
   declare animationValue: number;
   /** A selector to determine the container that will be the parent of the orderable elements. */
   declare containerValue: string;
-  /** A translated message template for when the update is successful, replaces `__LABEL__` with item's title. */
-  declare messageValue: string;
+  /** Object containing success and error messages. */
+  declare messagesValue: { success: string; error: string };
   /** Base URL template to use for submitting an updated order for a specific item. */
   declare urlValue: string;
 
@@ -112,6 +113,19 @@ export class OrderableController extends Controller<HTMLElement> {
       id: item.getAttribute(`data-${identifier}-item-id`) || '',
       label: item.getAttribute(`data-${identifier}-item-label`) || '',
     };
+  }
+
+  /**
+   * Get a message by key, with optional label replacement.
+   */
+  getMessage(
+    key: string,
+    { label = '', placeholder = '__LABEL__' } = {},
+  ): string {
+    return (
+      this.messagesValue[key]?.replace(placeholder, label) ||
+      (key === 'success' ? label : '')
+    );
   }
 
   /**
@@ -184,10 +198,10 @@ export class OrderableController extends Controller<HTMLElement> {
       url += '?position=' + newIndex;
     }
 
-    const message = (this.messageValue || '__LABEL__').replace(
-      '__LABEL__',
-      label,
-    );
+    const successTemplate = this.messagesValue?.success;
+    const successMessage = successTemplate
+      ? successTemplate.replace('__LABEL__', label || 'item')
+      : null;
 
     fetch(url, {
       method: 'POST',
@@ -197,19 +211,38 @@ export class OrderableController extends Controller<HTMLElement> {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          const error = new Error(`HTTP error! Status: ${response.status}`);
+          (error as any).status = response.status;
+          throw error;
         }
       })
       .then(() => {
-        this.dispatch('w-messages:add', {
-          prefix: '',
-          target: window.document,
-          detail: { clear: true, text: message, type: 'success' },
-          cancelable: false,
-        });
+        if (successMessage) {
+          this.dispatch('w-messages:add', {
+            prefix: '',
+            target: window.document,
+            detail: { clear: true, text: successMessage, type: 'success' },
+            cancelable: false,
+          });
+        }
       })
-      .catch((error) => {
-        throw error;
+      .catch(() => {
+        if (this.messagesValue?.error) {
+          const errorMessage = this.messagesValue.error;
+
+          this.dispatch('w-messages:add', {
+            prefix: '',
+            target: window.document,
+            detail: {
+              clear: true,
+              text: errorMessage,
+              type: 'error',
+            },
+            cancelable: false,
+          });
+        }
+
+        this.sortable.sort(this.order, true);
       });
   }
 
