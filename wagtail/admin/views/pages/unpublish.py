@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.db.models import Q
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -80,17 +81,28 @@ class Unpublish(UnpublishView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        translations = self.objects_to_unpublish[1:]
+        if translations:
+            descendants_q = Q()
+            for p in translations:
+                # Treebeard paths match `path__startswith` and children have `depth > current`
+                descendants_q |= Q(path__startswith=p.path) & Q(depth__gt=p.depth)
+                
+            translation_descendant_count = self.object.__class__.objects.filter(
+                descendants_q,
+                alias_of__isnull=True,
+                live=True
+            ).count()
+        else:
+            translation_descendant_count = 0
+
         context.update(
             {
                 "page": self.object,
                 "live_descendant_count": self.object.get_descendants().live().count(),
-                "translation_count": len(self.objects_to_unpublish[1:]),
-                "translation_descendant_count": sum(
-                    [
-                        p.get_descendants().filter(alias_of__isnull=True).live().count()
-                        for p in self.objects_to_unpublish[1:]
-                    ]
-                ),
+                "translation_count": len(translations),
+                "translation_descendant_count": translation_descendant_count,
             }
         )
         return context
