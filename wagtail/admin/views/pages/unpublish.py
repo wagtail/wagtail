@@ -81,18 +81,16 @@ class Unpublish(UnpublishView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         translations = self.objects_to_unpublish[1:]
         if translations:
             descendants_q = Q()
             for p in translations:
                 # Treebeard paths match `path__startswith` and children have `depth > current`
                 descendants_q |= Q(path__startswith=p.path) & Q(depth__gt=p.depth)
-                
+
             translation_descendant_count = Page.objects.filter(
-                descendants_q,
-                alias_of__isnull=True,
-                live=True
+                descendants_q, alias_of__isnull=True, live=True
             ).count()
         else:
             translation_descendant_count = 0
