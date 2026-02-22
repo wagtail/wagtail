@@ -38,8 +38,11 @@ class AdminTemplateTestUtils:
             f"Expected {num_items - 1} arrows to be rendered, found {num_arrows}",
         )
 
-        for item, rendered_item in zip(items, rendered_items):
-            if item.get("url") is not None:
+        for i, (item, rendered_item) in enumerate(zip(items, rendered_items)):
+            is_last = (i == len(items) - 1)
+            
+            # If it's the last item, fix's renders it as a <div> instead of an <a>
+            if item.get("url") is not None and not is_last:
                 element = rendered_item.select_one("a")
                 self.assertIsNotNone(
                     element,
