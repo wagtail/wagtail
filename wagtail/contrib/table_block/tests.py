@@ -93,6 +93,49 @@ class TestTableBlock(TestCase):
         self.assertHTMLEqual(result, expected)
         self.assertIn("Test 2", result)
 
+    def test_table_block_classname_escaping(self):
+        value = {
+            "first_row_is_table_header": True,
+            "first_col_is_header": True,
+            "cell": [
+                {
+                    "row": 0,
+                    "col": 1,
+                    "className": 'x" onmouseover="alert(1337)" data-pwn="1',
+                },
+                {
+                    "row": 1,
+                    "col": 0,
+                    "className": 'x" onmouseover="alert(1337)" data-pwn="1',
+                },
+                {
+                    "row": 1,
+                    "col": 1,
+                    "className": 'x" onmouseover="alert(1337)" data-pwn="1',
+                },
+            ],
+            "data": [
+                ["Col 1", "Col 2", "Col 3"],
+                ["Row 1", "a", "b"],
+                ["Row 2", "c", "d"],
+            ],
+        }
+        block = TableBlock()
+        result = block.render(value)
+        expected = """
+            <table>
+                <thead>
+                    <tr><th scope="col">Col 1</th><th scope="col" class="x&quot; onmouseover=&quot;alert(1337)&quot; data-pwn=&quot;1">Col 2</th><th scope="col">Col 3</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row" class="x&quot; onmouseover=&quot;alert(1337)&quot; data-pwn=&quot;1">Row 1</th><td class="x&quot; onmouseover=&quot;alert(1337)&quot; data-pwn=&quot;1">a</td><td>b</td></tr>
+                    <tr><th scope="row">Row 2</th><td>c</td><td>d</td></tr>
+                </tbody>
+            </table>
+        """
+
+        self.assertHTMLEqual(result, expected)
+
     def test_render_empty_table(self):
         """
         An empty table should render okay.
