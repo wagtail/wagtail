@@ -46,7 +46,7 @@ permissions:
 jobs:
   test-sqlite:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     strategy:
       matrix:
         include:
@@ -90,7 +90,7 @@ jobs:
 
   test-postgres:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
@@ -182,7 +182,7 @@ jobs:
 
   test-mysql:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
@@ -252,7 +252,7 @@ jobs:
 
   test-sqlite-elasticsearch8:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     strategy:
       matrix:
         include:
@@ -304,7 +304,7 @@ jobs:
 
   test-postgres-elasticsearch7:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
@@ -369,7 +369,7 @@ jobs:
 
   test-sqlite-opensearch2:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:

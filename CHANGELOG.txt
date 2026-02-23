@@ -35,6 +35,7 @@ Changelog
  * Maintenance: Fix `PermissionError` on document serve tests under Windows (Matt Westcott)
  * Maintenance: Update JavaScript linting to ESLint 9, with updated linting rules and related fixes (Sage Abdullah)
  * Maintenance: Replace Puppeteer with Playwright for integration tests (Sage Abdullah)
+ * Maintenance: Add explicit `timeout-minutes` to GitHub Actions workflow jobs (Ashutosh)
 
 
 7.3.1 (xx.xx.xxxx) - IN DEVELOPMENT
