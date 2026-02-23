@@ -100,6 +100,10 @@ class Block(metaclass=BaseBlock):
 
         self.label = self.meta.label or ""
         self.is_deferred_validation = False
+        """
+        Indicates whether this block is currently in a state where any validation
+        that is not required for saving a draft should be deferred.
+        """
 
     @classmethod
     def construct_from_lookup(cls, lookup, *args, **kwargs):
@@ -169,6 +173,15 @@ class Block(metaclass=BaseBlock):
         return self.normalize(default)
 
     def defer_required_validation(self):
+        """
+        Defer any validation that is not required when saving a draft, such as by
+        setting ``required = False`` on child blocks. The corresponding restoration
+        logic should be implemented in :meth:`restore_deferred_validation`.
+
+        Subclasses that implement this method should also call
+        ``super().defer_required_validation()``, to ensure the parent's deferred
+        validation logic is also applied.
+        """
         self.is_deferred_validation = True
 
     def clean(self, value):
@@ -179,13 +192,37 @@ class Block(metaclass=BaseBlock):
         rendering, such as identifying the specific child block(s) with errors, in the case of nested
         blocks. (It is suggested that you use the 'params' attribute for this; using error_list /
         error_dict is unreliable because Django tends to hack around with these when nested.)
+
+        To determine whether to defer any validation that is not required for saving a
+        draft, the :attr:`is_deferred_validation` attribute can be checked.
+
+        For more details on how to implement custom validation logic, refer to
+        :ref:`streamfield_validation`.
         """
         return value
 
     def restore_deferred_validation(self):
+        """
+        Restore any validation that was deferred by :meth:`defer_required_validation`.
+
+        Subclasses that implement this method should also call
+        ``super().restore_deferred_validation()``, to ensure the parent's deferred
+        validation logic is also restored.
+        """
         self.is_deferred_validation = False
 
     def clean_deferred(self, value):
+        """
+        Wraps :meth:`clean` with :meth:`defer_required_validation` and
+        :meth:`restore_deferred_validation`, so that any validation that is not
+        required for saving a draft can be deferred.
+
+        This is only called on the top-level block of a StreamField (which is
+        typically a StreamBlock). Instead of calling ``clean_deferred`` on child
+        blocks, the defer/restore logic should be propagated to child blocks, which
+        means the child blocks' ``clean()`` methods will be called with the deferred
+        validation in place.
+        """
         self.defer_required_validation()
         try:
             return self.clean(value)

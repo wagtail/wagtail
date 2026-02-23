@@ -337,6 +337,8 @@ class EventPage(Page):
     base_form_class = EventPageForm
 ```
 
+For customizing deferred validation in StreamField blocks, refer to [](streamfield_validation).
+
 (custom_page_copy_form)=
 
 ## Customizing the generated copy page form
