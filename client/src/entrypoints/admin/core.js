@@ -2,6 +2,7 @@ import * as StimulusModule from '@hotwired/stimulus';
 import Telepath from 'telepath-unpack';
 
 import { Icon, Portal } from '../..';
+import { Widget, BoundWidget } from '../../components/Widget';
 import { ExpandingFormset } from '../../components/ExpandingFormset';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
@@ -33,6 +34,9 @@ wagtail.app = initStimulus({ definitions: coreControllerDefinitions });
 
 /** Expose components as globals for third-party reuse. */
 wagtail.components = { Icon, Portal };
+
+/** Expose vanilla JavaScript widget classes for third-party reuse. */
+wagtail.widgets = { Widget, BoundWidget };
 
 /** Expose a global for undocumented third-party usage. */
 window.wagtailConfig = WAGTAIL_CONFIG;

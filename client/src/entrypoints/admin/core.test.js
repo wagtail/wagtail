@@ -18,6 +18,13 @@ describe('core', () => {
     expect(Object.keys(window.wagtail.components)).toEqual(['Icon', 'Portal']);
   });
 
+  it('exposes widget classes for reuse', () => {
+    expect(Object.keys(window.wagtail.widgets)).toEqual([
+      'Widget',
+      'BoundWidget',
+    ]);
+  });
+
   it('exposes the Stimulus module for reuse', () => {
     expect(Object.keys(window.StimulusModule)).toEqual(
       expect.arrayContaining(['Application', 'Controller']),
