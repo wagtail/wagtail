@@ -2015,11 +2015,12 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
+        # as well as cancel workflow
         self.login(self.moderator)
         response = self.client.get(edit_url)
         self.assertContains(response, "Save draft")
+        self.assertContains(response, "Cancel workflow")
         self.assertNotContains(response, "Submit to test_workflow")
-        self.assertNotContains(response, "Cancel workflow")
         self.assertNotContains(response, "Restart workflow")
         self.assertContains(response, "Approve")
         self.assertContains(response, "Request changes")
@@ -2411,11 +2412,12 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
+        # as well as cancel workflow
         self.login(self.moderator)
         response = self.client.get(edit_url)
         self.assertContains(response, "Save draft")
+        self.assertContains(response, "Cancel workflow")
         self.assertNotContains(response, "Submit to test_workflow")
-        self.assertNotContains(response, "Cancel workflow")
         self.assertNotContains(response, "Restart workflow")
         self.assertContains(response, "Approve")
         self.assertContains(response, "Request changes")
