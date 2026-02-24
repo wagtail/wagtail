@@ -2,7 +2,6 @@ from collections import OrderedDict
 from functools import cached_property
 
 from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import views as auth_views
 from django.db import transaction
@@ -19,6 +18,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateView
 
 from wagtail import hooks
+from wagtail.admin import messages
 from wagtail.admin.forms.account import (
     AvatarPreferencesForm,
     LocalePreferencesForm,
