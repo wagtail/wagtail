@@ -1,8 +1,8 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import ComboBox from './ComboBox';
 import Icon from '../Icon/Icon';
+import ComboBox from './ComboBox';
 
 const testProps = {
   label: 'Search options…',

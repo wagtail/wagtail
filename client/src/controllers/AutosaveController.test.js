@@ -3,8 +3,8 @@ import { Application } from '@hotwired/stimulus';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import {
   AutosaveController,
-  HydrationError,
   ClientErrorCode,
+  HydrationError,
 } from './AutosaveController';
 
 jest.useFakeTimers();

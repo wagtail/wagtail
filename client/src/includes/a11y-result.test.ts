@@ -1,11 +1,11 @@
 import axe, { AxeResults, Spec } from 'axe-core';
 import {
-  sortAxeViolations,
   WagtailAxeConfiguration,
   addCustomChecks,
   checkImageAltText,
   getA11yReport,
   registerCustomCheck,
+  sortAxeViolations,
 } from './a11y-result';
 
 const mockDocument = `
@@ -102,7 +102,9 @@ describe('registerCustomCheck', () => {
       checks: [{ id: 'my-custom-check' }],
     };
     const modifiedSpec = addCustomChecks(spec);
-    const check = modifiedSpec.checks!.find((c) => c.id === 'my-custom-check');
+    const check = modifiedSpec.checks!.find(
+      (ck) => ck.id === 'my-custom-check',
+    );
     expect(check!.evaluate).toBe(mockEvaluate);
   });
 });

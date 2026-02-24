@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`TeleportController mode value appends nodes when mode is beforeend 1`] = `
 "<body data-script-ran="true">

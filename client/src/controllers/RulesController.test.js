@@ -1,6 +1,6 @@
 import { Application } from '@hotwired/stimulus';
-import { RulesController } from './RulesController';
 import { escapeHtml } from '../utils/text';
+import { RulesController } from './RulesController';
 
 jest.useFakeTimers();
 

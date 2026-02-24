@@ -1,9 +1,9 @@
 import {
-  Link,
   Icon,
-  PublicationStatus,
+  Link,
   LoadingSpinner,
   Portal,
+  PublicationStatus,
   Transition,
 } from './index';
 

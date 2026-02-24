@@ -1,29 +1,29 @@
+import type { ContextObject } from 'axe-core';
+import type { ProgressController } from './ProgressController';
+import { Controller } from '@hotwired/stimulus';
 import axe from 'axe-core';
 
-import { Controller } from '@hotwired/stimulus';
-import type { ContextObject } from 'axe-core';
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import {
-  getAxeConfiguration,
-  getA11yReport,
-  renderA11yResults,
   WagtailAxeConfiguration,
   addCustomChecks,
+  getA11yReport,
+  getAxeConfiguration,
+  renderA11yResults,
 } from '../includes/a11y-result';
-import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import {
   ContentExtractorOptions,
-  getPreviewContent,
-  getReadingTime,
   getLIXScore,
+  getPreviewContent,
   getReadabilityScore,
+  getReadingTime,
   getWordCount,
   renderContentMetrics,
 } from '../includes/contentMetrics';
-import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { wagtailPreviewPlugin } from '../includes/previewPlugin';
+import { DebouncibleFunction, debounce } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
-import type { ProgressController } from './ProgressController';
 import { GetScrollPosition, getWagtailMessage } from '../utils/message';
-import { debounce, DebouncibleFunction } from '../utils/debounce';
 
 interface PreviewDataResponse {
   is_valid: boolean;
