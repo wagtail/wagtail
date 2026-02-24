@@ -179,8 +179,24 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         )
 
         self.assertIn(
-            "The page 'Blog' was successfully created in German",
-            [msg.message for msg in response.context["messages"]],
+            "The page &#x27;Blog&#x27; was successfully created in German",
+            [msg.message.strip() for msg in response.context["messages"]],
+        )
+
+    def test_submit_page_translation_view_escapes_title_in_confirmation_message(self):
+        self.en_blog_index.title = "<img src=x onerror=alert(4242)>"
+        self.en_blog_index.draft_title = self.en_blog_index.title
+        self.en_blog_index.save()
+        url = reverse(
+            "simple_translation:submit_page_translation", args=(self.en_blog_index.id,)
+        )
+        de = Locale.objects.get(language_code="de").id
+        data = {"locales": [de], "include_subtree": True}
+        self.login()
+        response = self.client.post(url, data, follow=True)
+        self.assertContains(
+            response,
+            "The page &#x27;&lt;img src=x onerror=alert(4242)&gt;&#x27; was successfully created in German",
         )
 
     def test_submit_page_translation_view_test_post_multiple_locales(self):
@@ -208,9 +224,29 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         assert response.url == f"/admin/pages/{self.en_blog_index.get_parent().id}/"
 
         response = self.client.get(response.url)  # follow the redirect
-        assert [msg.message for msg in response.context["messages"]] == [
-            "The page 'Blog' was successfully created in 2 locales"
+        assert [msg.message.strip() for msg in response.context["messages"]] == [
+            "The page &#x27;Blog&#x27; was successfully created in 2 locales"
         ]
+
+    def test_submit_page_translation_view_multiple_locales_escapes_title_in_confirmation_message(
+        self,
+    ):
+        self.en_blog_index.title = "<img src=x onerror=alert(4242)>"
+        self.en_blog_index.draft_title = self.en_blog_index.title
+        self.en_blog_index.save()
+
+        url = reverse(
+            "simple_translation:submit_page_translation", args=(self.en_blog_index.id,)
+        )
+        de = Locale.objects.get(language_code="de").id
+        fr = Locale.objects.get(language_code="fr").id
+        data = {"locales": [de, fr], "include_subtree": True}
+        self.login()
+        response = self.client.post(url, data, follow=True)
+        self.assertContains(
+            response,
+            "The page &#x27;&lt;img src=x onerror=alert(4242)&gt;&#x27; was successfully created in 2 locales",
+        )
 
 
 @override_settings(
@@ -359,7 +395,7 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
         translated_snippet = self.en_snippet.get_translation(self.de_locale.id)
         self.assertRedirects(response, self.get_snippet_url("edit", translated_snippet))
 
-        self.assertContains(response, "It's edited", count=1)
+        self.assertContains(response, "It&#x27;s edited")
         self.assertContains(response, '<h3 id="status-sidebar-german"', count=1)
         self.assertContains(
             response,
@@ -372,8 +408,24 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(
-            [msg.message for msg in response.context["messages"]],
-            ["Successfully created German for full-featured snippet 'It's edited'"],
+            [msg.message.strip() for msg in response.context["messages"]],
+            [
+                "Successfully created German for full-featured snippet &#x27;It&#x27;s edited&#x27;"
+            ],
+        )
+
+    def test_submit_snippet_translation_view_escapes_title_in_confirmation_message(
+        self,
+    ):
+        self.en_snippet.text = "<img src=x onerror=alert(4242)>"
+        self.en_snippet.save_revision()
+
+        data = {"locales": [self.de_locale.id], "include_subtree": True}
+        response = self.client.post(self.get_submit_url(), data, follow=True)
+
+        self.assertContains(
+            response,
+            "Successfully created German for full-featured snippet &#x27;&lt;img src=x onerror=alert(4242)&gt;&#x27;",
         )
 
     def test_submit_snippet_translation_view_test_post_multiple_locales(self):
@@ -387,8 +439,25 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
 
         response = self.client.get(response.url)  # follow the redirect
         self.assertEqual(
-            [msg.message for msg in response.context["messages"]],
-            ["Successfully created 2 locales for full-featured snippet 'It's edited'"],
+            [msg.message.strip() for msg in response.context["messages"]],
+            [
+                "Successfully created 2 locales for full-featured snippet &#x27;It&#x27;s edited&#x27;"
+            ],
+        )
+
+    def test_submit_snippet_translation_view_multiple_locales_escapes_title_in_confirmation_message(
+        self,
+    ):
+        self.en_snippet.text = "<img src=x onerror=alert(4242)>"
+        self.en_snippet.save_revision()
+
+        url = self.get_submit_url()
+        data = {"locales": [self.de_locale.id, self.fr_locale.id]}
+        response = self.client.post(url, data, follow=True)
+
+        self.assertContains(
+            response,
+            "Successfully created 2 locales for full-featured snippet &#x27;&lt;img src=x onerror=alert(4242)&gt;&#x27;",
         )
 
 
