@@ -1,5 +1,5 @@
 from django.contrib.admin.utils import quote
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
@@ -323,3 +323,65 @@ class TestProtectedBulkDeleteView(WagtailTestUtils, TestCase):
 
         # Check that the snippet is still here
         self.assertTrue(Advert.objects.filter(pk=protected.pk).exists())
+
+
+class TestSnippetBulkDeleteWithSitePermissionPolicy(WagtailTestUtils, TestCase):
+    def setUp(self):
+        from wagtail.models import GroupSitePermission, Site
+        from wagtail.test.testapp.models import SitePermissionSnippet
+
+        self.snippet_model = SitePermissionSnippet
+        self.site = Site.objects.first()
+
+        # Create test snippets
+        self.test_snippets = [
+            self.snippet_model.objects.create(site=self.site, text=f"Title-{i}")
+            for i in range(1, 4)
+        ]
+
+        # Create a user with only GroupSitePermission (no global permissions)
+        self.user = self.create_user(username="testuser", password="password")
+        self.user.groups.clear()
+
+        group = Group.objects.create(name="test_site_group")
+        self.user.groups.add(group)
+
+        # Add access_admin permission
+        admin_permission = Permission.objects.get(codename="access_admin")
+        group.permissions.add(admin_permission)
+
+        # Add GroupSitePermission for delete
+        delete_permission = Permission.objects.get(
+            codename="delete_sitepermissionsnippet"
+        )
+        GroupSitePermission.objects.create(
+            group=group, site=self.site, permission=delete_permission
+        )
+
+        self.login(username="testuser", password="password")
+
+        self.url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.snippet_model._meta.app_label,
+                    self.snippet_model._meta.model_name,
+                    "delete",
+                ),
+            )
+            + "?"
+        )
+
+    def get_url(self, items=()):
+        items = items or self.test_snippets
+        return self.url + "&".join(f"id={item.pk}" for item in items)
+
+    def test_bulk_delete_with_site_permission(self):
+        response = self.client.post(self.get_url())
+
+        # Should redirect back to index
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the snippets were deleted
+        for snippet in self.test_snippets:
+            self.assertFalse(self.snippet_model.objects.filter(pk=snippet.pk).exists())

@@ -84,9 +84,11 @@ from wagtail.models import (
     TranslatableMixin,
     WorkflowMixin,
 )
+from wagtail.permission_policies.sites import SitePermissionPolicy
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 
 from ...locks import WorkflowLock
 from .fields import CommentableJSONField
@@ -2741,3 +2743,31 @@ class CommentableJSONPage(Page):
             ("text", CharBlock()),
         ]
     )
+
+
+class SitePermissionSnippet(models.Model):
+    site = models.ForeignKey(
+        "wagtailcore.Site",
+        on_delete=models.CASCADE,
+        related_name="site_permission_snippets",
+    )
+    text = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "site permission snippet"
+        verbose_name_plural = "site permission snippets"
+
+
+class SitePermissionSnippetViewSet(SnippetViewSet):
+    model = SitePermissionSnippet
+    add_to_admin_menu = True
+
+    @property
+    def permission_policy(self):
+        return SitePermissionPolicy(self.model)
+
+
+register_snippet(SitePermissionSnippet, viewset=SitePermissionSnippetViewSet)
