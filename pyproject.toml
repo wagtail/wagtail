@@ -63,7 +63,6 @@ Funding = "https://wagtail.org/sponsor/"
 [project.optional-dependencies]
 testing = [
   # Required for running the tests
-  "python-dateutil>=2.7",
   "Jinja2>=3.0,<3.2",
   "boto3>=1.28,<2",
   "freezegun>=0.3.8",
@@ -74,28 +73,28 @@ testing = [
   # For coverage and PEP8 linting
   "coverage>=3.7.0",
   # NOTE: Keep linters in sync with .pre-commit-config.yaml
-  "doc8==1.1.2",
-  "ruff==0.9.6",
+  "doc8==2.0.0",
+  "ruff==0.15.2",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.150.0",
+  "semgrep==1.152.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting
-  "djhtml==3.0.6",
+  "djhtml==3.0.10",
   # For validating string formats in .po translation files
   "polib>=1.1,<2.0",
   # For wagtail.test.utils.wagtail_factories (used for streamfield migration toolkit)
   "factory-boy>=3.2",
   # For running tests in parallel
-  "tblib>=2.0,<3.0",
+  "tblib>=3.0,<4.0",
 ]
 docs = [
-  "pyenchant>=3.1.1,<4",
-  "sphinxcontrib-spelling>=7,<8",
+  "pyenchant>=3.3.0,<4",
+  "sphinxcontrib-spelling>=8,<9",
   "Sphinx>=7.3",
   "sphinx-autobuild>=0.6.0",
-  "sphinx-wagtail-theme==6.5.0",
-  "myst_parser==2.0.0",
+  "sphinx-wagtail-theme>=6.5.0,<7",
+  "myst_parser>=4.0.0,<6",
   "sphinx_llm>=0.2.1",
 ]
 
@@ -114,7 +113,7 @@ include = ["wagtail*"]
 # https://setuptools.pypa.io/en/latest/userguide/datafiles.html
 
 "wagtail" = ["**/*"]
-"*" = [ ".dockerignore",]
+"*" = [".dockerignore"]
 
 [tool.setuptools.data-files]
 "." = [
@@ -127,12 +126,12 @@ include = ["wagtail*"]
 
 [tool.setuptools.exclude-package-data]
 "wagtail" = [
-    "*.md",
-    "*.stories.js",
-    "*.stories.tsx",
-    "*.py[co]",
-    "static_src/**",
-    "**/static_src/**"
+  "*.md",
+  "*.stories.js",
+  "*.stories.tsx",
+  "*.py[co]",
+  "static_src/**",
+  "**/static_src/**",
 ]
 
 

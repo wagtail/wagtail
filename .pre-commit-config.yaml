@@ -3,7 +3,7 @@ default_language_version:
   python: python3
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.9.6'
+    rev: 'v0.15.2'
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
@@ -47,12 +47,12 @@ repos:
       - id: curlylint
         args: ['--parse-only']
   - repo: https://github.com/rtts/djhtml
-    rev: 3.0.6
+    rev: 3.0.10
     hooks:
       - id: djhtml
   - repo: https://github.com/semgrep/semgrep
     # NOTE: Keep in sync with dependencies in pyproject.toml
-    rev: v1.150.0
+    rev: v1.152.0
     hooks:
       - id: semgrep
         files: \.(js|ts|tsx|html|py)$
