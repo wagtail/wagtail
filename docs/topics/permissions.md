@@ -89,3 +89,4 @@ After registering the permission using the `register_permissions` hook, it will 
 Permissions can be used to restrict access to fields within the editor interface. See `permission` on [FieldPanel](field_panel).
 
 Permissions can be used to restrict groups of panels via the `permission` keyword argument on `PanelGroup` classes (`TabbedInterface`, `ObjectList`, `FieldRowPanel`, `MultiFieldPanel`). See how `PanelGroup` usage can be customized [](forms_panels_overview).
+
