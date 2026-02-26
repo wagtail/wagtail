@@ -32,15 +32,9 @@
                             {% icon name="warning" %}
                             {{ saved_new_version_message }}
                         </div>
-
-                        {% comment %}
-                            Use a custom button element instead of the dialog_toggle.html so we can add arbitrary
-                            data attributes to the button element. This is useful for allowing the SessionController
-                            to conditionally show the dialog, i.e. only when the user has unsaved changes.
-                        {% endcomment %}
-                        <a href="" data-w-session-target="reload" class="button button-small button-secondary chooser__choose-button" data-dialog-id="w-unsaved-changes-dialog">
-                            {% icon name="rotate" %}
-                            {% trans "Refresh" %}
+                        <a href="" target="_blank" class="button button-small button-secondary chooser__choose-button">
+                            {% icon name="link-external" %}
+                            {% trans "View latest version" %}
                         </a>
                     </div>
                 {% enddropdown %}
@@ -120,13 +114,18 @@
     <template data-controller="w-teleport" data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog" data-w-teleport-mode-value="textContent">
         {% if current_session.user == sessions.0.user %}
             {% blocktranslate trimmed asvar overwrite_message %}
-                Proceeding will overwrite the changes you made in that window. Refreshing the page will show you the new changes, but you will lose any of your unsaved changes in the current window.
+                Proceeding will overwrite the changes you made in that window.
             {% endblocktranslate %}
         {% else %}
             {% blocktranslate trimmed with user_name=sessions.0.user|user_display_name|default:_("System") asvar overwrite_message %}
-                Proceeding will overwrite the changes made by {{ user_name }}. Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.
+                Proceeding will overwrite the changes made by {{ user_name }}.
             {% endblocktranslate %}
         {% endif %}
-        {{ overwrite_message }}
+        <span>{{ overwrite_message|capfirst }}</span>
+        <span>
+            {% blocktranslate trimmed %}
+                Alternatively, you can view the latest version in a new tab.
+            {% endblocktranslate %}
+        </span>
     </template>
 {% endif %}
