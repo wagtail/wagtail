@@ -296,8 +296,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Vic Otheruser. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
 
         self.session.refresh_from_db()
@@ -356,8 +356,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Vic Otheruser. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
 
         self.session.refresh_from_db()
@@ -466,8 +466,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Vic Otheruser. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
 
         self.session.refresh_from_db()
@@ -525,8 +525,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Vic Otheruser. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
 
         self.session.refresh_from_db()
@@ -611,8 +611,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Gordon Thirduser. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
         other_session_text = rendered_sessions[1].text
         self.assertIn("Vic Otheruser", other_session_text)
@@ -685,8 +685,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by System. "
-            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
-            dialog_subtitle.string,
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
         other_session_text = rendered_sessions[1].text
         self.assertIn("Vic Otheruser", other_session_text)
@@ -1147,9 +1147,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes you made in that window. "
-            "Refreshing the page will show you the new changes, but you will "
-            "lose any of your unsaved changes in the current window.",
-            dialog_subtitle.text.strip(),
+            "Alternatively, you can view the latest version in a new tab.",
+            dialog_subtitle.get_text(strip=True, separator=" "),
         )
 
     @freeze_time(TIMESTAMP_NOW)

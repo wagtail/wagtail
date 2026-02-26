@@ -60,19 +60,12 @@ export class SessionController extends Controller<HTMLElement> {
 
   static outlets = ['w-dialog'];
 
-  static targets = [
-    'reload',
-    'revisionCreatedAt',
-    'revisionId',
-    'unsavedChanges',
-  ];
+  static targets = ['revisionCreatedAt', 'revisionId', 'unsavedChanges'];
 
   declare readonly hasRevisionCreatedAtTarget: boolean;
   declare readonly hasRevisionIdTarget: boolean;
   declare readonly hasUnsavedChangesTarget: boolean;
   declare readonly hasWDialogOutlet: boolean;
-  /** Reload buttons in the sessions' popups */
-  declare readonly reloadTargets: HTMLAnchorElement[];
   /** The hidden input to store the current revision created at datetime. */
   declare readonly revisionCreatedAtTarget: HTMLInputElement;
   /** The hidden input to store the current revision ID */
@@ -252,26 +245,6 @@ export class SessionController extends Controller<HTMLElement> {
     if (!this.hasUnsavedChangesTarget) return;
     const type = event.type.split(':')[1];
     this.unsavedChangesTarget.checked = type !== 'clear';
-    this.reloadTargets.forEach((button) => this.reloadTargetConnected(button));
-  }
-
-  /**
-   * Conditionally set whether the reload button should immediately reload or
-   * show the "unsaved changes" dialog based on the unsaved changes state.
-   * @param button The reload button to update
-   */
-  reloadTargetConnected(button: HTMLAnchorElement): void {
-    if (
-      this.hasUnsavedChangesTarget &&
-      this.unsavedChangesTarget.checked &&
-      button.dataset.dialogId
-    ) {
-      button.setAttribute('data-action', 'w-action#noop:prevent');
-      button.setAttribute('data-a11y-dialog-show', button.dataset.dialogId);
-    } else {
-      button.removeAttribute('data-a11y-dialog-show');
-      button.setAttribute('data-action', 'w-action#reload:prevent');
-    }
   }
 
   get swapController() {
