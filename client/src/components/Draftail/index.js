@@ -41,6 +41,7 @@ export { default as Link, onPasteLink } from './decorators/Link';
 export { default as Document } from './decorators/Document';
 export { default as ImageBlock } from './blocks/ImageBlock';
 export { default as EmbedBlock } from './blocks/EmbedBlock';
+export { onPasteImage } from './decorators/Image';
 
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON =
