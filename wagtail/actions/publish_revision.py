@@ -167,7 +167,8 @@ class PublishRevisionAction:
 
         object.save()
 
-        self._after_publish()
+        if object.live:
+            self._after_publish()
 
         if object.live:
             if log_action:
