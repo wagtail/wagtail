@@ -123,6 +123,52 @@ describe('SessionController', () => {
       expect(handlePing).toHaveBeenCalledTimes(0);
       handlePing.mockClear();
     });
+
+    it('should allow pausing and resuming the ping', async () => {
+      expect(handlePing).not.toHaveBeenCalled();
+      document.body.innerHTML = /* html */ `
+        <div
+          data-controller="w-session"
+          data-action="w-autosave:save@document->w-session#pause w-autosave:success@document->w-session#resume visibilitychange@document->w-session#ping"
+          data-w-session-active-value="false"
+          >
+          Inactive by default
+        </div>
+      `;
+      await Promise.resolve();
+
+      // If activeValue is false, it should not dispatch the event immediately
+      expect(handlePing).not.toHaveBeenCalled();
+
+      // Should not dispatch the event after the set interval either
+      jest.advanceTimersByTime(10000);
+      expect(handlePing).not.toHaveBeenCalled();
+
+      document.dispatchEvent(new CustomEvent('w-autosave:success'));
+      await Promise.resolve();
+      // Ping is not done immediately after resume
+      expect(handlePing).not.toHaveBeenCalled();
+
+      // Should dispatch the event after the set interval
+      jest.advanceTimersByTime(10000);
+      expect(handlePing).toHaveBeenCalledTimes(1);
+      // Should continue dispatching the ping event via actions
+      document.dispatchEvent(new Event('visibilitychange'));
+      expect(handlePing).toHaveBeenCalledTimes(2);
+
+      document.dispatchEvent(new CustomEvent('w-autosave:save'));
+      await Promise.resolve();
+
+      // Should not dispatch the event after pausing
+      expect(handlePing).toHaveBeenCalledTimes(2);
+      jest.advanceTimersByTime(10000);
+      expect(handlePing).toHaveBeenCalledTimes(2);
+
+      // Should not dispatch the event even when triggering the ping action
+      document.dispatchEvent(new Event('visibilitychange'));
+      await Promise.resolve();
+      expect(handlePing).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('dispatching the visibility state of the document', () => {
