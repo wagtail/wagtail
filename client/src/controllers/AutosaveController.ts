@@ -115,8 +115,8 @@ export type AutosaveEvent =
  * @fires `w-autosave:save` - before saving, cancelable.
  * @fires `w-autosave:hydrate` - to hydrate a create view into an edit view.
  * @fires `w-autosave:success` - on successful save and any UI updates.
- * @fires `w-autosave:deactivated` - when autosave is deactivated due to an unrecoverable error.
  * @fires `w-autosave:error` - on save error, e.g. due to validation errors.
+ * @fires `w-autosave:deactivated` - when autosave is deactivated due to an unrecoverable error.
  *
  */
 export class AutosaveController extends Controller<
@@ -284,6 +284,17 @@ export class AutosaveController extends Controller<
         text = response.error_message;
       }
 
+      this.dispatch('error', {
+        cancelable: false,
+        detail: {
+          response,
+          error,
+          trigger: event,
+          text, // Used for showing the unsaved changes message
+          type,
+        },
+      });
+
       // There's no reliable way to recover from an invalid revision or a
       // hydration error, so deactivate and inform listeners (e.g. to
       // immediately trigger a notification)
@@ -301,17 +312,6 @@ export class AutosaveController extends Controller<
           },
         });
       }
-
-      this.dispatch('error', {
-        cancelable: false,
-        detail: {
-          response,
-          error,
-          trigger: event,
-          text, // Used for showing the unsaved changes message
-          type,
-        },
-      });
     }
   };
 

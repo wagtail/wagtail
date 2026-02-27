@@ -452,36 +452,47 @@ describe('AutosaveController', () => {
 
       fetch.mockResponseBadRequest(JSON.stringify(serverResponse));
 
-      const deactivatedEvent = new Promise((resolve) => {
-        form.addEventListener(
-          'w-autosave:deactivated',
-          (event) => resolve(event),
-          {
-            once: true,
-          },
-        );
-      });
       const errorEvent = new Promise((resolve) => {
         form.addEventListener('w-autosave:error', (event) => resolve(event), {
           once: true,
         });
+      });
+      const finishError = Promise.withResolvers();
+      const deactivatedHandler = jest.fn();
+      const deactivatedEvent = new Promise((resolve) => {
+        form.addEventListener(
+          'w-autosave:deactivated',
+          async (event) => {
+            // Ensure deactivated event is dispatched after error event
+            await finishError.promise;
+            deactivatedHandler();
+            resolve(event);
+          },
+          {
+            once: true,
+          },
+        );
       });
 
       const unsavedEvent1 = await dispatchUnsaved(form);
       await jest.advanceTimersByTimeAsync(500);
       expect(fetch).toHaveBeenCalledTimes(1);
 
-      const { detail: deactivatedEventDetail } = await deactivatedEvent;
-      expect(deactivatedEventDetail.response).toEqual(serverResponse);
-      expect(deactivatedEventDetail.error).toBeInstanceOf(Error);
-      expect(deactivatedEventDetail.error.message).toBe('Invalid revision');
-      expect(deactivatedEventDetail.trigger).toBe(unsavedEvent1);
-
       const { detail: errorEventDetail } = await errorEvent;
       expect(errorEventDetail.response).toEqual(serverResponse);
       expect(errorEventDetail.error).toBeInstanceOf(Error);
       expect(errorEventDetail.error.message).toBe('Invalid revision');
       expect(errorEventDetail.trigger).toBe(unsavedEvent1);
+      expect(deactivatedHandler).not.toHaveBeenCalled();
+
+      finishError.resolve();
+
+      const { detail: deactivatedEventDetail } = await deactivatedEvent;
+      expect(deactivatedEventDetail.response).toEqual(serverResponse);
+      expect(deactivatedEventDetail.error).toBeInstanceOf(Error);
+      expect(deactivatedEventDetail.error.message).toBe('Invalid revision');
+      expect(deactivatedEventDetail.trigger).toBe(unsavedEvent1);
+      expect(deactivatedHandler).toHaveBeenCalledTimes(1);
 
       // Should have deactivated autosave
       expect(form.getAttribute('data-w-autosave-active-value')).toBe('false');
