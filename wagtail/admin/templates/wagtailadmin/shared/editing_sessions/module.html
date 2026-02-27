@@ -41,7 +41,10 @@
                  w-unsaved:add@document->w-session#setUnsavedChanges
                  w-unsaved:clear@document->w-session#setUnsavedChanges
                  w-swap:json->w-session#updateSessionData
+                 w-autosave:save@document->w-session#pause
                  w-autosave:success@document->w-session#updateSessionData
+                 w-autosave:success@document->w-session#resume
+                 w-autosave:error@document->w-session#resume
                  w-autosave:deactivated@document->w-session#ping
                 "
 >

@@ -54,6 +54,7 @@ export interface PingResponse {
  */
 export class SessionController extends Controller<HTMLElement> {
   static values = {
+    active: { type: Boolean, default: true },
     interval: { type: Number, default: 1000 * 10 }, // 10 seconds
     intercept: { type: Boolean, default: false },
   };
@@ -81,6 +82,8 @@ export class SessionController extends Controller<HTMLElement> {
   declare readonly unsavedChangesTarget: HTMLInputElement;
   /** The confirmation dialog for overwriting changes made by another user */
   declare readonly wDialogOutlet: DialogController;
+  /** Whether the session is currently active */
+  declare activeValue: boolean;
   /** The interval duration for the ping event */
   declare intervalValue: number;
   /** Whether to intercept the original event and show a confirmation dialog */
@@ -121,6 +124,7 @@ export class SessionController extends Controller<HTMLElement> {
    * alive or indicate presence.
    */
   ping(): void {
+    if (!this.activeValue) return;
     this.dispatch('ping');
   }
 
@@ -145,6 +149,24 @@ export class SessionController extends Controller<HTMLElement> {
       window.clearInterval(this.interval);
       this.interval = null;
     }
+  }
+
+  /**
+   * Clear the interval and prevent any pings from being dispatched
+   * until the session is resumed.
+   */
+  pause(): void {
+    this.clearInterval();
+    this.activeValue = false;
+  }
+
+  /**
+   * Set the interval and allow pings to be dispatched again
+   * after the session has been paused.
+   */
+  resume(): void {
+    this.activeValue = true;
+    this.addInterval();
   }
 
   /**
