@@ -659,7 +659,6 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         self.assertFalse(pattern.match("javascript:alert(1)"))
 
 
-
 class TestDraftailLazyTranslations(SimpleTestCase):
     def test_context_i18n(self):
         widget = DraftailRichTextArea(features=["h2"])
