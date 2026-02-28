@@ -1,5 +1,5 @@
-import unittest
 import re
+import unittest
 
 from django.conf import settings
 from django.test import SimpleTestCase, TestCase
