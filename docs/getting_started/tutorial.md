@@ -49,7 +49,7 @@ mysite\env\Scripts\activate.bat
 mysite\env\Scripts\activate
 ```
 
-**On GNU/Linux or MacOS** (bash):
+**On GNU/Linux or macOS** (POSIX shell):
 
 Create the virtual environment using:
 
