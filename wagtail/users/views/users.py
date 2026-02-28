@@ -70,9 +70,7 @@ class UserFilterSet(WagtailFilterSet):
     )
     last_login = django_filters.DateFromToRangeFilter(
         label=gettext_lazy("Last login"),
-        widget=DateRangePickerWidget(
-            attrs={"data-bwignore": "true"}
-        ),
+        widget=DateRangePickerWidget(attrs={"data-bwignore": "true"}),
     )
 
     def __init__(
