@@ -950,6 +950,7 @@
 * Akshat Gupta
 * Divyansh Mishra
 * Gaurav Takhi
+* Ashutosh
 
 ## Translators
 
