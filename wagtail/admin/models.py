@@ -74,6 +74,21 @@ def popular_tags_for_model(model, count=10):
     )
 
 
+class EditingSessionQuerySet(models.QuerySet):
+    def stale(self):
+        return self.filter(
+            last_seen_at__lt=timezone.now() - timezone.timedelta(hours=1)
+        )
+
+    def available(self):
+        return self.filter(
+            last_seen_at__gte=timezone.now() - timezone.timedelta(minutes=25)
+        )
+
+
+EditingSessionManager = models.Manager.from_queryset(EditingSessionQuerySet)
+
+
 class EditingSession(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -89,12 +104,28 @@ class EditingSession(models.Model):
     )
     last_seen_at = models.DateTimeField()
     is_editing = models.BooleanField(default=False)
+    objects = EditingSessionManager()
 
-    @staticmethod
-    def cleanup():
-        EditingSession.objects.filter(
-            last_seen_at__lt=timezone.now() - timezone.timedelta(hours=1)
-        ).delete()
+    @classmethod
+    def cleanup(cls):
+        """Delete all editing sessions that have not pinged in the last hour."""
+        cls.objects.stale().delete()
+
+    @property
+    def is_idle(self):
+        """
+        Whether this session is idle. A session is considered idle when the user
+        has not pinged in the last 10 minutes.
+        """
+        return self.last_seen_at < timezone.now() - timezone.timedelta(minutes=10)
+
+    @property
+    def is_available(self):
+        """
+        Whether this session is available. A session is considered available when
+        the user has pinged in the last 25 minutes.
+        """
+        return self.last_seen_at >= timezone.now() - timezone.timedelta(minutes=25)
 
     class Meta:
         indexes = [
