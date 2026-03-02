@@ -951,6 +951,7 @@
 * Divyansh Mishra
 * Gaurav Takhi
 * Ashutosh
+* Jack Whitworth
 
 ## Translators
 

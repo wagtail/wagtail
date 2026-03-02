@@ -22,6 +22,7 @@ Changelog
  * Docs: Add documentation for using the `ReferenceIndex` API (Saptami)
  * Docs: Retitle documentation page for settings contrib module to "Settings models" (Karl Hobley)
  * Docs: Fix typos and minor grammar issues (Kunal Gupta)
+ * Docs: Update django-ninja code examples to use new Meta class implemented in django-ninja V1 (Jack Whitworth)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
