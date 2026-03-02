@@ -30,7 +30,7 @@
                  w-session:visible->w-session#ping
                  w-session:visible->w-session#addInterval
                  w-session:hidden->w-session#clearInterval
-                 w-session:hidden->w-action#sendBeacon
+                 pagehide@window->w-action#sendBeacon
                  w-unsaved:add@document->w-session#setUnsavedChanges
                  w-unsaved:clear@document->w-session#setUnsavedChanges
                  w-swap:json->w-session#updateSessionData
