@@ -26,6 +26,9 @@ if settings.USE_TZ:
     TIMESTAMP_PAST = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 10, 30, 0), timezone=datetime.timezone.utc
     )
+    TIMESTAMP_IDLE = timezone.make_aware(
+        datetime.datetime(2020, 1, 1, 11, 45, 0), timezone=datetime.timezone.utc
+    )
     TIMESTAMP_1 = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 11, 59, 51), timezone=datetime.timezone.utc
     )
@@ -44,6 +47,7 @@ if settings.USE_TZ:
 else:
     TIMESTAMP_ANCIENT = datetime.datetime(2019, 1, 1, 10, 30, 0)
     TIMESTAMP_PAST = datetime.datetime(2020, 1, 1, 10, 30, 0)
+    TIMESTAMP_IDLE = datetime.datetime(2020, 1, 1, 11, 45, 0)
     TIMESTAMP_1 = datetime.datetime(2020, 1, 1, 11, 59, 51)
     TIMESTAMP_2 = datetime.datetime(2020, 1, 1, 11, 59, 52)
     TIMESTAMP_3 = datetime.datetime(2020, 1, 1, 11, 59, 53)
@@ -154,6 +158,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -192,6 +197,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -207,6 +213,57 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertTrue(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
+    def test_ping_with_other_idle_session(self):
+        idle_session = EditingSession.objects.create(
+            user=self.third_user,
+            content_type=ContentType.objects.get_for_model(Page),
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_IDLE,
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                # Should show the idle session with is_idle set to True
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "is_idle": False,
+                    "revision_id": None,
+                },
+                {
+                    "session_id": idle_session.id,
+                    "user": "Gordon Thirduser",
+                    "last_seen_at": TIMESTAMP_IDLE.isoformat(),
+                    "is_editing": False,
+                    "is_idle": True,
+                    "revision_id": None,
+                },
+            ],
+        )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
+        self.assertEqual(len(rendered_sessions), 2)
+        session_text = rendered_sessions[1].text
+        self.assertIn("Gordon Thirduser", session_text)
+        self.assertIn("Currently idle", session_text)
+
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_with_revision(self):
@@ -230,6 +287,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -270,6 +328,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
             ],
@@ -327,6 +386,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
             ],
@@ -394,6 +454,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -444,6 +505,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": loaded_revision.id,
                 },
             ],
@@ -500,6 +562,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": loaded_revision.id,
                 },
             ],
@@ -571,6 +634,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Gordon Thirduser",
                     "last_seen_at": TIMESTAMP_4.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": latest_revision.id,
                 },
                 {
@@ -582,6 +646,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     # it's not the latest one.
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -649,6 +714,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": latest_revision.id,
                 },
                 {
@@ -656,6 +722,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -749,6 +816,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Gordon Thirduser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
                 # Then any sessions that are currently editing
@@ -757,6 +825,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Chell Fifthuser",
                     "last_seen_at": TIMESTAMP_4.isoformat(),
                     "is_editing": True,
+                    "is_idle": False,
                     "revision_id": None,
                 },
                 # Then any other sessions, sorted ascending by session_id
@@ -765,6 +834,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
                 {
@@ -772,6 +842,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Alyx Fourthuser",
                     "last_seen_at": TIMESTAMP_1.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -806,6 +877,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -861,6 +933,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -896,6 +969,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_NOW.isoformat(),
                     "is_editing": True,
+                    "is_idle": False,
                     "revision_id": None,
                 },
                 {
@@ -903,6 +977,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -962,6 +1037,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -998,6 +1074,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -1040,6 +1117,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_NOW.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
                 {
@@ -1047,6 +1125,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -1075,6 +1154,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_NOW.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
                 {
@@ -1082,6 +1162,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -1114,6 +1195,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_4.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": new_revision.id,
                 },
                 {
@@ -1121,6 +1203,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -1283,6 +1366,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": True,
+                    "is_idle": False,
                     "revision_id": None,
                 },
             ],
@@ -1424,6 +1508,13 @@ class TestCleanup(WagtailTestUtils, TestCase):
             object_id=self.page.id,
             last_seen_at=TIMESTAMP_1,
         )
+        self.idle_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=page_content_type,
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_IDLE,
+            is_editing=True,
+        )
         self.old_session = EditingSession.objects.create(
             user=self.user,
             content_type=page_content_type,
@@ -1435,6 +1526,7 @@ class TestCleanup(WagtailTestUtils, TestCase):
     def test_cleanup(self):
         EditingSession.cleanup()
         self.assertTrue(EditingSession.objects.filter(id=self.session.id).exists())
+        self.assertTrue(EditingSession.objects.filter(id=self.idle_session.id).exists())
         self.assertFalse(EditingSession.objects.filter(id=self.old_session.id).exists())
 
 
