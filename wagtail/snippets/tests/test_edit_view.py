@@ -35,9 +35,11 @@ from wagtail.test.testapp.models import (
     DraftStateModel,
     FullFeaturedSnippet,
     PreviewableModel,
+    RevisableCluster,
     RevisableModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.utils.timestamps import render_timestamp
 
@@ -985,6 +987,32 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         )
         self.assertEqual(log_entries.count(), 1)
         self.assertEqual(log_entries.first().revision, revision)
+
+    def test_edit_with_inline_models_and_json_response(self):
+        self.test_snippet = RevisableCluster.objects.create(text="Test for inline")
+        form_data = nested_form_data(
+            {
+                "text": "Edited and added one child",
+                "children": inline_formset([{"id": "", "text": "Child 1"}]),
+            }
+        )
+        response = self.post(
+            post_data=form_data,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertEqual(self.test_snippet.children.count(), 1)
+        child = self.test_snippet.children.first()
+        self.assertEqual(child.text, "Child 1")
+
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], self.test_snippet.pk)
+        self.assertEqual(
+            response_json["field_updates"],
+            {"children-INITIAL_FORMS": "1", "children-0-id": str(child.pk)},
+        )
 
     def test_save_outdated_revision_with_json_response(self):
         self.test_snippet.text = "Initial revision"

@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 import { debounce } from '../utils/debounce';
 import { noop } from '../utils/noop';
 
-type AddOptions = {
+interface AddOptions {
   /** Flag for clearing or stacking messages */
   clear?: boolean;
   /** Content for the message, HTML not supported. */
@@ -13,7 +13,7 @@ type AddOptions = {
    * e.g. Message status level based on Django's message types.
    */
   type?: 'success' | 'error' | 'warning' | string;
-};
+}
 
 /**
  * Adds the ability for a controlled element to pick an element from a template

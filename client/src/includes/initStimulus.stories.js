@@ -1,6 +1,6 @@
+import { Controller } from '@hotwired/stimulus';
 import React from 'react';
 
-import { Controller } from '@hotwired/stimulus';
 import { StimulusWrapper } from '../../storybook/StimulusWrapper';
 
 /**

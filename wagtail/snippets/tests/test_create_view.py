@@ -25,9 +25,11 @@ from wagtail.test.snippets.models import (
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
+    RevisableCluster,
     RevisableModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.test.utils.timestamps import submittable_timestamp
 
 
@@ -217,6 +219,36 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(
             response_json["hydrate_url"],
             f"{edit_url}?_w_hydrate_create_view=1",
+        )
+
+    def test_create_with_inline_models_and_json_response(self):
+        form_data = nested_form_data(
+            {
+                "text": "Created with one child",
+                "children": inline_formset([{"id": "", "text": "Child 1"}]),
+            }
+        )
+        response = self.post(
+            post_data=form_data,
+            model=RevisableCluster,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+
+        snippets = RevisableCluster.objects.filter(text="Created with one child")
+        self.assertEqual(snippets.count(), 1)
+        snippet = snippets.first()
+        self.assertEqual(snippet.children.count(), 1)
+        child = snippet.children.first()
+        self.assertEqual(child.text, "Child 1")
+
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], snippet.pk)
+        self.assertEqual(
+            response_json["field_updates"],
+            {"children-INITIAL_FORMS": "1", "children-0-id": str(child.pk)},
         )
 
     def test_create_with_tags(self):

@@ -1,6 +1,6 @@
+import type { BaseSequenceChild } from './BaseSequenceBlock';
 import { gettext } from '../../../utils/gettext';
 import { escapeHtml as h } from '../../../utils/text';
-import type { BaseSequenceChild } from './BaseSequenceBlock';
 
 export abstract class ActionButton {
   declare enableEvent?: string;

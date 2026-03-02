@@ -212,7 +212,7 @@ Do not rely on links for critical context, like [why it is important](https://ww
 
 <summary>Rendered output</summary>
 
-An [external link](https://wwww.example.com).
+An [external link](https://www.example.com).
 An [internal link to another document](/reference/contrib/legacy_richtext).
 An auto generated link label to a page [](/getting_started/tutorial).
 A [link to a target](register_reports_menu_item).
@@ -325,7 +325,7 @@ Use the first approach (with the `label` type) when you are linking in the conte
 
 #### Absolute links
 
-Sometimes, there are sections in external docs that do not have a Sphinx target target attached at all. Before linking to such sections, consider linking to the nearest target before that section. If there is one available that is close enough such that your intended section is immediately visible upon clicking the link, use that. Otherwise, you can write it as a full URL. Remember to use the `stable` URL and not a specific version.
+Sometimes, there are sections in external docs that do not have a Sphinx target attached at all. Before linking to such sections, consider linking to the nearest target before that section. If there is one available that is close enough such that your intended section is immediately visible upon clicking the link, use that. Otherwise, you can write it as a full URL. Remember to use the `stable` URL and not a specific version.
 
 A common example of using full URLs over intersphinx links is when linking to sections in Django's release notes.
 
@@ -600,7 +600,7 @@ The `WAGTAIL_OLD_SETTING` setting was deprecated.
 
 </details>
 
-These directives will typically be removed two releases after they are added, so should only be used for short-lived information, such as "The `WAGTAILIMAGES_CACHE_DURATION` setting was added". Detailed documentation about the feature should be in the main body of the text, outside of the directive.
+These directives will typically be removed two releases after they are added, so they should only be used for short-lived information, such as "The `WAGTAILIMAGES_CACHE_DURATION` setting was added". Detailed documentation about the feature should be in the main body of the text, outside of the directive.
 
 ### Progressive disclosure
 
@@ -638,7 +638,7 @@ Sphinx glossaries (`.. glossary::`) generate definition lists. Use plain bullet 
 
 ### Comments
 
-Avoid documentation source comments in committed documentation.
+Avoid source comments in committed documentation.
 
 ### Figure
 

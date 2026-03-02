@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-
 import { EditorState } from 'draft-js';
+import { mount, shallow } from 'enzyme';
+import React from 'react';
+
 import MediaBlock from './MediaBlock';
 
 describe('MediaBlock', () => {

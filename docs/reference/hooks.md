@@ -15,7 +15,7 @@ Registering functions with a Wagtail hook is done through the `@hooks.register` 
 from wagtail import hooks
 
 @hooks.register('name_of_hook')
-def my_hook_function(arg1, arg2...)
+def my_hook_function(arg1, arg2...):
     # your code here
 ```
 
@@ -123,7 +123,7 @@ def get_profile_avatar(user, size):
     is_christmas_day = today.month == 12 and today.day == 25
 
     if is_christmas_day:
-      return '/static/images/santa.png'
+        return '/static/images/santa.png'
 
     return None
 ```
@@ -165,12 +165,12 @@ def add_another_welcome_panel(request, panels):
 
 ### `construct_homepage_summary_items`
 
-Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a `request` object and a list of summary item objects and should modify this list in-place as required. Summary item objects are instances of `wagtail.admin.site_summary.SummaryItem`, which extends [the Component class](creating_template_components) with the following additional methods and properties:
+Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other objects that exist on the site). The callable passed into this hook should take a `request` object and a list of summary item objects and should modify this list in-place as required. Summary item objects are instances of `wagtail.admin.site_summary.SummaryItem`, which extends [the Component class](creating_template_components) with the following additional methods and properties:
 
 ```{eval-rst}
   .. method:: SummaryItem(request)
 
-    Constructor; receives the request object its argument
+    Constructor; receives the request object as its argument
 
   .. attribute:: order
 
@@ -661,7 +661,7 @@ Called at the beginning of the "create page" view passing in the request, the pa
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
-Unlike, `after_create_page`, this is run both for both `GET` and `POST` requests.
+Unlike `after_create_page`, this is run for both `GET` and `POST` requests.
 
 This can be used to completely override the editor on a per-view basis:
 
@@ -799,7 +799,7 @@ Called at the beginning of the "move page" view passing in the request, the page
 
 Uses the same behavior as `before_create_page`.
 
-This hook runs only at the beginning of the the “move page” view. It will not run when moving pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page move, regardless of how it was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/stable/ref/signals/#signals).
+This hook runs only at the beginning of the “move page” view. It will not run when moving pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page move, regardless of how it was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/stable/ref/signals/#signals).
 
 (before_convert_alias_page)=
 
@@ -947,7 +947,7 @@ Called at the beginning of the "create user" view passing in the request.
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
-Unlike, `after_create_user`, this is run both for both `GET` and `POST` requests.
+Unlike `after_create_user`, this is run for both `GET` and `POST` requests.
 
 This can be used to completely override the user editor on a per-view basis:
 

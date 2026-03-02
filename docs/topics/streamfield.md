@@ -51,7 +51,7 @@ You can find the complete list of available block types in the [](streamfield_bl
 
 (streamfield_template_rendering)=
 
-## Template rendering
+## Template rendering with `include_block`
 
 StreamField provides an HTML representation for the stream content as a whole, as well as for each individual block. To include this HTML into your page, use the `{% include_block %}` tag:
 

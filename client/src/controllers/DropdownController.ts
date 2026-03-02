@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import tippy, { Content, Props, Instance } from 'tippy.js';
+import tippy, { Content, Instance, Props } from 'tippy.js';
 import { hideTooltipOnEsc } from './TooltipController';
 
 /**

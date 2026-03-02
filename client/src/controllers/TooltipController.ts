@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import tippy, { Placement, Props, Instance, Content } from 'tippy.js';
+import tippy, { Content, Instance, Placement, Props } from 'tippy.js';
 
 /**
  * Hides tooltip when escape key is pressed.
