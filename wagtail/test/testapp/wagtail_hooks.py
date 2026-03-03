@@ -43,6 +43,7 @@ from wagtail.test.testapp.views import (
     MiscellaneousViewSetGroup,
     SearchTestModelViewSet,
     ToyViewSetGroup,
+    advert_chooser_viewset,
     animated_advert_chooser_viewset,
     event_page_listing_viewset,
     opera_viewset,
@@ -453,3 +454,8 @@ def register_avatar_intercept_url(user, size):
     if os.environ.get("AVATAR_INTERCEPT"):
         return "/some/avatar/fred.png"
     return None
+
+
+@hooks.register("register_admin_viewset")
+def register_advert_chooser_viewset():
+    return advert_chooser_viewset
