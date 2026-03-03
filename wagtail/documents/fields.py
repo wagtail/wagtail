@@ -15,12 +15,12 @@ class WagtailDocumentField(FileField):
 
         # Help text
         if self.max_upload_size is not None:
-            self.help_text = _(
-                "Maximum filesize: %(max_upload_size)s."
-            ) % {"max_upload_size": self.max_upload_size_text}
+            self.help_text = _("Maximum filesize: %(max_upload_size)s.") % {
+                "max_upload_size": self.max_upload_size_text
+            }
         else:
             self.help_text = ""
-            
+
         # Error messages
         # Translation placeholders should all be interpolated at the same time to avoid escaping,
         # either right now if all values are known, otherwise when used.
@@ -30,7 +30,6 @@ class WagtailDocumentField(FileField):
         self.error_messages["file_too_large_unknown_size"] = _(
             "This file is too big. Maximum filesize %(max_filesize)s."
         ) % {"max_filesize": self.max_upload_size_text}
-
 
     def check_document_file_size(self, f):
         # Upload size checking can be disabled by setting max upload size to None

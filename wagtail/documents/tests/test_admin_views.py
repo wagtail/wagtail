@@ -740,7 +740,7 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(
             response, "Custom document with this Title and Collection already exists."
         )
-    
+
     @override_settings(WAGTAILDOCS_MAX_UPLOAD_SIZE=1)
     def test_add_too_large_file(self):
         file_content = b"Simple text document"
