@@ -49,8 +49,8 @@ dependencies = [
   "anyascii>=0.1.5",
   "telepath>=0.3.1,<1",
   "laces>=0.1,<0.2",
-  "django-tasks>=0.9,<0.12",
-  "modelsearch>=1.1,<1.2",
+  "django-tasks>=0.9,<0.13",
+  "modelsearch>=1.1,<1.3",
 ]
 
 [project.urls]

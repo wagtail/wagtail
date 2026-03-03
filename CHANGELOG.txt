@@ -4,6 +4,7 @@ Changelog
 7.3.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Update dependencies to allow django-modelsearch 1.2 and django-tasks 0.11
  * Fix: Fix duplicate inline panel items when editing snippets with autosave enabled (Sage Abdullah)
  * Fix: Prevent dropdowns from closing after a successful autosave (Sage Abdullah)
  * Fix: Show placeholder image icons when image upload previews fail (Collins Kubu)
