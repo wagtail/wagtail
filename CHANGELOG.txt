@@ -291,6 +291,13 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
+
+7.0.6 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+
+
 7.0.5 (12.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
