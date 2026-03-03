@@ -123,6 +123,8 @@ export class TabsController extends Controller {
 
     const resetTabs = debounce(() => {
       this.tabs = this.validatedTabs;
+      // Ensure hidden attribute of newly-added tabs are set/unset correctly
+      this.setInitialPanel();
     }, 10);
 
     this.panelTargetConnected = resetTabs;
