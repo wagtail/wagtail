@@ -952,6 +952,7 @@
 * Gaurav Takhi
 * Ashutosh
 * Garrett Coakley
+* Collins Kubu
 
 ## Translators
 
