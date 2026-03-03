@@ -56,14 +56,12 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         """
 
         html = self.render(
-            '{{ image(img, "width-200|format-webp") }}',
-            {"img":self.svg_image}
+            '{{ image(img, "width-200|format-webp") }}', {"img": self.svg_image}
         )
 
         filename = get_test_image_filename(
-            self.svg_image,
-            "width-200.format-webp"
-        ).replace(".webp",".svg")
+            self.svg_image, "width-200.format-webp"
+        ).replace(".webp", ".svg")
 
         self.assertHTMLEqual(
             html,

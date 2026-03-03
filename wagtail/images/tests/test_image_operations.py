@@ -1066,6 +1066,7 @@ class TestWebpFormatConversion(TestCase):
 
         self.assertEqual(out.format_name, "webp")
 
+
 class TestSvgFormatConversion(TestCase):
     def test_svg_format_filter_preserves_svg(self):
         """
@@ -1079,11 +1080,11 @@ class TestSvgFormatConversion(TestCase):
             with self.subTest(format=fmt):
                 fil = Filter(spec=f"width-400|format-{fmt}")
                 image = Image.objects.create(
-                    title="Test SVG",
-                    file=get_test_image_file_svg()
+                    title="Test SVG", file=get_test_image_file_svg()
                 )
             out = fil.run(image, BytesIO())
             self.assertEqual(out.format_name, "svg")
+
 
 class TestCheckSize(TestCase):
     def test_check_size_when_floats_allowed(self):
