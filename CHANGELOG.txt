@@ -6,6 +6,7 @@ Changelog
 
  * Fix: Fix duplicate inline panel items when editing snippets with autosave enabled (Sage Abdullah)
  * Fix: Prevent dropdowns from closing after a successful autosave (Sage Abdullah)
+ * Fix: Show placeholder image icons when image upload previews fail (Collins Kubu)
 
 
 7.3 (03.02.2026)

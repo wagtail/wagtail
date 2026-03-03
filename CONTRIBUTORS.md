@@ -936,6 +936,17 @@
 * Ritik Arya
 * Ankit Chaudhary
 * Serkan Korkusuz
+* Kunal Gupta
+* Naman Sharma S
+* Siddheshwar Kadam
+* Pratham Jaiswal
+* Kunal Hemnani
+* Akshat Gupta
+* Divyansh Mishra
+* Gaurav Takhi
+* Ashutosh
+* Garrett Coakley
+* Collins Kubu
 
 ## Translators
 
