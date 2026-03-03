@@ -1,6 +1,12 @@
 Changelog
 =========
 
+7.0.6 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+
+
 7.0.5 (12.02.2026)
 ~~~~~~~~~~~~~~~~~~
 
