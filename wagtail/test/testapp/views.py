@@ -387,3 +387,18 @@ class OperaViewSet(PlayViewSet):
 
 
 opera_viewset = OperaViewSet("opera")
+
+
+class AdvertModelForm(forms.ModelForm):
+    class Meta:
+        model = Advert
+        fields = ["text", "url"]
+
+
+class AdvertChooserViewSet(ChooserViewSet):
+    model = Advert
+    register_widget = False
+    creation_form_class = "wagtail.test.testapp.views.AdvertModelForm"
+
+
+advert_chooser_viewset = AdvertChooserViewSet("advert_chooser")
