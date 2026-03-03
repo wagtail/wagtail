@@ -83,6 +83,7 @@ class TestBackendConfiguration(SimpleTestCase):
         self.assertEqual(
             backends["cloudflare"].cloudflare_token, "this is a bearer token"
         )
+        self.assertEqual(backends["cloudflare"].purge_option, "URL")
 
     def test_cloudfront(self):
         backends = get_backends(
@@ -668,6 +669,53 @@ class TestCloudflareCachePurgingFunctions(TestCase):
             batch.purge()
 
         self.assertCountEqual(PURGED_URLS, set(urls))
+
+    @mock.patch("wagtail.contrib.frontend_cache.backends.cloudflare.requests.delete")
+    def test_cloudflare_purge(self, requests_delete_mock):
+        with self.settings(
+            WAGTAILFRONTENDCACHE={
+                "cloudflare": {
+                    "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
+                    "EMAIL": "test@test.com",
+                    "API_KEY": "this is the api key",
+                    "ZONEID": "this is a zone id",
+                },
+            }
+        ):
+            batch = PurgeBatch()
+            batch.add_url("http://localhost/events/")
+
+            with self.captureOnCommitCallbacks(execute=True):
+                batch.purge()
+
+            self.assertEqual(
+                requests_delete_mock.mock_calls[0].kwargs["json"],
+                {"files": ["http://localhost/events/"]},
+            )
+
+    @mock.patch("wagtail.contrib.frontend_cache.backends.cloudflare.requests.delete")
+    def test_cloudflare_prefix_purge(self, requests_delete_mock):
+        with self.settings(
+            WAGTAILFRONTENDCACHE={
+                "cloudflare": {
+                    "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
+                    "EMAIL": "test@test.com",
+                    "API_KEY": "this is the api key",
+                    "ZONEID": "this is a zone id",
+                    "PURGE_OPTION": "PREFIX",
+                },
+            }
+        ):
+            batch = PurgeBatch()
+            batch.add_url("http://localhost/events/")
+
+            with self.captureOnCommitCallbacks(execute=True):
+                batch.purge()
+
+            self.assertEqual(
+                requests_delete_mock.mock_calls[0].kwargs["json"],
+                {"prefixes": ["localhost/events/"]},
+            )
 
 
 @override_settings(
