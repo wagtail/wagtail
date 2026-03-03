@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
  * Fix: Update dependencies to allow django-modelsearch 1.2 and django-tasks 0.11
  * Fix: Fix duplicate inline panel items when editing snippets with autosave enabled (Sage Abdullah)
  * Fix: Prevent dropdowns from closing after a successful autosave (Sage Abdullah)
