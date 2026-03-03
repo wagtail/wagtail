@@ -85,7 +85,7 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
                     attrs={
                         "aria-label": _("Actions"),
                         # Hide the dropdown when the breadcrumbs are opened or closed, which
-                        # would make the dropddown's position off from the toggle button.
+                        # would make the dropdown's position off from the toggle button.
                         "data-action": (
                             "w-breadcrumbs:opened@document->w-dropdown#hide "
                             "w-breadcrumbs:closed@document->w-dropdown#hide"
