@@ -87,6 +87,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
 
 
 7.2.2 (03.02.2026)
