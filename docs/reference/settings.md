@@ -574,6 +574,19 @@ If this isn't supplied all document extensions are allowed. This doesn't ensure 
 ```{warning}
 Allowing all file types may present a security risk if untrusted users are allowed to upload documents - in this case additional configuration will be required at the webserver level to handle these securely. See [](user_uploaded_files).
 ```
+(wagtaildocs_max_upload_size)=
+
+### `WAGTAILDOCS_MAX_UPLOAD_SIZE`
+
+```python
+WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
+```
+
+Sets the maximum file size (in bytes) for document uploads. If a user attempts to upload a document that exceeds this limit, a validation error will be displayed showing both the file size and the maximum allowed size.
+
+When this setting is configured, a help text indicating the maximum allowed file size will also be shown on the document upload form.
+
+Defaults to `None`, which means no size limit is enforced.
 
 ## User Management
 

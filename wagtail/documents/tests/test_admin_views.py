@@ -4,6 +4,7 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.template.defaultfilters import filesizeformat
 from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -738,6 +739,32 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # error message should be output on the page as a non-field error
         self.assertContains(
             response, "Custom document with this Title and Collection already exists."
+        )
+    
+    @override_settings(WAGTAILDOCS_MAX_UPLOAD_SIZE=1)
+    def test_add_too_large_file(self):
+        file_content = b"Simple text document"
+
+        response = self.client.post(
+            reverse("wagtaildocs:add"),
+            {
+                "title": "Test document",
+                "file": SimpleUploadedFile("test.txt", file_content),
+            },
+        )
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/add.html")
+
+        # The form should have an error
+        self.assertFormError(
+            response.context["form"],
+            "file",
+            "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
+                file_size=filesizeformat(len(file_content)),
+                max_file_size=filesizeformat(1),
+            ),
         )
 
 
