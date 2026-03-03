@@ -488,6 +488,16 @@ describe('TabsController', () => {
       expect(tab3.getAttribute('aria-selected')).toBe(null);
       expect(tab1Panel.hidden).toBeFalsy();
       expect(tab3Panel.hidden).toBeTruthy();
+
+      // remove the currently selected tab
+      tab1.remove();
+      tab1Panel.remove();
+      await jest.runAllTimersAsync();
+
+      // should gracefully handle removal by selecting the first available tab
+      // (which is now tab 3)
+      expect(tab3.getAttribute('aria-selected')).toBe('true');
+      expect(tab3Panel.hidden).toBeFalsy();
     });
 
     it('should gracefully handle replacement of currently active panel target', async () => {
