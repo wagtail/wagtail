@@ -212,6 +212,48 @@ class TestImageQuerySet(TransactionTestCase):
         results = Image.objects.search("Test")
         self.assertEqual(list(results), [image])
 
+    def test_search_description(self):
+        """Image descriptions should be searchable (issue #13864)."""
+        image = Image.objects.create(
+            title="Test image",
+            description="A beautiful sunset over the mountains",
+            file=get_test_image_file(),
+        )
+        Image.objects.create(
+            title="Another image",
+            description="A cat sleeping on a sofa",
+            file=get_test_image_file(),
+        )
+
+        # Search by description content should return matching image
+        results = Image.objects.search("sunset")
+        self.assertIn(image, results)
+
+        results = Image.objects.search("mountains")
+        self.assertIn(image, results)
+
+    def test_description_in_search_fields(self):
+        """The description field should be included in search_fields (issue #13864)."""
+        from wagtail.search import index
+
+        search_field_names = [
+            f.field_name
+            for f in Image.search_fields
+            if isinstance(f, index.SearchField)
+        ]
+        self.assertIn("description", search_field_names)
+
+    def test_description_in_autocomplete_fields(self):
+        """The description field should have autocomplete support."""
+        from wagtail.search import index
+
+        autocomplete_field_names = [
+            f.field_name
+            for f in Image.search_fields
+            if isinstance(f, index.AutocompleteField)
+        ]
+        self.assertIn("description", autocomplete_field_names)
+
     def test_operators(self):
         aaa_image = Image.objects.create(
             title="AAA Test image",

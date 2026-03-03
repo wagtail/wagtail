@@ -362,6 +362,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     search_fields = CollectionMember.search_fields + [
         index.SearchField("title", boost=10),
         index.AutocompleteField("title"),
+        index.SearchField("description", boost=2),
+        index.AutocompleteField("description"),
         index.FilterField("title"),
         index.RelatedFields(
             "tags",
