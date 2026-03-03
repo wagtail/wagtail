@@ -19,6 +19,7 @@ from wagtail.documents.permissions import (
 from wagtail.models import Collection
 from wagtail.search import index as search_index
 
+
 # Callback to allow us to override the default form field for the document file field and collection field.
 def formfield_for_dbfield(db_field, **kwargs):
     if db_field.name == "file":
