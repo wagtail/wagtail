@@ -1831,7 +1831,16 @@ class TestHeaderButtons(WagtailTestUtils, TestCase):
         response = self.client.get(self.edit_url)
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
-        header_buttons = soup.select(".w-slim-header .w-dropdown a")
+        dropdown = soup.select_one(".w-slim-header .w-dropdown")
+        self.assertIsNotNone(dropdown)
+        self.assertLessEqual(
+            {
+                "w-breadcrumbs:opened@document->w-dropdown#hide",
+                "w-breadcrumbs:closed@document->w-dropdown#hide",
+            },
+            set(dropdown.get("data-action").split()),
+        )
+        header_buttons = dropdown.select("a")
         expected_buttons = [
             ("Copy", self.copy_url),
             ("Delete", self.delete_url),
