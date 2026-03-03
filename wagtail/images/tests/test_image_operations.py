@@ -15,9 +15,9 @@ from wagtail.images.models import Filter, Image
 from wagtail.images.shortcuts import get_rendition_or_not_found
 from wagtail.images.tests.utils import (
     get_test_image_file,
-    get_test_image_file_svg,
     get_test_image_file_avif,
     get_test_image_file_jpeg,
+    get_test_image_file_svg,
     get_test_image_file_tiff,
     get_test_image_file_webp,
 )
