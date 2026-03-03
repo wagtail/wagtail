@@ -40,14 +40,16 @@ Changelog
  * Maintenance: Add explicit `timeout-minutes` to GitHub Actions workflow jobs (Ashutosh)
 
 
-7.3.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
  * Fix: Update dependencies to allow django-modelsearch 1.2 and django-tasks 0.11
  * Fix: Fix duplicate inline panel items when editing snippets with autosave enabled (Sage Abdullah)
  * Fix: Prevent dropdowns from closing after a successful autosave (Sage Abdullah)
  * Fix: Show placeholder image icons when image upload previews fail (Collins Kubu)
  * Fix: Ensure that 'create' form within choosers is not hidden on validation errors (Ankit Chaudhary)
+
 
 7.3 (03.02.2026)
 ~~~~~~~~~~~~~~~~
