@@ -958,6 +958,7 @@
 * Baptiste Darthenay
 * Adithya00012
 * Devarshi Mani Tripathi
+* Om Harsh
 
 ## Translators
 
