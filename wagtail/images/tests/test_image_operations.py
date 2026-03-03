@@ -15,6 +15,7 @@ from wagtail.images.models import Filter, Image
 from wagtail.images.shortcuts import get_rendition_or_not_found
 from wagtail.images.tests.utils import (
     get_test_image_file,
+    get_test_image_file_svg,
     get_test_image_file_avif,
     get_test_image_file_jpeg,
     get_test_image_file_tiff,
@@ -1065,6 +1066,24 @@ class TestWebpFormatConversion(TestCase):
 
         self.assertEqual(out.format_name, "webp")
 
+class TestSvgFormatConversion(TestCase):
+    def test_svg_format_filter_preserves_svg(self):
+        """
+        SVG images must not be converted to raster formats
+        even when a format-* filter is required.
+        """
+
+        raster_formats = ["jpeg", "png", "webp", "gif", "avif", "heic"]
+
+        for fmt in raster_formats:
+            with self.subTest(format=fmt):
+                fil = Filter(spec=f"width-400|format-{fmt}")
+                image = Image.objects.create(
+                    title="Test SVG",
+                    file=get_test_image_file_svg()
+                )
+            out = fil.run(image, BytesIO())
+            self.assertEqual(out.format_name, "svg")
 
 class TestCheckSize(TestCase):
     def test_check_size_when_floats_allowed(self):
