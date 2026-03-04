@@ -90,32 +90,55 @@ From the root of the Wagtail codebase, run the following command to run all the 
 python runtests.py
 ```
 
+### Speeding up the test run
+
+Wagtail's Python test suite is quite comprehensive, which takes a while to run. To speed up the test run, you can pass the `--parallel` argument to run the tests in parallel:
+
+```sh
+python runtests.py --parallel
+```
+
+Wagtail comes with migrations to create the built-in models and initial data. In addition, the test project also includes migrations for the test models. Running these migrations can take a while, so it can be useful to keep the database between test runs by using the `--keepdb` argument.
+
+There is [a known issue in Django](https://code.djangoproject.com/ticket/25251) where any test class that uses `TransactionTestCase` causes the initial data to be lost between test runs when using `--keepdb`. To avoid this, we have marked such tests in Wagtail with the `transaction` tag, and you can exclude them using the `--exclude-tag` argument when you are not interested in their results.
+
+```sh
+python runtests.py --parallel --keepdb --exclude-tag=transaction
+```
+
+If you are using SQLite, set the `DATABASE_NAME` environment variable so that a database file is used and kept, instead of an in-memory database.
+
+```sh
+DATABASE_NAME=wagtail.db ./runtests.py --parallel --keepdb --exclude-tag=transaction
+```
+
+If there has been a new migration since the last test run, you might need to delete the clone test databases (named `default_*.db`) due to [a known Django issue](https://code.djangoproject.com/ticket/26822) with SQLite.
+
 ### Running only some of the tests
 
-At the time of writing, Wagtail has well over 5000 tests, which takes a while to
-run. You can run tests for only one part of Wagtail by passing in the path as
+You can run tests for only one part of Wagtail by passing in the path as
 an argument to `runtests.py` or `tox`:
 
 ```sh
 # Running in the current environment
-python runtests.py wagtail
+python runtests.py wagtail.admin
 
 # Running in a specified Tox environment
-tox -e py39-dj32-sqlite-noelasticsearch -- wagtail
+tox -e py39-dj32-sqlite-noelasticsearch -- wagtail.admin
 
 # See a list of available Tox environments
 tox -l
 ```
 
-You can also run tests for individual TestCases by passing in the path as
-an argument to `runtests.py`
+You can also run tests for individual `TestCase`s or methods by passing in the paths as
+arguments to `runtests.py`
 
 ```sh
 # Running in the current environment
-python runtests.py wagtail.tests.test_blocks.TestIntegerBlock
+python runtests.py -- wagtail.tests.test_blocks.TestIntegerBlock wagtail.tests.test_blocks.TestBlock.test_normalize
 
 # Running in a specified Tox environment
-tox -e py39-dj32-sqlite-noelasticsearch -- wagtail.tests.test_blocks.TestIntegerBlock
+tox -e py39-dj32-sqlite-noelasticsearch -- wagtail.tests.test_blocks.TestIntegerBlock wagtail.tests.test_blocks.TestBlock.test_normalize
 ```
 
 ### Running migrations for the test app models
