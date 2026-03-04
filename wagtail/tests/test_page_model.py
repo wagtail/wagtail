@@ -3013,6 +3013,31 @@ class TestUpdateAliases(TestCase):
             ).exists()
         )
 
+    def test_update_aliases_respects_exclude_fields_in_copy(self):
+        event_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        alias = event_page.create_alias(update_slug="new-event-page")
+
+        # Mock exclude_fields_in_copy to include 'slug'
+        # This simulates a model that wants to preserve its own slug during sync
+        original_exclude = EventPage.exclude_fields_in_copy
+        EventPage.exclude_fields_in_copy = ["slug"]
+
+        try:
+            # Update the source page title
+            event_page.title = "Updated title"
+            event_page.save_revision().publish()
+
+            # Trigger update_aliases
+            event_page.update_aliases()
+
+            # Check that the alias title has been updated but slug was preserved
+            alias.refresh_from_db()
+            self.assertEqual(alias.title, "Updated title")
+            self.assertEqual(alias.slug, "new-event-page")
+        finally:
+            # Restore original state
+            EventPage.exclude_fields_in_copy = original_exclude
+
     def test_update_aliases_publishes_drafts(self):
         event_page = EventPage.objects.get(url_path="/home/events/christmas/")
 

@@ -1104,8 +1104,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for alias in self.specific_class.objects.filter(alias_of=self).exclude(
             id__in=_updated_ids
         ):
-            # FIXME: Switch to the same fields that are excluded from copy
-            # We can't do this right now because we can't exclude fields from with_content_json
+            # Determine fields to exclude. We must include the core tree fields
+            # and then add the user-defined exclusions from the model's exclude_fields_in_copy.
+            # We do NOT use default_exclude_fields_in_copy here because it includes
+            # child relations which SHOULD be synced for aliases.
+            specific_class = self.specific_class
             exclude_fields = [
                 "id",
                 "path",
@@ -1115,10 +1118,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 "path",
                 "index_entries",
                 "postgres_index_entries",
-            ]
+            ] + list(specific_class.exclude_fields_in_copy)
 
             # Copy field content
-            alias_updated = alias.with_content_json(_content)
+            alias_updated = alias.with_content_json(
+                _content, exclude_fields=exclude_fields
+            )
 
             # Publish the alias if it's currently in draft
             alias_updated.live = True
@@ -1130,25 +1135,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
             # Process child objects
-            # This has two jobs:
-            #  - If the alias is in a different locale, this updates the
-            #    locale of any translatable child objects to match
-            #  - If the alias is not a translation of the original, this
-            #    changes the translation_key field of all child objects
-            #    so they do not clash
             if child_object_map:
                 alias_is_translation = alias.translation_key == self.translation_key
 
                 def process_child_object(child_object):
-                    if isinstance(child_object, TranslatableMixin):
-                        # Child object's locale must always match the page
-                        child_object.locale = alias_updated.locale
+                    if hasattr(child_object, "locale_id"):
+                        child_object.locale_id = alias_updated.locale_id
 
-                        # If the alias isn't a translation of the original page,
-                        # change the child object's translation_keys so they are
-                        # not either
-                        if not alias_is_translation:
-                            child_object.translation_key = uuid.uuid4()
+                    if not alias_is_translation and hasattr(
+                        child_object, "translation_key"
+                    ):
+                        child_object.translation_key = uuid.uuid4()
 
                 for (rel, previous_id), child_objects in child_object_map.items():
                     if previous_id is None:
@@ -1173,8 +1170,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             alias_updated.save(clean=False)
 
+            # Update child aliases
+            alias_updated.update_aliases(
+                revision=revision,
+                _content=_content,
+                _updated_ids=_updated_ids + [self.id],
+            )
+
             page_published.send(
-                sender=alias_updated.specific_class,
+                sender=self.specific_class,
                 instance=alias_updated,
                 revision=revision,
                 alias=True,
@@ -1948,7 +1952,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         context["action_url"] = action_url
         return TemplateResponse(request, password_required_template, context)
 
-    def with_content_json(self, content):
+    def with_content_json(self, content, exclude_fields=None):
         """
         Returns a new version of the page with field values updated to reflect changes
         in the provided ``content`` (which usually comes from a previously-saved
@@ -1989,6 +1993,20 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             del content["comments"]
 
         obj = self.specific_class.from_serializable_data(content)
+
+        if exclude_fields:
+            for field_name in exclude_fields:
+                if field_name == "id":
+                    continue
+
+                if hasattr(self, field_name):
+                    val = getattr(self, field_name)
+                    try:
+                        setattr(obj, field_name, val)
+                    except (TypeError, AttributeError):
+                        # Skip fields that cannot be directly assigned
+                        # (e.g., related managers)
+                        continue
 
         # These should definitely never change between revisions
         obj.id = self.id
