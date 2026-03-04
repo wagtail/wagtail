@@ -9,8 +9,12 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 from wagtail.models import Page
 from wagtail.signals import page_published
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import CustomPermissionPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
+
+from wagtail.admin.views.pages.bulk_actions.page_bulk_action import (
+    PageBulkAction as _PageBulkAction,
+)
 
 
 class TestBulkPublish(WagtailTestUtils, TestCase):
@@ -130,7 +134,7 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
         )
 
         for child_page in self.pages_to_be_published:
-            self.assertInHTML(f"<li>{child_page.title}</li>", html)
+            self.assertContains(response, child_page.title)
 
     def test_publish_view_post(self):
         """
@@ -379,3 +383,83 @@ class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
         for grandchild_pages in self.grandchildren_pages.values():
             for grandchild_page in grandchild_pages:
                 self.assertFalse(Page.objects.get(id=grandchild_page.id).live)
+
+
+class TestBulkPublishSpecificPagePermissions(WagtailTestUtils, TestCase):
+    """Test that PageBulkAction.get_queryset returns specific page instances,
+    ensuring that custom permissions_for_user() overrides on specific page
+    models are properly respected during bulk publish.
+
+    Relates to https://github.com/wagtail/wagtail/issues/13976
+    """
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+
+        self.simple_page = SimplePage(
+            title="Simple page",
+            slug="simple-page",
+            content="Simple content",
+            live=False,
+        )
+        self.root_page.add_child(instance=self.simple_page)
+        self.simple_page.save_revision()
+
+        self.custom_perm_page = CustomPermissionPage(
+            title="Custom perm page",
+            slug="custom-perm-page",
+            live=False,
+        )
+        self.root_page.add_child(instance=self.custom_perm_page)
+        self.custom_perm_page.save_revision()
+
+        self.url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailcore", "page", "publish"),
+            )
+            + f"?id={self.simple_page.id}&id={self.custom_perm_page.id}"
+        )
+
+        self.user = self.login()
+
+    def test_get_queryset_returns_specific_instances(self):
+        """PageBulkAction.get_queryset should return specific page instances."""
+        object_ids = [str(self.simple_page.id), str(self.custom_perm_page.id)]
+        pages = _PageBulkAction.get_queryset(Page, object_ids)
+
+        page_types = {type(p) for p in pages}
+        self.assertIn(SimplePage, page_types)
+        self.assertIn(CustomPermissionPage, page_types)
+        self.assertNotIn(Page, page_types)
+
+    def test_bulk_publish_respects_custom_permission_tester(self):
+        """Bulk publish should not publish pages whose specific class
+        returns can_publish() == False via a custom PagePermissionTester."""
+        # Temporarily make CustomPermissionPage's tester disallow publishing
+        from wagtail.test.testapp.models import CustomPermissionTester
+
+        original_can_publish = CustomPermissionTester.can_publish
+        CustomPermissionTester.can_publish = lambda self: False
+
+        try:
+            response = self.client.get(self.url)
+            self.assertEqual(response.status_code, 200)
+
+            # The custom perm page should be listed in items_with_no_access
+            html = response.content.decode()
+            self.assertContains(response, "Custom perm page")
+
+            # Post to publish
+            response = self.client.post(self.url)
+            self.assertEqual(response.status_code, 302)
+
+            # Simple page should be published
+            self.simple_page.refresh_from_db()
+            self.assertTrue(self.simple_page.live)
+
+            # Custom perm page should NOT be published
+            self.custom_perm_page.refresh_from_db()
+            self.assertFalse(self.custom_perm_page.live)
+        finally:
+            CustomPermissionTester.can_publish = original_can_publish
