@@ -153,6 +153,8 @@ def get_allowed_image_extensions():
 def get_accept_attributes():
     allowed_image_extensions = get_allowed_image_extensions()
     accept_attrs = "image/*"
+    if "heic" in allowed_image_extensions:
+        accept_attrs += ", image/heic"
     if "avif" in allowed_image_extensions:
         accept_attrs += ", image/avif"
 

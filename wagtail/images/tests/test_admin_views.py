@@ -2061,11 +2061,11 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
-        # upload file field should have an explicit 'accept' case for image/avif
+        # upload file field should have an explicit 'accept' case for image/heic and image/avif
         soup = self.get_soup(response_json["html"])
         self.assertEqual(
             soup.select_one('input[type="file"]').get("accept"),
-            "image/*, image/avif",
+            "image/*, image/heic, image/avif",
         )
 
     @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])
@@ -2934,16 +2934,16 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
     @override_settings(
         WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp", "avif", "heic"]
     )
-    def test_multiple_upload_field_accepts_avif(self):
+    def test_multiple_upload_field_accepts_heic(self):
         response = self.client.get(reverse("wagtailimages:add_multiple"))
 
         self.assertEqual(response.status_code, 200)
 
-        # multiple upload file field should have explicit 'accept' case for image/avif
+        # multiple upload file field should have explicit 'accept' case for image/heic and image/avif
         soup = self.get_soup(response.content)
         self.assertEqual(
             soup.select_one("input[type='file'][multiple]").get("accept"),
-            "image/*, image/avif",
+            "image/*, image/heic, image/avif",
         )
 
     @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])

@@ -185,8 +185,8 @@ class WagtailImageField(ImageField):
             and "accept" not in widget.attrs
             and attrs.get("accept") == "image/*"
         ):
-            # File upload dialogs will often not allow selecting avif if the accept attribute is
-            # given as "image/*" - we need to add an explicit type for that
+            # File upload dialogs will often not allow selecting heic or avif if the accept attribute is
+            # given as "image/*" - we need to add explicit mimetypes for these
             attrs["accept"] = get_accept_attributes()
 
         return attrs
