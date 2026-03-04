@@ -30,6 +30,8 @@ export class ClipboardController extends Controller<HTMLElement> {
    * the value target to the clipboard. If no value is found, nothing happens.
    * If the clipboard is not available an error event is dispatched and it will
    * intentionally fail silently.
+   *
+   * @param event - The event that triggered this action, optionally containing the value to copy in `detail` or `params`.
    */
   copy(event: CustomEvent<CopyOptions> & { params?: CopyOptions }) {
     const {
