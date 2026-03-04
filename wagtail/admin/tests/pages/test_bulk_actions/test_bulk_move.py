@@ -126,7 +126,7 @@ class TestBulkMove(WagtailTestUtils, TestCase):
         self.assertInHTML("<p>You don't have permission to move these pages</p>", html)
 
         for child_page in self.pages_to_be_moved:
-            self.assertInHTML(f"<li>{child_page.title}</li>", html)
+            self.assertInHTML(f"<li>{child_page.get_admin_display_title()}</li>", html)
 
         self.assertTagInHTML(
             f"""<form action="{self.url}" method="POST"></form>""",
@@ -177,7 +177,7 @@ class TestBulkMove(WagtailTestUtils, TestCase):
                     edit_page_url=reverse(
                         "wagtailadmin_pages:edit", args=[child_page.id]
                     ),
-                    page_title=child_page.title,
+                    page_title=child_page.get_admin_display_title(),
                 ),
                 html,
             )
@@ -206,7 +206,7 @@ class TestBulkMove(WagtailTestUtils, TestCase):
                     edit_page_url=reverse(
                         "wagtailadmin_pages:edit", args=[child_page.id]
                     ),
-                    page_title=child_page.title,
+                    page_title=child_page.get_admin_display_title(),
                 ),
                 html,
             )
