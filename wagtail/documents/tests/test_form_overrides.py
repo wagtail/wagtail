@@ -5,6 +5,7 @@ from taggit import models as taggit_models
 from wagtail.admin import widgets
 from wagtail.admin.widgets import AdminDateTimeInput
 from wagtail.documents import models
+from wagtail.documents.fields import WagtailDocumentField
 from wagtail.documents.forms import (
     BaseDocumentForm,
     get_document_base_form,
@@ -29,6 +30,7 @@ class TestDocumentFormOverride(TestCase):
         form = form_cls()
         self.assertIsInstance(form.fields["tags"].widget, widgets.AdminTagWidget)
         self.assertEqual(form.fields["tags"].widget.tag_model, taggit_models.Tag)
+        self.assertIsInstance(form.fields["file"], WagtailDocumentField)
         self.assertIsInstance(form.fields["file"].widget, forms.FileInput)
 
     def test_tags_widget_with_custom_tag_model(self):

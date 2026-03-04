@@ -71,7 +71,10 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         More info : https://docs.djangoproject.com/en/3.1/ref/validators/#fileextensionvalidator
         """
         allowed_extensions = getattr(settings, "WAGTAILDOCS_EXTENSIONS", None)
-        if allowed_extensions:
+        # If the form field has already failed validation, ModelForm may call
+        # model.clean() with an empty file value; avoid surfacing a secondary,
+        # confusing "File extension '' is not allowed" error in that case.
+        if allowed_extensions and getattr(self.file, "name", None):
             validate = FileExtensionValidator(allowed_extensions)
             try:
                 validate(self.file)

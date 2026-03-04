@@ -4,6 +4,7 @@ from unittest import mock
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.template.defaultfilters import filesizeformat
 from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -624,6 +625,58 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         }
         for attr, expected_value in expected_attributes.items():
             self.assertEqual(file_input.get(attr), expected_value)
+
+    @override_settings(WAGTAILDOCS_EXTENSIONS=["pdf", "docx"], WAGTAILDOCS_MAX_UPLOAD_SIZE=1000)
+    def test_get_includes_supported_formats_and_max_filesize_help_text(self):
+        response = self.client.get(reverse("wagtaildocs:add"))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response,
+            "Supported formats: PDF, DOCX. Maximum filesize: {max_filesize}.".format(
+                max_filesize=filesizeformat(1000),
+            ),
+        )
+
+    @override_settings(WAGTAILDOCS_EXTENSIONS=["pdf"])
+    def test_post_with_unsupported_extension_has_friendly_error(self):
+        response = self.client.post(
+            reverse("wagtaildocs:add"),
+            {
+                "title": "Test document",
+                "file": SimpleUploadedFile("test.txt", b"This is a text file"),
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/add.html")
+        self.assertFormError(
+            response.context["form"],
+            "file",
+            "Not a supported document format. Supported formats: PDF.",
+        )
+
+    @override_settings(WAGTAILDOCS_MAX_UPLOAD_SIZE=1)
+    def test_post_with_too_large_file_has_friendly_error(self):
+        file_content = b"ab"
+        response = self.client.post(
+            reverse("wagtaildocs:add"),
+            {
+                "title": "Test document",
+                "file": SimpleUploadedFile("test.txt", file_content),
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/add.html")
+        self.assertFormError(
+            response.context["form"],
+            "file",
+            "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
+                file_size=filesizeformat(len(file_content)),
+                max_file_size=filesizeformat(1),
+            ),
+        )
 
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
