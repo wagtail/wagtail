@@ -26,7 +26,6 @@ class WagtailDocumentField(FileField):
 
         super().__init__(*args, **kwargs)
 
-       
         self.max_upload_size = getattr(
             settings, "WAGTAILDOCS_MAX_UPLOAD_SIZE", 10 * 1024 * 1024
         )
@@ -59,7 +58,6 @@ class WagtailDocumentField(FileField):
                 "max_upload_size": self.max_upload_size_text,
             }
 
-       
         if self.supported_formats_text:
             self.error_messages["invalid_document_extension"] = _(
                 "Not a supported document format. Supported formats: %(supported_formats)s."
@@ -90,7 +88,7 @@ class WagtailDocumentField(FileField):
             )
 
     def check_document_file_size(self, f):
-       
+
         if self.max_upload_size is None:
             return
 

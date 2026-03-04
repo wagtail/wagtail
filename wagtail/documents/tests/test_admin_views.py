@@ -626,7 +626,9 @@ class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         for attr, expected_value in expected_attributes.items():
             self.assertEqual(file_input.get(attr), expected_value)
 
-    @override_settings(WAGTAILDOCS_EXTENSIONS=["pdf", "docx"], WAGTAILDOCS_MAX_UPLOAD_SIZE=1000)
+    @override_settings(
+        WAGTAILDOCS_EXTENSIONS=["pdf", "docx"], WAGTAILDOCS_MAX_UPLOAD_SIZE=1000
+    )
     def test_get_includes_supported_formats_and_max_filesize_help_text(self):
         response = self.client.get(reverse("wagtaildocs:add"))
         self.assertEqual(response.status_code, 200)
