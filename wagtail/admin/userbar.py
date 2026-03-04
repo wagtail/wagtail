@@ -48,7 +48,11 @@ class AccessibilityItem(BaseItem):
     axe_exclude = []
 
     # Make sure that the userbar is not tested.
-    _axe_default_exclude = [{"fromShadowDom": ["wagtail-userbar"]}]
+    # Also exclude embed iframes to prevent cross-origin security errors that break Axe.
+    _axe_default_exclude = [
+        {"fromShadowDom": ["wagtail-userbar"]},
+        ".responsive-object iframe",
+    ]
 
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
