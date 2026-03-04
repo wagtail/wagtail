@@ -205,11 +205,15 @@ class TestImageQuerySet(TransactionTestCase):
         # Create an image for running tests on
         image = Image.objects.create(
             title="Test image",
+            description="A cool description",
             file=get_test_image_file(),
         )
 
         # Search for it
         results = Image.objects.search("Test")
+        self.assertEqual(list(results), [image])
+
+        results = Image.objects.search("cool")
         self.assertEqual(list(results), [image])
 
     def test_operators(self):
