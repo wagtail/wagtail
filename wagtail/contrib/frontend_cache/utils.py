@@ -1,4 +1,5 @@
 import logging
+from urllib.parse import urljoin
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -111,7 +112,7 @@ def _get_page_cached_urls(page, cache_object=None):
         return []
 
     return [
-        page_url + path.lstrip("/")
+        urljoin(page_url.rstrip("/") + "/", path.lstrip("/"))
         for path in page.specific_deferred.get_cached_paths()
     ]
 
