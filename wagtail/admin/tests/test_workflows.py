@@ -30,6 +30,7 @@ from wagtail.locks import BasicLock
 from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
+    LockableMixin,
     Page,
     PageViewRestriction,
     Task,
@@ -2014,11 +2015,12 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
+        # as well as cancel workflow
         self.login(self.moderator)
         response = self.client.get(edit_url)
         self.assertContains(response, "Save draft")
+        self.assertContains(response, "Cancel workflow")
         self.assertNotContains(response, "Submit to test_workflow")
-        self.assertNotContains(response, "Cancel workflow")
         self.assertNotContains(response, "Restart workflow")
         self.assertContains(response, "Approve")
         self.assertContains(response, "Request changes")
@@ -2263,6 +2265,50 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
             new_workflow_state.current_task_state.task.specific, self.task_1
         )
 
+    def test_user_can_cancel_workflow__unhappy_path(self):
+        self.workflow.start(self.object, user=self.submitter)
+
+        # a random user who is neither the page creator, the workflow submitter, nor
+        # can approve
+        self.assertFalse(
+            self.object.current_workflow_state.user_can_cancel(
+                self.create_user("random")
+            )
+        )
+
+    def test_user_can_cancel_workflow__unhappy_path_lockable_object(self):
+        if not isinstance(self.object, LockableMixin):
+            return skip("Skipping test as object not lockable")
+
+        self.workflow.start(self.object, user=self.submitter)
+        self.object.locked = True
+        self.object.locked_by = self.superuser
+        self.object.save()
+
+        self.assertFalse(
+            self.object.current_workflow_state.user_can_cancel(self.submitter)
+        )
+
+    def test_user_can_cancel_workflow(self):
+        owner = self.create_user("owner")
+        self.object.owner = owner
+        self.object.save()
+
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state = self.object.current_workflow_state
+
+        # user is requester
+        self.assertTrue(workflow_state.user_can_cancel(self.submitter))
+
+        # user is owner
+        # only applicable when the workflow state content object has that attribute
+        if hasattr(workflow_state.content_object, "owner"):
+            self.assertTrue(workflow_state.user_can_cancel(owner))
+
+        # user can approve
+        self.assertTrue(workflow_state.user_can_cancel(self.moderator))
+        self.assertTrue(workflow_state.user_can_cancel(self.superuser))
+
     def test_cancel_workflow(self):
         # test that an existing workflow can be cancelled after submission by the submitter
         self.workflow.start(self.object, user=self.submitter)
@@ -2366,11 +2412,12 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
+        # as well as cancel workflow
         self.login(self.moderator)
         response = self.client.get(edit_url)
         self.assertContains(response, "Save draft")
+        self.assertContains(response, "Cancel workflow")
         self.assertNotContains(response, "Submit to test_workflow")
-        self.assertNotContains(response, "Cancel workflow")
         self.assertNotContains(response, "Restart workflow")
         self.assertContains(response, "Approve")
         self.assertContains(response, "Request changes")
