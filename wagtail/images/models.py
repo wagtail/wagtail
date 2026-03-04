@@ -1209,7 +1209,16 @@ class ResponsiveImage:
             # No point in using width descriptors if there is a single image.
             return renditions_list[0].url
 
-        return ", ".join([f"{r.url} {r.width}w" for r in renditions_list])
+        # Filter out duplicate widths to ensure valid HTML srcset
+        # Exception: width=0 (missing images) should not be deduplicated
+        seen_widths = set()
+        unique_renditions = []
+        for rendition in renditions_list:
+            if rendition.width == 0 or rendition.width not in seen_widths:
+                seen_widths.add(rendition.width)
+                unique_renditions.append(rendition)
+
+        return ", ".join([f"{r.url} {r.width}w" for r in unique_renditions])
 
     def __html__(self):
         attrs = self.attrs or {}
