@@ -2068,6 +2068,29 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
             "image/*, image/heic, image/avif",
         )
 
+    @override_settings(
+        WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp", "avif", "heic"]
+    )
+    def test_upload_field_omits_heic_on_safari_mac(self):
+        # Safari on macOS has a bug where listing 'image/heic' in the accept attribute
+        # prevents HEIC files from appearing in the file picker.
+        safari_mac_ua = (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+            "Version/16.0 Safari/605.1.15"
+        )
+        response = self.client.get(
+            reverse("wagtailimages_chooser:choose"),
+            HTTP_USER_AGENT=safari_mac_ua,
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        soup = self.get_soup(response_json["html"])
+        self.assertEqual(
+            soup.select_one('input[type="file"]').get("accept"),
+            "image/*, image/avif",
+        )
+
     @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])
     def test_upload_field_without_avif(self):
         response = self.get()
@@ -2944,6 +2967,28 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertEqual(
             soup.select_one("input[type='file'][multiple]").get("accept"),
             "image/*, image/heic, image/avif",
+        )
+
+    @override_settings(
+        WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp", "avif", "heic"]
+    )
+    def test_multiple_upload_field_omits_heic_on_safari_mac(self):
+        # Safari on macOS has a bug where listing 'image/heic' in the accept attribute
+        # prevents HEIC files from appearing in the file picker.
+        safari_mac_ua = (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+            "Version/16.0 Safari/605.1.15"
+        )
+        response = self.client.get(
+            reverse("wagtailimages:add_multiple"),
+            HTTP_USER_AGENT=safari_mac_ua,
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        self.assertEqual(
+            soup.select_one("input[type='file'][multiple]").get("accept"),
+            "image/*, image/avif",
         )
 
     @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])
