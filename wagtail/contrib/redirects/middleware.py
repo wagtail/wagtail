@@ -1,6 +1,7 @@
 from urllib.parse import urlparse
 
 from django import http
+from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
 
@@ -15,10 +16,19 @@ def _get_redirect(request, path):
         return None
 
     site = Site.find_for_request(request)
+    is_case_insensitive = getattr(settings, "WAGTAIL_REDIRECTS_CASE_INSENSITIVE", False)
+
+    redirects = models.Redirect.get_for_site(site)
+
     try:
-        return models.Redirect.get_for_site(site).get(old_path=path)
+        if is_case_insensitive:
+            return redirects.get(old_path__iexact=path)
+        else:
+            return redirects.get(old_path=path)
     except models.Redirect.MultipleObjectsReturned:
         # We have a site-specific and a site-ambivalent redirect; prefer the specific one
+        if is_case_insensitive:
+            return models.Redirect.objects.get(site=site, old_path__iexact=path)
         return models.Redirect.objects.get(site=site, old_path=path)
     except models.Redirect.DoesNotExist:
         return None
