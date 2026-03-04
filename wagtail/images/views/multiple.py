@@ -107,7 +107,7 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
                 "max_filesize": self.form.fields["file"].max_upload_size,
                 "max_title_length": self.form.fields["title"].max_length,
                 "allowed_extensions": get_allowed_image_extensions(),
-                "accept_attributes": get_accept_attributes(),
+                "accept_attributes": get_accept_attributes(self.request),
                 "error_max_file_size": self.form.fields["file"].error_messages[
                     "file_too_large_unknown_size"
                 ],
