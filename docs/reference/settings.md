@@ -582,11 +582,7 @@ Allowing all file types may present a security risk if untrusted users are allow
 WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
 ```
 
-Sets the maximum file size (in bytes) for document uploads. If a user attempts to upload a document that exceeds this limit, a validation error will be displayed showing both the file size and the maximum allowed size.
-
-When this setting is configured, a help text indicating the maximum allowed file size will also be shown on the document upload form.
-
-Defaults to `None`, which means no size limit is enforced.
+This setting lets you override the maximum upload size for documents (in bytes). If omitted, Wagtail will fall back to allowing any file size.
 
 ## User Management
 
