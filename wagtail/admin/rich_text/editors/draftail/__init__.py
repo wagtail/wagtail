@@ -1,4 +1,5 @@
 import json
+import threading
 import warnings
 
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,6 +11,22 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import register
 from wagtail.admin.telepath.widgets import WidgetAdapter
 from wagtail.rich_text import features as feature_registry
+
+# Thread-local storage for collecting malformed embed warnings during format_value calls.
+# This avoids shared mutable state on widget instances (which may be shared across requests).
+_malformed_embed_warnings_local = threading.local()
+
+
+def reset_malformed_embed_warnings():
+    """Clear the thread-local malformed embed warnings accumulator."""
+    _malformed_embed_warnings_local.warnings = []
+
+
+def collect_malformed_embed_warnings():
+    """Return and clear thread-local malformed embed warnings accumulated during format_value calls."""
+    collected = list(getattr(_malformed_embed_warnings_local, "warnings", []))
+    _malformed_embed_warnings_local.warnings = []
+    return collected
 
 
 class DraftailRichTextArea(widgets.HiddenInput):
@@ -66,7 +83,13 @@ class DraftailRichTextArea(widgets.HiddenInput):
         if value is None:
             value = ""
 
-        return self.converter.from_database_format(value)
+        result = self.converter.from_database_format(value)
+        embed_warnings = list(getattr(self.converter, "warnings", []))
+        if embed_warnings:
+            if not hasattr(_malformed_embed_warnings_local, "warnings"):
+                _malformed_embed_warnings_local.warnings = []
+            _malformed_embed_warnings_local.warnings.extend(embed_warnings)
+        return result
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
