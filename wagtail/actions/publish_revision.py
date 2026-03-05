@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.utils import timezone
 
 from wagtail.log_actions import log
@@ -99,6 +100,7 @@ class PublishRevisionAction:
             ):
                 workflow_state.cancel(user=self.user)
 
+    @transaction.atomic
     def _publish_revision(
         self,
         revision: Revision,
