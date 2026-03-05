@@ -253,7 +253,7 @@ describe('SessionController', () => {
           <button type="button" data-workflow-action-name="approve">Approve</button>
 
           <div
-            id="w-overwrite-changes-dialog"
+            id="w-save-confirmation-dialog"
             aria-hidden="true"
             data-controller="w-dialog"
             data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show"
@@ -272,7 +272,7 @@ describe('SessionController', () => {
         <div
           data-controller="w-session"
           data-w-session-intercept-value="true"
-          data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
+          data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-save-confirmation-dialog"
         >
         </div>
       `;
@@ -284,7 +284,7 @@ describe('SessionController', () => {
       workflowActionButton.addEventListener('click', handleWorkflowAction, {
         capture: true,
       });
-      const dialog = document.getElementById('w-overwrite-changes-dialog');
+      const dialog = document.getElementById('w-save-confirmation-dialog');
       dialog.addEventListener('w-dialog:shown', handleDialogShow);
       dialog.addEventListener('w-dialog:hidden', handleDialogHidden);
       dialog.addEventListener('w-dialog:confirmed', handleDialogConfirmed);
@@ -303,7 +303,7 @@ describe('SessionController', () => {
 
     it('should not prevent the submit event if the intercept value is unset', async () => {
       const submitButton = form.querySelector('button[type="submit"]');
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const element = document.querySelector('[data-controller="w-session"]');
       element.removeAttribute('data-w-session-intercept-value');
       await Promise.resolve();
@@ -318,7 +318,7 @@ describe('SessionController', () => {
 
     it('should not prevent the submit event if the intercept value is set to false', async () => {
       const submitButton = form.querySelector('button[type="submit"]');
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const element = document.querySelector('[data-controller="w-session"]');
       element.setAttribute('data-w-session-intercept-value', 'false');
       await Promise.resolve();
@@ -332,7 +332,7 @@ describe('SessionController', () => {
     });
 
     it('should show the dialog and prevent the submit event', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const submitButton = form.querySelector('button[type="submit"]');
       expect(dialog.getAttribute('aria-hidden')).toEqual('true');
       expect(handleDialogShow).not.toHaveBeenCalled();
@@ -346,7 +346,7 @@ describe('SessionController', () => {
     });
 
     it('should continue the action after confirming the dialog', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const confirmButton = document.getElementById('confirm');
       expect(handleDialogShow).not.toHaveBeenCalled();
 
@@ -367,7 +367,7 @@ describe('SessionController', () => {
     });
 
     it('should allow the action to be cancelled', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const cancelButton = document.getElementById('cancel');
       expect(handleDialogShow).not.toHaveBeenCalled();
 
@@ -387,7 +387,7 @@ describe('SessionController', () => {
     });
 
     it('should show the dialog again if clicking the action again after the dialog is hidden', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const confirmButton = document.getElementById('confirm');
       const cancelButton = document.getElementById('cancel');
       expect(handleDialogShow).not.toHaveBeenCalled();
@@ -434,7 +434,7 @@ describe('SessionController', () => {
     });
 
     it('should use the action button label as the dialog confirm target label if it has one', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const submitButton = form.querySelector('button[type="submit"]');
       const confirmButton = document.getElementById('confirm');
       // Mark the confirm button as DialogController's confirm target
@@ -497,7 +497,7 @@ describe('SessionController', () => {
 
       // Reconnect the DialogController so the submit button in the
       // schedule publishing dialog works
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       dialog.removeAttribute('data-controller');
       await Promise.resolve();
       dialog.setAttribute('data-controller', 'w-dialog');

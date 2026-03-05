@@ -46,7 +46,7 @@ export interface PingResponse {
  *   data-w-swap-json-path-value="html"
  *   data-w-action-continue-value="true"
  *   data-w-action-url-value="/path/to/release/session/"
- *   data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
+ *   data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-save-confirmation-dialog"
  *   data-action="visibilitychange@document->w-session#dispatchVisibilityState w-session:visible->w-session#ping w-session:visible->w-session#addInterval w-session:hidden->w-session#clearInterval w-session:hidden->w-action#sendBeacon"
  * >
  * </form>
