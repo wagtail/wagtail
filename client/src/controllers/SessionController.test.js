@@ -271,7 +271,7 @@ describe('SessionController', () => {
 
         <div
           data-controller="w-session"
-          data-w-session-intercept-value="true"
+          data-w-session-intercept-value="conflict"
           data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-save-confirmation-dialog"
         >
         </div>
@@ -316,11 +316,11 @@ describe('SessionController', () => {
       expect(handleDialogShow).not.toHaveBeenCalled();
     });
 
-    it('should not prevent the submit event if the intercept value is set to false', async () => {
+    it('should not prevent the submit event if the intercept value is set to empty string', async () => {
       const submitButton = form.querySelector('button[type="submit"]');
       const dialog = document.querySelector('#w-save-confirmation-dialog');
       const element = document.querySelector('[data-controller="w-session"]');
-      element.setAttribute('data-w-session-intercept-value', 'false');
+      element.setAttribute('data-w-session-intercept-value', '');
       await Promise.resolve();
 
       submitButton.click();
@@ -615,6 +615,8 @@ describe('SessionController', () => {
           data-action="
             w-session:ping->w-swap#submit
             w-swap:json->w-session#updateSessionData
+            w-swap:error->w-session#setNetworkIntercept
+            w-swap:success->w-session#setNetworkIntercept
             w-autosave:success@document->w-session#updateSessionData
           "
         >
@@ -689,7 +691,7 @@ describe('SessionController', () => {
         expect(element.dataset.wActionUrlValue).toEqual(
           'http://localhost/sessions/release/999/',
         );
-        expect(element.dataset.wSessionInterceptValue).toEqual('true');
+        expect(element.dataset.wSessionInterceptValue).toEqual('conflict');
 
         await Promise.resolve();
         await Promise.resolve();
@@ -751,6 +753,175 @@ describe('SessionController', () => {
         await Promise.resolve();
         expect(document.getElementById('w-editing-sessions').innerHTML).toEqual(
           '<ul><li>Session 1</li></ul>',
+        );
+      });
+
+      it('should set the intercept value when there is a network error', async () => {
+        fetch.mockImplementationOnce(() =>
+          Promise.reject(new TypeError('Failed to fetch')),
+        );
+        jest.spyOn(console, 'error').mockImplementationOnce(() => {});
+        await setup();
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/1/',
+          expect.any(Object),
+        );
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'network',
+        );
+      });
+
+      it('should clear the network intercept value when a request is successful', async () => {
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '',
+            ping_url: 'http://localhost/sessions/2/',
+            release_url: 'http://localhost/sessions/2/release/',
+            other_sessions: [],
+          }),
+        );
+        await setup();
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/1/',
+          expect.any(Object),
+        );
+
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/2/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/2/release/',
+        );
+        element.setAttribute('data-w-session-intercept-value', 'network');
+        await Promise.resolve();
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'network',
+        );
+
+        // Simulate ping after 10s
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '<ul><li>Session 7</li></ul>',
+            ping_url: 'http://localhost/sessions/999/',
+            release_url: 'http://localhost/sessions/release/999/',
+            other_sessions: [{ session_id: 7 }],
+          }),
+        );
+        jest.advanceTimersByTime(10000);
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/2/',
+          expect.any(Object),
+        );
+
+        // Simulate request finishing
+        await Promise.resolve();
+
+        // Simulate JSON parsing
+        await Promise.resolve();
+
+        // Simulate HTML updating and deferred write to the DOM
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/999/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/release/999/',
+        );
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          '',
+        );
+      });
+
+      it('should let non-network intercept types to take priority', async () => {
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '',
+            ping_url: 'http://localhost/sessions/2/',
+            release_url: 'http://localhost/sessions/2/release/',
+            other_sessions: [],
+          }),
+        );
+        await setup();
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/1/',
+          expect.any(Object),
+        );
+
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/2/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/2/release/',
+        );
+        element.setAttribute('data-w-session-intercept-value', 'network');
+        await Promise.resolve();
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'network',
+        );
+
+        // Simulate ping after 10s
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '<ul><li>Session 7</li></ul>',
+            ping_url: 'http://localhost/sessions/999/',
+            release_url: 'http://localhost/sessions/release/999/',
+            other_sessions: [{ session_id: 7, revision_id: 456 }],
+          }),
+        );
+        jest.advanceTimersByTime(10000);
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/2/',
+          expect.any(Object),
+        );
+
+        // Simulate request finishing
+        await Promise.resolve();
+
+        // Simulate JSON parsing
+        await Promise.resolve();
+
+        // Simulate HTML updating and deferred write to the DOM
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/999/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/release/999/',
+        );
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'conflict',
+        );
+
+        // Simulate a network error on the next ping
+        fetch.mockImplementationOnce(() =>
+          Promise.reject(new TypeError('Failed to fetch')),
+        );
+        jest.advanceTimersByTime(10000);
+        jest.spyOn(console, 'error').mockImplementationOnce(() => {});
+        await Promise.resolve();
+        await Promise.resolve();
+        // Should not override the existing conflict intercept with a network intercept
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'conflict',
         );
       });
     });

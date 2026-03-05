@@ -19,6 +19,12 @@ export interface PingResponse {
   html: string;
 }
 
+export enum ConfirmationInterceptType {
+  CONFLICT = 'conflict',
+  NETWORK = 'network',
+  NONE = '',
+}
+
 /**
  * Manage an editing session by indicating the presence of the user and handling
  * cases when there are multiple users editing the same content.
@@ -56,7 +62,7 @@ export class SessionController extends Controller<HTMLElement> {
   static values = {
     active: { type: Boolean, default: true },
     interval: { type: Number, default: 1000 * 10 }, // 10 seconds
-    intercept: { type: Boolean, default: false },
+    intercept: { type: String, default: '' },
   };
 
   static outlets = ['w-dialog'];
@@ -80,7 +86,7 @@ export class SessionController extends Controller<HTMLElement> {
   /** The interval duration for the ping event */
   declare intervalValue: number;
   /** Whether to intercept the original event and show a confirmation dialog */
-  declare interceptValue: boolean;
+  declare interceptValue: ConfirmationInterceptType;
 
   /** The interval ID for the periodic pinging */
   declare interval: number | null;
@@ -163,6 +169,29 @@ export class SessionController extends Controller<HTMLElement> {
   }
 
   /**
+   * Set the intercept value to 'network' (or remove it if already set) based on
+   * network-related events.
+   * @param event A network-related event containing a `TypeError` as `detail.error`
+   * when the network is offline, otherwise the network is assumed to be back online.
+   */
+  setNetworkIntercept(event: CustomEvent<{ error?: Error | TypeError }>) {
+    // Let other intercept types (e.g. conflict) take precedence
+    if (
+      this.interceptValue &&
+      this.interceptValue !== ConfirmationInterceptType.NETWORK
+    )
+      return;
+
+    this.interceptValue =
+      // Assume TypeError to be a network error from fetch()
+      'error' in event.detail && event.detail.error instanceof TypeError
+        ? ConfirmationInterceptType.NETWORK
+        : // If there's no error, or it's not a TypeError,
+          // assume the network is back and clear the intercept
+          ConfirmationInterceptType.NONE;
+  }
+
+  /**
    * Dispatch the visibility state of the document. When used as an event
    * listener for the `visibilitychange` event, it will dispatch two separate
    * events: `identifier:visible` and `identifier:hidden`, which makes it easier
@@ -215,9 +244,10 @@ export class SessionController extends Controller<HTMLElement> {
    * Proceed with the original action after the user confirms the dialog.
    */
   confirmAction(): void {
-    this.interceptValue = false;
+    const originalInterceptValue = this.interceptValue;
+    this.interceptValue = ConfirmationInterceptType.NONE;
     this.lastActionButton?.click();
-    this.interceptValue = true;
+    this.interceptValue = originalInterceptValue;
   }
 
   wDialogOutletConnected(): void {
@@ -316,12 +346,14 @@ export class SessionController extends Controller<HTMLElement> {
       this.revisionCreatedAtTarget.value = data.revision_created_at!;
     }
 
-    // Set the interceptValue to true if any of the other sessions have a
+    // Set the interceptValue to 'conflict' if any of the other sessions have a
     // revision ID (assumed to be newer than the one we have loaded)
     if (!('other_sessions' in data && data.other_sessions)) return;
     this.interceptValue = data.other_sessions.some(
       (session) => session.revision_id,
-    );
+    )
+      ? ConfirmationInterceptType.CONFLICT
+      : this.interceptValue;
   }
 
   disconnect(): void {
