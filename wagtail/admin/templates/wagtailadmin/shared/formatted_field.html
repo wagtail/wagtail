@@ -52,7 +52,7 @@
             {{ rendered_field }}
 
             {% if show_add_comment_button %}
-                <button class="w-field__comment-button w-field__comment-button--add" type="button" data-component="add-comment-button" data-comment-add aria-label="{% trans 'Add comment' %}" {% if label_id %}aria-describedby="{{ label_id }}"{% endif %}>
+                <button class="w-field__comment-button w-field__comment-button--add" type="button" data-component="add-comment-button" data-comment-add aria-label="{% trans 'Add comment' %}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Add comment' %}" data-w-tooltip-offset-value="[0, 0]" {% if label_id %}aria-describedby="{{ label_id }}"{% endif %}>
                     {% icon name="comment-add" %}
                     {% icon name="comment-add-reversed" %}
                 </button>

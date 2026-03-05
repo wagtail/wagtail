@@ -187,6 +187,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
         aria-expanded={visibleOnMobile ? 'true' : 'false'}
         aria-keyshortcuts="["
         aria-label={gettext('Toggle sidebar')}
+        data-controller="w-tooltip"
+        data-w-tooltip-content-value={gettext('Toggle sidebar')}
+        data-w-tooltip-offset-value="[0, 0]"
         className={
           'button sidebar-nav-toggle' +
           (isMobile ? ' sidebar-nav-toggle--mobile' : '') +
@@ -225,6 +228,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
               aria-keyshortcuts="["
               aria-label={gettext('Toggle sidebar')}
               type="button"
+              data-controller="w-tooltip"
+              data-w-tooltip-content-value={gettext('Toggle sidebar')}
+              data-w-tooltip-offset-value="[0, 0]"
               className={`${!slim ? 'w-mr-4' : ''}
                 button
                 sidebar__collapse-toggle

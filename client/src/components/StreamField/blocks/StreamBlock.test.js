@@ -545,14 +545,14 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     // querySelector always returns the first element it sees so this only checks the first block
     expect(
       document
-        .querySelector('button[title="Duplicate"]')
+        .querySelector('button[data-streamfield-action="DUPLICATE"]')
         .getAttribute('disabled'),
     ).toBe(null);
 
     // Test menu
     expect(
       document
-        .querySelector('button[title="Insert a block"]')
+        .querySelector('button[aria-label="Insert a block"]')
         .getAttribute('disabled'),
     ).toBe(null);
   };
@@ -918,7 +918,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     // querySelector always returns the first element it sees so this only checks the first block
     expect(
       document
-        .querySelector('button[title="Duplicate"]')
+        .querySelector('button[data-streamfield-action="DUPLICATE"]')
         .getAttribute('disabled'),
     ).toBe(null);
 

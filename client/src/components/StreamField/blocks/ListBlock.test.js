@@ -341,7 +341,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
     // querySelector always returns the first element it sees so this only checks the first block
     expect(
       document
-        .querySelector('button[title="Duplicate"]')
+        .querySelector('button[data-streamfield-action="DUPLICATE"]')
         .getAttribute('disabled'),
     ).toBe(null);
 

@@ -14,7 +14,7 @@
     <div class="w-preview__sizes">
         {% block size_buttons %}
             {% for size in object.preview_sizes %}
-                <label class="w-preview__size-button">
+                <label class="w-preview__size-button" data-controller="w-tooltip" data-w-tooltip-content-value="{{ size.label }}" data-w-tooltip-offset-value="[0, 0]">
                     {% icon name=size.icon %}
                     <input
                         type="radio"
@@ -34,7 +34,7 @@
         {% endblock %}
 
         {% block new_tab_button %}
-            <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="w-preview__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab:prevent" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
+            <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="w-preview__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab:prevent" aria-label="{% trans 'Preview in new tab' %}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Preview in new tab' %}" data-w-tooltip-offset-value="[0, 0]">{% icon name="link-external" %}</a>
         {% endblock %}
     </div>
 
@@ -47,7 +47,10 @@
         <button
             type="button"
             class="button button-small button-secondary button-longrunning button--icon w-preview__refresh-button"
-            data-controller="w-progress"
+            aria-label="{% trans 'Refresh' %}"
+            data-controller="w-tooltip w-progress"
+            data-w-tooltip-content-value="{% trans 'Refresh' %}"
+            data-w-tooltip-offset-value="[0, 0]"
             data-action="click->w-preview#setPreviewDataWithAlert click->w-progress#activate"
             data-w-progress-active-value="{% trans 'Refreshing…' %}"
             data-w-progress-duration-seconds-value="300"

@@ -93,7 +93,9 @@ export class TypedTableBlock {
                     class="button button-small button-secondary button--icon text-replace prepend-row"
                     data-add-row
                     aria-label="${h(strings.ADD_ROW)}"
-                    title="${h(strings.ADD_ROW)}"
+                    data-controller="w-tooltip"
+                    data-w-tooltip-content-value="${h(strings.ADD_ROW)}"
+                    data-w-tooltip-offset-value="[0, 0]"
                   >
                     <svg class="icon icon-plus icon" aria-hidden="true">
                       <use href="#icon-plus"></use>
@@ -218,7 +220,10 @@ export class TypedTableBlock {
       .text(this.blockDef.meta.strings.ADD_COLUMN)
       .removeClass('button--icon text-replace white')
       .removeAttr('aria-label')
-      .removeAttr('title');
+      .removeAttr('title')
+      .removeAttr('data-controller')
+      .removeAttr('data-w-tooltip-content-value')
+      .removeAttr('data-w-tooltip-offset-value');
 
     // delete all body rows
     this.tbody.replaceChildren();
@@ -274,7 +279,9 @@ export class TypedTableBlock {
       class="button button-secondary button-small button--icon text-replace prepend-column"
       aria-label="${h(this.blockDef.meta.strings.INSERT_COLUMN)}"
       aria-expanded="false"
-      title="${h(this.blockDef.meta.strings.INSERT_COLUMN)}">
+      data-controller="w-tooltip"
+      data-w-tooltip-content-value="${h(this.blockDef.meta.strings.INSERT_COLUMN)}"
+      data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>`);
 
@@ -299,7 +306,9 @@ export class TypedTableBlock {
     const deleteColumnButton = $(`<button type="button"
       class="button button-secondary button-small button--icon text-replace no delete-column"
       aria-label="${h(this.blockDef.meta.strings.DELETE_COLUMN)}"
-      title="${h(this.blockDef.meta.strings.DELETE_COLUMN)}">
+      data-controller="w-tooltip"
+      data-w-tooltip-content-value="${h(this.blockDef.meta.strings.DELETE_COLUMN)}"
+      data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button>`);
     $(newHeaderCell).append(deleteColumnButton);
@@ -335,7 +344,9 @@ export class TypedTableBlock {
       .addClass('button--icon text-replace white')
       .attr('aria-label', this.blockDef.meta.strings.ADD_COLUMN)
       .attr('aria-expanded', 'false')
-      .attr('title', this.blockDef.meta.strings.ADD_COLUMN);
+      .attr('data-controller', 'w-tooltip')
+      .attr('data-w-tooltip-content-value', this.blockDef.meta.strings.ADD_COLUMN)
+      .attr('data-w-tooltip-offset-value', '[0, 0]');
 
     if (opts && opts.addInitialRow && this.tbody.children.length === 0) {
       /* add an initial row */
@@ -393,7 +404,9 @@ export class TypedTableBlock {
     const prependRowButton = $(`<button type="button"
       class="button button-secondary button-small button--icon text-replace prepend-row"
       aria-label="${h(this.blockDef.meta.strings.INSERT_ROW)}"
-      title="${h(this.blockDef.meta.strings.INSERT_ROW)}">
+      data-controller="w-tooltip"
+      data-w-tooltip-content-value="${h(this.blockDef.meta.strings.INSERT_ROW)}"
+      data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>`);
     $(controlCellBefore).append(prependRowButton);
@@ -429,7 +442,9 @@ export class TypedTableBlock {
     const deleteRowButton = $(`<button type="button"
       class="button button-secondary button-small button--icon text-replace no delete-row"
       aria-label="${h(this.blockDef.meta.strings.DELETE_ROW)}"
-      title="${h(this.blockDef.meta.strings.DELETE_ROW)}">
+      data-controller="w-tooltip"
+      data-w-tooltip-content-value="${h(this.blockDef.meta.strings.DELETE_ROW)}"
+      data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button>`);
     $(controlCellAfter).append(deleteRowButton);

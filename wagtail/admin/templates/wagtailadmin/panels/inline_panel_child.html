@@ -5,11 +5,11 @@
 <div data-inline-panel-child id="{{ id }}" data-contentpath-disabled>
     {% fragment as header_controls %}
         {% if can_order %}
-            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-up title="{% trans 'Move up' %}">{% icon name="arrow-up" %}</button>
-            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-down title="{% trans 'Move down' %}">{% icon name="arrow-down" %}</button>
-            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-drag title="{% trans 'Drag' %}">{% icon name="grip" %}</button>
+            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-up aria-label="{% trans 'Move up' %}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Move up' %}" data-w-tooltip-offset-value="[0, 0]">{% icon name="arrow-up" %}</button>
+            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-down aria-label="{% trans 'Move down' %}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Move down' %}" data-w-tooltip-offset-value="[0, 0]">{% icon name="arrow-down" %}</button>
+            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-drag aria-label="{% trans 'Drag' %}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Drag' %}" data-w-tooltip-offset-value="[0, 0]">{% icon name="grip" %}</button>
         {% endif %}
-        <button type="button" class="button button--icon text-replace white" id="{{ child.form.DELETE.id_for_label }}-button" title="{% trans 'Delete' %}">{% icon name="bin" %}</button>
+        <button type="button" class="button button--icon text-replace white" id="{{ child.form.DELETE.id_for_label }}-button" aria-label="{% trans 'Delete' %}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Delete' %}" data-w-tooltip-offset-value="[0, 0]">{% icon name="bin" %}</button>
     {% endfragment %}
     {% fragment as heading %}
         {{ self.label|capfirst }}<span data-inline-panel-child-count></span>

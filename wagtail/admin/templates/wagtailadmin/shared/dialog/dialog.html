@@ -14,7 +14,7 @@
     >
         <div class="w-dialog__overlay" data-action="click->w-dialog#hide"></div>
         <div class="w-dialog__box">
-            <button type="button" class="w-dialog__close-button" aria-label="{% trans 'Close dialog' %}" data-action="w-dialog#hide">
+            <button type="button" class="w-dialog__close-button" aria-label="{% trans 'Close dialog' %}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Close dialog' %}" data-w-tooltip-offset-value="[0, 0]" data-action="w-dialog#hide">
                 {% icon name='cross' classname="w-dialog__close-icon" %}
             </button>
 

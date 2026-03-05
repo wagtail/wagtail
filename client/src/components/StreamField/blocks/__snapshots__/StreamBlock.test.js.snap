@@ -7,8 +7,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="3">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="1">
@@ -23,7 +23,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
               <svg class="icon icon-placeholder w-panel__icon" aria-hidden="true">
                 <use href="#icon-placeholder"></use>
               </svg>
@@ -39,23 +39,23 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -75,8 +75,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="2">
@@ -91,7 +91,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -107,23 +107,23 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -143,8 +143,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="fake-uuid-v4-value">
@@ -159,7 +159,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-fake-uuid-v4-value-heading" data-panel-toggle="" aria-controls="block-fake-uuid-v4-value-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-fake-uuid-v4-value-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-fake-uuid-v4-value-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -175,23 +175,23 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -211,8 +211,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -226,8 +226,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="2">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="2">
@@ -242,7 +242,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -258,23 +258,23 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -294,8 +294,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="1">
@@ -310,7 +310,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
               <svg class="icon icon-placeholder w-panel__icon" aria-hidden="true">
                 <use href="#icon-placeholder"></use>
               </svg>
@@ -326,23 +326,23 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -362,8 +362,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -377,8 +377,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="2">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="2">
@@ -393,7 +393,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -409,23 +409,23 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -445,8 +445,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="1">
@@ -461,7 +461,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
               <svg class="icon icon-placeholder w-panel__icon" aria-hidden="true">
                 <use href="#icon-placeholder"></use>
               </svg>
@@ -477,23 +477,23 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -513,8 +513,8 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -528,8 +528,8 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="2">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="1">
@@ -544,7 +544,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
               <svg class="icon icon-placeholder w-panel__icon" aria-hidden="true">
                 <use href="#icon-placeholder"></use>
               </svg>
@@ -560,23 +560,23 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -596,8 +596,8 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="2">
@@ -612,7 +612,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -628,23 +628,23 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -664,8 +664,8 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -679,8 +679,8 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="2">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="1">
@@ -695,7 +695,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
               <svg class="icon icon-placeholder w-panel__icon" aria-hidden="true">
                 <use href="#icon-placeholder"></use>
               </svg>
@@ -711,23 +711,23 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -747,8 +747,8 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="true">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="true">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       <div data-tippy-root="" id="tippy-5" style="z-index: 9999; visibility: visible; transition: none; position: absolute; left: 0px; top: 0px; margin: 0px;"><div class="tippy-box" data-state="hidden" tabindex="-1" data-theme="dropdown" data-animation="fade" style="max-width: none; transition-duration: 0ms;" role="tooltip"><div class="tippy-content" data-state="hidden" style="transition-duration: 0ms;"><div><div class="w-combobox-container"><div class="w-combobox"><label id="downshift-0-label" for="downshift-0-input" class="w-sr-only">Search options…</label><div class="w-combobox__field"><input aria-activedescendant="" aria-autocomplete="list" aria-controls="downshift-0-menu" aria-expanded="false" aria-labelledby="downshift-0-label" autocomplete="off" id="downshift-0-input" role="combobox" type="text" placeholder="Search options…" value=""></div><div id="downshift-0-menu" role="listbox" aria-labelledby="downshift-0-label" class="w-combobox__menu"><div class="w-combobox__optgroup"><div class="w-combobox__option-row w-combobox__option-row--col1"><div aria-disabled="false" aria-selected="false" id="downshift-0-item-0" role="option" class="w-combobox__option"><div class="w-combobox__option-icon"><svg class="icon icon-placeholder" aria-hidden="true"><use href="#icon-placeholder"></use></svg></div><div class="w-combobox__option-text">Test Block A</div></div></div><div class="w-combobox__option-row w-combobox__option-row--col2"><div aria-disabled="false" aria-selected="false" id="downshift-0-item-1" role="option" class="w-combobox__option"><div class="w-combobox__option-icon"><svg class="icon icon-pilcrow" aria-hidden="true"><use href="#icon-pilcrow"></use></svg></div><div class="w-combobox__option-text">Test Block B</div></div></div></div></div></div></div></div></div></div></div></div><div data-streamfield-child="" data-contentpath="2">
@@ -763,7 +763,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -779,23 +779,23 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -815,8 +815,8 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -830,8 +830,8 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
           </div>
         </div><div class=""><p class="help-block help-critical">At least three blocks are required</p>
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="2">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="1">
@@ -846,7 +846,7 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-1-content" aria-expanded="true">
               <svg class="icon icon-placeholder w-panel__icon" aria-hidden="true">
                 <use href="#icon-placeholder"></use>
               </svg>
@@ -862,23 +862,23 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -898,8 +898,8 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="2">
@@ -914,7 +914,7 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-2-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-2-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -930,23 +930,23 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -966,8 +966,8 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button" aria-expanded="false">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button" aria-expanded="false">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -981,8 +981,8 @@ exports[`telepath: wagtail.blocks.StreamBlock with StructBlock child it renders 
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="1">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="fake-uuid-v4-value" style="display: none;">
@@ -997,7 +997,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with StructBlock child it renders 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-fake-uuid-v4-value-heading" data-panel-toggle="" aria-controls="block-fake-uuid-v4-value-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-fake-uuid-v4-value-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-fake-uuid-v4-value-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -1013,23 +1013,23 @@ exports[`telepath: wagtail.blocks.StreamBlock with StructBlock child it renders 
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -1072,8 +1072,8 @@ exports[`telepath: wagtail.blocks.StreamBlock with StructBlock child it renders 
       </div></div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -1089,8 +1089,8 @@ exports[`telepath: wagtail.blocks.StreamBlock with unique block type it can add 
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="1">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="fake-uuid-v4-value" style="display: none;">
@@ -1105,7 +1105,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with unique block type it can add 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-fake-uuid-v4-value-heading" data-panel-toggle="" aria-controls="block-fake-uuid-v4-value-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-fake-uuid-v4-value-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-fake-uuid-v4-value-content" aria-expanded="true">
               <svg class="icon icon-placeholder w-panel__icon" aria-hidden="true">
                 <use href="#icon-placeholder"></use>
               </svg>
@@ -1121,23 +1121,23 @@ exports[`telepath: wagtail.blocks.StreamBlock with unique block type it can add 
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -1157,8 +1157,8 @@ exports[`telepath: wagtail.blocks.StreamBlock with unique block type it can add 
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -1172,8 +1172,8 @@ exports[`telepath: wagtail.blocks.StreamBlock with unique block type it renders 
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="0">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>

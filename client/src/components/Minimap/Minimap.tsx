@@ -221,7 +221,9 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
             className="w-minimap__toggle"
             // Not the most correct label, but matches side panels with similar toggles.
             aria-label={gettext('Toggle side panel')}
-            data-controller="w-kbd"
+            data-controller="w-tooltip w-kbd"
+            data-w-tooltip-content-value={gettext('Toggle side panel')}
+            data-w-tooltip-offset-value="[0, 0]"
             data-w-kbd-key-value="]"
           >
             <Icon name="expand-right" />

@@ -64,7 +64,7 @@ class InsertPosition extends BaseInsertionControl {
     const animate = opts && opts.animate;
     const title = h(gettext('Add'));
     const button = $(`
-      <button type="button" title="${title}" data-streamfield-list-add class="c-sf-add-button">
+      <button type="button" aria-label="${title}" data-controller="w-tooltip" data-w-tooltip-content-value="${title}" data-w-tooltip-offset-value="[0, 0]" data-streamfield-list-add class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>
     `);

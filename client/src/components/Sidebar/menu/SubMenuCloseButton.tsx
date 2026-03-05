@@ -28,6 +28,9 @@ export default function SubMenuCloseButton({
       }
       className="button sidebar-close-menu-button"
       aria-label={gettext('Close')}
+      data-controller="w-tooltip"
+      data-w-tooltip-content-value={gettext('Close')}
+      data-w-tooltip-offset-value="[0, 0]"
     >
       <Icon name="cross" className="w-w-[15px] w-h-4" />
     </button>,

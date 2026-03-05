@@ -29,7 +29,7 @@
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#{{ panel_id }}" data-panel-anchor aria-labelledby="{{ heading_id }}">
                 {% icon name="link" classname="w-panel__icon" %}
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="{% trans 'Toggle section' %}" aria-describedby="{{ heading_id }}" data-panel-toggle aria-controls="{{ content_id }}" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="{% trans 'Toggle section' %}" aria-describedby="{{ heading_id }}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Toggle section' %}" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle aria-controls="{{ content_id }}" aria-expanded="true">
                 {% firstof icon "placeholder" as icon_name %}
                 {% icon name=icon_name classname="w-panel__icon" %}
             </button>

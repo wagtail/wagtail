@@ -75,8 +75,8 @@ class StreamBlockMenu extends BaseInsertionControl {
     this.groupedChildBlockDefs = opts.groupedChildBlockDefs;
 
     const dom = $(`
-      <div>
-        <button type="button" title="${comboBoxTriggerLabel}" class="c-sf-add-button">
+      <div data-controller="w-tooltip" data-w-tooltip-content-value="${comboBoxTriggerLabel}" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="${comboBoxTriggerLabel}" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div>

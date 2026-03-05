@@ -20,7 +20,7 @@
         </div>
         {% for field in filters.form %}
             <div class="w-drilldown__submenu" id="drilldown-{{ field.auto_id }}" hidden tabindex="-1">
-                <button class="w-drilldown__back" type="button" aria-label="{% trans 'Back' %}" data-action="click->w-drilldown#close">
+                <button class="w-drilldown__back" type="button" aria-label="{% trans 'Back' %}" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Back' %}" data-w-tooltip-offset-value="[0, 0]" data-action="click->w-drilldown#close">
                     {% icon name="arrow-left" %}
                 </button>
                 {% formattedfield field %}

@@ -1,5 +1,6 @@
 import { gettext } from '../../../utils/gettext';
 
+
 interface PanelProps {
   panelId: string;
   headingId: string;
@@ -37,6 +38,7 @@ export class CollapsiblePanel {
     } = this.props;
 
     // Keep in sync with wagtailadmin/shared/panel.html
+    const toggleSectionLabel = gettext('Toggle section');
     template.innerHTML = /* html */ `
         <section class="w-panel w-panel--nested${collapsed ? ' collapsed' : ''}" id="${panelId}" aria-labelledby="${headingId}" data-panel>
           <div class="w-panel__header">
@@ -45,7 +47,7 @@ export class CollapsiblePanel {
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="${gettext('Toggle section')}" aria-describedby="${headingId}" data-panel-toggle aria-controls="${contentId}" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="${toggleSectionLabel}" aria-describedby="${headingId}" data-controller="w-tooltip" data-w-tooltip-content-value="${toggleSectionLabel}" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle aria-controls="${contentId}" aria-expanded="true">
               <svg class="icon icon-${blockTypeIcon} w-panel__icon" aria-hidden="true">
                 <use href="#icon-${blockTypeIcon}"></use>
               </svg>
