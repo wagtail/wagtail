@@ -413,6 +413,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         index.FilterField("latest_revision_created_at"),
         index.FilterField("locale"),
         index.FilterField("translation_key"),
+        index.SearchField("seo_title"),
+        index.SearchField("search_description"),
     ]
 
     # Do not allow plain Page instances to be created through the Wagtail admin
