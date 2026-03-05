@@ -7,8 +7,8 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="1">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="struct-block-1">
@@ -23,7 +23,7 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-struct-block-1-heading" data-panel-toggle="" aria-controls="block-struct-block-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-struct-block-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-struct-block-1-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -39,7 +39,7 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-0-value-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-the-prefix-0-value-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -48,23 +48,23 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
-    </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+    </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -96,8 +96,8 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
         <label class="w-field__label">Inner Stream</label>
         <div class="">
         <input type="hidden" name="the-prefix-0-value-inner_stream-count" data-streamfield-stream-count="" value="1">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="very-nested-1">
@@ -112,7 +112,7 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-very-nested-1-heading" data-panel-toggle="" aria-controls="block-very-nested-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-very-nested-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-very-nested-1-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -128,23 +128,23 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -164,8 +164,8 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -173,8 +173,8 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
       </div></div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -189,7 +189,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -254,7 +254,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -319,7 +319,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -384,7 +384,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -449,7 +449,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -514,7 +514,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -579,7 +579,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -644,7 +644,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -709,7 +709,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -774,7 +774,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -790,7 +790,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="true" aria-controls="block_group-the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="true" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -818,7 +818,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-theme-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-theme-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-theme-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-theme-content" aria-expanded="true">
               <svg class="icon icon-cogs w-panel__icon" aria-hidden="true">
                 <use href="#icon-cogs"></use>
               </svg>
@@ -834,7 +834,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="true" aria-controls="block_group-block_group-the-prefix-theme-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="true" aria-controls="block_group-block_group-the-prefix-theme-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -896,7 +896,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
               <svg class="icon icon-doc-full w-panel__icon" aria-hidden="true">
                 <use href="#icon-doc-full"></use>
               </svg>
@@ -912,7 +912,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -963,7 +963,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
@@ -1030,7 +1030,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -1046,7 +1046,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -1113,7 +1113,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
               <svg class="icon icon-doc-full w-panel__icon" aria-hidden="true">
                 <use href="#icon-doc-full"></use>
               </svg>
@@ -1129,7 +1129,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -1180,7 +1180,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
@@ -1247,7 +1247,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -1263,7 +1263,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -1358,7 +1358,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
@@ -1425,7 +1425,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -1441,7 +1441,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -1469,7 +1469,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-theme-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-theme-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-theme-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-theme-content" aria-expanded="false">
               <svg class="icon icon-cogs w-panel__icon" aria-hidden="true">
                 <use href="#icon-cogs"></use>
               </svg>
@@ -1537,7 +1537,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
               <svg class="icon icon-doc-full w-panel__icon" aria-hidden="true">
                 <use href="#icon-doc-full"></use>
               </svg>
@@ -1553,7 +1553,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -1610,7 +1610,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
@@ -1677,7 +1677,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -1693,7 +1693,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -1734,7 +1734,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
@@ -1750,7 +1750,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-captioned_image-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" aria-label="Settings" data-controller="w-tooltip" data-w-tooltip-content-value="Settings" data-w-tooltip-offset-value="[0, 0]" aria-expanded="false" aria-controls="block_group-the-prefix-captioned_image-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
@@ -1858,8 +1858,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
           </div>
         </div><div class="">
         <input type="hidden" name="the-prefix-count" data-streamfield-stream-count="" value="1">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="struct-block-1">
@@ -1874,7 +1874,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-struct-block-1-heading" data-panel-toggle="" aria-controls="block-struct-block-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-struct-block-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-struct-block-1-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -1890,23 +1890,23 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -1917,8 +1917,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
           <p>here comes the first field:</p>
           <div class="">
         <input type="hidden" name="the-prefix-0-value-inner_stream-count" data-streamfield-stream-count="" value="1">
-        <div data-streamfield-stream-container=""><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+        <div data-streamfield-stream-container=""><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div><div data-streamfield-child="" data-contentpath="very-nested-1">
@@ -1933,7 +1933,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-very-nested-1-heading" data-panel-toggle="" aria-controls="block-very-nested-1-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block-very-nested-1-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block-very-nested-1-content" aria-expanded="true">
               <svg class="icon icon-pilcrow w-panel__icon" aria-hidden="true">
                 <use href="#icon-pilcrow"></use>
               </svg>
@@ -1949,23 +1949,23 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" title="Move up" disabled="disabled">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_UP" aria-label="Move up" data-controller="w-tooltip" data-w-tooltip-content-value="Move up" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-up" aria-hidden="true">
           <use href="#icon-arrow-up"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" title="Move down" disabled="disabled">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="MOVE_DOWN" aria-label="Move down" data-controller="w-tooltip" data-w-tooltip-content-value="Move down" data-w-tooltip-offset-value="[0, 0]" disabled="disabled">
         <svg class="icon icon-arrow-down" aria-hidden="true">
           <use href="#icon-arrow-down"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" title="Drag">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DRAG" aria-label="Drag" data-controller="w-tooltip" data-w-tooltip-content-value="Drag" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-grip" aria-hidden="true">
           <use href="#icon-grip"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" title="Duplicate">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DUPLICATE" aria-label="Duplicate" data-controller="w-tooltip" data-w-tooltip-content-value="Duplicate" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-copy" aria-hidden="true">
           <use href="#icon-copy"></use>
         </svg>
-      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" title="Delete">
+      </button><button type="button" class="button button--icon text-replace white" data-streamfield-action="DELETE" aria-label="Delete" data-controller="w-tooltip" data-w-tooltip-content-value="Delete" data-w-tooltip-offset-value="[0, 0]">
         <svg class="icon icon-bin" aria-hidden="true">
           <use href="#icon-bin"></use>
         </svg>
@@ -1985,8 +1985,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
       </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -2006,8 +2006,8 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
         </div>
           </div>
         </section>
-      </div><div>
-        <button type="button" title="Insert a block" class="c-sf-add-button">
+      </div><div data-controller="w-tooltip" data-w-tooltip-content-value="Insert a block" data-w-tooltip-offset-value="[0, 0]">
+        <button type="button" aria-label="Insert a block" class="c-sf-add-button">
           <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
       </div></div>
@@ -2022,7 +2022,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -2079,7 +2079,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -2141,7 +2141,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -2208,7 +2208,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -2270,7 +2270,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -2337,7 +2337,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -2399,7 +2399,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -2466,7 +2466,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
@@ -2528,7 +2528,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-controller="w-tooltip" data-w-tooltip-content-value="Toggle section" data-w-tooltip-offset-value="[0, 0]" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>

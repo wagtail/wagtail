@@ -7,6 +7,9 @@ exports[`Sidebar should render with the minimum required props 1`] = `
     aria-keyshortcuts="["
     aria-label="Toggle sidebar"
     className="button sidebar-nav-toggle"
+    data-controller="w-tooltip"
+    data-w-tooltip-content-value="Toggle sidebar"
+    data-w-tooltip-offset-value="[0, 0]"
     onClick={[Function]}
     type="button"
   >
@@ -40,7 +43,10 @@ exports[`Sidebar should render with the minimum required props 1`] = `
                 hover:opacity-100
                 more-contrast:w-border-border-interactive-more-contrast-dark-bg
                 hover:more-contrast:w-border-border-interactive-more-contrast-dark-bg-hover"
+          data-controller="w-tooltip"
           data-w-kbd-target="element"
+          data-w-tooltip-content-value="Toggle sidebar"
+          data-w-tooltip-offset-value="[0, 0]"
           onClick={[Function]}
           type="button"
         >
