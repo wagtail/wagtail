@@ -5,7 +5,7 @@
     The messages will be provided via the sessions list component and teleported into the corresponding elements.
     The dialog won't ever be shown without the actual messages under normal circumstances.
 {% endcomment %}
-{% dialog id="w-overwrite-changes-dialog" dialog_root_selector='[data-edit-form]' icon_name="warning" icon_classname="w-text-text-error" title="-" subtitle="-" %}
+{% dialog id="w-save-confirmation-dialog" dialog_root_selector='[data-edit-form]' icon_name="warning" icon_classname="w-text-text-error" title="-" subtitle="-" %}
     <div class="w-editing-sessions-dialog-buttons">
         <button class="button" type="button" data-w-dialog-target="confirm" data-action="w-dialog#confirm">{% trans "Continue" %}</button>
         <a href="" target="_blank" class="button button-secondary" data-controller="w-action">{% trans "View latest version" %}</a>
@@ -23,7 +23,7 @@
     data-w-action-continue-value="true"
     data-w-action-url-value="{{ release_url }}"
     data-w-session-interval-value="{{ ping_interval|unlocalize }}"
-    data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
+    data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-save-confirmation-dialog"
     data-action="
                  w-session:ping->w-swap#submit
                  visibilitychange@document->w-session#dispatchVisibilityState

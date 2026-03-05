@@ -342,14 +342,14 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn("Vic Otheruser saved a new version", dialog_title.string)
         dialog_subtitle = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_subtitle)
@@ -400,7 +400,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_title)
@@ -410,7 +410,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         dialog_subtitle = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_subtitle)
@@ -518,12 +518,12 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIn("Vic Otheruser saved a new version", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
-            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            'template[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn("Vic Otheruser saved a new version", dialog_title.string)
         dialog_subtitle = soup.select_one(
-            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            'template[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
@@ -575,7 +575,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIn("Vic Otheruser saved a new version", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
-            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            'template[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn(
@@ -583,7 +583,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             dialog_title.string,
         )
         dialog_subtitle = soup.select_one(
-            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            'template[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
@@ -660,7 +660,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_title)
@@ -670,7 +670,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         dialog_subtitle = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_subtitle)
@@ -736,7 +736,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_title)
@@ -746,7 +746,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         dialog_subtitle = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNotNone(dialog_subtitle)
@@ -991,13 +991,13 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNone(dialog_title)
         dialog_subtitle = soup.select_one(
             "template"
-            '[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            '[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
             '[data-w-teleport-mode-value="textContent"]'
         )
         self.assertIsNone(dialog_subtitle)
@@ -1218,14 +1218,14 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIn("You saved a new version in another window", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
-            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+            'template[data-w-teleport-target-value="#title-text-w-save-confirmation-dialog"]'
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn(
             "You saved a new version in another window", dialog_title.text.strip()
         )
         dialog_subtitle = soup.select_one(
-            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+            'template[data-w-teleport-target-value="#subtitle-w-save-confirmation-dialog"]'
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
