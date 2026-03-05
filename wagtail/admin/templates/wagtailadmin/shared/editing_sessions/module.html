@@ -1,11 +1,18 @@
 {% load i18n l10n wagtailadmin_tags %}
 
 {% comment %}
-    The "-" strings are only placeholders so that the appropriate elements are rendered.
-    The messages will be provided via the sessions list component and teleported into the corresponding elements.
-    The dialog won't ever be shown without the actual messages under normal circumstances.
+    The confirmation dialog is initially rendered with a message for a network error.
+    If there is a conflict due to a new version being saved in another window,
+    the message is updated to reflect that instead, using the w-teleport controller.
 {% endcomment %}
-{% dialog id="w-save-confirmation-dialog" dialog_root_selector='[data-edit-form]' icon_name="warning" icon_classname="w-text-text-error" title="-" subtitle="-" %}
+{% blocktranslate trimmed asvar dialog_title %}
+    A network error occurred
+{% endblocktranslate %}
+{% blocktranslate trimmed asvar dialog_subtitle %}
+    Troubleshoot your connection to the site before proceeding.
+    Open the editor in a separate tab to view the last saved version.
+{% endblocktranslate %}
+{% dialog id="w-save-confirmation-dialog" dialog_root_selector='[data-edit-form]' icon_name="warning" icon_classname="w-text-text-error" title=dialog_title subtitle=dialog_subtitle %}
     <div class="w-editing-sessions-dialog-buttons">
         <button class="button" type="button" data-w-dialog-target="confirm" data-action="w-dialog#confirm">{% trans "Continue" %}</button>
         <a href="" target="_blank" class="button button-secondary" data-controller="w-action">{% trans "View latest version" %}</a>
@@ -34,10 +41,14 @@
                  w-unsaved:add@document->w-session#setUnsavedChanges
                  w-unsaved:clear@document->w-session#setUnsavedChanges
                  w-swap:json->w-session#updateSessionData
+                 w-swap:success->w-session#setNetworkIntercept
+                 w-swap:error->w-session#setNetworkIntercept
                  w-autosave:save@document->w-session#pause
                  w-autosave:success@document->w-session#updateSessionData
                  w-autosave:success@document->w-session#resume
+                 w-autosave:success@document->w-session#setNetworkIntercept
                  w-autosave:error@document->w-session#resume
+                 w-autosave:error@document->w-session#setNetworkIntercept
                  w-autosave:deactivated@document->w-session#ping
                 "
 >
