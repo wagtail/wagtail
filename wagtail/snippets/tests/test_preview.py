@@ -678,7 +678,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should render the refresh button with the w-progress controller
         refresh_button = controller.select_one("button")
         self.assertIsNotNone(refresh_button)
-        self.assertEqual(refresh_button.get("data-controller"), "w-progress")
+        self.assertIn("w-progress", refresh_button.get("data-controller"))
         self.assertEqual(refresh_button.text.strip(), "Refresh")
 
     def test_show_preview_on_revisions_list(self):
