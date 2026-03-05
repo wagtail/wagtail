@@ -1,6 +1,5 @@
 import { gettext } from '../../../utils/gettext';
 
-
 interface PanelProps {
   panelId: string;
   headingId: string;

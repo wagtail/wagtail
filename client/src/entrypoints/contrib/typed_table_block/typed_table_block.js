@@ -345,7 +345,10 @@ export class TypedTableBlock {
       .attr('aria-label', this.blockDef.meta.strings.ADD_COLUMN)
       .attr('aria-expanded', 'false')
       .attr('data-controller', 'w-tooltip')
-      .attr('data-w-tooltip-content-value', this.blockDef.meta.strings.ADD_COLUMN)
+      .attr(
+        'data-w-tooltip-content-value',
+        this.blockDef.meta.strings.ADD_COLUMN,
+      )
       .attr('data-w-tooltip-offset-value', '[0, 0]');
 
     if (opts && opts.addInitialRow && this.tbody.children.length === 0) {
