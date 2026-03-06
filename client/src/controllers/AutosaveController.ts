@@ -153,6 +153,9 @@ export class AutosaveController extends Controller<
    */
   declare stateValue: AutosaveState;
 
+  retryTimeout: ReturnType<typeof setTimeout> | null = null;
+  retryTimes = 0;
+
   initialize(): void {
     this.submit = this.submit.bind(this);
   }
@@ -244,6 +247,8 @@ export class AutosaveController extends Controller<
         this.partialsTarget.innerHTML = response.html;
       }
 
+      this.clearRetries();
+
       // Ensure any UI updates have finished before dispatching the success event
       requestAnimationFrame(() =>
         this.dispatch('success', {
@@ -266,6 +271,20 @@ export class AutosaveController extends Controller<
         // Fetch failed, no response at all
         type = ClientErrorCode.NETWORK_ERROR;
         text = gettext('A network error occurred.');
+
+        // Another save attempt may happen in between retries. If it also fails,
+        // keep the current retry timeout and don't set a new one.
+        if (!this.retryTimeout) {
+          this.retryTimes += 1;
+          this.retryTimeout = setTimeout(
+            () => {
+              this.save(event);
+              this.retryTimeout = null;
+            },
+            // Exponential backoff
+            1000 * 2 ** this.retryTimes,
+          );
+        }
       } else if (
         // Non-JSON response
         !response ||
@@ -282,6 +301,10 @@ export class AutosaveController extends Controller<
       } else {
         type = response.error_code as ServerErrorCode;
         text = response.error_message;
+      }
+
+      if (type !== ClientErrorCode.NETWORK_ERROR) {
+        this.clearRetries();
       }
 
       this.dispatch('error', {
@@ -355,6 +378,15 @@ export class AutosaveController extends Controller<
           { cause: error },
         );
       });
+  }
+
+  /** Resets retry state so future retries start with the initial delay. */
+  clearRetries() {
+    if (this.retryTimeout) {
+      clearTimeout(this.retryTimeout);
+    }
+    this.retryTimeout = null;
+    this.retryTimes = 0;
   }
 
   /** Applies the new debounce interval to the submit function. */
