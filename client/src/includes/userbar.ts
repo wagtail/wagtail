@@ -70,10 +70,14 @@ export class Userbar extends HTMLElement {
     // same-origin iframe will cause issues if it is not set to the correct
     // value, which can happen in page previews if the page's site root host is
     // different from the host where the admin is accessed.
-    this.origin =
+    const origin =
       (inCrossOriginIframe &&
         userbar.getAttribute('data-wagtail-userbar-origin')) ||
-      window.location.origin;
+      '';
+    // Use URL() and the current origin as a base, to allow both absolute and
+    // relative origins to be used in the data attribute, while ensuring that
+    // the final value is an absolute origin.
+    this.origin = new URL(origin, window.location.origin).origin;
 
     const listItems = list.querySelectorAll('li');
     const isActiveClass = 'w-userbar--active';
