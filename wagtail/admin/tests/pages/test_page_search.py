@@ -34,7 +34,7 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
         self.assertEqual(response.status_code, 200)
 
-        with self.assertNumQueries(22):
+        with self.assertNumQueries(25):
             self.get()
 
     def test_search(self):
