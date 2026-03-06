@@ -421,6 +421,10 @@ class FormatOperation(FilterOperation):
             )
 
     def run(self, willow, image, env):
+        # SVG format conversion is not supported
+        if image.is_svg():
+            return willow
+
         env["output-format"] = self.format
         env["output-format-options"] = self.options
 

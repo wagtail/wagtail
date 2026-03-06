@@ -17,6 +17,7 @@ from wagtail.images.tests.utils import (
     get_test_image_file,
     get_test_image_file_avif,
     get_test_image_file_jpeg,
+    get_test_image_file_svg,
     get_test_image_file_tiff,
     get_test_image_file_webp,
 )
@@ -1064,6 +1065,25 @@ class TestWebpFormatConversion(TestCase):
         out = fil.run(image, BytesIO())
 
         self.assertEqual(out.format_name, "webp")
+
+
+class TestSvgFormatConversion(TestCase):
+    def test_svg_format_filter_preserves_svg(self):
+        """
+        SVG images must not be converted to raster formats
+        even when a format-* filter is required.
+        """
+
+        raster_formats = ["jpeg", "png", "webp", "gif", "avif", "heic"]
+
+        for fmt in raster_formats:
+            with self.subTest(format=fmt):
+                fil = Filter(spec=f"width-400|format-{fmt}")
+                image = Image.objects.create(
+                    title="Test SVG", file=get_test_image_file_svg()
+                )
+            out = fil.run(image, BytesIO())
+            self.assertEqual(out.format_name, "svg")
 
 
 class TestCheckSize(TestCase):

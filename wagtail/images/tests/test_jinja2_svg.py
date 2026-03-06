@@ -50,11 +50,23 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         )
 
     def test_image_with_svg_without_preserve(self):
-        """Test that without preserve-svg, SVGs get all operations (which would fail in production)."""
-        with self.assertRaises(AttributeError):
-            self.render(
-                '{{ image(img, "width-200|format-webp") }}', {"img": self.svg_image}
-            )
+        """
+        SVG images should no longer crash when format filters are applied.
+        They must preserve SVG format automatically.
+        """
+
+        html = self.render(
+            '{{ image(img, "width-200|format-webp") }}', {"img": self.svg_image}
+        )
+
+        filename = get_test_image_filename(
+            self.svg_image, "width-200.format-webp"
+        ).replace(".webp", ".svg")
+
+        self.assertHTMLEqual(
+            html,
+            f'<img src="{filename}" width="100.0" height="100.0" alt="Test SVG image">',
+        )
 
     def test_image_with_svg_with_preserve(self):
         """Test that with preserve-svg filter, SVGs only get safe operations."""
