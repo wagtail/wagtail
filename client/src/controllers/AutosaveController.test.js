@@ -51,6 +51,7 @@ describe('AutosaveController', () => {
     document.body.innerHTML = '';
     fetch.mockReset();
     window.history.replaceState.mockRestore();
+    jest.clearAllTimers();
   });
 
   describe('basic behavior', () => {
@@ -577,6 +578,114 @@ describe('AutosaveController', () => {
       expect(response).toBeNull();
       expect(error).toEqual({ status: 500, statusText: 'Internal Error' });
       expect(trigger).toBe(unsavedEvent);
+    });
+
+    it('retries with exponential backoff on network errors', async () => {
+      const form = await setup();
+      const networkError = new TypeError('Failed to fetch');
+
+      const errorListener = jest.fn();
+      form.addEventListener('w-autosave:error', errorListener);
+
+      let unsavedEvent = await dispatchUnsaved(form);
+
+      const expectSaveAttempt = async (n) => {
+        // Fetch not fired until the 500ms debounce
+        expect(fetch).toHaveBeenCalledTimes(n - 1);
+        fetch.mockImplementationOnce(() => Promise.reject(networkError));
+        await jest.advanceTimersByTimeAsync(500);
+        expect(fetch).toHaveBeenCalledTimes(n);
+        expect(errorListener).toHaveBeenCalledTimes(n);
+        const errorEventDetail = errorListener.mock.calls[n - 1][0].detail;
+        const { response, error, trigger } = errorEventDetail;
+        expect(response).toBeNull();
+        expect(error).toEqual(networkError);
+        expect(trigger).toBe(unsavedEvent);
+      };
+
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // Simulate the user making another change in between retries
+      // (but before the 'unsaved' event is dispatched)
+      const input = form.querySelector('input[name="title"]');
+      input.value = 'Updated title';
+
+      await jest.advanceTimersByTimeAsync(8000);
+      await expectSaveAttempt(4);
+      // The retry should use the latest data in the payload
+      expect(fetch.mock.calls[3][1].body.get('title')).toBe('Updated title');
+
+      const saveHandler = jest.fn();
+      form.addEventListener('w-autosave:save', saveHandler, { once: true });
+      fetch.mockResponseSuccessJSON(JSON.stringify({ success: true }));
+
+      await jest.advanceTimersByTimeAsync(16000);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(5);
+      expect(saveHandler).toHaveBeenCalledTimes(1);
+
+      await jest.advanceTimersByTimeAsync(32500);
+      // No new call, retries should be cleared after success
+      expect(fetch).toHaveBeenCalledTimes(5);
+
+      fetch.mockReset();
+      errorListener.mockReset();
+      input.value = 'Another update';
+      unsavedEvent = await dispatchUnsaved(form);
+      // Should trigger a new save immediately,
+      // and any errors should trigger a new retry sequence
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // If another save attempt is made in between retries, and it also fails,
+      // keep the existing retry schedule and don't start a new one
+      input.value = 'Yet another update';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(4);
+      await jest.advanceTimersByTimeAsync(7000);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(1000);
+      expect(fetch).toHaveBeenCalledTimes(5);
+
+      // If the error is a server error instead of a network error, do not retry
+      fetch.mockResponseFailure();
+      await jest.advanceTimersByTimeAsync(16000);
+      expect(fetch).toHaveBeenCalledTimes(5);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(6);
+      await jest.advanceTimersByTimeAsync(32500);
+      expect(fetch).toHaveBeenCalledTimes(6);
+
+      fetch.mockReset();
+      errorListener.mockReset();
+      // Trigger a new save attempt to ensure retries are cleared after a server error
+      input.value = 'Try again';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+
+      // Simulate another trigger (not from retry) in between retries and it's successful
+      fetch.mockResponseSuccessJSON(JSON.stringify({ success: true }));
+      input.value = 'Now it succeeds';
+      unsavedEvent = await dispatchUnsaved(form);
+      await jest.advanceTimersByTimeAsync(500);
+      expect(fetch).toHaveBeenCalledTimes(4);
+      await jest.advanceTimersByTimeAsync(8500);
+      // No new call, retries should be cleared after success
+      expect(fetch).toHaveBeenCalledTimes(4);
+
+      form.removeEventListener('w-autosave:error', errorListener);
     });
   });
 
