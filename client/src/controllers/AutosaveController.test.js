@@ -309,6 +309,29 @@ describe('AutosaveController', () => {
     });
 
     describe('error handling for hydration requests', () => {
+      it('gracefully ignores hydration if partials target is unavailable', async () => {
+        partialsTarget.remove();
+        fetch.mockResponseSuccessText('A bottle of water');
+
+        jest
+          .spyOn(window, 'requestAnimationFrame')
+          .mockImplementationOnce((callback) => callback());
+        const successListener = jest.fn();
+        form.addEventListener('w-autosave:success', successListener, {
+          once: true,
+        });
+
+        const unsavedEvent = await dispatchUnsaved(form);
+        await jest.advanceTimersByTimeAsync(500);
+
+        expect(fetch).toHaveBeenCalledTimes(2);
+        expect(fetch.mock.calls[1][0]).toBe(
+          '/edit/123/?_w_hydrate_create_view=1',
+        );
+        expect(document.body.innerHTML).not.toContain('A bottle of water');
+        expect(successListener).toHaveBeenCalledTimes(1);
+      });
+
       it('dispatches an error event when the fetch fails', async () => {
         expect(partialsTarget.innerHTML).toBe('');
 
