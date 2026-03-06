@@ -219,7 +219,13 @@ class ChooserViewSet(ViewSet):
     def on_register(self):
         if self.model and self.register_widget:
             register_form_field_override(
-                ForeignKey, to=self.model, override={"widget": self.widget_class}
+                ForeignKey,
+                to=self.model,
+                override=lambda db_field: {
+                    "widget": self.widget_class(
+                        to_field_name=getattr(db_field.remote_field, "field_name", None)
+                    )
+                },
             )
             if self.widget_telepath_adapter_class:
                 adapter = self.widget_telepath_adapter_class()
