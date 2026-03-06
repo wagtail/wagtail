@@ -123,6 +123,9 @@ export class TabsController extends Controller {
 
     const resetTabs = debounce(() => {
       this.tabs = this.validatedTabs;
+      // Ensure hidden attribute of newly-added tabs are set/unset correctly
+      // and switch to the first panel if the active one has been removed
+      this.setInitialPanel();
     }, 10);
 
     this.panelTargetConnected = resetTabs;
@@ -169,7 +172,15 @@ export class TabsController extends Controller {
 
     const panel = panelTargets.find(({ id }) => id === currentPanelId);
 
-    if (!panel) return;
+    if (!panel) {
+      if (!previousPanelId) {
+        // Initial setup with an invalid panel id, or the currently selected tab
+        // has been removed, fall back to selecting the first panel
+        this.selectFirst();
+      }
+      // Panel not found for the new id, keep the current state as-is
+      return;
+    }
 
     // Deactivate currently active panel & set all associated triggers (not just tabs) as not selected
     // Active newly active panel & set associated triggers (not just tabs) as selected, dispatch events
