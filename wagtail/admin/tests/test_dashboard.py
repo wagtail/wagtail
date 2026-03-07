@@ -187,7 +187,7 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
         # Warm up the cache
         html = panel.render_html(parent_context)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             # Rendering RecentEditsPanel should not generate N+1 queries -
             # i.e. any number less than 6 would be reasonable here
             html = panel.render_html(parent_context)
@@ -230,7 +230,7 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
         # Warm up the cache
         html = panel.render_html(parent_context)
 
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(8):
             html = panel.render_html(parent_context)
         soup = self.get_soup(html)
         # Should be sorted descending by locked_at

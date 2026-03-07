@@ -1435,3 +1435,19 @@ register.tag("component", component)
 
 
 register.simple_tag(get_icon_sprite_url, name="icon_sprite_url")
+
+
+# Module-level locale cache to avoid N+1 queries in templates
+_locale_language_code_cache: dict[int, str] = {}
+
+
+@register.simple_tag
+def language_code_from_id(locale_id):
+    global _locale_language_code_cache
+    if locale_id not in _locale_language_code_cache:
+        from wagtail.models import Locale
+
+        _locale_language_code_cache = {
+            loc.pk: loc.language_code for loc in Locale.objects.all()
+        }
+    return _locale_language_code_cache.get(locale_id, "")

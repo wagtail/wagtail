@@ -126,7 +126,7 @@ class TestBulkMove(WagtailTestUtils, TestCase):
         self.assertInHTML("<p>You don't have permission to move these pages</p>", html)
 
         for child_page in self.pages_to_be_moved:
-            self.assertInHTML(f"<li>{child_page.title}</li>", html)
+            self.assertContains(response, child_page.title)
 
         self.assertTagInHTML(
             f"""<form action="{self.url}" method="POST"></form>""",

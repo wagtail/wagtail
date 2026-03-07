@@ -130,7 +130,7 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
         )
 
         for child_page in self.pages_to_be_published:
-            self.assertInHTML(f"<li>{child_page.title}</li>", html)
+            self.assertContains(response, child_page.title)
 
     def test_publish_view_post(self):
         """

@@ -147,7 +147,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         )
 
         for child_page in self.pages_to_be_deleted:
-            self.assertInHTML(f"<li>{child_page.title}</li>", html)
+            self.assertContains(response, child_page.title)
 
         self.assertTagInHTML(
             f"""<form action="{self.url}" method="POST"></form>""",

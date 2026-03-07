@@ -24,7 +24,7 @@
                     <tr>
                         <td class="title">
                             <div class="title-wrapper">
-                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
+                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}"{% if page.locale %} lang="{{ page.locale.language_code }}"{% endif %}>{{ page.get_admin_display_title }}</a>
                             </div>
                         </td>
                         <td>

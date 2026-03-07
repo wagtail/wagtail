@@ -200,6 +200,11 @@ class PageListingMixin:
     def annotate_queryset(self, pages):
         pages = pages.prefetch_related("content_type", "sites_rooted_here")
 
+        # Pre-load locale on base Page rows so the JOIN data is included in the
+        # specific-page queries that follow, avoiding N+1 locale lookups in
+        # templates that access page.locale.language_code.
+        pages = pages.select_related("locale")
+
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
 

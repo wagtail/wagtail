@@ -19,7 +19,7 @@
         <ul>
             {% for page in items %}
                 <li>
-                    <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer">{{ page.item.get_admin_display_title }}</a>
+                    <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer"{% if page.item.locale %} lang="{{ page.item.locale.language_code }}"{% endif %}>{{ page.item.get_admin_display_title }}</a>
                     {% if page.descendant_count %}
                         <p>
                             {% with counter_val=page.descendant_count %}
