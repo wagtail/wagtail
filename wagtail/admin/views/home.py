@@ -389,4 +389,3 @@ def default(request):
 
 def sprite(request):
     return HttpResponse(get_icons(), content_type="image/svg+xml; charset=utf-8")
-

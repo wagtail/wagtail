@@ -1446,7 +1446,8 @@ def language_code_from_id(locale_id):
     global _locale_language_code_cache
     if locale_id not in _locale_language_code_cache:
         from wagtail.models import Locale
+
         _locale_language_code_cache = {
             loc.pk: loc.language_code for loc in Locale.objects.all()
         }
-    return _locale_language_code_cache.get(locale_id, '')
+    return _locale_language_code_cache.get(locale_id, "")

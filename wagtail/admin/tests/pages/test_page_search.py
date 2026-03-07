@@ -353,5 +353,3 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         # 'next' parameter is constructed client-side later based on filters state
         for action in bulk_actions:
             self.assertNotIn("next=", action["href"])
-
-
