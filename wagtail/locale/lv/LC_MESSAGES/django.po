@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -33,24 +33,6 @@ msgstr "Minimālais skaits ir %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maksimālais skaits ir %(max_num)d"
 
-msgid "Move up"
-msgstr "Uz augšu"
-
-msgid "Move down"
-msgstr "Uz leju"
-
-msgid "Drag"
-msgstr "Pārvilkt"
-
-msgid "Duplicate"
-msgstr "Dublicēt"
-
-msgid "Delete"
-msgstr "Dzēst"
-
-msgid "Add"
-msgstr "Pievienot"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: šim blokam nav opciju."
@@ -60,6 +42,9 @@ msgstr "Šim blokam nav opciju"
 
 msgid "This field is required."
 msgstr "Šis lauks ir nepieciešams"
+
+msgid "Group"
+msgstr "Grupa"
 
 msgid "Wagtail routablepage"
 msgstr "Wagtail maršrutējama lapa"
@@ -131,6 +116,9 @@ msgstr "tika slēgta"
 
 msgid "locked by"
 msgstr "tika slēgta"
+
+msgid "Add"
+msgstr "Pievienot"
 
 msgid "Add/edit pages you own"
 msgstr "Pievienot/labot jums piederošās lapas"
@@ -250,6 +238,9 @@ msgstr "pārbaudē"
 
 msgid "Edited"
 msgstr "Labots"
+
+msgid "Delete"
+msgstr "Dzēst"
 
 msgid "Unpublish"
 msgstr "Atsaukt publicēšanu"

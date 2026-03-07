@@ -1,12 +1,13 @@
 #
 # Translators:
-# David Llop, 2022
 # Loic Teixeira, 2022
-# Roger Pons <rogerpons@gmail.com>, 2025
+# Karl Hobley <karl@torchbox.com>, 2026
+# David Llop, 2026
+# Roger Pons <rogerpons@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2025\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2026\n"
 "Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ca\n"
@@ -42,8 +43,17 @@ msgstr[1] "%(num)s píxels"
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
+msgid "A network error occurred."
+msgstr "S'ha produït un error de xarxa."
+
+msgid "A server error occurred."
+msgstr "S'ha produït un error de servidor."
+
 msgid "Actions"
 msgstr "Accions"
+
+msgid "Add"
+msgstr "Afegir"
 
 msgid "Add a comment"
 msgstr "Afegir un comentari"
@@ -54,6 +64,9 @@ msgstr "Text alternatiu"
 msgid "Are you sure?"
 msgstr "N'esteu segur?"
 
+msgid "Autosave in progress…"
+msgstr "Desat automàtic en progrés..."
+
 msgid "Blocks"
 msgstr "Blocs"
 
@@ -62,6 +75,9 @@ msgstr "Enllaç no vàlid"
 
 msgid "Cancel"
 msgstr "Cancel·lar"
+
+msgid "Changes have been autosaved."
+msgstr "Els canvis han estat desats automàticament."
 
 msgid "Character count:"
 msgstr "Nombre de caràcters:"
@@ -93,6 +109,12 @@ msgstr "Esborrar error"
 
 msgid "Deleting"
 msgstr "Esborrant"
+
+msgid "Drag"
+msgstr "Agafa"
+
+msgid "Duplicate"
+msgstr "Duplicar"
 
 msgid "Edit"
 msgstr "Editar"
@@ -143,6 +165,12 @@ msgstr "Document no trobat"
 msgid "More actions"
 msgstr "Més accions"
 
+msgid "Move down"
+msgstr "Baixa"
+
+msgid "Move up"
+msgstr "Puja"
+
 msgid "No"
 msgstr "No"
 
@@ -191,15 +219,6 @@ msgstr "Desar"
 msgid "Save error"
 msgstr "Desar error"
 
-msgid "Save the page to add this comment"
-msgstr "Deseu la pàgina per afegir aquest comentari"
-
-msgid "Save the page to save this comment"
-msgstr "Deseu la pàgina per desar aquest comentari"
-
-msgid "Save the page to save this reply"
-msgstr "Deseu la pàgina per desar aquesta resposta"
-
 msgid "Saving..."
 msgstr "Desant..."
 
@@ -214,6 +233,9 @@ msgstr "Mostra tot"
 
 msgid "Server Error"
 msgstr "Error del servidor"
+
+msgid "Settings"
+msgstr "Configuració"
 
 msgid "Show error"
 msgstr "Mostra l'error"

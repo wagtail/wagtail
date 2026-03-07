@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Azat, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -2093,12 +2093,6 @@ msgstr "ئايرىلىشتىن ئىلگىرى ئۆزگەرتىشىڭىزنى س�
 msgid "You have <span>unsaved edits</span>"
 msgstr "<span>ساقلىمىغان تەھرىرلەش</span>لىرىڭىز بار"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "<span>ساقلىمىغان ئىنكاس</span>لىرىڭىز بار"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "<span>ساقلىمىغان تەھرىرلەش</span> ۋە <span>ئىنكاس</span>لىرىڭىز بار"
-
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2188,8 +2182,8 @@ msgstr "تەرتىپلە"
 msgid "View Wagtail quick actions"
 msgstr "Wagtail تېز مەشغۇلاتىنى كۆرسىتىدۇ"
 
-msgid "Accessibility"
-msgstr "قوشۇمچە ئىقتىدار"
+msgid "Checks"
+msgstr "\"تەكشۈرۈش"
 
 msgid "Warnings"
 msgstr "ئاگاھلاندۇرۇش"
@@ -2488,9 +2482,6 @@ msgstr "ئىنكاس"
 msgid "Toggle checks"
 msgstr "تەكشۈرۈشنى ئالماشتۇر"
 
-msgid "Checks"
-msgstr "\"تەكشۈرۈش"
-
 msgid "Toggle preview"
 msgstr "ئالدىن كۆزىتىشنى ئالماشتۇر"
 
@@ -2665,10 +2656,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "ھازىر %(model_name)s دىكى «%(title)s» نىڭ قۇلۇپى ئېچىلدى."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "قۇلۇپلانغانلىقتىن %(model_name)s نى ساقلىيالمايدۇ"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s دىكى «%(object)s» يېڭىلاندى."
 
@@ -2716,6 +2703,10 @@ msgstr "%(model_name)s خىزمەت ئېقىمىدىكى «%(object)s» قايت
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "%(model_name)s خىزمەت ئېقىمىدىكى «%(object)s» بىكار قىلىندى."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "قۇلۇپلانغانلىقتىن %(model_name)s نى ساقلىيالمايدۇ"
 
 #, python-format
 msgid ""

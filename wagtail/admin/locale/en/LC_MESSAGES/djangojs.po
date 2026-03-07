@@ -39,8 +39,20 @@ msgstr[1] ""
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr ""
 
+#: src/controllers/AutosaveController.ts:216
+msgid "A network error occurred."
+msgstr ""
+
+#: src/controllers/AutosaveController.ts:229
+msgid "A server error occurred."
+msgstr ""
+
 #: src/components/Draftail/index.js:419
 msgid "Actions"
+msgstr ""
+
+#: src/components/StreamField/blocks/ListBlock.js:64
+msgid "Add"
 msgstr ""
 
 #: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:328
@@ -51,9 +63,13 @@ msgstr ""
 msgid "Alt text"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:411
-#: src/components/CommentApp/components/CommentReply/index.tsx:192
+#: src/components/CommentApp/components/Comment/index.tsx:405
+#: src/components/CommentApp/components/CommentReply/index.tsx:191
 msgid "Are you sure?"
+msgstr ""
+
+#: src/controllers/AutosaveController.ts:321
+msgid "Autosave in progress…"
 msgstr ""
 
 #: src/components/Draftail/index.js:411
@@ -64,15 +80,19 @@ msgstr ""
 msgid "Broken link"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:180
-#: src/components/CommentApp/components/Comment/index.tsx:256
-#: src/components/CommentApp/components/Comment/index.tsx:325
-#: src/components/CommentApp/components/Comment/index.tsx:417
-#: src/components/CommentApp/components/Comment/index.tsx:484
-#: src/components/CommentApp/components/CommentReply/index.tsx:121
-#: src/components/CommentApp/components/CommentReply/index.tsx:198
-#: src/components/CommentApp/components/CommentReply/index.tsx:254
+#: src/components/CommentApp/components/Comment/index.tsx:174
+#: src/components/CommentApp/components/Comment/index.tsx:250
+#: src/components/CommentApp/components/Comment/index.tsx:319
+#: src/components/CommentApp/components/Comment/index.tsx:411
+#: src/components/CommentApp/components/Comment/index.tsx:478
+#: src/components/CommentApp/components/CommentReply/index.tsx:120
+#: src/components/CommentApp/components/CommentReply/index.tsx:197
+#: src/components/CommentApp/components/CommentReply/index.tsx:253
 msgid "Cancel"
+msgstr ""
+
+#: src/controllers/AutosaveController.ts:325
+msgid "Changes have been autosaved."
 msgstr ""
 
 #: src/components/Draftail/controls/MaxLength.tsx:54
@@ -88,7 +108,7 @@ msgstr ""
 msgid "Collapse all"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:249
+#: src/components/CommentApp/components/Comment/index.tsx:243
 msgid "Comment"
 msgstr ""
 
@@ -106,22 +126,31 @@ msgstr ""
 msgid "Decorative image"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:424
+#: src/components/CommentApp/components/Comment/index.tsx:418
 #: src/components/CommentApp/components/CommentHeader/index.tsx:136
-#: src/components/CommentApp/components/CommentReply/index.tsx:205
+#: src/components/CommentApp/components/CommentReply/index.tsx:204
 #: src/components/Draftail/blocks/EmbedBlock.js:44
 #: src/components/Draftail/blocks/ImageBlock.js:34
+#: src/components/StreamField/blocks/ActionButtons.ts:119
 msgid "Delete"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:478
-#: src/components/CommentApp/components/CommentReply/index.tsx:248
+#: src/components/CommentApp/components/Comment/index.tsx:472
+#: src/components/CommentApp/components/CommentReply/index.tsx:247
 msgid "Delete error"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:443
-#: src/components/CommentApp/components/CommentReply/index.tsx:219
+#: src/components/CommentApp/components/Comment/index.tsx:437
+#: src/components/CommentApp/components/CommentReply/index.tsx:218
 msgid "Deleting"
+msgstr ""
+
+#: src/components/StreamField/blocks/ActionButtons.ts:100
+msgid "Drag"
+msgstr ""
+
+#: src/components/StreamField/blocks/ActionButtons.ts:109
+msgid "Duplicate"
 msgstr ""
 
 #: src/components/CommentApp/components/CommentHeader/index.tsx:131
@@ -134,15 +163,15 @@ msgstr ""
 msgid "Edit '%(title)s'"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:238
+#: src/components/CommentApp/components/Comment/index.tsx:232
 msgid "Enter your comments..."
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:163
+#: src/components/CommentApp/components/Comment/index.tsx:157
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/controllers/PreviewController.ts:1045
+#: src/controllers/PreviewController.ts:991
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -192,6 +221,14 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
+#: src/components/StreamField/blocks/ActionButtons.ts:87
+msgid "Move down"
+msgstr ""
+
+#: src/components/StreamField/blocks/ActionButtons.ts:74
+msgid "Move up"
+msgstr ""
+
 #: src/components/Widget/index.js:168
 msgid "No"
 msgstr ""
@@ -231,7 +268,7 @@ msgstr ""
 msgid "Reload the page"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:173
+#: src/components/CommentApp/components/Comment/index.tsx:167
 msgid "Reply"
 msgstr ""
 
@@ -243,37 +280,25 @@ msgstr ""
 msgid "Resolve"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:376
-#: src/components/CommentApp/components/Comment/index.tsx:491
-#: src/components/CommentApp/components/CommentReply/index.tsx:161
-#: src/components/CommentApp/components/CommentReply/index.tsx:261
+#: src/components/CommentApp/components/Comment/index.tsx:370
+#: src/components/CommentApp/components/Comment/index.tsx:485
+#: src/components/CommentApp/components/CommentReply/index.tsx:160
+#: src/components/CommentApp/components/CommentReply/index.tsx:260
 msgid "Retry"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:318
-#: src/components/CommentApp/components/CommentReply/index.tsx:114
+#: src/components/CommentApp/components/Comment/index.tsx:312
+#: src/components/CommentApp/components/CommentReply/index.tsx:113
 msgid "Save"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:370
-#: src/components/CommentApp/components/CommentReply/index.tsx:155
+#: src/components/CommentApp/components/Comment/index.tsx:364
+#: src/components/CommentApp/components/CommentReply/index.tsx:154
 msgid "Save error"
 msgstr ""
 
-#: src/components/CommentApp/components/Comment/index.tsx:529
-msgid "Save the page to add this comment"
-msgstr ""
-
-#: src/components/CommentApp/components/Comment/index.tsx:532
-msgid "Save the page to save this comment"
-msgstr ""
-
-#: src/components/CommentApp/components/CommentReply/index.tsx:299
-msgid "Save the page to save this reply"
-msgstr ""
-
-#: src/components/CommentApp/components/Comment/index.tsx:345
-#: src/components/CommentApp/components/CommentReply/index.tsx:136
+#: src/components/CommentApp/components/Comment/index.tsx:339
+#: src/components/CommentApp/components/CommentReply/index.tsx:135
 msgid "Saving..."
 msgstr ""
 
@@ -296,6 +321,10 @@ msgstr ""
 #: src/components/PageExplorer/PageExplorerPanel.tsx:112
 #: src/includes/chooserModal.js:63
 msgid "Server Error"
+msgstr ""
+
+#: src/components/StreamField/blocks/ActionButtons.ts:129
+msgid "Settings"
 msgstr ""
 
 #: src/components/Draftail/EditorFallback/EditorFallback.js:86

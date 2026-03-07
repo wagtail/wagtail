@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022-2025
+# X Bello <xbello@gmail.com>, 2022-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -39,24 +39,6 @@ msgstr "O mínimo número de ítems é %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "O máximo número de ítems é %(max_num)d"
 
-msgid "Move up"
-msgstr "Subir"
-
-msgid "Move down"
-msgstr "Baixar"
-
-msgid "Drag"
-msgstr "Levar"
-
-msgid "Duplicate"
-msgstr "Duplicado"
-
-msgid "Delete"
-msgstr "Eliminar"
-
-msgid "Add"
-msgstr "Engadir"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: este bloque non ten opcións."
@@ -66,6 +48,9 @@ msgstr "Este bloque non ten opcións."
 
 msgid "This field is required."
 msgstr "Este campo é requirido."
+
+msgid "Group"
+msgstr "Grupo"
 
 msgid "Wagtail frontend cache"
 msgstr "Cache frontal Wagtail"
@@ -286,6 +271,9 @@ msgstr "para tipo de contido"
 msgid "uploaded by user"
 msgstr "subido por usuario"
 
+msgid "Add"
+msgstr "Engadir"
+
 msgid "Add/edit pages you own"
 msgstr "Engadir/editar páxinas que posúes"
 
@@ -384,6 +372,18 @@ msgid ""
 msgstr ""
 "O slug '%(page_slug)s' xa se está usando dentro da páxina nai en "
 "'%(parent_url_path)s'."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Non se pode sobreescribir unha revisión que non sexa a última para este "
+"%(model_name)s."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Non se pode sobreescribir unha revisión que non fora creada polo usuario "
+"actual."
 
 msgid "page"
 msgstr "páxina"
@@ -755,6 +755,9 @@ msgstr "Creada "
 
 msgid "Edited"
 msgstr "Editado"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Deleted"
 msgstr "Eliminada"

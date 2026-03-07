@@ -4,7 +4,6 @@ from functools import wraps
 from typing import Any
 from unittest import mock
 
-from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -227,11 +226,7 @@ class TestGetFormForModel(TestCase):
 
         field = form.fields["signup_link"]
         self.assertEqual(type(field), forms.URLField)
-
-        # Remove the condition and keep the assertion when the minimum Django
-        # version is >= 5.0.
-        if DJANGO_VERSION >= (5, 0):
-            self.assertEqual(field.assume_scheme, "https")
+        self.assertEqual(field.assume_scheme, "https")
 
     def test_tag_widget_is_passed_tag_model(self):
         RestaurantPageForm = get_form_for_model(
@@ -973,8 +968,6 @@ class TestFieldPanel(TestCase):
         # NOTE: Tests with and without providing POST data to the form to
         # prove that posted values have no impact on the output for
         # read-only panels.
-        expected_value_output = self.event.date_to.strftime("%B %-d, %Y")
-
         for panel, data in (
             (self.read_only_end_date_panel, None),
             (
@@ -992,7 +985,7 @@ class TestFieldPanel(TestCase):
                 self.assertNotIn("<input", result)
 
                 # Though, we should still see a representation of the value
-                self.assertIn(expected_value_output, result)
+                self.assertIn("July 21, 2014", result)
 
                 # Help text should still be rendered, too
                 self.assertIn("Not required if event is on a single day", result)

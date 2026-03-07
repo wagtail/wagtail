@@ -67,7 +67,7 @@ See [](/reference/panels) for the set of panel types provided by Wagtail. All pa
 A view performs the following steps to render a model form through the panels mechanism:
 
 -   The top-level panel object for the model is retrieved. Usually, this is done by looking up the model's `edit_handler` property and falling back on an `ObjectList` consisting of children given by the model's `panels` property. However, it may come from elsewhere - for example, snippets can define their panels via the `SnippetViewSet` class.
--   If the `PanelsGroup`s permissions do not allow a user to see this panel, then nothing more will be done.
+-   If the `PanelGroup`'s permissions do not allow a user to see this panel, then nothing more will be done.
     -   This can be modified using the `permission` keyword argument, see examples of this usage in [](customizing_the_tabbed_interface) and [](panels_permissions).
 -   The view calls `bind_to_model` on the top-level panel, passing the model class, and this returns a clone of the panel with a `model` property. As part of this process, the `on_model_bound` method is invoked on each child panel, to allow it to perform additional initialization that requires access to the model (for example, this is where `FieldPanel` retrieves the model field definition).
 -   The view then calls `get_form_class` on the top-level panel to retrieve a ModelForm subclass that can be used to edit the model. This proceeds as follows:

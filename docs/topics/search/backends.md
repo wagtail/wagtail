@@ -41,10 +41,6 @@ By default (when using the Elasticsearch backend), Wagtail creates a new index w
 
 If creating new indexes is not an option for you, you can disable this behaviour by setting `ATOMIC_REBUILD` to `False`. This will make Wagtail delete the index then build a new one. Note that this will cause the search engine to not return results until the rebuild is complete.
 
-```{versionchanged} 7.2
-`ATOMIC_REBUILD` is now true by default.
-```
-
 ## `BACKEND`
 
 Here's a list of backends that Wagtail supports out of the box.
@@ -102,10 +98,6 @@ WAGTAILSEARCH_BACKENDS = {
 Other than `BACKEND`, the keys are optional and default to the values shown. Any defined key in `OPTIONS` is passed directly to the Elasticsearch constructor as a case-sensitive keyword argument (for example `'max_retries': 1`).
 
 `INDEX_PREFIX` specifies a string such as `"mysite_"` to be used as a prefix of all index names. This allows multiple Wagtail instances to share the same Elasticsearch server. An index will be created for each model according to the format `{prefix}{app_label}_{model_name}`, for example: `mysite_wagtailcore_page`.
-
-```{versionchanged} 7.2
-The `INDEX_PREFIX` option was previously named `INDEX` and did not include the delimiting `_` character.
-```
 
 A username and password may be optionally supplied to the `URL` field to provide authentication credentials for the Elasticsearch service:
 
@@ -192,10 +184,6 @@ If you prefer not to run an Elasticsearch server in development or production, t
 -   Configure `URLS` in the Elasticsearch entry in `WAGTAILSEARCH_BACKENDS` using the Cluster URL from your Bonsai dashboard
 -   Run `./manage.py update_index`
 
-```{versionadded} 7.2
-Support for Elasticsearch 9 was added.
-```
-
 (opensearch)=
 
 ### OpenSearch
@@ -249,10 +237,6 @@ WAGTAILSEARCH_BACKENDS = {
 ```
 
 If using the [demo configuration](https://docs.opensearch.org/latest/security/configuration/demo-configuration/), the certificates can be found in the Opensearch config directory (typically `/usr/share/opensearch/config/` or `/etc/opensearch/`); the client certificate and key are named `kirk.pem` and `kirk-key.pem` respectively.
-
-```{versionchanged} 7.2
-The dedicated OpenSearch backends were added. Previously it was necessary to use the Elasticsearch 7 backend in conjunction with version 7.13.4 of the client library.
-```
 
 ### Amazon AWS OpenSearch
 

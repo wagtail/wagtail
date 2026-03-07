@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.apps import apps
 from django.contrib.admin.utils import unquote
 from django.contrib.contenttypes.models import ContentType
@@ -111,8 +113,19 @@ def ping(request, app_label, model_name, object_id, session_id):
         except Revision.DoesNotExist as e:
             raise Http404 from e
 
+        try:
+            # The created_at of the latest revision when the session was created
+            created_at = datetime.fromisoformat(
+                request.POST.get("revision_created_at", "")
+            )
+        except ValueError:
+            # Invalid or missing, assume it's the same as the real created_at
+            created_at = original_revision.created_at
+
+        # The newest revision may have been updated via autosave after the
+        # session was created, so filter by created_at rather than the pk.
         newest_revision = (
-            all_revisions.filter(created_at__gt=original_revision.created_at)
+            all_revisions.filter(created_at__gt=created_at)
             .order_by("-created_at", "-pk")
             .select_related("user")
             .first()

@@ -64,7 +64,7 @@ When using a queryset to render a list of images or objects with images, you can
 
 ## Frontend caching proxy
 
-Many websites use a frontend cache such as [Varnish](https://varnish-cache.org/), [Squid](http://www.squid-cache.org/), [Cloudflare](https://www.cloudflare.com/) or [CloudFront](https://aws.amazon.com/cloudfront/) to support high volumes of traffic with excellent response times. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
+Many websites use a frontend cache such as [Varnish](https://varnish-cache.org/), [Squid](https://www.squid-cache.org/), [Cloudflare](https://www.cloudflare.com/) or [CloudFront](https://aws.amazon.com/cloudfront/) to support high volumes of traffic with excellent response times. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
 Wagtail supports being [integrated](frontend_cache_purging) with many CDNs, so it can inform them when a page changes, so the cache can be cleared immediately and users see the changes sooner.
 
@@ -82,7 +82,7 @@ When using the [`{% pageurl %}`](pageurl_tag) or [`{% fullpageurl %}`](fullpageu
 
 ## Search
 
-Wagtail has strong support for [Elasticsearch](https://www.elastic.co) - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like [Searchly](http://www.searchly.com/).
+Wagtail has strong support for [Elasticsearch](https://www.elastic.co) - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like [Searchly](https://www.searchly.com/).
 
 For details on configuring Wagtail for Elasticsearch, see [](wagtailsearch_backends_elasticsearch).
 

@@ -22,7 +22,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
 # Oliver Engel <codeangel@posteo.de>, 2021-2022
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -33,9 +33,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -173,6 +173,9 @@ msgstr "Dichte"
 
 msgid "Keyboard shortcuts"
 msgstr "Tastaturkürzel"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Aktivieren Sie benutzerdefinierte Tastaturkürzel speziell für Wagtail."
 
 msgid "user profile"
 msgstr "Benutzerprofil"

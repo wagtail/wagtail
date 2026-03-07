@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -1107,12 +1107,6 @@ msgstr "預覧模式"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "你有<span>尚未儲存的編輯內容</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "你有<span>尚未儲存的評論內容</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "你有<span>尚未儲存的編輯</span>以及<span>評論內容</span>"
 
 msgid "Timeline"
 msgstr "時間軸"

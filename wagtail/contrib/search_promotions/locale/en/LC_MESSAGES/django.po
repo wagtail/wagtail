@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -210,24 +210,24 @@ msgstr ""
 msgid "Promoted search result"
 msgstr ""
 
-#: views/settings.py:183
+#: views/settings.py:182
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
-#: views/settings.py:184
+#: views/settings.py:183
 msgid "Recommendations have not been created due to errors."
 msgstr ""
 
-#: views/settings.py:193
+#: views/settings.py:192
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr ""
 
-#: views/settings.py:194
+#: views/settings.py:193
 msgid "Recommendations have not been saved due to errors."
 msgstr ""
 
-#: views/settings.py:203
+#: views/settings.py:202
 msgid "Editor's picks deleted."
 msgstr ""

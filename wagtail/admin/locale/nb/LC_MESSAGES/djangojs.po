@@ -3,12 +3,12 @@
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2022
 # Jonathan D, 2023
 # Loic Teixeira, 2024
-# Eirik Krogstad <eirikkr@gmail.com>, 2025
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2025
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2026
+# Eirik Krogstad <eirikkr@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2025\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2026\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/torchbox/teams/"
 "8009/nb/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "Handlinger"
+
+msgid "Add"
+msgstr "Legg til"
 
 msgid "Alt text"
 msgstr "Alt-tekst"
@@ -35,6 +38,9 @@ msgstr "Kontrollpanel"
 
 msgid "Delete"
 msgstr "Slett"
+
+msgid "Drag"
+msgstr "Dra"
 
 msgid "Edit"
 msgstr "Rediger"
@@ -56,6 +62,12 @@ msgstr "Manglende dokument"
 
 msgid "More actions"
 msgstr "Flere handlinger"
+
+msgid "Move down"
+msgstr "Flytt ned"
+
+msgid "Move up"
+msgstr "Flytt opp"
 
 msgid "No results"
 msgstr "Ingen resultater"
@@ -99,6 +111,9 @@ msgstr "Se alle"
 
 msgid "Server Error"
 msgstr "Serverfeil"
+
+msgid "Settings"
+msgstr "Innstillinger"
 
 msgid "Show error"
 msgstr "Vis feil"

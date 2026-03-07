@@ -15,7 +15,7 @@ export class Panel {
    * Return any descendant panel (including self) that matches the given field or relation name,
    * or `null` if there is no match
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   getPanelByName(_name: string): Panel | null {
     // The base panel definition has no notion of descendants or a name of its own, so just return null
     return null;

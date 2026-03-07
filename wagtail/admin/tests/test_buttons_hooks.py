@@ -8,7 +8,7 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.wagtail_hooks import page_header_buttons, page_listing_more_buttons
 from wagtail.admin.widgets.button import Button
 from wagtail.models import Page
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import SimpleChildPage, SimplePage, SimpleParentPage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
@@ -296,6 +296,23 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
 
         self.assertContains(response, "Another useless header button")
 
+    def test_hide_dropdown_on_breadcrumbs_open_and_close(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.root_page.id,))
+        )
+
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        dropdown = soup.select_one(".w-slim-header .w-dropdown")
+        self.assertIsNotNone(dropdown)
+        self.assertLessEqual(
+            {
+                "w-breadcrumbs:opened@document->w-dropdown#hide",
+                "w-breadcrumbs:closed@document->w-dropdown#hide",
+            },
+            set(dropdown.get("data-action").split()),
+        )
+
     def test_delete_button_with_next_url(self):
         """
         Ensure that the built in delete button supports a next_url provided.
@@ -354,6 +371,24 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         )
         full_url = unpublish_base_url + "?" + urlencode({"next": next_url})
         self.assertEqual(unpublish_button.url, full_url)
+
+    def test_add_child_not_shown_when_no_subpage_type_available_to_create(self):
+        simple_parent_page = SimpleParentPage(
+            title="Simple parent",
+            slug="simple-parent",
+        )
+        self.root_page.add_child(instance=simple_parent_page)
+        simple_child_page = SimpleChildPage(
+            title="Simple child",
+            slug="simple-child",
+        )
+        simple_parent_page.add_child(instance=simple_child_page)
+
+        buttons = page_header_buttons(simple_parent_page, self.user, view_name="edit")
+        add_subpage_button = next(
+            button for button in buttons if button.label == "Add child page"
+        )
+        self.assertFalse(add_subpage_button.is_shown(user=self.user))
 
 
 class ButtonComparisonTestCase(SimpleTestCase):

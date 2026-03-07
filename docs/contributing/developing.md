@@ -19,7 +19,7 @@ Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure y
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
-Fork the [the Wagtail codebase](https://github.com/wagtail/wagtail) and clone the forked copy:
+Fork [the Wagtail codebase](https://github.com/wagtail/wagtail) and clone the forked copy:
 
 ```sh
 git clone https://github.com/username/wagtail.git
@@ -198,7 +198,7 @@ npm run test:unit
 
 ### Integration tests
 
-Our end-to-end browser testing suite also uses [Jest](https://jestjs.io/), combined with [Puppeteer](https://pptr.dev/). We set this up to be installed separately so as not to increase the installation size of the existing Node tooling. To run the tests, you will need to install the dependencies and, in a separate terminal, run the test suite’s Django development server:
+Our end-to-end browser testing suite also uses [Jest](https://jestjs.io/), combined with [Playwright](https://playwright.dev/). We set this up to be installed separately so as not to increase the installation size of the existing Node tooling. To run the tests, you will need to install the dependencies and, in a separate terminal, run the test suite's Django development server:
 
 ```sh
 export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui

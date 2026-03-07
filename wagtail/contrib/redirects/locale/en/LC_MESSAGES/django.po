@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,59 +67,59 @@ msgstr ""
 msgid "To field"
 msgstr ""
 
-#: models.py:13
+#: models.py:14
 msgid "redirect from"
 msgstr ""
 
-#: models.py:17
+#: models.py:18
 msgid "site"
 msgstr ""
 
-#: models.py:25 models.py:100
+#: models.py:26 models.py:101
 msgid "permanent"
 msgstr ""
 
-#: models.py:28
+#: models.py:29
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 
-#: models.py:34
+#: models.py:35
 msgid "redirect to a page"
 msgstr ""
 
-#: models.py:40
+#: models.py:41
 msgid "target page route"
 msgstr ""
 
-#: models.py:42
+#: models.py:43
 msgid ""
 "Optionally specify a route on the target page to redirect to. Leave blank to "
 "redirect to the default page route."
 msgstr ""
 
-#: models.py:49
+#: models.py:50
 msgid "redirect to any URL"
 msgstr ""
 
-#: models.py:52
+#: models.py:53
 msgid "automatically created"
 msgstr ""
 
-#: models.py:57
+#: models.py:58
 msgid "created at"
 msgstr ""
 
-#: models.py:102
+#: models.py:103
 msgid "temporary"
 msgstr ""
 
-#: models.py:219
+#: models.py:235
 msgid "redirect"
 msgstr ""
 
-#: models.py:220
+#: models.py:236
 msgid "redirects"
 msgstr ""
 

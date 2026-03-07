@@ -9,6 +9,7 @@
                 <link rel="stylesheet" href="{% build_absolute_url core_css_url %}">
                 {# For headless userbar: the contents of the hook also need absolute URLs #}
                 {% hook_output 'insert_global_admin_css' %}
+                {{ media.css }}
             {% endblock %}
             <div class="w-userbar-nav">
 
@@ -49,5 +50,6 @@
     {% versioned_static 'wagtailadmin/js/userbar.js' as userbar_js_url %}
     <script src="{% build_absolute_url vendor_js_url %}"></script>
     <script src="{% build_absolute_url userbar_js_url %}"></script>
+    {{ media.js }}
 {% endblock %}
 <!-- end Wagtail user bar embed code -->

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2021,2023-2025\n"
@@ -38,24 +38,6 @@ msgstr "Fjöldi eininga má minnst vera %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Fjöldi eininga má mest vera %(max_num)d"
 
-msgid "Move up"
-msgstr "Færa upp"
-
-msgid "Move down"
-msgstr "Færa niður"
-
-msgid "Drag"
-msgstr "Draga"
-
-msgid "Duplicate"
-msgstr "Afrita"
-
-msgid "Delete"
-msgstr "Eyða"
-
-msgid "Add"
-msgstr "Bæta við"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: þessi blokk hefur engar stillingar."
@@ -65,6 +47,9 @@ msgstr "Þessi blokk hefur enga valmöguleika."
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Group"
+msgstr "Hópur"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail frontend cache"
@@ -286,6 +271,9 @@ msgstr "fyrir efnistegund"
 
 msgid "uploaded by user"
 msgstr "hlaðið inn af"
+
+msgid "Add"
+msgstr "Bæta við"
 
 msgid "Add/edit pages you own"
 msgstr "Bæta við/breyta síðum sem þú átt"
@@ -750,6 +738,9 @@ msgstr "Bjó til"
 
 msgid "Edited"
 msgstr "Breytt"
+
+msgid "Delete"
+msgstr "Eyða"
 
 msgid "Deleted"
 msgstr "Eytt"

@@ -39,7 +39,7 @@ body:
       description: |
         Do you have thoughts on skills needed?
         Are you keen to work on this yourself?
-        Please let us know here.
+        Please let us know here. Otherwise, leave the following content as-is.
       value: |
         Anyone can contribute to this. View our [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html), add a comment to the issue once you're ready to start.
     validations:

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -35,21 +35,6 @@ msgstr "Minimaalne üksuste arv on %(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maksimaalne üksuste arv on %(max_num)d"
-
-msgid "Move up"
-msgstr "Üles liikuma"
-
-msgid "Move down"
-msgstr "Mine alla"
-
-msgid "Drag"
-msgstr "Vedama"
-
-msgid "Delete"
-msgstr "Kustuta"
-
-msgid "Add"
-msgstr "Lisama"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -169,6 +154,9 @@ msgstr "grupikogude load"
 
 msgid "uploaded by user"
 msgstr "kasutaja üles laaditud"
+
+msgid "Add"
+msgstr "Lisama"
 
 msgid "Add/edit pages you own"
 msgstr "Lisage / muutke omatavaid lehti"
@@ -497,6 +485,9 @@ msgstr "Loodud"
 
 msgid "Edited"
 msgstr "Redigeeritud"
+
+msgid "Delete"
+msgstr "Kustuta"
 
 msgid "Deleted"
 msgstr "Kustutatud"

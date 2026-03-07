@@ -1,16 +1,20 @@
 #
 # Translators:
-# Siramol Khunchai, 2024
 # Loic Teixeira, 2024
-# Walaksawan Vervoort <nula_wala@yahoo.com>, 2025
+# Amawalee Combe <dang@getsalebox.com>, 2026
+# Siramol Khunchai, 2026
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2025\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2026\n"
 "Language-Team: Thai (https://app.transifex.com/torchbox/teams/8009/th/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add"
+msgstr "เพิ่ม"
 
 msgid "Alt text"
 msgstr "ข้อความอย่างอื่น"
@@ -26,6 +30,12 @@ msgstr "แผงควบคุม , หน้าจอที่ควบคุ
 
 msgid "Delete"
 msgstr "ลบ,ลบทิ้ง"
+
+msgid "Drag"
+msgstr "ลาก"
+
+msgid "Duplicate"
+msgstr "ทำซ้ำ"
 
 msgid "Edit"
 msgstr "แก้ไข"
@@ -44,6 +54,12 @@ msgstr "ตัวแบ่งบรรทัด"
 
 msgid "Loading…"
 msgstr "กำลังโหลด"
+
+msgid "Move down"
+msgstr "เลื่อนลง,ขยับลง"
+
+msgid "Move up"
+msgstr "เลื่อนขึ้น,ขยับขึ้น"
 
 msgid "No results"
 msgstr "ไม่พบ"
@@ -77,6 +93,9 @@ msgstr "เปิดทั้งหมด"
 
 msgid "Server Error"
 msgstr "เซฟเว่อร์เกิดข้อผิดพลาด"
+
+msgid "Settings"
+msgstr "การตั้งค่า"
 
 msgid "Show error"
 msgstr "แสดงข้อผิดพลาด"

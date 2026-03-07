@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -29,18 +29,6 @@ msgstr "Te nama iti rawa mō ēnei tūemi ko %(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Te nama nui rawa mō ēnei tūemi ko %(max_num)d"
-
-msgid "Move up"
-msgstr "Mū ki runga"
-
-msgid "Move down"
-msgstr "Mū ki raro"
-
-msgid "Delete"
-msgstr "Muku"
-
-msgid "Add"
-msgstr "Tāpiri"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -154,6 +142,9 @@ msgstr "Ngā rōpū kohikohinga whakaae"
 
 msgid "uploaded by user"
 msgstr "Nō te kaiwhakamahi ī tukuatu"
+
+msgid "Add"
+msgstr "Tāpiri"
 
 msgid "Add/edit pages you own"
 msgstr "Tāpiri/ whakarerekē ou whārangi"
@@ -476,6 +467,9 @@ msgstr "Hangaia"
 
 msgid "Edited"
 msgstr "Kua whakarerekē"
+
+msgid "Delete"
+msgstr "Muku"
 
 msgid "Unpublish"
 msgstr "whakakore te whakaputa"

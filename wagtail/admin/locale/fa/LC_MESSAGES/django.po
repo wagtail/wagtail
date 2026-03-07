@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1174,12 +1174,6 @@ msgstr "حالت پیش نمایش"
 msgid "You have <span>unsaved edits</span>"
 msgstr "شما دارای <span>تغییرات ذخیره نشده</span> هستید  "
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "شما دارای <span>نظرات ذخیره نشده</span> هستید  "
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "شما دارای <span>تغییرات</span> و <span>نظرات</span> ذخیره نشده هستید  "
-
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
 msgstr "درخواست شده توسط <b>%(modified_by)s</b>"
@@ -1350,10 +1344,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' باز شده است."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)s بدلیل قفل بودن امکان ذخیره ندارد"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' بروز رسانی شد."
 
@@ -1383,6 +1373,10 @@ msgstr "%(model_name)s '%(object)s' بروز رسانی و منتشر شد."
 #, python-format
 msgid "%(model_name)s '%(object)s' created and published."
 msgstr "%(model_name)s '%(object)s' ایجاد و منتشر شد."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s بدلیل قفل بودن امکان ذخیره ندارد"
 
 #, python-format
 msgid ""

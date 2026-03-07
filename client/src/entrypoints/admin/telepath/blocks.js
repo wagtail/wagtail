@@ -3,22 +3,22 @@ import {
   FieldBlockDefinition,
 } from '../../../components/StreamField/blocks/FieldBlock';
 import {
+  ListBlock,
+  ListBlockDefinition,
+} from '../../../components/StreamField/blocks/ListBlock';
+import {
   StaticBlock,
   StaticBlockDefinition,
 } from '../../../components/StreamField/blocks/StaticBlock';
+import {
+  StreamBlock,
+  StreamBlockDefinition,
+} from '../../../components/StreamField/blocks/StreamBlock';
 import {
   BlockGroupDefinition,
   StructBlock,
   StructBlockDefinition,
 } from '../../../components/StreamField/blocks/StructBlock';
-import {
-  ListBlock,
-  ListBlockDefinition,
-} from '../../../components/StreamField/blocks/ListBlock';
-import {
-  StreamBlock,
-  StreamBlockDefinition,
-} from '../../../components/StreamField/blocks/StreamBlock';
 
 const wagtailStreamField = window.wagtailStreamField || {};
 

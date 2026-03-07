@@ -15,7 +15,7 @@ Registering functions with a Wagtail hook is done through the `@hooks.register` 
 from wagtail import hooks
 
 @hooks.register('name_of_hook')
-def my_hook_function(arg1, arg2...)
+def my_hook_function(arg1, arg2...):
     # your code here
 ```
 
@@ -40,6 +40,8 @@ def my_other_hook_function(arg1, arg2...)
 def yet_another_hook_function(arg1, arg2...)
     # your code here
 ```
+
+(unit_testing_hooks)=
 
 ## Unit testing hooks
 
@@ -121,7 +123,7 @@ def get_profile_avatar(user, size):
     is_christmas_day = today.month == 12 and today.day == 25
 
     if is_christmas_day:
-      return '/static/images/santa.png'
+        return '/static/images/santa.png'
 
     return None
 ```
@@ -163,12 +165,12 @@ def add_another_welcome_panel(request, panels):
 
 ### `construct_homepage_summary_items`
 
-Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a `request` object and a list of summary item objects and should modify this list in-place as required. Summary item objects are instances of `wagtail.admin.site_summary.SummaryItem`, which extends [the Component class](creating_template_components) with the following additional methods and properties:
+Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other objects that exist on the site). The callable passed into this hook should take a `request` object and a list of summary item objects and should modify this list in-place as required. Summary item objects are instances of `wagtail.admin.site_summary.SummaryItem`, which extends [the Component class](creating_template_components) with the following additional methods and properties:
 
 ```{eval-rst}
   .. method:: SummaryItem(request)
 
-    Constructor; receives the request object its argument
+    Constructor; receives the request object as its argument
 
   .. attribute:: order
 
@@ -659,7 +661,7 @@ Called at the beginning of the "create page" view passing in the request, the pa
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
-Unlike, `after_create_page`, this is run both for both `GET` and `POST` requests.
+Unlike `after_create_page`, this is run for both `GET` and `POST` requests.
 
 This can be used to completely override the editor on a per-view basis:
 
@@ -797,7 +799,7 @@ Called at the beginning of the "move page" view passing in the request, the page
 
 Uses the same behavior as `before_create_page`.
 
-This hook runs only at the beginning of the the “move page” view. It will not run when moving pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page move, regardless of how it was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/stable/ref/signals/#signals).
+This hook runs only at the beginning of the “move page” view. It will not run when moving pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page move, regardless of how it was performed, it may be more appropriate to use Django's [signals](https://docs.djangoproject.com/en/stable/ref/signals/#signals).
 
 (before_convert_alias_page)=
 
@@ -899,14 +901,15 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the user bar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The items support the [](template_components) pattern, but for backwards compatibility objects with a `render(request)` method are also accepted. See the user bar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
 
 ```python
 from wagtail import hooks
+from wagtail.admin.ui.components import Component
 
-class UserbarPuppyLinkItem:
-    def render(self, request):
-        return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
+class UserbarPuppyLinkItem(Component):
+    def render_html(self, parent_context):
+        return '<li><a href="https://unsplash.com/s/photos/puppies" ' \
             + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
 
 @hooks.register('construct_wagtail_userbar')
@@ -944,7 +947,7 @@ Called at the beginning of the "create user" view passing in the request.
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
-Unlike, `after_create_user`, this is run both for both `GET` and `POST` requests.
+Unlike `after_create_user`, this is run for both `GET` and `POST` requests.
 
 This can be used to completely override the user editor on a per-view basis:
 

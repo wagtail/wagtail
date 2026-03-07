@@ -76,6 +76,20 @@ class PostPagesAPIViewSet(PagesAPIViewSet):
 api_router.register_endpoint("posts", PostPagesAPIViewSet)
 ```
 
+You can use `body_fields` (for content fields at the top level of the API response) and `meta_fields` (for fields within the response's `meta` section) to control which fields are included. By default, fields added here only appear in the detail view.
+
+To make a field appear when the model is used in a nested context (e.g. as a related item), you must **also** add it to `nested_default_fields`. Note that the field must already be present in `body_fields` or `meta_fields`.
+
+For example, `seo_title` is included in `meta_fields` by default. To make it visible in nested views:
+
+```python
+class CustomFieldsAPIViewSet(PagesAPIViewSet):
+    nested_default_fields = PagesAPIViewSet.nested_default_fields + ["seo_title"]
+    name = "pages"
+
+api_router.register_endpoint("pages", CustomFieldsAPIViewSet)
+```
+
 Additionally, there is a base endpoint class you can use for adding different
 content types to the API: `wagtail.api.v2.views.BaseAPIViewSet`
 
@@ -290,7 +304,7 @@ This would add the following to the JSON:
         "id": 45529,
         "meta": {
             "type": "wagtailimages.Image",
-            "detail_url": "http://www.example.com/api/v2/images/12/",
+            "detail_url": "https://www.example.com/api/v2/images/12/",
             "download_url": "/media/images/a_test_image.jpg",
             "tags": []
         },
@@ -300,7 +314,7 @@ This would add the following to the JSON:
     },
     "feed_image_thumbnail": {
         "url": "/media/images/a_test_image.fill-100x100.jpg",
-        "full_url": "http://www.example.com/media/images/a_test_image.fill-100x100.jpg",
+        "full_url": "https://www.example.com/media/images/a_test_image.fill-100x100.jpg",
         "width": 100,
         "height": 100,
         "alt": "image alt text"
@@ -314,6 +328,28 @@ When you are using another storage backend, such as S3, `download_url` will retu
 a URL to the image if your media files are properly configured.
 
 For cases where the source image set may contain SVGs, the `ImageRenditionField` constructor takes a `preserve_svg` argument. The behavior of `ImageRenditionField` when `preserve_svg` is `True` is as described for the `image` template tag's `preserve-svg` argument (see the documentation on [](svg_images)).
+
+#### Filter specifications
+
+The `filter_spec` parameter in `ImageRenditionField` determines how the image will be resized and processed. For a complete list of available operations and their syntax, see the [filter specifications documentation](../../../topics/images).
+
+Common examples include:
+
+```python
+# Square crop and fill
+APIField('thumbnail', serializer=ImageRenditionField('fill-300x300', source='image'))
+
+# Maintain aspect ratio with maximum dimensions
+APIField('preview', serializer=ImageRenditionField('max-800x600', source='image'))
+
+# Exact dimensions without cropping
+APIField('banner', serializer=ImageRenditionField('width-1200', source='image'))
+
+# Chained operations (multiple filters combined)
+APIField('compressed_thumb', serializer=ImageRenditionField('fill-200x200|jpegquality-60', source='image'))
+```
+
+The generated rendition URLs will be included in the API response, allowing clients to directly access optimized versions of images without additional processing.
 
 ### Authentication
 

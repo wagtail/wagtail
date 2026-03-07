@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -33,24 +33,6 @@ msgstr "ตัวเลขน้อยที่สุดของสิ่งน
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "จำนวนมากสุดของสิ่งนี้คือ %(max_num)d"
-
-msgid "Move up"
-msgstr "เลื่อนขึ้น,ขยับขึ้น"
-
-msgid "Move down"
-msgstr "เลื่อนลง,ขยับลง"
-
-msgid "Drag"
-msgstr "ลาก"
-
-msgid "Duplicate"
-msgstr "ทำซ้ำ"
-
-msgid "Delete"
-msgstr "ลบ,ลบทิ้ง"
-
-msgid "Add"
-msgstr "เพิ่ม"
 
 msgid "This block has no options."
 msgstr "บล็อคนี้ไม่มีตัวเลือก"
@@ -150,6 +132,9 @@ msgstr "การสะสมกลุ่มที่จะอนุญาต"
 
 msgid "uploaded by user"
 msgstr "อัพโหลดโดยผู้ใช้"
+
+msgid "Add"
+msgstr "เพิ่ม"
 
 msgid "Add/edit pages you own"
 msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"
@@ -332,6 +317,9 @@ msgstr "ต่อเนื่อง"
 
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
+
+msgid "Delete"
+msgstr "ลบ,ลบทิ้ง"
 
 msgid "Published"
 msgstr "เผยแพร่แล้ว"

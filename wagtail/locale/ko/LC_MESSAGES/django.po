@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -39,24 +39,6 @@ msgstr "항목은 최소 %(min_num)d개 이상이어야 합니다"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "항목은 최대 개수는 %(max_num)d개입니다"
 
-msgid "Move up"
-msgstr "위로 이동"
-
-msgid "Move down"
-msgstr "아래로 이동"
-
-msgid "Drag"
-msgstr "끌기"
-
-msgid "Duplicate"
-msgstr "복제"
-
-msgid "Delete"
-msgstr "삭제"
-
-msgid "Add"
-msgstr "추가"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: 이 블록에는 옵션이 없습니다."
@@ -66,6 +48,9 @@ msgstr "이 블록에는 옵션이 없습니다."
 
 msgid "This field is required."
 msgstr "이 필드는 필수입니다."
+
+msgid "Group"
+msgstr "그룹"
 
 msgid "Password"
 msgstr "비밀번호"
@@ -156,6 +141,9 @@ msgstr "그룹 모음 권한"
 
 msgid "uploaded by user"
 msgstr "업로드한 사용자:"
+
+msgid "Add"
+msgstr "추가"
 
 msgid "Add/edit pages you own"
 msgstr "페이지 추가/수정"
@@ -388,6 +376,9 @@ msgstr "생성일"
 
 msgid "Edited"
 msgstr "수정된"
+
+msgid "Delete"
+msgstr "삭제"
 
 msgid "Published"
 msgstr "출시된"

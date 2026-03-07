@@ -1,6 +1,6 @@
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path from 'path';
+import CopyPlugin from 'copy-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 /**
  * Generates a path to the output bundle to be loaded in the browser.
@@ -27,7 +27,7 @@ const exposedDependencies = {
   'draft-js': 'DraftJS',
 };
 
-module.exports = function exports(env, argv) {
+export default function exports(env, argv) {
   const isProduction = argv.mode === 'production';
 
   const entrypoints = {
@@ -226,10 +226,16 @@ module.exports = function exports(env, argv) {
       ].concat(
         Object.keys(exposedDependencies).map((name) => {
           const globalName = exposedDependencies[name];
+          const url = import.meta.resolve(name);
+          // import.meta.resolve returns a full URL with the file:// protocol.
+          // Webpack doesn't support it yet, so only take the pathname to match
+          // the behavior of require.resolve.
+          // https://github.com/webpack/schema-utils/issues/209
+          const test = new URL(url).pathname;
 
           // Create expose-loader configs for each Wagtail dependency.
           return {
-            test: require.resolve(name),
+            test,
             use: [
               {
                 loader: 'expose-loader',
@@ -287,4 +293,4 @@ module.exports = function exports(env, argv) {
       version: false,
     },
   };
-};
+}

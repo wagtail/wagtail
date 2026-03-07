@@ -6,7 +6,7 @@ Wagtail provides the `wagtail start` command and project template to get you sta
 We highly recommend working through the [Getting Started tutorial](tutorial), even if you are not planning to create a standalone Wagtail project. This will ensure you have a good understanding of Wagtail concepts.
 ```
 
-Wagtail is currently compatible with Django 4.2, 5.2 and 6.0. First, install the `wagtail` package from PyPI:
+Wagtail is currently compatible with Django 5.2 and 6.0. First, install the `wagtail` package from PyPI:
 
 ```sh
 pip install wagtail
@@ -44,13 +44,13 @@ Add the following entry to `MIDDLEWARE`:
 Add a `STATIC_ROOT` setting, if your project doesn't have one already:
 
 ```python
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / "static"
 ```
 
 Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project doesn't have these already:
 
 ```python
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
 ```
 
@@ -69,7 +69,7 @@ WAGTAIL_SITE_NAME = 'My Example Site'
 Add a `WAGTAILADMIN_BASE_URL` - this is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails:
 
 ```python
-WAGTAILADMIN_BASE_URL = 'http://example.com'
+WAGTAILADMIN_BASE_URL = 'https://example.com'
 ```
 
 If this setting is not present, Wagtail will fall back to `request.site.root_url` or to the hostname of the request. Although this setting is not strictly required, it is highly recommended because leaving it out may produce unusable URLs in notification emails.

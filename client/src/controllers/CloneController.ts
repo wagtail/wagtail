@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 import { debounce } from '../utils/debounce';
 import { noop } from '../utils/noop';
 
-type AddOptions = {
+interface AddOptions {
   /** Flag for clearing or stacking messages */
   clear?: boolean;
   /** Content for the message, HTML not supported. */
@@ -13,7 +13,7 @@ type AddOptions = {
    * e.g. Message status level based on Django's message types.
    */
   type?: 'success' | 'error' | 'warning' | string;
-};
+}
 
 /**
  * Adds the ability for a controlled element to pick an element from a template
@@ -86,6 +86,8 @@ export class CloneController extends Controller<HTMLElement> {
    * added custom text inside the added element.
    */
   add(event?: CustomEvent<AddOptions> & { params?: AddOptions }) {
+    if (event?.defaultPrevented) return;
+
     const {
       clear = false,
       text = '',
@@ -96,10 +98,15 @@ export class CloneController extends Controller<HTMLElement> {
 
     if (clear) this.clear();
 
-    const content = this.getTemplateContent(type);
-    if (!content) return;
+    const template = this.getTemplateElement(type);
+    const templateRoot = template?.content.firstElementChild;
+    if (!templateRoot) return;
+    const content = templateRoot.cloneNode(true) as HTMLElement;
+    const textSelector = template.dataset.selector;
 
-    const textElement = content.lastElementChild;
+    const textElement =
+      (textSelector && content.querySelector(textSelector)) ||
+      content.lastElementChild;
 
     if (textElement instanceof HTMLElement && text) {
       textElement.textContent = text;
@@ -155,12 +162,11 @@ export class CloneController extends Controller<HTMLElement> {
    * a matching target, finally fall back on the first template target if nothing
    * is found.
    */
-  getTemplateContent(type?: string | null): HTMLElement | null {
-    const template =
+  getTemplateElement(type?: string | null): HTMLTemplateElement | null {
+    return (
       (type &&
         this.templateTargets.find(({ dataset }) => dataset.type === type)) ||
-      this.templateTarget;
-    const content = template.content.firstElementChild?.cloneNode(true);
-    return content instanceof HTMLElement ? content : null;
+      this.templateTarget
+    );
   }
 }

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -34,24 +34,6 @@ msgstr "條目的最小數是%(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "條目的最大數是%(max_num)d"
-
-msgid "Move up"
-msgstr "上移"
-
-msgid "Move down"
-msgstr "下移"
-
-msgid "Drag"
-msgstr "拖曳"
-
-msgid "Duplicate"
-msgstr "副本"
-
-msgid "Delete"
-msgstr "刪除"
-
-msgid "Add"
-msgstr "新增"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -162,6 +144,9 @@ msgstr "群組集合權限"
 
 msgid "uploaded by user"
 msgstr "使用者上傳"
+
+msgid "Add"
+msgstr "新增"
 
 msgid "Add/edit pages you own"
 msgstr "新增/編輯所屬的頁面"
@@ -487,6 +472,9 @@ msgstr "已建立"
 
 msgid "Edited"
 msgstr "已編輯"
+
+msgid "Delete"
+msgstr "刪除"
 
 msgid "Deleted"
 msgstr "已刪除"

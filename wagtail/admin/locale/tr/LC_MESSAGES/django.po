@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ertuğrul Keremoğlu, 2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1810,12 +1810,6 @@ msgstr "Ayrılmadan önce değişikliklerinizi kaydedin"
 msgid "You have <span>unsaved edits</span>"
 msgstr "Kaydedilmemiş düzenlemeleriniz var"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "Kaydedilmemiş yorumlarınız var"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Kaydedilmemiş düzenlemeleriniz ve yorumlarınız var"
-
 #, python-format
 msgid ""
 "One or more references to this %(model_name)s prevent it from being deleted."
@@ -1886,6 +1880,9 @@ msgstr "Sırala"
 
 msgid "View Wagtail quick actions"
 msgstr "Wagtail hızlı eylemlerini görüntüle"
+
+msgid "Checks"
+msgstr "Kontroller"
 
 msgid "Warnings"
 msgstr "Uyarılar"
@@ -2097,9 +2094,6 @@ msgstr "Yorumlar"
 
 msgid "Toggle checks"
 msgstr "Kontrolleri aç/kapa"
-
-msgid "Checks"
-msgstr "Kontroller"
 
 msgid "Toggle preview"
 msgstr "Önizlemeyi aç/kapa"

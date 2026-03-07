@@ -8,16 +8,16 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2022,2024
+# Marco Badan <marco.badan@gmail.com>, 2021-2022,2024,2026
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Stefano Marchetto <airbatum@gmail.com>, 2020\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -44,24 +44,6 @@ msgstr "Il numero minimo di elementi è %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Il numero massimo di elementi è %(max_num)d"
 
-msgid "Move up"
-msgstr "Sposta su"
-
-msgid "Move down"
-msgstr "Sposta giù"
-
-msgid "Drag"
-msgstr "Trascina"
-
-msgid "Duplicate"
-msgstr "Duplica"
-
-msgid "Delete"
-msgstr "Elimina"
-
-msgid "Add"
-msgstr "Aggiungi"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: questo blocco non ha opzioni."
@@ -72,14 +54,23 @@ msgstr "Questo blocco non ha opzioni"
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio."
 
+msgid "Group"
+msgstr "Gruppo"
+
 msgid "Wagtail frontend cache"
 msgstr "Wagtail cache frontend"
+
+msgid "Wagtail routablepage"
+msgstr "Routablepage Wagtail"
 
 msgid "Wagtail sitemaps"
 msgstr "Sitemap Wagtail"
 
 msgid "Unknown content type"
 msgstr "Tipo contenuto sconosciuto"
+
+msgid "Date cannot be in the future."
+msgstr "La data non può essere nel futuro."
 
 msgid "Password"
 msgstr "Password"
@@ -106,6 +97,11 @@ msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title}' è bloccata</b> da <b>te</b>."
 
 #, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' è stata bloccata</b> da <b>{user}</b> il <b>{datetime}</b>."
+
+#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' è bloccata</b>."
 
@@ -120,15 +116,56 @@ msgid "Only you can make changes while the %(model_name)s is locked"
 msgstr "Solo tu puoi fare modifiche finché %(model_name)s è bloccato"
 
 #, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "Solo %(user)s può fare modifiche mentre %(model_name)s è bloccato"
+
+#, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Questo %(model_name)s è attualmente in attesa di moderazione."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"{model_name} è in attesa di <b>'{task_name}'</b> nel flusso di lavoro "
+"<b>'{workflow_name}'</b>."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Solo i revisori di questa attività possono modificare %(model_name)s."
 
 msgid "Unlocked"
 msgstr "Sbloccata"
 
+msgid "Locked by workflow"
+msgstr "Bloccato dal flusso di lavoro"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"I revisori possono modificare %(model_name)s – bloccalo per impedire ad "
+"altri revisori di apportare modifiche"
+
 #, python-format
 msgid "Only reviewers can edit and approve the %(model_name)s"
 msgstr "Solo i revisori possono modificare e approvare %(model_name)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' è bloccato; la pubblicazione è programmata per il "
+"{datetime}"
+
+msgid "Locked by schedule"
+msgstr "Bloccato dalla pianificazione"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Attualmente bloccato; sarà pubblicato alla data programmata"
 
 msgid "content type"
 msgstr "tipo contenuto"
@@ -195,6 +232,9 @@ msgstr "live + programmate"
 msgid "live + draft"
 msgstr "live + bozza"
 
+msgid "locale"
+msgstr "lingua"
+
 msgid "locked"
 msgstr "bloccata"
 
@@ -231,8 +271,14 @@ msgstr "permesso di gruppo nella raccolta"
 msgid "group collection permissions"
 msgstr "Permessi di gruppo nella raccolta"
 
+msgid "for content type"
+msgstr "per il tipo di contenuto"
+
 msgid "uploaded by user"
 msgstr "caricato dall'utente"
+
+msgid "Add"
+msgstr "Aggiungi"
 
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
@@ -325,6 +371,25 @@ msgstr "Per i motori di ricerca"
 msgid "For site menus"
 msgstr "Per i menu del sito"
 
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'."
+msgstr ""
+"Lo slug '%(page_slug)s' è già in uso nella pagina genitore in "
+"'%(parent_url_path)s'."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Impossibile sovrascrivere una revisione che non è l'ultima per questo "
+"%(model_name)s"
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr ""
+"Impossibile sovrascrivere una revisione non creata dall'utente corrente."
+
 msgid "page"
 msgstr "pagina"
 
@@ -387,6 +452,30 @@ msgstr "Anteprima in formato desktop"
 
 msgid "object id"
 msgstr "id elemento"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "anche %(model_name)s verrà eliminato"
+
+msgid "prevents deletion"
+msgstr "impedisce l'eliminazione"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "verrà impostato sul %(model_name)s predefinito"
+
+msgid "will do nothing"
+msgstr "non farà nulla"
+
+msgid "may prevent deletion"
+msgstr "potrebbe impedire l'eliminazione"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "verrà impostato su un %(model_name)s specificato dal sistema"
+
+msgid "will unset the reference"
+msgstr "rimuoverà il riferimento"
 
 msgid "created at"
 msgstr "creato alle"
@@ -459,8 +548,17 @@ msgstr ""
 "%(hostname)s è già configurato come sito di default. Devi togliere questa "
 "impostazione prima di poterlo salvare come sito di default."
 
+msgid "group site permission"
+msgstr "permesso del sito per il gruppo"
+
+msgid "group site permissions"
+msgstr "permessi del sito per il gruppo"
+
 msgid "Public"
 msgstr "Pubblico"
+
+msgid "Private, accessible with a shared password"
+msgstr "Privata, accessibile con una password condivisa"
 
 msgid "Private, accessible to any logged-in users"
 msgstr "Privata, accessibile a qualsiasi utente loggato"
@@ -661,6 +759,9 @@ msgstr "Creata"
 
 msgid "Edited"
 msgstr "Modificato"
+
+msgid "Delete"
+msgstr "Elimina"
 
 msgid "Deleted"
 msgstr "Eliminata"
@@ -948,6 +1049,10 @@ msgstr "Attività rifiutata nel flusso di lavoro. Flusso di lavoro completato"
 
 msgid "Workflow: resume task"
 msgstr "Flusso di lavoro: riprendi attività"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Inviato nuovamente '%(task)s'. Flusso di lavoro ripreso"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Attività reinviata nel flusso di lavoro. Flusso di lavoro ripreso"

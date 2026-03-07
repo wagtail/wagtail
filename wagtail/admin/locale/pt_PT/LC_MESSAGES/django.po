@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -1366,12 +1366,6 @@ msgstr[2] "Utilizado %(usage_count)s vezes"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Tem <span>alterações por gravar</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Tem <span>comentários por gravar </span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Tem <span>alterações</span> e <span>comentários</span> por gravar"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"

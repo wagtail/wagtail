@@ -1,16 +1,16 @@
 #
 # Translators:
-# Jiri Stepanek <stepiiicz@gmail.com>, 2022
 # Martin Galda <martingalda9@gmail.com>, 2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2022
 # Loic Teixeira, 2024
 # IT Management <hudan@itmanagement.cz>, 2025
-# Marek Turnovec <aesculap@gmail.com>, 2025
-# Mirek Zvolský <zvolsky@seznam.cz>, 2025
+# Marek Turnovec <aesculap@gmail.com>, 2026
+# Mirek Zvolský <zvolsky@seznam.cz>, 2026
+# Jiri Stepanek <stepiiicz@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2025\n"
+"Last-Translator: Jiri Stepanek <stepiiicz@gmail.com>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/torchbox/teams/8009/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: cs\n"
@@ -19,6 +19,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "Akce"
+
+msgid "Add"
+msgstr "Přidat"
 
 msgid "Add a comment"
 msgstr "Přidej komentář"
@@ -53,6 +56,12 @@ msgstr "Zrušit"
 msgid "Delete error"
 msgstr "Chyba při rušení"
 
+msgid "Drag"
+msgstr "Přetáhnout myší"
+
+msgid "Duplicate"
+msgstr "Duplikovat"
+
 msgid "Edit"
 msgstr "Upravit"
 
@@ -76,6 +85,12 @@ msgstr "Chybějící dokument"
 
 msgid "More actions"
 msgstr "Další akce"
+
+msgid "Move down"
+msgstr "Posunout dolů"
+
+msgid "Move up"
+msgstr "Posunout nahoru"
 
 msgid "No"
 msgstr "Ne"
@@ -127,6 +142,9 @@ msgstr "Zobrazit vše"
 
 msgid "Server Error"
 msgstr "Chyba serveru"
+
+msgid "Settings"
+msgstr "Nastavení"
 
 msgid "Show error"
 msgstr "Zobrazit chyby"

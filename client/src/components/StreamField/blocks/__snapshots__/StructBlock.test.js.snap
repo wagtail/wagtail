@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom formLayout with settings 1`] = `
 "<div class="c-sf-help">
@@ -39,12 +39,12 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-0-value-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-0-value-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-0-value-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-the-prefix-0-value-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
@@ -78,7 +78,7 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
             use <strong>lots</strong> of these
           </div>
         </div>
-      <div id="the-prefix-0-value-settings" data-block-settings="" hidden="">
+      <div id="block_group-the-prefix-0-value-settings" data-block-settings="" hidden="">
           <div data-contentpath="test_block_b">
         <label class="w-field__label" for="the-prefix-0-value-test_block_b">Test Block B</label>
         <div class="w-field__wrapper" data-field-wrapper="">
@@ -182,24 +182,24 @@ exports[`telepath: wagtail.blocks.StructBlock in stream block using a custom for
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Heading block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -207,7 +207,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
         
@@ -247,24 +247,24 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to children 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Heading block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -272,7 +272,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing">
         
@@ -312,24 +312,24 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Heading block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -337,7 +337,7 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block" data-controller="w-customstruct" data-action="click->w-customstruct#doAnotherThing"><p class="help-block help-critical">This is just generally wrong.</p>
         
@@ -377,24 +377,24 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially collapsed state 1`] = `
-"<section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested collapsed" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -402,7 +402,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" hidden="">
+          <div id="block_group-the-prefix-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
         
@@ -442,24 +442,24 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially collapsed state 2`] = `
-"<section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested collapsed" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -467,7 +467,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -507,24 +507,24 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially expanded state 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -532,7 +532,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -572,24 +572,24 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially expanded state 2`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -597,7 +597,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" hidden="">
+          <div id="block_group-the-prefix-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
         
@@ -637,24 +637,24 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders 
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError passes error messages to children 1`] = `
-"<section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested collapsed" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -662,7 +662,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -702,24 +702,24 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError pa
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError shows non-block errors 1`] = `
-"<section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested collapsed" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -727,7 +727,7 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" hidden="">
+          <div id="block_group-the-prefix-content" class="w-panel__content" hidden="">
             
           <div class="struct-block"><p class="help-block help-critical">This is just generally wrong.</p>
         
@@ -767,41 +767,41 @@ exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError sh
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any level of nested panels to reveal errors 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Hero</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="true" aria-controls="the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="true" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-the-prefix-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -810,45 +810,45 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
             configure how the block is <strong>displayed</strong>
           </div>
         </div>
-      <div id="the-prefix-settings" data-block-settings="">
-          <section class="w-panel w-panel--nested collapsed" id="the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel="">
+      <div id="block_group-the-prefix-settings" data-block-settings="">
+          <section class="w-panel w-panel--nested collapsed" id="block_group-block_group-the-prefix-theme-section" aria-labelledby="block_group-block_group-the-prefix-theme-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-block_group-the-prefix-theme-section" aria-labelledby="block_group-block_group-the-prefix-theme-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-theme-heading" data-panel-toggle="" aria-controls="the-prefix-theme-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-theme-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-theme-content" aria-expanded="true">
               <svg class="icon icon-cogs w-panel__icon" aria-hidden="true">
                 <use href="#icon-cogs"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-theme-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-block_group-the-prefix-theme-heading" data-panel-heading="">
               <span class="c-sf-block__type">Theme</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-block_group-the-prefix-theme-section" aria-labelledby="block_group-block_group-the-prefix-theme-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="true" aria-controls="the-prefix-theme-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="true" aria-controls="block_group-block_group-the-prefix-theme-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-theme-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-block_group-the-prefix-theme-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-theme-content" class="w-panel__content">
+          <div id="block_group-block_group-the-prefix-theme-content" class="w-panel__content">
             
           <div class="theme-group collapsed">
-        <div id="the-prefix-theme-settings" data-block-settings="">
+        <div id="block_group-block_group-the-prefix-theme-settings" data-block-settings="">
           <div data-contentpath="shown">
         <label class="w-field__label" for="the-prefix-shown">Shown</label>
         <div class="w-field__wrapper" data-field-wrapper="">
@@ -889,44 +889,44 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
         </div>
       </div>
       </div></div></div>
-        </section></div><section class="w-panel w-panel--nested collapsed" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
+        </section></div><section class="w-panel w-panel--nested collapsed" id="block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-main_content-heading" data-panel-toggle="" aria-controls="the-prefix-main_content-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
               <svg class="icon icon-doc-full w-panel__icon" aria-hidden="true">
                 <use href="#icon-doc-full"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-main_content-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-block_group-the-prefix-main_content-heading" data-panel-heading="">
               <span class="c-sf-block__type">Main content</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-main_content-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-main_content-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-block_group-the-prefix-main_content-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-main_content-content" class="w-panel__content">
+          <div id="block_group-block_group-the-prefix-main_content-content" class="w-panel__content">
             
           <div class="main-content collapsed">
-        <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
+        <div id="block_group-block_group-the-prefix-main_content-settings" data-block-settings="" hidden="">
           <div data-contentpath="url">
         <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
         <div class="w-field__wrapper" data-field-wrapper="">
@@ -956,24 +956,24 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
       </div></div></div>
         </section><div data-contentpath="captioned_image">
         
-        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+        <section class="w-panel w-panel--nested" id="block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-captioned_image-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-captioned_image-heading" data-panel-heading="">
               <span class="c-sf-block__type">Captioned image</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-captioned_image-image</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -981,7 +981,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-captioned_image-content" class="w-panel__content">
+          <div id="block_group-the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="captioned-image-block">
         
@@ -1023,41 +1023,41 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands any lev
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the parent group when the settings panel is expanded 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Hero</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-the-prefix-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -1066,7 +1066,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
             configure how the block is <strong>displayed</strong>
           </div>
         </div>
-      <div id="the-prefix-settings" data-block-settings="" hidden="">
+      <div id="block_group-the-prefix-settings" data-block-settings="" hidden="">
           <div data-contentpath="accent_color">
         <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
         <div class="w-field__wrapper" data-field-wrapper="">
@@ -1106,44 +1106,44 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
           </div>
         </div>
       </div>
-      </div></div><section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
+      </div></div><section class="w-panel w-panel--nested" id="block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-main_content-heading" data-panel-toggle="" aria-controls="the-prefix-main_content-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
               <svg class="icon icon-doc-full w-panel__icon" aria-hidden="true">
                 <use href="#icon-doc-full"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-main_content-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-block_group-the-prefix-main_content-heading" data-panel-heading="">
               <span class="c-sf-block__type">Main content</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-main_content-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-main_content-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-block_group-the-prefix-main_content-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-main_content-content" class="w-panel__content">
+          <div id="block_group-block_group-the-prefix-main_content-content" class="w-panel__content">
             
           <div class="">
-        <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
+        <div id="block_group-block_group-the-prefix-main_content-settings" data-block-settings="" hidden="">
           <div data-contentpath="url">
         <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
         <div class="w-field__wrapper" data-field-wrapper="">
@@ -1173,24 +1173,24 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
       </div></div></div>
         </section><div data-contentpath="captioned_image">
         
-        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+        <section class="w-panel w-panel--nested" id="block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-captioned_image-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-captioned_image-heading" data-panel-heading="">
               <span class="c-sf-block__type">Captioned image</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-captioned_image-image</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -1198,7 +1198,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-captioned_image-content" class="w-panel__content">
+          <div id="block_group-the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="captioned-image-block">
         
@@ -1240,41 +1240,41 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it expands the par
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correctly with flat children and settings 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Hero</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-the-prefix-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -1283,7 +1283,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
             configure how the block is <strong>displayed</strong>
           </div>
         </div>
-      <div id="the-prefix-settings" data-block-settings="" hidden="">
+      <div id="block_group-the-prefix-settings" data-block-settings="" hidden="">
           <div data-contentpath="accent_color">
         <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
         <div class="w-field__wrapper" data-field-wrapper="">
@@ -1351,24 +1351,24 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
       </div>
       </div><div data-contentpath="captioned_image">
         
-        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+        <section class="w-panel w-panel--nested" id="block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-captioned_image-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-captioned_image-heading" data-panel-heading="">
               <span class="c-sf-block__type">Captioned image</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-captioned_image-image</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -1376,7 +1376,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-captioned_image-content" class="w-panel__content">
+          <div id="block_group-the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="captioned-image-block">
         
@@ -1418,41 +1418,41 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correctly with nested children and settings 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Hero</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-the-prefix-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -1461,25 +1461,25 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
             configure how the block is <strong>displayed</strong>
           </div>
         </div>
-      <div id="the-prefix-settings" data-block-settings="" hidden="">
-          <section class="w-panel w-panel--nested collapsed" id="the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel="">
+      <div id="block_group-the-prefix-settings" data-block-settings="" hidden="">
+          <section class="w-panel w-panel--nested collapsed" id="block_group-block_group-the-prefix-theme-section" aria-labelledby="block_group-block_group-the-prefix-theme-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-block_group-the-prefix-theme-section" aria-labelledby="block_group-block_group-the-prefix-theme-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-theme-heading" data-panel-toggle="" aria-controls="the-prefix-theme-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-theme-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-theme-content" aria-expanded="false">
               <svg class="icon icon-cogs w-panel__icon" aria-hidden="true">
                 <use href="#icon-cogs"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-theme-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-block_group-the-prefix-theme-heading" data-panel-heading="">
               <span class="c-sf-block__type">Theme</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">Color: label: the-prefix-accent_color, Size: label: the-prefix-font_size</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-theme-section" aria-labelledby="the-prefix-theme-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-block_group-the-prefix-theme-section" aria-labelledby="block_group-block_group-the-prefix-theme-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -1487,7 +1487,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-theme-content" class="w-panel__content" hidden="">
+          <div id="block_group-block_group-the-prefix-theme-content" class="w-panel__content" hidden="">
             
           <div class="theme-group collapsed">
         <div data-contentpath="accent_color">
@@ -1530,41 +1530,41 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
           </div>
         </div>
       </div>
-      </div></div><section class="w-panel w-panel--nested" id="the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel="">
+      </div></div><section class="w-panel w-panel--nested" id="block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-main_content-heading" data-panel-toggle="" aria-controls="the-prefix-main_content-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-block_group-the-prefix-main_content-heading" data-panel-toggle="" aria-controls="block_group-block_group-the-prefix-main_content-content" aria-expanded="true">
               <svg class="icon icon-doc-full w-panel__icon" aria-hidden="true">
                 <use href="#icon-doc-full"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-main_content-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-block_group-the-prefix-main_content-heading" data-panel-heading="">
               <span class="c-sf-block__type">Main content</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-main_content-section" aria-labelledby="the-prefix-main_content-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-block_group-the-prefix-main_content-section" aria-labelledby="block_group-block_group-the-prefix-main_content-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-main_content-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-block_group-the-prefix-main_content-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-main_content-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-block_group-the-prefix-main_content-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-main_content-content" class="w-panel__content">
+          <div id="block_group-block_group-the-prefix-main_content-content" class="w-panel__content">
             
           <div class="main-content" data-example="value">
         
@@ -1573,7 +1573,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
             This is the <strong>main content</strong> area.
           </div>
         </div>
-      <div id="the-prefix-main_content-settings" data-block-settings="" hidden="">
+      <div id="block_group-block_group-the-prefix-main_content-settings" data-block-settings="" hidden="">
           <div data-contentpath="url">
         <label class="w-field__label" for="the-prefix-url">Link<span class="w-required-mark">*</span></label>
         <div class="w-field__wrapper" data-field-wrapper="">
@@ -1603,24 +1603,24 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
       </div></div></div>
         </section><div data-contentpath="captioned_image">
         
-        <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+        <section class="w-panel w-panel--nested" id="block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-captioned_image-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-captioned_image-heading" data-panel-heading="">
               <span class="c-sf-block__type">Captioned image</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-captioned_image-image</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -1628,7 +1628,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-captioned_image-content" class="w-panel__content">
+          <div id="block_group-the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="captioned-image-block">
         
@@ -1670,41 +1670,41 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it renders correct
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom formTemplate 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Hero</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-url</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-the-prefix-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="custom-form-template">
             <!--
@@ -1727,41 +1727,41 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom
         </div>
       </div>
             <p>and here is a nested StructBlock that also has formTemplate and settings:</p>
-            <section class="w-panel w-panel--nested" id="the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel="">
+            <section class="w-panel w-panel--nested" id="block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="the-prefix-captioned_image-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-captioned_image-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-captioned_image-content" aria-expanded="true">
               <svg class="icon icon-image w-panel__icon" aria-hidden="true">
                 <use href="#icon-image"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-captioned_image-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-captioned_image-heading" data-panel-heading="">
               <span class="c-sf-block__type">Captioned image</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-captioned_image-image</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-captioned_image-section" aria-labelledby="the-prefix-captioned_image-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-captioned_image-section" aria-labelledby="block_group-the-prefix-captioned_image-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
             <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="the-prefix-captioned_image-settings">
+            <div class="w-panel__controls" data-panel-controls=""><button type="button" class="button button--icon text-replace white" data-streamfield-action="SETTINGS" title="Settings" aria-expanded="false" aria-controls="block_group-the-prefix-captioned_image-settings">
         <svg class="icon icon-cog" aria-hidden="true">
           <use href="#icon-cog"></use>
         </svg>
       
-      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#the-prefix-captioned_image-settings">
+      <div class="w-badge w-badge--critical w-hidden" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#block_group-the-prefix-captioned_image-settings">
         <span aria-hidden="true" data-w-count-target="total"></span>
         <span class="w-sr-only">(<span data-w-count-target="label"></span>)</span>
       </div>
     </button></div>
           </div>
-          <div id="the-prefix-captioned_image-content" class="w-panel__content">
+          <div id="block_group-the-prefix-captioned_image-content" class="w-panel__content">
             
           <div class="custom-child-structblock-form-template">
             <p>here comes the only block:</p>
@@ -1777,7 +1777,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom
         </div>
       </div>
 
-            <div data-block-settings="" id="the-prefix-captioned_image-settings" hidden="hidden">
+            <div data-block-settings="" id="block_group-the-prefix-captioned_image-settings" hidden="hidden">
               <h3>Captioned image settings</h3>
               <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
@@ -1811,7 +1811,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formLayout it supports custom
               it can be placed anywhere in the template as long as it's not inside
               any data-structblock-child element.
             -->
-            <div data-block-settings="" id="the-prefix-settings" hidden="hidden">
+            <div data-block-settings="" id="block_group-the-prefix-settings" hidden="hidden">
               <h3>Settings</h3>
               <div class="w-field__wrapper" data-field-wrapper="">
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
@@ -2015,24 +2015,24 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate in stream block 
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders correctly 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Heading block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text - label: the-prefix-size</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2040,7 +2040,7 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="custom-form-template">
         <p>here comes the first field:</p>
@@ -2072,24 +2072,24 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it renders correctly 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Heading block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2097,7 +2097,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -2134,24 +2134,24 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
       </div>
       </div><div data-contentpath="settings">
         
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+        <section class="w-panel w-panel--nested collapsed" id="block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-settings-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-settings-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2159,7 +2159,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
+          <div id="block_group-the-prefix-settings-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
         
@@ -2201,24 +2201,24 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it renders correctly 2`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Heading block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2226,7 +2226,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content" hidden="">
+          <div id="block_group-the-prefix-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
         
@@ -2263,24 +2263,24 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
       </div>
       </div><div data-contentpath="settings">
         
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+        <section class="w-panel w-panel--nested collapsed" id="block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-settings-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-settings-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2288,7 +2288,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
+          <div id="block_group-the-prefix-settings-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
         
@@ -2330,24 +2330,24 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it r
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setError passes error messages to children 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Heading block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2355,7 +2355,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block">
         
@@ -2392,24 +2392,24 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
       </div>
       </div><div data-contentpath="settings">
         
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+        <section class="w-panel w-panel--nested collapsed" id="block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-settings-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-settings-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2417,7 +2417,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
+          <div id="block_group-the-prefix-settings-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
         
@@ -2459,24 +2459,24 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
 `;
 
 exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setError shows non-block errors 1`] = `
-"<section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+"<section class="w-panel w-panel--nested" id="block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-content" aria-expanded="true">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-heading" data-panel-heading="">
               <span class="c-sf-block__type">Heading block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-heading_text</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-section" aria-labelledby="block_group-the-prefix-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2484,7 +2484,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-content" class="w-panel__content">
+          <div id="block_group-the-prefix-content" class="w-panel__content">
             
           <div class="struct-block"><p class="help-block help-critical">This is just generally wrong.</p>
         
@@ -2521,24 +2521,24 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
       </div>
       </div><div data-contentpath="settings">
         
-        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+        <section class="w-panel w-panel--nested collapsed" id="block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading" data-panel="">
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading" data-panel-anchor="">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="false">
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="block_group-the-prefix-settings-heading" data-panel-toggle="" aria-controls="block_group-the-prefix-settings-content" aria-expanded="false">
               <svg class="icon icon-title w-panel__icon" aria-hidden="true">
                 <use href="#icon-title"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="block_group-the-prefix-settings-heading" data-panel-heading="">
               <span class="c-sf-block__type">Settings block</span>
               
               <span data-panel-heading-text="" class="c-sf-block__title">label: the-prefix-settings-accent_color</span>
             </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#block_group-the-prefix-settings-section" aria-labelledby="block_group-the-prefix-settings-heading">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -2546,7 +2546,7 @@ exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setE
             <div class="w-panel__divider"></div>
             <div class="w-panel__controls" data-panel-controls=""></div>
           </div>
-          <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
+          <div id="block_group-the-prefix-settings-content" class="w-panel__content" hidden="">
             
           <div class="struct-block">
         

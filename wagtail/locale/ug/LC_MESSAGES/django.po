@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -36,24 +36,6 @@ msgstr "ئەڭ ئاز تۈر سانى %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "ئەڭ كۆپ تۈر سانى  %(max_num)d"
 
-msgid "Move up"
-msgstr "يۇقىرىغا"
-
-msgid "Move down"
-msgstr "تۆۋەنگە"
-
-msgid "Drag"
-msgstr "سۆرە"
-
-msgid "Duplicate"
-msgstr "تەكرار"
-
-msgid "Delete"
-msgstr "ئۆچۈر"
-
-msgid "Add"
-msgstr "قوش"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: بۇ بۆلەكنىڭ تاللانمىسى يوق."
@@ -63,6 +45,9 @@ msgstr "بۇ بۆلەكتنىڭ تاللانمىسى يوق."
 
 msgid "This field is required."
 msgstr "بۇ بۆلەك زۆرۈر."
+
+msgid "Group"
+msgstr "گۇرۇپپا"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail ئالدى ئۇچ غەملەك"
@@ -280,6 +265,9 @@ msgstr "مەزمۇن تۈرى"
 
 msgid "uploaded by user"
 msgstr "ئىشلەتكۈچى يۈكلىگەن"
+
+msgid "Add"
+msgstr "قوش"
 
 msgid "Add/edit pages you own"
 msgstr "ئۆزىڭىزنىڭ بېتىڭىزنى قوشىدۇ/تەھرىرلەيدۇ"
@@ -733,6 +721,9 @@ msgstr "قۇرغان ۋاقىت"
 
 msgid "Edited"
 msgstr "تەھرىرلەنگەن ۋاقىت"
+
+msgid "Delete"
+msgstr "ئۆچۈر"
 
 msgid "Deleted"
 msgstr "ئۆچۈرۈلگەن ۋاقىت"

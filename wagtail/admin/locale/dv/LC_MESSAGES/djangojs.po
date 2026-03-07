@@ -1,10 +1,10 @@
 #
 # Translators:
-# Fauzaan Gasim, 2025
+# Fauzaan Gasim, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Fauzaan Gasim, 2025\n"
+"Last-Translator: Fauzaan Gasim, 2026\n"
 "Language-Team: Divehi (https://app.transifex.com/torchbox/teams/8009/dv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: dv\n"
@@ -12,6 +12,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "އަމަލުތައް"
+
+msgid "Add"
+msgstr "އިތުރު"
 
 msgid "Alt text"
 msgstr "ބަދަލު ލިޔުންކޮޅު"
@@ -31,6 +34,12 @@ msgstr "ޑޭޝްބޯޑް"
 msgid "Delete"
 msgstr "ޑިލީޓްކުރެވޭ"
 
+msgid "Drag"
+msgstr "ލަސްކުރުން"
+
+msgid "Duplicate"
+msgstr "ޑަބިލިކޭޓް ކުރުން"
+
 msgid "Edit"
 msgstr "އެޑިޓް"
 
@@ -39,6 +48,12 @@ msgstr "%(title)s އެޑިޓް ކުރޭ"
 
 msgid "More actions"
 msgstr "އިތުރު ހަރަކާތްތައް"
+
+msgid "Move down"
+msgstr "ތިރިޔަށް ދޭ"
+
+msgid "Move up"
+msgstr "މައްޗަށް ދޭ"
 
 msgid "No"
 msgstr "ނޫން"
@@ -68,6 +83,9 @@ msgstr "ހޯދާ"
 
 msgid "Server Error"
 msgstr "ސަރވަރ ގެ މައްސަލައެއް ޖެހިއްޖެ"
+
+msgid "Settings"
+msgstr "ސެޓިންގސް"
 
 msgid "The maximum number of items is %(max_num)d"
 msgstr "އެންމެ ގިނަ ތަކެތީގެ އަދަދަކީ %(max_num)d އެވެ"

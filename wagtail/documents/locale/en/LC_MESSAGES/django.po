@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgid "Wagtail documents"
 msgstr ""
 
 #: forms.py:25 views/bulk_actions/add_to_collection.py:13 views/chooser.py:92
-#: views/documents.py:127
+#: views/documents.py:137
 msgid "Collection"
 msgstr ""
 
@@ -151,7 +151,7 @@ msgid "Delete documents"
 msgstr ""
 
 #: templates/wagtaildocs/bulk_actions/confirm_bulk_delete.html:18
-#: views/documents.py:295
+#: views/documents.py:321
 msgid "Are you sure you want to delete this document?"
 msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] ""
@@ -219,7 +219,7 @@ msgstr ""
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:25 views/documents.py:119
+#: templates/wagtaildocs/documents/edit.html:25 views/documents.py:127
 msgid "Usage"
 msgstr ""
 
@@ -340,7 +340,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/bulk_actions/delete.py:9 views/documents.py:261
+#: views/bulk_actions/delete.py:9 views/documents.py:287
 msgid "Delete"
 msgstr ""
 
@@ -355,11 +355,11 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/chooser.py:87 views/documents.py:111
+#: views/chooser.py:87 views/documents.py:119
 msgid "File"
 msgstr ""
 
-#: views/chooser.py:88 views/documents.py:114
+#: views/chooser.py:88 views/documents.py:122
 msgid "Created"
 msgstr ""
 
@@ -379,38 +379,38 @@ msgstr ""
 msgid "Documents"
 msgstr ""
 
-#: views/documents.py:106
+#: views/documents.py:114
 msgid "Title"
 msgstr ""
 
-#: views/documents.py:176
+#: views/documents.py:202
 msgid "The document could not be created due to errors."
 msgstr ""
 
-#: views/documents.py:198
+#: views/documents.py:224
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr ""
 
-#: views/documents.py:206
+#: views/documents.py:232
 msgid "The document could not be saved due to errors."
 msgstr ""
 
-#: views/documents.py:235
+#: views/documents.py:261
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr ""
 
-#: views/documents.py:259
+#: views/documents.py:285
 msgid ""
 "The file could not be found. Please change the source or delete the document."
 msgstr ""
 
-#: views/documents.py:283
+#: views/documents.py:309
 msgid "Delete document"
 msgstr ""
 
-#: views/documents.py:301
+#: views/documents.py:327
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr ""

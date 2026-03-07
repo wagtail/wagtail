@@ -156,10 +156,6 @@ def locked_for_user(self, obj, user):
 
 `Task.lock_class`:
 
-```{versionadded} 7.2
-The `lock_class` attribute was added.
-```
-
 An attribute that defines the lock class used when the task is locked for the user. Defaults to `wagtail.locks.WorkflowLock`.
 Note that your task's custom lock class must inherit from `wagtail.locks.WorkflowLock`.
 

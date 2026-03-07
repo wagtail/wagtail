@@ -4,11 +4,11 @@
 # Alex Morega, 2023
 # Loic Teixeira, 2024
 # Bogdan Mateescu, 2025
-# Dan Braghis, 2025
+# Dan Braghis, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dan Braghis, 2025\n"
+"Last-Translator: Dan Braghis, 2026\n"
 "Language-Team: Romanian (https://app.transifex.com/torchbox/teams/8009/ro/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ro\n"
@@ -38,6 +38,9 @@ msgstr[2] "%(num)s de pixeli"
 
 msgid "Actions"
 msgstr "Acțiuni"
+
+msgid "Add"
+msgstr "Adaugă"
 
 msgid "Add a comment"
 msgstr "Adaugă un comentariu"
@@ -84,6 +87,12 @@ msgstr "Eroare de ștergere"
 msgid "Deleting"
 msgstr "În curs de ștergere"
 
+msgid "Drag"
+msgstr "Glisează"
+
+msgid "Duplicate"
+msgstr "Duplică"
+
 msgid "Edit"
 msgstr "Editează"
 
@@ -125,6 +134,12 @@ msgstr "Document lipsă"
 
 msgid "More actions"
 msgstr "Mai multe acțiuni"
+
+msgid "Move down"
+msgstr "Deplasează în jos"
+
+msgid "Move up"
+msgstr "Deplasează în sus"
 
 msgid "No"
 msgstr "Nu"
@@ -175,15 +190,6 @@ msgstr "Salvează"
 msgid "Save error"
 msgstr "Eroare de salvare"
 
-msgid "Save the page to add this comment"
-msgstr "Salvează pagina pentru a adăuga acest comentariu"
-
-msgid "Save the page to save this comment"
-msgstr "Salvează pagina pentru a păstra acest comentariu"
-
-msgid "Save the page to save this reply"
-msgstr "Salvează pagina pentru a păstra acest răspuns"
-
 msgid "Saving..."
 msgstr "În curs de salvare..."
 
@@ -198,6 +204,9 @@ msgstr "Vezi toate"
 
 msgid "Server Error"
 msgstr "Eroare de server"
+
+msgid "Settings"
+msgstr "Setări"
 
 msgid "Show error"
 msgstr "Afișează eroare"

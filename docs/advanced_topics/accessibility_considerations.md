@@ -172,6 +172,96 @@ def replace_userbar_accessibility_item(request, items, page):
     ]
 ```
 
+(custom_content_checks)=
+
+### Custom content checks
+
+You can also implement custom checks. This can be useful to enforce more advanced accessibility checks, or other best practices unrelated to accessibility. This requires configuration via hooks, and registration of any client-side check evaluation via the `window.wagtail.userbar.registerCheck` API.
+
+First, we will configure our custom `AccessibilityItem` to add this check. We need to:
+
+- Add a new Axe check via `get_axe_custom_checks`.
+- Create a new rule that uses this check with `get_axe_custom_rules`.
+- Provide helpful content for the rule with `get_axe_messages`.
+- Configure our userbar item to load the JS file containing the check.
+
+```python
+# wagtail_hooks.py
+from django.utils.translation import gettext_lazy as _
+from wagtail.admin.userbar import AccessibilityItem
+
+class CustomAccessibilityItem(AccessibilityItem):
+    def get_axe_custom_checks(self, request):
+        checks = super().get_axe_custom_checks(request)
+        return checks + [
+            {
+                "id": "check-element-text",
+                "options": {"antipattern": "^(click here|click this|go|here|this|start|more|learn more)$"},
+            },
+        ]
+
+    def get_axe_custom_rules(self, request):
+        rules = super().get_axe_custom_rules(request)
+        return rules + [
+            {
+                "id": "link-text-quality",
+                "impact": "serious",
+                "selector": "a[href]",
+                "tags": ["best-practice"],
+                "any": ["check-element-text"],
+                "enabled": True,
+            },
+        ]
+
+    def get_axe_messages(self, request):
+        messages = super().get_axe_messages(request)
+        return {
+            **messages,
+            "link-text-quality": {
+                "error_name": _("Link does not have descriptive text"),
+                "help_text": _("Link text should describe the link destination."),
+            },
+        }
+    
+   class Media:
+        js = (
+            "js/custom-checks.js",
+        )
+
+
+@hooks.register('construct_wagtail_userbar')
+def replace_userbar_accessibility_item(request, items, page):
+    items[:] = [
+        CustomAccessibilityItem(in_editor=item.in_editor)
+        if isinstance(item, AccessibilityItem) else item
+        for item in items
+    ]
+```
+
+For custom checks, the `id` is mandatory and should be unique. `options` is optional and can be used to pass additional parameters to the check function. Here, we configure which link text patterns to flag. For the custom rule, the `selector` defines that it will flag element text on all anchor elements, regardless of where they appear on the page. The rule’s `any` lists all of the checks that it will run.
+
+In the `custom-checks.js` file, we implement the JavaScript function that will evaluate page contents, and register it. The `registerCheck` method takes two arguments: the check identifier and the evaluation function.
+
+```javascript
+// static/js/custom-checks.js
+
+/**
+ * Checks if the element text matches an antipattern.
+ * @param {HTMLElement} node
+ * @param {Object} options
+ * @param {string} options.antipattern The regex pattern to match against the element text.
+ * @returns {boolean} True if the element text does not match the pattern, false otherwise.
+ */
+const checkElementText = (node, options) => {
+    const antipattern = new RegExp(options.antipattern, 'i');
+    return !antipattern.test(node.textContent.trim());
+};
+
+window.wagtail.userbar.registerCheck('check-element-text', checkElementText);
+```
+
+### Environment-specific checks
+
 The checks you run in production should be restricted to issues your content editors can fix themselves; warnings about things out of their control will only teach them to ignore all warnings. However, it may be useful for you to run additional checks in your development environment.
 
 ```python

@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -50,24 +50,6 @@ msgstr "O número mínimo de itens é %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "O numero máximo de itens é %(max_num)d"
 
-msgid "Move up"
-msgstr "Subir"
-
-msgid "Move down"
-msgstr "Descer"
-
-msgid "Drag"
-msgstr "Arrastar"
-
-msgid "Duplicate"
-msgstr "Duplicar"
-
-msgid "Delete"
-msgstr "Apagar"
-
-msgid "Add"
-msgstr "Adicionar"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: este bloco não tem opções"
@@ -77,6 +59,9 @@ msgstr "Este bloco não tem opções."
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
+
+msgid "Group"
+msgstr "Grupo"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail frontend cache"
@@ -210,6 +195,9 @@ msgstr "permissões da coleção de grupo"
 
 msgid "uploaded by user"
 msgstr "carregado pelo utilizador"
+
+msgid "Add"
+msgstr "Adicionar"
 
 msgid "Add/edit pages you own"
 msgstr "Crie/altere as suas páginas"
@@ -578,6 +566,9 @@ msgstr "Criada"
 
 msgid "Edited"
 msgstr "Alterada"
+
+msgid "Delete"
+msgstr "Apagar"
 
 msgid "Deleted"
 msgstr "Apagado"

@@ -24,11 +24,13 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.initial_revision.save()
 
         self.snippet.text = "First edit"
+        self.snippet.save()
         self.edit_revision = self.snippet.save_revision()
         self.edit_revision.created_at = make_aware(datetime.datetime(2022, 5, 11))
         self.edit_revision.save()
 
         self.snippet.text = "Final revision"
+        self.snippet.save()
         self.final_revision = self.snippet.save_revision()
         self.final_revision.created_at = make_aware(datetime.datetime(2022, 5, 12))
         self.final_revision.save()

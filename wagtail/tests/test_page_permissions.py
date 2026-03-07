@@ -22,6 +22,8 @@ from wagtail.test.testapp.models import (
     EventPage,
     NoCreatableSubpageTypesPage,
     NoSubpageTypesPage,
+    SimpleChildPage,
+    SimpleParentPage,
     SingletonPageViaMaxCount,
 )
 
@@ -248,6 +250,27 @@ class TestPagePermission(TestCase):
         self.assertTrue(board_meetings_perms.can_move())
         # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
         self.assertFalse(board_meetings_perms.can_move_to(christmas_page))
+
+    def test_can_add_subpage_if_subpage_max_counts_not_reached(self):
+        user = get_user_model().objects.get(email="superuser@example.com")
+        homepage = Page.objects.get(url_path="/home/").specific
+        parent = SimpleParentPage(title="Parent", slug="parent")
+        homepage.add_child(instance=parent)
+
+        parent_perms = parent.permissions_for_user(user)
+        self.assertTrue(parent_perms.can_add_subpage())
+
+    def test_cannot_add_subpage_if_subpage_max_counts_reached(self):
+        user = get_user_model().objects.get(email="superuser@example.com")
+        homepage = Page.objects.get(url_path="/home/").specific
+        parent = SimpleParentPage(title="Parent", slug="parent")
+        homepage.add_child(instance=parent)
+
+        child = SimpleChildPage(title="Child", slug="child")
+        parent.add_child(instance=child)
+
+        parent_perms = parent.permissions_for_user(user)
+        self.assertFalse(parent_perms.can_add_subpage())
 
     def test_publish_page_permissions_without_edit(self):
         event_moderator = get_user_model().objects.get(

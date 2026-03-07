@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -31,21 +31,6 @@ msgstr "Jumlah isi minimum adalah %(min_num)d"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Jumlah isi maksimum adalah %(max_num)d"
-
-msgid "Move up"
-msgstr "Geser ke atas"
-
-msgid "Move down"
-msgstr "Geser ke bawah"
-
-msgid "Drag"
-msgstr "Seret"
-
-msgid "Delete"
-msgstr "Hapus"
-
-msgid "Add"
-msgstr "Tambah"
 
 msgid "This block has no options."
 msgstr "Tidak ada pilihan untuk blok ini."
@@ -139,6 +124,9 @@ msgstr "izin grup koleksi"
 
 msgid "uploaded by user"
 msgstr "diunggah oleh pengguna"
+
+msgid "Add"
+msgstr "Tambah"
 
 msgid "Add/edit pages you own"
 msgstr "Tambah/ubah halaman anda sendiri"
@@ -331,6 +319,9 @@ msgstr "Lanjut"
 
 msgid "Edited"
 msgstr "Telah diubah"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "Unpublish"
 msgstr "Batal Publikasi"

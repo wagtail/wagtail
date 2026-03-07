@@ -293,7 +293,8 @@ class ExampleFinder(EmbedFinder):
 
         This is the part that may make requests to external APIs.
         """
-        # TODO: Perform the request
+        # TODO: Perform the request to your embed provider's API
+        # Parse the response and return the embed information
 
         return {
             'title': "Title of the content",

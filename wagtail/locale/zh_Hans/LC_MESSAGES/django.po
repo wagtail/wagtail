@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 祝沙军 <zhushajun@gmail.com>, 2017\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -49,24 +49,6 @@ msgstr "条目的最小数是%(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "条目的最大数是%(max_num)d"
 
-msgid "Move up"
-msgstr "上移"
-
-msgid "Move down"
-msgstr "下移"
-
-msgid "Drag"
-msgstr "拖曳"
-
-msgid "Duplicate"
-msgstr "创建副本"
-
-msgid "Delete"
-msgstr "删除"
-
-msgid "Add"
-msgstr "添加"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s：这个区块没有选项。"
@@ -76,6 +58,9 @@ msgstr "这个区块没有选项"
 
 msgid "This field is required."
 msgstr "这个字段是必需的。"
+
+msgid "Group"
+msgstr "组"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail 前端缓存"
@@ -201,6 +186,9 @@ msgstr "群组集合权限"
 
 msgid "uploaded by user"
 msgstr "用户上传"
+
+msgid "Add"
+msgstr "添加"
 
 msgid "Add/edit pages you own"
 msgstr "添加/编辑所属的页面"
@@ -571,6 +559,9 @@ msgstr "已创建"
 
 msgid "Edited"
 msgstr "已编辑"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Deleted"
 msgstr "已删除"

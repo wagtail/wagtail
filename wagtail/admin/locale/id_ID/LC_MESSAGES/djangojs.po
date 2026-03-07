@@ -1,19 +1,22 @@
 #
 # Translators:
 # Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2022
-# M. Febrian Ramadhana <febrian@ramadhana.me>, 2022
-# Ronggo Radityo <radityo3000@yahoo.com>, 2022
 # Loic Teixeira, 2024
 # Sutrisno Efendi <kangfend@gmail.com>, 2025
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2026
+# Ronggo Radityo <radityo3000@yahoo.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Sutrisno Efendi <kangfend@gmail.com>, 2025\n"
+"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2026\n"
 "Language-Team: Indonesian (Indonesia) (https://app.transifex.com/torchbox/"
 "teams/8009/id_ID/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add"
+msgstr "Tambah"
 
 msgid "Alt text"
 msgstr "Teks alt"
@@ -30,6 +33,9 @@ msgstr "Dasbor"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "Drag"
+msgstr "Seret"
+
 msgid "Edit"
 msgstr "Ubah"
 
@@ -44,6 +50,12 @@ msgstr "Akhir baris"
 
 msgid "Loading…"
 msgstr "Memuat..."
+
+msgid "Move down"
+msgstr "Geser ke bawah"
+
+msgid "Move up"
+msgstr "Geser ke atas"
 
 msgid "No results"
 msgstr "Tidak ada hasil"
@@ -80,6 +92,9 @@ msgstr "Lihat semua"
 
 msgid "Server Error"
 msgstr "Kesalahan Server"
+
+msgid "Settings"
+msgstr "Pengaturan"
 
 msgid "Show error"
 msgstr "Tampilkan error"

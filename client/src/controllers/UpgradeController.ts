@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { VersionNumber, VersionDeltaType } from '../utils/version';
+import { VersionDeltaType, VersionNumber } from '../utils/version';
 
 interface VersionData {
   version: string;

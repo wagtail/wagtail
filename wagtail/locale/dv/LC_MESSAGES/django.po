@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -37,24 +37,6 @@ msgstr "އެންމެ މަދު ތަކެތީގެ އަދަދަކީ %(min_num)d އެ
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "އެންމެ ގިނަ ތަކެތީގެ އަދަދަކީ %(max_num)d އެވެ"
-
-msgid "Move up"
-msgstr "މައްޗަށް ދޭ"
-
-msgid "Move down"
-msgstr "ތިރިޔަށް ދޭ"
-
-msgid "Drag"
-msgstr "ލަސްކުރުން"
-
-msgid "Duplicate"
-msgstr "ޑަބިލިކޭޓް ކުރުން"
-
-msgid "Delete"
-msgstr "ޑިލީޓް"
-
-msgid "Add"
-msgstr "އިތުރު"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -270,6 +252,9 @@ msgstr "ގްރޫޕް ކަލެކްޝަންގެ ހުއްދަތައް"
 
 msgid "uploaded by user"
 msgstr "ޔޫސަރ އަޕްލޯޑް ކޮށްފައި"
+
+msgid "Add"
+msgstr "އިތުރު"
 
 msgid "Add/edit pages you own"
 msgstr "ތިމާގެ އަމިއްލަ ޞަފްޙާތައް އިތުރުކުރުން/އެޑިޓްކުރުން"
@@ -690,6 +675,9 @@ msgstr "އުފެއްދިއެވެ"
 
 msgid "Edited"
 msgstr "އެޑިޓްކޮށްފައި"
+
+msgid "Delete"
+msgstr "ޑިލީޓް"
 
 msgid "Deleted"
 msgstr "ޑިލީޓް ކޮށްފިއެވެ"

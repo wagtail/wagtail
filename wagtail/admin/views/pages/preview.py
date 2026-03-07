@@ -30,9 +30,13 @@ class PreviewOnEdit(GenericPreviewOnEdit):
         return "{}{}".format(self.session_key_prefix, self.kwargs["page_id"])
 
     def get_object(self):
-        return get_object_or_404(
+        page = get_object_or_404(
             Page, id=self.kwargs["page_id"]
         ).get_latest_revision_as_object()
+        page_perms = page.permissions_for_user(self.request.user)
+        if not page_perms.can_edit():
+            raise PermissionDenied
+        return page
 
     def get_form(self, query_dict):
         form_class = self.object.get_edit_handler().get_form_class()
@@ -87,6 +91,11 @@ class PreviewOnCreate(PreviewOnEdit):
 
         page = content_type.model_class()()
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
+
+        parent_page_perms = parent_page.permissions_for_user(self.request.user)
+        if not parent_page_perms.can_add_subpage():
+            raise PermissionDenied
+
         # We need to populate treebeard's path / depth fields in order to
         # pass validation. We can't make these 100% consistent with the rest
         # of the tree without making actual database changes (such as

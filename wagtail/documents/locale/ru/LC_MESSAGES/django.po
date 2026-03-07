@@ -6,7 +6,7 @@
 # 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 # Alexander Penshin <apenshin@gmail.com>, 2018
 # Andrei Satsevich, 2024
-# Andrei Satsevich, 2024
+# Andrei Satsevich, 2024,2026
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021\n"
+"Last-Translator: Andrei Satsevich, 2024,2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -394,6 +394,10 @@ msgstr "Документ не может быть сохранен из-за о�
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Документ '%(document_title)s' обновлен"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document."
+msgstr "Файл не найден. Измените источник или удалите документ."
 
 msgid "Delete document"
 msgstr "Удалить документ"

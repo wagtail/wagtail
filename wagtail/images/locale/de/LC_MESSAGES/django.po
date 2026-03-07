@@ -29,7 +29,7 @@
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -39,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024,2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -283,6 +283,9 @@ msgstr "Nein, nicht löschen"
 msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
 
+msgid "Layout"
+msgstr "Layout"
+
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
 "existing image. You may delete it if it wasn't required."
@@ -314,6 +317,15 @@ msgstr "Sie haben in dieser Sammlung keine Bilder hochgeladen."
 
 msgid "You haven't uploaded any images."
 msgstr "Sie haben noch keine Bilder hochgeladen."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"Warum nicht <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">ein neues hochladen</a>?"
 
 msgid "Choose a format"
 msgstr "Wählen Sie ein Format aus"
@@ -418,6 +430,12 @@ msgid ""
 msgstr ""
 "Sie haben noch keine Bilder hochgeladen. Warum nicht jetzt <a "
 "href=\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
+
+msgid "Grid layout"
+msgstr "Rasterlayout"
+
+msgid "List layout"
+msgstr "Listenlayout"
 
 msgid "Preview"
 msgstr "Vorschau"
@@ -565,6 +583,12 @@ msgstr "Dateigröße: (niedrig bis hoch)"
 msgid "File size: (high to low)"
 msgstr "Dateigröße: (hoch bis niedrig)"
 
+msgid "Usage count: (low to high)"
+msgstr "Verwendungshäufigkeit: (niedrig bis hoch)"
+
+msgid "Usage count: (high to low)"
+msgstr "Verwendungshäufigkeit: (hoch bis niedrig)"
+
 msgid "Images"
 msgstr "Bilder"
 
@@ -584,6 +608,9 @@ msgstr ""
 
 msgid "Generate URL"
 msgstr "URL generieren"
+
+msgid "The filter options you have selected are not valid."
+msgstr "Die von Ihnen ausgewählten Filteroptionen sind ungültig."
 
 msgid "Delete image"
 msgstr "Bild löschen"

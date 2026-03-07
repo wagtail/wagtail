@@ -339,8 +339,15 @@ class EventPageSpeakerAward(TranslatableMixin, Orderable, models.Model):
     )
     name = models.CharField("Award name", max_length=255)
     date_awarded = models.DateField(null=True, blank=True)
+    certificate = models.ForeignKey(
+        "wagtaildocs.Document",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="event_speaker_awards",
+    )
 
-    panels = ["name", "date_awarded"]
+    panels = ["name", "date_awarded", "certificate"]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -1167,6 +1174,9 @@ register_snippet(ModelWithCustomManager)
 class RevisableModel(RevisionMixin, models.Model):
     text = models.TextField()
 
+    def __str__(self):
+        return self.text
+
 
 class RevisableChildModel(RevisableModel):
     secret_text = models.TextField(blank=True, default="")
@@ -1309,7 +1319,7 @@ class FullFeaturedSnippet(
     TranslatableMixin,
     Orderable,
     index.Indexed,
-    models.Model,
+    ClusterableModel,
 ):
     class CountryCode(models.TextChoices):
         INDONESIA = "ID"
@@ -1374,6 +1384,30 @@ class FullFeaturedSnippet(
     class Meta(TranslatableMixin.Meta):
         verbose_name = "full-featured snippet"
         verbose_name_plural = "full-featured snippets"
+
+
+class RevisableCluster(RevisionMixin, ClusterableModel):
+    text = models.TextField()
+
+    panels = ["text", "children"]
+
+    def __str__(self):
+        return self.text
+
+
+class RevisableClusterChild(models.Model):
+    parent = ParentalKey(
+        RevisableCluster,
+        related_name="children",
+        on_delete=models.CASCADE,
+    )
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(RevisableCluster)
 
 
 def get_default_advert():

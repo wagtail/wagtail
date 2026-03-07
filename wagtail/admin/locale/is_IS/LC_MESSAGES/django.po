@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2025\n"
@@ -2264,13 +2264,6 @@ msgstr "Vistaðu breytingar áður en þú ferð annað"
 msgid "You have <span>unsaved edits</span>"
 msgstr "Þú ert með <span>óvistaðar breytingar</span>"
 
-msgid "You have <span>unsaved comments</span>"
-msgstr "Þú ert með <span>óvistaðar athugasemdir</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Þú ert með <span>óvistaðar breytingar</span> og <span>athugasemdir</span>"
-
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2365,8 +2358,8 @@ msgstr "Virkja sérsniðna röðun"
 msgid "View Wagtail quick actions"
 msgstr "Skoða flýtivalmynd Wagtail"
 
-msgid "Accessibility"
-msgstr "Aðgengi"
+msgid "Checks"
+msgstr "Athuganir"
 
 msgid "Warnings"
 msgstr "Viðvaranir"
@@ -2695,9 +2688,6 @@ msgstr "Athugasemdir"
 msgid "Toggle checks"
 msgstr "Sýna/fela aðvaranir"
 
-msgid "Checks"
-msgstr "Athuganir"
-
 msgid "Toggle preview"
 msgstr "Sýna/fela forskoðun"
 
@@ -2876,10 +2866,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' er nú ólæst."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)s var ekki hægt að vista þar sem það er læst."
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' uppfært."
 
@@ -2928,6 +2914,10 @@ msgstr "Vinnuflæði á %(model_name)s '%(object)s' hefur verið rendurræst."
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "Hætt hefur verið við vinnuflæði á  %(model_name)s '%(object)s'."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s var ekki hægt að vista þar sem það er læst."
 
 #, python-format
 msgid ""

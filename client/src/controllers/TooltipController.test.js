@@ -195,6 +195,39 @@ describe('TooltipController', () => {
     expect(tooltip.textContent).toEqual('NEW content!');
   });
 
+  it('should allow setting the content attribute that was initially empty', async () => {
+    // create a new tooltip trigger with empty content initially
+    document.body.innerHTML = /* html */ `
+      <button
+        id="tooltip-late-set"
+        type="button"
+        data-controller="w-tooltip"
+        data-w-tooltip-content-value=""
+      >
+        CONTENT
+      </button>
+    `;
+
+    await Promise.resolve();
+
+    // Set the content value after initialization
+    const tooltipTrigger = document.getElementById('tooltip-late-set');
+    tooltipTrigger.setAttribute(
+      'data-w-tooltip-content-value',
+      'Now it has content!',
+    );
+
+    await Promise.resolve();
+
+    expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(0);
+
+    tooltipTrigger.dispatchEvent(new Event('mouseenter'));
+
+    const tooltip = document.querySelector('[role="tooltip"]');
+
+    expect(tooltip.textContent).toEqual('Now it has content!');
+  });
+
   it('should support passing the offset value', async () => {
     document.body.innerHTML = `
     <section>

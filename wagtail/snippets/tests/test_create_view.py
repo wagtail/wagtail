@@ -25,9 +25,11 @@ from wagtail.test.snippets.models import (
 from wagtail.test.testapp.models import (
     Advert,
     DraftStateModel,
+    RevisableCluster,
     RevisableModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.test.utils.timestamps import submittable_timestamp
 
 
@@ -75,8 +77,6 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             {
                 "w-unsaved#submit",
                 "beforeunload@window->w-unsaved#confirm",
-                "change->w-unsaved#check",
-                "keyup->w-unsaved#check",
             }.issubset(editor_form.attrs.get("data-action").split())
         )
         self.assertEqual(
@@ -86,10 +86,6 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(
             editor_form.attrs.get("data-w-unsaved-force-value"),
             "false",
-        )
-        self.assertIn(
-            "edits",
-            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
 
     def test_snippet_with_tabbed_interface(self):
@@ -162,8 +158,6 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             {
                 "w-unsaved#submit",
                 "beforeunload@window->w-unsaved#confirm",
-                "change->w-unsaved#check",
-                "keyup->w-unsaved#check",
             }.issubset(editor_form.attrs.get("data-action").split())
         )
         self.assertEqual(
@@ -174,10 +168,6 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             editor_form.attrs.get("data-w-unsaved-force-value"),
             # The form is invalid, we want to force it to be "dirty" on initial load
             "true",
-        )
-        self.assertIn(
-            "edits",
-            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
         )
 
     def test_create_invalid_with_json_response(self):
@@ -190,8 +180,8 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "validation_error",
-                "errorMessage": "The advert could not be created due to errors.",
+                "error_code": "validation_error",
+                "error_message": "There are validation errors, click save to highlight them.",
             },
         )
 
@@ -219,8 +209,47 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(snippet.url, "http://www.example.com/")
 
         response_json = response.json()
+        edit_url = reverse(
+            snippet.snippet_viewset.get_url_name("edit"), args=(snippet.pk,)
+        )
         self.assertEqual(response_json["success"], True)
         self.assertEqual(response_json["pk"], snippet.pk)
+        self.assertEqual(response_json["field_updates"], {})
+        self.assertEqual(response_json["url"], edit_url)
+        self.assertEqual(
+            response_json["hydrate_url"],
+            f"{edit_url}?_w_hydrate_create_view=1",
+        )
+
+    def test_create_with_inline_models_and_json_response(self):
+        form_data = nested_form_data(
+            {
+                "text": "Created with one child",
+                "children": inline_formset([{"id": "", "text": "Child 1"}]),
+            }
+        )
+        response = self.post(
+            post_data=form_data,
+            model=RevisableCluster,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+
+        snippets = RevisableCluster.objects.filter(text="Created with one child")
+        self.assertEqual(snippets.count(), 1)
+        snippet = snippets.first()
+        self.assertEqual(snippet.children.count(), 1)
+        child = snippet.children.first()
+        self.assertEqual(child.text, "Child 1")
+
+        response_json = response.json()
+        self.assertEqual(response_json["success"], True)
+        self.assertEqual(response_json["pk"], snippet.pk)
+        self.assertEqual(
+            response_json["field_updates"],
+            {"children-INITIAL_FORMS": "1", "children-0-id": str(child.pk)},
+        )
 
     def test_create_with_tags(self):
         tags = ["hello", "world"]
@@ -309,8 +338,8 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
                 response.json(),
                 {
                     "success": False,
-                    "errorCode": "blocked_by_hook",
-                    "errorMessage": "Request to create advert was blocked by hook",
+                    "error_code": "blocked_by_hook",
+                    "error_message": "Request to create advert was blocked by hook.",
                 },
             )
 
@@ -357,8 +386,8 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             response.json(),
             {
                 "success": False,
-                "errorCode": "blocked_by_hook",
-                "errorMessage": "Request to create advert was blocked by hook",
+                "error_code": "blocked_by_hook",
+                "error_message": "Request to create advert was blocked by hook.",
             },
         )
 
@@ -522,6 +551,39 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         save_item = soup.select_one("form button[name='action-save']")
         self.assertIsNone(save_item)
+
+    def test_create_shows_status_side_panel_skeleton(self):
+        self.user.first_name = "Chrismansyah"
+        self.user.last_name = "Rahadi"
+        self.user.save()
+        response = self.get(model=RevisableModel)
+        soup = self.get_soup(response.content)
+        panel = soup.select_one('[data-side-panel="status"]')
+        self.assertIsNotNone(panel)
+
+        def assert_panel_section(label_id, label_text, description):
+            section = panel.select_one(f'[aria-labelledby="{label_id}"]')
+            self.assertIsNotNone(section)
+            label = section.select_one(f"#{label_id}")
+            self.assertIsNotNone(label)
+            self.assertEqual(label.get_text(separator="\n", strip=True), label_text)
+            self.assertEqual(
+                section.get_text(separator="\n", strip=True),
+                f"{label_text}\n{description}",
+            )
+
+        assert_panel_section(
+            "status-sidebar-live",
+            "Live",
+            "To be created by Chrismansyah Rahadi",
+        )
+
+        usage_section = panel.select("section")[-1]
+        self.assertIsNotNone(usage_section)
+        self.assertEqual(
+            usage_section.get_text(separator="\n", strip=True),
+            "Usage\nUsed 0 times",
+        )
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -1083,6 +1145,39 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         self.assertFalse(snippet.live)
         self.assertFalse(snippet.first_published_at)
         self.assertEqual(snippet.status_string, "scheduled")
+
+    def test_create_shows_status_side_panel_skeleton(self):
+        self.user.first_name = "Chrismansyah"
+        self.user.last_name = "Rahadi"
+        self.user.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        panel = soup.select_one('[data-side-panel="status"]')
+        self.assertIsNotNone(panel)
+
+        def assert_panel_section(label_id, label_text, description):
+            section = panel.select_one(f'[aria-labelledby="{label_id}"]')
+            self.assertIsNotNone(section)
+            label = section.select_one(f"#{label_id}")
+            self.assertIsNotNone(label)
+            self.assertEqual(label.get_text(separator="\n", strip=True), label_text)
+            self.assertEqual(
+                section.get_text(separator="\n", strip=True),
+                f"{label_text}\n{description}",
+            )
+
+        assert_panel_section(
+            "status-sidebar-draft",
+            "Draft",
+            "To be created by Chrismansyah Rahadi",
+        )
+
+        usage_section = panel.select("section")[-1]
+        self.assertIsNotNone(usage_section)
+        self.assertEqual(
+            usage_section.get_text(separator="\n", strip=True),
+            "Usage\nUsed 0 times",
+        )
 
 
 class TestInlinePanelMedia(WagtailTestUtils, TestCase):

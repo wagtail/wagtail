@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2026
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Никита Викторович <hnknta@gmail.com>, 2014\n"
+"Last-Translator: Andrei Satsevich, 2026\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -213,6 +214,18 @@ msgstr "Перенаправление '%(redirect_title)s' добавлено."
 
 msgid "Search redirects"
 msgstr "Искать перенаправления"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported."
+msgstr "Формат файла типа «%(extension)s» не поддерживается."
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s."
+msgstr "Импортированный файл имеет неправильную кодировку: %(error_message)s."
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s."
+msgstr "%(error)s возникла при попытке чтения файла: %(filename)s."
 
 #, python-format
 msgid "Imported %(total)d redirect"

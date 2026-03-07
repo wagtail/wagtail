@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -37,24 +37,6 @@ msgstr "Asgari öğe sayısı %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Azami öğe sayısı %(max_num)d"
 
-msgid "Move up"
-msgstr "Yukarı çıkar"
-
-msgid "Move down"
-msgstr "Aşağı indir"
-
-msgid "Drag"
-msgstr "Sürükle"
-
-msgid "Duplicate"
-msgstr "Çoğalt"
-
-msgid "Delete"
-msgstr "Sil"
-
-msgid "Add"
-msgstr "Ekle"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: bu blokta seçenek yok."
@@ -64,6 +46,9 @@ msgstr "Bu blokta seçenek yok."
 
 msgid "This field is required."
 msgstr "Bu alan gerekli."
+
+msgid "Group"
+msgstr "Grup"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail ön uç önbelleği"
@@ -261,6 +246,9 @@ msgstr "grup koleksiyon izinleri"
 
 msgid "uploaded by user"
 msgstr "yükleyen kullanıcı"
+
+msgid "Add"
+msgstr "Ekle"
 
 msgid "Add/edit pages you own"
 msgstr "Sahip olduğun sayfalara ekle/düzenle"
@@ -656,6 +644,9 @@ msgstr "Oluşturulma zamanı"
 
 msgid "Edited"
 msgstr "Düzenlendi"
+
+msgid "Delete"
+msgstr "Sil"
 
 msgid "Unpublish"
 msgstr "Yayından kaldır"

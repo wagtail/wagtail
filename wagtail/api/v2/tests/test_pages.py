@@ -1917,3 +1917,20 @@ class TestPageViewSetSubclassing(PagesAPIViewSet):
             self.get_queryset().model,
             models.BlogEntryPage,
         )
+
+
+class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.user = self.create_superuser(
+            username="admin",
+            email="admin@example.com",
+            password="password",
+        )
+        self.client.force_login(self.user)
+
+    def test_detail_view_does_not_duplicate_queries(self):
+        with self.assertNumQueries(16):
+            response = self.client.get("/api/main/pages/2/")
+            self.assertEqual(response.status_code, 200)

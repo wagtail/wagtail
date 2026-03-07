@@ -205,6 +205,7 @@ class PreviewOnEdit(preview.PreviewOnEdit):
         self.app_name = app_name
         self.model_name = model_name
         self.model = get_model_from_url_params(app_name, model_name)
+        self.permission_policy = self.model.get_permission_policy()
         self.pk = kwargs.get("pk")
         super().setup(request, app_name, model_name, *args, **kwargs)
 
@@ -212,9 +213,14 @@ class PreviewOnEdit(preview.PreviewOnEdit):
         self.site = None
         if issubclass(self.model, BaseSiteSetting):
             self.site = get_object_or_404(Site, pk=self.pk)
-            return self.model.for_site(self.site)
+            obj = self.model.for_site(self.site)
         else:
-            return get_object_or_404(self.model, pk=self.pk)
+            obj = get_object_or_404(self.model, pk=self.pk)
+
+        if not self.user_has_permission_for_instance(self.permission_required, obj):
+            raise PermissionDenied
+
+        return obj
 
     def get_extra_request_attrs(self):
         attrs = super().get_extra_request_attrs()

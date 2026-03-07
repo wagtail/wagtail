@@ -1,13 +1,13 @@
 #
 # Translators:
-# Łukasz Bołdys (Lukasz Boldys), 2022
 # Loic Teixeira, 2024
 # Krzysztof Jeziorny <github@jeziorny.net>, 2025
-# Miłosz Miśkiewicz, 2025
+# Miłosz Miśkiewicz, 2026
+# Łukasz Bołdys (Lukasz Boldys), 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Miłosz Miśkiewicz, 2025\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2026\n"
 "Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pl\n"
@@ -47,6 +47,9 @@ msgstr[3] "%(num)s piksele"
 
 msgid "Actions"
 msgstr "Akcje"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "Add a comment"
 msgstr "Dodaj komentarz"
@@ -93,6 +96,12 @@ msgstr "Błąd usuwania"
 msgid "Deleting"
 msgstr "Usuwanie"
 
+msgid "Drag"
+msgstr "Przeciągnij"
+
+msgid "Duplicate"
+msgstr "Duplikuj"
+
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -134,6 +143,12 @@ msgstr "Brakujący dokument"
 
 msgid "More actions"
 msgstr "Więcej akcji"
+
+msgid "Move down"
+msgstr "Przesuń w dół"
+
+msgid "Move up"
+msgstr "Przesuń w górę"
 
 msgid "No"
 msgstr "Nie"
@@ -182,15 +197,6 @@ msgstr "Zapisz"
 msgid "Save error"
 msgstr "Błąd zapisu"
 
-msgid "Save the page to add this comment"
-msgstr "Zapisz stronę aby dodać komentarz"
-
-msgid "Save the page to save this comment"
-msgstr "Zapisz stronę aby dodać komentarz"
-
-msgid "Save the page to save this reply"
-msgstr "Zapisz stronę aby zapisać odpowiedź"
-
 msgid "Saving..."
 msgstr "Zapisywanie..."
 
@@ -205,6 +211,9 @@ msgstr "Zobacz wszystkie"
 
 msgid "Server Error"
 msgstr "Błąd serwera"
+
+msgid "Settings"
+msgstr "Ustawienia"
 
 msgid "Show error"
 msgstr "Pokaż błąd"

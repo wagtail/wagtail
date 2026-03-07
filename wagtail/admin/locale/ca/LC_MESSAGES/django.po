@@ -7,14 +7,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # Matt Westcott <matthew@torchbox.com>, 2025
-# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2025
+# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2025\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2026\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -1901,6 +1901,12 @@ msgstr "%(field_label)s:"
 msgid "Clear"
 msgstr "Netejar"
 
+msgid "Saved"
+msgstr "Desat."
+
+msgid "Autosave is paused"
+msgstr "El desat automàtic està pausat"
+
 msgid "Edit account avatar"
 msgstr "Editar l'avatar del compte"
 
@@ -2226,6 +2232,10 @@ msgid "View details"
 msgstr "Veure detalls"
 
 #, python-format
+msgid "To be created by %(user)s"
+msgstr "Per ser creat per %(user)s"
+
+#, python-format
 msgid "by %(user)s"
 msgstr "per %(user)s"
 
@@ -2272,17 +2282,14 @@ msgstr "Mode de previsualització"
 msgid "First published"
 msgstr "Primera publicació"
 
+msgid "Autosave is <span>paused</span>"
+msgstr "El desat automàtic està <span>pausat</span>"
+
 msgid "Save your changes before leaving"
 msgstr "Deseu els vostres canvis abans de marxar"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Teniu <span>edicions sense desar</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Teniu <span>comentaris sense desar</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Teniu <span>edicions sense desar</span> i <span>comentaris</span>"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2379,8 +2386,8 @@ msgstr "Activar l'ordenació personalitzada"
 msgid "View Wagtail quick actions"
 msgstr "Veure accions ràpides de Wagtail"
 
-msgid "Accessibility"
-msgstr "Accessibilitat"
+msgid "Checks"
+msgstr "Marques"
 
 msgid "Warnings"
 msgstr "Advertències"
@@ -2709,9 +2716,6 @@ msgstr "Comentaris"
 msgid "Toggle checks"
 msgstr "Commutar marques"
 
-msgid "Checks"
-msgstr "Marques"
-
 msgid "Toggle preview"
 msgstr "Mostrar/ocultar previsualització"
 
@@ -2893,10 +2897,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' ara està desbloquejat/da."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "No es pot desar %(model_name)s perquè està bloquejat/da"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' actualitzat."
 
@@ -2943,6 +2943,13 @@ msgstr "El fluxe de treball a %(model_name)s '%(object)s' ha estat reiniciat."
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "El fluxe de treball a %(model_name)s '%(object)s' ha estat cancel·lat."
+
+msgid "Saving will overwrite a newer version."
+msgstr "Desar sobreescriurà una nova versió."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "No es pot desar %(model_name)s perquè està bloquejat/da"
 
 #, python-format
 msgid ""
@@ -2999,6 +3006,9 @@ msgstr "No s'ha pogut crear el %(model_name)s per causa d'errors."
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Nou: %(model_name)s"
+
+msgid "There are validation errors, click save to highlight them."
+msgstr "Hi ha errors de validació, feu clic a desar per ressaltar-los."
 
 msgid "Editing"
 msgstr "Editant"
@@ -3170,6 +3180,10 @@ msgstr ""
 msgid "Page '%(page_title)s' copied."
 msgstr "La pàgina '%(page_title)s' ha estat copiada."
 
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "La petició per crear %(model_name)s ha estat bloquejada pel hook."
+
 msgid "View draft"
 msgstr "Veure esborrany"
 
@@ -3214,6 +3228,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "La pàgina '%(page_title)s' ha estat actualitzada."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "La petició per editar %(model_name)s ha estat bloquejada pel hook."
 
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."

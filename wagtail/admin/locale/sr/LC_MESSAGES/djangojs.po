@@ -1,0 +1,15 @@
+#
+# Translators:
+# Nikola Kadić <kadicnikola3@gmail.com>, 2026
+#
+msgid ""
+msgstr ""
+"Last-Translator: Nikola Kadić <kadicnikola3@gmail.com>, 2026\n"
+"Language-Team: Serbian (https://app.transifex.com/torchbox/teams/8009/sr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Settings"
+msgstr "Podešavanja"

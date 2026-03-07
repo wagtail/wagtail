@@ -334,6 +334,10 @@ class EventPageFilterSet(PageListingViewSet.filterset_class):
         fields = ["audience"]
 
 
+class EventPageIndexView(PageListingViewSet.index_view_class):
+    list_export = ["pk", "title", "audience", "event_date"]
+
+
 class EventPageListingViewSet(PageListingViewSet):
     model = EventPage
     icon = "calendar"
@@ -342,6 +346,7 @@ class EventPageListingViewSet(PageListingViewSet):
     columns = PageListingViewSet.columns + [
         Column("audience", label="Audience", sort_key="audience"),
     ]
+    index_view_class = EventPageIndexView
     filterset_class = EventPageFilterSet
 
 

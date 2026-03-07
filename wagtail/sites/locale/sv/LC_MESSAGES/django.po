@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jonathan Lindén, 2025
 # Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
 # Martin Sandström <martin@marteinn.se>, 2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-23 16:45+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2017\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +55,7 @@ msgid "Site '%(object)s' created."
 msgstr "Sajt '%(object)s' skapad."
 
 msgid "The site could not be saved due to errors."
-msgstr "Sajten kunde inte sparas pga fel."
+msgstr "Sajten kunde inte sparas på grund av fel."
 
 #, python-format
 msgid "Site '%(object)s' updated."

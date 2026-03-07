@@ -1,9 +1,9 @@
-const { staticColors, transparencies } = require('./colors');
 const colorThemes = require('./colorThemes');
 const {
   generateColorVariables,
   generateThemeColorVariables,
 } = require('./colorVariables');
+const { staticColors, transparencies } = require('./colors');
 
 describe('generateColorVariables', () => {
   it('generates all variables', () => {

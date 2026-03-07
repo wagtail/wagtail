@@ -9,16 +9,16 @@
 # Maarten Kling <kling.maarten@gmail.com>, 2023
 # Matt Westcott <matthew@torchbox.com>, 2023
 # Meteor0id, 2018,2021
-# Storm Heg <storm@stormbase.digital>, 2021-2025
+# Storm Heg <storm@stormbase.digital>, 2021-2026
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -44,24 +44,6 @@ msgstr "Het minimale aantal items is %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Het maximale aantal items is %(max_num)d"
 
-msgid "Move up"
-msgstr "Omhoog"
-
-msgid "Move down"
-msgstr "Omlaag"
-
-msgid "Drag"
-msgstr "Sleep"
-
-msgid "Duplicate"
-msgstr "Dupliceer"
-
-msgid "Delete"
-msgstr "Verwijder"
-
-msgid "Add"
-msgstr "Toevoegen"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: dit blok heeft geen opties."
@@ -71,6 +53,9 @@ msgstr "Dit blok heeft geen opties."
 
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
+
+msgid "Group"
+msgstr "Groep"
 
 msgid "Wagtail frontend cache"
 msgstr "Wagtail frontend cache"
@@ -293,6 +278,9 @@ msgstr "voor content type"
 msgid "uploaded by user"
 msgstr "geupload door gebruiker"
 
+msgid "Add"
+msgstr "Toevoegen"
+
 msgid "Add/edit pages you own"
 msgstr "Eigen pagina's toevoegen/wijzigen"
 
@@ -392,6 +380,16 @@ msgid ""
 msgstr ""
 "De slug '%(page_slug)s' is al in gebruik door een andere pagina onder de "
 "pagina '%(parent_url_path)s'."
+
+#, python-format
+msgid ""
+"Cannot overwrite a revision that is not the latest for this %(model_name)s."
+msgstr ""
+"Kan revisie niet overschrijven als deze niet de meeste recente is voor "
+"%(model_name)s."
+
+msgid "Cannot overwrite a revision that was not created by the current user."
+msgstr "Kan revisie niet overschrijven omdat deze niet gemaakt is door jou."
 
 msgid "page"
 msgstr "pagina"
@@ -763,6 +761,9 @@ msgstr "Aangemaakt"
 
 msgid "Edited"
 msgstr "Gewijzigd"
+
+msgid "Delete"
+msgstr "Verwijder"
 
 msgid "Deleted"
 msgstr "Verwijderd"

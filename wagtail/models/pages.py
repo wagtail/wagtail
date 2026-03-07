@@ -29,6 +29,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
 from django.utils.log import log_response
 from django.utils.text import capfirst, slugify
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import (
@@ -977,12 +978,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             latest_revision = self.get_latest_revision()
             if overwrite_revision != latest_revision:
                 raise PermissionDenied(
-                    "Cannot overwrite a revision that is not the latest for this page"
+                    gettext(
+                        "Cannot overwrite a revision that is not the latest for "
+                        "this %(model_name)s."
+                    )
+                    % {"model_name": Page._meta.verbose_name}
                 )
 
             if overwrite_revision.user_id != (user and user.pk):
                 raise PermissionDenied(
-                    "Cannot overwrite a revision that was not created by the current user"
+                    gettext(
+                        "Cannot overwrite a revision that was not created "
+                        "by the current user."
+                    )
                 )
 
             overwrite_revision.created_at = timezone.now()
@@ -2175,8 +2183,16 @@ class PagePermissionTester:
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
+
         specific_class = self.page.specific_class
-        if specific_class is None or not specific_class.creatable_subpage_models():
+        if specific_class is None:
+            return False
+
+        creatable_subpage_models = specific_class.creatable_subpage_models()
+        if not any(
+            subpage_model.can_create_at(self.page)
+            for subpage_model in creatable_subpage_models
+        ):
             return False
         return self.user.is_superuser or ("add" in self.permissions)
 

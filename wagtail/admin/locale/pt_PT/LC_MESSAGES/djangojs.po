@@ -1,14 +1,14 @@
 #
 # Translators:
-# Jose Lourenco <jose@lourenco.ws>, 2022
 # Diogo Ribeiro <pdcribeiro95@gmail.com>, 2022
 # Loic Teixeira, 2024
-# Tiago Henriques <trinosauro@gmail.com>, 2025
 # Luís Tiago Favas <traducoes@favas.eu>, 2025
+# Tiago Henriques <trinosauro@gmail.com>, 2026
+# Jose Lourenco <jose@lourenco.ws>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Luís Tiago Favas <traducoes@favas.eu>, 2025\n"
+"Last-Translator: Jose Lourenco <jose@lourenco.ws>, 2026\n"
 "Language-Team: Portuguese (Portugal) (https://app.transifex.com/torchbox/"
 "teams/8009/pt_PT/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,6 +18,9 @@ msgstr ""
 
 msgid "Actions"
 msgstr "Ações"
+
+msgid "Add"
+msgstr "Adicionar"
 
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
@@ -52,6 +55,12 @@ msgstr "Apagar"
 msgid "Delete error"
 msgstr "Apagar erro"
 
+msgid "Drag"
+msgstr "Arrastar"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
 msgid "Edit"
 msgstr "Alterar"
 
@@ -78,6 +87,12 @@ msgstr "Documento em falta"
 
 msgid "More actions"
 msgstr "Mais ações"
+
+msgid "Move down"
+msgstr "Descer"
+
+msgid "Move up"
+msgstr "Subir"
 
 msgid "No"
 msgstr "Não"
@@ -124,15 +139,6 @@ msgstr "Gravar"
 
 msgid "Save error"
 msgstr "Gravar erro"
-
-msgid "Save the page to add this comment"
-msgstr "Grave a página para adicionar este comentário"
-
-msgid "Save the page to save this comment"
-msgstr "Grave a página para gravar este comentário"
-
-msgid "Save the page to save this reply"
-msgstr "Grave a página para gravar esta resposta"
 
 msgid "Saving..."
 msgstr "A gravar..."

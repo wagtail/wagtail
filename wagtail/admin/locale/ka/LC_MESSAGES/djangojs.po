@@ -1,14 +1,17 @@
 #
 # Translators:
-# André Bouatchidzé <a@anbz.net>, 2022
+# André Bouatchidzé <a@anbz.net>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: André Bouatchidzé <a@anbz.net>, 2022\n"
+"Last-Translator: André Bouatchidzé <a@anbz.net>, 2026\n"
 "Language-Team: Georgian (https://app.transifex.com/torchbox/teams/8009/ka/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ka\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Add"
+msgstr "დამატება"
 
 msgid "Delete"
 msgstr "წაშლა"

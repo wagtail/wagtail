@@ -5,6 +5,7 @@
 # Translators:
 # Alexander Holmbäck <alexander.holmback@creuna.se>, 2017
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Jonathan Lindén, 2025
 # Martin Sandström <martin@marteinn.se>, 2020-2021
 # Matt Westcott <matthew@torchbox.com>, 2024
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Tomas Walch <tomas@alternaliv.se>, 2022\n"
+"Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -121,8 +122,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">skapa en nu</a>?"
 
+msgid "Scheduling…"
+msgstr "Schemalägger…"
+
 msgid "Publishing…"
 msgstr "Publicerar..."
+
+msgid "Schedule to publish"
+msgstr "Schemalägg publicering"
 
 msgid "Publish this version"
 msgstr "Publicera denna version"
@@ -153,6 +160,10 @@ msgstr "Namn"
 
 msgid "Instances"
 msgstr "Instans"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Fler alternativ för '%(title)s'"
 
 msgid "Home"
 msgstr "Hem"

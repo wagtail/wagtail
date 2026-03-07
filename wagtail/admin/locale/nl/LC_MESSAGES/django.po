@@ -29,16 +29,16 @@
 # Rob Moorman <rob@moori.nl>, 2017
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
-# Storm Heg <storm@stormbase.digital>, 2021-2025
+# Storm Heg <storm@stormbase.digital>, 2021-2026
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1931,6 +1931,12 @@ msgstr "%(field_label)s:"
 msgid "Clear"
 msgstr "Leegmaken"
 
+msgid "Saved"
+msgstr "Opgeslagen"
+
+msgid "Autosave is paused"
+msgstr "Automatisch opslaan gepauzeerd"
+
 msgid "Edit account avatar"
 msgstr "Bewerk account avatar"
 
@@ -2150,8 +2156,8 @@ msgid ""
 "We extract the main content from the page preview, remove all formatting, "
 "and calculate the number of words."
 msgstr ""
-"We halen de hoofdinhoud uit de voorbeeldpagina, verwijderen alle opmaak en "
-"tellen het aantal woorden."
+"We halen de hoofdinhoud uit de voorbeeld weergave, verwijderen alle opmaak "
+"en tellen het aantal woorden."
 
 msgid ""
 "We calculate reading time from word count, using different reading speeds "
@@ -2257,6 +2263,10 @@ msgid "View details"
 msgstr "Bekijk details"
 
 #, python-format
+msgid "To be created by %(user)s"
+msgstr "Nog aan te maken door %(user)s"
+
+#, python-format
 msgid "by %(user)s"
 msgstr "door %(user)s"
 
@@ -2303,18 +2313,14 @@ msgstr "Voorvertoning modus"
 msgid "First published"
 msgstr "Voor het eerst gepubliceerd"
 
+msgid "Autosave is <span>paused</span>"
+msgstr "Automatisch opslaan is <span>gepauzeerd</span>"
+
 msgid "Save your changes before leaving"
 msgstr "Sla je wijzigingen op voordat je deze pagina verlaat"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Je hebt <span> niet-opgeslagen wijzigingen</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Je hebt <span>niet-opgeslagen opmerkingen</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Je hebt <span>niet-opgeslagen wijzigingen</span> en <span>opmerkingen</span>"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2411,8 +2417,8 @@ msgstr "Speciale sortering inschakelen"
 msgid "View Wagtail quick actions"
 msgstr "Bekijk Wagtail snel acties"
 
-msgid "Accessibility"
-msgstr "Toegankelijkheid"
+msgid "Checks"
+msgstr "Checks"
 
 msgid "Warnings"
 msgstr "Waarschuwingen"
@@ -2740,9 +2746,6 @@ msgstr "Opmerkingen"
 msgid "Toggle checks"
 msgstr "Checks aan/uitzetten"
 
-msgid "Checks"
-msgstr "Checks"
-
 msgid "Toggle preview"
 msgstr "Toon/verberg voorvertoning"
 
@@ -2925,10 +2928,6 @@ msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' is nu ontgrendeld."
 
 #, python-format
-msgid "The %(model_name)s could not be saved as it is locked"
-msgstr "%(model_name)s is vergrendeld en kan niet worden opgeslagen"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' bijgewerkt."
 
@@ -2976,6 +2975,13 @@ msgstr "Workflow voor %(model_name)s '%(object)s' is opnieuw gestart."
 #, python-format
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr "Workflow voor %(model_name)s '%(object)s' is geannuleerd."
+
+msgid "Saving will overwrite a newer version."
+msgstr "Door op te slaan wordt een nieuwere versie overschreven."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s is vergrendeld en kan niet worden opgeslagen"
 
 #, python-format
 msgid ""
@@ -3031,6 +3037,9 @@ msgstr "%(model_name)s kon niet worden aangemaakt vanwege fouten."
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Nieuw: %(model_name)s"
+
+msgid "There are validation errors, click save to highlight them."
+msgstr "Er zijn validatiefouten, klik op 'opslaan' om ze te markeren."
 
 msgid "Editing"
 msgstr "Wijzigen"
@@ -3203,6 +3212,10 @@ msgstr ""
 msgid "Page '%(page_title)s' copied."
 msgstr "Pagina '%(page_title)s' gekopieerd."
 
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "Verzoek om %(model_name)s aan te maken is geblokkeerd door een hook."
+
 msgid "View draft"
 msgstr "Bekijk concept"
 
@@ -3247,6 +3260,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Pagina '%(page_title)s' is gewijzigd."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "Verzoek om %(model_name)s te bewerken is geblokkeerd door een hook."
 
 #, python-format
 msgid "Workflow on page '%(page_title)s' has been cancelled."

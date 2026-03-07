@@ -1,10 +1,10 @@
 #
 # Translators:
-# Anshika Vashistha, 2023
+# Anshika Vashistha, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Anshika Vashistha, 2023\n"
+"Last-Translator: Anshika Vashistha, 2026\n"
 "Language-Team: Hindi (https://app.transifex.com/torchbox/teams/8009/hi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: hi\n"
@@ -12,3 +12,6 @@ msgstr ""
 
 msgid "Save"
 msgstr "Save"
+
+msgid "Settings"
+msgstr "Settings"

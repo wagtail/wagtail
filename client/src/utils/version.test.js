@@ -1,31 +1,9 @@
 import {
   CanOnlyComparePreReleaseVersionsError,
-  VersionNumberFormatError,
-  VersionNumber,
   VersionDeltaType,
+  VersionNumber,
+  VersionNumberFormatError,
 } from './version';
-
-describe('version.VersionDeltaType', () => {
-  it('types equal themselves', () => {
-    expect(VersionDeltaType.MAJOR).toBe(VersionDeltaType.MAJOR);
-    expect(VersionDeltaType.MINOR).toBe(VersionDeltaType.MINOR);
-    expect(VersionDeltaType.PATCH).toBe(VersionDeltaType.PATCH);
-  });
-
-  it('types do not equal others', () => {
-    expect(VersionDeltaType.MAJOR).not.toBe(VersionDeltaType.MINOR);
-    expect(VersionDeltaType.MAJOR).not.toBe(VersionDeltaType.PATCH);
-    expect(VersionDeltaType.MAJOR).not.toBe(new VersionDeltaType('Other'));
-
-    expect(VersionDeltaType.MINOR).not.toBe(VersionDeltaType.MAJOR);
-    expect(VersionDeltaType.MINOR).not.toBe(VersionDeltaType.PATCH);
-    expect(VersionDeltaType.MINOR).not.toBe(new VersionDeltaType('Other'));
-
-    expect(VersionDeltaType.PATCH).not.toBe(VersionDeltaType.MAJOR);
-    expect(VersionDeltaType.PATCH).not.toBe(VersionDeltaType.MINOR);
-    expect(VersionDeltaType.PATCH).not.toBe(new VersionDeltaType('Other'));
-  });
-});
 
 describe('version.VersionNumber initialisation', () => {
   it('initialises 1.0', () => {
@@ -223,14 +201,14 @@ describe('version.VersionNumber.isPreReleaseStepBehind', () => {
   it('throws error for this being non-prerelease version', () => {
     const thisVersion = new VersionNumber('1.0.0');
     const thatVersion = new VersionNumber('1.0rc0');
-    expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrowError(
+    expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrow(
       CanOnlyComparePreReleaseVersionsError,
     );
   });
   it('throws error for that being non-prerelease version', () => {
     const thisVersion = new VersionNumber('1.0rc0');
     const thatVersion = new VersionNumber('1.0.0');
-    expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrowError(
+    expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrow(
       CanOnlyComparePreReleaseVersionsError,
     );
   });

@@ -4,15 +4,16 @@
 #
 # Translators:
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+# Imanu Wardi, 2025
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Last-Translator: Imanu Wardi, 2025\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
-msgstr "Wagtail pengguna"
+msgstr "Pengguna Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Harus diisi. Gunakan hanya huruf, angka, dan simbol @/./+/-/."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Hanya dapat berisi karakter huruf, angka dan @/./+/-/_ saja."

@@ -39,7 +39,11 @@ from wagtail.admin.ui.tables import (
     UpdatedAtColumn,
 )
 from wagtail.admin.ui.tables.orderable import OrderableTableMixin
-from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
+from wagtail.admin.utils import (
+    get_latest_str,
+    get_valid_next_url_from_request,
+    set_query_params,
+)
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
     BaseButton,
@@ -482,6 +486,7 @@ class CreateView(
     index_url_name = None
     add_url_name = None
     edit_url_name = None
+    usage_url_name = None
     template_name = "wagtailadmin/generic/create.html"
     page_title = gettext_lazy("New")
     permission_required = "add"
@@ -606,6 +611,8 @@ class CreateView(
         """
         if self.error_message is None:
             return None
+        if self.expects_json_response:
+            return _("There are validation errors, click save to highlight them.")
         return capfirst(
             self.error_message
             % {"model_name": self.model and self.model._meta.verbose_name}
@@ -616,8 +623,9 @@ class CreateView(
         return self.form.is_bound
 
     def get_context_data(self, **kwargs):
+        self.form = self.form if hasattr(self, "form") else self.get_form()
+        kwargs["form"] = self.form
         context = super().get_context_data(**kwargs)
-        self.form = context.get("form")
         side_panels = self.get_side_panels()
         context["action_url"] = self.add_url
         context["submit_button_label"] = self.submit_button_label
@@ -636,6 +644,8 @@ class CreateView(
                     self.request,
                     locale=self.locale,
                     translations=self.translations,
+                    # Show skeleton for usage info if usage_url_name is set
+                    usage_url="" if self.usage_url_name else None,
                 )
             )
         return MediaContainer(side_panels)
@@ -681,7 +691,17 @@ class CreateView(
         return instance
 
     def get_success_json(self):
-        return {"success": True, "pk": self.object.pk}
+        edit_url = self.get_edit_url()
+        hydrate_url = set_query_params(edit_url, {"_w_hydrate_create_view": "1"})
+        result = {
+            "success": True,
+            "pk": self.object.pk,
+            "url": edit_url,
+            "hydrate_url": hydrate_url,
+        }
+        if isinstance(self.form, WagtailAdminModelForm):
+            result["field_updates"] = dict(self.form.get_field_updates_for_resave())
+        return result
 
     def save_action(self):
         if self.expects_json_response:
@@ -759,6 +779,7 @@ class EditView(
     page_title = gettext_lazy("Editing")
     context_object_name = None
     template_name = "wagtailadmin/generic/edit.html"
+    partials_template_name = "wagtailadmin/generic/edit_partials.html"
     permission_required = "change"
     delete_item_label = gettext_lazy("Delete")
     success_message = gettext_lazy("%(model_name)s '%(object)s' updated.")
@@ -770,6 +791,11 @@ class EditView(
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
+
+    def get_template_names(self):
+        if self.hydrate_create_view:
+            return [self.partials_template_name]
+        return super().get_template_names()
 
     def post(self, request, *args, **kwargs):
         # BaseUpdateView.post() would set self.object here, but some subclasses need
@@ -972,7 +998,14 @@ class EditView(
         return instance
 
     def get_success_json(self):
-        return {"success": True, "pk": self.object.pk}
+        result = {
+            "success": True,
+            "pk": self.object.pk,
+            "html": self.render_partials(),
+        }
+        if isinstance(self.form, WagtailAdminModelForm):
+            result["field_updates"] = dict(self.form.get_field_updates_for_resave())
+        return result
 
     def save_action(self):
         if self.expects_json_response:
@@ -1008,6 +1041,8 @@ class EditView(
         """
         if self.error_message is None:
             return None
+        if self.expects_json_response:
+            return _("There are validation errors, click save to highlight them.")
         return capfirst(
             self.error_message
             % {"model_name": self.model and self.model._meta.verbose_name}
@@ -1043,9 +1078,23 @@ class EditView(
     def has_unsaved_changes(self):
         return self.form.is_bound
 
+    @cached_property
+    def hydrate_create_view(self):
+        return bool(self.request.GET.get("_w_hydrate_create_view"))
+
     def get_context_data(self, **kwargs):
+        # We want to set self.form for use in other methods/properties below.
+        # If form is not passed as a kwarg to super(), Django instantiates a new
+        # form and adds it to the context (without setting self.form). This is
+        # normal for GET requests. However, for POST requests (e.g. when
+        # rendering template partials after autosave), we already instantiated
+        # the form and set self.form. Make sure to reuse the form instead of
+        # letting Django instantiate another one (and worse, overwriting
+        # self.form with the fresh instance). For consistency, we instantiate
+        # the form ourselves for GET requests too, and pass it to super().
+        self.form = self.form if hasattr(self, "form") else self.get_form()
+        kwargs["form"] = self.form
         context = super().get_context_data(**kwargs)
-        self.form = context.get("form")
         side_panels = self.get_side_panels()
         context["action_url"] = self.get_edit_url()
         context["history_url"] = self.get_history_url()
@@ -1054,6 +1103,8 @@ class EditView(
         context["submit_button_label"] = self.submit_button_label
         context["submit_button_active_label"] = self.submit_button_active_label
         context["has_unsaved_changes"] = self.has_unsaved_changes
+        context["is_partial"] = self.expects_json_response or self.hydrate_create_view
+        context["hydrate_create_view"] = self.hydrate_create_view
         context["can_delete"] = self.can_delete
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()

@@ -1,12 +1,13 @@
 #
 # Translators:
 # Loic Teixeira, 2022
-# Amós Oviedo <amos.oviedo@gmail.com>, 2025
-# X Bello <xbello@gmail.com>, 2025
+# Karl Hobley <karl@torchbox.com>, 2026
+# Amós Oviedo <amos.oviedo@gmail.com>, 2026
+# X Bello <xbello@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: X Bello <xbello@gmail.com>, 2025\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2026\n"
 "Language-Team: Galician (https://app.transifex.com/torchbox/teams/8009/gl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: gl\n"
@@ -42,8 +43,17 @@ msgstr[1] "%(num)s píxels"
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 
+msgid "A network error occurred."
+msgstr "Ocorréu un erro de rede."
+
+msgid "A server error occurred."
+msgstr "Ocorréu un erro no servidor."
+
 msgid "Actions"
 msgstr "Accións"
+
+msgid "Add"
+msgstr "Engadir"
 
 msgid "Add a comment"
 msgstr "Engadir un comentario"
@@ -54,6 +64,9 @@ msgstr "Texto alternativo"
 msgid "Are you sure?"
 msgstr "Estás seguro?"
 
+msgid "Autosave in progress…"
+msgstr "Autogardado en progreso…"
+
 msgid "Blocks"
 msgstr "Bloques"
 
@@ -62,6 +75,9 @@ msgstr "Enlace roto"
 
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgid "Changes have been autosaved."
+msgstr "Autogardáronse os cambios."
 
 msgid "Character count:"
 msgstr "Total de caracteres:"
@@ -93,6 +109,12 @@ msgstr "Eliminar erro"
 
 msgid "Deleting"
 msgstr "Eliminando"
+
+msgid "Drag"
+msgstr "Levar"
+
+msgid "Duplicate"
+msgstr "Duplicado"
 
 msgid "Edit"
 msgstr "Editar"
@@ -143,6 +165,12 @@ msgstr "Documento faltante"
 msgid "More actions"
 msgstr "Máis accións"
 
+msgid "Move down"
+msgstr "Baixar"
+
+msgid "Move up"
+msgstr "Subir"
+
 msgid "No"
 msgstr "Non"
 
@@ -191,15 +219,6 @@ msgstr "Gardar"
 msgid "Save error"
 msgstr "Gardar erro"
 
-msgid "Save the page to add this comment"
-msgstr "Gardar a páxina para engadir este comentario"
-
-msgid "Save the page to save this comment"
-msgstr "Gardar a páxina para gardar este comentario"
-
-msgid "Save the page to save this reply"
-msgstr "Gardar a páxina para gardar esta resposta"
-
 msgid "Saving..."
 msgstr "Gardando..."
 
@@ -214,6 +233,9 @@ msgstr "Ver todo"
 
 msgid "Server Error"
 msgstr "Erro do Servidor"
+
+msgid "Settings"
+msgstr "Configuración"
 
 msgid "Show error"
 msgstr "Amosar erro"

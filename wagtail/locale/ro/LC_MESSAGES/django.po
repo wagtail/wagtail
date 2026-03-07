@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -41,24 +41,6 @@ msgstr "Numărul minim de articole este %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Numărul maxim de articole este %(max_num)d"
 
-msgid "Move up"
-msgstr "Deplasează în sus"
-
-msgid "Move down"
-msgstr "Deplasează în jos"
-
-msgid "Drag"
-msgstr "Glisează"
-
-msgid "Duplicate"
-msgstr "Duplică"
-
-msgid "Delete"
-msgstr "Șterge"
-
-msgid "Add"
-msgstr "Adaugă"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: acest bloc nu are opțiuni"
@@ -68,6 +50,9 @@ msgstr "Acest bloc nu are nici o opțiune."
 
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."
+
+msgid "Group"
+msgstr "Grup"
 
 msgid "Wagtail frontend cache"
 msgstr "Cache-ul frontend Wagtail"
@@ -284,6 +269,9 @@ msgstr "pentru tipul de conținut"
 
 msgid "uploaded by user"
 msgstr "încărcată de utlizator"
+
+msgid "Add"
+msgstr "Adaugă"
 
 msgid "Add/edit pages you own"
 msgstr "Adaugă/editeaza pagini deținute"
@@ -743,6 +731,9 @@ msgstr "A creat"
 
 msgid "Edited"
 msgstr "Editat"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Deleted"
 msgstr "A șters"

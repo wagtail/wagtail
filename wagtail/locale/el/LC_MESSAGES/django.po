@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -41,24 +41,6 @@ msgstr "Ο ελάχιστος αριθμός στοιχείων είναι %(min
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Ο μέγιστος αριθμός στοιχείων είναι %(max_num)d"
 
-msgid "Move up"
-msgstr "Πάνω"
-
-msgid "Move down"
-msgstr "Κάτω"
-
-msgid "Drag"
-msgstr "Τραβήξτε"
-
-msgid "Duplicate"
-msgstr "Αναπαραγωγή"
-
-msgid "Delete"
-msgstr "Διαγραφή"
-
-msgid "Add"
-msgstr "Προσθήκη"
-
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: αυτό το μπλοκ δεν έχει επιλογές"
@@ -68,6 +50,9 @@ msgstr "Αυτό το block δεν έχει επιλογές."
 
 msgid "This field is required."
 msgstr "Το πεδίο αυτό είναι απαραίτητο"
+
+msgid "Group"
+msgstr "Ομάδα"
 
 msgid "Password"
 msgstr "Κωδικός"
@@ -152,6 +137,9 @@ msgstr "άδεια ομάδας συλλογών"
 
 msgid "uploaded by user"
 msgstr "ανέβηκε από το χρήστη"
+
+msgid "Add"
+msgstr "Προσθήκη"
 
 msgid "Add/edit pages you own"
 msgstr "Προσθέστε/επεξεργαστείτε σελίδες που σας ανήκουν"
@@ -420,6 +408,9 @@ msgstr "Δημιουργήθηκε"
 
 msgid "Edited"
 msgstr "Διορθωμένη"
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "Deleted"
 msgstr "Διαγράφηκε"

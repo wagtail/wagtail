@@ -4,7 +4,7 @@
 {% block item_content %}
     <button type="button" id="accessibility-trigger" role="menuitem">
         <span class="w-sr-only">{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count></span>
-        {% trans 'Accessibility' %}
+        {% trans 'Checks' %}
     </button>
     {{ axe_configuration|json_script:"accessibility-axe-configuration" }}
     {% trans 'Warnings' as dialog_title %}

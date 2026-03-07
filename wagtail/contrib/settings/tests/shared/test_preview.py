@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
@@ -117,6 +118,34 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
             html=True,
         )
         self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
+
+    def test_preview_on_edit_without_permission(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.client.post(self.preview_on_edit_url, self.post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_preview_on_edit_get_without_permission(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.client.get(self.preview_on_edit_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
 class TestSiteSettingPreview(TestGenericSiteSettingPreview):

@@ -205,6 +205,13 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             del self.formsets["comments"]
         return super().is_valid()
 
+    def serialize_comments(self, user):
+        if comments := self.formsets.get("comments"):
+            data = comments.serialize(self.is_bound, user)
+        else:
+            data = {"comments": [], "user": user.pk, "authors": {}}
+        return data
+
     def clean(self):
         cleaned_data = super().clean()
         if "slug" in self.cleaned_data:

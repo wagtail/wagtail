@@ -7,11 +7,11 @@
 # Younes Oumakhou, 2022
 # Loic Teixeira, 2024
 # Tarek Berkane, 2025
-# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025
+# Abdullah Bamuhrez <bamuhrez@gmail.com>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
+"Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ar\n"
@@ -63,6 +63,9 @@ msgstr "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgid "Actions"
 msgstr "الإجراءات"
 
+msgid "Add"
+msgstr "إضافة"
+
 msgid "Add a comment"
 msgstr "إضافة تعليق"
 
@@ -108,6 +111,12 @@ msgstr "خطأ في الحذف"
 msgid "Deleting"
 msgstr "جاري الحذف"
 
+msgid "Drag"
+msgstr "سحب"
+
+msgid "Duplicate"
+msgstr "تكرار"
+
 msgid "Edit"
 msgstr "تحرير"
 
@@ -149,6 +158,12 @@ msgstr "مستند مفقود"
 
 msgid "More actions"
 msgstr "المزيد من الإجراءات"
+
+msgid "Move down"
+msgstr "تحريك لأسفل"
+
+msgid "Move up"
+msgstr "تحريك لأعلى"
 
 msgid "No"
 msgstr "لا"
@@ -197,15 +212,6 @@ msgstr "حفظ"
 msgid "Save error"
 msgstr "خطأ في الحفظ"
 
-msgid "Save the page to add this comment"
-msgstr "احفظ الصفحة لإضافة هذا التعليق"
-
-msgid "Save the page to save this comment"
-msgstr "احفظ الصفحة لحفظ هذا التعليق"
-
-msgid "Save the page to save this reply"
-msgstr "احفظ الصفحة لحفظ هذا الرد"
-
 msgid "Saving..."
 msgstr "جاري الحفظ..."
 
@@ -220,6 +226,9 @@ msgstr "عرض الكل"
 
 msgid "Server Error"
 msgstr "خطأ في الخادم"
+
+msgid "Settings"
+msgstr "الإعدادات"
 
 msgid "Show error"
 msgstr "عرض الخطأ"

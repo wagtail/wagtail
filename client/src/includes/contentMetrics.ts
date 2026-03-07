@@ -1,5 +1,5 @@
 import axe from 'axe-core';
-import { ngettext, gettext } from '../utils/gettext';
+import { gettext, ngettext } from '../utils/gettext';
 
 export const getWordCount = (lang: string, text: string): number => {
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });

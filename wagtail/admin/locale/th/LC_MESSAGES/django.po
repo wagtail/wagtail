@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -755,9 +755,6 @@ msgstr "เผยแพร่ครั้งแรก"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "คุณมี <span>การแก้ไขที่ยังไม่ได้บันทึก</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "คุณมี <span>การแก้ไข</span> และ <span>ความคิดเห็น</span> ที่ยังไม่ได้บันทึก"
 
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"

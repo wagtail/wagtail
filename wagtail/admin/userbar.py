@@ -1,6 +1,6 @@
 from warnings import warn
 
-from django.template.loader import render_to_string
+from django.forms import Media
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
@@ -14,18 +14,18 @@ from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
-class BaseItem:
-    template = "wagtailadmin/userbar/item_base.html"
+class BaseItem(Component):
+    template_name = "wagtailadmin/userbar/item_base.html"
 
-    def get_context_data(self, request):
-        return {"self": self, "request": request}
-
-    def render(self, request):
-        return render_to_string(self.template, self.get_context_data(request))
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["self"] = self
+        context["request"] = parent_context.get("request")
+        return context
 
 
 class AdminItem(BaseItem):
-    template = "wagtailadmin/userbar/item_admin.html"
+    template_name = "wagtailadmin/userbar/item_admin.html"
 
 
 class AccessibilityItem(BaseItem):
@@ -37,7 +37,7 @@ class AccessibilityItem(BaseItem):
         """Whether the accessibility checker is being run in the page editor."""
 
     #: The template to use for rendering the item.
-    template = "wagtailadmin/userbar/item_accessibility.html"
+    template_name = "wagtailadmin/userbar/item_accessibility.html"
 
     #: A list of CSS selector(s) to test specific parts of the page.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
@@ -212,21 +212,23 @@ class AccessibilityItem(BaseItem):
             "spec": self.get_axe_spec(request),
         }
 
-    def get_context_data(self, request):
-        return {
-            **super().get_context_data(request),
-            "axe_configuration": self.get_axe_configuration(request),
-        }
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["axe_configuration"] = self.get_axe_configuration(
+            parent_context.get("request")
+        )
+        return context
 
 
 class AddPageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_add.html"
+    template_name = "wagtailadmin/userbar/item_page_add.html"
 
     def __init__(self, page):
         self.page = page
         self.parent_page = page.get_parent()
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
             return ""
@@ -236,17 +238,18 @@ class AddPageItem(BaseItem):
         if not permission_checker.can_add_subpage():
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
 
 
 class ExplorePageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_explore.html"
+    template_name = "wagtailadmin/userbar/item_page_explore.html"
 
     def __init__(self, page):
         self.page = page
         self.parent_page = page.get_parent()
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
             return ""
@@ -259,16 +262,17 @@ class ExplorePageItem(BaseItem):
         ):
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
 
 
 class EditPageItem(BaseItem):
-    template = "wagtailadmin/userbar/item_page_edit.html"
+    template_name = "wagtailadmin/userbar/item_page_edit.html"
 
     def __init__(self, page):
         self.page = page
 
-    def render(self, request):
+    def render_html(self, parent_context):
+        request = parent_context.get("request")
         # Don't render if the page doesn't have an id
         if not self.page.id:
             return ""
@@ -286,7 +290,7 @@ class EditPageItem(BaseItem):
         if not permission_checker.can_edit():
             return ""
 
-        return super().render(request)
+        return super().render_html(parent_context)
 
 
 def apply_userbar_hooks(request, items, page):
@@ -359,10 +363,26 @@ class Userbar(Component):
             apply_userbar_hooks(request, items, self.object)
 
             # Render the items
-            rendered_items = [item.render(request) for item in items]
+            rendered_items = []
+            media = Media()
+            for item in items:
+                # Backwards compatibility for legacy items with a render method.
+                if hasattr(item, "render"):
+                    warn(
+                        "Userbar items now use the `render_html(parent_context)` method instead of `render(request)` -"
+                        f" view the `construct_wagtail_userbar` docs to update {item.__class__.__name__}",
+                        RemovedInWagtail80Warning,
+                    )
 
-            # Remove any unrendered items
-            rendered_items = [item for item in rendered_items if item]
+                    content = item.render(request)
+                else:
+                    content = item.render_html(parent_context)
+                if content:
+                    rendered_items.append(content)
+
+                # Always append media even if the item might render nothing.
+                if hasattr(item, "media"):
+                    media += item.media
 
             if request:
                 origin = f"{request.scheme}://{request.get_host()}"
@@ -374,6 +394,7 @@ class Userbar(Component):
                 "request": request,
                 "origin": origin,
                 "items": rendered_items,
+                "media": media,
                 "position": self.position,
                 "page": self.object,
                 "revision_id": revision_id,

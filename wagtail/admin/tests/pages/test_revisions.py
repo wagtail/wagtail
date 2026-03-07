@@ -130,6 +130,10 @@ class TestRevisions(WagtailTestUtils, TestCase):
                 args=(self.christmas_event.id, self.last_christmas_revision.id),
             ),
         )
+        # Autosave should be disabled
+        self.assertNotIn("w-autosave", form["data-controller"].split())
+        self.assertNotIn("w-autosave", form["data-action"])
+        self.assertIsNone(form.attrs.get("data-w-autosave-interval-value"))
 
         # Buttons should be relabelled
         self.assertContains(response, "Replace current draft")

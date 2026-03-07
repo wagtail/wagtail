@@ -7,15 +7,15 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015,2017
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2022,2024
+# Marco Badan <marco.badan@gmail.com>, 2021-2022,2024,2026
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,11 @@ msgstr ""
 "corrispondenza esatta per visualizzare i risultati in evidenza, i caratteri "
 "wildcard NON sono consentiti."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Devi inserire il testo del collegamento se inserisci l'URL di un "
+"collegamento esterno."
+
 msgid "You must recommend a page OR an external link."
 msgstr "Devi consigliare una pagina O un collegamento esterno."
 
@@ -54,14 +59,35 @@ msgstr "Query giornaliere"
 msgid "page"
 msgstr "pagina"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Scegli una pagina interna per questa promozione"
+
 msgid "External link URL"
 msgstr "Collegamento esterno"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "In alternativa, usa un collegamento esterno per questa promozione"
 
 msgid "description"
 msgstr "descrizione"
 
+msgid "Applies to internal page or external link"
+msgstr "Si applica a pagina interna o collegamento esterno"
+
 msgid "search promotion"
 msgstr "ricerca in evidenza"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. "
+"E.g recommending your primary donation page to a user searching with the "
+"less common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p>I risultati di ricerca promossi sono un mezzo per raccomandare pagine "
+"specifiche o collegamenti esterni che potrebbero non apparire in alto nei "
+"risultati organici. Es. raccomandare la tua pagina principale delle "
+"donazioni a un utente che cerca con il termine meno comune \"<em>elargire</"
+"em>\".</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -120,6 +146,9 @@ msgstr ""
 "Non è stato creato nessun risultato in evidenza. Perché non ne <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">aggiungi uno</a>?"
 
+msgid "No promoted results have been created."
+msgstr "Non sono stati creati risultati promossi."
+
 msgid "Popular search terms"
 msgstr "Termini di ricerca popolari"
 
@@ -128,6 +157,9 @@ msgstr "Cerca"
 
 msgid "Terms"
 msgstr "Termini"
+
+msgid "Views"
+msgstr "Visualizzazioni"
 
 msgid "No results found"
 msgstr "Nessun risultato"
@@ -143,6 +175,9 @@ msgstr "Nessuno"
 
 msgid "Date"
 msgstr "Data"
+
+msgid "Search terms"
+msgstr "Termini di ricerca"
 
 msgid "Search term(s)"
 msgstr "Termine(i) di ricerca"
@@ -160,9 +195,15 @@ msgstr "Risultati di ricerca in evidenza"
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Scelta dalla redazione per '%(query)s' creata."
 
+msgid "Recommendations have not been created due to errors."
+msgstr "Le raccomandazioni non sono state create a causa di errori."
+
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Scelta dalla redazione per '%(query)s' aggiornata."
+
+msgid "Recommendations have not been saved due to errors."
+msgstr "Le raccomandazioni non sono state salvate a causa di errori."
 
 msgid "Editor's picks deleted."
 msgstr "Scelte dalla redazione eliminate."

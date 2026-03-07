@@ -2,7 +2,6 @@ import functools
 import types
 import zoneinfo
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.utils.dates import MONTHS, WEEKDAYS, WEEKDAYS_ABBR
 from django.utils.timezone import override as override_tz
@@ -45,14 +44,11 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ("sl", "Slovenian"),
     ("th", "Thai"),
     ("tr", "Turkish"),
+    ("ug", "Uyghur"),
     ("uk", "Ukrainian"),
     ("zh-hans", "Chinese (Simplified)"),
     ("zh-hant", "Chinese (Traditional)"),
 ]
-
-if DJANGO_VERSION >= (5, 0):
-    WAGTAILADMIN_PROVIDED_LANGUAGES.append(("ug", "Uyghur"))
-    WAGTAILADMIN_PROVIDED_LANGUAGES.sort()
 
 
 # Translatable strings to be made available to JavaScript code
