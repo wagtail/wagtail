@@ -35,7 +35,7 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
         self.assertEqual(response.status_code, 200)
 
-        with self.assertNumQueries(25):
+        with self.assertNumQueries(22):
             self.get()
 
     def test_search(self):
@@ -354,3 +354,5 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         # 'next' parameter is constructed client-side later based on filters state
         for action in bulk_actions:
             self.assertNotIn("next=", action["href"])
+
+
