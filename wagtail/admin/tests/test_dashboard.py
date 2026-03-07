@@ -230,7 +230,7 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
         # Warm up the cache
         html = panel.render_html(parent_context)
 
-        with self.assertNumQueries(8):  
+        with self.assertNumQueries(8):
             html = panel.render_html(parent_context)
         soup = self.get_soup(html)
         # Should be sorted descending by locked_at
@@ -427,5 +427,3 @@ class CommonAdminBaseTemplate(WagtailTestUtils, TestCase):
 
         self.assertIsNotNone(meta_tag)
         self.assertEqual(meta_tag["content"], "dark")
-
-
