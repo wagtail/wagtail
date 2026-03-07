@@ -105,7 +105,7 @@ class TestBulkUnpublish(WagtailTestUtils, TestCase):
         )
 
         for child_page in self.pages_to_be_unpublished:
-            self.assertInHTML(f"<li>{child_page.title}</li>", html)
+            self.assertInHTML(f"<li>{child_page.get_admin_display_title()}</li>", html)
 
     def test_unpublish_view_post(self):
         """
