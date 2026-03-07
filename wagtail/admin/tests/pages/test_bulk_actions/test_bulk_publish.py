@@ -7,14 +7,13 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
+from wagtail.admin.views.pages.bulk_actions.page_bulk_action import (
+    PageBulkAction as _PageBulkAction,
+)
 from wagtail.models import Page
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import CustomPermissionPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-
-from wagtail.admin.views.pages.bulk_actions.page_bulk_action import (
-    PageBulkAction as _PageBulkAction,
-)
 
 
 class TestBulkPublish(WagtailTestUtils, TestCase):
@@ -447,7 +446,6 @@ class TestBulkPublishSpecificPagePermissions(WagtailTestUtils, TestCase):
             self.assertEqual(response.status_code, 200)
 
             # The custom perm page should be listed in items_with_no_access
-            html = response.content.decode()
             self.assertContains(response, "Custom perm page")
 
             # Post to publish
