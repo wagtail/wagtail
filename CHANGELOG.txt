@@ -14,6 +14,7 @@ Changelog
  * Allow validation of required StreamField blocks to be deferred on saving drafts (Sage Abdullah)
  * Add `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting for specifying maximum document file size (Om Harsh)
  * Optimize combining of querysets in site history report (Alex Bridge)
+ * Add more informative error for `format-*` operations on SVG images (Ankit Kumar)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
