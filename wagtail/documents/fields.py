@@ -20,7 +20,9 @@ class WagtailDocumentField(FileField):
         self.max_upload_size_text = filesizeformat(self.max_upload_size)
 
         if self.allowed_document_extensions is not None:
-            self.supported_formats_text = ", ".join(self.allowed_document_extensions).upper()
+            self.supported_formats_text = ", ".join(
+                self.allowed_document_extensions
+            ).upper()
         else:
             self.supported_formats_text = None
 

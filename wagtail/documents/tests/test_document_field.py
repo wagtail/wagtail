@@ -86,7 +86,7 @@ class TestWagtailDocumentField(TestCase):
 
     @override_settings(
         WAGTAILDOCS_MAX_UPLOAD_SIZE=1 * 1024 * 1024,
-        WAGTAILDOCS_EXTENSIONS=["pdf", "txt"]
+        WAGTAILDOCS_EXTENSIONS=["pdf", "txt"],
     )
     def test_help_text_shows_formats_and_size(self):
         field = self.get_field()
@@ -109,7 +109,7 @@ class TestWagtailDocumentField(TestCase):
         }
         self.assertEqual(
             formatted_message,
-            "Not a valid .pdf document. The extension does not match the file format (txt)"
+            "Not a valid .pdf document. The extension does not match the file format (txt)",
         )
 
     @override_settings(WAGTAILDOCS_EXTENSIONS=["pdf"])
