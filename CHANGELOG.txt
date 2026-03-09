@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Only auto-create redirects when moving or renaming live pages, not draft; use `WAGTAILREDIRECTS_AUTO_CREATE = 'always'` to restore previous behaviour (Sage Abdullah)
+ * Show allowed file types as part of document upload form help text (Bhavesh Sharma)
  * Fix: Avoid redundant writes back to the cache on `get_rendition` and `get_renditions` (Mason Lyons, Matt Westcott)
  * Fix: Allow `ChooserBlock.bulk_to_python()` to resolve records with primary keys that need converting to their native type, such as UUIDs (Saksham Chawla)
  * Fix: Prevent error when accessing the sitemap via an unknown host and no default site is configured (Jawad Khan)
