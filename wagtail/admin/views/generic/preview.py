@@ -1,4 +1,4 @@
-from time import time
+from datetime import timedelta
 
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import PermissionDenied
@@ -8,10 +8,12 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
+from django.utils.timezone import now
 from django.utils.translation import gettext
 from django.views.generic import TemplateView, View
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
+from wagtail.admin.models import FormState
 from wagtail.admin.panels import get_edit_handler
 from wagtail.blocks.base import Block
 from wagtail.models import PreviewableMixin, RevisionMixin
@@ -24,8 +26,7 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
     model = None
     form_class = None
     http_method_names = ("post", "get", "delete")
-    preview_expiration_timeout = 60 * 60 * 24  # seconds
-    session_key_prefix = "wagtail-preview-"
+    preview_expiration_timeout = timedelta(hours=24)
     permission_required = "change"
 
     def setup(self, request, *args, **kwargs):
@@ -38,22 +39,15 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         return super().dispatch(request, *args, **kwargs)
 
     def remove_old_preview_data(self):
-        expiration = time() - self.preview_expiration_timeout
-        expired_keys = [
-            k
-            for k, v in self.request.session.items()
-            if k.startswith(self.session_key_prefix) and v[1] < expiration
-        ]
-        # Removes the session key gracefully
-        for k in expired_keys:
-            self.request.session.pop(k)
+        expiration = now() - self.preview_expiration_timeout
+        FormState.objects.filter(last_updated_at__lt=expiration).delete()
 
     @property
-    def session_key(self):
+    def object_key(self):
         app_label = self.model._meta.app_label
         model_name = self.model._meta.model_name
         unique_key = f"{app_label}-{model_name}-{self.object.pk}"
-        return f"{self.session_key_prefix}{unique_key}"
+        return unique_key
 
     def get_object(self):
         obj = get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
@@ -77,11 +71,23 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
 
         return form_class(query_dict, instance=self.object, for_user=self.request.user)
 
-    def _get_data_from_session(self):
-        post_data, _ = self.request.session.get(self.session_key, (None, None))
-        if not isinstance(post_data, str):
-            post_data = ""
-        return QueryDict(post_data)
+    def _get_form_state(self):
+        return (
+            FormState.objects.filter(
+                user=self.request.user,
+                object_key=self.object_key,
+            )
+            .order_by("-last_updated_at")
+            .first()
+        )
+
+    def _get_form_data(self, form_state):
+        query_dict = QueryDict(mutable=True)
+        if form_state:
+            # Convert JSON to QueryDict with setlist to handle multiple values for the same key
+            for key, value in form_state.data.items():
+                query_dict.setlist(key, value)
+        return query_dict
 
     def validate_form(self, form):
         if isinstance(form, WagtailAdminModelForm):
@@ -94,12 +100,18 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         is_valid = self.validate_form(form)
 
         if is_valid:
-            # TODO: Handle request.FILES.
-            request.session[self.session_key] = request.POST.urlencode(), time()
+            # We do not handle request.FILES
+            form_data = {key: form.data.getlist(key) for key in form.data}
+            form_state, _ = FormState.objects.update_or_create(
+                user=self.request.user,
+                object_key=self.object_key,
+                defaults={"data": form_data, "last_updated_at": now()},
+            )
             is_available = True
         else:
-            # Check previous data in session to determine preview availability
-            form = self.get_form(self._get_data_from_session())
+            # Check previous available data to determine preview availability
+            form_state = self._get_form_state()
+            form = self.get_form(self._get_form_data(form_state))
             is_available = self.validate_form(form)
 
         return JsonResponse({"is_valid": is_valid, "is_available": is_available})
@@ -119,7 +131,8 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
 
     @method_decorator(xframe_options_sameorigin_override)
     def get(self, request, *args, **kwargs):
-        form = self.get_form(self._get_data_from_session())
+        form_state = self._get_form_state()
+        form = self.get_form(self._get_form_data(form_state))
 
         if not self.validate_form(form):
             return self.error_response()
@@ -136,7 +149,7 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         return self.object.make_preview_request(request, preview_mode, extra_attrs)
 
     def delete(self, request, *args, **kwargs):
-        request.session.pop(self.session_key, None)
+        FormState.objects.filter(user=request.user, object_key=self.object_key).delete()
         return JsonResponse({"success": True})
 
 
@@ -144,10 +157,10 @@ class PreviewOnCreate(PreviewOnEdit):
     permission_required = "add"
 
     @property
-    def session_key(self):
+    def object_key(self):
         app_label = self.model._meta.app_label
         model_name = self.model._meta.model_name
-        return f"{self.session_key_prefix}{app_label}-{model_name}"
+        return f"{app_label}-{model_name}"
 
     def get_object(self):
         return self.model()

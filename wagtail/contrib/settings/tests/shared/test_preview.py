@@ -1,10 +1,10 @@
-import unittest
-
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils import timezone
 
+from wagtail.admin.models import FormState
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Site
 from wagtail.test.testapp.models import (
@@ -39,8 +39,8 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
             "wagtailsettings:preview_on_edit",
             args=(self.app_label, self.model_name, url_pk),
         )
-        self.session_key_prefix = f"wagtail-preview-{self.app_label}-{self.model_name}"
-        self.edit_session_key = f"{self.session_key_prefix}-{self.setting.pk}"
+        self.object_key_prefix = f"{self.app_label}-{self.model_name}"
+        self.object_key = f"{self.object_key_prefix}-{self.setting.pk}"
 
         self.post_data = {
             "text": f"An edited {self.verbose_name}",
@@ -65,7 +65,11 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can still see the preview with the last valid data
-        self.assertIn(self.edit_session_key, self.client.session)
+        form_state = FormState.objects.filter(
+            user=self.user,
+            object_key=self.object_key,
+        )
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
@@ -92,8 +96,13 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         )
 
     def test_preview_on_edit_clear_preview_data(self):
-        # Set a fake preview session data for the setting
-        self.client.session[self.edit_session_key] = "test data"
+        # Set fake preview data
+        form_state = FormState.objects.create(
+            user=self.user,
+            object_key=self.object_key,
+            data={"test": "data"},
+            last_updated_at=timezone.now(),
+        )
 
         response = self.client.delete(self.preview_on_edit_url)
         self.assertEqual(response.status_code, 200)
@@ -102,8 +111,8 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
             {"success": True},
         )
 
-        # The data should no longer exist in the session
-        self.assertNotIn(self.edit_session_key, self.client.session)
+        # The data should no longer exist
+        self.assertFalse(FormState.objects.filter(pk=form_state.pk).exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
@@ -150,7 +159,6 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-    @unittest.expectedFailure
     @override_settings(SESSION_ENGINE="django.contrib.sessions.backends.signed_cookies")
     def test_big_preview_with_signed_cookies(self):
         self.login(self.user)
@@ -174,7 +182,11 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
 
         # Check the user can refresh the preview
-        self.assertIn(self.edit_session_key, self.client.session)
+        form_state = FormState.objects.filter(
+            user=self.user,
+            object_key=self.object_key,
+        )
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
