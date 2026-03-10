@@ -1000,6 +1000,7 @@
 * Mason Lyons
 * Saksham Chawla
 * Roshan Ramani
+* Jawad Khan
 
 ## Translators
 

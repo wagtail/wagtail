@@ -261,6 +261,11 @@ class TestSitemapGenerator(TestCase):
         self.assertIn(self.other_site_homepage, pages)
         self.assertNotIn(self.child_page, pages)
 
+    def test_sitemap_view_returns_404_for_unrecognized_host(self):
+        Site.objects.update(is_default_site=False)
+        response = self.client.get("/sitemap.xml", HTTP_HOST="127.0.0.1")
+        self.assertEqual(response.status_code, 404)
+
 
 class TestIndexView(TestCase):
     def test_index_view(self):

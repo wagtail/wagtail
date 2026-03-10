@@ -1,4 +1,5 @@
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
+from django.http import Http404
 
 # Note: avoid importing models here. This module is imported from __init__.py
 # which causes it to be loaded early in startup if wagtail.contrib.sitemaps is
@@ -23,7 +24,15 @@ class Sitemap(DjangoSitemap):
 
         site = Site.find_for_request(self.request)
         if site is None:
-            return Site.objects.select_related("root_page").get(is_default_site=True)
+            try:
+                return Site.objects.select_related("root_page").get(
+                    is_default_site=True
+                )
+            except Site.DoesNotExist:
+                raise Http404(
+                    "No Wagtail site found for this request, "
+                    "and no default site is configured."
+                ) from None
         return site
 
     def items(self):
