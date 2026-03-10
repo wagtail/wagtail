@@ -224,6 +224,13 @@ gmep = {
     ],
 }
 
+heyzine = {
+    "endpoint": "https://heyzine.com/api1/oembed",
+    "urls": [
+        r"^https?://(?:[-\w]+\.)?heyzine\.com/flip-book/.+$",
+    ],
+}
+
 hlipp = {
     "endpoint": "http://geo.hlipp.de/restapi.php/api/oembed",
     "urls": [
@@ -654,8 +661,8 @@ all_providers = [
     clikthrough,
     collegehumor,
     coub,
-    crowdsignal,
     crowd_ranking,
+    crowdsignal,
     dailymile,
     dailymotion,
     datastudio,
@@ -673,6 +680,7 @@ all_providers = [
     geograph_uk,
     github_gist,
     gmep,
+    heyzine,
     hlipp,
     huffduffer,
     hulu,
