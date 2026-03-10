@@ -955,6 +955,7 @@
 * Collins Kubu
 * Advik Sharma
 * Oluwagbeminiyi Agbedejobi
+* Baptiste Darthenay
 
 ## Translators
 
