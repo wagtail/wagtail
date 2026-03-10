@@ -135,3 +135,29 @@ class EditingSession(models.Model):
         indexes = [
             models.Index(fields=["content_type", "object_id"]),
         ]
+
+
+class FormState(models.Model):
+    """The form state of a create or edit form for a given user and object."""
+
+    data = models.JSONField(default=dict)
+    """The form data as a dictionary that maps form field names to arrays of values."""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="wagtail_form_states",
+    )
+    """The user that the form state belongs to."""
+    object_key = models.CharField(max_length=512)
+    """The identifier of the object being created or edited."""
+    last_updated_at = models.DateTimeField()
+    """The last time the form state was updated."""
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=["user", "object_key"],
+                name="formstate_user_object",
+            ),
+        ]
+        ordering = ["-last_updated_at"]
