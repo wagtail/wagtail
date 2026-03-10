@@ -1,6 +1,5 @@
 import datetime
 import json
-import unittest
 from functools import wraps
 
 from django.contrib.auth.models import Permission
@@ -9,6 +8,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail.admin.models import FormState
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.models import Page, Site
@@ -136,16 +136,15 @@ class TestPreview(WagtailTestUtils, TestCase):
             "comments-MAX_NUM_FORMS": 1000,
         }
 
-    def test_preview_on_create_with_no_session_data(self):
+    def test_preview_on_create_with_no_form_data(self):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_add",
             args=("tests", "eventpage", self.home_page.id),
         )
 
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
-        self.assertNotIn(preview_session_key, self.client.session)
+        object_key = f"tests-eventpage-{self.home_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertFalse(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -170,10 +169,9 @@ class TestPreview(WagtailTestUtils, TestCase):
             args=("tests", "eventpage", self.home_page.id),
         )
 
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
-        self.assertNotIn(preview_session_key, self.client.session)
+        object_key = f"tests-eventpage-{self.home_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertFalse(form_state.exists())
 
         response = self.client.post(
             preview_url,
@@ -187,8 +185,9 @@ class TestPreview(WagtailTestUtils, TestCase):
             {"is_valid": False, "is_available": False},
         )
 
-        # The invalid data should not be saved in the session
-        self.assertNotIn(preview_session_key, self.client.session)
+        # The invalid data should not be saved
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertFalse(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -222,10 +221,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
-        self.assertIn(preview_session_key, self.client.session)
+        object_key = f"tests-eventpage-{self.home_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -255,10 +253,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
-        self.assertIn(preview_session_key, self.client.session)
+        object_key = f"tests-eventpage-{self.home_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -275,10 +272,9 @@ class TestPreview(WagtailTestUtils, TestCase):
             args=("tests", "eventpage", self.home_page.id),
         )
 
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
-        self.assertNotIn(preview_session_key, self.client.session)
+        object_key = f"tests-eventpage-{self.home_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertFalse(form_state.exists())
 
         response = self.client.post(
             preview_url,
@@ -304,10 +300,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
-        self.assertIn(preview_session_key, self.client.session)
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -322,10 +316,9 @@ class TestPreview(WagtailTestUtils, TestCase):
             args=("tests", "eventpage", self.home_page.id),
         )
 
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
-        self.assertNotIn(preview_session_key, self.client.session)
+        object_key = f"tests-eventpage-{self.home_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertFalse(form_state.exists())
 
         response = self.client.post(
             preview_url,
@@ -349,10 +342,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
-        self.assertIn(preview_session_key, self.client.session)
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -416,8 +407,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = f"wagtail-preview-{self.event_page.id}"
-        self.assertIn(preview_session_key, self.client.session)
+        object_key = f"{self.event_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -446,8 +438,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = f"wagtail-preview-{self.event_page.id}"
-        self.assertIn(preview_session_key, self.client.session)
+        object_key = f"{self.event_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -513,8 +506,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can still see the preview with the last valid data
-        preview_session_key = f"wagtail-preview-{self.event_page.id}"
-        self.assertIn(preview_session_key, self.client.session)
+        object_key = f"{self.event_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -554,8 +548,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = f"wagtail-preview-{self.event_page.id}"
-        self.assertIn(preview_session_key, self.client.session)
+        object_key = f"{self.event_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -591,8 +586,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        preview_session_key = f"wagtail-preview-{self.event_page.id}"
-        self.assertIn(preview_session_key, self.client.session)
+        object_key = f"{self.event_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -603,8 +599,10 @@ class TestPreview(WagtailTestUtils, TestCase):
 
     def test_preview_on_edit_expiry(self):
         initial_datetime = timezone.now()
-        expiry_datetime = initial_datetime + datetime.timedelta(
-            seconds=PreviewOnEdit.preview_expiration_timeout + 1
+        expiry_datetime = (
+            initial_datetime
+            + PreviewOnEdit.preview_expiration_timeout
+            + datetime.timedelta(seconds=1)
         )
 
         with freeze_time(initial_datetime) as frozen_datetime:
@@ -670,7 +668,6 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-    @unittest.expectedFailure
     @override_settings(SESSION_ENGINE="django.contrib.sessions.backends.signed_cookies")
     def test_big_preview_with_signed_cookies(self):
         self.login(self.user)
@@ -708,8 +705,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
 
         # Check the user can refresh the preview
-        preview_session_key = f"wagtail-preview-{self.event_page.id}"
-        self.assertIn(preview_session_key, self.client.session)
+        object_key = f"{self.event_page.id}"
+        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
 
@@ -722,12 +720,15 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Holidays</li>")
 
     def test_preview_on_create_clear_preview_data(self):
-        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-            self.home_page.id
-        )
+        object_key = f"tests-eventpage-{self.home_page.id}"
 
-        # Set a fake preview session data for the page
-        self.client.session[preview_session_key] = "test data"
+        # Set fake preview data for the page
+        form_state = FormState.objects.create(
+            user=self.user,
+            object_key=object_key,
+            data={"test": "data"},
+            last_updated_at=timezone.now(),
+        )
 
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_add",
@@ -740,8 +741,8 @@ class TestPreview(WagtailTestUtils, TestCase):
             {"success": True},
         )
 
-        # The data should no longer exist in the session
-        self.assertNotIn(preview_session_key, self.client.session)
+        # The data should no longer exist
+        self.assertFalse(FormState.objects.filter(id=form_state.id).exists())
 
         response = self.client.get(preview_url)
 
@@ -761,10 +762,13 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_edit_clear_preview_data(self):
-        preview_session_key = f"wagtail-preview-{self.event_page.id}"
-
-        # Set a fake preview session data for the page
-        self.client.session[preview_session_key] = "test data"
+        # Set fake preview data for the page
+        form_state = FormState.objects.create(
+            user=self.user,
+            object_key=f"{self.event_page.id}",
+            data={"test": "data"},
+            last_updated_at=timezone.now(),
+        )
 
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
@@ -776,8 +780,8 @@ class TestPreview(WagtailTestUtils, TestCase):
             {"success": True},
         )
 
-        # The data should no longer exist in the session
-        self.assertNotIn(preview_session_key, self.client.session)
+        # The data should no longer exist
+        self.assertFalse(FormState.objects.filter(id=form_state.id).exists())
 
         response = self.client.get(preview_url)
 
