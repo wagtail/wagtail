@@ -708,6 +708,25 @@ describe('AutosaveController', () => {
       // No new call, retries should be cleared after success
       expect(fetch).toHaveBeenCalledTimes(4);
 
+      fetch.mockReset();
+      errorListener.mockReset();
+      input.value = 'Max retries';
+      unsavedEvent = await dispatchUnsaved(form);
+      await expectSaveAttempt(1);
+      await jest.advanceTimersByTimeAsync(2000);
+      await expectSaveAttempt(2);
+      await jest.advanceTimersByTimeAsync(4000);
+      await expectSaveAttempt(3);
+      await jest.advanceTimersByTimeAsync(8000);
+      await expectSaveAttempt(4);
+      await jest.advanceTimersByTimeAsync(16000);
+      await expectSaveAttempt(5);
+      await jest.advanceTimersByTimeAsync(32000);
+      await expectSaveAttempt(6);
+      await jest.advanceTimersByTimeAsync(64500);
+      // 1 initial attempt, 5 retries max
+      expect(fetch).toHaveBeenCalledTimes(6);
+
       form.removeEventListener('w-autosave:error', errorListener);
     });
   });

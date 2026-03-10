@@ -130,6 +130,8 @@ export class AutosaveController extends Controller<
     state: { type: String, default: 'idle' as AutosaveState },
   };
 
+  static maxRetries = 5;
+
   declare readonly hasPartialsTarget: boolean;
   /** The target element for partial HTML updates. */
   declare readonly partialsTarget: HTMLDivElement;
@@ -274,7 +276,10 @@ export class AutosaveController extends Controller<
 
         // Another save attempt may happen in between retries. If it also fails,
         // keep the current retry timeout and don't set a new one.
-        if (!this.retryTimeout) {
+        if (
+          !this.retryTimeout &&
+          this.retryTimes < AutosaveController.maxRetries
+        ) {
           this.retryTimes += 1;
           this.retryTimeout = setTimeout(
             () => {
