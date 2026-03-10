@@ -4,7 +4,7 @@ Changelog
 7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
-
+ * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
