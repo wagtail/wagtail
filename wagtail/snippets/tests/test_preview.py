@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -35,8 +36,6 @@ class TestPreview(WagtailTestUtils, TestCase):
             "wagtailsnippets_tests_previewablemodel:preview_on_edit",
             args=(self.snippet.pk,),
         )
-        self.object_key_prefix = "tests-previewablemodel"
-        self.object_key = f"{self.object_key_prefix}-{self.snippet.pk}"
 
         self.post_data = {
             "text": "An edited previewable snippet",
@@ -46,8 +45,7 @@ class TestPreview(WagtailTestUtils, TestCase):
     def test_preview_on_create_with_no_form_data(self):
         form_state = FormState.objects.filter(
             user=self.user,
-            object_key=self.object_key_prefix,
-        )
+        ).for_instance(PreviewableModel())
         self.assertFalse(form_state.exists())
 
         response = self.client.get(self.preview_on_add_url)
@@ -70,8 +68,7 @@ class TestPreview(WagtailTestUtils, TestCase):
     def test_preview_on_create_with_invalid_data(self):
         form_state = FormState.objects.filter(
             user=self.user,
-            object_key=self.object_key_prefix,
-        )
+        ).for_instance(PreviewableModel())
         self.assertFalse(form_state.exists())
 
         response = self.client.post(self.preview_on_add_url, {"categories": [999999]})
@@ -86,8 +83,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         # The invalid data should not be saved
         form_state = FormState.objects.filter(
             user=self.user,
-            object_key=self.object_key_prefix,
-        )
+        ).for_instance(PreviewableModel())
         self.assertFalse(form_state.exists())
 
         response = self.client.get(self.preview_on_add_url)
@@ -120,8 +116,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         # Check the user can refresh the preview
         form_state = FormState.objects.filter(
             user=self.user,
-            object_key=self.object_key_prefix,
-        )
+        ).for_instance(PreviewableModel())
         self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_add_url)
@@ -149,8 +144,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         # Check the user can refresh the preview
         form_state = FormState.objects.filter(
             user=self.user,
-            object_key=self.object_key_prefix,
-        )
+        ).for_instance(PreviewableModel())
         self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_add_url)
@@ -204,10 +198,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        form_state = FormState.objects.filter(
-            user=self.user,
-            object_key=self.object_key,
-        )
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.snippet)
         self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
@@ -240,10 +231,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can still see the preview with the last valid data
-        form_state = FormState.objects.filter(
-            user=self.user,
-            object_key=self.object_key,
-        )
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.snippet)
         self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
@@ -269,10 +257,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        form_state = FormState.objects.filter(
-            user=self.user,
-            object_key=self.object_key,
-        )
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.snippet)
         self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
@@ -304,10 +289,11 @@ class TestPreview(WagtailTestUtils, TestCase):
             self.assertEqual(response.status_code, 200)
             response = self.client.get(self.preview_on_edit_url)
             self.assertEqual(response.status_code, 200)
-            form_state = FormState.objects.filter(
-                user=self.user,
-                object_key=self.object_key,
-            ).first()
+            form_state = (
+                FormState.objects.filter(user=self.user)
+                .for_instance(self.snippet)
+                .first()
+            )
             self.assertIsNotNone(form_state)
 
             frozen_datetime.move_to(expiry_datetime)
@@ -324,9 +310,8 @@ class TestPreview(WagtailTestUtils, TestCase):
 
             # Stale preview data should be removed
             self.assertFalse(FormState.objects.filter(id=form_state.id).exists())
-            form_state = FormState.objects.filter(
-                user=self.user,
-                object_key=f"{self.object_key_prefix}-{new_snippet.pk}",
+            form_state = FormState.objects.filter(user=self.user).for_instance(
+                new_snippet
             )
             self.assertTrue(form_state.exists())
 
@@ -379,10 +364,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
 
         # Check the user can refresh the preview
-        form_state = FormState.objects.filter(
-            user=self.user,
-            object_key=self.object_key,
-        )
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.snippet)
         self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
@@ -398,7 +380,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         # Set fake preview data
         form_state = FormState.objects.create(
             user=self.user,
-            object_key=self.object_key_prefix,
+            content_type=ContentType.objects.get_for_model(self.snippet),
+            object_id="",
             data={"test": "data"},
             last_updated_at=timezone.now(),
         )
@@ -434,7 +417,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         # Set fake preview data
         form_state = FormState.objects.create(
             user=self.user,
-            object_key=self.object_key,
+            content_object=self.snippet,
             data={"test": "data"},
             last_updated_at=timezone.now(),
         )

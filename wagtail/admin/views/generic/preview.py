@@ -28,6 +28,7 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
     http_method_names = ("post", "get", "delete")
     preview_expiration_timeout = timedelta(hours=24)
     permission_required = "change"
+    parent_object_id = ""
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -41,13 +42,6 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
     def remove_old_preview_data(self):
         expiration = now() - self.preview_expiration_timeout
         FormState.objects.filter(last_updated_at__lt=expiration).delete()
-
-    @property
-    def object_key(self):
-        app_label = self.model._meta.app_label
-        model_name = self.model._meta.model_name
-        unique_key = f"{app_label}-{model_name}-{self.object.pk}"
-        return unique_key
 
     def get_object(self):
         obj = get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
@@ -71,15 +65,15 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
 
         return form_class(query_dict, instance=self.object, for_user=self.request.user)
 
+    def get_form_state_queryset(self):
+        return FormState.objects.for_preview(
+            user=self.request.user,
+            instance=self.object,
+            parent_object_id=self.parent_object_id,
+        ).order_by("-last_updated_at")
+
     def _get_form_state(self):
-        return (
-            FormState.objects.filter(
-                user=self.request.user,
-                object_key=self.object_key,
-            )
-            .order_by("-last_updated_at")
-            .first()
-        )
+        return self.get_form_state_queryset().first()
 
     def _get_form_data(self, form_state):
         query_dict = QueryDict(mutable=True)
@@ -102,9 +96,10 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         if is_valid:
             # We do not handle request.FILES
             form_data = {key: form.data.getlist(key) for key in form.data}
-            form_state, _ = FormState.objects.update_or_create(
+            form_state, _ = FormState.objects.update_or_create_by_instance(
+                instance=self.object,
+                parent_object_id=self.parent_object_id,
                 user=self.request.user,
-                object_key=self.object_key,
                 defaults={"data": form_data, "last_updated_at": now()},
             )
             is_available = True
@@ -149,18 +144,12 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         return self.object.make_preview_request(request, preview_mode, extra_attrs)
 
     def delete(self, request, *args, **kwargs):
-        FormState.objects.filter(user=request.user, object_key=self.object_key).delete()
+        self.get_form_state_queryset().delete()
         return JsonResponse({"success": True})
 
 
 class PreviewOnCreate(PreviewOnEdit):
     permission_required = "add"
-
-    @property
-    def object_key(self):
-        app_label = self.model._meta.app_label
-        model_name = self.model._meta.model_name
-        return f"{app_label}-{model_name}"
 
     def get_object(self):
         return self.model()
