@@ -3,6 +3,7 @@ import json
 from functools import wraps
 
 from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -15,6 +16,7 @@ from wagtail.models import Page, Site
 from wagtail.test.testapp.models import (
     CustomPreviewSizesPage,
     EventCategory,
+    EventPage,
     MultiPreviewModesPage,
     SimplePage,
     StreamPage,
@@ -142,8 +144,9 @@ class TestPreview(WagtailTestUtils, TestCase):
             args=("tests", "eventpage", self.home_page.id),
         )
 
-        object_key = f"tests-eventpage-{self.home_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertFalse(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -169,8 +172,9 @@ class TestPreview(WagtailTestUtils, TestCase):
             args=("tests", "eventpage", self.home_page.id),
         )
 
-        object_key = f"tests-eventpage-{self.home_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertFalse(form_state.exists())
 
         response = self.client.post(
@@ -186,7 +190,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # The invalid data should not be saved
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertFalse(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -221,8 +227,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        object_key = f"tests-eventpage-{self.home_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -253,8 +260,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        object_key = f"tests-eventpage-{self.home_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -272,8 +280,9 @@ class TestPreview(WagtailTestUtils, TestCase):
             args=("tests", "eventpage", self.home_page.id),
         )
 
-        object_key = f"tests-eventpage-{self.home_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertFalse(form_state.exists())
 
         response = self.client.post(
@@ -300,7 +309,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -316,8 +327,9 @@ class TestPreview(WagtailTestUtils, TestCase):
             args=("tests", "eventpage", self.home_page.id),
         )
 
-        object_key = f"tests-eventpage-{self.home_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertFalse(form_state.exists())
 
         response = self.client.post(
@@ -342,7 +354,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(
+            user=self.user, parent_object_id=str(self.home_page.id)
+        ).for_instance(EventPage())
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -407,8 +421,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        object_key = f"{self.event_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(user=self.user).for_instance(
+            self.event_page.specific
+        )
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -438,8 +453,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        object_key = f"{self.event_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(user=self.user).for_instance(
+            self.event_page.specific
+        )
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -506,8 +522,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can still see the preview with the last valid data
-        object_key = f"{self.event_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(user=self.user).for_instance(
+            self.event_page.specific
+        )
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -548,8 +565,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        object_key = f"{self.event_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(user=self.user).for_instance(
+            self.event_page.specific
+        )
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -586,8 +604,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can refresh the preview
-        object_key = f"{self.event_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(user=self.user).for_instance(
+            self.event_page.specific
+        )
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -705,8 +724,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
 
         # Check the user can refresh the preview
-        object_key = f"{self.event_page.id}"
-        form_state = FormState.objects.filter(user=self.user, object_key=object_key)
+        form_state = FormState.objects.filter(user=self.user).for_instance(
+            self.event_page.specific
+        )
         self.assertTrue(form_state.exists())
 
         response = self.client.get(preview_url)
@@ -720,12 +740,12 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Holidays</li>")
 
     def test_preview_on_create_clear_preview_data(self):
-        object_key = f"tests-eventpage-{self.home_page.id}"
-
         # Set fake preview data for the page
         form_state = FormState.objects.create(
             user=self.user,
-            object_key=object_key,
+            content_type=ContentType.objects.get_for_model(EventPage),
+            object_id="",
+            parent_object_id=str(self.home_page.id),
             data={"test": "data"},
             last_updated_at=timezone.now(),
         )
@@ -765,7 +785,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         # Set fake preview data for the page
         form_state = FormState.objects.create(
             user=self.user,
-            object_key=f"{self.event_page.id}",
+            content_object=self.event_page.specific,
             data={"test": "data"},
             last_updated_at=timezone.now(),
         )

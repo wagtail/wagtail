@@ -39,8 +39,6 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
             "wagtailsettings:preview_on_edit",
             args=(self.app_label, self.model_name, url_pk),
         )
-        self.object_key_prefix = f"{self.app_label}-{self.model_name}"
-        self.object_key = f"{self.object_key_prefix}-{self.setting.pk}"
 
         self.post_data = {
             "text": f"An edited {self.verbose_name}",
@@ -65,10 +63,7 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can still see the preview with the last valid data
-        form_state = FormState.objects.filter(
-            user=self.user,
-            object_key=self.object_key,
-        )
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.setting)
         self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
@@ -99,7 +94,7 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         # Set fake preview data
         form_state = FormState.objects.create(
             user=self.user,
-            object_key=self.object_key,
+            content_object=self.setting,
             data={"test": "data"},
             last_updated_at=timezone.now(),
         )
@@ -182,10 +177,7 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
 
         # Check the user can refresh the preview
-        form_state = FormState.objects.filter(
-            user=self.user,
-            object_key=self.object_key,
-        )
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.setting)
         self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
