@@ -323,7 +323,7 @@ The user bar is also available as a [template component](template_components), w
 
 ## Varying output between preview and live
 
-Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides the `request.is_preview` (also available as `is_preview`) variable to distinguish between preview and live:
+Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides the `request.is_preview` variable, whose `is_preview` attribute is used to distinguish between preview and live:
 
 ```html+django
 {% if not request.is_preview %}
@@ -341,7 +341,7 @@ if the page supports [multiple preview modes](wagtail.models.Page.preview_modes)
 
 The live preview panel utilizes an iframe to display the preview in the editor page, which requires the page in the iframe to have the `X-Frame-Options` header set to `SAMEORIGIN` (or unset). If you click a link within the preview panel, 
 you may notice that the iframe stops working. This is because the link is loaded within the iframe and the linked page may have the `X-Frame-Options` header set to `DENY`. 
-To work around this problem, Wagtail provides the `request.in_preview_panel` (also available as `in_preview_panel`) variable. Add the following `<base>` tag within your `<head>` element in your `base.html` template, before any `<link>` elements:
+To work around this problem, Wagtail provides a `request.in_preview_panel` variable, whose `in_preview_panel` attribute indicates that the page is being rendered inside the preview panel. Add the following `<base>` tag within your `<head>` element in your `base.html` template, before any `<link>` elements:
 
 ```html+django
 {% if request.in_preview_panel %}
