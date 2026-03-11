@@ -953,6 +953,7 @@
 * Ashutosh
 * Garrett Coakley
 * Collins Kubu
+* Advik Sharma
 
 ## Translators
 
