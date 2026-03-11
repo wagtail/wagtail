@@ -1,4 +1,6 @@
 import datetime
+import json
+import unittest
 from functools import wraps
 
 from django.contrib.auth.models import Permission
@@ -667,6 +669,57 @@ class TestPreview(WagtailTestUtils, TestCase):
         response = self.client.get(preview_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    @unittest.expectedFailure
+    @override_settings(SESSION_ENGINE="django.contrib.sessions.backends.signed_cookies")
+    def test_big_preview_with_signed_cookies(self):
+        self.login(self.user)
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
+        )
+        blocks = [
+            {
+                "inlineStyleRanges": [],
+                "text": f"block number {i} " * i * 64,
+                "depth": 0,
+                "type": "unstyled",
+                "key": f"{i:05}",
+                "entityRanges": [],
+            }
+            for i in range(1, 65)
+        ]
+        data = {
+            **self.post_data,
+            "body": json.dumps({"entityMap": {}, "blocks": blocks}),
+        }
+        response = self.client.post(preview_url, data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # After storing the preview data, cookie size must not exceed 4096 bytes
+        # (common limit in web browsers). Django's test client happily allows
+        # cookies larger than that, so we explicitly assert the approximate
+        # cookie size here. See: https://github.com/wagtail/wagtail/issues/4521
+        self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
+
+        # Check the user can refresh the preview
+        preview_session_key = f"wagtail-preview-{self.event_page.id}"
+        self.assertIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/event_page.html")
+        self.assertContains(response, "Beach party")
+        self.assertContains(response, "block number 64")
+        self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
 
     def test_preview_on_create_clear_preview_data(self):
         preview_session_key = "wagtail-preview-tests-eventpage-{}".format(

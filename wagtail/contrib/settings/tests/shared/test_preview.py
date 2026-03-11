@@ -1,5 +1,8 @@
+import unittest
+
 from django.contrib.auth.models import Permission
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.admin.staticfiles import versioned_static
@@ -146,6 +149,39 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         response = self.client.get(self.preview_on_edit_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    @unittest.expectedFailure
+    @override_settings(SESSION_ENGINE="django.contrib.sessions.backends.signed_cookies")
+    def test_big_preview_with_signed_cookies(self):
+        self.login(self.user)
+        text = ", ".join(f"This text grows about {i} times " * i for i in range(1, 257))
+        response = self.client.post(
+            self.preview_on_edit_url,
+            {**self.post_data, "text": text},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # After storing the preview data, cookie size must not exceed 4096 bytes
+        # (common limit in web browsers). Django's test client happily allows
+        # cookies larger than that, so we explicitly assert the approximate
+        # cookie size here. See: https://github.com/wagtail/wagtail/issues/4521
+        self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
+
+        # Check the user can refresh the preview
+        self.assertIn(self.edit_session_key, self.client.session)
+
+        response = self.client.get(self.preview_on_edit_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_setting.html")
+        self.assertContains(response, "This text grows about 256 times")
 
 
 class TestSiteSettingPreview(TestGenericSiteSettingPreview):
