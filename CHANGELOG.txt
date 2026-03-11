@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -310,7 +311,7 @@ Changelog
 7.0.7 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- *
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
 
 7.0.6 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -603,7 +604,7 @@ Changelog
 6.3.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- *
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
 
 6.3.8 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
