@@ -4,7 +4,7 @@ Changelog
 6.3.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- *
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
 
 6.3.8 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
