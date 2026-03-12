@@ -2,9 +2,11 @@
 
 # StreamField validation
 
-All StreamField blocks implement a `clean` method which accepts a block value and returns a cleaned version of that value, or raises a `ValidationError` if the value fails validation. Built-in validation rules, such as checking that a URLBlock value is a correctly-formatted URL, are implemented through this method. Additionally, for blocks that act as containers for other blocks, such as StructBlock, the `clean` method recursively calls the `clean` methods of its child blocks and handles raising validation errors back to the caller as required.
+All StreamField blocks implement a {meth}`~wagtail.blocks.Block.clean` method which accepts a block value and returns a cleaned version of that value, or raises a `ValidationError` if the value fails validation. Built-in validation rules, such as checking that a URLBlock value is a correctly-formatted URL, are implemented through this method. Additionally, for blocks that act as containers for other blocks, such as StructBlock, the `clean` method recursively calls the `clean` methods of its child blocks and handles raising validation errors back to the caller as required.
 
-The `clean` method can be overridden on block subclasses to implement custom validation logic. For example, a StructBlock that requires either one of its child blocks to be filled in could be implemented as follows:
+The `clean` method can be overridden on block subclasses to implement custom validation logic. During validation of drafts, the block has the {attr}`~wagtail.blocks.Block.is_deferred_validation` attribute set to `True`.
+
+For example, a StructBlock that requires either one of its child blocks to be filled in (at the time of publishing, but not when saving a draft) could be implemented as follows:
 
 ```python
 from django.core.exceptions import ValidationError
@@ -16,7 +18,7 @@ class LinkBlock(StructBlock):
 
     def clean(self, value):
         result = super().clean(value)
-        if not(result['page'] or result['url']):
+        if not self.is_deferred_validation and not (result['page'] or result['url']):
             raise ValidationError("Either page or URL must be specified")
         return result
 ```

@@ -69,7 +69,9 @@ All block definitions have the following methods and properties that can be over
     .. automethod:: wagtail.blocks.Block.get_preview_context
     .. automethod:: wagtail.blocks.Block.get_preview_template
     .. automethod:: wagtail.blocks.Block.get_description
+    .. automethod:: wagtail.blocks.Block.clean
     .. autoattribute:: wagtail.blocks.Block.is_previewable
+    .. autoattribute:: wagtail.blocks.Block.is_deferred_validation
 ```
 
 (field_block_types)=
