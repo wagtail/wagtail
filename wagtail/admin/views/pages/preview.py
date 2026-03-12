@@ -28,7 +28,8 @@ def view_draft(request, page_id):
 class PreviewOnEdit(GenericPreviewOnEdit):
     def get_object(self):
         page = get_object_or_404(
-            Page, id=self.kwargs["page_id"]
+            Page.objects.select_related("latest_revision"),
+            id=self.kwargs["page_id"],
         ).get_latest_revision_as_object()
         page_perms = page.permissions_for_user(self.request.user)
         if not page_perms.can_edit():

@@ -274,6 +274,47 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_edit_with_multiple_modes(self):
+        snippet = MultiPreviewModesModel.objects.create(text="Multiple preview modes")
+        snippet.save_revision()
+        url = (
+            reverse(
+                "wagtailsnippets_tests_multipreviewmodesmodel:preview_on_edit",
+                args=(snippet.pk,),
+            )
+            + "?mode=alt%231"
+        )
+        response = self.client.post(url, {"text": "Multiple modes with alternate mode"})
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        form_state = FormState.objects.filter(user=self.user).for_instance(snippet)
+        self.assertTrue(form_state.exists())
+
+        response = self.client.get(url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model_alt.html")
+
+        # The text is empty
+        self.assertContains(
+            response,
+            "<title>Multiple modes with alternate mode (Alternate Preview)</title>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<h1>Multiple modes with alternate mode</h1>",
+            html=True,
+        )
+
     def test_preview_on_edit_expiry(self):
         initial_datetime = timezone.now()
         expiry_datetime = (
