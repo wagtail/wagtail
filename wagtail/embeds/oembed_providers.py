@@ -172,6 +172,14 @@ flickr = {
     ],
 }
 
+flourish = {
+    "endpoint": "https://app.flourish.studio/api/v1/oembed",
+    "urls": [
+        r"^https?://public\.flourish\.studio/visualisation/.+$",
+        r"^https?://public\.flourish\.studio/story/.+$",
+    ],
+}
+
 funny_or_die = {
     "endpoint": "https://www.funnyordie.com/oembed.{format}",
     "urls": [
@@ -659,6 +667,7 @@ all_providers = [
     five_hundred_px,
     five_min,
     flickr,
+    flourish,
     funny_or_die,
     geograph_gg,
     geograph_uk,

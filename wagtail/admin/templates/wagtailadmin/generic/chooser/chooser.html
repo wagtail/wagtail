@@ -62,7 +62,7 @@
         </section>
 
         {% if creation_form %}
-            {% include view.creation_form_template_name %}
+            {% include view.creation_form_template_name with hidden=True %}
         {% endif %}
     </div>
 </div>
