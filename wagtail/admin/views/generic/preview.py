@@ -44,10 +44,13 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         FormState.objects.filter(last_updated_at__lt=expiration).delete()
 
     def get_object(self):
-        obj = get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
+        queryset = self.model.objects.all()
+        if revision_enabled := issubclass(self.model, RevisionMixin):
+            queryset = queryset.select_related("latest_revision")
+        obj = get_object_or_404(queryset, pk=unquote(str(self.kwargs["pk"])))
         if not self.user_has_permission_for_instance(self.permission_required, obj):
             raise PermissionDenied
-        if isinstance(obj, RevisionMixin):
+        if revision_enabled:
             obj = obj.get_latest_revision_as_object()
         return obj
 
