@@ -2,7 +2,7 @@
 
 This tutorial shows you how to build a blog using Wagtail. Also, the tutorial gives you hands-on experience with some of Wagtail's features.
 
-To complete this tutorial, we recommend that you have some basic programming knowledge, as well as an understanding of web development concepts. A basic understanding of Python and the Django framework ensures a more grounded understanding of this tutorial, but it's not mandatory.
+To complete this tutorial, we recommend that you have some basic programming knowledge, as well as an understanding of web development concepts. A basic understanding of Python and the Django framework will help you follow this tutorial, but it is not required.
 
 ```{note}
 If you want to add Wagtail to an existing Django project instead, see [](integrating_into_django).
@@ -63,8 +63,7 @@ Activate the virtual environment using:
 source mysite/env/bin/activate
 ```
 
-Upon activation, your command line will show `(env)` to indicate that you're now working within this virtual environment.
-
+After activation, your command line will show `(env)`, indicating that the virtual environment is active.
 **For other shells** see the [`venv` documentation](inv:python#tutorial/venv).
 
 ```{note}
@@ -123,7 +122,7 @@ By default, your database is SQLite. To match your database tables with your pro
 python manage.py migrate
 ```
 
-This command ensures that the tables in your database match the models in your project. Every time you alter your model, then you must run the `python manage.py migrate` command to update the database. For example, if you add a field to a model, then you must run the command.
+This command ensures that the tables in your database match the models defined in your project . Every time you alter your model, then you must run the `python manage.py migrate` command to update the database. For example, if you add a field to a model, then you must run the command.
 
 ### Create an admin user
 
