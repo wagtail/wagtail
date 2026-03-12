@@ -34,6 +34,7 @@ class BaseChooser(widgets.Input):
     model = None
     js_constructor = "Chooser"
     linked_fields = {}
+    to_field_name = None
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
@@ -51,6 +52,7 @@ class BaseChooser(widgets.Input):
             "show_clear_link",
             "icon",
             "linked_fields",
+            "to_field_name",
         ]:
             if var in kwargs:
                 setattr(self, var, kwargs.pop(var))
@@ -118,9 +120,10 @@ class BaseChooser(widgets.Input):
         elif isinstance(value, self.model_class):
             return value
         else:  # assume instance ID
+            lookup_field = self.to_field_name or "pk"
             try:
-                return self.model_class.objects.get(pk=value)
-            except self.model_class.DoesNotExist:
+                return self.model_class.objects.get(**{lookup_field: value})
+            except (self.model_class.DoesNotExist, ValueError, TypeError):
                 return None
 
     def get_display_title(self, instance):
@@ -135,8 +138,10 @@ class BaseChooser(widgets.Input):
         and the client-side rendering code (via telepath) that contains all the information needed
         for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
         """
+        instance_id = getattr(instance, self.to_field_name or "pk")
+
         return {
-            "id": instance.pk,
+            "id": instance_id,
             "edit_url": AdminURLFinder().get_edit_url(instance),
             self.display_title_key: self.get_display_title(instance),
         }
