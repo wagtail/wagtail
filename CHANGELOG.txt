@@ -39,6 +39,7 @@ Changelog
  * Maintenance: Upgrade to latest Sass with changes for deprecated `if` syntax (Sage Abdullah)
  * Maintenance: Add explicit `timeout-minutes` to GitHub Actions workflow jobs (Ashutosh)
  * Maintenance: Upgrade Python tooling, testing, and docs dependencies (Sage Abdullah)
+ * Maintenance: Support skipping transaction unit tests with a tag (Sage Abdullah)
 
 
 7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT

@@ -12,7 +12,13 @@ from django.core.files.storage import Storage, default_storage, storages
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
-from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
+from django.test import (
+    SimpleTestCase,
+    TestCase,
+    TransactionTestCase,
+    override_settings,
+    tag,
+)
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
@@ -198,6 +204,7 @@ class TestImage(TestCase):
         self.assertEqual(image.default_alt_text, image.title)
 
 
+@tag("transaction")
 class TestImageQuerySet(TransactionTestCase):
     fixtures = ["test_empty.json"]
 
