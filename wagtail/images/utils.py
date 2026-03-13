@@ -1,6 +1,7 @@
 import base64
 import hashlib
 import hmac
+import re
 
 from django.conf import settings
 from django.utils.crypto import constant_time_compare
@@ -150,10 +151,24 @@ def get_allowed_image_extensions():
     )
 
 
-def get_accept_attributes():
+def is_safari_mac(request):
+    """
+    Returns True if the request appears to come from Safari/MacOS
+    """
+    if request is None:
+        return False
+    user_agent = request.headers.get("User-Agent", "")
+    return bool(
+        re.search(r"Macintosh", user_agent)
+        and re.search(r"Safari", user_agent)
+        and not re.search(r"Chrome|Chromium", user_agent)
+    )
+
+
+def get_accept_attributes(request=None):
     allowed_image_extensions = get_allowed_image_extensions()
     accept_attrs = "image/*"
-    if "heic" in allowed_image_extensions:
+    if "heic" in allowed_image_extensions and not is_safari_mac(request):
         accept_attrs += ", image/heic"
     if "avif" in allowed_image_extensions:
         accept_attrs += ", image/avif"
