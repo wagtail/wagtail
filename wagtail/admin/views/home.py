@@ -236,14 +236,27 @@ class LockedPagesPanel(Component):
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
+        locked_pages_base = list(
+            Page.objects.filter(
+                locked=True,
+                locked_by=request.user,
+            )
+            .order_by("-locked_at", "-latest_revision_created_at", "-pk")
+            .select_related("locale")
+        )
+        locale_map = {p.pk: p.locale for p in locked_pages_base}
+        base_ids = [p.pk for p in locked_pages_base]
+        locked_pages = list(
+            Page.objects.filter(pk__in=base_ids)
+            .order_by("-locked_at", "-latest_revision_created_at", "-pk")
+            .specific(defer=True)
+        )
+        for page in locked_pages:
+            if page.pk in locale_map:
+                page.locale = locale_map[page.pk]
         context.update(
             {
-                "locked_pages": Page.objects.filter(
-                    locked=True,
-                    locked_by=request.user,
-                )
-                .order_by("-locked_at", "-latest_revision_created_at", "-pk")
-                .specific(defer=True),
+                "locked_pages": locked_pages,
                 "can_remove_locks": page_permission_policy.user_has_permission(
                     request.user, "unlock"
                 ),
@@ -273,13 +286,22 @@ class RecentEditsPanel(Component):
             .annotate(latest_date=Max("timestamp"))
             .order_by("-latest_date")[:edit_count]
         )
-        # Retrieve the page objects for those IDs
+        page_ids = [log["page_id"] for log in last_edits_dates]
+        # Pre-load locale on base pages in one query to avoid N+1 on specific instances
+        base_locale_map = {
+            p.pk: p.locale
+            for p in Page.objects.filter(pk__in=page_ids).select_related("locale")
+        }
         pages_mapping = (
             Page.objects.specific()
             .prefetch_workflow_states()
             .annotate_approved_schedule()
-            .in_bulk([log["page_id"] for log in last_edits_dates])
+            .in_bulk(page_ids)
         )
+        for pk, page in pages_mapping.items():
+            if pk in base_locale_map:
+                page.locale = base_locale_map[pk]
+
         # Compile a list of (latest edit timestamp, page object) tuples
         last_edits = []
         for log in last_edits_dates:

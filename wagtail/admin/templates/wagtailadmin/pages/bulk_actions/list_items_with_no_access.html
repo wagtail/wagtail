@@ -5,6 +5,6 @@
     {% if item.can_edit %}
         <a href="{% url 'wagtailadmin_pages:edit' item.item.id %}" target="_blank" rel="noreferrer">{{ item.item.get_admin_display_title }}</a>
     {% else %}
-        {{ item.item.get_admin_display_title }}
+        <span{% if item.item.locale %} lang="{{ item.item.locale.language_code }}"{% endif %}>{{ item.item.get_admin_display_title }}</span>
     {% endif %}
 {% endblock per_item %}
