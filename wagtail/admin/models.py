@@ -172,8 +172,8 @@ class FormStateManager(models.Manager.from_queryset(FormStateQuerySet)):
 class FormState(models.Model):
     """The form state of a create or edit form for a given user and object."""
 
-    data = models.JSONField(default=dict)
-    """The form data as a dictionary that maps form field names to arrays of values."""
+    data = models.TextField()
+    """The form data as a URL-encoded string."""
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -209,10 +209,6 @@ class FormState(models.Model):
             models.Index(
                 fields=["user", "content_type", "object_id", "parent_object_id"],
                 name="formstate_user_object",
-            ),
-            models.Index(
-                fields=["-last_updated_at"],
-                name="formstate_last_updated_at",
             ),
         ]
         ordering = ["-last_updated_at"]
