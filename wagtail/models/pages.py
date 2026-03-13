@@ -54,6 +54,7 @@ from wagtail.coreutils import (
 )
 from wagtail.fields import StreamField
 from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
 from wagtail.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
@@ -1037,14 +1038,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
         if log_action:
             if not previous_revision:
+                action = log_action if isinstance(log_action, str) else "wagtail.edit"
+                uuid = None
+                if overwrite_revision:
+                    # When overwriting a revision, use the same uuid for all
+                    # edit log entries, so we can group them as one entry and
+                    # avoid the history view becoming too noisy.
+                    logs = log_registry.get_logs_for_instance(self)
+                    uuid = logs.latest_uuid_for_user_revision_action(
+                        user, overwrite_revision, action
+                    )
+
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=action,
                     user=user,
                     revision=revision,
                     content_changed=changed,
+                    uuid=uuid,
                 )
             else:
                 log(
