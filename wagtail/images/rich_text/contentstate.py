@@ -7,6 +7,7 @@ from draftjs_exporter.dom import DOM
 from wagtail.admin.rich_text.converters.contentstate_models import Entity
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     AtomicBlockEntityElementHandler,
+    MalformedEmbedError,
 )
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
@@ -37,6 +38,10 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
     """
 
     def create_entity(self, name, attrs, state, contentstate):
+        if "id" not in attrs:
+            raise MalformedEmbedError(
+                f"Image embed is missing required 'id' attribute (got: {dict(attrs)!r})"
+            )
         Image = get_image_model()
         try:
             image = Image.objects.get(id=attrs["id"])
