@@ -1,3 +1,4 @@
+import re
 import unittest
 
 from django.conf import settings
@@ -637,6 +638,25 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         self.assertIn("/admin/images/chooser/", html)
         self.assertIn("/admin/embeds/chooser/", html)
         self.assertIn("/admin/documents/chooser/", html)
+
+    def test_link_allowlist_protocols(self):
+        features = FeatureRegistry()
+        link = features.get_editor_plugin("draftail", "link")
+
+        self.assertIsNotNone(link)
+        self.assertIn("allowlist", link.data)
+        self.assertIn("href", link.data["allowlist"])
+
+        href_pattern = link.data["allowlist"]["href"]
+        pattern = re.compile(href_pattern)
+
+        # Allowed protocols
+        self.assertTrue(pattern.match("http://example.com"))
+        self.assertTrue(pattern.match("https://example.com"))
+        self.assertTrue(pattern.match("mailto:test@example.com"))
+
+        # Disallowded protocol (security guard)
+        self.assertFalse(pattern.match("javascript:alert(1)"))
 
 
 class TestDraftailLazyTranslations(SimpleTestCase):
