@@ -5,6 +5,24 @@ Signals are useful for creating side-effects from page publish/unpublish events.
 
 For example, you could use signals to send publish notifications to a messaging service, or `POST` messages to another app that's consuming the API, such as a static site generator.
 
+`published` and `unpublished` are generic signals that work with any model that supports revisions, including `Page` models.
+
+## `published`
+
+This signal is emitted from a `Revision` when any model revision is set to `published`.
+-   `sender` - The model `class` of the published object.
+-   `instance` - The specific `model` instance that was published.
+-   `revision` - The `Revision` that was published.
+-   `kwargs` - Any other arguments passed to `published.send().`
+
+## `unpublished`
+
+This signal is emitted when any model instance is unpublished.
+
+-   `sender` - The model `class` of the unpublished object.
+-   `instance` - The specific `model` instance that was unpublished.
+-   `kwargs` - Any other arguments passed to `unpublished.send()`.
+
 ## `page_published`
 
 This signal is emitted from a `Revision` when a page revision is set to `published`.
