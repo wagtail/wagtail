@@ -3154,6 +3154,35 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             "This title was edited while approving",
         )
 
+    def test_workflow_action_valid_with_cancelled_workflow(self):
+        """
+        Test that workflow_action_is_valid returns False gracefully (and doesn't crash)
+        if the workflow has been cancelled.
+        Ref: #13856
+        """
+        workflow_state = self.object.current_workflow_state
+
+        workflow_state.cancel(user=self.superuser)
+        self.object.refresh_from_db()
+
+        response = self.client.post(
+            self.get_url("edit"),
+            {
+                self.title_field: "Edited Title",
+                "workflow-action-name": "approve",
+                "action-workflow-action": "True",
+            },
+        )
+
+        # Allow 200 (Page behavior) or 302 (Snippet behavior)
+        self.assertIn(response.status_code, [200, 302])
+        self.object.refresh_from_db()
+        self.assertFalse(self.object.live)
+
+        # If it's a 200, we can specifically check that the button is gone
+        if response.status_code == 200:
+            self.assertNotContains(response, 'name="action-approve"')
+
 
 class TestApproveRejectSnippetWorkflow(
     TestApproveRejectPageWorkflow, BaseSnippetWorkflowTests
