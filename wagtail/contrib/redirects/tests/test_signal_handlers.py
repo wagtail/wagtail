@@ -209,6 +209,29 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
             },
         )
 
+    def test_redirect_created_when_slug_changed_via_update_fields(self):
+        """
+        Regression test for #9833: changing a page slug via
+        save(update_fields=["slug"]) must still create a redirect.
+        Previously, url_path was not included in update_fields, so the
+        page_slug_changed signal saw no URL change and no redirect was created.
+        """
+        test_subject = self.event_index
+        old_url = test_subject.url
+
+        test_subject.slug += "-extra"
+        with self.captureOnCommitCallbacks(execute=True):
+            test_subject.save(update_fields=["slug"], clean=False)
+
+        # A redirect from the old URL should have been created
+        self.assertTrue(
+            Redirect.objects.filter(redirect_page=test_subject).exists(),
+            "Expected a redirect when slug changed via update_fields=['slug']",
+        )
+        redirect = Redirect.objects.get(redirect_page=test_subject)
+        self.assertEqual(redirect.old_path, Redirect.normalise_path(old_url))
+        self.assertTrue(redirect.automatically_created)
+
     def test_no_redirects_created_when_pages_are_moved_to_a_different_site(self):
         with self.captureOnCommitCallbacks(execute=True):
             # Add a new home page
