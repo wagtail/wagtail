@@ -3,6 +3,7 @@ import datetime
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import Http404
 from django.test import RequestFactory, TestCase, override_settings
 from django.utils import timezone
 
@@ -257,6 +258,25 @@ class TestSitemapGenerator(TestCase):
 
         self.assertIn(self.other_site_homepage.page_ptr.specific, pages)
         self.assertNotIn(self.child_page.page_ptr.specific, pages)
+
+
+class TestSitemapNoDefaultSite(TestCase):
+    def setUp(self):
+        Site.objects.update(is_default_site=False)
+
+    def test_get_wagtail_site_raises_404(self):
+        request = RequestFactory().get("/sitemap.xml")
+        request.META["HTTP_HOST"] = "127.0.0.1"
+        request.META["SERVER_PORT"] = 80
+
+        sitemap = Sitemap(request)
+
+        with self.assertRaises(Http404):
+            sitemap.get_wagtail_site()
+
+    def test_sitemap_view_returns_404_for_unrecognized_host(self):
+        response = self.client.get("/sitemap.xml", HTTP_HOST="127.0.0.1")
+        self.assertEqual(response.status_code, 404)
 
 
 class TestIndexView(TestCase):
