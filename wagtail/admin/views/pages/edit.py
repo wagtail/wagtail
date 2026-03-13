@@ -1109,13 +1109,22 @@ class EditView(
                 "media": media,
                 "autosave_enabled": self.autosave_enabled,
                 "autosave_interval": self.autosave_interval,
-                "autosave_indicator": AutosaveIndicator(),
-                "editing_sessions": self.get_editing_sessions(),
                 "loaded_revision_created_at": self.latest_revision_created_at,
                 "is_partial": self.expects_json_response or self.hydrate_create_view,
                 "hydrate_create_view": self.hydrate_create_view,
             }
         )
+
+        if not self.expects_json_response:
+            # These components do not need to be loaded when rendering partials
+            # for autosave. In particular, `get_editing_sessions` performs
+            # database writes that are not necessary when autosaving.
+            context.update(
+                {
+                    "editing_sessions": self.get_editing_sessions(),
+                    "autosave_indicator": AutosaveIndicator(),
+                }
+            )
 
         return context
 

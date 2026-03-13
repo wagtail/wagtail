@@ -76,10 +76,10 @@ def ping(request, app_label, model_name, object_id, session_id):
         session.save()
 
     other_sessions = (
-        EditingSession.objects.filter(
+        EditingSession.objects.available()
+        .filter(
             content_type=content_type,
             object_id=unquoted_object_id,
-            last_seen_at__gte=timezone.now() - timezone.timedelta(minutes=1),
         )
         .exclude(id=session.id)
         .select_related("user", "user__wagtail_userprofile")
@@ -99,6 +99,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                 "user": other_session.user,
                 "last_seen_at": other_session.last_seen_at,
                 "is_editing": other_session.is_editing,
+                "is_idle": other_session.is_idle,
                 "revision_id": None,
             }
         else:
@@ -140,6 +141,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                     "user": newest_revision.user,
                     "last_seen_at": newest_revision.created_at,
                     "is_editing": False,
+                    "is_idle": False,
                     "revision_id": newest_revision.id,
                 }
             else:
@@ -198,6 +200,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                     "user": get_user_display_name(other_session["user"]),
                     "last_seen_at": other_session["last_seen_at"].isoformat(),
                     "is_editing": other_session["is_editing"],
+                    "is_idle": other_session["is_idle"],
                     "revision_id": other_session["revision_id"],
                 }
                 for other_session in other_sessions
