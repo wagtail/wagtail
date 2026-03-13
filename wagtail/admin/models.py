@@ -100,3 +100,80 @@ class EditingSession(models.Model):
         indexes = [
             models.Index(fields=["content_type", "object_id"]),
         ]
+
+
+class FormStateQuerySet(models.QuerySet):
+    def for_instance(self, instance):
+        return self.filter(
+            content_type=ContentType.objects.get_for_model(
+                instance, for_concrete_model=False
+            ),
+            object_id=str(instance.pk or ""),
+        )
+
+    def for_preview(self, user, instance, parent_object_id=""):
+        return self.filter(user=user, parent_object_id=parent_object_id).for_instance(
+            instance
+        )
+
+
+class FormStateManager(models.Manager.from_queryset(FormStateQuerySet)):
+    def update_or_create_by_instance(
+        self,
+        instance,
+        parent_object_id="",
+        **kwargs,
+    ):
+        return super().update_or_create(
+            content_type=ContentType.objects.get_for_model(
+                instance, for_concrete_model=False
+            ),
+            object_id=str(instance.pk or ""),
+            parent_object_id=parent_object_id,
+            **kwargs,
+        )
+
+
+class FormState(models.Model):
+    """The form state of a create or edit form for a given user and object."""
+
+    data = models.TextField()
+    """The form data as a URL-encoded string."""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="wagtail_form_states",
+    )
+    """The user that the form state belongs to."""
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+        related_name="+",
+    )
+    """The content type of the object being created or edited."""
+    object_id = models.CharField(max_length=255)
+    """The ID of the object being edited, empty if the object is being created."""
+    content_object = GenericForeignKey(
+        "content_type",
+        "object_id",
+        for_concrete_model=False,
+    )
+    """The object being edited or created."""
+    parent_object_id = models.CharField(max_length=255)
+    """
+    The ID of the parent object, if the object is being created under a parent
+    (e.g. for pages). Empty otherwise.
+    """
+    last_updated_at = models.DateTimeField()
+    """The last time the form state was updated."""
+
+    objects = FormStateManager()
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=["user", "content_type", "object_id", "parent_object_id"],
+                name="formstate_user_object",
+            ),
+        ]
+        ordering = ["-last_updated_at"]

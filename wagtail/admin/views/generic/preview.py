@@ -1,4 +1,4 @@
-from time import time
+from datetime import timedelta
 
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import PermissionDenied
@@ -8,10 +8,12 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
+from django.utils.timezone import now
 from django.utils.translation import gettext
 from django.views.generic import TemplateView, View
 
 from wagtail.admin.forms.models import WagtailAdminModelForm
+from wagtail.admin.models import FormState
 from wagtail.admin.panels import get_edit_handler
 from wagtail.blocks.base import Block
 from wagtail.models import PreviewableMixin, RevisionMixin
@@ -24,9 +26,9 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
     model = None
     form_class = None
     http_method_names = ("post", "get", "delete")
-    preview_expiration_timeout = 60 * 60 * 24  # seconds
-    session_key_prefix = "wagtail-preview-"
+    preview_expiration_timeout = timedelta(hours=24)
     permission_required = "change"
+    parent_object_id = ""
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -38,28 +40,17 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         return super().dispatch(request, *args, **kwargs)
 
     def remove_old_preview_data(self):
-        expiration = time() - self.preview_expiration_timeout
-        expired_keys = [
-            k
-            for k, v in self.request.session.items()
-            if k.startswith(self.session_key_prefix) and v[1] < expiration
-        ]
-        # Removes the session key gracefully
-        for k in expired_keys:
-            self.request.session.pop(k)
-
-    @property
-    def session_key(self):
-        app_label = self.model._meta.app_label
-        model_name = self.model._meta.model_name
-        unique_key = f"{app_label}-{model_name}-{self.object.pk}"
-        return f"{self.session_key_prefix}{unique_key}"
+        expiration = now() - self.preview_expiration_timeout
+        FormState.objects.filter(last_updated_at__lt=expiration).delete()
 
     def get_object(self):
-        obj = get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
+        queryset = self.model.objects.all()
+        if revision_enabled := issubclass(self.model, RevisionMixin):
+            queryset = queryset.select_related("latest_revision")
+        obj = get_object_or_404(queryset, pk=unquote(str(self.kwargs["pk"])))
         if not self.user_has_permission_for_instance(self.permission_required, obj):
             raise PermissionDenied
-        if isinstance(obj, RevisionMixin):
+        if revision_enabled:
             obj = obj.get_latest_revision_as_object()
         return obj
 
@@ -77,11 +68,20 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
 
         return form_class(query_dict, instance=self.object, for_user=self.request.user)
 
-    def _get_data_from_session(self):
-        post_data, _ = self.request.session.get(self.session_key, (None, None))
-        if not isinstance(post_data, str):
-            post_data = ""
-        return QueryDict(post_data)
+    def get_form_state_queryset(self):
+        return FormState.objects.for_preview(
+            user=self.request.user,
+            instance=self.object,
+            parent_object_id=self.parent_object_id,
+        ).order_by("-last_updated_at")
+
+    def _get_form_state(self):
+        return self.get_form_state_queryset().first()
+
+    def _get_form_data(self, form_state):
+        if form_state:
+            return QueryDict(form_state.data)
+        return QueryDict()
 
     def validate_form(self, form):
         if isinstance(form, WagtailAdminModelForm):
@@ -94,12 +94,18 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         is_valid = self.validate_form(form)
 
         if is_valid:
-            # TODO: Handle request.FILES.
-            request.session[self.session_key] = request.POST.urlencode(), time()
+            # We do not handle request.FILES
+            form_state, _ = FormState.objects.update_or_create_by_instance(
+                instance=self.object,
+                parent_object_id=self.parent_object_id,
+                user=self.request.user,
+                defaults={"data": form.data.urlencode(), "last_updated_at": now()},
+            )
             is_available = True
         else:
-            # Check previous data in session to determine preview availability
-            form = self.get_form(self._get_data_from_session())
+            # Check previous available data to determine preview availability
+            form_state = self._get_form_state()
+            form = self.get_form(self._get_form_data(form_state))
             is_available = self.validate_form(form)
 
         return JsonResponse({"is_valid": is_valid, "is_available": is_available})
@@ -119,7 +125,8 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
 
     @method_decorator(xframe_options_sameorigin_override)
     def get(self, request, *args, **kwargs):
-        form = self.get_form(self._get_data_from_session())
+        form_state = self._get_form_state()
+        form = self.get_form(self._get_form_data(form_state))
 
         if not self.validate_form(form):
             return self.error_response()
@@ -136,18 +143,12 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         return self.object.make_preview_request(request, preview_mode, extra_attrs)
 
     def delete(self, request, *args, **kwargs):
-        request.session.pop(self.session_key, None)
+        self.get_form_state_queryset().delete()
         return JsonResponse({"success": True})
 
 
 class PreviewOnCreate(PreviewOnEdit):
     permission_required = "add"
-
-    @property
-    def session_key(self):
-        app_label = self.model._meta.app_label
-        model_name = self.model._meta.model_name
-        return f"{self.session_key_prefix}{app_label}-{model_name}"
 
     def get_object(self):
         return self.model()
