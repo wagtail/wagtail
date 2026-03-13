@@ -679,30 +679,31 @@ class EditView(
             return self.redirect_and_remain()
 
     def publish_action(self):
-        self.page = self.form.save(commit=not self.page.live)
-        self.subscription.save()
+        with transaction.atomic():
+            self.page = self.form.save(commit=not self.page.live)
+            self.subscription.save()
 
-        # Save revision
-        revision = self.page.save_revision(
-            user=self.request.user,
-            log_action=True,  # Always log the new revision on edit
-            previous_revision=self.previous_revision,
-        )
+            # Save revision
+            revision = self.page.save_revision(
+                user=self.request.user,
+                log_action=True,  # Always log the new revision on edit
+                previous_revision=self.previous_revision,
+            )
 
-        # store submitted go_live_at for messaging below
-        go_live_at = self.page.go_live_at
+            # store submitted go_live_at for messaging below
+            go_live_at = self.page.go_live_at
 
-        response = self.run_hook("before_publish_page", self.request, self.page)
-        if response:
-            return response
+            response = self.run_hook("before_publish_page", self.request, self.page)
+            if response:
+                return response
 
-        action = PublishPageRevisionAction(
-            revision,
-            user=self.request.user,
-            changed=self.has_content_changes,
-            previous_revision=self.previous_revision,
-        )
-        action.execute(skip_permission_checks=True)
+            action = PublishPageRevisionAction(
+                revision,
+                user=self.request.user,
+                changed=self.has_content_changes,
+                previous_revision=self.previous_revision,
+            )
+            action.execute(skip_permission_checks=True)
 
         if self.has_content_changes and "comments" in self.form.formsets:
             changes = self.get_commenting_changes()
