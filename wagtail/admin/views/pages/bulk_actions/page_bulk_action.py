@@ -1,4 +1,5 @@
 from django import forms
+from django.http import Http404
 from django.utils.translation import ngettext
 
 from wagtail.admin.views.bulk_action import BulkAction
@@ -12,6 +13,17 @@ class DefaultPageForm(forms.Form):
 
 class PageBulkAction(BulkAction):
     models = [Page]
+
+    @classmethod
+    def get_queryset(cls, model, object_ids):
+        # Use specific page instances so that custom overrides such as
+        # permissions_for_user() on specific page models are respected
+        # without relying on the auto-dispatch in Page.permissions_for_user().
+        pages = Page.objects.filter(pk__in=object_ids).specific(defer=True)
+        if not pages:
+            raise Http404("No Page matches the given query.")
+        return list(pages)
+
     form_class = DefaultPageForm
 
     def get_all_objects_in_listing_query(self, parent_id):
