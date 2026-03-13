@@ -1100,6 +1100,12 @@ class Filter:
                     original_format, original_format
                 )
 
+            # Prevent raster-only format conversions for SVG images
+            if original_format == "svg" and output_format != "svg":
+                raise InvalidFilterSpecError(
+                    "format-* operations are not supported for SVG images. Use 'preserve-svg'."
+                )
+
             if output_format == "jpeg":
                 # Allow changing of JPEG compression quality
                 if "jpeg-quality" in env:
