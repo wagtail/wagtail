@@ -43,3 +43,45 @@ class LegacyContentTypeMatchMixin:
                 ]
             }
         }
+
+
+class AsciiFoldingMixin:
+    """
+    Mixin for Elasticsearch backends to make ASCII folding configurable.
+    
+    By default, ASCII folding is enabled for backward compatibility, which
+    converts special characters (ä, ö, ü) to ASCII equivalents (a, o, u).
+    
+    Set ascii_folding=False in OPTIONS to disable this behavior:
+    
+        WAGTAILSEARCH_BACKENDS = {
+            "default": {
+                "BACKEND": "wagtail.search.backends.elasticsearch7",
+                "OPTIONS": {
+                    "ascii_folding": False
+                }
+            }
+        }
+    """
+    
+    def __init__(self, params):
+        super().__init__(params)
+        # Get ascii_folding option from OPTIONS, default to True for backward compatibility
+        self.ascii_folding = params.get("OPTIONS", {}).get("ascii_folding", True)
+    
+    def get_index_settings(self):
+        """Override to conditionally add ASCII folding filters"""
+        settings = super().get_index_settings()
+        
+        if not self.ascii_folding:
+            # Remove asciifolding from all analyzers
+            analyzers = settings.get("settings", {}).get("analysis", {}).get("analyzer", {})
+            
+            for analyzer_name, analyzer_config in analyzers.items():
+                if "filter" in analyzer_config and isinstance(analyzer_config["filter"], list):
+                    # Remove asciifolding from the filter list
+                    analyzer_config["filter"] = [
+                        f for f in analyzer_config["filter"] if f != "asciifolding"
+                    ]
+        
+        return settings
