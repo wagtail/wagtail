@@ -59,6 +59,10 @@ class Migration(migrations.Migration):
                         ],
                         name="formstate_user_object",
                     ),
+                    models.Index(
+                        fields=["-last_updated_at"],
+                        name="formstate_last_updated_at",
+                    ),
                 ],
             },
         ),
