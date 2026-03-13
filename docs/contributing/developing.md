@@ -109,10 +109,10 @@ python runtests.py --parallel --keepdb --exclude-tag=transaction
 If you are using SQLite, set the `DATABASE_NAME` environment variable so that a database file is used and kept, instead of an in-memory database.
 
 ```sh
-DATABASE_NAME=wagtail.db ./runtests.py --parallel --keepdb --exclude-tag=transaction
+DATABASE_NAME=default.sqlite3 python runtests.py --parallel --keepdb --exclude-tag=transaction
 ```
 
-If there has been a new migration since the last test run, you might need to delete the clone test databases (named `default_*.db`) due to [a known Django issue](https://code.djangoproject.com/ticket/26822) with SQLite.
+If there has been a new migration since the last test run, you might need to delete the clone test databases due to [a known Django issue](https://code.djangoproject.com/ticket/26822) with SQLite.
 
 ### Running only some of the tests
 
