@@ -210,5 +210,9 @@ class FormState(models.Model):
                 fields=["user", "content_type", "object_id", "parent_object_id"],
                 name="formstate_user_object",
             ),
+            models.Index(
+                fields=["-last_updated_at"],
+                name="formstate_last_updated_at",
+            ),
         ]
         ordering = ["-last_updated_at"]
