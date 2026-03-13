@@ -79,12 +79,9 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         return self.get_form_state_queryset().first()
 
     def _get_form_data(self, form_state):
-        query_dict = QueryDict(mutable=True)
         if form_state:
-            # Convert JSON to QueryDict with setlist to handle multiple values for the same key
-            for key, value in form_state.data.items():
-                query_dict.setlist(key, value)
-        return query_dict
+            return QueryDict(form_state.data)
+        return QueryDict()
 
     def validate_form(self, form):
         if isinstance(form, WagtailAdminModelForm):
@@ -98,12 +95,11 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
 
         if is_valid:
             # We do not handle request.FILES
-            form_data = {key: form.data.getlist(key) for key in form.data}
             form_state, _ = FormState.objects.update_or_create_by_instance(
                 instance=self.object,
                 parent_object_id=self.parent_object_id,
                 user=self.request.user,
-                defaults={"data": form_data, "last_updated_at": now()},
+                defaults={"data": form.data.urlencode(), "last_updated_at": now()},
             )
             is_available = True
         else:
