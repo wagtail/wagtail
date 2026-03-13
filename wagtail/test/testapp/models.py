@@ -2741,3 +2741,43 @@ class CommentableJSONPage(Page):
             ("text", CharBlock()),
         ]
     )
+
+
+class HomePage(Page):
+    pass
+
+
+@register_snippet
+class Tag(index.Indexed, models.Model):
+    title = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(unique=True)
+    search_fields = [index.SearchField("title"), index.AutocompleteField("title")]
+
+    def __str__(self):
+        return self.title
+
+
+class PageTag(models.Model):
+    page = ParentalKey(Page, related_name="tags", on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, related_name="+", on_delete=models.CASCADE)
+
+    panels = [FieldPanel("tag")]
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["page", "tag"], name="unique_page_tag")
+        ]
+
+    def __str__(self):
+        return self.tag.title
+
+
+class ArticlePage(Page):
+    content_panels = Page.content_panels + [
+        InlinePanel(
+            "tags",
+            heading="Tags",
+            label="Tag",
+            help_text="Select one or more tags",
+        )
+    ]
