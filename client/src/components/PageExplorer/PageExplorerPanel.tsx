@@ -125,7 +125,7 @@ class PageExplorerPanel extends React.Component<
         paused={!page || page.isFetchingChildren || page.isFetchingTranslations}
         focusTrapOptions={{
           onDeactivate: onClose,
-          clickOutsideDeactivates: false,
+          clickOutsideDeactivates: true,
           allowOutsideClick: true,
         }}
       >
@@ -143,8 +143,8 @@ class PageExplorerPanel extends React.Component<
               {this.renderChildren()}
 
               {page.isError ||
-              (page.children.items &&
-                page.children.count > MAX_EXPLORER_PAGES) ? (
+                (page.children.items &&
+                  page.children.count > MAX_EXPLORER_PAGES) ? (
                 <PageCount page={page} />
               ) : null}
             </div>
