@@ -91,6 +91,19 @@ class LogEntryQuerySet(models.QuerySet):
             lookup_key = (log_entry.content_type_id, str(log_entry.object_id))
             yield (log_entry, instances_by_id.get(lookup_key))
 
+    def latest_uuid_for_user_revision_action(self, user, revision, action):
+        return (
+            self.filter(
+                user=user,
+                revision=revision,
+                action=action,
+                uuid__isnull=False,
+            )
+            .order_by("-timestamp")
+            .values_list("uuid", flat=True)
+            .first()
+        )
+
 
 class BaseLogEntryManager(models.Manager):
     def get_queryset(self):
