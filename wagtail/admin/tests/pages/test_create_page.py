@@ -205,10 +205,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
                 response,
                 '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>',
             )
-            # test that workflow actions are shown
+            # test that workflow actions are shown with the workflow name
             self.assertContains(
                 response,
-                '<button type="submit" name="action-submit" value="Submit for moderation" class="button">',
+                '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">',
             )
 
             self.assertEqual(handler.call_count, 1)
@@ -2209,7 +2209,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
     def test_display_moderation_button_by_default(self):
         """
-        Tests that by default the "Submit for Moderation" button is shown in the action menu.
+        Tests that the moderation button uses the parent page's workflow name
+        in the create view.
         """
         response = self.client.get(
             reverse(
@@ -2219,15 +2220,15 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+            '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">'
             '<svg class="icon icon-resubmit icon" aria-hidden="true"><use href="#icon-resubmit"></use></svg>'
-            "Submit for moderation</button>",
+            "Submit to Moderators approval</button>",
         )
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_hide_moderation_button(self):
         """
-        Tests that if WAGTAIL_WORKFLOW_ENABLED is set to False, the "Submit for Moderation" button is not shown.
+        Tests that if WAGTAIL_WORKFLOW_ENABLED is set to False, the moderation button is not shown.
         """
         response = self.client.get(
             reverse(
@@ -2235,10 +2236,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
                 args=("tests", "simplepage", self.root_page.id),
             )
         )
-        self.assertNotContains(
-            response,
-            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>',
-        )
+        self.assertNotContains(response, 'name="action-submit"')
 
     def test_create_sets_locale_to_parent_locale(self):
         # We need to make sure the page's locale it set to the parent in the create view so that any customisations
