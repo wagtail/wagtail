@@ -10,6 +10,8 @@ from django.utils.http import urlencode
 from wagtail.admin.views.chooser import can_choose_page
 from wagtail.models import Locale, Page
 from wagtail.test.testapp.models import (
+    BusinessChild,
+    BusinessIndex,
     EventIndex,
     EventPage,
     SimplePage,
@@ -532,6 +534,38 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
             response = self.get({"q": "Test"})
         self.assertEqual(len(response.context["pages"]), 1)
         self.assertEqual(response.context["pages"][0].specific, page)
+
+    def test_move_to_respects_parent_page_types(self):
+        # Set up a BusinessIndex and a BusinessChild to move, plus an ineligible
+        # target (SimplePage). Both should appear in search results, but only the
+        # BusinessIndex should be choosable as a move destination.
+        business_index = BusinessIndex(title="A Business Index")
+        self.root_page.add_child(instance=business_index)
+
+        simple_page = SimplePage(title="A Simple Page", content="hello")
+        self.root_page.add_child(instance=simple_page)
+
+        business_child = BusinessChild(title="A Business Child")
+        business_index.add_child(instance=business_child)
+
+        response = self.get(
+            {
+                "q": "A",
+                "user_perms": "move_to",
+                f"target_pages[]": business_child.pk,
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+
+        pages = {page.id: page for page in response.context["pages"]}
+
+        # BusinessIndex is a valid parent for BusinessChild
+        self.assertIn(business_index.id, pages)
+        self.assertTrue(pages[business_index.id].can_choose)
+
+        # SimplePage is not a valid parent for BusinessChild
+        self.assertIn(simple_page.id, pages)
+        self.assertFalse(pages[simple_page.id].can_choose)
 
 
 class TestAutomaticRootPageDetection(WagtailTestUtils, TestCase):
