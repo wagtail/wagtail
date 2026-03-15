@@ -19,8 +19,6 @@ describe('Editor', () => {
   });
 
   it('axe InlinePanel', async () => {
-    const toggle = await page.$('.sidebar__collapse-toggle');
-    toggle.click();
     const trigger = await page.$('#id_carousel_items-ADD');
     trigger.click();
     await expect(page).toPassAxeTests({

@@ -7,6 +7,7 @@ Changelog
  * Add `is_deferred_validation` flag to support skipping custom validation when saving drafts (Daniel Kirkham)
  * Update project template Dockerfile to build dependencies in a separate stage (Brylie Oxley, Akshat Gupta)
  * Add `include_root` parameter to admin pages API endpoint (Divyansh Mishra)
+ * Add support for Flourish oEmbeds (Garrett Coakley)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
@@ -37,12 +38,27 @@ Changelog
  * Maintenance: Replace Puppeteer with Playwright for integration tests (Sage Abdullah)
  * Maintenance: Upgrade to latest Sass with changes for deprecated `if` syntax (Sage Abdullah)
  * Maintenance: Add explicit `timeout-minutes` to GitHub Actions workflow jobs (Ashutosh)
+ * Maintenance: Upgrade Python tooling, testing, and docs dependencies (Sage Abdullah)
+ * Maintenance: Support skipping transaction unit tests with a tag (Sage Abdullah)
 
 
-7.3.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+
+7.3.1 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
+ * Fix: Update dependencies to allow django-modelsearch 1.2 and django-tasks 0.11
  * Fix: Fix duplicate inline panel items when editing snippets with autosave enabled (Sage Abdullah)
+ * Fix: Prevent dropdowns from closing after a successful autosave (Sage Abdullah)
+ * Fix: Show placeholder image icons when image upload previews fail (Collins Kubu)
+ * Fix: Ensure that 'create' form within choosers is not hidden on validation errors (Ankit Chaudhary)
+ * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
 
 
 7.3 (03.02.2026)
@@ -113,6 +129,14 @@ Changelog
  * Maintenance: Ignore 'build' dir when running ESLint (Matt Westcott)
  * Maintenance: Upgrade to django-tasks 0.11.0 for Django 6.0 and Python 3.11 compatibility (Guilhem Saurel)
  * Maintenance: Switch userbar items to the template components API (Thibaud Colas)
+
+
+7.2.3 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
+ * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
 
 
 7.2.2 (03.02.2026)
@@ -324,6 +348,18 @@ Changelog
  * Maintenance: Rewrite Tabs component frontend to use Stimulus and TypeScript (Sai Srikar Dumpeti, LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
+
+7.0.7 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+
+7.0.6 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
+
 
 7.0.5 (12.02.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -605,6 +641,18 @@ Changelog
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+6.3.9 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+
+6.3.8 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
+
 
 6.3.7 (12.02.2026)
 ~~~~~~~~~~~~~~~~~~

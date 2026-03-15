@@ -1,12 +1,13 @@
 import datetime
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 
 from django import template
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.forms.utils import flatatt
 from django.http.request import HttpHeaders
 from django.middleware.csrf import get_token
 from django.shortcuts import resolve_url as resolve_url_func
@@ -208,7 +209,7 @@ def admin_url_name(obj, action):
 def build_absolute_url(context, url):
     """
     Usage: {% build_absolute_url url %}
-    Returns the absolute URL of the given URL based on the request's host.
+    Returns the protocol-relative URL of the given URL based on the request's host.
     If the request doesn't exist in the context, falls back to
     WAGTAILADMIN_BASE_URL as the base URL.
     If the given URL is already absolute, or the request is a dummy preview
@@ -228,7 +229,10 @@ def build_absolute_url(context, url):
         return url
     # Rewrite relative URLs to absolute URLs based on the request's host, but
     # leave absolute URLs unchanged.
-    return request.build_absolute_uri(url)
+    url = request.build_absolute_uri(url)
+    # Remove the scheme to make it a protocol-relative URL, as Django may not
+    # detect the correct scheme when the request is behind a reverse proxy.
+    return urlsplit(url)._replace(scheme="").geturl()
 
 
 @register.simple_tag
@@ -492,8 +496,17 @@ def page_header_buttons(context, page, user, view_name):
             buttons.append(button)
 
     buttons.sort()
+    attrs = {
+        # Hide the dropdown when the breadcrumbs are opened or closed, which
+        # would make the dropdown's position off from the toggle button.
+        "data-action": (
+            "w-breadcrumbs:opened@document->w-dropdown#hide "
+            "w-breadcrumbs:closed@document->w-dropdown#hide"
+        ),
+    }
     return {
         "buttons": buttons,
+        "attrs": flatatt(attrs),
     }
 
 
