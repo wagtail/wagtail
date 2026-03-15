@@ -954,6 +954,7 @@
 * Garrett Coakley
 * Collins Kubu
 * Advik Sharma
+* Oluwagbeminiyi Agbedejobi
 
 ## Translators
 
