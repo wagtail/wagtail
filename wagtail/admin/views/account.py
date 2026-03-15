@@ -68,7 +68,11 @@ def email_management_enabled():
 
 def password_reset_enabled():
     return getattr(
-        settings, "WAGTAIL_PASSWORD_RESET_ENABLED", password_management_enabled()
+        settings,
+        "WAGTAILUSERS_PASSWORD_RESET_ENABLED",
+        getattr(
+            settings, "WAGTAIL_PASSWORD_RESET_ENABLED", password_management_enabled()
+        ),
     )
 
 
