@@ -1,5 +1,6 @@
 import { initMinimap } from '../../components/Minimap';
 import {
+  expandAllPanelsInTab,
   initAnchoredPanels,
   initCollapsiblePanels,
 } from '../../includes/panels';
@@ -11,6 +12,11 @@ import initSidePanel from '../../includes/sidePanel';
 document.addEventListener('DOMContentLoaded', () => {
   initSidePanel();
   initCollapsiblePanels();
+
+  // Expand all panels when switching tabs to ensure consistent button state
+  document.addEventListener('w-tabs:changed', ({ detail: { current } }) => {
+    expandAllPanelsInTab(current);
+  });
 
   const editHandlerElement = document.getElementById('w-edit-handler-data');
   if (editHandlerElement) {

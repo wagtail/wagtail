@@ -124,3 +124,25 @@ export function initAnchoredPanels(
     }, 100);
   }
 }
+
+/**
+ * Expands all collapsible panels within a specific tab panel when switching tabs.
+ * This ensures that panels in the newly active tab are always expanded,
+ * preventing the "Collapse All" button state from appearing incorrect.
+ *
+ * @param panelId - The ID of the tab panel that became active
+ */
+export function expandAllPanelsInTab(panelId: string) {
+  const activePanel = document.getElementById(panelId);
+  if (!activePanel) return;
+
+  // Find all collapsible panel toggles in the active tab that are currently collapsed
+  const collapsedToggles = activePanel.querySelectorAll<HTMLButtonElement>(
+    '[data-panel-toggle][aria-expanded="false"]',
+  );
+
+  // Expand each collapsed panel
+  collapsedToggles.forEach((toggle) => {
+    toggleCollapsiblePanel(toggle, true);
+  });
+}
