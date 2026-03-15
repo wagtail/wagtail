@@ -34,6 +34,31 @@ class TestUserPasswordReset(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Forgotten password?")
 
+    @override_settings(WAGTAILUSERS_PASSWORD_RESET_ENABLED=False)
+    def test_login_has_no_password_reset_option_when_wagtailusers_setting_disabled(
+        self,
+    ):
+        """
+        WAGTAILUSERS_PASSWORD_RESET_ENABLED=False should hide the
+        'Forgotten password?' link on the login page.
+        """
+        response = self.client.get(reverse("wagtailadmin_login"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Forgotten password?")
+
+    @override_settings(WAGTAILUSERS_PASSWORD_MANAGEMENT_ENABLED=False)
+    def test_login_has_no_password_reset_option_when_password_management_disabled(
+        self,
+    ):
+        """
+        WAGTAILUSERS_PASSWORD_MANAGEMENT_ENABLED=False should also hide the
+        'Forgotten password?' link, since password reset defaults to the
+        password management setting.
+        """
+        response = self.client.get(reverse("wagtailadmin_login"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Forgotten password?")
+
     @override_settings(WAGTAIL_PASSWORD_RESET_ENABLED=False)
     def test_password_reset_view_disabled(self):
         """
@@ -44,6 +69,15 @@ class TestUserPasswordReset(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_password_reset"))
 
         # Check that the user received a 404
+        self.assertEqual(response.status_code, 404)
+
+    @override_settings(WAGTAILUSERS_PASSWORD_RESET_ENABLED=False)
+    def test_password_reset_view_disabled_via_wagtailusers_setting(self):
+        """
+        This tests that the password reset view responds with a 404
+        when setting WAGTAILUSERS_PASSWORD_RESET_ENABLED is False
+        """
+        response = self.client.get(reverse("wagtailadmin_password_reset"))
         self.assertEqual(response.status_code, 404)
 
     @override_settings(ROOT_URLCONF="wagtail.admin.urls")
