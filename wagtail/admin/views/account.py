@@ -59,6 +59,8 @@ def get_password_reset_form():
 
 
 def password_management_enabled():
+    if hasattr(settings, "WAGTAILUSERS_PASSWORD_MANAGEMENT_ENABLED"):
+        return settings.WAGTAILUSERS_PASSWORD_MANAGEMENT_ENABLED
     return getattr(settings, "WAGTAIL_PASSWORD_MANAGEMENT_ENABLED", True)
 
 
@@ -67,6 +69,8 @@ def email_management_enabled():
 
 
 def password_reset_enabled():
+    if hasattr(settings, "WAGTAILUSERS_PASSWORD_RESET_ENABLED"):
+        return settings.WAGTAILUSERS_PASSWORD_RESET_ENABLED
     return getattr(
         settings, "WAGTAIL_PASSWORD_RESET_ENABLED", password_management_enabled()
     )
