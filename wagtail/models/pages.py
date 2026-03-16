@@ -2621,7 +2621,7 @@ class PageLogEntry(BaseLogEntry):
 
     objects = PageLogEntryManager()
 
-    class Meta:
+    class Meta(BaseLogEntry.Meta):
         ordering = ["-timestamp", "-id"]
         verbose_name = _("page log entry")
         verbose_name_plural = _("page log entries")
