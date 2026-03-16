@@ -13,7 +13,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.db.models.functions import RowNumber
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -106,17 +105,19 @@ class LogEntryQuerySet(models.QuerySet):
         )
 
     def latest_by_uuid_and_action(self):
-        return self.annotate(
-            row_number=models.Window(
-                expression=RowNumber(),
-                partition_by=[models.F("uuid"), models.F("action")],
-                order_by=[models.F("timestamp").desc(), models.F("id").desc()],
+        latest_id_for_uuid_action = (
+            self.model._default_manager.filter(
+                uuid=models.OuterRef("uuid"),
+                action=models.OuterRef("action"),
             )
-        ).filter(
+            .order_by("-timestamp", "-id")
+            .values("id")[:1]
+        )
+        return self.filter(
             # Include log entries with null UUID, as these are not grouped
             models.Q(uuid__isnull=True)
             # Pick the latest log entry for each combination of UUID and action
-            | models.Q(row_number=1)
+            | models.Q(id=latest_id_for_uuid_action)
         )
 
 
@@ -265,6 +266,9 @@ class BaseLogEntry(models.Model):
         verbose_name = _("log entry")
         verbose_name_plural = _("log entries")
         ordering = ["-timestamp"]
+        indexes = [
+            models.Index(fields=["uuid", "action", "-timestamp"]),
+        ]
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -362,7 +366,7 @@ class ModelLogEntry(BaseLogEntry):
 
     objects = ModelLogEntryManager()
 
-    class Meta:
+    class Meta(BaseLogEntry.Meta):
         ordering = ["-timestamp", "-id"]
         verbose_name = _("model log entry")
         verbose_name_plural = _("model log entries")
