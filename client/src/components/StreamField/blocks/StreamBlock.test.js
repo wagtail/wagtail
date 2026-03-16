@@ -1208,6 +1208,186 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.min_num set', ()
   });
 });
 
+describe('telepath: wagtail.blocks.StreamBlock with softMaxNum set', () => {
+  // Define a test block
+  const blockDef = new StreamBlockDefinition(
+    '',
+    [
+      [
+        '',
+        [
+          new FieldBlockDefinition(
+            'test_block_a',
+            new DummyWidgetDefinition('Block A widget'),
+            {
+              label: 'Test Block <A>',
+              required: true,
+              icon: 'placeholder',
+              classname: 'w-field w-field--char_field w-field--text_input',
+            },
+          ),
+        ],
+      ],
+    ],
+    {
+      test_block_a: 'Block A options',
+    },
+    {
+      label: '',
+      required: true,
+      icon: 'placeholder',
+      classname: null,
+      helpText: 'use <strong>plenty</strong> of these',
+      helpIcon: '<svg></svg>',
+      maxNum: null,
+      minNum: null,
+      blockCounts: {},
+      softMaxNum: 2,
+      softMinNum: null,
+    },
+  );
+
+  const assertShowingWarningMessage = () => {
+    expect(
+      document.querySelector('p.help-block.help-warning').innerHTML,
+    ).toBe('The recommended maximum number of items is 2');
+  };
+
+  const assertNotShowingWarningMessage = () => {
+    expect(document.querySelector('p.help-block.help-warning')).toBe(null);
+  };
+
+  test('test no warning message when at soft limit', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    blockDef.render($('#placeholder'), 'the-prefix', [
+      { id: '1', type: 'test_block_a', value: 'First value' },
+      { id: '2', type: 'test_block_a', value: 'Second value' },
+    ]);
+    assertNotShowingWarningMessage();
+  });
+
+  test('test warning message shown when above soft limit', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    blockDef.render($('#placeholder'), 'the-prefix', [
+      { id: '1', type: 'test_block_a', value: 'First value' },
+      { id: '2', type: 'test_block_a', value: 'Second value' },
+      { id: '3', type: 'test_block_a', value: 'Third value' },
+    ]);
+    assertShowingWarningMessage();
+  });
+
+  test('inserting block above softMaxNum shows warning message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { id: '1', type: 'test_block_a', value: 'First value' },
+      { id: '2', type: 'test_block_a', value: 'Second value' },
+    ]);
+    assertNotShowingWarningMessage();
+    boundBlock.insert({ id: '3', type: 'test_block_a', value: 'Third value' }, 2);
+    assertShowingWarningMessage();
+  });
+
+  test('deleting block to get back to softMaxNum removes warning message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { id: '1', type: 'test_block_a', value: 'First value' },
+      { id: '2', type: 'test_block_a', value: 'Second value' },
+      { id: '3', type: 'test_block_a', value: 'Third value' },
+    ]);
+    assertShowingWarningMessage();
+    boundBlock.deleteBlock(2);
+    assertNotShowingWarningMessage();
+  });
+});
+
+describe('telepath: wagtail.blocks.StreamBlock with softMinNum set', () => {
+  // Define a test block
+  const blockDef = new StreamBlockDefinition(
+    '',
+    [
+      [
+        '',
+        [
+          new FieldBlockDefinition(
+            'test_block_a',
+            new DummyWidgetDefinition('Block A widget'),
+            {
+              label: 'Test Block <A>',
+              required: true,
+              icon: 'placeholder',
+              classname: 'w-field w-field--char_field w-field--text_input',
+            },
+          ),
+        ],
+      ],
+    ],
+    {
+      test_block_a: 'Block A options',
+    },
+    {
+      label: '',
+      required: true,
+      icon: 'placeholder',
+      classname: null,
+      helpText: 'use <strong>plenty</strong> of these',
+      helpIcon: '<svg></svg>',
+      maxNum: null,
+      minNum: null,
+      blockCounts: {},
+      softMaxNum: null,
+      softMinNum: 2,
+    },
+  );
+
+  const assertShowingWarningMessage = () => {
+    expect(
+      document.querySelector('p.help-block.help-warning').innerHTML,
+    ).toBe('The recommended minimum number of items is 2');
+  };
+
+  const assertNotShowingWarningMessage = () => {
+    expect(document.querySelector('p.help-block.help-warning')).toBe(null);
+  };
+
+  test('test warning message shown when below soft limit', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    blockDef.render($('#placeholder'), 'the-prefix', [
+      { id: '1', type: 'test_block_a', value: 'First value' },
+    ]);
+    assertShowingWarningMessage();
+  });
+
+  test('test no warning message when at soft limit', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    blockDef.render($('#placeholder'), 'the-prefix', [
+      { id: '1', type: 'test_block_a', value: 'First value' },
+      { id: '2', type: 'test_block_a', value: 'Second value' },
+    ]);
+    assertNotShowingWarningMessage();
+  });
+
+  test('inserting block to reach softMinNum removes warning message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { id: '1', type: 'test_block_a', value: 'First value' },
+    ]);
+    assertShowingWarningMessage();
+    boundBlock.insert({ id: '2', type: 'test_block_a', value: 'Second value' }, 1);
+    assertNotShowingWarningMessage();
+  });
+
+  test('deleting block below softMinNum shows warning message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { id: '1', type: 'test_block_a', value: 'First value' },
+      { id: '2', type: 'test_block_a', value: 'Second value' },
+    ]);
+    assertNotShowingWarningMessage();
+    boundBlock.deleteBlock(1);
+    assertShowingWarningMessage();
+  });
+});
+
 describe('telepath: wagtail.blocks.StreamBlock with unique block type', () => {
   let boundBlock;
 

@@ -766,6 +766,29 @@ class TestStreamFieldCountValidation(TestCase):
         self.assertIsNone(field.stream_block.meta.max_num)
         self.assertIsNone(field.stream_block.meta.block_counts)
 
+    def test_streamfield_soft_count_argument_precedence(self):
+        class TestStreamBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+
+            class Meta:
+                soft_min_num = 2
+                soft_max_num = 5
+
+        # args being picked up from the class definition
+        field = StreamField(TestStreamBlock)
+        self.assertEqual(field.stream_block.meta.soft_min_num, 2)
+        self.assertEqual(field.stream_block.meta.soft_max_num, 5)
+
+        # args being overridden by StreamField
+        field = StreamField(TestStreamBlock, soft_min_num=3, soft_max_num=6)
+        self.assertEqual(field.stream_block.meta.soft_min_num, 3)
+        self.assertEqual(field.stream_block.meta.soft_max_num, 6)
+
+        # passing None from StreamField should cancel soft limits set at the block level
+        field = StreamField(TestStreamBlock, soft_min_num=None, soft_max_num=None)
+        self.assertIsNone(field.stream_block.meta.soft_min_num)
+        self.assertIsNone(field.stream_block.meta.soft_max_num)
+
 
 class TestJSONStreamField(TestCase):
     @classmethod

@@ -478,6 +478,8 @@ class BaseStreamBlock(Block):
         max_num = None
         block_counts = {}
         collapsed = False
+        soft_min_num = None
+        soft_max_num = None
 
     MUTABLE_META_ATTRIBUTES = [
         "required",
@@ -485,6 +487,8 @@ class BaseStreamBlock(Block):
         "max_num",
         "block_counts",
         "collapsed",
+        "soft_min_num",
+        "soft_max_num",
     ]
 
 
@@ -845,6 +849,8 @@ class StreamBlockAdapter(Adapter):
             "minNum": block.meta.min_num,
             "blockCounts": block.meta.block_counts,
             "collapsed": block.meta.collapsed,
+            "softMinNum": block.meta.soft_min_num,
+            "softMaxNum": block.meta.soft_max_num,
         }
         help_text = getattr(block.meta, "help_text", None)
         if help_text:

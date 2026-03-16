@@ -8,6 +8,8 @@ import { hideTooltipOnEsc } from '../../../controllers/TooltipController';
 import {
   addErrorMessages,
   removeErrorMessages,
+  addWarningMessages,
+  removeWarningMessages,
 } from '../../../includes/streamFieldErrors';
 import { setAttrs } from '../../../utils/attrs';
 import { gettext } from '../../../utils/gettext';
@@ -323,6 +325,30 @@ export class StreamBlock extends BaseSequenceBlock {
     } else {
       this.setError({});
     }
+
+    const warningMessages = [];
+
+    const softMaxNum = this.blockDef.meta.softMaxNum;
+    if (typeof softMaxNum === 'number' && this.children.length > softMaxNum) {
+      const message = gettext(
+        'The recommended maximum number of items is %(soft_max_num)d',
+      ).replace('%(soft_max_num)d', `${softMaxNum}`);
+      warningMessages.push(message);
+    }
+
+    const softMinNum = this.blockDef.meta.softMinNum;
+    if (typeof softMinNum === 'number' && this.children.length < softMinNum) {
+      const message = gettext(
+        'The recommended minimum number of items is %(soft_min_num)d',
+      ).replace('%(soft_min_num)d', `${softMinNum}`);
+      warningMessages.push(message);
+    }
+
+    if (warningMessages.length) {
+      this.setWarning({ messages: warningMessages });
+    } else {
+      this.setWarning({});
+    }
   }
 
   _createChild(
@@ -436,6 +462,18 @@ export class StreamBlock extends BaseSequenceBlock {
           this.children[blockIndex].setError(error.blockErrors[blockIndex]);
         }
       }
+    }
+  }
+
+  setWarning(warning) {
+    if (!warning) return;
+
+    // Non block warnings (messages applying to the block as a whole)
+    const container = this.container[0];
+    removeWarningMessages(container);
+
+    if (warning.messages) {
+      addWarningMessages(container, warning.messages);
     }
   }
 }
