@@ -308,6 +308,7 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
 
     def get_base_queryset(self):
         queryset = log_registry.get_logs_for_instance(self.object)
+        queryset = queryset.latest_by_uuid_and_action()
         return self._annotate_queryset(queryset)
 
     def _annotate_queryset(self, queryset):
