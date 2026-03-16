@@ -13,6 +13,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.db.models.functions import RowNumber
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -102,6 +103,20 @@ class LogEntryQuerySet(models.QuerySet):
             .order_by("-timestamp")
             .values_list("uuid", flat=True)
             .first()
+        )
+
+    def latest_by_uuid_and_action(self):
+        return self.annotate(
+            row_number=models.Window(
+                expression=RowNumber(),
+                partition_by=[models.F("uuid"), models.F("action")],
+                order_by=[models.F("timestamp").desc(), models.F("id").desc()],
+            )
+        ).filter(
+            # Include log entries with null UUID, as these are not grouped
+            models.Q(uuid__isnull=True)
+            # Pick the latest log entry for each combination of UUID and action
+            | models.Q(row_number=1)
         )
 
 
