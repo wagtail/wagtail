@@ -1695,3 +1695,36 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
 
         switch_to_french_url = self.get_choose_page_url(params=params + "&locale=fr")
         self.assertIn(escape(switch_to_french_url), html)
+    def test_search_respects_page_type_for_can_choose(
+    self,
+    ):
+    """
+    Search results must respect the page type filter when setting can_choose.
+    An ineligible page type must have can_choose=False even if it appears in
+    search results (regression test for #14018).
+    """
+    # Add an EventPage which is NOT a SimplePage
+    event_page = EventPage(
+        title="foobarbaz event",
+        location="the moon",
+        audience="public",
+        cost="free",
+        date_from="2001-01-01",
+    )
+    self.root_page.add_child(instance=event_page)
+
+    # Search with page_type restricted to SimplePage only
+    response = self.get(
+        {"q": "foobarbaz", "page_type": "tests.simplepage"}
+    )
+    self.assertEqual(response.status_code, 200)
+
+    pages_by_id = {page.id: page for page in response.context["pages"]}
+
+    # The SimplePage should be choosable
+    self.assertTrue(pages_by_id[self.child_page.id].can_choose)
+
+    # The EventPage should NOT be choosable (wrong type)
+    # Before this fix, event_page.can_choose was True regardless
+    if event_page.id in pages_by_id:
+        self.assertFalse(pages_by_id[event_page.id].can_choose)
