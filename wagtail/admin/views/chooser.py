@@ -455,7 +455,13 @@ class SearchView(View):
         # allow hooks to modify the queryset
         for hook in hooks.get_hooks("construct_page_chooser_queryset"):
             pages = hook(pages, request)
-
+# Read the same params BrowseView reads — these were missing from SearchView
+        can_choose_root = request.GET.get("can_choose_root", False)
+        user_perm = request.GET.get("user_perms", False)
+        target_pages = Page.objects.filter(
+            pk__in=[int(pk) for pk in request.GET.getlist("target_pages[]", []) if pk]
+        )
+match_subclass = request.GET.get("match_subclass", True)
         search_form = SearchForm(request.GET)
         if search_form.is_valid() and search_form.cleaned_data["q"]:
             pages = pages.exclude(depth=1)  # never include root
@@ -470,7 +476,15 @@ class SearchView(View):
         pages = paginator.get_page(request.GET.get("p"))
 
         for page in pages:
-            page.can_choose = True
+            page.can_choose = can_choose_page(   # ← USE PROPER ELIGIBILITY CHECK
+                page,
+                request.user,
+                desired_classes,
+                can_choose_root,
+                user_perm,
+                target_pages=target_pages,
+                match_subclass=match_subclass,
+            )
             page.is_parent_page = False
 
         table = PageChooserTable(
