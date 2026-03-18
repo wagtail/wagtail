@@ -2,7 +2,8 @@
 
 If you have any problems or questions about working with Wagtail, you are invited to visit any of the following support channels, where volunteer members of the Wagtail community will be happy to assist.
 
-**Please respect the time and effort of volunteers, by not asking the same question in multiple places.** At best, you'll be spamming the same set of people each time; at worst, you'll waste the effort of volunteers who spend time answering a question unaware that it has already been answered elsewhere. If you absolutely must ask a question on multiple forums, post it on Stack Overflow first and include the Stack Overflow link in your subsequent posts.
+**Please respect the time and effort of volunteers, by not asking the same question in multiple places.** At best, you'll be spamming the same set of people each time; at worst, you'll waste the effort of volunteers who spend time answering a question unaware that it has already been answered elsewhere. If you absolutely must ask a question on multiple forums, post it on Stack Overflow first. Include the Stack Overflow link in your subsequent posts.
+
 
 ## Stack Overflow
 
@@ -10,15 +11,18 @@ If you have any problems or questions about working with Wagtail, you are invite
 
 (slack)=
 
+
 ## Slack
 
 The Wagtail Slack workspace is open to all users and developers of Wagtail. To join, head to: [https://wagtail.org/slack/](https://wagtail.org/slack/)
 
-Please use the **#support** channel for support questions. Support is provided by members of the Wagtail community on a voluntary basis, and we cannot guarantee that questions will be answered quickly (or at all). If you want to see this resource succeed, please consider sticking around to help out! Also, please keep in mind that many of Wagtail's core and expert developers prefer to handle support queries on a non-realtime basis through Stack Overflow, and questions asked there may well get a better response.
+Please use the #support channel for Wagtail questions. Support is provided by members of the Wagtail community on a voluntary basis, and we cannot guarantee that questions will be answered quickly (or at all). If you want to see this resource succeed, please consider sticking around to help out! Also, please keep in mind that many of Wagtail's core and expert developers prefer to handle support queries on a non-realtime basis through Stack Overflow, and questions asked there may well get a better response.
+
 
 ## GitHub discussions
 
 Our [GitHub discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
+
 
 ## Issues
 
@@ -26,16 +30,19 @@ If you think you've found a bug in Wagtail, or you'd like to suggest a new featu
 
 If your bug report is a security issue, **do not** report it with an issue. Please read our guide to [reporting security issues](../contributing/security).
 
+
 ## AI assistance
 
 For users of Large Language Models (LLMs), the developer documentation and the [Wagtail user guide](https://guide.wagtail.org/) contents are available in the [llms.txt format](https://llmstxt.org/).
 
- * [llms.txt](llms.txt){.external}
- * [llms-full.txt](llms-full.txt){.external}
- * Add `.md` at the end of any documentation page URL to view the Markdown output of that page. Example: [StreamField block reference in Markdown](./reference/streamfield/blocks.html.md){.external}
- * [User guide llms.txt](https://guide.wagtail.org/llms.txt)
- * [User guide llms-full.txt](https://guide.wagtail.org/llms-full.txt)
+* [llms.txt](llms.txt){.external}
+* [llms-full.txt](llms-full.txt){.external}
+* Add `.md` at the end of any documentation page URL to view the Markdown output of that page. Example: [StreamField block reference in Markdown](./reference/streamfield/blocks.html.md){.external}
+* [User guide llms.txt](https://guide.wagtail.org/llms.txt)
+* [User guide llms-full.txt](https://guide.wagtail.org/llms-full.txt)
+
 
 ## Torchbox
 
 Finally, if you have a query which isn't relevant for any of the above forums, feel free to contact the Wagtail team at Torchbox directly, on [hello@wagtail.org](mailto:hello@wagtail.org) or [@wagtail@fosstodon.org](https://fosstodon.org/@wagtail).
+
