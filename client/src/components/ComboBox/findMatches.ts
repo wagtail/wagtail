@@ -37,7 +37,7 @@ export const contains = (string: string, substring: string) => {
  */
 const findMatches = <T extends object>(
   items: T[],
-  getSearchFields: (item: T) => (string | null | undefined)[],
+  getSearchFields: (item: T) => Array<string | null | undefined>,
   input: string,
 ) =>
   items.filter((item) => {

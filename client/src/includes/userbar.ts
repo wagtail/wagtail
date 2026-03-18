@@ -4,23 +4,23 @@
  * More background can be found in `webpack.config.js`.
  */
 
+import { Application } from '@hotwired/stimulus';
+import A11yDialog from 'a11y-dialog';
 import axe, { Check } from 'axe-core';
 
-import A11yDialog from 'a11y-dialog';
-import { Application } from '@hotwired/stimulus';
-import {
-  getAxeConfiguration,
-  getA11yReport,
-  renderA11yResults,
-  registerCustomCheck,
-  addCustomChecks,
-  WagtailAxeConfiguration,
-} from './a11y-result';
-import { wagtailPreviewPlugin } from './previewPlugin';
-import { contentExtractorPluginInstance } from './contentMetrics';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
-import { getWagtailMessage, WagtailMessage } from '../utils/message';
+import { WagtailMessage, getWagtailMessage } from '../utils/message';
+import {
+  WagtailAxeConfiguration,
+  addCustomChecks,
+  getA11yReport,
+  getAxeConfiguration,
+  registerCustomCheck,
+  renderA11yResults,
+} from './a11y-result';
+import { contentExtractorPluginInstance } from './contentMetrics';
+import { wagtailPreviewPlugin } from './previewPlugin';
 
 /**
  * The Wagtail Userbar component, which provides a user interface for
@@ -70,10 +70,14 @@ export class Userbar extends HTMLElement {
     // same-origin iframe will cause issues if it is not set to the correct
     // value, which can happen in page previews if the page's site root host is
     // different from the host where the admin is accessed.
-    this.origin =
+    const origin =
       (inCrossOriginIframe &&
         userbar.getAttribute('data-wagtail-userbar-origin')) ||
-      window.location.origin;
+      '';
+    // Use URL() and the current origin as a base, to allow both absolute and
+    // relative origins to be used in the data attribute, while ensuring that
+    // the final value is an absolute origin.
+    this.origin = new URL(origin, window.location.origin).origin;
 
     const listItems = list.querySelectorAll('li');
     const isActiveClass = 'w-userbar--active';

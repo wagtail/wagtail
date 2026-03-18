@@ -1,8 +1,8 @@
 import { Application } from '@hotwired/stimulus';
-import { SessionController } from './SessionController';
-import { DialogController } from './DialogController';
-import { SwapController } from './SwapController';
 import { ActionController } from './ActionController';
+import { DialogController } from './DialogController';
+import { SessionController } from './SessionController';
+import { SwapController } from './SwapController';
 
 jest.useFakeTimers();
 

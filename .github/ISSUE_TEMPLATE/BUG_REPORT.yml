@@ -68,7 +68,7 @@ body:
       description: |
         Do you have thoughts on skills needed?
         Are you keen to work on this yourself once the issue has been accepted?
-        Please let us know here.
+        Please let us know here. Otherwise, leave the following content as-is.
       value: |
         If you would like to contribute to this issue, follow these steps:
         - Confirm that the issue is reproducible, either on a fresh Wagtail project or the [bakerydemo](https://github.com/wagtail/bakerydemo).

@@ -50,7 +50,7 @@ body:
       description: |
         Do you have thoughts on skills needed?
         Are you keen to work on this yourself once others agree with the proposal?
-        Please let us know here.
+        Please let us know here. Otherwise, leave the following content as-is.
       value: |
         Contribute to the discussion to help this move forward. Explain your use cases, discuss possible solutions, research how to adapt existing code, or compatibility concerns.
 

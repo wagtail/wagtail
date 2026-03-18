@@ -1,7 +1,7 @@
-import React from 'react';
-import { ControlComponentProps, BLOCK_TYPE } from 'draftail';
-
 import { ContentBlock, EditorState } from 'draft-js';
+import { BLOCK_TYPE, ControlComponentProps } from 'draftail';
+import React from 'react';
+
 import { gettext } from '../../../utils/gettext';
 
 /**

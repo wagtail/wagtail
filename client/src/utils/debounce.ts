@@ -68,11 +68,11 @@ type FunctionType<A extends any[] = [], R = void> = (...args: A) => R;
 type AnyFunction = FunctionType<any, any>;
 
 /** A function that has been debounced. */
-export type DebouncedFunction<F extends AnyFunction> = {
+export interface DebouncedFunction<F extends AnyFunction> {
   (...args: Parameters<F>): Promise<ReturnType<F>>;
   cancel(): void;
   restore(): F;
-};
+}
 
 /** A function that can be debounced. */
 export type DebouncibleFunction<F extends AnyFunction> =
