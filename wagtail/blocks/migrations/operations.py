@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
-from wagtail.blocks.migrations.utils import formatted_list_child_generator
+
 from django.utils.deconstruct import deconstructible
+
+from wagtail.blocks.migrations.utils import formatted_list_child_generator
 
 
 class BaseBlockOperation(ABC):
@@ -9,6 +11,15 @@ class BaseBlockOperation(ABC):
 
     @abstractmethod
     def apply(self, block_value):
+        """Logic for forward migration"""
+        pass
+
+    @abstractmethod
+    def reverse(self, block_value):
+        """
+        Logic for backward migration.
+        Should perfectly undo the changes made in apply().
+        """
         pass
 
     @property
@@ -36,13 +47,18 @@ class RenameStreamChildrenOperation(BaseBlockOperation):
         self.new_name = new_name
 
     def apply(self, block_value):
-        mapped_block_value = []
-        for child_block in block_value:
-            if child_block["type"] == self.old_name:
-                mapped_block_value.append({**child_block, "type": self.new_name})
-            else:
-                mapped_block_value.append(child_block)
-        return mapped_block_value
+        # Forward: Rename A -> B
+        for child in block_value:
+            if child["type"] == self.old_name:
+                child["type"] = self.new_name
+        return block_value
+
+    def reverse(self, block_value):
+        # Backward: Rename B -> A
+        for child in block_value:
+            if child["type"] == self.new_name:
+                child["type"] = self.old_name
+        return block_value
 
     @property
     def operation_name_fragment(self):
@@ -68,13 +84,16 @@ class RenameStructChildrenOperation(BaseBlockOperation):
         self.new_name = new_name
 
     def apply(self, block_value):
-        mapped_block_value = {}
-        for child_key, child_value in block_value.items():
-            if child_key == self.old_name:
-                mapped_block_value[self.new_name] = child_value
-            else:
-                mapped_block_value[child_key] = child_value
-        return mapped_block_value
+        return {
+            (self.new_name if k == self.old_name else k): v
+            for k, v in block_value.items()
+        }
+
+    def reverse(self, block_value):
+        return {
+            (self.old_name if k == self.new_name else k): v
+            for k, v in block_value.items()
+        }
 
     @property
     def operation_name_fragment(self):
@@ -104,6 +123,9 @@ class RemoveStreamChildrenOperation(BaseBlockOperation):
             if child_block["type"] != self.name
         ]
 
+    def reverse(self, block_value):
+        raise NotImplementedError("RemoveStreamChildrenOperation is irreversible.")
+
     @property
     def operation_name_fragment(self):
         return f"remove_{self.name}"
@@ -126,11 +148,12 @@ class RemoveStructChildrenOperation(BaseBlockOperation):
         self.name = name
 
     def apply(self, block_value):
-        return {
-            child_key: child_value
-            for child_key, child_value in block_value.items()
-            if child_key != self.name
-        }
+        return [child for child in block_value if child["type"] != self.name]
+
+    def reverse(self, block_value):
+        raise NotImplementedError(
+            "RemoveStreamChildrenOperation is irreversible (data was deleted)."
+        )
 
     @property
     def operation_name_fragment(self):
@@ -194,30 +217,44 @@ class StreamChildrenToStreamBlockOperation(BaseBlockOperation):
         stream_block_name (str): name of the new StreamBlock type
     """
 
-    def __init__(self, block_names, stream_block_name):
+    def __init__(self, block_name, struct_block_name):
         super().__init__()
-        self.block_names = block_names
-        self.stream_block_name = stream_block_name
+        self.block_name = block_name
+        self.struct_block_name = struct_block_name
 
     def apply(self, block_value):
-        mapped_block_value = []
-        stream_value = []
-
-        for child_block in block_value:
-            if child_block["type"] in self.block_names:
-                stream_value.append(child_block)
+        mapped = []
+        for child in block_value:
+            if child["type"] == self.block_name:
+                mapped.append(
+                    {
+                        **child,
+                        "type": self.struct_block_name,
+                        "value": {self.block_name: child["value"]},
+                    }
+                )
             else:
-                mapped_block_value.append(child_block)
+                mapped.append(child)
+        return mapped
 
-        if stream_value:
-            new_stream_block = {"type": self.stream_block_name, "value": stream_value}
-            mapped_block_value.append(new_stream_block)
-
-        return mapped_block_value
+    def reverse(self, block_value):
+        mapped = []
+        for child in block_value:
+            if child["type"] == self.struct_block_name:
+                mapped.append(
+                    {
+                        **child,
+                        "type": self.block_name,
+                        "value": child["value"][self.block_name],
+                    }
+                )
+            else:
+                mapped.append(child)
+        return mapped
 
     @property
     def operation_name_fragment(self):
-        return "{}_to_stream_block".format("_".join(self.block_names))
+        return f"{self.block_name}_to_struct_{self.struct_block_name}"
 
 
 class AlterBlockValueOperation(BaseBlockOperation):
@@ -234,11 +271,17 @@ class AlterBlockValueOperation(BaseBlockOperation):
     def apply(self, block_value):
         return self.new_value
 
+    def reverse(self, block_value):
+        # Unless we store the old value in the migration (which is hard),
+        # altering a value is generally irreversible.
+        raise NotImplementedError("AlterBlockValueOperation is irreversible.")
+
     @property
     def operation_name_fragment(self):
         return "alter_block_value"
 
 
+@deconstructible
 class StreamChildrenToStructBlockOperation(BaseBlockOperation):
     """Move each StreamBlock child of the given type inside a new StructBlock
 
@@ -292,25 +335,41 @@ class StreamChildrenToStructBlockOperation(BaseBlockOperation):
         self.struct_block_name = struct_block_name
 
     def apply(self, block_value):
-        mapped_block_value = []
-        for child_block in block_value:
-            if child_block["type"] == self.block_name:
-                mapped_block_value.append(
+        mapped = []
+        for child in block_value:
+            if child["type"] == self.block_name:
+                mapped.append(
                     {
-                        **child_block,
+                        **child,
                         "type": self.struct_block_name,
-                        "value": {self.block_name: child_block["value"]},
+                        "value": {self.block_name: child["value"]},
                     }
                 )
             else:
-                mapped_block_value.append(child_block)
-        return mapped_block_value
+                mapped.append(child)
+        return mapped
+
+    def reverse(self, block_value):
+        mapped = []
+        for child in block_value:
+            if child["type"] == self.struct_block_name:
+                mapped.append(
+                    {
+                        **child,
+                        "type": self.block_name,
+                        "value": child["value"][self.block_name],
+                    }
+                )
+            else:
+                mapped.append(child)
+        return mapped
 
     @property
     def operation_name_fragment(self):
-        return f"{self.block_name}_to_struct_block_{self.struct_block_name}"
+        return f"{self.block_name}_to_struct_{self.struct_block_name}"
 
 
+@deconstructible
 class ListChildrenToStructBlockOperation(BaseBlockOperation):
     def __init__(self, block_name):
         super().__init__()
@@ -318,14 +377,17 @@ class ListChildrenToStructBlockOperation(BaseBlockOperation):
 
     def apply(self, block_value):
         mapped_block_value = []
-
-        # In case there is data from the old list format (wagtail < 2.16), we use the generator
-        # to convert them into the new list format
         for child_block in formatted_list_child_generator(block_value):
             mapped_block_value.append(
                 {**child_block, "value": {self.block_name: child_block["value"]}}
             )
         return mapped_block_value
+
+    def reverse(self, block_value):
+        # Unwrap dictionary values back to raw list items
+        return [
+            {**child, "value": child["value"][self.block_name]} for child in block_value
+        ]
 
     @property
     def operation_name_fragment(self):
