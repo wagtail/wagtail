@@ -79,7 +79,7 @@ Resize an image, and render an `<img>` tag:
 Or resize an image and retrieve the resized image object (rendition) for more bespoke use:
 
 ```html+jinja
-{% set background=image(page.background_image, "max-1024x1024") %}
+{% set background = image(page.background_image, "max-1024x1024") %}
 <div class="wrapper" style="background-image: url({{ background.url }});"></div>
 ```
 
