@@ -82,7 +82,7 @@ class TestContentTypeUse(WagtailTestUtils, TestCase):
         self.assertContains(response, delete_url)
         self.assertContains(response, "data-bulk-action-select-all-checkbox")
 
-        with self.assertNumQueries(33):
+        with self.assertNumQueries(26):
             self.client.get(request_url)
 
     def test_content_type_use_results(self):
