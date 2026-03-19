@@ -334,6 +334,21 @@ def get_locales_display_names() -> dict:
     return cached_map
 
 
+def get_locale_language_codes() -> dict:
+    """
+    Cache of the locale id -> language_code mapping
+    """
+    from wagtail.models import Locale  # inlined to avoid circular imports
+
+    cached_map = cache.get("wagtail_locale_language_codes")
+    if cached_map is None:
+        cached_map = {
+            locale.pk: locale.language_code for locale in Locale.objects.all()
+        }
+        cache.set("wagtail_locale_language_codes", cached_map)
+    return cached_map
+
+
 @receiver(setting_changed)
 def reset_cache(**kwargs):
     """

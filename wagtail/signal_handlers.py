@@ -41,6 +41,7 @@ def post_delete_page_log_deletion(sender, instance, **kwargs):
 
 def reset_locales_display_names_cache(sender, instance, **kwargs):
     cache.delete("wagtail_locales_display_name")
+    cache.delete("wagtail_locale_language_codes")
 
 
 reference_index_auto_update_disabled = Local()
