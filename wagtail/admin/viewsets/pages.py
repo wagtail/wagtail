@@ -112,6 +112,11 @@ class PageViewSet(PageListingViewSet):
         """
         return []
 
+    def on_register(self):
+        """Register the viewset to the global page viewset registry."""
+        super().on_register()
+        page_viewset_registry.register(self.model, self)
+
 
 class PageViewSetRegistry(ObjectTypeRegistry):
     def get_content_type_id_by_page_id(self, page_id):
@@ -157,6 +162,5 @@ class PageViewSetRegistry(ObjectTypeRegistry):
 page_viewset_registry = PageViewSetRegistry()
 
 # Provide a fallback default viewset for any page types that don't have a custom
-# viewset registered
+# viewset, to be registered via the register_admin_viewset hook.
 base_page_viewset = PageViewSet()
-page_viewset_registry.register(Page, base_page_viewset)

@@ -23,7 +23,6 @@ from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.utils import set_query_params
 from wagtail.admin.views.account import BaseSettingsPanel
-from wagtail.admin.viewsets.pages import page_viewset_registry
 from wagtail.admin.widgets import Button
 from wagtail.permission_policies.base import ModelPermissionPolicy
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
@@ -32,7 +31,6 @@ from wagtail.snippets.views.chooser import SnippetChooserViewSet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail.test.testapp.models import (
     DraftStateModel,
-    EventIndex,
     FullFeaturedSnippet,
     ModeratedModel,
     RevisableChildModel,
@@ -449,6 +447,11 @@ def register_event_page_listing_viewset():
 
 
 @hooks.register("register_admin_viewset")
+def register_event_index_page_viewset():
+    return event_index_page_viewset
+
+
+@hooks.register("register_admin_viewset")
 def register_opera_viewset():
     return opera_viewset
 
@@ -463,6 +466,3 @@ def register_avatar_intercept_url(user, size):
 @hooks.register("register_admin_viewset")
 def register_advert_chooser_viewset():
     return advert_chooser_viewset
-
-
-page_viewset_registry.register(EventIndex, event_index_page_viewset)
