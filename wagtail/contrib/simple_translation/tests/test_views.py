@@ -542,6 +542,9 @@ class TestPageListing(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_translate_button_displayed(self):
         url = reverse("wagtailadmin_explore", args=(self.en_homepage.pk,))
         response = self.client.get(url)

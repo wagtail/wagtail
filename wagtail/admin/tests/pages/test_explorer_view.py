@@ -1429,6 +1429,9 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_in_workflow_status(self):
         workflow = Workflow.objects.first()
         workflow.start(self.christmas, self.user)

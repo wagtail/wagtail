@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -57,6 +57,9 @@ class TestContentTypeUse(WagtailTestUtils, TestCase):
         response = self.client.get(request_url)
         self.assertEqual(response.status_code, 200)
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_content_type_use(self):
         # Get use of event page
         request_url = reverse(
