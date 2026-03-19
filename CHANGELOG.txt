@@ -10,7 +10,6 @@ Changelog
  * Add support for Flourish oEmbeds (Garrett Coakley)
  * Add support for Heyzine oEmbeds (Baptiste Darthenay)
  * Allow specifying `creation_form_class` on `ChooserViewSet` as a dotted path string (Adithya00012)
- * Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
@@ -55,6 +54,7 @@ Changelog
 
  * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+ * Fix: Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
