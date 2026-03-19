@@ -65,7 +65,7 @@ class FieldBlock(Block):
     def defer_required_validation(self):
         super().defer_required_validation()
         self._original_required = self.required
-        self.field.required = False
+        self.field.required = False or getattr(self.meta, "required_on_save", False)
 
     def clean(self, value):
         # We need an annoying value_for_form -> value_from_form round trip here to account for

@@ -6,7 +6,12 @@ All StreamField blocks implement a {meth}`~wagtail.blocks.Block.clean` method wh
 
 The `clean` method can be overridden on block subclasses to implement custom validation logic. During validation of drafts, the block has the {attr}`~wagtail.blocks.Block.is_deferred_validation` attribute set to `True`.
 
-For example, a StructBlock that requires either one of its child blocks to be filled in (at the time of publishing, but not when saving a draft) could be implemented as follows:
+To enforce required validation of field blocks even when saving a draft, set the [`required_on_save`](wagtail.blocks.FieldBlock) option to `True` on the relevant field blocks.
+
+The following example is a StructBlock that:
+
+- requires either the `page` or `url` block to be filled in at the time of publishing, but not when saving a draft
+- requires the `text` block to be filled in at all times, including when saving a draft
 
 ```python
 from django.core.exceptions import ValidationError
@@ -15,6 +20,7 @@ from wagtail.blocks import StructBlock, PageChooserBlock, URLBlock
 class LinkBlock(StructBlock):
     page = PageChooserBlock(required=False)
     url = URLBlock(required=False)
+    text = CharBlock(required_on_save=True)
 
     def clean(self, value):
         result = super().clean(value)

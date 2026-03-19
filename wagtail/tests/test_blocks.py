@@ -287,6 +287,13 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean("")
 
+    def test_required_on_save(self):
+        block = blocks.CharBlock(required_on_save=True)
+        with self.assertRaises(ValidationError):
+            block.clean_deferred("")
+        with self.assertRaises(ValidationError):
+            block.clean("")
+
     def test_charfield_with_callable_default(self):
         def callable_default():
             return "Hello world!"
