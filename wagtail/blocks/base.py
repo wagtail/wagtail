@@ -186,12 +186,7 @@ class Block(metaclass=BaseBlock):
 
     def clean(self, value):
         """
-        Validate value and return a cleaned version of it, or throw a ValidationError if validation fails.
-        The thrown ValidationError instance will subsequently be passed to render() to display the
-        error message; the ValidationError must therefore include all detail necessary to perform that
-        rendering, such as identifying the specific child block(s) with errors, in the case of nested
-        blocks. (It is suggested that you use the 'params' attribute for this; using error_list /
-        error_dict is unreliable because Django tends to hack around with these when nested.)
+        Validate value and return a cleaned version of it, or throw a :class:`~django.core.exceptions.ValidationError` if validation fails.
 
         To determine whether to defer any validation that is not required for saving a
         draft, the :attr:`is_deferred_validation` attribute can be checked.
