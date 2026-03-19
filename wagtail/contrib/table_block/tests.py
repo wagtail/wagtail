@@ -8,7 +8,7 @@ from django.utils import translation
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.contrib.table_block.blocks import DEFAULT_TABLE_OPTIONS, TableBlock
 from wagtail.models import Page
-from wagtail.test.testapp.models import TableBlockStreamPage
+from wagtail.test.testapp.models import TableBlockStreamPage, ValidationError
 from wagtail.test.utils import WagtailTestUtils
 
 from .blocks import TableInput
@@ -623,6 +623,53 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
         )
+
+    def test_clean(self):
+        block = TableBlock()
+        # to_python converts the legacy boolean header options to choice-based
+        # for the cleaning process, but clean() will convert it back to the
+        # legacy options for backwards compatibility with existing data.
+        cleaned_value = block.clean(block.to_python(self.value.copy()))
+        self.assertEqual(cleaned_value, {**self.value, "table_header_choice": "both"})
+
+        # Allow not defining a table_header_choice for backwards compatibility.
+        no_headers = self.value.copy()
+        no_headers.pop("first_row_is_table_header")
+        no_headers.pop("first_col_is_header")
+        self.assertEqual(
+            block.clean(block.to_python(no_headers.copy())),
+            {
+                **no_headers,
+                "first_row_is_table_header": False,
+                "first_col_is_header": False,
+                "table_header_choice": "neither",
+            },
+        )
+
+        # Using the choice-based table header options should result in the same
+        # cleaned value as the legacy boolean options.
+        choice_based = no_headers.copy()
+        choice_based["table_header_choice"] = "both"
+        self.assertEqual(
+            block.clean(block.to_python(choice_based.copy())),
+            {**self.value, "table_header_choice": "both"},
+        )
+
+        # Not defining table_header_choice and using it directly for clean()
+        # (without passing it to to_python for whatever reason) would raise a
+        # validation error. This would not happen under normal circumstances,
+        # unless we require table_header_choice in the future without a default.
+        with self.assertRaises(ValidationError):
+            block.clean(no_headers.copy())
+
+    def test_clean_deferred(self):
+        no_headers = self.value.copy()
+        no_headers.pop("first_row_is_table_header")
+        no_headers.pop("first_col_is_header")
+        # clean_deferred should not raise a validation error for missing
+        # table_header_choice
+        cleaned_value = TableBlock().clean_deferred(no_headers)
+        self.assertEqual(cleaned_value, no_headers)
 
     def test_searchable_content(self):
         """

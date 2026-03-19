@@ -820,8 +820,8 @@ class TestPurgeBatchClass(TestCase):
             },
         )
 
-    @mock.patch("wagtail.contrib.frontend_cache.backends.cloudflare.requests.delete")
-    def test_http_error_on_cloudflare_purge_batch(self, requests_delete_mock):
+    @mock.patch("wagtail.contrib.frontend_cache.backends.cloudflare.requests.post")
+    def test_http_error_on_cloudflare_purge_batch(self, requests_post_mock):
         backend_settings = {
             "cloudflare": {
                 "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
@@ -838,7 +838,7 @@ class TestPurgeBatchClass(TestCase):
         http_error = requests.exceptions.HTTPError(
             response=MockResponse(status_code=500)
         )
-        requests_delete_mock.side_effect = http_error
+        requests_post_mock.side_effect = http_error
 
         batch = PurgeBatch()
         batch.add_url("http://localhost/events/")
