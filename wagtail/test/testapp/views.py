@@ -24,10 +24,11 @@ from wagtail.admin.views.generic import (
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
-from wagtail.admin.viewsets.pages import PageListingViewSet
+from wagtail.admin.viewsets.pages import PageListingViewSet, PageViewSet
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.test.testapp.models import (
     Advert,
+    EventIndex,
     EventPage,
     FeatureCompleteToy,
     JSONBlockCountsStreamModel,
@@ -351,6 +352,16 @@ class EventPageListingViewSet(PageListingViewSet):
 
 
 event_page_listing_viewset = EventPageListingViewSet("event_pages")
+
+
+class EventIndexPageViewSet(PageViewSet):
+    model = EventIndex
+    columns = PageViewSet.index_view_class.columns.copy()
+    columns.insert(-1, Column("audience", label="Audience", sort_key="audience"))
+    filterset_class = EventPageFilterSet
+
+
+event_index_page_viewset = EventIndexPageViewSet()
 
 
 class PlayView(View):
