@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.action_menu import ActionMenuItem, PublishMenuItem
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.models import EditingSession
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
     Comment,
@@ -26,6 +27,7 @@ from wagtail.models import (
     PageSubscription,
     Revision,
     Site,
+    get_default_page_content_type,
 )
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
@@ -1067,6 +1069,43 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertEqual(
             editing_sessions.select_one("input[name='revision_created_at']")["value"],
             latest_revision.created_at.isoformat(),
+        )
+
+    def test_save_with_json_response_does_not_affect_sessions(self):
+        # an old session that would be cleaned up when loading the editor
+        old_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=get_default_page_content_type(),
+            object_id=self.child_page.pk,
+            last_seen_at=timezone.now() - datetime.timedelta(hours=5),
+        )
+        # a recent session that would not be cleaned up when loading the editor
+        recent_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=get_default_page_content_type(),
+            object_id=self.child_page.pk,
+            last_seen_at=timezone.now() - datetime.timedelta(seconds=5),
+        )
+        loaded_revision = self.child_page.get_latest_revision()
+        post_data = {
+            "title": "I've been edited!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
+            "loaded_revision_created_at": loaded_revision.created_at.isoformat(),
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.pk,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        # Saving with a JSON response does not fully load the editor, so it
+        # should not run a cleanup of old sessions, nor should it create a new
+        # session for the current request.
+        self.assertEqual(
+            list(EditingSession.objects.values_list("pk", flat=True).order_by("pk")),
+            [old_session.pk, recent_session.pk],
         )
 
     def test_page_edit_post_unpublished_page(self):

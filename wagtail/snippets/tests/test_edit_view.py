@@ -11,11 +11,13 @@ from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.timezone import now
 from freezegun import freeze_time
 from taggit.models import Tag
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.models import EditingSession
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published
 from wagtail.snippets.action_menu import (
@@ -1238,6 +1240,35 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.get_latest_revision()
         self.assertEqual(latest_revision.id, user_revision.id)
         self.assertEqual(latest_revision.content["text"], "Initial revision")
+
+    def test_save_with_json_response_does_not_affect_sessions(self):
+        # an old session that would be cleaned up when loading the editor
+        content_type = ContentType.objects.get_for_model(self.test_snippet)
+        old_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=content_type,
+            object_id=self.test_snippet.pk,
+            last_seen_at=timezone.now() - datetime.timedelta(hours=5),
+        )
+        # a recent session that would not be cleaned up when loading the editor
+        recent_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=content_type,
+            object_id=self.test_snippet.pk,
+            last_seen_at=timezone.now() - datetime.timedelta(seconds=5),
+        )
+        response = self.post(
+            post_data={"text": "Autosaved"},
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        # Saving with a JSON response does not fully load the editor, so it
+        # should not run a cleanup of old sessions, nor should it create a new
+        # session for the current request.
+        self.assertEqual(
+            list(EditingSession.objects.values_list("pk", flat=True).order_by("pk")),
+            [old_session.pk, recent_session.pk],
+        )
 
 
 class TestEditDraftStateSnippet(BaseTestSnippetEditView):
