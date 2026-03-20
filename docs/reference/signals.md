@@ -70,6 +70,15 @@ This signal is emitted from a `Page` when the page is unpublished.
 -   `instance` - The specific `Page` instance.
 -   `kwargs` - Any other arguments passed to `page_unpublished.send()`
 
+## `published`
+
+This signal is triggered when a page is published using the `PublishRevisionAction`.
+
+
+## `unpublished`
+
+This signal is triggered when a page is unpublished using the `UnpublishAction`.
+
 ## `pre_page_move` and `post_page_move`
 
 These signals are emitted from a `Page` immediately before and after it is moved.
