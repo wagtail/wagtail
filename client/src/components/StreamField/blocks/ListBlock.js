@@ -62,7 +62,8 @@ class InsertPosition extends BaseInsertionControl {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
     const animate = opts && opts.animate;
-    const title = h(gettext('Add'));
+    const label = opts.label || '';
+    const title = h(gettext('Add %(label)s').replace('%(label)s', label));
     const button = $(`
       <button type="button" title="${title}" data-streamfield-list-add class="c-sf-add-button">
         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
@@ -187,7 +188,10 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   _createInsertionControl(placeholder, opts) {
-    return new InsertPosition(placeholder, opts);
+    return new InsertPosition(placeholder, {
+  ...opts,
+  label: this.blockDef.childBlockDef.meta.label,
+});
   }
 
   /**
