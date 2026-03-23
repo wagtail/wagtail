@@ -6,7 +6,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("tests", "0060_eventpagespeakeraward_certificate"),
+        ("tests", "0061_revisablecluster_revisableclusterchild"),
     ]
 
     operations = [
