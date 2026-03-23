@@ -6,18 +6,16 @@ We welcome bug reports, feature requests and pull requests through Wagtail's [Gi
 
 When you open an issue, it moves through a simple triage loop so we can decide what work (if any) is needed and who should pick it up. First, the core team reviews the report and assigns an initial classification (bug, feature, or documentation). If more information or design input is needed, discussion may happen in the issue. Once there is a clear direction, a contributor can submit a pull request implementing the change. The pull request is reviewed and, if everything checks out, merged into the project.
 
-```mermaid
-flowchart TD
-    A[Open Issue] --> B[Core Team Review]
-    B --> C{Type?}
-    C -->|Bug| D[Fix / PR]
-    C -->|Feature| E[Discussion]
-    C -->|Docs| F[Improve Docs]
-    D --> G[PR Review]
-    E --> G
-    F --> G
-    G --> H[Merged]
-```
+
+### Issue Flow
+
+1. Issue is opened  
+2. Core team reviews the issue  
+3. Issue is categorized (bug, feature, or documentation)  
+4. Discussion takes place if needed  
+5. A contributor submits a pull request  
+6. The pull request is reviewed  
+7. The change is merged 
 
 ## Issues
 
