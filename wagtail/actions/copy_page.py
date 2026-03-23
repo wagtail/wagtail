@@ -62,6 +62,19 @@ class CopyPageAction:
         self.reset_translation_key = reset_translation_key
         self._uuid_mapping = {}
 
+    def _reset_nested_pks(self, obj, parent_field_name):
+        if isinstance(obj, dict):
+            for key, value in obj.items():
+                if isinstance(value, (dict, list)):
+                    self._reset_nested_pks(value, parent_field_name)
+
+            if "pk" in obj and parent_field_name in obj:
+                obj["pk"] = None
+
+        elif isinstance(obj, list):
+            for item in obj:
+                self._reset_nested_pks(item, parent_field_name)
+
     def generate_translation_key(self, old_uuid):
         """
         Generates a new UUID if it isn't already being used.
@@ -225,6 +238,8 @@ class CopyPageAction:
                                     child_object["translation_key"]
                                 )
                             )
+                        # FIX: reset PKs only for nested child objects (not current level)
+                        self._reset_nested_pks(child_object, child_relation.field.name)
 
                 for field_name in exclude_fields:
                     if field_name in revision_content:
