@@ -9,13 +9,13 @@ const TOP_MARGIN = 100.0;
 const OFFSET = -50;
 
 export class LayoutController {
-  commentElements: Map<number, HTMLElement> = new Map();
-  commentAnnotations: Map<number, Annotation> = new Map();
-  commentTabs: Map<number, string | null> = new Map();
-  commentDesiredPositions: Map<number, number> = new Map();
-  commentHeights: Map<number, number> = new Map();
+  commentElements = new Map<number, HTMLElement>();
+  commentAnnotations = new Map<number, Annotation>();
+  commentTabs = new Map<number, string | null>();
+  commentDesiredPositions = new Map<number, number>();
+  commentHeights = new Map<number, number>();
   pinnedComment: number | null = null;
-  commentCalculatedPositions: Map<number, number> = new Map();
+  commentCalculatedPositions = new Map<number, number>();
   isDirty = false;
 
   setCommentElement(commentId: number, element: HTMLElement | null) {
@@ -120,7 +120,7 @@ export class LayoutController {
     );
 
     // Group blocks by tabs
-    const blocksByTab: Map<string | null, Block[]> = new Map();
+    const blocksByTab = new Map<string | null, Block[]>();
     allBlocks.forEach((block) => {
       const blocks = blocksByTab.get(block.tab) || [];
       blocks.push(block);

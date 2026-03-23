@@ -1,5 +1,5 @@
-import { createEditorStateFromRaw } from 'draftail';
 import { EditorState } from 'draft-js';
+import { createEditorStateFromRaw } from 'draftail';
 import ReactTestUtils from 'react-dom/test-utils';
 
 require('./draftail');

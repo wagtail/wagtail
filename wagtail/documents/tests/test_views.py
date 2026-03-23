@@ -23,13 +23,16 @@ class TestServeView(TestCase):
             "serve_view.pdf", ContentFile(b"A boring example document")
         )
 
-    def tearDown(self):
-        if hasattr(self, "response"):
-            # Make sure the response is fully read before deleting the document so
-            # that the file is closed by the view.
+    def read_response(self, response):
+        if hasattr(response, "streaming_content"):
+            # Make sure the response is fully read so that the file is closed by the view.
             # This is required on Windows as the below line that deletes the file
             # will crash if the file is still open.
-            b"".join(self.response.streaming_content)
+            b"".join(response.streaming_content)
+
+    def tearDown(self):
+        if hasattr(self, "response"):
+            self.read_response(self.response)
 
         # delete the FieldFile directly because the TestCase does not commit
         # transactions to trigger transaction.on_commit() in the signal handler
@@ -59,10 +62,20 @@ class TestServeView(TestCase):
         )
 
     def test_content_security_policy(self):
-        self.assertEqual(self.get()["Content-Security-Policy"], "default-src 'none'")
+        self.get()
+        try:
+            self.assertEqual(
+                self.response["Content-Security-Policy"], "default-src 'none'"
+            )
+        finally:
+            self.read_response(self.response)
 
         with self.settings(WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT=False):
-            self.assertNotIn("Content-Security-Policy", self.get().headers)
+            self.get()
+            try:
+                self.assertNotIn("Content-Security-Policy", self.response.headers)
+            finally:
+                self.read_response(self.response)
 
     def test_no_sniff_content_type(self):
         self.assertEqual(self.get()["X-Content-Type-Options"], "nosniff")
@@ -377,11 +390,21 @@ class TestServeWithUnicodeFilename(TestCase):
         # transactions to trigger transaction.on_commit() in the signal handler
         self.document.file.delete()
 
+    def read_response(self, response):
+        if hasattr(response, "streaming_content"):
+            # Make sure the response is fully read so that the file is closed by the view.
+            # This is required on Windows as the below line that deletes the file
+            # will crash if the file is still open.
+            b"".join(response.streaming_content)
+
     def test_response_code(self):
         response = self.client.get(
             reverse("wagtaildocs_serve", args=(self.document.id, self.filename))
         )
-        self.assertEqual(response.status_code, 200)
+        try:
+            self.assertEqual(response.status_code, 200)
+        finally:
+            self.read_response(response)
 
     @mock.patch("wagtail.documents.views.serve.hooks")
     @mock.patch("wagtail.documents.views.serve.get_object_or_404")

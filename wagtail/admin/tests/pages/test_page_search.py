@@ -2,7 +2,7 @@ from io import StringIO
 
 from django.contrib.auth.models import Permission
 from django.core import management
-from django.test import TransactionTestCase
+from django.test import TransactionTestCase, tag
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -13,6 +13,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
+@tag("transaction")
 class TestPageSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
 

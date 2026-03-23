@@ -1,8 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { DebouncibleFunction, debounce } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
-import { debounce, DebouncibleFunction } from '../utils/debounce';
 
 /** Server-provided error codes. */
 export enum ServerErrorCode {
@@ -115,8 +115,8 @@ export type AutosaveEvent =
  * @fires `w-autosave:save` - before saving, cancelable.
  * @fires `w-autosave:hydrate` - to hydrate a create view into an edit view.
  * @fires `w-autosave:success` - on successful save and any UI updates.
- * @fires `w-autosave:deactivated` - when autosave is deactivated due to an unrecoverable error.
  * @fires `w-autosave:error` - on save error, e.g. due to validation errors.
+ * @fires `w-autosave:deactivated` - when autosave is deactivated due to an unrecoverable error.
  *
  */
 export class AutosaveController extends Controller<
@@ -129,6 +129,8 @@ export class AutosaveController extends Controller<
     revisionId: { type: Number, default: 0 },
     state: { type: String, default: 'idle' as AutosaveState },
   };
+
+  static maxRetries = 5;
 
   declare readonly hasPartialsTarget: boolean;
   /** The target element for partial HTML updates. */
@@ -152,6 +154,9 @@ export class AutosaveController extends Controller<
    * not when controlling a form.
    */
   declare stateValue: AutosaveState;
+
+  retryTimeout: ReturnType<typeof setTimeout> | null = null;
+  retryTimes = 0;
 
   initialize(): void {
     this.submit = this.submit.bind(this);
@@ -244,6 +249,8 @@ export class AutosaveController extends Controller<
         this.partialsTarget.innerHTML = response.html;
       }
 
+      this.clearRetries();
+
       // Ensure any UI updates have finished before dispatching the success event
       requestAnimationFrame(() =>
         this.dispatch('success', {
@@ -266,6 +273,23 @@ export class AutosaveController extends Controller<
         // Fetch failed, no response at all
         type = ClientErrorCode.NETWORK_ERROR;
         text = gettext('A network error occurred.');
+
+        // Another save attempt may happen in between retries. If it also fails,
+        // keep the current retry timeout and don't set a new one.
+        if (
+          !this.retryTimeout &&
+          this.retryTimes < AutosaveController.maxRetries
+        ) {
+          this.retryTimes += 1;
+          this.retryTimeout = setTimeout(
+            () => {
+              this.save(event);
+              this.retryTimeout = null;
+            },
+            // Exponential backoff
+            1000 * 2 ** this.retryTimes,
+          );
+        }
       } else if (
         // Non-JSON response
         !response ||
@@ -284,6 +308,21 @@ export class AutosaveController extends Controller<
         text = response.error_message;
       }
 
+      if (type !== ClientErrorCode.NETWORK_ERROR) {
+        this.clearRetries();
+      }
+
+      this.dispatch('error', {
+        cancelable: false,
+        detail: {
+          response,
+          error,
+          trigger: event,
+          text, // Used for showing the unsaved changes message
+          type,
+        },
+      });
+
       // There's no reliable way to recover from an invalid revision or a
       // hydration error, so deactivate and inform listeners (e.g. to
       // immediately trigger a notification)
@@ -301,17 +340,6 @@ export class AutosaveController extends Controller<
           },
         });
       }
-
-      this.dispatch('error', {
-        cancelable: false,
-        detail: {
-          response,
-          error,
-          trigger: event,
-          text, // Used for showing the unsaved changes message
-          type,
-        },
-      });
     }
   };
 
@@ -355,6 +383,15 @@ export class AutosaveController extends Controller<
           { cause: error },
         );
       });
+  }
+
+  /** Resets retry state so future retries start with the initial delay. */
+  clearRetries() {
+    if (this.retryTimeout) {
+      clearTimeout(this.retryTimeout);
+    }
+    this.retryTimeout = null;
+    this.retryTimes = 0;
   }
 
   /** Applies the new debounce interval to the submit function. */

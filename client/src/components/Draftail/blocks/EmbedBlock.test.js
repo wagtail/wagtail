@@ -1,8 +1,8 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import EmbedBlock from './EmbedBlock';
 import { noop } from '../../../utils/noop';
+import EmbedBlock from './EmbedBlock';
 
 describe('EmbedBlock', () => {
   it('renders', () => {

@@ -12,9 +12,6 @@ describe('Listing', () => {
   });
 
   it('axe', async () => {
-    await expect(page).toPassAxeTests({
-      exclude:
-        '.skiplink, .sidebar__collapse-toggle, #wagtail-sidebar, a[href$="dummy-button"]',
-    });
+    await expect(page).toPassAxeTests();
   });
 });

@@ -1,6 +1,6 @@
-import React from 'react';
+import { EditorState, RawDraftContentState, convertFromRaw } from 'draft-js';
 import { shallow } from 'enzyme';
-import { EditorState, convertFromRaw, RawDraftContentState } from 'draft-js';
+import React from 'react';
 
 import MaxLength, { countCharacters, getPlainText } from './MaxLength';
 

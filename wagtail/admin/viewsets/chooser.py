@@ -100,7 +100,7 @@ class ChooserViewSet(ViewSet):
                 "url_filter_parameters": self.url_filter_parameters,
                 "create_action_label": self.create_action_label,
                 "create_action_clicked_label": self.create_action_clicked_label,
-                "creation_form_class": self.creation_form_class,
+                "creation_form_class": self._creation_form_class,
                 "form_fields": self.form_fields,
                 "exclude_form_fields": self.exclude_form_fields,
                 "chosen_url_name": self.get_url_name("chosen"),
@@ -151,6 +151,14 @@ class ChooserViewSet(ViewSet):
             return self.model.split(".")[-1]
         else:
             return self.model.__name__
+
+    @cached_property
+    def _creation_form_class(self):
+        if isinstance(self.creation_form_class, str):
+            from django.utils.module_loading import import_string
+
+            return import_string(self.creation_form_class)
+        return self.creation_form_class
 
     @cached_property
     def widget_class(self):

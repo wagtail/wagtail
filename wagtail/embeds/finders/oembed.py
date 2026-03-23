@@ -77,9 +77,9 @@ class OEmbedFinder(EmbedFinder):
 
         # Return embed as a dict
         result = {
-            "title": oembed.get("title", ""),
-            "author_name": oembed.get("author_name", ""),
-            "provider_name": oembed.get("provider_name", ""),
+            "title": oembed.get("title", "") or "",
+            "author_name": oembed.get("author_name", "") or "",
+            "provider_name": oembed.get("provider_name", "") or "",
             "type": oembed["type"],
             "thumbnail_url": oembed.get("thumbnail_url"),
             "width": oembed.get("width"),

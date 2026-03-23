@@ -847,10 +847,15 @@ class CreateEditViewOptionalFeaturesMixin:
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ) and bool(self.workflow_tasks)
         context["revisions_compare_url_name"] = self.revisions_compare_url_name
-        context["editing_sessions"] = self.get_editing_sessions()
         context["loaded_revision_created_at"] = self.latest_revision_created_at
-        if self.autosave_enabled:
-            context["autosave_indicator"] = AutosaveIndicator()
+
+        if not self.expects_json_response:
+            # These components do not need to be loaded when rendering partials
+            # for autosave. In particular, `get_editing_sessions` performs
+            # database writes that are not necessary when autosaving.
+            context["editing_sessions"] = self.get_editing_sessions()
+            if self.autosave_enabled:
+                context["autosave_indicator"] = AutosaveIndicator()
         return context
 
     def is_valid(self, form):

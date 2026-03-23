@@ -1,27 +1,28 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { v4 as uuidv4 } from 'uuid';
 import tippy from 'tippy.js';
+import { v4 as uuidv4 } from 'uuid';
 
-import {
-  BaseSequenceBlock,
-  BaseSequenceChild,
-  BaseInsertionControl,
-} from './BaseSequenceBlock';
-import { escapeHtml as h } from '../../../utils/text';
-import { hasOwn } from '../../../utils/hasOwn';
-import { gettext } from '../../../utils/gettext';
-import ComboBox, {
-  comboBoxLabel,
-  comboBoxNoResults,
-  comboBoxTriggerLabel,
-} from '../../ComboBox/ComboBox';
 import { hideTooltipOnEsc } from '../../../controllers/TooltipController';
 import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
 import { setAttrs } from '../../../utils/attrs';
+import { gettext } from '../../../utils/gettext';
+import { hasOwn } from '../../../utils/hasOwn';
+import { escapeHtml as h } from '../../../utils/text';
+import ComboBox, {
+  comboBoxLabel,
+  comboBoxNoResults,
+  comboBoxTriggerLabel,
+} from '../../ComboBox/ComboBox';
+import {
+  BaseInsertionControl,
+  BaseSequenceBlock,
+  BaseSequenceChild,
+} from './BaseSequenceBlock';
 
 /* global $ */
 
@@ -238,7 +239,6 @@ export class StreamBlock extends BaseSequenceBlock {
       return this.children.length;
     }
     if (!this.childBlockCounts.has(type)) {
-      // eslint-disable-next-line no-underscore-dangle
       this._updateBlockCount(type);
     }
     return this.childBlockCounts.get(type) || 0;
@@ -354,7 +354,7 @@ export class StreamBlock extends BaseSequenceBlock {
 
   insert({ type, value, id }, index, opts) {
     const childBlockDef = this.blockDef.childBlockDefsByName[type];
-    // eslint-disable-next-line no-underscore-dangle
+
     return this._insert(childBlockDef, value, id, index, opts);
   }
 

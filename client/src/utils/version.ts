@@ -1,5 +1,5 @@
 class VersionNumberFormatError extends Error {
-  constructor(versionString) {
+  constructor(versionString: string) {
     super(versionString);
     this.message = `Version number '${versionString}' is not formatted correctly.`;
   }
@@ -12,27 +12,29 @@ class CanOnlyComparePreReleaseVersionsError extends Error {
   }
 }
 
-class VersionDeltaType {
-  static MAJOR = new VersionDeltaType('Major');
-  static MINOR = new VersionDeltaType('Minor');
-  static PATCH = new VersionDeltaType('Patch');
-  static PRE_RELEASE_STEP = new VersionDeltaType('PreReleaseStep');
-  static PRE_RELEASE_VERSION = new VersionDeltaType('PreReleaseVersion');
-
-  constructor(name) {
-    this.name = name;
-  }
+enum VersionDeltaType {
+  MAJOR = 'Major',
+  MINOR = 'Minor',
+  PATCH = 'Patch',
+  PRE_RELEASE_STEP = 'PreReleaseStep',
+  PRE_RELEASE_VERSION = 'PreReleaseVersion',
 }
 
 class VersionNumber {
-  constructor(versionString) {
+  declare major: number;
+  declare minor: number;
+  declare patch: number;
+  declare preReleaseStep: string | null;
+  declare preReleaseVersion: number | null;
+
+  constructor(versionString: string) {
     const versionRegex =
       /^(?<major>\d+)\.{1}(?<minor>\d+)((\.{1}(?<patch>\d+))|(?<preReleaseStep>a|b|rc|\.dev){1}(?<preReleaseVersion>\d+)){0,1}$/;
     const matches = versionString.match(versionRegex);
     if (matches === null) {
       throw new VersionNumberFormatError(versionString);
     }
-    const groups = matches.groups;
+    const groups = matches.groups!;
 
     this.major = parseInt(groups.major, 10);
     this.minor = parseInt(groups.minor, 10);
@@ -53,7 +55,7 @@ class VersionNumber {
    *
    * @throws {CanOnlyComparePreReleaseVersionsError} If either version is not a pre-release.
    */
-  isPreReleaseStepBehind(that) {
+  isPreReleaseStepBehind(that: VersionNumber) {
     if (!this.isPreRelease() || !that.isPreRelease()) {
       throw new CanOnlyComparePreReleaseVersionsError();
     }
@@ -73,7 +75,7 @@ class VersionNumber {
   /**
    * Get VersionDeltaType that this version is behind the other version passed in.
    */
-  howMuchBehind(that) {
+  howMuchBehind(that: VersionNumber) {
     if (this.major < that.major) {
       return VersionDeltaType.MAJOR;
     }
@@ -102,7 +104,7 @@ class VersionNumber {
       }
       if (
         this.preReleaseStep === that.preReleaseStep &&
-        this.preReleaseVersion < that.preReleaseVersion
+        this.preReleaseVersion! < that.preReleaseVersion!
       ) {
         return VersionDeltaType.PRE_RELEASE_VERSION;
       }
@@ -113,7 +115,7 @@ class VersionNumber {
 
 export {
   CanOnlyComparePreReleaseVersionsError,
-  VersionNumberFormatError,
   VersionDeltaType,
   VersionNumber,
+  VersionNumberFormatError,
 };

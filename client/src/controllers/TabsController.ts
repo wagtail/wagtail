@@ -70,14 +70,14 @@ export class TabsController extends Controller {
   /** Tab content panels, with role='tabpanel', showing the content for each tab. */
   declare readonly panelTargets: HTMLElement[];
   /** Any elements within the controller's scope that may select a specific panel. */
-  declare readonly triggerTargets: (HTMLButtonElement | HTMLAnchorElement)[];
+  declare readonly triggerTargets: Array<HTMLButtonElement | HTMLAnchorElement>;
   /** If true, the selected tab will sync with the URL hash and the URL hash will be checked on load for a selected tab panel (or panel contents). */
   declare readonly useLocationValue: boolean;
 
   /** The key for reading/applying history state if `locationSync` is enabled, based on the controller's identifier. */
-  historyStateKey: string = 'tabs-panel-id';
+  historyStateKey = 'tabs-panel-id';
   /** Trigger elements that are the primary tabs, with role='tab' within the role='tablist'. */
-  tabs: (HTMLButtonElement | HTMLAnchorElement)[] = [];
+  tabs: Array<HTMLButtonElement | HTMLAnchorElement> = [];
 
   declare panelTargetConnected: (target: HTMLElement) => void;
   declare panelTargetDisconnected: (target: HTMLElement) => void;
