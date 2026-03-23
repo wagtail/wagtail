@@ -154,7 +154,7 @@ class LogEntriesView(ReportView):
             if queryset is None:
                 queryset = sub_queryset
             else:
-                queryset = queryset.union(sub_queryset)
+                queryset = queryset.union(sub_queryset, all=True)
 
         return queryset.order_by("-timestamp")
 
