@@ -1,4 +1,3 @@
-import itertools
 import json
 import uuid
 from collections import OrderedDict, defaultdict
@@ -101,10 +100,8 @@ class BaseStreamBlock(Block):
         return StreamValue(self, [], raw_text=raw_text)
 
     def sorted_child_blocks(self):
-        """Child blocks, sorted in to their groups."""
-        return sorted(
-            self.child_blocks.values(), key=lambda child_block: child_block.meta.group
-        )
+        """Child blocks in declaration order."""
+        return self.child_blocks.values()
 
     def grouped_child_blocks(self):
         """
@@ -112,9 +109,13 @@ class BaseStreamBlock(Block):
         their meta.group attribute.
         Returned as an iterable of (group_name, list_of_blocks) tuples
         """
-        return itertools.groupby(
-            self.sorted_child_blocks(), key=lambda child_block: child_block.meta.group
-        )
+        grouped_blocks = OrderedDict()
+
+        for child_block in self.sorted_child_blocks():
+            group_name = child_block.meta.group
+            grouped_blocks.setdefault(group_name, []).append(child_block)
+
+        return grouped_blocks.items()
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data["%s-count" % prefix])
