@@ -2,6 +2,23 @@
 
 We welcome bug reports, feature requests and pull requests through Wagtail's [GitHub issue tracker](https://github.com/wagtail/wagtail/issues).
 
+## Issue Triage Process (For Contributors)
+
+When you open an issue, it moves through a simple triage loop so we can decide what work (if any) is needed and who should pick it up. First, the core team reviews the report and assigns an initial classification (bug, feature, or documentation). If more information or design input is needed, discussion may happen in the issue. Once there is a clear direction, a contributor can submit a pull request implementing the change. The pull request is reviewed and, if everything checks out, merged into the project.
+
+```mermaid
+flowchart TD
+    A[Open Issue] --> B[Core Team Review]
+    B --> C{Type?}
+    C -->|Bug| D[Fix / PR]
+    C -->|Feature| E[Discussion]
+    C -->|Docs| F[Improve Docs]
+    D --> G[PR Review]
+    E --> G
+    F --> G
+    G --> H[Merged]
+```
+
 ## Issues
 
 An issue must always correspond to a specific action with a well-defined completion state: fixing a bug, adding a new feature, updating documentation, or cleaning up code. Open-ended issues where the end result is not immediately clear ("come up with a way of doing translations" or "Add more features to rich text fields.") are better suited to [GitHub discussions](https://github.com/wagtail/wagtail/discussions), so that there can be feedback on clear way to progress the issue and identify when it has been completed through separate issues created from the discussion.
