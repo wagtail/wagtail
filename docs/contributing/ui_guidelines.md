@@ -212,7 +212,11 @@ When adding or updating an icon,
 3. Manually add its `id` attribute with a prefix of `icon-` and the icon name matching the file name. Keep the icon as named from its source if possible.
 4. Add or preserve licensing information as an HTML comment starting with an exclamation mark: `<!--! Icon license -->`. For Font Awesome, we want: `<!--! [icon name] ([icon style]): Font Awesome [version] -->`. For example, `<!--! triangle-exclamation (solid): Font Awesome Pro 6.4.0 -->`.
 5. Add the icon to Wagtail’s own implementation of the `register_icons` hook, in alphabetical order.
-6. Go to the styleguide and copy the Wagtail icons table according to instructions in the template, pasting the result in `wagtail_icons_table.txt`.
+6. 6. Go to the styleguide and run the following command in the browser DevTools console to copy the Wagtail icons table:
+
+   copy($$('[data-sprite]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<symbol/g, '\n<symbol') + $$('[data-icons-table^="wagtailadmin"]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<t/g, '\n<t').replace(/<svg/g, '<svg width="32" height="32"'))
+
+   Paste the result into `wagtail_icons_table.txt`.
 7. If the icon requires [right-to-left mirroring](https://rtlstyling.com/posts/rtl-styling#bidirectional-icons), add the `class="icon--directional"` attribute.
 
 ## Images
