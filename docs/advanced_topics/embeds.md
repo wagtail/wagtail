@@ -1,4 +1,4 @@
-(embedded_content)=
+<img width="1637" height="683" alt="image" src="https://github.com/user-attachments/assets/40ff9386-4d5e-44de-abcb-5b61ba3e40a4" />(embedded_content)=
 
 # Embedded content
 
@@ -13,6 +13,17 @@ fetching embed code using [Embedly](embedly) and [custom embed finders](custom_e
 ## Embedding content on your site
 
 Wagtail's embeds module should work straight out of the box for most providers.
+> **Note**
+>
+> Some external embeds (such as certain YouTube videos) may not display correctly due to Django’s default security settings. In particular, the `SECURE_REFERRER_POLICY` setting may need to be adjusted.
+>
+> If you encounter issues with embeds not rendering, try setting:
+>
+> ```python
+> SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+> ```
+>
+> See Django’s documentation for more details on referrer policies.
 You can use any of the following methods to call the module:
 
 ### Rich text
