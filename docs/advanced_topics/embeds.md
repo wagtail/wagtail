@@ -1,5 +1,4 @@
 (embedded_content)=
-
 # Embedded content
 
 Wagtail supports generating embed code from URLs to content on external
