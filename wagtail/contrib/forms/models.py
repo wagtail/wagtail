@@ -229,6 +229,9 @@ class FormMixin:
 
         return FormSubmission
 
+    def get_submissions(self):
+        return self.get_submission_class()._default_manager.filter(page=self)
+
     def get_submissions_list_view_class(self):
         from .views import SubmissionsListView
 

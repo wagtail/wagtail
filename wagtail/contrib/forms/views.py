@@ -137,8 +137,7 @@ class DeleteSubmissionsView(TemplateView):
     def get_queryset(self):
         """Returns a queryset for the selected submissions"""
         submission_ids = self.request.GET.getlist("selected-submissions")
-        submission_class = self.page.get_submission_class()
-        return submission_class._default_manager.filter(id__in=submission_ids)
+        return self.page.get_submissions().filter(id__in=submission_ids)
 
     def handle_delete(self, submissions):
         """Deletes the given queryset"""
@@ -246,9 +245,7 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
 
     def get_base_queryset(self):
         """Return queryset of form submissions"""
-        submission_class = self.form_page.get_submission_class()
-        queryset = submission_class._default_manager.filter(page=self.form_page)
-        return queryset
+        return self.form_page.get_submissions()
 
     def get_validated_ordering(self):
         """Return a dict of field names with ordering labels if ordering is valid"""
