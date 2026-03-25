@@ -5,6 +5,7 @@ from io import BytesIO
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.messages import get_messages
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.html import escape
@@ -443,6 +444,8 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         # Create a form page
         self.form_page = make_form_page()
 
+        self.other_form_page = make_form_page(slug="other-form-page")
+
         # Add a couple of form submissions
         # (save new_form_submission first, so that we're more likely to reveal bugs where
         # we're relying on the database's internal ordering instead of explicitly ordering
@@ -468,6 +471,16 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
         old_form_submission.submit_time = "2013-01-01T12:00:00.000Z"
         old_form_submission.save()
+
+        older_form_submission = FormSubmission.objects.create(
+            page=self.other_form_page,
+            form_data={
+                "your_email": "older@example.com",
+                "your_message": "this is a really really old message for a different form",
+            },
+        )
+        older_form_submission.submit_time = "2012-01-01T12:00:00.000Z"
+        older_form_submission.save()
 
         # Login
         self.login()
@@ -505,6 +518,16 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
 
         # check display of list values within form submissions
         self.assertContains(response, "foo, baz")
+
+    def test_list_submissions_for_other_page(self):
+        response = self.client.get(
+            reverse("wagtailforms:list_submissions", args=(self.other_form_page.id,))
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+        self.assertEqual(len(response.context["data_rows"]), 1)
 
     def test_list_submissions_with_non_form_page(self):
         # Accessing a submissions list view with the root page (non-form page)
@@ -1376,6 +1399,7 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login(username="siteeditor", password="password")
         self.form_page = Page.objects.get(url_path="/home/contact-us/")
+        self.other_form_page = make_form_page(slug="other-form-page")
 
     def test_delete_submission_show_confirmation(self):
         delete_url = reverse(
@@ -1414,6 +1438,34 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         self.assertRedirects(
             response,
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
+        )
+
+        messages = list(get_messages(response.wsgi_request))
+
+        self.assertEqual(
+            messages[0].message.strip(), "One submission has been deleted."
+        )
+
+    def test_delete_submission_for_other_page(self):
+        submission = FormSubmission.objects.first()
+        self.assertNotEqual(submission.page, self.other_form_page)
+        response = self.client.post(
+            reverse("wagtailforms:delete_submissions", args=(self.other_form_page.id,))
+            + f"?selected-submissions={submission.id}"
+        )
+
+        # Check that the submission is still around
+        self.assertEqual(FormSubmission.objects.count(), 2)
+        # Should be redirected to list of submissions
+        self.assertRedirects(
+            response,
+            reverse("wagtailforms:list_submissions", args=(self.other_form_page.id,)),
+        )
+
+        messages = list(get_messages(response.wsgi_request))
+
+        self.assertEqual(
+            messages[0].message.strip(), "0 submissions have been deleted."
         )
 
     def test_delete_multiple_submissions_with_permissions(self):
