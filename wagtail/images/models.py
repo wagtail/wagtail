@@ -853,15 +853,15 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         start_time = time.time()
 
         try:
-            # ensure SpooledTemporaryFile is properly closed
-            with SpooledTemporaryFile(
+            temp_file = SpooledTemporaryFile(
                 max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE
-            ) as temp_file:
-                generated_image = filter.run(
-                    self,
-                    temp_file,
-                    source=source,
-                )
+            )
+
+            generated_image = filter.run(
+                self,
+                temp_file,
+                source=source,
+            )
 
             logger.debug(
                 "Generated '%s' rendition for image %d in %.1fms",
@@ -895,7 +895,6 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         ]
         output_filename = output_filename_without_extension + "." + output_extension
 
-        # KEEP THIS SAME (important)
         return File(generated_image.f, name=output_filename)
 
     def is_portrait(self):
