@@ -956,7 +956,7 @@
 * Advik Sharma
 * Oluwagbeminiyi Agbedejobi
 * Baptiste Darthenay
-* Adithya00012
+* K Adithya
 * Devarshi Mani Tripathi
 * Om Harsh
 
