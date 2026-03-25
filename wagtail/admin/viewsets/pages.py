@@ -2,6 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.urls import path
+from django.utils.functional import cached_property
 
 from wagtail.admin.views.pages.choose_parent import ChooseParentView
 from wagtail.admin.views.pages.listing import ExplorableIndexView, IndexView
@@ -54,19 +55,19 @@ class PageListingViewSet(ViewSet):
     def get_choose_parent_view_kwargs(self, **kwargs):
         return kwargs
 
-    @property
+    @cached_property
     def index_view(self):
         return self.construct_view(
             self.index_view_class, **self.get_index_view_kwargs()
         )
 
-    @property
+    @cached_property
     def index_results_view(self):
         return self.construct_view(
             self.index_view_class, **self.get_index_view_kwargs(), results_only=True
         )
 
-    @property
+    @cached_property
     def choose_parent_view(self):
         return self.construct_view(
             self.choose_parent_view_class, **self.get_choose_parent_view_kwargs()
@@ -87,7 +88,7 @@ class PageViewSet(PageListingViewSet):
     menu_url = None
     """Unused. There is no specific URL to link to for the menu item."""
 
-    @property
+    @cached_property
     def views(self):
         return {
             "index": self.index_view,
