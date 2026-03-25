@@ -11,7 +11,6 @@ from freezegun import freeze_time
 
 from wagtail.admin.models import FormState
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.models import Page, Site
 from wagtail.test.testapp.models import (
     CustomPreviewSizesPage,
@@ -619,9 +618,7 @@ class TestPreview(WagtailTestUtils, TestCase):
     def test_preview_on_edit_expiry(self):
         initial_datetime = timezone.now()
         expiry_datetime = (
-            initial_datetime
-            + PreviewOnEdit.preview_expiration_timeout
-            + datetime.timedelta(seconds=1)
+            initial_datetime + FormState.STALE_TIMEOUT + datetime.timedelta(seconds=1)
         )
 
         with freeze_time(initial_datetime) as frozen_datetime:

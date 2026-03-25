@@ -9,7 +9,6 @@ from freezegun import freeze_time
 
 from wagtail.admin.models import FormState
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.views.generic.preview import PreviewOnEdit
 from wagtail.test.testapp.models import (
     EventCategory,
     MultiPreviewModesModel,
@@ -318,9 +317,7 @@ class TestPreview(WagtailTestUtils, TestCase):
     def test_preview_on_edit_expiry(self):
         initial_datetime = timezone.now()
         expiry_datetime = (
-            initial_datetime
-            + PreviewOnEdit.preview_expiration_timeout
-            + datetime.timedelta(seconds=1)
+            initial_datetime + FormState.STALE_TIMEOUT + datetime.timedelta(seconds=1)
         )
 
         new_snippet = PreviewableModel.objects.create(text="A new previewable snippet")

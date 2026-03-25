@@ -151,6 +151,9 @@ class FormStateQuerySet(models.QuerySet):
             instance
         )
 
+    def stale(self):
+        return self.filter(last_updated_at__lt=timezone.now() - FormState.STALE_TIMEOUT)
+
 
 class FormStateManager(models.Manager.from_queryset(FormStateQuerySet)):
     def update_or_create_by_instance(
@@ -203,6 +206,8 @@ class FormState(models.Model):
     """The last time the form state was updated."""
 
     objects = FormStateManager()
+
+    STALE_TIMEOUT = timezone.timedelta(hours=24)
 
     class Meta:
         indexes = [

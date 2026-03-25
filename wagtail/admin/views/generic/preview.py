@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, JsonResponse
@@ -26,7 +24,6 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
     model = None
     form_class = None
     http_method_names = ("post", "get", "delete")
-    preview_expiration_timeout = timedelta(hours=24)
     permission_required = "change"
     parent_object_id = ""
 
@@ -40,8 +37,7 @@ class PreviewOnEdit(PermissionCheckedMixin, View):
         return super().dispatch(request, *args, **kwargs)
 
     def remove_old_preview_data(self):
-        expiration = now() - self.preview_expiration_timeout
-        FormState.objects.filter(last_updated_at__lt=expiration).delete()
+        FormState.objects.stale().delete()
 
     def get_object(self):
         queryset = self.model.objects.all()
