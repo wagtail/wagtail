@@ -131,6 +131,11 @@ class SubmitForModerationMenuItem(ActionMenuItem):
             }
         elif page:
             workflow = page.get_workflow()
+            # fallback to parent workflow during page creation
+            if not workflow:
+                parent = page.get_parent()
+                if parent and hasattr(parent, "specific"):
+                    workflow = parent.specific.get_workflow()
             if workflow:
                 context["label"] = _("Submit to %(workflow_name)s") % {
                     "workflow_name": workflow.name
