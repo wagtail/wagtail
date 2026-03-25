@@ -50,25 +50,32 @@ class ActionMenuItem(Component):
         return context["view"] == "create" or not context["locked_for_user"]
 
     def get_context_data(self, parent_context):
-        """Defines context for the template, overridable to use more data"""
-        context = parent_context.copy()
-        url = self.get_url(parent_context)
+        context = super().get_context_data(parent_context)
+        page = context.get("page")
 
-        context.update(
-            {
-                "label": self.label,
-                "url": url,
-                "name": self.name,
-                "classname": self.classname,
-                "icon_name": self.icon_name,
-                "request": parent_context["request"],
+        workflow_state = page.current_workflow_state if page else None
+
+        if (
+            workflow_state
+            and workflow_state.status == workflow_state.STATUS_NEEDS_CHANGES
+        ):
+            context["label"] = _("Resubmit to %(task_name)s") % {
+                "task_name": workflow_state.current_task_state.task.name
             }
-        )
+
+        elif page:
+            workflow = page.get_workflow()
+
+            parent = page.get_parent() if page else None
+            if not workflow and parent:
+                workflow = parent.get_workflow()
+
+            if workflow:
+                context["label"] = _("Submit to %(workflow_name)s") % {
+                    "workflow_name": workflow.name
+                }
+
         return context
-
-    def get_url(self, parent_context):
-        return None
-
 
 class PublishMenuItem(ActionMenuItem):
     label = _("Publish")
