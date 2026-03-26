@@ -15,20 +15,27 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
     def setUp(self):
         self.user = self.login()
 
+    @classmethod
+    def setUpTestData(cls):
+        cls.event_index_page = EventIndex.objects.first()
+        cls.parent = cls.event_index_page.get_parent()
+        cls.url = reverse("wagtailadmin_explore", args=[cls.event_index_page.id])
+        cls.results_url = reverse(
+            "wagtailadmin_explore_results",
+            args=[cls.event_index_page.id],
+        )
+
     def test_get(self):
-        event_index_page = EventIndex.objects.first()
-        parent = event_index_page.get_parent()
-        url = reverse("wagtailadmin_explore", args=[event_index_page.id])
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
         self.assertBreadcrumbsItemsRendered(
             [
                 {
-                    "url": reverse("wagtailadmin_explore", args=[parent.pk]),
-                    "label": str(parent),
+                    "url": reverse("wagtailadmin_explore", args=[self.parent.pk]),
+                    "label": str(self.parent),
                 },
-                {"url": url, "label": "Events"},
+                {"url": self.url, "label": "Events"},
             ],
             response.content,
         )
@@ -97,14 +104,33 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                     "private",
                     "",
                 ],
-                [
-                    "",
-                    "Businessy events",
-                    "",
-                    "Business index",
-                    "Current page status: | draft",
-                    "",
-                    "",
-                ],
             ],
+        )
+
+    def test_order_by_audience(self):
+        response = self.client.get(self.url, {"ordering": "audience"})
+        self.assertEqual(response.status_code, 200)
+        pages = response.context["object_list"]
+        self.assertEqual(
+            [page.audience for page in pages],
+            ["private", "private", "public", "public", "public"],
+        )
+
+    def test_filter(self):
+        response = self.client.get(self.url, {"audience": "private"})
+        self.assertEqual(response.status_code, 200)
+        pages = response.context["object_list"]
+        self.assertEqual(
+            [page.audience for page in pages],
+            ["private", "private"],
+        )
+
+    def test_filter_results(self):
+        response = self.client.get(self.results_url, {"audience": "private"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index_results.html")
+        pages = response.context["object_list"]
+        self.assertEqual(
+            [page.audience for page in pages],
+            ["private", "private"],
         )

@@ -369,9 +369,9 @@ class ExplorableIndexView(IndexView):
             if self.is_searching_whole_tree:
                 pages = Page.objects.all()
             else:
-                pages = self.parent_page.get_descendants()
+                pages = self.model._default_manager.descendant_of(self.parent_page)
         else:
-            pages = self.parent_page.get_children()
+            pages = self.model._default_manager.child_of(self.parent_page)
 
         if (not self.is_searching) or getattr(
             settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
