@@ -100,8 +100,26 @@ class PageViewSet(PageListingViewSet):
 
     @cached_property
     def parent_model(self):
+        """
+        The parent page model to associate in the main page explorer, so this
+        viewset's listing view will be used when exploring the parent page
+        model's children. This allows displaying, filtering, and ordering on
+        fields of a specific child page model in the explorer.
+
+        By default, if :attr:`Page.parent_page_types` is defined with a single
+        model, and that model also defines :attr:`Page.subpage_types` with only
+        this viewset's model, then that parent model will be used.
+
+        Otherwise, the viewset's listing view customizations will not have any
+        effect.
+        """
         if self.model is Page:
             return Page
+        allowed_models = self.model.allowed_parent_page_models()
+        if len(allowed_models) == 1:
+            parent_model = allowed_models[0]
+            if parent_model.allowed_subpage_models() == [self.model]:
+                return parent_model
         return None
 
     def get_url_name(self, view_name):

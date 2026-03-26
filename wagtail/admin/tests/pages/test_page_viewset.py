@@ -1,9 +1,21 @@
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 
-from wagtail.test.testapp.models import EventIndex
+from wagtail.admin.viewsets.pages import PageViewSet
+from wagtail.test.testapp.models import EventIndex, SimpleChildPage, SimpleParentPage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+
+
+class TestPageViewSet(SimpleTestCase):
+    def test_default_parent_model(self):
+        self.assertEqual(PageViewSet().parent_model, None)
+
+    def test_default_parent_model_with_type_restrictions(self):
+        self.assertEqual(
+            PageViewSet(model=SimpleChildPage).parent_model,
+            SimpleParentPage,
+        )
 
 
 class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
