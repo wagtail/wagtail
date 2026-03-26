@@ -1,3 +1,4 @@
+import re
 from abc import ABC, abstractmethod
 from wagtail.blocks.migrations.utils import formatted_list_child_generator
 from django.utils.deconstruct import deconstructible
@@ -12,9 +13,8 @@ class BaseBlockOperation(ABC):
         pass
 
     @property
-    @abstractmethod
     def operation_name_fragment(self):
-        pass
+        return re.sub(r"(?<!^)(?=[A-Z])", "_", self.__class__.__name__).lower()
 
 
 @deconstructible
