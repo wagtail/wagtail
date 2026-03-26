@@ -190,12 +190,14 @@ class BrowseView(View):
                 label=_("Updated"),
                 width="12%",
                 accessor="latest_revision_created_at",
+                sort_key="latest_revision_created_at",
             ),
             Column(
                 "type",
                 label=_("Type"),
                 width="12%",
                 accessor="page_type_display_name",
+                sort_key="page_type_display_name",
             ),
             PageStatusColumn("status", label=_("Status"), width="12%"),
             PageNavigateToChildrenColumn("children", label="", width="10%"),
@@ -212,6 +214,9 @@ class BrowseView(View):
     def get_object_list(self):
         # Get children of parent page (without streamfields)
         pages = self.parent_page.get_children().defer_streamfields().specific()
+        ordering = self.request.GET.get("ordering")
+        if ordering:
+            pages = pages.order_by(ordering)
         if self.i18n_enabled:
             pages = pages.select_related("locale")
         return pages
