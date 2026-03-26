@@ -65,6 +65,7 @@ def move_confirm(request, page_to_move_id, destination_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id).specific
     # Needs .specific_deferred because the .get_admin_display_title method is called in template
     destination = get_object_or_404(Page, id=destination_id).specific_deferred
+    i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
     if not Page._slug_is_available(page_to_move.slug, destination, page=page_to_move):
         messages.error(
@@ -88,7 +89,7 @@ def move_confirm(request, page_to_move_id, destination_id):
 
     # The `construct_translated_pages_to_cascade_actions` hook returns translation and
     # alias pages when the action is set to "move"
-    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+    if i18n_enabled:
         for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
             fn_pages = fn([page_to_move], "move")
             if fn_pages and isinstance(fn_pages, dict):
@@ -98,6 +99,11 @@ def move_confirm(request, page_to_move_id, destination_id):
     pages_to_move = list(pages_to_move)
 
     if request.method == "POST":
+        if i18n_enabled:
+            # Get the list of translations of the page's original parent, which we
+            # will use to determine whether translations will also be moved
+            parent_page_translations = page_to_move.get_parent().get_translations()
+
         # any invalid moves *should* be caught by the permission check in the action
         # class, so don't bother to catch InvalidMoveToDescendant
         action = MovePageAction(
@@ -105,9 +111,8 @@ def move_confirm(request, page_to_move_id, destination_id):
         )
         action.execute()
 
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        if i18n_enabled:
             # Move translation and alias pages if they have the same parent page.
-            parent_page_translations = page_to_move.get_parent().get_translations()
             for translation in pages_to_move:
                 if translation.get_parent() in parent_page_translations:
                     # Move the translated or alias page to it's translated or
