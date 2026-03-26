@@ -95,7 +95,7 @@ Because the folder `mysite` was already created by `venv`, run `wagtail start` w
 wagtail start mysite mysite
 ```
 
-* The first `mysite` is the **project name**, used for configuration and internal references.
+* The first `mysite` is the **project name**, used for template selections.
 * The second `mysite` is the **destination directory**, where the project files will be created.
 
 Alternatively, to create the project in the current directory, you can run:
