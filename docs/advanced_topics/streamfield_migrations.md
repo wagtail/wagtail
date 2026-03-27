@@ -506,14 +506,14 @@ Block ids are not preserved here since the new blocks are structurally different
 
 #### Basic usage
 
-While this package comes with a set of operations for common use cases, there may be many instances where you need to define your own operation for mapping data. Making a custom operation is fairly straightforward. All you need to do is extend the `BaseBlockOperation` class and define the required methods,
+While this package comes with a set of operations for common use cases, there may be many instances where you need to define your own operation for mapping data. Making a custom operation is fairly straightforward. All you need to do is extend the `BaseBlockOperation` class and define the required method,
 
 -   `apply`  
     This applies the actual changes to the existing block value and returns the new block value.
--   `operation_name_fragment`  
-    (`@property`) Returns a name to be used for generating migration names.
+-   `operation_name_fragment` (optional)  
+    (`@property`) Returns a name to be used for generating migration names. If omitted, a default will be generated from the operation class name (`MyBlockOperation` -> `my_block_operation`).
 
-(**NOTE:** `BaseBlockOperation` inherits from `abc.ABC`, so all of the required methods
+(**NOTE:** `BaseBlockOperation` inherits from `abc.ABC`, so the required methods
 mentioned above have to be defined on any class inheriting from it.)
 
 For example, if we want to truncate the string in a `CharBlock` to a given length,
