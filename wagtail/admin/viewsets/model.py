@@ -71,8 +71,6 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
-    ordering = None
-
     #: Whether to enable the inspect view. Defaults to ``False``.
     inspect_view_enabled = False
 
@@ -434,10 +432,6 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         )
 
     @cached_property
-    def list_filter(self):
-        return self.index_view_class.list_filter
-
-    @cached_property
     def search_fields(self):
         """
         The fields to use for the search in the index view.
@@ -452,15 +446,7 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         The name of the Wagtail search backend to use for the search in the index view.
         If set to a falsy value, the search will fall back to use Django's QuerySet API.
         """
-        return self.index_view_class.search_backend_name
-
-    @cached_property
-    def list_export(self):
-        return self.index_view_class.list_export
-
-    @cached_property
-    def export_headings(self):
-        return self.index_view_class.export_headings
+        return self.UNDEFINED
 
     @cached_property
     def export_filename(self):
