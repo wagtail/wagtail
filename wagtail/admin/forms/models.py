@@ -221,7 +221,9 @@ class WagtailAdminModelForm(
                 continue
             if isinstance(model_field, (models.ManyToManyField, models.FileField)):
                 continue
-            
+
+            if isinstance(model_field, models.BooleanField):
+                continue
             if isinstance(model_field, (RichTextField, StreamField)):
                 continue
 
