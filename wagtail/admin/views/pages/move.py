@@ -111,6 +111,11 @@ def move_confirm(request, page_to_move_id, destination_id):
             # Move translation and alias pages if they have the same parent page.
             parent_page_translations = original_parent.get_translations(inclusive=True)
             for translation in pages_to_move:
+                # The source page has already been moved above.
+                # Avoid processing it again in the translated cascade.
+                if translation.id == page_to_move.id:
+                    continue
+
                 if translation.get_parent() in parent_page_translations:
                     translated_destination = destination.get_translation_or_none(
                         translation.locale
