@@ -54,6 +54,7 @@ from wagtail.coreutils import (
 )
 from wagtail.fields import StreamField
 from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
 from wagtail.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
@@ -1037,14 +1038,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
         if log_action:
             if not previous_revision:
+                action = log_action if isinstance(log_action, str) else "wagtail.edit"
+                uuid = None
+                if overwrite_revision:
+                    # When overwriting a revision, use the same uuid for all
+                    # edit log entries, so we can group them as one entry and
+                    # avoid the history view becoming too noisy.
+                    logs = log_registry.get_logs_for_instance(self)
+                    uuid = logs.latest_uuid_for_user_revision_action(
+                        user, overwrite_revision, action
+                    )
+
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=action,
                     user=user,
                     revision=revision,
                     content_changed=changed,
+                    uuid=uuid,
                 )
             else:
                 log(
@@ -2183,8 +2194,16 @@ class PagePermissionTester:
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
+
         specific_class = self.page.specific_class
-        if specific_class is None or not specific_class.creatable_subpage_models():
+        if specific_class is None:
+            return False
+
+        creatable_subpage_models = specific_class.creatable_subpage_models()
+        if not any(
+            subpage_model.can_create_at(self.page)
+            for subpage_model in creatable_subpage_models
+        ):
             return False
         return self.user.is_superuser or ("add" in self.permissions)
 
@@ -2602,7 +2621,7 @@ class PageLogEntry(BaseLogEntry):
 
     objects = PageLogEntryManager()
 
-    class Meta:
+    class Meta(BaseLogEntry.Meta):
         ordering = ["-timestamp", "-id"]
         verbose_name = _("page log entry")
         verbose_name_plural = _("page log entries")

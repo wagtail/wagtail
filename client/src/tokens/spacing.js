@@ -38,6 +38,4 @@ const spacing = {
   96: '24rem',
 };
 
-module.exports = {
-  spacing,
-};
+export { spacing };

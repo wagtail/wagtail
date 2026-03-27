@@ -1,5 +1,5 @@
-import { enableMapSet, produce } from 'immer';
 import type { Annotation } from '../utils/annotation';
+import { enableMapSet, produce } from 'immer';
 import * as actions from '../actions/comments';
 import { resetCommentAndReplyIds } from '../utils/sequences';
 

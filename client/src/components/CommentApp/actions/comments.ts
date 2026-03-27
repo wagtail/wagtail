@@ -1,8 +1,8 @@
 import type {
   Comment,
-  CommentUpdate,
   CommentReply,
   CommentReplyUpdate,
+  CommentUpdate,
 } from '../state/comments';
 
 export const ADD_COMMENT = 'add-comment';

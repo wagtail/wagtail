@@ -1,7 +1,7 @@
 import { Application } from '@hotwired/stimulus';
+import { ActionController } from './ActionController';
 import { DrilldownController } from './DrilldownController';
 import { DropdownController } from './DropdownController';
-import { ActionController } from './ActionController';
 
 jest.useFakeTimers();
 

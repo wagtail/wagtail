@@ -102,13 +102,12 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:add_subpage", args=(simple_parent_page.id,))
         )
-        self.assertEqual(response.status_code, 200)
-        # if there is no page_type available then this message should be shown.
-        self.assertContains(
-            response, "Sorry, you cannot create a page at this location."
-        )
-        self.assertNotContains(
-            response, "Choose which type of page you'd like to create."
+        # Raises a permission denied error
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
         )
 
     def test_add_subpage_with_one_valid_subpage_type(self):
@@ -954,12 +953,100 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(len(page.body), 0)
         self.assertFalse(page.live)
 
+    def test_create_streampage_post_with_empty_blocks_in_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="stream-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(len(page.body), 7)
+        self.assertFalse(page.live)
+
     def test_cannot_publish_streampage_with_blank_body(self):
         post_data = nested_form_data(
             {
                 "title": "Stream page",
                 "slug": "stream-page",
                 "body": streamfield([]),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised. The actual message as rendered
+        # ("This field is required.") is passed to the StreamBlock as part of
+        # StreamBlockValidationError.non_block_errors, whereas assertFormError
+        # only considers the message attribute (which is a generic error).
+        self.assertFormError(
+            response.context["form"], "body", "Validation error in StreamBlock"
+        )
+        self.assertContains(response, "This field is required.")
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="stream-page"
+            ).exists()
+        )
+
+    def test_cannot_publish_streampage_with_empty_blocks_in_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
                 "action-publish": "Publish",
             }
         )

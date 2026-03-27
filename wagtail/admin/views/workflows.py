@@ -138,7 +138,7 @@ class Index(IndexView):
             url_name="wagtailadmin_workflows:usage",
             width="15%",
         ),
-        WorkflowTasksColumn("tasks", label=_("Tasks")),
+        WorkflowTasksColumn("tasks", label=_("Tasks"), width="60%"),
     ]
     default_ordering = "name"
     search_fields = ["name"]

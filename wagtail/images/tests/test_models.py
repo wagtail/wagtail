@@ -12,7 +12,13 @@ from django.core.files.storage import Storage, default_storage, storages
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
-from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
+from django.test import (
+    SimpleTestCase,
+    TestCase,
+    TransactionTestCase,
+    override_settings,
+    tag,
+)
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
@@ -198,6 +204,7 @@ class TestImage(TestCase):
         self.assertEqual(image.default_alt_text, image.title)
 
 
+@tag("transaction")
 class TestImageQuerySet(TransactionTestCase):
     fixtures = ["test_empty.json"]
 
@@ -205,11 +212,28 @@ class TestImageQuerySet(TransactionTestCase):
         # Create an image for running tests on
         image = Image.objects.create(
             title="Test image",
+            description="A cool description",
             file=get_test_image_file(),
         )
 
         # Search for it
         results = Image.objects.search("Test")
+        self.assertEqual(list(results), [image])
+
+        results = Image.objects.search("cool")
+        self.assertEqual(list(results), [image])
+
+    def test_autocomplete_method(self):
+        image = Image.objects.create(
+            title="Test image",
+            description="A cool description",
+            file=get_test_image_file(),
+        )
+
+        results = Image.objects.autocomplete("Test")
+        self.assertEqual(list(results), [image])
+
+        results = Image.objects.autocomplete("cool")
         self.assertEqual(list(results), [image])
 
     def test_operators(self):

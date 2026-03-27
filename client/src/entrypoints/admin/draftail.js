@@ -1,10 +1,10 @@
 import * as Draftail from 'draftail';
 import draftail, {
+  Document,
+  EmbedBlock,
+  ImageBlock,
   Link,
   onPasteLink,
-  Document,
-  ImageBlock,
-  EmbedBlock,
 } from '../../components/Draftail/index';
 
 /**
