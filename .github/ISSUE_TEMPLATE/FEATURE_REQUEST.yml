@@ -1,6 +1,6 @@
 name: 🚀 Feature/enhancement request
 description: Suggest an idea for improving Wagtail
-labels: ['type:Enhancement']
+labels: ['type:Enhancement', 'status: Needs Review']
 body:
   - type: markdown
     attributes:
