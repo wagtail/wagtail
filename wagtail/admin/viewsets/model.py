@@ -17,13 +17,14 @@ from wagtail.admin.admin_url_finder import (
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
+from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import ReferenceIndex
 from wagtail.permissions import ModelPermissionPolicy
 
 from .base import ViewSet, ViewSetGroup
 
 
-class ModelViewSet(ViewSet):
+class ModelViewSet(ListingViewSetMixin, ViewSet):
     """
     A viewset to allow listing, creating, editing and deleting model instances.
 
@@ -70,9 +71,6 @@ class ModelViewSet(ViewSet):
     #: The number of items to display per page in the index view. Defaults to 20.
     list_per_page = 20
 
-    #: The default ordering to use for the index view.
-    #: Can be a string or a list/tuple in the same format as Django's
-    #: :attr:`~django.db.models.Options.ordering`.
     ordering = None
 
     #: Whether to enable the inspect view. Defaults to ``False``.
@@ -181,22 +179,15 @@ class ModelViewSet(ViewSet):
         return view_kwargs
 
     def get_index_view_kwargs(self, **kwargs):
-        view_kwargs = {
-            "template_name": self.index_template_name,
-            "results_template_name": self.index_results_template_name,
-            "list_display": self.list_display,
-            "list_filter": self.list_filter,
-            "list_export": self.list_export,
-            "export_headings": self.export_headings,
-            "export_filename": self.export_filename,
-            "filterset_class": self.filterset_class,
-            "search_fields": self.search_fields,
-            "search_backend_name": self.search_backend_name,
-            "paginate_by": self.list_per_page,
-            **kwargs,
-        }
-        if self.ordering:
-            view_kwargs["default_ordering"] = self.ordering
+        view_kwargs = super().get_index_view_kwargs(
+            **{
+                "template_name": self.index_template_name,
+                "results_template_name": self.index_results_template_name,
+                "search_fields": self.search_fields,
+                "search_backend_name": self.search_backend_name,
+                **kwargs,
+            }
+        )
         if self.reorder_view_enabled:
             view_kwargs["sort_order_field"] = self.sort_order_field
             view_kwargs["reorder_url_name"] = self.get_url_name("reorder")
@@ -443,57 +434,8 @@ class ModelViewSet(ViewSet):
         )
 
     @cached_property
-    def list_display(self):
-        """
-        A list or tuple, where each item is either:
-
-        - The name of a field on the model;
-        - The name of a callable or property on the model that accepts a single
-          parameter for the model instance; or
-        - An instance of the ``wagtail.admin.ui.tables.Column`` class.
-
-        If the name refers to a database field, the ability to sort the listing
-        by the database column will be offered and the field's verbose name
-        will be used as the column header.
-
-        If the name refers to a callable or property, an ``admin_order_field``
-        attribute can be defined on it to point to the database column for
-        sorting. A ``short_description`` attribute can also be defined on the
-        callable or property to be used as the column header.
-
-        This list will be passed to the ``list_display`` attribute of the index
-        view. If left unset, the ``list_display`` attribute of the index view
-        will be used instead, which by default is defined as
-        ``["__str__", wagtail.admin.ui.tables.LocaleColumn(), wagtail.admin.ui.tables.UpdatedAtColumn()]``.
-
-        Note that the ``LocaleColumn`` is only included if the model is translatable.
-        """
-        return self.UNDEFINED
-
-    @cached_property
     def list_filter(self):
-        """
-        A list or tuple, where each item is the name of model fields of type
-        ``BooleanField``, ``CharField``, ``DateField``, ``DateTimeField``,
-        ``IntegerField`` or ``ForeignKey``.
-        Alternatively, it can also be a dictionary that maps a field name to a
-        list of lookup expressions.
-        This will be passed as django-filter's ``FilterSet.Meta.fields``
-        attribute. See
-        `its documentation <https://django-filter.readthedocs.io/en/stable/guide/usage.html#generating-filters-with-meta-fields>`_
-        for more details.
-        If ``filterset_class`` is set, this attribute will be ignored.
-        """
         return self.index_view_class.list_filter
-
-    @cached_property
-    def filterset_class(self):
-        """
-        A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a
-        subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_.
-        This will be passed to the ``filterset_class`` attribute of the index view.
-        """
-        return self.UNDEFINED
 
     @cached_property
     def search_fields(self):
@@ -514,18 +456,10 @@ class ModelViewSet(ViewSet):
 
     @cached_property
     def list_export(self):
-        """
-        A list or tuple, where each item is the name of a field, an attribute,
-        or a single-argument callable on the model to be exported.
-        """
         return self.index_view_class.list_export
 
     @cached_property
     def export_headings(self):
-        """
-        A dictionary of export column heading overrides in the format
-        ``{field_name: heading}``.
-        """
         return self.index_view_class.export_headings
 
     @cached_property

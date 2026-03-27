@@ -93,6 +93,13 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
       :annotation: = UNDEFINED
    .. autoattribute:: list_per_page
    .. autoattribute:: list_display
+   
+        This list will be passed to the ``list_display`` attribute of the index
+        view. If left unset, the ``list_display`` attribute of the index view
+        will be used instead, which by default is defined as
+        ``["__str__", wagtail.admin.ui.tables.LocaleColumn(), wagtail.admin.ui.tables.UpdatedAtColumn()]``.
+    
+        Note that the ``LocaleColumn`` is only included if the model is translatable.
    .. autoattribute:: list_export
    .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
