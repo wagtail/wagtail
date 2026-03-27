@@ -724,6 +724,17 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {"message": "parent page doesn't exist"})
 
+    def test_child_of_draft_page_returns_empty(self):
+        homepage = self.get_homepage()
+        draft_page = homepage.add_child(
+            instance=Page(title="Draft Parent", slug="draft-parent", live=False)
+        )
+        response = self.get_response(child_of=draft_page.id)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [])
+
     def test_child_of_not_integer_gives_error(self):
         response = self.get_response(child_of="abc")
         content = json.loads(response.content.decode("UTF-8"))

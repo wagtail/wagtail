@@ -178,6 +178,8 @@ class ChildOfFilter(BaseFilterBackend):
                 else:
                     raise BadRequestError("child_of must be a positive integer") from e
             except Page.DoesNotExist as e:
+                if Page.objects.filter(id=parent_page_id).exists():
+                    return queryset.none()
                 raise BadRequestError("parent page doesn't exist") from e
 
             queryset = queryset.child_of(parent_page)
