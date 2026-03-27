@@ -6,13 +6,14 @@ from django.utils.functional import cached_property
 
 from wagtail.admin.views.pages.choose_parent import ChooseParentView
 from wagtail.admin.views.pages.listing import ExplorableIndexView, IndexView
+from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
 from wagtail.utils.registry import ObjectTypeRegistry
 
 from .base import ViewSet
 
 
-class PageListingViewSet(ViewSet):
+class PageListingViewSet(ListingViewSetMixin, ViewSet):
     """
     A viewset to present a flat listing of all pages of a specific type.
     All attributes and methods from :class:`~wagtail.admin.viewsets.base.ViewSet`
@@ -45,12 +46,13 @@ class PageListingViewSet(ViewSet):
         )
 
     def get_index_view_kwargs(self, **kwargs):
-        return {
-            "index_results_url_name": self.get_url_name("index_results"),
-            "columns": self.columns,
-            "filterset_class": self.filterset_class,
-            **kwargs,
-        }
+        return super().get_index_view_kwargs(
+            **{
+                "index_results_url_name": self.get_url_name("index_results"),
+                "columns": self.columns,
+                **kwargs,
+            }
+        )
 
     def get_choose_parent_view_kwargs(self, **kwargs):
         return kwargs
