@@ -98,6 +98,8 @@ def move_confirm(request, page_to_move_id, destination_id):
     pages_to_move = list(pages_to_move)
 
     if request.method == "POST":
+        original_parent = page_to_move.get_parent()
+
         # any invalid moves *should* be caught by the permission check in the action
         # class, so don't bother to catch InvalidMoveToDescendant
         action = MovePageAction(
@@ -107,14 +109,20 @@ def move_confirm(request, page_to_move_id, destination_id):
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             # Move translation and alias pages if they have the same parent page.
-            parent_page_translations = page_to_move.get_parent().get_translations()
+            parent_page_translations = original_parent.get_translations(inclusive=True)
             for translation in pages_to_move:
                 if translation.get_parent() in parent_page_translations:
+                    translated_destination = destination.get_translation_or_none(
+                        translation.locale
+                    )
+                    if translated_destination is None:
+                        continue
+
                     # Move the translated or alias page to it's translated or
                     # alias "destination" page.
                     action = MovePageAction(
                         translation,
-                        destination.get_translation(translation.locale),
+                        translated_destination,
                         pos="last-child",
                         user=request.user,
                     )
