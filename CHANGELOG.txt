@@ -7,6 +7,7 @@ Changelog
  * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
  * Fix: Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
+ * Fix: Group audit log entries for autosave operations in page history view (Sage Abdullah)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~

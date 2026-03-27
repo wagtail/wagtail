@@ -99,6 +99,8 @@ with LogContext(user=User.objects.get(username='admin')):
 
 All `log` calls within the block will then be attributed to the specified user, and assigned a common UUID. A log context is created automatically for views within the Wagtail admin.
 
+(custom_audit_log_models)=
+
 ## Log models
 
 Logs are stored in the database via the models `wagtail.models.PageLogEntry` (for actions on Page instances) and
