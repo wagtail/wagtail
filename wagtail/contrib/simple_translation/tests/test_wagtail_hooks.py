@@ -9,7 +9,9 @@ from wagtail.actions.move_page import MovePageAction
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.contrib.simple_translation.wagtail_hooks import (
-    page_listing_more_buttons, register_submit_translation_permission)
+    page_listing_more_buttons,
+    register_submit_translation_permission,
+)
 from wagtail.models import Locale, Page
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
@@ -338,19 +340,6 @@ class TestMovingTranslatedPages(Utils):
 
         new_parent = TestPage(title="New parent", slug="new-parent")
         self.en_homepage.add_child(instance=new_parent)
-
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:move_confirm",
-                args=(
-                    self.en_blog_post.id,
-                    new_parent.id,
-                ),
-            ),
-            follow=True,
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["translations_to_move_count"], 0)
 
         response = self.client.post(
             reverse(

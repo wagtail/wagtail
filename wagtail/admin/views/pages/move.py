@@ -14,48 +14,6 @@ from wagtail.admin.forms.pages import MoveForm
 from wagtail.models import Page
 
 
-def get_translated_pages_to_move(page_to_move, destination):
-    translated_pages_to_move = []
-
-    if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-        return translated_pages_to_move
-
-    additional_pages = set()
-
-    # The `construct_translated_pages_to_cascade_actions` hook returns translation
-    # and alias pages when the action is set to "move".
-    for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
-        fn_pages = fn([page_to_move], "move")
-        if fn_pages and isinstance(fn_pages, dict):
-            for pages in fn_pages.values():
-                additional_pages.update(pages)
-
-    if not additional_pages:
-        return translated_pages_to_move
-
-    parent_page_translations = {
-        translation.locale_id: translation
-        for translation in page_to_move.get_parent().get_translations()
-    }
-    destination_translations = {
-        translation.locale_id: translation
-        for translation in destination.get_translations()
-    }
-
-    for translation in additional_pages:
-        translated_parent = parent_page_translations.get(translation.locale_id)
-        destination_translation = destination_translations.get(translation.locale_id)
-
-        if (
-            translated_parent
-            and destination_translation
-            and translation.get_parent().id == translated_parent.id
-        ):
-            translated_pages_to_move.append((translation, destination_translation))
-
-    return translated_pages_to_move
-
-
 class MoveChooseDestination(TemplateView, FormMixin):
     template_name = "wagtailadmin/pages/move_choose_destination.html"
     form_class = MoveForm
@@ -126,7 +84,18 @@ def move_confirm(request, page_to_move_id, destination_id):
         if hasattr(result, "status_code"):
             return result
 
-    translated_pages_to_move = get_translated_pages_to_move(page_to_move, destination)
+    pages_to_move = {page_to_move}
+
+    # The `construct_translated_pages_to_cascade_actions` hook returns translation and
+    # alias pages when the action is set to "move"
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
+            fn_pages = fn([page_to_move], "move")
+            if fn_pages and isinstance(fn_pages, dict):
+                for additional_pages in fn_pages.values():
+                    pages_to_move.update(additional_pages)
+
+    pages_to_move = list(pages_to_move)
 
     if request.method == "POST":
         # any invalid moves *should* be caught by the permission check in the action
@@ -136,14 +105,22 @@ def move_confirm(request, page_to_move_id, destination_id):
         )
         action.execute()
 
-        for translation, destination_translation in translated_pages_to_move:
-            action = MovePageAction(
-                translation,
-                destination_translation,
-                pos="last-child",
-                user=request.user,
-            )
-            action.execute()
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            # Move translation and alias pages if they have the same parent page.
+            parent_page_translations = page_to_move.get_parent().get_translations()
+            for translation in pages_to_move:
+                if translation.get_parent() in parent_page_translations:
+                    destination_translation = destination.get_translation_or_none(
+                        translation.locale
+                    )
+                    if destination_translation:
+                        action = MovePageAction(
+                            translation,
+                            destination_translation,
+                            pos="last-child",
+                            user=request.user,
+                        )
+                        action.execute()
 
         messages.success(
             request,
@@ -173,8 +150,8 @@ def move_confirm(request, page_to_move_id, destination_id):
             "translations_to_move_count": len(
                 [
                     translation.id
-                    for translation, _destination_translation in translated_pages_to_move
-                    if not translation.alias_of_id
+                    for translation in pages_to_move
+                    if not translation.alias_of_id and translation.id != page_to_move.id
                 ]
             ),
         },
