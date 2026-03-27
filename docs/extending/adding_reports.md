@@ -115,6 +115,18 @@ and specific type of any pages. For our example, we might want to know when the 
 
 ``list_export = PageReportView.list_export + ['last_published_at']``
 
+The ``list_export`` attribute also supports dotted paths to access nested attributes.
+
+For example:
+
+.. code-block:: python
+
+    list_export = ['author.name']
+
+This will export the ``name`` attribute of the related ``author`` object.
+
+This works using Django’s standard attribute resolution, similar to how variables are resolved in templates.
+
 .. attribute:: export_headings
 
 (dictionary)
