@@ -9,9 +9,7 @@ from wagtail.actions.move_page import MovePageAction
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.contrib.simple_translation.wagtail_hooks import (
-    page_listing_more_buttons,
-    register_submit_translation_permission,
-)
+    page_listing_more_buttons, register_submit_translation_permission)
 from wagtail.models import Locale, Page
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
@@ -327,6 +325,51 @@ class TestMovingTranslatedPages(Utils):
         )
         self.assertIn(
             self.de_blog_post.get_parent(update=True).id, original_translated_parent_ids
+        )
+
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
+    def test_move_translated_pages_with_missing_destination_translation(self):
+        self.login()
+
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+
+        new_parent = TestPage(title="New parent", slug="new-parent")
+        self.en_homepage.add_child(instance=new_parent)
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(
+                    self.en_blog_post.id,
+                    new_parent.id,
+                ),
+            ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["translations_to_move_count"], 0)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(
+                    self.en_blog_post.id,
+                    new_parent.id,
+                ),
+            ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.en_blog_post.refresh_from_db()
+        self.fr_blog_post.refresh_from_db()
+
+        self.assertEqual(self.en_blog_post.get_parent(update=True).id, new_parent.id)
+        self.assertEqual(
+            self.fr_blog_post.get_parent(update=True).id, self.fr_blog_index.id
         )
 
     @override_settings(
