@@ -114,7 +114,7 @@ from wagtail import hooks
 @hooks.register('insert_global_admin_js')
 def global_admin_js():
     return format_html(
-        f'<script src="{static("js/example.js")}"></script>',
+        '<script src="{}"></script>', static('js/example.js')
     )
 ```
 
