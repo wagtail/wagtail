@@ -35,6 +35,12 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
 
         soup = self.get_soup(response.content)
 
+        breadcrumbs_icon = soup.select_one(".w-breadcrumbs__icon")
+        self.assertIsNotNone(breadcrumbs_icon)
+        use = breadcrumbs_icon.select_one("use")
+        self.assertIsNotNone(use)
+        self.assertEqual(use["href"], "#icon-calendar")
+
         table = soup.select_one("main table")
         for dropdown in table.select("[data-controller='w-dropdown']"):
             dropdown.extract()
