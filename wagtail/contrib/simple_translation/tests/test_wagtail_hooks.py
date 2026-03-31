@@ -271,6 +271,57 @@ class TestMovingTranslatedPages(Utils):
             self.de_blog_post.get_parent(update=True).id, home_page_translation_ids
         )
 
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
+    def test_move_translated_pages_when_destination_translation_missing(self):
+        """
+        Test that moving a page skips translations whose destination parent page
+        does not exist in that locale.
+        """
+        self.login()
+
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.de_blog_post = self.en_blog_post.copy_for_translation(self.de_locale)
+
+        # Only create the translated destination parent page in the French tree.
+        self.en_new_parent = TestPage(title="New parent", slug="new-parent")
+        self.en_homepage.add_child(instance=self.en_new_parent)
+        self.fr_new_parent = self.en_new_parent.copy_for_translation(self.fr_locale)
+
+        self.assertEqual(self.en_blog_post.get_parent().id, self.en_blog_index.id)
+        self.assertEqual(self.fr_blog_post.get_parent().id, self.fr_blog_index.id)
+        self.assertEqual(self.de_blog_post.get_parent().id, self.de_blog_index.id)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(
+                    self.en_blog_post.id,
+                    self.en_new_parent.id,
+                ),
+            ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.en_blog_post.refresh_from_db()
+        self.fr_blog_post.refresh_from_db()
+        self.de_blog_post.refresh_from_db()
+
+        self.assertEqual(
+            self.en_blog_post.get_parent(update=True).id, self.en_new_parent.id
+        )
+        self.assertEqual(
+            self.fr_blog_post.get_parent(update=True).id, self.fr_new_parent.id
+        )
+        self.assertEqual(
+            self.de_blog_post.get_parent(update=True).id, self.de_blog_index.id
+        )
+
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False)
     def test_unmovable_translation_pages(self):
         """

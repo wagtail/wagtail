@@ -110,11 +110,18 @@ def move_confirm(request, page_to_move_id, destination_id):
             parent_page_translations = page_to_move.get_parent().get_translations()
             for translation in pages_to_move:
                 if translation.get_parent() in parent_page_translations:
+                    translated_destination = destination.get_translation_or_none(
+                        translation.locale
+                    )
+
+                    if not translated_destination:
+                        continue
+
                     # Move the translated or alias page to it's translated or
                     # alias "destination" page.
                     action = MovePageAction(
                         translation,
-                        destination.get_translation(translation.locale),
+                        translated_destination,
                         pos="last-child",
                         user=request.user,
                     )
