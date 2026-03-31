@@ -416,6 +416,44 @@ class TestMovingTranslatedPages(Utils):
             response.content.decode("utf-8"),
         )
 
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
+    def test_translation_count_excludes_missing_destination_translations(self):
+        """
+        Test translation count excludes translations whose destination parent page
+        does not exist in that locale.
+        """
+        self.login()
+
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.de_blog_post = self.en_blog_post.copy_for_translation(self.de_locale)
+
+        self.en_new_parent = TestPage(title="New parent", slug="new-parent")
+        self.en_homepage.add_child(instance=self.en_new_parent)
+        self.en_new_parent.copy_for_translation(self.fr_locale)
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(
+                    self.en_blog_post.id,
+                    self.en_new_parent.id,
+                ),
+            ),
+            follow=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["translations_to_move_count"], 1)
+        self.assertIn(
+            "This will also move one translation of this page and its child pages",
+            response.content.decode("utf-8"),
+        )
+
 
 @override_settings(
     WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
