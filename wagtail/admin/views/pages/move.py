@@ -101,12 +101,17 @@ def move_confirm(request, page_to_move_id, destination_id):
 
     if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
         parent_page_translations = page_to_move.get_parent().get_translations()
-        movable_translations = [
-            translation
-            for translation in pages_to_move
-            if translation.get_parent() in parent_page_translations
-            and destination.get_translation_or_none(translation.locale)
-        ]
+        for translation in pages_to_move:
+            if translation.get_parent() not in parent_page_translations:
+                continue
+
+            translated_destination = destination.get_translation_or_none(
+                translation.locale
+            )
+            if not translated_destination:
+                continue
+
+            movable_translations.append((translation, translated_destination))
 
     if request.method == "POST":
         # any invalid moves *should* be caught by the permission check in the action
@@ -118,15 +123,8 @@ def move_confirm(request, page_to_move_id, destination_id):
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             # Move translation and alias pages if they have the same parent page.
-            for translation in movable_translations:
-                translated_destination = destination.get_translation_or_none(
-                    translation.locale
-                )
-
-                if not translated_destination:
-                    continue
-
-                # Move the translated or alias page to it's translated or
+            for translation, translated_destination in movable_translations:
+                # Move the translated or alias page to its translated or
                 # alias "destination" page.
                 action = MovePageAction(
                     translation,
@@ -164,7 +162,7 @@ def move_confirm(request, page_to_move_id, destination_id):
             "translations_to_move_count": len(
                 [
                     translation.id
-                    for translation in movable_translations
+                    for translation, translated_destination in movable_translations
                     if not translation.alias_of_id and translation.id != page_to_move.id
                 ]
             ),
