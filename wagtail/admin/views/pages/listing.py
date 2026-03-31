@@ -245,9 +245,19 @@ class PageListingMixin:
 
     def search_queryset(self, queryset):
         if self.is_searching:
-            queryset = queryset.autocomplete(
-                self.search_query, order_by_relevance=(not self.is_explicitly_ordered)
-            )
+            from wagtail.admin.views.pages.search import build_fuzzy_query
+
+            fuzzy_query = build_fuzzy_query(self.search_query)
+            if fuzzy_query:
+                queryset = queryset.search(
+                    fuzzy_query,
+                    order_by_relevance=(not self.is_explicitly_ordered),
+                )
+            else:
+                queryset = queryset.autocomplete(
+                    self.search_query,
+                    order_by_relevance=(not self.is_explicitly_ordered),
+                )
 
         return queryset
 
