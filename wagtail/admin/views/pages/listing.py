@@ -127,7 +127,6 @@ class PageListingMixin:
     template_name = "wagtailadmin/pages/listing.html"
     context_object_name = "pages"
     table_class = PageTable
-    filterset_class = GenericPageFilterSet
     model = Page
     is_searchable = True
 
@@ -279,12 +278,18 @@ class IndexView(PageListingMixin, generic.IndexView):
     results_template_name = "wagtailadmin/pages/index_results.html"
     paginate_by = 50
     table_classname = "listing full-width"
-    filterset_class = PageFilterSet
+    base_filterset_class = PageFilterSet
     default_ordering = "-latest_revision_created_at"
 
     @classproperty
     def columns(cls):
         return [col for col in PageListingMixin.columns if col.name != "type"]
+
+    @cached_property
+    def filterset_class(self):
+        if self.list_filter:
+            return super().filterset_class
+        return self.base_filterset_class
 
     def get_base_queryset(self):
         pages = self.model.objects.filter(depth__gt=1)
@@ -312,11 +317,11 @@ class ExplorableIndexView(IndexView):
     index_url_name = "wagtailadmin_explore"
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
-    filterset_class = GenericPageFilterSet
     # This is not a real field on the model, but it allows reuse of ordering
     # logic from generic IndexView
     sort_order_field = "ord"
     default_ordering = None
+    base_filterset_class = GenericPageFilterSet
 
     @classproperty
     def columns(cls):

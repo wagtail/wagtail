@@ -88,6 +88,7 @@ class IndexView(
     list_filter = None
     show_other_searches = False
     sort_order_field = None
+    base_filterset_class = WagtailFilterSet
 
     @cached_property
     def is_searchable(self):
@@ -115,7 +116,7 @@ class IndexView(
 
         return type(
             f"{self.model.__name__}FilterSet",
-            (WagtailFilterSet,),
+            (self.base_filterset_class,),
             {"Meta": Meta},
         )
 

@@ -2,10 +2,15 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.urls import path
-from django.utils.functional import cached_property
+from django.utils.functional import cached_property, classproperty
 
 from wagtail.admin.views.pages.choose_parent import ChooseParentView
-from wagtail.admin.views.pages.listing import ExplorableIndexView, IndexView
+from wagtail.admin.views.pages.listing import (
+    ExplorableIndexView,
+    GenericPageFilterSet,
+    IndexView,
+    PageFilterSet,
+)
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
 from wagtail.utils.registry import ObjectTypeRegistry
@@ -29,10 +34,22 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
     model = Page
     #: A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
     columns = IndexView.columns
-    #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a
-    #: subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_.
-    #: This will be passed to the ``filterset_class`` attribute of the index view.
-    filterset_class = IndexView.filterset_class
+
+    @classproperty
+    def filterset_class(cls):
+        # For backwards compatibility, use a classproperty so existing code that
+        # directly subclasses the viewset's filterset_class attribute will
+        # continue to work, while allowing new code to use list_filter to
+        # automatically generate a filterset class if desired.
+        if not cls.list_filter or cls.list_filter is cls.UNDEFINED:
+            if cls.model is Page:
+                # Add filter by content type
+                return GenericPageFilterSet
+            return PageFilterSet
+        # The filterset class generation is done in IndexView with a
+        # cached_property, so we need to use UNDEFINED here to avoid overwriting
+        # that logic.
+        return cls.UNDEFINED
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
@@ -86,7 +103,6 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
 class PageViewSet(PageListingViewSet):
     index_view_class = ExplorableIndexView
     columns = PageListingViewSet.UNDEFINED
-    filterset_class = PageListingViewSet.UNDEFINED
     menu_url = None
     """Unused. There is no specific URL to link to for the menu item."""
 
