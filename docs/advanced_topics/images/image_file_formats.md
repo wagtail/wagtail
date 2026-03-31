@@ -4,26 +4,25 @@
 
 ## Using the picture element
 
-The [picture element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture)
-can be used with the `format-<type>` image operation to specify different
-image formats and let the browser choose the one it prefers. For example:
+Wagtail provides the `picture` tag to render a [picture element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) with multiple image formats, letting the browser choose the one it prefers. For example:
 
-```python
+```html+django
 {% load wagtailimages_tags %}
 
+{% picture myimage format-{avif,webp,jpeg} width-1000 %}
+```
+
+This outputs:
+
+```html
 <picture>
-    {% image myimage width-1000 format-avif as image_avif %}
-    <source srcset="{{ image_avif.url }}" type="image/avif">
-
-    {% image myimage width-1000 format-webp as image_webp %}
-    <source srcset="{{ image_webp.url }}" type="image/webp">
-
-    {% image myimage width-1000 format-png as image_png %}
-    <source srcset="{{ image_png.url }}" type="image/png">
-
-    {% image myimage width-1000 format-png %}
+    <source srcset="/media/images/myimage.width-1000.avif" type="image/avif">
+    <source srcset="/media/images/myimage.width-1000.webp" type="image/webp">
+    <img src="/media/images/myimage.width-1000.jpg" alt="My image" width="1000" height="750">
 </picture>
 ```
+
+The browser [picks the first format it supports](https://web.dev/learn/design/picture-element/#source), or falls back to the `<img>` element. See [](multiple_formats) for full documentation.
 
 (customizing_output_formats)=
 
