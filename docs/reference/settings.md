@@ -91,6 +91,24 @@ Requires PostgreSQL with the `pg_trgm` and `fuzzystrmatch` extensions enabled. R
 
 Defaults to `False`.
 
+(wagtail_fuzzy_search_unaccent)=
+
+### `WAGTAIL_FUZZY_SEARCH_UNACCENT`
+
+```python
+WAGTAIL_FUZZY_SEARCH_UNACCENT = True
+```
+
+When enabled alongside [`WAGTAIL_FUZZY_SEARCH`](wagtail_fuzzy_search), fuzzy search becomes accent-insensitive. For example, searching "ecole" will match pages titled "École".
+
+Requires the `unaccent` PostgreSQL extension and the `f_unaccent()` immutable function. Run the following management command before enabling this setting:
+
+```sh
+./manage.py enable_unaccent
+```
+
+Defaults to `False`.
+
 ## Internationalization
 
 Wagtail supports the internationalization of content by maintaining separate trees of pages for each language.

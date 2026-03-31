@@ -19,7 +19,7 @@ from wagtail.search.query import MATCH_ALL, Fuzzy
 from wagtail.search.utils import parse_query_string
 
 
-def page_filter_search(q, pages, all_pages=None, ordering=None, fuzzy=False):
+def page_filter_search(q, pages, all_pages=None, ordering=None, fuzzy=False, unaccent=False):
     # Parse query
     filters, query = parse_query_string(q, operator="and", zero_terms=MATCH_ALL)
 
@@ -38,7 +38,7 @@ def page_filter_search(q, pages, all_pages=None, ordering=None, fuzzy=False):
 
     # Search
     if q and fuzzy:
-        fuzzy_query = Fuzzy(q)
+        fuzzy_query = Fuzzy(q, unaccent=unaccent)
         if all_pages is not None:
             all_pages = all_pages.search(fuzzy_query, order_by_relevance=not ordering)
         pages = pages.search(fuzzy_query, order_by_relevance=not ordering)
@@ -132,8 +132,14 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
 
         # Parse query and filter
         fuzzy = getattr(settings, "WAGTAIL_FUZZY_SEARCH", False)
+        unaccent = getattr(settings, "WAGTAIL_FUZZY_SEARCH_UNACCENT", False)
         pages, self.all_pages = page_filter_search(
-            self.search_query, pages, self.all_pages, self.ordering, fuzzy=fuzzy
+            self.search_query,
+            pages,
+            self.all_pages,
+            self.ordering,
+            fuzzy=fuzzy,
+            unaccent=unaccent,
         )
 
         # Facets
