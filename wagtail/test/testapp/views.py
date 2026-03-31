@@ -361,6 +361,7 @@ class EventPageViewSet(PageViewSet):
     columns = PageViewSet.index_view_class.columns.copy()
     columns.insert(-1, Column("audience", label="Audience", sort_key="audience"))
     filterset_class = EventPageFilterSet
+    list_per_page = 10
     ordering = ("date_from", "title")
 
 

@@ -251,3 +251,30 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                 "2015-07-04",
             ],
         )
+
+    def test_list_per_page(self):
+        pages = [
+            EventPage(
+                title=f"Event {i}",
+                date_from=f"2015-01-{i}",
+                audience="public",
+                location="Somewhere",
+                cost=f"£{i}",
+            )
+            for i in range(1, 21)
+        ]
+        for page in pages:
+            self.event_index_page.add_child(instance=page)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 10)
+        soup = self.get_soup(response.content)
+        pagination = (
+            soup.select_one("nav.pagination")
+            .get_text(strip=True, separator="|")
+            .split("|")
+        )
+        self.assertEqual(
+            pagination,
+            ["Page 1 of 3", "Previous", "1", "2", "3", "Next", "25 event pages"],
+        )
