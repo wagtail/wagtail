@@ -1,3 +1,4 @@
+import logging
 from typing import Any
 
 from django.conf import settings
@@ -7,6 +8,9 @@ from django.http import Http404
 from django.utils.functional import classproperty
 from django.utils.translation import gettext_lazy as _
 
+from modelsearch.backends.database.postgres.postgres import PostgresSearchBackend
+from modelsearch.backends.elasticsearchbase import ElasticsearchBaseSearchBackend
+
 from wagtail.admin.ui.tables.pages import (
     NavigateToChildrenColumn,
 )
@@ -15,8 +19,13 @@ from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import PageListingMixin
 from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
+from wagtail.search.backends import get_search_backend
 from wagtail.search.query import MATCH_ALL, Fuzzy
 from wagtail.search.utils import parse_query_string
+
+logger = logging.getLogger(__name__)
+
+FUZZY_SUPPORTED_BACKENDS = (PostgresSearchBackend, ElasticsearchBaseSearchBackend)
 
 
 def page_filter_search(q, pages, all_pages=None, ordering=None, fuzzy=False, unaccent=False):
@@ -133,6 +142,13 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         # Parse query and filter
         fuzzy = getattr(settings, "WAGTAIL_FUZZY_SEARCH", False)
         unaccent = getattr(settings, "WAGTAIL_FUZZY_SEARCH_UNACCENT", False)
+        if fuzzy and not isinstance(get_search_backend(), FUZZY_SUPPORTED_BACKENDS):
+            logger.warning(
+                "WAGTAIL_FUZZY_SEARCH is enabled but the active search backend does not "
+                "support fuzzy search. Falling back to autocomplete. Use PostgreSQL or "
+                "Elasticsearch/OpenSearch to enable fuzzy search."
+            )
+            fuzzy = False
         pages, self.all_pages = page_filter_search(
             self.search_query,
             pages,
