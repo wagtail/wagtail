@@ -10,6 +10,7 @@ from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessSubIndex,
     EventIndex,
+    EventPage,
     SimpleChildPage,
     SimplePage,
     SimpleParentPage,
@@ -162,19 +163,10 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                 ],
                 [
                     "",
-                    "Tentative Unpublished Event",
+                    "Saint Patrick (single event)",
                     "",
-                    "Event page",
-                    "Current page status: | draft",
-                    "public",
-                    "",
-                ],
-                [
-                    "",
-                    "Someone Else's Event",
-                    "",
-                    "Event page",
-                    "Current page status: | draft",
+                    "Single event page",
+                    "Current page status: | live",
                     "private",
                     "",
                 ],
@@ -189,11 +181,20 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                 ],
                 [
                     "",
-                    "Saint Patrick (single event)",
+                    "Someone Else's Event",
                     "",
-                    "Single event page",
-                    "Current page status: | live",
+                    "Event page",
+                    "Current page status: | draft",
                     "private",
+                    "",
+                ],
+                [
+                    "",
+                    "Tentative Unpublished Event",
+                    "",
+                    "Event page",
+                    "Current page status: | draft",
+                    "public",
                     "",
                 ],
             ],
@@ -225,4 +226,28 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
         self.assertEqual(
             [page.audience for page in pages],
             ["private", "private"],
+        )
+
+    def test_default_order_by_date_from(self):
+        new_page = EventPage(
+            title="New Years 2025",
+            date_from="2015-01-01",
+            audience="public",
+            location="Somewhere",
+            cost="free",
+        )
+        self.event_index_page.add_child(instance=new_page)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        pages = response.context["object_list"]
+        self.assertEqual(
+            [str(page.date_from) for page in pages],
+            [
+                "2014-12-25",
+                "2014-12-25",
+                "2015-01-01",
+                "2015-04-22",
+                "2015-07-04",
+                "2015-07-04",
+            ],
         )

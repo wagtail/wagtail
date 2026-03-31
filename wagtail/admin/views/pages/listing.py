@@ -128,7 +128,6 @@ class PageListingMixin:
     context_object_name = "pages"
     table_class = PageTable
     filterset_class = GenericPageFilterSet
-    default_ordering = "-latest_revision_created_at"
     model = Page
     is_searchable = True
 
@@ -281,6 +280,7 @@ class IndexView(PageListingMixin, generic.IndexView):
     paginate_by = 50
     table_classname = "listing full-width"
     filterset_class = PageFilterSet
+    default_ordering = "-latest_revision_created_at"
 
     @classproperty
     def columns(cls):
@@ -316,6 +316,7 @@ class ExplorableIndexView(IndexView):
     # This is not a real field on the model, but it allows reuse of ordering
     # logic from generic IndexView
     sort_order_field = "ord"
+    default_ordering = None
 
     @classproperty
     def columns(cls):
@@ -416,7 +417,9 @@ class ExplorableIndexView(IndexView):
             # default to ordering by relevance
             default_ordering = None
         else:
-            default_ordering = self.parent_page.get_admin_default_ordering()
+            default_ordering = (
+                self.default_ordering or self.parent_page.get_admin_default_ordering()
+            )
 
         ordering = self.request.GET.get("ordering", default_ordering)
         if ordering not in self.get_valid_orderings():
