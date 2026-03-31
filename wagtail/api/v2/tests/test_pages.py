@@ -717,12 +717,12 @@ class TestPageListing(WagtailTestUtils, TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [])
 
-    def test_child_of_unknown_page_gives_error(self):
+    def test_child_of_unknown_page_returns_empty(self):
         response = self.get_response(child_of=1000)
         content = json.loads(response.content.decode("UTF-8"))
 
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {"message": "parent page doesn't exist"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(content["items"], [])
 
     def test_child_of_draft_page_returns_empty(self):
         homepage = self.get_homepage()
@@ -733,7 +733,21 @@ class TestPageListing(WagtailTestUtils, TestCase):
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(self.get_page_id_list(content), [])
+        self.assertEqual(content["items"], [])
+
+    def test_child_of_draft_page_returns_live_children(self):
+        homepage = self.get_homepage()
+        draft_page = homepage.add_child(
+            instance=Page(title="Draft Parent", slug="draft-parent", live=False)
+        )
+        live_child = draft_page.add_child(
+            instance=Page(title="Live Child", slug="live-child", live=True)
+        )
+        response = self.get_response(child_of=draft_page.id)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.get_page_id_list(content), [live_child.id])
 
     def test_child_of_not_integer_gives_error(self):
         response = self.get_response(child_of="abc")
@@ -742,13 +756,12 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {"message": "child_of must be a positive integer"})
 
-    def test_child_of_page_thats_not_in_same_site_gives_error(self):
-        # Root page is not in any site, so pretend it doesn't exist
+    def test_child_of_page_thats_not_in_same_site_returns_empty(self):
         response = self.get_response(child_of=1)
         content = json.loads(response.content.decode("UTF-8"))
 
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {"message": "parent page doesn't exist"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(content["items"], [])
 
     # ANCESTOR OF FILTER
 
