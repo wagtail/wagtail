@@ -1,5 +1,6 @@
 from typing import Any
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
@@ -14,11 +15,11 @@ from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import PageListingMixin
 from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
-from wagtail.search.query import MATCH_ALL
+from wagtail.search.query import MATCH_ALL, Fuzzy
 from wagtail.search.utils import parse_query_string
 
 
-def page_filter_search(q, pages, all_pages=None, ordering=None):
+def page_filter_search(q, pages, all_pages=None, ordering=None, fuzzy=False):
     # Parse query
     filters, query = parse_query_string(q, operator="and", zero_terms=MATCH_ALL)
 
@@ -36,9 +37,15 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
         pages = pages.filter(live=False)
 
     # Search
-    if all_pages is not None:
-        all_pages = all_pages.autocomplete(query, order_by_relevance=not ordering)
-    pages = pages.autocomplete(query, order_by_relevance=not ordering)
+    if q and fuzzy:
+        fuzzy_query = Fuzzy(q)
+        if all_pages is not None:
+            all_pages = all_pages.search(fuzzy_query, order_by_relevance=not ordering)
+        pages = pages.search(fuzzy_query, order_by_relevance=not ordering)
+    else:
+        if all_pages is not None:
+            all_pages = all_pages.autocomplete(query, order_by_relevance=not ordering)
+        pages = pages.autocomplete(query, order_by_relevance=not ordering)
 
     return pages, all_pages
 
@@ -124,8 +131,9 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         pages = self.annotate_queryset(pages)
 
         # Parse query and filter
+        fuzzy = getattr(settings, "WAGTAIL_FUZZY_SEARCH", False)
         pages, self.all_pages = page_filter_search(
-            self.search_query, pages, self.all_pages, self.ordering
+            self.search_query, pages, self.all_pages, self.ordering, fuzzy=fuzzy
         )
 
         # Facets
