@@ -7,6 +7,11 @@ exclude = [
 ]
 line-length = 88
 target-version = "py310" # minimum target version
+preview = true
+extend-include = ["docs/**/*.md"]
+
+[format]
+docstring-code-format = true
 
 [lint]
 # D100: Missing docstring in public module
