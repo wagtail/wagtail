@@ -22,8 +22,7 @@ def convert_to_streamfield(apps, schema_editor):
     BlogPage = apps.get_model("demo", "BlogPage")
     for page in BlogPage.objects.all():
         page.body = json.dumps(
-            [{"type": "rich_text", "value": page.body}],
-            cls=DjangoJSONEncoder
+            [{"type": "rich_text", "value": page.body}], cls=DjangoJSONEncoder
         )
         page.save()
 
@@ -34,14 +33,12 @@ def convert_to_richtext(apps, schema_editor):
         if page.body:
             stream = json.loads(page.body)
             page.body = "".join([
-                child["value"] for child in stream
-                if child["type"] == "rich_text"
+                child["value"] for child in stream if child["type"] == "rich_text"
             ])
             page.save()
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         # leave the dependency line from the generated migration intact!
         ("demo", "0001_initial"),
@@ -52,7 +49,6 @@ class Migration(migrations.Migration):
             convert_to_streamfield,
             convert_to_richtext,
         ),
-
         # leave the generated AlterField intact!
         migrations.AlterField(
             model_name="BlogPage",
@@ -101,11 +97,8 @@ def pagerevision_to_streamfield(revision_data):
             json.loads(body)
         except ValueError:
             revision_data["body"] = json.dumps(
-                [{
-                    "value": body,
-                    "type": "rich_text"
-                }],
-                cls=DjangoJSONEncoder)
+                [{"value": body, "type": "rich_text"}], cls=DjangoJSONEncoder
+            )
             changed = True
         else:
             # It's already valid JSON. Leave it.
@@ -123,8 +116,7 @@ def page_to_richtext(page):
             pass
         else:
             page.body = "".join([
-                child["value"] for child in body_data
-                if child["type"] == "rich_text"
+                child["value"] for child in body_data if child["type"] == "rich_text"
             ])
             changed = True
 
@@ -142,8 +134,7 @@ def pagerevision_to_richtext(revision_data):
             pass
         else:
             raw_text = "".join([
-                child["value"] for child in body_data
-                if child["type"] == "rich_text"
+                child["value"] for child in body_data if child["type"] == "rich_text"
             ])
             revision_data["body"] = raw_text
             changed = True
@@ -156,7 +147,6 @@ def convert(apps, schema_editor, page_converter, pagerevision_converter):
     Revision = apps.get_model("wagtailcore", "Revision")
 
     for page in BlogPage.objects.all():
-
         page, changed = page_converter(page)
         if changed:
             page.save()
@@ -172,7 +162,9 @@ def convert(apps, schema_editor, page_converter, pagerevision_converter):
 
 
 def convert_to_streamfield(apps, schema_editor):
-    return convert(apps, schema_editor, page_to_streamfield, pagerevision_to_streamfield)
+    return convert(
+        apps, schema_editor, page_to_streamfield, pagerevision_to_streamfield
+    )
 
 
 def convert_to_richtext(apps, schema_editor):
@@ -180,7 +172,6 @@ def convert_to_richtext(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         # leave the dependency line from the generated migration intact!
         ("demo", "0001_initial"),
@@ -192,7 +183,6 @@ class Migration(migrations.Migration):
             convert_to_streamfield,
             convert_to_richtext,
         ),
-
         # leave the generated AlterField intact!
         migrations.AlterField(
             model_name="BlogPage",
@@ -240,9 +230,7 @@ Suppose we have a `BlogPage` model in an app named `blog`, defined as follows:
 ```python
 class BlogPage(Page):
     content = StreamField([
-        ("stream1", blocks.StreamBlock([
-            ("field1", blocks.CharBlock())
-        ])),
+        ("stream1", blocks.StreamBlock([("field1", blocks.CharBlock())])),
     ])
 ```
 
@@ -251,9 +239,7 @@ After running the initial migrations and populating the database with some recor
 ```python
 class BlogPage(Page):
     content = StreamField([
-        ("stream1", blocks.StreamBlock([
-            ("block1", blocks.CharBlock())
-        ])),
+        ("stream1", blocks.StreamBlock([("block1", blocks.CharBlock())])),
     ])
 ```
 
@@ -274,20 +260,15 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [...]
 
-    operations = [
-    ]
+    operations = []
 ```
 
 We need to make sure that either this migration or one of the migrations it depends on has the Wagtail core migrations as a dependency, since the utilities need the migrations for the `Revision` models to be able to run.
 
 ```python
-    dependencies = [
-        ('wagtailcore', '0069_log_entry_jsonfield'),
-        ...
-    ]
+dependencies = [("wagtailcore", "0069_log_entry_jsonfield"), ...]
 ```
 
 (if the project started off with Wagtail 4, '0076_modellogentry_revision' would also be fine)
@@ -301,8 +282,8 @@ from django.db import migrations
 
 from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 
-class Migration(migrations.Migration):
 
+class Migration(migrations.Migration):
     dependencies = [...]
 
     operations = [
@@ -310,7 +291,7 @@ class Migration(migrations.Migration):
             app_name="blog",
             model_name="BlogPage",
             field_name="content",
-            operations_and_block_paths=[...]
+            operations_and_block_paths=[...],
         ),
     ]
 ```
@@ -331,11 +312,9 @@ from django.db import migrations
 from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 from wagtail.blocks.migrations.operations import RenameStreamChildrenOperation
 
-class Migration(migrations.Migration):
 
-    dependencies = [
-        ...
-    ]
+class Migration(migrations.Migration):
+    dependencies = [...]
 
     operations = [
         MigrateStreamData(
@@ -343,11 +322,13 @@ class Migration(migrations.Migration):
             model_name="BlogPage",
             field_name="content",
             operations_and_block_paths=[
-                (RenameStreamChildrenOperation(old_name="field1", new_name="block1"), "stream1"),
-            ]
+                (
+                    RenameStreamChildrenOperation(old_name="field1", new_name="block1"),
+                    "stream1",
+                ),
+            ],
         ),
     ]
-
 ```
 
 (using_streamfield_migration_block_paths)=
@@ -357,11 +338,7 @@ class Migration(migrations.Migration):
 The `MigrateStreamData` class takes a list of operations and corresponding block paths as a parameter `operations_and_block_paths`. Each operation in the list will be applied to all blocks that match the corresponding block path.
 
 ```python
-operations_and_block_paths=[
-    (operation1, block_path1),
-    (operation2, block_path2),
-    ...
-]
+operations_and_block_paths = [(operation1, block_path1), (operation2, block_path2), ...]
 ```
 
 #### Block path
@@ -380,13 +357,16 @@ class MyDeepNestedBlock(StreamBlock):
     foo = CharBlock()
     date = DateBlock()
 
+
 class MyNestedBlock(StreamBlock):
     char1 = CharBlock()
     deepnested1 = MyDeepNestedBlock()
 
+
 class MyStreamBlock(StreamBlock):
     field1 = CharBlock()
     nested1 = MyNestedBlock()
+
 
 class MyPage(Page):
     content = StreamField(MyStreamBlock)
@@ -431,6 +411,7 @@ When the path contains a ListBlock child, 'item' must be added to the block path
 class MyStructBlock(StructBlock):
     char1 = CharBlock()
     char2 = CharBlock()
+
 
 class MyStreamBlock(StreamBlock):
     list1 = ListBlock(MyStructBlock())
@@ -521,6 +502,7 @@ For example, if we want to truncate the string in a `CharBlock` to a given lengt
 ```python
 from wagtail.blocks.migrations.operations import BaseBlockOperation
 
+
 class MyBlockOperation(BaseBlockOperation):
     def __init__(self, length):
         super().__init__()
@@ -529,14 +511,12 @@ class MyBlockOperation(BaseBlockOperation):
 
     def apply(self, block_value):
         # block value is the string value of the CharBlock
-        new_block_value = block_value[:self.length]
+        new_block_value = block_value[: self.length]
         return new_block_value
-
 
     @property
     def operation_name_fragment(self):
         return "truncate_{}".format(self.length)
-
 ```
 
 #### block_value
@@ -549,9 +529,9 @@ The value passed to `apply` when the matched block is a StreamBlock would look l
 
 ```python
 [
-    { "type": "...", "value": "...", "id": "..." },
-    { "type": "...", "value": "...", "id": "..." },
-    ...
+    {"type": "...", "value": "...", "id": "..."},
+    {"type": "...", "value": "...", "id": "..."},
+    ...,
 ]
 ```
 
@@ -569,9 +549,9 @@ The value passed to `apply` when the matched block is a ListBlock would look lik
 
 ```python
 [
-    { "type": "item", "value": "...", "id": "..." },
-    { "type": "item", "value": "...", "id": "..." },
-    ...
+    {"type": "item", "value": "...", "id": "..."},
+    {"type": "item", "value": "...", "id": "..."},
+    ...,
 ]
 ```
 
@@ -588,20 +568,16 @@ Prior to Wagtail version 2.16, `ListBlock` children were saved as just a normal 
 Old format
 
 ```python
-[
-    value1,
-    value2,
-    ...
-]
+[value1, value2, ...]
 ```
 
 New format
 
 ```python
 [
-    { "type": "item", "id": "...", "value": value1 },
-    { "type": "item", "id": "...", "value": value2 },
-    ...
+    {"type": "item", "id": "...", "value": value1},
+    {"type": "item", "id": "...", "value": value2},
+    ...,
 ]
 ```
 

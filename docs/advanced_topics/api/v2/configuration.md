@@ -55,9 +55,11 @@ from rest_framework.renderers import JSONRenderer
 
 # ...
 
+
 class CustomPagesAPIViewSet(PagesAPIViewSet):
     renderer_classes = [JSONRenderer]
     name = "pages"
+
 
 api_router.register_endpoint("pages", CustomPagesAPIViewSet)
 ```
@@ -68,6 +70,7 @@ Or changing the desired model to use for page results.
 from rest_framework.renderers import JSONRenderer
 
 # ...
+
 
 class PostPagesAPIViewSet(PagesAPIViewSet):
     model = models.BlogPage
@@ -87,6 +90,7 @@ class CustomFieldsAPIViewSet(PagesAPIViewSet):
     nested_default_fields = PagesAPIViewSet.nested_default_fields + ["seo_title"]
     name = "pages"
 
+
 api_router.register_endpoint("pages", CustomFieldsAPIViewSet)
 ```
 
@@ -105,15 +109,15 @@ from wagtail.images.api.v2.views import ImagesAPIViewSet
 from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 
 # Create the router. "wagtailapi" is the URL namespace
-api_router = WagtailAPIRouter('wagtailapi')
+api_router = WagtailAPIRouter("wagtailapi")
 
 # Add the three endpoints using the "register_endpoint" method.
 # The first parameter is the name of the endpoint (such as pages, images). This
 # is used in the URL of the endpoint
 # The second parameter is the endpoint class that handles the requests
-api_router.register_endpoint('pages', PagesAPIViewSet)
-api_router.register_endpoint('images', ImagesAPIViewSet)
-api_router.register_endpoint('documents', DocumentsAPIViewSet)
+api_router.register_endpoint("pages", PagesAPIViewSet)
+api_router.register_endpoint("images", ImagesAPIViewSet)
+api_router.register_endpoint("documents", DocumentsAPIViewSet)
 ```
 
 Next, register the URLs so Django can route requests into the API:
@@ -191,10 +195,11 @@ If you have a FormBuilder page called `FormPage` this is an example of how you w
 ```python
 from wagtail.api import APIField
 
+
 class FormPage(AbstractEmailForm):
-    #...
+    # ...
     api_fields = [
-        APIField('form_fields'),
+        APIField("form_fields"),
     ]
 ```
 
@@ -207,13 +212,14 @@ JSON format. You can override the serializer for any field using the
 ```python
 from rest_framework.fields import DateField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Change the format of the published_date field to "Thursday 06 April 2017"
-        APIField('published_date', serializer=DateField(format='%A %d %B %Y')),
-        ...
+        APIField("published_date", serializer=DateField(format="%A %d %B %Y")),
+        ...,
     ]
 ```
 
@@ -223,16 +229,19 @@ to add API fields that have a different field name or no underlying field at all
 ```python
 from rest_framework.fields import DateField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Date in ISO8601 format (the default)
-        APIField('published_date'),
-
+        APIField("published_date"),
         # A separate published_date_display field with a different format
-        APIField('published_date_display', serializer=DateField(format='%A %d %B %Y', source='published_date')),
-        ...
+        APIField(
+            "published_date_display",
+            serializer=DateField(format="%A %d %B %Y", source="published_date"),
+        ),
+        ...,
     ]
 ```
 
@@ -265,7 +274,7 @@ class RichTextSerializer(CharField):
 We can then change our `api_fields` definition so `body` uses this new serializer:
 
 ```python
-APIField('body', serializer=RichTextSerializer()),
+(APIField("body", serializer=RichTextSerializer()),)
 ```
 
 (api_v2_images)=
@@ -283,16 +292,19 @@ For example:
 from wagtail.api import APIField
 from wagtail.images.api.fields import ImageRenditionField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Adds information about the source image (eg, title) into the API
-        APIField('feed_image'),
-
+        APIField("feed_image"),
         # Adds a URL to a rendered thumbnail of the image to the API
-        APIField('feed_image_thumbnail', serializer=ImageRenditionField('fill-100x100', source='feed_image')),
-        ...
+        APIField(
+            "feed_image_thumbnail",
+            serializer=ImageRenditionField("fill-100x100", source="feed_image"),
+        ),
+        ...,
     ]
 ```
 
@@ -337,16 +349,19 @@ Common examples include:
 
 ```python
 # Square crop and fill
-APIField('thumbnail', serializer=ImageRenditionField('fill-300x300', source='image'))
+APIField("thumbnail", serializer=ImageRenditionField("fill-300x300", source="image"))
 
 # Maintain aspect ratio with maximum dimensions
-APIField('preview', serializer=ImageRenditionField('max-800x600', source='image'))
+APIField("preview", serializer=ImageRenditionField("max-800x600", source="image"))
 
 # Exact dimensions without cropping
-APIField('banner', serializer=ImageRenditionField('width-1200', source='image'))
+APIField("banner", serializer=ImageRenditionField("width-1200", source="image"))
 
 # Chained operations (multiple filters combined)
-APIField('compressed_thumb', serializer=ImageRenditionField('fill-200x200|jpegquality-60', source='image'))
+APIField(
+    "compressed_thumb",
+    serializer=ImageRenditionField("fill-200x200|jpegquality-60", source="image"),
+)
 ```
 
 The generated rendition URLs will be included in the API response, allowing clients to directly access optimized versions of images without additional processing.
@@ -361,6 +376,7 @@ To protect the access to your API, you can implement an [authentication](https:/
 from rest_framework.permissions import IsAuthenticated
 
 # ...
+
 
 class CustomPagesAPIViewSet(PagesAPIViewSet):
     name = "pages"

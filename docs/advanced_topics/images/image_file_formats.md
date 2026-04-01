@@ -39,11 +39,11 @@ to an output type.
 For example:
 
 ```python
-    WAGTAILIMAGES_FORMAT_CONVERSIONS = {
-        'avif': 'avif',
-        'bmp': 'jpeg',
-        'webp': 'webp',
-    }
+WAGTAILIMAGES_FORMAT_CONVERSIONS = {
+    "avif": "avif",
+    "bmp": "jpeg",
+    "webp": "webp",
+}
 ```
 
 will convert `bmp` images to `jpeg` and disable the default `avif` and `webp`

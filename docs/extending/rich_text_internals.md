@@ -149,8 +149,9 @@ Below is an example custom rewrite handler that implements some of these methods
 from django.contrib.auth import get_user_model
 from wagtail.rich_text import LinkHandler
 
+
 class UserLinkHandler(LinkHandler):
-    identifier = 'user'
+    identifier = "user"
 
     @staticmethod
     def get_model():
@@ -159,7 +160,7 @@ class UserLinkHandler(LinkHandler):
     @classmethod
     def get_instance(cls, attrs):
         model = cls.get_model()
-        return model.objects.get(username=attrs['username'])
+        return model.objects.get(username=attrs["username"])
 
     @classmethod
     def expand_db_attributes(cls, attrs):
@@ -183,7 +184,8 @@ This method allows you to register a custom handler deriving from ``wagtail.rich
 from wagtail import hooks
 from my_app.handlers import MyCustomLinkHandler
 
-@hooks.register('register_rich_text_features')
+
+@hooks.register("register_rich_text_features")
 def register_link_handler(features):
     features.register_link_type(MyCustomLinkHandler)
 ```
@@ -195,15 +197,17 @@ from django.utils.html import escape
 from wagtail import hooks
 from wagtail.rich_text import LinkHandler
 
+
 class NoFollowExternalLinkHandler(LinkHandler):
-    identifier = 'external'
+    identifier = "external"
 
     @classmethod
     def expand_db_attributes(cls, attrs):
         href = attrs["href"]
         return '<a href="%s" rel="nofollow">' % escape(href)
 
-@hooks.register('register_rich_text_features')
+
+@hooks.register("register_rich_text_features")
 def register_external_link(features):
     features.register_link_type(NoFollowExternalLinkHandler)
 ```
@@ -222,7 +226,8 @@ This method allows you to register a custom handler deriving from ``wagtail.rich
 from wagtail import hooks
 from my_app.handlers import MyCustomEmbedHandler
 
-@hooks.register('register_rich_text_features')
+
+@hooks.register("register_rich_text_features")
 def register_embed_handler(features):
     features.register_embed_type(MyCustomEmbedHandler)
 ```
@@ -242,9 +247,9 @@ For example, a third-party Wagtail extension might introduce `table` as a new ri
 The `default_features` attribute of the feature registry is a list of feature identifiers to be used whenever an explicit feature list has not been given in `RichTextField` / `RichTextBlock` or `WAGTAILADMIN_RICH_TEXT_EDITORS`. This list can be modified within the `register_rich_text_features` hook to make new features enabled by default, and retrieved by calling `get_default_features()`.
 
 ```python
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def make_h1_default(features):
-    features.default_features.append('h1')
+    features.default_features.append("h1")
 ```
 
 Outside of the `register_rich_text_features` hook - for example, inside a widget class - the feature registry can be imported as the object `wagtail.rich_text.features`. A possible starting point for a rich text editor with feature support would be:
@@ -253,13 +258,14 @@ Outside of the `register_rich_text_features` hook - for example, inside a widget
 from django.forms import widgets
 from wagtail.rich_text import features
 
+
 class CustomRichTextArea(widgets.TextArea):
     accepts_features = True
 
     def __init__(self, *args, **kwargs):
-        self.options = kwargs.pop('options', None)
+        self.options = kwargs.pop("options", None)
 
-        self.features = kwargs.pop('features', None)
+        self.features = kwargs.pop("features", None)
         if self.features is None:
             self.features = features.get_default_features()
 

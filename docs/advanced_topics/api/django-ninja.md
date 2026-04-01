@@ -122,6 +122,7 @@ class HomePageSchema(BasePageSchema, ModelSchema):
     class Config(BasePageSchema.Config):
         model = HomePage
 
+
 @api.get("/pages/{page_id}/", response=BlogPageSchema | HomePageSchema)
 def get_page(request: "HttpRequest", page_id: int):
     return get_object_or_404(Page, id=page_id).specific
