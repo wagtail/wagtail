@@ -155,7 +155,7 @@ A tooltip that can be attached to an HTML element to display additional informat
     data-w-tooltip-offset-value="[10, 15]"
     data-w-tooltip-placement-value="top"
 >
-  A button with a tooltip
+    A button with a tooltip
 </button>
 ```
 
@@ -168,10 +168,10 @@ If you need the tooltip to display rich content, you can use an HTML element as 
     data-w-tooltip-offset-value="[10, 15]"
     data-w-tooltip-placement-value="top"
 >
-  <template data-w-tooltip-target="content">
-    More <strong>detail</strong> here
-  </template>
-  A button with a tooltip
+    <template data-w-tooltip-target="content">
+        More <strong>detail</strong> here
+    </template>
+    A button with a tooltip
 </button>
 ```
 

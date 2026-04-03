@@ -29,46 +29,46 @@ Extracting the previewed content using the `PreviewController` can be useful for
 /* js/summarize.js */
 
 class SummarizeController extends window.StimulusModule.Controller {
-  static targets = ['suggest'];
+    static targets = ['suggest'];
 
-  static values = {
-    input: { default: '', type: String },
-  };
+    static values = {
+        input: { default: '', type: String },
+    };
 
-  /** Only load the controller if the browser supports the Summarizer API. */
-  static get shouldLoad() {
-    return 'Summarizer' in window;
-  }
+    /** Only load the controller if the browser supports the Summarizer API. */
+    static get shouldLoad() {
+        return 'Summarizer' in window;
+    }
 
-  /** The previewed content's language. */
-  contentLanguage = document.documentElement.lang || 'en';
-  /** A cached Summarizer instance Promise to avoid recreating it unnecessarily. */
-  #summarizer = null;
+    /** The previewed content's language. */
+    contentLanguage = document.documentElement.lang || 'en';
+    /** A cached Summarizer instance Promise to avoid recreating it unnecessarily. */
+    #summarizer = null;
 
-  /** Promise of a browser Summarizer instance. */
-  get summarizer() {
-    if (this.#summarizer) return this.#summarizer; // Return from cache
-    this.#summarizer = Summarizer.create({
-      // Change the Summarizer's configuration as needed
-      sharedContext: `A summary of a webpage's content, suitable for use as a meta description.`,
-      type: 'teaser',
-      length: 'short',
-      format: 'plain-text',
-      expectedInputLanguages: [this.contentLanguage],
-      outputLanguage: document.documentElement.lang,
-    });
-    return this.#summarizer;
-  }
+    /** Promise of a browser Summarizer instance. */
+    get summarizer() {
+        if (this.#summarizer) return this.#summarizer; // Return from cache
+        this.#summarizer = Summarizer.create({
+            // Change the Summarizer's configuration as needed
+            sharedContext: `A summary of a webpage's content, suitable for use as a meta description.`,
+            type: 'teaser',
+            length: 'short',
+            format: 'plain-text',
+            expectedInputLanguages: [this.contentLanguage],
+            outputLanguage: document.documentElement.lang,
+        });
+        return this.#summarizer;
+    }
 
-  connect() {
-    this.input = this.element.querySelector(this.inputValue);
-    this.renderFurniture();
-  }
+    connect() {
+        this.input = this.element.querySelector(this.inputValue);
+        this.renderFurniture();
+    }
 
-  renderFurniture() {
-    const prefix = this.element.closest('[id]').id;
-    const buttonId = `${prefix}-generate`;
-    const button = /* html */ `
+    renderFurniture() {
+        const prefix = this.element.closest('[id]').id;
+        const buttonId = `${prefix}-generate`;
+        const button = /* html */ `
       <button
         id="${buttonId}"
         type="button"
@@ -79,58 +79,59 @@ class SummarizeController extends window.StimulusModule.Controller {
         Generate suggestions
       </button>
     `;
-    this.element.insertAdjacentHTML('beforeend', button);
+        this.element.insertAdjacentHTML('beforeend', button);
 
-    this.outputArea = document.createElement('div');
-    this.element.append(this.outputArea);
-  }
+        this.outputArea = document.createElement('div');
+        this.element.append(this.outputArea);
+    }
 
-  renderSuggestion(suggestion) {
-    const template = document.createElement('template');
-    template.innerHTML = /* html */ `
+    renderSuggestion(suggestion) {
+        const template = document.createElement('template');
+        template.innerHTML = /* html */ `
       <div>
         <output for="${this.suggestTarget.id}">${suggestion}</output>
         <button class="button button-small" type="button" data-action="summarize#useSuggestion">Use</button>
       </div>
     `;
-    this.outputArea.append(template.content.firstElementChild);
-  }
+        this.outputArea.append(template.content.firstElementChild);
+    }
 
-  useSuggestion(event) {
-    this.input.value = event.target.previousElementSibling.textContent;
-  }
+    useSuggestion(event) {
+        this.input.value = event.target.previousElementSibling.textContent;
+    }
 
-  async summarize(text) {
-    const summarizer = await this.summarizer;
-    return summarizer.summarize(text);
-  }
+    async summarize(text) {
+        const summarizer = await this.summarizer;
+        return summarizer.summarize(text);
+    }
 
-  async getPageContent() {
-    const previewController = window.wagtail.app.queryController('w-preview');
-    const { innerText, lang } = await previewController.extractContent();
-    this.contentLanguage = lang;
-    return innerText;
-  }
+    async getPageContent() {
+        const previewController =
+            window.wagtail.app.queryController('w-preview');
+        const { innerText, lang } = await previewController.extractContent();
+        this.contentLanguage = lang;
+        return innerText;
+    }
 
-  async generate() {
-    this.outputArea.innerHTML = '';
-    this.suggestTarget.textContent = 'Generating…';
-    this.suggestTarget.disabled = true;
+    async generate() {
+        this.outputArea.innerHTML = '';
+        this.suggestTarget.textContent = 'Generating…';
+        this.suggestTarget.disabled = true;
 
-    const text = await this.getPageContent();
-    await Promise.allSettled(
-      [...Array(3).keys()].map(() =>
-        this.summarize(text)
-          .then((output) => this.renderSuggestion(output))
-          .catch((error) => {
-            console.error('Error generating suggestion:', error);
-          }),
-      ),
-    );
+        const text = await this.getPageContent();
+        await Promise.allSettled(
+            [...Array(3).keys()].map(() =>
+                this.summarize(text)
+                    .then((output) => this.renderSuggestion(output))
+                    .catch((error) => {
+                        console.error('Error generating suggestion:', error);
+                    }),
+            ),
+        );
 
-    this.suggestTarget.disabled = false;
-    this.suggestTarget.textContent = 'Generate suggestions';
-  }
+        this.suggestTarget.disabled = false;
+        this.suggestTarget.textContent = 'Generate suggestions';
+    }
 }
 
 window.wagtail.app.register('summarize', SummarizeController);

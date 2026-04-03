@@ -92,10 +92,10 @@ empty list.
 
 Each dictionary can contain the following:
 
--   **location** (required) - This is the full URL path to add into the sitemap.
--   **lastmod** - A python date or datetime set to when the page was last modified.
--   **changefreq**
--   **priority**
+- **location** (required) - This is the full URL path to add into the sitemap.
+- **lastmod** - A python date or datetime set to when the page was last modified.
+- **changefreq**
+- **priority**
 
 You can add more but you will need to override the
 `sitemap.xml` template in order for them to be displayed in the sitemap.

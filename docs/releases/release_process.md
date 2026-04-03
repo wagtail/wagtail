@@ -4,22 +4,22 @@
 
 Release numbering works as follows:
 
--   Versions are numbered in the form `A.B` or `A.B.C`.
+- Versions are numbered in the form `A.B` or `A.B.C`.
 
--   `A.B` is the _feature release_ version number. Each version will be mostly
-    backwards compatible with the previous release. Exceptions to this rule
-    will be listed in the release notes. When `B` is `0`, the release contains
-    backwards-incompatible changes.
+- `A.B` is the _feature release_ version number. Each version will be mostly
+  backwards compatible with the previous release. Exceptions to this rule
+  will be listed in the release notes. When `B` is `0`, the release contains
+  backwards-incompatible changes.
 
--   `C` is the _patch release_ version number, which is incremented for bugfix
-    and security releases. These releases will be 100% backwards-compatible with
-    the previous patch release. The only exception is when a security or data
-    loss issue can't be fixed without breaking backwards-compatibility. If this
-    happens, the release notes will provide detailed upgrade instructions.
+- `C` is the _patch release_ version number, which is incremented for bugfix
+  and security releases. These releases will be 100% backwards-compatible with
+  the previous patch release. The only exception is when a security or data
+  loss issue can't be fixed without breaking backwards-compatibility. If this
+  happens, the release notes will provide detailed upgrade instructions.
 
--   Before a new feature release, we'll make at least one release candidate
-    release. These are of the form `A.BrcN`, which means the
-    `Nth` release candidate of version `A.B`.
+- Before a new feature release, we'll make at least one release candidate
+  release. These are of the form `A.BrcN`, which means the
+  `Nth` release candidate of version `A.B`.
 
 In git, each Wagtail release will have a tag indicating its version number.
 Additionally, each release series has its
@@ -83,9 +83,9 @@ corresponding API reference, which tend to be more actively developed.
 
 We try to strike the balance between:
 
--   keeping the API stable for most users,
--   documenting features for advanced developers and third-party package maintainers, and
--   allowing for continuous improvement of Wagtail's internals.
+- keeping the API stable for most users,
+- documenting features for advanced developers and third-party package maintainers, and
+- allowing for continuous improvement of Wagtail's internals.
 
 A feature release may deprecate certain features from previous releases. If a
 feature is deprecated in feature release A.x, it will continue to work in all
@@ -96,22 +96,22 @@ feature releases.
 
 For example:
 
--   Wagtail 5.1 was released. Function `func_a()` that entered deprecation in
-    this version would have a backwards-compatible replica which would raise a
-    `RemovedInWagtail60Warning`.
+- Wagtail 5.1 was released. Function `func_a()` that entered deprecation in
+  this version would have a backwards-compatible replica which would raise a
+  `RemovedInWagtail60Warning`.
 
--   Wagtail 5.2 was released. This version still contained the
-    backwards-compatible replica of `func_a()`. Future version numbers are
-    provisional, so the next version could either be 5.3 or 6.0. For function
-    `func_b()` that entered deprecation in version 5.2, it would tentatively
-    raise a `RemovedInWagtail60Warning`.
+- Wagtail 5.2 was released. This version still contained the
+  backwards-compatible replica of `func_a()`. Future version numbers are
+  provisional, so the next version could either be 5.3 or 6.0. For function
+  `func_b()` that entered deprecation in version 5.2, it would tentatively
+  raise a `RemovedInWagtail60Warning`.
 
--   Wagtail 6.0 was decided to be the next version after Wagtail 5.2. In
-    this release, `func_a()` was outright removed, and `func_b()` would raise a
-    `RemovedInWagtail70Warning` instead.
+- Wagtail 6.0 was decided to be the next version after Wagtail 5.2. In
+  this release, `func_a()` was outright removed, and `func_b()` would raise a
+  `RemovedInWagtail70Warning` instead.
 
--   When Wagtail 7.0 is released (after all 6.x versions), `func_b()` will be
-    removed.
+- When Wagtail 7.0 is released (after all 6.x versions), `func_b()` will be
+  removed.
 
 The warnings are silent by default. You can turn on display of these warnings
 with the `python -Wd` option.
@@ -125,57 +125,55 @@ varying levels.
 See our [release schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule)
 for the current state of support for each version.
 
--   The current development `main` will get new features and bug fixes
-    requiring non-trivial refactoring.
+- The current development `main` will get new features and bug fixes
+  requiring non-trivial refactoring.
 
--   Commits applied to the `main` branch must also be applied to the release
-    branches under "active support", to be released in the next patch release of
-    that feature series, when they fix critical problems:
+- Commits applied to the `main` branch must also be applied to the release
+  branches under "active support", to be released in the next patch release of
+  that feature series, when they fix critical problems:
+    - Security issues.
 
-    -   Security issues.
+    - Data loss bugs.
 
-    -   Data loss bugs.
+    - Crashing bugs.
 
-    -   Crashing bugs.
+    - Major functionality bugs in newly-introduced features.
 
-    -   Major functionality bugs in newly-introduced features.
-
-    -   Regressions from older versions of Wagtail.
+    - Regressions from older versions of Wagtail.
 
     The rule of thumb is that fixes will be backported to the last feature
     release for bugs that would have prevented a release in the first place
     (release blockers).
 
--   Security and data loss fixes must also be applied to release branches under
-    "security support".
+- Security and data loss fixes must also be applied to release branches under
+  "security support".
 
--   At the discretion of maintainers, we may also apply commits to the release branches under "active support" when they fix additional scenarios:
+- At the discretion of maintainers, we may also apply commits to the release branches under "active support" when they fix additional scenarios:
+    - Accessibility bugs, blocking specific user groups.
 
-    -   Accessibility bugs, blocking specific user groups.
+    - User interface bugs, adding unreasonable friction.
 
-    -   User interface bugs, adding unreasonable friction.
-
--   Documentation fixes may be more freely backported to the last
-    release branch. That's because it's highly advantageous to have the docs for
-    the last release be up-to-date and correct, and the risk of introducing
-    regressions is much less of a concern.
+- Documentation fixes may be more freely backported to the last
+  release branch. That's because it's highly advantageous to have the docs for
+  the last release be up-to-date and correct, and the risk of introducing
+  regressions is much less of a concern.
 
 As a concrete example, consider a moment in time halfway between the release of
 Wagtail 6.1 and 6.2. At this point in time:
 
--   Features and bug fixes will be added to `main`, to be released as Wagtail 6.2.
+- Features and bug fixes will be added to `main`, to be released as Wagtail 6.2.
 
--   Critical bug fixes and specific UI and accessibility fixes in `main`
-    will be applied to the `stable/6.1.x` (active support) and `stable/5.2.x`
-    (LTS) branches, to be released as 6.1.1, 6.1.2, 5.2.6, 5.2.7, etc.
+- Critical bug fixes and specific UI and accessibility fixes in `main`
+  will be applied to the `stable/6.1.x` (active support) and `stable/5.2.x`
+  (LTS) branches, to be released as 6.1.1, 6.1.2, 5.2.6, 5.2.7, etc.
 
--   Security fixes and bug fixes for data loss issues in `main` will be applied
-    to `stable/6.1.x` (active support), `stable/6.0.x` (security support),
-    and `stable/5.2.x` (LTS) branches. They will trigger the release of `6.1.3`,
-    `6.0.6`, `5.2.8`, etc.
+- Security fixes and bug fixes for data loss issues in `main` will be applied
+  to `stable/6.1.x` (active support), `stable/6.0.x` (security support),
+  and `stable/5.2.x` (LTS) branches. They will trigger the release of `6.1.3`,
+  `6.0.6`, `5.2.8`, etc.
 
--   Documentation fixes will be applied to `main`, and, if easily backported, to
-    the latest stable branch, `stable/6.1.x`.
+- Documentation fixes will be applied to `main`, and, if easily backported, to
+  the latest stable branch, `stable/6.1.x`.
 
 ## Supported versions of Django
 
@@ -187,10 +185,10 @@ all following versions of Django.
 For example, consider a moment in time before the release of Wagtail 6.3 and
 after the following releases:
 
--   Django 4.2 (LTS)
--   Django 5.0
--   Wagtail 6.2 - Released before Django 5.1 and supports Django 4.2 and 5.0
--   Django 5.1
+- Django 4.2 (LTS)
+- Django 5.0
+- Wagtail 6.2 - Released before Django 5.1 and supports Django 4.2 and 5.0
+- Django 5.1
 
 Wagtail 6.3 will support Django 4.2 (LTS), 5.0, 5.1.
 Wagtail 6.2 will still support only Django 4.2 (LTS) and 5.0.

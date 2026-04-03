@@ -30,11 +30,11 @@ If your bug report is a security issue, **do not** report it with an issue. Plea
 
 For users of Large Language Models (LLMs), the developer documentation and the [Wagtail user guide](https://guide.wagtail.org/) contents are available in the [llms.txt format](https://llmstxt.org/).
 
- * [llms.txt](llms.txt){.external}
- * [llms-full.txt](llms-full.txt){.external}
- * Add `.md` at the end of any documentation page URL to view the Markdown output of that page. Example: [StreamField block reference in Markdown](./reference/streamfield/blocks.html.md){.external}
- * [User guide llms.txt](https://guide.wagtail.org/llms.txt)
- * [User guide llms-full.txt](https://guide.wagtail.org/llms-full.txt)
+- [llms.txt](llms.txt){.external}
+- [llms-full.txt](llms-full.txt){.external}
+- Add `.md` at the end of any documentation page URL to view the Markdown output of that page. Example: [StreamField block reference in Markdown](./reference/streamfield/blocks.html.md){.external}
+- [User guide llms.txt](https://guide.wagtail.org/llms.txt)
+- [User guide llms-full.txt](https://guide.wagtail.org/llms-full.txt)
 
 ## Torchbox
 

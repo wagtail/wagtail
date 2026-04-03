@@ -51,8 +51,8 @@ class FormPage(AbstractEmailForm):
 If you need to save additional data, you can use a custom form submission model.
 To do this, you need to:
 
--   Define a model that extends `wagtail.contrib.forms.models.AbstractFormSubmission`.
--   Override the `get_submission_class` and `process_form_submission` methods in your page model.
+- Define a model that extends `wagtail.contrib.forms.models.AbstractFormSubmission`.
+- Override the `get_submission_class` and `process_form_submission` methods in your page model.
 
 Example:
 
@@ -109,8 +109,8 @@ class CustomFormSubmission(AbstractFormSubmission):
 
 If you want to add custom data to the CSV export, you will need to:
 
--   Override the `get_data_fields` method in page model.
--   Override `get_data` in the submission model.
+- Override the `get_data_fields` method in page model.
+- Override `get_data` in the submission model.
 
 The example below shows how to add a username to the CSV export.
 Note that this code also changes the submissions list view.
@@ -702,17 +702,17 @@ class FormPage(AbstractEmailForm):
 
 First, make the new field type available in the page editor by changing your `FormField` model.
 
--   Create a new set of choices which includes the original `FORM_FIELD_CHOICES` along with new field types you want to make available.
--   Each choice must contain a unique key and a human-readable name of the field, for example `('slug', 'URL Slug')`
--   Override the `field_type` field in your `FormField` model with `choices` attribute using these choices.
--   You will need to run `./manage.py makemigrations` and `./manage.py migrate` after this step.
+- Create a new set of choices which includes the original `FORM_FIELD_CHOICES` along with new field types you want to make available.
+- Each choice must contain a unique key and a human-readable name of the field, for example `('slug', 'URL Slug')`
+- Override the `field_type` field in your `FormField` model with `choices` attribute using these choices.
+- You will need to run `./manage.py makemigrations` and `./manage.py migrate` after this step.
 
 Then, create and use a new form builder class.
 
--   Define a new form builder class that extends the `FormBuilder` class.
--   Add a method that will return a created Django form field for the new field type.
--   Its name must be in the format: `create_<field_type_key>_field`, for example `create_slug_field`
--   Override the `form_builder` attribute in your form page model to use your new form builder class.
+- Define a new form builder class that extends the `FormBuilder` class.
+- Add a method that will return a created Django form field for the new field type.
+- Its name must be in the format: `create_<field_type_key>_field`, for example `create_slug_field`
+- Override the `form_builder` attribute in your form page model to use your new form builder class.
 
 Example:
 
@@ -764,8 +764,8 @@ If you want to change the content of the email that is sent when a form submits 
 
 To do this, you need to:
 
--   Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
--   Override the `render_email` method in your page model.
+- Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
+- Override the `render_email` method in your page model.
 
 Example:
 
@@ -806,9 +806,9 @@ If you want to change the subject or some other part of how an email is sent whe
 
 To do this, you need to:
 
--   Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
--   In your models.py file, import the `wagtail.admin.mail.send_mail` function.
--   Override the `send_mail` method in your page model.
+- Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
+- In your models.py file, import the `wagtail.admin.mail.send_mail` function.
+- Override the `send_mail` method in your page model.
 
 Example:
 
@@ -837,12 +837,12 @@ class FormPage(AbstractEmailForm):
 
 ## Custom `clean_name` generation
 
--   Each time a new `FormField` is added a `clean_name` also gets generated based on the user-entered `label`.
--   `AbstractFormField` has a method `get_field_clean_name` to convert the label into an HTML-valid `lower_snake_case` ASCII string using the [AnyAscii](https://pypi.org/project/anyascii/) library which can be overridden to generate a custom conversion.
--   The resolved `clean_name` is also used as the form field name in rendered HTML forms.
--   Ensure that any conversion will be unique enough to not create conflicts within your `FormPage` instance.
--   This method gets called on the creation of new fields only and as such will not have access to its own `Page` or `pk`. This does not get called when labels are edited as modifying the `clean_name` after any form responses are submitted will mean those field responses will not be retrieved.
--   This method gets called for form previews and also validation of duplicate labels.
+- Each time a new `FormField` is added a `clean_name` also gets generated based on the user-entered `label`.
+- `AbstractFormField` has a method `get_field_clean_name` to convert the label into an HTML-valid `lower_snake_case` ASCII string using the [AnyAscii](https://pypi.org/project/anyascii/) library which can be overridden to generate a custom conversion.
+- The resolved `clean_name` is also used as the form field name in rendered HTML forms.
+- Ensure that any conversion will be unique enough to not create conflicts within your `FormPage` instance.
+- This method gets called on the creation of new fields only and as such will not have access to its own `Page` or `pk`. This does not get called when labels are edited as modifying the `clean_name` after any form responses are submitted will mean those field responses will not be retrieved.
+- This method gets called for form previews and also validation of duplicate labels.
 
 ```python
     import uuid

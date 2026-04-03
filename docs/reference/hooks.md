@@ -202,9 +202,9 @@ def hide_explorer_menu_item_from_frank(request, menu_items):
 
 Called when Wagtail needs to find out what objects exist in a collection, if any. Currently, this happens on the confirmation before deleting a collection, to ensure that non-empty collections cannot be deleted. The callable passed to this hook will receive a `collection` object, and should return either `None` (to indicate no objects in this collection), or a dict containing the following keys:
 
--   `count` - A numeric count of items in this collection
--   `count_text` - A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the `django.utils.translation.ngettext` function.)
--   `url` (optional) - A URL to an index page that lists the objects being described.
+- `count` - A numeric count of items in this collection
+- `count_text` - A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the `django.utils.translation.ngettext` function.)
+- `url` (optional) - A URL to an index page that lists the objects being described.
 
 ### `register_account_settings_panel`
 
@@ -270,10 +270,10 @@ def register_account_delete_account(request):
 
 Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of `wagtail.admin.menu.MenuItem`. New items can be constructed from the `MenuItem` class by passing in a `label` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling `reverse()` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
 
--   `name` - an internal name used to identify the menu item; defaults to the slugified form of the label.
--   `icon_name` - icon to display against the menu item; no defaults, optional, but should be set for top-level menu items so they can be identified when collapsed.
--   `classname` - additional classes applied to the link.
--   `order` - an integer that determines the item's position in the menu.
+- `name` - an internal name used to identify the menu item; defaults to the slugified form of the label.
+- `icon_name` - icon to display against the menu item; no defaults, optional, but should be set for top-level menu items so they can be identified when collapsed.
+- `classname` - additional classes applied to the link.
+- `order` - an integer that determines the item's position in the menu.
 
 For menu items that are only available to superusers, the subclass `wagtail.admin.menu.AdminOnlyMenuItem` can be used in place of `MenuItem`.
 
@@ -386,13 +386,13 @@ As `construct_main_menu`, but modifies the 'Help' sub-menu rather than the top-l
 
 Add an item to the Wagtail admin search "Other Searches". The behavior of this hook is similar to `register_admin_menu_item`. The callable passed to this hook must return an instance of `wagtail.admin.search.SearchArea`. New items can be constructed from the `SearchArea` class by passing the following parameters:
 
--   `label` - text displayed in the "Other Searches" option box.
--   `name` - an internal name used to identify the search option; defaults to the slugified form of the label.
--   `url` - the URL of the target search page.
--   `classname` - additional CSS classes applied to the link.
--   `icon_name` - icon to display next to the label.
--   `attrs` - additional HTML attributes to apply to the link.
--   `order` - an integer which determines the item's position in the list of options.
+- `label` - text displayed in the "Other Searches" option box.
+- `name` - an internal name used to identify the search option; defaults to the slugified form of the label.
+- `url` - the URL of the target search page.
+- `classname` - additional CSS classes applied to the link.
+- `icon_name` - icon to display next to the label.
+- `attrs` - additional HTML attributes to apply to the link.
+- `order` - an integer which determines the item's position in the list of options.
 
 Setting the URL can be achieved using reverse() on the target search page. The GET parameter 'q' will be appended to the given URL.
 
@@ -439,8 +439,8 @@ Add buttons to the user list.
 
 This hook takes two parameters:
 
--   `user`: The user object to generate the button for
--   `request_user`: The currently logged-in user
+- `user`: The user object to generate the button for
+- `request_user`: The currently logged-in user
 
 This example will add a button inside the "More" dropdown and a top-level button in the listing if the currently logged-in user is a superuser:
 
@@ -474,8 +474,8 @@ Allows access to form submissions to be customized on a per-user, per-form basis
 
 This hook takes two parameters:
 
--   The user attempting to access form submissions
--   A `QuerySet` of form pages
+- The user attempting to access form submissions
+- A `QuerySet` of form pages
 
 The hook must return a `QuerySet` containing a subset of these form pages which the user is allowed to access the submissions for.
 
@@ -613,10 +613,10 @@ def page_header_buttons(page, user, view_name, next_url=None):
 
 The arguments passed to the hook are as follows:
 
--   `page` - the page object to generate the button for
--   `user` - the logged-in user
--   `view_name` - either `index` or `edit`, depending on whether the button is being generated for the page listing or edit view
--   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
+- `page` - the page object to generate the button for
+- `user` - the logged-in user
+- `view_name` - either `index` or `edit`, depending on whether the button is being generated for the page listing or edit view
+- `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
 
@@ -840,20 +840,20 @@ We recommend they are non-aliased, direct translations of the pages from the fun
 
 Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of `wagtail.admin.action_menu.ActionMenuItem`. `ActionMenuItem` is a subclass of [Component](creating_template_components) and so the rendering of the menu item can be customized through `template_name`, `get_context_data`, `render_html`, and `Media`. In addition, the following attributes and methods are available to be overridden:
 
--   `order` - an integer (default 100) that determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an `order` of 0).
--   `label` - the displayed text of the menu item
--   `get_url` - a method that returns a URL for the menu item to link to; by default, returns `None` which causes the menu item to behave as a form submit button instead
--   `name` - value of the `name` attribute of the submit button, if no URL is specified
--   `icon_name` - icon to display against the menu item
--   `classname` - a `class` attribute value to add to the button element
--   `is_shown` - a method that returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
+- `order` - an integer (default 100) that determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an `order` of 0).
+- `label` - the displayed text of the menu item
+- `get_url` - a method that returns a URL for the menu item to link to; by default, returns `None` which causes the menu item to behave as a form submit button instead
+- `name` - value of the `name` attribute of the submit button, if no URL is specified
+- `icon_name` - icon to display against the menu item
+- `classname` - a `class` attribute value to add to the button element
+- `is_shown` - a method that returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
 
 The `get_url`, `is_shown`, `get_context_data`, and `render_html` methods all accept a context dictionary containing the following fields:
 
--   `view` - name of the current view: `'create'`, `'edit'` or `'revisions_revert'`
--   `page` - for `view` = `'edit'` or `'revisions_revert'`, the page being edited
--   `parent_page` - for `view` = `'create'`, the parent page of the page being created
--   `request` - the current request object
+- `view` - name of the current view: `'create'`, `'edit'` or `'revisions_revert'`
+- `page` - for `view` = `'edit'` or `'revisions_revert'`, the page being edited
+- `parent_page` - for `view` = `'create'`, the parent page of the page being created
+- `request` - the current request object
 
 ```python
 from wagtail import hooks
@@ -1087,9 +1087,9 @@ def page_listing_buttons(page, user, next_url=None):
 
 The arguments passed to the hook are as follows:
 
--   `page` - the page object to generate the button for
--   `user` - the logged-in user
--   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
+- `page` - the page object to generate the button for
+- `user` - the logged-in user
+- `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
 
@@ -1119,9 +1119,9 @@ def page_listing_more_buttons(page, user, next_url=None):
 
 The arguments passed to the hook are as follows:
 
--   `page` - the page object to generate the button for
--   `user` - the logged-in user
--   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
+- `page` - the page object to generate the button for
+- `user` - the logged-in user
+- `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
 
@@ -1217,17 +1217,17 @@ def add_custom_headers(next_serve_page):
 
 Parameters passed to the function:
 
--   `page` - the Page object being served
--   `request` - the request object
--   `args` - positional arguments that will be passed to the page's serve method
--   `kwargs` - keyword arguments that will be passed to the page's serve method
+- `page` - the Page object being served
+- `request` - the request object
+- `args` - positional arguments that will be passed to the page's serve method
+- `kwargs` - keyword arguments that will be passed to the page's serve method
 
 This hook is particularly useful for:
 
--   Adding/modifying response headers
--   Implementing access restrictions
--   Modifying the response content
--   Adding logging or monitoring
+- Adding/modifying response headers
+- Implementing access restrictions
+- Modifying the response content
+- Adding logging or monitoring
 
 ## Document serving
 
@@ -1337,20 +1337,20 @@ Add an item to the popup menu of actions on the snippet creation and edit views.
 The callable passed to this hook receives the snippet's model class as an argument, and must return an instance of `wagtail.snippets.action_menu.
 ActionMenuItem`. `ActionMenuItem` is a subclass of [Component](creating_template_components) and so the rendering of the menu item can be customized through `template_name`, `get_context_data`, `render_html` and `Media`. In addition, the following attributes and methods are available to be overridden:
 
--   `order` - an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an `order` of 0).
--   `label` - the displayed text of the menu item
--   `get_url` - a method that returns a URL for the menu item to link to; by default, returns `None` which causes the menu item to behave as a form submit button instead
--   `name` - value of the `name` attribute of the submit button if no URL is specified
--   `icon_name` - icon to display against the menu item
--   `classname` - a `class` attribute value to add to the button element
--   `is_shown` - a method that returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
+- `order` - an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an `order` of 0).
+- `label` - the displayed text of the menu item
+- `get_url` - a method that returns a URL for the menu item to link to; by default, returns `None` which causes the menu item to behave as a form submit button instead
+- `name` - value of the `name` attribute of the submit button if no URL is specified
+- `icon_name` - icon to display against the menu item
+- `classname` - a `class` attribute value to add to the button element
+- `is_shown` - a method that returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
 
 The `get_url`, `is_shown`, `get_context_data`, and `render_html` methods all accept a context dictionary containing the following fields:
 
--   `view` - name of the current view: `'create'` or `'edit'`
--   `model` - the snippet's model class
--   `instance` - for `view` = `'edit'`, the instance being edited
--   `request` - the current request object
+- `view` - name of the current view: `'create'` or `'edit'`
+- `model` - the snippet's model class
+- `instance` - for `view` = `'edit'`, the instance being edited
+- `request` - the current request object
 
 ```python
 from wagtail import hooks
@@ -1422,9 +1422,9 @@ def snippet_listing_buttons(snippet, user, next_url=None):
 
 The arguments passed to the hook are as follows:
 
--   `snippet` - the snippet object to generate the button for
--   `user` - the user who is viewing the snippets listing
--   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
+- `snippet` - the snippet object to generate the button for
+- `user` - the user who is viewing the snippets listing
+- `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
 

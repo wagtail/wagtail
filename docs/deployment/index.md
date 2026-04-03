@@ -19,9 +19,9 @@ Wagtail is built on Django, and so the vast majority of the deployment steps and
 
 Several hosting providers offer varying levels of support for Wagtail. We’ve organized them into three categories:
 
--   Wagtail-level support (easiest deployment).
--   Python-level support (requires some knowledge of WSGI and file storage).
--   Infrastructure-level support (requires knowledge of Linux).
+- Wagtail-level support (easiest deployment).
+- Python-level support (requires some knowledge of WSGI and file storage).
+- Infrastructure-level support (requires knowledge of Linux).
 
 ## Wagtail-Level Support
 
@@ -29,16 +29,16 @@ These hosting providers offer first-class support for Wagtail deployments and in
 
 ### [CodeRed Cloud](https://www.codered.cloud/)
 
--   Website & pricing: [codered.cloud](https://www.codered.cloud/)
--   Wagtail deployment guide: [CodeRed Wagtail Quickstart](https://www.codered.cloud/docs/wagtail/quickstart/)
--   From the vendor:
+- Website & pricing: [codered.cloud](https://www.codered.cloud/)
+- Wagtail deployment guide: [CodeRed Wagtail Quickstart](https://www.codered.cloud/docs/wagtail/quickstart/)
+- From the vendor:
     > CodeRed Cloud is inspired by simplicity and “it just works” philosophy. No special packages or 3rd party services required! Free plans are available, and every plan includes a database, media hosting, daily backups, and more.
 
 ### [Divio](https://www.divio.com/)
 
--   Website & pricing: [divio.com](https://www.divio.com/pricing/)
--   Wagtail deployment guide: [Divio Wagtail Setup Guide](https://docs.divio.com/introduction/wagtail/)
--   From the vendor:
+- Website & pricing: [divio.com](https://www.divio.com/pricing/)
+- Wagtail deployment guide: [Divio Wagtail Setup Guide](https://docs.divio.com/introduction/wagtail/)
+- From the vendor:
     > Divio is a cloud hosting platform designed to simplify the development and deployment of containerized web applications. It integrates smoothly with Wagtail, providing developers with tools to efficiently manage web applications. Divio proactively manages and supports state-of-the-art cloud services, ensuring that your Wagtail applications are scalable, secure, and reliable. The platform’s user-friendly interface makes it easy to develop, deploy, manage, and maintain your web applications. With features like automated backups and staging environments, Divio handles the technical infrastructure, allowing you to focus on building and maintaining your Wagtail sites with confidence.
 
 ## Python-Level Support

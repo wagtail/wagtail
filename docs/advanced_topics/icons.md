@@ -6,11 +6,11 @@ Wagtail comes with an SVG icon set. The icons are used throughout the admin inte
 
 Elements that use icons are:
 
--   [Register Admin Menu Item](register_admin_menu_item)
--   [Client-side React components](extending_client_side_react)
--   [Rich text editor toolbar buttons](extending_the_draftail_editor)
--   [Snippets](wagtailsnippets_icon)
--   [StreamField blocks](custom_streamfield_blocks)
+- [Register Admin Menu Item](register_admin_menu_item)
+- [Client-side React components](extending_client_side_react)
+- [Rich text editor toolbar buttons](extending_the_draftail_editor)
+- [Snippets](wagtailsnippets_icon)
+- [StreamField blocks](custom_streamfield_blocks)
 
 This document describes how to choose, add and customize icons.
 
@@ -30,11 +30,11 @@ Draw or download an icon and save it in a template folder:
 
 The `svg` tag should:
 
--   Set the `id="icon-<name>"` attribute, icons are referenced by this `name`. The `name` should only contain lowercase letters, numbers, and hyphens.
--   Set the `xmlns="http://www.w3.org/2000/svg"` attribute.
--   Set the `viewBox="..."` attribute, and no `width` and `height` attributes.
--   If the icon should be mirrored in right-to-left (RTL) languages, set the `class="icon--directional"` attribute.
--   Include license / source information in a `<!--! -->` HTML comment, if applicable.
+- Set the `id="icon-<name>"` attribute, icons are referenced by this `name`. The `name` should only contain lowercase letters, numbers, and hyphens.
+- Set the `xmlns="http://www.w3.org/2000/svg"` attribute.
+- Set the `viewBox="..."` attribute, and no `width` and `height` attributes.
+- If the icon should be mirrored in right-to-left (RTL) languages, set the `class="icon--directional"` attribute.
+- Include license / source information in a `<!--! -->` HTML comment, if applicable.
 
 Set `fill="currentColor"` or remove `fill` attributes so the icon color changes according to usage.
 

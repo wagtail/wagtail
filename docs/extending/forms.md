@@ -66,15 +66,15 @@ See [](/reference/panels) for the set of panel types provided by Wagtail. All pa
 
 A view performs the following steps to render a model form through the panels mechanism:
 
--   The top-level panel object for the model is retrieved. Usually, this is done by looking up the model's `edit_handler` property and falling back on an `ObjectList` consisting of children given by the model's `panels` property. However, it may come from elsewhere - for example, snippets can define their panels via the `SnippetViewSet` class.
--   If the `PanelGroup`'s permissions do not allow a user to see this panel, then nothing more will be done.
-    -   This can be modified using the `permission` keyword argument, see examples of this usage in [](customizing_the_tabbed_interface) and [](panels_permissions).
--   The view calls `bind_to_model` on the top-level panel, passing the model class, and this returns a clone of the panel with a `model` property. As part of this process, the `on_model_bound` method is invoked on each child panel, to allow it to perform additional initialization that requires access to the model (for example, this is where `FieldPanel` retrieves the model field definition).
--   The view then calls `get_form_class` on the top-level panel to retrieve a ModelForm subclass that can be used to edit the model. This proceeds as follows:
-    -   Retrieve a base form class from the model's `base_form_class` property, falling back on `wagtail.admin.forms.WagtailAdminModelForm`
-    -   Call `get_form_options` on each child panel - which returns a dictionary of properties including `fields` and `widgets` - and merge the results into a single dictionary
-    -   Construct a subclass of the base form class, with the options dict forming the attributes of the inner `Meta` class.
--   An instance of the form class is created as per a normal Django form view.
--   The view then calls `get_bound_panel` on the top-level panel, passing `instance`, `form` and `request` as keyword arguments. This returns a `BoundPanel` object, which follows [the template component API](/extending/template_components). Finally, the `BoundPanel` object (and its media definition) is rendered onto the template.
+- The top-level panel object for the model is retrieved. Usually, this is done by looking up the model's `edit_handler` property and falling back on an `ObjectList` consisting of children given by the model's `panels` property. However, it may come from elsewhere - for example, snippets can define their panels via the `SnippetViewSet` class.
+- If the `PanelGroup`'s permissions do not allow a user to see this panel, then nothing more will be done.
+    - This can be modified using the `permission` keyword argument, see examples of this usage in [](customizing_the_tabbed_interface) and [](panels_permissions).
+- The view calls `bind_to_model` on the top-level panel, passing the model class, and this returns a clone of the panel with a `model` property. As part of this process, the `on_model_bound` method is invoked on each child panel, to allow it to perform additional initialization that requires access to the model (for example, this is where `FieldPanel` retrieves the model field definition).
+- The view then calls `get_form_class` on the top-level panel to retrieve a ModelForm subclass that can be used to edit the model. This proceeds as follows:
+    - Retrieve a base form class from the model's `base_form_class` property, falling back on `wagtail.admin.forms.WagtailAdminModelForm`
+    - Call `get_form_options` on each child panel - which returns a dictionary of properties including `fields` and `widgets` - and merge the results into a single dictionary
+    - Construct a subclass of the base form class, with the options dict forming the attributes of the inner `Meta` class.
+- An instance of the form class is created as per a normal Django form view.
+- The view then calls `get_bound_panel` on the top-level panel, passing `instance`, `form` and `request` as keyword arguments. This returns a `BoundPanel` object, which follows [the template component API](/extending/template_components). Finally, the `BoundPanel` object (and its media definition) is rendered onto the template.
 
 New panel types can be defined by subclassing `wagtail.admin.panels.Panel` - see [](panels_api).

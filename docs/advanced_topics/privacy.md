@@ -4,9 +4,9 @@
 
 Users with publish permission on a page can set it to be private by clicking the 'Privacy' control in the top right corner of the page explorer or editing interface. This sets a restriction on who is allowed to view the page and its subpages. Several different kinds of restrictions are available:
 
--   **Accessible to any logged-in users:** The user must log in to view the page. All user accounts are granted access, regardless of permission level.
--   **Accessible with a shared password:** The user must enter the given shared password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.
--   **Accessible to users in specific groups:** The user must be logged in, and a member of one or more of the specified groups, in order to view the page.
+- **Accessible to any logged-in users:** The user must log in to view the page. All user accounts are granted access, regardless of permission level.
+- **Accessible with a shared password:** The user must enter the given shared password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.
+- **Accessible to users in specific groups:** The user must be logged in, and a member of one or more of the specified groups, in order to view the page.
 
 ```{warning}
 Shared passwords should not be used to protect sensitive content, as the password is shared between all users, and stored in plain text in the database. Where possible, it's recommended to require users log in to access private page content.
@@ -80,10 +80,10 @@ You can modify the default privacy restriction of a page by overriding the {meth
 
 The method must return a dictionary with at least a `type` key. The value must be one of the following values for {class}`~wagtail.models.PageViewRestriction`'s {attr}`~wagtail.models.PageViewRestriction.restriction_type`:
 
--   `BaseViewRestriction.NONE` - No restrictions
--   `BaseViewRestriction.PASSWORD` - Password protected (requires additional `password` key in the dictionary)
--   `BaseViewRestriction.GROUPS` - Group restricted (requires additional `groups` key with list of Group objects)
--   `BaseViewRestriction.LOGIN` - Login required
+- `BaseViewRestriction.NONE` - No restrictions
+- `BaseViewRestriction.PASSWORD` - Password protected (requires additional `password` key in the dictionary)
+- `BaseViewRestriction.GROUPS` - Group restricted (requires additional `groups` key with list of Group objects)
+- `BaseViewRestriction.LOGIN` - Login required
 
 ```python
 class BlogPage(Page):
@@ -116,8 +116,8 @@ WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
 This template will receive the same set of context variables that the blocked page would pass to its own template via `get_context()` - including `page` to refer to the page object itself - plus the following additional variables (which override any of the page's own context variables of the same name):
 
--   **form** - A Django form object for the password prompt; this will contain a field named `password` as its only visible field. Several hidden fields may also be present, so the page must loop over `form.hidden_fields` if not using one of Django's rendering helpers such as `form.as_p`.
--   **action_url** - The URL that the password form should be submitted to, as a POST request.
+- **form** - A Django form object for the password prompt; this will contain a field named `password` as its only visible field. Several hidden fields may also be present, so the page must loop over `form.hidden_fields` if not using one of Django's rendering helpers such as `form.as_p`.
+- **action_url** - The URL that the password form should be submitted to, as a POST request.
 
 A basic template suitable for use as `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` might look like this:
 

@@ -182,12 +182,12 @@ the tests against it.
 
 If you need to use different connection settings, use the following environment variables which correspond to the respective keys within Django's [`DATABASES`](inv:django#DATABASES) settings dictionary:
 
--   `DATABASE_ENGINE`
--   `DATABASE_NAME`
--   `DATABASE_PASSWORD`
--   `DATABASE_HOST`
-    -   Note that for MySQL, this must be `127.0.0.1` rather than `localhost` if you need to connect using a TCP socket
--   `DATABASE_PORT`
+- `DATABASE_ENGINE`
+- `DATABASE_NAME`
+- `DATABASE_PASSWORD`
+- `DATABASE_HOST`
+    - Note that for MySQL, this must be `127.0.0.1` rather than `localhost` if you need to connect using a TCP socket
+- `DATABASE_PORT`
 
 It is also possible to set `DATABASE_DRIVER`, which corresponds to the `driver` value within `OPTIONS` if an SQL Server engine is used.
 
@@ -236,7 +236,6 @@ npm run test:integration
 ```
 
 Integration tests target `http://127.0.0.1:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port, or test a remote Wagtail instance: `TEST_ORIGIN=http://127.0.0.1:9000 npm run test:integration`.
-
 
 ## Compiling static assets
 
@@ -307,6 +306,7 @@ make livehtml
 ```
 
 (linting_and_formatting)=
+
 ## Linting and formatting
 
 Wagtail makes use of various tools to ensure consistency and readability across the codebase:
@@ -317,8 +317,8 @@ Wagtail makes use of various tools to ensure consistency and readability across 
 
 All contributions should follow these standards, and you are encouraged to run these tools locally to avoid delays in your contributions being accepted. Here are the available commands:
 
--   `make lint` will run all linting, `make lint-server` lints Python and template code, and `make lint-client` lints JS/CSS.
--   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
+- `make lint` will run all linting, `make lint-server` lints Python and template code, and `make lint-client` lints JS/CSS.
+- `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
 
 Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
 

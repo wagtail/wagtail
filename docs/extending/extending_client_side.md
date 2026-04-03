@@ -45,9 +45,9 @@ The simplest way to attach behavior to the browser is via [DOM Events](https://d
 
 Wagtail supports some custom behavior via listening or dispatching custom DOM events.
 
--   See [Images title generation on upload](images_title_generation_on_upload).
--   See [Documents title generation on upload](docs_title_generation_on_upload).
--   See [`InlinePanel` DOM events](inline_panel_events).
+- See [Images title generation on upload](images_title_generation_on_upload).
+- See [Documents title generation on upload](docs_title_generation_on_upload).
+- See [`InlinePanel` DOM events](inline_panel_events).
 
 (extending_client_side_stimulus)=
 
@@ -396,13 +396,13 @@ window.draftail.TooltipEntity;
 
 ## Extending Draftail
 
--   [](extending_the_draftail_editor)
+- [](extending_the_draftail_editor)
 
 ## Extending StreamField
 
--   [](streamfield_widget_api)
--   [](custom_streamfield_blocks_media)
+- [](streamfield_widget_api)
+- [](custom_streamfield_blocks_media)
 
 ## Extending the editor
 
--   [](editor_api)
+- [](editor_api)

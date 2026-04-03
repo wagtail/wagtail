@@ -134,7 +134,6 @@ employee_viewset = EmployeeViewSet("employee")
 
 Note that the sort order field should be excluded from `form_fields` - Wagtail handles it automatically through the drag-and-drop interface.
 
-
 #### Working with existing data
 
 When enabling drag-and-drop reordering using `sort_order_field`, it is important that all existing records have a valid and unique value for that field.
@@ -210,13 +209,13 @@ To override the template used by the `IndexView` for example, you could create a
 
 For some common views, Wagtail also allows you to override the template used by overriding the `{view_name}_template_name` property on the viewset. The following is a list of customization points for the views:
 
--   `IndexView`: `index.html` or {attr}`~ModelViewSet.index_template_name`
-    -   For the results fragment used in AJAX responses (e.g. when searching), customize `index_results.html` or {attr}`~ModelViewSet.index_results_template_name`
--   `CreateView`: `create.html` or {attr}`~ModelViewSet.create_template_name`
--   `EditView`: `edit.html` or {attr}`~ModelViewSet.edit_template_name`
--   `DeleteView`: `delete.html` or {attr}`~ModelViewSet.delete_template_name`
--   `HistoryView`: `history.html` or {attr}`~ModelViewSet.history_template_name`
--   `InspectView`: `inspect.html` or {attr}`~ModelViewSet.inspect_template_name`
+- `IndexView`: `index.html` or {attr}`~ModelViewSet.index_template_name`
+    - For the results fragment used in AJAX responses (e.g. when searching), customize `index_results.html` or {attr}`~ModelViewSet.index_results_template_name`
+- `CreateView`: `create.html` or {attr}`~ModelViewSet.create_template_name`
+- `EditView`: `edit.html` or {attr}`~ModelViewSet.edit_template_name`
+- `DeleteView`: `delete.html` or {attr}`~ModelViewSet.delete_template_name`
+- `HistoryView`: `history.html` or {attr}`~ModelViewSet.history_template_name`
+- `InspectView`: `inspect.html` or {attr}`~ModelViewSet.inspect_template_name`
 
 ### Other customizations
 

@@ -39,10 +39,10 @@ Below is a checklist. There are many like these you can copy for yourself as you
 ```
 
 ```markdown
--   [ ] Read the Zen of Wagtail.
--   [ ] Read the Django Overview.
--   [ ] Search online for one or two articles that 'compare Wordpress to Wagtail' or 'top ten open source CMS' and read about the CMS landscape.
--   [ ] Read some of the Wagtail Guide.
+- [ ] Read the Zen of Wagtail.
+- [ ] Read the Django Overview.
+- [ ] Search online for one or two articles that 'compare Wordpress to Wagtail' or 'top ten open source CMS' and read about the CMS landscape.
+- [ ] Read some of the Wagtail Guide.
 ```
 
 ### 2. Joining the community
@@ -54,14 +54,14 @@ You may also want to join StackOverflow and [follow the Wagtail tag](https://sta
 #### Checklist
 
 ```markdown
--   [ ] Read the community guidelines.
--   [ ] Join GitHub.
--   [ ] Add your preferred name and image to your GitHub profile.
--   [ ] Join Slack.
--   [ ] Add your preferred name, timezone and image to your Slack profile.
--   [ ] Introduce yourself in `#new-contributors` in Slack.
--   [ ] Join the `#support` channel in Slack.
--   [ ] _Optional_ Join StackOverflow.
+- [ ] Read the community guidelines.
+- [ ] Join GitHub.
+- [ ] Add your preferred name and image to your GitHub profile.
+- [ ] Join Slack.
+- [ ] Add your preferred name, timezone and image to your Slack profile.
+- [ ] Introduce yourself in `#new-contributors` in Slack.
+- [ ] Join the `#support` channel in Slack.
+- [ ] _Optional_ Join StackOverflow.
 ```
 
 ### 3. Before contributing code
@@ -126,11 +126,11 @@ Mozilla has a great guide that helps to explain [Git and GitHub](https://develop
 
 How to clone a remote repository and what that actually even means:
 
--   On GitHub, you will not be allowed to directly create branches or changes in a repository (project) that you do not have access to.
--   However, you can make a copy (clone) of this repository using your own account, this clone will have all the branches and history that the original repository had.
--   This is also called ‘fork’ in some cases, as your repository will be a branch of its own that forks the original repository.
--   See the [GitHub docs explain forking](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).
--   See [Atlassian’s docs on git clone](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone) for more details.
+- On GitHub, you will not be allowed to directly create branches or changes in a repository (project) that you do not have access to.
+- However, you can make a copy (clone) of this repository using your own account, this clone will have all the branches and history that the original repository had.
+- This is also called ‘fork’ in some cases, as your repository will be a branch of its own that forks the original repository.
+- See the [GitHub docs explain forking](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).
+- See [Atlassian’s docs on git clone](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone) for more details.
 
 ### 5. Finding an issue
 
@@ -149,9 +149,9 @@ Finally, before 'claiming' check you can do the following;
 #### Checklist (for a candidate issue)
 
 ```markdown
--   [ ] Confirm that there is not someone actively working on it (no recent PR or comments in the last ~2 months).
--   [ ] Ensure you can reproduce the problem/scenario in your local version of Wagtail.
--   [ ] Ensure that you feel confident to write a unit test (if it's a code change) to validate that the solution **is** implemented.
+- [ ] Confirm that there is not someone actively working on it (no recent PR or comments in the last ~2 months).
+- [ ] Ensure you can reproduce the problem/scenario in your local version of Wagtail.
+- [ ] Ensure that you feel confident to write a unit test (if it's a code change) to validate that the solution **is** implemented.
 ```
 
 ### 6. Contributing a solution
@@ -236,12 +236,12 @@ It is often good to write yourself a checklist for any pull request and fill in 
 #### Checklist (for a pull request)
 
 ```markdown
--   [ ] Small description of the solution, one sentence.
--   [ ] Link to issue/s that should be resolved if this pull request gets merged.
--   [ ] Questions or assumptions, maybe you made an assumption we no longer support IE11 with your CSS change, if it's not in the docs - write the assumption down.
--   [ ] Details - additional details, context or links that help the reviewer understand the pull request.
--   [ ] Screenshots - added before and after the change has been applied.
--   [ ] Browser and accessibility checks done, or not done. Added to the description.
+- [ ] Small description of the solution, one sentence.
+- [ ] Link to issue/s that should be resolved if this pull request gets merged.
+- [ ] Questions or assumptions, maybe you made an assumption we no longer support IE11 with your CSS change, if it's not in the docs - write the assumption down.
+- [ ] Details - additional details, context or links that help the reviewer understand the pull request.
+- [ ] Screenshots - added before and after the change has been applied.
+- [ ] Browser and accessibility checks done, or not done. Added to the description.
 ```
 
 #### 7a. Review & fix the CI failures
@@ -292,11 +292,11 @@ Well done! It's time to party! Thank you for taking the time to contribute to Wa
 
 ### How can I start contributing?
 
--   Ideally, read this guide in full, otherwise see some quick start tips.
--   Start simple - pick something small first. The [good first issue](https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) label is a good place to look.
--   Read the entire issue, all comments (links) and related issues.
--   Someone may have started work (that work may have stalled).
--   Check if assigned, we do not usually use that unless assigned to someone within the core team.
+- Ideally, read this guide in full, otherwise see some quick start tips.
+- Start simple - pick something small first. The [good first issue](https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) label is a good place to look.
+- Read the entire issue, all comments (links) and related issues.
+- Someone may have started work (that work may have stalled).
+- Check if assigned, we do not usually use that unless assigned to someone within the core team.
 
 If you have done all of that and think you can give it a go, add a comment with something like 'I will give this a go'. No need to ask for permission.
 
@@ -339,8 +339,8 @@ While Gitpod is great for some small scale pull requests, it will not be a suita
 
 Here are some links for using Gitpod with the Wagtail packages:
 
--   [Bakerydemo Gitpod instructions](https://github.com/wagtail/bakerydemo#setup-with-gitpod)
--   [Wagtail Gitpod – Wagtail development setup in one click](https://wagtail.org/blog/gitpod/)
+- [Bakerydemo Gitpod instructions](https://github.com/wagtail/bakerydemo#setup-with-gitpod)
+- [Wagtail Gitpod – Wagtail development setup in one click](https://wagtail.org/blog/gitpod/)
 
 ### Can I use Windows to develop?
 
@@ -356,19 +356,19 @@ Instead, review the issue, understand it and if you feel you can contribute you 
 
 ## Helpful links
 
--   [Django's contributor guide](inv:django#internals/contributing/index) is a helpful resource for contributors, even those not contributing to Wagtail.
--   [MDN's open source etiquette](https://developer.mozilla.org/en-US/docs/MDN/Community/Open_source_etiquette) is a great guideline for how to be a great contributor.
--   [Learning Git Branching](https://learngitbranching.js.org/) a solid interactive guide to understand how git branching works.
--   [Hacktoberfest](https://hacktoberfest.com/) every October, join in the fun and submit pull requests.
--   [21 Pull Requests](https://24pullrequests.com/) a December community effort to contribute to open source.
+- [Django's contributor guide](inv:django#internals/contributing/index) is a helpful resource for contributors, even those not contributing to Wagtail.
+- [MDN's open source etiquette](https://developer.mozilla.org/en-US/docs/MDN/Community/Open_source_etiquette) is a great guideline for how to be a great contributor.
+- [Learning Git Branching](https://learngitbranching.js.org/) a solid interactive guide to understand how git branching works.
+- [Hacktoberfest](https://hacktoberfest.com/) every October, join in the fun and submit pull requests.
+- [21 Pull Requests](https://24pullrequests.com/) a December community effort to contribute to open source.
 
 ### Inspiration for this content
 
 Some great further reading also
 
--   [5 simple ways anyone can contribute to Wagtail](https://wagtail.org/blog/5-simple-ways-anyone-can-contribute-to-wagtail/)
--   [Ten tasty ingredients for a delicious pull request](https://wagtail.org/blog/ten-tasty-ingredients-for-a-delicious-pull-request/)
--   [Preparing a Gourmet Pull Request](https://johnfraney.ca/blog/preparing-a-gourmet-pull-request/)
--   [Zulip's contributor guide](https://zulip.readthedocs.io/en/latest/contributing/contributing.html)
--   [Documentation for absolute beginners to software development (discussion)](https://github.com/wagtail/wagtail/discussions/9557)
--   [New contributor FAQ](https://github.com/wagtail/wagtail/wiki/New-contributor-FAQ)
+- [5 simple ways anyone can contribute to Wagtail](https://wagtail.org/blog/5-simple-ways-anyone-can-contribute-to-wagtail/)
+- [Ten tasty ingredients for a delicious pull request](https://wagtail.org/blog/ten-tasty-ingredients-for-a-delicious-pull-request/)
+- [Preparing a Gourmet Pull Request](https://johnfraney.ca/blog/preparing-a-gourmet-pull-request/)
+- [Zulip's contributor guide](https://zulip.readthedocs.io/en/latest/contributing/contributing.html)
+- [Documentation for absolute beginners to software development (discussion)](https://github.com/wagtail/wagtail/discussions/9557)
+- [New contributor FAQ](https://github.com/wagtail/wagtail/wiki/New-contributor-FAQ)

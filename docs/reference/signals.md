@@ -9,10 +9,10 @@ For example, you could use signals to send publish notifications to a messaging 
 
 This signal is emitted from a `Revision` when a page revision is set to `published`.
 
--   `sender` - The page `class`.
--   `instance` - The specific `Page` instance.
--   `revision` - The `Revision` that was published.
--   `kwargs` - Any other arguments passed to `page_published.send()`.
+- `sender` - The page `class`.
+- `instance` - The specific `Page` instance.
+- `revision` - The `Revision` that was published.
+- `kwargs` - Any other arguments passed to `page_published.send()`.
 
 To listen to a signal, implement `page_published.connect(receiver, sender, **kwargs)`. Here's a simple
 example showing how you might notify your team when something is published:
@@ -66,9 +66,9 @@ Read the [Django documentation](inv:django#topics/signals) for more information 
 
 This signal is emitted from a `Page` when the page is unpublished.
 
--   `sender` - The page `class`.
--   `instance` - The specific `Page` instance.
--   `kwargs` - Any other arguments passed to `page_unpublished.send()`
+- `sender` - The page `class`.
+- `instance` - The specific `Page` instance.
+- `kwargs` - Any other arguments passed to `page_unpublished.send()`
 
 ## `pre_page_move` and `post_page_move`
 
@@ -80,13 +80,13 @@ Subscribe to `post_page_move` if you need to know values AFTER database changes 
 
 The following arguments are emitted for both signals:
 
--   `sender` - The page `class`.
--   `instance` - The specific `Page` instance.
--   `parent_page_before` - The parent page of `instance` **before** moving.
--   `parent_page_after` - The parent page of `instance` **after** moving.
--   `url_path_before` - The value of `instance.url_path` **before** moving.
--   `url_path_after` - The value of `instance.url_path` **after** moving.
--   `kwargs` - Any other arguments passed to `pre_page_move.send()` or `post_page_move.send()`.
+- `sender` - The page `class`.
+- `instance` - The specific `Page` instance.
+- `parent_page_before` - The parent page of `instance` **before** moving.
+- `parent_page_after` - The parent page of `instance` **after** moving.
+- `url_path_before` - The value of `instance.url_path` **before** moving.
+- `url_path_after` - The value of `instance.url_path` **after** moving.
+- `kwargs` - Any other arguments passed to `pre_page_move.send()` or `post_page_move.send()`.
 
 ### Distinguishing between a 'move' and a 'reorder'
 
@@ -121,81 +121,81 @@ This signal is emitted from a `Page` when a change to its slug is published.
 
 The following arguments are emitted by this signal:
 
--   `sender` - The page `class`.
--   `instance` - The updated (and saved), specific `Page` instance.
--   `instance_before` - A copy of the specific `Page` instance from **before** the changes were saved.
+- `sender` - The page `class`.
+- `instance` - The updated (and saved), specific `Page` instance.
+- `instance_before` - A copy of the specific `Page` instance from **before** the changes were saved.
 
 ## `workflow_submitted`
 
 This signal is emitted from a `WorkflowState` when a page is submitted to a workflow.
 
--   `sender` - `WorkflowState`
--   `instance` - The specific `WorkflowState` instance.
--   `user` - The user who submitted the workflow
--   `kwargs` - Any other arguments passed to `workflow_submitted.send()`
+- `sender` - `WorkflowState`
+- `instance` - The specific `WorkflowState` instance.
+- `user` - The user who submitted the workflow
+- `kwargs` - Any other arguments passed to `workflow_submitted.send()`
 
 ## `workflow_rejected`
 
 This signal is emitted from a `WorkflowState` when a page is rejected from a workflow.
 
--   `sender` - `WorkflowState`
--   `instance` - The specific `WorkflowState` instance.
--   `user` - The user who rejected the workflow
--   `kwargs` - Any other arguments passed to `workflow_rejected.send()`
+- `sender` - `WorkflowState`
+- `instance` - The specific `WorkflowState` instance.
+- `user` - The user who rejected the workflow
+- `kwargs` - Any other arguments passed to `workflow_rejected.send()`
 
 ## `workflow_approved`
 
 This signal is emitted from a `WorkflowState` when a page's workflow completes successfully
 
--   `sender` - `WorkflowState`
--   `instance` - The specific `WorkflowState` instance.
--   `user` - The user who last approved the workflow
--   `kwargs` - Any other arguments passed to `workflow_approved.send()`
+- `sender` - `WorkflowState`
+- `instance` - The specific `WorkflowState` instance.
+- `user` - The user who last approved the workflow
+- `kwargs` - Any other arguments passed to `workflow_approved.send()`
 
 ## `workflow_cancelled`
 
 This signal is emitted from a `WorkflowState` when a page's workflow is canceled
 
--   `sender` - `WorkflowState`
--   `instance` - The specific `WorkflowState` instance.
--   `user` - The user who canceled the workflow
--   `kwargs` - Any other arguments passed to `workflow_cancelled.send()`
+- `sender` - `WorkflowState`
+- `instance` - The specific `WorkflowState` instance.
+- `user` - The user who canceled the workflow
+- `kwargs` - Any other arguments passed to `workflow_cancelled.send()`
 
 ## `task_submitted`
 
 This signal is emitted from a `TaskState` when a page is submitted to a task.
 
--   `sender` - `TaskState`
--   `instance` - The specific `TaskState` instance.
--   `user` - The user who submitted the page to the task
--   `kwargs` - Any other arguments passed to `task_submitted.send()`
+- `sender` - `TaskState`
+- `instance` - The specific `TaskState` instance.
+- `user` - The user who submitted the page to the task
+- `kwargs` - Any other arguments passed to `task_submitted.send()`
 
 ## `task_rejected`
 
 This signal is emitted from a `TaskState` when a page is rejected from a task.
 
--   `sender` - `TaskState`
--   `instance` - The specific `TaskState` instance.
--   `user` - The user who rejected the task
--   `kwargs` - Any other arguments passed to `task_rejected.send()`
+- `sender` - `TaskState`
+- `instance` - The specific `TaskState` instance.
+- `user` - The user who rejected the task
+- `kwargs` - Any other arguments passed to `task_rejected.send()`
 
 ## `task_approved`
 
 This signal is emitted from a `TaskState` when a page's task is approved
 
--   `sender` - `TaskState`
--   `instance` - The specific `TaskState` instance.
--   `user` - The user who approved the task
--   `kwargs` - Any other arguments passed to `task_approved.send()`
+- `sender` - `TaskState`
+- `instance` - The specific `TaskState` instance.
+- `user` - The user who approved the task
+- `kwargs` - Any other arguments passed to `task_approved.send()`
 
 ## `task_cancelled`
 
 This signal is emitted from a `TaskState` when a page's task is canceled.
 
--   `sender` - `TaskState`
--   `instance` - The specific `TaskState` instance.
--   `user` - The user who canceled the task
--   `kwargs` - Any other arguments passed to `task_cancelled.send()`
+- `sender` - `TaskState`
+- `instance` - The specific `TaskState` instance.
+- `user` - The user who canceled the task
+- `kwargs` - Any other arguments passed to `task_cancelled.send()`
 
 ## `copy_for_translation_done`
 
@@ -203,9 +203,9 @@ This signal is emitted from `CopyForTranslationAction` or `CopyPageForTranslatio
 
 A translatable model is a model that implements the [TranslatableMixin](wagtail.models.TranslatableMixin).
 
--   `sender` - `CopyForTranslationAction` or `CopyPageForTranslationAction`
--   `source_obj` - The source object
--   `target_obj` - The copy of the source object in the new locale
+- `sender` - `CopyForTranslationAction` or `CopyPageForTranslationAction`
+- `source_obj` - The source object
+- `target_obj` - The copy of the source object in the new locale
 
 (init_new_page_signal)=
 
@@ -215,9 +215,9 @@ This signal is emitted from a `CreateView` when a new page is initialized in the
 
 It's useful for pre-populating the page form programmatically when default values are not sufficient.
 
--   `sender` - `CreateView`
--   `page` - The new page instance
--   `parent_page` - The parent page of the new page
+- `sender` - `CreateView`
+- `page` - The new page instance
+- `parent_page` - The parent page of the new page
 
 Here's an example of how to use this signal to pre-populate a new page's title using the page's parent's title as a prefix:
 

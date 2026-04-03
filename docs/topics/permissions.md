@@ -27,12 +27,12 @@ Whenever a user creates a page through the Wagtail admin, that user is designate
 
 The full set of available permission types is as follows:
 
--   **Add** - grants the ability to create new subpages underneath this page (provided the page model permits this - see [](page_type_business_rules)), and to edit and delete pages owned by the current user. Published pages cannot be deleted unless the user also has 'publish' permission.
--   **Edit** - grants the ability to edit and delete this page, and any pages underneath it, regardless of ownership. A user with only 'edit' permission may not create new pages, only edit existing ones. Published pages cannot be deleted unless the user also has 'publish' permission.
--   **Publish** - grants the ability to publish and unpublish this page and/or its children. A user without publish permission cannot directly make changes that are visible to visitors of the website; instead, they must submit their changes for moderation. Publish permission is independent of edit permission; a user with only publish permission will not be able to make any edits of their own.
--   **Bulk delete** - allows a user to delete pages that have descendants, in a single operation. Without this permission, a user has to delete the descendant pages individually before deleting the parent. This is a safeguard against accidental deletion. This permission must be used in conjunction with 'add' / 'edit' permission, as it does not provide any deletion rights of its own; it only provides a 'shortcut' for the permissions the user has already. For example, a user with just 'add' and 'bulk delete' permissions will only be able to bulk-delete if all the affected pages are owned by that user, and are unpublished.
--   **Lock** - grants the ability to lock this page (and any pages underneath it) for editing, preventing other users from making any further edits to it.
--   **Unlock** - grants the ability to unlock this page (and any pages underneath it), even if the page was locked by another user. Without this permission, only the user who locked the page (and superusers) can unlock the page.
+- **Add** - grants the ability to create new subpages underneath this page (provided the page model permits this - see [](page_type_business_rules)), and to edit and delete pages owned by the current user. Published pages cannot be deleted unless the user also has 'publish' permission.
+- **Edit** - grants the ability to edit and delete this page, and any pages underneath it, regardless of ownership. A user with only 'edit' permission may not create new pages, only edit existing ones. Published pages cannot be deleted unless the user also has 'publish' permission.
+- **Publish** - grants the ability to publish and unpublish this page and/or its children. A user without publish permission cannot directly make changes that are visible to visitors of the website; instead, they must submit their changes for moderation. Publish permission is independent of edit permission; a user with only publish permission will not be able to make any edits of their own.
+- **Bulk delete** - allows a user to delete pages that have descendants, in a single operation. Without this permission, a user has to delete the descendant pages individually before deleting the parent. This is a safeguard against accidental deletion. This permission must be used in conjunction with 'add' / 'edit' permission, as it does not provide any deletion rights of its own; it only provides a 'shortcut' for the permissions the user has already. For example, a user with just 'add' and 'bulk delete' permissions will only be able to bulk-delete if all the affected pages are owned by that user, and are unpublished.
+- **Lock** - grants the ability to lock this page (and any pages underneath it) for editing, preventing other users from making any further edits to it.
+- **Unlock** - grants the ability to unlock this page (and any pages underneath it), even if the page was locked by another user. Without this permission, only the user who locked the page (and superusers) can unlock the page.
 
 Drafts can be viewed only if the user has either Edit or Publish permission.
 
@@ -52,9 +52,9 @@ The 'choose' permission for images and documents determines which collections ar
 
 Permission for managing collections themselves can be attached at any point in the collection tree. The available collection management permissions are as follows:
 
--   **Add** - grants the ability to create new collections underneath this collection.
--   **Edit** - grants the ability to edit the name of the collection, change its location in the collection tree, and change the privacy settings for documents within this collection.
--   **Delete** - grants the ability to delete collections that were added below this collection. _Note:_ A collection must have no subcollections under it and the collection itself must be empty before it can be deleted.
+- **Add** - grants the ability to create new collections underneath this collection.
+- **Edit** - grants the ability to edit the name of the collection, change its location in the collection tree, and change the privacy settings for documents within this collection.
+- **Delete** - grants the ability to delete collections that were added below this collection. _Note:_ A collection must have no subcollections under it and the collection itself must be empty before it can be deleted.
 
 ```{note}
 Users are not allowed to move or delete the collection that is used to assign them permission to manage collections.

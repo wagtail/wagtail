@@ -23,8 +23,8 @@ update your `TEMPLATES` settings (discussed later in this page).
 
 Create a model that inherits from either:
 
--   `BaseGenericSetting` for generic settings across all sites
--   `BaseSiteSetting` for site-specific settings
+- `BaseGenericSetting` for generic settings across all sites
+- `BaseSiteSetting` for site-specific settings
 
 and register it using the `register_setting` decorator:
 

@@ -62,9 +62,9 @@ If you use the PostgreSQL database backend, you must add `django.contrib.postgre
 
 Elasticsearch versions 7, 8 and 9 are supported. Use the appropriate backend for your version:
 
--   `wagtail.search.backends.elasticsearch7` (Elasticsearch 7.x)
--   `wagtail.search.backends.elasticsearch8` (Elasticsearch 8.x)
--   `wagtail.search.backends.elasticsearch9` (Elasticsearch 9.x)
+- `wagtail.search.backends.elasticsearch7` (Elasticsearch 7.x)
+- `wagtail.search.backends.elasticsearch8` (Elasticsearch 8.x)
+- `wagtail.search.backends.elasticsearch9` (Elasticsearch 9.x)
 
 Prerequisites are the [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) service itself and, via pip, the [elasticsearch-py](https://elasticsearch-py.readthedocs.io/) package. The major version of the package must match the installed version of Elasticsearch:
 
@@ -179,10 +179,10 @@ WAGTAILSEARCH_BACKENDS = {
 
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including [Bonsai](https://bonsai.io/), which offers a free account suitable for testing and development. To use Bonsai:
 
--   Sign up for an account at `Bonsai`
--   Use your Bonsai dashboard to create a Cluster.
--   Configure `URLS` in the Elasticsearch entry in `WAGTAILSEARCH_BACKENDS` using the Cluster URL from your Bonsai dashboard
--   Run `./manage.py update_index`
+- Sign up for an account at `Bonsai`
+- Use your Bonsai dashboard to create a Cluster.
+- Configure `URLS` in the Elasticsearch entry in `WAGTAILSEARCH_BACKENDS` using the Cluster URL from your Bonsai dashboard
+- Run `./manage.py update_index`
 
 (opensearch)=
 
@@ -190,8 +190,8 @@ If you prefer not to run an Elasticsearch server in development or production, t
 
 OpenSearch is a community-driven search engine originally created as a fork of Elasticsearch. OpenSearch versions 2 and 3 are supported. Use the appropriate backend for your version:
 
--   `wagtail.search.backends.opensearch2` (OpenSearch 2.x)
--   `wagtail.search.backends.opensearch3` (OpenSearch 3.x)
+- `wagtail.search.backends.opensearch2` (OpenSearch 2.x)
+- `wagtail.search.backends.opensearch3` (OpenSearch 3.x)
 
 Prerequisites are the [OpenSearch](https://opensearch.org/downloads/) service itself and, via pip, the [opensearch-py](https://opensearch-project.github.io/opensearch-py/) package. The major version of the package must match the installed version of Elasticsearch:
 

@@ -40,8 +40,8 @@ Set `WAGTAILFRONTENDCACHE_LANGUAGES` to a list of languages (typically equal to 
 
 Finally, make sure you have configured your frontend cache to accept PURGE requests:
 
--   [Varnish](https://varnish-cache.org/docs/3.0/tutorial/purging.html)
--   [Squid](https://wiki.squid-cache.org/SquidFaq/OperatingSquid#how-can-i-purge-an-object-from-my-cache)
+- [Varnish](https://varnish-cache.org/docs/3.0/tutorial/purging.html)
+- [Squid](https://wiki.squid-cache.org/SquidFaq/OperatingSquid#how-can-i-purge-an-object-from-my-cache)
 
 (frontendcache_cloudflare)=
 
@@ -149,9 +149,9 @@ The third-party dependencies of this backend are:
 
 Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `wagtail.contrib.frontend_cache.backends.AzureCdnBackend`. This backend requires the following settings to be set:
 
--   `RESOURCE_GROUP_NAME` - the resource group that your CDN profile is in.
--   `CDN_PROFILE_NAME` - the profile name of the CDN service that you want to use.
--   `CDN_ENDPOINT_NAME` - the name of the endpoint you want to be purged.
+- `RESOURCE_GROUP_NAME` - the resource group that your CDN profile is in.
+- `CDN_PROFILE_NAME` - the profile name of the CDN service that you want to use.
+- `CDN_ENDPOINT_NAME` - the name of the endpoint you want to be purged.
 
 ```python
     WAGTAILFRONTENDCACHE = {
@@ -199,8 +199,8 @@ The third-party dependencies of this backend are:
 
 Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend`. This backend requires the following settings to be set:
 
--   `RESOURCE_GROUP_NAME` - the resource group that your Front Door instance is part of.
--   `FRONT_DOOR_NAME` - your configured Front Door instance name.
+- `RESOURCE_GROUP_NAME` - the resource group that your Front Door instance is part of.
+- `FRONT_DOOR_NAME` - your configured Front Door instance name.
 
 ```python
 WAGTAILFRONTENDCACHE = {

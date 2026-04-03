@@ -16,9 +16,9 @@ The simplest way to add JavaScript to the editor is via the [`insert_global_admi
 
 The event name to listen to is `'wagtail:documents-upload'`. It will be dispatched on the document upload `form`. The event's `detail` attribute will contain:
 
--   `data` - An object which includes the `title` to be used. It is the filename with the extension removed.
--   `maxTitleLength` - An integer (or `null`) which is the maximum length of the `Document` model title field.
--   `filename` - The original filename without the extension removed.
+- `data` - An object which includes the `title` to be used. It is the filename with the extension removed.
+- `maxTitleLength` - An integer (or `null`) which is the maximum length of the `Document` model title field.
+- `filename` - The original filename without the extension removed.
 
 To modify the generated `Document` title, access and update `event.detail.data.title`, no return value is needed.
 

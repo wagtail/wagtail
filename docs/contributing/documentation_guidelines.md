@@ -56,10 +56,10 @@ Use heading levels to create sections, and allow users to link straight to a spe
 Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bullets. Nest by indenting with 4 spaces.
 
 ```md
--   Bullet 1
--   Bullet 2
-    -   Nested bullet 2
--   Bullet 3
+- Bullet 1
+- Bullet 2
+    - Nested bullet 2
+- Bullet 3
 
 1. Numbered list 1
 2. Numbered list 2
@@ -70,10 +70,10 @@ Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bul
 
 <summary>Rendered output</summary>
 
--   Bullet 1
--   Bullet 2
-    -   Nested bullet 2
--   Bullet 3
+- Bullet 1
+- Bullet 2
+    - Nested bullet 2
+- Bullet 3
 
 1. Numbered list 1
 2. Numbered list 2
@@ -236,8 +236,8 @@ Anchor links point to a specific target on a page. They rely on the page having 
 The target can be linked to, with an optional label, using the Markdown link syntax as follows:
 
 ```md
--   Auto generated label (preferred) [](my_awesome_section)
--   [label for section](my_awesome_section)
+- Auto generated label (preferred) [](my_awesome_section)
+- [label for section](my_awesome_section)
 ```
 
 Rendered output:
@@ -248,8 +248,8 @@ Rendered output:
 
 ...
 
--   Auto generated label (preferred) [](my_awesome_section)
--   [label for section](my_awesome_section)
+- Auto generated label (preferred) [](my_awesome_section)
+- [label for section](my_awesome_section)
 
 You can read more about other methods of linking to, and creating references in the MyST-Parser docs section on [](inv:myst#syntax/cross-referencing).
 
@@ -457,9 +457,9 @@ These call-outs do not support titles, so be careful not to include them, titles
 
 Images are hard to keep up-to-date as documentation evolves, but can be worthwhile nonetheless. Here are guidelines when adding images:
 
--   All images should have meaningful [alt text](https://axesslab.com/alt-texts/) unless they are decorative.
--   Images are served as-is – pick the correct format, and losslessly compress all images.
--   Use absolute paths for image files so they are more portable.
+- All images should have meaningful [alt text](https://axesslab.com/alt-texts/) unless they are decorative.
+- Images are served as-is – pick the correct format, and losslessly compress all images.
+- Use absolute paths for image files so they are more portable.
 
 ```md
 ![The TableBlock component in StreamField, with row header, column header, caption fields - and then the editable table](/_static/images/screen40_table_block.png)

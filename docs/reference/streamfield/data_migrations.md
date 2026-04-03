@@ -28,14 +28,14 @@ MigrateStreamData constructor
 
 **Arguments**:
 
--   `app_name` _str_ - Name of the app.
--   `model_name` _str_ - Name of the model.
--   `field_name` _str_ - Name of the `StreamField`.
--   `operations_and_block_paths` _List[Tuple[operation, str]]_ - List of operations and the block paths to apply them to.
--   `revisions_from` _datetime, optional_ - Only revisions created from this date onwards will be updated. Passing `None` updates all revisions. Defaults to `None`. Note that live and latest revisions will be updated regardless of what value this takes.
--   `chunk_size` _int, optional_ - chunk size for `queryset.iterator` and `bulk_update`.
-    Defaults to 1024.
--   `**kwargs` - atomic, elidable, hints for superclass `RunPython` can be given
+- `app_name` _str_ - Name of the app.
+- `model_name` _str_ - Name of the model.
+- `field_name` _str_ - Name of the `StreamField`.
+- `operations_and_block_paths` _List[Tuple[operation, str]]_ - List of operations and the block paths to apply them to.
+- `revisions_from` _datetime, optional_ - Only revisions created from this date onwards will be updated. Passing `None` updates all revisions. Defaults to `None`. Note that live and latest revisions will be updated regardless of what value this takes.
+- `chunk_size` _int, optional_ - chunk size for `queryset.iterator` and `bulk_update`.
+  Defaults to 1024.
+- `**kwargs` - atomic, elidable, hints for superclass `RunPython` can be given
 
 **Example**:
 
@@ -71,8 +71,8 @@ The `block_path_str` when using this operation should point to the parent `Strea
 
 **Attributes**:
 
--   `old_name` _str_ - name of the child block type to be renamed
--   `new_name` _str_ - new name to rename to
+- `old_name` _str_ - name of the child block type to be renamed
+- `new_name` _str_ - new name to rename to
 
 (rename_struct_children_operation)=
 
@@ -90,8 +90,8 @@ The `block_path_str` when using this operation should point to the parent `Struc
 
 **Attributes**:
 
--   `old_name` _str_ - name of the child block type to be renamed
--   `new_name` _str_ - new name to rename to
+- `old_name` _str_ - name of the child block type to be renamed
+- `new_name` _str_ - new name to rename to
 
 (remove_stream_children_operation)=
 
@@ -109,7 +109,7 @@ The `block_path_str` when using this operation should point to the parent `Strea
 
 **Attributes**:
 
--   `name` _str_ - name of the child block type to be removed
+- `name` _str_ - name of the child block type to be removed
 
 (remove_struct_children_operation)=
 
@@ -127,7 +127,7 @@ The `block_path_str` when using this operation should point to the parent `Struc
 
 **Attributes**:
 
--   `name` _str_ - name of the child block type to be removed
+- `name` _str_ - name of the child block type to be removed
 
 (stream_children_to_list_block_operation)=
 
@@ -145,8 +145,8 @@ The `block_path_str` when using this operation should point to the parent `Strea
 
 **Attributes**:
 
--   `block_name` _str_ - name of the child block type to be combined
--   `list_block_name` _str_ - name of the new `ListBlock` type
+- `block_name` _str_ - name of the child block type to be combined
+- `list_block_name` _str_ - name of the new `ListBlock` type
 
 (stream_children_to_stream_block_operation)=
 
@@ -164,8 +164,8 @@ The `block_path_str` when using this operation should point to the parent `Strea
 
 **Attributes**:
 
--   `block_names` _[str]_ - names of the child block types to be combined
--   `stream_block_name` _str_ - name of the new `StreamBlock` type
+- `block_names` _[str]_ - names of the child block types to be combined
+- `stream_block_name` _str_ - name of the new `StreamBlock` type
 
 (alter_block_value_operation)=
 
@@ -179,7 +179,7 @@ Alters the value of each block to the given value
 
 **Attributes**:
 
--   `new_value`: new value to change to
+- `new_value`: new value to change to
 
 (stream_children_to_struct_block_operation)=
 
@@ -231,13 +231,13 @@ Our altered stream data would look like this:
 
 **Notes**:
 
--   The `block_path_str` when using this operation should point to the parent `StreamBlock` which contains the blocks to be combined, not the child block itself.
--   Block ids are not preserved here since the new blocks are structurally different than the previous blocks.
+- The `block_path_str` when using this operation should point to the parent `StreamBlock` which contains the blocks to be combined, not the child block itself.
+- Block ids are not preserved here since the new blocks are structurally different than the previous blocks.
 
 **Attributes**:
 
--   `block_names` _str_ - names of the child block types to be combined
--   `struct_block_name` _str_ - name of the new `StructBlock` type
+- `block_names` _str_ - names of the child block types to be combined
+- `struct_block_name` _str_ - name of the new `StructBlock` type
 
 ## wagtail.blocks.migrations.utils
 
@@ -259,10 +259,10 @@ Maps the value of a block.
 
 **Arguments**:
 
--   `block_value`: The value of the block. This would be a list or dict of children for structural blocks.
--   `block_def`: The definition of the block.
--   `block_path`: A `"."` separated list of names of the blocks from the current block (not included) to the nested block of which the value will be passed to the operation.
--   `operation`: An Operation class instance (extends `BaseBlockOperation`), which has an `apply` method for mapping values.
+- `block_value`: The value of the block. This would be a list or dict of children for structural blocks.
+- `block_def`: The definition of the block.
+- `block_path`: A `"."` separated list of names of the blocks from the current block (not included) to the nested block of which the value will be passed to the operation.
+- `operation`: An Operation class instance (extends `BaseBlockOperation`), which has an `apply` method for mapping values.
 
 **Returns**:
 
@@ -279,13 +279,13 @@ Maps each child block in a `StructBlock` value.
 
 **Arguments**:
 
--   `stream_block_value`: The value of the `StructBlock`, a dict of child blocks
--   `block_def`: The definition of the `StructBlock`
--   `block_path`: A `"."` separated list of names of the blocks from the current block (not included) to the nested block of which the value will be passed to the operation.
+- `stream_block_value`: The value of the `StructBlock`, a dict of child blocks
+- `block_def`: The definition of the `StructBlock`
+- `block_path`: A `"."` separated list of names of the blocks from the current block (not included) to the nested block of which the value will be passed to the operation.
 
 **Returns**:
 
--   mapped_value: The value of the `StructBlock` after transforming its children.
+- mapped_value: The value of the `StructBlock` after transforming its children.
 
 #### map_list_block_value
 
@@ -297,13 +297,13 @@ Maps each child block in a `ListBlock` value.
 
 **Arguments**:
 
--   `stream_block_value`: The value of the `ListBlock`, a list of child blocks
--   `block_def`: The definition of the `ListBlock`
--   `block_path`: A `"."` separated list of names of the blocks from the current block (not included) to the nested block of which the value will be passed to the operation.
+- `stream_block_value`: The value of the `ListBlock`, a list of child blocks
+- `block_def`: The definition of the `ListBlock`
+- `block_path`: A `"."` separated list of names of the blocks from the current block (not included) to the nested block of which the value will be passed to the operation.
 
 **Returns**:
 
--   mapped_value: The value of the `ListBlock` after transforming all the children.
+- mapped_value: The value of the `ListBlock` after transforming all the children.
 
 #### apply_changes_to_raw_data
 
@@ -316,10 +316,10 @@ Applies changes to raw stream data
 
 **Arguments**:
 
--   `raw_data`: The current stream data (a list of top level blocks)
--   `block_path_str`: A `"."` separated list of names of the blocks from the top level block to the nested block of which the value will be passed to the operation.
--   `operation`: A subclass of `operations.BaseBlockOperation`. It will have the `apply` method for applying changes to the matching block values.
--   `streamfield`: The `StreamField` for which data is being migrated. This is used to get the definitions of the blocks.
+- `raw_data`: The current stream data (a list of top level blocks)
+- `block_path_str`: A `"."` separated list of names of the blocks from the top level block to the nested block of which the value will be passed to the operation.
+- `operation`: A subclass of `operations.BaseBlockOperation`. It will have the `apply` method for applying changes to the matching block values.
+- `streamfield`: The `StreamField` for which data is being migrated. This is used to get the definitions of the blocks.
 
 **Returns**:
 
@@ -336,8 +336,8 @@ block_name = str
 
 A block path is either:
 
--   the empty string, in which case the operation should be applied to the top-level stream; or
--   a `"."` (period) separated sequence of block names, where block names are the names given to the blocks in the `StreamField` definition.
+- the empty string, in which case the operation should be applied to the top-level stream; or
+- a `"."` (period) separated sequence of block names, where block names are the names given to the blocks in the `StreamField` definition.
 
 Block names are the values associated with the `"type"` keys in the stream data's dictionary structures. As such, traversing or selecting `ListBlock` members requires the use of the `"item"` block name.
 

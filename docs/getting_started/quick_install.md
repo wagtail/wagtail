@@ -9,9 +9,9 @@
 
 ## Dependencies needed for installation
 
--   [Python 3](https://www.python.org/downloads/).
--   **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
-    See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
+- [Python 3](https://www.python.org/downloads/).
+- **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
+  See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
 ## Install Wagtail
 
@@ -46,8 +46,8 @@ If you want to add Wagtail to an existing Django project instead, see [Integrati
 
 There are a few optional packages that are not installed by default. You can install them to improve performance or add features to Wagtail. These optional packages include:
 
--   [Elasticsearch](wagtailsearch_backends_elasticsearch)
--   [Feature Detection](image_feature_detection)
+- [Elasticsearch](wagtailsearch_backends_elasticsearch)
+- [Feature Detection](image_feature_detection)
 
 (common_installation_issues)=
 

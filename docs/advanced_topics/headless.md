@@ -19,21 +19,21 @@ REST (or REpresentational State Transfer) was introduced in 2000 as a simpler ap
 
 #### Upsides of a REST API
 
--   Requests can be sent using common software like cURL or through web browsers.
--   The REST standards are open source and relatively simple to learn.
--   REST uses standard HTTP actions like GET, POST, and PUT.
--   REST operations require less bandwidth then other comparable technologies (such as SOAP).
--   REST is stateless on the server-side, so each request is processed independently.
--   Caching is manageable with REST.
--   REST is more common currently and there are many more tools available to support REST.
--   The REST API is a native feature of Wagtail with some functionality already built in.
+- Requests can be sent using common software like cURL or through web browsers.
+- The REST standards are open source and relatively simple to learn.
+- REST uses standard HTTP actions like GET, POST, and PUT.
+- REST operations require less bandwidth then other comparable technologies (such as SOAP).
+- REST is stateless on the server-side, so each request is processed independently.
+- Caching is manageable with REST.
+- REST is more common currently and there are many more tools available to support REST.
+- The REST API is a native feature of Wagtail with some functionality already built in.
 
 #### Downsides of a REST API
 
--   Sometimes, multiple queries are required to return the necessary data.
--   REST isn't always efficient if a query requires access to multiple endpoints.
--   Requests to REST APIs can return extra data that's not needed.
--   REST depends on fixed data structures that can be somewhat difficult to update.
+- Sometimes, multiple queries are required to return the necessary data.
+- REST isn't always efficient if a query requires access to multiple endpoints.
+- Requests to REST APIs can return extra data that's not needed.
+- REST depends on fixed data structures that can be somewhat difficult to update.
 
 ```{note}
 If you don't want to use Wagtail's built-in REST API, you can build your own using the [Django REST framework](https://www.django-rest-framework.org/). Remember, Wagtail is just Django.
@@ -45,24 +45,24 @@ GraphQL is a newer API technology than REST. Unlike REST, GraphQL isn't an archi
 
 #### Upsides of GraphQL
 
--   Changes can be made more rapidly on the client-side of a project without substantial backend updates.
--   Queries can be more precise and efficient without over- or under-fetching data.
--   You can use fewer queries to retrieve data that would require multiple endpoints in REST.
--   GraphQL APIs use fewer resources with fewer queries.
--   GraphQL provides options for analytics and performance monitoring.
+- Changes can be made more rapidly on the client-side of a project without substantial backend updates.
+- Queries can be more precise and efficient without over- or under-fetching data.
+- You can use fewer queries to retrieve data that would require multiple endpoints in REST.
+- GraphQL APIs use fewer resources with fewer queries.
+- GraphQL provides options for analytics and performance monitoring.
 
 #### Downsides of GraphQL
 
--   GraphQL is not natively supported in Wagtail.
--   You will need to install a library package to use GraphQL.
--   There are currently fewer tools and resources available for supporting GraphQL.
--   Fewer developers are familiar with GraphQL.
--   GraphQL can introduce additional performance and security considerations due to its flexibility.
+- GraphQL is not natively supported in Wagtail.
+- You will need to install a library package to use GraphQL.
+- There are currently fewer tools and resources available for supporting GraphQL.
+- Fewer developers are familiar with GraphQL.
+- GraphQL can introduce additional performance and security considerations due to its flexibility.
 
 #### GraphQL libraries compatible with Wagtail
 
--   [wagtail-grapple](https://github.com/torchbox/wagtail-grapple) by Torchbox
--   [strawberry-wagtail](https://github.com/patrick91/strawberry-wagtail) by Patrick Arminio
+- [wagtail-grapple](https://github.com/torchbox/wagtail-grapple) by Torchbox
+- [strawberry-wagtail](https://github.com/patrick91/strawberry-wagtail) by Patrick Arminio
 
 ## Functionality
 
@@ -122,36 +122,36 @@ import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 
 export default function Userbar({ hidden = false }: { hidden?: boolean }) {
-  const userbarRef = useRef<HTMLDivElement>(null);
-  const apiHost = process.env.NEXT_PUBLIC_WAGTAIL_API_HOST as string;
+    const userbarRef = useRef<HTMLDivElement>(null);
+    const apiHost = process.env.NEXT_PUBLIC_WAGTAIL_API_HOST as string;
 
-  useEffect(() => {
-    fetch(`${apiHost}/userbar/`)
-      .then((res) => res.text())
-      .then((userbar) => {
-        if (
-          !userbarRef.current ||
-          // useEffect runs twice in development mode, so we need to bail out if
-          // the user bar is already present from the previous fetch() call.
-          userbarRef.current.querySelector('wagtail-userbar')
-        )
-          return;
-        userbarRef.current.innerHTML = userbar;
-      });
-  }, [apiHost]);
+    useEffect(() => {
+        fetch(`${apiHost}/userbar/`)
+            .then((res) => res.text())
+            .then((userbar) => {
+                if (
+                    !userbarRef.current ||
+                    // useEffect runs twice in development mode, so we need to bail out if
+                    // the user bar is already present from the previous fetch() call.
+                    userbarRef.current.querySelector('wagtail-userbar')
+                )
+                    return;
+                userbarRef.current.innerHTML = userbar;
+            });
+    }, [apiHost]);
 
-  return (
-    <>
-      <div hidden={hidden} ref={userbarRef} />
-      {/**
+    return (
+        <>
+            <div hidden={hidden} ref={userbarRef} />
+            {/**
           The userbar template already includes the script tags,
           but the browser will not run them when they are added via .innerHTML.
           Load the scripts using Next.js Script component instead.
        */}
-      <Script src={`${apiHost}/static/wagtailadmin/js/vendor.js`} />
-      <Script src={`${apiHost}/static/wagtailadmin/js/userbar.js`} />
-    </>
-  );
+            <Script src={`${apiHost}/static/wagtailadmin/js/vendor.js`} />
+            <Script src={`${apiHost}/static/wagtailadmin/js/userbar.js`} />
+        </>
+    );
 }
 ```
 
@@ -194,8 +194,8 @@ Additional image considerations are needed for headless Wagtail.
 
 On traditional sites, Wagtail has a template tag that makes it easy for a frontend developer to request an image of a particular size. Currently, the Wagtail API provides two solutions:
 
--   Add an [ImageRenditionField](api_v2_images) to the model, that allows an image in a particular placement on a page to be requested at a pre-defined size. This is the approach we recommend in most cases.
--   Use the [dynamic image serve](using_images_outside_wagtail) view, which allows any image to be rendered at any size. Note that this approach may require extra work, since a key is required and you'll need a secure way to pass the key back and forth. Without this, there's a higher risk of crashing your site, by an attacker requesting the same image in millions of subtly different ways.
+- Add an [ImageRenditionField](api_v2_images) to the model, that allows an image in a particular placement on a page to be requested at a pre-defined size. This is the approach we recommend in most cases.
+- Use the [dynamic image serve](using_images_outside_wagtail) view, which allows any image to be rendered at any size. Note that this approach may require extra work, since a key is required and you'll need a secure way to pass the key back and forth. Without this, there's a higher risk of crashing your site, by an attacker requesting the same image in millions of subtly different ways.
 
 Neither of these solutions are easy for a frontend developer. They may not have the access or skills to add an `ImageRenditionField`, and crafting a URL to the dynamic image serve view is tricky because it needs to be signed and there currently isn’t a library or code snippet to do this from JavaScript. Hashes also need to be generated and the current JS version is complex.
 
@@ -239,8 +239,8 @@ Wagtail’s current API implementation will check the host header and port to fi
 
 The Wagtail API only allows requests from one site at a time to make sure any site listings are isolated from other sites by default. But the API could be improved in the following ways:
 
--   Allow the site to be specified in the API request.
--   Allow all pages across all sites to be queried on an opt-in basis.
+- Allow the site to be specified in the API request.
+- Allow all pages across all sites to be queried on an opt-in basis.
 
 With these approaches, the site record in the Wagtail admin of headless Wagtail would be set to the domain or port that the end user sees so URLs could be reversed correctly. All API requests would specify the site as a GET parameter.
 
@@ -290,7 +290,7 @@ There is a plugin available currently that automatically pings Netlify to build 
 
 ## Additional resources
 
--   [Official Wagtail documentation on building a public-facing API](api)
--   Wagtail API tutorial from [LearnWagtail.com](https://learnwagtail.com/tutorials/how-to-enable-the-v2-api-to-create-a-headless-cms/)
--   [Using Wagtail, NuxtJS and Vuetify to build a fast and secure static site](https://www.nurseadvance.com/articles/using-wagtail-nuxtjs-and-vuetify-build-fast-and-secure-static-site/)
--   [Going Headless with Wagtail, Nuxt.js and GraphQL (PDF)](https://dataverse.jpl.nasa.gov/dataset.xhtml?persistentId=hdl:2014/54119&version=2.0)
+- [Official Wagtail documentation on building a public-facing API](api)
+- Wagtail API tutorial from [LearnWagtail.com](https://learnwagtail.com/tutorials/how-to-enable-the-v2-api-to-create-a-headless-cms/)
+- [Using Wagtail, NuxtJS and Vuetify to build a fast and secure static site](https://www.nurseadvance.com/articles/using-wagtail-nuxtjs-and-vuetify-build-fast-and-secure-static-site/)
+- [Going Headless with Wagtail, Nuxt.js and GraphQL (PDF)](https://dataverse.jpl.nasa.gov/dataset.xhtml?persistentId=hdl:2014/54119&version=2.0)

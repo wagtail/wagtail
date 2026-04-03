@@ -36,27 +36,27 @@ body = StreamField([
 
 All block definitions accept the following optional keyword arguments or `Meta` class attributes:
 
--   `default`
-    -   The default value (or a callable that returns the value) that a new 'empty' block should receive.
--   `label`
-    -   The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a `ListBlock` - the empty string).
--   `icon`
-    -   The name of the icon to display for this block type in the editor. For more details, see our [icons overview](icons).
--   `template`
-    -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
--   `group`
-    -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+- `default`
+    - The default value (or a callable that returns the value) that a new 'empty' block should receive.
+- `label`
+    - The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a `ListBlock` - the empty string).
+- `icon`
+    - The name of the icon to display for this block type in the editor. For more details, see our [icons overview](icons).
+- `template`
+    - The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
+- `group`
+    - The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
 (block_preview_arguments)=
 
 [StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following options:
 
--   `preview_value`
-    -   The placeholder value (or a callable that returns the value) that will be used for rendering the preview. See {meth}`~wagtail.blocks.Block.get_preview_value` for more details.
--   `preview_template`
-    -   The template that is used to render the preview. See {meth}`~wagtail.blocks.Block.get_preview_template` for more details.
--   `description`
-    -   The description of the block to be shown to editors. See {meth}`~wagtail.blocks.Block.get_description` for more details.
+- `preview_value`
+    - The placeholder value (or a callable that returns the value) that will be used for rendering the preview. See {meth}`~wagtail.blocks.Block.get_preview_value` for more details.
+- `preview_template`
+    - The template that is used to render the preview. See {meth}`~wagtail.blocks.Block.get_preview_template` for more details.
+- `description`
+    - The description of the block to be shown to editors. See {meth}`~wagtail.blocks.Block.get_description` for more details.
 
 All block definitions have the following methods and properties that can be overridden:
 
