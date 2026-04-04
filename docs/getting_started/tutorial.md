@@ -42,14 +42,19 @@ py -m venv mysite\env
 Activate this virtual environment using:
 
 _For Command Prompt (cmd.exe):_
+
 ```doscon
 mysite\env\Scripts\activate.bat
 ```
+
 _For PowerShell:_
+
 ```doscon
 .\mysite\env\Scripts\Activate.ps1
 ```
+
 _If the above do not work, try:_
+
 ```doscon
 mysite\env\Scripts\activate
 ```

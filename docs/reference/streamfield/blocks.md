@@ -85,7 +85,7 @@ All block definitions have the following methods and properties that can be over
     The parent class of all StreamField field block types.
 
     In addition to the standard optional keyword arguments or ``Meta`` class attributes, field blocks also accept:
-    
+
     :param required_on_save: Whether required constraints should be enforced on this field when saving as draft, similar to :attr:`FieldPanel.required_on_save <wagtail.admin.panels.FieldPanel.required_on_save>`. Defaults to ``False``.
 
 
