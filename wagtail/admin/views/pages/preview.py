@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils.functional import cached_property
 from django.utils.translation import gettext
 
 from wagtail.admin.views.generic.preview import PreviewOnEdit as GenericPreviewOnEdit
@@ -25,13 +26,10 @@ def view_draft(request, page_id):
 
 
 class PreviewOnEdit(GenericPreviewOnEdit):
-    @property
-    def session_key(self):
-        return "{}{}".format(self.session_key_prefix, self.kwargs["page_id"])
-
     def get_object(self):
         page = get_object_or_404(
-            Page, id=self.kwargs["page_id"]
+            Page.objects.select_related("latest_revision"),
+            id=self.kwargs["page_id"],
         ).get_latest_revision_as_object()
         page_perms = page.permissions_for_user(self.request.user)
         if not page_perms.can_edit():
@@ -69,29 +67,24 @@ class PreviewOnEdit(GenericPreviewOnEdit):
 
 
 class PreviewOnCreate(PreviewOnEdit):
-    @property
-    def session_key(self):
-        return "{}{}-{}-{}".format(
-            self.session_key_prefix,
-            self.kwargs["content_type_app_name"],
-            self.kwargs["content_type_model_name"],
-            self.kwargs["parent_page_id"],
-        )
-
-    def get_object(self):
+    @cached_property
+    def content_type(self):
         content_type_app_name = self.kwargs["content_type_app_name"]
         content_type_model_name = self.kwargs["content_type_model_name"]
-        parent_page_id = self.kwargs["parent_page_id"]
         try:
-            content_type = ContentType.objects.get_by_natural_key(
+            return ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name
             )
         except ContentType.DoesNotExist as e:
             raise Http404 from e
 
-        page = content_type.model_class()()
-        parent_page = get_object_or_404(Page, id=parent_page_id).specific
+    @cached_property
+    def parent_object_id(self):
+        return self.kwargs["parent_page_id"]
 
+    def get_object(self):
+        page = self.content_type.model_class()()
+        parent_page = get_object_or_404(Page, id=self.parent_object_id).specific
         parent_page_perms = parent_page.permissions_for_user(self.request.user)
         if not parent_page_perms.can_add_subpage():
             raise PermissionDenied
