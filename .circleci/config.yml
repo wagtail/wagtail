@@ -94,9 +94,9 @@ jobs:
           if [[ ! -e "client/tests/integration/node_modules" ]]; then
               npm --prefix ./client/tests/integration ci
           fi
-          if [[ ! -e "~/.cache/ms-playwright" ]]; then
-              npx playwright install
-          fi
+          # Ensure browser binaries match the Playwright version used by
+          # integration tests, even when restoring a stale global cache.
+          ./client/tests/integration/node_modules/.bin/playwright install chromium
       - save_cache:
           key: *ui_tests-npm-cache
           paths:
