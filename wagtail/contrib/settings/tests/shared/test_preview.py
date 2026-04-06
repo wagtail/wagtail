@@ -1,7 +1,10 @@
 from django.contrib.auth.models import Permission
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils import timezone
 
+from wagtail.admin.models import FormState
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Site
 from wagtail.test.testapp.models import (
@@ -36,8 +39,6 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
             "wagtailsettings:preview_on_edit",
             args=(self.app_label, self.model_name, url_pk),
         )
-        self.session_key_prefix = f"wagtail-preview-{self.app_label}-{self.model_name}"
-        self.edit_session_key = f"{self.session_key_prefix}-{self.setting.pk}"
 
         self.post_data = {
             "text": f"An edited {self.verbose_name}",
@@ -62,7 +63,8 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         )
 
         # Check the user can still see the preview with the last valid data
-        self.assertIn(self.edit_session_key, self.client.session)
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.setting)
+        self.assertTrue(form_state.exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
@@ -89,8 +91,13 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         )
 
     def test_preview_on_edit_clear_preview_data(self):
-        # Set a fake preview session data for the setting
-        self.client.session[self.edit_session_key] = "test data"
+        # Set fake preview data
+        form_state = FormState.objects.create(
+            user=self.user,
+            content_object=self.setting,
+            data={"test": "data"},
+            last_updated_at=timezone.now(),
+        )
 
         response = self.client.delete(self.preview_on_edit_url)
         self.assertEqual(response.status_code, 200)
@@ -99,8 +106,8 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
             {"success": True},
         )
 
-        # The data should no longer exist in the session
-        self.assertNotIn(self.edit_session_key, self.client.session)
+        # The data should no longer exist
+        self.assertFalse(FormState.objects.filter(pk=form_state.pk).exists())
 
         response = self.client.get(self.preview_on_edit_url)
 
@@ -146,6 +153,39 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         response = self.client.get(self.preview_on_edit_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    @override_settings(SESSION_ENGINE="django.contrib.sessions.backends.signed_cookies")
+    def test_big_preview_with_signed_cookies(self):
+        self.login(self.user)
+        text = ", ".join(f"This text grows about {i} times " * i for i in range(1, 257))
+        response = self.client.post(
+            self.preview_on_edit_url,
+            {**self.post_data, "text": text},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # After storing the preview data, cookie size must not exceed 4096 bytes
+        # (common limit in web browsers). Django's test client happily allows
+        # cookies larger than that, so we explicitly assert the approximate
+        # cookie size here. See: https://github.com/wagtail/wagtail/issues/4521
+        self.assertLessEqual(len(str(self.client.cookies).encode()), 4096)
+
+        # Check the user can refresh the preview
+        form_state = FormState.objects.filter(user=self.user).for_instance(self.setting)
+        self.assertTrue(form_state.exists())
+
+        response = self.client.get(self.preview_on_edit_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_setting.html")
+        self.assertContains(response, "This text grows about 256 times")
 
 
 class TestSiteSettingPreview(TestGenericSiteSettingPreview):

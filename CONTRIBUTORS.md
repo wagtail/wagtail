@@ -959,6 +959,7 @@
 * K Adithya
 * Devarshi Mani Tripathi
 * Om Harsh
+* Nirmal Kumar
 
 ## Translators
 
