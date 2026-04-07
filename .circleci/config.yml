@@ -95,7 +95,7 @@ jobs:
               npm --prefix ./client/tests/integration ci
           fi
           if [[ ! -e "~/.cache/ms-playwright" ]]; then
-              npx playwright install
+              npm --prefix ./client/tests/integration exec playwright install
           fi
       - save_cache:
           key: *ui_tests-npm-cache
