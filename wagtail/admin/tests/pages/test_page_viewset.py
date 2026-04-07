@@ -158,7 +158,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                     "",
                     "Event page",
                     "Current page status: | live",
-                    "public",
+                    "Public",
                     "",
                 ],
                 [
@@ -167,7 +167,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                     "",
                     "Single event page",
                     "Current page status: | live",
-                    "private",
+                    "Private",
                     "",
                 ],
                 [
@@ -176,7 +176,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                     "",
                     "Event page",
                     "Current page status: | live",
-                    "public",
+                    "Public",
                     "",
                 ],
                 [
@@ -185,7 +185,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                     "",
                     "Event page",
                     "Current page status: | draft",
-                    "private",
+                    "Private",
                     "",
                 ],
                 [
@@ -194,7 +194,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                     "",
                     "Event page",
                     "Current page status: | draft",
-                    "public",
+                    "Public",
                     "",
                 ],
             ],

@@ -32,6 +32,7 @@ from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import (
+    BaseColumn,
     ButtonsColumnMixin,
     Column,
     LocaleColumn,
@@ -292,7 +293,7 @@ class IndexView(
         # If not explicitly overridden, derive from list_display
         columns = []
         for i, field in enumerate(self.list_display):
-            if isinstance(field, Column):
+            if isinstance(field, BaseColumn):
                 column = field
             elif i == 0:
                 column = self._get_title_column(field)

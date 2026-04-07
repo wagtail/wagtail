@@ -358,8 +358,8 @@ class EventPageViewSet(PageViewSet):
     model = EventPage
     parent_models = [EventIndex]
     icon = "calendar"
-    columns = PageViewSet.index_view_class.columns.copy()
-    columns.insert(-1, Column("audience", label="Audience", sort_key="audience"))
+    list_display = PageViewSet.columns.copy()
+    list_display.insert(-1, "audience")
     list_filter = ["audience"]
     list_per_page = 10
     ordering = ("date_from", "title")

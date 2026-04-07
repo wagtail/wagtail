@@ -130,7 +130,7 @@ class PageListingMixin:
     model = Page
     is_searchable = True
 
-    columns = [
+    base_columns = [
         BulkActionsColumn("bulk_actions"),
         PageTitleColumn(
             "title",
@@ -280,10 +280,13 @@ class IndexView(PageListingMixin, generic.IndexView):
     table_classname = "listing full-width"
     base_filterset_class = PageFilterSet
     default_ordering = "-latest_revision_created_at"
+    base_columns = [col for col in PageListingMixin.base_columns if col.name != "type"]
 
-    @classproperty
-    def columns(cls):
-        return [col for col in PageListingMixin.columns if col.name != "type"]
+    @cached_property
+    def columns(self):
+        if self.list_display:
+            return super().columns
+        return self.base_columns
 
     @cached_property
     def filterset_class(self):
@@ -324,8 +327,8 @@ class ExplorableIndexView(IndexView):
     base_filterset_class = GenericPageFilterSet
 
     @classproperty
-    def columns(cls):
-        columns = [col for col in PageListingMixin.columns if col.name != "parent"]
+    def base_columns(cls):
+        columns = [col for col in PageListingMixin.base_columns if col.name != "parent"]
         columns.append(NavigateToChildrenColumn("navigate", width="10%"))
         return columns
 

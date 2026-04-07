@@ -40,7 +40,7 @@ class ContentTypeUseView(PageListingMixin, PermissionCheckedMixin, BaseListingVi
 
     @classproperty
     def columns(cls):
-        return [col for col in PageListingMixin.columns if col.name != "type"]
+        return [col for col in PageListingMixin.base_columns if col.name != "type"]
 
     def get(self, request, *, content_type_app_name, content_type_model_name):
         try:

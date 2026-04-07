@@ -32,8 +32,16 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
     choose_parent_view_class = ChooseParentView
     #: Required; the page model class that this viewset will work with.
     model = Page
-    #: A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
-    columns = IndexView.columns
+
+    @classproperty
+    def columns(cls):
+        # For backwards compatibility, use a classproperty so existing code that
+        # directly extends the viewset's columns attribute will continue to
+        # work, while allowing new code to set columns to automatically generate
+        # the columns for the listing with list_display.
+        if cls.list_display is cls.UNDEFINED:
+            return cls.index_view_class.base_columns
+        return cls.UNDEFINED
 
     @classproperty
     def filterset_class(cls):
@@ -102,7 +110,6 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
 
 class PageViewSet(PageListingViewSet):
     index_view_class = ExplorableIndexView
-    columns = PageListingViewSet.UNDEFINED
     menu_url = None
     """Unused. There is no specific URL to link to for the menu item."""
 

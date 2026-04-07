@@ -91,7 +91,9 @@ class FormPagesListView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
     @classproperty
     def columns(self):
         columns = [
-            col for col in PageListingMixin.columns if col.name not in {"title", "type"}
+            col
+            for col in PageListingMixin.base_columns
+            if col.name not in {"title", "type"}
         ]
         columns.insert(
             1,
