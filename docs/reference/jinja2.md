@@ -104,7 +104,17 @@ The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#size
 This outputs:
 
 ```html
-<img srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" sizes="(max-width: 600px) 400px, 80vw" width="400" height="300">
+<img
+    srcset="
+        /media/images/pied-wagtail.width-400.jpg 400w,
+        /media/images/pied-wagtail.width-800.jpg 800w
+    "
+    src="/media/images/pied-wagtail.width-400.jpg"
+    alt="A pied Wagtail"
+    sizes="(max-width: 600px) 400px, 80vw"
+    width="400"
+    height="300"
+/>
 ```
 
 Or resize an image and retrieve the renditions for more bespoke use:
@@ -135,9 +145,20 @@ This outputs:
 
 ```html
 <picture>
-    <source srcset="/media/images/pied-wagtail.width-400.avif" type="image/avif">
-    <source srcset="/media/images/pied-wagtail.width-400.webp" type="image/webp">
-    <img src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+    <source
+        srcset="/media/images/pied-wagtail.width-400.avif"
+        type="image/avif"
+    />
+    <source
+        srcset="/media/images/pied-wagtail.width-400.webp"
+        type="image/webp"
+    />
+    <img
+        src="/media/images/pied-wagtail.width-400.jpg"
+        alt="A pied Wagtail"
+        width="400"
+        height="300"
+    />
 </picture>
 ```
 
@@ -151,9 +172,33 @@ This outputs:
 
 ```html
 <picture>
-    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.avif 400w, /media/images/pied-wagtail.width-800.avif 800w" type="image/avif">
-    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.webp 400w, /media/images/pied-wagtail.width-800.webp 800w" type="image/webp">
-    <img sizes="80vw" srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+    <source
+        sizes="80vw"
+        srcset="
+            /media/images/pied-wagtail.width-400.avif 400w,
+            /media/images/pied-wagtail.width-800.avif 800w
+        "
+        type="image/avif"
+    />
+    <source
+        sizes="80vw"
+        srcset="
+            /media/images/pied-wagtail.width-400.webp 400w,
+            /media/images/pied-wagtail.width-800.webp 800w
+        "
+        type="image/webp"
+    />
+    <img
+        sizes="80vw"
+        srcset="
+            /media/images/pied-wagtail.width-400.jpg 400w,
+            /media/images/pied-wagtail.width-800.jpg 800w
+        "
+        src="/media/images/pied-wagtail.width-400.jpg"
+        alt="A pied Wagtail"
+        width="400"
+        height="300"
+    />
 </picture>
 ```
 

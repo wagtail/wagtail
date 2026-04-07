@@ -328,11 +328,11 @@ we may wish to disable the 'state' field when a country other than United States
 
 StreamField uses the [telepath](https://wagtail.github.io/telepath/) library to map Python block classes such as `StructBlock` to a corresponding JavaScript implementation. These JavaScript implementations can be accessed through the `window.wagtailStreamField.blocks` namespace, as the following classes:
 
--   `FieldBlockDefinition`
--   `ListBlockDefinition`
--   `StaticBlockDefinition`
--   `StreamBlockDefinition`
--   `StructBlockDefinition`
+- `FieldBlockDefinition`
+- `ListBlockDefinition`
+- `StaticBlockDefinition`
+- `StreamBlockDefinition`
+- `StructBlockDefinition`
 
 First, we define a telepath adapter for `AddressBlock`, so that it uses our own JavaScript class in place of the default `StructBlockDefinition`. This can be done in the same module as the `AddressBlock` definition:
 
@@ -363,8 +363,9 @@ The `register` function should now be imported from `wagtail.admin.telepath` rat
 Here `'myapp.blocks.AddressBlock'` is the identifier for our JavaScript class that will be registered with the telepath client-side code, and `'js/address-block.js'` is the file that defines it (as a path within any static file location recognized by Django). This implementation subclasses StructBlockDefinition and adds our custom code to the `render` method:
 
 ```javascript
-class AddressBlockDefinition extends window.wagtailStreamField.blocks
-    .StructBlockDefinition {
+class AddressBlockDefinition
+    extends window.wagtailStreamField.blocks.StructBlockDefinition
+{
     render(placeholder, prefix, initialState, initialError) {
         const block = super.render(
             placeholder,

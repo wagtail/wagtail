@@ -98,8 +98,8 @@ In Wagtail, you can use any Django field class. Most field classes provided by t
 
 Wagtail also provides a couple of field classes of its own:
 
--   `RichTextField` - For rich text content
--   `StreamField` - A block-based content field (see: [Freeform page content using StreamField](./streamfield))
+- `RichTextField` - For rich text content
+- `StreamField` - A block-based content field (see: [Freeform page content using StreamField](./streamfield))
 
 For tagging, Wagtail fully supports [django-taggit](https://django-taggit.readthedocs.org/en/latest/) so we recommend using that.
 
@@ -117,9 +117,9 @@ The arguments that these field types accept are documented in [indexing extra fi
 
 There are a few attributes for defining how the page's fields will be arranged in the page editor interface:
 
--   `content_panels` - For content, such as main body text
--   `promote_panels` - For metadata, such as tags, thumbnail image and SEO title
--   `settings_panels` - For settings, such as publish date
+- `content_panels` - For content, such as main body text
+- `promote_panels` - For metadata, such as tags, thumbnail image and SEO title
+- `settings_panels` - For settings, such as publish date
 
 Each of these attributes is set to a list of `Panel` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
@@ -129,16 +129,16 @@ Here's a summary of the `Panel` classes that Wagtail provides out of the box. Se
 
 These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, such as a rich text editor for `RichTextField`, or an image chooser for a `ForeignKey` to an image model. `FieldPanel` also provides a page chooser interface for `ForeignKey`s to page models, but for more fine-grained control over which page types can be chosen, `PageChooserPanel` provides additional configuration options.
 
--   {class}`~wagtail.admin.panels.FieldPanel`
--   {class}`~wagtail.admin.panels.PageChooserPanel`
+- {class}`~wagtail.admin.panels.FieldPanel`
+- {class}`~wagtail.admin.panels.PageChooserPanel`
 
 **Structural**
 
 These are used for structuring fields in the interface.
 
--   {class}`~wagtail.admin.panels.MultiFieldPanel`
--   {class}`~wagtail.admin.panels.InlinePanel`
--   {class}`~wagtail.admin.panels.FieldRowPanel`
+- {class}`~wagtail.admin.panels.MultiFieldPanel`
+- {class}`~wagtail.admin.panels.InlinePanel`
+- {class}`~wagtail.admin.panels.FieldRowPanel`
 
 #### Customizing the page editor interface
 
@@ -152,8 +152,8 @@ These two attributes allow you to control where page types may be used in your s
 
 Both parent and subpage types take a list of model classes or model names. Model names are of the format `app_label.ModelName`. If the `app_label` is omitted, the same app is assumed.
 
--   `parent_page_types` limits which page types this type can be created under
--   `subpage_types` limits which page types can be created under this type
+- `parent_page_types` limits which page types this type can be created under
+- `subpage_types` limits which page types can be created under this type
 
 By default, any page type can be created under any page type and it is not necessary to set these attributes if that's the desired behavior.
 

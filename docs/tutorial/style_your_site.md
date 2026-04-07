@@ -14,7 +14,19 @@ To style your site, navigate to your `mysite/static/css/mysite.css` file and add
 }
 
 html {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif, Apple Color Emoji, "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        system-ui,
+        Roboto,
+        'Helvetica Neue',
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        'Segoe UI Emoji',
+        'Segoe UI Symbol',
+        'Noto Color Emoji';
 }
 
 body {

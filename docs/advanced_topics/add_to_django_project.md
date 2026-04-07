@@ -146,10 +146,10 @@ urlpatterns = [
 
 This block of code for your project's `urls.py` does a few things:
 
--   Load the vanilla Django admin interface to `/django-admin/`
--   Load the Wagtail admin and its various apps
--   Dispatch any vanilla Django apps you're using other than Wagtail which require their own URL configuration (this is optional, since Wagtail might be all you need)
--   Lets Wagtail handle any further URL dispatching.
+- Load the vanilla Django admin interface to `/django-admin/`
+- Load the Wagtail admin and its various apps
+- Dispatch any vanilla Django apps you're using other than Wagtail which require their own URL configuration (this is optional, since Wagtail might be all you need)
+- Lets Wagtail handle any further URL dispatching.
 
 That's not everything you might want to include in your project's URL configuration, but it's what's necessary for Wagtail to flourish.
 

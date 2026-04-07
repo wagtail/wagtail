@@ -30,7 +30,6 @@ Panels that act as a container for other panels (such as `ObjectList`, `TabbedIn
    An array of child panels.
 ```
 
-
 ## `FieldPanel`
 
 `FieldPanel` has the following additional methods:

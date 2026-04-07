@@ -43,9 +43,20 @@ Compared to `image`, this will render a `<picture>` element with a fallback `<im
 
 ```html
 <picture>
-    <source srcset="/media/images/pied-wagtail.width-400.avif" type="image/avif">
-    <source srcset="/media/images/pied-wagtail.width-400.webp" type="image/webp">
-    <img src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+    <source
+        srcset="/media/images/pied-wagtail.width-400.avif"
+        type="image/avif"
+    />
+    <source
+        srcset="/media/images/pied-wagtail.width-400.webp"
+        type="image/webp"
+    />
+    <img
+        src="/media/images/pied-wagtail.width-400.jpg"
+        alt="A pied Wagtail"
+        width="400"
+        height="300"
+    />
 </picture>
 ```
 
@@ -65,8 +76,8 @@ The syntax for `srcset_image` is the same as `image`, with two exceptions:
 {% srcset_image [image] [resize-rule-with-brace-expansion] sizes="[my source sizes]" %}
 ```
 
--   The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule, and one width descriptor per URL. The first provided size will always be used as the `src` attribute, and define the image’s width and height attributes, as a fallback.
--   The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
+- The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule, and one width descriptor per URL. The first provided size will always be used as the `src` attribute, and define the image’s width and height attributes, as a fallback.
+- The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
 
 Here is an example of `srcset_image` in action, generating a `srcset` attribute:
 
@@ -77,7 +88,17 @@ Here is an example of `srcset_image` in action, generating a `srcset` attribute:
 This outputs:
 
 ```html
-<img srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" sizes="(max-width: 600px) 400px, 80vw" width="400" height="300">
+<img
+    srcset="
+        /media/images/pied-wagtail.width-400.jpg 400w,
+        /media/images/pied-wagtail.width-800.jpg 800w
+    "
+    src="/media/images/pied-wagtail.width-400.jpg"
+    alt="A pied Wagtail"
+    sizes="(max-width: 600px) 400px, 80vw"
+    width="400"
+    height="300"
+/>
 ```
 
 Here is an example with the `picture` tag:
@@ -90,9 +111,33 @@ This outputs:
 
 ```html
 <picture>
-    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.avif 400w, /media/images/pied-wagtail.width-800.avif 800w" type="image/avif">
-    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.webp 400w, /media/images/pied-wagtail.width-800.webp 800w" type="image/webp">
-    <img sizes="80vw" srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+    <source
+        sizes="80vw"
+        srcset="
+            /media/images/pied-wagtail.width-400.avif 400w,
+            /media/images/pied-wagtail.width-800.avif 800w
+        "
+        type="image/avif"
+    />
+    <source
+        sizes="80vw"
+        srcset="
+            /media/images/pied-wagtail.width-400.webp 400w,
+            /media/images/pied-wagtail.width-800.webp 800w
+        "
+        type="image/webp"
+    />
+    <img
+        sizes="80vw"
+        srcset="
+            /media/images/pied-wagtail.width-400.jpg 400w,
+            /media/images/pied-wagtail.width-800.jpg 800w
+        "
+        src="/media/images/pied-wagtail.width-400.jpg"
+        alt="A pied Wagtail"
+        width="400"
+        height="300"
+    />
 </picture>
 ```
 
@@ -416,11 +461,11 @@ For more information about image formats, including creating your own, see [](ri
 
 Wagtail may automatically change the format of some images when they are resized:
 
--   PNG and JPEG images don't change the format
--   GIF images without animation are converted to PNGs
--   AVIF images are converted to PNGs
--   BMP images are converted to PNGs
--   WebP images are converted to PNGs
+- PNG and JPEG images don't change the format
+- GIF images without animation are converted to PNGs
+- AVIF images are converted to PNGs
+- BMP images are converted to PNGs
+- WebP images are converted to PNGs
 
 It is also possible to override the output format on a per-tag basis by using the
 `format` filter after the resize rule.
@@ -481,7 +526,7 @@ Those values can be changed either globally or on a per-tag basis. To achieve th
 Here are our recommended settings for common scenarios:
 
 | Intended use                | JPEG quality | AVIF quality | WebP quality |
-|-----------------------------|--------------|--------------|--------------|
+| --------------------------- | ------------ | ------------ | ------------ |
 | Full-size photography       | 85           | 73           | 87           |
 | General-purpose web content | 76 (default) | 61 (default) | 80 (default) |
 | Large thumbnails (256x256)  | 65           | 54           | 70           |
@@ -576,8 +621,8 @@ When including SVG images in templates via the `image` tag, they will be rendere
 
 If a user navigates directly to the URL of the SVG file embedded scripts may be executed, depending on server/storage configuration. This can be mitigated by setting appropriate Content-Security-Policy or Content-Disposition headers for SVG responses:
 
--   setting `Content-Security-Policy: default-src 'none'` will prevent scripts from being loaded or executed (as well as other resources - a more relaxed policy of `script-src 'none'` may also be suitable); and
--   setting `Content-Disposition: attachment` will cause the file to be downloaded rather than being immediately rendered in the browser, meaning scripts will not be executed (note: this will not prevent scripts from running if a user downloads and subsequently opens the SVG file in their browser).
+- setting `Content-Security-Policy: default-src 'none'` will prevent scripts from being loaded or executed (as well as other resources - a more relaxed policy of `script-src 'none'` may also be suitable); and
+- setting `Content-Disposition: attachment` will cause the file to be downloaded rather than being immediately rendered in the browser, meaning scripts will not be executed (note: this will not prevent scripts from running if a user downloads and subsequently opens the SVG file in their browser).
 
 The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed. For the built-in [](using_images_outside_wagtail), a Content-Security-Policy header is automatically set for you.
 

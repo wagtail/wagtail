@@ -7,8 +7,8 @@ They are found in the _Reports_ submenu: by default, the _Locked pages_ report i
 
 It is possible to create your own custom reports in the Wagtail admin with two base classes provided:
 
--   `wagtail.admin.views.reports.ReportView` - Provides the basic listing (with a single column) and spreadsheet export functionality.
--   `wagtail.admin.views.reports.PageReportView` - Extends the `ReportView` and provides a default set of fields suitable for page listings.
+- `wagtail.admin.views.reports.ReportView` - Provides the basic listing (with a single column) and spreadsheet export functionality.
+- `wagtail.admin.views.reports.PageReportView` - Extends the `ReportView` and provides a default set of fields suitable for page listings.
 
 ## Reporting reference
 

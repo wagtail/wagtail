@@ -62,29 +62,28 @@ Wagtail does not support full multi-tenancy at this moment. But it is on our rad
 
 Wagtail currently has the following features to support multi-tenancy:
 
--   A Site model mapping a hostname to a root page
--   Permissions to allow groups of users to manage:
+- A Site model mapping a hostname to a root page
+- Permissions to allow groups of users to manage:
+    - arbitrary sections of the page tree
+    - sections of the collection tree (coming soon)
+    - one or more collections of documents and images
 
-    -   arbitrary sections of the page tree
-    -   sections of the collection tree (coming soon)
-    -   one or more collections of documents and images
-
--   The page API is automatically scoped to the host used for the request
+- The page API is automatically scoped to the host used for the request
 
 But several features do not currently support multi-tenancy:
 
--   Snippets are global pieces of content so not suitable for multi-tenancy but any model that can be registered as a snippet can also be managed via the Wagtail model admin. You can add a site_id to the model and then use the model admin get_queryset method to determine which site can manage each object. The built-in snippet choosers can be replaced by [modelchooser](https://pypi.org/project/wagtail-modelchooser/) that allows filtering the queryset to restrict which sites may display which objects.
--   Site, site setting, user, and group management. At the moment, your best bet is to only allow superusers to manage these objects.
--   Workflows and workflow tasks
--   Site history
--   Redirects
+- Snippets are global pieces of content so not suitable for multi-tenancy but any model that can be registered as a snippet can also be managed via the Wagtail model admin. You can add a site_id to the model and then use the model admin get_queryset method to determine which site can manage each object. The built-in snippet choosers can be replaced by [modelchooser](https://pypi.org/project/wagtail-modelchooser/) that allows filtering the queryset to restrict which sites may display which objects.
+- Site, site setting, user, and group management. At the moment, your best bet is to only allow superusers to manage these objects.
+- Workflows and workflow tasks
+- Site history
+- Redirects
 
 Permission configuration for built-in models like Sites, Site settings and Users is not site-specific, so any user with permission to edit a single entry can edit them all. This limitation can be mostly circumvented by only allowing superusers to manage these models.
 
 Python, Django, and Wagtail allow you to override, extend and customize functionality. Here are some ideas that may help you create a multi-tenancy solution for your site:
 
--   Django allows to override templates, this also works in the Wagtail admin.
--   A custom user model can be used to link users to a specific site.
--   Custom admin views can provide more restrictive user management.
+- Django allows to override templates, this also works in the Wagtail admin.
+- A custom user model can be used to link users to a specific site.
+- Custom admin views can provide more restrictive user management.
 
 We welcome interested members of the Wagtail community to contribute code and ideas.

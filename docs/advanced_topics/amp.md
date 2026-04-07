@@ -105,10 +105,10 @@ def amp_mode_active():
 
 This module defines two functions:
 
--   `activate_amp_mode` is a context manager which can be invoked using Python's
-    `with` syntax. In the body of the `with` statement, AMP mode would be active.
+- `activate_amp_mode` is a context manager which can be invoked using Python's
+  `with` syntax. In the body of the `with` statement, AMP mode would be active.
 
--   `amp_mode_active` is a function that returns `True` when AMP mode is active.
+- `amp_mode_active` is a function that returns `True` when AMP mode is active.
 
 Next, we need to define a view that wraps Wagtail's builtin `serve` view and
 invokes the `activate_amp_mode` context manager:

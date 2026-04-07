@@ -38,9 +38,9 @@ To replace the default logo, create a template file `dashboard/templates/wagtail
 
 The logo also appears on the following pages and can be replaced with its template file:
 
--   **login page** - create a template file `dashboard/templates/wagtailadmin/login.html` that overwrites the `branding_logo` block.
--   **404 error page** - create a template file `dashboard/templates/wagtailadmin/404.html` that overrides the `branding_logo` block.
--   **wagtail user bar** - create a template file `dashboard/templates/wagtailadmin/userbar/base.html` that overwrites the `branding_logo` block.
+- **login page** - create a template file `dashboard/templates/wagtailadmin/login.html` that overwrites the `branding_logo` block.
+- **404 error page** - create a template file `dashboard/templates/wagtailadmin/404.html` that overrides the `branding_logo` block.
+- **wagtail user bar** - create a template file `dashboard/templates/wagtailadmin/userbar/base.html` that overwrites the `branding_logo` block.
 
 ### `branding_favicon`
 
@@ -124,15 +124,15 @@ The default Wagtail colors conform to the WCAG2.1 AA level color contrast requir
 
 To customize the colors used in the admin user interface, inject a CSS file using the hook [](insert_global_admin_css) and set the desired variables within the `:root` selector. Color variables are reused across both the light and dark themes of the admin interface. To change the colors of a specific theme, use:
 
--   `:root, .w-theme-light` for the light theme.
--   `.w-theme-dark` for the dark theme.
--   `@media (prefers-color-scheme: light) { .w-theme-system { […] }}` for the light theme via system settings.
--   `@media (prefers-color-scheme: dark) { .w-theme-system { […] }}` for the dark theme via system settings.
+- `:root, .w-theme-light` for the light theme.
+- `.w-theme-dark` for the dark theme.
+- `@media (prefers-color-scheme: light) { .w-theme-system { […] }}` for the light theme via system settings.
+- `@media (prefers-color-scheme: dark) { .w-theme-system { […] }}` for the dark theme via system settings.
 
 There are two ways to customize Wagtail’s color scheme:
 
--   Set static color variables, which are then reused in both light and dark themes across a wide number of UI components.
--   Set semantic colors, which are more numerous but allow customizing specific UI components.
+- Set static color variables, which are then reused in both light and dark themes across a wide number of UI components.
+- Set semantic colors, which are more numerous but allow customizing specific UI components.
 
 For static colors, either set each color separately (for example `--w-color-primary: #2E1F5E;`); or separately set [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) (`--w-color-primary-hue`, `--w-color-primary-saturation`, `--w-color-primary-lightness`) variables so all shades are customized at once. For example, setting `--w-color-secondary-hue: 180;` will customize all of the secondary shades at once.
 

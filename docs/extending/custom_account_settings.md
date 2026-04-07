@@ -44,13 +44,13 @@ class CustomSettingsPanel(BaseSettingsPanel):
 
 The attributes are as follows:
 
--   `name` - A unique name for the panel. All form fields are prefixed with this name, so it must be lowercase and cannot contain symbols -
--   `title` - The heading that is displayed to the user
--   `order` - Used to order panels on a tab. The builtin Wagtail panels start at `100` and increase by `100` for each panel.
--   `form_class` - A `ModelForm` subclass that operates on a user or a profile
--   `form_object` - Set to `user` to operate on the user, and `profile` to operate on the profile
--   `tab` (optional) - Set which tab the panel appears on.
--   `template_name` (optional) - Override the default template used for rendering the panel
+- `name` - A unique name for the panel. All form fields are prefixed with this name, so it must be lowercase and cannot contain symbols -
+- `title` - The heading that is displayed to the user
+- `order` - Used to order panels on a tab. The builtin Wagtail panels start at `100` and increase by `100` for each panel.
+- `form_class` - A `ModelForm` subclass that operates on a user or a profile
+- `form_object` - Set to `user` to operate on the user, and `profile` to operate on the profile
+- `tab` (optional) - Set which tab the panel appears on.
+- `template_name` (optional) - Override the default template used for rendering the panel
 
 ## Operating on the `UserProfile` model
 
@@ -109,9 +109,9 @@ class CustomSettingsPanel(BaseSettingsPanel):
 
 `SettingsTab` takes three arguments:
 
--   `name` - A slug to use for the tab (this is placed after the `#` when linking to a tab)
--   `title` - The display name of the title
--   `order` - The order of the tab. The builtin Wagtail tabs start at `100` and increase by `100` for each tab
+- `name` - A slug to use for the tab (this is placed after the `#` when linking to a tab)
+- `title` - The display name of the title
+- `order` - The order of the tab. The builtin Wagtail tabs start at `100` and increase by `100` for each tab
 
 ## Customizing the template
 

@@ -474,12 +474,12 @@ For more information on how to set up your Django project on Fly.io, read [Djang
 
 All this while, you've been adding content to your site in the local environment. Now that your site is live on a server, you must add content to the live site. To add content to your live site, go to ` https://yourname-wagtail-portfolio.fly.dev/admin/` in your browser and follow the steps in the following sub-sections of the tutorial:
 
--   [Add content to your homepage](add_content_to_your_homepage)
--   [Add your social media links](add_your_social_media_links)
--   [Add footer text](add_footer_text)
--   [Add pages to your site menu](add_pages_to_your_site_menu)
--   [Add your contact information](add_your_contact_information)
--   [Add your resume](add_your_resume)
+- [Add content to your homepage](add_content_to_your_homepage)
+- [Add your social media links](add_your_social_media_links)
+- [Add footer text](add_footer_text)
+- [Add pages to your site menu](add_pages_to_your_site_menu)
+- [Add your contact information](add_your_contact_information)
+- [Add your resume](add_your_resume)
 
 ```{note}
 If you encounter errors while trying to access your live site in your browser, check your application logs in your Fly.io Dashboard. To check your application logs, click **Dashboard > Apps > yourname-wagtail-portfolio > Monitoring**

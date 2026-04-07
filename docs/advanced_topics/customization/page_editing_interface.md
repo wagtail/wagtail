@@ -86,8 +86,8 @@ If `max_length` is specified, length validation will automatically ignore any ri
 
 By default, the rich text editor provides users with a wide variety of options for text formatting and inserting embedded content such as images. However, we may wish to restrict a rich text field to a more limited set of features - for example:
 
--   The field might be intended for a short text snippet, such as a summary to be pulled out on index pages, where embedded images or videos would be inappropriate;
--   When page content is defined using [StreamField](../../topics/streamfield), elements such as headings, images, and videos are usually given their own block types, alongside a rich text block type used for ordinary paragraph text; in this case, allowing headings and images to also exist within the rich text content is redundant (and liable to result in inconsistent designs).
+- The field might be intended for a short text snippet, such as a summary to be pulled out on index pages, where embedded images or videos would be inappropriate;
+- When page content is defined using [StreamField](../../topics/streamfield), elements such as headings, images, and videos are usually given their own block types, alongside a rich text block type used for ordinary paragraph text; in this case, allowing headings and images to also exist within the rich text content is redundant (and liable to result in inconsistent designs).
 
 This can be achieved by passing a `features` keyword argument to `RichTextField`, with a list of identifiers for the features you wish to allow:
 
@@ -97,26 +97,26 @@ body = RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])
 
 The feature identifiers provided on a default Wagtail installation are as follows:
 
--   `h2`, `h3`, `h4` - heading elements
--   `bold`, `italic` - bold / italic text
--   `ol`, `ul` - ordered / unordered lists
--   `hr` - horizontal rules
--   `link` - page, external and email links
--   `document-link` - links to documents
--   `image` - embedded images
--   `embed` - embedded media (see [](embedded_content))
+- `h2`, `h3`, `h4` - heading elements
+- `bold`, `italic` - bold / italic text
+- `ol`, `ul` - ordered / unordered lists
+- `hr` - horizontal rules
+- `link` - page, external and email links
+- `document-link` - links to documents
+- `image` - embedded images
+- `embed` - embedded media (see [](embedded_content))
 
 We have a few additional feature identifiers as well. They are not enabled by default, but you can use them in your list of identifiers. These are as follows:
 
--   `h1`, `h5`, `h6` - heading elements
--   `code` - inline code
--   `superscript`, `subscript`, `strikethrough` - text formatting
--   `blockquote` - blockquote
+- `h1`, `h5`, `h6` - heading elements
+- `code` - inline code
+- `superscript`, `subscript`, `strikethrough` - text formatting
+- `blockquote` - blockquote
 
 The process for creating new features is described in the following pages:
 
--   [](../../extending/rich_text_internals)
--   [](../../extending/extending_draftail)
+- [](../../extending/rich_text_internals)
+- [](../../extending/extending_draftail)
 
 You can also provide a setting for naming a group of rich text features. See [WAGTAILADMIN_RICH_TEXT_EDITORS](wagtailadmin_rich_text_editors).
 
@@ -165,10 +165,10 @@ Unregistering ``Format`` objects will cause errors when viewing or editing pages
 
 The `NoFutureDateValidator` prevents users from entering dates in the future. This is particularly useful for fields that should only contain past or present dates, such as:
 
--   Birth dates
--   Historical event dates
--   Publication dates for content that has already been published
--   Completion dates for finished projects
+- Birth dates
+- Historical event dates
+- Publication dates for content that has already been published
+- Completion dates for finished projects
 
 ```python
 from django.db import models

@@ -17,9 +17,9 @@ guide on [](release_process).
 
 We recommend upgrading one feature release at a time, even if your project is several versions behind the current one. For example, instead of going from 6.0 directly to 6.3, upgrade to 6.1 and 6.2 first. This has a number of advantages over skipping directly to the newest release:
 
--   If anything breaks as a result of the upgrade, you will know which version caused it, and will be able to troubleshoot accordingly;
--   Deprecation warnings shown in the console output will notify you of any code changes you need to make before upgrading to the following version;
--   Some releases make database schema changes that need to be reflected on your project by running `./manage.py makemigrations` - this is liable to fail if too many schema changes happen in one go.
+- If anything breaks as a result of the upgrade, you will know which version caused it, and will be able to troubleshoot accordingly;
+- Deprecation warnings shown in the console output will notify you of any code changes you need to make before upgrading to the following version;
+- Some releases make database schema changes that need to be reflected on your project by running `./manage.py makemigrations` - this is liable to fail if too many schema changes happen in one go.
 
 With that in mind, follow these steps for each feature release you need to upgrade to.
 
@@ -58,18 +58,18 @@ Before continuing with the upgrade, make a backup of your database.
 
 To upgrade:
 
--   Update the `wagtail` line in your project's `requirements.txt` file (or the equivalent, such as `pyproject.toml`) to specify the latest patch release of the version you wish to install. For example, to upgrade to version 6.3.x, the line should read:
+- Update the `wagtail` line in your project's `requirements.txt` file (or the equivalent, such as `pyproject.toml`) to specify the latest patch release of the version you wish to install. For example, to upgrade to version 6.3.x, the line should read:
 
-        wagtail>=6.3,<6.4
+          wagtail>=6.3,<6.4
 
--   Run:
+- Run:
 
-        pip install -r requirements.txt
-        ./manage.py makemigrations
-        ./manage.py migrate
+          pip install -r requirements.txt
+          ./manage.py makemigrations
+          ./manage.py migrate
 
--   Make any necessary code changes as directed in the "Upgrade considerations" section of the release notes.
--   Test that your project is working as expected.
+- Make any necessary code changes as directed in the "Upgrade considerations" section of the release notes.
+- Test that your project is working as expected.
 
 Remember that the JavaScript and CSS files used in the Wagtail admin may have changed between releases - if you encounter erratic behavior on upgrading, ensure that you have cleared your browser cache. When deploying the upgrade to a production server, be sure to run `./manage.py collectstatic` to make the updated static files available to the web server. In production, we recommend enabling {class}`~django.contrib.staticfiles.storage.ManifestStaticFilesStorage` in the [`STORAGES["staticfiles"]` setting](inv:django#STORAGES) - this ensures that different versions of files are assigned distinct URLs.
 

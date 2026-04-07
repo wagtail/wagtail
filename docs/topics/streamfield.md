@@ -101,9 +101,9 @@ For more control over the rendering of specific block types, each block object p
 
 In addition to using the built-in block types directly within StreamField, it's possible to construct new block types by combining sub-blocks in various ways. Examples of this could include:
 
--   An "image with caption" block consisting of an image chooser and a text field
--   A "related links" section, where an author can provide any number of links to other pages
--   A slideshow block, where each slide may be an image, text or video, arranged in any order
+- An "image with caption" block consisting of an image chooser and a text field
+- A "related links" section, where an author can provide any number of links to other pages
+- A slideshow block, where each slide may be an image, text or video, arranged in any order
 
 Once a new block type has been built up in this way, you can use it anywhere where a built-in block type would be used - including using it as a component for yet another block type. For example, you could define an image gallery block where each item is an "image with caption" block.
 

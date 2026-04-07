@@ -3,10 +3,10 @@
 Wagtail documentation is written in **four modes** of information delivery.
 Each type of information delivery has a purpose and targets a specific audience.
 
--   [](doc_mode_tutorial), learning-oriented
--   [](doc_mode_how_to_guide), goal-oriented
--   [](doc_mode_reference), information-oriented
--   [](doc_mode_explanation), understanding-oriented
+- [](doc_mode_tutorial), learning-oriented
+- [](doc_mode_how_to_guide), goal-oriented
+- [](doc_mode_reference), information-oriented
+- [](doc_mode_explanation), understanding-oriented
 
 We are following Daniele Procida's [Diátaxis documentation framework](https://diataxis.fr/).
 
@@ -31,19 +31,19 @@ Tutorials may not necessarily follow best practices. They are designed to make i
 
 ### Do
 
--   Use conversational language
--   Use contractions, speak in the first person plural, and be reassuring. For example: “We’re going to do this.”
--   Use pictures or concrete outputs of code to reassure people that they’re on the right track.
-    For example: “Your new login page should look like this:” or “Your directory should now have three files”.
+- Use conversational language
+- Use contractions, speak in the first person plural, and be reassuring. For example: “We’re going to do this.”
+- Use pictures or concrete outputs of code to reassure people that they’re on the right track.
+  For example: “Your new login page should look like this:” or “Your directory should now have three files”.
 
 ### Don’t
 
--   Tell people what they’re going to learn.
-    Instead, tell them what tasks they’re going to complete.
--   Use optionality in a tutorial. The word ‘if’ is a sign of danger!
-    For example: “If you want to do this…”
-    The expected actions and outcomes should be unambiguous.
--   Assume that learners have a prior understanding of the subject.
+- Tell people what they’re going to learn.
+  Instead, tell them what tasks they’re going to complete.
+- Use optionality in a tutorial. The word ‘if’ is a sign of danger!
+  For example: “If you want to do this…”
+  The expected actions and outcomes should be unambiguous.
+- Assume that learners have a prior understanding of the subject.
 
 [More about tutorials](https://diataxis.fr/tutorials/)
 
@@ -56,14 +56,14 @@ How-to guides are **task-oriented** with a clear **goal or objective**.
 
 ### Do
 
--   Name the guide well - ensure that the learner understands what exactly the guide does.
--   Focus on actions and outcomes. For example: “If you do X, Y should happen.”
--   Assume that the learner has a basic understanding of the general concepts
--   Point the reader to additional resources
+- Name the guide well - ensure that the learner understands what exactly the guide does.
+- Focus on actions and outcomes. For example: “If you do X, Y should happen.”
+- Assume that the learner has a basic understanding of the general concepts
+- Point the reader to additional resources
 
 ### Don’t
 
--   Use an unnecessarily strict tone of voice. For example: “You must absolutely NOT do X.”
+- Use an unnecessarily strict tone of voice. For example: “You must absolutely NOT do X.”
 
 [More about how-to guides](https://diataxis.fr/how-to-guides/)
 

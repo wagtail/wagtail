@@ -82,17 +82,17 @@ Location: `/mysite/mysite/settings/`
 
 The Django settings files are split up into `base.py`, `dev.py`, `production.py` and `local.py`.
 
--   `base.py`
-    This file is for global settings that will be used in both development and production. Aim to keep most of your configuration in this file.
+- `base.py`
+  This file is for global settings that will be used in both development and production. Aim to keep most of your configuration in this file.
 
--   `dev.py`
-    This file is for settings that will only be used by developers. For example: `DEBUG = True`
+- `dev.py`
+  This file is for settings that will only be used by developers. For example: `DEBUG = True`
 
--   `production.py`
-    This file is for settings that will only run on a production server. For example: `DEBUG = False`
+- `production.py`
+  This file is for settings that will only run on a production server. For example: `DEBUG = False`
 
--   `local.py`
-    This file is used for settings local to a particular machine. This file should never be tracked by a version control system.
+- `local.py`
+  This file is used for settings local to a particular machine. This file should never be tracked by a version control system.
 
 ```{note}
 On production servers, we recommend that you only store secrets in ``local.py`` (such as API keys and passwords). This can save you headaches in the future if you are ever trying to debug why a server is behaving badly. If you are using multiple servers which need different settings then we recommend that you create a different ``production.py`` file for each one.
@@ -136,8 +136,8 @@ docker run -p 8000:8000 mysite
 
 Some examples of custom templates.
 
--   [github.com/thibaudcolas/wagtail-tutorial-template](https://github.com/thibaudcolas/wagtail-tutorial-template)
--   [github.com/torchbox/wagtail-news-template](https://github.com/torchbox/wagtail-news-template)
+- [github.com/thibaudcolas/wagtail-tutorial-template](https://github.com/thibaudcolas/wagtail-tutorial-template)
+- [github.com/torchbox/wagtail-news-template](https://github.com/torchbox/wagtail-news-template)
 
 You might get an error while trying to generate a custom template. This happens because the `--template` option attempts to parse the templates files in your custom template. To avoid this error, wrap the code in each of your template files with the `{% verbatim %}{% endverbatim %}` tag, like this:
 

@@ -30,17 +30,17 @@ Wagtail is an open source content management system built on Django, with a stro
 
 ### 🔥 Features
 
--   A fast, attractive interface for authors
--   Complete control over front-end design and structure
--   Scales to millions of pages and thousands of editors
--   Fast out of the box, cache-friendly when you need it
--   Content API for 'headless' sites with decoupled front-end
--   Runs on a Raspberry Pi or a multi-datacenter cloud platform
--   StreamField encourages flexible content without compromising structure
--   Powerful, integrated search, using Elasticsearch or PostgreSQL
--   Excellent support for images and embedded content
--   Multi-site and multi-language ready
--   Embraces and extends Django
+- A fast, attractive interface for authors
+- Complete control over front-end design and structure
+- Scales to millions of pages and thousands of editors
+- Fast out of the box, cache-friendly when you need it
+- Content API for 'headless' sites with decoupled front-end
+- Runs on a Raspberry Pi or a multi-datacenter cloud platform
+- StreamField encourages flexible content without compromising structure
+- Powerful, integrated search, using Elasticsearch or PostgreSQL
+- Excellent support for images and embedded content
+- Multi-site and multi-language ready
+- Embraces and extends Django
 
 Find out more at [wagtail.org](https://wagtail.org/).
 
@@ -84,9 +84,9 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 
 Wagtail supports:
 
--   Django 5.2.x and 6.0.x
--   Python 3.10, 3.11, 3.12, 3.13, and 3.14
--   PostgreSQL, MySQL, MariaDB and SQLite (with JSON1) as database backends
+- Django 5.2.x and 6.0.x
+- Python 3.10, 3.11, 3.12, 3.13, and 3.14
+- PostgreSQL, MySQL, MariaDB and SQLite (with JSON1) as database backends
 
 [Previous versions of Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7, 3.8 and earlier Django versions.
 

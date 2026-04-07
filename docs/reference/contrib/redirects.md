@@ -51,8 +51,8 @@ Wagtail's default implementation works best for small-to-medium sized projects (
 
 Overrides to the following `Page` methods are respected when generating redirects, but use of specific page fields in those overrides will trigger additional database queries.
 
--   {meth}`~wagtail.models.Page.get_url_parts()`
--   {meth}`~wagtail.models.Page.get_route_paths()`
+- {meth}`~wagtail.models.Page.get_url_parts()`
+- {meth}`~wagtail.models.Page.get_route_paths()`
 
 If you find the feature is not a good fit for your project, you can disable it by adding the following to your project settings:
 

@@ -10,7 +10,8 @@ The main developer documentation for Wagtail lives in the `docs/contributing` di
 
 ### AI/Agent disclosure template (copy/paste & edit):
 
-**If human review has *not yet* occurred (use this initially):**
+**If human review has _not yet_ occurred (use this initially):**
+
 > This pull request includes code written with the assistance of AI.  
 > The code has **not yet been reviewed** by a human.
 
@@ -18,4 +19,4 @@ The main developer documentation for Wagtail lives in the `docs/contributing` di
 
 ### StreamField and StreamBlock template access
 
-- Wagtail's StreamBlock and StreamField use the same template syntax, but they differ from standard Django field access. When you use StreamField and other custom block types in Wagtail templates, you usually need to use the value property in your data variables. 
+- Wagtail's StreamBlock and StreamField use the same template syntax, but they differ from standard Django field access. When you use StreamField and other custom block types in Wagtail templates, you usually need to use the value property in your data variables.

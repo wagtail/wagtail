@@ -40,17 +40,17 @@ This is very problematic for screen reader users, who rely on the title to under
 
 If your website relies on embeds that have missing titles, make sure to either:
 
--   Add the OEmbed _title_ field as a `title` on the `iframe`.
--   Add a custom mandatory Title field to your embeds, and add it as the `iframe`’s `title`.
+- Add the OEmbed _title_ field as a `title` on the `iframe`.
+- Add a custom mandatory Title field to your embeds, and add it as the `iframe`’s `title`.
 
 ### Available heading levels
 
 Wagtail makes it very easy for developers to control which heading levels should be available for any given content, via [rich text features](rich_text_features) or custom StreamField blocks.
 In both cases, take the time to restrict what heading levels are available so the pages’ document outline is more likely to be logical and sequential. Consider using the following restrictions:
 
--   Disallow `h1` in rich text. There should only be one `h1` tag per page, which generally maps to the page’s `title`.
--   Limit heading levels to `h2` for the main content of a page. Add `h3` only if deemed necessary. Avoid other levels as a general rule.
--   For content that is displayed in a specific section of the page, limit heading levels to those directly below the section’s main heading.
+- Disallow `h1` in rich text. There should only be one `h1` tag per page, which generally maps to the page’s `title`.
+- Limit heading levels to `h2` for the main content of a page. Add `h3` only if deemed necessary. Avoid other levels as a general rule.
+- For content that is displayed in a specific section of the page, limit heading levels to those directly below the section’s main heading.
 
 If managing headings via StreamField, make sure to apply the same restrictions there.
 
@@ -81,8 +81,8 @@ Even when your images have alt text coming directly from the image model, you st
 
 In both rich text and custom StreamField blocks, it’s easy for editors to create a heading block but not add any content to it. The [built-in accessibility checker](built_in_accessibility_checker) will highlight empty headings so editors can find and fix them. If you need stricter enforcement:
 
--   Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the [StreamField](../topics/streamfield) `CharBlock` which is required by default.
--   Consider adding similar validation rules for rich text fields.
+- Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the [StreamField](../topics/streamfield) `CharBlock` which is required by default.
+- Consider adding similar validation rules for rich text fields.
 
 Alternately, you can hide empty heading blocks with CSS:
 
@@ -101,12 +101,21 @@ h6:empty {
 
 The [Form builder](form_builder) uses Django’s forms API. Here are considerations specific to forms in templates:
 
--   Avoid rendering helpers such as `as_table`, `as_ul`, `as_p`, which can make forms harder to navigate for screen reader users or cause HTML validation issues.
--   Make sure to visually distinguish required and optional fields.
--   Take the time to group related fields together in `fieldset`, with an appropriate `legend`, in particular for radios and checkboxes.
--   If relevant, use the appropriate `autocomplete` and `autocapitalize` attributes.
--   For Date and Datetime fields, make sure to display the expected format or an example value (see Django ticket [#32340](https://code.djangoproject.com/ticket/32340)). Or use [input type="date"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date).
--   For Number fields, consider whether `input type="number"` really is appropriate, or whether there may be [better alternatives such as inputmode](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/).
+<<<<<<< HEAD
+
+- Avoid rendering helpers such as `as_table`, `as_ul`, `as_p`, which can make forms harder to navigate for screen reader users or cause HTML validation issues.
+- Make sure to visually distinguish required and optional fields.
+- Take the time to group related fields together in `fieldset`, with an appropriate `legend`, in particular for radios and checkboxes.
+- If relevant, use the appropriate `autocomplete` and `autocapitalize` attributes.
+- For Date and Datetime fields, make sure to display the expected format or an example value (see Django ticket [#32340](https://code.djangoproject.com/ticket/32340)). Or use [input type="date"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date).
+- # For Number fields, consider whether `input type="number"` really is appropriate, or whether there may be [better alternatives such as inputmode](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/).
+- Avoid rendering helpers such as `as_table`, `as_ul`, `as_p`, which can make forms harder to navigate for screen reader users or cause HTML validation issues (see Django ticket [#32339](https://code.djangoproject.com/ticket/32339)).
+- Make sure to visually distinguish required and optional fields.
+- Take the time to group related fields together in `fieldset`, with an appropriate `legend`, in particular for radios and checkboxes (see Django ticket [#32338](https://code.djangoproject.com/ticket/32338)).
+- If relevant, use the appropriate `autocomplete` and `autocapitalize` attributes.
+- For Date and Datetime fields, make sure to display the expected format or an example value (see Django ticket [#32340](https://code.djangoproject.com/ticket/32340)). Or use [input type="date"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date).
+- For Number fields, consider whether `input type="number"` really is appropriate, or whether there may be [better alternatives such as inputmode](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/).
+    > > > > > > > e242be4b0d (Auto-format Markdown documentation with Prettier)
 
 Make sure to test your forms’ implementation with assistive technologies, and review [official W3C guidance on accessible forms development](https://www.w3.org/WAI/tutorials/forms/) for further information.
 
@@ -126,15 +135,15 @@ The checker is based on the [Axe](https://github.com/dequelabs/axe-core) testing
 
 By default, the checker includes the following rules to find common accessibility issues in authored content:
 
--   `button-name`: `<button>` elements must always have a text label.
--   `empty-heading`: This rule checks for headings with no text content. Empty headings are confusing to screen readers users and should be avoided.
--   `empty-table-header`: Table header text should not be empty
--   `frame-title`: `<iframe>` elements must always have a text label.
--   `heading-order`: This rule checks for incorrect heading order. Headings should be ordered in a logical and consistent manner, with the main heading (h1) followed by subheadings (h2, h3, etc.).
--   `input-button-name`: `<input>` button elements must always have a text label.
--   `link-name`: `<a>` link elements must always have a text label.
--   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
--   `alt-text-quality`: A custom rule ensures that image alt texts don't contain anti-patterns like file extensions and underscores.
+- `button-name`: `<button>` elements must always have a text label.
+- `empty-heading`: This rule checks for headings with no text content. Empty headings are confusing to screen readers users and should be avoided.
+- `empty-table-header`: Table header text should not be empty
+- `frame-title`: `<iframe>` elements must always have a text label.
+- `heading-order`: This rule checks for incorrect heading order. Headings should be ordered in a logical and consistent manner, with the main heading (h1) followed by subheadings (h2, h3, etc.).
+- `input-button-name`: `<input>` button elements must always have a text label.
+- `link-name`: `<a>` link elements must always have a text label.
+- `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
+- `alt-text-quality`: A custom rule ensures that image alt texts don't contain anti-patterns like file extensions and underscores.
 
 To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
@@ -222,7 +231,7 @@ class CustomAccessibilityItem(AccessibilityItem):
                 "help_text": _("Link text should describe the link destination."),
             },
         }
-    
+
    class Media:
         js = (
             "js/custom-checks.js",
@@ -380,8 +389,8 @@ Note that `prefers-reduced-motion` is only applied for users who enabled this se
 
 We focus on considerations specific to Wagtail websites, but there is much more to accessibility. Here are valuable resources to learn more, for developers but also designers and authors:
 
--   [W3C Accessibility Fundamentals](https://www.w3.org/WAI/fundamentals/)
--   [The A11Y Project](https://www.a11yproject.com/)
--   [US GSA – Accessibility for Teams](https://accessibility.digital.gov/)
--   [UK GDS – Dos and don’ts on designing for accessibility](https://accessibility.blog.gov.uk/2016/09/02/dos-and-donts-on-designing-for-accessibility/)
--   [Accessibility Developer Guide](https://www.accessibility-developer-guide.com/)
+- [W3C Accessibility Fundamentals](https://www.w3.org/WAI/fundamentals/)
+- [The A11Y Project](https://www.a11yproject.com/)
+- [US GSA – Accessibility for Teams](https://accessibility.digital.gov/)
+- [UK GDS – Dos and don’ts on designing for accessibility](https://accessibility.blog.gov.uk/2016/09/02/dos-and-donts-on-designing-for-accessibility/)
+- [Accessibility Developer Guide](https://www.accessibility-developer-guide.com/)

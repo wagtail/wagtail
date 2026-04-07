@@ -40,8 +40,8 @@ Wagtail also provides a command for rebuilding the index from scratch.
 
 It is recommended to run this command once a week and at the following times:
 
--   whenever any pages have been created through a script (after an import, for example)
--   whenever any changes have been made to models or search configuration
+- whenever any pages have been created through a script (after an import, for example)
+- whenever any changes have been made to models or search configuration
 
 The search may not return any results while this command is running, so avoid running it at peak times.
 
@@ -91,7 +91,7 @@ These are used for performing full-text searches on your models, usually for tex
 
 #### Options
 
--   **boost** (`int/float`) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
+- **boost** (`int/float`) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
 
     ```{note}
     The PostgresSQL full-text search only supports [four weight levels (A, B, C, D)](https://www.postgresql.org/docs/current/textsearch-features.html).
@@ -104,7 +104,7 @@ These are used for performing full-text searches on your models, usually for tex
     Boost values above each threshold will be treated with the respective weight.
     ```
 
--   **es_extra** (`dict`) - This field is to allow the developer to set or override any setting on the field in the Elasticsearch mapping. Use this if you want to make use of any Elasticsearch features that are not yet supported in Wagtail.
+- **es_extra** (`dict`) - This field is to allow the developer to set or override any setting on the field in the Elasticsearch mapping. Use this if you want to make use of any Elasticsearch features that are not yet supported in Wagtail.
 
 (wagtailsearch_index_autocompletefield)=
 

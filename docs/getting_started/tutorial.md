@@ -42,14 +42,19 @@ py -m venv mysite\env
 Activate this virtual environment using:
 
 _For Command Prompt (cmd.exe):_
+
 ```doscon
 mysite\env\Scripts\activate.bat
 ```
+
 _For PowerShell:_
+
 ```doscon
 .\mysite\env\Scripts\Activate.ps1
 ```
+
 _If the above do not work, try:_
+
 ```doscon
 mysite\env\Scripts\activate
 ```
@@ -868,8 +873,8 @@ Run `python manage.py makemigrations` and `python manage.py migrate`.
 
 The changes you made can be summarized as follows:
 
--   New `modelcluster` and `taggit` imports
--   Addition of a new `BlogPageTag` model, and a `tags` field on `BlogPage`.
+- New `modelcluster` and `taggit` imports
+- Addition of a new `BlogPageTag` model, and a `tags` field on `BlogPage`.
 
 Edit one of your `BlogPage` instances, and you should now be able to tag posts:
 
@@ -964,7 +969,7 @@ Thank you for reading and welcome to the Wagtail community!
 
 ## Where next
 
--   Read our [full tutorial](../tutorial/index.md) to transform your blog site into a fully deployable portfolio site.
--   Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation
--   Learn how to implement [StreamField](../topics/streamfield) for freeform page content
--   Browse through the [advanced topics](../advanced_topics/index) section and read [third-party tutorials](../advanced_topics/third_party_tutorials)
+- Read our [full tutorial](../tutorial/index.md) to transform your blog site into a fully deployable portfolio site.
+- Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation
+- Learn how to implement [StreamField](../topics/streamfield) for freeform page content
+- Browse through the [advanced topics](../advanced_topics/index) section and read [third-party tutorials](../advanced_topics/third_party_tutorials)

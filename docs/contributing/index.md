@@ -42,9 +42,9 @@ We welcome code reviews from everyone, although a core team member will need to 
 
 We welcome help with triaging issues and pull requests. You can help by:
 
--   Adding more details or your own perspective to bug reports or feature requests.
--   Attempting to reproduce issues tagged [status:Unconfirmed](https://github.com/wagtail/wagtail/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Astatus%3AUnconfirmed) and sharing your findings.
--   Reviewing or otherwise offering your feedback on pull requests.
+- Adding more details or your own perspective to bug reports or feature requests.
+- Attempting to reproduce issues tagged [status:Unconfirmed](https://github.com/wagtail/wagtail/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Astatus%3AUnconfirmed) and sharing your findings.
+- Reviewing or otherwise offering your feedback on pull requests.
 
 View our [issue tracking guidelines](issue_tracking) for more information.
 
@@ -58,26 +58,26 @@ We’d love to get feedback on the accessibility of Wagtail. Get in touch with o
 
 There are many more ways to contribute to the Wagtail community, through code or otherwise:
 
--   Contribute to one of the other [core Wagtail projects](https://github.com/orgs/wagtail/repositories) in GitHub.
--   Contribute to one of the community-maintained packages on [Wagtail Nest](https://github.com/wagtail-nest/).
--   Contribute user-facing documentation (including translations) on the [Wagtail guide](https://guide.wagtail.org/en-latest/contributing/).
--   Star the [wagtail](https://github.com/wagtail/wagtail) project on GitHub
--   Support others with answers to questions on the [Wagtail StackOverflow topic](https://stackoverflow.com/questions/tagged/wagtail) or in Slack `#support`.
--   Write a review of [Wagtail on G2](https://www.g2.com/products/wagtail/reviews).
--   Provide some thoughtful feedback on the [Wagtail discussions](https://github.com/wagtail/wagtail/discussions).
--   Submit (or write) a tutorial or great package to the [This Week in Wagtail newsletter](https://wagtail.org/newsletter/), [Awesome Wagtail](https://github.com/springload/awesome-wagtail) or [](../advanced_topics/third_party_tutorials).
+- Contribute to one of the other [core Wagtail projects](https://github.com/orgs/wagtail/repositories) in GitHub.
+- Contribute to one of the community-maintained packages on [Wagtail Nest](https://github.com/wagtail-nest/).
+- Contribute user-facing documentation (including translations) on the [Wagtail guide](https://guide.wagtail.org/en-latest/contributing/).
+- Star the [wagtail](https://github.com/wagtail/wagtail) project on GitHub
+- Support others with answers to questions on the [Wagtail StackOverflow topic](https://stackoverflow.com/questions/tagged/wagtail) or in Slack `#support`.
+- Write a review of [Wagtail on G2](https://www.g2.com/products/wagtail/reviews).
+- Provide some thoughtful feedback on the [Wagtail discussions](https://github.com/wagtail/wagtail/discussions).
+- Submit (or write) a tutorial or great package to the [This Week in Wagtail newsletter](https://wagtail.org/newsletter/), [Awesome Wagtail](https://github.com/springload/awesome-wagtail) or [](../advanced_topics/third_party_tutorials).
 
 ## Developing packages for Wagtail
 
 If you are developing packages for Wagtail, you can add the following [PyPI](https://pypi.org/) classifiers:
 
--   [`Framework :: Wagtail`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail)
--   [`Framework :: Wagtail :: 1`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+1)
--   [`Framework :: Wagtail :: 2`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+2)
--   [`Framework :: Wagtail :: 3`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+3)
--   [`Framework :: Wagtail :: 4`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+4)
--   [`Framework :: Wagtail :: 5`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+5)
--   [`Framework :: Wagtail :: 6`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+6)
+- [`Framework :: Wagtail`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail)
+- [`Framework :: Wagtail :: 1`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+1)
+- [`Framework :: Wagtail :: 2`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+2)
+- [`Framework :: Wagtail :: 3`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+3)
+- [`Framework :: Wagtail :: 4`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+4)
+- [`Framework :: Wagtail :: 5`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+5)
+- [`Framework :: Wagtail :: 6`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+6)
 
 You can also find a curated list of awesome packages, articles, and other cool resources from the Wagtail community at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 

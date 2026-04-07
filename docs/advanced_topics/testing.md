@@ -218,9 +218,9 @@ def test_content_page_subpages(self):
 
 If you want to create page objects within tests, you will need to go through some steps before actually creating the page you want to test.
 
--   Pages can't be created directly with `MyPage.objects.create()` as you would do with a regular Django model, they need to be added as children to a parent page with `parent.add_child(instance=child)`.
--   To start the page tree, you need a root page that can be created with `Page.get_first_root_node()`.
--   You also need a `Site` set up with the correct `hostname` and a `root_page`.
+- Pages can't be created directly with `MyPage.objects.create()` as you would do with a regular Django model, they need to be added as children to a parent page with `parent.add_child(instance=child)`.
+- To start the page tree, you need a root page that can be created with `Page.get_first_root_node()`.
+- You also need a `Site` set up with the correct `hostname` and a `root_page`.
 
 ```python
 from wagtail.models import Page, Site

@@ -25,7 +25,6 @@ If your bug report is a security issue, **do not** report it with an issue. Plea
 
 Please don't use the issue tracker for support queries - use [the 'wagtail' tag on Stack Overflow](https://stackoverflow.com/questions/tagged/wagtail) (preferred) or the [#support channel](https://github.com/wagtail/wagtail/wiki/Slack#support) on the [Wagtail Slack](https://github.com/wagtail/wagtail/wiki/Slack).
 
-
 ## Translations
 
 Please submit any new or improved translations through [Transifex](https://explore.transifex.com/torchbox/wagtail/) rather than through pull requests - see [Translations](https://docs.wagtail.org/en/latest/contributing/translations.html).

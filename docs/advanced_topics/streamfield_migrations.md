@@ -210,9 +210,9 @@ class Migration(migrations.Migration):
 
 Wagtail provides a set of utilities for creating data migrations on StreamField data. These are exposed through the modules:
 
--   `wagtail.blocks.migrations.migrate_operation`
--   `wagtail.blocks.migrations.operations`
--   `wagtail.blocks.migrations.utils`
+- `wagtail.blocks.migrations.migrate_operation`
+- `wagtail.blocks.migrations.operations`
+- `wagtail.blocks.migrations.utils`
 
 ```{note}
    An add-on package [wagtail-streamfield-migration-toolkit](https://github.com/wagtail/wagtail-streamfield-migration-toolkit) is available, additionally providing limited support for auto-generating migrations.
@@ -228,8 +228,8 @@ Generally, data migrations are performed manually by making an empty migration f
 
 To reduce boilerplate, and the potential for errors, `wagtail.blocks.migrations` provides the following:
 
--   utilities to recurse through stream data structures and apply changes; and
--   operations for common use cases like renaming, removing and altering values of blocks.
+- utilities to recurse through stream data structures and apply changes; and
+- operations for common use cases like renaming, removing and altering values of blocks.
 
 (streamfield_migration_basic_usage)=
 
@@ -442,10 +442,10 @@ Then if we want to match "char1", which is a child of the StructBlock which is t
 
 The following operations are available for renaming and removing blocks.
 
--   [RenameStreamChildrenOperation](rename_stream_children_operation)
--   [RenameStructChildrenOperation](rename_struct_children_operation)
--   [RemoveStreamChildrenOperation](remove_stream_children_operation)
--   [RemoveStructChildrenOperation](remove_struct_children_operation)
+- [RenameStreamChildrenOperation](rename_stream_children_operation)
+- [RenameStructChildrenOperation](rename_struct_children_operation)
+- [RemoveStreamChildrenOperation](remove_stream_children_operation)
+- [RemoveStructChildrenOperation](remove_struct_children_operation)
 
 Note that all of these operations operate on the value of the parent block of the block which must be removed or renamed. Hence make sure that the block path you are passing points to the parent block when using these operations (see the example in [basic usage](streamfield_migration_basic_usage)).
 
@@ -453,9 +453,9 @@ Note that all of these operations operate on the value of the parent block of th
 
 The following operations allow you to alter the structure of blocks in certain ways.
 
--   [](stream_children_to_list_block_operation): operates on the value of a `StreamBlock`. Combines all child blocks of type `block_name` as children of a single ListBlock which is a child of the parent `StreamBlock`.
--   [](stream_children_to_stream_block_operation): operates on the value of a `StreamBlock`. Note that `block_names` here is a list of block types and not a single block type unlike `block_name` in the previous operation. Combines each child block of a type in `block_names` as children of a single `StreamBlock` which is a child of the parent `StreamBlock`.
--   [](stream_children_to_struct_block_operation): moves each `StreamBlock` child of the given type inside a new `StructBlock`
+- [](stream_children_to_list_block_operation): operates on the value of a `StreamBlock`. Combines all child blocks of type `block_name` as children of a single ListBlock which is a child of the parent `StreamBlock`.
+- [](stream_children_to_stream_block_operation): operates on the value of a `StreamBlock`. Note that `block_names` here is a list of block types and not a single block type unlike `block_name` in the previous operation. Combines each child block of a type in `block_names` as children of a single `StreamBlock` which is a child of the parent `StreamBlock`.
+- [](stream_children_to_struct_block_operation): moves each `StreamBlock` child of the given type inside a new `StructBlock`
 
 A new `StructBlock` will be created as a child of the parent `StreamBlock` for each child block of the given type, and then that child block will be moved from the parent `StreamBlock`'s children inside the new `StructBlock` as a child of that `StructBlock`.
 
@@ -498,7 +498,7 @@ Block ids are not preserved here since the new blocks are structurally different
 
 #### Other operations
 
--   [](alter_block_value_operation)
+- [](alter_block_value_operation)
 
 (custom_streamfield_migration_operations)=
 
@@ -508,10 +508,10 @@ Block ids are not preserved here since the new blocks are structurally different
 
 While this package comes with a set of operations for common use cases, there may be many instances where you need to define your own operation for mapping data. Making a custom operation is fairly straightforward. All you need to do is extend the `BaseBlockOperation` class and define the required methods,
 
--   `apply`  
-    This applies the actual changes to the existing block value and returns the new block value.
--   `operation_name_fragment`  
-    (`@property`) Returns a name to be used for generating migration names.
+- `apply`  
+  This applies the actual changes to the existing block value and returns the new block value.
+- `operation_name_fragment`  
+  (`@property`) Returns a name to be used for generating migration names.
 
 (**NOTE:** `BaseBlockOperation` inherits from `abc.ABC`, so all of the required methods
 mentioned above have to be defined on any class inheriting from it.)
