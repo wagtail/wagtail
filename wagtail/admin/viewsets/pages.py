@@ -98,6 +98,12 @@ class PageViewSet(PageListingViewSet):
     def get_view_by_name(self, name):
         return self.views[name]
 
+    @cached_property
+    def parent_model(self):
+        if self.model is Page:
+            return Page
+        return None
+
     def get_url_name(self, view_name):
         """
         Unused. URL names are shared across all page types and are defined
@@ -116,10 +122,14 @@ class PageViewSet(PageListingViewSet):
     def on_register(self):
         """Register the viewset to the global page viewset registry."""
         super().on_register()
-        page_viewset_registry.register(self.model, self)
+        page_viewset_registry.register(self.model, self, parent_model=self.parent_model)
 
 
 class PageViewSetRegistry(ObjectTypeRegistry):
+    def __init__(self):
+        super().__init__()
+        self.values_by_parent_model = {}
+
     def get_content_type_id_by_page_id(self, page_id):
         return (
             Page.objects.filter(pk=page_id)
@@ -131,6 +141,13 @@ class PageViewSetRegistry(ObjectTypeRegistry):
         # A stale content type's model_class() returns None, fall back to base Page.
         return ContentType.objects.get_for_id(content_type_id).model_class() or Page
 
+    def get_by_parent_model(self, cls):
+        for ancestor in cls.mro():
+            try:
+                return self.values_by_parent_model[ancestor]
+            except KeyError:
+                pass
+
     def get_by_page_id(self, page_id):
         """Get a viewset by the page ID whose model is registered."""
         # Only fetch the content type ID to optimise the query, as the full page
@@ -139,7 +156,20 @@ class PageViewSetRegistry(ObjectTypeRegistry):
         model = self.get_page_model_by_content_type_id(content_type_id)
         return self.get_by_type(model)
 
-    def as_view(self, view_name, page_id_kwarg):
+    def get_by_parent_page_id(self, parent_page_id):
+        """Get a viewset by the parent page ID whose model is registered."""
+        # Only fetch the content type ID to optimise the query, as the full page
+        # instance will be fetched later by the view itself.
+        content_type_id = self.get_content_type_id_by_page_id(parent_page_id)
+        model = self.get_page_model_by_content_type_id(content_type_id)
+        return self.get_by_parent_model(model)
+
+    def register(self, cls, value=None, exact_class=False, parent_model=None):
+        super().register(cls, value, exact_class)
+        if parent_model:
+            self.values_by_parent_model[parent_model] = value
+
+    def as_view(self, view_name, parent_page_id_kwarg):
         """
         Create a view function that routes to the appropriate view based on the
         model of the page being accessed.
@@ -150,7 +180,7 @@ class PageViewSetRegistry(ObjectTypeRegistry):
 
         def view_router(request, *args, **kwargs):
             try:
-                viewset = self.get_by_page_id(kwargs.get(page_id_kwarg))
+                viewset = self.get_by_parent_page_id(kwargs.get(parent_page_id_kwarg))
             except ObjectDoesNotExist as e:
                 # Page or ContentType not found
                 raise Http404 from e

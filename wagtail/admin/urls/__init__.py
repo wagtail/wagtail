@@ -36,12 +36,15 @@ urlpatterns = [
     ),
     path(
         "pages/<int:parent_page_id>/",
-        page_viewset_registry.as_view("index", page_id_kwarg="parent_page_id"),
+        page_viewset_registry.as_view("index", parent_page_id_kwarg="parent_page_id"),
         name="wagtailadmin_explore",
     ),
     path(
         "pages/<int:parent_page_id>/results/",
-        page_viewset_registry.as_view("index_results", page_id_kwarg="parent_page_id"),
+        page_viewset_registry.as_view(
+            "index_results",
+            parent_page_id_kwarg="parent_page_id",
+        ),
         name="wagtailadmin_explore_results",
     ),
     # bulk actions

@@ -354,15 +354,16 @@ class EventPageListingViewSet(PageListingViewSet):
 event_page_listing_viewset = EventPageListingViewSet("event_pages")
 
 
-class EventIndexPageViewSet(PageViewSet):
-    model = EventIndex
+class EventPageViewSet(PageViewSet):
+    model = EventPage
+    parent_model = EventIndex
     icon = "calendar"
     columns = PageViewSet.index_view_class.columns.copy()
     columns.insert(-1, Column("audience", label="Audience", sort_key="audience"))
     filterset_class = EventPageFilterSet
 
 
-event_index_page_viewset = EventIndexPageViewSet()
+event_page_viewset = EventPageViewSet()
 
 
 class PlayView(View):

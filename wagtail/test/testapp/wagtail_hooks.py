@@ -45,8 +45,8 @@ from wagtail.test.testapp.views import (
     ToyViewSetGroup,
     advert_chooser_viewset,
     animated_advert_chooser_viewset,
-    event_index_page_viewset,
     event_page_listing_viewset,
+    event_page_viewset,
     opera_viewset,
 )
 
@@ -447,8 +447,8 @@ def register_event_page_listing_viewset():
 
 
 @hooks.register("register_admin_viewset")
-def register_event_index_page_viewset():
-    return event_index_page_viewset
+def register_event_page_viewset():
+    return event_page_viewset
 
 
 @hooks.register("register_admin_viewset")
