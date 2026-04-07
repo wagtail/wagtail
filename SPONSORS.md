@@ -53,3 +53,5 @@ The features below were developed thanks to the sponsorship of these organisatio
 -   Page editor redesign - [Google](https://google.com/)
 
 -   StreamField rich text block splitter - [The Motley Fool](https://www.fool.com/)
+
+-   Preview compatibility for cookie-based sessions - [Personalkollen](https://personalkollen.se/)
