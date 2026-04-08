@@ -290,8 +290,9 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
             )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/headers/_actions.html")
         self.assertTemplateUsed(
-            response, "wagtailadmin/pages/listing/_page_header_buttons.html"
+            response, "wagtailadmin/shared/button_with_dropdown.html"
         )
 
         self.assertContains(response, "Another useless header button")

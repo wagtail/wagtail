@@ -24,6 +24,7 @@ from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
+from wagtail.admin.ui.menus.pages import get_page_header_buttons
 from wagtail.admin.ui.side_panels import (
     ChecksSidePanel,
     CommentsSidePanel,
@@ -1057,6 +1058,18 @@ class EditView(
             lock=self.lock,
             locked_for_user=self.locked_for_user,
         )
+
+    @cached_property
+    def header_more_buttons(self):
+        next_url = self.request.path
+        buttons = get_page_header_buttons(
+            page=self.page,
+            user=self.request.user,
+            next_url=next_url,
+            view_name="edit",
+        )
+        buttons.extend(super().header_more_buttons)
+        return buttons
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
