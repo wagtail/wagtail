@@ -1140,6 +1140,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 target=alias_updated, exclude=exclude_fields
             )
 
+            # A translation of the page will have the same translation key
+            # An alias of a translation (which is also an alias) will have a
+            # different translation key
+            alias_is_translation = alias.translation_key == self.translation_key
+
             # Process child objects
             # This has two jobs:
             #  - If the alias is in a different locale, this updates the
@@ -1148,7 +1153,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             #    changes the translation_key field of all child objects
             #    so they do not clash
             if child_object_map:
-                alias_is_translation = alias.translation_key == self.translation_key
 
                 def process_child_object(child_object):
                     if isinstance(child_object, TranslatableMixin):
@@ -1173,9 +1177,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 specific_self, alias_updated, exclude_fields=exclude_fields
             )
 
-            # Don't change the aliases slug
+            # Don't change the aliases slug if it is not a translation
             # Aliases can have their own slugs so they can be siblings of the original
-            alias_updated.slug = alias.slug
+            # Translations should have their slug updated to match the original
+            if not alias_is_translation:
+                alias_updated.slug = alias.slug
             alias_updated.set_url_path(alias_updated.get_parent())
 
             # Aliases don't have revisions, so update fields that would normally be updated by save_revision
