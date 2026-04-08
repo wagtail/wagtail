@@ -129,13 +129,38 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertContains(response, f'href="{expected_new_page_copy_url}"')
 
+        # There should be a fragment to update the header buttons and it should
+        # retain the existing buttons. This is not very useful for the default
+        # view, but can be used by custom views to ensure export buttons have
+        # their URLs updated with the current filters applied.
         soup = self.get_soup(response.content)
         header_buttons = soup.select_one(
             'template[data-controller="w-teleport"]'
             '[data-w-teleport-target-value="#w-slim-header-buttons"]'
             '[data-w-teleport-mode-value="innerHTML"]'
         )
-        self.assertIsNone(header_buttons)
+        self.assertIsNotNone(header_buttons)
+        add_button = header_buttons.select_one(":is(template > a)")
+        self.assertIsNotNone(add_button)
+        self.assertEqual(
+            add_button.get("href"),
+            reverse("wagtailadmin_pages:add_subpage", args=(self.root_page.id,)),
+        )
+        self.assertEqual(add_button.get("aria-label"), "Add child page")
+        buttons = header_buttons.select('[data-w-dropdown-target="content"] a')
+        self.assertEqual(len(buttons), 7)
+        self.assertEqual(
+            [button.text.strip() for button in buttons],
+            [
+                "Edit",
+                "Move",
+                "Copy",
+                "Delete",
+                "Unpublish",
+                "History",
+                "Sort menu order",
+            ],
+        )
 
         self.assertContains(response, "1-3 of 3")
 
@@ -865,7 +890,28 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             '[data-w-teleport-target-value="#w-slim-header-buttons"]'
             '[data-w-teleport-mode-value="innerHTML"]'
         )
-        self.assertIsNone(header_buttons)
+        self.assertIsNotNone(header_buttons)
+        add_button = header_buttons.select_one(":is(template > a)")
+        self.assertIsNotNone(add_button)
+        self.assertEqual(
+            add_button.get("href"),
+            reverse("wagtailadmin_pages:add_subpage", args=(self.root_page.id,)),
+        )
+        self.assertEqual(add_button.get("aria-label"), "Add child page")
+        buttons = header_buttons.select('[data-w-dropdown-target="content"] a')
+        self.assertEqual(len(buttons), 7)
+        self.assertEqual(
+            [button.text.strip() for button in buttons],
+            [
+                "Edit",
+                "Move",
+                "Copy",
+                "Delete",
+                "Unpublish",
+                "History",
+                "Sort menu order",
+            ],
+        )
 
     def test_filter_by_owner(self):
         barry = self.create_user(

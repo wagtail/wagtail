@@ -20,6 +20,7 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.menus.pages import get_page_header_buttons
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
 )
@@ -34,6 +35,7 @@ from wagtail.admin.ui.tables.pages import (
     ParentPageColumn,
 )
 from wagtail.admin.views import generic
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.models import Page, PageLogEntry, Site, get_page_content_types
 from wagtail.permissions import page_permission_policy
 
@@ -320,6 +322,8 @@ class ExplorableIndexView(IndexView):
     index_url_name = "wagtailadmin_explore"
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
+    add_item_label = _("Add child page")
+    add_url_name = "wagtailadmin_pages:add_subpage"
     # This is not a real field on the model, but it allows reuse of ordering
     # logic from generic IndexView
     sort_order_field = "ord"
@@ -355,6 +359,7 @@ class ExplorableIndexView(IndexView):
 
         self.parent_page = self.parent_page.specific
         self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
+        self.permissions = self.parent_page.permissions_for_user(self.request.user)
 
         if self.i18n_enabled and not self.parent_page.is_root():
             self.locale = self.parent_page.locale
@@ -374,6 +379,30 @@ class ExplorableIndexView(IndexView):
     @cached_property
     def show_locale_labels(self):
         return self.i18n_enabled and self.parent_page.is_root()
+
+    @cached_property
+    def add_button(self):
+        if self.add_url:
+            return HeaderButton(
+                self.add_item_label,
+                url=self.add_url,
+                icon_name="plus",
+                icon_only=True,  # Only so much space in the header
+            )
+
+    @cached_property
+    def header_more_buttons(self):
+        next_url = self.request.path
+        # Get header buttons from hooks
+        buttons = get_page_header_buttons(
+            page=self.parent_page,
+            user=self.request.user,
+            next_url=next_url,
+            view_name="index",
+        )
+        # Include any buttons from the superclass, e.g. export buttons
+        buttons.extend(super().header_more_buttons)
+        return buttons
 
     def get_base_queryset(self):
         if self.is_searching or self.is_filtering:
@@ -409,9 +438,12 @@ class ExplorableIndexView(IndexView):
     def get_index_results_url(self):
         return reverse(self.index_results_url_name, args=[self.parent_page.id])
 
+    def get_add_url(self):
+        if self.permissions.can_add_subpage():
+            return reverse(self.add_url_name, args=[self.parent_page.id])
+
     def get_history_url(self):
-        permissions = self.parent_page.permissions_for_user(self.request.user)
-        if permissions.can_view_revisions():
+        if self.permissions.can_view_revisions():
             return reverse("wagtailadmin_pages:history", args=[self.parent_page.id])
 
     def get_reorder_url(self):

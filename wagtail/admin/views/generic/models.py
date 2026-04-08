@@ -342,13 +342,7 @@ class IndexView(
     def header_buttons(self):
         buttons = []
         if self.add_url:
-            buttons.append(
-                HeaderButton(
-                    self.add_item_label,
-                    url=self.add_url,
-                    icon_name="plus",
-                )
-            )
+            buttons.append(self.add_button)
         return buttons
 
     @cached_property
@@ -357,6 +351,14 @@ class IndexView(
         if self.reorder_button:
             buttons.append(self.reorder_button)
         return buttons
+
+    @cached_property
+    def add_button(self):
+        return HeaderButton(
+            self.add_item_label,
+            url=self.add_url,
+            icon_name="plus",
+        )
 
     @cached_property
     def reorder_button(self):

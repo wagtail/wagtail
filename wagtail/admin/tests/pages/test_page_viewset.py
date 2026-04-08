@@ -230,6 +230,38 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
             [page.audience for page in pages],
             ["private", "private"],
         )
+        soup = self.get_soup(response.content)
+        header_buttons_fragment = soup.select_one(
+            'template[data-controller="w-teleport"]'
+            '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+            '[data-w-teleport-mode-value="innerHTML"]'
+        )
+        self.assertIsNotNone(header_buttons_fragment)
+        buttons = header_buttons_fragment.select('[data-w-dropdown-target="content"] a')
+        # Check that download links preserve the current filters, and buttons
+        # from the register_page_header_buttons hook are also shown
+        self.assertLess(
+            {
+                f"{self.results_url}?audience=private&export=xlsx",
+                f"{self.results_url}?audience=private&export=csv",
+            },
+            {btn["href"] for btn in buttons},
+        )
+        self.assertEqual(len(buttons), 9)
+        self.assertEqual(
+            [button.text.strip() for button in buttons],
+            [
+                "Edit",
+                "Move",
+                "Copy",
+                "Delete",
+                "Unpublish",
+                "History",
+                "Sort menu order",
+                "Download XLSX",
+                "Download CSV",
+            ],
+        )
 
     def test_default_order_by_date_from(self):
         new_page = EventPage(
