@@ -1,5 +1,6 @@
 import datetime
 import re
+import warnings
 from urllib.parse import urljoin, urlsplit
 
 from django import template
@@ -58,6 +59,7 @@ from wagtail.models import (
     PageViewRestriction,
 )
 from wagtail.users.utils import get_gravatar_url
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 register = template.Library()
 
@@ -478,6 +480,11 @@ def page_listing_buttons(context, page, user, next_url=None):
     "wagtailadmin/pages/listing/_page_header_buttons.html", takes_context=True
 )
 def page_header_buttons(context, page, user, view_name):
+    warnings.warn(
+        "`{% page_header_buttons %}` tag is deprecated. "
+        "Use the `register_page_header_buttons` hook instead.",
+        category=RemovedInWagtail80Warning,
+    )
     next_url = context["request"].path
     buttons = get_page_header_buttons(page, user, next_url, view_name)
     buttons.sort()

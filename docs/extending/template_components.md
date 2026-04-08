@@ -101,6 +101,8 @@ class WelcomePanel(Component):
         }
 ```
 
+(using_template_components_in_templates)=
+
 ## Using components on your own templates
 
 The `wagtailadmin_tags` tag library provides a `{% component %}` tag for including components on a template. This takes care of passing context variables from the calling template to the component (which would not be the case for a basic `{{ ... }}` variable tag). For example, given the view:
