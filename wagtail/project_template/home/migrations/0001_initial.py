@@ -1,5 +1,5 @@
 from django.db import migrations, models
-
+import wagtail.fields
 
 class Migration(migrations.Migration):
 
@@ -21,6 +21,11 @@ class Migration(migrations.Migration):
                         serialize=False,
                         to="wagtailcore.Page",
                     ),
+                ),
+                (
+                    "body",
+                    wagtail.fields.RichTextField(blank=True),
+                
                 ),
             ],
             options={
