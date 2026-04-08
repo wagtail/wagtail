@@ -70,14 +70,6 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     model = Page
     pk_url_kwarg = "page_id"
     permission_policy = page_permission_policy
-    any_permission_required = {
-        "add",
-        "change",
-        "publish",
-        "bulk_delete",
-        "lock",
-        "unlock",
-    }
     history_url_name = "wagtailadmin_pages:history"
     history_results_url_name = "wagtailadmin_pages:history_results"
     edit_url_name = "wagtailadmin_pages:edit"
@@ -87,7 +79,13 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     revisions_unschedule_url_name = "wagtailadmin_pages:revisions_unschedule"
 
     def get_object(self):
-        return get_object_or_404(Page, id=self.pk).specific
+        page = get_object_or_404(self.model, id=self.pk).specific
+
+        perms = page.permissions_for_user(self.request.user)
+        if not (perms.can_publish() or perms.can_edit()):
+            raise PermissionDenied
+
+        return page
 
     def get_page_subtitle(self):
         return self.object.get_admin_display_title()
