@@ -336,7 +336,7 @@ class EventPageFilterSet(PageListingViewSet.filterset_class):
 
 
 class EventPageIndexView(PageListingViewSet.index_view_class):
-    list_export = ["pk", "title", "audience", "event_date"]
+    list_export = ["pk", "title", "audience", "date_from"]
 
 
 class EventPageListingViewSet(PageListingViewSet):
@@ -361,6 +361,7 @@ class EventPageViewSet(PageViewSet):
     list_display = PageViewSet.columns.copy()
     list_display.insert(-1, "audience")
     list_filter = ["audience"]
+    list_export = ["pk", "title", "audience", "date_from"]
     list_per_page = 10
     ordering = ("date_from", "title")
 

@@ -323,6 +323,8 @@ class ExplorableIndexView(IndexView):
     # This is not a real field on the model, but it allows reuse of ordering
     # logic from generic IndexView
     sort_order_field = "ord"
+    # Reordering button is added via a register_page_header_buttons hook
+    reorder_button = None
     default_ordering = None
     base_filterset_class = GenericPageFilterSet
 

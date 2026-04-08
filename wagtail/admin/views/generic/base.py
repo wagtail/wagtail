@@ -76,11 +76,11 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     def get_header_buttons(self):
         buttons = sorted(self.header_buttons)
 
-        more_buttons = self.get_header_more_buttons()
-        if more_buttons:
+        self.produced_header_more_buttons = self.get_header_more_buttons()
+        if self.produced_header_more_buttons:
             buttons.append(
                 ButtonWithDropdown(
-                    buttons=more_buttons,
+                    buttons=self.produced_header_more_buttons,
                     icon_name="dots-horizontal",
                     attrs={
                         "aria-label": _("Actions"),
@@ -111,6 +111,9 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         # Breadcrumbs are enabled by default.
         context["breadcrumbs_items"] = self.get_breadcrumbs_items()
         context["header_buttons"] = self.get_header_buttons()
+        # Expose the "more" buttons list separately in the context for
+        # subclasses that want to make use of it.
+        context["header_more_buttons"] = self.produced_header_more_buttons
         return context
 
     def get_template_names(self):

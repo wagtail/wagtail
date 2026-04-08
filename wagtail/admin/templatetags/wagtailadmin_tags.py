@@ -495,6 +495,9 @@ def page_header_buttons(context, page, user, view_name):
         elif button.show:
             buttons.append(button)
 
+    if more_buttons := context.get("header_more_buttons"):
+        buttons.extend(more_buttons)
+
     buttons.sort()
     attrs = {
         # Hide the dropdown when the breadcrumbs are opened or closed, which

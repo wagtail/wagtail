@@ -354,15 +354,18 @@ class IndexView(
     @cached_property
     def header_more_buttons(self):
         buttons = super().header_more_buttons
-        if self.get_reorder_url():
-            buttons.append(
-                Button(
-                    _("Sort item order"),
-                    url=self.index_url + f"?ordering={self.sort_order_field}",
-                    icon_name="list-ul",
-                )
-            )
+        if self.reorder_button:
+            buttons.append(self.reorder_button)
         return buttons
+
+    @cached_property
+    def reorder_button(self):
+        if self.get_reorder_url():
+            return Button(
+                _("Sort item order"),
+                url=self.index_url + f"?ordering={self.sort_order_field}",
+                icon_name="list-ul",
+            )
 
     def get_list_more_buttons(self, instance):
         buttons = []

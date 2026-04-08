@@ -1,8 +1,11 @@
+import datetime
+from io import BytesIO
 from unittest import mock
 
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import isolate_apps
 from django.urls import reverse
+from openpyxl import load_workbook
 
 from wagtail.admin.viewsets.pages import PageViewSet
 from wagtail.models import Page
@@ -251,6 +254,96 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                 "2015-07-04",
             ],
         )
+
+    def test_render_export_buttons(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        dropdown = soup.select_one(
+            "#w-slim-header-buttons [data-controller='w-dropdown']"
+        )
+        self.assertIsNotNone(dropdown)
+        expected = [
+            (f"{self.url}?export=csv", "Download CSV"),
+            (f"{self.url}?export=xlsx", "Download XLSX"),
+        ]
+        for url, label in expected:
+            button = dropdown.select_one(f'a[href="{url}"]')
+            self.assertIsNotNone(button)
+            self.assertEqual(button.get_text(strip=True), label)
+
+    def test_csv_export(self):
+        cases = [
+            [
+                {"export": "csv", "ordering": "title"},
+                [
+                    "Pk,Title,Audience,Start date",
+                    "9,Ameristralia Day,public,2015-04-22",
+                    "4,Christmas,public,2014-12-25",
+                    "13,Saint Patrick,private,2014-12-25",
+                    "6,Someone Else's Event,private,2015-07-04",
+                    "5,Tentative Unpublished Event,public,2015-07-04",
+                ],
+            ],
+            [
+                {"export": "csv", "audience": "private", "ordering": "title"},
+                [
+                    "Pk,Title,Audience,Start date",
+                    "13,Saint Patrick,private,2014-12-25",
+                    "6,Someone Else's Event,private,2015-07-04",
+                ],
+            ],
+        ]
+        for params, results in cases:
+            with self.subTest(params=params):
+                response = self.client.get(self.url, params)
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(
+                    response["Content-Disposition"],
+                    'attachment; filename="spreadsheet-export.csv"',
+                )
+                data_lines = response.getvalue().decode().strip().split("\r\n")
+                self.assertEqual(data_lines, results)
+
+    def test_xlsx_export(self):
+        cases = [
+            [
+                {"export": "xlsx", "ordering": "title"},
+                [
+                    ["Pk", "Title", "Audience", "Start date"],
+                    [9, "Ameristralia Day", "public", datetime.date(2015, 4, 22)],
+                    [4, "Christmas", "public", datetime.date(2014, 12, 25)],
+                    [13, "Saint Patrick", "private", datetime.date(2014, 12, 25)],
+                    [6, "Someone Else's Event", "private", datetime.date(2015, 7, 4)],
+                    [
+                        5,
+                        "Tentative Unpublished Event",
+                        "public",
+                        datetime.date(2015, 7, 4),
+                    ],
+                ],
+            ],
+            [
+                {"export": "xlsx", "audience": "private", "ordering": "title"},
+                [
+                    ["Pk", "Title", "Audience", "Start date"],
+                    [13, "Saint Patrick", "private", datetime.date(2014, 12, 25)],
+                    [6, "Someone Else's Event", "private", datetime.date(2015, 7, 4)],
+                ],
+            ],
+        ]
+        for params, results in cases:
+            with self.subTest(params=params):
+                response = self.client.get(self.url, params)
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(
+                    response["Content-Disposition"],
+                    'attachment; filename="spreadsheet-export.xlsx"',
+                )
+                workbook_data = response.getvalue()
+                worksheet = load_workbook(filename=BytesIO(workbook_data)).active
+                data_cells = [[cell.value for cell in row] for row in worksheet.rows]
+                self.assertEqual(data_cells, results)
 
     def test_list_per_page(self):
         pages = [
