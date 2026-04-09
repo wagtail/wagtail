@@ -79,7 +79,7 @@ Even when your images have alt text coming directly from the image model, you st
 
 ### Empty heading tags
 
-In both rich text and custom StreamField blocks, it’s easy for editors to create a heading block but not add any content to it. The [built-in accessibility checker](built_in_accessibility_checker) will highlight empty headings so editors can find and fix them. If you need stricter enforcement:
+In both rich text and custom StreamField blocks, it’s easy for editors to create a heading block but not add any content to it. The [built-in content checker](built_in_content_checker) will highlight empty headings so editors can find and fix them. If you need stricter enforcement:
 
 -   Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the [StreamField](../topics/streamfield) `CharBlock` which is required by default.
 -   Consider adding similar validation rules for rich text fields.
@@ -116,11 +116,11 @@ Make sure to test your forms’ implementation with assistive technologies, and 
 
 A number of built-in tools and additional resources are available to help create accessible content.
 
-(built_in_accessibility_checker)=
+(built_in_content_checker)=
 
-### Built-in accessibility checker
+### Built-in content checker
 
-Wagtail includes an accessibility checker built into the [user bar](wagtailuserbar_tag) and editing views supporting previews. The checker can help authors create more accessible websites following best practices and accessibility standards like [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/).
+Wagtail includes an content checker built into the [user bar](wagtailuserbar_tag) and editing views supporting previews. The checker can help authors create more accessible websites following best practices and accessibility standards like [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/).
 
 The checker is based on the [Axe](https://github.com/dequelabs/axe-core) testing engine and scans the loaded page for errors.
 
@@ -136,15 +136,15 @@ By default, the checker includes the following rules to find common accessibilit
 -   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
 -   `alt-text-quality`: A custom rule ensures that image alt texts don't contain anti-patterns like file extensions and underscores.
 
-To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
+To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.ContentCheckerItem` and override the attributes to your liking. Then, swap the instance of the default `ContentCheckerItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
 For example, Axe's [`p-as-heading`](https://github.com/dequelabs/axe-core/blob/develop/lib/checks/navigation/p-as-heading.json) rule evaluates combinations of font weight, size, and italics to decide if a paragraph is acting as a heading visually. Depending on your heading styles, you might want Axe to rely only on font weight to flag short, bold paragraphs as potential headings.
 
 ```python
-from wagtail.admin.userbar import AccessibilityItem
+from wagtail.admin.userbar import ContentCheckerItem
 
 
-class CustomAccessibilityItem(AccessibilityItem):
+class CustomContentCheckerItem(ContentCheckerItem):
     def get_axe_custom_checks(self, request):
         checks = super().get_axe_custom_checks(request)
         # Flag heading-like paragraphs based only on font weight compared to surroundings.
@@ -164,10 +164,10 @@ class CustomAccessibilityItem(AccessibilityItem):
 
 
 @hooks.register('construct_wagtail_userbar')
-def replace_userbar_accessibility_item(request, items, page):
+def replace_userbar_content_checker(request, items, page):
     items[:] = [
-        CustomAccessibilityItem(in_editor=item.in_editor)
-        if isinstance(item, AccessibilityItem) else item
+        CustomContentCheckerItem(in_editor=item.in_editor)
+        if isinstance(item, ContentCheckerItem) else item
         for item in items
     ]
 ```
@@ -178,7 +178,7 @@ def replace_userbar_accessibility_item(request, items, page):
 
 You can also implement custom checks. This can be useful to enforce more advanced accessibility checks, or other best practices unrelated to accessibility. This requires configuration via hooks, and registration of any client-side check evaluation via the `window.wagtail.userbar.registerCheck` API.
 
-First, we will configure our custom `AccessibilityItem` to add this check. We need to:
+First, we will configure our custom `ContentCheckerItem` to add this check. We need to:
 
 - Add a new Axe check via `get_axe_custom_checks`.
 - Create a new rule that uses this check with `get_axe_custom_rules`.
@@ -188,9 +188,9 @@ First, we will configure our custom `AccessibilityItem` to add this check. We ne
 ```python
 # wagtail_hooks.py
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.userbar import AccessibilityItem
+from wagtail.admin.userbar import ContentCheckerItem
 
-class CustomAccessibilityItem(AccessibilityItem):
+class CustomContentCheckerItem(ContentCheckerItem):
     def get_axe_custom_checks(self, request):
         checks = super().get_axe_custom_checks(request)
         return checks + [
@@ -230,10 +230,10 @@ class CustomAccessibilityItem(AccessibilityItem):
 
 
 @hooks.register('construct_wagtail_userbar')
-def replace_userbar_accessibility_item(request, items, page):
+def replace_userbar_content_checker(request, items, page):
     items[:] = [
-        CustomAccessibilityItem(in_editor=item.in_editor)
-        if isinstance(item, AccessibilityItem) else item
+        CustomContentCheckerItem(in_editor=item.in_editor)
+        if isinstance(item, ContentCheckerItem) else item
         for item in items
     ]
 ```
@@ -266,10 +266,10 @@ The checks you run in production should be restricted to issues your content edi
 
 ```python
 from django.conf import settings
-from wagtail.admin.userbar import AccessibilityItem
+from wagtail.admin.userbar import ContentCheckerItem
 
 
-class CustomAccessibilityItem(AccessibilityItem):
+class CustomContentCheckerItem(ContentCheckerItem):
     # Run all Axe rules with these tags in the development environment
     axe_rules_in_dev = [
         "wcag2a",
@@ -294,22 +294,22 @@ class CustomAccessibilityItem(AccessibilityItem):
 
 
 @hooks.register('construct_wagtail_userbar')
-def replace_userbar_accessibility_item(request, items, page):
+def replace_userbar_content_checker(request, items, page):
     items[:] = [
-        CustomAccessibilityItem(in_editor=item.in_editor)
-        if isinstance(item, AccessibilityItem) else item
+        CustomContentCheckerItem(in_editor=item.in_editor)
+        if isinstance(item, ContentCheckerItem) else item
         for item in items
     ]
 ```
 
-The `AccessibilityItem` class accepts an `in_editor` argument, which is set to `True` when it is instantiated within the page editor. This allows you to customize the Axe configuration based on whether Axe is being run in the page editor or your site's frontend. For example, to change the [`allowedOrigins`](https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#allowedorigins) property in the Axe spec to allow cross-domain iframe communication when the accessibility checker is [loaded in a headless frontend](headless_accessibility_checker).
+The `ContentCheckerItem` class accepts an `in_editor` argument, which is set to `True` when it is instantiated within the page editor. This allows you to customize the Axe configuration based on whether Axe is being run in the page editor or your site's frontend. For example, to change the [`allowedOrigins`](https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#allowedorigins) property in the Axe spec to allow cross-domain iframe communication when the accessibility checker is [loaded in a headless frontend](headless_content_checker).
 
-#### AccessibilityItem reference
+#### ContentCheckerItem reference
 
-The following is the reference documentation for the `AccessibilityItem` class:
+The following is the reference documentation for the `ContentCheckerItem` class:
 
 ```{eval-rst}
-.. autoclass:: wagtail.admin.userbar.AccessibilityItem
+.. autoclass:: wagtail.admin.userbar.ContentCheckerItem
 
     .. autoattribute:: in_editor
     .. autoattribute:: axe_include

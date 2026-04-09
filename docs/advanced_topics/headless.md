@@ -78,7 +78,7 @@ When autosave is released in Wagtail, generating previews will likely be less of
 
 ### ✅ User bar
 
-In a cross-domain headless frontend, the [user bar](wagtailuserbar_tag) must be loaded in order to enable certain features in the page editor, such as live preview scroll restoration, the accessibility checker, and content metrics.
+In a cross-domain headless frontend, the [user bar](wagtailuserbar_tag) must be loaded in order to enable certain features in the page editor, such as live preview scroll restoration, the content checker, and content metrics.
 
 The user bar can be added to the frontend by creating a Django view that renders the user bar template, which is then loaded by the frontend. For example, the Django view could be written like the following:
 
@@ -155,19 +155,19 @@ export default function Userbar({ hidden = false }: { hidden?: boolean }) {
 }
 ```
 
-Note that authentication and authorization are not handled in this example, as they may vary (or not exist at all) depending on the frontend framework and methods used. To ease integrations with various frontends, the user bar can be rendered without authentication, but it will only show the accessibility checker and a link to the Wagtail admin dashboard. In general, you should only load the user bar if the user is meant to use it, such as in the context of a preview route.
+Note that authentication and authorization are not handled in this example, as they may vary (or not exist at all) depending on the frontend framework and methods used. To ease integrations with various frontends, the user bar can be rendered without authentication, but it will only show the content checker and a link to the Wagtail admin dashboard. In general, you should only load the user bar if the user is meant to use it, such as in the context of a preview route.
 
-(headless_accessibility_checker)=
+(headless_content_checker)=
 
-### ✅ Accessibility checker in page editor
+### ✅ Content checker in page editor
 
-In order to use the accessibility checker in the page editor, the user bar must be loaded in the frontend. If the frontend is served on a different domain than Wagtail, the [](built_in_accessibility_checker) must be customized so that Axe can securely perform cross-frame communication. This can be done by overriding the `get_axe_spec` method of the `AccessibilityItem` class, and setting the `allowedOrigins` property to the frontend URL.
+In order to use the content checker in the page editor, the user bar must be loaded in the frontend. If the frontend is served on a different domain than Wagtail, the [](built_in_content_checker) must be customized so that Axe can securely perform cross-frame communication. This can be done by overriding the `get_axe_spec` method of the `ContentCheckerItem` class, and setting the `allowedOrigins` property to the frontend URL.
 
 ```py
 from wagtail.admin.utils import get_admin_base_url
 
 
-class HeadlessAccessibilityItem(AccessibilityItem):
+class HeadlessContentCheckerItem(ContentCheckerItem):
     def get_axe_spec(self, request):
         spec = super().get_axe_spec(request)
         spec["allowedOrigins"] = [
@@ -179,10 +179,10 @@ class HeadlessAccessibilityItem(AccessibilityItem):
 
 
 @hooks.register("construct_wagtail_userbar")
-def replace_userbar_accessibility_item(request, items, page):
+def replace_userbar_content_checker(request, items, page):
     items[:] = [
-        HeadlessAccessibilityItem(in_editor=item.in_editor)
-        if isinstance(item, AccessibilityItem)
+        HeadlessContentCheckerItem(in_editor=item.in_editor)
+        if isinstance(item, ContentCheckerItem)
         else item
         for item in items
     ]

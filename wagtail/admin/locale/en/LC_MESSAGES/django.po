@@ -2663,7 +2663,7 @@ msgid "Side panel width"
 msgstr ""
 
 #: templates/wagtailadmin/shared/side_panels/checks.html:14
-#: templates/wagtailadmin/userbar/item_accessibility.html:27
+#: templates/wagtailadmin/userbar/item_content_checker.html:27
 msgid "Show issue"
 msgstr ""
 
@@ -2721,8 +2721,8 @@ msgid ""
 msgstr ""
 
 #: templates/wagtailadmin/shared/side_panels/checks.html:75
-#: templates/wagtailadmin/userbar/item_accessibility.html:6
-#: templates/wagtailadmin/userbar/item_accessibility.html:12
+#: templates/wagtailadmin/userbar/item_content_checker.html:6
+#: templates/wagtailadmin/userbar/item_content_checker.html:12
 msgid "Issues found"
 msgstr ""
 
@@ -3023,12 +3023,12 @@ msgstr ""
 msgid "View Wagtail quick actions"
 msgstr ""
 
-#: templates/wagtailadmin/userbar/item_accessibility.html:7
+#: templates/wagtailadmin/userbar/item_content_checker.html:7
 #: ui/side_panels.py:331
 msgid "Checks"
 msgstr ""
 
-#: templates/wagtailadmin/userbar/item_accessibility.html:10
+#: templates/wagtailadmin/userbar/item_content_checker.html:10
 msgid "Warnings"
 msgstr ""
 

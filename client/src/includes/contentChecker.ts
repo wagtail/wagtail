@@ -40,7 +40,7 @@ export const sortAxeViolations = (violations: Result[]) =>
 
 /**
  * Wagtail's Axe configuration object. This should reflect what's returned by
- * `wagtail.admin.userbar.AccessibilityItem.get_axe_configuration()`.
+ * `wagtail.admin.userbar.ContentCheckerItem.get_axe_configuration()`.
  */
 interface ErrorMessage {
   error_name: string;
