@@ -7,9 +7,9 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import {
   WagtailAxeConfiguration,
   addCustomChecks,
-  getA11yReport,
   getAxeConfiguration,
-  renderA11yResults,
+  getCheckerReport,
+  renderCheckerResults,
 } from '../includes/contentChecker';
 import {
   ContentExtractorOptions,
@@ -180,8 +180,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set in connect()
 
-  /** Template for rendering a row of accessibility check results. */
-  declare a11yRowTemplate: HTMLTemplateElement | null;
+  /** Template for rendering a row of content check results. */
+  declare checkerRowTemplate: HTMLTemplateElement | null;
   /** Configuration for Axe. */
   declare axeConfig: WagtailAxeConfiguration | null;
   /** Configuration for Wagtail's Axe content extractor plugin instance. */
@@ -287,7 +287,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   /**
    * Promise for the current content checks request. This resolved when both
-   * the content checks and the accessibility checks are completed. Useful for
+   * the content metrics and the Axe checks are completed. Useful for
    * queueing the checks, as Axe does not allow concurrent runs.
    */
   contentChecksPromise: Promise<void> | null = null;
@@ -367,8 +367,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
   setUpContentChecks() {
     this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
-    this.a11yRowTemplate = document.querySelector<HTMLTemplateElement>(
-      '#w-a11y-result-row-template',
+    this.checkerRowTemplate = document.querySelector<HTMLTemplateElement>(
+      '#w-content-checker-row-template',
     );
     this.checksPanel = document.querySelector<HTMLElement>(
       '[data-checks-panel]',
@@ -378,14 +378,14 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
     );
     this.checksPanelCounter = document.querySelector<HTMLElement>(
-      '[data-side-panel="checks"] [data-a11y-result-count]',
+      '[data-side-panel="checks"] [data-content-checker-count]',
     );
 
     if (
       !(
         this.checksSidePanel &&
         this.checksPanel &&
-        this.a11yRowTemplate &&
+        this.checkerRowTemplate &&
         this.axeConfig &&
         this.checksToggleCounter &&
         this.checksPanelCounter
@@ -745,7 +745,7 @@ export class PreviewController extends Controller<HTMLElement> {
     this.dispatch('loaded', { cancelable: false });
 
     // Finish the update process. Instead of calling `runChecks()` here,
-    // accessibility and content checks will be triggered by the userbar in the
+    // content metrics and checks will be triggered by the userbar in the
     // new iframe via the `w-userbar:axe-ready` message event. This ensures that
     // Axe in this window does not instruct the new iframe's Axe to immediately
     // run the checks, which might fail if it is still running the initial
@@ -846,7 +846,7 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
-   * Runs the content and accessibility checks.
+   * Runs the content metrics and checks.
    * This is called when the iframe sends a message event from the userbar
    * indicating that it has finished running the checks within itself.
    * @param event The message event from the userbar
@@ -870,7 +870,7 @@ export class PreviewController extends Controller<HTMLElement> {
     }
 
     this.contentChecksPromise = (async () => {
-      await this.runAccessibilityChecks();
+      await this.runAxeChecks();
       await this.runContentChecks();
       this.contentChecksPromise = null;
     })();
@@ -879,24 +879,21 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
-   * Runs the accessibility checks using Axe.
+   * Runs content checks using Axe.
    */
-  async runAccessibilityChecks() {
-    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig!);
+  async runAxeChecks() {
+    const { results, issueCount } = await getCheckerReport(this.axeConfig!);
 
-    this.checksToggleCounter!.textContent = a11yErrorsNumber.toString();
-    this.checksToggleCounter!.hidden = a11yErrorsNumber === 0;
-    this.checksPanelCounter!.textContent = a11yErrorsNumber.toString();
-    this.checksPanelCounter!.classList.toggle(
-      'has-errors',
-      a11yErrorsNumber > 0,
-    );
+    this.checksToggleCounter!.textContent = issueCount.toString();
+    this.checksToggleCounter!.hidden = issueCount === 0;
+    this.checksPanelCounter!.textContent = issueCount.toString();
+    this.checksPanelCounter!.classList.toggle('has-errors', issueCount > 0);
 
-    renderA11yResults(
+    renderCheckerResults(
       this.checksPanel!,
       results,
       this.axeConfig!,
-      this.a11yRowTemplate!,
+      this.checkerRowTemplate!,
       () => this.newTabTarget.click(),
     );
   }

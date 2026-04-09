@@ -247,7 +247,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
     def get_script(self):
         soup = self.get_content()
         # Should include the configuration as a JSON script with the specific id
-        return soup.find("script", id="accessibility-axe-configuration")
+        return soup.find("script", id="checker-axe-configuration")
 
     def get_config(self):
         return json.loads(self.get_script().string)
@@ -271,7 +271,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
 
         # The accessibility results dialog should be teleported to the
         # [data-wagtail-userbar] element so that it is positioned correctly
-        dialog_content = content.select_one("#accessibility-results")
+        dialog_content = content.select_one("#checker-results")
         self.assertIsNotNone(dialog_content)
         template = dialog_content.parent
         self.assertIsNotNone(template)
