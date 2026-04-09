@@ -28,16 +28,16 @@ class AdminItem(BaseItem):
     template_name = "wagtailadmin/userbar/item_admin.html"
 
 
-class AccessibilityItem(BaseItem):
-    """A userbar item that runs the accessibility checker."""
+class ContentCheckerItem(BaseItem):
+    """A userbar item that runs the content checker."""
 
     def __init__(self, in_editor=False):
         super().__init__()
         self.in_editor = in_editor
-        """Whether the accessibility checker is being run in the page editor."""
+        """Whether the content checker is being run in the page editor."""
 
     #: The template to use for rendering the item.
-    template_name = "wagtailadmin/userbar/item_accessibility.html"
+    template_name = "wagtailadmin/userbar/item_content_checker.html"
 
     #: A list of CSS selector(s) to test specific parts of the page.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
@@ -218,6 +218,16 @@ class AccessibilityItem(BaseItem):
             parent_context.get("request")
         )
         return context
+
+
+class AccessibilityItem(ContentCheckerItem):
+    def __init_subclass__(cls, **kwargs):
+        warn(
+            "The userbar item 'AccessibilityItem' is deprecated. "
+            "Please use 'ContentCheckerItem' instead.",
+            RemovedInWagtail80Warning,
+        )
+        super().__init_subclass__(**kwargs)
 
 
 class AddPageItem(BaseItem):
