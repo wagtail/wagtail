@@ -18,7 +18,7 @@ import {
   getAxeConfiguration,
   registerCustomCheck,
   renderA11yResults,
-} from './a11y-result';
+} from './contentChecker';
 import { contentExtractorPluginInstance } from './contentMetrics';
 import { wagtailPreviewPlugin } from './previewPlugin';
 

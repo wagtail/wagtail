@@ -10,7 +10,7 @@ import {
   getA11yReport,
   getAxeConfiguration,
   renderA11yResults,
-} from '../includes/a11y-result';
+} from '../includes/contentChecker';
 import {
   ContentExtractorOptions,
   getLIXScore,

@@ -6,7 +6,7 @@ import {
   getA11yReport,
   registerCustomCheck,
   sortAxeViolations,
-} from './a11y-result';
+} from './contentChecker';
 
 const mockDocument = `
 <div id="a"></div>
