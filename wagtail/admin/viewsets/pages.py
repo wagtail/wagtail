@@ -99,28 +99,34 @@ class PageViewSet(PageListingViewSet):
         return self.views[name]
 
     @cached_property
-    def parent_model(self):
+    def parent_models(self):
         """
-        The parent page model to associate in the main page explorer, so this
+        The parent page models to associate in the main page explorer, so this
         viewset's listing view will be used when exploring the parent page
-        model's children. This allows displaying, filtering, and ordering on
+        models' children. This allows displaying, filtering, and ordering on
         fields of a specific child page model in the explorer.
 
-        By default, if :attr:`Page.parent_page_types` is defined with a single
-        model, and that model also defines :attr:`Page.subpage_types` with only
-        this viewset's model, then that parent model will be used.
+        By default, if the main :attr:`model`
+        :attr:`~wagtail.models.Page.parent_page_types` is defined, this will be
+        every model in the list that also defines
+        :attr:`~wagtail.models.Page.subpage_types` with only this viewset's
+        model (or its subclasses). In other words, this will apply to this
+        viewset model's parents that only allow this viewset model (or its
+        subclasses) as children.
 
         Otherwise, the viewset's listing view customizations will not have any
         effect.
         """
         if self.model is Page:
-            return Page
-        allowed_models = self.model.allowed_parent_page_models()
-        if len(allowed_models) == 1:
-            parent_model = allowed_models[0]
-            if parent_model.allowed_subpage_models() == [self.model]:
-                return parent_model
-        return None
+            return [Page]
+        return [
+            model
+            for model in self.model.allowed_parent_page_models()
+            if all(
+                issubclass(child_model, self.model)
+                for child_model in model.allowed_subpage_models()
+            )
+        ]
 
     def get_url_name(self, view_name):
         """
@@ -140,7 +146,9 @@ class PageViewSet(PageListingViewSet):
     def on_register(self):
         """Register the viewset to the global page viewset registry."""
         super().on_register()
-        page_viewset_registry.register(self.model, self, parent_model=self.parent_model)
+        page_viewset_registry.register(
+            self.model, self, parent_models=self.parent_models
+        )
 
 
 class PageViewSetRegistry(ObjectTypeRegistry):
@@ -182,9 +190,9 @@ class PageViewSetRegistry(ObjectTypeRegistry):
         model = self.get_page_model_by_content_type_id(content_type_id)
         return self.get_by_parent_model(model)
 
-    def register(self, cls, value=None, exact_class=False, parent_model=None):
+    def register(self, cls, value=None, exact_class=False, parent_models=()):
         super().register(cls, value, exact_class)
-        if parent_model:
+        for parent_model in parent_models:
             self.values_by_parent_model[parent_model] = value
 
     def as_view(self, view_name, parent_page_id_kwarg):

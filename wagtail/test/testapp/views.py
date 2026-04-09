@@ -356,7 +356,7 @@ event_page_listing_viewset = EventPageListingViewSet("event_pages")
 
 class EventPageViewSet(PageViewSet):
     model = EventPage
-    parent_model = EventIndex
+    parent_models = [EventIndex]
     icon = "calendar"
     columns = PageViewSet.index_view_class.columns.copy()
     columns.insert(-1, Column("audience", label="Audience", sort_key="audience"))

@@ -1,21 +1,101 @@
+from unittest import mock
+
 from django.test import SimpleTestCase, TestCase
+from django.test.utils import isolate_apps
 from django.urls import reverse
 
 from wagtail.admin.viewsets.pages import PageViewSet
-from wagtail.test.testapp.models import EventIndex, SimpleChildPage, SimpleParentPage
+from wagtail.models import Page
+from wagtail.test.testapp.models import (
+    BusinessChild,
+    BusinessSubIndex,
+    EventIndex,
+    SimpleChildPage,
+    SimplePage,
+    SimpleParentPage,
+)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestPageViewSet(SimpleTestCase):
-    def test_default_parent_model(self):
-        self.assertEqual(PageViewSet().parent_model, None)
+    def test_default_parent_models(self):
+        self.assertEqual(PageViewSet(model=SimplePage).parent_models, [])
 
-    def test_default_parent_model_with_type_restrictions(self):
+    def test_default_parent_models_with_type_restrictions(self):
+        # Simple one-to-one mapping
         self.assertEqual(
-            PageViewSet(model=SimpleChildPage).parent_model,
-            SimpleParentPage,
+            PageViewSet(model=SimpleChildPage).parent_models,
+            [SimpleParentPage],
         )
+
+        # BusinessChild can exist under BusinessIndex and BusinessSubIndex.
+        # BusinessIndex can contain BusinessChild or BusinessSubIndex, and
+        # the latter is not a subclass of the former.
+        # BusinessSubIndex can only contain BusinessChild.
+        # Associating the viewset with BusinessIndex would prevent
+        # BusinessSubIndex from being shown when listing the children of
+        # BusinessIndex (as we would only query BusinessChild pages).
+        # Therefore, we only associate the viewset with BusinessSubIndex.
+        self.assertEqual(
+            PageViewSet(model=BusinessChild).parent_models,
+            [BusinessSubIndex],
+        )
+
+    @isolate_apps("wagtail.test.testapp", "wagtail", kwarg_name="apps")
+    def test_multiple_default_parent_models(self, apps):
+        # We are not under the testapp directory, so explicitly define app_label
+        class TestsMeta:
+            app_label = "tests"
+
+        class BaseChild(Page):
+            parent_page_types = ["tests.BaseParent", "tests.BaseAndSpecificParent"]
+            Meta = TestsMeta
+
+        class SpecificChild(BaseChild):
+            parent_page_types = ["tests.SpecificParent", "tests.BaseAndSpecificParent"]
+            Meta = TestsMeta
+
+        class BaseParent(Page):
+            subpage_types = [BaseChild]
+            Meta = TestsMeta
+
+        class BaseAndSpecificParent(Page):
+            subpage_types = [BaseChild, SpecificChild]
+            Meta = TestsMeta
+
+        class SpecificParent(Page):
+            subpage_types = [SpecificChild]
+            Meta = TestsMeta
+
+        # Patch the registry used for resolving model strings with the isolated version
+        with mock.patch("wagtail.coreutils.apps", apps):
+            self.assertEqual(
+                PageViewSet(model=BaseChild).parent_models,
+                [
+                    # BaseParent can only have BaseChild children, so it is included.
+                    BaseParent,
+                    # BaseAndSpecificParent can have both BaseChild and SpecificChild
+                    # children. SpecificChild pages are also BaseChild pages and thus
+                    # can be queried as BaseChild, so it is okay to use this viewset
+                    # for BaseAndSpecificParent.
+                    BaseAndSpecificParent,
+                    # SpecificParent does not allow BaseChild children.
+                ],
+            )
+            self.assertEqual(
+                PageViewSet(model=SpecificChild).parent_models,
+                [
+                    # SpecificChild can exist under SpecificParent and
+                    # SpecificParent only allows SpecificChild to exist under it.
+                    SpecificParent
+                    # Even though SpecificChild can exist under BaseAndSpecificParent,
+                    # and BaseAndSpecificParent allows SpecificChild to exist under it,
+                    # associating BaseAndSpecificParent here would prevent BaseChild
+                    # pages (that are not SpecificChild) from being displayed, so
+                    # we do not include it by default.
+                ],
+            )
 
 
 class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
