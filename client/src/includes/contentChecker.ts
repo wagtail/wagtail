@@ -60,7 +60,7 @@ export const getAxeConfiguration = (
   container: ShadowRoot | HTMLElement | null,
 ): WagtailAxeConfiguration | null => {
   const script = container?.querySelector<HTMLScriptElement>(
-    '#accessibility-axe-configuration',
+    '#checker-axe-configuration',
   );
 
   if (!script || !script.textContent) return null;
@@ -137,27 +137,27 @@ export const addCustomChecks = (spec: Spec): Spec => {
   };
 };
 
-interface A11yReport {
+interface CheckerReport {
   results: AxeResults;
-  a11yErrorsNumber: number;
+  issueCount: number;
 }
 
 /**
- * Get accessibility testing results from Axe based on the configurable custom context and options.
+ * Get content checker results from Axe based on the configurable custom context and options.
  * Before calling this function, ensure that Axe has been configured with
  * axe.configure() using the config's `spec`, along with any custom checks.
  */
-export const getA11yReport = async (
+export const getCheckerReport = async (
   config: WagtailAxeConfiguration,
-): Promise<A11yReport> => {
+): Promise<CheckerReport> => {
   // Run Axe based on the context and options defined in Python.
   const results = await axe.run(config.context, config.options);
-  const a11yErrorsNumber = results.violations.reduce(
+  const issueCount = results.violations.reduce(
     (sum, violation) => sum + violation.nodes.length,
     0,
   );
 
-  if (a11yErrorsNumber > 0) {
+  if (issueCount > 0) {
     // Help developers potentially troubleshooting userbar check results.
     // eslint-disable-next-line no-console
     console.error('axe.run results', results.violations);
@@ -165,18 +165,18 @@ export const getA11yReport = async (
 
   return {
     results,
-    a11yErrorsNumber,
+    issueCount,
   };
 };
 
 /**
- * Render A11y results based on template elements.
+ * Render content checker results based on template elements.
  */
-export const renderA11yResults = (
+export const renderCheckerResults = (
   container: HTMLElement,
   results: AxeResults,
   config: WagtailAxeConfiguration,
-  a11yRowTemplate: HTMLTemplateElement,
+  checkerRowTemplate: HTMLTemplateElement,
   onClickSelector: (selectorName: string, event: MouseEvent) => void,
 ) => {
   // Reset contents ahead of rendering new results.
@@ -187,20 +187,20 @@ export const renderA11yResults = (
     let nodeCounter = 0;
     sortedViolations.forEach((violation) => {
       violation.nodes.forEach((node) => {
-        container.appendChild(a11yRowTemplate.content.cloneNode(true));
+        container.appendChild(checkerRowTemplate.content.cloneNode(true));
 
-        const currentA11yRow = container.querySelectorAll<HTMLDivElement>(
-          '[data-a11y-result-row]',
+        const row = container.querySelectorAll<HTMLDivElement>(
+          '[data-content-checker-row]',
         )[nodeCounter];
         nodeCounter += 1;
 
-        const a11yErrorName = currentA11yRow.querySelector(
-          '[data-a11y-result-name]',
+        const errorName = row.querySelector(
+          '[data-content-checker-name]',
         ) as HTMLSpanElement;
-        const a11yErrorHelp = currentA11yRow.querySelector(
-          '[data-a11y-result-help]',
+        const errorHelp = row.querySelector(
+          '[data-content-checker-help]',
         ) as HTMLDivElement;
-        a11yErrorName.id = `w-a11y-result__name-${nodeCounter}`;
+        errorName.id = `w-content-checker__name-${nodeCounter}`;
 
         // Display custom error messages supplied by Wagtail if available,
         // fallback to default error message from Axe
@@ -209,21 +209,20 @@ export const renderA11yResults = (
         const name =
           (typeof messages === 'string' ? messages : messages?.error_name) ||
           violation.help;
-        a11yErrorName.textContent = name;
-        a11yErrorHelp.textContent =
-          messages?.help_text || violation.description;
+        errorName.textContent = name;
+        errorHelp.textContent = messages?.help_text || violation.description;
 
-        // Special-case when displaying accessibility results within the admin interface.
+        // Special-case when displaying results within the admin interface.
         const isInCMS = node.target[0] === '#w-preview-iframe';
         const selectorName = toSelector(
           node.target.filter((target) => target !== '#w-preview-iframe'),
         );
 
-        const a11ySelector = currentA11yRow.querySelector(
-          '[data-a11y-result-selector]',
+        const selector = row.querySelector(
+          '[data-content-checker-selector]',
         ) as HTMLButtonElement;
-        a11ySelector.setAttribute('aria-describedby', a11yErrorName.id);
-        a11ySelector.addEventListener(
+        selector.setAttribute('aria-describedby', errorName.id);
+        selector.addEventListener(
           'click',
           onClickSelector.bind(null, selectorName),
         );
@@ -231,8 +230,8 @@ export const renderA11yResults = (
         // Display the selector text in the CMS,
         // as a workaround until we highlight errors within the preview panel.
         if (isInCMS) {
-          const selectorText = a11ySelector.querySelector(
-            '[data-a11y-result-selector-text]',
+          const selectorText = selector.querySelector(
+            '[data-content-checker-selector-text]',
           ) as HTMLSpanElement;
           // Remove unnecessary details before displaying selectors to the user
           selectorText.textContent = selectorName.replace(
