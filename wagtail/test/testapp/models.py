@@ -439,6 +439,7 @@ class EventPage(Page):
         index.SearchField("location"),
         index.SearchField("body"),
         index.FilterField("url_path"),
+        index.FilterField("audience"),
     ]
 
     password_required_template = "tests/event_page_password_required.html"

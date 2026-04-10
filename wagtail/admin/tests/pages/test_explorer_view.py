@@ -661,16 +661,29 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
     def test_search(self):
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
-            {"q": "old"},
-        )
+        url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        response = self.client.get(url, {"q": "old"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
-        self.assertContains(response, "Search the whole site")
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_whole_tree_url = f"{url}?q=old&search_all=1"
+        search_whole_tree_link = title_th.select_one(
+            f'a[href="{search_whole_tree_url}"]'
+        )
+        self.assertIsNotNone(search_whole_tree_link)
+        self.assertHTMLEqual(
+            search_whole_tree_link.extract().decode_contents(),
+            "Search the whole site",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-1 of 1 pages in ' | Welcome to your new Wagtail site! | '.",
+        )
 
     def test_search_results(self):
         response = self.client.get(
@@ -706,16 +719,24 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(page_ids, [])
 
     def test_search_whole_tree(self):
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
-            {"q": "old", "search_all": "1"},
-        )
+        url = reverse("wagtailadmin_explore", args=(self.new_page.id,))
+        response = self.client.get(url, {"q": "old", "search_all": "1"})
         self.assertEqual(response.status_code, 200)
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
-        self.assertContains(
-            response,
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_in_parent_url = f"{url}?q=old"
+        search_parent_link = title_th.select_one(f'a[href="{search_in_parent_url}"]')
+        self.assertIsNotNone(search_parent_link)
+        self.assertHTMLEqual(
+            search_parent_link.extract().decode_contents(),
             "Search in '<span class=\"w-title-ellipsis\">New page (simple page)</span>'",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-1 of 1 pages across entire site.",
         )
 
     def test_search_whole_tree_filter_by_permissions(self):

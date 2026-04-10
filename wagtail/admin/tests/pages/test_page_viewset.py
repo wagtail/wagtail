@@ -220,6 +220,22 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
             [page.audience for page in pages],
             ["private", "private"],
         )
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_whole_tree_url = f"{self.url}?audience=private&search_all=1"
+        search_whole_tree_link = title_th.select_one(
+            f'a[href="{search_whole_tree_url}"]'
+        )
+        self.assertIsNotNone(search_whole_tree_link)
+        self.assertHTMLEqual(
+            search_whole_tree_link.extract().decode_contents(),
+            "Search the whole site",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-2 of 2 event pages in ' | Events | '.",
+        )
 
     def test_filter_results(self):
         response = self.client.get(self.results_url, {"audience": "private"})
@@ -261,6 +277,65 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                 "Download XLSX",
                 "Download CSV",
             ],
+        )
+
+    def test_search_filter(self):
+        response = self.client.get(self.url, {"q": "event", "audience": "private"})
+        self.assertEqual(response.status_code, 200)
+        pages = response.context["object_list"]
+        self.assertEqual({page.title for page in pages}, {"Someone Else's Event"})
+        self.assertEqual([page.audience for page in pages], ["private"])
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_whole_tree_url = f"{self.url}?q=event&audience=private&search_all=1"
+        search_whole_tree_link = title_th.select_one(
+            f'a[href="{search_whole_tree_url}"]'
+        )
+        self.assertIsNotNone(search_whole_tree_link)
+        self.assertHTMLEqual(
+            search_whole_tree_link.extract().decode_contents(),
+            "Search the whole site",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-1 of 1 event pages in ' | Events | '.",
+        )
+
+    def test_search_filter_whole_tree(self):
+        root_page = Page.objects.get(pk=2)
+        new_page = EventPage(
+            title="Nice private event",
+            date_from="2026-04-01",
+            location="somewhere else on the site",
+            cost="nada",
+            audience="private",
+        )
+        root_page.add_child(instance=new_page)
+        response = self.client.get(
+            self.url,
+            {"q": "event", "audience": "private", "search_all": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        pages = response.context["object_list"]
+        self.assertEqual(
+            {page.title for page in pages},
+            {"Nice private event", "Someone Else's Event"},
+        )
+        self.assertEqual([page.audience for page in pages], ["private", "private"])
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_in_parent_url = f"{self.url}?q=event&audience=private"
+        search_parent_link = title_th.select_one(f'a[href="{search_in_parent_url}"]')
+        self.assertIsNotNone(search_parent_link)
+        self.assertHTMLEqual(
+            search_parent_link.extract().decode_contents(),
+            "Search in '<span class=\"w-title-ellipsis\">Events</span>'",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-2 of 2 event pages across entire site.",
         )
 
     def test_default_order_by_date_from(self):

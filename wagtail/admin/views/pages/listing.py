@@ -407,7 +407,7 @@ class ExplorableIndexView(IndexView):
     def get_base_queryset(self):
         if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
-                pages = Page.objects.all()
+                pages = self.model._default_manager.all()
             else:
                 pages = self.model._default_manager.descendant_of(self.parent_page)
         else:

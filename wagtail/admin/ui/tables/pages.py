@@ -15,6 +15,7 @@ class PageTitleColumn(BaseColumn):
         parent_page = parent_context.get("parent_page")
 
         context["items_count"] = parent_context.get("items_count")
+        context["verbose_name_plural"] = parent_context.get("verbose_name_plural")
         context["page_obj"] = parent_context.get("page_obj")
         context["parent_page"] = parent_page
 
@@ -175,4 +176,5 @@ class PageTable(OrderableTableMixin, Table):
         context["actions_next_url"] = (
             self.actions_next_url or parent_context.get("request").path
         )
+        context["verbose_name_plural"] = parent_context.get("verbose_name_plural")
         return context
