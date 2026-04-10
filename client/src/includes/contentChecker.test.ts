@@ -2,6 +2,7 @@ import axe, { AxeResults, Spec } from 'axe-core';
 import {
   WagtailAxeConfiguration,
   addCustomChecks,
+  checkEmptyMetaDescription,
   checkImageAltText,
   getCheckerReport,
   registerCustomCheck,
@@ -133,6 +134,27 @@ describe('checkImageAltText edge cases', () => {
   test('should not flag images with no alt attribute', () => {
     const image = document.createElement('img');
     expect(checkImageAltText(image, options)).toBe(true);
+  });
+});
+
+describe.each`
+  content        | result
+  ${'A summary'} | ${true}
+  ${'  x  '}     | ${true}
+  ${''}          | ${false}
+  ${'   '}       | ${false}
+  ${null}        | ${true}
+`('checkEmptyMetaDescription', ({ content, result }) => {
+  const expectation = result ? 'passes' : 'fails';
+  test(`content ${JSON.stringify(content)} ${expectation}`, () => {
+    const meta = document.createElement('meta');
+    meta.setAttribute('name', 'description');
+    if (content !== null) {
+      meta.setAttribute('content', content);
+    }
+    document.body.innerHTML = '';
+    document.body.appendChild(meta);
+    expect(checkEmptyMetaDescription()).toBe(result);
   });
 });
 

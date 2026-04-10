@@ -303,6 +303,10 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
             config["messages"]["empty-heading"]["help_text"],
             "Use meaningful text for screen reader users",
         )
+        self.assertEqual(
+            config["messages"]["empty-meta-description"]["error_name"],
+            "Meta description is empty",
+        )
 
     def test_custom_message(self):
         class CustomMessageContentCheckerItem(ContentCheckerItem):
@@ -492,6 +496,14 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
                             "selector": "img[alt]",
                             "tags": ["best-practice"],
                             "any": ["check-image-alt-text"],
+                            "enabled": True,
+                        },
+                        {
+                            "id": "empty-meta-description",
+                            "impact": "moderate",
+                            "selector": "h1",
+                            "tags": ["seo"],
+                            "any": ["check-empty-meta-description"],
                             "enabled": True,
                         },
                         {
