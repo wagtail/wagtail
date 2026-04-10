@@ -265,6 +265,7 @@ The `PageViewSet` class was added.
    .. autoattribute:: model
    .. autoattribute:: parent_models
    .. autoattribute:: index_view_class
+   .. autoattribute:: choose_parent_view_class
    .. autoattribute:: list_display
    .. autoattribute:: columns
    .. autoattribute:: list_filter

@@ -42,6 +42,15 @@ urlpatterns = [
         name="type_use",
     ),
     path(
+        "create/<slug:app_label>/<slug:model_name>",
+        page_viewset_registry.as_view(
+            "choose_parent",
+            app_label_kwarg="app_label",
+            model_name_kwarg="model_name",
+        ),
+        name="choose_parent",
+    ),
+    path(
         "usage/<slug:content_type_app_name>/<slug:content_type_model_name>/results/",
         page_viewset_registry.as_view(
             "content_type_use_results",

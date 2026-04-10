@@ -17,16 +17,17 @@ class TestParentPageChooserView(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         super().setUp()
         self.user = self.login()
         self.view_url = reverse("event_pages:choose_parent")
+        self.previous_breadcrumbs_items = [
+            {"url": reverse("event_pages:index"), "label": "Event pages"},
+        ]
 
     def test_get_page_parent_chooser(self):
         response = self.client.get(self.view_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/choose_parent.html")
         self.assertBreadcrumbsItemsRendered(
-            [
-                {"url": reverse("event_pages:index"), "label": "Event pages"},
-                {"url": "", "label": "Choose parent", "sublabel": "Event page"},
-            ],
+            self.previous_breadcrumbs_items
+            + [{"url": "", "label": "Choose parent", "sublabel": "Event page"}],
             response.content,
         )
 
@@ -161,3 +162,21 @@ class TestParentPageChooserView(AdminTemplateTestUtils, WagtailTestUtils, TestCa
                 args=("tests", "eventpage", parent_page.pk),
             ),
         )
+
+
+class TestGenericParentPageChooserView(TestParentPageChooserView):
+    def setUp(self):
+        super().setUp()
+        self.view_url = reverse(
+            "wagtailadmin_pages:choose_parent",
+            args=["tests", "eventpage"],
+        )
+        self.previous_breadcrumbs_items = [
+            {
+                "url": reverse(
+                    "wagtailadmin_pages:type_use",
+                    args=("tests", "eventpage"),
+                ),
+                "label": "Event pages",
+            }
+        ]

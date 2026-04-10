@@ -143,6 +143,16 @@ class TestContentTypeUse(WagtailTestUtils, TestCase):
             ],
         )
 
+        # Should show an add button pointing to the generic choose parent view
+        header_buttons = soup.select_one("#w-slim-header-buttons")
+        self.assertIsNotNone(header_buttons)
+        choose_parent_url = reverse(
+            "wagtailadmin_pages:choose_parent", args=("tests", "eventpage")
+        )
+        add_button = header_buttons.select_one(f'a[href="{choose_parent_url}"]')
+        self.assertIsNotNone(add_button)
+        self.assertEqual(add_button.get_text(strip=True), "Add event page")
+
     def test_content_type_use_results(self):
         # Get the results view of event page use, with search and filter
         ameristralia_page = EventPage.objects.get(title="Ameristralia Day")

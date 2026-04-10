@@ -39,6 +39,12 @@ class ContentTypeUseView(IndexView):
     def get_page_subtitle(self):
         return self.model._meta.verbose_name
 
+    def get_add_url(self):
+        return reverse(
+            "wagtailadmin_pages:choose_parent",
+            args=[self.model._meta.app_label, self.model._meta.model_name],
+        )
+
     def get_index_url(self):
         return reverse(
             self.index_url_name,
