@@ -299,7 +299,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
         )
         self.assertEqual(
             title_th.get_text(strip=True, separator=" | "),
-            "Title | 1-1 of 1 event pages in ' | Events | '.",
+            "Title | 1-1 of 1 event page in ' | Events | '.",
         )
 
     def test_search_filter_whole_tree(self):

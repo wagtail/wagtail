@@ -444,6 +444,12 @@ class IndexView(
         return _("Add")
 
     @cached_property
+    def verbose_name(self):
+        if self.model:
+            return self.model._meta.verbose_name
+        return None
+
+    @cached_property
     def verbose_name_plural(self):
         if self.model:
             return self.model._meta.verbose_name_plural

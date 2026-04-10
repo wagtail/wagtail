@@ -682,7 +682,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             title_th.get_text(strip=True, separator=" | "),
-            "Title | 1-1 of 1 pages in ' | Welcome to your new Wagtail site! | '.",
+            "Title | 1-1 of 1 page in ' | Welcome to your new Wagtail site! | '.",
         )
 
     def test_search_results(self):
@@ -736,7 +736,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertEqual(
             title_th.get_text(strip=True, separator=" | "),
-            "Title | 1-1 of 1 pages across entire site.",
+            "Title | 1-1 of 1 page across entire site.",
         )
 
     def test_search_whole_tree_filter_by_permissions(self):

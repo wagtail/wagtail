@@ -15,7 +15,6 @@ class PageTitleColumn(BaseColumn):
         parent_page = parent_context.get("parent_page")
 
         context["items_count"] = parent_context.get("items_count")
-        context["verbose_name_plural"] = parent_context.get("verbose_name_plural")
         context["page_obj"] = parent_context.get("page_obj")
         context["parent_page"] = parent_page
 
@@ -39,6 +38,11 @@ class PageTitleColumn(BaseColumn):
         if context["page_obj"]:
             context["start_index"] = context["page_obj"].start_index()
             context["end_index"] = context["page_obj"].end_index()
+
+        if context["items_count"] == 1:
+            context["model_name"] = parent_context.get("verbose_name")
+        else:
+            context["model_name"] = parent_context.get("verbose_name_plural")
 
         return context
 
@@ -176,5 +180,6 @@ class PageTable(OrderableTableMixin, Table):
         context["actions_next_url"] = (
             self.actions_next_url or parent_context.get("request").path
         )
+        context["verbose_name"] = parent_context.get("verbose_name")
         context["verbose_name_plural"] = parent_context.get("verbose_name_plural")
         return context

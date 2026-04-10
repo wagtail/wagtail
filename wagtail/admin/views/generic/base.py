@@ -207,6 +207,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     search_backend_name = "default"
     default_ordering = None
     filterset_class = None
+    verbose_name = None
     verbose_name_plural = None
     paginator_class = WagtailPaginator
 
@@ -466,6 +467,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         context["index_url"] = self.index_url
         context["index_results_url"] = self.index_results_url
+        context["verbose_name"] = self.verbose_name
         context["verbose_name_plural"] = self.verbose_name_plural
         context["no_results_message"] = self.no_results_message
         context["ordering"] = self.ordering
