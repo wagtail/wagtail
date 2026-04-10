@@ -964,6 +964,7 @@
 * James Biggs
 * Aditya Kammati
 * Kunal Hemnani
+* Aviral Sapra
 
 ## Translators
 

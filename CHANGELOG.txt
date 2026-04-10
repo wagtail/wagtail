@@ -51,6 +51,7 @@ Changelog
  * Docs: Clarify the icon template tag is only for admin views (Aditya Kammati)
  * Docs: Add documentation for generic `published` and `unpublished` signals (Kunal Hemnani)
  * Docs: Improve organization of signals reference docs (Sage Abdullah)
+ * Docs: Add documentation for overriding the default user avatar image (Aviral Sapra)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
