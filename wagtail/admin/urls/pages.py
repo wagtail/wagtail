@@ -18,6 +18,7 @@ from wagtail.admin.views.pages import (
     usage,
     workflow,
 )
+from wagtail.admin.viewsets.pages import page_viewset_registry
 
 app_name = "wagtailadmin_pages"
 urlpatterns = [
@@ -33,12 +34,20 @@ urlpatterns = [
     ),
     path(
         "usage/<slug:content_type_app_name>/<slug:content_type_model_name>/",
-        usage.ContentTypeUseView.as_view(),
+        page_viewset_registry.as_view(
+            "content_type_use",
+            app_label_kwarg="content_type_app_name",
+            model_name_kwarg="content_type_model_name",
+        ),
         name="type_use",
     ),
     path(
         "usage/<slug:content_type_app_name>/<slug:content_type_model_name>/results/",
-        usage.ContentTypeUseView.as_view(results_only=True),
+        page_viewset_registry.as_view(
+            "content_type_use_results",
+            app_label_kwarg="content_type_app_name",
+            model_name_kwarg="content_type_model_name",
+        ),
         name="type_use_results",
     ),
     path("<int:page_id>/usage/", usage.UsageView.as_view(), name="usage"),

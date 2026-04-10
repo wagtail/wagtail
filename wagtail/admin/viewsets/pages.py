@@ -11,6 +11,7 @@ from wagtail.admin.views.pages.listing import (
     IndexView,
     PageFilterSet,
 )
+from wagtail.admin.views.pages.usage import ContentTypeUseView
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
 from wagtail.utils.registry import ObjectTypeRegistry
@@ -126,9 +127,14 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
 class PageViewSet(PageListingViewSet):
     """
     A viewset to define the views for pages of a specific type.
-    For more information on how to use this class, see :ref:`custom_page_explorer_listings`.
+    For more information on how to use this class, see :ref:`custom_default_page_listings`.
     """
 
+    content_type_use_view_class = ContentTypeUseView
+    """
+    The view class to use for the flat per-page-type index view; must be a subclass of
+    ``wagtail.admin.views.pages.usage.ContentTypeUseView``.
+    """
     index_view_class = ExplorableIndexView
     """
     The view class to use for the index view; must be a subclass of
@@ -140,12 +146,29 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def views(self):
         return {
+            "content_type_use": self.content_type_use_view,
+            "content_type_use_results": self.content_type_use_results_view,
             "index": self.index_view,
             "index_results": self.index_results_view,
         }
 
     def get_view_by_name(self, name):
         return self.views[name]
+
+    @cached_property
+    def content_type_use_view(self):
+        return self.construct_view(
+            self.content_type_use_view_class,
+            **self.get_index_view_kwargs(),
+        )
+
+    @cached_property
+    def content_type_use_results_view(self):
+        return self.construct_view(
+            self.content_type_use_view_class,
+            **self.get_index_view_kwargs(),
+            results_only=True,
+        )
 
     @cached_property
     def parent_models(self):
@@ -239,12 +262,25 @@ class PageViewSetRegistry(ObjectTypeRegistry):
         model = self.get_page_model_by_content_type_id(content_type_id)
         return self.get_by_parent_model(model)
 
+    def get_by_content_type_natural_key(self, app_label, model_name):
+        content_type = ContentType.objects.get_by_natural_key(app_label, model_name)
+        model = content_type.model_class() or Page
+        if not issubclass(model, Page):
+            raise Http404
+        return self.get_by_type(model)
+
     def register(self, cls, value=None, exact_class=False, parent_models=()):
         super().register(cls, value, exact_class)
         for parent_model in parent_models:
             self.values_by_parent_model[parent_model] = value
 
-    def as_view(self, view_name, parent_page_id_kwarg):
+    def as_view(
+        self,
+        view_name,
+        parent_page_id_kwarg=None,
+        app_label_kwarg=None,
+        model_name_kwarg=None,
+    ):
         """
         Create a view function that routes to the appropriate view based on the
         model of the page being accessed.
@@ -255,7 +291,14 @@ class PageViewSetRegistry(ObjectTypeRegistry):
 
         def view_router(request, *args, **kwargs):
             try:
-                viewset = self.get_by_parent_page_id(kwargs.get(parent_page_id_kwarg))
+                if parent_page_id_kwarg:
+                    viewset = self.get_by_parent_page_id(
+                        kwargs.get(parent_page_id_kwarg)
+                    )
+                elif app_label_kwarg and model_name_kwarg:
+                    viewset = self.get_by_content_type_natural_key(
+                        kwargs.get(app_label_kwarg), kwargs.get(model_name_kwarg)
+                    )
             except ObjectDoesNotExist as e:
                 # Page or ContentType not found
                 raise Http404 from e
