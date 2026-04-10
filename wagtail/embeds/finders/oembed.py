@@ -3,6 +3,7 @@ from datetime import timedelta
 
 import requests
 from django.utils import timezone
+from django.utils.html import format_html
 
 from wagtail.embeds.exceptions import EmbedNotFoundException
 from wagtail.embeds.oembed_providers import all_providers
@@ -71,7 +72,7 @@ class OEmbedFinder(EmbedFinder):
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
-            html = '<img src="{}" alt="">'.format(oembed["url"])
+            html = format_html('<img src="{}" alt="">', oembed["url"])
         else:
             html = oembed.get("html")
 
