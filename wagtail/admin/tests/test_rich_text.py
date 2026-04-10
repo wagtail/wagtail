@@ -651,6 +651,7 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         pattern = re.compile(href_pattern)
 
         # Allowed protocols
+        self.assertTrue(pattern.match("#example"))
         self.assertTrue(pattern.match("http://example.com"))
         self.assertTrue(pattern.match("https://example.com"))
         self.assertTrue(pattern.match("mailto:test@example.com"))
