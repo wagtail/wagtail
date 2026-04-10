@@ -4,7 +4,10 @@ from django.http import Http404
 from django.urls import path
 from django.utils.functional import cached_property, classproperty
 
-from wagtail.admin.views.pages.choose_parent import ChooseParentView
+from wagtail.admin.views.pages.choose_parent import (
+    ChooseParentView,
+    GenericChooseParentView,
+)
 from wagtail.admin.views.pages.listing import (
     ExplorableIndexView,
     GenericPageFilterSet,
@@ -130,6 +133,11 @@ class PageViewSet(PageListingViewSet):
     For more information on how to use this class, see :ref:`custom_default_page_listings`.
     """
 
+    choose_parent_view_class = GenericChooseParentView
+    """
+    The view class to use for choosing the parent page when creating a new page of this page type;
+    must be a subclass of ``wagtail.admin.views.pages.choose_parent.GenericChooseParentView``.
+    """
     content_type_use_view_class = ContentTypeUseView
     """
     The view class to use for the flat per-page-type index view; must be a subclass of
@@ -146,6 +154,7 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def views(self):
         return {
+            "choose_parent": self.choose_parent_view,
             "content_type_use": self.content_type_use_view,
             "content_type_use_results": self.content_type_use_results_view,
             "index": self.index_view,
