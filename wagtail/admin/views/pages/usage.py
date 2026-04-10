@@ -1,82 +1,43 @@
-from typing import Any
-
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.http import Http404
 from django.urls import reverse
-from django.utils.functional import cached_property, classproperty
 from django.utils.text import capfirst
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views import generic
-from wagtail.admin.views.generic.base import BaseListingView
-from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.admin.views.pages.listing import PageFilterSet, PageListingMixin
+from wagtail.admin.views.pages.listing import IndexView
 from wagtail.admin.views.pages.utils import (
     GenericPageBreadcrumbsMixin,
 )
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
 
 
-class ContentTypeUseView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
-    permission_policy = page_permission_policy
-    any_permission_required = {
-        "add",
-        "change",
-        "publish",
-        "bulk_delete",
-        "lock",
-        "unlock",
-    }
+class ContentTypeUseView(IndexView):
     index_url_name = "wagtailadmin_pages:type_use"
     index_results_url_name = "wagtailadmin_pages:type_use_results"
     page_title = _("Pages using")
     header_icon = "doc-empty-inverse"
-    paginate_by = 50
-    filterset_class = PageFilterSet
 
-    @classproperty
-    def columns(cls):
-        return [col for col in PageListingMixin.base_columns if col.name != "type"]
+    def get_table(self, object_list):
+        return self.table_class(
+            [col for col in self.columns if col.name != "type"],
+            object_list,
+            **self.get_table_kwargs(),
+        )
 
     def get(self, request, *, content_type_app_name, content_type_model_name):
-        try:
-            content_type = ContentType.objects.get_by_natural_key(
-                content_type_app_name, content_type_model_name
-            )
-        except ContentType.DoesNotExist as e:
-            raise Http404 from e
-
-        self.page_class = content_type.model_class()
-
-        # page_class must be a Page type and not some other random model
-        if not issubclass(self.page_class, Page):
-            raise Http404
-
+        # A viewset may assign the "model" attribute to a superclass page model,
+        # so look up the most specific model class again based on the app_label
+        # and model_name in the URL kwargs.
+        content_type = ContentType.objects.get_by_natural_key(
+            content_type_app_name, content_type_model_name
+        )
+        self.model = content_type.model_class()
         return super().get(request)
 
     def get_page_subtitle(self):
-        return self.page_class.get_verbose_name()
-
-    @cached_property
-    def verbose_name_plural(self):
-        return self.page_class._meta.verbose_name_plural
-
-    def get_base_queryset(self):
-        queryset = self.page_class._default_manager.all()
-        if (not self.is_searching) or getattr(
-            settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
-        ):
-            queryset = queryset.filter(
-                pk__in=self.permission_policy.explorable_instances(
-                    self.request.user
-                ).values_list("pk", flat=True)
-            )
-
-        return self.annotate_queryset(queryset)
+        return self.model._meta.verbose_name
 
     def get_index_url(self):
         return reverse(
@@ -109,14 +70,9 @@ class ContentTypeUseView(PageListingMixin, PermissionCheckedMixin, BaseListingVi
             },
             {
                 "url": self.get_index_url(),
-                "label": capfirst(self.page_class._meta.verbose_name_plural),
+                "label": capfirst(self.model._meta.verbose_name_plural),
             },
         ]
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["page_class"] = self.page_class
-        return context
 
 
 class UsageView(GenericPageBreadcrumbsMixin, generic.UsageView):

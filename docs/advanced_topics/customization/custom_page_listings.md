@@ -2,9 +2,9 @@
 
 # Customizing page listings
 
-(custom_page_explorer_listings)=
+(custom_default_page_listings)=
 
-## Customizing the page explorer
+## Customizing the default page listings
 
 ```{versionadded} 7.4
 The ability to customize the page explorer listing was added.
@@ -87,15 +87,17 @@ def register_blog_page_viewset():
     return blog_page_viewset
 ```
 
-Various other options are available for customizing the page explorer listing, such as the `list_per_page` attribute to control how many items are shown per page, and the `ordering` attribute to control the default ordering of items in the listing. See the documentation for {class}`~wagtail.admin.viewsets.pages.PageViewSet` for more details.
+Normally, editors navigate through the Wagtail admin interface by following the structure of the page tree. However, this can make it slow to locate a specific page for editing, especially on large sites where pages are organised into a deep hierarchy.
+
+By default, Wagtail also provides a flat listing for each page type that can be accessed from the page types usage report. If you have registered a custom `PageViewSet` to customize the page explorer listing for a specific page type (as described in the above section), then all customizations you have made will also be applied to the flat listing for that page type.
+
+Various other options are available for customizing the page listings, such as the `list_per_page` attribute to control how many items are shown per page, and the `ordering` attribute to control the default ordering of items in the listing. See the documentation for {class}`~wagtail.admin.viewsets.pages.PageViewSet` for more details.
 
 (custom_flat_page_listings)=
 
-## Custom flat page listings
+## Creating custom flat page listings
 
-Normally, editors navigate through the Wagtail admin interface by following the structure of the page tree. However, this can make it slow to locate a specific page for editing, especially on large sites where pages are organised into a deep hierarchy.
-
-Custom page listings are a way to present a flat list of all pages of a given type, accessed from a menu item in the Wagtail admin menu, with the ability for editors to search and filter this list to find the pages they are interested in. To define a custom page listing, create a subclass of {class}`~wagtail.admin.viewsets.pages.PageListingViewSet` and register it using the [`register_admin_viewset`](register_admin_viewset) hook.
+In addition to the default page explorer and flat per-page-type listings, you can also create your own custom flat listings of all pages of a given type. This custom listing can be accessed from a menu item in the Wagtail admin menu, with the ability for editors to search and filter this list to find the pages they are interested in. To define a custom page listing, create a subclass of {class}`~wagtail.admin.viewsets.pages.PageListingViewSet` and register it using the [`register_admin_viewset`](register_admin_viewset) hook.
 
 For example, if your site implemented the page type `BlogPage`, you could provide a "Blog pages" listing in the Wagtail admin by adding the following definitions to a `wagtail_hooks.py` file within the app:
 
