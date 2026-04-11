@@ -9,7 +9,7 @@ import re
 import time
 from collections import OrderedDict, defaultdict, namedtuple
 from collections.abc import Iterable
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
 from typing import Any
@@ -65,6 +65,41 @@ IMAGE_FORMAT_EXTENSIONS = {
     "ico": ".ico",
     "heic": ".heic",
 }
+
+
+class ClosingSpooledTemporaryFile(File):
+    """
+    A File wrapper around a SpooledTemporaryFile that ensures the underlying
+    temporary file is closed once it is no longer needed, and also when this
+    object is garbage-collected.
+
+    generate_rendition_file() writes image data into a SpooledTemporaryFile
+    and wraps it in a File for Django's storage layer. After the rendition has
+    been fully saved — including dimension fields read from the file — the
+    SpooledTemporaryFile is no longer needed. Nothing in that pipeline closes
+    it explicitly, causing a ResourceWarning under ``-X dev`` / ``-W error``.
+
+    The caller (create_rendition) must call close() on this object once
+    get_or_create() has fully completed. __del__ acts as a safety net for
+    any code path where close() is not reached (e.g. an exception mid-save).
+
+    SpooledTemporaryFile cannot be re-opened once closed, so close() must
+    only be called after Django has finished reading dimensions from the file.
+    """
+
+    def _close_spooled_file(self):
+        """Close the underlying file, tolerating double-close calls."""
+        with suppress(Exception):
+            self.file.close()
+
+    def __del__(self):
+        """
+        Safety-net finaliser: close the file if the explicit close() call was
+        never reached (e.g. an exception occurred mid-save). We suppress all
+        exceptions deliberately — raising from __del__ produces an unraisable
+        exception, which is the exact problem we are fixing.
+        """
+        self._close_spooled_file()
 
 
 class SourceImageIOError(IOError):
@@ -582,24 +617,23 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             raise Rendition.DoesNotExist from e
 
     def create_rendition(self, filter: Filter) -> AbstractRendition:
-        """
-        Creates and returns a ``Rendition`` instance with a ``file`` field
-        value (an image) reflecting the supplied ``filter`` value and focal
-        point values from this object.
+        rendition_file = None
 
-        This method is usually called by ``Image.get_rendition()``, after first
-        checking that a suitable rendition does not already exist.
+        def get_rendition_file():
+            nonlocal rendition_file
+            rendition_file = self.generate_rendition_file(filter)
+            return rendition_file
 
-        Note: If using custom image models, an instance of the custom rendition
-        model will be returned.
-        """
-        # Because of unique constraints applied to the model, we use
-        # get_or_create() to guard against race conditions
-        rendition, created = self.renditions.get_or_create(
-            filter_spec=filter.spec,
-            focal_point_key=filter.get_cache_key(self),
-            defaults={"file": self.generate_rendition_file(filter)},
-        )
+        try:
+            rendition, created = self.renditions.get_or_create(
+                filter_spec=filter.spec,
+                focal_point_key=filter.get_cache_key(self),
+                defaults={"file": get_rendition_file},
+            )
+        finally:
+            if rendition_file is not None:
+                rendition_file._close_spooled_file()
+
         return rendition
 
     def get_renditions(self, *filters: Filter | str) -> dict[str, AbstractRendition]:
@@ -853,11 +887,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         start_time = time.time()
 
         try:
-            generated_image = filter.run(
-                self,
-                SpooledTemporaryFile(max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE),
-                source=source,
-            )
+            output = SpooledTemporaryFile(max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE)
+            generated_image = filter.run(self, output, source=source)
 
             logger.debug(
                 "Generated '%s' rendition for image %d in %.1fms",
@@ -865,7 +896,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 self.pk,
                 (time.time() - start_time) * 1000,
             )
-        except:  # noqa:B901,E722
+        except:  # noqa: B901,E722
+            with suppress(Exception):
+                output.close()
             logger.debug(
                 "Failed to generate '%s' rendition for image %d",
                 filter.spec,
@@ -891,7 +924,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         ]
         output_filename = output_filename_without_extension + "." + output_extension
 
-        return File(generated_image.f, name=output_filename)
+        return ClosingSpooledTemporaryFile(generated_image.f, name=output_filename)
 
     def is_portrait(self):
         return self.width < self.height
