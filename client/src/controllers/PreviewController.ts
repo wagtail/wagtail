@@ -969,6 +969,13 @@ export class PreviewController extends Controller<HTMLElement> {
     this.#reloadPromiseResolve?.();
     this.reloadPromise = null;
     this.#reloadPromiseResolve = null;
+
+    // If the preview data became stale while this update was in progress
+    // (e.g. the user kept editing during the fetch/iframe load), schedule
+    // another update now that we are free to do so.
+    if (this.staleValue && this.shouldAutoUpdate) {
+      this.setPreviewDataLazy();
+    }
   }
 
   /**
