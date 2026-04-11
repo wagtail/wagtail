@@ -1498,6 +1498,53 @@ describe('PreviewController', () => {
       });
     });
 
+    it('should continue to auto-update when changes are made during an in-progress update', async () => {
+      // Regression test for https://github.com/wagtail/wagtail/issues/14121
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.setAttribute('data-w-preview-auto-update-interval-value', '500');
+
+      const input = document.querySelector('input[name="title"');
+
+      // First change — starts the first preview update
+      input.value = 'First change';
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      // w-unsaved check interval (≤500ms) + notify debounce (530ms) = 1030ms
+      await jest.advanceTimersByTimeAsync(1030);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+      // setPreviewDataLazy debounce fires, first fetch is sent
+      await jest.advanceTimersByTimeAsync(500);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      // Second change while the first update's iframe is still loading
+      input.value = 'Second change';
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      await jest.advanceTimersByTimeAsync(1030);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+      // setPreviewDataLazy fires but setPreviewData() returns early because
+      // updatePromise is still pending (iframe not yet loaded)
+      await jest.advanceTimersByTimeAsync(500);
+      expect(global.fetch).toHaveBeenCalledTimes(1); // still only 1 fetch
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+
+      // Complete the first update; finishUpdate() now re-schedules
+      // setPreviewDataLazy() because staleValue is still true.
+      // expectIframeReloaded() resets fetch.mockClear() at the end.
+      await expectIframeReloaded();
+
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('true');
+      // Should send the second update after a debounce
+      await jest.advanceTimersByTimeAsync(500);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+
+      await expectIframeReloaded();
+      expect(element.getAttribute('data-w-preview-stale-value')).toBe('false');
+    });
+
     it('should not auto-update when auto-update interval is set to 0', async () => {
       const element = document.querySelector('[data-controller="w-preview"]');
       // The test setup sets the auto-update interval to 0 (disabled)
