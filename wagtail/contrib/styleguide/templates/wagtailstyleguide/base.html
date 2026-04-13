@@ -536,7 +536,7 @@
             {% if folder == "wagtailadmin/icons" %}
                 {# Bespoke copy script with good line breaks to review icon update diffs in git. #}
                 <!-- Copy this section to update the `icons.md` documentation (wagtail_icons.html file). -->
-                <!-- In DevTools: copy($$('[data-icons-table^="wagtailadmin"]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<t/g, '\n<t')) -->
+                <!-- In DevTools: copy($$('[data-sprite]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<symbol/g, '\n<symbol') + $$('[data-icons-table^="wagtailadmin"]')[0].innerHTML.replace(/\s+/g, ' ').replace(/<t/g, '\n<t').replace(/<svg/g, '<svg width="32" height="32"')) -->
             {% endif %}
             <div class="w-mb-10" data-icons-table="{{ folder }}">
                 <!-- Auto-generated with Wagtail’s styleguide. -->
