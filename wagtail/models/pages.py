@@ -48,6 +48,7 @@ from wagtail.compat import HTTPMethod
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
+    find_available_slug,
     get_supported_content_language_variant,
     resolve_model_string,
     safe_md5,
@@ -1182,6 +1183,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Translations should have their slug updated to match the original
             if not alias_is_translation:
                 alias_updated.slug = alias.slug
+            elif alias.slug != self.slug:
+                alias_updated.slug = find_available_slug(alias_updated.get_parent(), self.slug)
             alias_updated.set_url_path(alias_updated.get_parent())
 
             # Aliases don't have revisions, so update fields that would normally be updated by save_revision
