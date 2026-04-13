@@ -1184,7 +1184,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if not alias_is_translation:
                 alias_updated.slug = alias.slug
             elif alias.slug != self.slug:
-                alias_updated.slug = find_available_slug(alias_updated.get_parent(), self.slug)
+                alias_updated.slug = find_available_slug(
+                    alias_updated.get_parent(), self.slug
+                )
             alias_updated.set_url_path(alias_updated.get_parent())
 
             # Aliases don't have revisions, so update fields that would normally be updated by save_revision

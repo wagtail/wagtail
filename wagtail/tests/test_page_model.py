@@ -3167,6 +3167,7 @@ class TestUpdateAliases(TestCase):
         self.assertEqual(event_page.slug, "merry-christmas")
         self.assertEqual(alias_of_translation_alias.slug, "merry-christmas")
 
+
 class TestCopyForTranslation(TestCase):
     fixtures = ["test.json"]
 
