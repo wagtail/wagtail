@@ -300,7 +300,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(
                     response["Content-Disposition"],
-                    'attachment; filename="spreadsheet-export.csv"',
+                    'attachment; filename="tests_eventpage.csv"',
                 )
                 data_lines = response.getvalue().decode().strip().split("\r\n")
                 self.assertEqual(data_lines, results)
@@ -338,7 +338,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(
                     response["Content-Disposition"],
-                    'attachment; filename="spreadsheet-export.xlsx"',
+                    'attachment; filename="tests_eventpage.xlsx"',
                 )
                 workbook_data = response.getvalue()
                 worksheet = load_workbook(filename=BytesIO(workbook_data)).active

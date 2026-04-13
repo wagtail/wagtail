@@ -59,6 +59,15 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
         # that logic.
         return cls.UNDEFINED
 
+    @cached_property
+    def export_filename(self):
+        """
+        The base file name for the exported listing, without extensions.
+        If unset, the model's :attr:`~django.db.models.Options.db_table` will be
+        used instead.
+        """
+        return self.model._meta.db_table
+
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
