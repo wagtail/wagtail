@@ -233,12 +233,50 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
 ## PageListingViewSet
 
+```{versionadded} 7.4
+Support for `list_display`, `list_filter`, `list_per_page`, `list_export`, `export_headings` and `export_filename` was added to `PageListingViewSet`.
+```
+
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.pages.PageListingViewSet
 
    .. autoattribute:: model
    .. autoattribute:: index_view_class
    .. autoattribute:: choose_parent_view_class
+   .. autoattribute:: list_display
    .. autoattribute:: columns
+
+      A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
+      This takes priority over :attr:`list_display` if both are defined.
+   .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
+   .. autoattribute:: list_per_page
+   .. autoattribute:: list_export
+   .. autoattribute:: export_headings
+   .. autoattribute:: export_filename
+```
+
+## PageViewSet
+
+```{versionadded} 7.4
+The `PageViewSet` class was added.
+```
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.viewsets.pages.PageViewSet
+
+   .. autoattribute:: model
+   .. autoattribute:: parent_models
+   .. autoattribute:: index_view_class
+   .. autoattribute:: list_display
+   .. autoattribute:: columns
+
+      A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
+      This takes priority over :attr:`list_display` if both are defined.
+   .. autoattribute:: list_filter
+   .. autoattribute:: filterset_class
+   .. autoattribute:: list_per_page
+   .. autoattribute:: list_export
+   .. autoattribute:: export_headings
+   .. autoattribute:: export_filename
 ```

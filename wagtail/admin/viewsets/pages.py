@@ -23,7 +23,7 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
     A viewset to present a flat listing of all pages of a specific type.
     All attributes and methods from :class:`~wagtail.admin.viewsets.base.ViewSet`
     are available.
-    For more information on how to use this class, see :ref:`custom_page_listings`.
+    For more information on how to use this class, see :ref:`custom_flat_page_listings`.
     """
 
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.pages.listing.IndexView``.
@@ -35,6 +35,10 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
 
     @classproperty
     def columns(cls):
+        """
+        A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
+        This takes priority over :attr:`list_display` if both are defined.
+        """
         # For backwards compatibility, use a classproperty so existing code that
         # directly extends the viewset's columns attribute will continue to
         # work, while allowing new code to set columns to automatically generate
@@ -118,7 +122,16 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
 
 
 class PageViewSet(PageListingViewSet):
+    """
+    A viewset to define the views for pages of a specific type.
+    For more information on how to use this class, see :ref:`custom_page_explorer_listings`.
+    """
+
     index_view_class = ExplorableIndexView
+    """
+    The view class to use for the index view; must be a subclass of
+    ``wagtail.admin.views.pages.listing.ExplorableIndexView``.
+    """
     menu_url = None
     """Unused. There is no specific URL to link to for the menu item."""
 
