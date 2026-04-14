@@ -960,6 +960,7 @@
 * Devarshi Mani Tripathi
 * Om Harsh
 * Nirmal Kumar
+* Darshan Kerkar
 
 ## Translators
 
