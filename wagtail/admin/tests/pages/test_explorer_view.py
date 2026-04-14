@@ -685,6 +685,43 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             "Search in '<span class=\"w-title-ellipsis\">New page (simple page)</span>'",
         )
 
+    def test_search_whole_tree_filter_by_permissions(self):
+        # Create a page that matches the search term but that the user doesn't have permission to see
+        restricted_page = SimplePage(
+            title="Restricted old page",
+            slug="restricted-old-page",
+            content="hello",
+        )
+        self.root_page.add_child(instance=restricted_page)
+
+        old_page_editors = Group.objects.create(name="Old page editors")
+        old_page_editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=old_page_editors,
+            page=self.old_page,
+            permission_type="change",
+        )
+        GroupPagePermission.objects.create(
+            group=old_page_editors,
+            page=self.new_page,
+            permission_type="change",
+        )
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(old_page_editors)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
+            {"q": "old", "search_all": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id])
+
     def test_filter_by_page_type(self):
         new_page_child = SimplePage(
             title="New page child", slug="new-page-child", content="new page child"
