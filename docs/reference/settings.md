@@ -342,6 +342,14 @@ WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
 
 This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.
 
+### `WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS`
+
+```python
+WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS = False
+```
+
+If false, searching for pages within the Wagtail admin interface will skip the usual permission filter for non-superusers and show all results over the entire page tree, rather than just pages the user has permission to edit. This is a workaround for very large sites using external search backends such as Elasticsearch, which cannot apply permission checks efficiently.
+
 (wagtailimages_all_settings)=
 
 ## Images

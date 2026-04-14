@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Group
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.models import Page
@@ -131,3 +132,32 @@ class TestCustomListing(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
         page_ids = [result.pk for result in response.context["pages"]]
         self.assertCountEqual(page_ids, [EventPage.objects.get(title="Christmas").pk])
+
+    @override_settings(WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS=False)
+    def test_search_disable_filter_by_permission(self):
+        home = Page.objects.get(url_path="/home/")
+        independence_day = EventPage(
+            title="Christmas Island Independence Day",
+            slug="independence-day",
+            audience="public",
+            date_from="2024-12-01",
+            location="Christmas Island",
+            cost="Free",
+            live=True,
+        )
+        home.add_child(instance=independence_day)
+
+        # make self.user a member of "Event editors" instead of a superuser -
+        # this group has access to the "Christmas" page but not the "Christmas Island Independence Day" page
+        # (as the latter is not within the Events index)
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(Group.objects.get(name="Event editors"))
+
+        response = self.client.get("/admin/event_pages/", {"q": "Christmas"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+        page_ids = [result.pk for result in response.context["pages"]]
+        self.assertCountEqual(
+            page_ids, [EventPage.objects.get(title="Christmas").pk, independence_day.pk]
+        )

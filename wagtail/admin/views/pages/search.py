@@ -1,5 +1,6 @@
 from typing import Any
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
@@ -107,11 +108,15 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         return super().get(request)
 
     def get_queryset(self) -> QuerySet[Any]:
-        pages = self.all_pages = Page.objects.all().filter(
-            pk__in=page_permission_policy.explorable_instances(
-                self.request.user
-            ).values_list("pk", flat=True)
-        )
+        self.all_pages = Page.objects.all()
+
+        if getattr(settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True):
+            self.all_pages = self.all_pages.filter(
+                pk__in=page_permission_policy.explorable_instances(
+                    self.request.user
+                ).values_list("pk", flat=True)
+            )
+        pages = self.all_pages
         if self.show_locale_labels:
             pages = pages.select_related("locale")
 
