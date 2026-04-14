@@ -26,6 +26,7 @@ Changelog
  * Fix: Use POST instead of DELETE in Cloudflare Frontend Cache Backend (Tom Usher)
  * Fix: Handle null values for title, author name or provider name in OEmbed responses (Baptiste Darthenay)
  * Fix: Preserve original data types from `ChoiceBlock` choices in block values (Devarshi Mani Tripathi)
+ * Fix: Fix translation sync logic for django-treebeard 5.0.2 (Matt Westcott)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
