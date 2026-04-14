@@ -7,6 +7,8 @@ Wagtail’s user interface is built with:
 -   **JavaScript** with [TypeScript](https://www.typescriptlang.org/)
 -   **SVG** for our icons, minified with [SVGO](https://jakearchibald.github.io/svgomg/)
 
+(browser_and_device_support)=
+
 ## Browser and device support
 
 Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
@@ -180,6 +182,8 @@ First think of how to name the controller. Keep it concise, one or two words ide
 -   Consider when to document controller usage for non-contributors.
 -   When writing unit tests, note that DOM updates triggered by data attribute changes are completed async (next `microtick`) so will require a await Promise or similar to check for the changes in JSDom.
 -   Avoid hard-coding a controller's identifier, instead reference it with `this.identifier` if adjusting attributes. This way the controller can be used easily with a changed identifier or extended by other classes in the future.
+
+(multilingual_support)=
 
 ## Multilingual support
 

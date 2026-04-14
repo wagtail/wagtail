@@ -41,6 +41,7 @@ Changelog
  * Docs: Fix ordering of image rendition documentation (Seb Corbin)
  * Docs: Remove references to now-addressed Django accessibility issues (Nirmal Kumar)
  * Docs: Add content personalization how-to guide (Thibaud Colas)
+ * Docs: Add new package maintenance guidelines (Thibaud Colas)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)

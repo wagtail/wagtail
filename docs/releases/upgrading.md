@@ -146,6 +146,12 @@ The compatible versions of Django and Python for each Wagtail release are:
 
 [^*]: Added in a patch release
 
+(supported_databases)=
+
+## Supported databases
+
+Wagtail supports PostgreSQL, MySQL, MariaDB and SQLite (with JSON1) as database backends.
+
 ## Acknowledgement
 
 This upgrade guide is based on [](inv:django#howto/upgrade-version).
