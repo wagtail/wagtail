@@ -91,7 +91,7 @@ We recommend broad support targets matching those of Wagtail.
 - Follow [Semantic Versioning](https://semver.org/) and [PEP 440 – Version Identification and Dependency Specification](https://peps.python.org/pep-0440/).
 - Document changes in a `CHANGELOG.md` following the [Keep a Changelog](https://keepachangelog.com/) format.
 - Document upgrade considerations when releasing breaking changes to the package.
-- Use a git `vx.y.z` git tag and [repository releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository).
+- Use a git `va.b.c` git tag and [repository releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository).
 - Release to PyPI with a [Trusted Publisher](https://docs.pypi.org/trusted-publishers/using-a-publisher/) set up in Continuous Integration.
 - Use a `stable/a.b.x` branch when working on patch releases to previous versions.
 
