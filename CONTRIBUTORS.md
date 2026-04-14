@@ -965,6 +965,7 @@
 * Aditya Kammati
 * Kunal Hemnani
 * Aviral Sapra
+* Raghad Dahi
 
 ## Translators
 
