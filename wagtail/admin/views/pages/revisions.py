@@ -109,7 +109,8 @@ class RevisionsCompare(GenericPageBreadcrumbsMixin, RevisionsCompareView):
     def get_object(self, queryset=None):
         page = get_object_or_404(Page, id=self.pk).specific
 
-        if not page.permissions_for_user(self.request.user).can_edit():
+        perms = page.permissions_for_user(self.request.user)
+        if not (perms.can_publish() or perms.can_edit()):
             raise PermissionDenied
 
         return page
