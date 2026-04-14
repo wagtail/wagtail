@@ -287,11 +287,15 @@ class IndexView(PageListingMixin, generic.IndexView):
         return [col for col in PageListingMixin.columns if col.name != "type"]
 
     def get_base_queryset(self):
-        pages = self.model.objects.filter(depth__gt=1).filter(
-            pk__in=page_permission_policy.explorable_instances(
-                self.request.user
-            ).values_list("pk", flat=True)
-        )
+        pages = self.model.objects.filter(depth__gt=1)
+        if (not self.is_searching) or getattr(
+            settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
+        ):
+            pages = pages.filter(
+                pk__in=page_permission_policy.explorable_instances(
+                    self.request.user
+                ).values_list("pk", flat=True)
+            )
         pages = self.annotate_queryset(pages)
         return pages
 
@@ -369,11 +373,14 @@ class ExplorableIndexView(IndexView):
         else:
             pages = self.parent_page.get_children()
 
-        pages = pages.filter(
-            pk__in=page_permission_policy.explorable_instances(
-                self.request.user
-            ).values_list("pk", flat=True)
-        )
+        if (not self.is_searching) or getattr(
+            settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
+        ):
+            pages = pages.filter(
+                pk__in=page_permission_policy.explorable_instances(
+                    self.request.user
+                ).values_list("pk", flat=True)
+            )
         pages = self.annotate_queryset(pages)
         return pages
 
