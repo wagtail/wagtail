@@ -350,6 +350,10 @@ WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS = False
 
 If false, searching for pages within the Wagtail admin interface will skip the usual permission filter for non-superusers and show all results over the entire page tree, rather than just pages the user has permission to edit. This is a workaround for very large sites using external search backends such as Elasticsearch, which cannot apply permission checks efficiently.
 
+```{warning}
+Disabling this permission filter may expose information that would not otherwise be visible to editors. This should not be used on sites containing sensitive information that should not be accessible to all users of the Wagtail admin.
+```
+
 (wagtailimages_all_settings)=
 
 ## Images
