@@ -8,7 +8,7 @@ Wagtail benefits from a rich ecosystem of packages. Many Python and Django packa
 
 The official [Wagtail third-party packages directory](https://wagtail.org/packages/) lists packages organized by category. Forms, migrations, media, integrations, SEO, and more. [Awesome Wagtail](https://github.com/springload/awesome-wagtail) offers a curated list of packages, articles, and resources.
 
-Many general-purpose Django or Python packages also work directly, or can be integrated directly inside the CMS with little work. Check out the [Django Packages](https://djangopackages.org/) directory, or search directly on the [Python Package Index (PyPI)](https://pypi.org/). You can use the classifier [`Framework :: Wagtail`](https://pypi.org/search/?q=&o=&c=Framework+%3A%3A+Wagtail) to find packages that explicitly target Wagtail compatibility.
+Many general-purpose Django or Python packages also work directly, or can be integrated directly inside the CMS. Check out the [Django Packages](https://djangopackages.org/) directory, or search directly on the [Python Package Index (PyPI)](https://pypi.org/). You can use the classifier [`Framework :: Wagtail`](https://pypi.org/search/?q=&o=&c=Framework+%3A%3A+Wagtail) to find packages that explicitly target Wagtail compatibility.
 
 See [How to pick a good Wagtail package](https://wagtail.org/blog/pick-out-packages/) for more guidance on how to find and select packages.
 
@@ -93,11 +93,11 @@ We recommend broad support targets matching those of Wagtail.
 - Document upgrade considerations when releasing breaking changes to the package.
 - Use a git `vx.y.z` git tag and [repository releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository).
 - Release to PyPI with a [Trusted Publisher](https://docs.pypi.org/trusted-publishers/using-a-publisher/) set up in Continuous Integration.
-- Use a `stable/x.y` branch when working on patch releases to previous versions.
+- Use a `stable/a.b.x` branch when working on patch releases to previous versions.
 
 ### Collaborative maintenance
 
 - Follow the [Wagtail Code of Conduct](https://wagtail.org/code-of-conduct/).
-- For End of Life (EOL) packages, add a message to the package README, and visible on PyPI as well. For official packages, we additionally transfer them to the [wagtail-deprecated organization in GitHub](https://github.com/wagtail-deprecated) organisation.
-- Share PyPI access to the package with at least one or two other people to reduce the bus factor on maintainers.
+- For End of Life (EOL) packages, add a message to the package README, and visible on PyPI as well. For official packages, we additionally transfer them to the [wagtail-deprecated organization on GitHub](https://github.com/wagtail-deprecated).
+- Share PyPI access to the package with at least one or two other people to reduce the [bus factor](https://en.wikipedia.org/wiki/Bus_factor) on maintainers.
 - If your package is part of an organization, add it to the corresponding PyPI org (see [Wagtail on PyPI](https://pypi.org/org/wagtail/) and [Wagtail Nest on PyPI](https://pypi.org/org/wagtail-nest/)).
