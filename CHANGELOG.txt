@@ -16,6 +16,7 @@ Changelog
  * Optimize combining of querysets in site history report (Alex Bridge)
  * Add more informative error for `format-*` operations on SVG images (Ankit Kumar)
  * Store preview data in new `FormState` model to improve compatibility with cookie-based sessions (Sage Abdullah)
+ * Change StreamBlock options so groups are shown in declaration order of their blocks (Darshan Kerkar)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)

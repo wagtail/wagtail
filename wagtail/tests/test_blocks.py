@@ -4907,28 +4907,13 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(blockdefs_dict.keys(), {"", "group1", "group2"})
 
     def test_adapt_preserves_group_order_by_declaration_order(self):
-        class ContentBlock(blocks.CharBlock):
-            class Meta:
-                group = "content"
-
-        class MediaBlock(blocks.CharBlock):
-            class Meta:
-                group = "media"
-
-        class CardsBlock(blocks.CharBlock):
-            class Meta:
-                group = "cards"
-
-        class NoGroupBlock(blocks.CharBlock):
-            pass
-
         block = blocks.StreamBlock(
             [
-                ("content_1", ContentBlock()),
-                ("media_1", MediaBlock()),
-                ("content_2", ContentBlock()),
-                ("cards_1", CardsBlock()),
-                ("no_group", NoGroupBlock()),
+                ("content_1", blocks.CharBlock(group="content")),
+                ("media_1", blocks.CharBlock(group="media")),
+                ("content_2", blocks.CharBlock(group="content")),
+                ("cards_1", blocks.CharBlock(group="cards")),
+                ("no_group", blocks.CharBlock()),
             ]
         )
 

@@ -99,7 +99,7 @@ class BaseStreamBlock(Block):
     def empty_value(self, raw_text=None):
         return StreamValue(self, [], raw_text=raw_text)
 
-    def sorted_child_blocks(self):
+    def ordered_child_blocks(self):
         """Child blocks in declaration order."""
         return self.child_blocks.values()
 
@@ -111,7 +111,7 @@ class BaseStreamBlock(Block):
         """
         grouped_blocks = OrderedDict()
 
-        for child_block in self.sorted_child_blocks():
+        for child_block in self.ordered_child_blocks():
             group_name = child_block.meta.group
             grouped_blocks.setdefault(group_name, []).append(child_block)
 
