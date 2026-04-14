@@ -94,6 +94,9 @@ jobs:
           if [[ ! -e "client/tests/integration/node_modules" ]]; then
               npm --prefix ./client/tests/integration ci
           fi
+          # Ensure browser binaries match the Playwright version used by
+          # integration tests, even when restoring a stale global cache.
+          ./client/tests/integration/node_modules/.bin/playwright install chromium
           if [[ ! -e "~/.cache/ms-playwright" ]]; then
               npm --prefix ./client/tests/integration exec playwright install
           fi
