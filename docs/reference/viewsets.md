@@ -245,9 +245,6 @@ Support for `list_display`, `list_filter`, `list_per_page`, `list_export`, `expo
    .. autoattribute:: choose_parent_view_class
    .. autoattribute:: list_display
    .. autoattribute:: columns
-
-      A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
-      This takes priority over :attr:`list_display` if both are defined.
    .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
    .. autoattribute:: list_per_page
@@ -270,9 +267,6 @@ The `PageViewSet` class was added.
    .. autoattribute:: index_view_class
    .. autoattribute:: list_display
    .. autoattribute:: columns
-
-      A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
-      This takes priority over :attr:`list_display` if both are defined.
    .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
    .. autoattribute:: list_per_page

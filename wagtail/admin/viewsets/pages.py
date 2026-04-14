@@ -33,12 +33,14 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
     #: Required; the page model class that this viewset will work with.
     model = Page
 
-    @classproperty
+    columns = classproperty()
+    """
+    A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
+    This takes priority over :attr:`list_display` if both are defined.
+    """
+
+    @columns.getter
     def columns(cls):
-        """
-        A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
-        This takes priority over :attr:`list_display` if both are defined.
-        """
         # For backwards compatibility, use a classproperty so existing code that
         # directly extends the viewset's columns attribute will continue to
         # work, while allowing new code to set columns to automatically generate
