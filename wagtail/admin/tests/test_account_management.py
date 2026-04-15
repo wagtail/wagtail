@@ -650,6 +650,35 @@ class TestAccountSection(
         self.assertNotContains(response, "Current time zone")
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
+    def test_admin_accessible_without_system_timezone_data(self):
+        """Admin should not crash when system timezone data is unavailable.
+
+        In environments without system timezone data, zoneinfo falls back to the
+        tzdata package. This test simulates that environment by clearing the
+        filesystem timezone search path.
+        """
+        profile = UserProfile.get_for_user(self.user)
+        profile.current_time_zone = "US/Eastern"
+        profile.save()
+
+        original_tzpath = list(zoneinfo.TZPATH)
+        zoneinfo.reset_tzpath(to=[])
+        zoneinfo.ZoneInfo.clear_cache()
+        get_available_admin_time_zones.cache_clear()
+        self.addCleanup(zoneinfo.reset_tzpath, to=original_tzpath)
+        self.addCleanup(zoneinfo.ZoneInfo.clear_cache)
+        self.addCleanup(get_available_admin_time_zones.cache_clear)
+
+        try:
+            response = self.client.get(reverse("wagtailadmin_account"))
+        except zoneinfo.ZoneInfoNotFoundError:
+            self.fail(
+                "ZoneInfoNotFoundError raised when accessing the admin with a user "
+                "timezone set. Ensure the tzdata package is installed."
+            )
+        self.assertEqual(response.status_code, 200)
+
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(
         WAGTAIL_USER_TIME_ZONES=["Europe/London"],
         WAGTAILADMIN_PERMITTED_LANGUAGES=[("en", "English")],

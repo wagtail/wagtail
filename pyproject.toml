@@ -50,6 +50,7 @@ dependencies = [
   "laces>=0.1,<0.2",
   "django-tasks>=0.9,<0.13",
   "modelsearch>=1.1,<1.3",
+  "tzdata>=2024.1",
 ]
 
 [project.urls]
