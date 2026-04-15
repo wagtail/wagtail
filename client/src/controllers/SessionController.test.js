@@ -123,6 +123,52 @@ describe('SessionController', () => {
       expect(handlePing).toHaveBeenCalledTimes(0);
       handlePing.mockClear();
     });
+
+    it('should allow pausing and resuming the ping', async () => {
+      expect(handlePing).not.toHaveBeenCalled();
+      document.body.innerHTML = /* html */ `
+        <div
+          data-controller="w-session"
+          data-action="w-autosave:save@document->w-session#pause w-autosave:success@document->w-session#resume visibilitychange@document->w-session#ping"
+          data-w-session-active-value="false"
+          >
+          Inactive by default
+        </div>
+      `;
+      await Promise.resolve();
+
+      // If activeValue is false, it should not dispatch the event immediately
+      expect(handlePing).not.toHaveBeenCalled();
+
+      // Should not dispatch the event after the set interval either
+      jest.advanceTimersByTime(10000);
+      expect(handlePing).not.toHaveBeenCalled();
+
+      document.dispatchEvent(new CustomEvent('w-autosave:success'));
+      await Promise.resolve();
+      // Ping is not done immediately after resume
+      expect(handlePing).not.toHaveBeenCalled();
+
+      // Should dispatch the event after the set interval
+      jest.advanceTimersByTime(10000);
+      expect(handlePing).toHaveBeenCalledTimes(1);
+      // Should continue dispatching the ping event via actions
+      document.dispatchEvent(new Event('visibilitychange'));
+      expect(handlePing).toHaveBeenCalledTimes(2);
+
+      document.dispatchEvent(new CustomEvent('w-autosave:save'));
+      await Promise.resolve();
+
+      // Should not dispatch the event after pausing
+      expect(handlePing).toHaveBeenCalledTimes(2);
+      jest.advanceTimersByTime(10000);
+      expect(handlePing).toHaveBeenCalledTimes(2);
+
+      // Should not dispatch the event even when triggering the ping action
+      document.dispatchEvent(new Event('visibilitychange'));
+      await Promise.resolve();
+      expect(handlePing).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('dispatching the visibility state of the document', () => {
@@ -207,7 +253,7 @@ describe('SessionController', () => {
           <button type="button" data-workflow-action-name="approve">Approve</button>
 
           <div
-            id="w-overwrite-changes-dialog"
+            id="w-save-confirmation-dialog"
             aria-hidden="true"
             data-controller="w-dialog"
             data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show"
@@ -225,8 +271,8 @@ describe('SessionController', () => {
 
         <div
           data-controller="w-session"
-          data-w-session-intercept-value="true"
-          data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
+          data-w-session-intercept-value="conflict"
+          data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-save-confirmation-dialog"
         >
         </div>
       `;
@@ -238,7 +284,7 @@ describe('SessionController', () => {
       workflowActionButton.addEventListener('click', handleWorkflowAction, {
         capture: true,
       });
-      const dialog = document.getElementById('w-overwrite-changes-dialog');
+      const dialog = document.getElementById('w-save-confirmation-dialog');
       dialog.addEventListener('w-dialog:shown', handleDialogShow);
       dialog.addEventListener('w-dialog:hidden', handleDialogHidden);
       dialog.addEventListener('w-dialog:confirmed', handleDialogConfirmed);
@@ -257,7 +303,7 @@ describe('SessionController', () => {
 
     it('should not prevent the submit event if the intercept value is unset', async () => {
       const submitButton = form.querySelector('button[type="submit"]');
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const element = document.querySelector('[data-controller="w-session"]');
       element.removeAttribute('data-w-session-intercept-value');
       await Promise.resolve();
@@ -270,11 +316,11 @@ describe('SessionController', () => {
       expect(handleDialogShow).not.toHaveBeenCalled();
     });
 
-    it('should not prevent the submit event if the intercept value is set to false', async () => {
+    it('should not prevent the submit event if the intercept value is set to empty string', async () => {
       const submitButton = form.querySelector('button[type="submit"]');
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const element = document.querySelector('[data-controller="w-session"]');
-      element.setAttribute('data-w-session-intercept-value', 'false');
+      element.setAttribute('data-w-session-intercept-value', '');
       await Promise.resolve();
 
       submitButton.click();
@@ -286,7 +332,7 @@ describe('SessionController', () => {
     });
 
     it('should show the dialog and prevent the submit event', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const submitButton = form.querySelector('button[type="submit"]');
       expect(dialog.getAttribute('aria-hidden')).toEqual('true');
       expect(handleDialogShow).not.toHaveBeenCalled();
@@ -300,7 +346,7 @@ describe('SessionController', () => {
     });
 
     it('should continue the action after confirming the dialog', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const confirmButton = document.getElementById('confirm');
       expect(handleDialogShow).not.toHaveBeenCalled();
 
@@ -321,7 +367,7 @@ describe('SessionController', () => {
     });
 
     it('should allow the action to be cancelled', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const cancelButton = document.getElementById('cancel');
       expect(handleDialogShow).not.toHaveBeenCalled();
 
@@ -341,7 +387,7 @@ describe('SessionController', () => {
     });
 
     it('should show the dialog again if clicking the action again after the dialog is hidden', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const confirmButton = document.getElementById('confirm');
       const cancelButton = document.getElementById('cancel');
       expect(handleDialogShow).not.toHaveBeenCalled();
@@ -388,7 +434,7 @@ describe('SessionController', () => {
     });
 
     it('should use the action button label as the dialog confirm target label if it has one', async () => {
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       const submitButton = form.querySelector('button[type="submit"]');
       const confirmButton = document.getElementById('confirm');
       // Mark the confirm button as DialogController's confirm target
@@ -451,7 +497,7 @@ describe('SessionController', () => {
 
       // Reconnect the DialogController so the submit button in the
       // schedule publishing dialog works
-      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const dialog = document.querySelector('#w-save-confirmation-dialog');
       dialog.removeAttribute('data-controller');
       await Promise.resolve();
       dialog.setAttribute('data-controller', 'w-dialog');
@@ -498,21 +544,13 @@ describe('SessionController', () => {
     });
   });
 
-  describe('storing unsaved changes state to a checkbox input and update reload buttons accordingly', () => {
-    let reloadButton;
-
+  describe('storing unsaved changes state to a checkbox input', () => {
     beforeEach(() => {
       document.body.innerHTML = /* html */ `
         <form data-controller="w-session" data-action="w-unsaved:add@document->w-session#setUnsavedChanges w-unsaved:clear@document->w-session#setUnsavedChanges">
           <input type="checkbox" name="is_editing" data-w-session-target="unsavedChanges" value="1" />
         </form>
       `;
-
-      reloadButton = document.createElement('button');
-      reloadButton.type = 'button';
-      reloadButton.setAttribute('data-w-session-target', 'reload');
-      reloadButton.setAttribute('data-dialog-id', 'w-unsaved-changes-dialog');
-      reloadButton.innerHTML = 'Refresh';
     });
 
     it('should set the checkbox state to be checked when there is a w-unsaved:add event', async () => {
@@ -520,28 +558,12 @@ describe('SessionController', () => {
       const checkbox = document.querySelector('input');
       expect(checkbox.checked).toBe(false);
 
-      // when connected, the reload button should be set up to reload the page
-      form.appendChild(reloadButton);
-      await Promise.resolve();
-      expect(reloadButton.getAttribute('data-a11y-dialog-show')).toBeNull();
-      expect(reloadButton.getAttribute('data-action')).toEqual(
-        'w-action#reload',
-      );
-
       document.dispatchEvent(new CustomEvent('w-unsaved:add'));
       await Promise.resolve();
       expect(checkbox.checked).toBe(true);
 
       // should be included in the form
       expect(new FormData(form).get('is_editing')).toBe('1');
-
-      // should make the reload button show the unsaved changes dialog instead
-      // of reloading, by setting the data-a11y-dialog-show attribute and
-      // removing the data-action attribute
-      expect(reloadButton.getAttribute('data-a11y-dialog-show')).toEqual(
-        'w-unsaved-changes-dialog',
-      );
-      expect(reloadButton.getAttribute('data-action')).toBeNull();
     });
 
     it('should set the checkbox state to be unchecked when there is a w-unsaved:clear event', async () => {
@@ -550,29 +572,12 @@ describe('SessionController', () => {
       checkbox.checked = true;
       expect(checkbox.checked).toBe(true);
 
-      // when connected, the reload button should be set up to show the unsaved
-      // changes dialog
-      form.appendChild(reloadButton);
-      await Promise.resolve();
-      expect(reloadButton.getAttribute('data-a11y-dialog-show')).toEqual(
-        'w-unsaved-changes-dialog',
-      );
-      expect(reloadButton.getAttribute('data-action')).toBeNull();
-
       document.dispatchEvent(new CustomEvent('w-unsaved:clear'));
       await Promise.resolve();
       expect(checkbox.checked).toBe(false);
 
       // should not be included in the form
       expect(new FormData(form).get('is_editing')).toBeNull();
-
-      // should make the reload button reload the page instead of showing the
-      // unsaved changes dialog, by setting the data-action attribute and
-      // removing the data-a11y-dialog-show attribute
-      expect(reloadButton.getAttribute('data-a11y-dialog-show')).toBeNull();
-      expect(reloadButton.getAttribute('data-action')).toEqual(
-        'w-action#reload',
-      );
     });
 
     it('should work fine if there is no unsavedChanges target', async () => {
@@ -587,21 +592,6 @@ describe('SessionController', () => {
       document.dispatchEvent(new CustomEvent('w-unsaved:clear'));
       await Promise.resolve();
       expect(form.innerHTML.trim()).toEqual('');
-    });
-
-    it('should work fine if there is no reload target', async () => {
-      const form = document.querySelector('form');
-      const checkbox = document.querySelector('input');
-
-      // the reloadButton is never appended to the form
-
-      document.dispatchEvent(new CustomEvent('w-unsaved:add'));
-      await Promise.resolve();
-      expect(form.innerHTML.trim()).toEqual(checkbox.outerHTML.trim());
-
-      document.dispatchEvent(new CustomEvent('w-unsaved:clear'));
-      await Promise.resolve();
-      expect(form.innerHTML.trim()).toEqual(checkbox.outerHTML.trim());
     });
   });
 
@@ -625,6 +615,8 @@ describe('SessionController', () => {
           data-action="
             w-session:ping->w-swap#submit
             w-swap:json->w-session#updateSessionData
+            w-swap:error->w-session#setNetworkIntercept
+            w-swap:success->w-session#setNetworkIntercept
             w-autosave:success@document->w-session#updateSessionData
           "
         >
@@ -699,7 +691,7 @@ describe('SessionController', () => {
         expect(element.dataset.wActionUrlValue).toEqual(
           'http://localhost/sessions/release/999/',
         );
-        expect(element.dataset.wSessionInterceptValue).toEqual('true');
+        expect(element.dataset.wSessionInterceptValue).toEqual('conflict');
 
         await Promise.resolve();
         await Promise.resolve();
@@ -761,6 +753,175 @@ describe('SessionController', () => {
         await Promise.resolve();
         expect(document.getElementById('w-editing-sessions').innerHTML).toEqual(
           '<ul><li>Session 1</li></ul>',
+        );
+      });
+
+      it('should set the intercept value when there is a network error', async () => {
+        fetch.mockImplementationOnce(() =>
+          Promise.reject(new TypeError('Failed to fetch')),
+        );
+        jest.spyOn(console, 'error').mockImplementationOnce(() => {});
+        await setup();
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/1/',
+          expect.any(Object),
+        );
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'network',
+        );
+      });
+
+      it('should clear the network intercept value when a request is successful', async () => {
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '',
+            ping_url: 'http://localhost/sessions/2/',
+            release_url: 'http://localhost/sessions/2/release/',
+            other_sessions: [],
+          }),
+        );
+        await setup();
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/1/',
+          expect.any(Object),
+        );
+
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/2/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/2/release/',
+        );
+        element.setAttribute('data-w-session-intercept-value', 'network');
+        await Promise.resolve();
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'network',
+        );
+
+        // Simulate ping after 10s
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '<ul><li>Session 7</li></ul>',
+            ping_url: 'http://localhost/sessions/999/',
+            release_url: 'http://localhost/sessions/release/999/',
+            other_sessions: [{ session_id: 7 }],
+          }),
+        );
+        jest.advanceTimersByTime(10000);
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/2/',
+          expect.any(Object),
+        );
+
+        // Simulate request finishing
+        await Promise.resolve();
+
+        // Simulate JSON parsing
+        await Promise.resolve();
+
+        // Simulate HTML updating and deferred write to the DOM
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/999/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/release/999/',
+        );
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          '',
+        );
+      });
+
+      it('should let non-network intercept types to take priority', async () => {
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '',
+            ping_url: 'http://localhost/sessions/2/',
+            release_url: 'http://localhost/sessions/2/release/',
+            other_sessions: [],
+          }),
+        );
+        await setup();
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/1/',
+          expect.any(Object),
+        );
+
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/2/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/2/release/',
+        );
+        element.setAttribute('data-w-session-intercept-value', 'network');
+        await Promise.resolve();
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'network',
+        );
+
+        // Simulate ping after 10s
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '<ul><li>Session 7</li></ul>',
+            ping_url: 'http://localhost/sessions/999/',
+            release_url: 'http://localhost/sessions/release/999/',
+            other_sessions: [{ session_id: 7, revision_id: 456 }],
+          }),
+        );
+        jest.advanceTimersByTime(10000);
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/2/',
+          expect.any(Object),
+        );
+
+        // Simulate request finishing
+        await Promise.resolve();
+
+        // Simulate JSON parsing
+        await Promise.resolve();
+
+        // Simulate HTML updating and deferred write to the DOM
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/999/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/release/999/',
+        );
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'conflict',
+        );
+
+        // Simulate a network error on the next ping
+        fetch.mockImplementationOnce(() =>
+          Promise.reject(new TypeError('Failed to fetch')),
+        );
+        jest.advanceTimersByTime(10000);
+        jest.spyOn(console, 'error').mockImplementationOnce(() => {});
+        await Promise.resolve();
+        await Promise.resolve();
+        // Should not override the existing conflict intercept with a network intercept
+        expect(element.getAttribute('data-w-session-intercept-value')).toEqual(
+          'conflict',
         );
       });
     });

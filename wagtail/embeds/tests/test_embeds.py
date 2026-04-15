@@ -699,6 +699,42 @@ class TestOembed(TestCase):
         with self.assertRaises(EmbedNotFoundException):
             OEmbedFinder().find_embed("https://www.youtube.com/watch/")
 
+    @responses.activate
+    def test_oembed_field_value_null(self):
+        responses.get(
+            url="https://www.youtube.com/oembed",
+            match=[
+                matchers.query_param_matcher(
+                    {"url": "https://www.youtube.com/watch/", "format": "json"}
+                ),
+            ],
+            json={  # valid JSON but some fields are null
+                "type": "something",
+                "url": "http://www.example.com",
+                "title": None,
+                "author_name": None,
+                "provider_name": None,
+                "thumbnail_url": "test_thumbail_url",
+                "width": "test_width",
+                "height": "test_height",
+                "html": "test_html",
+            },
+        )
+        result = OEmbedFinder().find_embed("https://www.youtube.com/watch/")
+        self.assertEqual(
+            result,
+            {
+                "type": "something",
+                "title": "",
+                "author_name": "",
+                "provider_name": "",
+                "thumbnail_url": "test_thumbail_url",
+                "width": "test_width",
+                "height": "test_height",
+                "html": "test_html",
+            },
+        )
+
 
 class TestInstagramOEmbed(TestCase):
     def setUp(self):

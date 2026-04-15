@@ -96,7 +96,9 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
         return self.object.permissions_for_user(self.request.user).can_unschedule()
 
     def get_base_queryset(self):
-        return self._annotate_queryset(PageLogEntry.objects.filter(page=self.object))
+        queryset = PageLogEntry.objects.filter(page=self.object)
+        queryset = queryset.latest_by_uuid_and_action()
+        return self._annotate_queryset(queryset)
 
     def _annotate_queryset(self, queryset):
         return super()._annotate_queryset(queryset).select_related("page")

@@ -18,6 +18,7 @@ from modelcluster.models import (
 )
 
 from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
 from wagtail.utils.timestamps import ensure_utc
 
 from .content_types import get_default_page_content_type
@@ -297,8 +298,9 @@ class RevisionMixin(models.Model):
         """
         return Revision.objects.for_instance(self)
 
-    def get_base_content_type(self):
-        parents = self._meta.get_parent_list()
+    @classmethod
+    def get_base_content_type(cls):
+        parents = cls._meta.get_parent_list()
         # Get the last non-abstract parent in the MRO as the base_content_type.
         # Note: for_concrete_model=False means that the model can be a proxy model.
         if parents:
@@ -307,10 +309,11 @@ class RevisionMixin(models.Model):
             )
         # This model doesn't inherit from a non-abstract model,
         # use it as the base_content_type.
-        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+        return ContentType.objects.get_for_model(cls, for_concrete_model=False)
 
-    def get_content_type(self):
-        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+    @classmethod
+    def get_content_type(cls):
+        return ContentType.objects.get_for_model(cls, for_concrete_model=False)
 
     def get_latest_revision(self):
         return self.latest_revision
@@ -447,14 +450,24 @@ class RevisionMixin(models.Model):
         )
         if log_action:
             if not previous_revision:
+                action = log_action if isinstance(log_action, str) else "wagtail.edit"
+                uuid = None
+                if overwrite_revision:
+                    # When overwriting a revision, use the same uuid for all
+                    # edit log entries, so we can group them as one entry and
+                    # avoid the history view becoming too noisy.
+                    logs = log_registry.get_logs_for_instance(self)
+                    uuid = logs.latest_uuid_for_user_revision_action(
+                        user, overwrite_revision, action
+                    )
+
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=action,
                     user=user,
                     revision=revision,
                     content_changed=changed,
+                    uuid=uuid,
                 )
             else:
                 log(

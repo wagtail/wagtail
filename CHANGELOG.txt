@@ -8,13 +8,26 @@ Changelog
  * Update project template Dockerfile to build dependencies in a separate stage (Brylie Oxley, Akshat Gupta)
  * Add `include_root` parameter to admin pages API endpoint (Divyansh Mishra)
  * Add support for Flourish oEmbeds (Garrett Coakley)
+ * Add support for Heyzine oEmbeds (Baptiste Darthenay)
+ * Allow specifying `creation_form_class` on `ChooserViewSet` as a dotted path string (K Adithya)
+ * Various user experience improvements to autosave and concurrent editing notifications (Sage Abdullah)
+ * Allow validation of required StreamField blocks to be deferred on saving drafts (Sage Abdullah)
+ * Add `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting for specifying maximum document file size (Om Harsh)
+ * Optimize combining of querysets in site history report (Alex Bridge)
+ * Add more informative error for `format-*` operations on SVG images (Ankit Kumar)
+ * Store preview data in new `FormState` model to improve compatibility with cookie-based sessions (Sage Abdullah)
+ * Change StreamBlock options so groups are shown in declaration order of their blocks (Darshan Kerkar)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
  * Fix: Set `verbose_name_plural` for Query model in search promotions app (Saptami)
  * Fix: Truncate overly long task names in workflow admin view (Gaurav Takhi)
  * Fix: Hide "Add child page" button when no child pages can be created as per `max_count` or `max_count_per_parent` (Lasse Schmieding)
+ * Fix: Prevent multiple child pages with `max_count_per_parent` being moved under one parent (James Biggs)
  * Fix: Use POST instead of DELETE in Cloudflare Frontend Cache Backend (Tom Usher)
+ * Fix: Handle null values for title, author name or provider name in OEmbed responses (Baptiste Darthenay)
+ * Fix: Preserve original data types from `ChoiceBlock` choices in block values (Devarshi Mani Tripathi)
+ * Fix: Fix translation sync logic for django-treebeard 5.0.2 (Matt Westcott)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
@@ -26,6 +39,10 @@ Changelog
  * Docs: Fix typos and minor grammar issues (Kunal Gupta)
  * Docs: Correct references to macOS and POSIX shell in tutorial (Ankit Kumar)
  * Docs: Add PowerShell setup instructions to tutorial and correct method versus property terminology (Mustansir Dabhiya)
+ * Docs: Fix ordering of image rendition documentation (Seb Corbin)
+ * Docs: Remove references to now-addressed Django accessibility issues (Nirmal Kumar)
+ * Docs: Add content personalization how-to guide (Thibaud Colas)
+ * Docs: Add new package maintenance guidelines (Thibaud Colas)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
@@ -44,6 +61,8 @@ Changelog
  * Maintenance: Upgrade Python tooling, testing, and docs dependencies (Sage Abdullah)
  * Maintenance: Support skipping transaction unit tests with a tag (Sage Abdullah)
  * Maintenance: Remove unreachable code in wagtail.py (Oluwagbeminiyi Agbedejobi)
+ * Maintenance: Upgrade django-treebeard dependency to 4.8-5.x (Samir Shah)
+ * Maintenance: Clean up JSDoc & ordering of values in `SwapController` (LB (Ben Johnston))
 
 
 7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -51,6 +70,8 @@ Changelog
 
  * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+ * Fix: Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
+ * Fix: Group audit log entries for autosave operations in page history view (Sage Abdullah)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~

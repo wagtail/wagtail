@@ -1,4 +1,3 @@
-import itertools
 import json
 import uuid
 from collections import OrderedDict, defaultdict
@@ -100,11 +99,9 @@ class BaseStreamBlock(Block):
     def empty_value(self, raw_text=None):
         return StreamValue(self, [], raw_text=raw_text)
 
-    def sorted_child_blocks(self):
-        """Child blocks, sorted in to their groups."""
-        return sorted(
-            self.child_blocks.values(), key=lambda child_block: child_block.meta.group
-        )
+    def ordered_child_blocks(self):
+        """Child blocks in declaration order."""
+        return self.child_blocks.values()
 
     def grouped_child_blocks(self):
         """
@@ -112,9 +109,13 @@ class BaseStreamBlock(Block):
         their meta.group attribute.
         Returned as an iterable of (group_name, list_of_blocks) tuples
         """
-        return itertools.groupby(
-            self.sorted_child_blocks(), key=lambda child_block: child_block.meta.group
-        )
+        grouped_blocks = OrderedDict()
+
+        for child_block in self.ordered_child_blocks():
+            group_name = child_block.meta.group
+            grouped_blocks.setdefault(group_name, []).append(child_block)
+
+        return grouped_blocks.items()
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data["%s-count" % prefix])
@@ -160,8 +161,13 @@ class BaseStreamBlock(Block):
     def required(self):
         return self.meta.required
 
-    def clean(self, value, ignore_required_constraints=False):
-        required = self.required and not ignore_required_constraints
+    def defer_required_validation(self):
+        super().defer_required_validation()
+        for child_block in self.child_blocks.values():
+            child_block.defer_required_validation()
+
+    def clean(self, value):
+        required = self.required and not self.is_deferred_validation
         cleaned_data = []
         errors = {}
         non_block_errors = ErrorList()
@@ -231,6 +237,11 @@ class BaseStreamBlock(Block):
             )
 
         return StreamValue(self, cleaned_data)
+
+    def restore_deferred_validation(self):
+        for child_block in self.child_blocks.values():
+            child_block.restore_deferred_validation()
+        super().restore_deferred_validation()
 
     def to_python(self, value):
         if isinstance(value, StreamValue):

@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.log_actions import log
+from wagtail.log_actions import LogContext, log
 from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -154,6 +154,137 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(
             response, "administrator", 2
         )  # the final restriction change + filter
+
+    def test_history_group_by_uuid_and_action(self):
+        # Simulate some edit log entries without UUID
+        for _ in range(3):
+            self.hello_page.save_revision(user=self.editor, log_action=True)
+
+        with LogContext(user=self.editor) as context_1:
+            # Simulate new revisions but share the same log context UUID
+            for _ in range(3):
+                self.hello_page.save_revision(
+                    user=self.editor,
+                    log_action=True,
+                )
+            # Simulate a different action with the same log context UUID
+            log(instance=self.hello_page, action="wagtail.publish", user=self.editor)
+
+        # Create a new revision with a new isolated context
+        with LogContext(user=self.editor) as context_2:
+            revision = self.hello_page.save_revision(
+                user=self.editor,
+                log_action=True,
+            )
+
+        loop_contexts = []
+        for _ in range(3):
+            # Create a new log context for each iteration to simulate multiple
+            # request-response cycles
+            with LogContext(user=self.editor) as loop_context:
+                loop_contexts.append(loop_context)
+                # Overwriting a revision should create log entries using the last
+                # UUID for the given revision instead of the current context's UUID.
+                self.hello_page.save_revision(
+                    overwrite_revision=revision,
+                    user=self.editor,
+                    log_action=True,
+                )
+
+                # Simulate a different action logged a couple times, which should
+                # use the new log context UUID
+                for _ in range(2):
+                    log(
+                        instance=self.hello_page,
+                        action="wagtail.reorder",
+                        user=self.editor,
+                        revision=revision,
+                    )
+
+        edit_logs = PageLogEntry.objects.for_instance(self.hello_page).filter(
+            action="wagtail.edit"
+        )
+        self.assertEqual(edit_logs.count(), 10)
+        uuids = edit_logs.filter(uuid__isnull=False).values_list("uuid", flat=True)
+        self.assertEqual(len(set(uuids)), 2)
+
+        actions = (
+            PageLogEntry.objects.for_instance(self.hello_page)
+            .order_by("timestamp")
+            .values_list("action", "uuid")
+        )
+        self.assertEqual(
+            list(actions),
+            # Initial creation
+            [("wagtail.create", None)]
+            # 3 edits without UUID
+            + 3 * [("wagtail.edit", None)]
+            # A new log context, in which we create 3 edits with new revisions
+            # and a publish action. All share the same UUID from the context.
+            # The edits will be grouped together when shown, and the publish
+            # action should be shown separately.
+            + 3 * [("wagtail.edit", context_1.uuid)]
+            + [("wagtail.publish", context_1.uuid)]
+            # A new log context, in which we create 1 edit with a new revision.
+            + [("wagtail.edit", context_2.uuid)]
+            # Each of the following 3 iterations create its own log context.
+            + [
+                item
+                for sublist in [
+                    [
+                        # However, the edit action overwrites a previous revision,
+                        # so it should use the last UUID for that
+                        # user+revision+action combo instead of the current context.
+                        ("wagtail.edit", context_2.uuid),
+                        # While other actions should use the current context's UUID
+                        # as normal.
+                        ("wagtail.reorder", loop_contexts[i].uuid),
+                        ("wagtail.reorder", loop_contexts[i].uuid),
+                    ]
+                    for i in range(3)
+                ]
+                for item in sublist
+            ],
+        )
+
+        self.login(user=self.editor)
+        history_url = reverse(
+            "wagtailadmin_pages:history",
+            kwargs={"page_id": self.hello_page.id},
+        )
+        response = self.client.get(history_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        actions = soup.select("main td:first-of-type")
+        # Remove dropdowns to reduce noise when making assertions
+        for dropdown in soup.select("main td [data-controller='w-dropdown']"):
+            dropdown.extract()
+        self.assertEqual(
+            [action.get_text(strip=True, separator=" | ") for action in actions],
+            [
+                # Two reorder actions grouped as one, iteration 3
+                "Reordered",
+                # The edit with the same revision and user must share the same
+                # UUID (even when using a different log context), and the last
+                # edit happened here.
+                "Draft saved | Current draft",
+                # Two reorder actions grouped as one, iteration 2
+                "Reordered",
+                # Two reorder actions grouped as one, iteration 1
+                "Reordered",
+                # Published action in the same log context as below
+                "Published | Live version",
+                # 3 edits with new revisions but all created within the first
+                # log context, so should be grouped as one
+                "Draft saved",
+                # 3 edits without UUID, each shown separately
+                "Draft saved",
+                "Draft saved",
+                "Draft saved",
+                # Initial creation
+                "Created",
+            ],
+        )
 
     def test_page_history_filters(self):
         self.login(user=self.editor)

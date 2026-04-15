@@ -955,6 +955,13 @@
 * Collins Kubu
 * Advik Sharma
 * Oluwagbeminiyi Agbedejobi
+* Baptiste Darthenay
+* K Adithya
+* Devarshi Mani Tripathi
+* Om Harsh
+* Nirmal Kumar
+* Darshan Kerkar
+* James Biggs
 
 ## Translators
 

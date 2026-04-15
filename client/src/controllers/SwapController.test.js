@@ -45,13 +45,15 @@ describe('SwapController', () => {
 
       document.body.innerHTML = `
       <div id="listing-results"></div>
-      <input
-        id="search"
-        type="text"
-        name="q"
-        data-controller="w-swap"
-        data-w-swap-target-value=""
-      />`;
+      <form>
+        <input
+          id="search"
+          type="text"
+          name="q"
+          data-controller="w-swap"
+          data-w-swap-target-value=""
+        />
+      </form>`;
 
       // trigger next browser render cycle
       await Promise.resolve();
@@ -68,14 +70,16 @@ describe('SwapController', () => {
 
       document.body.innerHTML = `
       <div id="listing-results"></div>
-      <input
-        id="search"
-        type="text"
-        name="q"
-        data-controller="w-swap"
-        data-w-swap-src-value="path/to/search"
-        data-w-swap-target-value="#resultX"
-      />`;
+      <form>
+        <input
+          id="search"
+          type="text"
+          name="q"
+          data-controller="w-swap"
+          data-w-swap-src-value="path/to/search"
+          data-w-swap-target-value="#resultX"
+        />
+      </form>`;
 
       // trigger next browser render cycle
       await Promise.resolve();
@@ -94,13 +98,15 @@ describe('SwapController', () => {
 
       document.body.innerHTML = `
       <div id="results"></div>
-      <input
-        id="search"
-        type="text"
-        name="q"
-        data-controller="w-swap"
-        data-w-swap-target-value="#results"
-      />`;
+      <form>
+        <input
+          id="search"
+          type="text"
+          name="q"
+          data-controller="w-swap"
+          data-w-swap-target-value="#results"
+        />
+      </form>`;
 
       // trigger next browser render cycle
       await Promise.resolve();
@@ -731,13 +737,16 @@ describe('SwapController', () => {
   describe('performing a content update via actions on a controlled button without a form', () => {
     beforeEach(() => {
       document.body.innerHTML = `
-      <button
-        id="clear"
-        data-controller="w-swap"
-        data-action="w-swap#replaceLazy"
-        data-w-swap-src-value="/admin/custom/results/?type=bar"
-        data-w-swap-target-value="#results"
-      >Clear owner filter</button>
+      <div id="not-a-form">
+        <button
+          id="clear"
+          type="button"
+          data-controller="w-swap"
+          data-action="w-swap#replaceLazy"
+          data-w-swap-src-value="/admin/custom/results/?type=bar"
+          data-w-swap-target-value="#results"
+        >Clear owner filter</button>
+      </div>
       <div id="results"></div>
       `;
     });
