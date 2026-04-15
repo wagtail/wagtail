@@ -1206,6 +1206,7 @@ def formattedfield(
     error_message_id=None,
     wrapper_id=None,
     attrs=None,
+    help_text_after_input=False,
 ):
     """
     Renders a form field in standard Wagtail admin layout.
@@ -1244,6 +1245,7 @@ def formattedfield(
         "required": field and field.field.required,
         "contentpath": field.name if field else "",
         "help_text": help_text or (field and field.help_text) or "",
+        "help_text_after_input": help_text_after_input,
     }
 
     if help_text_id:
@@ -1298,6 +1300,7 @@ def formattedfieldfromcontext(context):
         "label_text",
         "error_message_id",
         "wrapper_id",
+        "help_text_after_input",
     ):
         if arg in context:
             kwargs[arg] = context[arg]
