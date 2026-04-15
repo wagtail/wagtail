@@ -961,6 +961,7 @@
 * Om Harsh
 * Nirmal Kumar
 * Darshan Kerkar
+* James Biggs
 
 ## Translators
 
