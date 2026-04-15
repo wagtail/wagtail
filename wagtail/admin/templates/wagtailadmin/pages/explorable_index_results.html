@@ -1,6 +1,15 @@
 {% extends "wagtailadmin/pages/index_results.html" %}
 {% load wagtailadmin_tags i18n %}
 
+{% block filter_partials %}
+    {% comment %}
+        The explorable index view does not follow the generic mechanism for rendering the header buttons.
+        It also does not have any header buttons that need re-rendering, so don't render the fragment
+        to avoid overwriting the existing buttons with a blank fragment.
+    {% endcomment %}
+    {% include "wagtailadmin/shared/listing/filter_partials.html" with render_buttons_fragment=False %}
+{% endblock %}
+
 {% block before_results %}
     {% if not is_searching and not is_filtering %}
         {% comment %}
