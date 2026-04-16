@@ -57,6 +57,20 @@ Use an icon in a custom template:
 {% icon name="toucan" classname="..." title="..." %}
 ```
 
+If you want to use Wagtail's icons on public-facing pages, you also need to render the icon sprite and supporting script in your base template. A minimal setup looks like this:
+
+```html+django
+{% load wagtailadmin_tags static %}
+
+<body>
+    <div data-sprite></div>
+    <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% icon_sprite_url %}"></script>
+    ...
+</body>
+```
+
+Without this snippet, the `{% icon %}` tag will render references to symbols that are only available in the admin.
+
 ## Changing icons via hooks
 
 ```python
