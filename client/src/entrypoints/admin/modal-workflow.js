@@ -108,7 +108,16 @@ function ModalWorkflow(opts) {
   };
 
   self.loadResponseText = function loadResponseText(responseText) {
-    const response = JSON.parse(responseText);
+    let response;
+    try {
+      response = JSON.parse(responseText);
+    } catch (error) {
+      if (typeof responseText === 'string' && responseText.trim().startsWith('<')) {
+        window.location.reload();
+        return;
+      }
+      throw error;
+    }
     self.loadBody(response);
   };
 
