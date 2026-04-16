@@ -1322,9 +1322,9 @@ class FullFeaturedSnippet(
     ClusterableModel,
 ):
     class CountryCode(models.TextChoices):
-        INDONESIA = "ID"
-        PHILIPPINES = "PH"
-        UNITED_KINGDOM = "UK"
+        INDONESIA = "ID", "Indonesia"
+        PHILIPPINES = "PH", "Philippines"
+        UNITED_KINGDOM = "UK", "United Kingdom"
 
     text = models.TextField()
     country_code = models.CharField(

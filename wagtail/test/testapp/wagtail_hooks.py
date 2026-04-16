@@ -411,6 +411,7 @@ class SnippetChooserModelViewSet(SnippetViewSet):
     list_display = [
         "__str__",
         "full_featured__text",
+        "full_featured__country_code",
         "full_featured__latest_revision__created_at",
     ]
     exclude_form_fields = []
