@@ -58,6 +58,8 @@ Currently, this view is outputting a plain HTML fragment. Let's insert this into
 The base template and HTML structure are not considered a stable part of Wagtail's API and may change in future releases.
 ```
 
+If you need reusable admin UI building blocks while extending this template, refer to [](ui_components) for server-side template tags and components, and [](javascript_components) for the client-side JavaScript and Stimulus reference.
+
 Update `views.py` as follows:
 
 ```python

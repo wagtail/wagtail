@@ -148,6 +148,8 @@ We use [Prettier](https://prettier.io/) for formatting and [ESLint](https://esli
 
 Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a lightweight framework to attach interactive behavior to DOM elements via `data-` attributes.
 
+For contributor-facing implementation guidance, continue with this page. For the generated reference documentation covering the available JavaScript components and controllers, see [](javascript_components).
+
 ### Why Stimulus
 
 Stimulus is a lightweight framework that allows developers to create interactive UI elements in a simple way. It makes it easy to do small-scale reactivity via changes to data attributes and does not require developers to 'init' things everywhere, unlike JQuery. It also provides an alternative to using inline script tag usage and window globals which reduces complexity in the codebase.

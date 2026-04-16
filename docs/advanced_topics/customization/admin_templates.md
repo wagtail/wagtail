@@ -17,6 +17,13 @@ INSTALLED_APPS = (
 )
 ```
 
+## Reusing admin UI components
+
+When overriding admin templates, prefer reusing Wagtail's existing UI building blocks so your customizations stay consistent with the rest of the admin and are easier to maintain during upgrades.
+
+-   For server-side template tags and components such as dialogs, dropdowns, and other reusable patterns, see [](ui_components).
+-   For client-side JavaScript and Stimulus controllers used by the admin interface, see [](javascript_components).
+
 (custom_branding)=
 
 ## Custom branding
