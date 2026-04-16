@@ -7,6 +7,8 @@
 
 Wagtail's JavaScript components are documented using [TypeDoc](https://typedoc.org). This documentation is automatically generated from the source code and provides detailed information about the available components, their methods, and properties. At this stage, the documentation is not exhaustive and may include internal APIs that are not accessible by external code. We are working on improving the code and documentation to make it more comprehensive and user-friendly in the future.
 
+If you are looking for a specific controller or class, search for its full name on [docs.wagtail.org](https://docs.wagtail.org) first. For example, queries such as `ClipboardController`, `DialogController`, `DropdownController`, `PreviewController`, `RulesController`, or `TooltipController` should lead you here, from where you can continue into the full JavaScript reference.
+
 <!-- INTRO:END -->
 
 <!-- STABILITY:START -->
