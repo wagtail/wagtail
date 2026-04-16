@@ -70,7 +70,6 @@ extensions = [
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
-    "sphinx_llm.txt",
 ]
 
 autodoc_type_aliases = {
@@ -102,6 +101,9 @@ suppress_warnings = [
 
 if not on_rtd:
     extensions.append("sphinxcontrib.spelling")
+
+if on_rtd or os.environ.get("BUILD_LLMS_TXT", ""):
+    extensions.append("sphinx_llm.txt")
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
