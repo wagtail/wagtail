@@ -22,7 +22,7 @@ def my_hook_function(arg1, arg2...):
 Alternatively, `hooks.register` can be called as an ordinary function, passing in the name of the hook and a handler function defined elsewhere:
 
 ```python
-hooks.register('name_of_hook', my_hook_function)
+hooks.register("name_of_hook", my_hook_function)
 ```
 
 If you need your hooks to run in a particular order, you can pass the `order` parameter. If order is not specified then the hooks proceed in the order given by `INSTALLED_APPS`. Wagtail uses hooks internally, too, so you need to be aware of order when overriding built-in Wagtail functionality (such as removing default summary items):
@@ -55,9 +55,9 @@ manager. Here's an example of how to register a hook function for just a single 
 def my_hook_function():
     pass
 
-class MyHookTest(TestCase):
 
-    @hooks.register_temporarily('name_of_hook', my_hook_function)
+class MyHookTest(TestCase):
+    @hooks.register_temporarily("name_of_hook", my_hook_function)
     def test_my_hook_function(self):
         # Test with the hook registered here
         pass
@@ -117,13 +117,14 @@ Specify a custom user avatar to be displayed in the Wagtail admin. The callable 
 ```python
 from datetime import datetime
 
-@hooks.register('get_avatar_url')
+
+@hooks.register("get_avatar_url")
 def get_profile_avatar(user, size):
     today = datetime.now()
     is_christmas_day = today.month == 12 and today.day == 25
 
     if is_christmas_day:
-        return '/static/images/santa.png'
+        return "/static/images/santa.png"
 
     return None
 ```
@@ -144,6 +145,7 @@ from django.utils.html import format_html
 from wagtail.admin.ui.components import Component
 from wagtail import hooks
 
+
 class WelcomePanel(Component):
     order = 50
 
@@ -156,7 +158,8 @@ class WelcomePanel(Component):
             """
         )
 
-@hooks.register('construct_homepage_panels')
+
+@hooks.register("construct_homepage_panels")
 def add_another_welcome_panel(request, panels):
     panels.append(WelcomePanel())
 ```
@@ -190,10 +193,11 @@ Called just before the Wagtail admin menu is output, to allow the list of menu i
 ```python
 from wagtail import hooks
 
-@hooks.register('construct_main_menu')
+
+@hooks.register("construct_main_menu")
 def hide_explorer_menu_item_from_frank(request, menu_items):
-  if request.user.username == 'frank':
-    menu_items[:] = [item for item in menu_items if item.name != 'explorer']
+    if request.user.username == "frank":
+        menu_items[:] = [item for item in menu_items if item.name != "explorer"]
 ```
 
 (describe_collection_contents)=
@@ -216,9 +220,10 @@ This hook can be added to a subclass of `BaseSettingsPanel`. For example:
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail import hooks
 
-@hooks.register('register_account_settings_panel')
+
+@hooks.register("register_account_settings_panel")
 class CustomSettingsPanel(BaseSettingsPanel):
-    name = 'custom'
+    name = "custom"
     title = "My custom settings"
     order = 500
     form_class = CustomSettingsForm
@@ -230,13 +235,15 @@ Alternatively, it can also be added to a function. For example, this function is
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail import hooks
 
+
 class CustomSettingsPanel(BaseSettingsPanel):
-    name = 'custom'
+    name = "custom"
     title = "My custom settings"
     order = 500
     form_class = CustomSettingsForm
 
-@hooks.register('register_account_settings_panel')
+
+@hooks.register("register_account_settings_panel")
 def register_custom_settings_panel(request, user, profile):
     return CustomSettingsPanel(request, user, profile)
 ```
@@ -255,12 +262,13 @@ The callable for this hook should return a dict with the keys
 from django.urls import reverse
 from wagtail import hooks
 
-@hooks.register('register_account_menu_item')
+
+@hooks.register("register_account_menu_item")
 def register_account_delete_account(request):
     return {
-        'url': reverse('delete-account'),
-        'label': 'Delete account',
-        'help_text': 'This permanently deletes your account.'
+        "url": reverse("delete-account"),
+        "label": "Delete account",
+        "help_text": "This permanently deletes your account.",
     }
 ```
 
@@ -285,9 +293,10 @@ from django.urls import reverse
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 
-@hooks.register('register_admin_menu_item')
+
+@hooks.register("register_admin_menu_item")
 def register_frank_menu_item():
-  return MenuItem('Frank', reverse('frank'), icon_name='folder-inverse', order=10000)
+    return MenuItem("Frank", reverse("frank"), icon_name="folder-inverse", order=10000)
 ```
 
 (register_admin_urls)=
@@ -302,16 +311,18 @@ from django.urls import path
 
 from wagtail import hooks
 
-def admin_view(request):
-  return HttpResponse(
-    "I have approximate knowledge of many things!",
-    content_type="text/plain")
 
-@hooks.register('register_admin_urls')
+def admin_view(request):
+    return HttpResponse(
+        "I have approximate knowledge of many things!", content_type="text/plain"
+    )
+
+
+@hooks.register("register_admin_urls")
 def urlconf_time():
-  return [
-    path('how_did_you_almost_know_my_name/', admin_view, name='frank'),
-  ]
+    return [
+        path("how_did_you_almost_know_my_name/", admin_view, name="frank"),
+    ]
 ```
 
 (register_admin_viewset)=
@@ -323,6 +334,7 @@ Register a {class}`~wagtail.admin.viewsets.base.ViewSet` or {class}`~wagtail.adm
 ```python
 from .views import CalendarViewSet
 
+
 @hooks.register("register_admin_viewset")
 def register_viewset():
     return CalendarViewSet()
@@ -332,6 +344,7 @@ Alternatively, it can also return a list of `ViewSet` or `ViewSetGroup` instance
 
 ```python
 from .views import AgendaViewSetGroup, VenueViewSet
+
 
 @hooks.register("register_admin_viewset")
 def register_viewsets():
@@ -405,9 +418,12 @@ from django.urls import reverse
 from wagtail import hooks
 from wagtail.admin.search import SearchArea
 
-@hooks.register('register_admin_search_area')
+
+@hooks.register("register_admin_search_area")
 def register_frank_search_area():
-    return SearchArea('Frank', reverse('frank'), icon_name='folder-inverse', order=10000)
+    return SearchArea(
+        "Frank", reverse("frank"), icon_name="folder-inverse", order=10000
+    )
 ```
 
 (register_permissions)=
@@ -417,18 +433,24 @@ def register_frank_search_area():
 Return a QuerySet of `Permission` objects to be shown in the Groups administration area.
 
 ```python
-  from django.contrib.auth.models import Permission
-  from wagtail import hooks
+from django.contrib.auth.models import Permission
+from wagtail import hooks
 
 
-  @hooks.register('register_permissions')
-  def register_permissions():
-      app = 'blog'
-      model = 'extramodelset'
+@hooks.register("register_permissions")
+def register_permissions():
+    app = "blog"
+    model = "extramodelset"
 
-      return Permission.objects.filter(content_type__app_label=app, codename__in=[
-          f"view_{model}", f"add_{model}", f"change_{model}", f"delete_{model}"
-      ])
+    return Permission.objects.filter(
+        content_type__app_label=app,
+        codename__in=[
+            f"view_{model}",
+            f"add_{model}",
+            f"change_{model}",
+            f"delete_{model}",
+        ],
+    )
 ```
 
 (register_user_listing_buttons)=
@@ -446,6 +468,7 @@ This example will add a button inside the "More" dropdown and a top-level button
 
 ```python
 from wagtail.admin import widgets as wagtailadmin_widgets
+
 
 @hooks.register("register_user_listing_buttons")
 def user_listing_external_profile(user, request_user):
@@ -485,7 +508,7 @@ For example, to prevent non-superusers from accessing form submissions:
 from wagtail import hooks
 
 
-@hooks.register('filter_form_submissions_for_user')
+@hooks.register("filter_form_submissions_for_user")
 def construct_forms_for_user(user, queryset):
     if not user.is_superuser:
         queryset = queryset.none()
@@ -516,9 +539,12 @@ from django.templatetags.static import static
 
 from wagtail import hooks
 
-@hooks.register('insert_global_admin_css')
+
+@hooks.register("insert_global_admin_css")
 def global_admin_css():
-    return format_html('<link rel="stylesheet" href="{}">', static('my/wagtail/theme.css'))
+    return format_html(
+        '<link rel="stylesheet" href="{}">', static("my/wagtail/theme.css")
+    )
 ```
 
 (insert_editor_js)=
@@ -536,16 +562,17 @@ from django.utils.html import format_html, format_html_join
 
 from wagtail import hooks
 
+
 @hooks.register("insert_editor_js")
 def editor_js():
     js_files = [
-        'js/fireworks.js', # See https://fireworks.js.org for CDN import URLs
-        'js/init-fireworks.js',
+        "js/fireworks.js",  # See https://fireworks.js.org for CDN import URLs
+        "js/init-fireworks.js",
     ]
     return format_html_join(
-        '\n',
+        "\n",
         '<script src="{}"></script>',
-        ((static(filename),) for filename in js_files)
+        ((static(filename),) for filename in js_files),
     )
 ```
 
@@ -583,11 +610,12 @@ from django.utils.html import format_html
 
 from wagtail import hooks
 
-@hooks.register('insert_global_admin_js')
+
+@hooks.register("insert_global_admin_js")
 def global_admin_js():
     return format_html(
         '<script src="{}"></script>',
-        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js"
+        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js",
     )
 ```
 
@@ -602,12 +630,11 @@ This example will add a simple button to the secondary dropdown menu:
 ```python
 from wagtail.admin import widgets as wagtailadmin_widgets
 
-@hooks.register('register_page_header_buttons')
+
+@hooks.register("register_page_header_buttons")
 def page_header_buttons(page, user, view_name, next_url=None):
     yield wagtailadmin_widgets.Button(
-        'A dropdown button',
-        '/goes/to/a/url/',
-        priority=60
+        "A dropdown button", "/goes/to/a/url/", priority=60
     )
 ```
 
@@ -635,7 +662,8 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('after_create_page')
+
+@hooks.register("after_create_page")
 def do_after_page_create(request, page):
     return HttpResponse("Congrats on making content!", content_type="text/plain")
 ```
@@ -643,14 +671,14 @@ def do_after_page_create(request, page):
 If you set attributes on a `Page` object, you should also call `save_revision()`, since the edit and index view pick up their data from the revisions table rather than the actual saved page record.
 
 ```python
-  @hooks.register('after_create_page')
-  def set_attribute_after_page_create(request, page):
-      page.title = 'Persistent Title'
-      new_revision = page.save_revision()
-      if page.live:
-          # page has been created and published at the same time,
-          # so ensure that the updated title is on the published version too
-          new_revision.publish()
+@hooks.register("after_create_page")
+def set_attribute_after_page_create(request, page):
+    page.title = "Persistent Title"
+    new_revision = page.save_revision()
+    if page.live:
+        # page has been created and published at the same time,
+        # so ensure that the updated title is on the published version too
+        new_revision.publish()
 ```
 
 (before_create_page)=
@@ -671,7 +699,8 @@ from wagtail import hooks
 from .models import AwesomePage
 from .admin_views import edit_awesome_page
 
-@hooks.register('before_create_page')
+
+@hooks.register("before_create_page")
 def before_create_page(request, parent_page, page_class):
     # Use a custom create view for the AwesomePage model
     if page_class == AwesomePage:
@@ -704,13 +733,13 @@ from wagtail import hooks
 from .models import AwesomePage
 
 
-@hooks.register('before_delete_page')
+@hooks.register("before_delete_page")
 def before_delete_page(request, page):
     """Block awesome page deletion and show a message."""
 
-    if request.method == 'POST' and page.specific_class in [AwesomePage]:
+    if request.method == "POST" and page.specific_class in [AwesomePage]:
         messages.warning(request, "Awesome pages cannot be deleted, only unpublished")
-        return redirect('wagtailadmin_pages:delete', page.pk)
+        return redirect("wagtailadmin_pages:delete", page.pk)
 ```
 
 This hook runs only when deleting a page through the deletion view at `/admin/pages/<id>/delete/`. It will not run when deleting pages through other routes, such as bulk actions (see [](before_bulk_action) for implementing such hooks for bulk actions). If you wish to perform some action on any page deletion, regardless of how the deletion was performed, it may be more appropriate to use Django's [pre_delete](https://docs.djangoproject.com/en/stable/ref/signals/#pre-delete) signal.
@@ -859,15 +888,16 @@ The `get_url`, `is_shown`, `get_context_data`, and `render_html` methods all acc
 from wagtail import hooks
 from wagtail.admin.action_menu import ActionMenuItem
 
+
 class GuacamoleMenuItem(ActionMenuItem):
-    name = 'action-guacamole'
+    name = "action-guacamole"
     label = "Guacamole"
 
     def get_url(self, context):
         return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
 
 
-@hooks.register('register_page_action_menu_item')
+@hooks.register("register_page_action_menu_item")
 def register_guacamole_menu_item():
     return GuacamoleMenuItem(order=10)
 ```
@@ -879,18 +909,18 @@ def register_guacamole_menu_item():
 Modify the final list of action menu items on the page creation and edit views. The callable passed to this hook receives a list of `ActionMenuItem` objects, a request object and a context dictionary as per `register_page_action_menu_item`, and should modify the list of menu items in-place.
 
 ```python
-@hooks.register('construct_page_action_menu')
+@hooks.register("construct_page_action_menu")
 def remove_submit_to_moderator_option(menu_items, request, context):
-    menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
+    menu_items[:] = [item for item in menu_items if item.name != "action-submit"]
 ```
 
 The `construct_page_action_menu` hook is called after the menu items have been sorted by their order attributes, so setting a menu item's order will have no effect at this point. Instead, items can be reordered by changing their position in the list, with the first item being selected as the default action. For example, to change the default action to Publish:
 
 ```python
-@hooks.register('construct_page_action_menu')
+@hooks.register("construct_page_action_menu")
 def make_publish_default_action(menu_items, request, context):
-    for (index, item) in enumerate(menu_items):
-        if item.name == 'action-publish':
+    for index, item in enumerate(menu_items):
+        if item.name == "action-publish":
             # move to top of list
             menu_items.pop(index)
             menu_items.insert(0, item)
@@ -907,12 +937,16 @@ Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
 
+
 class UserbarPuppyLinkItem(Component):
     def render_html(self, parent_context):
-        return '<li><a href="https://unsplash.com/s/photos/puppies" ' \
+        return (
+            '<li><a href="https://unsplash.com/s/photos/puppies" '
             + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
+        )
 
-@hooks.register('construct_wagtail_userbar')
+
+@hooks.register("construct_wagtail_userbar")
 def add_puppy_link_item(request, items, page):
     items.append(UserbarPuppyLinkItem())
 ```
@@ -934,7 +968,8 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('after_create_user')
+
+@hooks.register("after_create_user")
 def do_after_create_user(request, user):
     return HttpResponse("Congrats on creating a new user!", content_type="text/plain")
 ```
@@ -959,7 +994,8 @@ from wagtail import hooks
 from .models import AwesomePage
 from .admin_views import edit_awesome_page
 
-@hooks.register('before_create_user')
+
+@hooks.register("before_create_user")
 def do_before_create_user(request):
     return HttpResponse("A user creation form", content_type="text/plain")
 ```
@@ -1003,7 +1039,8 @@ Called when rendering the page chooser view, to allow the page listing QuerySet 
 ```python
 from wagtail import hooks
 
-@hooks.register('construct_page_chooser_queryset')
+
+@hooks.register("construct_page_chooser_queryset")
 def show_my_pages_only(pages, request):
     # Only show own pages
     pages = pages.filter(owner=request.user)
@@ -1020,7 +1057,8 @@ Called when rendering the document chooser view, to allow the document listing Q
 ```python
 from wagtail import hooks
 
-@hooks.register('construct_document_chooser_queryset')
+
+@hooks.register("construct_document_chooser_queryset")
 def show_my_uploaded_documents_only(documents, request):
     # Only show uploaded documents
     documents = documents.filter(uploaded_by_user=request.user)
@@ -1037,7 +1075,8 @@ Called when rendering the image chooser view, to allow the image listing QuerySe
 ```python
 from wagtail import hooks
 
-@hooks.register('construct_image_chooser_queryset')
+
+@hooks.register("construct_image_chooser_queryset")
 def show_my_uploaded_images_only(images, request):
     # Only show uploaded images
     images = images.filter(uploaded_by_user=request.user)
@@ -1056,10 +1095,11 @@ Called when rendering the page explorer view, to allow the page listing QuerySet
 ```python
 from wagtail import hooks
 
-@hooks.register('construct_explorer_page_queryset')
+
+@hooks.register("construct_explorer_page_queryset")
 def show_my_profile_only(parent_page, pages, request):
     # If we're in the 'user-profiles' section, only show the user's own profile
-    if parent_page.slug == 'user-profiles':
+    if parent_page.slug == "user-profiles":
         pages = pages.filter(owner=request.user)
 
     return pages
@@ -1076,12 +1116,11 @@ This example will add a simple button to the listing:
 ```python
 from wagtail.admin import widgets as wagtailadmin_widgets
 
-@hooks.register('register_page_listing_buttons')
+
+@hooks.register("register_page_listing_buttons")
 def page_listing_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.ListingButton(
-        'A page listing button',
-        '/goes/to/a/url/',
-        priority=10
+        "A page listing button", "/goes/to/a/url/", priority=10
     )
 ```
 
@@ -1108,12 +1147,11 @@ This example will add a simple button to the dropdown menu:
 ```python
 from wagtail.admin import widgets as wagtailadmin_widgets
 
-@hooks.register('register_page_listing_more_buttons')
+
+@hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.Button(
-        'A dropdown button',
-        '/goes/to/a/url/',
-        priority=60
+        "A dropdown button", "/goes/to/a/url/", priority=60
     )
 ```
 
@@ -1137,26 +1175,36 @@ This example shows how Wagtail's default admin dropdown is implemented. You can 
 ```python
 from wagtail.admin import widgets as wagtailadmin_widgets
 
-@hooks.register('register_page_listing_buttons')
+
+@hooks.register("register_page_listing_buttons")
 def page_custom_listing_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
-        'More actions',
-        hook_name='my_button_dropdown_hook',
+        "More actions",
+        hook_name="my_button_dropdown_hook",
         page=page,
         user=user,
         next_url=next_url,
-        priority=50
+        priority=50,
     )
 
-@hooks.register('my_button_dropdown_hook')
+
+@hooks.register("my_button_dropdown_hook")
 def page_custom_listing_more_buttons(page, user, next_url=None):
     page_perms = page.permissions_for_user(user)
     if page_perms.can_move():
-        yield wagtailadmin_widgets.Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
+        yield wagtailadmin_widgets.Button(
+            "Move", reverse("wagtailadmin_pages:move", args=[page.id]), priority=10
+        )
     if page_perms.can_delete():
-        yield wagtailadmin_widgets.Button('Delete', reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
+        yield wagtailadmin_widgets.Button(
+            "Delete", reverse("wagtailadmin_pages:delete", args=[page.id]), priority=30
+        )
     if page_perms.can_unpublish():
-        yield wagtailadmin_widgets.Button('Unpublish', reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
+        yield wagtailadmin_widgets.Button(
+            "Unpublish",
+            reverse("wagtailadmin_pages:unpublish", args=[page.id]),
+            priority=40,
+        )
 ```
 
 The template for the dropdown button can be customized by overriding `wagtailadmin/pages/listing/_button_with_dropdown.html`. Make sure to leave the dropdown UI component itself as-is.
@@ -1168,10 +1216,10 @@ The template for the dropdown button can be customized by overriding `wagtailadm
 Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `ListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
 
 ```python
-@hooks.register('construct_page_listing_buttons')
+@hooks.register("construct_page_listing_buttons")
 def remove_page_listing_button_item(buttons, page, user, context=None):
     if page.is_root:
-        buttons.pop() # removes the last 'more' dropdown button on the root page listing buttons
+        buttons.pop()  # removes the last 'more' dropdown button on the root page listing buttons
 ```
 
 ## Page serving
@@ -1187,9 +1235,10 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('before_serve_page')
+
+@hooks.register("before_serve_page")
 def block_googlebot(page, request, serve_args, serve_kwargs):
-    if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
+    if request.META.get("HTTP_USER_AGENT") == "GoogleBot":
         return HttpResponse("<h1>bad googlebot no cookie</h1>")
 ```
 
@@ -1206,12 +1255,14 @@ For example, to add custom cache headers to the response:
 ```python
 from wagtail import hooks
 
-@hooks.register('on_serve_page')
+
+@hooks.register("on_serve_page")
 def add_custom_headers(next_serve_page):
     def wrapper(page, request, args, kwargs):
         response = next_serve_page(page, request, args, kwargs)
-        response['Custom-Header'] = 'value'
+        response["Custom-Header"] = "value"
         return response
+
     return wrapper
 ```
 
@@ -1252,9 +1303,13 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('after_edit_snippet')
+
+@hooks.register("after_edit_snippet")
 def after_snippet_update(request, instance):
-    return HttpResponse(f"Congrats on editing a snippet with id {instance.pk}", content_type="text/plain")
+    return HttpResponse(
+        f"Congrats on editing a snippet with id {instance.pk}",
+        content_type="text/plain",
+    )
 ```
 
 (before_edit_snippet)=
@@ -1268,10 +1323,13 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('before_edit_snippet')
+
+@hooks.register("before_edit_snippet")
 def block_snippet_edit(request, instance):
     if isinstance(instance, RestrictedSnippet) and instance.prevent_edit:
-        return HttpResponse("Sorry, you can't edit this snippet", content_type="text/plain")
+        return HttpResponse(
+            "Sorry, you can't edit this snippet", content_type="text/plain"
+        )
 ```
 
 (after_create_snippet)=
@@ -1297,11 +1355,14 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('after_delete_snippet')
+
+@hooks.register("after_delete_snippet")
 def after_snippet_delete(request, instances):
     # "instances" is a list
     total = len(instances)
-    return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
+    return HttpResponse(
+        f"{total} snippets have been deleted", content_type="text/plain"
+    )
 ```
 
 (before_delete_snippet)=
@@ -1315,17 +1376,20 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('before_delete_snippet')
+
+@hooks.register("before_delete_snippet")
 def before_snippet_delete(request, instances):
     # "instances" is a list
     total = len(instances)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         for instance in instances:
             # Override the deletion behavior
             instance.delete()
 
-        return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
+        return HttpResponse(
+            f"{total} snippets have been deleted", content_type="text/plain"
+        )
 ```
 
 (register_snippet_action_menu_item)=
@@ -1356,15 +1420,16 @@ The `get_url`, `is_shown`, `get_context_data`, and `render_html` methods all acc
 from wagtail import hooks
 from wagtail.snippets.action_menu import ActionMenuItem
 
+
 class GuacamoleMenuItem(ActionMenuItem):
-    name = 'action-guacamole'
+    name = "action-guacamole"
     label = "Guacamole"
 
     def get_url(self, context):
         return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
 
 
-@hooks.register('register_snippet_action_menu_item')
+@hooks.register("register_snippet_action_menu_item")
 def register_guacamole_menu_item(model):
     return GuacamoleMenuItem(order=10)
 ```
@@ -1377,18 +1442,18 @@ Modify the final list of action menu items on the snippet creation and edit view
 The callable passed to this hook receives a list of `ActionMenuItem` objects, a request object, and a context dictionary as per `register_snippet_action_menu_item`, and should modify the list of menu items in-place.
 
 ```python
-@hooks.register('construct_snippet_action_menu')
+@hooks.register("construct_snippet_action_menu")
 def remove_delete_option(menu_items, request, context):
-    menu_items[:] = [item for item in menu_items if item.name != 'delete']
+    menu_items[:] = [item for item in menu_items if item.name != "delete"]
 ```
 
 The `construct_snippet_action_menu` hook is called after the menu items have been sorted by their order attributes, so setting a menu item's order will have no effect at this point. Instead, items can be reordered by changing their position in the list, with the first item being selected as the default action. For example, to change the default action to Delete:
 
 ```python
-@hooks.register('construct_snippet_action_menu')
+@hooks.register("construct_snippet_action_menu")
 def make_delete_default_action(menu_items, request, context):
-    for (index, item) in enumerate(menu_items):
-        if item.name == 'delete':
+    for index, item in enumerate(menu_items):
+        if item.name == "delete":
             # move to top of list
             menu_items.pop(index)
             menu_items.insert(0, item)
@@ -1406,17 +1471,16 @@ This example will add a button inside the "More" dropdown and a top-level button
 ```python
 from wagtail.admin import widgets as wagtailadmin_widgets
 
-@hooks.register('register_snippet_listing_buttons')
+
+@hooks.register("register_snippet_listing_buttons")
 def snippet_listing_buttons(snippet, user, next_url=None):
     yield wagtailadmin_widgets.Button(
         'A snippet listing button inside the "More" dropdown',
-        '/goes/to/a/url/',
-        priority=90
+        "/goes/to/a/url/",
+        priority=90,
     )
     yield wagtailadmin_widgets.ListingButton(
-        'A top-level snippet listing button',
-        '/goes/to/a/url/',
-        priority=10
+        "A top-level snippet listing button", "/goes/to/a/url/", priority=10
     )
 ```
 
@@ -1439,7 +1503,7 @@ The `wagtail.snippets.widgets.SnippetListingButton` class is deprecated in favor
 Modify the final list of snippet listing buttons in the "More" dropdown menu. The callable passed to this hook receives a list of `Button` objects, the snippet object and a user, and should modify the list of menu items in-place.
 
 ```python
-@hooks.register('construct_snippet_listing_buttons')
+@hooks.register("construct_snippet_listing_buttons")
 def remove_snippet_listing_button_item(buttons, snippet, user):
     buttons.pop()  # Removes the 'delete' button
 ```
@@ -1459,9 +1523,13 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('after_edit_setting')
+
+@hooks.register("after_edit_setting")
 def after_setting_update(request, instance):
-    return HttpResponse(f"Congrats on editing a setting with id {instance.pk}", content_type="text/plain")
+    return HttpResponse(
+        f"Congrats on editing a setting with id {instance.pk}",
+        content_type="text/plain",
+    )
 ```
 
 (before_edit_setting)=
@@ -1475,10 +1543,13 @@ from django.http import HttpResponse
 
 from wagtail import hooks
 
-@hooks.register('before_edit_setting')
+
+@hooks.register("before_edit_setting")
 def block_setting_edit(request, instance):
     if isinstance(instance, RestrictedSetting) and instance.prevent_edit:
-        return HttpResponse("Sorry, you can't edit this setting", content_type="text/plain")
+        return HttpResponse(
+            "Sorry, you can't edit this setting", content_type="text/plain"
+        )
 ```
 
 ## Bulk actions
@@ -1506,12 +1577,14 @@ class CustomBulkAction(BulkAction):
     template_name = "/path/to/template"
     models = [...]  # list of models the action should execute upon
 
-
     @classmethod
     def execute_action(cls, objects, **kwargs):
         for object in objects:
             do_something(object)
-        return num_parent_objects, num_child_objects  # return the count of updated objects
+        return (
+            num_parent_objects,
+            num_child_objects,
+        )  # return the count of updated objects
 ```
 
 (before_bulk_action)=
@@ -1525,10 +1598,13 @@ This hook can be used to return an HTTP response. For example:
 ```python
 from wagtail import hooks
 
+
 @hooks.register("before_bulk_action")
 def hook_func(request, action_type, objects, action_class_instance):
-  if action_type == 'delete':
-    return HttpResponse(f"{len(objects)} objects would be deleted", content_type="text/plain")
+    if action_type == "delete":
+        return HttpResponse(
+            f"{len(objects)} objects would be deleted", content_type="text/plain"
+        )
 ```
 
 (after_bulk_action)=
@@ -1542,10 +1618,13 @@ This hook can be used to return an HTTP response. For example:
 ```python
 from wagtail import hooks
 
+
 @hooks.register("after_bulk_action")
 def hook_func(request, action_type, objects, action_class_instance):
-  if action_type == 'delete':
-    return HttpResponse(f"{len(objects)} objects have been deleted", content_type="text/plain")
+    if action_type == "delete":
+        return HttpResponse(
+            f"{len(objects)} objects have been deleted", content_type="text/plain"
+        )
 ```
 
 ## Audit log
@@ -1563,9 +1642,10 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 
-@hooks.register('register_log_actions')
+
+@hooks.register("register_log_actions")
 def additional_log_actions(actions):
-    actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
+    actions.register_action("wagtail_package.echo", _("Echo"), _("Sent an echo"))
 ```
 
 Alternatively, for a log message that varies according to the log entry's data, create a subclass of `wagtail.log_actions.LogFormatter` that overrides the `format_message` method, and use `register_action` as a decorator on that class:
@@ -1576,15 +1656,16 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.log_actions import LogFormatter
 
-@hooks.register('register_log_actions')
+
+@hooks.register("register_log_actions")
 def additional_log_actions(actions):
-    @actions.register_action('wagtail_package.greet_audience')
+    @actions.register_action("wagtail_package.greet_audience")
     class GreetingActionFormatter(LogFormatter):
-        label = _('Greet audience')
+        label = _("Greet audience")
 
         def format_message(self, log_entry):
-            return _('Hello %(audience)s') % {
-                'audience': log_entry.data['audience'],
+            return _("Hello %(audience)s") % {
+                "audience": log_entry.data["audience"],
             }
 ```
 

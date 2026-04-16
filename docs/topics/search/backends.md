@@ -8,8 +8,8 @@ You can configure which backend to use with the `WAGTAILSEARCH_BACKENDS` setting
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.database',
+    "default": {
+        "BACKEND": "wagtail.search.backends.database",
     }
 }
 ```
@@ -24,9 +24,9 @@ The `AUTO_UPDATE` setting allows you to disable this on a per-index basis:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': ...,
-        'AUTO_UPDATE': False,
+    "default": {
+        "BACKEND": ...,
+        "AUTO_UPDATE": False,
     }
 }
 ```
@@ -84,13 +84,13 @@ The backend is configured in settings:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch9',
-        'URLS': ['https://localhost:9200'],
-        'INDEX_PREFIX': '',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
+    "default": {
+        "BACKEND": "wagtail.search.backends.elasticsearch9",
+        "URLS": ["https://localhost:9200"],
+        "INDEX_PREFIX": "",
+        "TIMEOUT": 5,
+        "OPTIONS": {},
+        "INDEX_SETTINGS": {},
     }
 }
 ```
@@ -207,13 +207,13 @@ The backend is configured in settings:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.opensearch3',
-        'URLS': ['https://localhost:9200'],
-        'INDEX_PREFIX': 'wagtail_',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
+    "default": {
+        "BACKEND": "wagtail.search.backends.opensearch3",
+        "URLS": ["https://localhost:9200"],
+        "INDEX_PREFIX": "wagtail_",
+        "TIMEOUT": 5,
+        "OPTIONS": {},
+        "INDEX_SETTINGS": {},
     }
 }
 ```
@@ -247,19 +247,21 @@ from elasticsearch import RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.opensearch3',
-        'INDEX_PREFIX': 'wagtail_',
-        'TIMEOUT': 5,
-        'HOSTS': [{
-            'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
-            'port': 443,
-            'use_ssl': True,
-            'verify_certs': True,
-            'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
-        }],
-        'OPTIONS': {
-            'connection_class': RequestsHttpConnection,
+    "default": {
+        "BACKEND": "wagtail.search.backends.opensearch3",
+        "INDEX_PREFIX": "wagtail_",
+        "TIMEOUT": 5,
+        "HOSTS": [
+            {
+                "host": "YOURCLUSTER.REGION.es.amazonaws.com",
+                "port": 443,
+                "use_ssl": True,
+                "verify_certs": True,
+                "http_auth": AWS4Auth("ACCESS_KEY", "SECRET_KEY", "REGION", "es"),
+            }
+        ],
+        "OPTIONS": {
+            "connection_class": RequestsHttpConnection,
         },
     }
 }

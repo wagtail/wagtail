@@ -153,21 +153,22 @@ class CustomAccessibilityItem(AccessibilityItem):
                 "id": "p-as-heading",
                 "options": {
                     "margins": [
-                        { "weight": 150 },
+                        {"weight": 150},
                     ],
                     "passLength": 1,
-                    "failLength": 0.5
+                    "failLength": 0.5,
                 },
             },
         )
         return checks
 
 
-@hooks.register('construct_wagtail_userbar')
+@hooks.register("construct_wagtail_userbar")
 def replace_userbar_accessibility_item(request, items, page):
     items[:] = [
         CustomAccessibilityItem(in_editor=item.in_editor)
-        if isinstance(item, AccessibilityItem) else item
+        if isinstance(item, AccessibilityItem)
+        else item
         for item in items
     ]
 ```
@@ -293,11 +294,12 @@ class CustomAccessibilityItem(AccessibilityItem):
             return self.axe_run_only
 
 
-@hooks.register('construct_wagtail_userbar')
+@hooks.register("construct_wagtail_userbar")
 def replace_userbar_accessibility_item(request, items, page):
     items[:] = [
         CustomAccessibilityItem(in_editor=item.in_editor)
-        if isinstance(item, AccessibilityItem) else item
+        if isinstance(item, AccessibilityItem)
+        else item
         for item in items
     ]
 ```

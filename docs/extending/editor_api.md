@@ -156,6 +156,7 @@ def editor_js():
         ((static(filename),) for filename in js_files),
     )
 
+
 # Replace the default `FieldPanel` for `search_description`
 # with a custom one that uses the `summarize` controller.
 Page.promote_panels[0].args[0][-1] = FieldPanel(

@@ -111,7 +111,8 @@ from django.utils.html import format_html
 
 from wagtail import hooks
 
-@hooks.register('insert_global_admin_js')
+
+@hooks.register("insert_global_admin_js")
 def global_admin_js():
     return format_html(
         '<script src="{}"></script>', static('js/example.js')
@@ -198,12 +199,16 @@ from django.templatetags.static import static
 from wagtail import hooks
 
 
-@hooks.register('insert_editor_js')
+@hooks.register("insert_editor_js")
 def editor_js():
     # add more controller code as needed
-    js_files = ['js/word-count-controller.js',]
-    return format_html_join('\n', '<script src="{0}"></script>',
-        ((static(filename),) for filename in js_files)
+    js_files = [
+        "js/word-count-controller.js",
+    ]
+    return format_html_join(
+        "\n",
+        '<script src="{0}"></script>',
+        ((static(filename),) for filename in js_files),
     )
 ```
 
@@ -229,21 +234,22 @@ from django.forms import Media, TextInput
 
 from django.utils.translation import gettext as _
 
+
 class ColorWidget(TextInput):
     """
     See https://coloris.js.org/
     """
 
-    def __init__(self, attrs=None, swatches=[], theme='large'):
+    def __init__(self, attrs=None, swatches=[], theme="large"):
         self.swatches = swatches
         self.theme = theme
-        super().__init__(attrs=attrs);
+        super().__init__(attrs=attrs)
 
     def build_attrs(self, *args, **kwargs):
         attrs = super().build_attrs(*args, **kwargs)
-        attrs['data-controller'] = 'color'
-        attrs['data-color-theme-value'] = self.theme
-        attrs['data-color-swatches-value'] = json.dumps(swatches)
+        attrs["data-controller"] = "color"
+        attrs["data-color-theme-value"] = self.theme
+        attrs["data-color-swatches-value"] = json.dumps(swatches)
         return attrs
 
     @property
@@ -255,7 +261,11 @@ class ColorWidget(TextInput):
                 # load controller JS
                 "js/color-controller.js",
             ],
-            css={"all": ["https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"]},
+            css={
+                "all": [
+                    "https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"
+                ]
+            },
         )
 ```
 
@@ -295,8 +305,8 @@ from .widgets import ColorWidget
 
 class ColorBlock(FieldBlock):
     def __init__(self, *args, **kwargs):
-        swatches = kwargs.pop('swatches', [])
-        theme = kwargs.pop('theme', 'large')
+        swatches = kwargs.pop("swatches", [])
+        theme = kwargs.pop("theme", "large")
         self.field = forms.CharField(widget=ColorWidget(swatches=swatches, theme=theme))
         super().__init__(*args, **kwargs)
 ```
@@ -314,12 +324,16 @@ from .widgets import ColorWidget
 
 BREAD_COLOR_PALETTE = ["#CFAC89", "#C68C5F", "#C47647", "#98644F", "#42332E"]
 
+
 class BreadPage(Page):
-    body = StreamField([
-        # ...
-        ('color', ColorBlock(swatches=BREAD_COLOR_PALETTE)),
-        # ...
-    ], use_json_field=True)
+    body = StreamField(
+        [
+            # ...
+            ("color", ColorBlock(swatches=BREAD_COLOR_PALETTE)),
+            # ...
+        ],
+        use_json_field=True,
+    )
     color = models.CharField(blank=True, max_length=50)
 
     # ... other fields

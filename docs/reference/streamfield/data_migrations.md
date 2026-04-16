@@ -49,7 +49,7 @@ MigrateStreamData(
     operations_and_block_paths=[
         (RenameStreamChildrenOperation(old_name="field1", new_name="block1"), ""),
     ],
-    revisions_from=datetime.datetime(2022, 7, 25)
+    revisions_from=datetime.datetime(2022, 7, 25),
 )
 ```
 
@@ -223,8 +223,8 @@ Our altered stream data would look like this:
 ```python
 [
     ...,
-    { "type": "struct1", "value": { "char1": "Value1" } },
-    { "type": "struct1", "value": { "char1": "Value2" } },
+    {"type": "struct1", "value": {"char1": "Value1"}},
+    {"type": "struct1", "value": {"char1": "Value2"}},
     ...,
 ]
 ```

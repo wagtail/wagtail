@@ -24,7 +24,7 @@ Any existing shared password usage will remain active but will not be viewable b
 from wagtail.models import Page
 
 for page in Page.objects.private():
-   page.get_view_restrictions().filter(restriction_type='password').delete()
+    page.get_view_restrictions().filter(restriction_type="password").delete()
 ```
 
 (private_collections)=
@@ -45,7 +45,7 @@ Any existing shared password usage will remain active but will not be viewable w
 from wagtail.models import Collection
 
 for collection in Collection.objects.all():
-    collection.get_view_restrictions().filter(restriction_type='password').delete()
+    collection.get_view_restrictions().filter(restriction_type="password").delete()
 ```
 
 (login_page)=
@@ -59,7 +59,7 @@ However, the default "login" and "password required" forms are only bare-bones H
 The basic login page can be customized by setting `WAGTAIL_FRONTEND_LOGIN_TEMPLATE` to the path of a template you wish to use:
 
 ```python
-WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
+WAGTAIL_FRONTEND_LOGIN_TEMPLATE = "myapp/login.html"
 ```
 
 Wagtail uses Django's standard `django.contrib.auth.views.LoginView` view here, and so the context variables available on the template are as detailed in [Django's login view documentation](django.contrib.auth.views.LoginView).
@@ -67,7 +67,7 @@ Wagtail uses Django's standard `django.contrib.auth.views.LoginView` view here, 
 If the stock Django login view is not suitable - for example, you wish to use an external authentication system, or you are integrating Wagtail into an existing Django site that already has a working login view - you can specify the URL of the login view via the `WAGTAIL_FRONTEND_LOGIN_URL` setting:
 
 ```python
-WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
+WAGTAIL_FRONTEND_LOGIN_URL = "/accounts/login/"
 ```
 
 To integrate Wagtail into a Django site with an existing login mechanism, setting `WAGTAIL_FRONTEND_LOGIN_URL = LOGIN_URL` will usually be sufficient.
@@ -87,23 +87,28 @@ The method must return a dictionary with at least a `type` key. The value must b
 
 ```python
 class BlogPage(Page):
-    #...
+    # ...
     def get_default_privacy_setting(self, request):
         # set default to group
         from django.contrib.auth.models import Group
         from wagtail.models import BaseViewRestriction
+
         moderators = Group.objects.filter(name="Moderators").first()
         editors = Group.objects.filter(name="Editors").first()
-        return {"type": BaseViewRestriction.GROUPS, "groups": [moderators,editors]}
+        return {"type": BaseViewRestriction.GROUPS, "groups": [moderators, editors]}
+
 
 class SecretPage(Page):
-    #...
+    # ...
     def get_default_privacy_setting(self, request):
         # set default to auto-generated password
         from django.utils.crypto import get_random_string
         from wagtail.models import BaseViewRestriction
 
-        return {"type": BaseViewRestriction.PASSWORD, "password": django.utils.crypto.get_random_string(length=32)}
+        return {
+            "type": BaseViewRestriction.PASSWORD,
+            "password": django.utils.crypto.get_random_string(length=32),
+        }
 ```
 
 ## Setting up a global "password required" page
@@ -111,7 +116,7 @@ class SecretPage(Page):
 By setting `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` in your Django settings file, you can specify the path of a template which will be used for all "password required" forms on the site (except for page types that specifically override it - see below):
 
 ```python
-WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
+WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = "myapp/password_required.html"
 ```
 
 This template will receive the same set of context variables that the blocked page would pass to its own template via `get_context()` - including `page` to refer to the page object itself - plus the following additional variables (which override any of the page's own context variables of the same name):
@@ -163,5 +168,5 @@ The attribute `password_required_template` can be defined on a page model to use
 class VideoPage(Page):
     ...
 
-    password_required_template = 'video/password_required.html'
+    password_required_template = "video/password_required.html"
 ```

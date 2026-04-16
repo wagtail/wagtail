@@ -19,8 +19,8 @@ Here is an example of how to add a new form that operates on the user model:
 from django import forms
 from django.contrib.auth import get_user_model
 
-class CustomSettingsForm(forms.ModelForm):
 
+class CustomSettingsForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = [...]
@@ -33,13 +33,14 @@ from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail import hooks
 from .forms import CustomSettingsForm
 
-@hooks.register('register_account_settings_panel')
+
+@hooks.register("register_account_settings_panel")
 class CustomSettingsPanel(BaseSettingsPanel):
-    name = 'custom'
+    name = "custom"
     title = "My custom settings"
     order = 500
     form_class = CustomSettingsForm
-    form_object = 'user'
+    form_object = "user"
 ```
 
 The attributes are as follows:
@@ -62,8 +63,8 @@ To add a panel that alters data on the user's `wagtail.users.models.UserProfile`
 from django import forms
 from wagtail.users.models import UserProfile
 
-class CustomProfileSettingsForm(forms.ModelForm):
 
+class CustomProfileSettingsForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = [...]
@@ -76,13 +77,14 @@ from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail import hooks
 from .forms import CustomProfileSettingsForm
 
-@hooks.register('register_account_settings_panel')
+
+@hooks.register("register_account_settings_panel")
 class CustomSettingsPanel(BaseSettingsPanel):
-    name = 'custom'
+    name = "custom"
     title = "My custom settings"
     order = 500
     form_class = CustomProfileSettingsForm
-    form_object = 'profile'
+    form_object = "profile"
 ```
 
 ## Creating new tabs
@@ -96,11 +98,12 @@ from wagtail.admin.views.account import BaseSettingsPanel, SettingsTab
 from wagtail import hooks
 from .forms import CustomSettingsForm
 
-custom_tab = SettingsTab('custom', "Custom settings", order=300)
+custom_tab = SettingsTab("custom", "Custom settings", order=300)
 
-@hooks.register('register_account_settings_panel')
+
+@hooks.register("register_account_settings_panel")
 class CustomSettingsPanel(BaseSettingsPanel):
-    name = 'custom'
+    name = "custom"
     title = "My custom settings"
     tab = custom_tab
     order = 100
@@ -124,13 +127,14 @@ from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail import hooks
 from .forms import CustomSettingsForm
 
-@hooks.register('register_account_settings_panel')
+
+@hooks.register("register_account_settings_panel")
 class CustomSettingsPanel(BaseSettingsPanel):
-    name = 'custom'
+    name = "custom"
     title = "My custom settings"
     order = 500
     form_class = CustomSettingsForm
-    template_name = 'myapp/admin/custom_settings.html'
+    template_name = "myapp/admin/custom_settings.html"
 ```
 
 ```html+django
