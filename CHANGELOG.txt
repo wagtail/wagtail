@@ -47,6 +47,7 @@ Changelog
  * Docs: Add content personalization how-to guide (Thibaud Colas)
  * Docs: Add new package maintenance guidelines (Thibaud Colas)
  * Docs: Fix use of `format_html` in `insert_global_admin_js` example (Lasse Schmieding)
+ * Docs: Mention front-end component names in Sphinx docs for discoverability (Aditya Kammati)
  * Docs: Clarify the icon template tag is only for admin views (Aditya Kammati)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
