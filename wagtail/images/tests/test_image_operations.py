@@ -1099,3 +1099,132 @@ class TestCheckSize(TestCase):
                 (1, 1), allow_floating_point=False
             )
         )
+
+
+class TestPadOperation(TestCase):
+    def test_basic_spec_parsing(self):
+        op = image_operations.PadOperation("pad", "200x200")
+        self.assertEqual(op.width, 200)
+        self.assertEqual(op.height, 200)
+
+    def test_rejects_missing_dimensions(self):
+        self.assertRaises(
+            InvalidFilterSpecError, image_operations.PadOperation, "pad"
+        )
+
+    def test_rejects_single_number(self):
+        self.assertRaises(
+            InvalidFilterSpecError, image_operations.PadOperation, "pad", "200"
+        )
+
+    def test_rejects_non_numeric_dimensions(self):
+        self.assertRaises(
+            InvalidFilterSpecError, image_operations.PadOperation, "pad", "abcxdef"
+        )
+
+    def test_rejects_zero_width(self):
+        self.assertRaises(
+            InvalidFilterSpecError, image_operations.PadOperation, "pad", "0x200"
+        )
+
+    def test_rejects_zero_height(self):
+        self.assertRaises(
+            InvalidFilterSpecError, image_operations.PadOperation, "pad", "200x0"
+        )
+
+    def test_rejects_negative_dimensions(self):
+        self.assertRaises(
+            InvalidFilterSpecError, image_operations.PadOperation, "pad", "-10x200"
+        )
+
+    def test_rejects_extra_arguments(self):
+        # Background colour is set via the separate bgcolor filter, not inline
+        self.assertRaises(
+            InvalidFilterSpecError,
+            image_operations.PadOperation,
+            "pad",
+            "200x200",
+            "fff",
+        )
+
+    def test_wide_image_gets_vertical_padding(self):
+        image = Image.objects.create(
+            title="wide", file=get_test_image_file(colour="red", size=(400, 100))
+        )
+        fil = Filter(spec="pad-200x200")
+        result = fil.run(image, BytesIO())
+        self.assertEqual(result.get_size(), (200, 200))
+
+    def test_tall_image_gets_horizontal_padding(self):
+        image = Image.objects.create(
+            title="tall", file=get_test_image_file(colour="blue", size=(100, 400))
+        )
+        fil = Filter(spec="pad-200x200")
+        result = fil.run(image, BytesIO())
+        self.assertEqual(result.get_size(), (200, 200))
+
+    def test_exact_fit_requires_no_padding(self):
+        image = Image.objects.create(
+            title="exact", file=get_test_image_file(colour="green", size=(200, 200))
+        )
+        fil = Filter(spec="pad-200x200")
+        result = fil.run(image, BytesIO())
+        self.assertEqual(result.get_size(), (200, 200))
+
+    def test_small_image_is_padded_without_upscaling(self):
+        image = Image.objects.create(
+            title="small", file=get_test_image_file(colour="white", size=(50, 50))
+        )
+        fil = Filter(spec="pad-200x200")
+        result = fil.run(image, BytesIO())
+        self.assertEqual(result.get_size(), (200, 200))
+
+    def test_output_is_always_rgba(self):
+        # Even for RGB sources, pad outputs RGBA so bgcolor can be applied
+        image = Image.objects.create(
+            title="rgb", file=get_test_image_file(colour="blue", size=(400, 100))
+        )
+        fil = Filter(spec="pad-200x200")
+        result = fil.run(image, BytesIO())
+        self.assertEqual(result.get_pillow_image().mode, "RGBA")
+
+    def test_padding_area_is_transparent(self):
+        image = Image.objects.create(
+            title="wide", file=get_test_image_file(colour="red", size=(200, 50))
+        )
+        fil = Filter(spec="pad-200x200")
+        result = fil.run(image, BytesIO())
+        # The top-left corner sits in the padding band
+        _, _, _, a = result.get_pillow_image().getpixel((0, 0))
+        self.assertEqual(a, 0)
+
+    def test_bgcolor_fills_padding_area(self):
+        image = Image.objects.create(
+            title="wide", file=get_test_image_file(colour="red", size=(200, 50))
+        )
+        fil = Filter(spec="pad-200x200|bgcolor-fff")
+        result = fil.run(image, BytesIO())
+        pil = result.get_pillow_image()
+        self.assertEqual(pil.mode, "RGB")
+        # Corner should now be white instead of transparent
+        self.assertEqual(pil.getpixel((0, 0)), (255, 255, 255))
+
+    def test_jpeg_output_with_bgcolor(self):
+        image = Image.objects.create(title="j", file=get_test_image_file_jpeg())
+        fil = Filter(spec="pad-200x200|bgcolor-fff|format-jpeg")
+        out = fil.run(image, BytesIO())
+        self.assertEqual(out.format_name, "jpeg")
+
+    def test_png_output(self):
+        image = Image.objects.create(title="p", file=get_test_image_file())
+        fil = Filter(spec="pad-200x200|format-png")
+        out = fil.run(image, BytesIO())
+        self.assertEqual(out.format_name, "png")
+
+    def test_cache_key_does_not_vary(self):
+        # pad doesn't depend on focal point, so the cache key should be empty
+        image = Image(width=400, height=100)
+        fil = Filter(spec="pad-200x200")
+        self.assertEqual(fil.get_cache_key(image), "")
+
+
