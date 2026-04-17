@@ -659,7 +659,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         # Results that are not immediate children of the current page should show their parent
         self.assertContains(
             response,
-            '<a href="/admin/pages/2/"><svg class="icon icon-arrow-right default" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>Welcome to your new Wagtail site!</a>',
+            '<a href="/admin/pages/2/"lang="en"><svg class="icon icon-arrow-right default" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>Welcome to your new Wagtail site!</a>',
             html=True,
         )
 
@@ -1429,6 +1429,9 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_in_workflow_status(self):
         workflow = Workflow.objects.first()
         workflow.start(self.christmas, self.user)
@@ -1437,7 +1440,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(44):
+        with self.assertNumQueries(36):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

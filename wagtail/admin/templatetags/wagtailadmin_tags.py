@@ -1438,3 +1438,10 @@ register.tag("component", component)
 
 
 register.simple_tag(get_icon_sprite_url, name="icon_sprite_url")
+
+
+@register.simple_tag
+def language_code_from_id(locale_id):
+    from wagtail.coreutils import get_locale_language_codes
+
+    return get_locale_language_codes().get(locale_id, "")

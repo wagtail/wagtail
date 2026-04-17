@@ -414,7 +414,7 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
         )
         self.assertContains(
             response,
-            f'<a href="{expected_url}" class="navigate-parent">{self.root_page.title}</a>',
+            f'<a href="{expected_url}" class="navigate-parent" lang="{self.root_page.locale.language_code}">{self.root_page.title}</a>',
         )
 
     def test_partial_match(self):

@@ -2,7 +2,7 @@ from io import StringIO
 
 from django.contrib.auth.models import Permission
 from django.core import management
-from django.test import TransactionTestCase, tag
+from django.test import TransactionTestCase, override_settings, tag
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -30,12 +30,15 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
     def get(self, params=None, url_name="wagtailadmin_pages:search", **extra):
         return self.client.get(reverse(url_name), params or {}, **extra)
 
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
     def test_view(self):
         response = self.get()
         self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
         self.assertEqual(response.status_code, 200)
 
-        with self.assertNumQueries(22):
+        with self.assertNumQueries(19):
             self.get()
 
     def test_search(self):
