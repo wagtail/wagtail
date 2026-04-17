@@ -963,6 +963,7 @@
 * Darshan Kerkar
 * James Biggs
 * Aditya Kammati
+* Kunal Hemnani
 
 ## Translators
 

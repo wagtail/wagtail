@@ -49,6 +49,8 @@ Changelog
  * Docs: Fix use of `format_html` in `insert_global_admin_js` example (Lasse Schmieding)
  * Docs: Mention front-end component names in Sphinx docs for discoverability (Aditya Kammati)
  * Docs: Clarify the icon template tag is only for admin views (Aditya Kammati)
+ * Docs: Add documentation for generic `published` and `unpublished` signals (Kunal Hemnani)
+ * Docs: Improve organization of signals reference docs (Sage Abdullah)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
