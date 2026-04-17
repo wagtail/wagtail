@@ -57,7 +57,7 @@ Use an icon in a custom template:
 {% icon name="toucan" classname="..." title="..." %}
 ```
 
-The `{% icon %}` tag is only usable within Wagtail's admin interface, including admin template overrides and the user bar. For public-facing templates, manage your own icon assets instead of depending on Wagtail's internal admin sprite implementation.
+The `{% icon %}` tag is only usable within Wagtail's admin interface, including admin template overrides and the user bar. Avoid depending on it or its icon sprite for public-facing templates.
 
 ## Changing icons via hooks
 
