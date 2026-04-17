@@ -962,6 +962,7 @@
 * Nirmal Kumar
 * Darshan Kerkar
 * James Biggs
+* Aditya Kammati
 
 ## Translators
 
