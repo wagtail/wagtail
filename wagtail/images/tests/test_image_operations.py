@@ -1108,9 +1108,7 @@ class TestPadOperation(TestCase):
         self.assertEqual(op.height, 200)
 
     def test_rejects_missing_dimensions(self):
-        self.assertRaises(
-            InvalidFilterSpecError, image_operations.PadOperation, "pad"
-        )
+        self.assertRaises(InvalidFilterSpecError, image_operations.PadOperation, "pad")
 
     def test_rejects_single_number(self):
         self.assertRaises(
@@ -1226,5 +1224,3 @@ class TestPadOperation(TestCase):
         image = Image(width=400, height=100)
         fil = Filter(spec="pad-200x200")
         self.assertEqual(fil.get_cache_key(image), "")
-
-

@@ -439,15 +439,14 @@ class PadOperation(FilterOperation):
     aspect ratio, then pads the remaining space with transparency to produce
     an image of exactly WxH pixels.
     """
+
     def construct(self, size):
         try:
             width_str, height_str = size.split("x")
             self.width = int(width_str)
             self.height = int(height_str)
         except (ValueError, AttributeError) as e:
-            raise ValueError(
-                "Image size must be in the format WxH"
-            ) from e
+            raise ValueError("Image size must be in the format WxH") from e
 
         if self.width < 1 or self.height < 1:
             raise ValueError("Image width and height must both be 1 or greater")
