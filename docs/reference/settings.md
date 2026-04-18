@@ -342,6 +342,8 @@ WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
 
 This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.
 
+(wagtailadmin_page_search_filter_by_permissions)=
+
 ### `WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS`
 
 ```python
