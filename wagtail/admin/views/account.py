@@ -67,6 +67,11 @@ def email_management_enabled():
 
 
 def password_reset_enabled():
+    wagtailusers_setting = getattr(
+        settings, "WAGTAILUSERS_PASSWORD_RESET_ENABLED", None
+    )
+    if wagtailusers_setting is not None:
+        return wagtailusers_setting
     return getattr(
         settings, "WAGTAIL_PASSWORD_RESET_ENABLED", password_management_enabled()
     )

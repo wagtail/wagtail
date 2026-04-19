@@ -620,6 +620,14 @@ WAGTAIL_PASSWORD_RESET_ENABLED = True
 
 This specifies whether users are allowed to reset their passwords. Defaults to the same as `WAGTAIL_PASSWORD_MANAGEMENT_ENABLED`. Password reset emails will be sent from the address specified in Django's `DEFAULT_FROM_EMAIL` setting.
 
+### `WAGTAILUSERS_PASSWORD_RESET_ENABLED`
+
+```python
+WAGTAILUSERS_PASSWORD_RESET_ENABLED = True
+```
+
+This specifies whether the "Forgotten password?" link is shown on the admin login page and whether the password reset views are accessible (enabled by default). When set, this takes precedence over `WAGTAIL_PASSWORD_RESET_ENABLED`. Set this to False (along with `WAGTAILUSERS_PASSWORD_ENABLED` and `WAGTAIL_PASSWORD_MANAGEMENT_ENABLED`) if your users are authenticated through an external system such as LDAP.
+
 ### `WAGTAILUSERS_PASSWORD_ENABLED`
 
 ```python

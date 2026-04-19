@@ -46,6 +46,23 @@ class TestUserPasswordReset(WagtailTestUtils, TestCase):
         # Check that the user received a 404
         self.assertEqual(response.status_code, 404)
 
+    @override_settings(WAGTAILUSERS_PASSWORD_RESET_ENABLED=False)
+    def test_login_has_no_password_reset_option_when_wagtailusers_setting_disabled(
+        self,
+    ):
+        response = self.client.get(reverse("wagtailadmin_login"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Forgotten password?")
+
+    @override_settings(WAGTAILUSERS_PASSWORD_RESET_ENABLED=False)
+    def test_password_reset_view_disabled_when_wagtailusers_setting_disabled(self):
+        """
+        This tests that the password reset view responds with a 404
+        when setting WAGTAILUSERS_PASSWORD_RESET_ENABLED is False
+        """
+        response = self.client.get(reverse("wagtailadmin_password_reset"))
+        self.assertEqual(response.status_code, 404)
+
     @override_settings(ROOT_URLCONF="wagtail.admin.urls")
     def test_email_found_default_url(self):
         response = self.client.post(
