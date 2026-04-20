@@ -898,6 +898,8 @@ export class PreviewController extends Controller<HTMLElement> {
       this.checkerRowTemplate!,
       () => this.newTabTarget.click(),
     );
+
+    return { results, issueCount };
   }
 
   /**
