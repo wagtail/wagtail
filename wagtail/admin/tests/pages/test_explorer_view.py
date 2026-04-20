@@ -129,6 +129,14 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertContains(response, f'href="{expected_new_page_copy_url}"')
 
+        soup = self.get_soup(response.content)
+        header_buttons = soup.select_one(
+            'template[data-controller="w-teleport"]'
+            '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+            '[data-w-teleport-mode-value="innerHTML"]'
+        )
+        self.assertIsNone(header_buttons)
+
         self.assertContains(response, "1-3 of 3")
 
     def test_explore_root(self):
@@ -829,6 +837,35 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             "Date updated: Jan. 1, 2015 - any",
             "latest_revision_created_at_from=2015-01-01",
         )
+
+    def test_filter_by_date_updated_results(self):
+        new_page_child = SimplePage(
+            title="New page child",
+            slug="new-page-child",
+            content="new page child",
+            latest_revision_created_at=local_datetime(2016, 1, 1),
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore_results", args=(self.root_page.id,)),
+            {"latest_revision_created_at_from": "2015-01-01"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
+        self.assertContainsActiveFilter(
+            response,
+            "Date updated: Jan. 1, 2015 - any",
+            "latest_revision_created_at_from=2015-01-01",
+        )
+        soup = self.get_soup(response.content)
+        header_buttons = soup.select_one(
+            'template[data-controller="w-teleport"]'
+            '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+            '[data-w-teleport-mode-value="innerHTML"]'
+        )
+        self.assertIsNone(header_buttons)
 
     def test_filter_by_owner(self):
         barry = self.create_user(

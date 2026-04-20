@@ -32,6 +32,7 @@ Changelog
  * Fix: Correctly HTML-escape page title in approval/rejection notification emails (Matt Westcott)
  * Fix: Correctly HTML-escape URL in photo type oembeds (Thibaud Colas)
  * Fix: Ensure user with appropriate permissions can cancel a workflow task (Dan Braghis)
+ * Fix: Retain page explorer header buttons when searching or filtering (Sage Abdullah)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
