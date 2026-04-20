@@ -1,5 +1,3 @@
-import os
-
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.forms.fields import FileField
@@ -14,7 +12,6 @@ def get_allowed_document_extensions():
 class WagtailDocumentField(FileField):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.allowed_document_extensions = get_allowed_document_extensions()
         self.max_upload_size = getattr(settings, "WAGTAILDOCS_MAX_UPLOAD_SIZE", None)
         self.max_upload_size_text = filesizeformat(self.max_upload_size)
@@ -26,25 +23,20 @@ class WagtailDocumentField(FileField):
         else:
             self.supported_formats_text = None
 
-        if self.max_upload_size is not None:
-            if self.supported_formats_text:
-                self.help_text = _(
-                    "Supported formats: %(supported_formats)s. Maximum filesize: %(max_upload_size)s."
-                ) % {
+        hints = []
+        if self.supported_formats_text:
+            hints.append(
+                _("Supported formats: %(supported_formats)s.") % {
                     "supported_formats": self.supported_formats_text,
+                }
+            )
+        if self.max_upload_size is not None:
+            hints.append(
+                _("Maximum filesize: %(max_upload_size)s.") % {
                     "max_upload_size": self.max_upload_size_text,
                 }
-            else:
-                self.help_text = _("Maximum filesize: %(max_upload_size)s.") % {
-                    "max_upload_size": self.max_upload_size_text
-                }
-        else:
-            if self.supported_formats_text:
-                self.help_text = _("Supported formats: %(supported_formats)s.") % {
-                    "supported_formats": self.supported_formats_text,
-                }
-            else:
-                self.help_text = ""
+            )
+        self.help_text = " ".join(hints)
 
         if self.supported_formats_text:
             self.error_messages["invalid_document_extension"] = _(
@@ -55,28 +47,12 @@ class WagtailDocumentField(FileField):
                 "Not a supported document format."
             )
 
-        self.error_messages["invalid_document_known_format"] = _(
-            "Not a valid .%(extension)s document. The extension does not match the file format (%(document_format)s)"
-        )
-
         self.error_messages["file_too_large"] = _(
             "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
         )
         self.error_messages["file_too_large_unknown_size"] = _(
             "This file is too big. Maximum filesize %(max_filesize)s."
         ) % {"max_filesize": self.max_upload_size_text}
-
-    def check_document_file_format(self, f):
-        if not self.allowed_document_extensions:
-            return
-
-        extension = os.path.splitext(f.name)[1].lower()[1:]
-
-        if extension not in self.allowed_document_extensions:
-            raise ValidationError(
-                self.error_messages["invalid_document_extension"],
-                code="invalid_document_extension",
-            )
 
     def check_document_file_size(self, f):
         if self.max_upload_size is None:
@@ -96,8 +72,5 @@ class WagtailDocumentField(FileField):
         f = super().to_python(data)
         if f is None:
             return None
-
         self.check_document_file_size(f)
-        self.check_document_file_format(f)
-
         return f
