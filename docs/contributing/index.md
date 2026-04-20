@@ -69,17 +69,7 @@ There are many more ways to contribute to the Wagtail community, through code or
 
 ## Developing packages for Wagtail
 
-If you are developing packages for Wagtail, you can add the following [PyPI](https://pypi.org/) classifiers:
-
--   [`Framework :: Wagtail`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail)
--   [`Framework :: Wagtail :: 1`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+1)
--   [`Framework :: Wagtail :: 2`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+2)
--   [`Framework :: Wagtail :: 3`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+3)
--   [`Framework :: Wagtail :: 4`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+4)
--   [`Framework :: Wagtail :: 5`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+5)
--   [`Framework :: Wagtail :: 6`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+6)
-
-You can also find a curated list of awesome packages, articles, and other cool resources from the Wagtail community at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
+Creating and maintaining packages is a great way to contribute to the Django and Wagtail ecosystem. For more guidance, check out our [guidelines for package authors](packages_guide).
 
 ## More information
 

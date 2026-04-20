@@ -259,10 +259,19 @@ class IndexView(
         if attr is None:
             sort_key = field_name
 
-        accessor = field_name
+        # If the model has a get_FOO_display() method for the field,
+        # use that as the accessor instead of the field name
+        get_foo_display = f"get_{field}_display"
+        if getattr(model_class, get_foo_display, None) is not None:
+            # Use the method name rather than the method itself,
+            # as it may be on a related model.
+            accessor = get_foo_display
+        else:
+            accessor = field
+
         # Build the dotted relation if needed, for use in multigetattr
         if relations:
-            accessor = ".".join(lookups)
+            accessor = ".".join(relations + [accessor])
         return column_class(
             accessor,
             label=capfirst(label),

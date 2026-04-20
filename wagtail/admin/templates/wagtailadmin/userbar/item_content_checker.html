@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/userbar/item_base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block item_content %}
+    <button type="button" id="checker-trigger" role="menuitem">
+        <span class="w-sr-only">{% trans 'Issues found' %}</span><span class="w-content-checker__count" data-content-checker-count></span>
+        {% trans 'Checks' %}
+    </button>
+    {{ axe_configuration|json_script:"checker-axe-configuration" }}
+    {% trans 'Warnings' as dialog_title %}
+    {% fragment as issues_found %}
+        {% trans 'Issues found' %}
+        <span class="w-content-checker__count" data-content-checker-count></span>
+    {% endfragment %}
+    {% fragment as dialog_classname %}w-dialog--userbar {% admin_theme_classname %}{% endfragment %}
+    {% dialog id="checker-results" theme="floating" classname=dialog_classname title=dialog_title subtitle=issues_found dialog_root_selector="[data-wagtail-userbar]" %}
+    {% enddialog %}
+    {# Contents of the dialog created in JS based on these templates. #}
+    <template id="w-content-checker-row-template">
+        <div class="w-content-checker__row" data-content-checker-row>
+            <div>
+                <h3 class="w-content-checker__header">
+                    <span class="w-content-checker__name" data-content-checker-name></span>
+                </h3>
+                <div class="w-content-checker__help" data-content-checker-help></div>
+            </div>
+            <button class="w-content-checker__selector" data-content-checker-selector aria-label="{% trans 'Show issue' %}" type="button">
+                {% icon name="crosshairs" classname="w-content-checker__icon" %}
+            </button>
+        </div>
+    </template>
+    <template id="w-content-checker-outline-template">
+        <div class="w-content-checker__outline" data-content-checker-outline></div>
+    </template>
+{% endblock %}

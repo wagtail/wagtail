@@ -2,7 +2,7 @@ import datetime
 import json
 import unittest
 import urllib.request
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from urllib.error import HTTPError, URLError
 
 import responses
@@ -520,11 +520,17 @@ class TestOembed(TestCase):
                     {"url": "https://www.youtube.com/watch/", "format": "json"}
                 ),
             ],
-            json={"type": "photo", "url": "http://www.example.com"},
+            json={
+                "type": "photo",
+                "url": "http://www.example.com/a.jpg?tag=<img>",
+            },
         )
         result = OEmbedFinder().find_embed("https://www.youtube.com/watch/")
         self.assertEqual(result["type"], "photo")
-        self.assertEqual(result["html"], '<img src="http://www.example.com" alt="">')
+        self.assertEqual(
+            result["html"],
+            '<img src="http://www.example.com/a.jpg?tag=&lt;img&gt;" alt="">',
+        )
 
     @responses.activate
     def test_oembed_return_values(self):
@@ -801,6 +807,21 @@ class TestInstagramOEmbed(TestCase):
             "https://graph.facebook.com/v11.0/instagram_oembed?url=https%3A%2F%2Finstagram.com%2Fp%2FCHeRxmnDSYe%2F&format=json",
         )
         self.assertEqual(request.get_header("Authorization"), "Bearer 123|abc")
+
+    @patch("urllib.request.urlopen")
+    def test_instagram_oembed_photo_embed(self, urlopen):
+        mock_resp = Mock()
+        mock_resp.read.return_value = (
+            b'{"type":"photo","url":"http://example.com/x.jpg?tag=<img>"}'
+        )
+        urlopen.return_value = mock_resp
+        result = InstagramOEmbedFinder(app_id="123", app_secret="abc").find_embed(
+            "https://instagram.com/p/CHeRxmnDSYe/"
+        )
+        self.assertEqual(
+            result["html"],
+            '<img src="http://example.com/x.jpg?tag=&lt;img&gt;" alt="">',
+        )
 
     def test_instagram_request_denied_401(self):
         err = HTTPError(

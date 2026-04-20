@@ -4906,6 +4906,33 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         blockdefs_dict = dict(js_args[1])
         self.assertEqual(blockdefs_dict.keys(), {"", "group1", "group2"})
 
+    def test_adapt_preserves_group_order_by_declaration_order(self):
+        block = blocks.StreamBlock(
+            [
+                ("content_1", blocks.CharBlock(group="content")),
+                ("media_1", blocks.CharBlock(group="media")),
+                ("content_2", blocks.CharBlock(group="content")),
+                ("cards_1", blocks.CharBlock(group="cards")),
+                ("no_group", blocks.CharBlock()),
+            ]
+        )
+
+        block.set_name("test_streamblock")
+        grouped_blocks = [
+            (group_name, [child.name for child in group_blocks])
+            for group_name, group_blocks in StreamBlockAdapter().js_args(block)[1]
+        ]
+
+        self.assertEqual(
+            grouped_blocks,
+            [
+                ("content", ["content_1", "content_2"]),
+                ("media", ["media_1"]),
+                ("cards", ["cards_1"]),
+                ("", ["no_group"]),
+            ],
+        )
+
     def test_value_from_datadict(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()

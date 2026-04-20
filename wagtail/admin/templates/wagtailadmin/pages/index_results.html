@@ -1,6 +1,8 @@
 {% load wagtailadmin_tags %}
 
-{% include "wagtailadmin/shared/listing/filter_partials.html" %}
+{% block filter_partials %}
+    {% include "wagtailadmin/shared/listing/filter_partials.html" %}
+{% endblock %}
 
 <form id="page-reorder-form">
     {% csrf_token %}

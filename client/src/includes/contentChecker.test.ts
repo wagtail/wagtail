@@ -3,10 +3,10 @@ import {
   WagtailAxeConfiguration,
   addCustomChecks,
   checkImageAltText,
-  getA11yReport,
+  getCheckerReport,
   registerCustomCheck,
   sortAxeViolations,
-} from './a11y-result';
+} from './contentChecker';
 
 const mockDocument = `
 <div id="a"></div>
@@ -140,7 +140,7 @@ jest.mock('axe-core', () => ({
   run: jest.fn(),
 }));
 
-describe('getA11yReport', () => {
+describe('getCheckerReport', () => {
   let consoleError: jest.SpyInstance;
 
   beforeEach(() => {
@@ -169,14 +169,14 @@ describe('getA11yReport', () => {
         checks: [{ id: 'check-image-alt-text', evaluate: '' }],
       },
     };
-    const report = await getA11yReport(config);
+    const report = await getCheckerReport(config);
     expect(consoleError).toHaveBeenCalledWith(
       'axe.run results',
       mockResults.violations,
     );
     expect(axe.run).toHaveBeenCalledWith(config.context, config.options);
     expect(report.results).toEqual(mockResults);
-    expect(report.a11yErrorsNumber).toBe(3);
+    expect(report.issueCount).toBe(3);
   });
 
   it('should return an accessibility report with zero errors if there are no violations', async () => {
@@ -192,8 +192,8 @@ describe('getA11yReport', () => {
         checks: [{ id: 'check-image-alt-text', evaluate: '' }],
       },
     };
-    const report = await getA11yReport(config);
-    expect(report.a11yErrorsNumber).toBe(0);
+    const report = await getCheckerReport(config);
+    expect(report.issueCount).toBe(0);
     expect(consoleError).not.toHaveBeenCalled();
   });
 });

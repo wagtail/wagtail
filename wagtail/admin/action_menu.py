@@ -129,8 +129,11 @@ class SubmitForModerationMenuItem(ActionMenuItem):
             context["label"] = _("Resubmit to %(task_name)s") % {
                 "task_name": workflow_state.current_task_state.task.name
             }
-        elif page:
-            workflow = page.get_workflow()
+        else:
+            # If the page is being created, use the parent page to determine the
+            # associated workflow, otherwise use the page itself
+            workflow_page = page if page and page.pk else context["parent_page"]
+            workflow = workflow_page.get_workflow()
             if workflow:
                 context["label"] = _("Submit to %(workflow_name)s") % {
                     "workflow_name": workflow.name

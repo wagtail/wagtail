@@ -1,5 +1,6 @@
 from typing import Any
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
@@ -65,11 +66,16 @@ class ContentTypeUseView(PageListingMixin, PermissionCheckedMixin, BaseListingVi
         return self.page_class._meta.verbose_name_plural
 
     def get_base_queryset(self):
-        queryset = self.page_class._default_manager.all().filter(
-            pk__in=self.permission_policy.explorable_instances(
-                self.request.user
-            ).values_list("pk", flat=True)
-        )
+        queryset = self.page_class._default_manager.all()
+        if (not self.is_searching) or getattr(
+            settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
+        ):
+            queryset = queryset.filter(
+                pk__in=self.permission_policy.explorable_instances(
+                    self.request.user
+                ).values_list("pk", flat=True)
+            )
+
         return self.annotate_queryset(queryset)
 
     def get_index_url(self):

@@ -714,7 +714,7 @@ def register_core_features(features):
                 "attributes": ["url", "id", "parentId"],
                 "allowlist": {
                     # Keep pasted links with http/https protocol, and not-pasted links (href = undefined).
-                    "href": "^(http:|https:|undefined$)",
+                    "href": "^(http:|https:|mailto:|#|undefined$)",
                 },
                 "chooserUrls": {
                     "pageChooser": reverse_lazy("wagtailadmin_choose_page"),

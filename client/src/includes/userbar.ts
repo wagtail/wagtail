@@ -14,11 +14,11 @@ import { WagtailMessage, getWagtailMessage } from '../utils/message';
 import {
   WagtailAxeConfiguration,
   addCustomChecks,
-  getA11yReport,
   getAxeConfiguration,
+  getCheckerReport,
   registerCustomCheck,
-  renderA11yResults,
-} from './a11y-result';
+  renderCheckerResults,
+} from './contentChecker';
 import { contentExtractorPluginInstance } from './contentMetrics';
 import { wagtailPreviewPlugin } from './previewPlugin';
 
@@ -375,9 +375,7 @@ export class Userbar extends HTMLElement {
   }
 
   /**
-   * Initialize Axe
-   * Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
-   * Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI.
+   * Initialize Axe to scan the loaded page for issues.
    * @see https://github.com/dequelabs/axe-core/tree/develop/doc
    */
   async initializeAxe() {
@@ -415,9 +413,7 @@ export class Userbar extends HTMLElement {
     this.dialog = dialog;
     this.dialogBody = body;
 
-    const accessibilityTrigger = this.shadowRoot.getElementById(
-      'accessibility-trigger',
-    );
+    const checkerTrigger = this.shadowRoot.getElementById('checker-trigger');
 
     const toggleAxeResults = () => {
       if (!this.dialog.shown) {
@@ -427,7 +423,7 @@ export class Userbar extends HTMLElement {
       }
     };
 
-    accessibilityTrigger?.addEventListener('click', toggleAxeResults);
+    checkerTrigger?.addEventListener('click', toggleAxeResults);
 
     await this.runAxe();
   }
@@ -435,78 +431,67 @@ export class Userbar extends HTMLElement {
   async runAxe() {
     if (!this.shadowRoot) return;
 
-    const accessibilityResultsBox = this.shadowRoot.querySelector(
-      '#accessibility-results',
-    );
+    const checkerResultsBox = this.shadowRoot.querySelector('#checker-results');
 
-    const a11yRowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
-      '#w-a11y-result-row-template',
+    const rowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
+      '#w-content-checker-row-template',
     );
-    const a11yOutlineTemplate =
-      this.shadowRoot.querySelector<HTMLTemplateElement>(
-        '#w-a11y-result-outline-template',
-      );
+    const outlineTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
+      '#w-content-checker-outline-template',
+    );
 
     if (
       !this.axeConfig ||
-      !accessibilityResultsBox ||
-      !a11yRowTemplate ||
-      !a11yOutlineTemplate
+      !checkerResultsBox ||
+      !rowTemplate ||
+      !outlineTemplate
     ) {
       return;
     }
 
     // Collect content data from the live preview via Axe plugin for content metrics calculation
-    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig);
+    const { results, issueCount } = await getCheckerReport(this.axeConfig);
 
     this.trigger.querySelector('[data-w-userbar-axe-count]')?.remove();
     if (results.violations.length) {
-      const a11yErrorBadge = document.createElement('span');
-      a11yErrorBadge.textContent = String(a11yErrorsNumber);
-      a11yErrorBadge.classList.add('w-userbar-axe-count');
-      a11yErrorBadge.setAttribute(
-        'data-w-userbar-axe-count',
-        String(a11yErrorsNumber),
-      );
-      this.trigger.appendChild(a11yErrorBadge);
+      const errorBadge = document.createElement('span');
+      errorBadge.textContent = String(issueCount);
+      errorBadge.classList.add('w-userbar-axe-count');
+      errorBadge.setAttribute('data-w-userbar-axe-count', String(issueCount));
+      this.trigger.appendChild(errorBadge);
     }
 
     const innerErrorBadges = this.shadowRoot.querySelectorAll<HTMLSpanElement>(
-      '[data-a11y-result-count]',
+      '[data-content-checker-count]',
     );
     innerErrorBadges.forEach((badge) => {
-      badge.textContent = String(a11yErrorsNumber) || '0';
+      badge.textContent = String(issueCount) || '0';
       badge.classList.toggle('has-errors', results.violations.length > 0);
     });
 
     const onClickSelector = (selectorName: string) => {
-      const inaccessibleElement =
-        document.querySelector<HTMLElement>(selectorName);
-      const a11yOutlineContainer = this.shadowRoot?.querySelector<HTMLElement>(
-        '[data-a11y-result-outline-container]',
+      const targetElement = document.querySelector<HTMLElement>(selectorName);
+      const outlineContainer = this.shadowRoot?.querySelector<HTMLElement>(
+        '[data-content-checker-outline-container]',
       );
-      if (a11yOutlineContainer?.firstElementChild) {
-        a11yOutlineContainer.removeChild(
-          a11yOutlineContainer.firstElementChild,
-        );
+      if (outlineContainer?.firstElementChild) {
+        outlineContainer.removeChild(outlineContainer.firstElementChild);
       }
-      a11yOutlineContainer?.appendChild(
-        a11yOutlineTemplate.content.cloneNode(true),
-      );
-      const currentA11yOutline = this.shadowRoot?.querySelector<HTMLElement>(
-        '[data-a11y-result-outline]',
+      outlineContainer?.appendChild(outlineTemplate.content.cloneNode(true));
+      const currentOutline = this.shadowRoot?.querySelector<HTMLElement>(
+        '[data-content-checker-outline]',
       );
       if (
         !this.shadowRoot ||
-        !inaccessibleElement ||
-        !currentA11yOutline ||
-        !a11yOutlineContainer
+        !targetElement ||
+        !currentOutline ||
+        !outlineContainer
       )
         return;
 
-      const styleA11yOutline = () => {
-        const rect = inaccessibleElement.getBoundingClientRect();
-        currentA11yOutline.style.cssText = `
+      const styleOutline = () => {
+        const rect = targetElement.getBoundingClientRect();
+        currentOutline.style.cssText = `
         top: ${
           rect.height < 5
             ? `${rect.top + window.scrollY - 2.5}px`
@@ -527,26 +512,26 @@ export class Userbar extends HTMLElement {
         `;
       };
 
-      styleA11yOutline();
+      styleOutline();
 
-      window.addEventListener('resize', styleA11yOutline);
+      window.addEventListener('resize', styleOutline);
 
-      inaccessibleElement.style.scrollMargin = '6.25rem';
-      inaccessibleElement.scrollIntoView();
-      inaccessibleElement.focus();
+      targetElement.style.scrollMargin = '6.25rem';
+      targetElement.scrollIntoView();
+      targetElement.focus();
 
-      accessibilityResultsBox.addEventListener('hide', () => {
-        currentA11yOutline.style.cssText = '';
+      checkerResultsBox.addEventListener('hide', () => {
+        currentOutline.style.cssText = '';
 
-        window.removeEventListener('resize', styleA11yOutline);
+        window.removeEventListener('resize', styleOutline);
       });
     };
 
-    renderA11yResults(
+    renderCheckerResults(
       this.dialogBody,
       results,
       this.axeConfig,
-      a11yRowTemplate,
+      rowTemplate,
       onClickSelector,
     );
 

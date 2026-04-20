@@ -811,6 +811,36 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         # The bulk actions column plus 6 columns defined in FullFeaturedSnippetViewSet
         self.assertEqual(len(headings), 7)
 
+    def test_choice_field_uses_choice_label_to_display(self):
+        response = self.get()
+        list_url = self.get_url("list")
+        sort_country_code_url = list_url + "?ordering=country_code"
+
+        soup = self.get_soup(response.content)
+        table = soup.select_one("main table")
+
+        # Find the Country code header
+        country_code_header = next(
+            (
+                header
+                for header in table.select("th")
+                if header.get_text(strip=True) == "Country code"
+            ),
+            None,
+        )
+        self.assertIsNotNone(country_code_header)
+
+        # Verify it's sortable
+        header_link = country_code_header.select_one("a")
+        self.assertIsNotNone(header_link)
+        self.assertEqual(header_link["href"], sort_country_code_url)
+
+        table_rows = table.select("tbody tr")
+        self.assertEqual(
+            [row.select("td")[2].get_text(strip=True) for row in table_rows],
+            ["Indonesia", "United Kingdom"],
+        )
+
     def test_falsy_value(self):
         # https://github.com/wagtail/wagtail/issues/10765
         response = self.get()
@@ -887,6 +917,24 @@ class TestRelatedFieldListDisplay(BaseSnippetViewSetTests):
         ]
         self.assertIn("Chosen snippet text", headers)
         self.assertContains(response, "<td>royale with cheese</td>", html=True)
+
+    def test_single_level_choice_relation_uses_choice_label(self):
+        self.ffs.country_code = FullFeaturedSnippet.CountryCode.INDONESIA
+        self.ffs.save()
+        self.scm = self.model.objects.create(advert=self.advert, full_featured=self.ffs)
+
+        response = self.client.get(self.get_url("list"))
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        table = soup.select_one("main table")
+        headers = [header.get_text(strip=True) for header in table.select("th")]
+        self.assertIn("Chosen snippet country code", headers)
+        table_rows = table.select("tbody tr")
+        self.assertEqual(
+            [row.select("td")[3].get_text(strip=True) for row in table_rows],
+            ["Indonesia"],
+        )
 
     def test_multi_level_relation(self):
         self.scm = self.model.objects.create(advert=self.advert, full_featured=self.ffs)

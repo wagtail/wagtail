@@ -1,5 +1,5 @@
 import datetime
-from unittest import mock
+from unittest import mock, skip
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -157,8 +157,12 @@ class TestPageWorkflows(WagtailTestUtils, TestCase):
         WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
         return workflow, task_1, task_2
 
-    def start_workflow(self):
-        workflow, task_1, task_2 = self.create_workflow_and_tasks()
+    def start_workflow(self, workflow=None):
+        if workflow is None:
+            workflow, task_1, task_2 = self.create_workflow_and_tasks()
+        else:
+            task_1 = workflow.workflow_tasks.first().task
+            task_2 = None
         self.object.save_revision()
         user = get_user_model().objects.first()
         workflow_state = workflow.start(self.object, user)
@@ -486,6 +490,54 @@ class TestPageWorkflows(WagtailTestUtils, TestCase):
         self.object.delete()
         self.assertIs(WorkflowState.objects.filter(**query).exists(), False)
 
+    def test_user_can_cancel(self):
+        data = self.start_workflow(workflow=Workflow.objects.first())
+        workflow_state = data["workflow_state"]
+        obj = data["object"]
+        owner = self.create_user("owner")
+        obj.owner = owner
+        obj.save()
+        # Refresh the workflow state to ensure user_can_cancel() uses the
+        # specific task even on a freshly fetched workflow state instance
+        workflow_state.refresh_from_db()
+
+        # user is submitter
+        self.assertTrue(workflow_state.user_can_cancel(data["user"]))
+
+        # user is owner
+        # only applicable when the workflow state content object has that attribute
+        if hasattr(workflow_state.content_object, "owner"):
+            self.assertTrue(workflow_state.user_can_cancel(owner))
+
+        # user can approve
+        moderators = Group.objects.get(name="Moderators")
+        moderator = self.create_user("moderator")
+        moderator.groups.add(moderators)
+        superuser = self.create_superuser("root")
+        self.assertTrue(workflow_state.user_can_cancel(moderator))
+        self.assertTrue(workflow_state.user_can_cancel(superuser))
+
+    def test_user_can_cancel_random_user(self):
+        data = self.start_workflow(workflow=Workflow.objects.first())
+        workflow_state = data["workflow_state"]
+        workflow_state.refresh_from_db()
+
+        # a random user who is neither the page creator, the workflow submitter,
+        # nor can approve
+        self.assertFalse(workflow_state.user_can_cancel(self.create_user("random")))
+
+    def test_user_can_cancel_locked(self):
+        data = self.start_workflow(workflow=Workflow.objects.first())
+        workflow_state = data["workflow_state"]
+        workflow_state.refresh_from_db()
+        submitter = data["user"]
+        obj = data["object"]
+        obj.locked = True
+        obj.locked_by = self.create_superuser("root")
+        obj.save()
+        workflow_state.content_object.refresh_from_db()
+        self.assertFalse(workflow_state.user_can_cancel(submitter))
+
 
 class TestSnippetWorkflows(TestPageWorkflows):
     fixtures = None
@@ -516,6 +568,10 @@ class TestSnippetWorkflowsNotLockable(TestSnippetWorkflows):
         self.assertEqual(workflow_state.workflow, workflow)
         self.assertEqual(workflow_state.content_object, self.object)
         self.assertEqual(workflow_state.status, "in_progress")
+
+    @skip("Model is not lockable")
+    def test_user_can_cancel_locked(self):
+        super().test_user_can_cancel_locked()
 
     # The ModeratedModel does not explicitly define a `GenericRelation` to
     # `WorkflowState`, but the `WorkflowState` should still be deleted when the
