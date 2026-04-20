@@ -94,6 +94,7 @@ export const getReadabilityScore = (lixScore: number): string => {
 export interface ContentMetrics {
   wordCount: number;
   readingTime: number;
+  lixScore: number;
   readabilityScore: string;
 }
 

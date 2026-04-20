@@ -18,6 +18,7 @@ The preview panel is powered by the [`PreviewController`](controller:PreviewCont
 ```javascript
 const previewController = window.wagtail.app.queryController('w-preview');
 const content = await previewController?.extractContent();
+const metrics = previewController?.extractMetrics(content);
 await previewController?.runContentChecks();
 ```
 
