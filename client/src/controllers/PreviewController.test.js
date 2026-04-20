@@ -2543,6 +2543,28 @@ describe('PreviewController', () => {
       expect(content).toEqual(mockExtractedContent);
     });
 
+    it('should compute ContentMetrics on demand', async () => {
+      mockAxeResults();
+      await initializeOpenedPanel();
+      const controller = application.getControllerForElementAndIdentifier(
+        document.querySelector('[data-controller="w-preview"]'),
+        identifier,
+      );
+
+      const content = {
+        lang: 'en',
+        innerText: 'This is a simple one just over 10 words in length.',
+        innerHTML: '<p>This is a simple one just over 10 words in length.</p>',
+      };
+      const metrics = controller.extractMetrics(content);
+      expect(metrics).toMatchObject({
+        wordCount: 11,
+        readingTime: 0,
+        lixScore: expect.closeTo(11, 1),
+        readabilityScore: 'Good',
+      });
+    });
+
     it('should not require opening the panel to do content extraction', async () => {
       application = Application.start();
       application.register(identifier, PreviewController);

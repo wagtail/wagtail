@@ -12,7 +12,9 @@ import {
   renderCheckerResults,
 } from '../includes/contentChecker';
 import {
-  ContentExtractorOptions,
+  type ContentExtractorOptions,
+  type ContentMetrics,
+  type ExtractedContent,
   getLIXScore,
   getPreviewContent,
   getReadabilityScore,
@@ -909,15 +911,23 @@ export class PreviewController extends Controller<HTMLElement> {
     // previewed page shows an error response), skip doing anything with it.
     if (!content) return;
 
-    const wordCount = getWordCount(content.lang, content.innerText);
-    const readingTime = getReadingTime(content.lang, wordCount);
-    const lixScore = getLIXScore(content.lang, content.innerText);
-    const readabilityScore = getReadabilityScore(lixScore);
-    const metrics = { wordCount, readingTime, lixScore, readabilityScore };
+    const metrics = this.extractMetrics(content);
 
     this.dispatch('content', { detail: { content, metrics } });
 
     renderContentMetrics(metrics);
+  }
+
+  /**
+   * Computes content metrics (word count, reading time, LIX, readability) from
+   * extracted preview content.
+   */
+  extractMetrics(content: ExtractedContent): ContentMetrics {
+    const wordCount = getWordCount(content.lang, content.innerText);
+    const readingTime = getReadingTime(content.lang, wordCount);
+    const lixScore = getLIXScore(content.lang, content.innerText);
+    const readabilityScore = getReadabilityScore(lixScore);
+    return { wordCount, readingTime, lixScore, readabilityScore };
   }
 
   /**
