@@ -26,13 +26,15 @@ class WagtailDocumentField(FileField):
         hints = []
         if self.supported_formats_text:
             hints.append(
-                _("Supported formats: %(supported_formats)s.") % {
+                _("Supported formats: %(supported_formats)s.")
+                % {
                     "supported_formats": self.supported_formats_text,
                 }
             )
         if self.max_upload_size is not None:
             hints.append(
-                _("Maximum filesize: %(max_upload_size)s.") % {
+                _("Maximum filesize: %(max_upload_size)s.")
+                % {
                     "max_upload_size": self.max_upload_size_text,
                 }
             )
