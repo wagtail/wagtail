@@ -49,8 +49,8 @@
         {# Initialized by the main userbar. #}
         <template id="w-inline-userbar-template">
             {# Unique landmark label set in JS. #}
-            <aside>
-                <div class="w-inline-userbar {% admin_theme_classname %}" part="userbar">
+            <aside class="{% admin_theme_classname %}">
+                <div class="w-inline-userbar" part="userbar">
                     <button type="button" class="w-inline-userbar__toggle" data-inline-userbar-toggle aria-label="{% trans 'Show issue' %}">
                         {% icon name="warning" classname="w-inline-userbar__icon" %}
                     </button>
