@@ -81,6 +81,7 @@ Changelog
  * Maintenance: Clean up JSDoc & ordering of values in `SwapController` (LB (Ben Johnston))
  * Maintenance: Refactor accessibility checker code to use generic content checker terminology (Thibaud Colas)
  * Maintenance: Upgrade BeautifulSoup dependency to >=4.13.3 (Matt Westcott)
+ * Maintenance: Make sphinx_llms.txt extension optional when building docs (Sage Abdullah)
 
 
 7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
