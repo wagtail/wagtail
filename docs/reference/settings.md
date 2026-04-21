@@ -70,6 +70,45 @@ WAGTAILSEARCH_HITS_MAX_AGE = 14
 
 Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for [promoted search results](editors_picks). Queries older than this will be removed by the [](searchpromotions_garbage_collect) command.
 
+(wagtail_fuzzy_search)=
+
+### `WAGTAIL_FUZZY_SEARCH`
+
+```python
+WAGTAIL_FUZZY_SEARCH = True
+```
+
+When enabled, the admin page search uses fuzzy matching (trigram similarity and Levenshtein distance) instead of autocomplete prefix matching. This helps users find pages even when the search query contains typos or approximate spellings.
+
+Requires PostgreSQL with the `pg_trgm` and `fuzzystrmatch` extensions enabled. Run the following management commands before enabling this setting:
+
+```sh
+./manage.py enable_trigram
+./manage.py enable_fuzzystrmatch
+./manage.py migrate
+./manage.py update_index
+```
+
+Defaults to `False`.
+
+(wagtail_fuzzy_search_unaccent)=
+
+### `WAGTAIL_FUZZY_SEARCH_UNACCENT`
+
+```python
+WAGTAIL_FUZZY_SEARCH_UNACCENT = True
+```
+
+When enabled alongside [`WAGTAIL_FUZZY_SEARCH`](wagtail_fuzzy_search), fuzzy search becomes accent-insensitive. For example, searching "ecole" will match pages titled "École".
+
+Requires the `unaccent` PostgreSQL extension and the `f_unaccent()` immutable function. Run the following management command before enabling this setting:
+
+```sh
+./manage.py enable_unaccent
+```
+
+Defaults to `False`.
+
 ## Internationalization
 
 Wagtail supports the internationalization of content by maintaining separate trees of pages for each language.
