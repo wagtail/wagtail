@@ -21,6 +21,7 @@ Changelog
  * Use choice label when displaying choice fields in `SnippetViewSet`/`ModelViewSet`'s `list_display` (Srishti Jaiswal)
  * Add new content check `empty-meta-description` to validate meta description tags are not empty (Thibaud Colas)
  * Add `extractMetrics` method to `PreviewController` to retrieve content metrics from the preview panel (Thibaud Colas)
+ * Refine hover / focus styles for title field’s comment button (Srishti Jaiswal)
  * Preserve "Collapse all" button state when switching between editor tabs (Raghad Dahi)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)

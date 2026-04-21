@@ -49,9 +49,7 @@
         ~ :where(
           .w-field__comment-button:hover,
           .w-field__comment-button:focus-within,
-          .w-field__comment-button--focused,
-          .w-field__comment-button--add:hover,
-          .w-field__comment-button--reveal:hover
+          .w-field__comment-button--focused
         )
       )
     ) {
