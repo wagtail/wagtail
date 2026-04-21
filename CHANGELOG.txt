@@ -19,6 +19,7 @@ Changelog
  * Change StreamBlock options so groups are shown in declaration order of their blocks (Darshan Kerkar)
  * Add `WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS` setting to disable permission filtering on page searches (Matt Westcott)
  * Use choice label when displaying choice fields in `SnippetViewSet`/`ModelViewSet`'s `list_display` (Srishti Jaiswal)
+ * Add new content check `empty-meta-description` to validate meta description tags are not empty (Thibaud Colas)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)

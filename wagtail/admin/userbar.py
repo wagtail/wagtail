@@ -64,6 +64,7 @@ class ContentCheckerItem(BaseItem):
         "link-name",
         "p-as-heading",
         "alt-text-quality",
+        "empty-meta-description",
     ]
 
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
@@ -74,6 +75,7 @@ class ContentCheckerItem(BaseItem):
 
     #: A list to add custom Axe rules or override their properties,
     #: alongside with ``axe_custom_checks``. Includes Wagtail’s custom rules.
+    # Always set `enabled`. If omitted, defaults to True and overrides configs in `axe_run_only`.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
     axe_custom_rules = [
         {
@@ -82,7 +84,16 @@ class ContentCheckerItem(BaseItem):
             "selector": "img[alt]",
             "tags": ["best-practice"],
             "any": ["check-image-alt-text"],
-            # If omitted, defaults to True and overrides configs in `axe_run_only`.
+            "enabled": True,
+        },
+        {
+            "id": "empty-meta-description",
+            "impact": "moderate",
+            # Axe does not support directly targeting invisible elements.
+            # h1 will help users understand it’s a page-level problem.
+            "selector": "h1",
+            "tags": ["seo"],
+            "any": ["check-empty-meta-description"],
             "enabled": True,
         },
     ]
@@ -94,6 +105,9 @@ class ContentCheckerItem(BaseItem):
         {
             "id": "check-image-alt-text",
             "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_"},
+        },
+        {
+            "id": "check-empty-meta-description",
         },
     ]
 
@@ -136,6 +150,10 @@ class ContentCheckerItem(BaseItem):
         "alt-text-quality": {
             "error_name": _("Image alt text has inappropriate pattern"),
             "help_text": _("Use meaningful text"),
+        },
+        "empty-meta-description": {
+            "error_name": _("Meta description is empty"),
+            "help_text": _("Add a concise description for search engines"),
         },
     }
 
