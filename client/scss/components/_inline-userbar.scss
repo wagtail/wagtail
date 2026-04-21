@@ -1,4 +1,5 @@
 @use '../tools' as *;
+@use '../settings' as *;
 
 // <wagtail-inline-userbar> component, inserted as a sibling
 // after a target element so annotations follow DOM/tab order.
@@ -24,7 +25,7 @@
   background-color: theme('colors.critical.200');
   cursor: pointer;
   padding: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: $userbar-box-shadow;
   transition: transform 0.15s ease;
 
   &:hover,
@@ -40,11 +41,13 @@
     height: theme('spacing.[3.5]');
     fill: theme('colors.white.DEFAULT');
     pointer-events: none;
+    position: relative;
+    top: -1px;
   }
 }
 
 .w-inline-userbar__content {
   font-family: theme('fontFamily.sans');
   max-width: 320px;
-  min-width: 200px;
+  min-width: 260px;
 }
