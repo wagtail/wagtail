@@ -1380,6 +1380,55 @@ class TestLiveRevision(TestCase):
                 ),
             )
 
+    @freeze_time("2017-01-01 12:00:00")
+    def test_page_published_signal_not_fired_for_draft_scheduled_for_future_publishing(
+        self,
+    ):
+        """
+        page_published should NOT fire when a never-published draft page is
+        scheduled for future publishing. The signal should only fire when the
+        page actually goes live (i.e. when publish_scheduled_pages runs).
+        """
+        homepage = Page.objects.get(url_path="/home/")
+
+        # Create a brand new page that has never been published
+        new_page = SimplePage(
+            title="New Draft Page",
+            slug="new-draft-page",
+            content="Draft content",
+            live=False,
+        )
+        homepage.add_child(instance=new_page)
+
+        # Confirm it is a never-published draft
+        self.assertIsNone(new_page.live_revision)
+        self.assertFalse(new_page.live)
+
+        signal_fired = False
+
+        def page_published_handler(sender, instance, **kwargs):
+            nonlocal signal_fired
+            signal_fired = True
+
+        page_published.connect(page_published_handler)
+        try:
+            # Schedule the page for future publishing
+            new_page.go_live_at = datetime.datetime(2017, 1, 10, 10, 00)
+            revision = new_page.save_revision()
+            revision.publish()
+
+            # The page should not be live yet
+            new_page.refresh_from_db()
+            self.assertFalse(new_page.live)
+
+            # page_published must NOT have fired — the page is not live yet
+            self.assertFalse(
+                signal_fired,
+                "page_published signal fired for a scheduled draft page that is not yet live",
+            )
+        finally:
+            page_published.disconnect(page_published_handler)
+
 
 class TestPageGetSpecific(TestCase):
     fixtures = ["test.json"]
