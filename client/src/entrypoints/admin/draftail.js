@@ -4,6 +4,7 @@ import draftail, {
   EmbedBlock,
   ImageBlock,
   Link,
+  onPasteImage,
   onPasteLink,
 } from '../../components/Draftail/index';
 
@@ -40,6 +41,7 @@ if (!window.Draftail || !window.draftail) {
       type: 'IMAGE',
       source: draftail.ImageModalWorkflowSource,
       block: ImageBlock,
+      onPaste: onPasteImage,
     },
     {
       type: 'EMBED',

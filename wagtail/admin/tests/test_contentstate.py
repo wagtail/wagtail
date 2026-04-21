@@ -1830,6 +1830,51 @@ class TestHtmlToContentState(TestCase):
             },
         )
 
+    def test_image_embed_missing_id_is_skipped(self):
+        """A malformed image embed without an 'id' attribute is silently skipped."""
+        converter = ContentstateConverter(features=["image"])
+        result = json.loads(
+            converter.from_database_format(
+                "<p>before</p>"
+                '<embed embedtype="image" alt="broken image" format="left" />'
+                "<p>after</p>"
+            )
+        )
+        # The malformed embed should be dropped; only the surrounding paragraphs remain
+        self.assertContentStateEqual(
+            result,
+            {
+                "blocks": [
+                    {
+                        "key": "00000",
+                        "inlineStyleRanges": [],
+                        "entityRanges": [],
+                        "depth": 0,
+                        "text": "before",
+                        "type": "unstyled",
+                    },
+                    {
+                        "key": "00000",
+                        "inlineStyleRanges": [],
+                        "entityRanges": [],
+                        "depth": 0,
+                        "text": "after",
+                        "type": "unstyled",
+                    },
+                ],
+                "entityMap": {},
+            },
+        )
+
+    def test_image_embed_missing_id_records_warning(self):
+        """A malformed image embed without 'id' adds a warning to the converter."""
+        converter = ContentstateConverter(features=["image"])
+        converter.from_database_format(
+            '<embed embedtype="image" alt="broken" format="left" />'
+        )
+        self.assertEqual(len(converter.warnings), 1)
+        self.assertIn("id", converter.warnings[0])
+
 
 class TestContentStateToHtml(TestCase):
     def test_external_link(self):

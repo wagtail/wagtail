@@ -12,6 +12,14 @@ from wagtail.admin.rich_text.converters.html_ruleset import HTMLRuleset
 from wagtail.models import Page
 from wagtail.rich_text import features as feature_registry
 
+
+class MalformedEmbedError(Exception):
+    """Raised when a rich-text embed tag is missing required attributes."""
+
+    pass
+
+
+
 # constants to keep track of what to do with leading whitespace on the next text node we encounter
 STRIP_WHITESPACE = 0
 KEEP_WHITESPACE = 1
@@ -367,6 +375,9 @@ class HtmlToContentStateHandler(HTMLParser):
         # stack of (name, handler) tuples for the elements we're currently inside
         self.open_elements = []
 
+        # warnings accumulated during parsing (e.g. malformed embeds)
+        self.warnings = []
+
         super().reset()
 
     def handle_starttag(self, name, attrs):
@@ -382,7 +393,14 @@ class HtmlToContentStateHandler(HTMLParser):
         self.open_elements.append((name, element_handler))
 
         if element_handler:
-            element_handler.handle_starttag(name, attrs, self.state, self.contentstate)
+            try:
+                element_handler.handle_starttag(name, attrs, self.state, self.contentstate)
+            except MalformedEmbedError as e:
+                self.warnings.append(str(e))
+                # Mark the element as skipped; keep it on the stack so that
+                # handle_endtag (called by HTMLParser for self-closing tags too)
+                # can match and discard it cleanly.
+                self.open_elements[-1] = (name, None)
 
     def handle_endtag(self, name):
         if not self.open_elements:

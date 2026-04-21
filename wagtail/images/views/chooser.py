@@ -1,4 +1,12 @@
+import posixpath
+import urllib.error
+import urllib.parse
+import urllib.request
+from io import BytesIO
+
 from django.conf import settings
+from django.core.files.images import ImageFile
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import path, reverse
@@ -369,6 +377,48 @@ class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin,
             return self.render_select_format_response(image, self.form)
 
 
+class ImageDownloadView(ImageChosenResponseMixin, View):
+    """
+    POST /admin/images/chooser/download/
+    Body (form): image_url=<url>
+
+    Downloads the image at the given URL, saves it as a Wagtail Image,
+    and returns the same JSON as ImageChosenResponseMixin.get_chosen_response_data().
+    Returns HTTP 400 on invalid/missing URL, 403 if no permission, 422 on download failure.
+    """
+
+    @permission_checker.require("add")
+    def post(self, request):
+        url = request.POST.get("image_url", "").strip()
+        if not url or not url.startswith(("http://", "https://")):
+            return JsonResponse({"error": "Invalid URL"}, status=400)
+
+        ImageModel = get_image_model()
+
+        # Dedup: if an image with this URL as title already exists, return it
+        existing = ImageModel.objects.filter(title=url).first()
+        if existing:
+            return JsonResponse(self.get_chosen_response_data(existing))
+
+        try:
+            with urllib.request.urlopen(url, timeout=10) as response:  # noqa: S310
+                data = response.read()
+        except (urllib.error.URLError, OSError):
+            return JsonResponse({"error": "Download failed"}, status=422)
+
+        parsed = urllib.parse.urlparse(url)
+        filename = posixpath.basename(parsed.path) or "image.png"
+
+        image = ImageModel(
+            title=url,
+            uploaded_by_user=request.user,
+        )
+        image.file = ImageFile(BytesIO(data), name=filename)
+        image.save()
+
+        return JsonResponse(self.get_chosen_response_data(image))
+
+
 class ImageChooserViewSet(ChooserViewSet):
     choose_view_class = ImageChooseView
     choose_results_view_class = ImageChooseResultsView
@@ -376,6 +426,7 @@ class ImageChooserViewSet(ChooserViewSet):
     chosen_multiple_view_class = ImageChosenMultipleView
     create_view_class = ImageUploadView
     select_format_view_class = ImageSelectFormatView
+    download_view_class = ImageDownloadView
     permission_policy = permission_policy
     register_widget = False
     preserve_url_parameters = ChooserViewSet.preserve_url_parameters + [
@@ -397,12 +448,21 @@ class ImageChooserViewSet(ChooserViewSet):
             preserve_url_parameters=self.preserve_url_parameters,
         )
 
+    @property
+    def download_view(self):
+        return self.download_view_class.as_view()
+
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             path(
                 "<int:image_id>/select_format/",
                 self.select_format_view,
                 name="select_format",
+            ),
+            path(
+                "download/",
+                self.download_view,
+                name="download",
             ),
         ]
 

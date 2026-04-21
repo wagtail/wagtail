@@ -85,7 +85,8 @@ def register_image_feature(features):
                     "id": True,
                 },
                 "chooserUrls": {
-                    "imageChooser": reverse_lazy("wagtailimages_chooser:choose")
+                    "imageChooser": reverse_lazy("wagtailimages_chooser:choose"),
+                    "imageDownload": reverse_lazy("wagtailimages_chooser:download"),
                 },
             },
             js=[

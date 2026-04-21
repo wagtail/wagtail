@@ -140,6 +140,7 @@ class ContentstateConverter:
         self.html_to_contentstate_handler.reset()
         self.html_to_contentstate_handler.feed(html)
         self.html_to_contentstate_handler.close()
+        self.warnings = list(self.html_to_contentstate_handler.warnings)
 
         return self.html_to_contentstate_handler.contentstate.as_json(
             indent=4, separators=(",", ": ")
