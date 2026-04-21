@@ -65,15 +65,13 @@ export class Userbar extends HTMLElement {
       return;
     }
 
-    const inCrossOriginIframe = this.inCrossOriginIframe;
-
     // Get the origin from the data attribute only if we are in a cross-origin
     // iframe, as it's only needed in that case. Using the data attribute in a
     // same-origin iframe will cause issues if it is not set to the correct
     // value, which can happen in page previews if the page's site root host is
     // different from the host where the admin is accessed.
     const origin =
-      (inCrossOriginIframe &&
+      (this.inCrossOriginIframe &&
         userbar.getAttribute('data-wagtail-userbar-origin')) ||
       '';
     // Use URL() and the current origin as a base, to allow both absolute and
@@ -332,11 +330,9 @@ export class Userbar extends HTMLElement {
     this.handleMessage = this.handleMessage.bind(this);
     this.onWindowLoad = this.onWindowLoad.bind(this);
 
-    // If we are in a cross-origin iframe, request the parent to restore the
-    // scroll position of the preview panel's previous iframe to this one.
-    if (inCrossOriginIframe) {
-      window.addEventListener('message', this.handleMessage);
-    }
+    // Listen for messages from the parent window (e.g. preview scale).
+    // Also handles scroll position restoration in cross-origin iframes.
+    window.addEventListener('message', this.handleMessage);
 
     // The page may already be loaded, e.g. when the userbar is loaded via AJAX.
     // In this case, we need to call the initialisation function immediately.
@@ -559,6 +555,12 @@ export class Userbar extends HTMLElement {
         window.scrollTo({ top: data.y, left: data.x, behavior: 'instant' });
         break;
 
+      case 'w-preview:set-scale':
+        for (const annotation of this.annotations) {
+          annotation.setScale(data.scale);
+        }
+        break;
+
       default:
         break;
     }
@@ -567,8 +569,6 @@ export class Userbar extends HTMLElement {
   disconnectedCallback() {
     InlineUserbar.clearAnnotations(this.annotations);
     this.annotations = [];
-    if (this.inCrossOriginIframe) {
-      window.removeEventListener('message', this.handleMessage);
-    }
+    window.removeEventListener('message', this.handleMessage);
   }
 }

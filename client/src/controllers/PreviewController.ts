@@ -524,6 +524,25 @@ export class PreviewController extends Controller<HTMLElement> {
       this.deviceWidthPropertyValue,
       deviceWidth as string,
     );
+    this.sendScaleToIframe();
+  }
+
+  /**
+   * Send the current preview scale ratio to the iframe so inline
+   * annotations can apply an inverse transform to remain legible.
+   * Mirrors the CSS formula: min(1, panel-width / device-width).
+   */
+  private sendScaleToIframe() {
+    const panelWidth = this.element.clientWidth;
+    const deviceWidth = parseFloat(
+      this.element.style.getPropertyValue(this.deviceWidthPropertyValue),
+    );
+    if (!panelWidth || !deviceWidth || !this.iframeTarget.contentWindow) return;
+    const ratio = Math.max(1, deviceWidth / panelWidth);
+    this.iframeTarget.contentWindow.postMessage(
+      { wagtail: { type: 'w-preview:set-scale', scale: ratio } },
+      '*',
+    );
   }
 
   /**
@@ -546,12 +565,13 @@ export class PreviewController extends Controller<HTMLElement> {
    * This is used to maintain the simulated device width as the side panel is resized.
    */
   observePanelSize() {
-    const resizeObserver = new ResizeObserver((entries) =>
+    const resizeObserver = new ResizeObserver((entries) => {
       this.element.style.setProperty(
         this.panelWidthPropertyValue,
         entries[0].contentRect.width.toString(),
-      ),
-    );
+      );
+      this.sendScaleToIframe();
+    });
     resizeObserver.observe(this.element);
     return resizeObserver;
   }
@@ -864,6 +884,10 @@ export class PreviewController extends Controller<HTMLElement> {
       if (data?.type !== 'w-userbar:axe-ready')
         return this.contentChecksPromise;
     }
+
+    // The iframe's userbar has finished initialising and annotations now
+    // exist, so send the current scale for counter-scaling.
+    this.sendScaleToIframe();
 
     // If the content checks are already running, wait for them to finish before
     // re-running them, as Axe does not allow concurrent runs.
