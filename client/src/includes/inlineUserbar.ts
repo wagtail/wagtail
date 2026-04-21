@@ -15,6 +15,7 @@ export class InlineUserbar extends HTMLElement {
   declare toggle: HTMLButtonElement;
   declare targetElement: HTMLElement;
   declare resizeObserver: ResizeObserver;
+  private currentScale = 1;
 
   connectedCallback() {
     const userbarShadow = document.querySelector('wagtail-userbar')?.shadowRoot;
@@ -69,12 +70,30 @@ export class InlineUserbar extends HTMLElement {
       interactive: true,
       arrow: true,
       maxWidth: 350,
-      placement: 'bottom',
+      placement: 'bottom-end',
       theme: 'dropdown',
       plugins: [hideTooltipOnEsc],
-      appendTo: () => shadowRoot as unknown as Element,
+      appendTo: () => aside,
       onShow: () => this.toggleTargetOutline(true),
       onHide: () => this.toggleTargetOutline(false),
+      // Tippy uses getBoundingClientRect which returns viewport-scaled
+      // coordinates. When a CSS transform scales the host, the popper's
+      // local coordinate space differs from the viewport. Dividing by the
+      // current scale converts back to local coordinates.
+      getReferenceClientRect: () => {
+        const rect = this.toggle.getBoundingClientRect();
+        const scale = this.currentScale;
+        return {
+          width: rect.width / scale,
+          height: rect.height / scale,
+          top: rect.top / scale,
+          bottom: rect.bottom / scale,
+          left: rect.left / scale,
+          right: rect.right / scale,
+          x: rect.x / scale,
+          y: rect.y / scale,
+        } as DOMRect;
+      },
     });
 
     this.positionAtTarget();
@@ -89,33 +108,36 @@ export class InlineUserbar extends HTMLElement {
   }
 
   private positionAtTarget() {
-    const selector = this.dataset.selector;
-    if (!selector) return;
+    if (!this.targetElement) return;
 
-    const updatePosition = () => {
-      const targetRect = this.targetElement.getBoundingClientRect();
+    this.updatePosition();
 
-      // Compute position relative to offsetParent, since position:absolute
-      // is resolved against the nearest positioned ancestor, not the viewport.
-      const offsetParent = this.offsetParent as HTMLElement | null;
-      const parentRect = offsetParent
-        ? offsetParent.getBoundingClientRect()
-        : { top: 0, left: 0 };
-
-      this.style.setProperty(
-        '--inline-userbar-top',
-        `${targetRect.bottom - parentRect.top}px`,
-      );
-      this.style.setProperty(
-        '--inline-userbar-inline-start',
-        `${targetRect.right - parentRect.left}px`,
-      );
-    };
-
-    updatePosition();
-
-    this.resizeObserver = new ResizeObserver(updatePosition);
+    this.resizeObserver = new ResizeObserver(() => this.updatePosition());
     this.resizeObserver.observe(this.targetElement);
+  }
+
+  /**
+   * Recompute the annotation's position relative to its target element.
+   */
+  updatePosition() {
+    if (!this.targetElement) return;
+    const targetRect = this.targetElement.getBoundingClientRect();
+
+    // Compute position relative to offsetParent, since position:absolute
+    // is resolved against the nearest positioned ancestor, not the viewport.
+    const offsetParent = this.offsetParent as HTMLElement | null;
+    const parentRect = offsetParent
+      ? offsetParent.getBoundingClientRect()
+      : { top: 0, left: 0 };
+
+    this.style.setProperty(
+      '--inline-userbar-top',
+      `${targetRect.bottom - parentRect.top}px`,
+    );
+    this.style.setProperty(
+      '--inline-userbar-inline-start',
+      `${targetRect.right - parentRect.left}px`,
+    );
   }
 
   /**
@@ -128,6 +150,16 @@ export class InlineUserbar extends HTMLElement {
     this.targetElement.scrollIntoView();
     this.toggleTargetOutline(true);
     this.toggle.focus();
+  }
+
+  /**
+   * Counteract the preview iframe's CSS scaling to keep annotations legible.
+   */
+  setScale(scale: number) {
+    this.currentScale = scale;
+    this.style.setProperty('--inline-userbar-scale', String(scale));
+    this.updatePosition();
+    this.tippyInstance?.popperInstance?.update();
   }
 
   toggleTargetOutline(outline: boolean) {

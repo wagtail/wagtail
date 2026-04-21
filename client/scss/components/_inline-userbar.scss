@@ -9,9 +9,11 @@
   position: absolute;
   z-index: 9998;
   pointer-events: auto;
-  transform: translate(calc(var(--w-direction-factor) * -50%), -50%);
   top: var(--inline-userbar-top);
   inset-inline-start: var(--inline-userbar-inline-start);
+  // Counter-scale to remain legible when the preview iframe is scaled down.
+  transform: translate(calc(var(--w-direction-factor) * -50%), -50%)
+    scale(var(--inline-userbar-scale, 1));
 }
 
 .w-inline-userbar__toggle {
