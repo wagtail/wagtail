@@ -1,5 +1,6 @@
 from django.db import connection, migrations, models
 
+# Copied from 0003_add_text_fields in modelsearch
 
 class Migration(migrations.Migration):
     dependencies = [
