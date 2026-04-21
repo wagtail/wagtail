@@ -42,16 +42,37 @@ export const sortAxeViolations = (violations: Result[]) =>
  * Wagtail's Axe configuration object. This should reflect what's returned by
  * `wagtail.admin.userbar.ContentCheckerItem.get_axe_configuration()`.
  */
-interface ErrorMessage {
+export interface ErrorMessage {
   error_name: string;
   help_text: string;
 }
+
+export interface ErrorMessages {
+  [key: string]: string | ErrorMessage;
+}
+
 export interface WagtailAxeConfiguration {
   context: ContextObject;
   options: RunOptions;
-  messages: Record<string, ErrorMessage>;
+  messages: ErrorMessages;
   spec: Spec;
 }
+
+/**
+ * Resolve the display name and help text for a violation, preferring
+ * Wagtail's custom messages over axe defaults.
+ */
+export const getViolationMessage = (
+  violation: { id: string; help: string; description: string },
+  messages: ErrorMessages,
+): { name: string; helpText: string } => {
+  const msg = messages[violation.id];
+  const name =
+    (typeof msg === 'string' ? msg : msg?.error_name) || violation.help;
+  const helpText =
+    (typeof msg !== 'string' && msg?.help_text) || violation.description;
+  return { name, helpText };
+};
 
 /**
  * Get the Axe configuration from the page.
@@ -212,15 +233,12 @@ export const renderCheckerResults = (
         ) as HTMLDivElement;
         errorName.id = `w-content-checker__name-${nodeCounter}`;
 
-        // Display custom error messages supplied by Wagtail if available,
-        // fallback to default error message from Axe
-        const messages = config.messages[violation.id];
-
-        const name =
-          (typeof messages === 'string' ? messages : messages?.error_name) ||
-          violation.help;
+        const { name, helpText } = getViolationMessage(
+          violation,
+          config.messages,
+        );
         errorName.textContent = name;
-        errorHelp.textContent = messages?.help_text || violation.description;
+        errorHelp.textContent = helpText;
 
         // Special-case when displaying results within the admin interface.
         const isInCMS = node.target[0] === '#w-preview-iframe';

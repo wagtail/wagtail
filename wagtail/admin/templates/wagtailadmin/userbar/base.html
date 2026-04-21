@@ -4,15 +4,15 @@
     {# In preview panels, we still render the userbar UI, but hidden by default. #}
     <aside {% if request.in_preview_panel %}hidden{% endif %}>
         <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar data-wagtail-userbar-origin="{{ origin|default:"" }}" part="userbar">
-            {% block css %}
-                {% versioned_static 'wagtailadmin/css/core.css' as core_css_url %}
-                <link rel="stylesheet" href="{% build_absolute_url core_css_url %}">
-                {# For headless userbar: the contents of the hook also need absolute URLs #}
-                {% hook_output 'insert_global_admin_css' %}
-                {{ media.css }}
-            {% endblock %}
-            <div class="w-userbar-nav">
-
+            {# Styles and icons for all userbar components. #}
+            <div data-userbar-assets>
+                {% block css %}
+                    {% versioned_static 'wagtailadmin/css/core.css' as core_css_url %}
+                    <link rel="stylesheet" href="{% build_absolute_url core_css_url %}">
+                    {# For headless userbar: the contents of the hook also need absolute URLs #}
+                    {% hook_output 'insert_global_admin_css' %}
+                    {{ media.css }}
+                {% endblock %}
                 <svg class="w-hidden">
                     <defs>
                         {% block icons %}
@@ -24,9 +24,12 @@
                             {% include "wagtailadmin/icons/check.svg" %}
                             {% include "wagtailadmin/icons/cross.svg" %}
                             {% include "wagtailadmin/icons/crosshairs.svg" %}
+                            {% include "wagtailadmin/icons/warning.svg" %}
                         {% endblock %}
                     </defs>
                 </svg>
+            </div>
+            <div class="w-userbar-nav">
 
                 <button aria-controls="wagtail-userbar-items" aria-haspopup="true" class="w-userbar-trigger" id="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
                     {% block branding_logo %}{% include "wagtailadmin/logo.html" with classname="w-userbar-icon" %}{% endblock %}
@@ -42,6 +45,19 @@
             </div>
         </div>
         <div data-content-checker-outline-container></div>
+        {# Generic inline userbar wrapper for inline content annotations. #}
+        {# Initialized by the main userbar. #}
+        <template id="w-inline-userbar-template">
+            {# Unique landmark label set in JS. #}
+            <aside>
+                <div class="w-inline-userbar {% admin_theme_classname %}" part="userbar">
+                    <button type="button" class="w-inline-userbar__toggle" data-inline-userbar-toggle aria-label="{% trans 'Show issue' %}">
+                        {% icon name="warning" classname="w-inline-userbar__icon" %}
+                    </button>
+                    <div class="w-inline-userbar__content" data-inline-userbar-content hidden></div>
+                </div>
+            </aside>
+        </template>
     </aside>
 </template>
 <wagtail-userbar></wagtail-userbar>

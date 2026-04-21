@@ -29,7 +29,16 @@
             </button>
         </div>
     </template>
-    <template id="w-content-checker-outline-template">
-        <div class="w-content-checker__outline" data-content-checker-outline></div>
+    {# Content template for inline-userbar checker annotations. #}
+    {# Appended into the generic [data-inline-userbar-content] slot by JS. #}
+    <template id="w-inline-userbar-content-checker-template">
+        <div class="w-content-checker__row">
+            <div>
+                <h3 class="w-content-checker__header">
+                    <span class="w-content-checker__name" data-content-checker-name></span>
+                </h3>
+                <div class="w-content-checker__help" data-content-checker-help></div>
+            </div>
+        </div>
     </template>
 {% endblock %}

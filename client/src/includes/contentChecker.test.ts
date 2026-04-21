@@ -5,6 +5,7 @@ import {
   checkEmptyMetaDescription,
   checkImageAltText,
   getCheckerReport,
+  getViolationMessage,
   registerCustomCheck,
   sortAxeViolations,
 } from './contentChecker';
@@ -61,6 +62,52 @@ describe('sortAxeViolations', () => {
       mockViolations.db,
       mockViolations.third,
     ]);
+  });
+});
+
+describe('getViolationMessage', () => {
+  const violation = {
+    id: 'heading-order',
+    help: 'Headings should not skip levels',
+    description: 'Ensure the order of headings is semantically correct',
+  };
+
+  it('uses Wagtail custom messages when available', () => {
+    const messages = {
+      'heading-order': {
+        error_name: 'Incorrect heading hierarchy',
+        help_text: 'Avoid skipping levels',
+      },
+    };
+    const result = getViolationMessage(violation, messages);
+    expect(result.name).toBe('Incorrect heading hierarchy');
+    expect(result.helpText).toBe('Avoid skipping levels');
+  });
+
+  it('falls back to axe defaults when no custom messages exist', () => {
+    const result = getViolationMessage(violation, {});
+    expect(result.name).toBe('Headings should not skip levels');
+    expect(result.helpText).toBe(
+      'Ensure the order of headings is semantically correct',
+    );
+  });
+
+  it('handles string-type messages', () => {
+    const messages = { 'heading-order': 'Bad headings' };
+    const result = getViolationMessage(violation, messages);
+    expect(result.name).toBe('Bad headings');
+    expect(result.helpText).toBe(
+      'Ensure the order of headings is semantically correct',
+    );
+  });
+
+  it('falls back to axe help when error_name is empty', () => {
+    const messages = {
+      'heading-order': { error_name: '', help_text: 'Custom help' },
+    };
+    const result = getViolationMessage(violation, messages);
+    expect(result.name).toBe('Headings should not skip levels');
+    expect(result.helpText).toBe('Custom help');
   });
 });
 
