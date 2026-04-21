@@ -464,14 +464,7 @@ export class Userbar extends HTMLElement {
         (el) => el.dataset.selector === selectorName,
       );
       if (annotation) {
-        annotation.focusToggle();
-      } else {
-        const targetElement = document.querySelector<HTMLElement>(selectorName);
-        if (targetElement) {
-          targetElement.style.scrollMargin = '6.25rem';
-          targetElement.scrollIntoView();
-          targetElement.focus();
-        }
+        annotation.focusTarget();
       }
     };
 

@@ -145,11 +145,11 @@ export class InlineUserbar extends HTMLElement {
    * to the toggle button. Used by the checker results dialog's crosshair
    * button to navigate the user to the annotation.
    */
-  focusToggle() {
+  focusTarget() {
     this.targetElement.style.scrollMargin = '6.25rem';
     this.targetElement.scrollIntoView();
     this.toggleTargetOutline(true);
-    this.toggle.focus();
+    this.targetElement.focus();
   }
 
   /**
