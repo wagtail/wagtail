@@ -144,11 +144,12 @@ class Book(models.Model, index.Indexed):
 
         index.RelatedFields('author', [
             index.SearchField('name'),
+            index.FilterField('date_of_birth'),
         ]),
     ]
 ```
 
-This will allow you to search for books by their author's name.
+This will allow you to search for books by their author's name, or limit the search to books by authors born before or after a given date.
 
 It works the other way around as well. You can index an author's books, allowing an author to be searched for by the titles of books they've published:
 
@@ -168,11 +169,9 @@ class Author(models.Model, index.Indexed):
     ]
 ```
 
-#### Filtering on `index.RelatedFields`
-
-It's not possible to filter on any `index.FilterFields` within `index.RelatedFields` using the `QuerySet` API. Placing `index.FilterField` inside `index.RelatedFields` is valid, and will cause the appropriate field data to be stored at indexing time, but the `QuerySet` API does not currently support filters that span relations, and so there is no way to access these fields. However, it should be possible to use them by querying Elasticsearch manually.
-
-Filtering on `index.RelatedFields` with the `QuerySet` API is planned for a future release of Wagtail.
+```{versionadded} 7.4
+Filtering on related fields is now supported.
+```
 
 (wagtailsearch_indexing_callable_fields)=
 
