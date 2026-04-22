@@ -143,8 +143,8 @@ class PageExplorerPanel extends React.Component<
               {this.renderChildren()}
 
               {page.isError ||
-                (page.children.items &&
-                  page.children.count > MAX_EXPLORER_PAGES) ? (
+              (page.children.items &&
+                page.children.count > MAX_EXPLORER_PAGES) ? (
                 <PageCount page={page} />
               ) : null}
             </div>
