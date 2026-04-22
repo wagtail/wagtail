@@ -29,6 +29,12 @@ export const PageExplorerMenuItem: React.FunctionComponent<
   }
 
   const onCloseExplorer = () => {
+    // Reset the sidebar navigation state so the menu item reflects
+    // aria-expanded="false". This is redundant when closing was already
+    // triggered by a navigation path change, but necessary when the
+    // FocusTrap deactivates via an outside click within the sidebar.
+    dispatch({ type: 'set-navigation-path', path: '' });
+
     // When a submenu is closed, we have to wait for the close animation
     // to finish before making it invisible
     setTimeout(() => {
