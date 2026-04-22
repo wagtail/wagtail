@@ -518,7 +518,7 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
         self.assertEqual(url, expected)
 
 
-class TestRoutableFullPageUrlTemplateTag(TestCase):
+class TestRoutableFullPageURLTemplateTag(TestCase):
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
         self.routable_page = self.home_page.add_child(

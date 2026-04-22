@@ -34,17 +34,9 @@ def routablefullpageurl(context, page, url_name, *args, **kwargs):
     ``routablefullpageurl`` is similar to ``routablepageurl``, but returns
     the full absolute URL (including protocol and domain).
     """
-    request = context.get("request")
+    request = context["request"]
     base_url = page.get_full_url(request=request)
-
-    if not base_url:
-        return ""
-
     routed_url = page.reverse_subpage(url_name, args=args, kwargs=kwargs)
-
     if not base_url.endswith("/"):
         base_url += "/"
-    if routed_url.startswith("/"):
-        routed_url = routed_url[1:]
-
     return base_url + routed_url
