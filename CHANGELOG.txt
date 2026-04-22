@@ -27,6 +27,7 @@ Changelog
  * Implement checker error highlights within the preview panel (Thibaud Colas)
  * Add `routablefullpageurl` template tag (Pravin Kamble)
  * Add support for customizing page explorer views per page type using `PageViewSet` (Sage Abdullah)
+ * Enhance page content type usage view with custom listings and ability to create new pages (Sage Abdullah)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
