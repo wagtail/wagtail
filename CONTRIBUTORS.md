@@ -966,6 +966,7 @@
 * Kunal Hemnani
 * Aviral Sapra
 * Raghad Dahi
+* Divyansh Mishra
 
 ## Translators
 

@@ -40,6 +40,7 @@ Changelog
  * Fix: Ensure user with appropriate permissions can cancel a workflow task (Dan Braghis)
  * Fix: Ensure "submit to workflow" menu item uses the workflow name when creating pages (Sage Abdullah)
  * Fix: Better align page descriptions in add subpage views (Tibor Leupold)
+ * Fix: Correctly close the Pages menu panel when clicking sidebar search (Divyansh Mishra)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
