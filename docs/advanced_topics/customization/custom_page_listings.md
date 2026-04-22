@@ -23,9 +23,9 @@ from wagtail.models import Page
 
 
 class CustomPageViewSet(PageViewSet):
-    columns = PageViewSet.columns.copy()
-    # Last column before the "Explore child pages" button column
-    columns.insert(-1, Column("slug", label="Slug", sort_key="slug"))
+    columns = PageViewSet.columns.copy() + [
+        Column("slug", label="Slug", sort_key="slug"),
+    ]
 
 
 custom_page_viewset = CustomPageViewSet()
@@ -75,8 +75,9 @@ class BlogPageFilterSet(PageViewSet.filterset_class):
 class BlogPageViewSet(PageViewSet):
     model = BlogPage
     parent_models = [BlogIndexPage]
-    columns = PageViewSet.columns.copy()
-    columns.insert(-1, Column("blog_category", label="Category", sort_key="blog_category"))
+    columns = PageViewSet.columns.copy() + [
+        Column("blog_category", label="Category", sort_key="blog_category"),
+    ]
     filterset_class = BlogPageFilterSet
 
 

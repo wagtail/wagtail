@@ -4,7 +4,7 @@ from django.db.models import F
 from django.forms import CheckboxSelectMultiple, RadioSelect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.functional import cached_property, classproperty
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django_filters.filters import (
     ChoiceFilter,
@@ -331,12 +331,20 @@ class ExplorableIndexView(IndexView):
     reorder_button = None
     default_ordering = None
     base_filterset_class = GenericPageFilterSet
+    base_columns = PageListingMixin.base_columns.copy()
 
-    @classproperty
-    def base_columns(cls):
-        columns = [col for col in PageListingMixin.base_columns if col.name != "parent"]
+    @cached_property
+    def explorable_columns(self):
+        columns = [col for col in self.columns if col.name != "parent"]
         columns.append(NavigateToChildrenColumn("navigate", width="10%"))
         return columns
+
+    def get_table(self, object_list):
+        return self.table_class(
+            self.explorable_columns,
+            object_list,
+            **self.get_table_kwargs(),
+        )
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:

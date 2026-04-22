@@ -359,7 +359,7 @@ class EventPageViewSet(PageViewSet):
     parent_models = [EventIndex]
     icon = "calendar"
     list_display = PageViewSet.columns.copy()
-    list_display.insert(-1, "audience")
+    list_display.append("audience")
     list_filter = ["audience"]
     list_export = ["pk", "title", "audience", "date_from"]
     list_per_page = 10
