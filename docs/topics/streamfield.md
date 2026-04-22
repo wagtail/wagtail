@@ -63,7 +63,7 @@ StreamField provides an HTML representation for the stream content as a whole, a
 {% include_block page.body %}
 ```
 
-In the default rendering, each block of the stream is wrapped in a `<div class="w-block-my_block_name">` element (where `my_block_name` is the block name given in the StreamField definition). For backwards compatibility, the unprefixed class `block-my_block_name` is also added. If you wish to provide your own HTML markup, you can instead iterate over the field's value, and invoke `{% include_block %}` on each block in turn:
+In the default rendering, each block of the stream is wrapped in a `<div class="w-block-my_block_name">` element (where `my_block_name` is the block name given in the StreamField definition). If you wish to provide your own HTML markup, you can instead iterate over the field's value, and invoke `{% include_block %}` on each block in turn:
 
 ```html+django
 {% load wagtailcore_tags %}
