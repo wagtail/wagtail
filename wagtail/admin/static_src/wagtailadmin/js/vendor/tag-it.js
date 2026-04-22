@@ -222,8 +222,19 @@
                     }
                 });
             }
-
             // Events.
+            this.tagInput.bind('paste', function (event) {
+                // Custom patch to handle pasting of multiple tags.
+                var pastedText = (event.originalEvent || event).clipboardData.getData('text');
+                var tagArray = pastedText.split(/[\n,]+/);
+                
+                if (tagArray.length > 1) {
+                    event.preventDefault();
+                    for (var i = 0; i < tagArray.length; i++) {
+                        that.createTag(tagArray[i]);
+                    }
+                }
+            });
             this.tagInput
                 .on('keydown', function(event) {
                     // Backspace is not detected within a keypress, so it must use keydown.
