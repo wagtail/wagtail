@@ -24,6 +24,7 @@ Changelog
  * Refine hover / focus styles for title field’s comment button (Srishti Jaiswal)
  * Preserve "Collapse all" button state when switching between editor tabs (Raghad Dahi)
  * Upgrade modelsearch to 1.3 (Matt Westcott)
+ * Implement checker error highlights within the preview panel (Thibaud Colas)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
