@@ -392,7 +392,7 @@ class BaseStreamBlock(Block):
     def render_basic(self, value, context=None):
         return format_html_join(
             "\n",
-            '<div class="block-{1}">{0}</div>',
+            '<div class="w-block-{1} block-{1}">{0}</div>',
             [(child.render(context=context), child.block_type) for child in value],
         )
 
