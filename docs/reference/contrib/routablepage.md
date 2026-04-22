@@ -234,3 +234,23 @@ Example:
 {% routablepageurl page "archive" 2014 08 14 %}
 {% routablepageurl page "food" foo="bar" baz="quux" %}
 ```
+
+(routablefullpageurl_template_tag)=
+
+## The `routablefullpageurl` template tag
+
+```{eval-rst}
+.. currentmodule:: wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags
+.. autofunction:: routablefullpageurl
+
+```
+
+Example:
+
+```html+django
+{% load wagtailroutablepage_tags %}
+
+{% routablefullpageurl page "feed" %}
+{% routablefullpageurl page "archive" 2014 08 14 %}
+{% routablefullpageurl page "food" foo="bar" baz="quux" %}
+```
