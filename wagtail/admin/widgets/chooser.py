@@ -135,9 +135,11 @@ class BaseChooser(widgets.Input):
         and the client-side rendering code (via telepath) that contains all the information needed
         for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
         """
+        request = getattr(self, "request", None)
+        user = getattr(request, "user", None) if request else None
         return {
             "id": instance.pk,
-            "edit_url": AdminURLFinder().get_edit_url(instance),
+            "edit_url": AdminURLFinder(user=user).get_edit_url(instance),
             self.display_title_key: self.get_display_title(instance),
         }
 

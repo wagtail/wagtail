@@ -336,6 +336,9 @@ class FieldPanel(Panel):
                 if widget_described_by_ids:
                     widget_attrs["aria-describedby"] = " ".join(widget_described_by_ids)
 
+                widget = self.bound_field.field.widget
+                if self.request and hasattr(widget, "request"):
+                    widget.request = self.request
                 rendered_field = self.bound_field.as_widget(attrs=widget_attrs)
 
             return {
