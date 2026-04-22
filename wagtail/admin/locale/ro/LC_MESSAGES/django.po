@@ -1627,8 +1627,16 @@ msgstr "Explorează paginile descendente la '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adaugă o pagină descendentă la '%(title)s'"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s din %(items_count)s în tot sait-ul."
+
 msgid "Search the whole site"
 msgstr "Caută în tot sait-ul"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s din %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Meniu saituri"
@@ -2623,11 +2631,19 @@ msgid "Add %(model_name)s"
 msgstr "Adaugă %(model_name)s"
 
 #, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s nu a fost creat(ă) din cauza erorilor."
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Nou: %(model_name)s"
 
 msgid "Editing"
 msgstr "Editare"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s nu a fost salvat(ă) din cauza erorilor."
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."

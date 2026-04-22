@@ -156,6 +156,10 @@ msgstr "Καινούργιο"
 msgid "Latest images"
 msgstr "Τελευταίες εικόνες"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Επιλογή %(title)s"
+
 msgid "Choose a format"
 msgstr "Επιλογή τύπου"
 

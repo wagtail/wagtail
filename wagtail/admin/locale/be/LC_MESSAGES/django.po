@@ -634,6 +634,10 @@ msgstr "Спіс сайтаў"
 msgid "Pagination"
 msgstr "Пагінацыя"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Старонка %(page_number)s з %(num_pages)s."
+
 msgid "Previous"
 msgstr "Папярэдні"
 
@@ -790,6 +794,10 @@ msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
 msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
 msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "ад %(user)s"
+
 msgid "Edited"
 msgstr "Зменена"
 
@@ -921,8 +929,28 @@ msgstr "Чарнавік"
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' абноўлены."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' створана."
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Дадаць %(model_name)s"
+
 msgid "Editing"
 msgstr "Рэдагаванне"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' выдалены."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Вы ўпэўненыя, што жадаеце выдаліць %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Ранні"
@@ -932,6 +960,10 @@ msgstr "Апошні"
 
 msgid "Unschedule"
 msgstr "Адмяніць часовую публікацыю"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "версія %(revision_id)s старонкі \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -974,6 +1006,10 @@ msgstr "Старонка '%(page_title)s' створана і адпраўлен
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Старонка '%(page_title)s' выдаленая."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Рэдагаванне %(page_type)s"
 
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
@@ -1027,6 +1063,10 @@ msgstr "Адключан"
 
 msgid "Enable"
 msgstr "Уключан"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Рэдагаванне %(task_type)s"
 
 msgid "Heading 1"
 msgstr "Заголовак 1"

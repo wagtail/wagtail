@@ -9,7 +9,7 @@
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020,2023
 # Meteor0id, 2018
-# Storm Heg <storm@stormbase.digital>, 2022-2025
+# Storm Heg <storm@stormbase.digital>, 2022-2026
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2025\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"Voer de volledige zoekterm in. Een exacte match is nodig om gepromote "
+"Voer de volledige zoekterm in. Een exacte match is nodig om uitgelichte "
 "resultaten te kunnen tonen, wildcards zijn NIET toegestaan."
 
 msgid "You must enter an external link text if you enter an external link URL."
@@ -82,11 +82,15 @@ msgid ""
 "E.g recommending your primary donation page to a user searching with the "
 "less common term \"<em>giving</em>\".</p>"
 msgstr ""
-"<p>Aanbevolen zoekresultaten zijn een manier om specifieke pagina's of "
-"externe links aan te bevelen die organisch mogelijk niet hoog in de "
-"zoekresultaten verschijnen. U kunt bijvoorbeeld uw primaire donatiepagina "
-"aanbevelen aan een gebruiker die zoekt met de minder gebruikelijke term "
-"\"<em>geven</em>\".</p>"
+"<p>Uitgelichte zoekresultaten maken het mogelijk om specifieke pagina’s of "
+"externe links bovenaan de zoekresultaten te tonen, ook als ze normaal "
+"gesproken niet hoog zouden verschijnen. Zo kun je ervoor zorgen dat "
+"belangrijke of relevante pagina’s direct zichtbaar zijn voor bezoekers.\n"
+"\n"
+"Bijvoorbeeld: wanneer iemand zoekt op “prijzen” of “kosten”, kun je de "
+"pagina “<em>tarieven</em>” als uitgelicht zoekresultaat tonen. Zo vinden "
+"bezoekers snel de juiste informatie, ook als ze andere woorden gebruiken dan "
+"op de website zelf staan.</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -125,7 +129,7 @@ msgid "Recommended search result"
 msgstr "Aanbevolen zoekresultaat"
 
 msgid "Promoted search results"
-msgstr "Gepromoveerde zoekresultaten"
+msgstr "Uitgelichte zoekresultaten"
 
 msgid "Add a recommended result"
 msgstr "Voeg een aanbevolen resultaat toe"
@@ -133,7 +137,7 @@ msgstr "Voeg een aanbevolen resultaat toe"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Sorry, geen gepromoveerde resultaten komen overeen met de zoekterm "
+"Sorry, er zijn geen uitgelichte resultaten die overeen komen met de zoekterm "
 "\"<em>%(query_string)s</em>\""
 
 #, python-format
@@ -141,11 +145,11 @@ msgid ""
 "No promoted results have been created. Why not <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a "
+"Er zijn nog geen uitgelichte zoekresultaten aangemaakt. Waarom <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
 
 msgid "No promoted results have been created."
-msgstr "Er zijn nog geen gepromoveerde resultaten aangemaakt."
+msgstr "Er zijn nog geen uitgelichte resultaten aangemaakt."
 
 msgid "Popular search terms"
 msgstr "Populaire zoektermen"
@@ -184,7 +188,7 @@ msgid "Add new promoted result"
 msgstr "Voeg een gepromoveerd resultaat toe"
 
 msgid "Promoted results"
-msgstr "Gepromoveerde resultaten"
+msgstr "Uitgelichte resultaten"
 
 msgid "Promoted search result"
 msgstr "Gepromoveerd zoekresultaat"

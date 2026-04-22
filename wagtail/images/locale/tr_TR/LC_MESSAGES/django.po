@@ -166,6 +166,10 @@ msgstr "Yeni"
 msgid "Latest images"
 msgstr "En yeni resim"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s seç"
+
 msgid "Choose a format"
 msgstr "Biçim seçin"
 

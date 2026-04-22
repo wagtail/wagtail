@@ -79,6 +79,11 @@ msgstr "Не, не выдаляць"
 msgid "Latest documents"
 msgstr "Апошнія дакументы"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Выбачайце, падыходных дакументаў не знойдзена \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Вы не загрузілі дакументы ў гэтую калекцыю."
 

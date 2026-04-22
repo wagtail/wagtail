@@ -101,6 +101,13 @@ msgstr "Konts"
 msgid "Roles"
 msgstr "Lomas"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Nav lietotāju. <a href=\"%(wagtailusers_add_url)s\">Pievienot jaunus</a>?"
+
 msgid "Active"
 msgstr "Aktīvs"
 
@@ -151,6 +158,10 @@ msgstr "Lietotājvārds"
 
 msgid "Admin"
 msgstr "Administrators"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Grupa '%(object)s' izveidota."
 
 msgid "Add user"
 msgstr "Pievienot lietotāju"

@@ -70,6 +70,10 @@ msgstr "Үгүй, устгахгүй"
 msgid "Latest documents"
 msgstr "Сүүлийн файлууд"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "\"<em>%(search_query)s</em>\" утгад тохирох хайлтын илэрц олдсонгүй"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Энэ цуглуулгад ямар нэг файл нэмээгүй байна."
 

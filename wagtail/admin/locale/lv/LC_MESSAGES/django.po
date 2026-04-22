@@ -636,6 +636,10 @@ msgstr "Pārlūkot lapas '%(title)s' zemāka līmeņa lapas."
 msgid "Add a child page to '%(title)s'"
 msgstr "Pievienot  zemāka līmeņa lapas pie '%(title)s'"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "%(page_number)s. lapa  no %(num_pages)s. lapām."
+
 msgid "Previous"
 msgstr "Iepriekšējais"
 
@@ -722,6 +726,10 @@ msgstr "Atslēgts"
 msgid "Lock"
 msgstr "Slēgt"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "autors %(user)s"
+
 msgid "Edited"
 msgstr "Labots"
 
@@ -807,6 +815,14 @@ msgstr "Sākumlapa"
 msgid "Current draft"
 msgstr "Patreizējā sagatave"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s'  izveidots."
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Pievienot %(model_name)s"
+
 msgid "Editing"
 msgstr "Labo"
 
@@ -850,6 +866,10 @@ msgstr "Lapa '%(page_title)s' izveidota un iesniegta moderācijai."
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Lapa '%(page_title)s' dzēsta."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Labo %(page_type)s"
 
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
@@ -926,6 +946,10 @@ msgstr[1] ""
 msgstr[2] ""
 "Šī darbplūsma ir procesā %(states_in_progress)d lapās/fragmentos. Šīs "
 "darbplūsmas atspējošana atcels moderāciju šajās lapās/fragmentos."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Labo %(task_type)s"
 
 #, python-format
 msgid ""

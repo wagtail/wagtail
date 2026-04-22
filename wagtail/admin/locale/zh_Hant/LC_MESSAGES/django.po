@@ -451,6 +451,10 @@ msgid "Add an external link"
 msgstr "新增外部連結"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "選擇 %(title)s"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "查看'%(title)s'的子頁面"
 
@@ -924,6 +928,10 @@ msgstr "網站選單"
 msgid "Pagination"
 msgstr "分頁"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "頁面  %(page_number)s /  %(num_pages)s "
+
 msgid "Previous"
 msgstr "上一個"
 
@@ -1092,6 +1100,10 @@ msgstr "編輯排程"
 
 msgid "View details"
 msgstr "檢視詳細資料"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "由%(user)s"
 
 msgid "View history"
 msgstr "檢視歷史"
@@ -1346,12 +1358,28 @@ msgstr "%(model_name)s '%(object)s' 已創建。"
 msgid "Inspect"
 msgstr "檢查"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "新增 %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "無法創建%(model_name)s。出現錯誤。"
+
 msgid "Editing"
 msgstr "正在編輯"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s無法儲存，出現錯誤。"
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' 已刪除。"
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "確定要刪除 %(model_name)s？"
 
 msgid "Earliest"
 msgstr "最早的"
@@ -1361,6 +1389,10 @@ msgstr "最近的"
 
 msgid "Unschedule"
 msgstr "取消預定發佈"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr " \"%(object)s\"的修訂版本%(revision_id)s"
 
 #, python-format
 msgid "Edit this %(object)s"

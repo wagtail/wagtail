@@ -76,6 +76,10 @@ msgstr "いいえ、削除しません"
 msgid "Latest documents"
 msgstr "最新のドキュメント"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "\"<em>%(search_query)s</em>\" に一致するドキュメントはありません"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "このコレクションにはまだドキュメントがアップロードされていません。"
 

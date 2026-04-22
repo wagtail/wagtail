@@ -165,6 +165,13 @@ msgstr "บัญชี"
 msgid "Roles"
 msgstr "บทบาท"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"ไม่มีโครงสร้างผู้ใช้ ทำไมคุณไม่ <a href=\"%(wagtailusers_add_url)s\">เพิ่มสักอัน</a>?"
+
 msgid "Active"
 msgstr "กำลังใช้งานอยู่,กำลังเปิดอยู่"
 
@@ -212,6 +219,10 @@ msgstr "ชื่อผู้ใช้"
 
 msgid "Admin"
 msgstr "บริหาร"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "ผู้ใช้'%(object)s'ถูกสร้างแล้ว"
 
 msgid "Add user"
 msgstr "เพิ่มผู้ใช้"

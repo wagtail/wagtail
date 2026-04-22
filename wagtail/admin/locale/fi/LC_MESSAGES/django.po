@@ -787,6 +787,10 @@ msgstr "Voit muokata %(model_name)s täällä:"
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Sivu \"%(title)s\" on hyväksytty tehtävässä \"%(task)s\"."
 
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "Sivu \"%(title)s\" on hylätty työnkulussa \"%(task)s\"."
+
 msgid "You can preview the page here:"
 msgstr "Voit esikatsella sivua täältä:"
 
@@ -1460,6 +1464,10 @@ msgstr "Tarkastatettavana"
 msgid "View details"
 msgstr "Näytä tiedot"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "tekijänä %(user)s"
+
 msgid "View history"
 msgstr "Näytä historia"
 
@@ -1937,11 +1945,19 @@ msgid "Add %(model_name)s"
 msgstr "Lisää %(model_name)s"
 
 #, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s ei voitu luoda virheiden vuoksi."
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Uusi: %(model_name)s"
 
 msgid "Editing"
 msgstr "Muokataan"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s ei voitu tallentaa virheiden vuoksi."
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -1962,6 +1978,10 @@ msgstr "Viimeisin"
 
 msgid "Unschedule"
 msgstr "Poista ajastus"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "sivun \"%(object)s\" revisio %(revision_id)s"
 
 msgid "If you confirm deletion"
 msgstr "Jos vahvistat poistamisen"

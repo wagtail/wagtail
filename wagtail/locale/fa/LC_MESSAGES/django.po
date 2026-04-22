@@ -5,6 +5,7 @@
 # Translators:
 # Amir Mahmoodi, 2022
 # Amir Mahmoodi, 2022
+# Matt Westcott <matthew@torchbox.com>, 2026
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2026\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +31,10 @@ msgstr "کمترین تعداد آیتم ها %(min_num)d مورد است"
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr "حداکثر تعداد آیتم ها %(max_num)d مورد میباشد"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: این قطعه هیچ گزینه ای ندارد."
 
 msgid "This block has no options."
 msgstr "این قطعه هیچ گزینه ای ندارد."
@@ -57,6 +62,10 @@ msgstr "گشوده"
 
 msgid "content type"
 msgstr "نوع محتوا"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "ناشناس %(action)s"
 
 msgid "live"
 msgstr "زنده"

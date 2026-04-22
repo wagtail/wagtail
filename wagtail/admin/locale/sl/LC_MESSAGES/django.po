@@ -975,6 +975,10 @@ msgid "%(editor)s has updated comments on \"%(title)s\""
 msgstr "%(editor)s je posodobil komentar na \"%(title)s\" "
 
 #, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "Stran '%(title)s' je bila odobrena v '%(workflow)s'."
+
+#, python-format
 msgid "The following comment was left: \"%(comment)s\""
 msgstr "Puščen je bil naslednji komentar: \"%(comment)s\""
 
@@ -1369,6 +1373,11 @@ msgstr "Razišči podrejene strani od '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj podrejeno stran v '%(title)s'"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s od %(items_count)s po celotnem spletnem mestu."
 
 msgid "No results across entire site."
 msgstr "Na celotnem spletnem mestu ni rezultatov."

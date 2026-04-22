@@ -1,4 +1,3 @@
-#
 # Translators:
 # Guilherme Nabanete <neoheartz@gmail.com>, 2022
 # Ed Wurch <ewurch@gmail.com>, 2022

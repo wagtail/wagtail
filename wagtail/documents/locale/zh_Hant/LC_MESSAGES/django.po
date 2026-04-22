@@ -79,6 +79,10 @@ msgstr "否，不刪除"
 msgid "Latest documents"
 msgstr "最新文件"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "對不起。沒找到符合\"<em>%(search_query)s</em>\"的文件"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "你尚未上傳任何文件在這個集合"
 

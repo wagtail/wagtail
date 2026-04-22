@@ -61,6 +61,10 @@ msgstr "Добави Изображение"
 msgid "Upload"
 msgstr "Качване"
 
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Няма съвпадение на Изображения с <em>\"%(query_string)s\"</em>"
+
 msgid "Preview"
 msgstr "Преглед"
 

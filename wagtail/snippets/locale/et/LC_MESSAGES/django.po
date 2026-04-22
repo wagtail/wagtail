@@ -84,6 +84,10 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Vabandust, ükski jupp ei sobi \"<em>%(search_query)s</em>\""
+
 msgid "Publishing…"
 msgstr "Avaldamine ..."
 

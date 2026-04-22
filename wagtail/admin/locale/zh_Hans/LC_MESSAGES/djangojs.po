@@ -1,4 +1,3 @@
-#
 # Translators:
 # 祝沙军 <zhushajun@gmail.com>, 2022
 # Ed <724195301@qq.com>, 2022

@@ -1182,6 +1182,10 @@ msgstr "Menu de Sites"
 msgid "Pagination"
 msgstr "Paginação"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Página %(page_number)s de %(num_pages)s."
+
 msgid "Previous"
 msgstr "Anterior"
 
@@ -1363,6 +1367,10 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Utilizado %(usage_count)s vez"
 msgstr[1] "Utilizado %(usage_count)s vezes"
 msgstr[2] "Utilizado %(usage_count)s vezes"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "por %(user)s"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Tem <span>alterações por gravar</span>"
@@ -1707,12 +1715,28 @@ msgstr "%(model_name)s '%(object)s' criado."
 msgid "Inspect"
 msgstr "Inspecionar"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Adicionar %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Não foi possível criar %(model_name)s devido a erros."
+
 msgid "Editing"
 msgstr "A alterar"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "O %(model_name)s não pôde ser gravado devido a erros."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' apagado."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Tem a certeza que quer apagar este %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Mais antigos"
@@ -1720,8 +1744,17 @@ msgstr "Mais antigos"
 msgid "Latest"
 msgstr "Mais recentes"
 
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr ""
+"A publicação da versão %(revision_id)s de \"%(object)s\" foi desmarcada."
+
 msgid "Unschedule"
 msgstr "Desmarcar"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "versão %(revision_id)s de \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"

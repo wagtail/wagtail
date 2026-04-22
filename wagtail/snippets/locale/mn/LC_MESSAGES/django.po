@@ -83,6 +83,12 @@ msgstr "Тийм, устга"
 msgid "No, don't delete"
 msgstr "Үгүй, устгахгүй"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Уучлаарай, \"<em>%(search_query)s</em>\" хайлтад тохирох туслах хэсэг "
+"олдсонгүй"
+
 msgid "Publishing…"
 msgstr "Нийтэлж байна..."
 

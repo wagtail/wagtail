@@ -416,6 +416,10 @@ msgstr "Trang Chủ"
 msgid "Inspect"
 msgstr "Kiểm tra"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Thêm %(model_name)s"
+
 msgid "Editing"
 msgstr "Chỉnh sửa"
 

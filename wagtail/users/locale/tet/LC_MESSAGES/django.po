@@ -4,7 +4,7 @@
 #
 # Translators:
 # Mario <mario@catalpa.io>, 2019
-# Mario <mario@catalpa.io>, 2019
+# Mario <mario@catalpa.io>, 2019,2026
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2019,2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +22,16 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
-msgstr "Usuariu Wagtail"
+msgstr "Wagtail Uzuáriu sira"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Presija. Letra, díjitu no @/./+/-/_ de'it."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Valor nee so bele prenxe deit ho letra, numeru no karakter @/./+/-/_"
 
 msgid "A user with that username already exists."
-msgstr "Usuariu ho naran usuariu nebaa  existe tia ona."
+msgstr "Uzuáriu ho naran uzuáriu ne'eba  eziste ona."
 
 msgid "The two password fields didn't match."
 msgstr "seña husi coluna rua nee la coresponde"
@@ -86,6 +89,17 @@ msgstr "notifikasaun rejeita ona"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Simu notifikasaun bainhira ita hadia ita nia pajina lasimu"
 
+msgid "updated comments notifications"
+msgstr "atualiza ona komentáriu sira notifikasaun sira"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Simu notifikasaun bainhira komentáriu sira kria ona, rezolve ona, ka apaga "
+"ona iha pajina ne'ebé ita-boot subskreve ona atu simu notifikasaun "
+"komentáriu sira iha"
+
 msgid "preferred language"
 msgstr "prefere lian"
 
@@ -101,17 +115,82 @@ msgstr "Hili ita nia zona agora dadaun"
 msgid "profile picture"
 msgstr "perfil imajen"
 
+msgid "System default"
+msgstr "Sistema padraun"
+
+msgid "Light"
+msgstr "Naroman"
+
+msgid "Dark"
+msgstr "Nakukun"
+
+msgid "admin theme"
+msgstr "tema administrasaun"
+
+msgid "More contrast"
+msgstr "Kontraste barak liután"
+
+msgid "contrast"
+msgstr "kontraste"
+
 msgid "Default"
-msgstr "Estandar"
+msgstr "Pandraun"
+
+msgid "Snug"
+msgstr "Snug"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "Densidade"
+
+msgid "Keyboard shortcuts"
+msgstr "Dalan badak sira ba keyboard"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Habilita dala badak sira keyboard nian ne'ebé espesífiku ba Wagtail."
 
 msgid "user profile"
-msgstr "perfil user"
+msgstr "perfil uzuáriu"
 
 msgid "user profiles"
-msgstr "perfil user sira"
+msgstr "perfil uzuáriu sira"
+
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Atribui papél ba uzuáriu %(counter)s"
+
+msgid "Assign role"
+msgstr "Atiribui papél"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Ita-boot serteza hakarak atu atribui papél ba uzuáriu sira ne'e?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Ita laiha permisaun atu hadia uzuáriu sira ne'e"
+
+msgid "Yes, assign"
+msgstr "Loos, atribui"
+
+msgid "No, don't assign"
+msgstr "Lae, labele atriubui"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Hamoos uzuáriu %(counter)s"
 
 msgid "Delete"
 msgstr "Hamoos"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Ita serteza hakarak atu hamoos uzuáriu sira ne'e?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Ita laiha permisaun atu hamoos uzuáriu sira ne'e"
 
 msgid "Yes, delete"
 msgstr "Sim, hamoos"
@@ -119,11 +198,40 @@ msgstr "Sim, hamoos"
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Troka estadu ativu ba uzuáriu %(counter)s"
+
+msgid "Set active state"
+msgstr "Konjunta estadu ativu"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Ita serteza hakarak atu troka estadu ativu hosi uzuáriu sira ne'e?"
+
+msgid "You cannot change your own active status"
+msgstr "Ita-boot labele troka ita-boot nia estadu ativu"
+
+msgid "Yes, change state"
+msgstr "Loos, troka estadu"
+
+msgid "No, don't change state"
+msgstr "Lae, labele troka estadu"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Grupu %(group_name)siha membru <strong>%(group_user_count)s</strong>"
+
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
 msgstr ""
-"Hamoos grupu nee sei afeita ba grupu nee nia permisaun husi membru user sira"
+"Hamoos grupu nee sei afeita ba grupu nee nia permisaun husi membru uzuáriu "
+"sira."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "Ita boot prontu dunik ita boot hakarak hamoos grupu nee?"
@@ -139,6 +247,24 @@ msgstr "Hatama"
 
 msgid "Change"
 msgstr "Troka"
+
+msgid "Custom permissions"
+msgstr "Permisaun personalizadu sira"
+
+msgid "Toggle all"
+msgstr "Altera hotu"
+
+msgid "Toggle all add permissions"
+msgstr "Altera permisaun hotu ne'ebé aumenta"
+
+msgid "Toggle all change permissions"
+msgstr "Altera permisaun hotu ne'ebé troka"
+
+msgid "Toggle all delete permissions"
+msgstr "Altera permisaun hotu ne'ebé hamoos"
+
+msgid "Toggle all custom permissions"
+msgstr "Altera personalizasaun permisaun hotu"
 
 msgid "Other permissions"
 msgstr "Permisaun sira seluk"
@@ -161,8 +287,8 @@ msgid ""
 "There are no groups configured. Why not <a "
 "href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Laiha grupu sira maka konfigura. Tamba sa labele<a "
-"href=\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
+"Laiha grupu sira ne'ebé konfigura ona. Tamba sa labele<a "
+"href=\"%(wagtailusers_create_group_url)s\">aumenta balu</a>?"
 
 msgid "Account"
 msgstr "Konta"
@@ -170,11 +296,64 @@ msgstr "Konta"
 msgid "Roles"
 msgstr "Knar"
 
+msgid "Select all users in listing"
+msgstr "Hili uzuáriu hotu iha lista"
+
+msgid "Sorry, no users match your query"
+msgstr "Deskulpa, uzuáriu sira ne'ebé ita-boot husu la koresponde"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Laiha uzuáriu sira nebee mak configura. Tamba sa la <a "
+"href=\"%(wagtailusers_add_url)s\">hatama balu</a>?"
+
+msgid "Can view"
+msgstr "Bele haree"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "%(id)s uzuáriu (hamoos)"
+
+msgid "Assign role to selected users"
+msgstr "Atribui papél ba uzuáriu sira ne'ebé hili ona"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "Uzuáriu %(num_parent_objects)d atribui ona hanesan %(role)s"
+
+msgid "Delete selected users"
+msgstr "Hamoos uzuáriu sira ne'ebé hili ona"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "Uzuáriu %(num_parent_objects)d hamoos ona"
+
 msgid "Active"
 msgstr "Ativu"
 
 msgid "Inactive"
 msgstr "La ativu"
+
+msgid "Mark as active"
+msgstr "Marka hanesan ativu"
+
+msgid "Change the active state for selected users"
+msgstr "Troka estadu ativu ba uzuáriu sira ne'ebé hili ona"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "Uzuáriu %(num_parent_objects)d marka ona hanesan ativu"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "Uzuáriu %(num_parent_objects)d marka ona hanesan inativu"
 
 msgid "Groups"
 msgstr "Grupu sira"
@@ -199,6 +378,9 @@ msgstr "Grupu '%(object)s' troka ona."
 msgid "The group could not be saved due to errors."
 msgstr "Grupu labele rai tamba erru."
 
+msgid "View users in this group"
+msgstr "Haree uzuáriu sira iha grupu ida-ne'e"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupu '%(object)s' hamoos ona."
@@ -206,31 +388,48 @@ msgstr "Grupu '%(object)s' hamoos ona."
 msgid "Delete group"
 msgstr "Hamoos grupu"
 
+msgid "Last login"
+msgstr "Tama ikus"
+
+msgid "Group"
+msgstr "Grupu"
+
 msgid "Add a user"
-msgstr "Hatama usuariu"
+msgstr "Hatama uzuáriu"
 
 msgid "Users"
-msgstr "Usuariu sira"
+msgstr "Uzuáriu sira"
 
 msgid "Username"
-msgstr "Naran Usuariu"
+msgstr "Naran uzuáriu"
 
 msgid "Admin"
 msgstr "Administrasaun"
 
+msgid "Access level"
+msgstr "Nivel asesu"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Opsaun barak tan ba '%(title)s'"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Uzuáriu '%(object)s' kria ona"
+
 msgid "Add user"
-msgstr "Hatama usuariu"
+msgstr "Aumenta uzuáriu"
 
 #, python-format
 msgid "User '%(object)s' updated."
-msgstr "Usuariu '%(object)s' troka ona"
+msgstr "Uzuáriu '%(object)s' atualiza ona"
 
 msgid "The user could not be saved due to errors."
-msgstr "Usuariu labele rai tamba erru."
+msgstr "Uzuáriu labele salva tamba erru."
 
 msgid "Delete user"
-msgstr "Hamoos usuariu"
+msgstr "Hamoos uzuáriu"
 
 #, python-format
 msgid "User '%(object)s' deleted."
-msgstr "Usuariu '%(object)s' hamoos ona."
+msgstr "Uzuáriu '%(object)s' hamoos ona."

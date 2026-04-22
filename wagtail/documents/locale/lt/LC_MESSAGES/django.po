@@ -83,6 +83,10 @@ msgstr "Ne, neištrinti"
 msgid "Latest documents"
 msgstr "Paskutiniai dokumentai"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Atsiprašome, joks dokumentas neatitinka \"<em>%(search_query)s</em>\""
+
 msgid "Change document:"
 msgstr "Keisti dokumentą:"
 

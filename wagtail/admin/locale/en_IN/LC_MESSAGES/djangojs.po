@@ -1,4 +1,3 @@
-#
 # Translators:
 # Neeraj PY, 2026
 #

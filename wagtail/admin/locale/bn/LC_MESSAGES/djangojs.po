@@ -1,4 +1,3 @@
-#
 # Translators:
 # MA Rahman <ugikot@gmail.com>, 2026
 # Mahmud Abdur Rahman <clanlord.ikot@gmail.com>, 2026

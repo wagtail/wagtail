@@ -87,6 +87,10 @@ msgstr "نه، حذف نکن"
 msgid "Latest documents"
 msgstr "آخرین اسناد"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "متاسفانه سندی حاوی «<em>%(search_query)s</em>» پیدا نشد."
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "شما هیچ سندی در این مجموعه بارگذاری نکرده اید."
 

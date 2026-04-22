@@ -169,6 +169,14 @@ msgstr "Akun"
 msgid "Roles"
 msgstr "Role"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Tidak ada pengguna yang terkonfigurasi. Mengapa <a "
+"href=\"%(wagtailusers_add_url)s\">tidak menambahnya</a>?"
+
 msgid "Active"
 msgstr "Aktif"
 
@@ -216,6 +224,10 @@ msgstr "Username"
 
 msgid "Admin"
 msgstr "Admin"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Pengguna '%(object)s' dibuat."
 
 msgid "Add user"
 msgstr "Tambah pengguna"

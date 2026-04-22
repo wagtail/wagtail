@@ -6,15 +6,16 @@
 # Translators:
 # Peter Coward <peter@catalpa.io>, 2021
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2021
+# Mario <mario@catalpa.io>, 2026
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>, 2021\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (https://app.transifex.com/torchbox/teams/8009/"
 "tet/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Language"
+msgstr "Lian"
 
 msgid "Yes, delete"
 msgstr "Loos, hamoos"

@@ -1813,12 +1813,28 @@ msgstr "Переглянути"
 msgid "More options for '%(title)s'"
 msgstr "Більше опцій для '%(title)s'"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Додати %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s не може бути створено через помилки."
+
 msgid "Editing"
 msgstr "Редагування"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s не може бути збережено через помилки."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' видалено."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Ви впевнені, що хочете видалити цей %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Найбільш раннє"
@@ -1830,8 +1846,16 @@ msgstr "Останнє"
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' знято з публікації"
 
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Версію %(revision_id)s для \"%(object)s\" знято з розкладу."
+
 msgid "Unschedule"
 msgstr "Зняти з розкладу"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "ревізія %(revision_id)s для \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"

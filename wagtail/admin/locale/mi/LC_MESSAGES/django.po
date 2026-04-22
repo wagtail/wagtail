@@ -344,6 +344,10 @@ msgstr "Tāpiri he hono mōwaho"
 msgid "Add a phone link"
 msgstr "Tāpiri he hono waea"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Kōwhiri %(title)s"
+
 msgid "This collection has been made private by a parent collection."
 msgstr "He paraiweti tēnei kohikohinga mai i te matua kohikohinga."
 
@@ -463,6 +467,10 @@ msgstr "Muku %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "E pirangi ana koe kī te mukuhia tēnei whārangi?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Tāpiri %(label)s"
+
 msgid "Move up"
 msgstr "Mū ki runga"
 
@@ -547,12 +555,20 @@ msgstr "%(model_name)s '%(object)s' kua whakahou."
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' kua hangaia."
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Tāpiri %(model_name)s"
+
 msgid "Editing"
 msgstr "Whakarerekē"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' kua muku."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "E pirangi ana koe kī te mukuhia tēnei %(model_name)s?"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -564,6 +580,10 @@ msgstr "Papatohu"
 msgid "View live"
 msgstr "Mātaki mataora"
 
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Whakarerekē %(page_type)s"
+
 msgid "Site"
 msgstr "Pae"
 
@@ -572,6 +592,10 @@ msgstr "Whakakite"
 
 msgid "Awaiting my review"
 msgstr "E tatari ana mō tōku arotake"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Whakarerekē %(task_type)s"
 
 msgid "Choose an item"
 msgstr "Kōwhiri he tūemi"

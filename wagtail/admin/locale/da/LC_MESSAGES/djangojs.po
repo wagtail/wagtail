@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2022
 # Asger Sørensen <asger.soerensen@live.com>, 2026

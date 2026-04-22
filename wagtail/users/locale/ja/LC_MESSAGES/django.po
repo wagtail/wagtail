@@ -176,6 +176,14 @@ msgstr "アカウント"
 msgid "Roles"
 msgstr "役割"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"まだユーザが設定されていません。<a href=\"%(wagtailusers_add_url)s\">設定</a>"
+"しますか？"
+
 msgid "Active"
 msgstr "有効"
 
@@ -226,6 +234,10 @@ msgstr "ユーザ名"
 
 msgid "Admin"
 msgstr "管理者"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "ユーザ '%(object)s' が作成されました。"
 
 msgid "Add user"
 msgstr "ユーザを追加"

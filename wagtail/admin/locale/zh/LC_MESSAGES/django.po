@@ -266,6 +266,10 @@ msgstr "复制"
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "第%(page_number)s页 共%(num_pages)s页"
+
 msgid "Previous"
 msgstr "向前"
 
@@ -277,6 +281,10 @@ msgstr "添加子页面"
 
 msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "添加%(label)s"
 
 msgid "Move up"
 msgstr "向上移动"
@@ -300,6 +308,10 @@ msgstr "第%(page_num)s页 共%(total_pages)s页"
 msgid "Save"
 msgstr "保存"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "作者%(user)s"
+
 msgid "Edited"
 msgstr "已编辑"
 
@@ -318,8 +330,28 @@ msgstr "密码"
 msgid "Home"
 msgstr "主页"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "已经更新%(model_name)s '%(object)s'。"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "已创建%(model_name)s '%(object)s'"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "添加%(model_name)s"
+
 msgid "Editing"
 msgstr "正在编辑"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "已删除%(model_name)s '%(object)s'"
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "你确定你想要删除这个%(model_name)s吗？"
 
 msgid "Dashboard"
 msgstr "仪表板"
@@ -339,6 +371,10 @@ msgid "Page '%(page_title)s' deleted."
 msgstr "第 '%(page_title)s' 页已删除"
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "编辑%(page_type)s"
+
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "第 '%(page_title)s' 页已移动。"
 
@@ -352,6 +388,10 @@ msgstr "页面在用"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "第 '%(page_title)s' 页当前不需要等待审核。"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "编辑%(task_type)s"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

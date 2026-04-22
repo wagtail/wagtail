@@ -1,4 +1,3 @@
-#
 # Translators:
 # André Bouatchidzé <a@anbz.net>, 2026
 #

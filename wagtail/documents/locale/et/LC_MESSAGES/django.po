@@ -72,6 +72,10 @@ msgstr "Ei, ära kustuta"
 msgid "Latest documents"
 msgstr "Viimased dokumendid"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Vabandust, ükski dokument ei ühti \"<em>%(search_query)s</em>\\"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Te pole sellesse kogusse ühtegi dokumenti üles laadinud."
 

@@ -32,6 +32,10 @@ msgstr "Jumlah isi minimum adalah %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Jumlah isi maksimum adalah %(max_num)d"
 
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: Tidak ada pilihan untuk blok ini."
+
 msgid "This block has no options."
 msgstr "Tidak ada pilihan untuk blok ini."
 

@@ -177,6 +177,10 @@ msgstr ""
 "Konfigureeritud pole ühtegi kasutajat. Miks mitte <a "
 "href=\"%(wagtailusers_add_url)s\">lisada mõned</a>?"
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "kasutaja %(id)s (kustutatud)"
+
 msgid "Active"
 msgstr "Aktiivne"
 
@@ -227,6 +231,10 @@ msgstr "Kasutajanimi"
 
 msgid "Admin"
 msgstr "Administraator"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Kasutaja '%(object)s' on loodud."
 
 msgid "Add user"
 msgstr "Lisa kasutaja"

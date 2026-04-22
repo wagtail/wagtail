@@ -94,6 +94,10 @@ msgstr "Ναι, να διαγραφεί"
 msgid "No, don't delete"
 msgstr "Ακύρωση διαγραφής"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Λυπούμαστε, δεν υπάρχουν snippets με το \"<em>%(search_query)s</em>\""
+
 msgid "Saving…"
 msgstr "Αποθήκευση…"
 

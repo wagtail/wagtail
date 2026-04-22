@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -143,6 +143,9 @@ msgstr "زىچلىقى"
 
 msgid "Keyboard shortcuts"
 msgstr "ھەرپتاختا تېزلەتمىسى"
+
+msgid "Enable custom keyboard shortcuts specific to Wagtail."
+msgstr "Wagtail گە بەلگىلىگەن ئىختىيارى ھەرپتاختا تېزلەتمىسىنى قوزغىتىدۇ."
 
 msgid "user profile"
 msgstr "ئىشلەتكۈچى تەرجىمىھالى"

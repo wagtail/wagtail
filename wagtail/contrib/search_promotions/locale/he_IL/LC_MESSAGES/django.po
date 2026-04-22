@@ -28,6 +28,10 @@ msgstr "חיפוש מושגים/משפט"
 msgid "Please specify at least one recommendation for this search term."
 msgstr "אנא ציין לפחות המלצה אחת למונח חיפוש זה"
 
+#, python-format
+msgid "Delete %(query)s"
+msgstr "מחיקת %(query)s"
+
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""

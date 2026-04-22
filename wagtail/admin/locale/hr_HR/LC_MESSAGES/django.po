@@ -416,6 +416,10 @@ msgid "Add a phone link"
 msgstr "Dodaj telefonsku poveznicu"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "Označi %(title)s"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "Pretraži podstranice od '%(title)s'"
 
@@ -824,6 +828,10 @@ msgstr "Dodaj dijete stranici '%(title)s'"
 msgid "Pagination"
 msgstr "Numeriranje stranica"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Stranica %(page_number)s od %(num_pages)s."
+
 msgid "Previous"
 msgstr "Prethodna"
 
@@ -991,6 +999,10 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Korišten %(usage_count)s put"
 msgstr[1] "Korišteno %(usage_count)s puta"
 msgstr[2] "Korišteno %(usage_count)s puta"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "od strane korisnika %(user)s"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -1287,6 +1299,14 @@ msgid "More options for '%(title)s'"
 msgstr "Više opcija za '%(title)s'"
 
 #, python-format
+msgid "Add %(model_name)s"
+msgstr "Dodaj %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Nije moguće stvoriti %(model_name)s zbog grešaka."
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Novi: %(model_name)s"
 
@@ -1294,8 +1314,16 @@ msgid "Editing"
 msgstr "Uređivanje"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Nije moguće sačuvati %(model_name)s zbog grešaka."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' je izbrisan."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Jeste li sigurni da želite izbrisati %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Najranije"
@@ -1303,8 +1331,16 @@ msgstr "Najranije"
 msgid "Latest"
 msgstr "Najnovije"
 
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Verzija %(revision_id)s od \"%(object)s\" je otkazana."
+
 msgid "Unschedule"
 msgstr "Otkaži"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "revizija %(revision_id)s od \"%(object)s\""
 
 msgid "Field"
 msgstr "Polje"

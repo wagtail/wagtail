@@ -169,6 +169,18 @@ msgstr "Vartotojas"
 msgid "Roles"
 msgstr "Rolės"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Nėra sukonfigūruotas joks vartotojas. Kodėl gi <a "
+"href=\"%(wagtailusers_add_url)s\">nesukūrus vieno</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "vartotojas %(id)s (ištrintas)"
+
 msgid "Delete selected users"
 msgstr "Ištrinti pasirinktus vartotojus"
 
@@ -222,6 +234,10 @@ msgstr "Vartotojo vardas"
 
 msgid "Admin"
 msgstr "Administratorius"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Vartotojas '%(object)s' sukurtas."
 
 msgid "Add user"
 msgstr "Pridėti vartotoją"

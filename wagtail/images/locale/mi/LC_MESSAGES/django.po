@@ -164,6 +164,10 @@ msgstr "Hou"
 msgid "Latest images"
 msgstr "Ngā whakaahua hou"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Kōwhiri %(title)s"
+
 msgid "Choose a format"
 msgstr "Kōhiti he hōputu"
 

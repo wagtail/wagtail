@@ -129,6 +129,10 @@ msgstr "Người dùng"
 msgid "Username"
 msgstr "Username"
 
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Người dùng '%(object)s' đã được tạo."
+
 msgid "Add user"
 msgstr "Thêm người dùng"
 

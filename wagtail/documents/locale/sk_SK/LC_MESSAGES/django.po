@@ -90,6 +90,12 @@ msgstr "Nie, nezmazať"
 msgid "Latest documents"
 msgstr "Posledné dokumenty"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu "
+"\"<em>%(search_query)s</em>\""
+
 msgid "Change document:"
 msgstr "Zmeniť dokument"
 

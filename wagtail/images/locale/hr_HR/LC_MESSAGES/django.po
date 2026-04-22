@@ -190,6 +190,10 @@ msgstr "Novi"
 msgid "Latest images"
 msgstr "Najnovije slike"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Označi %(title)s"
+
 msgid "Choose a format"
 msgstr "Odaberi format"
 

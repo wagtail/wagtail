@@ -369,6 +369,10 @@ msgid "Add an external link"
 msgstr "Προσθήκη εξωτερικής σύνδεσης"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "Επιλογή %(title)s"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "Εξερεύνηση υποσελίδων του '%(title)s'"
 
@@ -619,6 +623,14 @@ msgstr "Διαγραμμένα σχόλια"
 msgid "New replies:"
 msgstr "Νέες απαντήσεις:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε στην εργασία \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε κατά την εργασία \"%(workflow)s\""
+
 msgid "Saving…"
 msgstr "Γίνεται αποθήκευση…"
 
@@ -754,6 +766,10 @@ msgstr "Μενού ιστοτόπων"
 msgid "Pagination"
 msgstr "Σελιδοποίηση"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Σελίδα %(page_number)s από %(num_pages)s."
+
 msgid "Previous"
 msgstr "Προηγούμενο"
 
@@ -771,6 +787,10 @@ msgstr "Τύποι σελίδας"
 
 msgid "Enter a search term above"
 msgstr "Εισάγετε όρο αναζήτησης"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Προσθήκη %(label)s"
 
 msgid "Move up"
 msgstr "Μετακίνηση πάνω"
@@ -855,6 +875,10 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "από %(user)s"
 
 msgid "Edited"
 msgstr "Διορθωμένη"
@@ -970,12 +994,28 @@ msgstr "%(model_name)s '%(object)s' δημιουργήθηκε"
 msgid "Inspect"
 msgstr "Επιθεωρείστε"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Προσθήκη %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Το %(model_name)s δεν μπόρεσε να δημιουργηθεί λόγω σφαλμάτων."
+
 msgid "Editing"
 msgstr "Διόρθωση"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s δεν μπορεί να αποθηκευτεί λόγω σφαλμάτων."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' διαγράφηκε."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτό το %(model_name)s;"
 
 msgid "Earliest"
 msgstr "Πιο πρόσφατες"
@@ -1048,6 +1088,10 @@ msgid "Page '%(page_title)s' deleted."
 msgstr "Έγινε διαγραφή της σελίδας '%(page_title)s'."
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "Επεξεργάζεται %(page_type)s"
+
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Η σελίδα '%(page_title)s' ενημερώθηκε."
 
@@ -1090,6 +1134,10 @@ msgstr "Οι σελίδες που το χρησιμοποιούν"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Η σελίδα '%(page_title)s' δεν είναι για έλεγχο."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Επεξεργάζεται %(task_type)s"
 
 msgid "Reports"
 msgstr "Αναφορές"

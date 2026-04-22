@@ -1,4 +1,3 @@
-#
 # Translators:
 # Nikola Kadić <kadicnikola3@gmail.com>, 2026
 #

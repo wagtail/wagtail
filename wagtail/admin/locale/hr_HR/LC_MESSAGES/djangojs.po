@@ -1,4 +1,3 @@
-#
 # Translators:
 # Luka Matijević <lumatijev@gmail.com>, 2022
 # Loic Teixeira, 2024

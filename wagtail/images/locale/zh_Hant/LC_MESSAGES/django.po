@@ -160,6 +160,10 @@ msgstr "新增"
 msgid "Latest images"
 msgstr "最新圖片"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "選擇 %(title)s"
+
 msgid "Choose a format"
 msgstr "選擇格式"
 

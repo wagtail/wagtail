@@ -77,6 +77,14 @@ msgstr "Потребителски профил"
 msgid "Roles"
 msgstr "Роля"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Няма конфигурирани потребители. Защо не <a "
+"href=\"%(wagtailusers_add_url)s\">добавите един сега</a>?"
+
 msgid "Active"
 msgstr "Активен"
 
@@ -94,6 +102,10 @@ msgstr "Потребителско име"
 
 msgid "Admin"
 msgstr "Админ"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Потребител '%(object)s' създаден."
 
 msgid "Add user"
 msgstr "Добави потребител"

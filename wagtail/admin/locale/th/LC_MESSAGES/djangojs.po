@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2024
 # Amawalee Combe <dang@getsalebox.com>, 2026

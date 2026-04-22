@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2022
 # Karl Hobley <karl@torchbox.com>, 2026

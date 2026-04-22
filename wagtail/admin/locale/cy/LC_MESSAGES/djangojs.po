@@ -1,4 +1,3 @@
-#
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2026
 # Philip Crisp, 2026

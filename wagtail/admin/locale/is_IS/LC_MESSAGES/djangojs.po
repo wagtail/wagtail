@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2024
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2026

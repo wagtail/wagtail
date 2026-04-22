@@ -66,6 +66,10 @@ msgid "Delete selected snippets"
 msgstr "Выдаліць выбраныя фрагменты"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' выдалены."
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Выдаліць %(snippet_type_name)s"
 
@@ -85,6 +89,10 @@ msgstr "Так, выдаліць"
 
 msgid "No, don't delete"
 msgstr "Не, не выдаляць"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "На жаль, фрагменты не адпавядаюць <em>%(search_query)s</em>"
 
 msgid "Publishing…"
 msgstr "Апублікаваць..."

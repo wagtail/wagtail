@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Mario <mario@catalpa.io>, 2026
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-23 16:45+0100\n"
+"POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
-"Last-Translator: Onorio de Jesus Afonso <onorio@catalpa.io>, 2019\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -21,19 +22,22 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail sites"
-msgstr "Site wagtail sira"
+msgstr "Wagtail nia sítiu sira"
 
 msgid "Choose a root page"
 msgstr "Hili pajina abut ida"
 
+msgid "Choose a different root page"
+msgstr "Hili pajina abut diferente ida"
+
 msgid "Sites"
-msgstr "Site sira"
+msgstr "Sítiu sira"
 
 msgid "Add a site"
-msgstr "Aumenta site ida"
+msgstr "Aumenta sítiu ida"
 
 msgid "Site"
-msgstr "Site"
+msgstr "Sítiu"
 
 msgid "Default?"
 msgstr "Estandar?"
@@ -42,25 +46,25 @@ msgid "Default"
 msgstr "Estandar"
 
 msgid "Add site"
-msgstr "Aumenta site"
+msgstr "Aumenta sítiu"
 
 #, python-format
 msgid "Site '%(object)s' created."
-msgstr "Site '%(object)s' kria ona"
+msgstr "Sítiu '%(object)s' kria ona"
 
 msgid "The site could not be saved due to errors."
-msgstr "Site nee la bele rai tamba iha erru sira."
+msgstr "Sítiu ne'e la bele salva tamba erru sira."
 
 #, python-format
 msgid "Site '%(object)s' updated."
-msgstr "Situs '%(object)s' atualiza ona"
+msgstr "Sítiu '%(object)s' atualiza ona."
 
 #, python-format
 msgid "Site '%(object)s' deleted."
-msgstr "Site '%(object)s' hamoos ona"
+msgstr "Sítiu '%(object)s' hamoos ona."
 
 msgid "Delete site"
-msgstr "Hamoos situs"
+msgstr "Hamoos sítiu"
 
 msgid "Are you sure you want to delete this site?"
-msgstr "Ita asseita katak ita hakarak hamoos duni site nee?"
+msgstr "Ita serteza hakarak hamoos sítiu ne'e?"

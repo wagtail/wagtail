@@ -31,6 +31,10 @@ msgstr "Minimálne množstvo je %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Maximálne množstvo je %(max_num)d"
 
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: tento odstavec nemá žiadne voľby."
+
 msgid "This block has no options."
 msgstr "Tento odstavec nemá žiadne voľby."
 

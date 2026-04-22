@@ -313,6 +313,10 @@ msgid "Add a phone link"
 msgstr "Bir telefon bağlantısı ekle"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s seç"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
 
@@ -577,6 +581,10 @@ msgstr "Siteler menüsü"
 msgid "Pagination"
 msgstr "Sayfalama"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Sayfa %(page_number)s / %(num_pages)s."
+
 msgid "Previous"
 msgstr "Önceki"
 
@@ -700,6 +708,10 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s kez kullanıldı"
 msgstr[1] "%(usage_count)s kez kullanıldı"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "%(user)s tarafından"
+
 msgid "Edited"
 msgstr "Düzenlendi"
 
@@ -821,12 +833,28 @@ msgstr "%(model_name)s '%(object)s' oluşturuldu."
 msgid "Inspect"
 msgstr "Denetle"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "%(model_name)s ekle"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Hata nedeniyle %(model_name)s oluşturulamadı."
+
 msgid "Editing"
 msgstr "Düzenleniyor"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Hata nedeniyle %(model_name)s kaydedilemedi."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' silindi."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "%(model_name)s kod parçacığını silmek istediğinizden emin misiniz?"
 
 msgid "Earliest"
 msgstr "En eski"
@@ -836,6 +864,10 @@ msgstr "En yeni"
 
 msgid "Unschedule"
 msgstr "Planı kaldır"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "sürüm %(revision_id)s / \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -880,6 +912,10 @@ msgid "Page '%(page_title)s' deleted."
 msgstr "Sayfa '%(page_title)s' silindi."
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s Düzenleniyor"
+
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Sayfa '%(page_title)s' güncellendi."
 
@@ -919,6 +955,10 @@ msgstr "Kullanan sayfalar"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Sayfa '%(page_title)s' şuan kontrol edilmek üzere beklemiyor."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s Düzenleniyor"
 
 msgid "Heading 1"
 msgstr "Başlık 1"

@@ -55,6 +55,10 @@ msgid "Delete"
 msgstr "ลบ,ลบทิ้ง"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' ถูกลบทิ้ง"
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "ลบ %(snippet_type_name)s"
 
@@ -71,6 +75,10 @@ msgstr "คุณแน่ใจว่าคุณต้องการจะล
 
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "ขออภัย, ไม่มีเกร็ดเล็กเกร็ดน้อยที่ตรงกัน \"<em>%(search_query)s</em>\""
 
 msgid "Publishing…"
 msgstr "กำลังเผยแพร่"

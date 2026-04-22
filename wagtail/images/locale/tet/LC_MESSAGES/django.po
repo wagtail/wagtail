@@ -4,6 +4,7 @@
 #
 # Translators:
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
+# Mario <mario@catalpa.io>, 2026
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +24,16 @@ msgstr ""
 msgid "Wagtail images"
 msgstr "Imajen Wagtail"
 
+msgid "Image is decorative"
+msgstr "Imajen ne'e dekorativu"
+
 msgid "Alt text"
 msgstr "Alt testu"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Favor aumenta testu alt ruma ba ita-boot nia imajen ka marka hanesan "
+"dekorativu"
 
 #, python-format
 msgid ""
@@ -41,6 +50,14 @@ msgstr "Suporta formatu: %(supported_formats)s."
 #, python-format
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr "La suporta formatu imajen. Suporta formatu: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"La validu. Imajen nia %(extension)s. Extensaun la koresponde ho dokumentu "
+"nia formatu (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -63,7 +80,7 @@ msgstr ""
 "Dokumentus ne'e bo'ot demais. Maximu medida dokumentus %(max_filesize)s. "
 
 msgid "Full width"
-msgstr "Luan tomak"
+msgstr "Luan nokonu"
 
 msgid "Left-aligned"
 msgstr " Alinha-karuk"
@@ -72,7 +89,10 @@ msgid "Right-aligned"
 msgstr " Alinha-Loos"
 
 msgid "Collection"
-msgstr "Kolleksaun"
+msgstr "Kolesaun"
+
+msgid "Format"
+msgstr "Formatu"
 
 msgid "Filter"
 msgstr " Filtru"
@@ -108,7 +128,7 @@ msgid "Add"
 msgstr "Hatama"
 
 msgid "Add/edit images you own"
-msgstr "Hatama imagen ita nia rasik "
+msgstr "Hatama/hadia imajen ita-boot nia rasik "
 
 msgid "Edit"
 msgstr "Hadia"
@@ -118,6 +138,9 @@ msgstr "Hadia imagen ruma"
 
 msgid "Choose"
 msgstr "Hili"
+
+msgid "Select images in choosers"
+msgstr "Hili imajen sira iha hili-na'in sira"
 
 msgid "title"
 msgstr "titlu"
@@ -138,7 +161,7 @@ msgid "created at"
 msgstr "kria ona iha"
 
 msgid "uploaded by user"
-msgstr "hatama ona husi uzuariu"
+msgstr "hatama ona husi uzuáriu"
 
 msgid "tags"
 msgstr "tag sira"
@@ -149,14 +172,184 @@ msgstr "imagen"
 msgid "images"
 msgstr "imagen sira"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Aumenta tag sira ba imajen %(counter)s"
+
+msgid "Add tags to images"
+msgstr "Aumenta tag sira ba imajen sira"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Ita-boot serteza hakarak tag imajen sira tuir mai?"
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "Ita-boot laiha permisaun atu aumenta tag sira ba imajen sira nee"
+
+msgid "Yes, add"
+msgstr "Sim, aumenta"
+
+msgid "No, don't add"
+msgstr "Lae, labele aumenta"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Aumenta imajen %(counter)s ba kolesaun foun"
+
+msgid "Add images to collection"
+msgstr "Aumenta imajen sira ba kolesaun"
+
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] ""
+"Ita-boot serteza hakarak aumenta imajen sira tuir mai ba kolesaun ne'ebé "
+"hili ona?"
+
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] ""
+"Ita-boot laiha permisaun atu aumenta imajen sira nee ba kolesaun ida"
+
+#, python-format
+msgid "Delete 1 image"
+msgid_plural "Delete %(counter)s images"
+msgstr[0] "Hamoos imajen %(counter)s "
+
+msgid "Delete images"
+msgstr "Hamoos imajen sira"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "Ita-boot serteza hakarak hamoos imajen sira ne'e?"
+
+msgid "You don't have permission to delete this image"
+msgid_plural "You don't have permission to delete these images"
+msgstr[0] "Ita-boot laiha permisaun atu hamoos imajen sira ne'e"
+
 msgid "Yes, delete"
 msgstr "Loos, hamoos"
 
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
 
+msgid "Popular tags"
+msgstr "Tag sira ne'ebé popular"
+
+msgid "Layout"
+msgstr "Formatu"
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Hatama susesu. Maibé, ita-boot nia imajen foun haree hanesan duplikadu ida "
+"hosi imajen ne'ebé eziste ona. Ita-boot bele hamoos ida-ne'e se ida-ne'e la "
+"presiza."
+
+msgid "Existing"
+msgstr "Eziste"
+
 msgid "New"
 msgstr "foun"
+
+msgid "Use new image"
+msgstr "Uza imajen foun"
+
+msgid "Use existing and delete new"
+msgstr "Uza eziste no hamoos foun"
+
+msgid "Latest images"
+msgstr "Imajen sira ikus liu"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Hili %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Ita-boot sidauk hatama imajen ruma ba iha kolesaun ida-ne'e."
+
+msgid "You haven't uploaded any images."
+msgstr "Ita-boot sidauk hatama imajen ruma."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"Tamba saida <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\"> la hatama ida agora </a>?"
+
+msgid "Choose a format"
+msgstr "Hili formatu ida"
+
+msgid "Insert image"
+msgstr "Hatama imajen"
+
+#, python-format
+msgid ""
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"Imajen %(total)s <span class=\"w-sr-only\"> kria ona iha %(site_name)s</span>"
+
+msgid "Change image file:"
+msgstr "Troka arkivu imajen:"
+
+msgid "Add an image"
+msgstr "Aumenta imajen ida"
+
+msgid "Uploading…"
+msgstr "Hatama hela..."
+
+msgid "Upload"
+msgstr "Hatama"
+
+msgid "Keep new image"
+msgstr "Mantein imajen foun"
+
+msgid "Delete new image"
+msgstr "Hamoos imajen foun"
+
+msgid "Image focal point"
+msgstr "Pontu fokál imajen nian"
+
+msgid "URL Generator"
+msgstr "Jeradór URL"
+
+msgid "Focal point"
+msgstr "Pontu fokál"
+
+msgid "(optional)"
+msgstr "(opsionál)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Atu define imajen ida-ne'e nia rejiaun importante liu, dada kaixa ida ba "
+"imajen iha leten."
+
+msgid "Current focal point shown"
+msgstr "Pontu fokál atuál hatudu"
+
+msgid "Remove focal area"
+msgstr "Hasai área fokál"
+
+msgid "Max dimensions"
+msgstr "Dimensaun másimu"
+
+msgid "Filesize"
+msgstr "Medidaarkivu"
+
+msgid "File not found"
+msgstr "Arkivu la hetan"
 
 msgid "Usage"
 msgstr "Uza"
@@ -166,13 +359,38 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Uza dala %(usage_count)s"
 
+msgid "Sort by"
+msgstr "Klasifika tuir"
+
+msgid "Select all images in listing"
+msgstr "Hili imajen hotu-hotu iha lista"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Deskulpa, laiha imajen sira ne'ebé koresponde \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Ita-boot sidauk hatama imajen ruma iha kolesaun ida-ne'e. Tamba sa la <a "
+"href=\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
+
 #, python-format
 msgid ""
 "You haven't uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ita seidauk hatama tiha imajen balu. Tamba sa la<a "
+"Ita-boot seidauk hatama tiha imajen balu. Tamba sa la<a "
 "href=\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
+
+msgid "Grid layout"
+msgstr "Formatu rede"
+
+msgid "List layout"
+msgstr "Formatu lista"
 
 msgid "Preview"
 msgstr "Pré-visualizasaun"
@@ -180,29 +398,160 @@ msgstr "Pré-visualizasaun"
 msgid "URL"
 msgstr "URL"
 
+msgid "Image URL"
+msgstr "URL imajen"
+
+msgid "Copy URL"
+msgstr "Kopia URL"
+
+msgid "Copied to clipboard"
+msgstr "Kopia ona ba clipboard"
+
+msgid "Copying to clipboard failed"
+msgstr "Kopia ba clipboard faila"
+
+msgid "Add multiple images"
+msgstr "Hatama imajen barak"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Dada no tau imajen sira ba área ida-ne'e hodi hatama kedas."
+
+msgid "Or choose from your computer"
+msgstr "Ka hili hosi ita-boot nia komputador"
+
+msgid "Add to collection:"
+msgstr "Aumenta ba kolesaun:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr ""
+"Favor fornese deskrisaun imajen ida atu kumpri ho prátika di'ak liu ba "
+"asesibilidade."
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Hatama susesu. Favor atualiza imajen ida-ne'e ho titlu ida ne'ebé apropriadu "
+"liu, se presiza. Ita-boot mós bele hamoos imajen ne'e kompletamente se la "
+"presiza hatama."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Hatama susesu. Maibé, ita-boot nia imajen foun haree hanesan duplikadu ida "
+"hosi imajen ezistente ida-ne'e. Ita-boot bele hamoos ida-ne'e se ida-ne'e la "
+"presiza."
+
+msgid "Sorry, upload failed."
+msgstr "Deskulpa, Hatama faila."
+
 msgid "Server Error"
 msgstr "Servidor erru"
 
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Relata erru ida-ne'e ba ita-boot nia administradór website ho informasaun "
+"tuirmai:"
+
+msgid "Image updated."
+msgstr "Imajen atualiza ona."
+
 msgid "Image permissions"
-msgstr "Permisaun imajen"
+msgstr "Imajen nia permisaun sira"
 
 msgid "Add an image permission"
 msgstr "Hatama permisaun imajen"
 
+msgid "Tags"
+msgstr "Tag sira"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Add tags to the selected images"
+msgstr "Aumenta tag sira ba imajen sira ne'ebé hili"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d image"
+msgid_plural "New tags have been added to %(num_parent_objects)d images"
+msgstr[0] "Tag foun sira aumenta ona ba imajen %(num_parent_objects)d"
+
+msgid "Add to collection"
+msgstr "Aumenta ba kolesaun"
+
+msgid "Add selected images to collection"
+msgstr "Aumenta imajen sira ne'ebé hili ona ba kolesaun"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been added to %(collection)s"
+msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
+msgstr[0] "Imajen %(num_parent_objects)d hatama ona ba %(collection)s"
+
 msgid "Delete"
-msgstr "hamoos"
+msgstr "Hamoos"
+
+msgid "Delete selected images"
+msgstr "Hamoos imajen sira ne'ebé hili ona"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been deleted"
+msgid_plural "%(num_parent_objects)d images have been deleted"
+msgstr[0] "Imajen %(num_parent_objects)dhamoos ona"
 
 msgid "Title"
 msgstr "Titlu"
 
+msgid "Created"
+msgstr "Kria ona"
+
 msgid "Choose an image"
 msgstr "Hili imagen ida"
+
+msgid "Choose another image"
+msgstr "Hili imajen seluk"
 
 msgid "Edit this image"
 msgstr "Hadia imajen ne'e"
 
+msgid "Newest"
+msgstr "Foun liu"
+
+msgid "Oldest"
+msgstr "Tuan liu"
+
+msgid "Title: (A -> Z)"
+msgstr "Titlu: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Titlu: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Arkivu medida: (ki'ik ba aas) "
+
+msgid "File size: (high to low)"
+msgstr "Arkivu medida: (aas ba ki'ik) "
+
+msgid "Usage count: (low to high)"
+msgstr "Númeru utilizasaun: (ki'ik to'o aas)"
+
+msgid "Usage count: (high to low)"
+msgstr "Númeru utilizasaun: (aas to'o ki'ik)"
+
+msgid "Images"
+msgstr "Imajen sira"
+
 msgid "The image could not be saved due to errors."
 msgstr "Imajen labele rai tamba eru."
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Imajen '%(image_title)s' atualiza ona."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -211,6 +560,12 @@ msgstr ""
 "Fonte  dokumentus imajen lahetan. Favor troka nia fonte ou hamoos imajen "
 "ne'e."
 
+msgid "Generate URL"
+msgstr "Jera URL"
+
+msgid "The filter options you have selected are not valid."
+msgstr "Opsaun filtru sira ne'ebé ita-boot hili la válidu."
+
 msgid "Delete image"
 msgstr "Hamoos imagen"
 
@@ -218,9 +573,15 @@ msgstr "Hamoos imagen"
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imajen '%(image_title)s' hamoos ona."
 
+msgid "The image could not be created due to errors."
+msgstr "Imajen ne'e labele kria tanba erru sira."
+
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imajen '%(image_title)s' hatama ona"
+
+msgid "Add images"
+msgstr "Aumenta imajen sira"
 
 msgid "Image"
 msgstr "Imagen"

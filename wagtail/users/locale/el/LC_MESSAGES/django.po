@@ -159,6 +159,14 @@ msgstr "Λογαριασμός"
 msgid "Roles"
 msgstr "Ρόλοι"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Δεν έχουν [προστεθεί χρήστες. Θέλετε να <a "
+"href=\"%(wagtailusers_add_url)s\">προσθέσετε μερικούς</a>?"
+
 msgid "Active"
 msgstr "Ενεργός"
 
@@ -209,6 +217,10 @@ msgstr "Όνομα χρήστη"
 
 msgid "Admin"
 msgstr "Διαχειριστής"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Ο χρήστης '%(object)s' δημιουργήθηκε."
 
 msgid "Add user"
 msgstr "Προσθήκη χρήστη"

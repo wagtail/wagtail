@@ -1,4 +1,3 @@
-#
 # Translators:
 # Martin Galda <martingalda9@gmail.com>, 2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2022

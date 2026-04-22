@@ -176,6 +176,10 @@ msgstr "신규"
 msgid "Latest images"
 msgstr "최근 이미지"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s 선택"
+
 msgid "Choose a format"
 msgstr "포맷 선택"
 

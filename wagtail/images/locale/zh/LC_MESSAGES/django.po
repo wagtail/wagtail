@@ -78,6 +78,10 @@ msgstr "文件大小"
 msgid "File not found"
 msgstr "未找到文件"
 
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "对不起，没有图片匹配 \"<em>%(query_string)s</em>\""
+
 msgid "Preview"
 msgstr "预览"
 
