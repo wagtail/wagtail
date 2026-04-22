@@ -292,7 +292,7 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
         dropdown = soup.select_one(
-            "#w-slim-header-buttons [data-controller='w-dropdown']"
+            "nav#w-slim-header-buttons [data-controller='w-dropdown']"
         )
         self.assertIsNotNone(dropdown)
         expected = [

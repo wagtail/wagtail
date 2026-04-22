@@ -667,7 +667,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(breadcrumbs)
         # Should not include header buttons as they're already rendered
-        self.assertIsNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+        self.assertIsNone(breadcrumbs.select_one("nav#w-slim-header-buttons"))
 
         # History link should not be included as it's already present on the page
         history_link = soup.find(
@@ -993,7 +993,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(breadcrumbs)
         # Should include header buttons as they were not rendered in the create view
-        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+        self.assertIsNotNone(breadcrumbs.select_one("nav#w-slim-header-buttons"))
 
         # Should render the history link button as it wasn't rendered in the create view
         history_link = soup.find(
