@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,32 +22,48 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr ""
 
-#: forms.py:25 views/bulk_actions/add_to_collection.py:13 views/chooser.py:92
+#: fields.py:18
+#, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr ""
+
+#: fields.py:28
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+
+#: fields.py:31
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+
+#: forms.py:29 views/bulk_actions/add_to_collection.py:13 views/chooser.py:92
 #: views/documents.py:137
 msgid "Collection"
 msgstr ""
 
-#: forms.py:161
+#: forms.py:165
 msgid "Add"
 msgstr ""
 
-#: forms.py:161
+#: forms.py:165
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:162
+#: forms.py:166
 msgid "Edit"
 msgstr ""
 
-#: forms.py:162
+#: forms.py:166
 msgid "Edit any document"
 msgstr ""
 
-#: forms.py:163
+#: forms.py:167
 msgid "Choose"
 msgstr ""
 
-#: forms.py:163
+#: forms.py:167
 msgid "Select documents in choosers"
 msgstr ""
 
@@ -274,22 +290,22 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr ""
 
-#: templates/wagtaildocs/multiple/add.html:37
+#: templates/wagtaildocs/multiple/add.html:39
 msgid "Add to collection:"
 msgstr ""
 
-#: templates/wagtaildocs/multiple/add.html:67
+#: templates/wagtaildocs/multiple/add.html:69
 msgid ""
 "Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
 
-#: templates/wagtaildocs/multiple/add.html:68
+#: templates/wagtaildocs/multiple/add.html:70
 msgid "Sorry, upload failed."
 msgstr ""
 
-#: templates/wagtaildocs/multiple/add.html:69
+#: templates/wagtaildocs/multiple/add.html:71
 msgid "Document updated."
 msgstr ""
 
