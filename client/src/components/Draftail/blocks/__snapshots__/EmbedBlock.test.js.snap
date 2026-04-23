@@ -18,13 +18,13 @@ exports[`EmbedBlock no data 1`] = `
   src={null}
 >
   <button
-    className="button Tooltip__button"
+    className="button button-small Tooltip__button"
     type="button"
   >
     Edit
   </button>
   <button
-    className="button button-secondary no Tooltip__button"
+    className="button button-small button-secondary no Tooltip__button"
   >
     Delete
   </button>
@@ -58,13 +58,13 @@ exports[`EmbedBlock renders 1`] = `
     Test title
   </a>
   <button
-    className="button Tooltip__button"
+    className="button button-small Tooltip__button"
     type="button"
   >
     Edit
   </button>
   <button
-    className="button button-secondary no Tooltip__button"
+    className="button button-small button-secondary no Tooltip__button"
   >
     Delete
   </button>
