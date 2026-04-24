@@ -967,6 +967,7 @@
 * Aviral Sapra
 * Raghad Dahi
 * Divyansh Mishra
+* mikko2577
 
 ## Translators
 
