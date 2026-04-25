@@ -4,37 +4,25 @@
 
 {% block extra_columns %}
 
-    <th>{% trans 'Locking status' %}</th>
+    <th>{% trans 'Locked by' %}</th>
+    <th>{% trans 'Actions' %}</th>
 
 {% endblock %}
 
 
 {% block extra_page_data%}
     <td valign="top">
+        {% if page.locked_by %}
+            {% include "wagtailadmin/shared/user_avatar.html" with user=page.locked_by username=page.locked_by|user_display_name %}
+        {% else %}
+            -
+        {% endif %}
+        {% if page.locked_at %}
+            <br><small>{% human_readable_date page.locked_at %}</small>
+        {% endif %}
+    </td>
+    <td valign="top">
         {% page_permissions page as perms %}
-        <p>
-            {% if page.locked_at %}
-                {% with page.locked_at|date:"DATETIME_FORMAT" as locking_date %}
-                    {% if page.locked_by %}
-                        {% if page.locked_by_id == request.user.pk %}
-                            {% blocktrans trimmed %}
-                                Locked by <b>you</b> at <b>{{ locking_date }}</b>
-                            {% endblocktrans %}
-                        {% else %}
-                            {% blocktrans trimmed with locked_by=page.locked_by %}
-                                Locked by <b>{{ locked_by }}</b> at <b>{{ locking_date }}</b>
-                            {% endblocktrans %}
-                        {% endif %}
-                    {% else %}
-                        {% blocktrans trimmed %}
-                            Locked at <b>{{ locking_date }}</b>
-                        {% endblocktrans %}
-                    {% endif %}
-                {% endwith %}
-            {% else %}
-                {% trans 'Locked' %}
-            {% endif %}
-        </p>
         {% if perms.can_unlock %}
             <form action="{% url 'wagtailadmin_pages:unlock' page.id %}" method="post">
                 {% csrf_token %}

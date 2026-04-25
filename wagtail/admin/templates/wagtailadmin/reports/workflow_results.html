@@ -61,8 +61,10 @@
                             </span>
                         {% endfor %}
                     </td>
-                    <td>{{ workflow_state.requested_by|user_display_name }}</td>
-                    <td>{{ workflow_state.created_at }}</td>
+                    <td>
+                        {% include "wagtailadmin/shared/user_avatar.html" with user=workflow_state.requested_by username=workflow_state.requested_by|user_display_name %}
+                    </td>
+                    <td>{% human_readable_date workflow_state.created_at %}</td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -87,7 +87,7 @@ class AgingPagesView(PageReportView):
         user_ids = set(queryset.values_list("last_published_by", flat=True))
 
         username_mapping = {
-            user.pk: user.get_username()
+            user.pk: user.get_full_name() or user.get_username()
             for user in self.user_model.objects.filter(pk__in=user_ids)
         }
         for page in queryset:

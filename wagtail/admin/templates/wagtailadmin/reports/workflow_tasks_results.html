@@ -43,8 +43,14 @@
                     <td>
                         {% status task_state.get_status_display classname="w-status--primary" %}
                     </td>
-                    <td>{{ task_state.started_at }}</td>
-                    <td>{{ task_state.finished_at|default:"-" }}</td>
+                    <td>{% human_readable_date task_state.started_at %}</td>
+                    <td>
+                        {% if task_state.finished_at %}
+                            {% human_readable_date task_state.finished_at %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
