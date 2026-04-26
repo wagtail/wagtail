@@ -28,13 +28,13 @@ issued from those branches.
 
 Releases are announced on the [Announcements](https://github.com/wagtail/wagtail/discussions/categories/announcements) discussion, whilst security releases are announced on the [Security Announcements](https://github.com/wagtail/wagtail/discussions/categories/security-announcements) discussion. For more information about how Wagtail issues new releases for security purposes, please see our [security policies](https://docs.wagtail.org/en/latest/contributing/security.html).
 
-**Feature release**
+### Feature release
 
 Feature releases (A.B, A.B+1, etc.) happen every three months
 -- see [release schedule](release_schedule) for details. These releases will contain new
 features and improvements to existing features.
 
-**Patch release**
+### Patch release
 
 Patch releases (A.B.C, A.B.C+1, etc.) will be issued as needed, to fix
 bugs and/or security issues.
@@ -46,7 +46,9 @@ be "yes."
 
 A feature release will usually stop receiving patch release updates when the next feature release comes out.
 
-**Long-term support (LTS) release**
+(long_term_support_release)=
+
+### Long-term support (LTS) release
 
 Certain feature releases will be designated as long-term support releases. These
 releases will get security and data loss fixes applied for a guaranteed period
@@ -56,7 +58,7 @@ period of eighteen months with a six month overlap.
 Also, long-term support releases will ensure compatibility with at least one
 [Django long-term support release](https://www.djangoproject.com/download/#supported-versions).
 
-**Major release**
+### Major release
 
 Certain feature releases (A.0, A+1.0, etc.) will be designated as major
 releases, marked by incrementing the first part of the version number. These
