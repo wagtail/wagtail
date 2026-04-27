@@ -5,6 +5,7 @@ from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
 from wagtail.models import Page, PageViewRestriction
+from wagtail.permissions import page_permission_policy
 
 from .models import WagtailAdminModelForm
 from .view_restrictions import BaseViewRestrictionForm
@@ -14,8 +15,9 @@ class CopyForm(forms.Form):
     def __init__(self, *args, **kwargs):
         # CopyPage must be passed a 'page' kwarg indicating the page to be copied
         self.page = kwargs.pop("page")
-        self.user = kwargs.pop("user", None)
-        can_publish = kwargs.pop("can_publish")
+        self.user = kwargs.pop("user")
+        can_publish = page_permission_policy.user_has_permission(self.user, "publish")
+
         super().__init__(*args, **kwargs)
         self.fields["new_title"] = forms.CharField(
             initial=self.page.title, label=_("New title")
@@ -92,8 +94,22 @@ class CopyForm(forms.Form):
         # New parent page given in form or parent of source, if parent_page is empty
         parent_page = cleaned_data.get("new_parent_page") or self.page.get_parent()
 
-        # check if user is allowed to create a page at given location.
-        if not parent_page.permissions_for_user(self.user).can_add_subpage():
+        # If the user requested to publish the copies, check they're allowed to publish at the destination
+        if (
+            cleaned_data.get("publish_copies")
+            and not parent_page.permissions_for_user(self.user).can_publish_subpage()
+        ):
+            self._errors["new_parent_page"] = self.error_class(
+                [
+                    _('You do not have permission to publish pages at "%(page_title)s"')
+                    % {
+                        "page_title": parent_page.specific_deferred.get_admin_display_title()
+                    }
+                ]
+            )
+
+        # check if user is allowed to copy the pages.
+        if not self.page.permissions_for_user(self.user).can_copy_to(parent_page):
             self._errors["new_parent_page"] = self.error_class(
                 [
                     _('You do not have permission to copy to page "%(page_title)s"')
