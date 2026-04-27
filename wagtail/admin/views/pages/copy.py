@@ -50,9 +50,7 @@ def copy(request, page_id):
             keep_live = can_publish and form.cleaned_data.get("publish_copies")
 
             # Copy the page
-            # Note that only users who can publish in the new parent page can create an alias.
-            # This is because alias pages must always match their original page's state.
-            if can_publish and form.cleaned_data.get("alias"):
+            if form.cleaned_data.get("alias"):
                 action = CreatePageAliasAction(
                     page.specific,
                     recursive=form.cleaned_data.get("copy_subpages"),
