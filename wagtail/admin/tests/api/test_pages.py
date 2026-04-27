@@ -1981,7 +1981,7 @@ class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
             content,
             {
                 "detail": (
-                    "You do not have permission to publish a page at the destination."
+                    "You do not have permission to create an alias of this page."
                 ),
             },
         )
