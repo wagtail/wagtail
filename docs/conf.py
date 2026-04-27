@@ -75,6 +75,7 @@ extensions = [
 autodoc_type_aliases = {
     "File": "django.core.files.File",
 }
+autodoc_member_order = "groupwise"
 
 # Silence warnings that are not due to missing references:
 nitpick_ignore = [

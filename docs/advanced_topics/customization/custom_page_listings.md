@@ -12,7 +12,7 @@ The ability to customize the page explorer listing was added.
 
 The page explorer is the default listing of pages in the Wagtail admin, where editors can navigate through the structure of the page tree. The pages in the tree can be of different types, thus only a limited set of fields common to all pages are available for display, filtering, and ordering. Wagtail provides a default set of columns and filters for the page explorer, but you may want to customize them to cater to your editors' needs.
 
-To customize the default page explorer listing, create a subclass of {class}`~wagtail.admin.viewsets.pages.PageViewSet` and register it using the [`register_admin_viewset`](register_admin_viewset) hook. For example, to add a column for the `slug` field on all page listings, you could add the following definitions to a `wagtail_hooks.py` file within the app:
+To customize the default page explorer listing, create a subclass of {class}`~wagtail.admin.viewsets.pages.PageViewSet` and register it using the [`register_admin_viewset`](register_admin_viewset) hook. For example, to add a column for the `slug` field on all page listings, you could override the {attr}`~wagtail.admin.viewsets.pages.PageViewSet.columns` attribute on the viewset to add a new {class}`~wagtail.admin.ui.tables.Column` instance, and then register the viewset in a `wagtail_hooks.py` file within the app as follows:
 
 ```python
 # myapp/wagtail_hooks.py
@@ -122,7 +122,7 @@ def register_blog_page_listing_viewset():
     return blog_page_listing_viewset
 ```
 
-The columns of the listing can be customized by overriding the `columns` attribute on the viewset. This should be a list of `wagtail.admin.ui.tables.Column` instances:
+The columns of the listing can be customized by overriding the `columns` attribute on the viewset. This should be a list of {class}`~wagtail.admin.ui.tables.Column` instances:
 
 ```python
 from wagtail import hooks

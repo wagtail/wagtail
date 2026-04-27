@@ -66,7 +66,7 @@ To customize the listing, change the ``results_template_name`` instead.
 
 The template used to render the listing table.
 For ``ReportView``, this defaults to ``"wagtailadmin/reports/base_report_results.html"``,
-which provides support for using the ``wagtail.admin.ui.tables`` framework.
+which provides support for using the :mod:`wagtail.admin.ui.tables` framework.
 For ``PageReportView``, this defaults to ``"wagtailadmin/reports/base_page_report_results.html"``,
 which provides a default table layout based on the explorer views,
 displaying action buttons, as well as the title, time of the last update, status, and specific type of any pages.
