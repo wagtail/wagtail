@@ -17,7 +17,7 @@ class ListingViewSetMixin:
     - The name of a field on the model;
     - The name of a callable or property on the model that accepts a single
       parameter for the model instance; or
-    - An instance of the ``wagtail.admin.ui.tables.Column`` class.
+    - An instance of the :class:`~wagtail.admin.ui.tables.Column` class.
 
     If the name refers to a database field, the ability to sort the listing
     by the database column will be offered and the field's verbose name

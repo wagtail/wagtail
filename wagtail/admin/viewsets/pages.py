@@ -39,7 +39,7 @@ class PageListingViewSet(ListingViewSetMixin, ViewSet):
 
     columns = classproperty()
     """
-    A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
+    A list of :class:`~wagtail.admin.ui.tables.Column` instances for the columns in the listing.
     This takes priority over :attr:`list_display` if both are defined.
     """
 
