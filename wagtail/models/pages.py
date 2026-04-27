@@ -2381,7 +2381,7 @@ class PagePermissionTester:
         return self.can_delete(ignore_bulk=True)
 
     def can_copy(self):
-        return not self.page_is_root
+        return self.can_edit()
 
     def can_move_to(self, destination):
         # reject the logically impossible cases first
@@ -2428,6 +2428,9 @@ class PagePermissionTester:
             return True
 
     def can_copy_to(self, destination, recursive=False):
+        if not self.can_copy():
+            return False
+
         # reject the logically impossible cases first
         # recursive can't copy to the same tree otherwise it will be on infinite loop
         if recursive and (
@@ -2450,14 +2453,7 @@ class PagePermissionTester:
         # Inspect permissions on the destination
         destination_perms = destination.permissions_for_user(self.user)
 
-        if not destination.specific_class.creatable_subpage_models():
-            return False
-
-        # we always need at least add permission in the target
-        if "add" not in destination_perms.permissions:
-            return False
-
-        return True
+        return destination_perms.can_add_subpage()
 
     def can_view_revisions(self):
         return not self.page_is_root

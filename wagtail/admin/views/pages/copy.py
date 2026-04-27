@@ -1,4 +1,5 @@
-from django.shortcuts import redirect
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -7,26 +8,22 @@ from wagtail import hooks
 from wagtail.actions.copy_page import CopyPageAction
 from wagtail.actions.create_alias import CreatePageAliasAction
 from wagtail.admin import messages
-from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.models import Page
 
 
-@user_passes_test(user_has_any_page_permission)
 def copy(request, page_id):
-    page = Page.objects.get(id=page_id)
+    page = get_object_or_404(Page, id=page_id)
+    page_perms = page.permissions_for_user(request.user)
+    if not page_perms.can_copy():
+        raise PermissionDenied
 
     # Parent page defaults to parent of source page
     parent_page = page.get_parent()
 
-    # Check if the user has permission to publish subpages on the parent
-    can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
-
     form_class = getattr(page.specific_class, "copy_form_class", CopyForm)
-    form = form_class(
-        request.POST or None, user=request.user, page=page, can_publish=can_publish
-    )
+    form = form_class(request.POST or None, user=request.user, page=page)
 
     next_url = get_valid_next_url_from_request(request)
 
