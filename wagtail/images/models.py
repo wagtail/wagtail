@@ -363,6 +363,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         index.SearchField("title", boost=10),
         index.AutocompleteField("title"),
         index.FilterField("title"),
+        index.SearchField("description"),
+        index.AutocompleteField("description"),
         index.RelatedFields(
             "tags",
             [
@@ -1096,6 +1098,12 @@ class Filter:
                 # Get the converted output format falling back to the original
                 output_format = default_conversions.get(
                     original_format, original_format
+                )
+
+            # Prevent raster-only format conversions for SVG images
+            if original_format == "svg" and output_format != "svg":
+                raise InvalidFilterSpecError(
+                    "format-* operations are not supported for SVG images. To skip this conversion for SVG images, use 'preserve-svg'."
                 )
 
             if output_format == "jpeg":

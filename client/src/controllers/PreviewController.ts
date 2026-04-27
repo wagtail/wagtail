@@ -7,12 +7,14 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import {
   WagtailAxeConfiguration,
   addCustomChecks,
-  getA11yReport,
   getAxeConfiguration,
-  renderA11yResults,
-} from '../includes/a11y-result';
+  getCheckerReport,
+  renderCheckerResults,
+} from '../includes/contentChecker';
 import {
-  ContentExtractorOptions,
+  type ContentExtractorOptions,
+  type ContentMetrics,
+  type ExtractedContent,
   getLIXScore,
   getPreviewContent,
   getReadabilityScore,
@@ -180,8 +182,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set in connect()
 
-  /** Template for rendering a row of accessibility check results. */
-  declare a11yRowTemplate: HTMLTemplateElement | null;
+  /** Template for rendering a row of content check results. */
+  declare checkerRowTemplate: HTMLTemplateElement | null;
   /** Configuration for Axe. */
   declare axeConfig: WagtailAxeConfiguration | null;
   /** Configuration for Wagtail's Axe content extractor plugin instance. */
@@ -287,7 +289,7 @@ export class PreviewController extends Controller<HTMLElement> {
 
   /**
    * Promise for the current content checks request. This resolved when both
-   * the content checks and the accessibility checks are completed. Useful for
+   * the content metrics and the Axe checks are completed. Useful for
    * queueing the checks, as Axe does not allow concurrent runs.
    */
   contentChecksPromise: Promise<void> | null = null;
@@ -367,8 +369,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
   setUpContentChecks() {
     this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
-    this.a11yRowTemplate = document.querySelector<HTMLTemplateElement>(
-      '#w-a11y-result-row-template',
+    this.checkerRowTemplate = document.querySelector<HTMLTemplateElement>(
+      '#w-content-checker-row-template',
     );
     this.checksPanel = document.querySelector<HTMLElement>(
       '[data-checks-panel]',
@@ -378,14 +380,14 @@ export class PreviewController extends Controller<HTMLElement> {
       '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
     );
     this.checksPanelCounter = document.querySelector<HTMLElement>(
-      '[data-side-panel="checks"] [data-a11y-result-count]',
+      '[data-side-panel="checks"] [data-content-checker-count]',
     );
 
     if (
       !(
         this.checksSidePanel &&
         this.checksPanel &&
-        this.a11yRowTemplate &&
+        this.checkerRowTemplate &&
         this.axeConfig &&
         this.checksToggleCounter &&
         this.checksPanelCounter
@@ -522,6 +524,25 @@ export class PreviewController extends Controller<HTMLElement> {
       this.deviceWidthPropertyValue,
       deviceWidth as string,
     );
+    this.sendScaleToIframe();
+  }
+
+  /**
+   * Send the current preview scale ratio to the iframe so inline
+   * annotations can apply an inverse transform to remain legible.
+   * Mirrors the CSS formula: min(1, panel-width / device-width).
+   */
+  private sendScaleToIframe() {
+    const panelWidth = this.element.clientWidth;
+    const deviceWidth = parseFloat(
+      this.element.style.getPropertyValue(this.deviceWidthPropertyValue),
+    );
+    if (!panelWidth || !deviceWidth || !this.iframeTarget.contentWindow) return;
+    const ratio = Math.max(1, deviceWidth / panelWidth);
+    this.iframeTarget.contentWindow.postMessage(
+      { wagtail: { type: 'w-preview:set-scale', scale: ratio } },
+      '*',
+    );
   }
 
   /**
@@ -544,12 +565,13 @@ export class PreviewController extends Controller<HTMLElement> {
    * This is used to maintain the simulated device width as the side panel is resized.
    */
   observePanelSize() {
-    const resizeObserver = new ResizeObserver((entries) =>
+    const resizeObserver = new ResizeObserver((entries) => {
       this.element.style.setProperty(
         this.panelWidthPropertyValue,
         entries[0].contentRect.width.toString(),
-      ),
-    );
+      );
+      this.sendScaleToIframe();
+    });
     resizeObserver.observe(this.element);
     return resizeObserver;
   }
@@ -745,7 +767,7 @@ export class PreviewController extends Controller<HTMLElement> {
     this.dispatch('loaded', { cancelable: false });
 
     // Finish the update process. Instead of calling `runChecks()` here,
-    // accessibility and content checks will be triggered by the userbar in the
+    // content metrics and checks will be triggered by the userbar in the
     // new iframe via the `w-userbar:axe-ready` message event. This ensures that
     // Axe in this window does not instruct the new iframe's Axe to immediately
     // run the checks, which might fail if it is still running the initial
@@ -846,7 +868,7 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
-   * Runs the content and accessibility checks.
+   * Runs the content metrics and checks.
    * This is called when the iframe sends a message event from the userbar
    * indicating that it has finished running the checks within itself.
    * @param event The message event from the userbar
@@ -863,6 +885,10 @@ export class PreviewController extends Controller<HTMLElement> {
         return this.contentChecksPromise;
     }
 
+    // The iframe's userbar has finished initialising and annotations now
+    // exist, so send the current scale for counter-scaling.
+    this.sendScaleToIframe();
+
     // If the content checks are already running, wait for them to finish before
     // re-running them, as Axe does not allow concurrent runs.
     if (this.contentChecksPromise) {
@@ -870,7 +896,7 @@ export class PreviewController extends Controller<HTMLElement> {
     }
 
     this.contentChecksPromise = (async () => {
-      await this.runAccessibilityChecks();
+      await this.runAxeChecks();
       await this.runContentChecks();
       this.contentChecksPromise = null;
     })();
@@ -879,26 +905,25 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
-   * Runs the accessibility checks using Axe.
+   * Runs content checks using Axe.
    */
-  async runAccessibilityChecks() {
-    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig!);
+  async runAxeChecks() {
+    const { results, issueCount } = await getCheckerReport(this.axeConfig!);
 
-    this.checksToggleCounter!.textContent = a11yErrorsNumber.toString();
-    this.checksToggleCounter!.hidden = a11yErrorsNumber === 0;
-    this.checksPanelCounter!.textContent = a11yErrorsNumber.toString();
-    this.checksPanelCounter!.classList.toggle(
-      'has-errors',
-      a11yErrorsNumber > 0,
-    );
+    this.checksToggleCounter!.textContent = issueCount.toString();
+    this.checksToggleCounter!.hidden = issueCount === 0;
+    this.checksPanelCounter!.textContent = issueCount.toString();
+    this.checksPanelCounter!.classList.toggle('has-errors', issueCount > 0);
 
-    renderA11yResults(
+    renderCheckerResults(
       this.checksPanel!,
       results,
       this.axeConfig!,
-      this.a11yRowTemplate!,
+      this.checkerRowTemplate!,
       () => this.newTabTarget.click(),
     );
+
+    return { results, issueCount };
   }
 
   /**
@@ -912,15 +937,23 @@ export class PreviewController extends Controller<HTMLElement> {
     // previewed page shows an error response), skip doing anything with it.
     if (!content) return;
 
-    const wordCount = getWordCount(content.lang, content.innerText);
-    const readingTime = getReadingTime(content.lang, wordCount);
-    const lixScore = getLIXScore(content.lang, content.innerText);
-    const readabilityScore = getReadabilityScore(lixScore);
-    const metrics = { wordCount, readingTime, lixScore, readabilityScore };
+    const metrics = this.extractMetrics(content);
 
     this.dispatch('content', { detail: { content, metrics } });
 
     renderContentMetrics(metrics);
+  }
+
+  /**
+   * Computes content metrics (word count, reading time, LIX, readability) from
+   * extracted preview content.
+   */
+  extractMetrics(content: ExtractedContent): ContentMetrics {
+    const wordCount = getWordCount(content.lang, content.innerText);
+    const readingTime = getReadingTime(content.lang, wordCount);
+    const lixScore = getLIXScore(content.lang, content.innerText);
+    const readabilityScore = getReadabilityScore(lixScore);
+    return { wordCount, readingTime, lixScore, readabilityScore };
   }
 
   /**

@@ -1,4 +1,3 @@
-#
 # Translators:
 # Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2022
 # Loic Teixeira, 2024

@@ -275,6 +275,10 @@ msgstr "نام کاربری"
 msgid "Admin"
 msgstr "راهبر"
 
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "کاربر '%(object)s' ایجاد شد."
+
 msgid "Add user"
 msgstr "افزودن کاربر"
 

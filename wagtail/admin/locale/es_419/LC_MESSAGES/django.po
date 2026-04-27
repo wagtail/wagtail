@@ -609,8 +609,16 @@ msgstr "Guardar"
 msgid "Editing"
 msgstr "Editando"
 
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Editando %(page_type)s"
+
 msgid "Site"
 msgstr "Página"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Editando %(task_type)s"
 
 msgid "Choose an item"
 msgstr "Seleccionar un item"

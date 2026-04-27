@@ -69,6 +69,10 @@ msgstr "Ya, hapus"
 msgid "Latest documents"
 msgstr "Dokumen terbaru"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Anda belum mengunggah dokumen apapun dalam koleksi ini."
 

@@ -22,7 +22,7 @@ msgid_plural "%(num)s errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/includes/contentMetrics.ts:180
+#: src/includes/contentMetrics.ts:181
 msgid "%(num)s min"
 msgid_plural "%(num)s mins"
 msgstr[0] ""
@@ -39,23 +39,23 @@ msgstr[1] ""
 msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:216
+#: src/controllers/AutosaveController.ts:275
 msgid "A network error occurred."
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:229
+#: src/controllers/AutosaveController.ts:305
 msgid "A server error occurred."
 msgstr ""
 
-#: src/components/Draftail/index.js:419
+#: src/components/Draftail/index.js:420
 msgid "Actions"
 msgstr ""
 
-#: src/components/StreamField/blocks/ListBlock.js:64
+#: src/components/StreamField/blocks/ListBlock.js:65
 msgid "Add"
 msgstr ""
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:328
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:329
 msgid "Add a comment"
 msgstr ""
 
@@ -68,11 +68,11 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:321
+#: src/controllers/AutosaveController.ts:415
 msgid "Autosave in progress…"
 msgstr ""
 
-#: src/components/Draftail/index.js:411
+#: src/components/Draftail/index.js:412
 msgid "Blocks"
 msgstr ""
 
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/controllers/AutosaveController.ts:325
+#: src/controllers/AutosaveController.ts:419
 msgid "Changes have been autosaved."
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/controllers/PreviewController.ts:991
+#: src/controllers/PreviewController.ts:1024
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Fair"
 msgstr ""
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:522
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:524
 #: src/entrypoints/admin/comments.js:108
 msgid "Focus comment"
 msgstr ""
@@ -209,7 +209,7 @@ msgstr ""
 msgid "Loading…"
 msgstr ""
 
-#: src/components/Sidebar/modules/MainMenu.tsx:283
+#: src/components/Sidebar/modules/MainMenu.tsx:250
 msgid "Main menu"
 msgstr ""
 
@@ -229,7 +229,7 @@ msgstr ""
 msgid "Move up"
 msgstr ""
 
-#: src/components/Widget/index.js:168
+#: src/components/Widget/index.js:167
 msgid "No"
 msgstr ""
 
@@ -343,13 +343,13 @@ msgstr ""
 msgid "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
-#: src/components/StreamField/blocks/ListBlock.js:205
+#: src/components/StreamField/blocks/ListBlock.js:206
 #: src/components/StreamField/blocks/StreamBlock.js:274
 #: src/components/StreamField/blocks/StreamBlock.js:298
 msgid "The maximum number of items is %(max_num)d"
 msgstr ""
 
-#: src/components/StreamField/blocks/ListBlock.js:216
+#: src/components/StreamField/blocks/ListBlock.js:217
 #: src/components/StreamField/blocks/StreamBlock.js:282
 #: src/components/StreamField/blocks/StreamBlock.js:312
 msgid "The minimum number of items is %(min_num)d"
@@ -363,7 +363,7 @@ msgstr ""
 msgid "Toggle section"
 msgstr ""
 
-#: src/components/Minimap/Minimap.tsx:223
+#: src/components/Minimap/Minimap.tsx:225
 msgid "Toggle side panel"
 msgstr ""
 
@@ -388,6 +388,6 @@ msgstr ""
 msgid "Write something or type ‘/’ to insert a block"
 msgstr ""
 
-#: src/components/Widget/index.js:168
+#: src/components/Widget/index.js:167
 msgid "Yes"
 msgstr ""

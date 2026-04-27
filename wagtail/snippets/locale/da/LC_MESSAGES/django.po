@@ -43,6 +43,10 @@ msgstr "%(label)s og Publicér"
 msgid "Delete"
 msgstr "Slet"
 
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Slet %(snippet_type_name)s"
+
 msgid "Yes, delete"
 msgstr "Ja, slet"
 

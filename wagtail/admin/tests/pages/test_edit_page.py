@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.action_menu import ActionMenuItem, PublishMenuItem
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.models import EditingSession
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
     Comment,
@@ -26,6 +27,7 @@ from wagtail.models import (
     PageSubscription,
     Revision,
     Site,
+    get_default_page_content_type,
 )
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
@@ -47,7 +49,7 @@ from wagtail.test.testapp.models import (
     TaggedPage,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.test.utils.form_data import inline_formset, nested_form_data
+from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
 from wagtail.utils.timestamps import render_timestamp
@@ -665,7 +667,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(breadcrumbs)
         # Should not include header buttons as they're already rendered
-        self.assertIsNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+        self.assertIsNone(breadcrumbs.select_one("nav#w-slim-header-buttons"))
 
         # History link should not be included as it's already present on the page
         history_link = soup.find(
@@ -991,7 +993,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(breadcrumbs)
         # Should include header buttons as they were not rendered in the create view
-        self.assertIsNotNone(breadcrumbs.select_one("#w-slim-header-buttons"))
+        self.assertIsNotNone(breadcrumbs.select_one("nav#w-slim-header-buttons"))
 
         # Should render the history link button as it wasn't rendered in the create view
         history_link = soup.find(
@@ -1067,6 +1069,43 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertEqual(
             editing_sessions.select_one("input[name='revision_created_at']")["value"],
             latest_revision.created_at.isoformat(),
+        )
+
+    def test_save_with_json_response_does_not_affect_sessions(self):
+        # an old session that would be cleaned up when loading the editor
+        old_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=get_default_page_content_type(),
+            object_id=self.child_page.pk,
+            last_seen_at=timezone.now() - datetime.timedelta(hours=5),
+        )
+        # a recent session that would not be cleaned up when loading the editor
+        recent_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=get_default_page_content_type(),
+            object_id=self.child_page.pk,
+            last_seen_at=timezone.now() - datetime.timedelta(seconds=5),
+        )
+        loaded_revision = self.child_page.get_latest_revision()
+        post_data = {
+            "title": "I've been edited!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "loaded_revision_id": loaded_revision.pk,
+            "loaded_revision_created_at": loaded_revision.created_at.isoformat(),
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.pk,)),
+            post_data,
+            headers={"Accept": "application/json"},
+        )
+        self.assertEqual(response.status_code, 200)
+        # Saving with a JSON response does not fully load the editor, so it
+        # should not run a cleanup of old sessions, nor should it create a new
+        # session for the current request.
+        self.assertEqual(
+            list(EditingSession.objects.values_list("pk", flat=True).order_by("pk")),
+            [old_session.pk, recent_session.pk],
         )
 
     def test_page_edit_post_unpublished_page(self):
@@ -1166,6 +1205,41 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.unpublished_page.refresh_from_db()
         self.assertEqual(self.unpublished_page.content, "")
 
+    def test_save_draft_streampage_with_empty_blocks_in_body(self):
+        page = StreamPage(title="Stream page", live=False)
+        self.root_page.add_child(instance=page)
+        page.save_revision()
+
+        post_data = nested_form_data(
+            {
+                "title": "Stream page edited",
+                "slug": "stream-page-edited",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(page.id,)),
+            post_data,
+        )
+        page.refresh_from_db()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(page.title, "Stream page edited")
+        self.assertEqual(len(page.body), 7)
+        self.assertFalse(page.live)
+
     def test_required_field_validation_enforced_on_publish(self):
         post_data = {
             "title": "Hello unpublished world! edited",
@@ -1179,6 +1253,42 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "This field is required.")
+
+    def test_publish_streampage_with_empty_blocks_in_body(self):
+        page = StreamPage(title="Stream page", live=False)
+        self.root_page.add_child(instance=page)
+        page.save_revision()
+
+        post_data = nested_form_data(
+            {
+                "title": "Stream page edited",
+                "slug": "stream-page-edited",
+                "action-publish": "Publish",
+                "body": streamfield(
+                    [
+                        ("text", ""),
+                        ("rich_text", {}),
+                        ("product", {"name": "", "price": ""}),
+                        ("raw_html", ""),
+                        ("books", streamfield([("title", ""), ("author", "")])),
+                        ("title_list", streamfield([("title", "")])),
+                        (
+                            "image_with_alt",
+                            {"image": "", "decorative": "", "alt_text": ""},
+                        ),
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(page.id,)),
+            post_data,
+        )
+        page.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(page.title, "Stream page")
+        self.assertEqual(len(page.body), 0)
+        self.assertFalse(page.live)
 
     def test_required_asterisk_on_reshowing_form(self):
         """

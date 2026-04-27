@@ -144,6 +144,10 @@ msgstr "否，不删除"
 msgid "Latest documents"
 msgstr "最新文档"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "对不起。没找到符合\"<em>%(search_query)s</em>\"的文档"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "你还没有上传任何文档到这个集合。"
 

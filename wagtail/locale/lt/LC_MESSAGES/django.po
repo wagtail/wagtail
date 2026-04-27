@@ -39,6 +39,10 @@ msgstr "Mažiausias vienetų kiekis %(min_num)d"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Didžiausias vienetų kiekis %(max_num)d"
 
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: šis blokas neturi jokių nustatymų."
+
 msgid "This block has no options."
 msgstr "Šis blokas neturi jokių nustatymų."
 

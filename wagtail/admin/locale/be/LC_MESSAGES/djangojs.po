@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2024
 # Andrei Satsevich, 2026

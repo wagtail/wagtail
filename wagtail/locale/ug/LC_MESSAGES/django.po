@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,9 @@ msgstr "Wagtail بېكەت خەرىتىسى"
 
 msgid "Unknown content type"
 msgstr "نامەلۇم مەزمۇن تىپى"
+
+msgid "Date cannot be in the future."
+msgstr "چېسلا كەلگۈسىدە بولماسلىقى كېرەك."
 
 msgid "Password"
 msgstr "ئىم"
@@ -517,6 +520,12 @@ msgid ""
 msgstr ""
 "%(hostname)s كۆڭۈلدىكى بېكەت قىلىپ سەپلەندى. بۇ بېكەتنى كۆڭۈلدىكى بېكەتكە "
 "تەڭشەشتىن ئىلگىرى ئۇنى كۆڭۈلدىكى بېكەتتىن تەڭشەپ چىقىرىۋېتىڭ."
+
+msgid "group site permission"
+msgstr "گۇرۇپپا بېكەت ئىجازىتى"
+
+msgid "group site permissions"
+msgstr "گۇرۇپپا بېكەت ئىجازىتى"
 
 msgid "Public"
 msgstr "ئاممىۋى"

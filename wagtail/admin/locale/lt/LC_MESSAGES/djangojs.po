@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2024
 # Naglis Jonaitis, 2026

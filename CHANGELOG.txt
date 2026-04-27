@@ -7,12 +7,44 @@ Changelog
  * Add `is_deferred_validation` flag to support skipping custom validation when saving drafts (Daniel Kirkham)
  * Update project template Dockerfile to build dependencies in a separate stage (Brylie Oxley, Akshat Gupta)
  * Add `include_root` parameter to admin pages API endpoint (Divyansh Mishra)
+ * Add support for Flourish oEmbeds (Garrett Coakley)
+ * Add support for Heyzine oEmbeds (Baptiste Darthenay)
+ * Allow specifying `creation_form_class` on `ChooserViewSet` as a dotted path string (K Adithya)
+ * Various user experience improvements to autosave and concurrent editing notifications (Sage Abdullah)
+ * Allow validation of required StreamField blocks to be deferred on saving drafts (Sage Abdullah)
+ * Add `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting for specifying maximum document file size (Om Harsh)
+ * Optimize combining of querysets in site history report (Alex Bridge)
+ * Add more informative error for `format-*` operations on SVG images (Ankit Kumar)
+ * Store preview data in new `FormState` model to improve compatibility with cookie-based sessions (Sage Abdullah)
+ * Change StreamBlock options so groups are shown in declaration order of their blocks (Darshan Kerkar)
+ * Add `WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS` setting to disable permission filtering on page searches (Matt Westcott)
+ * Use choice label when displaying choice fields in `SnippetViewSet`/`ModelViewSet`'s `list_display` (Srishti Jaiswal)
+ * Add new content check `empty-meta-description` to validate meta description tags are not empty (Thibaud Colas)
+ * Add `extractMetrics` method to `PreviewController` to retrieve content metrics from the preview panel (Thibaud Colas)
+ * Refine hover / focus styles for title field’s comment button (Srishti Jaiswal)
+ * Preserve "Collapse all" button state when switching between editor tabs (Raghad Dahi)
+ * Upgrade modelsearch to 1.3 (Matt Westcott)
+ * Implement checker error highlights within the preview panel (Thibaud Colas)
+ * Add `routablefullpageurl` template tag (Pravin Kamble)
+ * Add support for customizing page explorer views per page type using `PageViewSet` (Sage Abdullah)
+ * Enhance page content type usage view with custom listings and ability to create new pages (Sage Abdullah)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
  * Fix: Set `verbose_name_plural` for Query model in search promotions app (Saptami)
  * Fix: Truncate overly long task names in workflow admin view (Gaurav Takhi)
  * Fix: Hide "Add child page" button when no child pages can be created as per `max_count` or `max_count_per_parent` (Lasse Schmieding)
+ * Fix: Prevent multiple child pages with `max_count_per_parent` being moved under one parent (James Biggs)
+ * Fix: Use POST instead of DELETE in Cloudflare Frontend Cache Backend (Tom Usher)
+ * Fix: Handle null values for title, author name or provider name in OEmbed responses (Baptiste Darthenay)
+ * Fix: Preserve original data types from `ChoiceBlock` choices in block values (Devarshi Mani Tripathi)
+ * Fix: Fix translation sync logic for django-treebeard 5.0.2 (Matt Westcott)
+ * Fix: Correctly HTML-escape page title in approval/rejection notification emails (Matt Westcott)
+ * Fix: Correctly HTML-escape URL in photo type oembeds (Thibaud Colas)
+ * Fix: Ensure user with appropriate permissions can cancel a workflow task (Dan Braghis)
+ * Fix: Ensure "submit to workflow" menu item uses the workflow name when creating pages (Sage Abdullah)
+ * Fix: Better align page descriptions in add subpage views (Tibor Leupold)
+ * Fix: Correctly close the Pages menu panel when clicking sidebar search (Divyansh Mishra)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
@@ -22,6 +54,19 @@ Changelog
  * Docs: Add documentation for using the `ReferenceIndex` API (Saptami)
  * Docs: Retitle documentation page for settings contrib module to "Settings models" (Karl Hobley)
  * Docs: Fix typos and minor grammar issues (Kunal Gupta)
+ * Docs: Correct references to macOS and POSIX shell in tutorial (Ankit Kumar)
+ * Docs: Add PowerShell setup instructions to tutorial and correct method versus property terminology (Mustansir Dabhiya)
+ * Docs: Fix ordering of image rendition documentation (Seb Corbin)
+ * Docs: Remove references to now-addressed Django accessibility issues (Nirmal Kumar)
+ * Docs: Add content personalization how-to guide (Thibaud Colas)
+ * Docs: Add new package maintenance guidelines (Thibaud Colas)
+ * Docs: Fix use of `format_html` in `insert_global_admin_js` example (Lasse Schmieding)
+ * Docs: Mention front-end component names in Sphinx docs for discoverability (Aditya Kammati)
+ * Docs: Clarify the icon template tag is only for admin views (Aditya Kammati)
+ * Docs: Add documentation for generic `published` and `unpublished` signals (Kunal Hemnani)
+ * Docs: Improve organization of signals reference docs (Sage Abdullah)
+ * Docs: Add documentation for overriding the default user avatar image (Aviral Sapra)
+ * Docs: Document how `list_export` in reports accepts a dotted path for nested attribute resolution (mikko2577)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
@@ -37,12 +82,38 @@ Changelog
  * Maintenance: Replace Puppeteer with Playwright for integration tests (Sage Abdullah)
  * Maintenance: Upgrade to latest Sass with changes for deprecated `if` syntax (Sage Abdullah)
  * Maintenance: Add explicit `timeout-minutes` to GitHub Actions workflow jobs (Ashutosh)
+ * Maintenance: Upgrade Python tooling, testing, and docs dependencies (Sage Abdullah)
+ * Maintenance: Support skipping transaction unit tests with a tag (Sage Abdullah)
+ * Maintenance: Remove unreachable code in wagtail.py (Oluwagbeminiyi Agbedejobi)
+ * Maintenance: Upgrade django-treebeard dependency to 4.8-5.x (Samir Shah)
+ * Maintenance: Clean up JSDoc & ordering of values in `SwapController` (LB (Ben Johnston))
+ * Maintenance: Refactor accessibility checker code to use generic content checker terminology (Thibaud Colas)
+ * Maintenance: Upgrade BeautifulSoup dependency to >=4.13.3 (Matt Westcott)
+ * Maintenance: Make sphinx_llms.txt extension optional when building docs (Sage Abdullah)
+ * Maintenance: Refactor handling of invalid form submissions in choosers (Sage Abdullah)
+ * Maintenance: Switch StreamField block rendering to use `w-block-` prefixes for block type class names (Kalash Kumari Thakur)
 
 
-7.3.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+ * Fix: Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
+ * Fix: Group audit log entries for autosave operations in page history view (Sage Abdullah)
+ * Fix: Retain page explorer header buttons when searching or filtering (Sage Abdullah)
+
+7.3.1 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
+ * Fix: Update dependencies to allow django-modelsearch 1.2 and django-tasks 0.11
  * Fix: Fix duplicate inline panel items when editing snippets with autosave enabled (Sage Abdullah)
+ * Fix: Prevent dropdowns from closing after a successful autosave (Sage Abdullah)
+ * Fix: Show placeholder image icons when image upload previews fail (Collins Kubu)
+ * Fix: Ensure that 'create' form within choosers is not hidden on validation errors (Ankit Chaudhary)
+ * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
 
 
 7.3 (03.02.2026)
@@ -113,6 +184,14 @@ Changelog
  * Maintenance: Ignore 'build' dir when running ESLint (Matt Westcott)
  * Maintenance: Upgrade to django-tasks 0.11.0 for Django 6.0 and Python 3.11 compatibility (Guilhem Saurel)
  * Maintenance: Switch userbar items to the template components API (Thibaud Colas)
+
+
+7.2.3 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
+ * Maintenance: Update semgrep to 1.150.0 (Pravin Kamble)
 
 
 7.2.2 (03.02.2026)
@@ -324,6 +403,18 @@ Changelog
  * Maintenance: Rewrite Tabs component frontend to use Stimulus and TypeScript (Sai Srikar Dumpeti, LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
+
+7.0.7 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+
+7.0.6 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
+
 
 7.0.5 (12.02.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -605,6 +696,18 @@ Changelog
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+6.3.9 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+
+6.3.8 (03.03.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2026-28222: Improper escaping of HTML (Cross-site Scripting) on TableBlock class attributes (Guan Chenxian, Matt Westcott)
+ * Fix: CVE-2026-28223: Improper escaping of HTML (Cross-site Scripting) in simple_translation admin interface (Guan Chenxian, Matt Westcott)
+
 
 6.3.7 (12.02.2026)
 ~~~~~~~~~~~~~~~~~~

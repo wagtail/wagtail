@@ -32,6 +32,7 @@ from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import (
+    BaseColumn,
     ButtonsColumnMixin,
     Column,
     LocaleColumn,
@@ -88,6 +89,7 @@ class IndexView(
     list_filter = None
     show_other_searches = False
     sort_order_field = None
+    base_filterset_class = WagtailFilterSet
 
     @cached_property
     def is_searchable(self):
@@ -115,7 +117,7 @@ class IndexView(
 
         return type(
             f"{self.model.__name__}FilterSet",
-            (WagtailFilterSet,),
+            (self.base_filterset_class,),
             {"Meta": Meta},
         )
 
@@ -259,10 +261,19 @@ class IndexView(
         if attr is None:
             sort_key = field_name
 
-        accessor = field_name
+        # If the model has a get_FOO_display() method for the field,
+        # use that as the accessor instead of the field name
+        get_foo_display = f"get_{field}_display"
+        if getattr(model_class, get_foo_display, None) is not None:
+            # Use the method name rather than the method itself,
+            # as it may be on a related model.
+            accessor = get_foo_display
+        else:
+            accessor = field
+
         # Build the dotted relation if needed, for use in multigetattr
         if relations:
-            accessor = ".".join(lookups)
+            accessor = ".".join(relations + [accessor])
         return column_class(
             accessor,
             label=capfirst(label),
@@ -282,7 +293,7 @@ class IndexView(
         # If not explicitly overridden, derive from list_display
         columns = []
         for i, field in enumerate(self.list_display):
-            if isinstance(field, Column):
+            if isinstance(field, BaseColumn):
                 column = field
             elif i == 0:
                 column = self._get_title_column(field)
@@ -331,27 +342,32 @@ class IndexView(
     def header_buttons(self):
         buttons = []
         if self.add_url:
-            buttons.append(
-                HeaderButton(
-                    self.add_item_label,
-                    url=self.add_url,
-                    icon_name="plus",
-                )
-            )
+            buttons.append(self.add_button)
         return buttons
 
     @cached_property
     def header_more_buttons(self):
         buttons = super().header_more_buttons
-        if self.get_reorder_url():
-            buttons.append(
-                Button(
-                    _("Sort item order"),
-                    url=self.index_url + f"?ordering={self.sort_order_field}",
-                    icon_name="list-ul",
-                )
-            )
+        if self.reorder_button:
+            buttons.append(self.reorder_button)
         return buttons
+
+    @cached_property
+    def add_button(self):
+        return HeaderButton(
+            self.add_item_label,
+            url=self.add_url,
+            icon_name="plus",
+        )
+
+    @cached_property
+    def reorder_button(self):
+        if self.get_reorder_url():
+            return Button(
+                _("Sort item order"),
+                url=self.index_url + f"?ordering={self.sort_order_field}",
+                icon_name="list-ul",
+            )
 
     def get_list_more_buttons(self, instance):
         buttons = []
@@ -426,6 +442,12 @@ class IndexView(
                 _("Add %(model_name)s") % {"model_name": self.model._meta.verbose_name}
             )
         return _("Add")
+
+    @cached_property
+    def verbose_name(self):
+        if self.model:
+            return self.model._meta.verbose_name
+        return None
 
     @cached_property
     def verbose_name_plural(self):

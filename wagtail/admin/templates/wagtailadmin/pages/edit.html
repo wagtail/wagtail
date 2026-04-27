@@ -8,7 +8,7 @@
     {% get_comments_enabled as comments_enabled %}
     {% page_permissions page as page_perms %}
 
-    {% include 'wagtailadmin/shared/headers/page_edit_header.html' with title=header_title %}
+    {% include 'wagtailadmin/shared/headers/page_edit_header.html' with title=header_title buttons=header_buttons %}
 
     {% block form %}
 

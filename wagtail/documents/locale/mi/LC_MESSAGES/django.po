@@ -70,6 +70,12 @@ msgstr "Kao, kaua e muku"
 msgid "Latest documents"
 msgstr "Pukapuka hōu"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Aroha mai, karekau hē pukapuka e whakataurite ki \"<em>%(search_query)s</"
+"em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ehara koe i tukuatu ētahi pukapuka ki tēnei kohikohinga."
 

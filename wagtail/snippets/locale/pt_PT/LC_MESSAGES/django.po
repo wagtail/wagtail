@@ -96,6 +96,10 @@ msgstr "Sim, apagar"
 msgid "No, don't delete"
 msgstr "Não, não apagar"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Desculpe, nenhum trecho corresponde a \"<em>%(search_query)s</em>\""
+
 msgid "Publishing…"
 msgstr "A publicar..."
 
@@ -122,6 +126,10 @@ msgstr "Nome"
 
 msgid "Home"
 msgstr "Início"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Escolher %(object)s"
 
 #, python-format
 msgid "Choose another %(object)s"

@@ -88,6 +88,10 @@ msgstr "是的，刪除"
 msgid "No, don't delete"
 msgstr "否，不刪除"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "對不起，沒有符合 \"<em>%(search_query)s</em>\" 的片段"
+
 msgid "Publishing…"
 msgstr "正在發佈..."
 

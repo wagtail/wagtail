@@ -2,6 +2,7 @@
 @use 'sass:math';
 @use 'sass:string';
 @use '../tools' as *;
+@use '../settings' as *;
 
 // =============================================================================
 // Variables
@@ -9,9 +10,6 @@
 
 $size-home-button: 3.5em;
 $position: 2em;
-$box-shadow-props:
-  0 0 1px 0 rgba(107, 214, 230, 1),
-  0 1px 10px 0 rgba(107, 214, 230, 0.7);
 $max-items: 12;
 $userbar-radius: 6px;
 $userbar-z-index: 9999;
@@ -81,7 +79,7 @@ $positions: (
   border-radius: 50%;
   padding: 0;
   cursor: pointer;
-  box-shadow: $box-shadow-props;
+  box-shadow: $userbar-box-shadow;
   transition: all 0.2s ease-in-out;
   font-size: 1rem;
   text-decoration: none;
@@ -196,7 +194,7 @@ $positions: (
       opacity: 0.4;
     }
 
-    .w-a11y-result__count {
+    .w-content-checker__count {
       margin-inline-end: theme('spacing.2');
     }
   }

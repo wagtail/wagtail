@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Alt text"
 msgstr ""
 
-#: blocks.py:196 forms.py:191
+#: blocks.py:200 forms.py:191
 msgid "Please add some alt text for your image or mark it as decorative"
 msgstr ""
 
@@ -193,11 +193,11 @@ msgstr ""
 msgid "tags"
 msgstr ""
 
-#: models.py:938
+#: models.py:940
 msgid "image"
 msgstr ""
 
-#: models.py:939
+#: models.py:941
 msgid "images"
 msgstr ""
 

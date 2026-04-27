@@ -39,3 +39,7 @@ msgstr "サイトが定義されていないため、この設定を開けませ
 
 msgid "The setting could not be saved due to errors."
 msgstr "エラーが発生したため、サイトを保存できませんでした。"
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s が更新されました。"

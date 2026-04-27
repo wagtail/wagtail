@@ -168,6 +168,16 @@ msgstr "帳號"
 msgid "Roles"
 msgstr "角色"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr "還沒使用者呢。為啥不<a href=\"%(wagtailusers_add_url)s\">創建</a>試試?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "使用者 %(id)s (已刪除)"
+
 msgid "Active"
 msgstr "有效"
 
@@ -218,6 +228,10 @@ msgstr "使用者名"
 
 msgid "Admin"
 msgstr "管理"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "使用者 '%(object)s'已創建"
 
 msgid "Add user"
 msgstr "新增使用者"

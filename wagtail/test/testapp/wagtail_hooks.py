@@ -43,8 +43,10 @@ from wagtail.test.testapp.views import (
     MiscellaneousViewSetGroup,
     SearchTestModelViewSet,
     ToyViewSetGroup,
+    advert_chooser_viewset,
     animated_advert_chooser_viewset,
     event_page_listing_viewset,
+    event_page_viewset,
     opera_viewset,
 )
 
@@ -410,6 +412,7 @@ class SnippetChooserModelViewSet(SnippetViewSet):
     list_display = [
         "__str__",
         "full_featured__text",
+        "full_featured__country_code",
         "full_featured__latest_revision__created_at",
     ]
     exclude_form_fields = []
@@ -444,6 +447,11 @@ def register_event_page_listing_viewset():
 
 
 @hooks.register("register_admin_viewset")
+def register_event_page_viewset():
+    return event_page_viewset
+
+
+@hooks.register("register_admin_viewset")
 def register_opera_viewset():
     return opera_viewset
 
@@ -453,3 +461,8 @@ def register_avatar_intercept_url(user, size):
     if os.environ.get("AVATAR_INTERCEPT"):
         return "/some/avatar/fred.png"
     return None
+
+
+@hooks.register("register_admin_viewset")
+def register_advert_chooser_viewset():
+    return advert_chooser_viewset

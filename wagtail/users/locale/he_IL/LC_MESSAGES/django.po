@@ -182,6 +182,10 @@ msgstr "שם משתמש"
 msgid "Admin"
 msgstr "מנהל"
 
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "משתמש '%(object)s' נוצר"
+
 msgid "Add user"
 msgstr "הוספת משתמש"
 

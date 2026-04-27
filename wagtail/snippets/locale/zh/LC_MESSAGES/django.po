@@ -34,6 +34,14 @@ msgid "Delete"
 msgstr "删除"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "已删除%(model_name)s '%(object)s'"
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "删除Delete %(snippet_type_name)s"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "你确定你想要删除这个%(snippet_type_name)s吗？"
 
@@ -57,3 +65,11 @@ msgstr "名字"
 
 msgid "Home"
 msgstr "主页"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "选择%(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "选择另外一个%(object)s"

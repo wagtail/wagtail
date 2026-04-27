@@ -28,11 +28,11 @@ class Member(models.Model):
     name = models.CharField(max_length=255)
     shirt_size = models.CharField(max_length=5, choices=ShirtSize.choices, default=ShirtSize.MEDIUM)
 
-    def get_shirt_size_display(self):
-        return self.ShirtSize(self.shirt_size).label
+    def first_name(self):
+        return self.name.split()[0]
 
-    get_shirt_size_display.admin_order_field = "shirt_size"
-    get_shirt_size_display.short_description = "Size description"
+    first_name.admin_order_field = "name"
+    first_name.short_description = "First name"
 
 
 class MemberFilterSet(WagtailFilterSet):
@@ -56,7 +56,7 @@ from myapp.models import Member, MemberFilterSet
 class MemberViewSet(SnippetViewSet):
     model = Member
     icon = "user"
-    list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
+    list_display = ["name", "first_name", "shirt_size", UpdatedAtColumn()]
     list_per_page = 50
     copy_view_enabled = False
     inspect_view_enabled = True

@@ -1430,6 +1430,10 @@ msgstr "Siteler menüsü"
 msgid "Pagination"
 msgstr "Sayfalama"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Sayfa %(page_number)s / %(num_pages)s."
+
 msgid "Previous"
 msgstr "Önceki"
 
@@ -1778,6 +1782,10 @@ msgstr "Son Kullanma Tarihi:"
 
 msgid "In Moderation"
 msgstr "Moderasyonda"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "%(user)s tarafından"
 
 msgid "View history"
 msgstr "Geçmişi görüntüle"
@@ -2290,6 +2298,14 @@ msgid "More options for '%(title)s'"
 msgstr " '%(title)s' için daha fazla seçenek"
 
 #, python-format
+msgid "Add %(model_name)s"
+msgstr "%(model_name)s ekle"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Hata nedeniyle %(model_name)s oluşturulamadı."
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Yeni: %(model_name)s"
 
@@ -2297,8 +2313,16 @@ msgid "Editing"
 msgstr "Düzenleniyor"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Hata nedeniyle %(model_name)s kaydedilemedi."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' silindi."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "%(model_name)s kod bloğunu silmek istediğinizden emin misiniz?"
 
 msgid "Compare"
 msgstr "Karşılaştır"
@@ -2405,6 +2429,10 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "Sayfa '%(page_title)s' silindi."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s düzenleniyor"
 
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
@@ -2535,6 +2563,10 @@ msgstr[1] ""
 #, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
 msgstr "İş akışı '%(workflow_name)s' etkinleştirildi."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s düzenleniyor"
 
 msgid "Disable task"
 msgstr "Görevi devre dışı bırak"

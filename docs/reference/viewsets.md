@@ -14,6 +14,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
    .. autoattribute:: UNDEFINED
+      :no-value:
    .. autoattribute:: name
    .. autoattribute:: url_prefix
    .. autoattribute:: url_namespace
@@ -90,9 +91,15 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: pk_path_converter
    .. autoattribute:: ordering
    .. autoattribute:: sort_order_field
-      :annotation: = UNDEFINED
    .. autoattribute:: list_per_page
    .. autoattribute:: list_display
+   
+        This list will be passed to the ``list_display`` attribute of the index
+        view. If left unset, the ``list_display`` attribute of the index view
+        will be used instead, which by default is defined as
+        ``["__str__", wagtail.admin.ui.tables.LocaleColumn(), wagtail.admin.ui.tables.UpdatedAtColumn()]``.
+    
+        Note that the ``LocaleColumn`` is only included if the model is translatable.
    .. autoattribute:: list_export
    .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
@@ -226,12 +233,45 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
 ## PageListingViewSet
 
+```{versionadded} 7.4
+Support for `list_display`, `list_filter`, `list_per_page`, `list_export`, `export_headings` and `export_filename` was added to `PageListingViewSet`.
+```
+
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.pages.PageListingViewSet
 
    .. autoattribute:: model
    .. autoattribute:: index_view_class
    .. autoattribute:: choose_parent_view_class
+   .. autoattribute:: list_display
    .. autoattribute:: columns
+   .. autoattribute:: list_filter
    .. autoattribute:: filterset_class
+   .. autoattribute:: list_per_page
+   .. autoattribute:: list_export
+   .. autoattribute:: export_headings
+   .. autoattribute:: export_filename
+```
+
+## PageViewSet
+
+```{versionadded} 7.4
+The `PageViewSet` class was added.
+```
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.viewsets.pages.PageViewSet
+
+   .. autoattribute:: model
+   .. autoattribute:: parent_models
+   .. autoattribute:: index_view_class
+   .. autoattribute:: choose_parent_view_class
+   .. autoattribute:: list_display
+   .. autoattribute:: columns
+   .. autoattribute:: list_filter
+   .. autoattribute:: filterset_class
+   .. autoattribute:: list_per_page
+   .. autoattribute:: list_export
+   .. autoattribute:: export_headings
+   .. autoattribute:: export_filename
 ```

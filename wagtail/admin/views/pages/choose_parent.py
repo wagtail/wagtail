@@ -133,3 +133,23 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
         context["media"] = context["form"].media
         context["submit_button_label"] = self.submit_button_label
         return context
+
+
+class GenericChooseParentView(ChooseParentView):
+    index_url_name = "wagtailadmin_pages:type_use"
+
+    def dispatch(self, request, *args, **kwargs):
+        # A viewset may assign the "model" attribute to a superclass page model,
+        # so look up the most specific model class again based on the app_label
+        # and model_name in the URL kwargs.
+        self.model = ContentType.objects.get_by_natural_key(
+            self.kwargs.get("app_label"),
+            self.kwargs.get("model_name"),
+        ).model_class()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_index_url(self):
+        return reverse(
+            self.index_url_name,
+            args=[self.kwargs.get("app_label"), self.kwargs.get("model_name")],
+        )

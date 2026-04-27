@@ -41,6 +41,10 @@ msgstr "項目の最小数は%(min_num)dです。"
 msgid "The maximum number of items is %(max_num)d"
 msgstr "項目の最大数は%(max_num)dです。"
 
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: このブロックはオプションがありません。"
+
 msgid "This block has no options."
 msgstr "このブロックはオプションがありません。"
 

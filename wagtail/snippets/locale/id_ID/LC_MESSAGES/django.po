@@ -59,6 +59,10 @@ msgid "Delete"
 msgstr "Hapus"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' dihapus."
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Hapus %(snippet_type_name)s"
 
@@ -75,6 +79,11 @@ msgstr "Apakah anda yakin untuk menghapus %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Ya, hapus"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Maaf, tidak ada potongan yang sesuai dengan \"<em>%(search_query)s</em>\""
 
 msgid "Publishing…"
 msgstr "Mempublikasikan..."

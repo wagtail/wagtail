@@ -1,4 +1,3 @@
-#
 # Translators:
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2022
 # Jonathan D, 2023

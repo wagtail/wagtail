@@ -342,6 +342,24 @@ WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
 
 This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.
 
+(wagtailadmin_page_search_filter_by_permissions)=
+
+### `WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS`
+
+```python
+WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS = False
+```
+
+If false, searching for pages within the Wagtail admin interface will skip the usual permission filter for non-superusers and show all results over the entire page tree, rather than just pages the user has permission to edit. This is a workaround for very large sites using external search backends such as Elasticsearch, which cannot apply permission checks efficiently.
+
+```{warning}
+Disabling this permission filter may expose information that would not otherwise be visible to editors. This should not be used on sites containing sensitive information that should not be accessible to all users of the Wagtail admin.
+```
+
+```{versionadded} 7.4
+The `WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS` setting was added.
+```
+
 (wagtailimages_all_settings)=
 
 ## Images
@@ -574,6 +592,15 @@ If this isn't supplied all document extensions are allowed. This doesn't ensure 
 ```{warning}
 Allowing all file types may present a security risk if untrusted users are allowed to upload documents - in this case additional configuration will be required at the webserver level to handle these securely. See [](user_uploaded_files).
 ```
+(wagtaildocs_max_upload_size)=
+
+### `WAGTAILDOCS_MAX_UPLOAD_SIZE`
+
+```python
+WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
+```
+
+This setting lets you override the maximum upload size for documents (in bytes). If omitted, Wagtail will fall back to allowing any file size.
 
 ## User Management
 

@@ -39,6 +39,11 @@ class PageTitleColumn(BaseColumn):
             context["start_index"] = context["page_obj"].start_index()
             context["end_index"] = context["page_obj"].end_index()
 
+        if context["items_count"] == 1:
+            context["model_name"] = parent_context.get("verbose_name")
+        else:
+            context["model_name"] = parent_context.get("verbose_name_plural")
+
         return context
 
     def get_cell_context_data(self, instance, parent_context):
@@ -175,4 +180,6 @@ class PageTable(OrderableTableMixin, Table):
         context["actions_next_url"] = (
             self.actions_next_url or parent_context.get("request").path
         )
+        context["verbose_name"] = parent_context.get("verbose_name")
+        context["verbose_name_plural"] = parent_context.get("verbose_name_plural")
         return context

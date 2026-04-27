@@ -163,6 +163,14 @@ msgstr "Účet"
 msgid "Roles"
 msgstr "Role"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Zatiaľ nie sú vytvorení žiadni používatelia. Prečo nejakých ne<a "
+"href=\"%(wagtailusers_add_url)s\">vytvoriť</a>?"
+
 msgid "Active"
 msgstr "Aktívne"
 
@@ -213,6 +221,10 @@ msgstr "Používateľské meno"
 
 msgid "Admin"
 msgstr "Admin"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Používateľ '%(object)s' bol vytvorený."
 
 msgid "Add user"
 msgstr "Pridať používateľa"

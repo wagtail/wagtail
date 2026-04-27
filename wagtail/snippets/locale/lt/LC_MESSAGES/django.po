@@ -73,6 +73,10 @@ msgstr "Taip, ištrinti"
 msgid "No, don't delete"
 msgstr "Ne, neištrinti"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Atsiprašome, jokios nuokarpos neatitiko \"<em>%(search_query)s</em>\""
+
 msgid "Publishing…"
 msgstr "Publikuojama..."
 

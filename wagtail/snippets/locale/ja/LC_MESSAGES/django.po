@@ -68,6 +68,10 @@ msgid "Delete selected snippets"
 msgstr "選択したスニペットを削除します"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' が削除されました。"
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "%(snippet_type_name)sを削除"
 
@@ -95,6 +99,10 @@ msgstr "はい、削除します"
 
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "\"<em>%(search_query)s</em>\"に一致する結果はありません。"
 
 msgid "Publishing…"
 msgstr "公開中..."

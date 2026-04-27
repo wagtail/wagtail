@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Mario <mario@catalpa.io>, 2026
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
@@ -10,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -47,10 +48,16 @@ msgid "created at"
 msgstr "Kria iha"
 
 msgid "uploaded by user"
-msgstr "hatama ona husi uzuariu"
+msgstr "hatama ona husi uzuáriu"
 
 msgid "tags"
 msgstr "tag sira"
+
+msgid "Yes, add"
+msgstr "Sim, aumenta"
+
+msgid "No, don't add"
+msgstr "Lae, labele aumenta"
 
 msgid "Yes, delete"
 msgstr "Sim, hamoos"
@@ -58,11 +65,32 @@ msgstr "Sim, hamoos"
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\">upload one now</a>?"
+msgstr ""
+"Tamba saida <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
+"tabs#select:prevent\" data-w-tabs-target=\"trigger\" data-w-tabs-focus-"
+"param=\"true\"> la upload ida agora </a>?"
+
 msgid "Change document:"
 msgstr "Troka dokumentu"
 
 msgid "Add a document"
 msgstr "Hatama dokumentu"
+
+msgid "Uploading…"
+msgstr "Upload hela..."
+
+msgid "Upload"
+msgstr "Upload"
+
+msgid "Filesize"
+msgstr "Medidaarkivu"
+
+msgid "File not found"
+msgstr "Arkivu la hetan"
 
 msgid "Usage"
 msgstr "Uza"
@@ -72,8 +100,29 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Uza dala %(usage_count)s"
 
+msgid "Or choose from your computer"
+msgstr "Ka hili hosi ita nia komputador"
+
+msgid "Add to collection:"
+msgstr "Aumenta ba kolesaun:"
+
+msgid "Sorry, upload failed."
+msgstr "Deskulpa, Hatama faila."
+
+msgid "Tags"
+msgstr "Tag sira"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Add to collection"
+msgstr "Aumenta ba kolesaun"
+
 msgid "Delete"
 msgstr "Hamoos"
+
+msgid "Created"
+msgstr "Kria ona"
 
 msgid "Edit this document"
 msgstr "Hadia dokumentu nee"

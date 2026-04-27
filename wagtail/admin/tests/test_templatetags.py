@@ -27,6 +27,7 @@ from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class TestAvatarUrlInterceptTemplateTag(WagtailTestUtils, TestCase):
@@ -1035,6 +1036,37 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertEqual(len(invalid_icons), 0)
         icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
         self.assertIsNotNone(icon)
+
+
+class PageHeaderButtonsTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.request = get_dummy_request()
+        self.user = self.login()
+        self.request.user = self.user
+
+    def test_page_header_buttons_deprecation(self):
+        cases = [("index", 6), ("edit", 7)]
+        for view_name, button_count in cases:
+            with self.subTest(view_name=view_name):
+                template = f"""
+                    {{% load wagtailadmin_tags %}}
+                    {{% page_header_buttons page user=request.user view_name="{view_name}" %}}
+                """
+                page = Page.objects.get(id=15)
+                with self.assertWarnsMessage(
+                    RemovedInWagtail80Warning,
+                    "`{% page_header_buttons %}` tag is deprecated. "
+                    "Use the `register_page_header_buttons` hook instead.",
+                ):
+                    rendered = Template(template).render(
+                        Context({"page": page, "request": self.request})
+                    )
+
+                soup = self.get_soup(rendered)
+                buttons = soup.select("[data-controller='w-dropdown'] a")
+                self.assertEqual(len(buttons), button_count)
 
 
 class ThemeColorSchemeTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

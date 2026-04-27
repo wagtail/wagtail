@@ -2623,11 +2623,19 @@ msgid "Add %(model_name)s"
 msgstr "Dodaj %(model_name)s"
 
 #, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s nie mógł zostać utworzony z powodu błędów."
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Nowy: %(model_name)s"
 
 msgid "Editing"
 msgstr "Edytowanie"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s nie mógł zostać zapisany z powodu błędów."
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."

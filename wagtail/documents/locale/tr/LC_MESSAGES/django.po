@@ -85,6 +85,10 @@ msgstr "Hayır, silme"
 msgid "Latest documents"
 msgstr "En yeni belgeler"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Üzgünüm, \"<em>%(search_query)s</em>\" ile eşleşen belge yok"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Bu koleksiyone henüz belge yüklemediniz."
 

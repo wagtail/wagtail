@@ -212,6 +212,14 @@ msgstr "역할"
 msgid "Sorry, no users match your query"
 msgstr "죄송합니다. 해당하는 사용자가 없습니다"
 
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"사용자가 설정되어 있지 않습니다. 지금 사용자를 <a "
+"href=\"%(wagtailusers_add_url)s\">추가 하는건 어떨까요?"
+
 msgid "Active"
 msgstr "활성화"
 
@@ -262,6 +270,10 @@ msgstr "사용자명"
 
 msgid "Admin"
 msgstr "관리자"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "'%(object)s' 사용자가 생성되었습니다"
 
 msgid "Add user"
 msgstr "사용자 추가"

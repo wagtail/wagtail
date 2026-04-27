@@ -4,6 +4,7 @@
 #
 # Translators:
 # Joanico Barros <joanico@catalpa.io>, 2019-2020
+# Mario <mario@catalpa.io>, 2026
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +21,14 @@ msgstr ""
 "Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
 msgid "Wagtail core"
 msgstr "Wagtail fuan"
+
+msgid "Add Comment"
+msgstr "Aumenta Komentáriu"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -41,20 +48,124 @@ msgstr "Bloku nee laiha opsaun"
 msgid "This field is required."
 msgstr "Presiza hatama dadus nee"
 
+msgid "Group"
+msgstr "Grupu"
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtail fronend cahce"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sítiumapa sira"
+
+msgid "Unknown content type"
+msgstr "Tipu konteúdu deskoñesidu"
+
+msgid "Date cannot be in the future."
+msgstr "Data labele hatama futuru nian"
+
 msgid "Password"
 msgstr "Seña"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Seña ladiak! Favor koko ida tan."
 
+msgid "Comment"
+msgstr "Komentariu"
+
 msgid "Locked"
 msgstr "Xavi tiha ona"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Laiha ema ida mak bele halo mudansa wainhira %(model_name)s xave ona"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' xave ona</b> husi <b> ita-boot </b> iha <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' xave ona</b> husi <b>ita-boot</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr "'<b>{title}' xave ona</b> husi <b>{user}</b> iha <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' xave ona</b>."
+
+msgid "Locked by you"
+msgstr "Xave ona husi ita-boot"
+
+msgid "Locked by another user"
+msgstr "Xave ona hosi uzuáriu seluk"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Ita-boot deit mak bele halo mudansa wainhira %(model_name)s xave ona"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "%(user)s deit mak bele halo mudansa wainhira %(model_name)s xave ona"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "%(model_name)s ida-ne'e agora dadaun hein hela moderasaun."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"{model_name} ida-ne'e hein hela <b>'{task_name}'</b> iha "
+"<b>'{workflow_name}'</b> fluxu servisu."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Só revizadór sira ba papel ida-ne'e maka bele hadia %(model_name)s."
 
 msgid "Unlocked"
 msgstr "Loke tiha ona"
 
+msgid "Locked by workflow"
+msgstr "Xave ona husi fluxu servisu"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Revisor sira bele hadia %(model_name)s ida-ne'e – xave tia nia atu prevene "
+"revizór sira seluk ne'ebé atu edita"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Só revizadór sira maka bele hadia no aprova %(model_name)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' xave ona no no marka ona oráriu atu publika diretu "
+"iha {datetime}"
+
+msgid "Locked by schedule"
+msgstr "Trava tuir oráriu"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Agora dadaun xave no sei publika diretu iha data ne'ebé marka ona"
+
 msgid "content type"
 msgstr "Tipu konteudu"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp (UTC)"
 
 msgid "live"
 msgstr "Hela"
@@ -81,7 +192,7 @@ msgid "scheduled"
 msgstr "Ajenda ona"
 
 msgid "draft"
-msgstr "Esbosu"
+msgstr "esbosu"
 
 msgid "live + scheduled"
 msgstr "Hela + ajenda"
@@ -134,6 +245,9 @@ msgstr "Publika"
 msgid "Publish any page"
 msgstr "Publika kualker pajina"
 
+msgid "Unlock"
+msgstr "Loke"
+
 msgid "title"
 msgstr "titlu"
 
@@ -161,6 +275,9 @@ msgstr "Hatudu iha menus sira"
 msgid "latest revision created at"
 msgstr "Revizaun ikus kria ona iha"
 
+msgid "For site menus"
+msgstr "Ba sítiu menu sira"
+
 msgid "page"
 msgstr "Pajina"
 
@@ -172,6 +289,9 @@ msgstr "Grupu pajina permisaun"
 
 msgid "group page permissions"
 msgstr "Grupu pajina permisaun sira"
+
+msgid "Draft saved"
+msgstr "Esbosu salva ona"
 
 msgid "Default"
 msgstr "Estandar"
@@ -202,29 +322,29 @@ msgstr ""
 "Se ita boot presiza portu specifiku iha URL hatama nee (ezemplu portu 8000)"
 
 msgid "site name"
-msgstr "naran situs"
+msgstr "naran sítiu"
 
 msgid "Human-readable name for the site."
-msgstr "naran situs lee fasil"
+msgstr "naran sítiu ba ema bele lee fasil"
 
 msgid "root page"
-msgstr "pajina fuan"
+msgstr "pajina abut"
 
 msgid "is default site"
-msgstr "Ne'e situs detallu"
+msgstr "mak padraun sítiu"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Se karik loos, situs ida ne'e sei liga ho rekerimentu hotu-hotu hostname "
-"seluk katak la iha situs ida ho sira an rasik."
+"Se loos, sítiu ida-ne'e sei trata pedidu sira ba naran host sira seluk "
+"ne'ebé laiha entrada sítiu nian rasik"
 
 msgid "site"
-msgstr "situs"
+msgstr "sítiu"
 
 msgid "sites"
-msgstr "situs sira"
+msgstr "sítiu sira"
 
 msgid "default"
 msgstr "default"
@@ -234,14 +354,26 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"Agora  situs onorárius. Ita tenki halo %(hostname)s la onorárius antes xavi "
-"situs nee onorárius."
+"%(hostname)s mak konfigura ona hanesan sítiu padraun. Ita-boot tenke hasai "
+"ida-ne'e molok ita-boot bele salva sítiu ida-ne'e hanesan padraun."
+
+msgid "group site permission"
+msgstr "grupu sítiu permisaun"
+
+msgid "group site permissions"
+msgstr "grupu sítiu permisaun sira"
 
 msgid "Public"
 msgstr "Publiku"
 
 msgid "groups"
 msgstr "Grupu sira"
+
+msgid "workflows"
+msgstr "fluxu servisu sira"
+
+msgid "task"
+msgstr "tarefa"
 
 msgid "Approve"
 msgstr "Aprova"
@@ -261,17 +393,38 @@ msgstr "Ita presiza sena hodi asesu ba pajina ida ne'e."
 msgid "Continue"
 msgstr "Kontinua"
 
+msgid "Created"
+msgstr "Kria ona"
+
 msgid "Edited"
 msgstr "Hadia tiha ona"
 
 msgid "Delete"
 msgstr "Hamoos"
 
+msgid "Publish scheduled draft"
+msgstr "Publika esbosu kalendáriu"
+
+msgid "Published scheduled draft"
+msgstr "Esbosu kalendáriu publika ona"
+
 msgid "Unpublish"
 msgstr "La publika "
 
+msgid "Unpublished"
+msgstr "La publika ona"
+
+msgid "Unpublish scheduled draft"
+msgstr "La publika esbosu kalendáriu"
+
+msgid "Unpublished scheduled draft"
+msgstr "Esbosu kalendáriu la publika ona"
+
 msgid "Reject"
 msgstr "Rejeita"
+
+msgid "Rename"
+msgstr "Troka naran"
 
 msgid "Copy"
 msgstr "kopia"

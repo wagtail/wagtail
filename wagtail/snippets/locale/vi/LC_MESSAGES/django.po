@@ -56,6 +56,10 @@ msgstr "%(label)svà Xuất bản"
 msgid "Delete"
 msgstr "Xoá"
 
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Xóa %(snippet_type_name)s"
+
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
 

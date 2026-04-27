@@ -159,11 +159,11 @@ class TableBlock(FieldBlock):
                 "column",
                 "both",
             ]
-        else:
+        elif not self.is_deferred_validation:
             # Ensure we have a choice for the table_header_choice
             errors = ErrorList(Field.default_error_messages["required"])
             raise ValidationError("Validation error in TableBlock", params=errors)
-        return self.value_from_form(self.field.clean(self.value_for_form(value)))
+        return super().clean(value)
 
     def get_form_state(self, value):
         # pass state to frontend as a JSON-ish dict - do not serialise to a JSON string

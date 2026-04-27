@@ -415,6 +415,10 @@ msgstr "Lav en side i"
 msgid "Choose which type of page you'd like to create."
 msgstr "Vælg hvilken type side du gerne vil lave."
 
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Sider der bruger %(page_type)s"
+
 msgid "Move"
 msgstr "Flyt"
 
@@ -529,6 +533,10 @@ msgstr "Ulåst"
 msgid "Lock"
 msgstr "Lås"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "af %(user)s"
+
 msgid "Edited"
 msgstr "Redigeret"
 
@@ -574,6 +582,10 @@ msgstr "Live version"
 
 msgid "Current draft"
 msgstr "Nuværende skitse"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Tilføj %(model_name)s"
 
 msgid "Editing"
 msgstr "Redigerer"

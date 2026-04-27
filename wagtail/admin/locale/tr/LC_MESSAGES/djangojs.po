@@ -1,4 +1,3 @@
-#
 # Translators:
 # Umut Bektaş <info@umutbektas.com>, 2022
 # Loic Teixeira, 2024

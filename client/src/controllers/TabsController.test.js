@@ -488,6 +488,70 @@ describe('TabsController', () => {
       expect(tab3.getAttribute('aria-selected')).toBe(null);
       expect(tab1Panel.hidden).toBeFalsy();
       expect(tab3Panel.hidden).toBeTruthy();
+
+      // remove the currently selected tab
+      tab1.remove();
+      tab1Panel.remove();
+      await jest.runAllTimersAsync();
+
+      // should gracefully handle removal by selecting the first available tab
+      // (which is now tab 3)
+      expect(tab3.getAttribute('aria-selected')).toBe('true');
+      expect(tab3Panel.hidden).toBeFalsy();
+    });
+
+    it('should gracefully handle replacement of currently active panel target', async () => {
+      await setup(/* html */ `
+      <div id="mutating-tabs" data-controller="w-tabs">
+        <div role="tablist">
+          <a id="tab-1" href="#tab-panel-1" role="tab" data-w-tabs-target="trigger" data-action="w-tabs#select:prevent">A</a>
+          <a id="tab-2" href="#tab-panel-2" role="tab" data-w-tabs-target="trigger" data-action="w-tabs#select:prevent">B</a>
+        </div>
+        <section hidden id="tab-panel-1" role="tabpanel" aria-labelledby="tab-1" data-w-tabs-target="panel">A (content)</section>
+        <section hidden id="tab-panel-2" role="tabpanel" aria-labelledby="tab-2" data-w-tabs-target="panel">B (content)</section>
+      </div>
+    `);
+
+      expect(errors).toHaveLength(0);
+
+      const [tab1, tab2] = document.querySelectorAll('[role="tab"]');
+      const [tab1Panel, tab2Panel] = document.querySelectorAll('section');
+
+      // upon init, the first tab should be selected and its panel should be shown,
+      // even if it was initially rendered with the hidden attribute
+      await jest.runAllTimersAsync();
+      expect(tab1.getAttribute('aria-selected')).toBe('true');
+      expect(tab1Panel.hidden).toBeFalsy();
+
+      // switch to the second tab
+      tab2.click();
+      await jest.runAllTimersAsync();
+      expect(tab1.getAttribute('aria-selected')).toBe(null);
+      expect(tab2.getAttribute('aria-selected')).toBe('true');
+      expect(tab1Panel.hidden).toBeTruthy();
+      expect(tab2Panel.hidden).toBeFalsy();
+
+      // replace the current tab's panel with new hidden element
+      const newPanel = document.createElement('template');
+      newPanel.innerHTML = /* html */ `
+        <section hidden id="tab-panel-2" role="tabpanel" aria-labelledby="tab-2" data-w-tabs-target="panel">
+          B (updated content)
+          for example: server-rendered errors after form validation
+        </section>
+      `;
+      tab2Panel.replaceWith(newPanel.content.firstElementChild);
+      const newTab2Panel = document.getElementById('tab-panel-2');
+
+      await jest.runAllTimersAsync();
+
+      expect(errors).toHaveLength(0);
+
+      // should retain the same selected tab and show the new panel content
+      expect(tab1.getAttribute('aria-selected')).toBe(null);
+      expect(tab2.getAttribute('aria-selected')).toBe('true');
+      expect(tab1Panel.hidden).toBeTruthy();
+      expect(newTab2Panel.hidden).toBeFalsy();
+      expect(newTab2Panel.textContent).toContain('updated content');
     });
   });
 

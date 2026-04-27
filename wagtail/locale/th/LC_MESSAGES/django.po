@@ -34,6 +34,10 @@ msgstr "ตัวเลขน้อยที่สุดของสิ่งน
 msgid "The maximum number of items is %(max_num)d"
 msgstr "จำนวนมากสุดของสิ่งนี้คือ %(max_num)d"
 
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: บล็อคนี้ไม่มีตัวเลือก"
+
 msgid "This block has no options."
 msgstr "บล็อคนี้ไม่มีตัวเลือก"
 

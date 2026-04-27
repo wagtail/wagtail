@@ -1,4 +1,3 @@
-#
 # Translators:
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2022
 # giammi <gian-maria.daffre@giammi.org>, 2022

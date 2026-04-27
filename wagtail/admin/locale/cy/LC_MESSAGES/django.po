@@ -361,11 +361,19 @@ msgstr "Cadw drafft"
 msgid "Yes, convert it"
 msgstr "Ia, ei drosi"
 
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Dileu %(title)s"
+
 msgid "Copy"
 msgstr "Copio"
 
 msgid "Pagination"
 msgstr "Tudaleniad"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Tudalen %(page_number)s o %(num_pages)s."
 
 msgid "Previous"
 msgstr "Blaenorol"
@@ -375,6 +383,10 @@ msgstr "Nesaf"
 
 msgid "Confirm"
 msgstr "Cadarnhau"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Ychwanegu %(label)s"
 
 msgid "Move up"
 msgstr "Symyd i fyny"
@@ -484,12 +496,28 @@ msgstr "Archwilio"
 msgid "More options for '%(title)s'"
 msgstr "Fwy o opsiynau i '%(title)s'"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Ychwanegu %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Methwyd creu y %(model_name)s oherwydd gwallau."
+
 msgid "Editing"
 msgstr "Golygu"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Nid oedd modd cadw'r %(model_name)s oherwydd gwallau."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' wedi'i ddileu."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Ydych chi'n siwr eich fod chi eisio dileu %(model_name)s?"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -497,6 +525,10 @@ msgstr "Golygu %(object)s"
 
 msgid "View live"
 msgstr "Gweld in fyw"
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Golygu %(page_type)s"
 
 msgid "Site"
 msgstr "Safle"
@@ -512,6 +544,10 @@ msgstr "Analluogi"
 
 msgid "Enable"
 msgstr "Galluogi"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Golygu %(task_type)s"
 
 msgid "Clear choice"
 msgstr "Dewis clir"

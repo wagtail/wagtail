@@ -438,6 +438,10 @@ msgstr "Копирай"
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавете дъщерна страница към '%(title)s'"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Страница %(page_number)s от %(num_pages)s."
+
 msgid "Previous"
 msgstr "Предишно"
 
@@ -452,6 +456,10 @@ msgstr "Добави дъщерна страница"
 
 msgid "Enter a search term above"
 msgstr "Добавете дума за търсене по-горе"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Добави %(label)s"
 
 msgid "Move up"
 msgstr "Нагоре"
@@ -513,6 +521,10 @@ msgstr "Заключи"
 
 msgid "Status: "
 msgstr "Статус:"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "по %(user)s"
 
 msgid "Loading"
 msgstr "Зареждане"
@@ -580,8 +592,28 @@ msgstr "Парола"
 msgid "Home"
 msgstr "Начало"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' обновен."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' е създаден"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Добави %(model_name)s"
+
 msgid "Editing"
 msgstr "Редактиране"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' изтрит."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Сигурен ли сте, че искате да изтриете %(model_name)s?"
 
 msgid "Dashboard"
 msgstr "Работно Табло"
@@ -601,6 +633,10 @@ msgid "Page '%(page_title)s' deleted."
 msgstr "Страница '%(page_title)s' е изтрита."
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "Редакция на %(page_type)s"
+
+#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Страница '%(page_title)s' преместена."
 
@@ -614,6 +650,10 @@ msgstr "Страници използващи"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Страница '%(page_title)s' не очаква да бъде модерирана."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Редакция на %(task_type)s"
 
 msgid "Choose an item"
 msgstr "Изберете обект"

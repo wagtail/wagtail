@@ -118,7 +118,7 @@ class Command(BaseCommand):
         # passed, run it regardless (and set any_problems_fixed=True, since we don't have a way to
         # test whether anything was actually fixed in that process)
         if bad_depth or bad_numchild or fix_paths:
-            model.fix_tree(destructive=False, fix_paths=fix_paths)
+            model.fix_tree(fix_paths=fix_paths)
             any_problems_fixed = True
 
         if any_problems_fixed:

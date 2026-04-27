@@ -781,6 +781,11 @@ msgstr ""
 "ކުރެވިއްޖެއެވެ."
 
 #, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr ""
+"\\&quot;%(task)s\\&quot; ގެ ތެރޭގައި \\&quot;%(title)s\\&quot; ޕޭޖް ރިޖެކްޓް ކުރެވިއްޖެއެވެ."
+
+#, python-format
 msgid "The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\"."
 msgstr ""
 "\\&quot;%(task)s\\&quot; ގެ ތެރޭގައި %(model_name)s \\&quot;%(title)s\\&quot; "
@@ -1208,6 +1213,10 @@ msgstr "މާފަށް އެދެން، އެއްވެސް ޞަފްޙާއެއް <em>%(
 
 msgid "Enter a search term above"
 msgstr "މަތީގައިވާ ސަރޗް ޓާރމްއެއް ލިޔެލާށެވެ"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "%(label)s އިތުރުކުރުން"
 
 msgid "Move up"
 msgstr "މައްޗަށް ދޭ"

@@ -282,6 +282,10 @@ msgstr "Uživatelské jméno"
 msgid "Admin"
 msgstr "Admin"
 
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Uživatel '%(object)s' byl vytvořen."
+
 msgid "Add user"
 msgstr "Přidat uživatele"
 

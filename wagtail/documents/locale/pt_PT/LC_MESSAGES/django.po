@@ -142,6 +142,10 @@ msgstr "Não, não apagar"
 msgid "Latest documents"
 msgstr "Últimos documentos"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Desculpe, nenhum documento corresponde a \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ainda não carregou nenhum documento para esta coleção."
 

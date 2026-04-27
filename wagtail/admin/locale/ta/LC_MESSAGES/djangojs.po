@@ -1,4 +1,3 @@
-#
 # Translators:
 # Ramakrishnan Sathyanarayanan, 2026
 #

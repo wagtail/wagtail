@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,35 +48,43 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: models.py:92 models.py:93
+#: models.py:71
+msgid "query"
+msgstr ""
+
+#: models.py:72
+msgid "queries"
+msgstr ""
+
+#: models.py:96 models.py:97
 msgid "Query Daily Hits"
 msgstr ""
 
-#: models.py:102
+#: models.py:106
 msgid "page"
 msgstr ""
 
-#: models.py:103
+#: models.py:107
 msgid "Choose an internal page for this promotion"
 msgstr ""
 
-#: models.py:109
+#: models.py:113
 msgid "External link URL"
 msgstr ""
 
-#: models.py:110
+#: models.py:114
 msgid "Alternatively, use an external link for this promotion"
 msgstr ""
 
-#: models.py:119
+#: models.py:123
 msgid "description"
 msgstr ""
 
-#: models.py:120
+#: models.py:124
 msgid "Applies to internal page or external link"
 msgstr ""
 
-#: models.py:154
+#: models.py:158
 msgid "search promotion"
 msgstr ""
 

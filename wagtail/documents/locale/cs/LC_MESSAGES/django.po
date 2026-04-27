@@ -89,6 +89,11 @@ msgstr "Ne, nemazat"
 msgid "Latest documents"
 msgstr "Poslední dokumenty"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Bohužel, výrazu \"<em>%(search_query)s</em>\" neodpovídají žádné dokumenty"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Zatím jste do kolekce nenahráli žádné dokumenty."
 

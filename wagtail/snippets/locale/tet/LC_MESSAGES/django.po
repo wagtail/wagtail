@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Mario <mario@catalpa.io>, 2026
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
@@ -10,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,20 @@ msgstr "Publika"
 msgid "Submit for moderation"
 msgstr "Submete ba moderasaun"
 
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Submete tiha ona ba %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Submete ba %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Hahu tiha ona workflow"
+
+msgid "Cancel workflow "
+msgstr "Kansela workflow"
+
 msgid "Unpublish"
 msgstr "La publika "
 
@@ -33,6 +48,10 @@ msgstr "Rai"
 
 msgid "Locked"
 msgstr "Xavi tiha ona"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)sno Publika"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
@@ -53,29 +72,66 @@ msgstr "Hamoos"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
-msgstr "Ita boot hakarak hamoos %(snippet_type_name)s ka?"
+msgstr "Ita-boot serteza hakarak hamoos %(snippet_type_name)s ka?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
-msgstr "Hamoos %(count)s %(snippet_type_name)s ka?"
+msgstr "Ita-boot serteza hakarak hamoos %(count)s %(snippet_type_name)s ka?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Ita-boot laiha permisaun atu hamoos %(snippet_type_name)s ne'e"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Ita-boot laiha permisaun atu hamoos %(snippet_plural_name)s sira ne'e"
 
 msgid "Yes, delete"
-msgstr "Sim hammos"
+msgstr "Loos, hamoos"
 
 msgid "No, don't delete"
 msgstr "Lae, labele hamoos"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Deskulpa, laiha snippet maka koresponde \"<em> %(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Ita-boot seidauk kria snippet %(snippet_type_name)s ruma. Tamba sa <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">la kria ida agora</a>?"
+
+msgid "Scheduling…"
+msgstr "Kalendáriu hela..."
+
 msgid "Publishing…"
 msgstr "Publika hela..."
+
+msgid "Schedule to publish"
+msgstr "Kalendáriu atu publika"
+
+msgid "Publish this version"
+msgstr "Publika versaun ida-ne'e"
 
 msgid "Saving…"
 msgstr "Rai hela..."
 
 msgid "Replace current draft"
-msgstr "Troka rakunnu ida neebe agora"
+msgstr "Troka esbosu agora dadaun"
+
+msgid "Replace current revision"
+msgstr "Troka versaun agora dadaun"
 
 msgid "Save draft"
-msgstr "Salva hanesan esbosu"
+msgstr "Salva esbosu"
+
+msgid "Select all snippets in listing"
+msgstr "Hili snippet sira hotu iha lista"
 
 msgid "Choose"
 msgstr "Hili"
@@ -85,6 +141,21 @@ msgstr "Snippet sira"
 
 msgid "Name"
 msgstr "Naran"
+
+msgid "Instances"
+msgstr "Instánsia sira"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Opsaun barak tan ba '%(title)s'"
+
+#, python-format
+msgid "Request to create %(model_name)s was blocked by hook."
+msgstr "Pedidu atu kria %(model_name)shetan blokeiu husi hook."
+
+#, python-format
+msgid "Request to edit %(model_name)s was blocked by hook."
+msgstr "Pedidu atu hadia %(model_name)s hetan blokeiu husi hook."
 
 msgid "Home"
 msgstr "Uma"

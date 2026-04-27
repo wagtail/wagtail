@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 18:00+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,9 @@ msgstr "ئىزدە"
 msgid "Terms"
 msgstr "ئاتالغۇ"
 
+msgid "Views"
+msgstr "كۆرۈنۈش"
+
 msgid "No results found"
 msgstr "ھېچقانداق نەتىجە تېپىلمىدى"
 
@@ -163,6 +166,9 @@ msgstr "يوق"
 msgid "Date"
 msgstr "چېسلا"
 
+msgid "Search terms"
+msgstr "ئىزدەيدىغان ئاتالغۇ"
+
 msgid "Search term(s)"
 msgstr "ئىزدەيدىغان ئاتالغۇ"
 
@@ -171,6 +177,9 @@ msgstr "يېڭى ئالىي ئىزدەش نەتىجىسىنى قوش"
 
 msgid "Promoted results"
 msgstr "ئالىي نەتىجە"
+
+msgid "Promoted search result"
+msgstr "ئىزدەش نەتىجىسىنى كېڭەيتتى"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

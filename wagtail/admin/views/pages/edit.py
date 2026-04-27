@@ -24,6 +24,7 @@ from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui.autosave import AutosaveIndicator
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
+from wagtail.admin.ui.menus.pages import get_page_header_buttons
 from wagtail.admin.ui.side_panels import (
     ChecksSidePanel,
     CommentsSidePanel,
@@ -1058,6 +1059,18 @@ class EditView(
             locked_for_user=self.locked_for_user,
         )
 
+    @cached_property
+    def header_more_buttons(self):
+        next_url = self.request.path
+        buttons = get_page_header_buttons(
+            page=self.page,
+            user=self.request.user,
+            next_url=next_url,
+            view_name="edit",
+        )
+        buttons.extend(super().header_more_buttons)
+        return buttons
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_perms = self.page.permissions_for_user(self.request.user)
@@ -1109,13 +1122,22 @@ class EditView(
                 "media": media,
                 "autosave_enabled": self.autosave_enabled,
                 "autosave_interval": self.autosave_interval,
-                "autosave_indicator": AutosaveIndicator(),
-                "editing_sessions": self.get_editing_sessions(),
                 "loaded_revision_created_at": self.latest_revision_created_at,
                 "is_partial": self.expects_json_response or self.hydrate_create_view,
                 "hydrate_create_view": self.hydrate_create_view,
             }
         )
+
+        if not self.expects_json_response:
+            # These components do not need to be loaded when rendering partials
+            # for autosave. In particular, `get_editing_sessions` performs
+            # database writes that are not necessary when autosaving.
+            context.update(
+                {
+                    "editing_sessions": self.get_editing_sessions(),
+                    "autosave_indicator": AutosaveIndicator(),
+                }
+            )
 
         return context
 

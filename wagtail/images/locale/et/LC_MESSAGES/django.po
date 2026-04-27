@@ -167,6 +167,10 @@ msgstr "Uus"
 msgid "Latest images"
 msgstr "Uusimad pildid"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Vali %(title)s"
+
 msgid "Choose a format"
 msgstr "Valige vorming"
 

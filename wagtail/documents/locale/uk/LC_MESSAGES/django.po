@@ -140,6 +140,10 @@ msgstr "Ні, не видаляти"
 msgid "Latest documents"
 msgstr "Останні документи"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Вибачте, жоден документ не відповідає \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ви не завантажили жодних документів до цієї колекції."
 

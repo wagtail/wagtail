@@ -1021,6 +1021,10 @@ msgstr "منوی سایت‌ها"
 msgid "Pagination"
 msgstr "صفحه‌بندی"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "صفحه %(page_number)s از %(num_pages)s."
+
 msgid "Previous"
 msgstr "قبلی"
 
@@ -1154,6 +1158,10 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s دفعه استفاده شده"
 msgstr[1] "%(usage_count)s دفعه استفاده شده"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "توسط %(user)s"
 
 msgid "Loading"
 msgstr "در حال بارگذاری"
@@ -1407,8 +1415,28 @@ msgstr ""
 msgid "Inspect"
 msgstr "بازرسی"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "افزودن %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s به دلیل بروز خطا ایجاد نشد"
+
 msgid "Editing"
 msgstr "ویرایش"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "به دلیل بروز خطا %(model_name)s ذخیره نشد."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' حذف شد."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "آیا مطمئن هستید که میخواهید این %(model_name)s را حذف کنید؟"
 
 msgid "Earliest"
 msgstr "اولین"
@@ -1496,6 +1524,10 @@ msgstr "صفحه '%(page_title)s' ایجاد و برای نظارت فرستاد
 #, python-format
 msgid "Page '%(page_title)s' deleted."
 msgstr "صفحه '%(page_title)s' حذف شد."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s در حال ویرایش می باشد."
 
 #, python-format
 msgid ""
@@ -1589,6 +1621,10 @@ msgstr "منتظر بازنگری من"
 
 msgid "Requested By"
 msgstr "درخواست شده توسط"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s در حال ویرایش می باشد."
 
 msgid "Bulleted list"
 msgstr "لیست نقطه‌ای"

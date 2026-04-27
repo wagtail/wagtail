@@ -36,7 +36,7 @@ from wagtail.admin.ui.tables import BaseColumn, Column, TitleColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.admin.views.pages.listing import PageListingMixin
+from wagtail.admin.views.pages.listing import GenericPageFilterSet, PageListingMixin
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import (
     Page,
@@ -427,6 +427,7 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
     paginate_by = 20
     header_icon = "tasks"
     page_title = _("Usage")
+    filterset_class = GenericPageFilterSet
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()

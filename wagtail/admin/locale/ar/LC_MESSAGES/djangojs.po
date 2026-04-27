@@ -1,4 +1,3 @@
-#
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2022
 # Mohammed Abdul gadir <weekmo@aol.com>, 2022

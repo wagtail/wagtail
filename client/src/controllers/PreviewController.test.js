@@ -26,7 +26,7 @@ describe('PreviewController', () => {
   let mockScroll;
   let mockOldIframeLocation;
   let mockNewIframeLocation;
-  let mockA11yResults;
+  let mockCheckerResults;
   let mockExtractedContent;
 
   const identifier = 'w-preview';
@@ -67,7 +67,7 @@ describe('PreviewController', () => {
   global.ResizeObserver = ResizeObserverMock;
 
   function mockAxeResults() {
-    axe.run.mockResolvedValueOnce(mockA11yResults);
+    axe.run.mockResolvedValueOnce(mockCheckerResults);
     axe.utils.sendCommandToFrame.mockImplementationOnce(
       (frame, options, callback) => {
         callback(mockExtractedContent);
@@ -138,28 +138,28 @@ describe('PreviewController', () => {
     </button>
     <div data-side-panel="checks" hidden>
       <h2 id="side-panel-checks-title">Checks</h2>
-      <template id="w-a11y-result-row-template">
-        <div data-a11y-result-row>
+      <template id="w-content-checker-row-template">
+        <div data-content-checker-row>
           <h3>
-            <span data-a11y-result-name></span>
+            <span data-content-checker-name></span>
           </h3>
-          <div data-a11y-result-help></div>
+          <div data-content-checker-help></div>
           <button
-            data-a11y-result-selector
+            data-content-checker-selector
             type="button"
             aria-label="Show issue"
           >
-            <span data-a11y-result-selector-text></span>
+            <span data-content-checker-selector-text></span>
           </button>
         </div>
       </template>
       <h3>Word count: <span data-content-word-count>-</span></h3>
       <h3>Reading time: <span data-content-reading-time>-</span></h3>
       <h3>Readability: <span data-content-readability-score>-</span></h3>
-      <h3>Issues found: <span data-a11y-result-count>-</span></h3>
+      <h3>Issues found: <span data-content-checker-count>-</span></h3>
       <div data-checks-panel></div>
     </div>
-    <script type="application/json" id="accessibility-axe-configuration">
+    <script type="application/json" id="checker-axe-configuration">
       ${JSON.stringify(axeConfig)}
     </script>
   `;
@@ -324,7 +324,7 @@ describe('PreviewController', () => {
       expect(mockScroll).not.toHaveBeenCalled();
     }
 
-    if (mockA11yResults) {
+    if (mockCheckerResults) {
       // Simulate the userbar's Axe being ready and instructing the controller
       // to run Axe from the parent window.
       window.dispatchEvent(
@@ -2265,7 +2265,7 @@ describe('PreviewController', () => {
       document.body.insertAdjacentHTML('beforeend', checksSidePanel);
 
       const mockText = 'Hello world 123'.repeat(100);
-      mockA11yResults = { violations: [] };
+      mockCheckerResults = { violations: [] };
       mockExtractedContent = {
         lang: 'en',
         innerText: mockText,
@@ -2282,7 +2282,7 @@ describe('PreviewController', () => {
     });
 
     it('should run content checks on the preview and render the results', async () => {
-      mockA11yResults = { violations: mockViolations };
+      mockCheckerResults = { violations: mockViolations };
       mockAxeResults();
 
       await initializeOpenedPanel();
@@ -2313,11 +2313,15 @@ describe('PreviewController', () => {
       );
       expect(readabilityScore.textContent.trim()).toEqual('Complex');
 
-      const panelCounter = document.querySelector('[data-a11y-result-count]');
+      const panelCounter = document.querySelector(
+        '[data-content-checker-count]',
+      );
       expect(panelCounter.textContent.trim()).toEqual('2');
 
       const checksPanel = document.querySelector('[data-checks-panel]');
-      const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+      const resultRows = checksPanel.querySelectorAll(
+        '[data-content-checker-row]',
+      );
 
       // Should dispatch the content event with the extracted content and metrics
       expect(events.content).toHaveLength(1);
@@ -2340,35 +2344,35 @@ describe('PreviewController', () => {
       // of Axe's defaults
       expect(
         resultRows[0]
-          .querySelector('[data-a11y-result-name]')
+          .querySelector('[data-content-checker-name]')
           .textContent.trim(),
       ).toEqual('Incorrect heading hierarchy');
       expect(
         resultRows[0]
-          .querySelector('[data-a11y-result-help]')
+          .querySelector('[data-content-checker-help]')
           .textContent.trim(),
       ).toEqual('Avoid skipping levels');
       // Should strip out the #w-preview-iframe selector
       expect(
         resultRows[0]
-          .querySelector('[data-a11y-result-selector]')
+          .querySelector('[data-content-checker-selector]')
           .textContent.trim(),
       ).toEqual('div:nth-child(1) > h4');
 
       // Should use Axe's error message and help text
       expect(
         resultRows[1]
-          .querySelector('[data-a11y-result-name]')
+          .querySelector('[data-content-checker-name]')
           .textContent.trim(),
       ).toEqual('Aside should not be contained in another landmark');
       expect(
         resultRows[1]
-          .querySelector('[data-a11y-result-help]')
+          .querySelector('[data-content-checker-help]')
           .textContent.trim(),
       ).toEqual('Ensure the complementary landmark or aside is at top level');
       // Should strip out the #w-preview-iframe selector
       const selector = resultRows[1].querySelector(
-        '[data-a11y-result-selector]',
+        '[data-content-checker-selector]',
       );
       expect(selector.textContent.trim()).toEqual('aside');
 
@@ -2386,7 +2390,7 @@ describe('PreviewController', () => {
     });
 
     it('should not throw an error if content metrics plugin fails to return the results', async () => {
-      mockA11yResults = { violations: mockViolations };
+      mockCheckerResults = { violations: mockViolations };
       mockExtractedContent = null;
       mockAxeResults();
 
@@ -2413,11 +2417,15 @@ describe('PreviewController', () => {
       const readingTime = document.querySelector('[data-content-reading-time]');
       expect(readingTime.textContent.trim()).toEqual('-');
 
-      const panelCounter = document.querySelector('[data-a11y-result-count]');
+      const panelCounter = document.querySelector(
+        '[data-content-checker-count]',
+      );
       expect(panelCounter.textContent.trim()).toEqual('2');
 
       const checksPanel = document.querySelector('[data-checks-panel]');
-      const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+      const resultRows = checksPanel.querySelectorAll(
+        '[data-content-checker-row]',
+      );
 
       // Should still render accessibility results
       expect(resultRows.length).toEqual(2);
@@ -2429,7 +2437,7 @@ describe('PreviewController', () => {
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledTimes(0);
 
-      mockA11yResults = { violations: mockViolations };
+      mockCheckerResults = { violations: mockViolations };
       mockAxeResults();
 
       // A non-Wagtail message event should not trigger the checks
@@ -2475,13 +2483,13 @@ describe('PreviewController', () => {
       console.error.mockClear();
 
       // Mock two long-running checks
-      mockA11yResults = new Promise((resolve) => {
+      mockCheckerResults = new Promise((resolve) => {
         setTimeout(() => {
           resolve({ violations: [mockViolations[1]] });
         }, 5_000);
       });
       mockAxeResults();
-      mockA11yResults = new Promise((resolve) => {
+      mockCheckerResults = new Promise((resolve) => {
         setTimeout(() => {
           resolve({ violations: [mockViolations[0]] });
         }, 15_000);
@@ -2533,6 +2541,28 @@ describe('PreviewController', () => {
       mockAxeResults();
       const content = await controller.extractContent();
       expect(content).toEqual(mockExtractedContent);
+    });
+
+    it('should compute ContentMetrics on demand', async () => {
+      mockAxeResults();
+      await initializeOpenedPanel();
+      const controller = application.getControllerForElementAndIdentifier(
+        document.querySelector('[data-controller="w-preview"]'),
+        identifier,
+      );
+
+      const content = {
+        lang: 'en',
+        innerText: 'This is a simple one just over 10 words in length.',
+        innerHTML: '<p>This is a simple one just over 10 words in length.</p>',
+      };
+      const metrics = controller.extractMetrics(content);
+      expect(metrics).toMatchObject({
+        wordCount: 11,
+        readingTime: 0,
+        lixScore: expect.closeTo(11, 1),
+        readabilityScore: 'Good',
+      });
     });
 
     it('should not require opening the panel to do content extraction', async () => {
@@ -2768,9 +2798,7 @@ describe('PreviewController', () => {
       });
 
       it('should respect context.exclude', async () => {
-        const config = document.getElementById(
-          'accessibility-axe-configuration',
-        );
+        const config = document.getElementById('checker-axe-configuration');
         config.innerHTML = JSON.stringify({
           ...axeConfig,
           context: {

@@ -428,6 +428,10 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "עמוד %(page_number)s מתוך %(num_pages)s."
+
 msgid "Previous"
 msgstr "קודם"
 
@@ -499,6 +503,10 @@ msgstr "בלתי נעול"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
 
+#, python-format
+msgid "by %(user)s"
+msgstr "מאת %(user)s"
+
 msgid "Edited"
 msgstr "ערוך"
 
@@ -519,6 +527,10 @@ msgstr "סיסמא"
 
 msgid "Home"
 msgstr "לעמוד הבית "
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "הוסף %(model_name)s "
 
 msgid "Editing"
 msgstr "עריכה"
@@ -560,6 +572,10 @@ msgstr "עמוד %(page_title)s נוצר והוזן לעריכה"
 msgid "Page '%(page_title)s' deleted."
 msgstr "עמוד %(page_title)s נמחק"
 
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "עריכת %(page_type)s"
+
 msgid "Owner"
 msgstr "בעלים"
 
@@ -584,6 +600,10 @@ msgstr "עמודים משמשים"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "העמוד %(page_title)s אינו ממתין לעריכה כרגע "
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "עריכת %(task_type)s"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"

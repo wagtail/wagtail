@@ -1,20 +1,52 @@
-#
 # Translators:
-# Mario <mario@catalpa.io>, 2022
 # Loic Teixeira, 2024
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2025
 # Peter Coward <peter@catalpa.io>, 2026
 # Joanico Barros <joanico@catalpa.io>, 2026
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2026
+# Mario <mario@catalpa.io>, 2026
 #
 msgid ""
 msgstr ""
-"Last-Translator: Onorio de Jesus Afonso <onorio@catalpa.io>, 2026\n"
+"Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (https://app.transifex.com/torchbox/teams/8009/"
 "tet/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(Item foun %(number)s iha menu ida-ne'e)"
+
+msgid "(1 new item in this menu)"
+msgstr "(Item foun 1 iha menu ida-ne'e)"
+
+msgid "(New)"
+msgstr "(Foun)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "Erru %(num)s"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "Mins %(num)s"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "Pixel %(num)s"
+
+#. Translators: An item in the time zone selection dropdown, e.g.
+#. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require
+#. a space before the colon.
+msgid "%(time_zone_option)s: %(localized_time_zone_label)s"
+msgstr "%(time_zone_option)s%(localized_time_zone_label)s"
+
+msgid "A network error occurred."
+msgstr "Erru akontese iha rede."
+
+msgid "A server error occurred."
+msgstr "Erru akontese iha servidór."
 
 msgid "Actions"
 msgstr "Asaun sira"
@@ -22,47 +54,124 @@ msgstr "Asaun sira"
 msgid "Add"
 msgstr "Hatama"
 
+msgid "Add a comment"
+msgstr "Aumenta komentáriu"
+
 msgid "Alt text"
 msgstr "Alt testu"
+
+msgid "Are you sure?"
+msgstr "Ita-boot serteza duni?"
+
+msgid "Autosave in progress…"
+msgstr "auto-salva iha progressu..."
+
+msgid "Blocks"
+msgstr "Bloku sira"
 
 msgid "Broken link"
 msgstr "Ligasaun ladiak"
 
+msgid "Cancel"
+msgstr "Kansela"
+
+msgid "Changes have been autosaved."
+msgstr "Mudansa auto-salva ona"
+
+msgid "Character count:"
+msgstr "Númeru karakter:"
+
 msgid "Close"
 msgstr "Taka"
 
+msgid "Collapse all"
+msgstr "Sobu hotu"
+
+msgid "Comment"
+msgstr "Komentáriu"
+
+#. Translators: denotes the readability of a difficult text.
+msgid "Complex"
+msgstr "Kompleksu"
+
 msgid "Dashboard"
-msgstr "Painel kontrolu"
+msgstr "Pajina analisa"
+
+msgid "Decorative image"
+msgstr "Imajen dekorativa"
 
 msgid "Delete"
 msgstr "Hamoos"
 
+msgid "Delete error"
+msgstr "Hamoos erru"
+
+msgid "Deleting"
+msgstr "Hamoos hela"
+
 msgid "Drag"
 msgstr "Rasta"
+
+msgid "Duplicate"
+msgstr "Duplikadu"
 
 msgid "Edit"
 msgstr "Hadia"
 
 msgid "Edit '%(title)s'"
-msgstr " Edit '%(title)s'"
+msgstr " Hadia '%(title)s'"
+
+msgid "Enter your comments..."
+msgstr "Hatama ita nia komentáriu sira..."
+
+msgid "Enter your reply..."
+msgstr "Hatama ita-boot nia resposta..."
+
+msgid "Error while sending preview data."
+msgstr "Erru bainhira haruka dadus previzaun nian."
+
+msgid "Expand all"
+msgstr "Haluan hotu"
+
+#. Translators: denotes the readability of an average text.
+msgid "Fair"
+msgstr "Justu"
+
+msgid "Focus comment"
+msgstr "Focu komentáriu"
+
+msgid "Good"
+msgstr "Diak"
 
 msgid "Horizontal line"
 msgstr "Liña orizontal"
+
+msgid "Insert a block"
+msgstr "Hatama bloku ida"
 
 msgid "Line break"
 msgstr "Linna hafahe"
 
 msgid "Loading…"
-msgstr "Tula"
+msgstr "Karrega hela..."
+
+msgid "Main menu"
+msgstr "Manu prinsipál"
 
 msgid "Missing document"
 msgstr "Dokumentu lakon"
+
+msgid "More actions"
+msgstr "Asaun sira tan"
 
 msgid "Move down"
 msgstr "Muda ba karik"
 
 msgid "Move up"
 msgstr "Muda ba leten"
+
+msgid "No"
+msgstr "Lae"
 
 msgid "No results"
 msgstr "La iha rezultadu"
@@ -76,20 +185,48 @@ msgstr "Explora pajina"
 msgid "Pages"
 msgstr "Pajina sira"
 
+msgid "Pin toolbar"
+msgstr "Hatudu toolbar"
+
 msgid "Preview"
 msgstr "Pré-visualizasaun"
 
 msgid "Reload saved content"
-msgstr "Reload konteúdu ne'ebe salva ona"
+msgstr "Rekarega konteúdu ne'ebé salva ona"
 
 msgid "Reload the page"
-msgstr "Reload pájina"
+msgstr "Rekarega pajina"
+
+msgid "Reply"
+msgstr "Hatan"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Relata erru ida-ne'e ba ita-boot nia administradór website ho informasaun "
+"tuirmai:"
+
+msgid "Resolve"
+msgstr "Rezolve"
+
+msgid "Retry"
+msgstr "Koko fila-fali"
 
 msgid "Save"
 msgstr "Rai"
 
+msgid "Save error"
+msgstr "Salva erru"
+
+msgid "Saving..."
+msgstr "Salva hela..."
+
 msgid "Search"
 msgstr "Buka"
+
+msgid "Search options…"
+msgstr "Buka opsaun sira..."
 
 msgid "See all"
 msgstr "Haree hotu"
@@ -106,6 +243,9 @@ msgstr "Hatudu erru"
 msgid "Show latest content"
 msgstr "Hatudu konteúdu ikus"
 
+msgid "Split block"
+msgstr "Hafahe bloku"
+
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
@@ -119,5 +259,26 @@ msgstr "Numeru minimum sasan %(min_num)d"
 msgid "This field is required."
 msgstr "Presiza hatama dadus nee"
 
+msgid "Toggle section"
+msgstr "Altera seksaun"
+
+msgid "Toggle side panel"
+msgstr "Altera painél sorin"
+
+msgid "Toggle sidebar"
+msgstr "Altera sidebar"
+
+msgid "Unfocus comment"
+msgstr "La foka komentáriu"
+
+msgid "Unpin toolbar"
+msgstr "Hasai toolbar"
+
 msgid "View child pages of '%(title)s'"
 msgstr "Haree pajina oan sira husi '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Hakerek buat ruma ka ketik ‘/’ atu hatama bloku ida"
+
+msgid "Yes"
+msgstr "Loos"

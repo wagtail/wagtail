@@ -1,4 +1,3 @@
-#
 # Translators:
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2022
 # 溝江 智徳 <tomo.mizoe@gmail.com>, 2022

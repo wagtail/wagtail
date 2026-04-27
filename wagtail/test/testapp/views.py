@@ -24,10 +24,11 @@ from wagtail.admin.views.generic import (
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
-from wagtail.admin.viewsets.pages import PageListingViewSet
+from wagtail.admin.viewsets.pages import PageListingViewSet, PageViewSet
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.test.testapp.models import (
     Advert,
+    EventIndex,
     EventPage,
     FeatureCompleteToy,
     JSONBlockCountsStreamModel,
@@ -335,7 +336,7 @@ class EventPageFilterSet(PageListingViewSet.filterset_class):
 
 
 class EventPageIndexView(PageListingViewSet.index_view_class):
-    list_export = ["pk", "title", "audience", "event_date"]
+    list_export = ["pk", "title", "audience", "date_from"]
 
 
 class EventPageListingViewSet(PageListingViewSet):
@@ -351,6 +352,21 @@ class EventPageListingViewSet(PageListingViewSet):
 
 
 event_page_listing_viewset = EventPageListingViewSet("event_pages")
+
+
+class EventPageViewSet(PageViewSet):
+    model = EventPage
+    parent_models = [EventIndex]
+    icon = "calendar"
+    list_display = PageViewSet.columns.copy()
+    list_display.append("audience")
+    list_filter = ["audience"]
+    list_export = ["pk", "title", "audience", "date_from"]
+    list_per_page = 10
+    ordering = ("date_from", "title")
+
+
+event_page_viewset = EventPageViewSet()
 
 
 class PlayView(View):
@@ -387,3 +403,18 @@ class OperaViewSet(PlayViewSet):
 
 
 opera_viewset = OperaViewSet("opera")
+
+
+class AdvertModelForm(forms.ModelForm):
+    class Meta:
+        model = Advert
+        fields = ["text", "url"]
+
+
+class AdvertChooserViewSet(ChooserViewSet):
+    model = Advert
+    register_widget = False
+    creation_form_class = "wagtail.test.testapp.views.AdvertModelForm"
+
+
+advert_chooser_viewset = AdvertChooserViewSet("advert_chooser")

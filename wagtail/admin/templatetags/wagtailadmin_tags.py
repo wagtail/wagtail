@@ -1,12 +1,14 @@
 import datetime
 import re
-from urllib.parse import urljoin
+import warnings
+from urllib.parse import urljoin, urlsplit
 
 from django import template
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.forms.utils import flatatt
 from django.http.request import HttpHeaders
 from django.middleware.csrf import get_token
 from django.shortcuts import resolve_url as resolve_url_func
@@ -34,6 +36,7 @@ from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui import sidebar
 from wagtail.admin.ui.menus import MenuItem
+from wagtail.admin.ui.menus.pages import get_page_header_buttons
 from wagtail.admin.utils import (
     get_admin_base_url,
     get_keyboard_key_labels_from_request,
@@ -56,6 +59,7 @@ from wagtail.models import (
     PageViewRestriction,
 )
 from wagtail.users.utils import get_gravatar_url
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 register = template.Library()
 
@@ -208,7 +212,7 @@ def admin_url_name(obj, action):
 def build_absolute_url(context, url):
     """
     Usage: {% build_absolute_url url %}
-    Returns the absolute URL of the given URL based on the request's host.
+    Returns the protocol-relative URL of the given URL based on the request's host.
     If the request doesn't exist in the context, falls back to
     WAGTAILADMIN_BASE_URL as the base URL.
     If the given URL is already absolute, or the request is a dummy preview
@@ -228,7 +232,10 @@ def build_absolute_url(context, url):
         return url
     # Rewrite relative URLs to absolute URLs based on the request's host, but
     # leave absolute URLs unchanged.
-    return request.build_absolute_uri(url)
+    url = request.build_absolute_uri(url)
+    # Remove the scheme to make it a protocol-relative URL, as Django may not
+    # detect the correct scheme when the request is behind a reverse proxy.
+    return urlsplit(url)._replace(scheme="").geturl()
 
 
 @register.simple_tag
@@ -473,27 +480,25 @@ def page_listing_buttons(context, page, user, next_url=None):
     "wagtailadmin/pages/listing/_page_header_buttons.html", takes_context=True
 )
 def page_header_buttons(context, page, user, view_name):
+    warnings.warn(
+        "`{% page_header_buttons %}` tag is deprecated. "
+        "Use the `register_page_header_buttons` hook instead.",
+        category=RemovedInWagtail80Warning,
+    )
     next_url = context["request"].path
-    button_hooks = hooks.get_hooks("register_page_header_buttons")
-
-    hook_buttons = []
-    for hook in button_hooks:
-        hook_buttons.extend(
-            hook(page=page, user=user, next_url=next_url, view_name=view_name)
-        )
-
-    buttons = []
-    for button in hook_buttons:
-        # Allow hooks to return either Button or MenuItem instances
-        if isinstance(button, MenuItem):
-            if button.is_shown(user):
-                buttons.append(Button.from_menu_item(button))
-        elif button.show:
-            buttons.append(button)
-
+    buttons = get_page_header_buttons(page, user, next_url, view_name)
     buttons.sort()
+    attrs = {
+        # Hide the dropdown when the breadcrumbs are opened or closed, which
+        # would make the dropdown's position off from the toggle button.
+        "data-action": (
+            "w-breadcrumbs:opened@document->w-dropdown#hide "
+            "w-breadcrumbs:closed@document->w-dropdown#hide"
+        ),
+    }
     return {
         "buttons": buttons,
+        "attrs": flatatt(attrs),
     }
 
 

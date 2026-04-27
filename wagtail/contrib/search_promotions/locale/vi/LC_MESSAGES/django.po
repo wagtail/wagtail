@@ -18,6 +18,10 @@ msgstr ""
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Xóa %(query)s"
+
 msgid "Delete"
 msgstr "Xoá"
 

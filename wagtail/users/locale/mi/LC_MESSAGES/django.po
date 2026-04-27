@@ -150,6 +150,10 @@ msgstr "Rongorua"
 msgid "Roles"
 msgstr "Ngā whakatau"
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "Kai whakamahi %(id)s (mukuhia)"
+
 msgid "Active"
 msgstr "hohe"
 
@@ -179,6 +183,10 @@ msgstr "Ingoa kai-whakamahi"
 
 msgid "Admin"
 msgstr "Kaiwhakahaere"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Kai whakamahi '%(object)s' e hanga."
 
 msgid "Add user"
 msgstr "Tāpiri he kai-whakamahi"

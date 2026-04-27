@@ -1,4 +1,3 @@
-#
 # Translators:
 # Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2022
 # Mostafa Heidarian <tabvar@gmail.com>, 2022

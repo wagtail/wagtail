@@ -2470,6 +2470,10 @@ msgstr "%(model_name)s kunde inte sparas på grund av fel."
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' raderad."
 
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Är du säker på att du vill radera %(model_name)s?"
+
 msgid "Earliest"
 msgstr "Tidigast"
 

@@ -60,6 +60,14 @@ msgstr "%(label)s و انتشار"
 msgid "Delete"
 msgstr "حذف"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' حذف شد."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "حذف %(snippet_type_name)s"
+
 msgid "Delete "
 msgstr "حذف"
 
@@ -76,6 +84,10 @@ msgstr "بله حذف شود"
 
 msgid "No, don't delete"
 msgstr "نه، حذف نکن"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "متاسفانه هیچ قطعه ای با <em>%(search_query)s</em> پیدا نشد."
 
 msgid "Publishing…"
 msgstr "درحال انتشار"

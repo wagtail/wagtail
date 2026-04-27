@@ -439,6 +439,7 @@ class EventPage(Page):
         index.SearchField("location"),
         index.SearchField("body"),
         index.FilterField("url_path"),
+        index.FilterField("audience"),
     ]
 
     password_required_template = "tests/event_page_password_required.html"
@@ -1322,9 +1323,9 @@ class FullFeaturedSnippet(
     ClusterableModel,
 ):
     class CountryCode(models.TextChoices):
-        INDONESIA = "ID"
-        PHILIPPINES = "PH"
-        UNITED_KINGDOM = "UK"
+        INDONESIA = "ID", "Indonesia"
+        PHILIPPINES = "PH", "Philippines"
+        UNITED_KINGDOM = "UK", "United Kingdom"
 
     text = models.TextField()
     country_code = models.CharField(

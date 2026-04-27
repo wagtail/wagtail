@@ -1,4 +1,3 @@
-#
 # Translators:
 # mahulst, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022

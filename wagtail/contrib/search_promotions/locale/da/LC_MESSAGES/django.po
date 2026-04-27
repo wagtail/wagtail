@@ -18,6 +18,10 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Slet %(query)s"
+
 msgid "Move up"
 msgstr "Bevæg op"
 

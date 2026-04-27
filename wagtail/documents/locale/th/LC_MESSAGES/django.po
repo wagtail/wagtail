@@ -68,6 +68,10 @@ msgstr "ใช่,ลบทิ้ง"
 msgid "Latest documents"
 msgstr "เอกสารอันล่าสุด"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "ขออภัย,ไม่มีเอกสารที่ตรงกัน \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "คุณยังไม่ได้อัพโหลดเอกสารของชุดนี้"
 

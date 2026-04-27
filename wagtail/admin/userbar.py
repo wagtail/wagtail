@@ -28,16 +28,16 @@ class AdminItem(BaseItem):
     template_name = "wagtailadmin/userbar/item_admin.html"
 
 
-class AccessibilityItem(BaseItem):
-    """A userbar item that runs the accessibility checker."""
+class ContentCheckerItem(BaseItem):
+    """A userbar item that runs the content checker."""
 
     def __init__(self, in_editor=False):
         super().__init__()
         self.in_editor = in_editor
-        """Whether the accessibility checker is being run in the page editor."""
+        """Whether the content checker is being run in the page editor."""
 
     #: The template to use for rendering the item.
-    template_name = "wagtailadmin/userbar/item_accessibility.html"
+    template_name = "wagtailadmin/userbar/item_content_checker.html"
 
     #: A list of CSS selector(s) to test specific parts of the page.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/context.md#the-include-property>`__.
@@ -64,6 +64,7 @@ class AccessibilityItem(BaseItem):
         "link-name",
         "p-as-heading",
         "alt-text-quality",
+        "empty-meta-description",
     ]
 
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
@@ -74,6 +75,7 @@ class AccessibilityItem(BaseItem):
 
     #: A list to add custom Axe rules or override their properties,
     #: alongside with ``axe_custom_checks``. Includes Wagtail’s custom rules.
+    # Always set `enabled`. If omitted, defaults to True and overrides configs in `axe_run_only`.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
     axe_custom_rules = [
         {
@@ -82,7 +84,16 @@ class AccessibilityItem(BaseItem):
             "selector": "img[alt]",
             "tags": ["best-practice"],
             "any": ["check-image-alt-text"],
-            # If omitted, defaults to True and overrides configs in `axe_run_only`.
+            "enabled": True,
+        },
+        {
+            "id": "empty-meta-description",
+            "impact": "moderate",
+            # Axe does not support directly targeting invisible elements.
+            # h1 will help users understand it’s a page-level problem.
+            "selector": "h1",
+            "tags": ["seo"],
+            "any": ["check-empty-meta-description"],
             "enabled": True,
         },
     ]
@@ -94,6 +105,9 @@ class AccessibilityItem(BaseItem):
         {
             "id": "check-image-alt-text",
             "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_"},
+        },
+        {
+            "id": "check-empty-meta-description",
         },
     ]
 
@@ -136,6 +150,10 @@ class AccessibilityItem(BaseItem):
         "alt-text-quality": {
             "error_name": _("Image alt text has inappropriate pattern"),
             "help_text": _("Use meaningful text"),
+        },
+        "empty-meta-description": {
+            "error_name": _("Meta description is empty"),
+            "help_text": _("Add a concise description for search engines"),
         },
     }
 
@@ -218,6 +236,16 @@ class AccessibilityItem(BaseItem):
             parent_context.get("request")
         )
         return context
+
+
+class AccessibilityItem(ContentCheckerItem):
+    def __init_subclass__(cls, **kwargs):
+        warn(
+            "The userbar item 'AccessibilityItem' is deprecated. "
+            "Please use 'ContentCheckerItem' instead.",
+            RemovedInWagtail80Warning,
+        )
+        super().__init_subclass__(**kwargs)
 
 
 class AddPageItem(BaseItem):
@@ -385,7 +413,7 @@ class Userbar(Component):
                     media += item.media
 
             if request:
-                origin = f"{request.scheme}://{request.get_host()}"
+                origin = f"//{request.get_host()}"
             else:
                 origin = get_admin_base_url() or ""
 

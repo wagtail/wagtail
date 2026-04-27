@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,7 +155,7 @@ msgstr ""
 msgid "help text"
 msgstr ""
 
-#: models.py:197 views.py:198
+#: models.py:197 views.py:200
 msgid "Submission date"
 msgstr ""
 
@@ -235,29 +235,29 @@ msgstr ""
 msgid "Page type"
 msgstr ""
 
-#: views.py:85 views.py:315 wagtail_hooks.py:26
+#: views.py:85 views.py:317 wagtail_hooks.py:26
 msgid "Forms"
 msgstr ""
 
-#: views.py:101
+#: views.py:103
 msgid "Title"
 msgstr ""
 
-#: views.py:111
+#: views.py:113
 msgid "Origin"
 msgstr ""
 
-#: views.py:120
+#: views.py:122
 msgid "Pages"
 msgstr ""
 
-#: views.py:150
+#: views.py:152
 #, python-format
 msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: views.py:217
+#: views.py:219
 msgid "Form data"
 msgstr ""

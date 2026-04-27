@@ -80,6 +80,12 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Aroha mai, karekau hē pitopito kōrero e whakataurite ki "
+"\"<em>%(search_query)s</em>\""
+
 msgid "Saving…"
 msgstr "pupuru ana..."
 
