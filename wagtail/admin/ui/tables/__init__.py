@@ -19,6 +19,30 @@ from wagtail.models import Locale
 
 
 class BaseColumn(metaclass=MediaDefiningClass):
+    """
+    A column that encapsulates the header and data cells for rendering.
+
+
+    :param name: The internal name of the column, used to identify it within the table.
+    :param label: The human-readable label for the column header.
+        If not provided, a label will be generated from the name.
+    :param accessor: A dotted path to an attribute accessed from the current
+        row's object, or a callable that takes the current row's object, that
+        returns the value for this column. This is unused by default, but may be
+        used by subclasses such as :class:`Column`.
+    :param classname: Optional CSS classes to apply to all cells in this column.
+    :param sort_key: An optional key for a query parameter that identifies the
+        field by which the table can be sorted when this column's header is
+        clicked. If not provided, the column will not be sortable.
+    :param width: An optional width for the column.
+    :param ascending_title_text: An optional text for the column header's
+        ``title`` attribute when the column is sorted in ascending order. If not
+        provided, a default string will be used that incorporates the column label.
+    :param descending_title_text: An optional text for the column header's
+        ``title`` attribute when the column is sorted in descending order. If not
+        provided, a default string will be used that incorporates the column label.
+    """
+
     class Header:
         # Helper object used for rendering column headers in templates -
         # behaves as a component (i.e. it has a render_html method) but delegates rendering
@@ -41,7 +65,9 @@ class BaseColumn(metaclass=MediaDefiningClass):
             return self.column.render_cell_html(self.instance, parent_context)
 
     header_template_name = "wagtailadmin/tables/column_header.html"
+    """The name of the template used to render the column header."""
     cell_template_name = None
+    """The name of the template used to render a cell of this column."""
 
     def __init__(
         self,
@@ -69,7 +95,7 @@ class BaseColumn(metaclass=MediaDefiningClass):
 
     def get_header_context_data(self, parent_context):
         """
-        Compiles the context dictionary to pass to the header template when rendering the column header
+        Compiles the context dictionary to pass to the header template when rendering the column header.
         """
         table = parent_context["table"]
         return {
@@ -99,7 +125,7 @@ class BaseColumn(metaclass=MediaDefiningClass):
 
     def render_header_html(self, parent_context):
         """
-        Renders the column's header
+        Renders the column's header.
         """
         context = self.get_header_context_data(parent_context)
         return self.header_template.render(context)
@@ -107,7 +133,7 @@ class BaseColumn(metaclass=MediaDefiningClass):
     def get_cell_context_data(self, instance, parent_context):
         """
         Compiles the context dictionary to pass to the cell template when rendering a table cell for
-        the given instance
+        the given instance.
         """
         return {
             "instance": instance,
@@ -119,15 +145,15 @@ class BaseColumn(metaclass=MediaDefiningClass):
 
     def render_cell_html(self, instance, parent_context):
         """
-        Renders a table cell containing data for the given instance
+        Renders a table cell containing data for the given instance.
         """
         context = self.get_cell_context_data(instance, parent_context)
         return self.cell_template.render(context)
 
     def get_cell(self, instance):
         """
-        Return an object encapsulating this column and an item of data, which we can use for
-        rendering a table cell into a template
+        Returns an object encapsulating this column and an item of data, which we can use for
+        rendering a table cell into a template.
         """
         return Column.Cell(self, instance)
 
@@ -140,15 +166,17 @@ class BaseColumn(metaclass=MediaDefiningClass):
 
 
 class Column(BaseColumn):
-    """A column that displays a single field of data from the model"""
+    """A column that displays a single field of data from the model."""
 
     cell_template_name = "wagtailadmin/tables/cell.html"
     empty_value_display = ""
+    """The text to display in cells where the value is empty."""
 
     def get_value(self, instance):
         """
-        Given an instance (i.e. any object containing data), extract the field of data to be
-        displayed in a cell of this column
+        Given an instance (i.e. any object containing data), extracts the field
+        of data to be displayed in a cell of this column. By default, this uses
+        the ``accessor`` to retrieve the value.
         """
         if callable(self.accessor):
             return self.accessor(instance)
@@ -175,7 +203,7 @@ class Column(BaseColumn):
 
 
 class NumberColumn(Column):
-    """A specialised column that displays numbers with locale-aware formatting"""
+    """A specialized column that displays numbers with locale-aware formatting."""
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
@@ -184,9 +212,13 @@ class NumberColumn(Column):
 
 
 class ButtonsColumnMixin:
-    """A mixin for columns that contain buttons"""
+    """
+    A mixin for columns that contain buttons. The column's template should
+    iterate over the ``buttons`` variable in the context to render them.
+    """
 
     buttons = []
+    """A list of button components."""
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
@@ -194,11 +226,44 @@ class ButtonsColumnMixin:
         return context
 
     def get_buttons(self, instance, parent_context):
+        """
+        Returns a list of button components to be supplied as ``buttons`` in the
+        template context.
+        """
         return self.buttons
 
 
 class TitleColumn(Column):
-    """A column where data is styled as a title and wrapped in a link or <label>"""
+    """
+    A column that displays a title wrapped in a link (``<a>``) or ``<label>``.
+    The cell's template has the ability to render action buttons.
+
+    :param url_name: An optional URL pattern name to use for constructing the
+        link URL for each cell in this column.
+    :param get_url: An optional callable that takes the current row's object and
+        returns the URL to link to for that row. If both this and ``url_name``
+        are provided, this takes precedence.
+    :param get_title_id: An optional callable that takes the current row's
+        object and returns a string to use as the id attribute for an element
+        that contains the object's title, such as ``"page_{obj.pk}_title"``.
+        This can be used by other columns (such as
+        :class:`BulkActionsCheckboxColumn`) for screen reader purposes.
+    :param label_prefix: An optional string prefix to use for constructing the
+        ``for`` attribute when the title is rendered as a ``<label>``. The id of
+        the corresponding input element must be in the format of
+        ``"{label_prefix}-{id}"``.
+    :param get_label_id: An optional callable that takes the current row's
+        object and returns a string to use as the ``for`` attribute when the
+        title is rendered as a ``<label>``. If both this and ``label_prefix``
+        are provided, this takes precedence.
+    :param link_classname: An optional string of CSS classes to apply to the
+        ``<a>`` element when the title is wrapped in a link.
+    :param link_attrs: An optional dictionary of additional HTML attributes to
+        apply to the ``<a>`` element when the title is wrapped in a link.
+    :param id_accessor: An optional dotted path to an attribute accessed from
+        the current row's object, that returns the value to use as the id when
+        constructing URLs or label attributes. Defaults to ``"pk"``.
+    """
 
     cell_template_name = "wagtailadmin/tables/title_cell.html"
     empty_value_display = gettext_lazy("(blank)")
@@ -261,7 +326,13 @@ class TitleColumn(Column):
 
 
 class StatusFlagColumn(Column):
-    """Represents a boolean value as a status tag (or lack thereof, if the corresponding label is None)"""
+    """
+    A column that displays a boolean value as a status tag (or lack thereof,
+    if the corresponding label is ``None``).
+
+    :param true_label: The string to display when the value is ``True``.
+    :param false_label: The string to display when the value is ``False``.
+    """
 
     cell_template_name = "wagtailadmin/tables/status_flag_cell.html"
 
@@ -272,7 +343,13 @@ class StatusFlagColumn(Column):
 
 
 class StatusTagColumn(Column):
-    """Represents a status tag"""
+    """
+    A column that displays a status tag.
+
+    :param primary: An optional boolean or callable that takes the current row's
+        object and returns a boolean, indicating whether the status tag should
+        be styled as "primary".
+    """
 
     cell_template_name = "wagtailadmin/tables/status_tag_cell.html"
 
@@ -292,7 +369,10 @@ class StatusTagColumn(Column):
 
 
 class BooleanColumn(Column):
-    """Represents a True/False/None value as a tick/cross/question icon"""
+    """
+    A column that displays a ``True``/``False``/``None`` value as a
+    tick/cross/question icon.
+    """
 
     cell_template_name = "wagtailadmin/tables/boolean_cell.html"
 
@@ -304,7 +384,7 @@ class BooleanColumn(Column):
 
 
 class LiveStatusTagColumn(StatusTagColumn):
-    """Represents a live/draft status tag"""
+    """A column that displays a live/draft status tag."""
 
     def __init__(self, **kwargs):
         super().__init__(
@@ -317,7 +397,7 @@ class LiveStatusTagColumn(StatusTagColumn):
 
 
 class LocaleColumn(Column):
-    """Represents a Locale label."""
+    """A column that displays a :class:`~wagtail.models.Locale` label."""
 
     cell_template_name = "wagtailadmin/tables/locale_cell.html"
 
@@ -342,13 +422,16 @@ class LocaleColumn(Column):
 
 
 class DateColumn(Column):
-    """Outputs a date in human-readable format"""
+    """A column that displays a date in human-readable format."""
 
     cell_template_name = "wagtailadmin/tables/date_cell.html"
 
 
 class UpdatedAtColumn(DateColumn):
-    """Outputs the _updated_at date annotation in human-readable format"""
+    """
+    A column that displays the ``_updated_at`` date annotation in
+    human-readable format.
+    """
 
     def __init__(self, **kwargs):
         super().__init__(
@@ -360,7 +443,11 @@ class UpdatedAtColumn(DateColumn):
 
 
 class UserColumn(Column):
-    """Outputs the username and avatar for a user"""
+    """
+    A column that displays the username and avatar for a user.
+
+    :param blank_display_name: The text to display when the user's name is empty.
+    """
 
     cell_template_name = "wagtailadmin/tables/user_cell.html"
 
@@ -387,9 +474,12 @@ class BulkActionsCheckboxColumn(BaseColumn):
     """
     A checkbox column for the bulk actions feature.
 
-    When using this column, there should be another column (e.g. a TitleColumn)
-    that has an element with the id "{obj_type}_{instance.pk}_title" that contains
+    When using this column, there should be another column (such as a :class:`TitleColumn`)
+    that has an element with the id ``{obj_type}_{instance.pk}_title`` that contains
     the title of the object (and nothing else) for screen reader purposes.
+
+    :param obj_type: A string representing the type of object being listed, used
+        to construct the ``aria-describedby`` attribute for the checkboxes.
     """
 
     header_template_name = "wagtailadmin/bulk_actions/select_all_checkbox_cell.html"
@@ -414,10 +504,27 @@ class BulkActionsCheckboxColumn(BaseColumn):
 
 
 class UsageCountColumn(Column):
+    """
+    A column that displays the number of times an object has been referenced.
+    """
+
     cell_template_name = "wagtailadmin/tables/usage_count_column_cell.html"
 
 
 class ReferencesColumn(Column):
+    """
+    A column that displays references that were extracted from the current row's
+    object.
+
+    :param get_url: An optional callable that takes the current row's object and
+        returns the URL to link to. If not provided, the references will be
+        displayed without a link.
+    :param describe_on_delete: An optional boolean that determines whether to
+        display a description of the reference's ``on_delete`` behavior. Useful
+        when confirming deletion of an object that has references to it, so the
+        user can understand the consequences of deleting the object.
+    """
+
     cell_template_name = "wagtailadmin/tables/references_cell.html"
 
     def __init__(
@@ -447,6 +554,11 @@ class ReferencesColumn(Column):
 
 
 class DownloadColumn(Column):
+    """
+    A column that displays the object's ``url`` property as a link to download
+    a file.
+    """
+
     cell_template_name = "wagtailadmin/tables/download_cell.html"
 
     def get_cell_context_data(self, instance, parent_context):
@@ -456,7 +568,10 @@ class DownloadColumn(Column):
 
 
 class RelatedObjectsColumn(Column):
-    """Outputs a list of objects related to the object through a one-to-many relationship"""
+    """
+    A column that displays a list of objects related to the object through a
+    one-to-many relationship.
+    """
 
     cell_template_name = "wagtailadmin/tables/related_objects_cell.html"
 
@@ -465,6 +580,27 @@ class RelatedObjectsColumn(Column):
 
 
 class Table(Component):
+    """
+    A component that renders a table.
+
+    :param columns: An iterable of :class:`Column` objects representing the
+        columns of the table.
+    :param data: An iterable of objects representing the rows of the table. Each
+        object will be passed to the columns to extract the data for each cell.
+    :param template_name: An optional name of the template used to render the
+        table. If not provided, a default template will be used.
+    :param base_url: An optional base URL to use for constructing sorting links
+        in the column headers.
+    :param ordering: An optional string representing the current ordering of the
+        table, used to determine the state of the sorting links in the column
+        headers. This should match the sort_key of one of the columns,
+        optionally prefixed with "-" to indicate descending order.
+    :param classname: Optional CSS classes to apply to the ``<table>`` element.
+    :param attrs: An optional dictionary of additional HTML attributes to apply
+        to the ``<table>`` element.
+    :param caption: An optional caption for the table.
+    """
+
     template_name = "wagtailadmin/tables/table.html"
     classname = "listing"
     header_row_classname = ""
