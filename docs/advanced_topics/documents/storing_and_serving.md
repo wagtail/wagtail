@@ -34,9 +34,10 @@ When using the `serve_view` method:
 -   Documents are served as downloads rather than displayed in the browser (unless specified explicitly via [](wagtaildocs_inline_content_types)) - this ensures that if the document is a type that can contain scripts (such as HTML or SVG), the browser is prevented from executing them.
 -   However, since the document is served through the Django application server, this may consume more server resources than serving the document directly from the web server.
 
-The alternative serve methods `'direct'` and `'redirect'` work by serving the documents directly from `MEDIA_ROOT`. This means it is not possible to block direct access to the `documents` subdirectory, and so users may bypass permission checks by accessing the direct URL. Also, in the case that users with access to the Wagtail admin are not fully trusted, you will need to take additional steps to prevent the execution of scripts in documents:
+The alternative serve methods `'direct'` and `'redirect'` work by serving the documents directly from `MEDIA_ROOT`. This means it is not possible to block direct access to the `documents` subdirectory, and so users may bypass permission checks by accessing the direct URL. Also, in the case that users with access to the Wagtail admin are not fully trusted, you will need to take additional steps to prevent common issues such as execution of scripts in documents:
 
 -   The [](wagtaildocs_extensions) setting may be used to restrict uploaded documents to an "allow list" of safe types.
+-   The [](wagtaildocs_max_upload_size) setting may be used to bound the size of uploaded documents and limit denial-of-service risk.
 -   The web server can be configured to return a `Content-Security-Policy: default-src 'none'` header for files within the `documents` subdirectory, which will prevent the execution of scripts in those files.
 -   The web server can be configured to return a `Content-Disposition: attachment` header for files within the `documents` subdirectory, which will force the browser to download the file rather than displaying it inline.
 
@@ -75,6 +76,20 @@ It also validates the extensions using Django's {class}`~django.core.validators.
 
 ```python
 WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
+```
+
+## File size
+
+Use the [WAGTAILDOCS_MAX_UPLOAD_SIZE](wagtaildocs_max_upload_size) setting to limit how large uploaded documents can be (in bytes). This helps protect against denial-of-service from oversized uploads. For example:
+
+```python
+WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
+```
+
+If unset, Wagtail allows any file size (subject to Django's [`DATA_UPLOAD_MAX_MEMORY_SIZE`](inv:django#DATA_UPLOAD_MAX_MEMORY_SIZE) and [`FILE_UPLOAD_MAX_MEMORY_SIZE`](inv:django#FILE_UPLOAD_MAX_MEMORY_SIZE), and any limits enforced by your web server or storage backend).
+
+```{versionadded} 7.4
+The `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting was added.
 ```
 
 ## Document password required template
