@@ -1,20 +1,28 @@
 /* global ModalWorkflow */
+import { domReady } from '../../utils/domReady';
+import { encodeForm } from '../../utils/encodeForm';
 
-import $ from 'jquery';
-
-$(() => {
-  /* Interface to set permissions from the explorer / editor */
-  function setPrivacy() {
+domReady().then(() => {
+  function openPrivacyModal(url) {
     ModalWorkflow({
       dialogId: 'set-privacy',
-      url: this.getAttribute('data-url'),
+      url,
       onload: {
         set_privacy(modal) {
-          $('form', modal.body).on('submit', function handleSubmit() {
-            modal.postForm(this.action, $(this).serialize());
-            return false;
+          const form = modal.body.querySelector('form');
+          if (!form) return;
+
+          form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const action = form.getAttribute('action');
+            if (!action) return;
+
+            const body = encodeForm(form);
+            modal.postForm(action, body);
           });
         },
+
         set_privacy_done(modal, { is_public: isPublic }) {
           document.dispatchEvent(
             new CustomEvent('w-privacy:changed', {
@@ -27,13 +35,22 @@ $(() => {
         },
       },
     });
-    return false;
   }
 
-  $('[data-a11y-dialog-show="set-privacy"]').on('click', setPrivacy);
+  function initPrivacySwitch() {
+    const buttons = document.querySelectorAll(
+      '[data-a11y-dialog-show="set-privacy"]',
+    );
+    if (!buttons.length) return;
 
-  // Re-bind after side panel content is refreshed e.g. via autosave
-  $(document).on('w-autosave:success', () => {
-    $('[data-a11y-dialog-show="set-privacy"]').on('click', setPrivacy);
-  });
+    buttons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        const url = button.getAttribute('data-url');
+        openPrivacyModal(url);
+      });
+    });
+  }
+
+  initPrivacySwitch();
 });
