@@ -66,8 +66,8 @@ testing = [
   "Jinja2>=3.0,<3.2",
   "boto3>=1.28,<2",
   "freezegun>=0.3.8",
-  "azure-mgmt-cdn>=12.0,<13.0",
-  "azure-mgmt-frontdoor>=1.0,<1.1",
+  "azure-mgmt-cdn>=12.0,<14.0",
+  "azure-mgmt-frontdoor>=1.0,<1.3",
   "django-pattern-library>=0.7",
   "responses>=0.25,<1",
   # For coverage and PEP8 linting
