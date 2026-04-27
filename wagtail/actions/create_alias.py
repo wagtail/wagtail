@@ -87,6 +87,15 @@ class CreatePageAliasAction:
         if (
             self.user
             and not skip_permission_checks
+            and not self.page.permissions_for_user(self.user).can_copy_to(parent)
+        ):
+            raise CreatePageAliasPermissionError(
+                "You do not have permission to create an alias of this page."
+            )
+
+        if (
+            self.user
+            and not skip_permission_checks
             and not parent.permissions_for_user(self.user).can_publish_subpage()
         ):
             raise CreatePageAliasPermissionError(
