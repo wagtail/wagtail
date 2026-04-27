@@ -12,7 +12,7 @@ Wagtail uses the [`STORAGES["default"]`](inv:django#STORAGES) setting to determi
 
 Document serving is controlled by the [WAGTAILDOCS_SERVE_METHOD](wagtaildocs_serve_method) method. It provides a number of serving methods which trade some of the strictness of the permission check that occurs when normally handling a document request for performance.
 
-The serving methods provided are `direct`, `redirect` and `serve_view`, with `redirect` method being the default when `WAGTAILDOCS_SERVE_METHOD` is unspecified or set to `None`. For example:
+The serving methods provided are `direct`, `redirect` and `serve_view`. When `WAGTAILDOCS_SERVE_METHOD` is unspecified or set to `None`, Wagtail picks the default based on the active storage backend: `serve_view` for local storage, and `redirect` for remote storage backends that expose a URL but not a local filesystem path. For example:
 
 ```python
 WAGTAILDOCS_SERVE_METHOD = "redirect"
