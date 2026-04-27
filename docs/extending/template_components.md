@@ -7,6 +7,8 @@ Working with objects that know how to render themselves as elements on an HTML t
 Wagtail implements this pattern using a standard object type known as a **component**. A component is a Python object that provides the following methods and properties:
 
 ```{eval-rst}
+.. class:: wagtail.admin.ui.components.Component
+
 .. method:: render_html(self, parent_context=None)
 
 Given a context dictionary from the calling template (which may be a :py:class:`Context <django.template.Context>` object or a plain ``dict`` of context variables), returns the string representation to be inserted into the template. This will be subject to Django's HTML escaping rules, so a return value consisting of HTML should typically be returned as a :py:mod:`SafeString <django.utils.safestring>` instance.
