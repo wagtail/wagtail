@@ -94,9 +94,12 @@ class CopyForm(forms.Form):
         # New parent page given in form or parent of source, if parent_page is empty
         parent_page = cleaned_data.get("new_parent_page") or self.page.get_parent()
 
+        # creating an alias requires publish permission
+        is_publishing = cleaned_data.get("publish_copies") or cleaned_data.get("alias")
+
         # If the user requested to publish the copies, check they're allowed to publish at the destination
         if (
-            cleaned_data.get("publish_copies")
+            is_publishing
             and not parent_page.permissions_for_user(self.user).can_publish_subpage()
         ):
             self._errors["new_parent_page"] = self.error_class(

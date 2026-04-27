@@ -556,6 +556,52 @@ class TestPageCopy(WagtailTestUtils, TestCase):
             any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
+    def test_page_create_alias_no_publish_permission_post(self):
+        # Users without publish permission cannot create aliases
+
+        # Grant publish permission on a page we are not copying to. This ensures that we are specifically
+        # checking permission at the destination, not just checking that the user has publish permission
+        # somewhere.
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="publish"
+        )
+
+        self.user.is_superuser = False
+        self.user.groups.add(editors)
+        self.user.save()
+
+        # Post
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": True,
+            "publish_copies": False,
+            "alias": True,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)), post_data
+        )
+
+        # Check that the form is reshown with an validation error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"],
+            "new_parent_page",
+            f'You do not have permission to publish pages at "{self.root_page.title}"',
+        )
+
+        # The copy should not have been created
+        self.assertFalse(
+            self.root_page.get_children().filter(slug="hello-world-2").exists()
+        )
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
     def test_page_copy_as_editor_without_publishing(self):
         """
         A user without publish permission should be able to copy pages without publishing them
@@ -662,6 +708,58 @@ class TestPageCopy(WagtailTestUtils, TestCase):
         )
         self.assertFalse(unpublished_child_page_copy.live)
         self.assertTrue(unpublished_child_page_copy.has_unpublished_changes)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_create_alias_as_editor_with_publishing_permission_at_destination(self):
+        """
+        A user with publish permission for a specific page should be able to create an alias under that page and publish it
+        """
+        self.user.is_superuser = False
+        editors = Group.objects.get(name="Editors")
+        GroupPagePermission.objects.create(
+            group=editors, page=self.sibling_page, permission_type="publish"
+        )
+        self.user.groups.add(editors)
+        self.user.save()
+
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.sibling_page.id),
+            "copy_subpages": True,
+            "publish_copies": False,
+            "alias": True,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)), post_data
+        )
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.sibling_page.id,))
+        )
+
+        self.sibling_page.refresh_from_db()  # Refresh to ensure we have the latest child count
+
+        # Get copy
+        page_copy = (
+            self.sibling_page.get_children().filter(slug="hello-world-2").first()
+        )
+
+        # Check that the copy exists
+        self.assertIsNotNone(page_copy)
+
+        # Check that the copy is live and is an alias
+        self.assertTrue(page_copy.live)
+        self.assertFalse(page_copy.has_unpublished_changes)
+        self.assertEqual(page_copy.alias_of_id, self.test_page.id)
+
+        # Check that the owner of the page is set correctly
+        self.assertEqual(page_copy.owner, self.user)
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
