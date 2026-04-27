@@ -40,6 +40,7 @@ The alternative serve methods `'direct'` and `'redirect'` work by serving the do
 -   The [](wagtaildocs_max_upload_size) setting may be used to bound the size of uploaded documents and limit denial-of-service risk.
 -   The web server can be configured to return a `Content-Security-Policy: default-src 'none'` header for files within the `documents` subdirectory, which will prevent the execution of scripts in those files.
 -   The web server can be configured to return a `Content-Disposition: attachment` header for files within the `documents` subdirectory, which will force the browser to download the file rather than displaying it inline.
+-   See [](document_antivirus_scanning) for guidance on rejecting malicious uploads before they are stored.
 
 If a remote ("cloud") storage backend is used, the serve method will default to `'redirect'` and the document will be served directly from the cloud storage file url. In this case (as with `'direct'`), Wagtail has less control over how the file is served and users may be able to bypass permission checks, and scripts within documents may be executed (depending on the cloud storage service's configuration). However, whilst cross-site scripts attacks are still possible, the impact is reduced as the document is usually served from a different domain to the main site.
 
@@ -91,6 +92,17 @@ If unset, Wagtail allows any file size (subject to Django's [`DATA_UPLOAD_MAX_ME
 ```{versionadded} 7.4
 The `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting was added.
 ```
+
+(document_antivirus_scanning)=
+
+## Anti-virus scanning
+
+Wagtail does not perform anti-virus (AV) scanning on uploaded documents. For sites with a need for this kind of validation of Wagtail files, two common patterns are:
+
+- **Storage-side scanning** - when documents are stored in a remote bucket (such as Amazon S3), use a managed scanner that quarantines or deletes infected objects after upload.
+- **Editor-side scanning** - reject infected files before they are stored, by extending the upload form via [WAGTAILDOCS_DOCUMENT_FORM_BASE](wagtaildocs_document_form_base) and calling out to a scanner. Returning a `ValidationError` will surface the message to the editor.
+
+For most sites, storage-side scanning is the lowest-risk option as it does not block uploads on the scanner being available, and naturally extends to files written outside of Wagtail (for example by background tasks or other applications writing to the same object storage).
 
 ## Document password required template
 
