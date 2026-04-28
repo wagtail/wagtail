@@ -2,7 +2,11 @@ import copy
 
 from django import VERSION as DJANGO_VERSION
 from django import forms
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import (
+    FieldDoesNotExist,
+    ImproperlyConfigured,
+    ValidationError,
+)
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -16,6 +20,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.utils.registry import ModelFieldRegistry
 
@@ -187,6 +192,58 @@ class WagtailAdminModelForm(
 
         self.is_deferred_validation = False
 
+    def _get_server_mutated_field_updates(self):
+        """
+        Return (name, value) pairs for form fields where the saved instance differs from
+        the POST data (e.g. model ``save()`` side effects or ``post_save`` signals).
+        The autosave client applies these so the next submission does not overwrite
+        server-authoritative values with stale input (e.g. title in the header vs the
+        title field).
+        """
+        if not self.is_bound or not getattr(self.instance, "pk", None):
+            return []
+
+        if self.prefix:
+            return []
+
+        updates = []
+        for field_name, field in self.fields.items():
+            data_key = self.add_prefix(field_name)
+            if data_key not in self.data:
+                continue
+            try:
+                model_field = self.instance._meta.get_field(field_name)
+            except FieldDoesNotExist:
+                continue
+            if not model_field.concrete:
+                continue
+            if model_field.primary_key:
+                continue
+            if isinstance(model_field, (models.ManyToManyField, models.FileField)):
+                continue
+
+            if isinstance(model_field, models.BooleanField):
+                continue
+            if isinstance(model_field, (RichTextField, StreamField)):
+                continue
+
+            raw_submitted = self.data.get(data_key)
+            instance_value = getattr(self.instance, field_name)
+
+            try:
+                submitted_python = field.to_python(raw_submitted)
+            except ValidationError:
+                continue
+
+            if submitted_python != instance_value:
+                prepared = field.prepare_value(instance_value)
+                if prepared is None:
+                    prepared = ""
+                # JSON keys must match HTML input names (include form prefix when used).
+                updates.append((data_key, prepared))
+
+        return updates
+
     def get_field_updates_for_resave(self):
         """
         Following a successful save (as a background HTTP request), returns a list of
@@ -220,8 +277,7 @@ class WagtailAdminModelForm(
                         # instance has a PK but the form data doesn't include it - it must have
                         # been created during the save we just performed
                         updates.append((id_field_name, str(form.instance.pk)))
-
-        return updates
+        return self._get_server_mutated_field_updates() + updates
 
     class Meta:
         formfield_callback = formfield_for_dbfield
