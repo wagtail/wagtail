@@ -75,6 +75,7 @@ extensions = [
 autodoc_type_aliases = {
     "File": "django.core.files.File",
 }
+autodoc_member_order = "groupwise"
 
 # Silence warnings that are not due to missing references:
 nitpick_ignore = [
@@ -434,8 +435,17 @@ def setup(app):
         indextemplate="pair: %s; field lookup type",
     )
 
-    # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
-    # type annotations - see https://github.com/wagtail/wagtail/pull/12777
     from django.http import HttpRequest
 
-    HttpRequest.__module__ = "django.http"
+    from wagtail.admin.ui.components import Component
+
+    module_overrides = {
+        # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
+        # type annotations - see https://github.com/wagtail/wagtail/pull/12777
+        HttpRequest: "django.http",
+        # Document `Component` as part of our own API instead of Laces for
+        # cross-linking, as the latter does not use Sphinx for docs.
+        Component: "wagtail.admin.ui.components",
+    }
+    for obj, module in module_overrides.items():
+        obj.__module__ = module
