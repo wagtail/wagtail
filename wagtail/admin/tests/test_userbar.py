@@ -230,6 +230,22 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
 
         self.assertIn("<aside hidden>", content)
 
+    def test_userbar_aside_has_aria_labelledby(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        content = template.render(
+            Context(
+                {
+                    PAGE_TEMPLATE_VAR: self.homepage,
+                    "request": self.dummy_request(self.user),
+                }
+            )
+        )
+
+        soup = self.get_soup(content)
+        aside = soup.find("aside")
+        self.assertIsNotNone(aside)
+        self.assertEqual(aside.get("aria-labelledby"), "wagtail-userbar-trigger")
+
 
 class TestContentCheckerConfig(WagtailTestUtils, TestCase):
     def setUp(self):
