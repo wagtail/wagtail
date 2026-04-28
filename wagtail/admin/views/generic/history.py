@@ -312,7 +312,11 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         return self._annotate_queryset(queryset)
 
     def _annotate_queryset(self, queryset):
-        queryset = queryset.select_related("user", "user__wagtail_userprofile")
+        queryset = queryset.select_related(
+            "content_type",
+            "user",
+            "user__wagtail_userprofile",
+        )
         if isinstance(self.object, RevisionMixin):
             queryset = queryset.select_related("revision").annotate(
                 previous_revision_id=Revision.objects.previous_revision_id_subquery(),

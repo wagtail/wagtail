@@ -6,9 +6,11 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.timezone import now
 
+from wagtail.log_actions import registry as log_registry
 from wagtail.models import Revision
 from wagtail.test.testapp.models import DraftStateCustomPrimaryKeyModel
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.timestamps import render_timestamp
 
 
 class TestSnippetUnschedule(WagtailTestUtils, TestCase):
@@ -99,6 +101,18 @@ class TestSnippetUnschedule(WagtailTestUtils, TestCase):
             Revision.objects.for_instance(self.test_snippet)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
+        )
+
+        log_entry = (
+            log_registry.get_logs_for_instance(self.test_snippet)
+            .filter(action="wagtail.schedule.cancel")
+            .first()
+        )
+        self.assertIsNotNone(log_entry)
+        self.assertEqual(
+            log_entry.message,
+            f"Draft State Custom Primary Key Model unscheduled for publishing "
+            f"at {render_timestamp(self.go_live_at)}",
         )
 
     def test_post_unschedule_view_bad_permissions(self):
