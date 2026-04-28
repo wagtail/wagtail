@@ -140,7 +140,7 @@
     "sortablejs": "^1.15.6",
     "telepath-unpack": "^0.0.4",
     "tippy.js": "^6.3.7",
-    "uuid": "^11.1.0"
+    "uuid": "^14.0.0"
   },
   "scripts": {
     "start": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
