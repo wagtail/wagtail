@@ -165,7 +165,7 @@ class TestRevisions(WagtailTestUtils, TestCase):
             expected_date_string = "Dec. 26, 2014, noon"
 
         self.assertContains(
-            response, f"Page scheduled for publishing at {expected_date_string}"
+            response, f"Event Page scheduled for publishing at {expected_date_string}"
         )
         self.assertContains(response, this_christmas_unschedule_url)
 
