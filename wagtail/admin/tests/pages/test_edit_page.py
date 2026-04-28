@@ -5308,3 +5308,87 @@ class TestCommentOutput(WagtailTestUtils, TestCase):
                 "5. Comment on the top-level of a base JSONField",
             ],
         )
+
+
+class TestPublishUnpublishPublish(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        # Initial version must be saved and published
+        self.page = self.root_page.add_child(
+            instance=StandardIndex(
+                title="Test page for issue 13332",
+                slug="issue-13332",
+                live=False,
+            )
+        )
+        self.page.save_revision().publish()
+        self.user = self.login()
+
+    def test_publish_unpublish_republish_with_inlines(self):
+        # Publish new version and add an inline
+        advert = Advert.objects.create(text="Hello World")
+        post_data = {
+            "title": self.page.title,
+            "slug": self.page.slug,
+            "advert_placements-TOTAL_FORMS": "1",
+            "advert_placements-INITIAL_FORMS": "0",
+            "advert_placements-MIN_NUM_FORMS": "0",
+            "advert_placements-MAX_NUM_FORMS": "1000",
+            "advert_placements-0-id": "",
+            "advert_placements-0-advert": advert.id,
+            "advert_placements-0-colour": "Red",
+            "action-publish": "Publish",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
+        )
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        self.page.refresh_from_db()
+        self.assertTrue(self.page.live)
+        self.assertQuerySetEqual(
+            self.page.advert_placements.all().values_list("colour", flat=True),
+            ["Red"],
+        )
+
+        # Unpublish page
+        response = self.client.post(
+            reverse("wagtailadmin_pages:unpublish", args=(self.page.id,))
+        )
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+        )
+        self.page.refresh_from_db()
+        self.assertFalse(self.page.live)
+
+        # Republish page with same inline
+        # advert_placements-0-id is intentionally empty as a regression test for #13332, existing
+        # data saved in inlines inside revisions will not have a pk associated with it, so we need
+        # to ensure republishing still works as expected. For this case - there should be just one
+        # inline item.
+        post_data = {
+            "title": self.page.title,
+            "slug": self.page.slug,
+            "advert_placements-TOTAL_FORMS": "1",
+            "advert_placements-INITIAL_FORMS": "1",
+            "advert_placements-MIN_NUM_FORMS": "0",
+            "advert_placements-MAX_NUM_FORMS": "1000",
+            "advert_placements-0-id": "",
+            "advert_placements-0-advert": advert.id,
+            "advert_placements-0-colour": "Red",
+            "action-publish": "Publish",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), post_data
+        )
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        self.page.refresh_from_db()
+        self.assertTrue(self.page.live)
+        self.assertQuerySetEqual(
+            self.page.advert_placements.all().values_list("colour", flat=True),
+            ["Red"],
+        )
