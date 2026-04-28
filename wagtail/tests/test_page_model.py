@@ -3087,6 +3087,86 @@ class TestUpdateAliases(TestCase):
             ).exists()
         )
 
+    def test_update_aliases_does_not_update_slug(self):
+        event_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        alias = event_page.create_alias(update_slug="christmas-alias")
+
+        event_page.slug = "xmas"
+        event_page.save()
+
+        event_page.update_aliases()
+
+        alias.refresh_from_db()
+        self.assertEqual(alias.slug, "christmas-alias")
+
+    def test_update_aliases_updates_slug_for_translation(self):
+        event_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        fr_locale = Locale.objects.create(language_code="fr")
+        # Create a translation alias: same translation_key, different locale
+        translation_alias = event_page.copy_for_translation(
+            locale=fr_locale,
+            alias=True,
+            copy_parents=True,
+        )
+        self.assertEqual(translation_alias.slug, "christmas")
+
+        # Create a sibling alias of the translation alias
+        alias_of_translation_alias = translation_alias.create_alias(
+            parent=translation_alias.get_parent(),
+            update_locale=fr_locale,
+            update_slug="merry-christmas",
+        )
+
+        self.assertEqual(alias_of_translation_alias.slug, "merry-christmas")
+
+        event_page.slug = "xmas"
+        event_page.save()
+
+        event_page.update_aliases()
+
+        translation_alias.refresh_from_db()
+        alias_of_translation_alias.refresh_from_db()
+
+        # The translation alias should have its slug updated
+        self.assertEqual(translation_alias.slug, "xmas")
+
+        # The alias of the translation alias should NOT have its slug updated, since it has a custom slug
+        self.assertEqual(alias_of_translation_alias.slug, "merry-christmas")
+
+    def test_update_aliases_uses_different_slug_if_preexisting(self):
+        event_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        fr_locale = Locale.objects.create(language_code="fr")
+        # Create a translation alias: same translation_key, different locale
+        translation_alias = event_page.copy_for_translation(
+            locale=fr_locale,
+            alias=True,
+            copy_parents=True,
+        )
+
+        # Create a sibling alias of the translation alias
+        alias_of_translation_alias = translation_alias.create_alias(
+            parent=translation_alias.get_parent(),
+            update_locale=fr_locale,
+            update_slug="merry-christmas",
+        )
+
+        # Change the original page's slug to be the same as the sibling alias
+        # of the translation alias so that there is a potential clash
+        event_page.slug = "merry-christmas"
+        event_page.save()
+
+        event_page.update_aliases()
+
+        translation_alias.refresh_from_db()
+        alias_of_translation_alias.refresh_from_db()
+
+        # The translation alias should have its slug updated to "merry-christmas-1" since "merry-christmas" is taken by the sibling alias
+        self.assertEqual(translation_alias.slug, "merry-christmas-1")
+
+        # The original page and the sibling alias should keep their slugs
+        self.assertEqual(event_page.slug, "merry-christmas")
+        self.assertEqual(alias_of_translation_alias.slug, "merry-christmas")
+
 
 class TestCopyForTranslation(TestCase):
     fixtures = ["test.json"]
