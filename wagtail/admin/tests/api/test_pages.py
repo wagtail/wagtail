@@ -474,7 +474,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
     # CHILD OF FILTER
 
     # Not applicable to the admin API
-    test_child_of_page_thats_not_in_same_site_gives_error = None
+    test_child_of_page_thats_not_in_same_site_returns_empty = None
 
     def test_child_of_root(self):
         # Only return the homepage as that's the only child of the "root" node
