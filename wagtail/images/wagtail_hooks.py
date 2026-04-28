@@ -119,6 +119,7 @@ def register_image_operations():
         ("avifquality", image_operations.AvifQualityOperation),
         ("format", image_operations.FormatOperation),
         ("bgcolor", image_operations.BackgroundColorOperation),
+        ("pad", image_operations.PadOperation),
     ]
 
 
