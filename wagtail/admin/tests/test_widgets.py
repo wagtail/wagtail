@@ -177,6 +177,8 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertIsNone(widget.get_instance(self.child_page.id + 100))
         self.assertEqual(widget.get_instance(self.child_page), self.child_page)
         self.assertEqual(widget.get_instance(self.child_page.id), self.child_page)
+        self.assertIsNone(widget.get_instance("not-an-id"))
+        self.assertIsNone(widget.get_instance([1, 2, 3]))
 
 
 class TestAdminDateInput(TestCase):
