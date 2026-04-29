@@ -5,7 +5,6 @@ from wagtail.models import Site
 register = template.Library()
 
 
-@register.simple_tag(takes_context=True)
 def routablepageurl(context, page, url_name, *args, **kwargs):
     """
     ``routablepageurl`` is similar to ``pageurl``, but works with
@@ -28,7 +27,6 @@ def routablepageurl(context, page, url_name, *args, **kwargs):
     return base_url + routed_url
 
 
-@register.simple_tag(takes_context=True)
 def routablefullpageurl(context, page, url_name, *args, **kwargs):
     """
     ``routablefullpageurl`` is similar to ``routablepageurl``, but returns
@@ -40,3 +38,7 @@ def routablefullpageurl(context, page, url_name, *args, **kwargs):
     if not base_url.endswith("/"):
         base_url += "/"
     return base_url + routed_url
+
+
+register.simple_tag(takes_context=True)(routablepageurl)
+register.simple_tag(takes_context=True)(routablefullpageurl)
