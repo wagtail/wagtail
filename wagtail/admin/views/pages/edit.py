@@ -17,6 +17,7 @@ from django.views.generic.base import View
 
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
+from wagtail.admin.rich_text.editors.draftail import collect_malformed_embed_warnings, reset_malformed_embed_warnings
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.models import EditingSession
@@ -469,7 +470,24 @@ class EditView(
             for_user=self.request.user,
         )
 
-        return self.render_to_response(self.get_context_data())
+        reset_malformed_embed_warnings()
+        response = self.render_to_response(self.get_context_data())
+
+        def check_malformed_embeds(response):
+            embed_warnings = collect_malformed_embed_warnings()
+            if embed_warnings:
+                self.page.save_revision(user=request.user, log_action=True, clean=False)
+                messages.warning(
+                    request,
+                    _(
+                        "%(count)d malformed image embed(s) were detected and removed from the editor view. "
+                        "A new draft revision has been automatically saved. "
+                        "Please review and save the page to persist the cleaned content."
+                    ) % {"count": len(embed_warnings)},
+                )
+
+        response.add_post_render_callback(check_malformed_embeds)
+        return response
 
     def add_cancel_workflow_confirmation_message(self):
         message = _("Workflow on page '%(page_title)s' has been cancelled.") % {

@@ -5308,3 +5308,62 @@ class TestCommentOutput(WagtailTestUtils, TestCase):
                 "5. Comment on the top-level of a base JSONField",
             ],
         )
+
+
+class TestPageEditWithMalformedImageEmbed(WagtailTestUtils, TestCase):
+    """
+    Test that loading a page with a malformed image embed (missing 'id' attribute)
+    in a rich text block shows a warning and creates a new revision.
+    """
+
+    def setUp(self):
+        from django.contrib.messages import constants as message_constants
+
+        self.message_constants = message_constants
+        self.root_page = Page.objects.get(id=2)
+        self.page = StreamPage(
+            title="Page with broken embed",
+            slug="broken-embed-page",
+            body=json.dumps(
+                [
+                    {
+                        "id": "abc123",
+                        "type": "rich_text",
+                        # Malformed: missing 'id' attribute on image embed
+                        "value": '<embed embedtype="image" alt="broken" format="left" />',
+                    }
+                ]
+            ),
+        )
+        self.root_page.add_child(instance=self.page)
+        self.page.save_revision().publish()
+        self.initial_revision_count = self.page.revisions.count()
+        self.user = self.login()
+
+    def test_edit_page_does_not_crash(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_edit_page_shows_warning_message(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+        )
+        from django.contrib.messages import get_messages
+
+        msgs = list(get_messages(response.wsgi_request))
+        warning_msgs = [
+            m for m in msgs if m.level == self.message_constants.WARNING
+        ]
+        self.assertEqual(len(warning_msgs), 1)
+        self.assertIn("malformed", warning_msgs[0].message.lower())
+
+    def test_edit_page_creates_new_revision(self):
+        self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+        )
+        self.assertEqual(
+            self.page.revisions.count(),
+            self.initial_revision_count + 1,
+        )
