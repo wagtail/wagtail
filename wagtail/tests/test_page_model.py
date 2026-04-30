@@ -3087,6 +3087,31 @@ class TestUpdateAliases(TestCase):
             ).exists()
         )
 
+    def test_update_aliases_sets_last_published_at(self):
+        """
+        update_aliases() should sync last_published_at from the source page to
+        the alias. This is not carried over from the revision content because
+        the revision is created before publish (when last_published_at is still
+        None), so it must be set explicitly.
+        """
+        event_page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        # Simulate the page having been saved as a draft before first publish
+        event_page.live = False
+        event_page.last_published_at = None
+        event_page.save(clean=False)
+
+        alias = event_page.create_alias(update_slug="new-event-page")
+        self.assertIsNone(alias.last_published_at)
+
+        event_page.save_revision().publish()
+
+        event_page.refresh_from_db()
+        alias.refresh_from_db()
+
+        self.assertIsNotNone(alias.last_published_at)
+        self.assertEqual(alias.last_published_at, event_page.last_published_at)
+
 
 class TestCopyForTranslation(TestCase):
     fixtures = ["test.json"]
