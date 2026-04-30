@@ -153,6 +153,27 @@ export class AutosaveController extends Controller<
    */
   declare stateValue: AutosaveState;
 
+  /**
+   * The last event that triggered a save, used to ensure that if multiple saves
+   * are triggered while a save is still in progress, only one additional save
+   * will be triggered after the first one finishes, and it will use the latest
+   * event's data.
+   *
+   * This is necessary to prevent multiple saves from being triggered in quick
+   * succession and overwhelming the server, while still ensuring that the
+   * latest data is saved.
+   *
+   * It is reset after each save finishes, and if it has changed during the
+   * save, another save will be immediately triggered with the latest event.
+   */
+  lastTriggerEvent?: Event;
+  /**
+   * The promise of the currently running save request, if any. Used to prevent
+   * multiple concurrent save requests, which can cause race conditions and
+   * other unintended consequences.
+   */
+  submitPromise: Promise<void> | null = null;
+
   initialize(): void {
     this.submit = this.submit.bind(this);
   }
@@ -165,17 +186,33 @@ export class AutosaveController extends Controller<
    */
   async save(event?: Event) {
     if (!this.activeValue || !(this.element instanceof HTMLFormElement)) return;
+    this.lastTriggerEvent = event;
+    if (this.submitPromise) {
+      // Prevent starting a new save request while one is already in progress.
+      return;
+    }
     const formData = new FormData(this.element);
     if (this.revisionIdValue) {
       formData.set('overwrite_revision_id', `${this.revisionIdValue}`);
     }
 
-    this.submit(
+    this.submitPromise = this.submit(
       this.dispatch('save', {
         cancelable: true,
         detail: { formData, trigger: event },
       }) as CustomEvent<AutosaveSaveDetail>,
-    );
+    ).finally(() => {
+      this.submitPromise = null;
+      if (this.lastTriggerEvent === event) {
+        // The latest trigger event is the same one that just finished saving,
+        // so we can reset it and not trigger another save.
+        this.lastTriggerEvent = undefined;
+      } else {
+        // Another save was triggered while this one was still running, so we
+        // should trigger another save to ensure the latest data is saved.
+        this.save(this.lastTriggerEvent);
+      }
+    });
   }
 
   /**
@@ -188,7 +225,7 @@ export class AutosaveController extends Controller<
   submit: DebouncibleFunction<
     (event: CustomEvent<AutosaveSaveDetail>) => Promise<void>
   > = async ({ defaultPrevented, detail: { formData, trigger: event } }) => {
-    if (defaultPrevented) return;
+    if (defaultPrevented) return Promise.resolve();
     const form = this.element as HTMLFormElement;
     const requestInit: RequestInit = {
       method: form.method,
@@ -245,16 +282,20 @@ export class AutosaveController extends Controller<
       }
 
       // Ensure any UI updates have finished before dispatching the success event
-      requestAnimationFrame(() =>
-        this.dispatch('success', {
-          cancelable: false,
-          detail: {
-            response,
-            data: response,
-            trigger: event,
-          },
-        }),
-      );
+      // and return a promise that only resolves after the event is dispatched.
+      return new Promise((resolve) => {
+        requestAnimationFrame(() => {
+          this.dispatch('success', {
+            cancelable: false,
+            detail: {
+              response,
+              data: response,
+              trigger: event,
+            },
+          });
+          resolve();
+        });
+      });
     } catch (error) {
       let type: KnownErrorCode;
       let text: string;
@@ -313,6 +354,7 @@ export class AutosaveController extends Controller<
         });
       }
     }
+    return Promise.resolve();
   };
 
   /**
