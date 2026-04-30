@@ -130,6 +130,10 @@ export class AutosaveController extends Controller<
     state: { type: String, default: 'idle' as AutosaveState },
   };
 
+  /**
+   * Maximum number of attempts to retry a save request that failed due to a
+   * network error. See {@link AutosaveController.retryTimes}.
+   */
   static maxRetries = 5;
 
   declare readonly hasPartialsTarget: boolean;
@@ -169,7 +173,16 @@ export class AutosaveController extends Controller<
    * save, another save will be immediately triggered with the latest event.
    */
   lastTriggerEvent?: Event;
+  /**
+   * The timer before retrying a save request that failed due to a network error.
+   * Increases 2 seconds exponentially to the power of
+   * {@link AutosaveController.retryTimes}.
+   */
   retryTimeout: ReturnType<typeof setTimeout> | null = null;
+  /**
+   * The number of times the current save request has been retried.
+   * Limited to {@link AutosaveController.maxRetries}.
+   */
   retryTimes = 0;
   /**
    * The promise of the currently running save request, if any. Used to prevent
