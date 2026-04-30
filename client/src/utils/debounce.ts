@@ -37,12 +37,12 @@ export const debounce = <F extends AnyFunction>(
     window.clearTimeout(timeoutId);
     if (typeof wait !== 'number' || Number.isNaN(wait)) {
       try {
-        return Promise.resolve<ReturnType<F>>(func(...args));
+        return Promise.resolve<Awaited<ReturnType<F>>>(func(...args));
       } catch (error) {
         return Promise.reject(error);
       }
     } else {
-      return new Promise<ReturnType<F>>((resolve, reject) => {
+      return new Promise<Awaited<ReturnType<F>>>((resolve, reject) => {
         timeoutId = window.setTimeout(() => {
           try {
             resolve(func(...args));
@@ -69,7 +69,7 @@ type AnyFunction = FunctionType<any, any>;
 
 /** A function that has been debounced. */
 export interface DebouncedFunction<F extends AnyFunction> {
-  (...args: Parameters<F>): Promise<ReturnType<F>>;
+  (...args: Parameters<F>): Promise<Awaited<ReturnType<F>>>;
   cancel(): void;
   restore(): F;
 }
