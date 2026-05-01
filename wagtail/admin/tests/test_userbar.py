@@ -228,7 +228,14 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             )
         )
 
-        self.assertIn("<aside hidden>", content)
+        soup = self.get_soup(content)
+        aside = soup.find("aside")
+        self.assertIsNotNone(aside)
+        self.assertIn("hidden", aside.attrs)
+        self.assertEqual(aside.get("aria-labelledby"), "wagtail-userbar-trigger")
+        trigger = soup.find(id="wagtail-userbar-trigger")
+        self.assertIsNotNone(trigger)
+        self.assertEqual(trigger.get_text(strip=True), "View Wagtail quick actions")
 
 
 class TestContentCheckerConfig(WagtailTestUtils, TestCase):

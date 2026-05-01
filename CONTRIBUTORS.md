@@ -968,6 +968,7 @@
 * Raghad Dahi
 * Divyansh Mishra
 * mikko2577
+* Kalash Kumari Thakur
 
 ## Translators
 
