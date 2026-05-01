@@ -9,6 +9,7 @@ Changelog
  * Fix: Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
  * Fix: Group audit log entries for autosave operations in page history view (Sage Abdullah)
  * Fix: Retain page explorer header buttons when searching or filtering (Sage Abdullah)
+ * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -315,6 +316,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+ * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
 
 7.0.6 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
