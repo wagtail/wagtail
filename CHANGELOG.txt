@@ -13,6 +13,7 @@ Changelog
  * Various user experience improvements to autosave and concurrent editing notifications (Sage Abdullah)
  * Allow validation of required StreamField blocks to be deferred on saving drafts (Sage Abdullah)
  * Add `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting for specifying maximum document file size (Om Harsh)
+ * Set the project template `WAGTAILDOCS_MAX_UPLOAD_SIZE` to 10MB (Thibaud Colas)
  * Optimize combining of querysets in site history report (Alex Bridge)
  * Add more informative error for `format-*` operations on SVG images (Ankit Kumar)
  * Store preview data in new `FormState` model to improve compatibility with cookie-based sessions (Sage Abdullah)
@@ -67,6 +68,10 @@ Changelog
  * Docs: Improve organization of signals reference docs (Sage Abdullah)
  * Docs: Add documentation for overriding the default user avatar image (Aviral Sapra)
  * Docs: Document how `list_export` in reports accepts a dotted path for nested attribute resolution (mikko2577)
+ * Docs: Update audit log actions docs to cover all currently-logged actions (Thibaud Colas)
+ * Docs: Document more approaches to mitigating untrusted file uploads when storing and serving documents (Thibaud Colas)
+ * Docs: Clarify default value for for `WAGTAILDOCS_SERVE_METHOD` (Thibaud Colas)
+ * Docs: Document security reporting policy about runtime vs. development dependencies (Thibaud Colas)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
@@ -92,6 +97,7 @@ Changelog
  * Maintenance: Make sphinx_llms.txt extension optional when building docs (Sage Abdullah)
  * Maintenance: Refactor handling of invalid form submissions in choosers (Sage Abdullah)
  * Maintenance: Switch StreamField block rendering to use `w-block-` prefixes for block type class names (Kalash Kumari Thakur)
+ * Maintenance: Upgrade CodeQL security scanning to cover more parts of the codebase (Thibaud Colas)
 
 
 7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT

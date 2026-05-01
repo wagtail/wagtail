@@ -79,6 +79,8 @@ Wagtail, and by extension Django, can be deployed in many different ways on many
 
 Django has a [deployment checklist](inv:django#howto/deployment/checklist) which runs through everything you should have done or should be aware of before deploying a Django application.
 
+(logging_and_monitoring)=
+
 ### Logging and monitoring
 
 In production, you'll typically want logs and metrics from several layers. Wagtail itself contributes:
