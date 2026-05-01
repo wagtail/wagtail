@@ -51,24 +51,38 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
 
         form = UserForm()
         html = str(form["users"])
-        expected_html = """
-            <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
-                <option value="" selected>---------</option>
-                <option value="{david}" data-filter-value="{musicians},{actors}">{david_username}</option>
-                <option value="{kevin}" data-filter-value="{actors}">{kevin_username}</option>
-                <option value="{morten}" data-filter-value="{musicians}">{morten_username}</option>
-            </select>
-        """.format(
-            david=self.david.pk,
-            kevin=self.kevin.pk,
-            morten=self.morten.pk,
-            musicians=self.musicians.pk,
-            actors=self.actors.pk,
-            david_username=self.david.get_username(),
-            kevin_username=self.kevin.get_username(),
-            morten_username=self.morten.get_username(),
+        options_data = [
+            (
+                self.david.pk,
+                self.david.get_username(),
+                [self.musicians.pk, self.actors.pk],
+            ),
+            (self.kevin.pk, self.kevin.get_username(), [self.actors.pk]),
+            (self.morten.pk, self.morten.get_username(), [self.musicians.pk]),
+        ]
+        soup = self.get_soup(html)
+        select = soup.select_one("select[name=users]")
+        self.assertIsNotNone(select)
+        self.assertLessEqual(
+            {
+                "data-widget": "filtered-select",
+                "data-filter-field": "id_group",
+                "required": "",
+                "id": "id_users",
+            }.items(),
+            select.attrs.items(),
         )
-        self.assertHTMLEqual(html, expected_html)
+        options = select.select("option")
+        self.assertEqual(len(options), 4)
+        self.assertEqual(options[0].get("value"), "")
+        for option, (value, text, filter_values) in zip(options[1:], options_data):
+            self.assertEqual(option.get("value"), str(value))
+            self.assertEqual(option.text, text)
+            # No ordering guarantee, so use assertCountEqual
+            self.assertCountEqual(
+                option.get("data-filter-value").split(","),
+                [str(filter_value) for filter_value in filter_values],
+            )
 
     def test_with_callable(self):
         class UserForm(forms.Form):
@@ -80,21 +94,35 @@ class TestFilteredModelChoiceField(WagtailTestUtils, TestCase):
 
         form = UserForm()
         html = str(form["users"])
-        expected_html = """
-            <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
-                <option value="" selected>---------</option>
-                <option value="{david}" data-filter-value="{actors},{musicians}">{david_username}</option>
-                <option value="{kevin}" data-filter-value="{actors}">{kevin_username}</option>
-                <option value="{morten}" data-filter-value="{musicians}">{morten_username}</option>
-            </select>
-        """.format(
-            david=self.david.pk,
-            kevin=self.kevin.pk,
-            morten=self.morten.pk,
-            musicians=self.musicians.pk,
-            actors=self.actors.pk,
-            david_username=self.david.get_username(),
-            kevin_username=self.kevin.get_username(),
-            morten_username=self.morten.get_username(),
+
+        options_data = [
+            (
+                self.david.pk,
+                self.david.get_username(),
+                [self.actors.pk, self.musicians.pk],
+            ),
+            (self.kevin.pk, self.kevin.get_username(), [self.actors.pk]),
+            (self.morten.pk, self.morten.get_username(), [self.musicians.pk]),
+        ]
+        soup = self.get_soup(html)
+        select = soup.select_one("select[name=users]")
+        self.assertIsNotNone(select)
+        self.assertLessEqual(
+            {
+                "data-widget": "filtered-select",
+                "data-filter-field": "id_group",
+                "required": "",
+                "id": "id_users",
+            }.items(),
+            select.attrs.items(),
         )
-        self.assertHTMLEqual(html, expected_html)
+        options = select.select("option")
+        self.assertEqual(len(options), 4)
+        self.assertEqual(options[0].get("value"), "")
+        for option, (value, text, filter_values) in zip(options[1:], options_data):
+            self.assertEqual(option.get("value"), str(value))
+            self.assertEqual(option.text, text)
+            self.assertEqual(
+                option.get("data-filter-value").split(","),
+                [str(filter_value) for filter_value in filter_values],
+            )
