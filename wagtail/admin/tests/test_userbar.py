@@ -17,10 +17,7 @@ from wagtail.test.context_processors import get_call_count, reset_call_count
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import (
-    RemovedInWagtail80Warning,
-    RemovedInWagtail90Warning,
-)
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 
 class TestUserbarTag(WagtailTestUtils, TestCase):
@@ -598,29 +595,6 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
 
             self.assertEqual(kwargs.get("page"), self.page)
 
-    def test_deprecated_construct_wagtail_userbar_hook_without_page(self):
-        kwargs = {}
-
-        def construct_wagtail_userbar(request, items):
-            kwargs["called"] = True
-            return items
-
-        with (
-            self.assertWarnsMessage(
-                RemovedInWagtail80Warning,
-                "`construct_wagtail_userbar` hook functions should accept a "
-                "`page` argument in third position",
-            ),
-            hooks.register_temporarily(
-                "construct_wagtail_userbar",
-                construct_wagtail_userbar,
-            ),
-        ):
-            response = self.page.serve(self.request)
-            response.render()
-
-            self.assertTrue(kwargs.get("called"))
-
     @override_settings(
         WAGTAIL_I18N_ENABLED=True,
         WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
@@ -687,31 +661,6 @@ class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
         with hooks.register_temporarily(
             "construct_wagtail_userbar",
             construct_wagtail_userbar,
-        ):
-            response = self.client.get(
-                reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
-            )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(kwargs.get("called"))
-
-    def test_deprecated_construct_wagtail_userbar_hook_without_page(self):
-        kwargs = {}
-
-        def construct_wagtail_userbar(request, items):
-            kwargs["called"] = True
-            return items
-
-        with (
-            self.assertWarnsMessage(
-                RemovedInWagtail80Warning,
-                "`construct_wagtail_userbar` hook functions should accept a "
-                "`page` argument in third position",
-            ),
-            hooks.register_temporarily(
-                "construct_wagtail_userbar",
-                construct_wagtail_userbar,
-            ),
         ):
             response = self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
@@ -977,32 +926,6 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
             soup = self.get_soup(rendered)
 
         self.assertIsNotNone(soup.css.select_one("a[href='#test-item']"))
-
-    def test_legacy_render_item(self):
-        class LegacyItem:
-            def render(self, request):
-                return "<li><a href='#legacy-item'>Legacy item</a></li>"
-
-        def hook(request, items, page):
-            items.append(LegacyItem())
-
-        with (
-            self.assertWarnsMessage(
-                RemovedInWagtail80Warning,
-                "Userbar items now use the `render_html(parent_context)` method instead of `render(request)` - "
-                "view the `construct_wagtail_userbar` docs to update LegacyItem",
-            ),
-            hooks.register_temporarily(
-                "construct_wagtail_userbar",
-                hook,
-            ),
-        ):
-            rendered = Userbar(object=self.homepage).render_html(
-                {"request": self.request, PAGE_TEMPLATE_VAR: self.homepage}
-            )
-            soup = self.get_soup(rendered)
-
-        self.assertIsNotNone(soup.css.select_one("a[href='#legacy-item']"))
 
     def test_component_item_with_media(self):
         class ItemWithMedia(Component):

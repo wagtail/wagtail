@@ -7,12 +7,10 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.admin.utils import get_admin_base_url
-from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Revision
 from wagtail.models.pages import Page
 from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import (
-    RemovedInWagtail80Warning,
     RemovedInWagtail90Warning,
 )
 
@@ -328,15 +326,7 @@ class EditPageItem(BaseItem):
 
 def apply_userbar_hooks(request, items, page):
     for fn in hooks.get_hooks("construct_wagtail_userbar"):
-        if accepts_kwarg(fn, "page"):
-            fn(request, items, page)
-        else:
-            warn(
-                "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position -"
-                f" {fn.__module__}.{fn.__name__} needs to be updated",
-                category=RemovedInWagtail80Warning,
-            )
-            fn(request, items)
+        fn(request, items, page)
 
 
 class Userbar(Component):
@@ -399,17 +389,7 @@ class Userbar(Component):
             rendered_items = []
             media = Media()
             for item in items:
-                # Backwards compatibility for legacy items with a render method.
-                if hasattr(item, "render"):
-                    warn(
-                        "Userbar items now use the `render_html(parent_context)` method instead of `render(request)` -"
-                        f" view the `construct_wagtail_userbar` docs to update {item.__class__.__name__}",
-                        RemovedInWagtail80Warning,
-                    )
-
-                    content = item.render(request)
-                else:
-                    content = item.render_html(parent_context)
+                content = item.render_html(parent_context)
                 if content:
                     rendered_items.append(content)
 

@@ -12,9 +12,6 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets.button import Button, ButtonWithDropdown, ListingButton
 from wagtail.models import Locale, ModelLogEntry
-from wagtail.snippets.widgets import (
-    SnippetListingButton,
-)
 from wagtail.test.snippets.models import (
     NonAutocompleteSearchableSnippet,
     SearchableSnippet,
@@ -27,7 +24,6 @@ from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class TestSnippetListView(WagtailTestUtils, TestCase):
@@ -100,45 +96,6 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
 
     def test_not_searchable(self):
         self.assertFalse(self.get().context.get("search_form"))
-
-    def test_register_snippet_listing_buttons_hook_deprecated_class(self):
-        advert = Advert.objects.create(text="My Lovely advert")
-
-        def snippet_listing_buttons(snippet, user, next_url=None):
-            self.assertEqual(snippet, advert)
-            self.assertEqual(user, self.user)
-            self.assertEqual(next_url, reverse("wagtailsnippets_tests_advert:list"))
-
-            yield SnippetListingButton(
-                "Another useless snippet listing button", "/custom-url", priority=10
-            )
-
-        with hooks.register_temporarily(
-            "register_snippet_listing_buttons", snippet_listing_buttons
-        ):
-            with self.assertWarnsMessage(
-                RemovedInWagtail80Warning,
-                "`SnippetListingButton` is deprecated. "
-                "Use `wagtail.admin.widgets.button.Button` "
-                "or `wagtail.admin.widgets.button.ListingButton` instead.",
-            ):
-                response = self.get()
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
-
-        soup = self.get_soup(response.content)
-        actions = soup.select_one("tbody tr td ul.actions")
-        top_level_custom_button = actions.select_one("li > a[href='/custom-url']")
-        self.assertIsNone(top_level_custom_button)
-        custom_button = actions.select_one(
-            "li [data-controller='w-dropdown'] a[href='/custom-url']"
-        )
-        self.assertIsNotNone(custom_button)
-        self.assertEqual(
-            custom_button.text.strip(),
-            "Another useless snippet listing button",
-        )
 
     def test_register_snippet_listing_buttons_hook(self):
         advert = Advert.objects.create(text="My Lovely advert")
