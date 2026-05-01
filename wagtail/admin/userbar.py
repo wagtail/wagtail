@@ -11,7 +11,10 @@ from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Revision
 from wagtail.models.pages import Page
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import (
+    RemovedInWagtail80Warning,
+    RemovedInWagtail90Warning,
+)
 
 
 class BaseItem(Component):
@@ -245,7 +248,7 @@ class AccessibilityItem(ContentCheckerItem):
         warn(
             "The userbar item 'AccessibilityItem' is deprecated. "
             "Please use 'ContentCheckerItem' instead.",
-            RemovedInWagtail80Warning,
+            RemovedInWagtail90Warning,
         )
         super().__init_subclass__(**kwargs)
 
