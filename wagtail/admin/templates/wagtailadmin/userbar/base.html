@@ -2,7 +2,7 @@
 <!-- Wagtail user bar embed code -->
 <template id="wagtail-userbar-template">
     {# In preview panels, we still render the userbar UI, but hidden by default. #}
-    <aside {% if request.in_preview_panel %}hidden{% endif %}>
+    <aside {% if request.in_preview_panel %}hidden{% endif %} aria-labelledby="wagtail-userbar-trigger">
         <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar data-wagtail-userbar-origin="{{ origin|default:"" }}" part="userbar">
             {% block css %}
                 {% versioned_static 'wagtailadmin/css/core.css' as core_css_url %}

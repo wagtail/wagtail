@@ -948,6 +948,21 @@
 * Garrett Coakley
 * Collins Kubu
 * Advik Sharma
+* Oluwagbeminiyi Agbedejobi
+* Baptiste Darthenay
+* K Adithya
+* Devarshi Mani Tripathi
+* Om Harsh
+* Nirmal Kumar
+* Darshan Kerkar
+* James Biggs
+* Aditya Kammati
+* Kunal Hemnani
+* Aviral Sapra
+* Raghad Dahi
+* Divyansh Mishra
+* mikko2577
+* Kalash Kumari Thakur
 
 ## Translators
 
