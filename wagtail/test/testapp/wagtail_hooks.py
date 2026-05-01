@@ -40,8 +40,10 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.testapp.views import (
     JSONModelViewSetGroup,
+    MiscellaneousSubmenuHookViewSetGroup,
     MiscellaneousViewSetGroup,
     SearchTestModelViewSet,
+    SubmenuHookGreetingsViewSet,
     ToyViewSetGroup,
     advert_chooser_viewset,
     animated_advert_chooser_viewset,
@@ -257,6 +259,14 @@ def register_viewsets():
         MiscellaneousViewSetGroup(),
         JSONModelViewSetGroup(),
         SearchTestModelViewSet(name="searchtest"),
+    ]
+
+
+@hooks.register("register_admin_viewset")
+def register_submenu_hook_viewset():
+    return [
+        MiscellaneousSubmenuHookViewSetGroup(),
+        SubmenuHookGreetingsViewSet(),
     ]
 
 
