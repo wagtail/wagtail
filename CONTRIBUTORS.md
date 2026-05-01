@@ -963,6 +963,7 @@
 * Divyansh Mishra
 * mikko2577
 * Kalash Kumari Thakur
+* Aniket Singh
 
 ## Translators
 
