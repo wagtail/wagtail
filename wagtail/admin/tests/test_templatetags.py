@@ -27,7 +27,7 @@ from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 
 class TestAvatarUrlInterceptTemplateTag(WagtailTestUtils, TestCase):
@@ -1056,7 +1056,7 @@ class PageHeaderButtonsTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                 """
                 page = Page.objects.get(id=15)
                 with self.assertWarnsMessage(
-                    RemovedInWagtail80Warning,
+                    RemovedInWagtail90Warning,
                     "`{% page_header_buttons %}` tag is deprecated. "
                     "Use the `register_page_header_buttons` hook instead.",
                 ):

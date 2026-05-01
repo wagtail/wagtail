@@ -17,7 +17,10 @@ from wagtail.test.context_processors import get_call_count, reset_call_count
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import (
+    RemovedInWagtail80Warning,
+    RemovedInWagtail90Warning,
+)
 
 
 class TestUserbarTag(WagtailTestUtils, TestCase):
@@ -542,7 +545,7 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
 
     def test_deprecated_accessibility_item(self):
         with self.assertWarnsMessage(
-            RemovedInWagtail80Warning,
+            RemovedInWagtail90Warning,
             "The userbar item 'AccessibilityItem' is deprecated."
             " Please use 'ContentCheckerItem' instead.",
         ):
