@@ -2,9 +2,9 @@ import copy
 import datetime
 from decimal import Decimal
 
+from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.db.models import Model
-from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.choices import CallableChoiceIterator
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_str
@@ -589,7 +589,16 @@ class BaseChoiceBlock(FieldBlock):
                         break
 
             if not has_blank_choice:
-                return BLANK_CHOICE_DASH + local_choices
+                # Once we drop support for Django < 6.0, remove this and use the
+                # label from Django directly.
+                choice = [("", _("- Select an option -"))]
+
+                if DJANGO_VERSION >= (6, 1):
+                    from django.db.models.fields import BLANK_CHOICE_LABEL
+
+                    choice = [("", BLANK_CHOICE_LABEL)]
+
+                return choice + local_choices
 
             return local_choices
 
