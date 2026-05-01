@@ -33,7 +33,7 @@ classifiers = [
 ]
 dependencies = [
   "Django>=5.2",
-  "django-modelcluster>=6.4.1,<7.0",
+  "django-modelcluster>=6.5,<7.0",
   "django-permissionedforms>=0.1,<1.0",
   "django-taggit>=5.0,<7",
   "django-treebeard>=4.8,<6.0",

@@ -98,6 +98,7 @@ Changelog
  * Maintenance: Refactor handling of invalid form submissions in choosers (Sage Abdullah)
  * Maintenance: Switch StreamField block rendering to use `w-block-` prefixes for block type class names (Kalash Kumari Thakur)
  * Maintenance: Upgrade CodeQL security scanning to cover more parts of the codebase (Thibaud Colas)
+ * Maintenance: Upgrade django-modelcluster to 6.5 to fix issues with duplicated inline children (Alex Tomkins, Matt Westcott)
 
 
 7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
