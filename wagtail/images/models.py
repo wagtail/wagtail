@@ -1245,7 +1245,6 @@ class Picture(ResponsiveImage):
 
         attrs = self.attrs or {}
 
-        sizes = f'sizes="{attrs["sizes"]}" ' if "sizes" in attrs else ""
         fallback_format = self.get_fallback_format()
         fallback_renditions = self.formats[fallback_format]
 
@@ -1253,9 +1252,12 @@ class Picture(ResponsiveImage):
 
         for fmt in self.source_format_order:
             if fmt.name != fallback_format and fmt.name in self.formats:
-                srcset = self.get_width_srcset(self.formats[fmt.name])
-                mime = fmt.mime_type
-                sources.append(f'<source srcset="{srcset}" {sizes}type="{mime}">')
+                source_attrs = {
+                    "srcset": self.get_width_srcset(self.formats[fmt.name]),
+                    "sizes": attrs.get("sizes"),
+                    "type": fmt.mime_type,
+                }
+                sources.append(f"<source{flatatt(source_attrs)}>")
 
         if len(fallback_renditions) > 1:
             attrs["srcset"] = self.get_width_srcset(fallback_renditions)

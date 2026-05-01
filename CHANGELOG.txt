@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+ * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
 
 7.0.6 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
