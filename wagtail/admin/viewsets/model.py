@@ -131,9 +131,6 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         the model's primary key in URL patterns. Defaults to ``"int"`` for
         ``IntegerField``, ``"uuid"`` for ``UUIDField``, and ``"str"`` for all
         other types.
-
-        .. versionadded:: 7.3
-           The ``pk_path_converter`` property was added.
         """
         if isinstance(self.model_opts.pk, models.UUIDField):
             return "uuid"
