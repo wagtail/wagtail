@@ -596,6 +596,10 @@ Allowing all file types may present a security risk if untrusted users are allow
 
 ### `WAGTAILDOCS_MAX_UPLOAD_SIZE`
 
+```{versionadded} 7.4
+The `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting was added.
+```
+
 ```python
 WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
 ```

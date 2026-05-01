@@ -1,3 +1,5 @@
+(security_reporting)=
+
 # Reporting security issues
 
 ```{warning}
