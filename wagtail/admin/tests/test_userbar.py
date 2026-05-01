@@ -237,25 +237,6 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         self.assertIsNotNone(trigger)
         self.assertEqual(trigger.get_text(strip=True), "View Wagtail quick actions")
 
-    def test_userbar_aside_has_aria_labelledby(self):
-        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
-        content = template.render(
-            Context(
-                {
-                    PAGE_TEMPLATE_VAR: self.homepage,
-                    "request": self.dummy_request(self.user),
-                }
-            )
-        )
-
-        soup = self.get_soup(content)
-        aside = soup.find("aside")
-        self.assertIsNotNone(aside)
-        self.assertEqual(aside.get("aria-labelledby"), "wagtail-userbar-trigger")
-        trigger = soup.find(id="wagtail-userbar-trigger")
-        self.assertIsNotNone(trigger)
-        self.assertEqual(trigger.get_text(strip=True), "View Wagtail quick actions")
-
 
 class TestContentCheckerConfig(WagtailTestUtils, TestCase):
     def setUp(self):
