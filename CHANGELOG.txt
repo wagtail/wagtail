@@ -13,6 +13,7 @@ Changelog
  * Various user experience improvements to autosave and concurrent editing notifications (Sage Abdullah)
  * Allow validation of required StreamField blocks to be deferred on saving drafts (Sage Abdullah)
  * Add `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting for specifying maximum document file size (Om Harsh)
+ * Set the project template `WAGTAILDOCS_MAX_UPLOAD_SIZE` to 10MB (Thibaud Colas)
  * Optimize combining of querysets in site history report (Alex Bridge)
  * Add more informative error for `format-*` operations on SVG images (Ankit Kumar)
  * Store preview data in new `FormState` model to improve compatibility with cookie-based sessions (Sage Abdullah)
@@ -67,6 +68,11 @@ Changelog
  * Docs: Improve organization of signals reference docs (Sage Abdullah)
  * Docs: Add documentation for overriding the default user avatar image (Aviral Sapra)
  * Docs: Document how `list_export` in reports accepts a dotted path for nested attribute resolution (mikko2577)
+ * Docs: Update audit log actions docs to cover all currently-logged actions (Thibaud Colas)
+ * Docs: Document more approaches to mitigating untrusted file uploads when storing and serving documents (Thibaud Colas)
+ * Docs: Clarify default value for for `WAGTAILDOCS_SERVE_METHOD` (Thibaud Colas)
+ * Docs: Document security reporting policy about runtime vs. development dependencies (Thibaud Colas)
+ * Docs: Add reference documentation for `wagtail.admin.ui.tables` (Sage Abdullah)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
@@ -92,6 +98,8 @@ Changelog
  * Maintenance: Make sphinx_llms.txt extension optional when building docs (Sage Abdullah)
  * Maintenance: Refactor handling of invalid form submissions in choosers (Sage Abdullah)
  * Maintenance: Switch StreamField block rendering to use `w-block-` prefixes for block type class names (Kalash Kumari Thakur)
+ * Maintenance: Upgrade CodeQL security scanning to cover more parts of the codebase (Thibaud Colas)
+ * Maintenance: Upgrade django-modelcluster to 6.5 to fix issues with duplicated inline children (Alex Tomkins, Matt Westcott)
 
 
 7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -102,6 +110,9 @@ Changelog
  * Fix: Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
  * Fix: Group audit log entries for autosave operations in page history view (Sage Abdullah)
  * Fix: Retain page explorer header buttons when searching or filtering (Sage Abdullah)
+ * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
+ * Fix: Add accessible label to userbar aside element for accessibility (Kalash Kumari Thakur)
+ * Fix: Ensure live preview does not get stuck when edits occur during an in-progress update (Aniket Singh)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -408,6 +419,8 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+ * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
+ * Fix: Add accessible label to userbar aside element for accessibility (Kalash Kumari Thakur)
 
 7.0.6 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~

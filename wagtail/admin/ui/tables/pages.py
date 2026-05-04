@@ -6,6 +6,13 @@ from wagtail.admin.ui.tables.orderable import OrderableTableMixin
 
 
 class PageTitleColumn(BaseColumn):
+    """
+    A column that displays the title of a page with indicators for site root,
+    locale, lock status, and privacy restrictions, as well as additional context
+    such as the parent page and result scope when the results have been filtered
+    or searched.
+    """
+
     header_template_name = "wagtailadmin/pages/listing/_page_title_column_header.html"
     cell_template_name = "wagtailadmin/pages/listing/_page_title_cell.html"
     classname = "title"
@@ -59,6 +66,12 @@ class PageTitleColumn(BaseColumn):
 
 
 class ParentPageColumn(Column):
+    """
+    A column that displays the parent page of a given page. It uses a
+    ``_parent_page`` annotation if present on the page instance for efficiency,
+    before falling back to calling  :meth:`~wagtail.models.Page.get_parent()`.
+    """
+
     cell_template_name = "wagtailadmin/pages/listing/_parent_page_cell.html"
 
     def get_value(self, instance):
@@ -68,10 +81,20 @@ class ParentPageColumn(Column):
 
 
 class PageStatusColumn(BaseColumn):
+    """
+    A column that displays the live or draft status of a page.
+    """
+
     cell_template_name = "wagtailadmin/pages/listing/_page_status_cell.html"
 
 
 class BulkActionsColumn(BulkActionsCheckboxColumn):
+    """
+    A page-specific version of
+    :class:`~wagtail.admin.ui.tables.BulkActionsCheckboxColumn` that is aware
+    of the parent page instance.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs, obj_type="page")
 
@@ -84,6 +107,10 @@ class BulkActionsColumn(BulkActionsCheckboxColumn):
 
 
 class PageTypeColumn(Column):
+    """
+    A column that displays the page's content type.
+    """
+
     def get_header_context_data(self, parent_context):
         context = super().get_header_context_data(parent_context)
         # Cannot order by page type while searching, due to
@@ -93,6 +120,10 @@ class PageTypeColumn(Column):
 
 
 class NavigateToChildrenColumn(BaseColumn):
+    """
+    A column that provides a link to explore the child pages of a page.
+    """
+
     cell_template_name = "wagtailadmin/pages/listing/_navigation_explore.html"
 
     def get_cell_context_data(self, instance, parent_context):
@@ -111,6 +142,11 @@ class NavigateToChildrenColumn(BaseColumn):
 
 
 class PageTable(OrderableTableMixin, Table):
+    """
+    A page-specific version of :class:`~wagtail.admin.ui.tables.Table` that
+    supports reordering and supplies additional information to the context.
+    """
+
     def __init__(
         self,
         *args,

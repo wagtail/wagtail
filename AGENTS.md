@@ -7,6 +7,7 @@ The main developer documentation for Wagtail lives in the `docs/contributing` di
 - Describe the "why" of the changes, why the proposed solution is the right one.
 - Highlight areas of the proposed changes that require careful review.
 - Always add a disclaimer to the PR description mentioning how AI agents are involved with the contribution.
+- Do not add commits that are unrelated to the purpose of the PR. Check the commit history against the latest upstream main branch before pushing to ensure that only relevant commits are included in the PR.
 
 ### AI/Agent disclosure template (copy/paste & edit):
 
@@ -18,4 +19,4 @@ The main developer documentation for Wagtail lives in the `docs/contributing` di
 
 ### StreamField and StreamBlock template access
 
-- Wagtail's StreamBlock and StreamField use the same template syntax, but they differ from standard Django field access. When you use StreamField and other custom block types in Wagtail templates, you usually need to use the value property in your data variables. 
+- Wagtail's StreamBlock and StreamField use the same template syntax, but they differ from standard Django field access. When you use StreamField and other custom block types in Wagtail templates, you usually need to use the value property in your data variables.

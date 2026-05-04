@@ -587,6 +587,17 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
+   * Automatically updates the preview if it is stale and auto-update is enabled.
+   * @returns whether the data is valid
+   */
+  async autoUpdateStalePreview() {
+    if (this.ready && this.staleValue && this.shouldAutoUpdate) {
+      return this.setPreviewDataLazy();
+    }
+    return undefined;
+  }
+
+  /**
    * Marks the preview data as stale, indicating it needs an update.
    * Accepts an optional `stale` parameter to explicitly override the value.
    */
@@ -594,10 +605,8 @@ export class PreviewController extends Controller<HTMLElement> {
     this.staleValue = event?.params?.stale ?? true;
   }
 
-  staleValueChanged(newValue: boolean) {
-    if (this.ready && newValue && this.shouldAutoUpdate) {
-      this.setPreviewDataLazy();
-    }
+  staleValueChanged() {
+    this.autoUpdateStalePreview();
   }
 
   autoUpdateIntervalValueChanged(newValue?: number) {
@@ -1002,6 +1011,11 @@ export class PreviewController extends Controller<HTMLElement> {
     this.#reloadPromiseResolve?.();
     this.reloadPromise = null;
     this.#reloadPromiseResolve = null;
+
+    // If the preview data became stale while this update was in progress
+    // (e.g. the user kept editing during the fetch/iframe load), schedule
+    // another update now that we are free to do so.
+    this.autoUpdateStalePreview();
   }
 
   /**
