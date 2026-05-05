@@ -10,6 +10,7 @@ from wagtail.admin.views.pages.choose_parent import (
 )
 from wagtail.admin.views.pages.create import CreateView
 from wagtail.admin.views.pages.edit import EditView
+from wagtail.admin.views.pages.history import PageHistoryView
 from wagtail.admin.views.pages.listing import (
     ExplorableIndexView,
     GenericPageFilterSet,
@@ -157,6 +158,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the edit view; must be a subclass of
     ``wagtail.admin.views.pages.edit.EditView``.
     """
+    history_view_class = PageHistoryView
+    """
+    The view class to use for the history view; must be a subclass of
+    ``wagtail.admin.views.pages.history.PageHistoryView``.
+    """
     index_view_class = ExplorableIndexView
     """
     The view class to use for the index view; must be a subclass of
@@ -193,6 +199,8 @@ class PageViewSet(PageListingViewSet):
             "content_type_use": self.content_type_use_view,
             "content_type_use_results": self.content_type_use_results_view,
             "edit": self.edit_view,
+            "history": self.history_view,
+            "history_results": self.history_results_view,
             "index": self.index_view,
             "index_results": self.index_results_view,
             "preview_on_add": self.preview_on_add_view,
@@ -226,6 +234,17 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def edit_view(self):
         return self.construct_view(self.edit_view_class)
+
+    @cached_property
+    def history_view(self):
+        return self.construct_view(self.history_view_class)
+
+    @cached_property
+    def history_results_view(self):
+        return self.construct_view(
+            self.history_view_class,
+            results_only=True,
+        )
 
     @cached_property
     def preview_on_add_view(self):

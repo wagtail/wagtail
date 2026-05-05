@@ -175,10 +175,20 @@ urlpatterns = [
         history.WorkflowHistoryDetailView.as_view(),
         name="workflow_history_detail",
     ),
-    path("<int:page_id>/history/", history.PageHistoryView.as_view(), name="history"),
+    path(
+        "<int:page_id>/history/",
+        page_viewset_registry.as_view(
+            "history",
+            page_id_kwarg="page_id",
+        ),
+        name="history",
+    ),
     path(
         "<int:page_id>/history/results/",
-        history.PageHistoryView.as_view(results_only=True),
+        page_viewset_registry.as_view(
+            "history_results",
+            page_id_kwarg="page_id",
+        ),
         name="history_results",
     ),
 ]
