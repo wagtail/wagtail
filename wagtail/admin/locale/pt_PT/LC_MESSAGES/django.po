@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -654,13 +654,13 @@ msgstr "Publicar %(model_name)s"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Comment"
+msgstr "Comentar"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Ações"
-
-msgid "Comment"
-msgstr "Comentar"
 
 msgid "Update"
 msgstr "Atualizar"
@@ -1197,9 +1197,6 @@ msgstr "Esta página está protegida da visualização pública"
 
 msgid "Confirm"
 msgstr "Confirmar"
-
-msgid "Add child page"
-msgstr "Adicionar página-filha"
 
 msgid "Page types"
 msgstr "Tipos de página"
@@ -1883,6 +1880,9 @@ msgstr "Site"
 
 msgid "Yes"
 msgstr "Sim"
+
+msgid "Add child page"
+msgstr "Adicionar página-filha"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

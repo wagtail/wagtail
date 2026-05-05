@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -683,13 +683,13 @@ msgstr "Mai doriți să publicați acest %(model_name)s?"
 msgid "Cancel"
 msgstr "Anulează"
 
+msgid "Comment"
+msgstr "Comentariu"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Acțiuni"
-
-msgid "Comment"
-msgstr "Comentariu"
 
 msgid "Update"
 msgstr "Actualizează"
@@ -1627,16 +1627,8 @@ msgstr "Explorează paginile descendente la '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adaugă o pagină descendentă la '%(title)s'"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s din %(items_count)s în tot sait-ul."
-
 msgid "Search the whole site"
 msgstr "Caută în tot sait-ul"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s din %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Meniu saituri"
@@ -1659,9 +1651,6 @@ msgstr "Această pagină este protejată de ochii publicului"
 
 msgid "Confirm"
 msgstr "Confirmă"
-
-msgid "Add child page"
-msgstr "Adaugă pagină descendentă"
 
 msgid "Page types"
 msgstr "Tipuri pagini"
@@ -2853,6 +2842,9 @@ msgstr "Tip pagină"
 
 msgid "Exploring"
 msgstr "Explorează"
+
+msgid "Add child page"
+msgstr "Adaugă pagină descendentă"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,6 +21,16 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail پۈتۈك"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"بۇ ھۆججەت بەك چوڭ (%(file_size)s). ئەڭ چوڭ ھۆججەت چوڭلۇقى %(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "بۇ ھۆججەت بەك چوڭ. ئەڭ چوڭ ھۆججەت چوڭلۇقى %(max_filesize)s."
 
 msgid "Collection"
 msgstr "توپلام"

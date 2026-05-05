@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -512,13 +512,13 @@ msgstr "否，不取消發佈"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Comment"
+msgstr "評論"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "操作"
-
-msgid "Comment"
-msgstr "評論"
 
 msgid "Update"
 msgstr "更新"
@@ -943,9 +943,6 @@ msgstr "此頁面已受保護，公眾不可見。"
 
 msgid "Confirm"
 msgstr "確認"
-
-msgid "Add child page"
-msgstr "新增子頁面"
 
 msgid "Page types"
 msgstr "頁面類型"
@@ -1474,6 +1471,9 @@ msgstr "網站"
 
 msgid "Yes"
 msgstr "是"
+
+msgid "Add child page"
+msgstr "新增子頁面"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

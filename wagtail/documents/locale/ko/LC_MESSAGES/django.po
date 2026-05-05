@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,6 +26,19 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "웨그테일 문서"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다(%(file_size)s). 최대 허용 가능한 파일 사이즈는 "
+"%(max_filesize)s 입니다."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다. 최대 허용 가능한 파일 사이즈는 "
+"%(max_filesize)s 입니다."
 
 msgid "Collection"
 msgstr "모음"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2025\n"
@@ -740,13 +740,13 @@ msgstr "Viltu samt setja %(model_name)s í loftið?"
 msgid "Cancel"
 msgstr "Hætta við"
 
+msgid "Comment"
+msgstr "Athugasemd"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Aðgerðir"
-
-msgid "Comment"
-msgstr "Athugasemd"
 
 #, python-format
 msgid ""
@@ -1669,10 +1669,6 @@ msgstr "Skoða undirsíður '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Bæta undirsíðu við '%(title)s'"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s af %(items_count)s yfir alla síðuna."
-
 msgid "No results across entire site."
 msgstr "Engar niðurstöður á allri síðunni."
 
@@ -1681,24 +1677,12 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Leita í '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"%(start_index)s-%(end_index)s af %(items_count)s í '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 "Engar niðurstöður í '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Leita í öllu vefsvæðinu"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s af %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Síðuvalmynd"
@@ -1721,9 +1705,6 @@ msgstr "Þessi síða er ekki aðgengileg almenningi"
 
 msgid "Confirm"
 msgstr "Staðfesta"
-
-msgid "Add child page"
-msgstr "Bæta við undirsíðu"
 
 msgid "Page types"
 msgstr "Síðutegundir"
@@ -1926,9 +1907,6 @@ msgstr "Kerfi"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s vistaði nýja útgáfu"
 
-msgid "Refresh"
-msgstr "Endurhlaða"
-
 msgid "You have unsaved changes in another window"
 msgstr "Þú hefur óvistaðar breytingar í öðrum glugga"
 
@@ -1945,36 +1923,8 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Einn annar notandi er að skoða núna"
 msgstr[1] "%(num_user)s aðrir notendur eru núna að skoða"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Ef þú heldur áfram muntu yfirskrifa breytingarnar sem þú gerðir í þeim "
-"glugga. Ef þú endurhleður þessari síðu muntu sjá breytingarnar, en þú munt "
-"tapa óvistuðum breytingum þínum í þessum glugga."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"Ef þú heldur áfram muntu yfirskrifa breytingar sem gerðar voru af "
-"%(user_name)s. Ef þú endurhleður síðunni muntu sjá nýju breytingarnar, en þú "
-"munt tapa þínum breytingum í þessum glugga."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Ef þú endurhleður síðunni muntu tapa öllum óvistuðum breytingum."
-
-msgid "Refresh page"
-msgstr "Endurhlaða síðunni"
-
 msgid "Continue"
 msgstr "Áfram"
-
-msgid "Refresh the page"
-msgstr "Endurhlaða síðunni"
 
 msgid "Download XLSX"
 msgstr "Sækja XLSX"
@@ -2241,6 +2191,9 @@ msgstr "Hleð.."
 
 msgid "Refreshing…"
 msgstr "Endurhleð..."
+
+msgid "Refresh"
+msgstr "Endurhlaða"
 
 msgid "Preview is out of date"
 msgstr "Forskoðun er úreld"
@@ -3268,6 +3221,9 @@ msgstr "Tegund síðu"
 
 msgid "Exploring"
 msgstr "Skoðar"
+
+msgid "Add child page"
+msgstr "Bæta við undirsíðu"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

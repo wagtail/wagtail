@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2026\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -739,13 +739,16 @@ msgstr "Encara voleu publicar aquest/a %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancel·lar"
 
+msgid "Actions (footer)"
+msgstr "Accions (peu de pàgina)"
+
+msgid "Comment"
+msgstr "Comentari"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Accions"
-
-msgid "Comment"
-msgstr "Comentari"
 
 #, python-format
 msgid ""
@@ -1683,8 +1686,12 @@ msgid "Add a child page to '%(title)s'"
 msgstr "Afegeix una pàgina filla a '%(title)s'"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s de %(items_count)s a tot el lloc."
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s across "
+"entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s de %(items_count)s %(model_name)s en tot el "
+"lloc."
 
 msgid "No results across entire site."
 msgstr "No s'han trobat resultats en tot el lloc."
@@ -1695,11 +1702,11 @@ msgstr "Cercar a '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
 msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s in '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
-"%(start_index)s-%(end_index)s de %(items_count)s a '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
+"%(start_index)s-%(end_index)s de %(items_count)s %(model_name)s a '<span "
+"class=\"w-title-ellipsis\">%(title)s</span>'."
 
 #, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
@@ -1710,8 +1717,8 @@ msgid "Search the whole site"
 msgstr "Cercar en tot el lloc"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s de %(items_count)s"
+msgid "%(start_index)s-%(end_index)s of %(items_count)s %(model_name)s"
+msgstr "%(start_index)s-%(end_index)s de %(items_count)s %(model_name)s"
 
 msgid "Sites menu"
 msgstr "Menú de llocs"
@@ -1734,9 +1741,6 @@ msgstr "Aquesta pàgina està protegida de la vista pública"
 
 msgid "Confirm"
 msgstr "Confirmar"
-
-msgid "Add child page"
-msgstr "Afegeix una pàgina filla"
 
 msgid "Page types"
 msgstr "Tipus de pàgina"
@@ -1942,8 +1946,8 @@ msgstr "Sistema"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s ha desat una nova versió"
 
-msgid "Refresh"
-msgstr "Refrescar"
+msgid "View latest version"
+msgstr "Veure l'última versió"
 
 msgid "You have unsaved changes in another window"
 msgstr "Teniu canvis sense desar en una altra finestra"
@@ -1951,6 +1955,9 @@ msgstr "Teniu canvis sense desar en una altra finestra"
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "%(user_name)s té canvis sense desar"
+
+msgid "Currently idle"
+msgstr "Actualment inactiu"
 
 msgid "Currently viewing"
 msgstr "Actualment visualitzant"
@@ -1961,36 +1968,29 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Un altre usuari està actualment visualitzant"
 msgstr[1] "%(num_user)s altres usuaris estan actualment visualitzant"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
+msgid "Proceeding will overwrite the changes you made in that window."
 msgstr ""
-"Si continueu es sobreescriuran els canvis que heu fet en aquesta finestra. "
-"Si actualitzeu la pàgina es mostraran els nous canvis, però perdreu els "
-"canvis no desats a la finestra actual."
+"Si continueu, es sobreescriuran els canvis que heu fet en aquesta finestra."
 
 #, python-format
+msgid "Proceeding will overwrite the changes made by %(user_name)s."
+msgstr "Si continueu, es sobreescriuran els canvis fets per %(user_name)s."
+
+msgid "Alternatively, you can view the latest version in a new tab."
+msgstr "Alternativament, podeu veure l'última versió en una pestanya nova."
+
+msgid "A network error occurred"
+msgstr "S'ha produït un error de xarxa"
+
 msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
+"Troubleshoot your connection to the site before proceeding. Open the editor "
+"in a separate tab to view the last saved version."
 msgstr ""
-"Si continueu es sobreescriuran els canvis fets per %(user_name)s. Si "
-"actualitzeu la pàgina es mostraran els nous canvis, però perdreu els vostres "
-"canvis no desats."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Si es refresca la pàgina es perdrà qualsevol canvi no desat"
-
-msgid "Refresh page"
-msgstr "Refrescar la pàgina"
+"Resoleu els problemes de connexió al lloc web abans de continuar. Obriu "
+"l'editor en una pestanya separada per veure l'última versió desada."
 
 msgid "Continue"
 msgstr "Continuar"
-
-msgid "Refresh the page"
-msgstr "Refrescar la pàgina"
 
 msgid "Download XLSX"
 msgstr "Baixa XLSX"
@@ -2265,6 +2265,9 @@ msgstr "Carregant"
 
 msgid "Refreshing…"
 msgstr "Actualitzant..."
+
+msgid "Refresh"
+msgstr "Refrescar"
 
 msgid "Preview is out of date"
 msgstr "La previsualització està desactualitzada"
@@ -2799,6 +2802,12 @@ msgstr "El text alternatiu de la imatge té un patró inadequat"
 msgid "Use meaningful text"
 msgstr "Utilitzar text amb significat"
 
+msgid "Meta description is empty"
+msgstr "La metadescripció està buida"
+
+msgid "Add a concise description for search engines"
+msgstr "Afegiu una descripció concisa per als motors de cerca"
+
 #, python-format
 msgid "%(classname)s object (%(id)s)"
 msgstr "%(classname)s objecte (%(id)s)"
@@ -3308,6 +3317,9 @@ msgstr "Tipus de pàgina"
 
 msgid "Exploring"
 msgstr "Explorant"
+
+msgid "Add child page"
+msgstr "Afegeix una pàgina filla"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

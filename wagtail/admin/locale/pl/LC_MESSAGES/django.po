@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -707,13 +707,13 @@ msgstr "Czy w dalszym ciągu chcesz opublikować ten %(model_name)s?"
 msgid "Cancel"
 msgstr "Anuluj"
 
+msgid "Comment"
+msgstr "Komentarz"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Akcje"
-
-msgid "Comment"
-msgstr "Komentarz"
 
 msgid "Update"
 msgstr "Uaktualnij"
@@ -1628,9 +1628,6 @@ msgstr "Strona nie jest publicznie dostępna"
 msgid "Confirm"
 msgstr "Potwierdź"
 
-msgid "Add child page"
-msgstr "Dodaj stronę podrzędną"
-
 msgid "Page types"
 msgstr "Typy stron"
 
@@ -1813,9 +1810,6 @@ msgstr "System"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s zapisał(a) nową wersję"
 
-msgid "Refresh"
-msgstr "Odśwież"
-
 msgid "You have unsaved changes in another window"
 msgstr "Masz niezapisane zmiany w innym oknie"
 
@@ -1834,17 +1828,8 @@ msgstr[1] "%(num_user)s innych użytkowników obecnie ogląda"
 msgstr[2] "%(num_user)s innych użytkowników obecnie ogląda"
 msgstr[3] "%(num_user)s innych użytkowników obecnie ogląda"
 
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Odświeżenie strony spowoduje utratę wszelkich niezapisanych zmian"
-
-msgid "Refresh page"
-msgstr "Odśwież stronę"
-
 msgid "Continue"
 msgstr "Kontynuuj"
-
-msgid "Refresh the page"
-msgstr "Odśwież stronę"
 
 msgid "Download XLSX"
 msgstr "Pobierz XLSX"
@@ -2055,6 +2040,9 @@ msgstr "Ładuję"
 
 msgid "Refreshing…"
 msgstr "Odświeżam…"
+
+msgid "Refresh"
+msgstr "Odśwież"
 
 msgid "Preview is out of date"
 msgstr "Podgląd stracił ważność"
@@ -2838,6 +2826,9 @@ msgstr "Typ strony"
 
 msgid "Exploring"
 msgstr "Przeglądaj"
+
+msgid "Add child page"
+msgstr "Dodaj stronę podrzędną"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
