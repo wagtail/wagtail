@@ -13,7 +13,6 @@ from wagtail.admin.views.pages import (
     preview,
     revisions,
     search,
-    unpublish,
     workflow,
 )
 from wagtail.admin.viewsets.pages import page_viewset_registry
@@ -92,7 +91,14 @@ urlpatterns = [
     path("<int:page_id>/view_draft/", preview.view_draft, name="view_draft"),
     path("<int:parent_page_id>/add_subpage/", create.add_subpage, name="add_subpage"),
     path("<int:page_id>/delete/", delete.delete, name="delete"),
-    path("<int:page_id>/unpublish/", unpublish.Unpublish.as_view(), name="unpublish"),
+    path(
+        "<int:page_id>/unpublish/",
+        page_viewset_registry.as_view(
+            "unpublish",
+            page_id_kwarg="page_id",
+        ),
+        name="unpublish",
+    ),
     path(
         "<int:page_id>/convert_alias/",
         convert_alias.convert_alias,
