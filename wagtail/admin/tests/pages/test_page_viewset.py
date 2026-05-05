@@ -589,6 +589,14 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 args=[self.event_page.id],
             ),
             reverse(
+                "wagtailadmin_pages:history",
+                args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:history_results",
+                args=[self.event_page.id],
+            ),
+            reverse(
                 "wagtailadmin_pages:preview_on_add",
                 args=["tests", "eventpage", self.event_index_page.id],
             ),
