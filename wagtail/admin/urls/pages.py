@@ -166,7 +166,10 @@ urlpatterns = [
     ),
     path(
         "<int:page_id>/revisions/<int:revision_id>/unschedule/",
-        revisions.RevisionsUnschedule.as_view(),
+        page_viewset_registry.as_view(
+            "revisions_unschedule",
+            page_id_kwarg="page_id",
+        ),
         name="revisions_unschedule",
     ),
     re_path(
