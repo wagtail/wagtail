@@ -77,7 +77,10 @@ urlpatterns = [
     ),
     path(
         "<int:page_id>/edit/preview/",
-        preview.PreviewOnEdit.as_view(),
+        page_viewset_registry.as_view(
+            "preview_on_edit",
+            page_id_kwarg="page_id",
+        ),
         name="preview_on_edit",
     ),
     path("<int:page_id>/view_draft/", preview.view_draft, name="view_draft"),
