@@ -144,7 +144,10 @@ urlpatterns = [
     path("<int:page_id>/revisions/", revisions.revisions_index, name="revisions_index"),
     path(
         "<int:page_id>/revisions/<int:revision_id>/view/",
-        revisions.RevisionsView.as_view(),
+        page_viewset_registry.as_view(
+            "revisions_view",
+            page_id_kwarg="page_id",
+        ),
         name="revisions_view",
     ),
     path(
