@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -419,13 +419,13 @@ msgstr "Ne, publikuoti"
 msgid "Cancel"
 msgstr "Atšaukti"
 
+msgid "Comment"
+msgstr "Komentaras"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Veiksmai"
-
-msgid "Comment"
-msgstr "Komentaras"
 
 msgid "Update"
 msgstr "Atnaujinti"
@@ -717,9 +717,6 @@ msgstr "Šis puslapis apsaugotas nuo viešo matymo"
 
 msgid "Confirm"
 msgstr "Patvirtinti"
-
-msgid "Add child page"
-msgstr "Pridėti vidinį puslapį"
 
 msgid "Page types"
 msgstr "Puslapių tipai"
@@ -1121,6 +1118,9 @@ msgstr "Puslapis '%(page_title)s' buvo pateiktas moderavimui."
 
 msgid "Site"
 msgstr "Tinklalapis"
+
+msgid "Add child page"
+msgstr "Pridėti vidinį puslapį"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

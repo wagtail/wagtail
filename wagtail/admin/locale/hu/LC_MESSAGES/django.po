@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -711,13 +711,13 @@ msgstr "Biztosan közzéteszi a(z) %(model_name)s tartalmat?"
 msgid "Cancel"
 msgstr "Mégsem"
 
+msgid "Comment"
+msgstr "Megjegyzés"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Akciók"
-
-msgid "Comment"
-msgstr "Megjegyzés"
 
 #, python-format
 msgid ""
@@ -1657,10 +1657,6 @@ msgstr "'%(title)s' gyermek oldalainak tallózása"
 msgid "Add a child page to '%(title)s'"
 msgstr "Gyermek oldal hozzáadása ehhez: '%(title)s'"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s - %(end_index)s / %(items_count)s a teljes oldalon."
-
 msgid "No results across entire site."
 msgstr "Nincs találat a teljes oldalon."
 
@@ -1669,24 +1665,12 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Keresés itt: '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"%(start_index)s - %(end_index)s / %(items_count)s itt: '<span class=\"w-"
-"title-ellipsis\">%(title)s</span>'."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 "Nincs találat itt: '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Keresés a teljes oldalon"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s - %(end_index)s / %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Webhely menü"
@@ -1709,9 +1693,6 @@ msgstr "Ez az oldal védett a közönségtől"
 
 msgid "Confirm"
 msgstr "Megerősítés"
-
-msgid "Add child page"
-msgstr "Gyermek oldal hozzáadása"
 
 msgid "Page types"
 msgstr "Oldal típusok"
@@ -1916,9 +1897,6 @@ msgstr "Rendszer"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s elmentett egy új verziót"
 
-msgid "Refresh"
-msgstr "Frissítés"
-
 msgid "You have unsaved changes in another window"
 msgstr "Egy másik ablakban mentetlen változtatások vannak"
 
@@ -1935,38 +1913,8 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "1 másik felhasználó nézi jelenleg"
 msgstr[1] "%(num_user)s másik felhasználó nézi jelenleg"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Ha folytatja, akkor felül fogja írni a változtatásokat, amiket a másik "
-"ablakban hajtott végre. A frissítés lehetőséget használva az oldal "
-"megmutatja a másik ablakban végrehajtott változtatásokat, de az ebben az "
-"ablakban módosított adatok eltűnnek."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"Ha folytatja, akkor felül fogja írni a változtatásokat, amiket %(user_name)s "
-"hajtott végre. A frissítés lehetőséget használva az oldal megmutatja a másik "
-"ablakban végrehajtott változtatásokat, de az ebben az ablakban módosított "
-"adatok eltűnnek."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Az oldal frissítése a mentetlen változtatások elvesztésével jár"
-
-msgid "Refresh page"
-msgstr "Oldal frissítése"
-
 msgid "Continue"
 msgstr "Folytatás"
-
-msgid "Refresh the page"
-msgstr "Az oldal frissítése"
 
 msgid "Download XLSX"
 msgstr "XSLX letöltése"
@@ -2178,6 +2126,9 @@ msgstr "Betöltés"
 
 msgid "Refreshing…"
 msgstr "Frissítés..."
+
+msgid "Refresh"
+msgstr "Frissítés"
 
 msgid "Preview is out of date"
 msgstr "Az előnézet már nem aktuális"
@@ -3170,6 +3121,9 @@ msgstr "Oldal típusa"
 
 msgid "Exploring"
 msgstr "Felfedezés"
+
+msgid "Add child page"
+msgstr "Gyermek oldal hozzáadása"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

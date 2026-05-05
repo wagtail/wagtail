@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -582,9 +582,6 @@ msgstr "Berikutnya"
 msgid "This page is protected from public view"
 msgstr "Halaman ini tidak tampak oleh publik"
 
-msgid "Add child page"
-msgstr "Tambahkan halaman turunan"
-
 msgid "Page types"
 msgstr "Jenis Halaman"
 
@@ -875,6 +872,9 @@ msgstr "Halaman '%(page_title)s' telah dipublikasi."
 #, python-format
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Halaman '%(page_title)s' telah dikirim untuk moderasi."
+
+msgid "Add child page"
+msgstr "Tambahkan halaman turunan"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

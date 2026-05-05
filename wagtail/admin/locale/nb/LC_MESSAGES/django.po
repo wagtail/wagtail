@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -1007,9 +1007,6 @@ msgstr "Denne siden er unntatt offentlig visning"
 msgid "Confirm"
 msgstr "Bekreft"
 
-msgid "Add child page"
-msgstr "Legg til underside"
-
 msgid "Page types"
 msgstr "Sidetyper"
 
@@ -1371,6 +1368,9 @@ msgstr "Eier"
 
 msgid "Site"
 msgstr "Nettsted"
+
+msgid "Add child page"
+msgstr "Legg til underside"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

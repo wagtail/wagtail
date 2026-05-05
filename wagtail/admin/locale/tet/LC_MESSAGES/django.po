@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mario <mario@catalpa.io>, 2019,2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -139,18 +139,19 @@ msgid "Upload a profile picture"
 msgstr "Hatama imajen perfil ida"
 
 msgid "Enter password"
-msgstr "Hatama seña"
+msgstr "Hatama liafuan-pase"
 
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Ita-boot nia%(username_field)s no seña laloos. Favor koko fali."
+msgstr ""
+"Ita-boot nia%(username_field)s no liafuan-pase laloos. Favor koko fali."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
 msgstr "Hatama ita-boot nia %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
-msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
+msgstr "Hatama ita-boot nia enderessu email hodi reset ita-boot nia seña"
 
 msgid "URL"
 msgstr "URL"
@@ -441,10 +442,10 @@ msgid "Settings"
 msgstr "Konfigurasaun"
 
 msgid "Title"
-msgstr "Titlu"
+msgstr "Títulu"
 
 msgid "Page title"
-msgstr "Titlu pajina"
+msgstr "Títulu pajina"
 
 msgid "Error 404: Page not found"
 msgstr "Erru 404: Pajina la hetan"
@@ -462,28 +463,27 @@ msgid "More actions"
 msgstr "Asaun sira tan"
 
 msgid "Reset password"
-msgstr "Inisiu troka seña"
+msgstr "Reset seña"
 
 msgid "Password change successful"
-msgstr "Seña troka diak"
+msgstr "Seña troka ho susesu"
 
 msgid "Login"
 msgstr "Tama"
 
 msgid "Set your new password"
-msgstr "Hatama ita nia seña foun"
+msgstr "Hatama ita-boot nia seña foun"
 
 msgid "Invalid password reset link"
-msgstr "Link hafoun Seña la loos"
+msgstr "Link reset seña invalidu"
 
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used."
-msgstr ""
-"Troka seña ligasaun ne'e la valido ona, mak ne'e ka tamba ida ne'e usa ona."
+msgstr "Link reset seña invalidu, karik tanba uza tiha ona."
 
 msgid "Request a new password reset"
-msgstr "Husu seña muda foun "
+msgstr "Husu reset seña foun"
 
 msgid "Check your email"
 msgstr "Revista ita-nia email"
@@ -492,8 +492,8 @@ msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
 msgstr ""
-"Link hodi reset ita nian seña email tiha ona ba ita, karik konta existe ho "
-"enderessu nee."
+"Link hodi reset ita-boot nia seña haruka ona ba ita-boot liuhosi email karik "
+"konta existe ho enderessu nee."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Favor ida tuir link iha kraik nee hodi reset ita nian seña."
@@ -538,19 +538,19 @@ msgid "Select all"
 msgstr "Hili hotu"
 
 msgid "Internal link"
-msgstr "Ligasaun interna"
+msgstr "Link interna"
 
 msgid "External link"
-msgstr "Ligasaun externa"
+msgstr "Link externa"
 
 msgid "Email link"
-msgstr "Ligasaun email"
+msgstr "Email nia link"
 
 msgid "Phone link"
-msgstr "Ligasaun telefone"
+msgstr "Telefone nia link"
 
 msgid "Anchor link"
-msgstr "Ligasaun"
+msgstr "Link nia ankor"
 
 #, python-format
 msgid "There is %(counter)s match"
@@ -558,7 +558,7 @@ msgid_plural "There are %(counter)s matches"
 msgstr[0] "Laiha %(counter)s koresponde"
 
 msgid "Add an anchor link"
-msgstr "Aumenta ligasaun"
+msgstr "Aumenta ankor link ida"
 
 msgid "Insert anchor"
 msgstr "Hatama ligasaun"
@@ -604,9 +604,9 @@ msgid ""
 "automatically update if the underlying page changes its URL. Would you like "
 "to do this?"
 msgstr ""
-"Konverte ida-ne'e %(page)s ba ligasaun internu ida sei halo ligasaun "
-"atualiza automatikamente se pajina subjasente muda nia URL. Ita-boot hakarak "
-"halo ida-ne'e?"
+"Konverte ida-ne'e %(page)s ba link internu ida sei halo ligasaun atualiza "
+"automatikamente se pajina subjasente muda nia URL. Ita-boot hakarak halo ida-"
+"ne'e?"
 
 msgid "Use external link"
 msgstr "Uza esternal ligasaun"
@@ -615,13 +615,13 @@ msgid "Add an email link"
 msgstr "Aumenta ligasaun email ida"
 
 msgid "Insert link"
-msgstr "Insere ligasaun"
+msgstr "Hatama link"
 
 msgid "Add an external link"
-msgstr "Aumenta ligasaun externa ida"
+msgstr "Aumenta link externa ida"
 
 msgid "Add a phone link"
-msgstr "Aumenta ligasaun telefone"
+msgstr "Aumenta  link ba telefone"
 
 #, python-format
 msgid "Select %(title)s"
@@ -673,8 +673,8 @@ msgid ""
 "No collections have been created. Why not <a "
 "href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Koleksaun sira seidauk kria. Karik <a href=\"%(add_collection_url)s\">hatama "
-"ida</a>?"
+"Koleksaun sira seidauk kria. Karik bele <a "
+"href=\"%(add_collection_url)s\">aumenta ida</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -731,13 +731,13 @@ msgstr "Ita-boot sei hakarak atu publika %(model_name)sida-ne'e?"
 msgid "Cancel"
 msgstr "Kansela"
 
+msgid "Comment"
+msgstr "Komentariu"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Asaun sira"
-
-msgid "Comment"
-msgstr "Komentariu"
 
 #, python-format
 msgid ""
@@ -1078,7 +1078,7 @@ msgstr "Esplora pajina iha '%(title)s' nia okos"
 
 #, python-format
 msgid "Add a child page to '%(title)s'"
-msgstr "Aumenta pajina iha '%(title)s' okos"
+msgstr "Aumenta pájina ida ba '%(title)s' okos"
 
 msgid "Sites menu"
 msgstr "Menu sítiu sira"
@@ -1102,9 +1102,6 @@ msgstr "Pajina nee la publiku"
 msgid "Confirm"
 msgstr "Konfirma"
 
-msgid "Add child page"
-msgstr "Aumenta pajina iha okos"
-
 msgid "Page types"
 msgstr "Tipu pajina sira"
 
@@ -1123,7 +1120,7 @@ msgstr "Hatama termu buka iha leten"
 
 #, python-format
 msgid "Add %(label)s"
-msgstr " Hatama %(label)s"
+msgstr " Aumenta %(label)s"
 
 msgid "Move up"
 msgstr "Muda ba leten"
@@ -1133,6 +1130,9 @@ msgstr "Muda ba kraik"
 
 msgid "Drag"
 msgstr "Rasta"
+
+msgid "Add a collection permission"
+msgstr "Aumenta permisaun kolesaun ida"
 
 msgid "Type"
 msgstr "Tipu"
@@ -1171,16 +1171,6 @@ msgid "One other user is currently viewing"
 msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "%(num_user)s uzuáriu sira seluk agora dadaun haree hela"
 
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"Kontinua nafatin sei hakerek fali mudansa sira ne'ebé halo hosi "
-"%(user_name)s. Atualiza pajina sei hatudu ba ita-boot mudansa foun sira, "
-"maibé ita-boot sei lakon ita-boot nia mudansa sira ne'ebé mak seidauk salva."
-
 msgid "Continue"
 msgstr "Kontinua"
 
@@ -1189,6 +1179,9 @@ msgstr "Download CSV"
 
 msgid "Filter"
 msgstr "Filtru"
+
+msgid "Add comment"
+msgstr "Aumenta komentariu"
 
 msgid "Keyboard shortcuts"
 msgstr "Dalan badak sira ba tekla"
@@ -1249,6 +1242,9 @@ msgstr "Atu kria ona husi %(user)s"
 msgid "by %(user)s"
 msgstr "Husi  %(user)s"
 
+msgid "Invalid schedule"
+msgstr "Oráriu invalidu"
+
 msgid "Set schedule"
 msgstr "Kria orariu"
 
@@ -1265,7 +1261,7 @@ msgid "Sort"
 msgstr "Orden"
 
 msgid "Add a child page"
-msgstr "Hatama pajina oan"
+msgstr "Aumenta pájina oan ida"
 
 msgid "Show in Explorer"
 msgstr "Hatudu iha Esplorador"
@@ -1275,6 +1271,20 @@ msgstr "Lae"
 
 msgid "Page"
 msgstr "Pajina"
+
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Laiha fluxu servisu ne'ebe mak kria ona. Karik bele <a "
+"href=\"%(add_url)s\">kria ida</a>?"
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Laiha fluxu servisu ne'ebé disponivel. Karik bele <a "
+"href=\"%(add_url)s\">kria ida</a>? "
 
 msgid "New"
 msgstr "Foun"
@@ -1286,6 +1296,20 @@ msgid "Used on"
 msgstr "Uza iha"
 
 #, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Laiha servisu ne'ebe kria ona. Karik bele <a href=\"%(add_url)s\">aumenta "
+"ida</a>?"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Laiha servisu ne'ebe disponivel. Karik bele <a href=\"%(add_url)s\">aumenta "
+"ida</a>?"
+
+#, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s liubá"
 
@@ -1295,11 +1319,23 @@ msgstr "Sai"
 msgid "Toggle sidebar"
 msgstr "Altera sidebar"
 
+msgid "Add or show comments"
+msgstr "Aumenta ka hatudu komentariu"
+
 msgid "Undo"
 msgstr " La halo "
 
 msgid "Redo"
 msgstr "Halo fila fali"
+
+msgid "Insert or edit a link"
+msgstr "Hatama ka hadia link ida"
+
+msgid "Link text is empty"
+msgstr "Testu ba link mamuk"
+
+msgid "Add a concise description for search engines"
+msgstr "Aumenta deskrisaun badak ida ba makina buka sira"
 
 msgid "Password"
 msgstr "Seña"
@@ -1311,10 +1347,10 @@ msgid "Collections"
 msgstr "Koleksaun"
 
 msgid "Add a collection"
-msgstr "Hatama Koleksaun"
+msgstr "Aumenta kolesaun ida"
 
 msgid "Add collection"
-msgstr "Hatama Koleksaun"
+msgstr "Aumenta koleksaun"
 
 #, python-format
 msgid "Collection '%(object)s' created."
@@ -1372,7 +1408,7 @@ msgstr "Opsaun barak tan ba '%(title)s'"
 
 #, python-format
 msgid "Add %(model_name)s"
-msgstr "hatama %(model_name)s"
+msgstr "Aumenta %(model_name)s"
 
 #, python-format
 msgid "The %(model_name)s could not be created due to errors."
@@ -1443,8 +1479,17 @@ msgstr "Pájina '%(page_title)s' publika ona."
 msgid "Site"
 msgstr "Sítiu"
 
+msgid "Has child pages"
+msgstr "Iha pájina oan sira"
+
 msgid "Yes"
 msgstr "Loos"
+
+msgid "Page type"
+msgstr "Tipu pájina"
+
+msgid "Add child page"
+msgstr "Aumenta pájina oan"
 
 msgid "Pages using"
 msgstr "Pájina ne'ebé uza"
@@ -1457,6 +1502,9 @@ msgstr "Fluxu servisu sira"
 
 msgid "Workflow tasks"
 msgstr "Fluxu servisu tarefa sira"
+
+msgid "Add a workflow"
+msgstr "Aumenta fluxu servisu ida"
 
 msgid "New workflow task"
 msgstr "Fluxu servisu tarefa foun"
@@ -1473,3 +1521,6 @@ msgstr "Relatóriu"
 
 msgid "Help"
 msgstr "Ajuda"
+
+msgid "Choose another page"
+msgstr "Hili pájina seluk"

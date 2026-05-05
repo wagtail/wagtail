@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -522,9 +522,6 @@ msgstr "Následujúca"
 msgid "This page is protected from public view"
 msgstr "Táto stránka je chránená pred zobrazením návštevníkom"
 
-msgid "Add child page"
-msgstr "Pridať podstránku"
-
 msgid "Enter a search term above"
 msgstr "Zadajte hľadaný výraz"
 
@@ -775,6 +772,9 @@ msgstr "Vlastník"
 
 msgid "Site"
 msgstr "Sídlo"
+
+msgid "Add child page"
+msgstr "Pridať podstránku"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

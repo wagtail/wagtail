@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2021-2026\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -811,13 +811,13 @@ msgstr "Möchten Sie dieses %(model_name)s-Objekt dennoch veröffentlichen?"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+msgid "Comment"
+msgstr "Kommentar"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Aktionen"
-
-msgid "Comment"
-msgstr "Kommentar"
 
 #, python-format
 msgid ""
@@ -1769,11 +1769,6 @@ msgstr "Unterseiten von ‚%(title)s‘ durchsehen"
 msgid "Add a child page to '%(title)s'"
 msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr ""
-"%(start_index)s-%(end_index)s von %(items_count)s auf der gesamten Website."
-
 msgid "No results across entire site."
 msgstr "Keine Ergebnisse auf der gesamten Website."
 
@@ -1782,24 +1777,12 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Suchen in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"%(start_index)s-%(end_index)s von %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 "Keine Ergebnisse in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Die gesamte Website durchsuchen"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s von %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Seitenmenü"
@@ -1822,9 +1805,6 @@ msgstr "Diese Seite ist vor öffentlichem Zugriff geschützt"
 
 msgid "Confirm"
 msgstr "Bestätigen"
-
-msgid "Add child page"
-msgstr "Unterseite hinzufügen"
 
 msgid "Page types"
 msgstr "Seitentypen"
@@ -2034,9 +2014,6 @@ msgstr "System"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s hat eine neue Version gespeichert"
 
-msgid "Refresh"
-msgstr "Aktualisieren"
-
 msgid "You have unsaved changes in another window"
 msgstr "Sie haben nicht gespeicherte Änderungen in einem anderen Fenster"
 
@@ -2053,40 +2030,8 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "1 weiterer Benutzer sieht sich das gerade an"
 msgstr[1] "%(num_user)s weitere Benutzer sehen sich das gerade an"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Wenn Sie fortfahren, werden die in diesem Fenster vorgenommenen Änderungen "
-"überschrieben. Wenn Sie die Seite aktualisieren, werden Ihnen die neuen "
-"Änderungen angezeigt, aber alle nicht gespeicherten Änderungen im aktuellen "
-"Fenster gehen verloren."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"Wenn Sie fortfahren, werden die von %(user_name)s vorgenommenen Änderungen "
-"überschrieben. Wenn Sie die Seite aktualisieren, werden Ihnen die neuen "
-"Änderungen angezeigt, aber alle nicht gespeicherten Änderungen gehen "
-"verloren."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr ""
-"Wenn Sie die Seite aktualisieren, gehen alle ungespeicherten Änderungen "
-"verloren."
-
-msgid "Refresh page"
-msgstr "Seite aktualisieren"
-
 msgid "Continue"
 msgstr "Weiter"
-
-msgid "Refresh the page"
-msgstr "Diese Seite aktualisieren"
 
 msgid "Download XLSX"
 msgstr "XLSX herunterladen"
@@ -2363,6 +2308,9 @@ msgstr "Lade"
 
 msgid "Refreshing…"
 msgstr "Aktualisiere…"
+
+msgid "Refresh"
+msgstr "Aktualisieren"
 
 msgid "Preview is out of date"
 msgstr "Vorschau ist veraltet"
@@ -3434,6 +3382,9 @@ msgstr "Seitentyp"
 
 msgid "Exploring"
 msgstr "Erkunden"
+
+msgid "Add child page"
+msgstr "Unterseite hinzufügen"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
