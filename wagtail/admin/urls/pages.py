@@ -164,8 +164,11 @@ urlpatterns = [
         name="revisions_unschedule",
     ),
     re_path(
-        r"^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$",
-        revisions.RevisionsCompare.as_view(),
+        r"^(?P<pk>\d+)/revisions/compare/(?P<revision_id_a>live|earliest|\d+)\.\.\.(?P<revision_id_b>live|latest|\d+)/$",
+        page_viewset_registry.as_view(
+            "revisions_compare",
+            page_id_kwarg="pk",
+        ),
         name="revisions_compare",
     ),
     path(

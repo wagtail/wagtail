@@ -18,7 +18,11 @@ from wagtail.admin.views.pages.listing import (
     PageFilterSet,
 )
 from wagtail.admin.views.pages.preview import PreviewOnCreate, PreviewOnEdit
-from wagtail.admin.views.pages.revisions import RevisionsRevertView, RevisionsView
+from wagtail.admin.views.pages.revisions import (
+    RevisionsCompare,
+    RevisionsRevertView,
+    RevisionsView,
+)
 from wagtail.admin.views.pages.usage import ContentTypeUseView, UsageView
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
@@ -183,6 +187,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the revisions view; must be a subclass of
     ``wagtail.admin.views.pages.revisions.RevisionsView``.
     """
+    revisions_compare_view_class = RevisionsCompare
+    """
+    The view class to use for the revisions compare view; must be a subclass of
+    ``wagtail.admin.views.pages.revisions.RevisionsCompare``.
+    """
     revisions_revert_view_class = RevisionsRevertView
     """
     The view class to use for the revisions revert view; must be a subclass of
@@ -210,6 +219,7 @@ class PageViewSet(PageListingViewSet):
             "index_results": self.index_results_view,
             "preview_on_add": self.preview_on_add_view,
             "preview_on_edit": self.preview_on_edit_view,
+            "revisions_compare": self.revisions_compare_view,
             "revisions_view": self.revisions_view,
             "revisions_revert": self.revisions_revert_view,
             "usage": self.usage_view,
@@ -263,6 +273,10 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def revisions_view(self):
         return self.construct_view(self.revisions_view_class)
+
+    @cached_property
+    def revisions_compare_view(self):
+        return self.construct_view(self.revisions_compare_view_class)
 
     @cached_property
     def revisions_revert_view(self):
