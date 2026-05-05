@@ -14,7 +14,6 @@ from wagtail.admin.views.pages import (
     revisions,
     search,
     unpublish,
-    usage,
     workflow,
 )
 from wagtail.admin.viewsets.pages import page_viewset_registry
@@ -66,7 +65,14 @@ urlpatterns = [
         ),
         name="type_use_results",
     ),
-    path("<int:page_id>/usage/", usage.UsageView.as_view(), name="usage"),
+    path(
+        "<int:page_id>/usage/",
+        page_viewset_registry.as_view(
+            "usage",
+            page_id_kwarg="page_id",
+        ),
+        name="usage",
+    ),
     path(
         "<int:page_id>/edit/",
         page_viewset_registry.as_view(

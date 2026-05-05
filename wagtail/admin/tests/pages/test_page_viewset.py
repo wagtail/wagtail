@@ -608,6 +608,10 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 "wagtailadmin_pages:type_use_results",
                 args=["tests", "eventpage"],
             ),
+            reverse(
+                "wagtailadmin_pages:usage",
+                args=[self.event_page.id],
+            ),
         ]
         for url in urls:
             with self.subTest(url=url):
