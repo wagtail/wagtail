@@ -8,6 +8,7 @@ from wagtail.admin.views.pages.choose_parent import (
     ChooseParentView,
     GenericChooseParentView,
 )
+from wagtail.admin.views.pages.create import CreateView
 from wagtail.admin.views.pages.listing import (
     ExplorableIndexView,
     GenericPageFilterSet,
@@ -143,6 +144,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the flat per-page-type index view; must be a subclass of
     ``wagtail.admin.views.pages.usage.ContentTypeUseView``.
     """
+    add_view_class = CreateView
+    """
+    The view class to use for the create view; must be a subclass of
+    ``wagtail.admin.views.pages.create.CreateView``.
+    """
     index_view_class = ExplorableIndexView
     """
     The view class to use for the index view; must be a subclass of
@@ -154,6 +160,7 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def views(self):
         return {
+            "add": self.add_view,
             "choose_parent": self.choose_parent_view,
             "content_type_use": self.content_type_use_view,
             "content_type_use_results": self.content_type_use_results_view,
@@ -178,6 +185,10 @@ class PageViewSet(PageListingViewSet):
             **self.get_index_view_kwargs(),
             results_only=True,
         )
+
+    @cached_property
+    def add_view(self):
+        return self.construct_view(self.add_view_class)
 
     @cached_property
     def parent_models(self):

@@ -553,3 +553,50 @@ class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
             pagination,
             ["Page 1 of 3", "Previous", "1", "2", "3", "Next", "25 event pages"],
         )
+
+
+class TestCustomViews(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.event_index_page = EventIndex.objects.first()
+
+    def test_views(self):
+        urls = [
+            reverse(
+                "wagtailadmin_explore",
+                args=[self.event_index_page.id],
+            ),
+            reverse(
+                "wagtailadmin_explore_results",
+                args=[self.event_index_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["tests", "eventpage", self.event_index_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:choose_parent",
+                args=["tests", "eventpage"],
+            ),
+            reverse(
+                "wagtailadmin_pages:type_use",
+                args=["tests", "eventpage"],
+            ),
+            reverse(
+                "wagtailadmin_pages:type_use_results",
+                args=["tests", "eventpage"],
+            ),
+        ]
+        for url in urls:
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(
+                    response.headers.get("X-Wagtail-ViewSet"),
+                    "EventPageViewSet",
+                )
