@@ -6,13 +6,11 @@ from wagtail.admin.views.pages import (
     copy,
     create,
     delete,
-    history,
     move,
     ordering,
     preview,
     revisions,
     search,
-    workflow,
 )
 from wagtail.admin.viewsets.pages import page_viewset_registry
 
@@ -125,22 +123,34 @@ urlpatterns = [
     path("<int:page_id>/copy/", copy.copy, name="copy"),
     path(
         "workflow/action/<int:page_id>/<slug:action_name>/<int:task_state_id>/",
-        workflow.WorkflowAction.as_view(),
+        page_viewset_registry.as_view(
+            "workflow_action",
+            page_id_kwarg="page_id",
+        ),
         name="workflow_action",
     ),
     path(
         "workflow/collect_action_data/<int:page_id>/<slug:action_name>/<int:task_state_id>/",
-        workflow.CollectWorkflowActionData.as_view(),
+        page_viewset_registry.as_view(
+            "collect_workflow_action_data",
+            page_id_kwarg="page_id",
+        ),
         name="collect_workflow_action_data",
     ),
     path(
         "workflow/confirm_cancellation/<int:page_id>/",
-        workflow.ConfirmWorkflowCancellation.as_view(),
+        page_viewset_registry.as_view(
+            "confirm_workflow_cancellation",
+            page_id_kwarg="page_id",
+        ),
         name="confirm_workflow_cancellation",
     ),
     path(
         "workflow/preview/<int:page_id>/<int:task_id>/",
-        workflow.PreviewRevisionForTask.as_view(),
+        page_viewset_registry.as_view(
+            "workflow_preview",
+            page_id_kwarg="page_id",
+        ),
         name="workflow_preview",
     ),
     path("<int:page_id>/privacy/", page_privacy.set_privacy, name="set_privacy"),
@@ -195,12 +205,18 @@ urlpatterns = [
     ),
     path(
         "<int:page_id>/workflow_history/",
-        history.WorkflowHistoryView.as_view(),
+        page_viewset_registry.as_view(
+            "workflow_history",
+            page_id_kwarg="page_id",
+        ),
         name="workflow_history",
     ),
     path(
         "<int:page_id>/workflow_history/detail/<int:workflow_state_id>/",
-        history.WorkflowHistoryDetailView.as_view(),
+        page_viewset_registry.as_view(
+            "workflow_history_detail",
+            page_id_kwarg="page_id",
+        ),
         name="workflow_history_detail",
     ),
     path(
