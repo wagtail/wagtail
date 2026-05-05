@@ -14,7 +14,7 @@ from wagtail.admin.forms.pages import MoveForm
 from wagtail.models import Page
 
 
-class MoveChooseDestination(TemplateView, FormMixin):
+class MoveChooseDestinationView(TemplateView, FormMixin):
     template_name = "wagtailadmin/pages/move_choose_destination.html"
     form_class = MoveForm
 

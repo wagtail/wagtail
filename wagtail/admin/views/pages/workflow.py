@@ -24,23 +24,25 @@ class WorkflowPageViewMixin:
         return super().get_context_data(page=self.object, **kwargs)
 
 
-class WorkflowAction(WorkflowPageViewMixin, workflow.WorkflowAction):
+class WorkflowActionView(WorkflowPageViewMixin, workflow.WorkflowAction):
     submit_url_name = "wagtailadmin_pages:workflow_action"
 
 
-class CollectWorkflowActionData(
+class CollectWorkflowActionDataView(
     WorkflowPageViewMixin, workflow.CollectWorkflowActionData
 ):
     submit_url_name = "wagtailadmin_pages:collect_workflow_action_data"
 
 
-class ConfirmWorkflowCancellation(
+class ConfirmWorkflowCancellationView(
     WorkflowPageViewMixin, workflow.ConfirmWorkflowCancellation
 ):
     template_name = "wagtailadmin/pages/confirm_workflow_cancellation.html"
 
 
-class PreviewRevisionForTask(WorkflowPageViewMixin, workflow.PreviewRevisionForTask):
+class PreviewRevisionForTaskView(
+    WorkflowPageViewMixin, workflow.PreviewRevisionForTask
+):
     def add_error_message(self):
         messages.error(
             self.request,
