@@ -625,6 +625,10 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 args=["tests", "eventpage"],
             ),
             reverse(
+                "wagtailadmin_pages:unpublish",
+                args=[self.event_page.id],
+            ),
+            reverse(
                 "wagtailadmin_pages:usage",
                 args=[self.event_page.id],
             ),
