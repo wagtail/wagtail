@@ -1,9 +1,14 @@
 Changelog
 =========
 
-7.4 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+7.4 LTS (05.05.2026)
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Security fix: Improper permission handling when comparing revisions (Seoyoung Kang, Jake Howard)
+ * Security fix: Improper permission handling when viewing page history (Seoyoung Kang, Jake Howard, Dan Braghis)
+ * Security fix: Improper permission handling when deleting form submissions (Vishal Shukla, Jake Howard)
+ * Security fix: Improper restriction handling on Documents and Images API (Sanjok Karki, Jake Howard)
+ * Security fix: Improper permission handling when copying pages (Sanjok Karki, Matt Westcott)
  * Add `is_deferred_validation` flag to support skipping custom validation when saving drafts (Daniel Kirkham)
  * Update project template Dockerfile to build dependencies in a separate stage (Brylie Oxley, Akshat Gupta)
  * Add `include_root` parameter to admin pages API endpoint (Divyansh Mishra)
