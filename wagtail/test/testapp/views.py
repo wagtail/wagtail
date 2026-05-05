@@ -365,11 +365,12 @@ class EventPageViewSet(PageViewSet):
     list_per_page = 10
     ordering = ("date_from", "title")
 
-    def construct_view(self, view_class, **kwargs):
-        view = super().construct_view(view_class, **kwargs)
+    def get_view_by_name(self, name):
+        view = super().get_view_by_name(name)
 
         # Mark the view with a custom header, so we can check that the correct
-        # view is being used in tests
+        # view is being used in tests. Override get_view_by_name() instead of
+        # construct_view() to also support function-based views.
         def marked_view(*args, **kwargs):
             response = view(*args, **kwargs)
             response.headers["X-Wagtail-ViewSet"] = "EventPageViewSet"

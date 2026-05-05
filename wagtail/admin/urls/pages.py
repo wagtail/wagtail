@@ -1,17 +1,6 @@
 from django.urls import path, re_path
 
-from wagtail.admin.views import page_privacy
-from wagtail.admin.views.pages import (
-    convert_alias,
-    copy,
-    create,
-    delete,
-    move,
-    ordering,
-    preview,
-    revisions,
-    search,
-)
+from wagtail.admin.views.pages import revisions, search
 from wagtail.admin.viewsets.pages import page_viewset_registry
 
 app_name = "wagtailadmin_pages"
@@ -85,9 +74,30 @@ urlpatterns = [
         ),
         name="preview_on_edit",
     ),
-    path("<int:page_id>/view_draft/", preview.view_draft, name="view_draft"),
-    path("<int:parent_page_id>/add_subpage/", create.add_subpage, name="add_subpage"),
-    path("<int:page_id>/delete/", delete.delete, name="delete"),
+    path(
+        "<int:page_id>/view_draft/",
+        page_viewset_registry.as_view(
+            "view_draft",
+            page_id_kwarg="page_id",
+        ),
+        name="view_draft",
+    ),
+    path(
+        "<int:parent_page_id>/add_subpage/",
+        page_viewset_registry.as_view(
+            "add_subpage",
+            parent_page_id_kwarg="parent_page_id",
+        ),
+        name="add_subpage",
+    ),
+    path(
+        "<int:page_id>/delete/",
+        page_viewset_registry.as_view(
+            "delete",
+            page_id_kwarg="page_id",
+        ),
+        name="delete",
+    ),
     path(
         "<int:page_id>/unpublish/",
         page_viewset_registry.as_view(
@@ -98,7 +108,10 @@ urlpatterns = [
     ),
     path(
         "<int:page_id>/convert_alias/",
-        convert_alias.convert_alias,
+        page_viewset_registry.as_view(
+            "convert_alias",
+            page_id_kwarg="page_id",
+        ),
         name="convert_alias",
     ),
     path("search/", search.SearchView.as_view(), name="search"),
@@ -117,15 +130,28 @@ urlpatterns = [
     ),
     path(
         "<int:page_to_move_id>/move/<int:destination_id>/confirm/",
-        move.move_confirm,
+        page_viewset_registry.as_view(
+            "move_confirm",
+            page_id_kwarg="page_to_move_id",
+        ),
         name="move_confirm",
     ),
     path(
         "<int:page_to_move_id>/set_position/",
-        ordering.set_page_position,
+        page_viewset_registry.as_view(
+            "set_page_position",
+            page_id_kwarg="page_to_move_id",
+        ),
         name="set_page_position",
     ),
-    path("<int:page_id>/copy/", copy.copy, name="copy"),
+    path(
+        "<int:page_id>/copy/",
+        page_viewset_registry.as_view(
+            "copy",
+            page_id_kwarg="page_id",
+        ),
+        name="copy",
+    ),
     path(
         "workflow/action/<int:page_id>/<slug:action_name>/<int:task_state_id>/",
         page_viewset_registry.as_view(
@@ -158,7 +184,14 @@ urlpatterns = [
         ),
         name="workflow_preview",
     ),
-    path("<int:page_id>/privacy/", page_privacy.set_privacy, name="set_privacy"),
+    path(
+        "<int:page_id>/privacy/",
+        page_viewset_registry.as_view(
+            "set_privacy",
+            page_id_kwarg="page_id",
+        ),
+        name="set_privacy",
+    ),
     path(
         "<int:page_id>/lock/",
         page_viewset_registry.as_view(
