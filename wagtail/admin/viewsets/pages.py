@@ -9,12 +9,14 @@ from wagtail.admin.views.pages.choose_parent import (
     GenericChooseParentView,
 )
 from wagtail.admin.views.pages.create import CreateView
+from wagtail.admin.views.pages.edit import EditView
 from wagtail.admin.views.pages.listing import (
     ExplorableIndexView,
     GenericPageFilterSet,
     IndexView,
     PageFilterSet,
 )
+from wagtail.admin.views.pages.revisions import RevisionsRevertView
 from wagtail.admin.views.pages.usage import ContentTypeUseView
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
@@ -149,10 +151,20 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the create view; must be a subclass of
     ``wagtail.admin.views.pages.create.CreateView``.
     """
+    edit_view_class = EditView
+    """
+    The view class to use for the edit view; must be a subclass of
+    ``wagtail.admin.views.pages.edit.EditView``.
+    """
     index_view_class = ExplorableIndexView
     """
     The view class to use for the index view; must be a subclass of
     ``wagtail.admin.views.pages.listing.ExplorableIndexView``.
+    """
+    revisions_revert_view_class = RevisionsRevertView
+    """
+    The view class to use for the revisions revert view; must be a subclass of
+    ``wagtail.admin.views.pages.revisions.RevisionsRevertView``.
     """
     menu_url = None
     """Unused. There is no specific URL to link to for the menu item."""
@@ -164,8 +176,10 @@ class PageViewSet(PageListingViewSet):
             "choose_parent": self.choose_parent_view,
             "content_type_use": self.content_type_use_view,
             "content_type_use_results": self.content_type_use_results_view,
+            "edit": self.edit_view,
             "index": self.index_view,
             "index_results": self.index_results_view,
+            "revisions_revert": self.revisions_revert_view,
         }
 
     def get_view_by_name(self, name):
@@ -189,6 +203,14 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def add_view(self):
         return self.construct_view(self.add_view_class)
+
+    @cached_property
+    def edit_view(self):
+        return self.construct_view(self.edit_view_class)
+
+    @cached_property
+    def revisions_revert_view(self):
+        return self.construct_view(self.revisions_revert_view_class)
 
     @cached_property
     def parent_models(self):
