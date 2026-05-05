@@ -85,9 +85,7 @@ class TestDocumentListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode("UTF-8"))
 
-        self.assertNotIn(
-            restricted_document.id, self.get_document_id_list(content)
-        )
+        self.assertNotIn(restricted_document.id, self.get_document_id_list(content))
 
         self.assertEqual(
             content["meta"]["total_count"], get_document_model().objects.count() - 1
