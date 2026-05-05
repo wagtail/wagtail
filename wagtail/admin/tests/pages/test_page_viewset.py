@@ -613,6 +613,10 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 args=[self.event_page.id, self.old_revision.pk],
             ),
             reverse(
+                "wagtailadmin_pages:revisions_unschedule",
+                args=[self.event_page.id, self.old_revision.pk],
+            ),
+            reverse(
                 "wagtailadmin_pages:revisions_view",
                 args=[self.event_page.id, self.old_revision.pk],
             ),
