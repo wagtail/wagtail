@@ -23,6 +23,7 @@ from wagtail.admin.views.pages.revisions import (
     RevisionsRevertView,
     RevisionsView,
 )
+from wagtail.admin.views.pages.unpublish import Unpublish
 from wagtail.admin.views.pages.usage import ContentTypeUseView, UsageView
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
@@ -197,6 +198,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the revisions revert view; must be a subclass of
     ``wagtail.admin.views.pages.revisions.RevisionsRevertView``.
     """
+    unpublish_view_class = Unpublish
+    """
+    The view class to use for the unpublish view; must be a subclass of
+    ``wagtail.admin.views.pages.unpublish.Unpublish``.
+    """
     usage_view_class = UsageView
     """
     The view class to use for the usage view; must be a subclass of
@@ -222,6 +228,7 @@ class PageViewSet(PageListingViewSet):
             "revisions_compare": self.revisions_compare_view,
             "revisions_view": self.revisions_view,
             "revisions_revert": self.revisions_revert_view,
+            "unpublish": self.unpublish_view,
             "usage": self.usage_view,
         }
 
@@ -281,6 +288,10 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def revisions_revert_view(self):
         return self.construct_view(self.revisions_revert_view_class)
+
+    @cached_property
+    def unpublish_view(self):
+        return self.construct_view(self.unpublish_view_class)
 
     @cached_property
     def usage_view(self):
