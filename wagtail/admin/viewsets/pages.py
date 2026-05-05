@@ -26,23 +26,27 @@ from wagtail.admin.views.pages.listing import (
     PageFilterSet,
 )
 from wagtail.admin.views.pages.lock import LockView, UnlockView
-from wagtail.admin.views.pages.move import MoveChooseDestination, move_confirm
+from wagtail.admin.views.pages.move import MoveChooseDestinationView, move_confirm
 from wagtail.admin.views.pages.ordering import set_page_position
-from wagtail.admin.views.pages.preview import PreviewOnCreate, PreviewOnEdit, view_draft
+from wagtail.admin.views.pages.preview import (
+    PreviewOnCreateView,
+    PreviewOnEditView,
+    view_draft,
+)
 from wagtail.admin.views.pages.revisions import (
-    RevisionsCompare,
+    RevisionsCompareView,
     RevisionsRevertView,
-    RevisionsUnschedule,
+    RevisionsUnscheduleView,
     RevisionsView,
 )
 from wagtail.admin.views.pages.search import SearchView
-from wagtail.admin.views.pages.unpublish import Unpublish
+from wagtail.admin.views.pages.unpublish import UnpublishView
 from wagtail.admin.views.pages.usage import ContentTypeUseView, UsageView
 from wagtail.admin.views.pages.workflow import (
-    CollectWorkflowActionData,
-    ConfirmWorkflowCancellation,
-    PreviewRevisionForTask,
-    WorkflowAction,
+    CollectWorkflowActionDataView,
+    ConfirmWorkflowCancellationView,
+    PreviewRevisionForTaskView,
+    WorkflowActionView,
 )
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
@@ -177,15 +181,15 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the create view; must be a subclass of
     ``wagtail.admin.views.pages.create.CreateView``.
     """
-    collect_workflow_action_data_view_class = CollectWorkflowActionData
+    collect_workflow_action_data_view_class = CollectWorkflowActionDataView
     """
     The view class to use for the workflow action data collection view; must be a subclass of
-    ``wagtail.admin.views.pages.workflow.CollectWorkflowActionData``.
+    ``wagtail.admin.views.pages.workflow.CollectWorkflowActionDataView``.
     """
-    confirm_workflow_cancellation_view_class = ConfirmWorkflowCancellation
+    confirm_workflow_cancellation_view_class = ConfirmWorkflowCancellationView
     """
     The view class to use for the workflow cancellation confirmation view; must be a subclass of
-    ``wagtail.admin.views.pages.workflow.ConfirmWorkflowCancellation``.
+    ``wagtail.admin.views.pages.workflow.ConfirmWorkflowCancellationView``.
     """
     edit_view_class = EditView
     """
@@ -207,45 +211,45 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the lock view; must be a subclass of
     ``wagtail.admin.views.pages.lock.LockView``.
     """
-    move_view_class = MoveChooseDestination
+    move_view_class = MoveChooseDestinationView
     """
     The view class to use for the move choose destination view; must be a subclass of
-    ``wagtail.admin.views.pages.move.MoveChooseDestination``.
+    ``wagtail.admin.views.pages.move.MoveChooseDestinationView``.
     """
     unlock_view_class = UnlockView
     """
     The view class to use for the unlock view; must be a subclass of
     ``wagtail.admin.views.pages.lock.UnlockView``.
     """
-    preview_on_add_view_class = PreviewOnCreate
+    preview_on_add_view_class = PreviewOnCreateView
     """
     The view class to use for the preview on create view; must be a subclass of
-    ``wagtail.admin.views.pages.preview.PreviewOnCreate``.
+    ``wagtail.admin.views.pages.preview.PreviewOnCreateView``.
     """
-    preview_on_edit_view_class = PreviewOnEdit
+    preview_on_edit_view_class = PreviewOnEditView
     """
     The view class to use for the preview on edit view; must be a subclass of
-    ``wagtail.admin.views.pages.preview.PreviewOnEdit``.
+    ``wagtail.admin.views.pages.preview.PreviewOnEditView``.
     """
     revisions_view_class = RevisionsView
     """
     The view class to use for the revisions view; must be a subclass of
     ``wagtail.admin.views.pages.revisions.RevisionsView``.
     """
-    revisions_compare_view_class = RevisionsCompare
+    revisions_compare_view_class = RevisionsCompareView
     """
     The view class to use for the revisions compare view; must be a subclass of
-    ``wagtail.admin.views.pages.revisions.RevisionsCompare``.
+    ``wagtail.admin.views.pages.revisions.RevisionsCompareView``.
     """
     revisions_revert_view_class = RevisionsRevertView
     """
     The view class to use for the revisions revert view; must be a subclass of
     ``wagtail.admin.views.pages.revisions.RevisionsRevertView``.
     """
-    revisions_unschedule_view_class = RevisionsUnschedule
+    revisions_unschedule_view_class = RevisionsUnscheduleView
     """
     The view class to use for the revisions unschedule view; must be a subclass of
-    ``wagtail.admin.views.pages.revisions.RevisionsUnschedule``.
+    ``wagtail.admin.views.pages.revisions.RevisionsUnscheduleView``.
     """
     search_view_class = SearchView
     """
@@ -254,20 +258,20 @@ class PageViewSet(PageListingViewSet):
 
     This is only used by the base ``Page`` model's viewset.
     """
-    unpublish_view_class = Unpublish
+    unpublish_view_class = UnpublishView
     """
     The view class to use for the unpublish view; must be a subclass of
-    ``wagtail.admin.views.pages.unpublish.Unpublish``.
+    ``wagtail.admin.views.pages.unpublish.UnpublishView``.
     """
     usage_view_class = UsageView
     """
     The view class to use for the usage view; must be a subclass of
     ``wagtail.admin.views.pages.usage.UsageView``.
     """
-    workflow_action_view_class = WorkflowAction
+    workflow_action_view_class = WorkflowActionView
     """
     The view class to use for the workflow action view; must be a subclass of
-    ``wagtail.admin.views.pages.workflow.WorkflowAction``.
+    ``wagtail.admin.views.pages.workflow.WorkflowActionView``.
     """
     workflow_history_view_class = WorkflowHistoryView
     """
@@ -279,10 +283,10 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the workflow history detail view; must be a subclass of
     ``wagtail.admin.views.pages.history.WorkflowHistoryDetailView``.
     """
-    workflow_preview_view_class = PreviewRevisionForTask
+    workflow_preview_view_class = PreviewRevisionForTaskView
     """
     The view class to use for the workflow preview revision for task view; must be a subclass of
-    ``wagtail.admin.views.pages.workflow.PreviewRevisionForTask``.
+    ``wagtail.admin.views.pages.workflow.PreviewRevisionForTaskView``.
     """
     menu_url = None
     """Unused. There is no specific URL to link to for the menu item."""

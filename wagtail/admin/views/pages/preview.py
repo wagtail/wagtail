@@ -25,7 +25,7 @@ def view_draft(request, page_id):
     return page.make_preview_request(request, preview_mode)
 
 
-class PreviewOnEdit(GenericPreviewOnEdit):
+class PreviewOnEditView(GenericPreviewOnEdit):
     def get_object(self):
         page = get_object_or_404(
             Page.objects.select_related("latest_revision"),
@@ -66,7 +66,7 @@ class PreviewOnEdit(GenericPreviewOnEdit):
         )
 
 
-class PreviewOnCreate(PreviewOnEdit):
+class PreviewOnCreateView(PreviewOnEditView):
     @cached_property
     def content_type(self):
         content_type_app_name = self.kwargs["content_type_app_name"]
