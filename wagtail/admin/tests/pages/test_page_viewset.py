@@ -609,6 +609,10 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 args=[self.event_page.id, self.old_revision.pk],
             ),
             reverse(
+                "wagtailadmin_pages:revisions_view",
+                args=[self.event_page.id, self.old_revision.pk],
+            ),
+            reverse(
                 "wagtailadmin_pages:type_use",
                 args=["tests", "eventpage"],
             ),
