@@ -112,7 +112,10 @@ Changelog
  * Fix: Retain page explorer header buttons when searching or filtering (Sage Abdullah)
  * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
  * Fix: Add accessible label to userbar aside element for accessibility (Kalash Kumari Thakur)
+ * Fix: Pause SessionController pings during autosave to prevent conflict notification with own session (Sage Abdullah)
  * Fix: Ensure live preview does not get stuck when edits occur during an in-progress update (Aniket Singh)
+ * Fix: Ensure only one autosave request can happen at a time to prevent incorrect conflict notifications with the current session (Sage Abdullah)
+ * Fix: Prevent incorrect concurrent editing conflict notifications when doing a manual save (Sage Abdullah)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -421,6 +424,7 @@ Changelog
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
  * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
  * Fix: Add accessible label to userbar aside element for accessibility (Kalash Kumari Thakur)
+ * Fix: Prevent incorrect concurrent editing conflict notifications when doing a manual save (Sage Abdullah)
 
 7.0.6 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~

@@ -396,7 +396,12 @@ class TestContentCheckerConfig(WagtailTestUtils, TestCase):
                         # Override via class attribute
                         ".sr-only",
                         # Should include the default exclude selectors
-                        {"fromShadowDom": ["wagtail-userbar"]},
+                        {
+                            "fromShadowDom": [
+                                "wagtail-userbar",
+                                "wagtail-inline-userbar",
+                            ]
+                        },
                         # Override via method
                         "[data-please-ignore]",
                     ],
