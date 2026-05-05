@@ -1,9 +1,14 @@
 Changelog
 =========
 
-7.0.7 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0.7 (05.05.2026)
 ~~~~~~~~~~~~~~~~~~
 
+ * Security fix: Improper permission handling when comparing revisions (Seoyoung Kang, Jake Howard)
+ * Security fix: Improper permission handling when viewing page history (Seoyoung Kang, Jake Howard, Dan Braghis)
+ * Security fix: Improper permission handling when deleting form submissions (Vishal Shukla, Jake Howard)
+ * Security fix: Improper restriction handling on Documents and Images API (Sanjok Karki, Jake Howard)
+ * Security fix: Improper permission handling when copying pages (Sanjok Karki, Matt Westcott)
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
  * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
  * Fix: Add accessible label to userbar aside element for accessibility (Kalash Kumari Thakur)

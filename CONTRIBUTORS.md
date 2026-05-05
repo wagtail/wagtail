@@ -883,6 +883,9 @@
 * Arthur Tripp
 * Ian Meigh
 * Kalash Kumari Thakur
+* Seoyoung Kang
+* Vishal Shukla
+* Sanjok Karki
 
 ## Translators
 
