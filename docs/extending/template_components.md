@@ -117,7 +117,7 @@ def welcome_page(request):
         WelcomePanel(),
     ]
 
-    render(request, 'my_app/welcome.html', {
+    return render(request, 'my_app/welcome.html', {
         'panels': panels,
     })
 ```
@@ -166,7 +166,7 @@ def welcome_page(request):
     for panel in panels:
         media += panel.media
 
-    render(request, 'my_app/welcome.html', {
+    return render(request, 'my_app/welcome.html', {
         'panels': panels,
         'media': media,
     })
