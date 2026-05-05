@@ -18,7 +18,7 @@ from wagtail.admin.views.pages.listing import (
 )
 from wagtail.admin.views.pages.preview import PreviewOnCreate, PreviewOnEdit
 from wagtail.admin.views.pages.revisions import RevisionsRevertView
-from wagtail.admin.views.pages.usage import ContentTypeUseView
+from wagtail.admin.views.pages.usage import ContentTypeUseView, UsageView
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
 from wagtail.utils.registry import ObjectTypeRegistry
@@ -177,6 +177,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the revisions revert view; must be a subclass of
     ``wagtail.admin.views.pages.revisions.RevisionsRevertView``.
     """
+    usage_view_class = UsageView
+    """
+    The view class to use for the usage view; must be a subclass of
+    ``wagtail.admin.views.pages.usage.UsageView``.
+    """
     menu_url = None
     """Unused. There is no specific URL to link to for the menu item."""
 
@@ -193,6 +198,7 @@ class PageViewSet(PageListingViewSet):
             "preview_on_add": self.preview_on_add_view,
             "preview_on_edit": self.preview_on_edit_view,
             "revisions_revert": self.revisions_revert_view,
+            "usage": self.usage_view,
         }
 
     def get_view_by_name(self, name):
@@ -232,6 +238,10 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def revisions_revert_view(self):
         return self.construct_view(self.revisions_revert_view_class)
+
+    @cached_property
+    def usage_view(self):
+        return self.construct_view(self.usage_view_class)
 
     @cached_property
     def parent_models(self):
