@@ -7,7 +7,6 @@ from wagtail.admin.views.pages import (
     create,
     delete,
     history,
-    lock,
     move,
     ordering,
     preview,
@@ -145,8 +144,22 @@ urlpatterns = [
         name="workflow_preview",
     ),
     path("<int:page_id>/privacy/", page_privacy.set_privacy, name="set_privacy"),
-    path("<int:page_id>/lock/", lock.LockView.as_view(), name="lock"),
-    path("<int:page_id>/unlock/", lock.UnlockView.as_view(), name="unlock"),
+    path(
+        "<int:page_id>/lock/",
+        page_viewset_registry.as_view(
+            "lock",
+            page_id_kwarg="page_id",
+        ),
+        name="lock",
+    ),
+    path(
+        "<int:page_id>/unlock/",
+        page_viewset_registry.as_view(
+            "unlock",
+            page_id_kwarg="page_id",
+        ),
+        name="unlock",
+    ),
     path("<int:page_id>/revisions/", revisions.revisions_index, name="revisions_index"),
     path(
         "<int:page_id>/revisions/<int:revision_id>/view/",

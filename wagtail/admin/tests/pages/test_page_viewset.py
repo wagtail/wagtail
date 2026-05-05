@@ -637,11 +637,29 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 args=[self.event_page.id],
             ),
         ]
-        for url in urls:
-            with self.subTest(url=url):
-                response = self.client.get(url)
-                self.assertEqual(response.status_code, 200)
-                self.assertEqual(
-                    response.headers.get("X-Wagtail-ViewSet"),
-                    "EventPageViewSet",
-                )
+
+        post_only_urls = [
+            reverse(
+                "wagtailadmin_pages:lock",
+                args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:unlock",
+                args=[self.event_page.id],
+            ),
+        ]
+
+        cases = [
+            (self.client.get, urls, 200),
+            (self.client.post, post_only_urls, 302),
+        ]
+
+        for method, urls, expected_status in cases:
+            for url in urls:
+                with self.subTest(url=url):
+                    response = method(url)
+                    self.assertEqual(response.status_code, expected_status)
+                    self.assertEqual(
+                        response.headers.get("X-Wagtail-ViewSet"),
+                        "EventPageViewSet",
+                    )

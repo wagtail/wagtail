@@ -17,6 +17,7 @@ from wagtail.admin.views.pages.listing import (
     IndexView,
     PageFilterSet,
 )
+from wagtail.admin.views.pages.lock import LockView, UnlockView
 from wagtail.admin.views.pages.preview import PreviewOnCreate, PreviewOnEdit
 from wagtail.admin.views.pages.revisions import (
     RevisionsCompare,
@@ -174,6 +175,16 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the index view; must be a subclass of
     ``wagtail.admin.views.pages.listing.ExplorableIndexView``.
     """
+    lock_view_class = LockView
+    """
+    The view class to use for the lock view; must be a subclass of
+    ``wagtail.admin.views.pages.lock.LockView``.
+    """
+    unlock_view_class = UnlockView
+    """
+    The view class to use for the unlock view; must be a subclass of
+    ``wagtail.admin.views.pages.lock.UnlockView``.
+    """
     preview_on_add_view_class = PreviewOnCreate
     """
     The view class to use for the preview on create view; must be a subclass of
@@ -229,12 +240,14 @@ class PageViewSet(PageListingViewSet):
             "history_results": self.history_results_view,
             "index": self.index_view,
             "index_results": self.index_results_view,
+            "lock": self.lock_view,
             "preview_on_add": self.preview_on_add_view,
             "preview_on_edit": self.preview_on_edit_view,
             "revisions_compare": self.revisions_compare_view,
             "revisions_view": self.revisions_view,
             "revisions_unschedule": self.revisions_unschedule_view,
             "revisions_revert": self.revisions_revert_view,
+            "unlock": self.unlock_view,
             "unpublish": self.unpublish_view,
             "usage": self.usage_view,
         }
@@ -277,6 +290,10 @@ class PageViewSet(PageListingViewSet):
         )
 
     @cached_property
+    def lock_view(self):
+        return self.construct_view(self.lock_view_class)
+
+    @cached_property
     def preview_on_add_view(self):
         return self.construct_view(self.preview_on_add_view_class)
 
@@ -299,6 +316,10 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def revisions_unschedule_view(self):
         return self.construct_view(self.revisions_unschedule_view_class)
+
+    @cached_property
+    def unlock_view(self):
+        return self.construct_view(self.unlock_view_class)
 
     @cached_property
     def unpublish_view(self):
