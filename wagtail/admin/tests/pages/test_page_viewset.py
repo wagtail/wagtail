@@ -111,11 +111,9 @@ class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
     def test_as_view(self):
         cases = [
             (
-                "index",
-                # Simulate as if we are associating the index view with the
-                # EventPage model directly instead of the parent EventIndex model.
-                {"page_id_kwarg": "parent_page_id"},
-                {"parent_page_id": EventPage.objects.first().pk},
+                "edit",
+                {"page_id_kwarg": "page_id"},
+                {"page_id": EventPage.objects.first().pk},
             ),
             (
                 "index",
@@ -564,6 +562,9 @@ class TestCustomViews(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.event_index_page = EventIndex.objects.first()
+        cls.event_page = EventPage.objects.first()
+        cls.old_revision = cls.event_page.save_revision()
+        cls.new_revision = cls.event_page.save_revision()
 
     def test_views(self):
         urls = [
@@ -582,6 +583,14 @@ class TestCustomViews(WagtailTestUtils, TestCase):
             reverse(
                 "wagtailadmin_pages:choose_parent",
                 args=["tests", "eventpage"],
+            ),
+            reverse(
+                "wagtailadmin_pages:edit",
+                args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:revisions_revert",
+                args=[self.event_page.id, self.old_revision.pk],
             ),
             reverse(
                 "wagtailadmin_pages:type_use",

@@ -6,7 +6,6 @@ from wagtail.admin.views.pages import (
     copy,
     create,
     delete,
-    edit,
     history,
     lock,
     move,
@@ -64,7 +63,14 @@ urlpatterns = [
         name="type_use_results",
     ),
     path("<int:page_id>/usage/", usage.UsageView.as_view(), name="usage"),
-    path("<int:page_id>/edit/", edit.EditView.as_view(), name="edit"),
+    path(
+        "<int:page_id>/edit/",
+        page_viewset_registry.as_view(
+            "edit",
+            page_id_kwarg="page_id",
+        ),
+        name="edit",
+    ),
     path(
         "<int:page_id>/edit/preview/",
         preview.PreviewOnEdit.as_view(),
@@ -130,7 +136,10 @@ urlpatterns = [
     ),
     path(
         "<int:page_id>/revisions/<int:revision_id>/revert/",
-        revisions.RevisionsRevertView.as_view(),
+        page_viewset_registry.as_view(
+            "revisions_revert",
+            page_id_kwarg="page_id",
+        ),
         name="revisions_revert",
     ),
     path(
