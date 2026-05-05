@@ -7,7 +7,6 @@ Changelog
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
  * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
  * Fix: Add accessible label to userbar aside element for accessibility (Kalash Kumari Thakur)
- * Fix: Prevent incorrect concurrent editing conflict notifications when doing a manual save (Sage Abdullah)
 
 7.0.6 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
