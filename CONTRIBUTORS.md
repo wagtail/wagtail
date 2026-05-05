@@ -964,6 +964,9 @@
 * mikko2577
 * Kalash Kumari Thakur
 * Aniket Singh
+* Seoyoung Kang
+* Vishal Shukla
+* Sanjok Karki
 
 ## Translators
 
