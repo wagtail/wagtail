@@ -102,9 +102,14 @@ Changelog
  * Maintenance: Upgrade django-modelcluster to 6.5 to fix issues with duplicated inline children (Alex Tomkins, Matt Westcott)
 
 
-7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.3.2 (05.05.2026)
 ~~~~~~~~~~~~~~~~~~
 
+ * Security fix: Improper permission handling when comparing revisions (Seoyoung Kang, Jake Howard)
+ * Security fix: Improper permission handling when viewing page history (Seoyoung Kang, Jake Howard, Dan Braghis)
+ * Security fix: Improper permission handling when deleting form submissions (Vishal Shukla, Jake Howard)
+ * Security fix: Improper restriction handling on Documents and Images API (Sanjok Karki, Jake Howard)
+ * Security fix: Improper permission handling when copying pages (Sanjok Karki, Matt Westcott)
  * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
  * Fix: Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
