@@ -566,6 +566,7 @@ class TestCustomViews(WagtailTestUtils, TestCase):
     def setUpTestData(cls):
         cls.event_index_page = EventIndex.objects.first()
         cls.event_page = EventPage.objects.first()
+        cls.event_page_alias = cls.event_page.create_alias(update_slug="aliased-event")
         cls.old_revision = cls.event_page.save_revision()
         cls.new_revision = cls.event_page.save_revision()
         cls.workflow = Workflow.objects.first()
@@ -585,6 +586,10 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 args=["tests", "eventpage", self.event_index_page.id],
             ),
             reverse(
+                "wagtailadmin_pages:add_subpage",
+                args=[self.event_index_page.id],
+            ),
+            reverse(
                 "wagtailadmin_pages:choose_parent",
                 args=["tests", "eventpage"],
             ),
@@ -594,6 +599,18 @@ class TestCustomViews(WagtailTestUtils, TestCase):
             ),
             reverse(
                 "wagtailadmin_pages:confirm_workflow_cancellation",
+                args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:convert_alias",
+                args=[self.event_page_alias.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:copy",
+                args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:delete",
                 args=[self.event_page.id],
             ),
             reverse(
@@ -611,6 +628,10 @@ class TestCustomViews(WagtailTestUtils, TestCase):
             reverse(
                 "wagtailadmin_pages:move",
                 args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=[self.event_page.id, self.event_index_page.id],
             ),
             reverse(
                 "wagtailadmin_pages:preview_on_add",
@@ -637,6 +658,14 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 args=[self.event_page.id, self.old_revision.pk],
             ),
             reverse(
+                "wagtailadmin_pages:set_page_position",
+                args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:set_privacy",
+                args=[self.event_page.id],
+            ),
+            reverse(
                 "wagtailadmin_pages:type_use",
                 args=["tests", "eventpage"],
             ),
@@ -650,6 +679,10 @@ class TestCustomViews(WagtailTestUtils, TestCase):
             ),
             reverse(
                 "wagtailadmin_pages:usage",
+                args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:view_draft",
                 args=[self.event_page.id],
             ),
             reverse(

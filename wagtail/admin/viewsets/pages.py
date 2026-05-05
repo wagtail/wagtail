@@ -4,11 +4,15 @@ from django.http import Http404
 from django.urls import path
 from django.utils.functional import cached_property, classproperty
 
+from wagtail.admin.views.page_privacy import set_privacy
 from wagtail.admin.views.pages.choose_parent import (
     ChooseParentView,
     GenericChooseParentView,
 )
-from wagtail.admin.views.pages.create import CreateView
+from wagtail.admin.views.pages.convert_alias import convert_alias
+from wagtail.admin.views.pages.copy import copy
+from wagtail.admin.views.pages.create import CreateView, add_subpage
+from wagtail.admin.views.pages.delete import delete
 from wagtail.admin.views.pages.edit import EditView
 from wagtail.admin.views.pages.history import (
     PageHistoryView,
@@ -22,8 +26,9 @@ from wagtail.admin.views.pages.listing import (
     PageFilterSet,
 )
 from wagtail.admin.views.pages.lock import LockView, UnlockView
-from wagtail.admin.views.pages.move import MoveChooseDestination
-from wagtail.admin.views.pages.preview import PreviewOnCreate, PreviewOnEdit
+from wagtail.admin.views.pages.move import MoveChooseDestination, move_confirm
+from wagtail.admin.views.pages.ordering import set_page_position
+from wagtail.admin.views.pages.preview import PreviewOnCreate, PreviewOnEdit, view_draft
 from wagtail.admin.views.pages.revisions import (
     RevisionsCompare,
     RevisionsRevertView,
@@ -278,11 +283,15 @@ class PageViewSet(PageListingViewSet):
     def views(self):
         return {
             "add": self.add_view,
+            "add_subpage": self.add_subpage_view,
             "choose_parent": self.choose_parent_view,
             "collect_workflow_action_data": self.collect_workflow_action_data_view,
             "confirm_workflow_cancellation": self.confirm_workflow_cancellation_view,
             "content_type_use": self.content_type_use_view,
             "content_type_use_results": self.content_type_use_results_view,
+            "convert_alias": self.convert_alias_view,
+            "copy": self.copy_view,
+            "delete": self.delete_view,
             "edit": self.edit_view,
             "history": self.history_view,
             "history_results": self.history_results_view,
@@ -290,15 +299,19 @@ class PageViewSet(PageListingViewSet):
             "index_results": self.index_results_view,
             "lock": self.lock_view,
             "move": self.move_view,
+            "move_confirm": self.move_confirm_view,
             "preview_on_add": self.preview_on_add_view,
             "preview_on_edit": self.preview_on_edit_view,
             "revisions_compare": self.revisions_compare_view,
             "revisions_view": self.revisions_view,
             "revisions_unschedule": self.revisions_unschedule_view,
             "revisions_revert": self.revisions_revert_view,
+            "set_page_position": self.set_page_position_view,
+            "set_privacy": self.set_privacy_view,
             "unlock": self.unlock_view,
             "unpublish": self.unpublish_view,
             "usage": self.usage_view,
+            "view_draft": self.view_draft_view,
             "workflow_action": self.workflow_action_view,
             "workflow_history": self.workflow_history_view,
             "workflow_history_detail": self.workflow_history_detail_view,
@@ -327,6 +340,8 @@ class PageViewSet(PageListingViewSet):
     def add_view(self):
         return self.construct_view(self.add_view_class)
 
+    add_subpage_view = staticmethod(add_subpage)
+
     @cached_property
     def collect_workflow_action_data_view(self):
         return self.construct_view(self.collect_workflow_action_data_view_class)
@@ -334,6 +349,12 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def confirm_workflow_cancellation_view(self):
         return self.construct_view(self.confirm_workflow_cancellation_view_class)
+
+    convert_alias_view = staticmethod(convert_alias)
+
+    copy_view = staticmethod(copy)
+
+    delete_view = staticmethod(delete)
 
     @cached_property
     def edit_view(self):
@@ -357,6 +378,8 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def move_view(self):
         return self.construct_view(self.move_view_class)
+
+    move_confirm_view = staticmethod(move_confirm)
 
     @cached_property
     def preview_on_add_view(self):
@@ -382,6 +405,10 @@ class PageViewSet(PageListingViewSet):
     def revisions_unschedule_view(self):
         return self.construct_view(self.revisions_unschedule_view_class)
 
+    set_page_position_view = staticmethod(set_page_position)
+
+    set_privacy_view = staticmethod(set_privacy)
+
     @cached_property
     def unlock_view(self):
         return self.construct_view(self.unlock_view_class)
@@ -393,6 +420,8 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def usage_view(self):
         return self.construct_view(self.usage_view_class)
+
+    view_draft_view = staticmethod(view_draft)
 
     @cached_property
     def workflow_action_view(self):
