@@ -1,2 +1,2 @@
 Django>=6,<6.1
-wagtail==7.4rc1
+wagtail>=7.4,<7.5
