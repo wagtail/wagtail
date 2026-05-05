@@ -22,6 +22,7 @@ from wagtail.admin.views.pages.listing import (
     PageFilterSet,
 )
 from wagtail.admin.views.pages.lock import LockView, UnlockView
+from wagtail.admin.views.pages.move import MoveChooseDestination
 from wagtail.admin.views.pages.preview import PreviewOnCreate, PreviewOnEdit
 from wagtail.admin.views.pages.revisions import (
     RevisionsCompare,
@@ -202,6 +203,12 @@ class PageViewSet(PageListingViewSet):
     The view class to use for locking a page; must be a subclass of
     ``wagtail.admin.views.pages.lock.LockView``.
     """
+    move_view_class = MoveChooseDestination
+    """
+    The view class to use for choosing a destination when moving a page;
+    must be a subclass of
+    ``wagtail.admin.views.pages.move.MoveChooseDestination``.
+    """
     preview_on_add_view_class = PreviewOnCreate
     """
     The view class to use for the preview on create view; must be a subclass of
@@ -286,6 +293,7 @@ class PageViewSet(PageListingViewSet):
             "index": self.index_view,
             "index_results": self.index_results_view,
             "lock": self.lock_view,
+            "move": self.move_view,
             "preview_on_add": self.preview_on_add_view,
             "preview_on_edit": self.preview_on_edit_view,
             "revisions_compare": self.revisions_compare_view,
@@ -349,6 +357,10 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def lock_view(self):
         return self.construct_view(self.lock_view_class)
+
+    @cached_property
+    def move_view(self):
+        return self.construct_view(self.move_view_class)
 
     @cached_property
     def preview_on_add_view(self):

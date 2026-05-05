@@ -108,7 +108,12 @@ urlpatterns = [
         name="search_results",
     ),
     path(
-        "<int:page_to_move_id>/move/", move.MoveChooseDestination.as_view(), name="move"
+        "<int:page_to_move_id>/move/",
+        page_viewset_registry.as_view(
+            "move",
+            page_id_kwarg="page_to_move_id",
+        ),
+        name="move",
     ),
     path(
         "<int:page_to_move_id>/move/<int:destination_id>/confirm/",
