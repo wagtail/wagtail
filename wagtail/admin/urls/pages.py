@@ -32,7 +32,11 @@ urlpatterns = [
     ),
     path(
         "add/<slug:content_type_app_name>/<slug:content_type_model_name>/<int:parent_page_id>/preview/",
-        preview.PreviewOnCreate.as_view(),
+        page_viewset_registry.as_view(
+            "preview_on_add",
+            app_label_kwarg="content_type_app_name",
+            model_name_kwarg="content_type_model_name",
+        ),
         name="preview_on_add",
     ),
     path(
