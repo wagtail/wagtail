@@ -149,7 +149,7 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         )
         self.client.get(url)
 
-        with self.assertNumQueries(18):
+        with self.assertNumQueries(19):
             response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -282,7 +282,7 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         )
         self.client.get(url)
 
-        with self.assertNumQueries(19):
+        with self.assertNumQueries(20):
             response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)

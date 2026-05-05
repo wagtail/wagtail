@@ -12,6 +12,7 @@ from openpyxl import load_workbook
 from wagtail.admin.viewsets.pages import PageViewSet, page_viewset_registry
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page
+from wagtail.models.workflows import Workflow
 from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessSubIndex,
@@ -558,6 +559,8 @@ class TestCustomViews(WagtailTestUtils, TestCase):
 
     def setUp(self):
         self.user = self.login()
+        self.workflow_state = self.workflow.start(self.event_page, self.user)
+        self.task_state = self.workflow_state.current_task_state
 
     @classmethod
     def setUpTestData(cls):
@@ -565,6 +568,7 @@ class TestCustomViews(WagtailTestUtils, TestCase):
         cls.event_page = EventPage.objects.first()
         cls.old_revision = cls.event_page.save_revision()
         cls.new_revision = cls.event_page.save_revision()
+        cls.workflow = Workflow.objects.first()
 
     def test_views(self):
         urls = [
@@ -583,6 +587,14 @@ class TestCustomViews(WagtailTestUtils, TestCase):
             reverse(
                 "wagtailadmin_pages:choose_parent",
                 args=["tests", "eventpage"],
+            ),
+            reverse(
+                "wagtailadmin_pages:collect_workflow_action_data",
+                args=[self.event_page.id, "approve", self.task_state.pk],
+            ),
+            reverse(
+                "wagtailadmin_pages:confirm_workflow_cancellation",
+                args=[self.event_page.id],
             ),
             reverse(
                 "wagtailadmin_pages:edit",
@@ -635,6 +647,22 @@ class TestCustomViews(WagtailTestUtils, TestCase):
             reverse(
                 "wagtailadmin_pages:usage",
                 args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:workflow_action",
+                args=[self.event_page.id, "approve", self.task_state.pk],
+            ),
+            reverse(
+                "wagtailadmin_pages:workflow_history",
+                args=[self.event_page.id],
+            ),
+            reverse(
+                "wagtailadmin_pages:workflow_history_detail",
+                args=[self.event_page.id, self.workflow_state.pk],
+            ),
+            reverse(
+                "wagtailadmin_pages:workflow_preview",
+                args=[self.event_page.id, self.task_state.pk],
             ),
         ]
 

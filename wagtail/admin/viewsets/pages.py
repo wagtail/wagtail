@@ -10,7 +10,11 @@ from wagtail.admin.views.pages.choose_parent import (
 )
 from wagtail.admin.views.pages.create import CreateView
 from wagtail.admin.views.pages.edit import EditView
-from wagtail.admin.views.pages.history import PageHistoryView
+from wagtail.admin.views.pages.history import (
+    PageHistoryView,
+    WorkflowHistoryDetailView,
+    WorkflowHistoryView,
+)
 from wagtail.admin.views.pages.listing import (
     ExplorableIndexView,
     GenericPageFilterSet,
@@ -27,6 +31,12 @@ from wagtail.admin.views.pages.revisions import (
 )
 from wagtail.admin.views.pages.unpublish import Unpublish
 from wagtail.admin.views.pages.usage import ContentTypeUseView, UsageView
+from wagtail.admin.views.pages.workflow import (
+    CollectWorkflowActionData,
+    ConfirmWorkflowCancellation,
+    PreviewRevisionForTask,
+    WorkflowAction,
+)
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import Page
 from wagtail.utils.registry import ObjectTypeRegistry
@@ -160,6 +170,16 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the create view; must be a subclass of
     ``wagtail.admin.views.pages.create.CreateView``.
     """
+    collect_workflow_action_data_view_class = CollectWorkflowActionData
+    """
+    The view class to use for the workflow action data collection view; must be a subclass of
+    ``wagtail.admin.views.pages.workflow.CollectWorkflowActionData``.
+    """
+    confirm_workflow_cancellation_view_class = ConfirmWorkflowCancellation
+    """
+    The view class to use for the workflow cancellation confirmation view; must be a subclass of
+    ``wagtail.admin.views.pages.workflow.ConfirmWorkflowCancellation``.
+    """
     edit_view_class = EditView
     """
     The view class to use for the edit view; must be a subclass of
@@ -225,6 +245,26 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the usage view; must be a subclass of
     ``wagtail.admin.views.pages.usage.UsageView``.
     """
+    workflow_action_view_class = WorkflowAction
+    """
+    The view class to use for the workflow action view; must be a subclass of
+    ``wagtail.admin.views.pages.workflow.WorkflowAction``.
+    """
+    workflow_history_view_class = WorkflowHistoryView
+    """
+    The view class to use for the workflow history view; must be a subclass of
+    ``wagtail.admin.views.pages.history.WorkflowHistoryView``.
+    """
+    workflow_history_detail_view_class = WorkflowHistoryDetailView
+    """
+    The view class to use for the workflow history detail view; must be a subclass of
+    ``wagtail.admin.views.pages.history.WorkflowHistoryDetailView``.
+    """
+    workflow_preview_view_class = PreviewRevisionForTask
+    """
+    The view class to use for the workflow preview revision for task view; must be a subclass of
+    ``wagtail.admin.views.pages.workflow.PreviewRevisionForTask``.
+    """
     menu_url = None
     """Unused. There is no specific URL to link to for the menu item."""
 
@@ -233,6 +273,8 @@ class PageViewSet(PageListingViewSet):
         return {
             "add": self.add_view,
             "choose_parent": self.choose_parent_view,
+            "collect_workflow_action_data": self.collect_workflow_action_data_view,
+            "confirm_workflow_cancellation": self.confirm_workflow_cancellation_view,
             "content_type_use": self.content_type_use_view,
             "content_type_use_results": self.content_type_use_results_view,
             "edit": self.edit_view,
@@ -250,6 +292,10 @@ class PageViewSet(PageListingViewSet):
             "unlock": self.unlock_view,
             "unpublish": self.unpublish_view,
             "usage": self.usage_view,
+            "workflow_action": self.workflow_action_view,
+            "workflow_history": self.workflow_history_view,
+            "workflow_history_detail": self.workflow_history_detail_view,
+            "workflow_preview": self.workflow_preview_view,
         }
 
     def get_view_by_name(self, name):
@@ -273,6 +319,14 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def add_view(self):
         return self.construct_view(self.add_view_class)
+
+    @cached_property
+    def collect_workflow_action_data_view(self):
+        return self.construct_view(self.collect_workflow_action_data_view_class)
+
+    @cached_property
+    def confirm_workflow_cancellation_view(self):
+        return self.construct_view(self.confirm_workflow_cancellation_view_class)
 
     @cached_property
     def edit_view(self):
@@ -328,6 +382,22 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def usage_view(self):
         return self.construct_view(self.usage_view_class)
+
+    @cached_property
+    def workflow_action_view(self):
+        return self.construct_view(self.workflow_action_view_class)
+
+    @cached_property
+    def workflow_history_view(self):
+        return self.construct_view(self.workflow_history_view_class)
+
+    @cached_property
+    def workflow_history_detail_view(self):
+        return self.construct_view(self.workflow_history_detail_view_class)
+
+    @cached_property
+    def workflow_preview_view(self):
+        return self.construct_view(self.workflow_preview_view_class)
 
     @cached_property
     def parent_models(self):
