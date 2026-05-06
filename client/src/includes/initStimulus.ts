@@ -17,14 +17,17 @@ export class WagtailApplication extends Application {
    * const content = await controller?.extractContent();
    * ```
    */
-  queryController<T extends Controller<Element>>(identifier: string) {
-    return this.getControllerForElementAndIdentifier(
-      document.querySelector(
-        `[${this.schema.controllerAttribute}~="${identifier}"]`,
-      )!,
-      identifier,
-    ) as T | null;
-  }
+queryController<T extends Controller<Element>>(
+  identifier: string,
+  root: ParentNode = document,
+) {
+  return (this as any).getControllerForElementAndIdentifier(
+    root.querySelector(
+      `[${this.schema.controllerAttribute}~="${identifier}"]`,
+    )!,
+    identifier,
+  ) as T | null;
+}
 
   /**
    * Returns all Stimulus controllers that match the identifier.
@@ -37,17 +40,23 @@ export class WagtailApplication extends Application {
    * controllers.forEach((controller) => controller.reset());
    * ```
    */
-  queryControllerAll<T extends Controller<Element>>(identifier: string): T[] {
-    return Array.from(
-      document.querySelectorAll(
-        `[${this.schema.controllerAttribute}~="${identifier}"]`,
-      ),
-    )
-      .map((element) =>
-        this.getControllerForElementAndIdentifier(element, identifier),
-      )
-      .filter(Boolean) as T[];
-  }
+queryControllerAll<T extends Controller<Element>>(
+  identifier: string,
+  root: ParentNode = document,
+): T[] {
+  return Array.from(
+    root.querySelectorAll(
+      `[${this.schema.controllerAttribute}~="${identifier}"]`,
+    ),
+  )
+    .map((element) =>
+  (this as any).getControllerForElementAndIdentifier(
+    element,
+    identifier,
+  ),
+)
+    .filter(Boolean) as T[];
+}
 }
 
 /**
