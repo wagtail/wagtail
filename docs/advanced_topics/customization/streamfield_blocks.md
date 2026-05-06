@@ -92,10 +92,6 @@ class PersonBlock(blocks.StructBlock):
 
 ### Changing the order and grouping of child blocks
 
-```{versionadded} 7.3
-The `form_layout` attribute and `BlockGroup` were added.
-```
-
 By default, the child blocks of a `StructBlock` are rendered in the order they are defined on the block class. However, you can customize this order by specifying a `form_layout` attribute in the block's `Meta` class.
 
 If you need to change the order of child blocks, you can provide a list of block names:
@@ -354,10 +350,6 @@ class AddressBlockAdapter(StructBlockAdapter):
         )
 
 register(AddressBlockAdapter(), AddressBlock)
-```
-
-```{versionchanged} 7.1
-The `register` function should now be imported from `wagtail.admin.telepath` rather than `wagtail.telepath`.
 ```
 
 Here `'myapp.blocks.AddressBlock'` is the identifier for our JavaScript class that will be registered with the telepath client-side code, and `'js/address-block.js'` is the file that defines it (as a path within any static file location recognized by Django). This implementation subclasses StructBlockDefinition and adds our custom code to the `render` method:

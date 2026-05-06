@@ -227,55 +227,6 @@ describe('TeleportController', () => {
       );
     });
 
-    it('should clear the target container if the reset value is set to true', async () => {
-      document.body.innerHTML += `
-        <div id="target-container"><p>I should not be here</p></div>
-        `;
-
-      const template = document.querySelector('template');
-      template.setAttribute(
-        'data-w-teleport-target-value',
-        '#target-container',
-      );
-      template.setAttribute('data-w-teleport-reset-value', 'true');
-
-      expect(document.getElementById('target-container').innerHTML).toEqual(
-        '<p>I should not be here</p>',
-      );
-
-      application.start();
-
-      await Promise.resolve();
-
-      expect(
-        document.getElementById('target-container').innerHTML.trim(),
-      ).toEqual('<div id="content">Some content</div>');
-    });
-
-    it('should not clear the target container if the reset value is unset (false)', async () => {
-      document.body.innerHTML += `
-        <div id="target-container"><p>I should still be here</p></div>
-        `;
-
-      const template = document.querySelector('template');
-      template.setAttribute(
-        'data-w-teleport-target-value',
-        '#target-container',
-      );
-
-      expect(document.getElementById('target-container').innerHTML).toEqual(
-        '<p>I should still be here</p>',
-      );
-
-      application.start();
-
-      await Promise.resolve();
-
-      const contents = document.getElementById('target-container').innerHTML;
-      expect(contents).toContain('<p>I should still be here</p>');
-      expect(contents).toContain('<div id="content">Some content</div>');
-    });
-
     it('should allow the template to contain multiple children', async () => {
       document.body.innerHTML += `
         <div id="target-container"></div>
@@ -336,33 +287,6 @@ describe('TeleportController', () => {
       expect(document.getElementById('target-container').innerHTML).toEqual(
         '<p>I should still be here</p>',
       );
-    });
-
-    it('should allow erasing the target container by using an empty template with reset value set to true', async () => {
-      document.body.innerHTML += `
-        <div id="target-container"><p>I should not be here</p></div>
-        `;
-
-      const template = document.querySelector('template');
-      template.setAttribute(
-        'data-w-teleport-target-value',
-        '#target-container',
-      );
-      template.setAttribute('data-w-teleport-reset-value', 'true');
-      const errors = [];
-
-      document.getElementById('template').innerHTML = '';
-
-      application.handleError = (error, message) => {
-        errors.push({ error, message });
-      };
-
-      await Promise.resolve(application.start());
-
-      expect(errors).toEqual([]);
-
-      const contents = document.getElementById('target-container').innerHTML;
-      expect(contents).toEqual('');
     });
 
     it('should run inline scripts contained in the template content', async () => {

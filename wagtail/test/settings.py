@@ -267,12 +267,6 @@ if "ELASTICSEARCH_URL" in os.environ:
     }
     WAGTAILSEARCH_BACKENDS["elasticsearch"] = elasticsearch_opts
 
-    # RemovedInWagtail80Warning
-    WAGTAILSEARCH_BACKENDS["elasticsearch_with_index_option"] = {
-        **elasticsearch_opts,
-        "INDEX": "wagtailtest",  # Deprecated option
-    }
-
 
 WAGTAIL_SITE_NAME = "Test Site"
 

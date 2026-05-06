@@ -219,7 +219,6 @@ export default defineConfig(
   {
     files: [
       'client/src/components/Draftail/sources/ModalWorkflowSource.js',
-      'client/src/components/ExpandingFormset/index.js',
       'client/src/components/InlinePanel/index.js',
       'client/src/components/StreamField/blocks/ActionButtons.ts',
       'client/src/components/StreamField/blocks/BaseSequenceBlock.js',
