@@ -286,6 +286,7 @@ class PageViewSetRegistry(ObjectTypeRegistry):
     def as_view(
         self,
         view_name,
+        page_id_kwarg=None,
         parent_page_id_kwarg=None,
         app_label_kwarg=None,
         model_name_kwarg=None,
@@ -300,7 +301,9 @@ class PageViewSetRegistry(ObjectTypeRegistry):
 
         def view_router(request, *args, **kwargs):
             try:
-                if parent_page_id_kwarg:
+                if page_id_kwarg:
+                    viewset = self.get_by_page_id(kwargs.get(page_id_kwarg))
+                elif parent_page_id_kwarg:
                     viewset = self.get_by_parent_page_id(
                         kwargs.get(parent_page_id_kwarg)
                     )
