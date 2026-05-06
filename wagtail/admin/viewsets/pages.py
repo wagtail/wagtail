@@ -35,6 +35,7 @@ from wagtail.admin.views.pages.revisions import (
     RevisionsUnschedule,
     RevisionsView,
 )
+from wagtail.admin.views.pages.search import SearchView
 from wagtail.admin.views.pages.unpublish import Unpublish
 from wagtail.admin.views.pages.usage import ContentTypeUseView, UsageView
 from wagtail.admin.views.pages.workflow import (
@@ -244,6 +245,13 @@ class PageViewSet(PageListingViewSet):
     The view class to use for unscheduling revisions; must be a subclass of
     ``wagtail.admin.views.pages.revisions.RevisionsUnschedule``.
     """
+    search_view_class = SearchView
+    """
+    The view class to use for the page search view; must be a subclass of
+    ``wagtail.admin.views.pages.search.SearchView``.
+
+    This is only used by the base ``Page`` model's viewset.
+    """
     unlock_view_class = UnlockView
     """
     The view class to use for unlocking a page; must be a subclass of
@@ -310,6 +318,8 @@ class PageViewSet(PageListingViewSet):
             "revisions_view": self.revisions_view,
             "revisions_unschedule": self.revisions_unschedule_view,
             "revisions_revert": self.revisions_revert_view,
+            "search": self.search_view,
+            "search_results": self.search_results_view,
             "set_page_position": self.set_page_position_view,
             "set_privacy": self.set_privacy_view,
             "unlock": self.unlock_view,
@@ -408,6 +418,14 @@ class PageViewSet(PageListingViewSet):
     @cached_property
     def revisions_unschedule_view(self):
         return self.construct_view(self.revisions_unschedule_view_class)
+
+    @cached_property
+    def search_view(self):
+        return self.construct_view(self.search_view_class)
+
+    @cached_property
+    def search_results_view(self):
+        return self.construct_view(self.search_view_class, results_only=True)
 
     set_page_position_view = staticmethod(set_page_position)
 
@@ -554,6 +572,7 @@ class PageViewSetRegistry(ObjectTypeRegistry):
         parent_page_id_kwarg=None,
         app_label_kwarg=None,
         model_name_kwarg=None,
+        is_base_page=False,
     ):
         """
         Create a view function that routes to the appropriate view based on the
@@ -581,13 +600,19 @@ class PageViewSetRegistry(ObjectTypeRegistry):
                     kwargs.get(model_name_kwarg),
                 )
 
+        elif is_base_page:
+
+            def get_viewset(kwargs):
+                return self.get_by_type(Page)
+
         else:
             raise ImproperlyConfigured(
                 f"PageViewSetRegistry.as_view('{view_name}', …) requires one "
                 "of the following combinations of kwargs:\n"
                 "- page_id_kwarg,\n"
-                "- parent_page_id_kwarg, or\n"
-                "- app_label_kwarg and model_name_kwarg."
+                "- parent_page_id_kwarg,\n"
+                "- app_label_kwarg and model_name_kwarg, or\n"
+                "- is_base_page."
             )
 
         def view_router(request, *args, **kwargs):

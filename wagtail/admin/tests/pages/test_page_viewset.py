@@ -161,8 +161,9 @@ class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
                     "PageViewSetRegistry.as_view('index', …) requires one of "
                     "the following combinations of kwargs:\n"
                     "- page_id_kwarg,\n"
-                    "- parent_page_id_kwarg, or\n"
-                    "- app_label_kwarg and model_name_kwarg.",
+                    "- parent_page_id_kwarg,\n"
+                    "- app_label_kwarg and model_name_kwarg, or\n"
+                    "- is_base_page.",
                 ):
                     page_viewset_registry.as_view("index", **kwargs)
 
@@ -571,7 +572,7 @@ class TestCustomViews(WagtailTestUtils, TestCase):
         cls.new_revision = cls.event_page.save_revision()
         cls.workflow = Workflow.objects.first()
 
-    def test_views(self):
+    def test_specific_views(self):
         urls = [
             reverse(
                 "wagtailadmin_explore",
@@ -728,3 +729,18 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                         response.headers.get("X-Wagtail-ViewSet"),
                         "EventPageViewSet",
                     )
+
+    def test_base_page_views(self):
+        urls = [
+            reverse("wagtailadmin_pages:search"),
+            reverse("wagtailadmin_pages:search_results"),
+        ]
+
+        for url in urls:
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(
+                    response.headers.get("X-Wagtail-ViewSet"),
+                    "CustomPageViewSet",
+                )
