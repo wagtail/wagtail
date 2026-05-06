@@ -3,6 +3,7 @@ from io import BytesIO
 from unittest import mock
 
 from django.core.exceptions import ImproperlyConfigured
+from django.http import Http404
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import isolate_apps
 from django.urls import reverse
@@ -145,6 +146,35 @@ class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
                     response.headers.get("X-Wagtail-ViewSet"),
                     "EventPageViewSet",
                 )
+
+    def test_as_view_with_incorrect_kwargs(self):
+        kwargs_cases = [
+            {"app_label_kwarg": "app_label"},
+            {"model_name_kwarg": "model_name"},
+            {},
+        ]
+        for kwargs in kwargs_cases:
+            with self.subTest(kwargs=kwargs):
+                # Incorrect kwargs combination should be caught immediately and
+                # produce a clear error message.
+                with self.assertRaisesMessage(
+                    ImproperlyConfigured,
+                    "PageViewSetRegistry.as_view('index', …) requires one of "
+                    "the following combinations of kwargs:\n"
+                    "- page_id_kwarg,\n"
+                    "- parent_page_id_kwarg, or\n"
+                    "- app_label_kwarg and model_name_kwarg.",
+                ):
+                    page_viewset_registry.as_view("index", **kwargs)
+
+    def test_as_view_with_nonexistent_view_name(self):
+        view = page_viewset_registry.as_view("willneverexist", page_id_kwarg="pk")
+        request = get_dummy_request()
+        # Resolving the view name happens at request time since we need to look
+        # up the viewset first. This means the error message will be user-facing,
+        # use a Http404 so it can be handled gracefully.
+        with self.assertRaises(Http404):
+            view(request, pk=2)
 
 
 class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

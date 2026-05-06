@@ -1,5 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.http import Http404
 from django.urls import path
 from django.utils.functional import cached_property, classproperty
@@ -299,22 +299,40 @@ class PageViewSetRegistry(ObjectTypeRegistry):
         using the same URL pattern for all page types.
         """
 
+        if page_id_kwarg:
+
+            def get_viewset(kwargs):
+                return self.get_by_page_id(kwargs.get(page_id_kwarg))
+
+        elif parent_page_id_kwarg:
+
+            def get_viewset(kwargs):
+                return self.get_by_parent_page_id(kwargs.get(parent_page_id_kwarg))
+
+        elif app_label_kwarg and model_name_kwarg:
+
+            def get_viewset(kwargs):
+                return self.get_by_content_type_natural_key(
+                    kwargs.get(app_label_kwarg),
+                    kwargs.get(model_name_kwarg),
+                )
+
+        else:
+            raise ImproperlyConfigured(
+                f"PageViewSetRegistry.as_view('{view_name}', …) requires one "
+                "of the following combinations of kwargs:\n"
+                "- page_id_kwarg,\n"
+                "- parent_page_id_kwarg, or\n"
+                "- app_label_kwarg and model_name_kwarg."
+            )
+
         def view_router(request, *args, **kwargs):
             try:
-                if page_id_kwarg:
-                    viewset = self.get_by_page_id(kwargs.get(page_id_kwarg))
-                elif parent_page_id_kwarg:
-                    viewset = self.get_by_parent_page_id(
-                        kwargs.get(parent_page_id_kwarg)
-                    )
-                elif app_label_kwarg and model_name_kwarg:
-                    viewset = self.get_by_content_type_natural_key(
-                        kwargs.get(app_label_kwarg), kwargs.get(model_name_kwarg)
-                    )
-            except ObjectDoesNotExist as e:
-                # Page or ContentType not found
+                viewset = get_viewset(kwargs)
+                view = viewset.get_view_by_name(view_name)
+            except (ObjectDoesNotExist, KeyError) as e:
+                # Page, ContentType, or view name not found
                 raise Http404 from e
-            view = viewset.get_view_by_name(view_name)
             return view(request, *args, **kwargs)
 
         return view_router
