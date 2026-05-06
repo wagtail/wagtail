@@ -1,4 +1,5 @@
 import os
+import zoneinfo
 
 from django.core.checks import Error, Tags, Warning, register
 
@@ -270,3 +271,41 @@ def datetime_format_check(app_configs, **kwargs):
                 )
 
     return errors
+
+
+@register(Tags.compatibility)
+def tz_data_available_check(app_configs, **kwargs):
+    """
+    Warn if zoneinfo cannot load the project's TIME_ZONE.
+
+    Some hosting environments (e.g. minimal containers, Heroku-style
+    buildpacks) ship without system time zone data. Without it, the
+    Wagtail admin crashes with ZoneInfoNotFoundError when looking up
+    user-profile time zones.
+    """
+    from django.conf import settings
+
+    if not getattr(settings, "USE_TZ", True):
+        return []
+
+    time_zone = getattr(settings, "TIME_ZONE", None)
+    if not time_zone:
+        return []
+
+    try:
+        zoneinfo.ZoneInfo(time_zone)
+    except zoneinfo.ZoneInfoNotFoundError:
+        return [
+            Warning(
+                f"No time zone data is available to zoneinfo for TIME_ZONE={time_zone!r}.",
+                hint=(
+                    "Wagtail relies on zoneinfo for time zone handling. Some "
+                    "environments (e.g. minimal Linux containers, certain PaaS "
+                    "buildpacks) don't ship system time zone data. Install the "
+                    "`tzdata` package from PyPI in those environments: "
+                    "`pip install tzdata`."
+                ),
+                id="wagtailadmin.W005",
+            )
+        ]
+    return []

@@ -4,6 +4,7 @@ Changelog
 7.4 LTS (05.05.2026)
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Prevent admin from crashing with `ZoneInfoNotFoundError` on environments without system time zone data, and add `wagtailadmin.W005` system check to surface the issue at startup (Abhishek Shah)
  * Add `is_deferred_validation` flag to support skipping custom validation when saving drafts (Daniel Kirkham)
  * Update project template Dockerfile to build dependencies in a separate stage (Brylie Oxley, Akshat Gupta)
  * Add `include_root` parameter to admin pages API endpoint (Divyansh Mishra)

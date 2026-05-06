@@ -1,4 +1,5 @@
 import functools
+import logging
 import types
 import zoneinfo
 
@@ -7,6 +8,47 @@ from django.utils.dates import MONTHS, WEEKDAYS, WEEKDAYS_ABBR
 from django.utils.timezone import override as override_tz
 from django.utils.translation import gettext as _
 from django.utils.translation import override
+
+logger = logging.getLogger(__name__)
+
+_WARNED_TIMEZONES = set()
+
+
+def _warn_missing_timezone(time_zone):
+    if time_zone in _WARNED_TIMEZONES:
+        return
+    _WARNED_TIMEZONES.add(time_zone)
+    logger.warning(
+        "Time zone %r could not be loaded by zoneinfo; falling back to the "
+        "default. Install the `tzdata` package from PyPI on environments "
+        "without system time zone data.",
+        time_zone,
+    )
+
+
+class _safe_override_tz:
+    """Wrap timezone.override; degrade gracefully if zoneinfo lacks tz data."""
+
+    def __init__(self, time_zone):
+        self.time_zone = time_zone
+        self._inner = None
+
+    def __enter__(self):
+        if not self.time_zone:
+            return self
+        try:
+            self._inner = override_tz(self.time_zone)
+            self._inner.__enter__()
+        except zoneinfo.ZoneInfoNotFoundError:
+            _warn_missing_timezone(self.time_zone)
+            self._inner = None
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if self._inner is not None:
+            return self._inner.__exit__(exc_type, exc_value, traceback)
+        return False
+
 
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
@@ -126,7 +168,7 @@ def get_localized_response(view_func, request, *args, **kwargs):
         time_zone = user.wagtail_userprofile.get_current_time_zone()
     else:
         time_zone = settings.TIME_ZONE
-    with override_tz(time_zone):
+    with _safe_override_tz(time_zone):
         if preferred_language:
             with override(preferred_language):
                 response = view_func(request, *args, **kwargs)
@@ -145,7 +187,7 @@ def get_localized_response(view_func, request, *args, **kwargs):
             render = response.render
 
             def overridden_render(response):
-                with override_tz(time_zone):
+                with _safe_override_tz(time_zone):
                     if preferred_language:
                         with override(preferred_language):
                             return render()
