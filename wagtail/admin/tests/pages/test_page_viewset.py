@@ -2,12 +2,14 @@ import datetime
 from io import BytesIO
 from unittest import mock
 
+from django.core.exceptions import ImproperlyConfigured
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import isolate_apps
 from django.urls import reverse
 from openpyxl import load_workbook
 
-from wagtail.admin.viewsets.pages import PageViewSet
+from wagtail.admin.viewsets.pages import PageViewSet, page_viewset_registry
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
     BusinessChild,
@@ -100,6 +102,49 @@ class TestPageViewSet(SimpleTestCase):
                     # we do not include it by default.
                 ],
             )
+
+
+class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def test_as_view(self):
+        cases = [
+            (
+                "index",
+                # Simulate as if we are associating the index view with the
+                # EventPage model directly instead of the parent EventIndex model.
+                {"page_id_kwarg": "parent_page_id"},
+                {"parent_page_id": EventPage.objects.first().pk},
+            ),
+            (
+                "index",
+                {"parent_page_id_kwarg": "parent_page_id"},
+                {"parent_page_id": EventIndex.objects.first().pk},
+            ),
+            (
+                "content_type_use",
+                {
+                    "app_label_kwarg": "content_type_app_name",
+                    "model_name_kwarg": "content_type_model_name",
+                },
+                {
+                    "content_type_app_name": "tests",
+                    "content_type_model_name": "eventpage",
+                },
+            ),
+        ]
+        request = get_dummy_request()
+        request.user = self.login()
+        for view_name, kwargs_names, kwargs_values in cases:
+            with self.subTest(view_name=view_name):
+                view = page_viewset_registry.as_view(view_name, **kwargs_names)
+                self.assertIs(callable(view), True)
+                response = view(request, **kwargs_values)
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(
+                    response.headers.get("X-Wagtail-ViewSet"),
+                    "EventPageViewSet",
+                )
 
 
 class TestCustomExplorableIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
