@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from wagtail.admin.views.pages import revisions, search
+from wagtail.admin.views.pages import revisions
 from wagtail.admin.viewsets.pages import page_viewset_registry
 
 app_name = "wagtailadmin_pages"
@@ -114,10 +114,14 @@ urlpatterns = [
         ),
         name="convert_alias",
     ),
-    path("search/", search.SearchView.as_view(), name="search"),
+    path(
+        "search/",
+        page_viewset_registry.as_view("search", is_base_page=True),
+        name="search",
+    ),
     path(
         "search/results/",
-        search.SearchView.as_view(results_only=True),
+        page_viewset_registry.as_view("search_results", is_base_page=True),
         name="search_results",
     ),
     path(
