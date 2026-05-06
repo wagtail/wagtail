@@ -7,7 +7,7 @@
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2020
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020,2023
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020,2023,2026
 # Meteor0id, 2018
 # Storm Heg <storm@stormbase.digital>, 2022-2026
 # Thijs Kramer <thijskramer@gmail.com>, 2015
@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -51,6 +51,12 @@ msgstr "Kies alsjeblieft alleen een pagina OF externe link."
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Geef minimaal één aanbeveling op voor deze zoekterm."
+
+msgid "query"
+msgstr "zoekopdracht"
+
+msgid "queries"
+msgstr "zoekopdrachten"
 
 msgid "Query Daily Hits"
 msgstr "Aantal dagelijkse zoekopdrachten"
@@ -198,14 +204,14 @@ msgid "Editor's picks for '%(query)s' created."
 msgstr "Editor aanbevelingen voor '%(query)s' aangemaakt."
 
 msgid "Recommendations have not been created due to errors."
-msgstr "Aanbevelingen zijn vanwege fouten niet aangemaakt."
+msgstr "Uitgelichte resultaten zijn vanwege fouten niet aangemaakt."
 
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr "Editor aanbevelingen voor '%(query)s' gewijzigd."
 
 msgid "Recommendations have not been saved due to errors."
-msgstr "Aanbeveling kon niet worden opgeslagen vanwege fouten."
+msgstr "Uitgelicht resultaat kon niet worden opgeslagen vanwege fouten."
 
 msgid "Editor's picks deleted."
 msgstr "Editor aanbevelingen verwijderd."

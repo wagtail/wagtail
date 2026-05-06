@@ -224,7 +224,7 @@ class FormPage(AbstractEmailForm):
     ]
 
     def serve(self, request, *args, **kwargs):
-        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+        if self.get_submissions().filter(user__pk=request.user.pk).exists()
             return render(
                 request,
                 self.template,
@@ -472,8 +472,7 @@ class FormPage(AbstractEmailForm):
         ]
 
         # Get all submissions for current page
-        submissions = self.get_submission_class().objects.filter(page=self)
-        for submission in submissions:
+        for submission in self.get_submissions():
             data = submission.get_data()
 
             # Count results for each question

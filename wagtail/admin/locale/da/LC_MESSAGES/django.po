@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -490,9 +490,6 @@ msgstr "Næste"
 msgid "This page is protected from public view"
 msgstr "Denne side er beskyttet mod offentlig skue"
 
-msgid "Add child page"
-msgstr "Tilføj en underside"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Tilføj %(label)s"
@@ -635,6 +632,9 @@ msgstr "Side '%(page_title)s' er blivet indsendt til moderation."
 
 msgid "Site"
 msgstr "Site"
+
+msgid "Add child page"
+msgstr "Tilføj en underside"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."

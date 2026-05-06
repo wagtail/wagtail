@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2024,2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,18 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Documenti Wagtail"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Questo file è troppo grande (%(file_size)s). Dimensione massima del file "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Questo file è troppo grande. Dimensione massima del file %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Raccolta"

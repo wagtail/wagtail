@@ -4,6 +4,7 @@
 #
 # Translators:
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Maarten Kling <kling.maarten@gmail.com>, 2026
 # Storm Heg <storm@stormbase.digital>, 2021-2025
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>, 2026\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,23 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail documenten"
+
+#, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr ""
+"Maximale bestandsgrootte:\n"
+"%(max_upload_size)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Dit bestand is te groot (%(file_size)s). De maximale bestandsgrootte is "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Dit bestand is te groot. Maximale bestandsgrootte %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Collectie"

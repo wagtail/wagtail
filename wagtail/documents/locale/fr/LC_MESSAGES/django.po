@@ -18,14 +18,14 @@
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025
+# Sébastien Corbin <seb.corbin@gmail.com>, 2024-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024-2025\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024-2026\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,22 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Documents Wagtail"
+
+#, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr "Taille de fichier maximum : %(max_upload_size)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Ce fichier est trop gros (%(file_size)s). La taille de fichier maximale est "
+"de %(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Ce fichier est trop gros. La taille de fichier maximale est %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Collection"

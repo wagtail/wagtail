@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -582,13 +582,13 @@ msgstr "Julkaise %(model_name)s"
 msgid "Cancel"
 msgstr "Peruuta"
 
+msgid "Comment"
+msgstr "Kommentti"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Toimet"
-
-msgid "Comment"
-msgstr "Kommentti"
 
 msgid "Update"
 msgstr "Päivitä"
@@ -1081,19 +1081,11 @@ msgstr "Selaa sivun %(title)s alasivuja"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisää alasivu sivulle '%(title)s'"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s/%(items_count)s koko sivustolla."
-
 msgid "No results across entire site."
 msgstr "Ei tuloksia mistään päin sivustoa."
 
 msgid "Search the whole site"
 msgstr "Hae koko sivustolta"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s/%(items_count)s"
 
 msgid "Sites menu"
 msgstr "Sivustot-valikko"
@@ -1116,9 +1108,6 @@ msgstr "Sivu on suojattu näkymästä julkisesti"
 
 msgid "Confirm"
 msgstr "Vahvista"
-
-msgid "Add child page"
-msgstr "Lisää alasivu"
 
 msgid "Page types"
 msgstr "Sivutyypit"
@@ -1280,24 +1269,12 @@ msgstr "Järjestelmä"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s tallensi uuden version"
 
-msgid "Refresh"
-msgstr "Päivitä"
-
 #, python-format
 msgid "%(user_name)s has unsaved changes"
 msgstr "Käyttäjällä %(user_name)s on tallentamattomia muutoksia"
 
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Sivun päivittäminen johtaa tallentamattomien muutosten katoamiseen."
-
-msgid "Refresh page"
-msgstr "Päivitä sivu"
-
 msgid "Continue"
 msgstr "Jatka"
-
-msgid "Refresh the page"
-msgstr "Päivitä sivu"
 
 msgid "Download XLSX"
 msgstr "Hae XLSX"
@@ -1491,6 +1468,9 @@ msgstr "Ladataan"
 
 msgid "Refreshing…"
 msgstr "Päivitetään…"
+
+msgid "Refresh"
+msgstr "Päivitä"
 
 msgid "Preview is out of date"
 msgstr "Esikatselu ei ole ajan tasalla"
@@ -2114,6 +2094,9 @@ msgstr "Kyllä"
 
 msgid "Page type"
 msgstr "Sivutyyppi"
+
+msgid "Add child page"
+msgstr "Lisää alasivu"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

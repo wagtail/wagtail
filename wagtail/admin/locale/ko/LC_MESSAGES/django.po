@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -579,13 +579,13 @@ msgstr "아니요, 게시를 해제하지 않습니다"
 msgid "Cancel"
 msgstr "취소"
 
+msgid "Comment"
+msgstr "댓글"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "액션"
-
-msgid "Comment"
-msgstr "댓글"
 
 msgid "Update"
 msgstr "업데이트"
@@ -1175,9 +1175,6 @@ msgstr "이 페이지는 다른 이들이 보지 못하도록 보호되었습니
 msgid "Confirm"
 msgstr "확인"
 
-msgid "Add child page"
-msgstr "하위 페이지 추가"
-
 msgid "Page types"
 msgstr "페이지 타입"
 
@@ -1302,17 +1299,8 @@ msgstr "브레드크럼"
 msgid "System"
 msgstr "시스템"
 
-msgid "Refresh"
-msgstr "새로고침"
-
-msgid "Refresh page"
-msgstr "페이지 새로고침"
-
 msgid "Continue"
 msgstr "계속"
-
-msgid "Refresh the page"
-msgstr "페이지 새로고침"
 
 msgid "Download XLSX"
 msgstr "XLSX 다운로드"
@@ -1419,6 +1407,9 @@ msgstr "%(user)s 에 의한"
 
 msgid "View history"
 msgstr "히스토리 확인"
+
+msgid "Refresh"
+msgstr "새로고침"
 
 msgid "Preview mode"
 msgstr "미리보기 모드"
@@ -1988,6 +1979,9 @@ msgstr "사이트"
 
 msgid "Yes"
 msgstr "예"
+
+msgid "Add child page"
+msgstr "하위 페이지 추가"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

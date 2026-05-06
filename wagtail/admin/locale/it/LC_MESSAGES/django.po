@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2026\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -758,13 +758,13 @@ msgstr "Vuoi ancora pubblicare questo %(model_name)s?"
 msgid "Cancel"
 msgstr "Annulla"
 
+msgid "Comment"
+msgstr "Commenta"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Azioni"
-
-msgid "Comment"
-msgstr "Commenta"
 
 #, python-format
 msgid ""
@@ -1760,10 +1760,6 @@ msgstr "Esplora pagine figlio di '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Aggiungi pagina figlio a '%(title)s'"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s di %(items_count)s in tutto il sito."
-
 msgid "No results across entire site."
 msgstr "Nessun risultato in tutto il sito."
 
@@ -1772,24 +1768,12 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "cerca in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"%(start_index)s-%(end_index)s di %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 "Nessun risultato in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Cerca tutto il sito"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s di %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Menu sito"
@@ -1812,9 +1796,6 @@ msgstr "Questa pagina è protetta dalla vista pubblica"
 
 msgid "Confirm"
 msgstr "Conferma"
-
-msgid "Add child page"
-msgstr "Aggiungi pagina figlio"
 
 msgid "Page types"
 msgstr "Tipi di pagina"
@@ -2024,9 +2005,6 @@ msgstr "Sistema"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s ha salvato una nuova versione"
 
-msgid "Refresh"
-msgstr "Aggiorna"
-
 msgid "You have unsaved changes in another window"
 msgstr "Hai modifiche non salvate in un'altra finestra"
 
@@ -2044,36 +2022,8 @@ msgstr[0] "Un altro utente sta attualmente visualizzando"
 msgstr[1] "%(num_user)s altri utenti stanno attualmente visualizzando"
 msgstr[2] "%(num_user)s altri utenti stanno attualmente visualizzando"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Procedendo sovrascriverai le modifiche che hai fatto in quella finestra. "
-"Aggiornando la pagina vedrai le nuove modifiche, ma perderai le modifiche "
-"non salvate nella finestra corrente."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"Procedendo sovrascriverai le modifiche fatte da %(user_name)s. Aggiornando "
-"la pagina vedrai le nuove modifiche, ma perderai le tue modifiche non "
-"salvate."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Aggiornando la pagina perderai tutte le modifiche non salvate"
-
-msgid "Refresh page"
-msgstr "Aggiorna pagina"
-
 msgid "Continue"
 msgstr "Continua"
-
-msgid "Refresh the page"
-msgstr "Aggiorna la pagina"
 
 msgid "Download XLSX"
 msgstr "Scarica XLSX"
@@ -2348,6 +2298,9 @@ msgstr "Caricamento in corso"
 
 msgid "Refreshing…"
 msgstr "Aggiornamento in corso…"
+
+msgid "Refresh"
+msgstr "Aggiorna"
 
 msgid "Preview is out of date"
 msgstr "L'anteprima è obsoleta"
@@ -3406,6 +3359,9 @@ msgstr "Tipologia pagina"
 
 msgid "Exploring"
 msgstr "Esplorazione"
+
+msgid "Add child page"
+msgstr "Aggiungi pagina figlio"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

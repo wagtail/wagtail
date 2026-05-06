@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jonathan Lindén, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -733,13 +733,13 @@ msgstr "Vill du fortfarande publicera denna %(model_name)s?"
 msgid "Cancel"
 msgstr "Avbryt"
 
+msgid "Comment"
+msgstr "Kommentera"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Handlingar"
-
-msgid "Comment"
-msgstr "Kommentera"
 
 msgid "Update"
 msgstr "Uppdatera"
@@ -1461,10 +1461,6 @@ msgstr "Inga träffar i '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgid "Search the whole site"
 msgstr "Sök hela sajten"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s av %(items_count)s"
-
 msgid "Sites menu"
 msgstr "Sajtmeny"
 
@@ -1486,9 +1482,6 @@ msgstr "Denna sida är skyddad från att synas publikt"
 
 msgid "Confirm"
 msgstr "Bekräfta"
-
-msgid "Add child page"
-msgstr "Lägg till undersida"
 
 msgid "Page types"
 msgstr "Sidtyper"
@@ -2660,6 +2653,9 @@ msgstr "Ja"
 
 msgid "Page type"
 msgstr "Sidtyp"
+
+msgid "Add child page"
+msgstr "Lägg till undersida"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

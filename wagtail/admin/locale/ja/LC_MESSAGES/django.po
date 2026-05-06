@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -441,13 +441,13 @@ msgstr "いいえ、非公開にしません"
 msgid "Cancel"
 msgstr "キャンセル"
 
+msgid "Comment"
+msgstr "コメント"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "操作"
-
-msgid "Comment"
-msgstr "コメント"
 
 msgid "Update"
 msgstr "アップデート"
@@ -731,9 +731,6 @@ msgstr "このページは非公開です"
 
 msgid "Confirm"
 msgstr "確認"
-
-msgid "Add child page"
-msgstr "子ページを追加"
 
 msgid "Page types"
 msgstr "ページタイプ"
@@ -1108,6 +1105,9 @@ msgstr "所有者"
 
 msgid "Site"
 msgstr "サイト"
+
+msgid "Add child page"
+msgstr "子ページを追加"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

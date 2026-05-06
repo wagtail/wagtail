@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Mario <mario@catalpa.io>, 2026\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -22,6 +22,18 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumentu sira"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Dokumentus ne'e bo'ot demais (%(file_size)s). Maximu Dokumentus nia medida "
+"%(max_filesize)s. "
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Dokumentus ne'e bo'ot demais. Maximu medida dokumentus %(max_filesize)s. "
 
 msgid "Collection"
 msgstr "Koleksaun"

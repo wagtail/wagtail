@@ -1392,11 +1392,7 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
             content,
-            {
-                "detail": (
-                    "You do not have permission to publish a page at the destination."
-                )
-            },
+            {"detail": ("You do not have permission to copy this page")},
         )
 
     def test_respects_page_creation_rules(self):
@@ -1985,7 +1981,7 @@ class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
             content,
             {
                 "detail": (
-                    "You do not have permission to publish a page at the destination."
+                    "You do not have permission to create an alias of this page."
                 ),
             },
         )
