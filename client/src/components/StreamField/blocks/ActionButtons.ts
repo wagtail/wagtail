@@ -21,7 +21,13 @@ export abstract class ActionButton {
 
   render(container, position = 'after') {
     this.dom = $(`
-      <button type="button" class="button button--icon text-replace white" data-streamfield-action="${this.labelIdentifier}" title="${h(this.label)}">
+      <button
+      type="button"
+      class="button button--icon text-replace white"
+      data-streamfield-action="${this.labelIdentifier}"
+      title="${h(this.label)}"
+      aria-label="${h(this.label)}"
+      >
         <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
           <use href="#icon-${h(this.icon)}"></use>
         </svg>
