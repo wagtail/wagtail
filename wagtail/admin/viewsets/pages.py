@@ -31,7 +31,7 @@ from wagtail.admin.views.pages.ordering import SetPagePositionView
 from wagtail.admin.views.pages.preview import (
     PreviewOnCreateView,
     PreviewOnEditView,
-    view_draft,
+    ViewDraftView,
 )
 from wagtail.admin.views.pages.revisions import (
     RevisionsCompareView,
@@ -302,6 +302,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the usage view; must be a subclass of
     ``wagtail.admin.views.pages.usage.UsageView``.
     """
+    view_draft_view_class = ViewDraftView
+    """
+    The view class to use for the view draft view; must be a subclass of
+    ``wagtail.admin.views.pages.preview.ViewDraftView``.
+    """
     workflow_action_view_class = WorkflowActionView
     """
     The view class to use for performing a workflow action; must be a subclass of
@@ -490,7 +495,9 @@ class PageViewSet(PageListingViewSet):
     def usage_view(self):
         return self.construct_view(self.usage_view_class)
 
-    view_draft_view = staticmethod(view_draft)
+    @cached_property
+    def view_draft_view(self):
+        return self.construct_view(self.view_draft_view_class)
 
     @cached_property
     def workflow_action_view(self):
