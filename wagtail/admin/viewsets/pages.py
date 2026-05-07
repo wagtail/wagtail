@@ -11,7 +11,7 @@ from wagtail.admin.views.pages.choose_parent import (
 )
 from wagtail.admin.views.pages.convert_alias import convert_alias
 from wagtail.admin.views.pages.copy import CopyView
-from wagtail.admin.views.pages.create import CreateView, add_subpage
+from wagtail.admin.views.pages.create import AddSubpageView, CreateView
 from wagtail.admin.views.pages.delete import DeleteView
 from wagtail.admin.views.pages.edit import EditView
 from wagtail.admin.views.pages.history import (
@@ -180,6 +180,11 @@ class PageViewSet(PageListingViewSet):
     """
     The view class to use for the create view; must be a subclass of
     ``wagtail.admin.views.pages.create.CreateView``.
+    """
+    add_subpage_view_class = AddSubpageView
+    """
+    The view class to use for the add subpage view; must be a subclass of
+    ``wagtail.admin.views.pages.create.AddSubpageView``.
     """
     collect_workflow_action_data_view_class = CollectWorkflowActionDataView
     """
@@ -368,7 +373,9 @@ class PageViewSet(PageListingViewSet):
     def add_view(self):
         return self.construct_view(self.add_view_class)
 
-    add_subpage_view = staticmethod(add_subpage)
+    @cached_property
+    def add_subpage_view(self):
+        return self.construct_view(self.add_subpage_view_class)
 
     @cached_property
     def collect_workflow_action_data_view(self):

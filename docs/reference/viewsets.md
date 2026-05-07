@@ -277,6 +277,7 @@ The `PageViewSet` class was added.
 
 ```{versionadded} 8.0
 Endpoints for the following views were added to the viewset:
+`add_subpage_view_class`,
 `add_view_class`,
 `collect_workflow_action_data_view_class`,
 `confirm_workflow_cancellation_view_class`,
@@ -317,6 +318,7 @@ Endpoints for the following views were added to the viewset:
    .. autoattribute:: export_filename
    .. autoattribute:: choose_parent_view_class
    .. autoattribute:: content_type_use_view_class
+   .. autoattribute:: add_subpage_view_class
    .. autoattribute:: add_view_class
    .. autoattribute:: collect_workflow_action_data_view_class
    .. autoattribute:: confirm_workflow_cancellation_view_class
