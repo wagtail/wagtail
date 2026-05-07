@@ -332,6 +332,7 @@ Endpoints for the following views were added to the viewset:
    .. autoattribute:: revisions_revert_view_class
    .. autoattribute:: revisions_unschedule_view_class
    .. autoattribute:: search_view_class
+   .. autoattribute:: set_page_position_view_class
    .. autoattribute:: unpublish_view_class
    .. autoattribute:: usage_view_class
    .. autoattribute:: workflow_action_view_class
