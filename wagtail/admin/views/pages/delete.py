@@ -47,44 +47,44 @@ class DeleteView(TemplateView):
         self.usage = ReferenceIndex.get_references_to(
             self.page
         ).group_by_source_object()
+        return super().dispatch(request, page_id, *args, **kwargs)
 
-        if request.method == "POST":
-            if self.usage.is_protected:
-                raise PermissionDenied
+    def post(self, request, *args, **kwargs):
+        if self.usage.is_protected:
+            raise PermissionDenied
 
-            continue_deleting = type_to_delete_confirmation(request)
+        if not type_to_delete_confirmation(request):
+            return self.render_to_response(self.get_context_data())
 
-            if continue_deleting:
-                parent_id = self.page.get_parent().id
-                # Delete the source page.
-                action = DeletePageAction(self.page, user=request.user)
-                # Permission checks are done above, so skip them in execute.
-                action.execute(skip_permission_checks=True)
+        parent_id = self.page.get_parent().id
+        # Delete the source page.
+        action = DeletePageAction(self.page, user=request.user)
+        # Permission checks are done above, so skip them in execute.
+        action.execute(skip_permission_checks=True)
 
-                # Delete translation and alias pages if they have the same parent page.
-                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                    parent_page_translations = self.page.get_parent().get_translations()
-                    for page_or_alias in self.pages_to_delete:
-                        if page_or_alias.get_parent() in parent_page_translations:
-                            action = DeletePageAction(page_or_alias, user=request.user)
-                            # Permission checks are done above, so skip them in execute.
-                            action.execute(skip_permission_checks=True)
+        # Delete translation and alias pages if they have the same parent page.
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            parent_page_translations = self.page.get_parent().get_translations()
+            for page_or_alias in self.pages_to_delete:
+                if page_or_alias.get_parent() in parent_page_translations:
+                    action = DeletePageAction(page_or_alias, user=request.user)
+                    # Permission checks are done above, so skip them in execute.
+                    action.execute(skip_permission_checks=True)
 
-                messages.success(
-                    request,
-                    _("Page '%(page_title)s' deleted.")
-                    % {"page_title": self.page.get_admin_display_title()},
-                )
+        messages.success(
+            request,
+            _("Page '%(page_title)s' deleted.")
+            % {"page_title": self.page.get_admin_display_title()},
+        )
 
-                for fn in hooks.get_hooks("after_delete_page"):
-                    result = fn(request, self.page)
-                    if hasattr(result, "status_code"):
-                        return result
+        for fn in hooks.get_hooks("after_delete_page"):
+            result = fn(request, self.page)
+            if hasattr(result, "status_code"):
+                return result
 
-                if self.next_url:
-                    return redirect(self.next_url)
-                return redirect("wagtailadmin_explore", parent_id)
-        return self.render_to_response(self.get_context_data())
+        if self.next_url:
+            return redirect(self.next_url)
+        return redirect("wagtailadmin_explore", parent_id)
 
     def get_context_data(self, **kwargs):
         descendant_count = self.page.get_descendant_count()
