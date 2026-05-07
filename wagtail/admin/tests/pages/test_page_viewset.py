@@ -663,10 +663,6 @@ class TestCustomViews(WagtailTestUtils, TestCase):
                 args=[self.event_page.id, self.old_revision.pk],
             ),
             reverse(
-                "wagtailadmin_pages:set_page_position",
-                args=[self.event_page.id],
-            ),
-            reverse(
                 "wagtailadmin_pages:set_privacy",
                 args=[self.event_page.id],
             ),
@@ -708,7 +704,14 @@ class TestCustomViews(WagtailTestUtils, TestCase):
             ),
         ]
 
-        post_only_urls = [
+        post_200_urls = [
+            reverse(
+                "wagtailadmin_pages:set_page_position",
+                args=[self.event_page.id],
+            ),
+        ]
+
+        post_302_urls = [
             reverse(
                 "wagtailadmin_pages:lock",
                 args=[self.event_page.id],
@@ -721,7 +724,8 @@ class TestCustomViews(WagtailTestUtils, TestCase):
 
         cases = [
             (self.client.get, urls, 200),
-            (self.client.post, post_only_urls, 302),
+            (self.client.post, post_200_urls, 200),
+            (self.client.post, post_302_urls, 302),
         ]
 
         for method, urls, expected_status in cases:

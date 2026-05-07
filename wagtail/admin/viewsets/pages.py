@@ -27,7 +27,7 @@ from wagtail.admin.views.pages.listing import (
 )
 from wagtail.admin.views.pages.lock import LockView, UnlockView
 from wagtail.admin.views.pages.move import MoveChooseDestinationView, MoveConfirmView
-from wagtail.admin.views.pages.ordering import set_page_position
+from wagtail.admin.views.pages.ordering import SetPagePositionView
 from wagtail.admin.views.pages.preview import (
     PreviewOnCreateView,
     PreviewOnEditView,
@@ -282,6 +282,11 @@ class PageViewSet(PageListingViewSet):
 
     This is only used by the base ``Page`` model's viewset.
     """
+    set_page_position_view_class = SetPagePositionView
+    """
+    The view class to use for the set page position view; must be a subclass of
+    ``wagtail.admin.views.pages.ordering.SetPagePositionView``.
+    """
     unlock_view_class = UnlockView
     """
     The view class to use for unlocking a page; must be a subclass of
@@ -467,7 +472,9 @@ class PageViewSet(PageListingViewSet):
     def search_results_view(self):
         return self.construct_view(self.search_view_class, results_only=True)
 
-    set_page_position_view = staticmethod(set_page_position)
+    @cached_property
+    def set_page_position_view(self):
+        return self.construct_view(self.set_page_position_view_class)
 
     set_privacy_view = staticmethod(set_privacy)
 
