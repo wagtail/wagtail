@@ -280,12 +280,12 @@ Endpoints for the following views were added to the viewset:
 `add_view_class`,
 `collect_workflow_action_data_view_class`,
 `confirm_workflow_cancellation_view_class`,
+`copy_view_class`,
 `edit_view_class`,
 `delete_view_class`,
 `history_view_class`,
 `lock_view_class`,
 `move_view_class`,
-`copy_view_class`,
 `unlock_view_class`,
 `preview_on_add_view_class`,
 `preview_on_edit_view_class`,
@@ -320,13 +320,13 @@ Endpoints for the following views were added to the viewset:
    .. autoattribute:: add_view_class
    .. autoattribute:: collect_workflow_action_data_view_class
    .. autoattribute:: confirm_workflow_cancellation_view_class
+   .. autoattribute:: copy_view_class
    .. autoattribute:: edit_view_class
    .. autoattribute:: delete_view_class
    .. autoattribute:: history_view_class
    .. autoattribute:: index_view_class
    .. autoattribute:: lock_view_class
    .. autoattribute:: move_view_class
-   .. autoattribute:: copy_view_class
    .. autoattribute:: unlock_view_class
    .. autoattribute:: preview_on_add_view_class
    .. autoattribute:: preview_on_edit_view_class
