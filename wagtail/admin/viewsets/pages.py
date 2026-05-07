@@ -12,7 +12,7 @@ from wagtail.admin.views.pages.choose_parent import (
 from wagtail.admin.views.pages.convert_alias import convert_alias
 from wagtail.admin.views.pages.copy import copy
 from wagtail.admin.views.pages.create import CreateView, add_subpage
-from wagtail.admin.views.pages.delete import delete
+from wagtail.admin.views.pages.delete import DeleteView
 from wagtail.admin.views.pages.edit import EditView
 from wagtail.admin.views.pages.history import (
     PageHistoryView,
@@ -193,6 +193,11 @@ class PageViewSet(PageListingViewSet):
     must be a subclass of
     ``wagtail.admin.views.pages.workflow.ConfirmWorkflowCancellationView``.
     """
+    delete_view_class = DeleteView
+    """
+    The view class to use for the delete view; must be a subclass of
+    ``wagtail.admin.views.pages.delete.DeleteView``.
+    """
     edit_view_class = EditView
     """
     The view class to use for the edit view; must be a subclass of
@@ -372,7 +377,9 @@ class PageViewSet(PageListingViewSet):
 
     copy_view = staticmethod(copy)
 
-    delete_view = staticmethod(delete)
+    @cached_property
+    def delete_view(self):
+        return self.construct_view(self.delete_view_class)
 
     @cached_property
     def edit_view(self):
