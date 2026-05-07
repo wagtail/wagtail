@@ -32,6 +32,7 @@ class HandlerState:
 
         # what to do with leading whitespace on the next text node we encounter: strip, keep or force
         self.leading_whitespace = STRIP_WHITESPACE
+        self.keep_whitespace = False
         self.list_depth = 0
         self.list_item_type = None
 
@@ -102,8 +103,9 @@ class ListElementHandler:
 
 
 class BlockElementHandler:
-    def __init__(self, block_type):
+    def __init__(self, block_type, *, keep_whitespace=False):
         self.block_type = block_type
+        self.keep_whitespace = keep_whitespace
 
     def create_block(self, name, attrs, state, contentstate):
         return Block(
@@ -117,7 +119,11 @@ class BlockElementHandler:
         block = self.create_block(name, attr_dict, state, contentstate)
         contentstate.blocks.append(block)
         state.current_block = block
-        state.leading_whitespace = STRIP_WHITESPACE
+        if self.keep_whitespace:
+            state.leading_whitespace = FORCE_WHITESPACE
+        else:
+            state.leading_whitespace = STRIP_WHITESPACE
+        state.keep_whitespace = self.keep_whitespace
         state.has_preceding_nonatomic_block = True
 
     def handle_endtag(self, name, state, contentState):
@@ -134,7 +140,7 @@ class ListItemElementHandler(BlockElementHandler):
     """Handler for <li> tag"""
 
     def __init__(self):
-        pass  # skip setting self.block_type
+        self.keep_whitespace = False  # skip setting self.block_type
 
     def create_block(self, name, attrs, state, contentstate):
         assert state.list_item_type is not None, (
@@ -399,7 +405,8 @@ class HtmlToContentStateHandler(HTMLParser):
         # normalise whitespace sequences to a single space unless whitespace is contained in <pre> tag,
         # in which case, leave it alone
         # This is in line with https://www.w3.org/TR/html4/struct/text.html#h-9.1
-        content = re.sub(WHITESPACE_RE, " ", content)
+        if not self.state.keep_whitespace:
+            content = re.sub(WHITESPACE_RE, " ", content)
 
         if self.state.current_block is None:
             if content == " ":
