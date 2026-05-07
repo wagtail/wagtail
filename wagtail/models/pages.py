@@ -1181,6 +1181,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Aliases don't have revisions, so update fields that would normally be updated by save_revision
             alias_updated.draft_title = alias_updated.title
             alias_updated.latest_revision_created_at = self.latest_revision_created_at
+            alias_updated.last_published_at = self.last_published_at
 
             alias_updated.save(clean=False)
 
