@@ -285,6 +285,7 @@ Endpoints for the following views were added to the viewset:
 `history_view_class`,
 `lock_view_class`,
 `move_view_class`,
+`copy_view_class`,
 `unlock_view_class`,
 `preview_on_add_view_class`,
 `preview_on_edit_view_class`,
@@ -325,6 +326,7 @@ Endpoints for the following views were added to the viewset:
    .. autoattribute:: index_view_class
    .. autoattribute:: lock_view_class
    .. autoattribute:: move_view_class
+   .. autoattribute:: copy_view_class
    .. autoattribute:: unlock_view_class
    .. autoattribute:: preview_on_add_view_class
    .. autoattribute:: preview_on_edit_view_class

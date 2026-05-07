@@ -1,8 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.views.generic import TemplateView
 
 from wagtail import hooks
 from wagtail.actions.copy_page import CopyPageAction
@@ -13,60 +13,64 @@ from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.models import Page
 
 
-def copy(request, page_id):
-    page = get_object_or_404(Page, id=page_id)
-    page_perms = page.permissions_for_user(request.user)
-    if not page_perms.can_copy():
-        raise PermissionDenied
+class CopyView(TemplateView):
+    template_name = "wagtailadmin/pages/copy.html"
 
-    # Parent page defaults to parent of source page
-    parent_page = page.get_parent()
+    def dispatch(self, request, page_id, *args, **kwargs):
+        self.page = get_object_or_404(Page, id=page_id)
+        page_perms = self.page.permissions_for_user(request.user)
+        if not page_perms.can_copy():
+            raise PermissionDenied
 
-    form_class = getattr(page.specific_class, "copy_form_class", CopyForm)
-    form = form_class(request.POST or None, user=request.user, page=page)
+        # Parent page defaults to parent of source page
+        self.parent_page = self.page.get_parent()
 
-    next_url = get_valid_next_url_from_request(request)
+        form_class = getattr(self.page.specific_class, "copy_form_class", CopyForm)
+        self.form = form_class(request.POST or None, user=request.user, page=self.page)
 
-    for fn in hooks.get_hooks("before_copy_page"):
-        result = fn(request, page)
-        if hasattr(result, "status_code"):
-            return result
+        self.next_url = get_valid_next_url_from_request(request)
 
-    # Check if user is submitting
-    if request.method == "POST":
+        for fn in hooks.get_hooks("before_copy_page"):
+            result = fn(request, self.page)
+            if hasattr(result, "status_code"):
+                return result
+
+        return super().dispatch(request, page_id, *args, **kwargs)
+
+    def post(self, request, page_id, *args, **kwargs):
         # Prefill parent_page in case the form is invalid (as prepopulated value for the form field,
         # because ModelChoiceField seems to not fall back to the user given value)
-        parent_page = Page.objects.get(id=request.POST["new_parent_page"])
+        self.parent_page = Page.objects.get(id=request.POST["new_parent_page"])
 
-        if form.is_valid():
+        if self.form.is_valid():
             # Receive the parent page (this should never be empty)
-            if form.cleaned_data["new_parent_page"]:
-                parent_page = form.cleaned_data["new_parent_page"]
+            if self.form.cleaned_data["new_parent_page"]:
+                self.parent_page = self.form.cleaned_data["new_parent_page"]
 
             # Re-check if the user has permission to publish subpages on the new parent
-            can_publish = parent_page.permissions_for_user(
+            can_publish = self.parent_page.permissions_for_user(
                 request.user
             ).can_publish_subpage()
-            keep_live = can_publish and form.cleaned_data.get("publish_copies")
+            keep_live = can_publish and self.form.cleaned_data.get("publish_copies")
 
             # Copy the page
-            if form.cleaned_data.get("alias"):
+            if self.form.cleaned_data.get("alias"):
                 action = CreatePageAliasAction(
-                    page.specific,
-                    recursive=form.cleaned_data.get("copy_subpages"),
-                    parent=parent_page,
-                    update_slug=form.cleaned_data["new_slug"],
+                    self.page.specific,
+                    recursive=self.form.cleaned_data.get("copy_subpages"),
+                    parent=self.parent_page,
+                    update_slug=self.form.cleaned_data["new_slug"],
                     user=request.user,
                 )
                 new_page = action.execute(skip_permission_checks=True)
             else:
                 action = CopyPageAction(
-                    page=page,
-                    recursive=form.cleaned_data.get("copy_subpages"),
-                    to=parent_page,
+                    page=self.page,
+                    recursive=self.form.cleaned_data.get("copy_subpages"),
+                    to=self.parent_page,
                     update_attrs={
-                        "title": form.cleaned_data["new_title"],
-                        "slug": form.cleaned_data["new_slug"],
+                        "title": self.form.cleaned_data["new_title"],
+                        "slug": self.form.cleaned_data["new_slug"],
                     },
                     keep_live=keep_live,
                     user=request.user,
@@ -78,12 +82,12 @@ def copy(request, page_id):
                 reverse("wagtailadmin_pages:edit", args=(new_page.id,)),
                 _("Edit"),
             )
-            if form.cleaned_data.get("copy_subpages"):
+            if self.form.cleaned_data.get("copy_subpages"):
                 messages.success(
                     request,
                     _("Page '%(page_title)s' and %(subpages_count)s subpages copied.")
                     % {
-                        "page_title": page.specific_deferred.get_admin_display_title(),
+                        "page_title": self.page.specific_deferred.get_admin_display_title(),
                         "subpages_count": new_page.get_descendants().count(),
                     },
                     buttons=[edit_button],
@@ -92,26 +96,26 @@ def copy(request, page_id):
                 messages.success(
                     request,
                     _("Page '%(page_title)s' copied.")
-                    % {"page_title": page.specific_deferred.get_admin_display_title()},
+                    % {
+                        "page_title": self.page.specific_deferred.get_admin_display_title()
+                    },
                     buttons=[edit_button],
                 )
 
             for fn in hooks.get_hooks("after_copy_page"):
-                result = fn(request, page, new_page)
+                result = fn(request, self.page, new_page)
                 if hasattr(result, "status_code"):
                     return result
 
             # Redirect to explore of parent page
-            if next_url:
-                return redirect(next_url)
-            return redirect("wagtailadmin_explore", parent_page.id)
+            if self.next_url:
+                return redirect(self.next_url)
+            return redirect("wagtailadmin_explore", self.parent_page.id)
+        return self.render_to_response(self.get_context_data())
 
-    return TemplateResponse(
-        request,
-        "wagtailadmin/pages/copy.html",
-        {
-            "page": page,
-            "form": form,
-            "next": next_url,
-        },
-    )
+    def get_context_data(self, **kwargs):
+        return {
+            "page": self.page,
+            "form": self.form,
+            "next": self.next_url,
+        }
