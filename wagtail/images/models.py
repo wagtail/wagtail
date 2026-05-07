@@ -1219,8 +1219,22 @@ class ResponsiveImage:
 
         return ", ".join([f"{r.url} {r.width}w" for r in renditions_list])
 
+    def get_attrs(self, auto_sizes=False):
+        attrs = (self.attrs or {}).copy()
+        default_attrs = apps.get_app_config("wagtailimages").default_attrs
+
+        if (
+            auto_sizes
+            and attrs.get("loading", default_attrs.get("loading")) == "lazy"
+            and not attrs.get("sizes")
+            and not default_attrs.get("sizes")
+        ):
+            attrs["sizes"] = "auto, 100vw"
+
+        return attrs
+
     def __html__(self):
-        attrs = self.attrs or {}
+        attrs = self.get_attrs(auto_sizes=len(self.renditions) > 1)
 
         # No point in adding a srcset if there is a single image.
         if len(self.renditions) > 1:
@@ -1297,10 +1311,9 @@ class Picture(ResponsiveImage):
         if not self.formats:
             return mark_safe(f"<picture>{super().__html__()}</picture>")
 
-        attrs = self.attrs or {}
-
         fallback_format = self.get_fallback_format()
         fallback_renditions = self.formats[fallback_format]
+        attrs = self.get_attrs(auto_sizes=len(fallback_renditions) > 1)
 
         sources = []
 

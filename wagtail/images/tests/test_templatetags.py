@@ -254,6 +254,33 @@ class SrcsetImageTagTestCase(ImagesTestCase):
         """
         self.assertHTMLEqual(rendered, expected)
 
+    def test_srcset_image_lazy_loading_adds_auto_sizes(self):
+        rendered = self.render(
+            '{% srcset_image myimage width-{20,40} loading="lazy" %}',
+            {"myimage": self.image},
+        )
+
+        self.assertIn('sizes="auto, 100vw"', rendered)
+        self.assertIn('loading="lazy"', rendered)
+        self.assertIn("srcset=", rendered)
+
+    def test_srcset_image_lazy_loading_preserves_sizes(self):
+        rendered = self.render(
+            '{% srcset_image myimage width-{20,40} loading="lazy" sizes="50vw" %}',
+            {"myimage": self.image},
+        )
+
+        self.assertIn('sizes="50vw"', rendered)
+        self.assertNotIn("auto, 100vw", rendered)
+
+    def test_srcset_image_eager_loading_does_not_add_auto_sizes(self):
+        rendered = self.render(
+            '{% srcset_image myimage width-{20,40} loading="eager" %}',
+            {"myimage": self.image},
+        )
+
+        self.assertNotIn("sizes=", rendered)
+
     def test_srcset_output_single_image(self):
         self.assertHTMLEqual(
             self.render(
@@ -359,6 +386,17 @@ class PictureTagTestCase(ImagesTestCase):
             </picture>
         """
         self.assertHTMLEqual(rendered, expected)
+
+    def test_picture_lazy_loading_adds_auto_sizes(self):
+        rendered = self.render(
+            '{% picture myimage width-{200,400} format-{jpeg,webp} loading="lazy" %}',
+            {"myimage": self.image},
+        )
+
+        self.assertIn('sizes="auto, 100vw"', rendered)
+        self.assertIn('loading="lazy"', rendered)
+        self.assertIn('type="image/webp"', rendered)
+        self.assertIn("srcset=", rendered)
 
     def test_picture_sizes_attribute_escaped(self):
         rendered = self.render(

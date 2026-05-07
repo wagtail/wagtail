@@ -165,6 +165,26 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
         """
         self.assertHTMLEqual(rendered, expected)
 
+    def test_srcset_image_lazy_loading_adds_auto_sizes(self):
+        filename_200 = get_test_image_filename(self.image, "width-200")
+        filename_400 = get_test_image_filename(self.image, "width-400")
+        rendered = self.render(
+            '{{ srcset_image(myimage, "width-{200,400}", loading="lazy") }}',
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <img
+                loading="lazy"
+                sizes="auto, 100vw"
+                src="{filename_200}"
+                srcset="{filename_200} 200w, {filename_400} 400w"
+                alt="Test image"
+                width="200"
+                height="150"
+            >
+        """
+        self.assertHTMLEqual(rendered, expected)
+
     def test_no_image(self):
         rendered = self.render(
             '{{ srcset_image(myimage, "width-2") }}', {"myimage": None}
@@ -302,6 +322,34 @@ class TestPictureJinja(JinjaImagesTestCase):
                 sizes="100vw"
                 src="{filenames[4]}"
                 srcset="{filenames[4]} 200w, {filenames[5]} 400w"
+                alt="Test image"
+                width="200"
+                height="150"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_picture_lazy_loading_adds_auto_sizes(self):
+        filenames = [
+            get_test_image_filename(self.image, "width-200.format-jpeg"),
+            get_test_image_filename(self.image, "width-400.format-jpeg"),
+            get_test_image_filename(self.image, "width-200.format-webp"),
+            get_test_image_filename(self.image, "width-400.format-webp"),
+        ]
+
+        rendered = self.render(
+            '{{ picture(myimage, "width-{200,400}|format-{jpeg,webp}", loading="lazy") }}',
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <picture>
+            <source srcset="{filenames[2]} 200w, {filenames[3]} 400w" sizes="auto, 100vw" type="image/webp">
+            <img
+                loading="lazy"
+                sizes="auto, 100vw"
+                src="{filenames[0]}"
+                srcset="{filenames[0]} 200w, {filenames[1]} 400w"
                 alt="Test image"
                 width="200"
                 height="150"
