@@ -300,6 +300,7 @@ Endpoints for the following views were added to the viewset:
 `set_page_position_view_class`,
 `unpublish_view_class`,
 `usage_view_class`,
+`view_draft_view_class`,
 `workflow_action_view_class`,
 `workflow_history_view_class`,
 `workflow_history_detail_view_class`,
@@ -345,6 +346,7 @@ Endpoints for the following views were added to the viewset:
    .. autoattribute:: set_page_position_view_class
    .. autoattribute:: unpublish_view_class
    .. autoattribute:: usage_view_class
+   .. autoattribute:: view_draft_view_class
    .. autoattribute:: workflow_action_view_class
    .. autoattribute:: workflow_history_view_class
    .. autoattribute:: workflow_history_detail_view_class
