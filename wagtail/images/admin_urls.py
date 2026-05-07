@@ -19,6 +19,7 @@ urlpatterns = [
         name="url_generator_output",
     ),
     path("<int:image_id>/preview/<str:filter_spec>/", images.preview, name="preview"),
+    path("<int:image_id>/original_file/", images.original_file, name="original_file"),
     path("add/", images.CreateView.as_view(), name="add"),
     path("usage/<int:image_id>/", images.UsageView.as_view(), name="image_usage"),
     path("multiple/add/", multiple.AddView.as_view(), name="add_multiple"),

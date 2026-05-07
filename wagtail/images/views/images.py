@@ -1,4 +1,5 @@
 import json
+import mimetypes
 import os
 from tempfile import SpooledTemporaryFile
 
@@ -442,6 +443,23 @@ def preview(request, image_id, filter_spec):
         return HttpResponse(
             "Invalid filter spec: " + filter_spec, content_type="text/plain", status=400
         )
+
+
+@permission_checker.require("change")
+def original_file(request, image_id):
+    image = get_object_or_404(get_image_model(), id=image_id)
+
+    try:
+        file = image.file.open("rb")
+    except IOError:
+        return HttpResponse("Not found", status=404)
+
+    content_type, _ = mimetypes.guess_type(image.file.name)
+    response = FileResponse(
+        file, content_type=content_type or "application/octet-stream"
+    )
+    response["Content-Disposition"] = f'inline; filename="{image.filename}"'
+    return response
 
 
 class DeleteView(generic.DeleteView):

@@ -1748,6 +1748,43 @@ class TestImageEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             response, "Custom image with this Title and Collection already exists."
         )
 
+    def test_original_file_view_admin_can_access(self):
+        """
+        Logged-in admin can access the original file view
+        and gets a file response
+        """
+        response = self.client.get(
+            reverse("wagtailimages:original_file", args=(self.image.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_original_file_view_anonymous_redirected(self):
+        """
+        Anonymous user is redirected to login
+        """
+        self.client.logout()
+        response = self.client.get(
+            reverse("wagtailimages:original_file", args=(self.image.id,))
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/admin/login/", response["Location"])
+
+    def test_original_file_view_does_not_create_rendition(self):
+        """
+        Accessing the original file view must NOT create an 'original' rendition
+        """
+        self.client.get(reverse("wagtailimages:original_file", args=(self.image.id,)))
+        self.assertFalse(self.image.renditions.filter(filter_spec="original").exists())
+
+    def test_original_file_view_invalid_image_returns_404(self):
+        """
+        Requesting a non-existent image ID returns 404
+        """
+        response = self.client.get(
+            reverse("wagtailimages:original_file", args=(999999,))
+        )
+        self.assertEqual(response.status_code, 404)
+
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
 class TestImageEditViewWithCustomImageModel(WagtailTestUtils, TestCase):
