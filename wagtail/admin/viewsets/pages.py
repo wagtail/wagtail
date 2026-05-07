@@ -26,7 +26,7 @@ from wagtail.admin.views.pages.listing import (
     PageFilterSet,
 )
 from wagtail.admin.views.pages.lock import LockView, UnlockView
-from wagtail.admin.views.pages.move import MoveChooseDestinationView, move_confirm
+from wagtail.admin.views.pages.move import MoveChooseDestinationView, MoveConfirmView
 from wagtail.admin.views.pages.ordering import set_page_position
 from wagtail.admin.views.pages.preview import (
     PreviewOnCreateView,
@@ -239,6 +239,12 @@ class PageViewSet(PageListingViewSet):
     must be a subclass of
     ``wagtail.admin.views.pages.move.MoveChooseDestinationView``.
     """
+    move_confirm_view_class = MoveConfirmView
+    """
+    The view class to use for the confirmation view when moving a page;
+    must be a subclass of
+    ``wagtail.admin.views.pages.move.MoveConfirmView``.
+    """
     preview_on_add_view_class = PreviewOnCreateView
     """
     The view class to use for the preview on create view; must be a subclass of
@@ -425,7 +431,9 @@ class PageViewSet(PageListingViewSet):
     def move_view(self):
         return self.construct_view(self.move_view_class)
 
-    move_confirm_view = staticmethod(move_confirm)
+    @cached_property
+    def move_confirm_view(self):
+        return self.construct_view(self.move_confirm_view_class)
 
     @cached_property
     def preview_on_add_view(self):
