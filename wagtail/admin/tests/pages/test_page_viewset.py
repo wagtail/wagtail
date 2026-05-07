@@ -112,16 +112,19 @@ class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
     def test_as_view(self):
         cases = [
             (
+                "EventPageViewSet",
                 "edit",
                 {"page_id_kwarg": "page_id"},
                 {"page_id": EventPage.objects.first().pk},
             ),
             (
+                "EventPageViewSet",
                 "index",
                 {"parent_page_id_kwarg": "parent_page_id"},
                 {"parent_page_id": EventIndex.objects.first().pk},
             ),
             (
+                "EventPageViewSet",
                 "content_type_use",
                 {
                     "app_label_kwarg": "content_type_app_name",
@@ -132,10 +135,11 @@ class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
                     "content_type_model_name": "eventpage",
                 },
             ),
+            ("CustomPageViewSet", "index", {"is_base_page": True}, {}),
         ]
         request = get_dummy_request()
         request.user = self.login()
-        for view_name, kwargs_names, kwargs_values in cases:
+        for viewset_name, view_name, kwargs_names, kwargs_values in cases:
             with self.subTest(view_name=view_name):
                 view = page_viewset_registry.as_view(view_name, **kwargs_names)
                 self.assertIs(callable(view), True)
@@ -143,7 +147,7 @@ class TestPageViewSetRegistry(WagtailTestUtils, TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(
                     response.headers.get("X-Wagtail-ViewSet"),
-                    "EventPageViewSet",
+                    viewset_name,
                 )
 
     def test_as_view_with_incorrect_kwargs(self):
@@ -732,6 +736,7 @@ class TestCustomViews(WagtailTestUtils, TestCase):
 
     def test_base_page_views(self):
         urls = [
+            reverse("wagtailadmin_explore_root"),
             reverse("wagtailadmin_pages:search"),
             reverse("wagtailadmin_pages:search_results"),
         ]
