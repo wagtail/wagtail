@@ -20,7 +20,7 @@ from wagtail.admin.views import account, chooser, dismissibles, home, tags
 from wagtail.admin.views.bulk_action import index as bulk_actions
 from wagtail.admin.views.generic.preview import StreamFieldBlockPreview
 from wagtail.admin.views.i18n import localized_js_catalog
-from wagtail.admin.viewsets.pages import base_page_viewset, page_viewset_registry
+from wagtail.admin.viewsets.pages import page_viewset_registry
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 urlpatterns = [
@@ -31,7 +31,7 @@ urlpatterns = [
     # TODO: Move into wagtailadmin_pages namespace
     path(
         "pages/",
-        base_page_viewset.index_view,
+        page_viewset_registry.as_view("index", is_base_page=True),
         name="wagtailadmin_explore_root",
     ),
     path(

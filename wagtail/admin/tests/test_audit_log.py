@@ -633,12 +633,12 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.client.get(history_url)
 
         # Initial load, without any log entries
-        with self.assertNumQueries(18):
+        with self.assertNumQueries(19):
             self.client.get(history_url)
 
         # With some log entries
         self._update_page(self.hello_page)
-        with self.assertNumQueries(20):
+        with self.assertNumQueries(21):
             self.client.get(history_url)
 
         # With even more log entries, should remain the same (no N+1 queries)
@@ -670,5 +670,5 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             },
         )
         self._update_page(self.hello_page)
-        with self.assertNumQueries(20):
+        with self.assertNumQueries(21):
             self.client.get(history_url)

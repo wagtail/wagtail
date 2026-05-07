@@ -354,6 +354,21 @@ class EventPageListingViewSet(PageListingViewSet):
 event_page_listing_viewset = EventPageListingViewSet("event_pages")
 
 
+def get_view_by_name_override(self, name):
+    cls = self.__class__
+    view = super(cls, self).get_view_by_name(name)
+
+    # Mark the view with a custom header, so we can check that the correct
+    # view is being used in tests. Override get_view_by_name() instead of
+    # construct_view() to also support function-based views.
+    def marked_view(*args, **kwargs):
+        response = view(*args, **kwargs)
+        response.headers["X-Wagtail-ViewSet"] = cls.__name__
+        return response
+
+    return marked_view
+
+
 class EventPageViewSet(PageViewSet):
     model = EventPage
     parent_models = [EventIndex]
@@ -364,9 +379,17 @@ class EventPageViewSet(PageViewSet):
     list_export = ["pk", "title", "audience", "date_from"]
     list_per_page = 10
     ordering = ("date_from", "title")
+    get_view_by_name = get_view_by_name_override
 
 
 event_page_viewset = EventPageViewSet()
+
+
+class CustomPageViewSet(PageViewSet):
+    get_view_by_name = get_view_by_name_override
+
+
+custom_page_viewset = CustomPageViewSet()
 
 
 class PlayView(View):
