@@ -10,7 +10,7 @@ from wagtail.admin.views.pages.choose_parent import (
     GenericChooseParentView,
 )
 from wagtail.admin.views.pages.convert_alias import convert_alias
-from wagtail.admin.views.pages.copy import copy
+from wagtail.admin.views.pages.copy import CopyView
 from wagtail.admin.views.pages.create import CreateView, add_subpage
 from wagtail.admin.views.pages.delete import DeleteView
 from wagtail.admin.views.pages.edit import EditView
@@ -192,6 +192,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for confirming the cancellation of a workflow;
     must be a subclass of
     ``wagtail.admin.views.pages.workflow.ConfirmWorkflowCancellationView``.
+    """
+    copy_view_class = CopyView
+    """
+    The view class to use for the copy view; must be a subclass of
+    ``wagtail.admin.views.pages.copy.CopyView``.
     """
     delete_view_class = DeleteView
     """
@@ -375,7 +380,9 @@ class PageViewSet(PageListingViewSet):
 
     convert_alias_view = staticmethod(convert_alias)
 
-    copy_view = staticmethod(copy)
+    @cached_property
+    def copy_view(self):
+        return self.construct_view(self.copy_view_class)
 
     @cached_property
     def delete_view(self):
