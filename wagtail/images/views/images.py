@@ -370,7 +370,8 @@ class URLGeneratorView(generic.InspectView):
         except InvalidFilterSpecError as e:
             if self.output_only:
                 return HttpResponseBadRequest(
-                    f"Invalid filter spec: `{self.filter_spec}`. {str(e)}."
+                    f"Invalid filter spec: `{self.filter_spec}`. {str(e)}.",
+                    content_type="text/plain",
                 )
             messages.error(request, self.invalid_filter_error)
 
