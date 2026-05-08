@@ -4357,7 +4357,7 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
 
     def test_get_bad_filter_spec(self):
         """
-        This tests that the view gives a 400 response if the user attempts to use it with an invalid filter spec
+        This tests that the view gives a 400 plain text response if the user attempts to use it with an invalid filter spec
         """
         # Get
         response = self.client.get(
@@ -4365,14 +4365,15 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
                 "wagtailimages:url_generator_output",
                 args=(self.image.id,),
             )
-            + "?filter_method=bad-filter-spec"
+            + "?filter_method=<img src=x onerror=alert(1)>"
         )
 
         # Check response
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response["Content-Type"], "text/plain")
         self.assertEqual(
             response.content.decode(),
-            "Invalid filter spec: `bad-filter-spec`. Unrecognised operation: bad.",
+            "Invalid filter spec: `<img src=x onerror=alert(1)>`. Unrecognised operation: <img src=x onerror=alert(1)>.",
         )
 
     def test_get_with_default_filter_spec(self):
