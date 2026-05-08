@@ -265,9 +265,6 @@ The `PageViewSet` class was added.
 
    .. autoattribute:: model
    .. autoattribute:: parent_models
-   .. autoattribute:: index_view_class
-   .. autoattribute:: content_type_use_view_class
-   .. autoattribute:: choose_parent_view_class
    .. autoattribute:: list_display
    .. autoattribute:: columns
    .. autoattribute:: list_filter
@@ -276,4 +273,28 @@ The `PageViewSet` class was added.
    .. autoattribute:: list_export
    .. autoattribute:: export_headings
    .. autoattribute:: export_filename
+   .. autoattribute:: choose_parent_view_class
+   .. autoattribute:: content_type_use_view_class
+   .. autoattribute:: add_view_class
+   .. autoattribute:: collect_workflow_action_data_view_class
+   .. autoattribute:: confirm_workflow_cancellation_view_class
+   .. autoattribute:: edit_view_class
+   .. autoattribute:: history_view_class
+   .. autoattribute:: index_view_class
+   .. autoattribute:: lock_view_class
+   .. autoattribute:: move_view_class
+   .. autoattribute:: unlock_view_class
+   .. autoattribute:: preview_on_add_view_class
+   .. autoattribute:: preview_on_edit_view_class
+   .. autoattribute:: revisions_view_class
+   .. autoattribute:: revisions_compare_view_class
+   .. autoattribute:: revisions_revert_view_class
+   .. autoattribute:: revisions_unschedule_view_class
+   .. autoattribute:: search_view_class
+   .. autoattribute:: unpublish_view_class
+   .. autoattribute:: usage_view_class
+   .. autoattribute:: workflow_action_view_class
+   .. autoattribute:: workflow_history_view_class
+   .. autoattribute:: workflow_history_detail_view_class
+   .. autoattribute:: workflow_preview_view_class
 ```
