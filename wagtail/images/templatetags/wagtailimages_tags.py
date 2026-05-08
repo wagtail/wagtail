@@ -179,6 +179,9 @@ class SrcsetImageNode(ImageNode):
         for key in self.attrs:
             resolved_attrs[key] = self.attrs[key].resolve(context)
 
+        if resolved_attrs.get("loading") == "lazy" and "sizes" not in resolved_attrs:
+            resolved_attrs["sizes"] = "auto, 100vw"
+
         return ResponsiveImage(renditions, resolved_attrs).__html__()
 
 
