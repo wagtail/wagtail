@@ -4,7 +4,7 @@ from django.http import Http404
 from django.urls import path
 from django.utils.functional import cached_property, classproperty
 
-from wagtail.admin.views.page_privacy import set_privacy
+from wagtail.admin.views.page_privacy import SetPrivacyView
 from wagtail.admin.views.pages.choose_parent import (
     ChooseParentView,
     GenericChooseParentView,
@@ -287,6 +287,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the set page position view; must be a subclass of
     ``wagtail.admin.views.pages.ordering.SetPagePositionView``.
     """
+    set_privacy_view_class = SetPrivacyView
+    """
+    The view class to use for the set privacy view; must be a subclass of
+    ``wagtail.admin.views.page_privacy.SetPrivacyView``.
+    """
     unlock_view_class = UnlockView
     """
     The view class to use for unlocking a page; must be a subclass of
@@ -481,7 +486,9 @@ class PageViewSet(PageListingViewSet):
     def set_page_position_view(self):
         return self.construct_view(self.set_page_position_view_class)
 
-    set_privacy_view = staticmethod(set_privacy)
+    @cached_property
+    def set_privacy_view(self):
+        return self.construct_view(self.set_privacy_view_class)
 
     @cached_property
     def unlock_view(self):
