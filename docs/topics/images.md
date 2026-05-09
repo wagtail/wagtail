@@ -210,6 +210,22 @@ Example: The focal point is set off center so the image is scaled and also cropp
 
 Example: With the `-c75` set, the final crop will be closer to the focal point.
 
+### `pad`
+
+(takes two dimensions)
+
+```html+django
+{% image page.photo pad-200x200 %}
+```
+
+Resize the image to fit within the given dimensions, without upscaling or cropping, and pad the remaining space so the final image is exactly the size you requested.
+
+The image is centered within the target dimensions and the padding is transparent, so the result can be combined with the `bgcolor` filter if you want a solid background instead.
+
+```html+django
+{% image page.photo pad-200x200 bgcolor-000 format-jpeg %}
+```
+
 ### `original`
 
 (takes no dimensions)
@@ -550,7 +566,7 @@ Wagtail supports the use of Scalable Vector Graphics alongside raster images. To
 WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
 ```
 
-SVG images can be included in templates via the `image` template tag, as with raster images. However, operations that require SVG images to be rasterized are not currently supported. This includes direct format conversion, e.g. `format-webp`, and `bgcolor` directives. Crop and resize operations do not require rasterization, so may be used freely (see [](available_resizing_methods)).
+SVG images can be included in templates via the `image` template tag, as with raster images. However, operations that require SVG images to be rasterized are not currently supported. This includes direct format conversion, e.g. `format-webp`, `bgcolor` directives, and `pad` image operations. Crop and resize operations do not require rasterization, so may be used freely (see [](available_resizing_methods)).
 
 The `image` tag's `preserve-svg` positional argument may be used to restrict the operations applied to an SVG image to only those that do not require rasterization. This may be useful in situations where a single `image` tag declaration is applied to multiple source images, for example:
 
