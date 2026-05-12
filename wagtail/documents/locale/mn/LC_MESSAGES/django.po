@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,6 +21,19 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Файлууд"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэт том хэмжээтэй байна (%(file_size)s). Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэтэрхий том хэмжээтэй байна. Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
 
 msgid "Collection"
 msgstr "Цуглуулга"

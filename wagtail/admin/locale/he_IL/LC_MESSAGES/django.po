@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -441,9 +441,6 @@ msgstr "הבא"
 msgid "This page is protected from public view"
 msgstr "עמוד זה מוגן מתצוגה פומבית"
 
-msgid "Add child page"
-msgstr "הוספת תת-עמוד"
-
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
 
@@ -581,6 +578,9 @@ msgstr "בעלים"
 
 msgid "Site"
 msgstr "אתר"
+
+msgid "Add child page"
+msgstr "הוספת תת-עמוד"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

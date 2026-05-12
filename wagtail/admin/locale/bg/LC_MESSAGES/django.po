@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Maria Mitova, 2026\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -451,9 +451,6 @@ msgstr "Следващо"
 msgid "Confirm"
 msgstr "Потвърди"
 
-msgid "Add child page"
-msgstr "Добави дъщерна страница"
-
 msgid "Enter a search term above"
 msgstr "Добавете дума за търсене по-горе"
 
@@ -484,9 +481,6 @@ msgstr "Потребител"
 
 msgid "Saved"
 msgstr "Запазено"
-
-msgid "Refresh"
-msgstr "Обнови"
 
 msgid "Continue"
 msgstr "Продължи"
@@ -531,6 +525,9 @@ msgstr "Зареждане"
 
 msgid "Refreshing…"
 msgstr "Обновяване..."
+
+msgid "Refresh"
+msgstr "Обнови"
 
 msgid "Edited"
 msgstr "Редактирано"
@@ -635,6 +632,9 @@ msgstr "Страница '%(page_title)s' е изтрита."
 #, python-format
 msgid "Editing %(page_type)s"
 msgstr "Редакция на %(page_type)s"
+
+msgid "Add child page"
+msgstr "Добави дъщерна страница"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."

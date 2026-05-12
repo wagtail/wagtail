@@ -224,6 +224,20 @@
             }
 
             // Events.
+
+            // Start Wagtail custom patch
+            // Handle pasting of multiple tags.
+            this.tagInput.on('paste', function (event) {
+                var pastedText = event.originalEvent.clipboardData.getData('text');
+                var tags = pastedText.split(/[\n,]+/);
+
+                if (tags.length > 1) {
+                    event.preventDefault();
+                    tags.forEach((tag) => that.createTag(tag));
+                }
+            });
+            // End Wagtail custom patch
+
             this.tagInput
                 .on('keydown', function(event) {
                     // Backspace is not detected within a keypress, so it must use keydown.
@@ -541,4 +555,3 @@
 
     });
 })(jQuery);
-

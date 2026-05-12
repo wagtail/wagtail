@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Joanico Barros <joanico@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -152,6 +152,9 @@ msgstr "Submisaun foun"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Submisaun husi%(form_title)s"
+
+msgid "Page type"
+msgstr "Tipu pájina"
 
 msgid "Forms"
 msgstr "Formulariu"

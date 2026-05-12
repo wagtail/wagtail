@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2025\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -715,13 +715,13 @@ msgstr "Bi še vedno želeli objaviti ta %(model_name)s?"
 msgid "Cancel"
 msgstr "Prekliči"
 
+msgid "Comment"
+msgstr "Komentar"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Dejanja"
-
-msgid "Comment"
-msgstr "Komentar"
 
 msgid "Update"
 msgstr "Posodbi"
@@ -1374,11 +1374,6 @@ msgstr "Razišči podrejene strani od '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj podrejeno stran v '%(title)s'"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr ""
-"%(start_index)s-%(end_index)s od %(items_count)s po celotnem spletnem mestu."
-
 msgid "No results across entire site."
 msgstr "Na celotnem spletnem mestu ni rezultatov."
 
@@ -1392,10 +1387,6 @@ msgstr "Ni rezultatov v '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Iskanje po celotnem spletnem mestu"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s - %(end_index)s od %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Meniji strani"
@@ -1418,9 +1409,6 @@ msgstr "Ta stran je obvarovana pred javnimi ogledi."
 
 msgid "Confirm"
 msgstr "Potrdi"
-
-msgid "Add child page"
-msgstr "Dodaj podrejeno stran"
 
 msgid "Page types"
 msgstr "Vrsta strani"
@@ -1606,9 +1594,6 @@ msgstr "Sistem"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s shranil novo različico"
 
-msgid "Refresh"
-msgstr "Osveži"
-
 msgid "You have unsaved changes in another window"
 msgstr "V drugem oknu imate ne shranjene spremembe."
 
@@ -1627,26 +1612,8 @@ msgstr[1] "%(num_user)s druga uporabnika si trenutno ogledujeta"
 msgstr[2] "%(num_user)s drugi uporabniki si trenutno ogledujejo"
 msgstr[3] "%(num_user)s drugi uporabniki si trenutno ogledujejo"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"Nadaljevanje bo prepisalo spremembe, ki ste jih naredili v tem oknu. Če "
-"stran osvežite, se bodo prikazale nove spremembe, vendar boste izgubili vse "
-"neshranjene spremembe v trenutnem oknu."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "Osvežitev strani pomeni, da boste izgubili vse neshranjene spremembe."
-
-msgid "Refresh page"
-msgstr "Osvežitev strani"
-
 msgid "Continue"
 msgstr "Nadaljuj"
-
-msgid "Refresh the page"
-msgstr "Osveži stran"
 
 msgid "Download XLSX"
 msgstr "Prenesi XLSX"
@@ -1855,6 +1822,9 @@ msgstr "Nalaganje"
 
 msgid "Refreshing…"
 msgstr "Osvežujem..."
+
+msgid "Refresh"
+msgstr "Osveži"
 
 msgid "Preview is out of date"
 msgstr "Predogled je zastarel"
@@ -2671,6 +2641,9 @@ msgstr "Vrsta strani"
 
 msgid "Exploring"
 msgstr "Raziskovanje"
+
+msgid "Add child page"
+msgstr "Dodaj podrejeno stran"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

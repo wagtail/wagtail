@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -721,9 +721,6 @@ msgstr "Дараагийнх"
 msgid "This page is protected from public view"
 msgstr "Энэ хуудас олон нийтэд харагдахгүй хамгаалагдсан"
 
-msgid "Add child page"
-msgstr "Шинэ мэдээ нэмэх"
-
 msgid "Page types"
 msgstr "Хуудасны төрөл"
 
@@ -1005,6 +1002,9 @@ msgstr "'%(page_title)s' хуудас хянуулахаар илгээгдлэ�
 
 msgid "Site"
 msgstr "Сайт"
+
+msgid "Add child page"
+msgstr "Шинэ мэдээ нэмэх"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

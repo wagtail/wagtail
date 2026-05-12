@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -403,13 +403,13 @@ msgstr "Ei, ärge avaldamist tühistage"
 msgid "Cancel"
 msgstr "Tühista"
 
+msgid "Comment"
+msgstr "Kommentaar"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Toimingud"
-
-msgid "Comment"
-msgstr "Kommentaar"
 
 msgid "Update"
 msgstr "Uuenda"
@@ -742,9 +742,6 @@ msgstr "See leht on avalike vaadete eest kaitstud"
 
 msgid "Confirm"
 msgstr "Kinnitage"
-
-msgid "Add child page"
-msgstr "Lapse lisamine"
 
 msgid "Page types"
 msgstr "Lehe tüübid"
@@ -1340,6 +1337,9 @@ msgstr "Sait"
 
 msgid "Yes"
 msgstr "Jah"
+
+msgid "Add child page"
+msgstr "Lapse lisamine"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

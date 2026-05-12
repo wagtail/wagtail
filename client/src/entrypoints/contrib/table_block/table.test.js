@@ -2,7 +2,10 @@ import $ from 'jquery';
 
 window.$ = $;
 
-import '../../admin/telepath/telepath';
+import Telepath from 'telepath-unpack';
+
+window.telepath = new Telepath();
+
 import './table';
 
 const TEST_OPTIONS = {

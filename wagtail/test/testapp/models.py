@@ -825,11 +825,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         return form_submission
 
     def serve(self, request, *args, **kwargs):
-        if (
-            self.get_submission_class()
-            .objects.filter(page=self, user__pk=request.user.pk)
-            .exists()
-        ):
+        if self.get_submissions().filter(user__pk=request.user.pk).exists():
             return TemplateResponse(request, self.template, self.get_context(request))
 
         return super().serve(request, *args, **kwargs)

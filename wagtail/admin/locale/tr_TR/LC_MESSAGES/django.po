@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -594,9 +594,6 @@ msgstr "Sonraki"
 msgid "This page is protected from public view"
 msgstr "Bu sayfa genel görünüme karşı korumalıdır"
 
-msgid "Add child page"
-msgstr "Alt sayfa ekle"
-
 msgid "Page types"
 msgstr "Sayfa türleri"
 
@@ -936,6 +933,9 @@ msgstr "Sahip"
 
 msgid "Site"
 msgstr "Site"
+
+msgid "Add child page"
+msgstr "Alt sayfa ekle"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

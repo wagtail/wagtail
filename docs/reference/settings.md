@@ -290,10 +290,6 @@ By default, page slugs can contain any alphanumeric characters, including non-La
 
 ### `WAGTAIL_AUTOSAVE_INTERVAL`
 
-```{versionadded} 7.3
-The `WAGTAIL_AUTOSAVE_INTERVAL` setting was added.
-```
-
 ```python
 WAGTAIL_AUTOSAVE_INTERVAL = 500
 ```
@@ -844,10 +840,6 @@ Tags are case-sensitive by default ('music' and 'Music' are treated as distinct 
 
 ### `WAGTAIL_TAG_SPACES_ALLOWED`
 
-```{versionchanged} 7.0
-The setting was renamed from `TAG_SPACES_ALLOWED` to `WAGTAIL_TAG_SPACES_ALLOWED`.
-```
-
 ```python
 WAGTAIL_TAG_SPACES_ALLOWED = False
 ```
@@ -855,10 +847,6 @@ WAGTAIL_TAG_SPACES_ALLOWED = False
 Tags can only consist of a single word, no spaces allowed. The default setting is `True` (spaces in tags are allowed).
 
 ### `WAGTAIL_TAG_LIMIT`
-
-```{versionchanged} 7.0
-The setting was renamed from `TAG_LIMIT` to `WAGTAIL_TAG_LIMIT`.
-```
 
 ```python
 WAGTAIL_TAG_LIMIT = 5

@@ -112,7 +112,7 @@
     {{ block.super }}
     {{ media.js }}
     {% if edit_handler_data %}{{ edit_handler_data|json_script:"w-edit-handler-data" }}{% endif %}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {% hook_output 'insert_editor_js' %}
 {% endblock %}
 
 {% block extra_css %}

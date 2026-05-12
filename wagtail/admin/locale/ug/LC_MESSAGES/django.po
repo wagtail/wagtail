@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024,2026\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -728,13 +728,13 @@ msgstr "بۇ %(model_name)s نى ئېلان قىلىۋېرەمسىز؟"
 msgid "Cancel"
 msgstr "ۋاز كەچ"
 
+msgid "Comment"
+msgstr "ئىنكاس"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "مەشغۇلات"
-
-msgid "Comment"
-msgstr "ئىنكاس"
 
 #, python-format
 msgid ""
@@ -1640,10 +1640,6 @@ msgstr "«%(title)s» نىڭ بالا بېتىنى ئىزدەيدۇ"
 msgid "Add a child page to '%(title)s'"
 msgstr "«%(title)s» غا بالا بەتتىن بىرنى قوشىدۇ"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "پۈتكۈل تور بېكەتتە %(start_index)s-%(end_index)s / %(items_count)s."
-
 msgid "No results across entire site."
 msgstr "پۈتكۈل تور بېكەتتە ھېچقانداق نەتىجە يوق."
 
@@ -1652,24 +1648,12 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "«<span class=\"w-title-ellipsis\">%(title)s</span>» دىن ئىزدە"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"«<span class=\"w-title-ellipsis\">%(title)s</span>» دىكى %(start_index)s-"
-"%(end_index)s / %(items_count)s."
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr ""
 "«<span class=\"w-title-ellipsis\">%(title)s</span>» دا ھېچقانداق نەتىجە يوق."
 
 msgid "Search the whole site"
 msgstr "پۈتكۈل تور بېكەتنى ئىزدە"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s / %(items_count)s"
 
 msgid "Sites menu"
 msgstr "بېكەت تىزىملىك"
@@ -1692,9 +1676,6 @@ msgstr "بۇ بەت ئاشكارا كۆرۈنۈشتىن قوغدالغان"
 
 msgid "Confirm"
 msgstr "جەزملە"
-
-msgid "Add child page"
-msgstr "بالا بەت قوش"
 
 msgid "Page types"
 msgstr "بەت تۈرى"
@@ -1899,9 +1880,6 @@ msgstr "سىستېما"
 msgid "%(user_name)s saved a new version"
 msgstr "%(user_name)s يېڭى نەشرىنى ساقلىدى"
 
-msgid "Refresh"
-msgstr "يېڭىلا"
-
 msgid "You have unsaved changes in another window"
 msgstr "باشقا كۆزنەكتە ساقلىمىغان ئۆزگەرتىشلىرىڭىز بار"
 
@@ -1918,37 +1896,8 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "ھازىر باشقا بىر ئىشلەتكۈچى كۆرۈۋاتىدۇ"
 msgstr[1] "ھازىر باشقا %(num_user)s ئىشلەتكۈچى كۆرۈۋاتىدۇ"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"داۋاملاشتۇرۇش ئۇ كۆزنەكتە قىلغان ئۆزگەرتىشلىرىڭىزنى قاپلىۋېتىدۇ. بەتنى "
-"يېڭىلاش سىزگە يېڭى ئۆزگىرىشلەرنى كۆرسىتىپ بېرىدۇ ئەمما نۆۋەتتىكى كۆزنەكتىكى "
-"تېخى ساقلانمىغان ئۆزگەرتىشلىرىڭىزنى يوقىتىسىز."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"داۋاملاشتۇرۇش ئۇ كۆزنەكتە %(user_name)s قىلغان ئۆزگەرتىشلەرنى قاپلىۋېتىدۇ. "
-"بەتنى يېڭىلاش سىزگە يېڭى ئۆزگىرىشلەرنى كۆرسىتىپ بېرىدۇ ئەمما نۆۋەتتىكى "
-"كۆزنەكتىكى تېخى ساقلانمىغان ئۆزگەرتىشلىرىڭىزنى يوقىتىسىز."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr ""
-"بەتنى يېڭىلاش ساقلانمىغان ئۆزگەرتىشلەرنى يوقىتىدىغانلىقىڭىزنى بىلدۈرىدۇ"
-
-msgid "Refresh page"
-msgstr "بەتنى يېڭىلا"
-
 msgid "Continue"
 msgstr "داۋاملاشتۇر"
-
-msgid "Refresh the page"
-msgstr "بۇ بەتنى يېڭىلا"
 
 msgid "Download XLSX"
 msgstr "XLSX نى چۈشۈر"
@@ -2186,6 +2135,9 @@ msgstr "يۈكلەۋاتىدۇ"
 
 msgid "Refreshing…"
 msgstr "يېڭىلاۋاتىدۇ…"
+
+msgid "Refresh"
+msgstr "يېڭىلا"
 
 msgid "Preview is out of date"
 msgstr "ئالدىن كۆزىتىشنىڭ ۋاقتى ئۆتتى"
@@ -3159,6 +3111,9 @@ msgstr "بەت تۈرى"
 
 msgid "Exploring"
 msgstr "كۆرسىتىش"
+
+msgid "Add child page"
+msgstr "بالا بەت قوش"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

@@ -59,7 +59,7 @@ from wagtail.models import (
     PageViewRestriction,
 )
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 register = template.Library()
 
@@ -483,7 +483,7 @@ def page_header_buttons(context, page, user, view_name):
     warnings.warn(
         "`{% page_header_buttons %}` tag is deprecated. "
         "Use the `register_page_header_buttons` hook instead.",
-        category=RemovedInWagtail80Warning,
+        category=RemovedInWagtail90Warning,
     )
     next_url = context["request"].path
     buttons = get_page_header_buttons(page, user, next_url, view_name)
