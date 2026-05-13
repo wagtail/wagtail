@@ -384,10 +384,13 @@ class ListBlock(Block):
     def render_basic(self, value, context=None):
         children = format_html_join(
             "\n",
-            "<li>{0}</li>",
+            '<li id="w-block-{1}">{0}</li>',
             [
-                (self.child_block.render(child_value, context=context),)
-                for child_value in value
+                (
+                    self.child_block.render(child_value, context=context),
+                    getattr(value.bound_blocks[i], "id", None) or str(uuid.uuid4()),
+                )
+                for i, child_value in enumerate(value)
             ],
         )
         return format_html("<ul>{0}</ul>", children)

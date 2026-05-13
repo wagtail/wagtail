@@ -4,6 +4,7 @@ import copy
 import json
 import unittest
 import unittest.mock
+import uuid
 from decimal import Decimal
 
 # non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
@@ -3481,7 +3482,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock())
-        return block.render(
+        data = block.to_python(
             [
                 {
                     "title": "Wagtail",
@@ -3493,18 +3494,14 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 },
             ]
         )
+        return block.render(data)
 
-    def test_render_uses_ul(self):
+    def test_render_uses_ul_li(self):
         html = self.render()
-
-        self.assertIn("<ul>", html)
-        self.assertIn("</ul>", html)
-
-    def test_render_uses_li(self):
-        html = self.render()
-
-        self.assertIn("<li>", html)
-        self.assertIn("</li>", html)
+        soup = self.get_soup(html)
+        uls = soup.select("ul")
+        self.assertEqual(len(uls), 1)
+        self.assertEqual(len(uls[0].select("li")), 2)
 
     def test_render_calls_block_render_on_children(self):
         """
@@ -3514,7 +3511,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.ListBlock(
             blocks.CharBlock(template="tests/blocks/heading_block.html")
         )
-        html = block.render(["Hello world!", "Goodbye world!"])
+        html = block.render(block.to_python(["Hello world!", "Goodbye world!"]))
 
         self.assertIn("<h1>Hello world!</h1>", html)
         self.assertIn("<h1>Goodbye world!</h1>", html)
@@ -3528,7 +3525,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             blocks.CharBlock(template="tests/blocks/heading_block.html")
         )
         html = block.render(
-            ["Bonjour le monde!", "Au revoir le monde!"],
+            block.to_python(["Bonjour le monde!", "Au revoir le monde!"]),
             context={
                 "language": "fr",
             },
@@ -4346,6 +4343,73 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
 
     def test_render(self):
+        block_ids = [str(uuid.uuid4()) for _ in range(3)]
+        html = self.render_article(
+            [
+                {
+                    "type": "heading",
+                    "value": "My title",
+                    "id": block_ids[0],
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My <i>first</i> paragraph",
+                    "id": block_ids[1],
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My second paragraph",
+                    "id": block_ids[2],
+                },
+            ]
+        )
+
+        self.assertIn(
+            f'<div id="w-block-{block_ids[0]}" class="w-block-heading block-heading">'
+            "My title"
+            "</div>",
+            html,
+        )
+        self.assertIn(
+            f'<div id="w-block-{block_ids[1]}" class="w-block-paragraph block-paragraph">'
+            "My <i>first</i> paragraph"
+            "</div>",
+            html,
+        )
+        self.assertIn(
+            f'<div id="w-block-{block_ids[2]}" class="w-block-paragraph block-paragraph">'
+            "My second paragraph"
+            "</div>",
+            html,
+        )
+
+    def test_render_unknown_type(self):
+        # This can happen if a developer removes a type from their StreamBlock
+        block_ids = [str(uuid.uuid4()) for _ in range(3)]
+        html = self.render_article(
+            [
+                {
+                    "type": "foo",
+                    "value": "Hello",
+                    "id": block_ids[0],
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My first paragraph",
+                    "id": block_ids[1],
+                },
+            ]
+        )
+        self.assertNotIn("foo", html)
+        self.assertNotIn("Hello", html)
+        self.assertIn(
+            f'<div id="w-block-{block_ids[1]}" class="w-block-paragraph block-paragraph">'
+            "My first paragraph"
+            "</div>",
+            html,
+        )
+
+    def test_render_without_id(self):
         html = self.render_article(
             [
                 {
@@ -4356,43 +4420,17 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                     "type": "paragraph",
                     "value": "My <i>first</i> paragraph",
                 },
-                {
-                    "type": "paragraph",
-                    "value": "My second paragraph",
-                },
             ]
         )
-
-        self.assertIn('<div class="w-block-heading block-heading">My title</div>', html)
-        self.assertIn(
-            '<div class="w-block-paragraph block-paragraph">My <i>first</i> paragraph</div>',
-            html,
-        )
-        self.assertIn(
-            '<div class="w-block-paragraph block-paragraph">My second paragraph</div>',
-            html,
-        )
-
-    def test_render_unknown_type(self):
-        # This can happen if a developer removes a type from their StreamBlock
-        html = self.render_article(
-            [
-                {
-                    "type": "foo",
-                    "value": "Hello",
-                },
-                {
-                    "type": "paragraph",
-                    "value": "My first paragraph",
-                },
-            ]
-        )
-        self.assertNotIn("foo", html)
-        self.assertNotIn("Hello", html)
-        self.assertIn(
-            '<div class="w-block-paragraph block-paragraph">My first paragraph</div>',
-            html,
-        )
+        soup = self.get_soup(html)
+        divs = soup.select("div[id^='w-block-']")
+        self.assertEqual(len(divs), 2)
+        # Should have generated UUIDs for the blocks that didn't have IDs
+        for div in divs:
+            block_id = div["id"].removeprefix("w-block-")
+            uuid_obj = uuid.UUID(block_id)
+            self.assertIsInstance(uuid_obj, uuid.UUID)
+            self.assertEqual(str(uuid_obj), block_id)
 
     def test_render_calls_block_render_on_children(self):
         """
@@ -4408,17 +4446,24 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 ("paragraph", blocks.CharBlock()),
             ]
         )
-        value = block.to_python([{"type": "heading", "value": "Hello"}])
+        block_id = str(uuid.uuid4())
+        value = block.to_python([{"type": "heading", "value": "Hello", "id": block_id}])
         html = block.render(value)
         self.assertIn(
-            '<div class="w-block-heading block-heading"><h1>Hello</h1></div>', html
+            f'<div id="w-block-{block_id}" class="w-block-heading block-heading">'
+            "<h1>Hello</h1>"
+            "</div>",
+            html,
         )
 
         # calling render_as_block() on value (a StreamValue instance)
         # should be equivalent to block.render(value)
         html = value.render_as_block()
         self.assertIn(
-            '<div class="w-block-heading block-heading"><h1>Hello</h1></div>', html
+            f'<div id="w-block-{block_id}" class="w-block-heading block-heading">'
+            "<h1>Hello</h1>"
+            "</div>",
+            html,
         )
 
     def test_render_passes_context_to_children(self):
@@ -4431,7 +4476,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 ("paragraph", blocks.CharBlock()),
             ]
         )
-        value = block.to_python([{"type": "heading", "value": "Bonjour"}])
+        block_id = str(uuid.uuid4())
+        value = block.to_python(
+            [{"type": "heading", "value": "Bonjour", "id": block_id}]
+        )
         html = block.render(
             value,
             context={
@@ -4439,7 +4487,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
         self.assertIn(
-            '<div class="w-block-heading block-heading"><h1 lang="fr">Bonjour</h1></div>',
+            f'<div id="w-block-{block_id}" class="w-block-heading block-heading">'
+            '<h1 lang="fr">Bonjour</h1>'
+            "</div>",
             html,
         )
 
@@ -4451,7 +4501,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             }
         )
         self.assertIn(
-            '<div class="w-block-heading block-heading"><h1 lang="fr">Bonjour</h1></div>',
+            f'<div id="w-block-{block_id}" class="w-block-heading block-heading">'
+            '<h1 lang="fr">Bonjour</h1>'
+            "</div>",
             html,
         )
 

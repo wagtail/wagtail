@@ -399,8 +399,15 @@ class BaseStreamBlock(Block):
     def render_basic(self, value, context=None):
         return format_html_join(
             "\n",
-            '<div class="w-block-{1} block-{1}">{0}</div>',
-            [(child.render(context=context), child.block_type) for child in value],
+            '<div id="w-block-{2}" class="w-block-{1} block-{1}">{0}</div>',
+            [
+                (
+                    child.render(context=context),
+                    child.block_type,
+                    child.id or str(uuid.uuid4()),
+                )
+                for child in value
+            ],
         )
 
     def get_searchable_content(self, value):
