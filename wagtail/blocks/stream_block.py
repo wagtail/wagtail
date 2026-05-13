@@ -553,6 +553,11 @@ class StreamValue(MutableSequence):
             else:
                 return (self.block.name, self.value)
 
+        def render(self, context=None):
+            context = context or {}
+            context["id"] = self.id
+            return super().render(context)
+
     class RawDataView(MutableSequence):
         """
         Internal helper class to present the stream data in raw JSONish format. For backwards
