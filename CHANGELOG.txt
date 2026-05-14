@@ -11,6 +11,7 @@ Changelog
 * Fix: Prevent an error when approving a workflow that has been cancelled in a different session (Kailesh)
 * Fix: Accommodate multilingual sites in skipping the "choose parent" step when creating a new page from a flat page listing (Amrinder Singh)
 * Fix: Prevent error when moving a page to a destination with missing translations and `WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE = True` (Sahil Kumar)
+* Fix: Handle Pillow detecting decompression bombs when validating image pixel count (Jake Howard, Sage Abdullah)
 * Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
 * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
 
