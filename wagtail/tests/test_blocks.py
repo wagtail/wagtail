@@ -3553,6 +3553,20 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
 
+    def test_adapt_label_format(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        cases = [None, "", "{title} ({link})"]
+        for case in cases:
+            with self.subTest(label_format=case):
+                block = blocks.ListBlock(LinkBlock, label_format=case)
+                block.set_name("test_listblock")
+                js_args = ListBlockAdapter().js_args(block)
+
+                self.assertEqual(js_args[3].get("labelFormat"), case)
+
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
