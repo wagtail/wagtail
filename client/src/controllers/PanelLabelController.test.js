@@ -54,7 +54,7 @@ describe('PanelLabelController', () => {
     delete window.wagtail;
   });
 
-  test('setCollapsedLabelText() renders the format from bound widget labels', async () => {
+  test('renders the format string from bound widget labels on connect', async () => {
     setEditHandler({ first_name: 'Ada', last_name: 'Lovelace' });
     setHtml(
       '{first_name} {last_name}',
@@ -72,7 +72,7 @@ describe('PanelLabelController', () => {
     ).toBe('Ada Lovelace');
   });
 
-  test('setCollapsedLabelText() re-renders on wagtail:panel-toggle', async () => {
+  test('re-renders on the wagtail:panel-toggle event', async () => {
     const fieldValues = { first_name: '', last_name: '' };
     setEditHandler(fieldValues);
     setHtml(
@@ -89,16 +89,13 @@ describe('PanelLabelController', () => {
 
     fieldValues.first_name = 'Grace';
     fieldValues.last_name = 'Hopper';
-    document
-      .querySelector('[name="first_name"]')
-      .dispatchEvent(new Event('input', { bubbles: true }));
     expect(summary.textContent).toBe(' ');
 
     togglePanel();
     expect(summary.textContent).toBe('Grace Hopper');
   });
 
-  test('connect() does nothing without a heading-text element', async () => {
+  test('does nothing without a heading-text element', async () => {
     setEditHandler({ title: 'Hello' });
     document.body.innerHTML = `
       <section data-controller="w-panel-label" data-w-panel-label-format-value="{title}">
@@ -110,7 +107,7 @@ describe('PanelLabelController', () => {
     expect(document.querySelector('.w-panel__heading-summary')).toBeNull();
   });
 
-  test('setCollapsedLabelText() gracefully handles a missing editHandler', async () => {
+  test('gracefully handles a missing edit handler', async () => {
     setHtml('{title}', 'Title', `<input name="title" value="ignored">`);
     start();
     await flushAsync();
@@ -119,7 +116,39 @@ describe('PanelLabelController', () => {
     ).toBe('');
   });
 
-  test('setCollapsedLabelText() uses telepath-packed widgets when widgetsId is set', async () => {
+  test('lazily unpacks the page-wide edit handler from #w-edit-handler-data', async () => {
+    const originalTelepath = window.telepath;
+    window.telepath = {
+      unpack: () => ({
+        getPanelByName(name) {
+          if (name !== 'title') return null;
+          return {
+            getBoundWidget() {
+              return { getTextLabel: () => 'Unpacked title' };
+            },
+          };
+        },
+      }),
+    };
+
+    document.body.innerHTML = `
+      <script type="application/json" id="w-edit-handler-data">{}</script>
+      <section data-controller="w-panel-label" data-w-panel-label-format-value="{title}">
+        <h2><button data-panel-toggle></button><span data-panel-heading-text>Title</span></h2>
+      </section>
+    `;
+    start();
+    await flushAsync();
+
+    expect(
+      document.querySelector('[data-panel-heading-text]').textContent,
+    ).toBe('Unpacked title');
+    expect(window.wagtail.editHandler).toBeDefined();
+
+    window.telepath = originalTelepath;
+  });
+
+  test('uses telepath-packed widgets when widgetsId is set', async () => {
     const originalTelepath = window.telepath;
     window.telepath = {
       unpack: () => ({
