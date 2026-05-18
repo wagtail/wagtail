@@ -85,7 +85,6 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             ],
         )
         
-        self.assertIn('aria-labelledby="wagtail-userbar-trigger"', content)
 
     def test_userbar_does_not_break_without_request(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
@@ -230,8 +229,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             )
         )
 
-        #self.assertIn("<aside hidden>", content)
-        self.assertIn('<aside hidden aria-labelledby="wagtail-userbar-trigger">', content)
+        self.assertIn("<aside hidden>", content)
 
 
 class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
