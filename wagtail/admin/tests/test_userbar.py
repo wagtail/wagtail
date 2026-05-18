@@ -84,7 +84,6 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 f"//localhost{versioned_static('wagtailadmin/js/userbar.js')}",
             ],
         )
-        
 
     def test_userbar_does_not_break_without_request(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
