@@ -24,6 +24,10 @@ msgid "Wagtail documents"
 msgstr "Wagtail dokumentu sira"
 
 #, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr "File nia medida másimu: %(max_upload_size)s."
+
+#, python-format
 msgid ""
 "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
@@ -47,8 +51,14 @@ msgstr "Hatama/troka ita boot nia dokumentu sira"
 msgid "Edit"
 msgstr "Hadia"
 
+msgid "Edit any document"
+msgstr "Hadia dokumentu ruma"
+
 msgid "Choose"
 msgstr "Hili"
+
+msgid "Select documents in choosers"
+msgstr "Hili dokumentu sira iha hili-na'in sira"
 
 msgid "title"
 msgstr "titlu"
@@ -65,17 +75,88 @@ msgstr "hatama ona husi uzuáriu"
 msgid "tags"
 msgstr "tag sira"
 
+msgid "document"
+msgstr "dokumentu"
+
+msgid "documents"
+msgstr "dokumentu sira"
+
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Aumenta tag sira ba dokumentu %(counter)s"
+
+msgid "Add tags to documents"
+msgstr "Aumenta tag sira ba dokumentu"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Ita-boot serteza hakarak tag dokumentu sira tuir mai?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] ""
+"Ita-boot laiha permisaun atu aumenta tag sira ba dokumentu sira ne'e"
+
 msgid "Yes, add"
 msgstr "Sim, aumenta"
 
 msgid "No, don't add"
 msgstr "Lae, labele aumenta"
 
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Aumenta dokumentu %(counter)s ba kolesaun foun"
+
+msgid "Add documents to collection"
+msgstr "Aumenta dokumentu ba kolesaun"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Ita-boot serteza hakarak aumenta dokumentu sira tuir mai ba kolesaun ne'ebé "
+"hili ona?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] ""
+"Ita-boot laiha permisaun atu aumenta dokumentu sira ne'e ba kolesaun"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Hamoos dokumentu %(counter)s"
+
+msgid "Delete documents"
+msgstr "Hamoos dokumentu sira"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Ita-boot serteza hakarak hamoos dokumentu sira ne'e?"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Ita-boot laiha permisaun atu hamoos dokumentu sira ne'e"
+
 msgid "Yes, delete"
 msgstr "Sim, hamoos"
 
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
+
+msgid "Latest documents"
+msgstr "Dokumentu foun sira"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Deskulpa, la iha dokumentu sira ne'ebé koresponde \"<em>%(search_query)s</"
+"em>\""
 
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-action=\"w-"
@@ -112,6 +193,21 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Uza dala %(usage_count)s"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Deskulpa, la iha dokumentu sira ne'ebé koresponde \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"Dokumentu %(total)s<span class=\"w-sr-only\">kria ona iha %(site_name)s</"
+"span>"
+
 msgid "Or choose from your computer"
 msgstr "Ka hili hosi ita nia komputador"
 
@@ -120,6 +216,12 @@ msgstr "Aumenta ba kolesaun:"
 
 msgid "Sorry, upload failed."
 msgstr "Deskulpa, Hatama faila."
+
+msgid "Document updated."
+msgstr "Dokumentu atualiza ona."
+
+msgid "You need a password to access this document."
+msgstr "Ita-boot presija seña hodi asesu ba dokumentu ne'e."
 
 msgid "Tags"
 msgstr "Tag sira"
@@ -133,8 +235,20 @@ msgstr "Aumenta ba kolesaun"
 msgid "Delete"
 msgstr "Hamoos"
 
+msgid "Delete selected documents"
+msgstr "Hamoos dokumentu ne'ebé hili ona"
+
+msgid "File"
+msgstr "File"
+
 msgid "Created"
 msgstr "Kria ona"
+
+msgid "Choose a document"
+msgstr "Hili dokumentu ida"
+
+msgid "Choose another document"
+msgstr "Hili dokumentu seluk"
 
 msgid "Edit this document"
 msgstr "Hadia dokumentu nee"
@@ -151,6 +265,9 @@ msgstr "Dkumentu '%(document_title)s' hatama ona"
 
 msgid "Delete document"
 msgstr "Hamoos dokumentu"
+
+msgid "Add documents"
+msgstr "Aumenta dokumentu sira"
 
 msgid "Document"
 msgstr "Dokumentu"

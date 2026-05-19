@@ -1,5 +1,4 @@
 # Translators:
-# Loic Teixeira, 2024
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2025
 # Peter Coward <peter@catalpa.io>, 2026
 # Joanico Barros <joanico@catalpa.io>, 2026
@@ -95,7 +94,7 @@ msgid "Complex"
 msgstr "Kompleksu"
 
 msgid "Dashboard"
-msgstr "Pajina analisa"
+msgstr "Dashboard"
 
 msgid "Decorative image"
 msgstr "Imajen dekorativa"
@@ -177,13 +176,13 @@ msgid "No results"
 msgstr "La iha rezultadu"
 
 msgid "Page"
-msgstr "Pajina"
+msgstr "Pájina"
 
 msgid "Page explorer"
-msgstr "Explora pajina"
+msgstr "Explora pájina/"
 
 msgid "Pages"
-msgstr "Pajina sira"
+msgstr "Pájina sira"
 
 msgid "Pin toolbar"
 msgstr "Hatudu toolbar"
@@ -248,16 +247,17 @@ msgstr "Hafahe bloku"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
-msgstr "Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
+msgstr ""
+"Editór foin tos no todan. Konteudu reset  ona ba versaun salva ikus nian."
 
 msgid "The maximum number of items is %(max_num)d"
-msgstr "Numeru maximum sasan %(max_num)d"
+msgstr "Númeru maximu ba item sira mak %(max_num)d"
 
 msgid "The minimum number of items is %(min_num)d"
-msgstr "Numeru minimum sasan %(min_num)d"
+msgstr "Númeru minimu ba item sira mak %(min_num)d"
 
 msgid "This field is required."
-msgstr "Presiza hatama dadus nee"
+msgstr "Kampu ne'e presija prenxe."
 
 msgid "Toggle section"
 msgstr "Altera seksaun"
@@ -269,16 +269,16 @@ msgid "Toggle sidebar"
 msgstr "Altera sidebar"
 
 msgid "Unfocus comment"
-msgstr "La foka komentáriu"
+msgstr "Komentáriu la foka "
 
 msgid "Unpin toolbar"
 msgstr "Hasai toolbar"
 
 msgid "View child pages of '%(title)s'"
-msgstr "Haree pajina oan sira husi '%(title)s'"
+msgstr "Haree pájina oan sira husi '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
-msgstr "Hakerek buat ruma ka ketik ‘/’ atu hatama bloku ida"
+msgstr "Hakerek buat ruma ka ketik ‘/’ hodi hatama bloku ida"
 
 msgid "Yes"
 msgstr "Loos"
