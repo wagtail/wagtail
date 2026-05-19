@@ -8,6 +8,7 @@ export const toggleCollapsiblePanel = (
   toggle: HTMLButtonElement,
   // If a specific state isn’t requested, read the DOM and toggle.
   isExpanding = !(toggle.getAttribute('aria-expanded') === 'true'),
+  saveToStorage = true,
 ) => {
   const content = document.querySelector<HTMLDivElement>(
     `#${toggle.getAttribute('aria-controls')}`,
@@ -27,6 +28,18 @@ export const toggleCollapsiblePanel = (
   } else {
     // Browsers without support for `until-found` will not have this value set
     content.setAttribute('hidden', '');
+  }
+
+  const panelId = toggle.getAttribute('aria-controls');
+  if (panelId && saveToStorage) {
+    try {
+      localStorage.setItem(
+        `wagtail:collapsed-panel:${panelId}`,
+        `${!isExpanding}`,
+      );
+    } catch (e) {
+      // Proceed without saving.
+    }
   }
 
   // Fire events on the toggle so we can retrieve the content with aria-controls.
@@ -70,10 +83,26 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const hasError = content.querySelector(
     '[aria-invalid="true"], .error, .w-field--error',
   );
-  const isCollapsed = hasCollapsed && !hasError;
+  let isCollapsed = hasCollapsed && !hasError;
+
+  const panelId = toggle.getAttribute('aria-controls');
+  if (panelId) {
+    try {
+      const persistedCollapsed = localStorage.getItem(
+        `wagtail:collapsed-panel:${panelId}`,
+      );
+      if (persistedCollapsed === 'true') {
+        isCollapsed = !hasError;
+      } else if (persistedCollapsed === 'false') {
+        isCollapsed = false;
+      }
+    } catch (e) {
+      // Proceed without loading.
+    }
+  }
 
   if (isCollapsed) {
-    togglePanel(false);
+    togglePanel(false, false);
   }
 
   toggle.addEventListener('click', togglePanel.bind(null, undefined));

@@ -251,12 +251,14 @@ describe('telepath: wagtail.blocks.StructBlock with collapsible panel', () => {
     );
 
     // Render it
+    localStorage.clear();
     document.body.innerHTML = '<div id="placeholder"></div>';
     boundBlock = blockDef.render($('#placeholder'), 'the-prefix', {
       accent_color: 'Test accent color',
       font_size: '16px',
     });
   };
+
 
   beforeEach(() => {
     // Create mocks for callbacks
