@@ -977,6 +977,7 @@
 * Kailesh
 * Nayeli De Jesus
 * Sahil Kumar
+* Rob Brackett
 
 ## Translators
 
