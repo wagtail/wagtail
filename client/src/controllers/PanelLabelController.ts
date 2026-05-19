@@ -72,22 +72,22 @@ export class PanelLabelController extends Controller<HTMLElement> {
 
     this.element
       .querySelector('[data-panel-toggle]')
-      ?.addEventListener('wagtail:panel-toggle', this.render);
+      ?.addEventListener('wagtail:panel-toggle', this.updateSummary);
 
-    this.render();
+    this.updateSummary();
   }
 
   disconnect() {
     this.element
       .querySelector('[data-panel-toggle]')
-      ?.removeEventListener('wagtail:panel-toggle', this.render);
+      ?.removeEventListener('wagtail:panel-toggle', this.updateSummary);
   }
 
   /**
    * Interpolates the format string with each referenced field's text label
    * and writes the result into the summary element.
    */
-  render = () => {
+  updateSummary = () => {
     if (!this.summary) return;
     this.summary.textContent = this.formatValue.replace(
       /\{(\w+)\}/g,
