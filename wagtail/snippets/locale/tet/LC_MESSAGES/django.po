@@ -59,9 +59,17 @@ msgstr "Wagtail snippets"
 msgid "Delete"
 msgstr "Hamoos"
 
+msgid "Delete selected snippets"
+msgstr "Hamoos snippets sira ne'ebé hili ona"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' hamoos ona."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "Hamoos ona %(model_name)s%(count)d"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"

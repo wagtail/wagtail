@@ -29,7 +29,7 @@
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
 # 汇民 王 <whuim@qq.com>, 2017-2021
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
-# 蚂蚁先生 <pzf_karl@hotmail.com>, 2023
+# 蚂蚁先生 <pzf_karl@hotmail.com>, 2023,2026
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
@@ -37,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
+"Last-Translator: 蚂蚁先生 <pzf_karl@hotmail.com>, 2023,2026\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -79,11 +79,25 @@ msgstr "页面已锁定"
 msgid "%(label)s and Publish"
 msgstr "%(label)s 和发布"
 
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "任意"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
+
 msgid "Wagtail admin"
 msgstr "Wagtail 管理"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "对不起， 你没有权限访问。"
+
+msgid "You do not have permission to access the admin."
+msgstr "您没有权限访问管理后台"
 
 msgid "None"
 msgstr "无"
@@ -94,11 +108,20 @@ msgstr "起始日期"
 msgid "Date to"
 msgstr "结束日期"
 
+msgid "Minimum"
+msgstr "最小"
+
+msgid "Maximum"
+msgstr "最大"
+
 msgid "Locale"
 msgstr "区域"
 
 msgid "All"
 msgstr "所有"
+
+msgid "Usage count"
+msgstr "使用统计"
 
 msgid "Collection"
 msgstr "集合"
@@ -108,6 +131,9 @@ msgstr "标签"
 
 msgid "Filter by up to ten most popular tags."
 msgstr "按十个最流行的标签进行过滤。"
+
+msgid "Use server time zone"
+msgstr "使用服务器时区"
 
 msgid "Preferred language"
 msgstr "首选语言"
@@ -161,6 +187,9 @@ msgid ""
 "itself or one of its descendants."
 msgstr "选择层级位置。注意：一个集合不能成为它自己或它的一个后代的子节点。"
 
+msgid "Please select another parent."
+msgstr "请选择另一个父结点"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
 
@@ -187,6 +216,9 @@ msgstr "你不能编辑另一个用户的评论。"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "发布日期/时间必须早于过期日期/时间"
+
+msgid "Expiry date/time must be in the future."
+msgstr "过期日期/时间必须是未来时间。"
 
 msgid "New title"
 msgstr "新标题"

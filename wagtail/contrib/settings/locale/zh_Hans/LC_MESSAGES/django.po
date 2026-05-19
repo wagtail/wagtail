@@ -14,14 +14,15 @@
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2020
 # 祝沙军 <zhushajun@gmail.com>, 2017
+# 蚂蚁先生 <pzf_karl@hotmail.com>, 2026
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: 飘 赵 <275980464@qq.com>, 2016\n"
+"Last-Translator: 蚂蚁先生 <pzf_karl@hotmail.com>, 2026\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +36,14 @@ msgstr "默认"
 
 msgid "Sites"
 msgstr "站点"
+
+#, python-format
+msgid "%(model)s permissions"
+msgstr "%(model)s 权限"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site)s的%(site_setting)s"
 
 msgid "Site"
 msgstr "站点"

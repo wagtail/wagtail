@@ -170,7 +170,7 @@ msgid "image"
 msgstr "imagen"
 
 msgid "images"
-msgstr "imagen sira"
+msgstr "imajen sira"
 
 #, python-format
 msgid "Add tags to 1 image"
@@ -411,7 +411,7 @@ msgid "Copying to clipboard failed"
 msgstr "Kopia ba clipboard faila"
 
 msgid "Add multiple images"
-msgstr "Hatama imajen barak"
+msgstr "Aumenta imajen barak"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Dada no tau imajen sira ba área ida-ne'e hodi hatama kedas."
@@ -589,7 +589,7 @@ msgstr "Imagen"
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
-msgstr[0] "%(count)s imagen sira"
+msgstr[0] "Imajen %(count)s"
 
 msgid "Change image"
 msgstr "Troka imajen"

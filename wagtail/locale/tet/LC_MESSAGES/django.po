@@ -225,10 +225,10 @@ msgid "Add"
 msgstr "Hatama"
 
 msgid "Add/edit pages you own"
-msgstr "Hatama/hadia pajina ita nia rasik."
+msgstr "Aumenta/hadia pájina ita nia rasik."
 
 msgid "Delete pages with children"
-msgstr "Hamoos pajina ho oan"
+msgstr "Hamoos pájina ho oan sira"
 
 msgid "Edit"
 msgstr "Hadia"
@@ -282,7 +282,7 @@ msgid "page"
 msgstr "Pajina"
 
 msgid "pages"
-msgstr "Pajina sira"
+msgstr "pájina sira"
 
 msgid "group page permission"
 msgstr "Grupu pajina permisaun"
@@ -300,7 +300,7 @@ msgid "created at"
 msgstr "Kria iha"
 
 msgid "user"
-msgstr "Uzuariu"
+msgstr "Uzuáriu"
 
 msgid "content JSON"
 msgstr "Konteudu JSON"
@@ -369,6 +369,9 @@ msgstr "Publiku"
 msgid "groups"
 msgstr "Grupu sira"
 
+msgid "Not started"
+msgstr "Seidauk hahú"
+
 msgid "workflows"
 msgstr "fluxu servisu sira"
 
@@ -382,7 +385,7 @@ msgid "Log in"
 msgstr "Tama"
 
 msgid "Your username and password didn't match. Please try again."
-msgstr "Ita-boot nia naran uzuariu ho sena la loos. Favor koko fila fali."
+msgstr "Ita-boot nia naran uzuáriu ho seña la loos. Favor koko fila fali."
 
 msgid "Password required"
 msgstr "Husu Seña"
@@ -393,6 +396,9 @@ msgstr "Ita presiza sena hodi asesu ba pajina ida ne'e."
 msgid "Continue"
 msgstr "Kontinua"
 
+msgid "Create"
+msgstr "Kria"
+
 msgid "Created"
 msgstr "Kria ona"
 
@@ -401,6 +407,9 @@ msgstr "Hadia tiha ona"
 
 msgid "Delete"
 msgstr "Hamoos"
+
+msgid "Published"
+msgstr "Publika ona"
 
 msgid "Publish scheduled draft"
 msgstr "Publika esbosu kalendáriu"
@@ -434,3 +443,6 @@ msgstr "Muda"
 
 msgid "Add comment"
 msgstr "Aumenta komentariu"
+
+msgid "Workflow started"
+msgstr "Fluxu servisu hahú ona"
