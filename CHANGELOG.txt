@@ -1,6 +1,12 @@
 Changelog
 =========
 
+7.4.1 (19.05.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Reinstate missing file `jquery.fileupload-validate.js` (Rob Brackett)
+
+
 7.4 LTS (05.05.2026)
 ~~~~~~~~~~~~~~~~~~~~
 

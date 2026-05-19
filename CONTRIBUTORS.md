@@ -973,6 +973,7 @@
 * Seoyoung Kang
 * Vishal Shukla
 * Sanjok Karki
+* Rob Brackett
 
 ## Translators
 
