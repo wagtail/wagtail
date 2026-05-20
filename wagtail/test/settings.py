@@ -1,5 +1,6 @@
 import os
 
+from django import VERSION as DJANGO_VERSION
 from django.contrib.messages import constants as message_constants
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
@@ -214,7 +215,14 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+if DJANGO_VERSION < (6, 1):
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    MAILERS = {
+        "default": {
+            "BACKEND": "django.core.mail.backends.console.EmailBackend",
+        },
+    }
 
 if os.environ.get("USE_EMAIL_USER_MODEL"):
     INSTALLED_APPS.append("wagtail.users")
