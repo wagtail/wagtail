@@ -275,6 +275,20 @@ class TestTableBlock(TestCase):
             self.block.clean(blank_table)
         self.assertEqual(exc_info.exception.cell_errors[1][0].code, "required")
 
+    def test_defer_restores_required_for_shared_column_block(self):
+        # The same FieldBlock is used as more than one TypedTableBlock column,
+        # making it reachable via more than one path.
+        shared = blocks.CharBlock(required=True)
+        block = TypedTableBlock([("a", shared), ("b", shared)])
+        self.assertIs(block.child_blocks["a"], block.child_blocks["b"])
+
+        block.defer_required_validation()
+        self.assertFalse(shared.field.required)
+
+        block.restore_deferred_validation()
+        self.assertTrue(shared.required)
+        self.assertTrue(shared.field.required)
+
     def test_render(self):
         table = self.block.value_from_datadict(self.form_data, {}, "table")
         html = self.block.render(table)

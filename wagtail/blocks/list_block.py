@@ -199,7 +199,8 @@ class ListBlock(Block):
 
     def defer_required_validation(self):
         super().defer_required_validation()
-        self.child_block.defer_required_validation()
+        if not self.child_block.is_deferred_validation:
+            self.child_block.defer_required_validation()
 
     def clean(self, value):
         # value is expected to be a ListValue, but if it's been assigned through external code it might
@@ -249,7 +250,8 @@ class ListBlock(Block):
         return ListValue(self, bound_blocks=result)
 
     def restore_deferred_validation(self):
-        self.child_block.restore_deferred_validation()
+        if self.child_block.is_deferred_validation:
+            self.child_block.restore_deferred_validation()
         super().restore_deferred_validation()
 
     def normalize(self, value):
