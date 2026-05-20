@@ -185,11 +185,6 @@ jobs:
           tee -a testproject/settings/local.py << EOF
           from warnings import filterwarnings
           SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
-          # Remove when the project template is updated to use Django 6.1+
-          # and the MAILERS setting.
-          filterwarnings(
-              "ignore", "The EMAIL_BACKEND setting is deprecated."
-          )
           EOF
           python manage.py makemigrations --check --dry-run
           python manage.py migrate
