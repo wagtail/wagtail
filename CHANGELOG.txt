@@ -14,6 +14,7 @@ Changelog
 * Fix: Handle Pillow detecting decompression bombs when validating image pixel count (Jake Howard, Sage Abdullah)
 * Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
 * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
+* Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
 
 
 7.4.1 (19.05.2026)
