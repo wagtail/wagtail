@@ -3028,6 +3028,33 @@ class TestStructBlock(SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean(value)
 
+    def test_clean_deferred_restores_required_for_shared_field_blocks(self):
+        # A StructBlock subclass that declares child blocks at class level
+        # shares those instances across all instantiations. Two HeroBlock
+        # children of OuterBlock therefore reference the same CharBlock,
+        # making it reachable via more than one path.
+        class HeroBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=True)
+
+        class OuterBlock(blocks.StructBlock):
+            a = HeroBlock()
+            b = HeroBlock()
+
+        block = OuterBlock()
+        shared_title = block.child_blocks["a"].child_blocks["title"]
+        self.assertIs(
+            shared_title,
+            block.child_blocks["b"].child_blocks["title"],
+        )
+
+        value = block.to_python({"a": {"title": ""}, "b": {"title": ""}})
+        block.clean_deferred(value)
+
+        self.assertTrue(shared_title.required)
+        self.assertTrue(shared_title.field.required)
+        with self.assertRaises(StructBlockValidationError):
+            block.clean(value)
+
     def test_non_block_validation_error(self):
         class LinkBlock(blocks.StructBlock):
             page = blocks.PageChooserBlock(required=False)
@@ -4528,6 +4555,91 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             catcher.exception.as_json_data(),
             {"blockErrors": {0: {"messages": ["This field is required."]}}},
         )
+
+    def test_clean_deferred_restores_required_for_shared_field_blocks(self):
+        # A StructBlock subclass that declares child blocks at class level
+        # shares those instances across all instantiations. Two HeroBlock
+        # child types in this StreamBlock therefore reference the same
+        # CharBlock, making it reachable via more than one path.
+        class HeroBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=True)
+
+        class MyStream(blocks.StreamBlock):
+            hero = HeroBlock()
+            featured = HeroBlock()
+
+        block = MyStream()
+
+        # Sanity check: both HeroBlock instances reference the same
+        # class-level CharBlock instance.
+        shared_title = block.child_blocks["hero"].child_blocks["title"]
+        self.assertIs(
+            shared_title,
+            block.child_blocks["featured"].child_blocks["title"],
+        )
+        self.assertTrue(shared_title.required)
+
+        value = block.to_python([{"type": "hero", "value": {"title": ""}}])
+        block.clean_deferred(value)
+
+        # After clean_deferred, the shared CharBlock must be restored to
+        # required=True, and a subsequent non-deferred clean must reject
+        # empty values.
+        self.assertTrue(shared_title.required)
+        self.assertTrue(shared_title.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(
+            catcher.exception.as_json_data(),
+            {
+                "blockErrors": {
+                    0: {
+                        "blockErrors": {
+                            "title": {"messages": ["This field is required."]},
+                        }
+                    }
+                }
+            },
+        )
+
+    def test_clean_deferred_with_field_block_aliased_to_multiple_children(self):
+        # The same FieldBlock instance is used as more than one direct
+        # StreamBlock child type, making it reachable via more than one path.
+        shared = blocks.CharBlock(required=True)
+        block = blocks.StreamBlock([("a", shared), ("b", shared)])
+        self.assertIs(block.child_blocks["a"], block.child_blocks["b"])
+
+        value = block.to_python([{"type": "a", "value": ""}])
+        block.clean_deferred(value)
+
+        self.assertTrue(shared.required)
+        self.assertTrue(shared.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
+    def test_clean_deferred_with_field_block_shared_with_list_block_child(self):
+        # The same FieldBlock is used both as a direct StreamBlock child
+        # and as the child_block of a sibling ListBlock, making it reachable
+        # via more than one path.
+        shared = blocks.CharBlock(required=True)
+        block = blocks.StreamBlock(
+            [
+                ("direct", shared),
+                ("inside_list", blocks.ListBlock(shared)),
+            ]
+        )
+        self.assertIs(
+            block.child_blocks["direct"],
+            block.child_blocks["inside_list"].child_block,
+        )
+
+        value = block.to_python([{"type": "direct", "value": ""}])
+        block.clean_deferred(value)
+
+        self.assertTrue(shared.required)
+        self.assertTrue(shared.field.required)
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
 
     def test_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):

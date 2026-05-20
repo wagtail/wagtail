@@ -304,7 +304,8 @@ class BaseStructBlock(Block):
     def defer_required_validation(self):
         super().defer_required_validation()
         for block in self.child_blocks.values():
-            block.defer_required_validation()
+            if not block.is_deferred_validation:
+                block.defer_required_validation()
 
     def clean(self, value):
         result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
@@ -322,7 +323,8 @@ class BaseStructBlock(Block):
 
     def restore_deferred_validation(self):
         for block in self.child_blocks.values():
-            block.restore_deferred_validation()
+            if block.is_deferred_validation:
+                block.restore_deferred_validation()
         super().restore_deferred_validation()
 
     def to_python(self, value):
