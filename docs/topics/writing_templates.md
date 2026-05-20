@@ -323,7 +323,7 @@ The user bar is also available as a [template component](template_components), w
 
 ## Varying output between preview and live
 
-Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a `request.is_preview` variable to distinguish between preview and live:
+Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a `request.is_preview` (also referred to as `is_preview`) variable to distinguish between preview and live:
 
 ```html+django
 {% if not request.is_preview %}
@@ -336,6 +336,22 @@ Sometimes you may wish to vary the template output depending on whether the page
 
 If the page is being previewed, `request.preview_mode` can be used to determine the specific preview mode being used,
 if the page supports [multiple preview modes](wagtail.models.Page.preview_modes).
+
+(in_preview_panel)=
+
+### Detecting the in-page preview panel
+
+In addition to `request.is_preview`, Wagtail sets a separate `request.in_preview_panel` (also referred to as `in_preview_panel`) flag to `True` whenever a page or snippet is being rendered inside the live preview side panel of the Wagtail admin (the panel that appears next to the edit form). It is `False` when the same content is previewed in its own browser tab or window, and absent (which evaluates as falsy) on regular front-end requests.
+
+This is useful for tweaking the rendered template so that links and forms behave sensibly inside the constrained preview panel. The most common pattern is to force every link to open in a new tab, so that clicks made by editors do not navigate the preview panel itself away from the page being edited:
+
+```html+django
+{% if request.in_preview_panel %}
+    <base target="_blank">
+{% endif %}
+```
+
+`request.in_preview_panel` is set on every preview request handled by Wagtail's generic preview view (it is derived from the `?in_preview_panel=true` query parameter that the admin sends when rendering the side-panel preview). It implies `request.is_preview` is also true, so the panel-only flag can safely be used as an additional, more specific check on top of the general preview check.
 
 (template_fragment_caching)=
 
