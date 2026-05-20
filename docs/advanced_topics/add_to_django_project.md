@@ -279,7 +279,8 @@ ADMINS = [
 MANAGERS = ADMINS
 
 # Default to dummy email backend. Configure dev/production/local backend
-# as per https://docs.djangoproject.com/en/stable/topics/email/#email-backends
+# as per https://docs.djangoproject.com/en/stable/topics/email/.
+# If you are using Django 6.1 or higher, configure the MAILERS setting instead.
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False

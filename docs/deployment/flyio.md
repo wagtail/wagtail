@@ -408,6 +408,7 @@ The explanation of some of the code in your `mysite/settings/production.py` file
 4. `SECURE_SSL_REDIRECT = True` enforces HTTPS redirect. This ensures that all connections to the site are secure.
 5. `ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")` defines the hostnames that can access your site. It retrieves its values from the `DJANGO_ALLOWED_HOSTS` environment variable. If no specific hosts are defined, it defaults to allowing all hosts.
 6. `EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"` configures your site to use the console email backend. You can configure this to use a proper email backend for sending emails.
+   If you are using Django 6.1 or higher, refer to the [Django documentation](inv:django#topics/email) for using the `MAILERS` setting instead of `EMAIL_BACKEND`.
 7. `WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"` configures the file storage for Wagtail's redirects. Here, you set it to use cache.
 
 Now, complete the configuration of your environment variables by modifying your `.env.production` file as follows:
