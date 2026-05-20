@@ -98,6 +98,31 @@ describe('Draftail', () => {
       expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-length');
     });
 
+    it('ariaLabelledBy', () => {
+      document.body.innerHTML = `
+        <label for="test" id="test-label-id">Test Label</label>
+        <input id="test" value="null" />
+      `;
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaLabelledBy).toBe('test-label-id');
+    });
+
+    it('ariaLabelledBy auto-generation', () => {
+      document.body.innerHTML = `
+        <label for="test">Test Label</label>
+        <input id="test" value="null" />
+      `;
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaLabelledBy).toBe('test-label');
+      expect(document.querySelector('label[for="test"]').id).toBe('test-label');
+    });
+
     describe('selector conflicts', () => {
       it('fails to instantiate on the right field', () => {
         document.body.innerHTML =

@@ -139,6 +139,17 @@ const initEditor = (selector, originalOptions, currentScript) => {
   const field =
     context.querySelector(selector) || document.body.querySelector(selector);
 
+  let ariaLabelledBy = null;
+  if (field && field.id) {
+    const label = document.querySelector(`label[for="${field.id}"]`);
+    if (label) {
+      if (!label.id) {
+        label.id = `${field.id}-label`;
+      }
+      ariaLabelledBy = label.id;
+    }
+  }
+
   const editorWrapper = document.createElement('div');
   editorWrapper.className = 'Draftail-Editor__wrapper';
   editorWrapper.setAttribute('data-draftail-editor-wrapper', true);
@@ -249,6 +260,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
       maxListNesting: 4,
       stripPastedStyles: false,
       ariaDescribedBy,
+      ariaLabelledBy,
       ...newOptions,
       blockTypes: blockTypes.map(wrapWagtailIcon),
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
