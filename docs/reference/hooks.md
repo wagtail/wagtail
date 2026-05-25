@@ -139,7 +139,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a `request` object and a list of panel objects and should modify this list in place as required. Panel objects are [](template_components) with an additional `order` property, an integer that determines the panel's position in the final ordered list. The default panels use integers between `100` and `300`.
 
 ```python
-from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 from wagtail.admin.ui.components import Component
 from wagtail import hooks
@@ -148,9 +148,9 @@ class WelcomePanel(Component):
     order = 50
 
     def render_html(self, parent_context):
-        return format_html(
+        return mark_safe(
             """
-            <section class="panel summary nice-padding">
+            <section class="w-panel summary nice-padding">
               <h3>No, but seriously -- welcome to the admin homepage.</h3>
             </section>
             """
