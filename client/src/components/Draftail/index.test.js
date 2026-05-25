@@ -1,3 +1,6 @@
+import { BlockToolbar, InlineToolbar } from 'draftail';
+import React from 'react';
+
 import draftail, {
   Document,
   EmbedBlock,
@@ -8,6 +11,63 @@ import draftail, {
 
 window.comments = {
   getContentPath: jest.fn(),
+};
+
+const findComponent = (children, type) => {
+  const components = React.Children.toArray(children);
+  let component = components.find((child) => child.type === type);
+
+  if (component) {
+    return component;
+  }
+
+  components.some((child) => {
+    component = findComponent(child.props?.children, type);
+    return Boolean(component);
+  });
+
+  return component;
+};
+
+const getTopToolbarComponents = (
+  props = {},
+  html = '<input id="test" value="null" />',
+) => {
+  document.body.innerHTML = html;
+  const field = document.querySelector('#test');
+  const toolbarProps = {
+    onChange: jest.fn(),
+    onCompleteSource: jest.fn(),
+    onRequestSource: jest.fn(),
+    addHR: jest.fn(),
+    ...props,
+  };
+
+  draftail.initEditor('#test', {});
+
+  const topToolbar = field.draftailEditor.props.topToolbar(toolbarProps);
+  const toolbarComponents = React.Children.toArray(topToolbar.props.children);
+  const blockToolbarWrapper = toolbarComponents.find((component) =>
+    findComponent(component.props?.children, BlockToolbar),
+  );
+
+  return {
+    toolbarProps,
+    blockToolbarWrapper,
+    blockToolbar: findComponent(topToolbar.props.children, BlockToolbar),
+    inlineToolbar: findComponent(topToolbar.props.children, InlineToolbar),
+  };
+};
+
+const setWindowScroll = ({ top = 0, left = 0 }) => {
+  Object.defineProperty(window, 'scrollY', {
+    configurable: true,
+    value: top,
+  });
+  Object.defineProperty(window, 'scrollX', {
+    configurable: true,
+    value: left,
+  });
 };
 
 describe('Draftail', () => {
@@ -96,6 +156,340 @@ describe('Draftail', () => {
       draftail.initEditor('#test', {});
 
       expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-length');
+    });
+
+    describe('topToolbar', () => {
+      let mockRAF;
+
+      beforeEach(() => {
+        jest.useFakeTimers();
+        mockRAF = jest
+          .spyOn(window, 'requestAnimationFrame')
+          .mockImplementation((callback) => callback());
+      });
+
+      afterEach(() => {
+        mockRAF.mockRestore();
+        window.scrollTo.mockClear();
+        setWindowScroll({});
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      });
+
+      it('wraps block toolbar actions without changing inline toolbar actions', () => {
+        const {
+          toolbarProps,
+          blockToolbarWrapper,
+          blockToolbar,
+          inlineToolbar,
+        } = getTopToolbarComponents();
+
+        expect(blockToolbarWrapper.props.onMouseDownCapture).toBeDefined();
+        expect(blockToolbarWrapper.props.onKeyDownCapture).toBeDefined();
+        expect(blockToolbarWrapper.props.onFocusCapture).toBeDefined();
+        expect(blockToolbar.props.onCompleteSource).not.toBe(
+          toolbarProps.onCompleteSource,
+        );
+        expect(blockToolbar.props.addHR).not.toBe(toolbarProps.addHR);
+        expect(blockToolbar.props.onRequestSource).toBe(
+          toolbarProps.onRequestSource,
+        );
+
+        expect(inlineToolbar.props.onCompleteSource).toBe(
+          toolbarProps.onCompleteSource,
+        );
+        expect(inlineToolbar.props.addHR).toBe(toolbarProps.addHR);
+      });
+
+      it('preserves #main scroll around block type selection', () => {
+        const nextState = {};
+        const onChange = jest.fn(() => {
+          const scrollArea = document.querySelector('#main');
+          scrollArea.scrollTop = 0;
+          scrollArea.scrollLeft = 0;
+        });
+        const { blockToolbar } = getTopToolbarComponents(
+          { onChange },
+          '<main id="main"><input id="test" value="null" /></main>',
+        );
+        const scrollArea = document.querySelector('#main');
+        scrollArea.scrollTop = 600;
+        scrollArea.scrollLeft = 40;
+
+        blockToolbar.props.onCompleteSource(nextState);
+
+        expect(onChange).toHaveBeenCalledWith(nextState);
+        expect(scrollArea.scrollTop).toBe(600);
+        expect(scrollArea.scrollLeft).toBe(40);
+
+        scrollArea.scrollTop = 0;
+        scrollArea.scrollLeft = 0;
+        jest.runOnlyPendingTimers();
+
+        expect(scrollArea.scrollTop).toBe(600);
+        expect(scrollArea.scrollLeft).toBe(40);
+      });
+
+      it('preserves document scroll around block type selection', () => {
+        const nextState = {};
+        const onChange = jest.fn(() => {
+          document.documentElement.scrollTop = 0;
+          document.documentElement.scrollLeft = 0;
+        });
+        const { blockToolbar } = getTopToolbarComponents({
+          onChange,
+        });
+        document.documentElement.scrollTop = 600;
+        document.documentElement.scrollLeft = 40;
+
+        blockToolbar.props.onCompleteSource(nextState);
+
+        expect(onChange).toHaveBeenCalledWith(nextState);
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+
+        document.documentElement.scrollTop = 0;
+        document.documentElement.scrollLeft = 0;
+        jest.runOnlyPendingTimers();
+
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+      });
+
+      it('preserves the scroll captured when opening the block toolbar', () => {
+        const nextState = {};
+        const onChange = jest.fn(() => {
+          document.documentElement.scrollTop = 0;
+          document.documentElement.scrollLeft = 0;
+        });
+        const { blockToolbarWrapper, blockToolbar } = getTopToolbarComponents({
+          onChange,
+        });
+        const trigger = document.createElement('button');
+        trigger.className = 'Draftail-BlockToolbar__trigger';
+
+        document.documentElement.scrollTop = 600;
+        document.documentElement.scrollLeft = 40;
+        blockToolbarWrapper.props.onMouseDownCapture({
+          target: trigger,
+          preventDefault: jest.fn(),
+        });
+
+        document.documentElement.scrollTop = 25;
+        document.documentElement.scrollLeft = 5;
+
+        blockToolbar.props.onCompleteSource(nextState);
+
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+
+        document.documentElement.scrollTop = 0;
+        document.documentElement.scrollLeft = 0;
+        jest.runOnlyPendingTimers();
+
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+      });
+
+      it('keeps the opening scroll when combobox focus happens after a jump', () => {
+        const nextState = {};
+        const onChange = jest.fn(() => {
+          document.documentElement.scrollTop = 0;
+          document.documentElement.scrollLeft = 0;
+        });
+        const { blockToolbarWrapper, blockToolbar } = getTopToolbarComponents({
+          onChange,
+        });
+        const trigger = document.createElement('button');
+        trigger.className = 'Draftail-BlockToolbar__trigger';
+        const input = document.createElement('input');
+        input.setAttribute('role', 'combobox');
+
+        document.documentElement.scrollTop = 600;
+        document.documentElement.scrollLeft = 40;
+        blockToolbarWrapper.props.onMouseDownCapture({
+          target: trigger,
+          preventDefault: jest.fn(),
+        });
+
+        document.documentElement.scrollTop = 0;
+        document.documentElement.scrollLeft = 0;
+        blockToolbarWrapper.props.onFocusCapture({ target: input });
+
+        document.documentElement.scrollTop = 25;
+        document.documentElement.scrollLeft = 5;
+
+        blockToolbar.props.onCompleteSource(nextState);
+
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+      });
+
+      it('preserves window scroll around block type selection', () => {
+        const nextState = {};
+        const onChange = jest.fn();
+        const { blockToolbar } = getTopToolbarComponents({
+          onChange,
+        });
+        setWindowScroll({ top: 600, left: 40 });
+
+        blockToolbar.props.onCompleteSource(nextState);
+
+        expect(onChange).toHaveBeenCalledWith(nextState);
+        expect(window.scrollTo).toHaveBeenCalledWith(40, 600);
+
+        window.scrollTo.mockClear();
+        jest.runOnlyPendingTimers();
+
+        expect(window.scrollTo).toHaveBeenLastCalledWith(40, 600);
+      });
+
+      it('does not call Draftail source completion for block type selection', () => {
+        const nextState = {};
+        const { toolbarProps, blockToolbar } = getTopToolbarComponents();
+
+        blockToolbar.props.onCompleteSource(nextState);
+
+        expect(toolbarProps.onCompleteSource).not.toHaveBeenCalled();
+        expect(toolbarProps.onChange).toHaveBeenCalledWith(nextState);
+      });
+
+      it('preserves #main scroll around horizontal rule insertion', () => {
+        const addHR = jest.fn(() => {
+          const scrollArea = document.querySelector('#main');
+          scrollArea.scrollTop = 0;
+          scrollArea.scrollLeft = 0;
+        });
+        const { blockToolbar } = getTopToolbarComponents(
+          { addHR },
+          '<main id="main"><input id="test" value="null" /></main>',
+        );
+        const scrollArea = document.querySelector('#main');
+        scrollArea.scrollTop = 600;
+        scrollArea.scrollLeft = 40;
+
+        blockToolbar.props.addHR();
+
+        expect(addHR).toHaveBeenCalledTimes(1);
+        expect(scrollArea.scrollTop).toBe(600);
+        expect(scrollArea.scrollLeft).toBe(40);
+
+        scrollArea.scrollTop = 0;
+        scrollArea.scrollLeft = 0;
+        jest.runOnlyPendingTimers();
+
+        expect(scrollArea.scrollTop).toBe(600);
+        expect(scrollArea.scrollLeft).toBe(40);
+      });
+
+      it('preserves the scroll captured when opening before horizontal rule insertion', () => {
+        const addHR = jest.fn(() => {
+          document.documentElement.scrollTop = 0;
+          document.documentElement.scrollLeft = 0;
+        });
+        const { blockToolbarWrapper, blockToolbar } = getTopToolbarComponents({
+          addHR,
+        });
+        const trigger = document.createElement('button');
+        trigger.className = 'Draftail-BlockToolbar__trigger';
+
+        document.documentElement.scrollTop = 600;
+        document.documentElement.scrollLeft = 40;
+        blockToolbarWrapper.props.onMouseDownCapture({
+          target: trigger,
+          preventDefault: jest.fn(),
+        });
+
+        document.documentElement.scrollTop = 25;
+        document.documentElement.scrollLeft = 5;
+
+        blockToolbar.props.addHR();
+
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+
+        document.documentElement.scrollTop = 0;
+        document.documentElement.scrollLeft = 0;
+        jest.runOnlyPendingTimers();
+
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+      });
+
+      it('preserves document scroll when opening the block toolbar', () => {
+        const { blockToolbarWrapper } = getTopToolbarComponents();
+        const trigger = document.createElement('button');
+        trigger.className = 'Draftail-BlockToolbar__trigger';
+        const preventDefault = jest.fn();
+        document.documentElement.scrollTop = 600;
+        document.documentElement.scrollLeft = 40;
+
+        blockToolbarWrapper.props.onMouseDownCapture({
+          target: trigger,
+          preventDefault,
+        });
+
+        expect(preventDefault).toHaveBeenCalledTimes(1);
+        document.documentElement.scrollTop = 0;
+        document.documentElement.scrollLeft = 0;
+        jest.runOnlyPendingTimers();
+
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+      });
+
+      it('does not preserve scroll for other block toolbar clicks', () => {
+        const { blockToolbarWrapper } = getTopToolbarComponents();
+        const option = document.createElement('button');
+        const preventDefault = jest.fn();
+        document.documentElement.scrollTop = 600;
+
+        blockToolbarWrapper.props.onMouseDownCapture({
+          target: option,
+          preventDefault,
+        });
+
+        expect(preventDefault).not.toHaveBeenCalled();
+        document.documentElement.scrollTop = 0;
+        jest.runOnlyPendingTimers();
+
+        expect(document.documentElement.scrollTop).toBe(0);
+      });
+
+      it('preserves scroll when the block toolbar combobox receives focus', () => {
+        const { blockToolbarWrapper } = getTopToolbarComponents();
+        const input = document.createElement('input');
+        input.setAttribute('role', 'combobox');
+        document.documentElement.scrollTop = 600;
+        document.documentElement.scrollLeft = 40;
+
+        blockToolbarWrapper.props.onFocusCapture({ target: input });
+
+        document.documentElement.scrollTop = 0;
+        document.documentElement.scrollLeft = 0;
+        jest.runOnlyPendingTimers();
+
+        expect(document.documentElement.scrollTop).toBe(600);
+        expect(document.documentElement.scrollLeft).toBe(40);
+      });
+
+      it('runs block toolbar actions without #main', () => {
+        const nextState = {};
+        const onChange = jest.fn();
+        const addHR = jest.fn();
+        const { blockToolbar } = getTopToolbarComponents({
+          onChange,
+          addHR,
+        });
+
+        expect(() =>
+          blockToolbar.props.onCompleteSource(nextState),
+        ).not.toThrow();
+        expect(() => blockToolbar.props.addHR()).not.toThrow();
+
+        expect(onChange).toHaveBeenCalledWith(nextState);
+        expect(addHR).toHaveBeenCalledTimes(1);
+      });
     });
 
     describe('selector conflicts', () => {
