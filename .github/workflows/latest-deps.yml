@@ -48,27 +48,21 @@ jobs:
 
       - name: Summarize installed versions
         run: |
+          # `packaging` is used by the summary script to parse pyproject.toml
+          # constraints. It's transitively available already, but installing
+          # explicitly keeps the dependency visible.
+          uv pip install --system packaging
+
           # Full list to workflow logs for debugging.
           uv pip list --system
 
-          # Focused summary in the GitHub Actions UI: a table of the
-          # capped (overridden) deps and the versions the resolver
-          # picked. If a resolved version is past the cap in
-          # pyproject.toml, the cap may be safe to lift.
+          # Markdown summary for the GitHub Actions UI. Packages that
+          # resolved past their cap in pyproject.toml are shown first;
+          # the rest go into a collapsed details block.
+          python3 scripts/latest-deps-summary.py >> "$GITHUB_STEP_SUMMARY"
+
+          # Full installed package list, collapsed.
           {
-            echo '## Resolved versions of capped dependencies'
-            echo ''
-            echo 'Overridden in `.github/latest-deps-overrides.txt`. Compare these against the upper bounds in `pyproject.toml` to decide whether a range can be widened.'
-            echo ''
-            echo '| Package | Resolved version |'
-            echo '| --- | --- |'
-            grep -v '^#' .github/latest-deps-overrides.txt \
-              | grep -v '^[[:space:]]*$' \
-              | sed 's/\[.*\]//' \
-              | while read -r pkg; do
-                  version=$(uv pip show --system "$pkg" 2>/dev/null | awk '/^Version:/ {print $2}')
-                  echo "| \`$pkg\` | ${version:-not installed} |"
-                done
             echo ''
             echo '<details><summary>Full installed package list</summary>'
             echo ''
