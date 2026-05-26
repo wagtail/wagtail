@@ -290,6 +290,11 @@ class GenerateURLView(View):
 def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", image
+    ):
+        raise PermissionDenied
+
     try:
         image_filter = Filter(spec=filter_spec)
         allowed_operations = URLGeneratorForm.FilterChoices.values
