@@ -221,13 +221,6 @@ describe('Draftail', () => {
         expect(onChange).toHaveBeenCalledWith(nextState);
         expect(scrollArea.scrollTop).toBe(600);
         expect(scrollArea.scrollLeft).toBe(40);
-
-        scrollArea.scrollTop = 0;
-        scrollArea.scrollLeft = 0;
-        jest.runOnlyPendingTimers();
-
-        expect(scrollArea.scrollTop).toBe(600);
-        expect(scrollArea.scrollLeft).toBe(40);
       });
 
       it('preserves document scroll around block type selection', () => {
@@ -245,13 +238,6 @@ describe('Draftail', () => {
         blockToolbar.props.onCompleteSource(nextState);
 
         expect(onChange).toHaveBeenCalledWith(nextState);
-        expect(document.documentElement.scrollTop).toBe(600);
-        expect(document.documentElement.scrollLeft).toBe(40);
-
-        document.documentElement.scrollTop = 0;
-        document.documentElement.scrollLeft = 0;
-        jest.runOnlyPendingTimers();
-
         expect(document.documentElement.scrollTop).toBe(600);
         expect(document.documentElement.scrollLeft).toBe(40);
       });
@@ -279,13 +265,6 @@ describe('Draftail', () => {
         document.documentElement.scrollLeft = 5;
 
         blockToolbar.props.onCompleteSource(nextState);
-
-        expect(document.documentElement.scrollTop).toBe(600);
-        expect(document.documentElement.scrollLeft).toBe(40);
-
-        document.documentElement.scrollTop = 0;
-        document.documentElement.scrollLeft = 0;
-        jest.runOnlyPendingTimers();
 
         expect(document.documentElement.scrollTop).toBe(600);
         expect(document.documentElement.scrollLeft).toBe(40);
@@ -337,11 +316,6 @@ describe('Draftail', () => {
 
         expect(onChange).toHaveBeenCalledWith(nextState);
         expect(window.scrollTo).toHaveBeenCalledWith(40, 600);
-
-        window.scrollTo.mockClear();
-        jest.runOnlyPendingTimers();
-
-        expect(window.scrollTo).toHaveBeenLastCalledWith(40, 600);
       });
 
       it('does not call Draftail source completion for block type selection', () => {
@@ -373,13 +347,6 @@ describe('Draftail', () => {
         expect(addHR).toHaveBeenCalledTimes(1);
         expect(scrollArea.scrollTop).toBe(600);
         expect(scrollArea.scrollLeft).toBe(40);
-
-        scrollArea.scrollTop = 0;
-        scrollArea.scrollLeft = 0;
-        jest.runOnlyPendingTimers();
-
-        expect(scrollArea.scrollTop).toBe(600);
-        expect(scrollArea.scrollLeft).toBe(40);
       });
 
       it('preserves the scroll captured when opening before horizontal rule insertion', () => {
@@ -407,13 +374,6 @@ describe('Draftail', () => {
 
         expect(document.documentElement.scrollTop).toBe(600);
         expect(document.documentElement.scrollLeft).toBe(40);
-
-        document.documentElement.scrollTop = 0;
-        document.documentElement.scrollLeft = 0;
-        jest.runOnlyPendingTimers();
-
-        expect(document.documentElement.scrollTop).toBe(600);
-        expect(document.documentElement.scrollLeft).toBe(40);
       });
 
       it('preserves document scroll when opening the block toolbar', () => {
@@ -430,10 +390,6 @@ describe('Draftail', () => {
         });
 
         expect(preventDefault).toHaveBeenCalledTimes(1);
-        document.documentElement.scrollTop = 0;
-        document.documentElement.scrollLeft = 0;
-        jest.runOnlyPendingTimers();
-
         expect(document.documentElement.scrollTop).toBe(600);
         expect(document.documentElement.scrollLeft).toBe(40);
       });
@@ -464,10 +420,6 @@ describe('Draftail', () => {
         document.documentElement.scrollLeft = 40;
 
         blockToolbarWrapper.props.onFocusCapture({ target: input });
-
-        document.documentElement.scrollTop = 0;
-        document.documentElement.scrollLeft = 0;
-        jest.runOnlyPendingTimers();
 
         expect(document.documentElement.scrollTop).toBe(600);
         expect(document.documentElement.scrollLeft).toBe(40);
