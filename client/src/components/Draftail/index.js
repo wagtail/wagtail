@@ -109,14 +109,6 @@ const preserveMainScroll = (callback, scrollState = captureMainScroll()) => {
   } finally {
     restore();
     requestAnimationFrame(restore);
-
-    window.setTimeout(() => {
-      restore();
-      requestAnimationFrame(restore);
-    }, 0);
-
-    window.setTimeout(restore, 50);
-    window.setTimeout(restore, 150);
   }
 };
 
