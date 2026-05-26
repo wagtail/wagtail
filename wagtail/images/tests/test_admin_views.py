@@ -4557,15 +4557,41 @@ class TestURLGeneratorViewOutput(WagtailTestUtils, TestCase):
 
 
 class TestPreviewView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        # Create an image for running tests on
-        self.image = Image.objects.create(
+    @classmethod
+    def setUpTestData(cls):
+        cls.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
         )
 
-        # Login
-        self.user = self.login()
+        cls.superuser = cls.create_test_user()
+
+        change_image_permission = Permission.objects.get(
+            content_type__app_label="wagtailimages", codename="change_image"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+
+        limited_group = Group.objects.create(name="Limited users")
+        limited_group.permissions.add(admin_permission)
+
+        cls.limited_collection = Collection.get_first_root_node().add_child(
+            name="Limited"
+        )
+        GroupCollectionPermission.objects.create(
+            group=limited_group,
+            collection=cls.limited_collection,
+            permission=change_image_permission,
+        )
+
+        cls.limited_user = cls.create_user(
+            username="limited", email="limited@example.com", password="password"
+        )
+        cls.limited_user.groups.add(limited_group)
+
+    def setUp(self):
+        self.client.force_login(self.superuser)
 
     def test_get(self):
         """
@@ -4649,6 +4675,29 @@ class TestPreviewView(WagtailTestUtils, TestCase):
                 )
 
                 self.assertEqual(response.status_code, expected_http_code)
+
+    def test_get_limited_permissions(self):
+        """
+        This tests that the view gives a 403 if a user without correct permissions attempts to access it
+        """
+        self.client.force_login(self.limited_user)
+        # Get
+        preview_url = reverse("wagtailimages:preview", args=(self.image.id, "original"))
+
+        response = self.client.get(preview_url)
+        self.assertEqual(response.status_code, 302)
+
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        # now add the image to the collection where the limited user can change images
+        self.image.collection = self.limited_collection
+        self.image.save()
+
+        response = self.client.get(preview_url)
+        self.assertEqual(response.status_code, 200)
 
 
 class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
