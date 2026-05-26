@@ -1,0 +1,92 @@
+name: Test against latest dependencies
+
+# Resolves Wagtail's dependencies with the upper bounds stripped via
+# .github/latest-deps-overrides.txt, then runs the test suite and builds
+# the docs. This acts as an early warning when a future major version of
+# a capped dependency breaks Wagtail. Failures here are informational,
+# not release-blocking — they mean someone should investigate whether to
+# lift a cap, add compatibility code, or pin tighter.
+
+# Pre-releases are enabled so we catch breakage in release candidates before
+# they ship as stable.
+
+on:
+  schedule:
+    # Mondays at 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Latest dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+          allow-prereleases: true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+
+      - name: Install Wagtail with overrides applied
+        run: |
+          uv pip install --system \
+            --overrides .github/latest-deps-overrides.txt \
+            --prerelease=allow \
+            --upgrade \
+            -e '.[testing,docs]'
+
+      - name: Summarize installed versions
+        run: |
+          # Full list to workflow logs for debugging.
+          uv pip list --system
+
+          # Focused summary in the GitHub Actions UI: a table of the
+          # capped (overridden) deps and the versions the resolver
+          # picked. If a resolved version is past the cap in
+          # pyproject.toml, the cap may be safe to lift.
+          {
+            echo '## Resolved versions of capped dependencies'
+            echo ''
+            echo 'Overridden in `.github/latest-deps-overrides.txt`. Compare these against the upper bounds in `pyproject.toml` to decide whether a range can be widened.'
+            echo ''
+            echo '| Package | Resolved version |'
+            echo '| --- | --- |'
+            grep -v '^#' .github/latest-deps-overrides.txt \
+              | grep -v '^[[:space:]]*$' \
+              | sed 's/\[.*\]//' \
+              | while read -r pkg; do
+                  version=$(uv pip show --system "$pkg" 2>/dev/null | awk '/^Version:/ {print $2}')
+                  echo "| \`$pkg\` | ${version:-not installed} |"
+                done
+            echo ''
+            echo '<details><summary>Full installed package list</summary>'
+            echo ''
+            echo '```'
+            uv pip list --system
+            echo '```'
+            echo ''
+            echo '</details>'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run Django system checks
+        run: |
+          DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
+
+      - name: Run tests
+        run: |
+          python runtests.py --parallel
+
+      - name: Build docs
+        run: |
+          make -C docs html
