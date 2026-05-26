@@ -253,12 +253,16 @@ class BaseStructBlock(Block):
         self.meta.form_layout = self.get_form_layout()
 
         # Reorder child_blocks to match form_layout, appending any missing
-        # blocks to the end
+        # blocks to the end. Use a list comprehension over child_blocks to
+        # preserve insertion order for missing blocks (set difference is
+        # non-deterministic across Python processes).
         sorted_block_names = self.meta.form_layout.get_sorted_block_names()
-        missing_block_names = self.child_blocks.keys() - set(sorted_block_names)
+        sorted_set = set(sorted_block_names)
+        missing_block_names = [k for k in self.child_blocks if k not in sorted_set]
         self.child_blocks = collections.OrderedDict(
             (name, self.child_blocks[name])
-            for name in (sorted_block_names + list(missing_block_names))
+            for name in (sorted_block_names + missing_block_names)
+            if name in self.child_blocks
         )
 
     @classmethod
