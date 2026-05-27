@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -79,6 +81,11 @@ class TestChooser(WagtailTestUtils, TestCase):
     def get(self, params=None):
         return self.client.get(reverse("wagtaildocs_chooser:choose"), params or {})
 
+    def get_chosen(self, doc_id, params=None):
+        return self.client.get(
+            reverse("wagtaildocs_chooser:chosen", args=(doc_id,)), params or {}
+        )
+
     def test_chooser_docs_exist(self):
         # given an editor with access to admin panel
         self.login_as_editor()
@@ -156,6 +163,29 @@ class TestChooser(WagtailTestUtils, TestCase):
         # Ensure that the Collection chooser IS visible, because the Baker can now
         # choose from multiple Collections.
         self.assertContains(response, "Collection")
+
+    def test_chooser_chosen_doc(self):
+        # Log in as baker who has access to the Bakery collection only
+        self.login_as_baker()
+        # and a document in the database
+        inaccessible_doc = Document.objects.create(title="document.pdf")
+
+        bun_recipe_title = "bun_recipe.pdf"
+        accessible_doc = Document.objects.create(
+            title=bun_recipe_title, collection=Collection.objects.get(name="Bakery")
+        )
+
+        # should not be able to access a doc outside the allowed collection
+        response = self.get_chosen(inaccessible_doc.pk)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        response = self.get_chosen(accessible_doc.pk)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, bun_recipe_title)
 
     def test_chooser_no_docs_upload_allowed(self):
         # given a superuser and no documents in the database
