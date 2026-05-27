@@ -2,6 +2,7 @@ import json
 
 from django import forms
 from django.conf import settings
+from django.db import models
 from django.forms.models import modelform_factory
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
@@ -181,17 +182,15 @@ class ImageInsertionForm(forms.Form):
 
 
 class URLGeneratorForm(forms.Form):
-    filter_method = forms.ChoiceField(
-        label=_("Filter"),
-        choices=(
-            ("original", _("Original size")),
-            ("width", _("Resize to width")),
-            ("height", _("Resize to height")),
-            ("min", _("Resize to min")),
-            ("max", _("Resize to max")),
-            ("fill", _("Resize to fill")),
-        ),
-    )
+    class FilterChoices(models.TextChoices):
+        ORIGINAL = "original", _("Original size")
+        WIDTH = "width", _("Resize to width")
+        HEIGHT = "height", _("Resize to height")
+        MIN = "min", _("Resize to min")
+        MAX = "max", _("Resize to max")
+        FILL = "fill", _("Resize to fill")
+
+    filter_method = forms.ChoiceField(label=_("Filter"), choices=FilterChoices.choices)
     width = forms.IntegerField(
         label=_("Width"),
         min_value=0,
