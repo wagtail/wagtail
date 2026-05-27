@@ -4618,13 +4618,37 @@ class TestPreviewView(WagtailTestUtils, TestCase):
         done with Wagtails built in URL generator. We should test it
         anyway though.
         """
-        # Get the image
         response = self.client.get(
             reverse("wagtailimages:preview", args=(self.image.id, "bad-filter-spec"))
         )
-
-        # Check response
         self.assertEqual(response.status_code, 400)
+
+    def test_get_allowed_filter_specs(self):
+        """
+        Test that the view only returns results for allowed filter specs.
+
+        This is based on the URLGeneratorForm filter choices.
+        """
+
+        specs = [
+            ("original", 200),
+            ("width-100", 200),
+            ("height-100", 200),
+            ("min-100x100", 200),
+            ("max-100x100", 200),
+            ("fill-100x100", 200),
+            ("scale-200", 400),
+        ]
+
+        for spec, expected_http_code in specs:
+            with self.subTest(
+                f"Testing preview with {spec}, expecting HTTP {expected_http_code}"
+            ):
+                response = self.client.get(
+                    reverse("wagtailimages:preview", args=(self.image.id, spec))
+                )
+
+                self.assertEqual(response.status_code, expected_http_code)
 
 
 class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
