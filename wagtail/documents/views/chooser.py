@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import PermissionDenied
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -118,6 +119,16 @@ class DocumentChooseResultsView(
 
 
 class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
+    def get_object(self, pk):
+        item = super().get_object(pk)
+
+        if not permission_policy.user_has_permission_for_instance(
+            self.request.user, "choose", item
+        ):
+            raise PermissionDenied
+
+        return item
+
     def get(self, request, *args, pk, **kwargs):
         self.model = get_document_model()
         return super().get(request, *args, pk, **kwargs)
