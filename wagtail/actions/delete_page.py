@@ -27,13 +27,13 @@ class DeletePageAction:
             )
 
     def _delete_page(self, page, *args, **kwargs):
-        from wagtail.models import Page
+        from wagtail.models import AbstractPage
 
         for child in page.get_descendants().specific().iterator():
             self.log_deletion(child)
         self.log_deletion(page.specific)
 
-        return super(Page, page.specific).delete(*args, **kwargs)
+        return super(AbstractPage, page.specific).delete(*args, **kwargs)
 
     def execute(self, *args, skip_permission_checks=False, **kwargs):
         self.check(skip_permission_checks=skip_permission_checks)

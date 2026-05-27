@@ -142,6 +142,24 @@ def get_streamfield_names(model_class):
     )
 
 
+# Make sure that this list is sorted by the codename (first item in the tuple)
+# so that we can follow the same order when querying the Permission objects.
+PAGE_PERMISSION_TYPES = [
+    ("add_page", _("Add"), _("Add/edit pages you own")),
+    ("bulk_delete_page", _("Bulk delete"), _("Delete pages with children")),
+    ("change_page", _("Edit"), _("Edit any page")),
+    ("lock_page", _("Lock"), _("Lock/unlock pages you've locked")),
+    ("publish_page", _("Publish"), _("Publish any page")),
+    ("unlock_page", _("Unlock"), _("Unlock any page")),
+]
+
+PAGE_PERMISSION_TYPE_CHOICES = [
+    (identifier[:-5], long_label) for identifier, _, long_label in PAGE_PERMISSION_TYPES
+]
+
+PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
+
+
 class BasePageManager(MP_NodeManager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
@@ -244,9 +262,11 @@ class PageBase(models.base.ModelBase):
             None  # to be filled in on first call to cls.clean_parent_page_models
         )
 
-        # All pages should be creatable unless explicitly set otherwise.
+        # All pages should be creatable unless is_creatable is explicitly set,
+        # or they are a base page model (i.e. a direct subclass of AbstractPage).
         # This attribute is not inheritable.
         if "is_creatable" not in dct:
+            # FIXME: ensure this is false for base Page models (i.e. direct subclasses of AbstractPage)
             cls.is_creatable = not cls._meta.abstract
 
         if not cls._meta.abstract:
@@ -262,40 +282,19 @@ class AbstractPage(
     RevisionMixin,
     TranslatableMixin,
     SpecificMixin,
+    index.Indexed,
+    ClusterableModel,
     MP_Node,
+    metaclass=PageBase,
 ):
     """
-    Abstract superclass for Page. According to Django's inheritance rules, managers set on
-    abstract models are inherited by subclasses, but managers set on concrete models that are extended
-    via multi-table inheritance are not. We therefore need to attach PageManager to an abstract
-    superclass to ensure that it is retained by subclasses of Page.
+    Abstract superclass for page models.
     """
 
+    # According to Django's inheritance rules, managers set on abstract models are inherited by
+    # subclasses, so this will be inherited by the concrete Page model and its subclasses.
     objects = PageManager()
 
-    class Meta:
-        abstract = True
-
-
-# Make sure that this list is sorted by the codename (first item in the tuple)
-# so that we can follow the same order when querying the Permission objects.
-PAGE_PERMISSION_TYPES = [
-    ("add_page", _("Add"), _("Add/edit pages you own")),
-    ("bulk_delete_page", _("Bulk delete"), _("Delete pages with children")),
-    ("change_page", _("Edit"), _("Edit any page")),
-    ("lock_page", _("Lock"), _("Lock/unlock pages you've locked")),
-    ("publish_page", _("Publish"), _("Publish any page")),
-    ("unlock_page", _("Unlock"), _("Unlock any page")),
-]
-
-PAGE_PERMISSION_TYPE_CHOICES = [
-    (identifier[:-5], long_label) for identifier, _, long_label in PAGE_PERMISSION_TYPES
-]
-
-PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
-
-
-class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     title = models.CharField(
         verbose_name=_("title"),
         max_length=255,
@@ -331,35 +330,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     )
     owner.wagtail_reference_index_ignore = True
 
-    seo_title = models.CharField(
-        verbose_name=_("title tag"),
-        max_length=255,
-        blank=True,
-        help_text=_(
-            "The name of the page displayed on search engine results as the clickable headline."
-        ),
-    )
-
-    show_in_menus_default = False
-    show_in_menus = models.BooleanField(
-        verbose_name=_("show in menus"),
-        default=False,
-        help_text=_(
-            "Whether a link to this page will appear in automatically generated menus"
-        ),
-    )
-    search_description = models.TextField(
-        verbose_name=_("meta description"),
-        blank=True,
-        help_text=_(
-            "The descriptive text displayed underneath a headline in search engine results."
-        ),
-    )
-
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
 
+    # FIXME: How is related_query_name used? Will this create conflicts if a custom Page model exists?
     _revisions = GenericRelation(
         "wagtailcore.Revision",
         content_type_field="content_type",
@@ -373,6 +348,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # There is no need to override the workflow_states property, as the default
     # implementation in WorkflowMixin already ensures that the queryset uses the
     # base Page content type.
+    # FIXME: How is related_query_name used? Will this create conflicts if a custom Page model exists?
     _workflow_states = GenericRelation(
         "wagtailcore.WorkflowState",
         content_type_field="base_content_type",
@@ -387,6 +363,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # as the content type of the specific queryset. To work around this, we define
     # a second GenericRelation that uses the specific content_type to be used
     # when working with specific querysets.
+    # FIXME: How is related_query_name used? Will this create conflicts if a custom Page model exists?
     _specific_workflow_states = GenericRelation(
         "wagtailcore.WorkflowState",
         content_type_field="content_type",
@@ -419,16 +396,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         index.FilterField("path"),
         index.FilterField("depth"),
         index.FilterField("locked"),
-        index.FilterField("show_in_menus"),
         index.FilterField("first_published_at"),
         index.FilterField("last_published_at"),
         index.FilterField("latest_revision_created_at"),
         index.FilterField("locale"),
         index.FilterField("translation_key"),
     ]
-
-    # Do not allow plain Page instances to be created through the Wagtail admin
-    is_creatable = False
 
     # Define the maximum number of instances this page type can have. Default to unlimited.
     max_count = None
@@ -460,28 +433,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         PanelPlaceholder("wagtail.admin.panels.TitleFieldPanel", ["title"], {}),
     ]
     promote_panels = [
-        PanelPlaceholder(
-            "wagtail.admin.panels.MultiFieldPanel",
-            [
-                [
-                    "slug",
-                    "seo_title",
-                    "search_description",
-                ],
-                _("For search engines"),
-            ],
-            {},
-        ),
-        PanelPlaceholder(
-            "wagtail.admin.panels.MultiFieldPanel",
-            [
-                [
-                    "show_in_menus",
-                ],
-                _("For site menus"),
-            ],
-            {},
-        ),
+        PanelPlaceholder("wagtail.admin.panels.FieldPanel", ["slug"], {}),
     ]
     settings_panels = [
         PanelPlaceholder("wagtail.admin.panels.PublishingPanel", [], {}),
@@ -557,9 +509,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 # set content type to correctly represent the model class
                 # that this was created as
                 self.content_type = ContentType.objects.get_for_model(self)
-            if "show_in_menus" not in kwargs:
-                # if the value is not set on submit refer to the model setting
-                self.show_in_menus = self.show_in_menus_default
 
     def __str__(self):
         return self.title
@@ -2122,11 +2071,93 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return (self.url_path,)
 
     class Meta:
+        abstract = True
+
+
+class Page(AbstractPage):
+    seo_title = models.CharField(
+        verbose_name=_("title tag"),
+        max_length=255,
+        blank=True,
+        help_text=_(
+            "The name of the page displayed on search engine results as the clickable headline."
+        ),
+    )
+
+    show_in_menus_default = False
+    show_in_menus = models.BooleanField(
+        verbose_name=_("show in menus"),
+        default=False,
+        help_text=_(
+            "Whether a link to this page will appear in automatically generated menus"
+        ),
+    )
+    search_description = models.TextField(
+        verbose_name=_("meta description"),
+        blank=True,
+        help_text=_(
+            "The descriptive text displayed underneath a headline in search engine results."
+        ),
+    )
+
+    search_fields = AbstractPage.search_fields + [
+        index.FilterField("show_in_menus"),
+    ]
+
+    # FIXME: get PageBase to set this to False for base Page models (i.e. direct subclasses of AbstractPage),
+    # so that the class itself doesn't have to
+    is_creatable = False
+
+    promote_panels = [
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "slug",
+                    "seo_title",
+                    "search_description",
+                ],
+                _("For search engines"),
+            ],
+            {},
+        ),
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "show_in_menus",
+                ],
+                _("For site menus"),
+            ],
+            {},
+        ),
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.id:
+            # this model is being newly created
+            # rather than retrieved from the db
+            if "show_in_menus" not in kwargs:
+                # if the value is not set on submit refer to the model setting
+                self.show_in_menus = self.show_in_menus_default
+                # FIXME: find a way to make this functionality pluggable so that custom Page models
+                # can define show_in_menus without doing this
+
+    class Meta:
+        # FIXME: what is the consequence of custom base page models not setting verbose_name and verbose_name_plural?
+        # Can we set this as a default on AbstractPage without it being picked up by all subclasses of Page?
         verbose_name = _("page")
         verbose_name_plural = _("pages")
+
+        # FIXME: how can we set this within AbstractPage without it being picked up by all subclasses of Page
+        # (which fails with "(models.E016) 'unique_together' refers to field 'locale' which is not local to model 'FooPage'.")
         unique_together = [("translation_key", "locale")]
+
         # Make sure that we auto-create Permission objects that are defined in
         # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
+        # FIXME: can we define these on AbstractPage while still ensuring that they still have
+        # predictable names (e.g. 'add_page' rather than 'add_abstractpage' or 'add_mycustompage')?
         permissions = [
             (codename, name)
             for codename, _, name in PAGE_PERMISSION_TYPES
