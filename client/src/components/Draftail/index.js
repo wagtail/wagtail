@@ -65,6 +65,115 @@ const getSavedToolbar = () => {
   return saved;
 };
 
+const captureMainScroll = () => {
+  const scrollAreas = [
+    document.querySelector('#main'),
+    document.scrollingElement,
+    document.documentElement,
+    document.body,
+  ].filter(
+    (scrollArea, index, areas) =>
+      scrollArea && areas.indexOf(scrollArea) === index,
+  );
+  return {
+    positions: scrollAreas.map((scrollArea) => ({
+      scrollArea,
+      top: scrollArea.scrollTop,
+      left: scrollArea.scrollLeft,
+    })),
+    windowPosition: {
+      top: window.scrollY,
+      left: window.scrollX,
+    },
+  };
+};
+
+const restoreMainScroll = (scrollState) => {
+  scrollState.positions.forEach((position) => {
+    position.scrollArea.scrollTop = position.top;
+    position.scrollArea.scrollLeft = position.left;
+  });
+  window.scrollTo(
+    scrollState.windowPosition.left,
+    scrollState.windowPosition.top,
+  );
+};
+
+const preserveMainScroll = (callback, scrollState = captureMainScroll()) => {
+  const restore = () => restoreMainScroll(scrollState);
+
+  restore();
+
+  try {
+    callback();
+  } finally {
+    restore();
+    requestAnimationFrame(restore);
+  }
+};
+
+const rememberBlockToolbarScroll = (scrollStateRef, replace = false) => {
+  if (replace || !scrollStateRef.current) {
+    scrollStateRef.current = captureMainScroll();
+  }
+
+  return scrollStateRef.current;
+};
+
+const consumeBlockToolbarScroll = (scrollStateRef) => {
+  const scrollState = scrollStateRef.current;
+  scrollStateRef.current = null;
+  return scrollState;
+};
+
+const isBlockToolbarTrigger = (target) =>
+  target instanceof Element &&
+  Boolean(target.closest('.Draftail-BlockToolbar__trigger'));
+
+const preserveMainScrollOnBlockToolbarTrigger = (event, scrollStateRef) => {
+  if (isBlockToolbarTrigger(event.target)) {
+    const scrollState = rememberBlockToolbarScroll(scrollStateRef, true);
+    event.preventDefault();
+    preserveMainScroll(() => {}, scrollState);
+  }
+};
+
+const preserveMainScrollOnBlockToolbarTriggerKey = (event, scrollStateRef) => {
+  if (
+    [' ', 'Enter', 'Spacebar'].includes(event.key) &&
+    isBlockToolbarTrigger(event.target)
+  ) {
+    const scrollState = rememberBlockToolbarScroll(scrollStateRef, true);
+    preserveMainScroll(() => {}, scrollState);
+  }
+};
+
+const preserveMainScrollOnBlockToolbarFocus = (event, scrollStateRef) => {
+  if (
+    event.target instanceof Element &&
+    event.target.getAttribute('role') === 'combobox'
+  ) {
+    const scrollState = rememberBlockToolbarScroll(scrollStateRef);
+    preserveMainScroll(() => {}, scrollState);
+  }
+};
+
+const preserveBlockToolbarActionScroll = (callback, scrollStateRef) => {
+  const scrollState = consumeBlockToolbarScroll(scrollStateRef);
+  preserveMainScroll(callback, scrollState || captureMainScroll());
+};
+
+const onCompleteBlockToolbarAction = (props, nextState, scrollStateRef) => {
+  if (!nextState) {
+    scrollStateRef.current = null;
+    return;
+  }
+
+  preserveBlockToolbarActionScroll(() => {
+    props.onChange(nextState);
+  }, scrollStateRef);
+};
+
 /**
  * Scroll to keep the field on the same spot when switching toolbars,
  * and save the choice in localStorage.
@@ -158,7 +267,10 @@ const initEditor = (selector, originalOptions, currentScript) => {
     field.draftailEditor = ref;
   };
 
-  const getSharedPropsFromOptions = (newOptions) => {
+  const getSharedPropsFromOptions = (
+    newOptions,
+    blockToolbarScrollStateRef,
+  ) => {
     let ariaDescribedBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
@@ -277,10 +389,14 @@ const initEditor = (selector, originalOptions, currentScript) => {
   }) => {
     // eslint-disable-next-line react-hooks/globals, react/hook-use-state
     [options, setOptions] = React.useState({ ...initialOptions });
+    const blockToolbarScrollStateRef = React.useRef(null);
 
     // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
     // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
-    const sharedProps = getSharedPropsFromOptions(options);
+    const sharedProps = getSharedPropsFromOptions(
+      options,
+      blockToolbarScrollStateRef,
+    );
     const editor =
       commentApp && contentPath !== '' ? (
         <Provider store={commentApp.store}>
