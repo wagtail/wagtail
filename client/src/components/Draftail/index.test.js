@@ -13,6 +13,22 @@ window.comments = {
   getContentPath: jest.fn(),
 };
 
+const findComponent = (children, type) => {
+  const components = React.Children.toArray(children);
+  let component = components.find((child) => child.type === type);
+
+  if (component) {
+    return component;
+  }
+
+  components.some((child) => {
+    component = findComponent(child.props?.children, type);
+    return Boolean(component);
+  });
+
+  return component;
+};
+
 describe('Draftail', () => {
   describe('#initEditor', () => {
     beforeEach(() => {
