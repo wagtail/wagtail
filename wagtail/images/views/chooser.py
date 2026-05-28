@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import path, reverse
@@ -153,12 +154,27 @@ class ImageChooseResultsView(
 
 
 class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
+    def get_object(self, pk):
+        item = super().get_object(pk)
+
+        if not permission_policy.user_has_permission_for_instance(
+            self.request.user, "choose", item
+        ):
+            raise PermissionDenied
+
+        return item
+
     def get(self, request, *args, pk, **kwargs):
         self.model = get_image_model()
         return super().get(request, *args, pk, **kwargs)
 
 
 class ImageChosenMultipleView(ChosenMultipleViewMixin, ImageChosenResponseMixin, View):
+    def get_objects(self, pks):
+        return permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ["choose"]
+        ).filter(pk__in=pks)
+
     def get(self, request, *args, **kwargs):
         self.model = get_image_model()
         return super().get(request, *args, **kwargs)
