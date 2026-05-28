@@ -115,15 +115,6 @@ include = ["wagtail*"]
 "wagtail" = ["**/*"]
 "*" = [".dockerignore"]
 
-[tool.setuptools.data-files]
-"." = [
-  "AGENTS.md",
-  "CHANGELOG.txt",
-  "CODE_OF_CONDUCT.md",
-  "CONTRIBUTORS.md",
-  "SPONSORS.md",
-]
-
 [tool.setuptools.exclude-package-data]
 "wagtail" = [
   "*.md",
@@ -133,7 +124,6 @@ include = ["wagtail*"]
   "static_src/**",
   "**/static_src/**",
 ]
-
 
 [tool.setuptools.dynamic]
 version = { attr = "wagtail.__version__" }
