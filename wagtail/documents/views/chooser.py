@@ -11,6 +11,7 @@ from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
     ChooseViewMixin,
+    ChosenMultipleViewMixin,
     ChosenResponseMixin,
     ChosenViewMixin,
     CreateViewMixin,
@@ -134,6 +135,19 @@ class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
+class DocumentChosenMultipleView(
+    ChosenMultipleViewMixin, DocumentChosenResponseMixin, View
+):
+    def get_objects(self, pks):
+        return permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ["choose"]
+        ).filter(pk__in=pks)
+
+    def get(self, request, *args, **kwargs):
+        self.model = get_document_model()
+        return super().get(request, *args, **kwargs)
+
+
 class DocumentChooserUploadView(
     CreateViewMixin, DocumentCreationFormMixin, DocumentChosenResponseMixin, View
 ):
@@ -186,6 +200,7 @@ class DocumentChooserViewSet(ChooserViewSet):
     choose_view_class = DocumentChooseView
     choose_results_view_class = DocumentChooseResultsView
     chosen_view_class = DocumentChosenView
+    chosen_multiple_view_class = DocumentChosenMultipleView
     create_view_class = DocumentChooserUploadView
     base_widget_class = BaseAdminDocumentChooser
     widget_telepath_adapter_class = DocumentChooserAdapter
