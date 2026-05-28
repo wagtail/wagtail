@@ -27,7 +27,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.encoding import force_bytes, force_str
-from django.utils.functional import Promise, cached_property
+from django.utils.functional import Promise, cached_property, classproperty
 from django.utils.log import log_response
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext
@@ -431,6 +431,14 @@ class AbstractPage(
         CommentPanelPlaceholder(),
     ]
 
+    @classproperty
+    def base_page_model(cls):
+        """
+        Returns the topmost concrete model in the MTI chain.
+        """
+        parents = cls._meta.all_parents
+        return parents[-1] if parents else cls
+
     # Privacy options for page
     private_page_options = ["password", "groups", "login"]
 
@@ -474,13 +482,13 @@ class AbstractPage(
 
         return request._wagtail_route_for_request
 
-    @staticmethod
-    def find_for_request(request: HttpRequest, path: str) -> Page | None:
+    @classmethod
+    def find_for_request(cls, request: HttpRequest, path: str) -> AbstractPage | None:
         """
         Find the page for the given HTTP request object, and URL path. The full
         page route will be cached via ``request._wagtail_route_for_request``.
         """
-        result = Page.route_for_request(request, path)
+        result = cls.base_page_model.route_for_request(request, path)
         if result is not None:
             return result[0]
 
@@ -560,7 +568,7 @@ class AbstractPage(
         suffix = 1
         parent_page = self.get_parent()
 
-        while not Page._slug_is_available(candidate_slug, parent_page, self):
+        while not self._slug_is_available(candidate_slug, parent_page, self):
             # try with incrementing suffix until we find a slug which is available
             suffix += 1
             candidate_slug = "%s-%d" % (base_slug, suffix)
@@ -625,7 +633,7 @@ class AbstractPage(
 
     def _check_slug_is_unique(self):
         parent_page = self.get_parent()
-        if not Page._slug_is_available(self.slug, parent_page, self):
+        if not self._slug_is_available(self.slug, parent_page, self):
             raise ValidationError(
                 {
                     "slug": _(
@@ -712,7 +720,7 @@ class AbstractPage(
                 # see if the slug has changed from the record in the db, in which case we need to
                 # update url_path of self and all descendants. Even though we might not need it,
                 # the specific page is fetched here for sending to the 'page_slug_changed' signal.
-                old_record = Page.objects.get(id=self.id).specific
+                old_record = self.specific_class.objects.get(id=self.id)
                 if old_record.slug != self.slug:
                     self.set_url_path(self.get_parent())
                     slug_changed = True
@@ -837,7 +845,7 @@ class AbstractPage(
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
         (
-            Page.objects.filter(path__startswith=self.path)
+            self.base_page_model.objects.filter(path__startswith=self.path)
             .exclude(pk=self.pk)
             .update(
                 url_path=Concat(
@@ -869,7 +877,7 @@ class AbstractPage(
                 # And update = False
                 subpage._cached_parent_obj = self
 
-            except Page.DoesNotExist as e:
+            except self.base_page_model.DoesNotExist as e:
                 raise Http404 from e
 
             return subpage.specific.route(request, remaining_components)
@@ -934,7 +942,7 @@ class AbstractPage(
                         "Cannot overwrite a revision that is not the latest for "
                         "this %(model_name)s."
                     )
-                    % {"model_name": Page._meta.verbose_name}
+                    % {"model_name": self.base_page_model._meta.verbose_name}
                 )
 
             if overwrite_revision.user_id != (user and user.pk):
@@ -1500,7 +1508,7 @@ class AbstractPage(
                 ]
 
                 for model in cls._clean_subpage_models:
-                    if not issubclass(model, Page):
+                    if not issubclass(model, cls.base_page_model):
                         raise LookupError("%s is not a Page subclass" % model)
 
         return cls._clean_subpage_models
@@ -1525,7 +1533,7 @@ class AbstractPage(
                 ]
 
                 for model in cls._clean_parent_page_models:
-                    if not issubclass(model, Page):
+                    if not issubclass(model, cls.base_page_model):
                         raise LookupError("%s is not a Page subclass" % model)
 
         return cls._clean_parent_page_models
@@ -1847,21 +1855,21 @@ class AbstractPage(
         Returns a queryset of the current page's ancestors, starting at the root page
         and descending to the parent, or to the current page itself if ``inclusive`` is true.
         """
-        return Page.objects.ancestor_of(self, inclusive)
+        return self.base_page_model.objects.ancestor_of(self, inclusive)
 
     def get_descendants(self, inclusive=False):
         """
         Returns a queryset of all pages underneath the current page, any number of levels deep.
         If ``inclusive`` is true, the current page itself is included in the queryset.
         """
-        return Page.objects.descendant_of(self, inclusive)
+        return self.base_page_model.objects.descendant_of(self, inclusive)
 
     def get_siblings(self, inclusive=True):
         """
         Returns a queryset of all other pages with the same parent as the current page.
         If ``inclusive`` is true, the current page itself is included in the queryset.
         """
-        return Page.objects.sibling_of(self, inclusive)
+        return self.base_page_model.objects.sibling_of(self, inclusive)
 
     def get_next_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__gte=self.path).order_by("path")
