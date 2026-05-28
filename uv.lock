@@ -3011,6 +3011,15 @@ wheels = [
 ]
 
 [[package]]
+name = "swapper"
+version = "1.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9b/3b/98ea1cfc04dc9805d58c5a96dd006f5d88a5a32b7b05e1f5a1c00363bb9a/swapper-1.4.0.tar.gz", hash = "sha256:9e083af114ee0593241a7b877e3e0e7d3a580454f5d59016c667a5563306f8fe", size = 12668, upload-time = "2024-08-14T19:36:07.539Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e9/53/c59363308ef97507a680372471e25e1ebab2e706a45a7c416eea6474c928/swapper-1.4.0-py2.py3-none-any.whl", hash = "sha256:57b8378aad234242542fe32dc6e8cff0ed24b63493d20b3c88ee01f894b9345e", size = 7106, upload-time = "2024-08-14T19:36:06.247Z" },
+]
+
+[[package]]
 name = "tabulate"
 version = "0.10.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3210,6 +3219,7 @@ dependencies = [
     { name = "pillow" },
     { name = "pydantic" },
     { name = "requests" },
+    { name = "swapper" },
     { name = "telepath" },
     { name = "willow", extra = ["heif"] },
 ]
@@ -3300,6 +3310,7 @@ requires-dist = [
     { name = "sphinxcontrib-httpdomain", marker = "extra == 'docs'", specifier = ">=1.5.0" },
     { name = "sphinxcontrib-openapi", marker = "extra == 'docs'", specifier = ">=0.9.0" },
     { name = "sphinxcontrib-spelling", marker = "extra == 'docs'", specifier = ">=8,<9" },
+    { name = "swapper", specifier = ">=1.4,<2" },
     { name = "tblib", marker = "extra == 'testing'", specifier = ">=3.0,<4.0" },
     { name = "telepath", specifier = ">=0.3.1,<1" },
     { name = "ty", marker = "extra == 'testing'", specifier = "==0.0.61" },
