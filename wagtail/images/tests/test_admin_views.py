@@ -1,6 +1,7 @@
 import datetime
 import json
 import urllib
+from http import HTTPStatus
 from unittest.mock import patch
 
 from django.conf import settings
@@ -2328,24 +2329,55 @@ class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(response.context["results"][0], image)
 
 
-class TestImageChooserChosenView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
+class TestImageChooserChosenMixin:
+    @classmethod
+    def setUpTestData(cls):
+        cls.superuser = cls.create_test_user()
 
-        # Create an image to edit
-        self.image = Image.objects.create(
+        limited_group = Group.objects.create(name="Limited access")
+        limited_group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # Create the "limited" Collection and grant "choose" permission to the limited access group.
+        root = Collection.objects.get(id=get_root_collection_id())
+        cls.limited_collection = root.add_child(
+            instance=Collection(name="Limited collection")
+        )
+        GroupCollectionPermission.objects.create(
+            group=limited_group,
+            collection=cls.limited_collection,
+            permission=Permission.objects.get(
+                content_type__app_label="wagtailimages", codename="choose_image"
+            ),
+        )
+
+        cls.limited_user = cls.create_user(username="limited_user", password="password")
+        cls.limited_user.groups.add(limited_group)
+
+
+class TestImageChooserChosenView(
+    TestImageChooserChosenMixin, WagtailTestUtils, TestCase
+):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        cls.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
             description="Test description",
         )
 
-    def get(self, params=None):
+    def get(self, image_id, params=None):
         return self.client.get(
-            reverse("wagtailimages_chooser:chosen", args=(self.image.id,)), params
+            reverse("wagtailimages_chooser:chosen", args=(image_id,)), params
         )
 
     def test_simple(self):
-        response = self.get()
+        self.client.force_login(self.superuser)
+        response = self.get(self.image.pk)
         self.assertEqual(response.status_code, 200)
 
         response_json = json.loads(response.content.decode())
@@ -2359,8 +2391,9 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         )
 
     def test_with_multiple_flag(self):
+        self.client.force_login(self.superuser)
         # if 'multiple' is passed as a URL param, the result should be returned as a single-item list
-        response = self.get(params={"multiple": 1})
+        response = self.get(self.image.pk, params={"multiple": 1})
         self.assertEqual(response.status_code, 200)
 
         response_json = json.loads(response.content.decode())
@@ -2375,42 +2408,61 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
             response_json["result"][0]["default_alt_text"], "Test description"
         )
 
+    def test_get_with_limited_collection_access(self):
+        self.client.force_login(self.limited_user)
+        accessible_image = Image.objects.create(
+            title="Accessible image",
+            file=get_test_image_file(),
+            description="Test description",
+            collection=self.limited_collection,
+        )
 
-class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
+        # should not have access to images outside their allowed collection
+        response = self.get(self.image.pk)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
 
-        # Create an image to edit
-        self.image1 = Image.objects.create(
+        response = self.get(accessible_image.pk)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, accessible_image.title)
+
+
+class TestImageChooserChosenMultipleView(
+    TestImageChooserChosenMixin, WagtailTestUtils, TestCase
+):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        cls.image1 = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
             description="Test description",
         )
-        self.image2 = Image.objects.create(
+        cls.image2 = Image.objects.create(
             title="Another test image",
             file=get_test_image_file(),
             description="Another test description",
+            collection=cls.limited_collection,
         )
 
-        self.image3 = Image.objects.create(
+        cls.image3 = Image.objects.create(
             title="Unchosen test image",
             file=get_test_image_file(),
             description="Unchosen test description",
         )
 
-    def get(self, params=None):
-        return self.client.get(
-            "%s?id=%d&id=%d"
-            % (
-                reverse("wagtailimages_chooser:chosen_multiple"),
-                self.image1.pk,
-                self.image2.pk,
-            )
-        )
+        cls.chosen_url = reverse("wagtailimages_chooser:chosen_multiple")
 
     def test_get(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
+        self.client.force_login(self.superuser)
+        response = self.client.get(
+            f"{self.chosen_url}?id={self.image1.pk}&id={self.image2.pk}"
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "chosen")
@@ -2419,6 +2471,21 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.assertEqual(titles, {"Test image", "Another test image"})
         alt_texts = {item["default_alt_text"] for item in response_json["result"]}
         self.assertEqual(alt_texts, {"Test description", "Another test description"})
+
+    def test_get_with_limited_collection_access(self):
+        self.client.force_login(self.limited_user)
+        response = self.client.get(
+            f"{self.chosen_url}?id={self.image1.pk}&id={self.image2.pk}"
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(len(response_json["result"]), 1)
+        item = response_json["result"][0]
+        self.assertEqual(item["title"], "Another test image")
+        self.assertEqual(item["default_alt_text"], "Another test description")
 
 
 class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
