@@ -82,11 +82,6 @@ class TestChooser(WagtailTestUtils, TestCase):
     def get(self, params=None):
         return self.client.get(reverse("wagtaildocs_chooser:choose"), params or {})
 
-    def get_chosen(self, doc_id, params=None):
-        return self.client.get(
-            reverse("wagtaildocs_chooser:chosen", args=(doc_id,)), params or {}
-        )
-
     def test_chooser_docs_exist(self):
         # given an editor with access to admin panel
         self.login_as_editor()
@@ -98,7 +93,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get()
 
         # then chooser template is used
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # and document is displayed
         self.assertContains(response, doc_title)
@@ -124,7 +119,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get()
 
         # Confirm that the chooser opened successfully.
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # Ensure that the bun recipe is visible, but the payroll is not.
         self.assertContains(response, bun_recipe_title)
@@ -140,7 +135,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get()
 
         # Confirm that the chooser opened successfully.
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # Ensure that the Collection chooser is not visible, because the Baker cannot
         # choose from multiple Collections.
@@ -159,34 +154,11 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get()
 
         # Confirm that the chooser opened successfully.
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # Ensure that the Collection chooser IS visible, because the Baker can now
         # choose from multiple Collections.
         self.assertContains(response, "Collection")
-
-    def test_chooser_chosen_doc(self):
-        # Log in as baker who has access to the Bakery collection only
-        self.login_as_baker()
-        # and a document in the database
-        inaccessible_doc = Document.objects.create(title="document.pdf")
-
-        bun_recipe_title = "bun_recipe.pdf"
-        accessible_doc = Document.objects.create(
-            title=bun_recipe_title, collection=Collection.objects.get(name="Bakery")
-        )
-
-        # should not be able to access a doc outside the allowed collection
-        response = self.get_chosen(inaccessible_doc.pk)
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertEqual(
-            response.context["message"],
-            "Sorry, you do not have permission to access this area.",
-        )
-
-        response = self.get_chosen(accessible_doc.pk)
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertContains(response, bun_recipe_title)
 
     def test_chooser_no_docs_upload_allowed(self):
         # given a superuser and no documents in the database
@@ -196,7 +168,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get()
 
         # then chooser template is used
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # and hint "You haven't uploaded any documents. Why not upload one now?" is displayed
         self.assertContains(response, self._NO_DOCS_TEXT)
@@ -211,7 +183,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get()
 
         # then chooser template is used
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # and the following hint is displayed:
         # "You haven't uploaded any documents in this collection. Why not upload one now?"
@@ -229,7 +201,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get({"q": ""})
 
         # then results template is used
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and document is displayed
         self.assertContains(response, doc_title)
@@ -246,7 +218,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get({"q": ""})
 
         # then results template is used
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and hint "You haven't uploaded any documents. Why not upload one now?" is displayed
         self.assertContains(response, self._NO_DOCS_TEXT)
@@ -261,7 +233,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get({"q": ""})
 
         # then results template is used
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and hint "You haven't uploaded any documents." is displayed
         self.assertContains(response, self._NO_DOCS_TEXT)
@@ -283,7 +255,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get({"q": "", "collection_id": empty_collection.id})
 
         # then results template is used
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and the following hint is displayed:
         # "You haven't uploaded any documents in this collection. Why not upload one now?"
@@ -304,7 +276,7 @@ class TestChooser(WagtailTestUtils, TestCase):
         response = self.get({"q": "", "collection_id": empty_collection.id})
 
         # then results template is used
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and hint "You haven't uploaded any documents in this collection." is displayed
         self.assertContains(response, self._NO_COLLECTION_DOCS_TEXT)
@@ -339,6 +311,58 @@ class TestDocumentChooserChosenMixin:
         cls.limited_user.groups.add(limited_group)
 
         cls.document = Document.objects.create(title="An private document")
+
+
+class TestDocumentChooserChosenView(
+    TestDocumentChooserChosenMixin, WagtailTestUtils, TestCase
+):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        cls.limited_collection_document = Document.objects.create(
+            title="Limited collection document", collection=cls.limited_collection
+        )
+
+    def get(self, doc_id, params=None):
+        return self.client.get(
+            reverse("wagtaildocs_chooser:chosen", args=(doc_id,)), params or {}
+        )
+
+    def test_simple(self):
+        self.client.force_login(self.superuser)
+        response = self.get(self.document.pk)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(response_json["result"]["title"], self.document.title)
+
+    def test_with_multiple_flag(self):
+        self.client.force_login(self.superuser)
+        # if 'multiple' is passed as a URL param, the result should be returned as a single-item list
+        response = self.get(self.document.pk, params={"multiple": 1})
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(len(response_json["result"]), 1)
+        self.assertEqual(response_json["result"][0]["title"], self.document.title)
+
+    def test_get_with_limited_collection_access(self):
+        self.client.force_login(self.limited_user)
+
+        # should not be able to access a doc outside the allowed collection
+        response = self.get(self.document.pk)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        response = self.get(self.limited_collection_document.pk)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, self.limited_collection_document.title)
 
 
 class TestDocumentChooserChosenMultipleView(
