@@ -6,6 +6,7 @@ import posixpath
 import uuid
 import warnings
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericRelation
@@ -91,6 +92,7 @@ COMMENTS_RELATION_NAME = getattr(
 
 @receiver(pre_validate_delete, sender=Locale)
 def reassign_root_page_locale_on_delete(sender, instance, **kwargs):
+    Page = swapper.load_model("wagtailcore", "Page")
     # if we're deleting the locale used on the root page node, reassign that to a new locale first
     root_page_with_this_locale = Page.objects.filter(depth=1, locale=instance)
     if root_page_with_this_locale.exists():
@@ -124,6 +126,7 @@ def get_page_content_types(include_base_page_type=True):
     """
     models = get_page_models()
     if not include_base_page_type:
+        Page = swapper.load_model("wagtailcore", "Page")
         models.remove(Page)
 
     content_type_ids = [
@@ -211,6 +214,7 @@ class BasePageManager(MP_NodeManager):
         to ensure any references to the queryset in the view's context are updated
         (e.g. when using ``context_object_name``).
         """
+        Page = swapper.load_model("wagtailcore", "Page")
         parent_page_paths = {
             Page._get_parent_path_from_path(page.path) for page in pages
         }
@@ -262,6 +266,7 @@ class PageBase(models.base.ModelBase):
 
         if not cls._meta.abstract:
             # register this type in the list of page content types
+            # FIXME: only do this for descendants of the registered base page model
             PAGE_MODEL_CLASSES.append(cls)
 
 
@@ -2144,6 +2149,8 @@ class Page(AbstractPage):
                 # can define show_in_menus without doing this
 
     class Meta:
+        swappable = swapper.swappable_setting("wagtailcore", "Page")
+
         # FIXME: what is the consequence of custom base page models not setting verbose_name and verbose_name_plural?
         # Can we set this as a default on AbstractPage without it being picked up by all subclasses of Page?
         verbose_name = _("page")
@@ -2191,7 +2198,7 @@ class GroupPagePermission(models.Model):
         on_delete=models.CASCADE,
     )
     page = models.ForeignKey(
-        "Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("page"),
         related_name="group_permissions",
         on_delete=models.CASCADE,
@@ -2508,7 +2515,7 @@ class PagePermissionTester:
 
 class PageViewRestriction(BaseViewRestriction):
     page = models.ForeignKey(
-        "Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("page"),
         related_name="view_restrictions",
         on_delete=models.CASCADE,
@@ -2575,7 +2582,7 @@ class PageViewRestriction(BaseViewRestriction):
 
 class WorkflowPage(models.Model):
     page = models.OneToOneField(
-        "Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         verbose_name=_("page"),
         on_delete=models.CASCADE,
         primary_key=True,
@@ -2594,7 +2601,7 @@ class WorkflowPage(models.Model):
 
         This includes all descendants of the page excluding any that have other ``WorkflowPage``(s).
         """
-        descendant_pages = Page.objects.descendant_of(self.page, inclusive=True)
+        descendant_pages = self.page.get_descendants(inclusive=True)
         descendant_workflow_pages = WorkflowPage.objects.filter(
             page_id__in=descendant_pages.values_list("id", flat=True)
         ).exclude(pk=self.pk)
@@ -2618,11 +2625,13 @@ class PageLogEntryQuerySet(LogEntryQuerySet):
         # for reporting purposes, pages of all types are combined under a single "Page"
         # object type
         if self.exists():
+            Page = swapper.load_model("wagtailcore", "Page")
             return {ContentType.objects.get_for_model(Page).pk}
         else:
             return set()
 
     def filter_on_content_type(self, content_type):
+        Page = swapper.load_model("wagtailcore", "Page")
         if content_type == ContentType.objects.get_for_model(Page):
             return self
         else:
@@ -2642,6 +2651,8 @@ class PageLogEntryManager(BaseLogEntryManager):
 
     def viewable_by_user(self, user):
         from wagtail.permissions import page_permission_policy
+
+        Page = swapper.load_model("wagtailcore", "Page")
 
         explorable_instances = page_permission_policy.explorable_instances(user)
         q = Q(page__in=explorable_instances.values_list("pk", flat=True))
@@ -2667,7 +2678,7 @@ class PageLogEntryManager(BaseLogEntryManager):
 
 class PageLogEntry(BaseLogEntry):
     page = models.ForeignKey(
-        "wagtailcore.Page",
+        swapper.get_model_name("wagtailcore", "Page"),
         on_delete=models.DO_NOTHING,
         db_constraint=False,
         related_name="+",
@@ -2711,7 +2722,9 @@ class Comment(ClusterableModel):
     """
 
     page = ParentalKey(
-        Page, on_delete=models.CASCADE, related_name=COMMENTS_RELATION_NAME
+        swapper.get_model_name("wagtailcore", "Page"),
+        on_delete=models.CASCADE,
+        related_name=COMMENTS_RELATION_NAME,
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -2885,7 +2898,11 @@ class PageSubscription(models.Model):
         on_delete=models.CASCADE,
         related_name="page_subscriptions",
     )
-    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="subscribers")
+    page = models.ForeignKey(
+        swapper.get_model_name("wagtailcore", "Page"),
+        on_delete=models.CASCADE,
+        related_name="subscribers",
+    )
 
     comment_notifications = models.BooleanField()
 
