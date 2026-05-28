@@ -1,3 +1,4 @@
+import json
 from http import HTTPStatus
 
 from django.contrib.auth.models import Group, Permission
@@ -308,3 +309,79 @@ class TestChooser(WagtailTestUtils, TestCase):
         # and hint "You haven't uploaded any documents in this collection." is displayed
         self.assertContains(response, self._NO_COLLECTION_DOCS_TEXT)
         self.assertNotContains(response, self._UPLOAD_ONE_TEXT)
+
+
+class TestDocumentChooserChosenMixin:
+    @classmethod
+    def setUpTestData(cls):
+        cls.superuser = cls.create_test_user()
+
+        limited_group = Group.objects.create(name="Limited access")
+        limited_group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # Create the "limited" Collection and grant "choose" permission to the limited access group.
+        root = Collection.objects.get(id=get_root_collection_id())
+        cls.limited_collection = root.add_child(
+            instance=Collection(name="Limited collection")
+        )
+        GroupCollectionPermission.objects.create(
+            group=limited_group,
+            collection=cls.limited_collection,
+            permission=Permission.objects.get(
+                content_type__app_label="wagtaildocs", codename="choose_document"
+            ),
+        )
+
+        cls.limited_user = cls.create_user(username="limited_user", password="password")
+        cls.limited_user.groups.add(limited_group)
+
+        cls.document = Document.objects.create(title="An private document")
+
+
+class TestDocumentChooserChosenMultipleView(
+    TestDocumentChooserChosenMixin, WagtailTestUtils, TestCase
+):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        cls.limited_collection_document = Document.objects.create(
+            title="Limited collection document", collection=cls.limited_collection
+        )
+
+        cls.unchosen_document = Document.objects.create(title="Unchosen document")
+
+        cls.chosen_url = reverse("wagtaildocs_chooser:chosen_multiple")
+
+    def test_get(self):
+        self.client.force_login(self.superuser)
+        response = self.client.get(
+            f"{self.chosen_url}?id={self.document.pk}&id={self.limited_collection_document.pk}"
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(len(response_json["result"]), 2)
+        titles = {item["title"] for item in response_json["result"]}
+        self.assertEqual(
+            titles, {self.document.title, self.limited_collection_document.title}
+        )
+
+    def test_get_with_limited_collection_access(self):
+        self.client.force_login(self.limited_user)
+        response = self.client.get(
+            f"{self.chosen_url}?id={self.document.pk}&id={self.limited_collection_document.pk}"
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(len(response_json["result"]), 1)
+        self.assertEqual(
+            response_json["result"][0]["title"], self.limited_collection_document.title
+        )
