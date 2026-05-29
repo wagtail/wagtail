@@ -14,7 +14,6 @@ from wagtail.admin import messages
 from wagtail.models import DraftStateMixin, Page, TranslatableMixin
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
-from ...permission_policies import ModelPermissionPolicy
 from .forms import SubmitTranslationForm
 
 
@@ -93,28 +92,6 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
 
         self.object = self.get_object()
 
-        # check that the current user has access to the given object
-        # note: added here, rather than the discrete views to cover non-snippet
-        if isinstance(self.object, Page):
-            perms = self.object.permissions_for_user(self.request.user)
-            has_access_to_object = (
-                perms.can_add_subpage()
-                or perms.can_edit()
-                or perms.can_publish()
-                or perms.can_lock()
-                or perms.can_unlock()
-            )
-        else:
-            permission_policy = ModelPermissionPolicy(self.model)
-            has_access_to_object = (
-                permission_policy.user_has_any_permission_for_instance(
-                    self.request.user, ["add", "change", "delete", "view"], self.object
-                )
-            )
-
-        if not has_access_to_object:
-            raise PermissionDenied
-
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -130,6 +107,9 @@ class SubmitPageTranslationView(SubmitTranslationView):
         # Can't translate the root page
         if page.is_root():
             raise Http404
+
+        if not page.permissions_for_user(self.request.user).can_edit():
+            raise PermissionDenied
 
         return page
 
