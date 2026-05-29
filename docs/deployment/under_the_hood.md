@@ -79,6 +79,21 @@ Wagtail, and by extension Django, can be deployed in many different ways on many
 
 Django has a [deployment checklist](inv:django#howto/deployment/checklist) which runs through everything you should have done or should be aware of before deploying a Django application.
 
+(logging_and_monitoring)=
+
+### Logging and monitoring
+
+In production, you'll typically want logs and metrics from several layers. Wagtail itself contributes:
+
+- The [audit log](audit_log) for sensitive CMS actions such as create, edit, delete, publish, and move.
+- Standard Django logging for request errors and form validation failures, configured via the Django [`LOGGING`](inv:django#LOGGING) setting.
+
+Common production additions include:
+
+- Error and performance monitoring. Instrumenting the Django application to better understand its runtime behavior.
+- Web server, reverse proxy, or CDN logs. For request volume, status codes, and rate limiting.
+- Web Application Firewall (WAF) logs. For attack-pattern detection.
+
 ### Performance optimization
 
 Your production site should be as fast and performant as possible. For tips on how to ensure Wagtail performs as well as possible, take a look at our [performance tips](performance_overview).

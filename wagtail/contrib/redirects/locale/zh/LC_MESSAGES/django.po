@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -47,6 +47,10 @@ msgstr "预览"
 
 msgid "To"
 msgstr "到"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "读不起，没有转向匹配\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""

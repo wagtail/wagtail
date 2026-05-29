@@ -1,4 +1,3 @@
-#
 # Translators:
 # Benoît Vogel <contact@spicy-informatique.com>, 2022
 # incognitae <pierre@onoffdesign.com>, 2022

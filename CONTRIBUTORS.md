@@ -965,6 +965,19 @@
 * Aditya Kammati
 * Kunal Hemnani
 * Aviral Sapra
+* Raghad Dahi
+* Divyansh Mishra
+* mikko2577
+* Kalash Kumari Thakur
+* Aniket Singh
+* Seoyoung Kang
+* Vishal Shukla
+* Sanjok Karki
+* Amrinder Singh
+* Kailesh
+* Nayeli De Jesus
+* Sahil Kumar
+* Rob Brackett
 
 ## Translators
 

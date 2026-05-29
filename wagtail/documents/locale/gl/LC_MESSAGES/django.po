@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022,2024-2025
+# X Bello <xbello@gmail.com>, 2022,2024-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022,2024-2025\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022,2024-2026\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,22 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Documentos de Wagtail"
+
+#, python-format
+msgid "Maximum filesize: %(max_upload_size)s."
+msgstr "Máximo tamaño de arquivo: %(max_upload_size)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Este arquivo é demasiado grande (%(file_size)s). Tamaño máximo de arquivo "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Este arquivo é demasiado grande. Tamaño máximo de arquivo %(max_filesize)s."
 
 msgid "Collection"
 msgstr "Colección"
@@ -256,10 +272,10 @@ msgid "You need a password to access this document."
 msgstr "Necesitas un contrasinal para acceder a este documento."
 
 msgid "Document permissions"
-msgstr "Permisos do documento"
+msgstr "Permisos de documento"
 
 msgid "Add a document permission"
-msgstr "Engadir un permiso ao documento"
+msgstr "Engadir un permiso de documento"
 
 msgid "Tags"
 msgstr "Etiquetas"

@@ -1,0 +1,55 @@
+@use '../tools' as *;
+@use '../settings' as *;
+
+// <wagtail-inline-userbar> component, inserted as a sibling
+// after a target element so annotations follow DOM/tab order.
+// Risks conflicts with CSS sibling / hierarchy selectors (+, ~, :nth-child, :last-child).
+// stylelint-disable-next-line selector-type-no-unknown
+:host(wagtail-inline-userbar) {
+  position: absolute;
+  z-index: 9998;
+  pointer-events: auto;
+  top: var(--inline-userbar-top);
+  inset-inline-start: var(--inline-userbar-inline-start);
+  // Counter-scale to remain legible when the preview iframe is scaled down.
+  transform: translate(calc(var(--w-direction-factor) * -50%), -50%)
+    scale(var(--inline-userbar-scale, 1));
+}
+
+.w-inline-userbar__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: theme('spacing.6');
+  height: theme('spacing.6');
+  border-radius: theme('borderRadius.full');
+  border: 2px solid theme('colors.white.DEFAULT');
+  background-color: theme('colors.critical.200');
+  cursor: pointer;
+  padding: 0;
+  box-shadow: $userbar-box-shadow;
+  transition: transform 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    @apply w-scale-110;
+
+    outline: 3px solid theme('colors.focus');
+    outline-offset: 1px;
+  }
+
+  svg {
+    width: theme('spacing.[3.5]');
+    height: theme('spacing.[3.5]');
+    fill: theme('colors.white.DEFAULT');
+    pointer-events: none;
+    position: relative;
+    top: -1px;
+  }
+}
+
+.w-inline-userbar__content {
+  font-family: theme('fontFamily.sans');
+  max-width: 320px;
+  min-width: 260px;
+}

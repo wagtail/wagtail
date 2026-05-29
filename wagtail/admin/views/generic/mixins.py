@@ -373,6 +373,7 @@ class CreateEditViewOptionalFeaturesMixin:
         return False
 
     def workflow_action_is_valid(self):
+        # The workflow might have been cancelled/ended after the page was loaded
         if not self.current_workflow_task:
             return False
         self.workflow_action = self.request.POST.get("workflow-action-name")

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -59,6 +59,10 @@ msgid "Delete"
 msgstr "Hapus"
 
 #, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' dihapus."
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Hapus %(snippet_type_name)s"
 
@@ -75,6 +79,11 @@ msgstr "Apakah anda yakin untuk menghapus %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Ya, hapus"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Maaf, tidak ada potongan yang sesuai dengan \"<em>%(search_query)s</em>\""
 
 msgid "Publishing…"
 msgstr "Mempublikasikan..."

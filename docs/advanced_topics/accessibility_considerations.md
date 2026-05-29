@@ -124,7 +124,7 @@ Wagtail includes an content checker built into the [user bar](wagtailuserbar_tag
 
 The checker is based on the [Axe](https://github.com/dequelabs/axe-core) testing engine and scans the loaded page for errors.
 
-By default, the checker includes the following rules to find common accessibility issues in authored content:
+By default, the checker includes the following rules to find common issues in authored content:
 
 -   `button-name`: `<button>` elements must always have a text label.
 -   `empty-heading`: This rule checks for headings with no text content. Empty headings are confusing to screen readers users and should be avoided.
@@ -135,6 +135,7 @@ By default, the checker includes the following rules to find common accessibilit
 -   `link-name`: `<a>` link elements must always have a text label.
 -   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
 -   `alt-text-quality`: A custom rule ensures that image alt texts don't contain anti-patterns like file extensions and underscores.
+-   `empty-meta-description`: An SEO-focused rule to make sure meta description tags always contain content when present.
 
 To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.ContentCheckerItem` and override the attributes to your liking. Then, swap the instance of the default `ContentCheckerItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 

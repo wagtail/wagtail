@@ -2783,6 +2783,37 @@ class TestStructBlock(SimpleTestCase):
         )
         self.assertIsInstance(block.child_blocks["description"], blocks.TextBlock)
 
+    def test_with_multiple_missing_blocks_in_form_layout(self):
+        # Regression test for https://github.com/wagtail/wagtail/issues/14242:
+        # when more than one block is missing from form_layout, those blocks
+        # (including any added via local_blocks) must be appended to
+        # child_blocks in a stable order to avoid spurious migrations
+        # across runs. To reproduce the failure against the un-fixed code,
+        # run this test with a certain seed, e.g. PYTHONHASHSEED=1.
+        class ArticleBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+            description = blocks.TextBlock()
+            author = blocks.CharBlock()
+            published_date = blocks.DateBlock()
+
+            class Meta:
+                form_layout = BlockGroup(children=["link"])
+
+        block = ArticleBlock(local_blocks=[("extra", blocks.CharBlock())])
+
+        self.assertEqual(
+            list(block.child_blocks.keys()),
+            ["link", "title", "description", "author", "published_date", "extra"],
+        )
+        self.assertIsInstance(block.child_blocks["extra"], blocks.CharBlock)
+
+        _, args, _ = block.deconstruct()
+        self.assertEqual(
+            [name for name, _block in args[0]],
+            ["link", "title", "description", "author", "published_date", "extra"],
+        )
+
     def test_adapt_with_get_form_layout(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -4305,11 +4336,15 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
 
-        self.assertIn('<div class="block-heading">My title</div>', html)
+        self.assertIn('<div class="w-block-heading block-heading">My title</div>', html)
         self.assertIn(
-            '<div class="block-paragraph">My <i>first</i> paragraph</div>', html
+            '<div class="w-block-paragraph block-paragraph">My <i>first</i> paragraph</div>',
+            html,
         )
-        self.assertIn('<div class="block-paragraph">My second paragraph</div>', html)
+        self.assertIn(
+            '<div class="w-block-paragraph block-paragraph">My second paragraph</div>',
+            html,
+        )
 
     def test_render_unknown_type(self):
         # This can happen if a developer removes a type from their StreamBlock
@@ -4327,7 +4362,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertNotIn("foo", html)
         self.assertNotIn("Hello", html)
-        self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
+        self.assertIn(
+            '<div class="w-block-paragraph block-paragraph">My first paragraph</div>',
+            html,
+        )
 
     def test_render_calls_block_render_on_children(self):
         """
@@ -4345,12 +4383,16 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
         value = block.to_python([{"type": "heading", "value": "Hello"}])
         html = block.render(value)
-        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+        self.assertIn(
+            '<div class="w-block-heading block-heading"><h1>Hello</h1></div>', html
+        )
 
         # calling render_as_block() on value (a StreamValue instance)
         # should be equivalent to block.render(value)
         html = value.render_as_block()
-        self.assertIn('<div class="block-heading"><h1>Hello</h1></div>', html)
+        self.assertIn(
+            '<div class="w-block-heading block-heading"><h1>Hello</h1></div>', html
+        )
 
     def test_render_passes_context_to_children(self):
         block = blocks.StreamBlock(
@@ -4370,7 +4412,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
         self.assertIn(
-            '<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html
+            '<div class="w-block-heading block-heading"><h1 lang="fr">Bonjour</h1></div>',
+            html,
         )
 
         # calling render_as_block(context=foo) on value (a StreamValue instance)
@@ -4381,7 +4424,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             }
         )
         self.assertIn(
-            '<div class="block-heading"><h1 lang="fr">Bonjour</h1></div>', html
+            '<div class="w-block-heading block-heading"><h1 lang="fr">Bonjour</h1></div>',
+            html,
         )
 
     def test_render_on_stream_child_uses_child_template(self):

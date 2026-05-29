@@ -1,4 +1,5 @@
 from datetime import timedelta
+from http import HTTPStatus
 from io import StringIO
 
 from django.conf import settings
@@ -599,6 +600,27 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             response,
             f"Revision {revision.id} from {render_timestamp(revision.created_at)} unscheduled from publishing at {render_timestamp(go_live_at)}.",
         )
+
+    def test_page_history_requires_edit_permission_for_access(self):
+        # the editor user only has access to the Hello page and its children
+        self.login(user=self.editor)
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:history", kwargs={"page_id": self.about_page.id}
+            ),
+        )
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:history", kwargs={"page_id": self.hello_page.id}
+            ),
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_num_queries(self):
         self.login(user=self.editor)

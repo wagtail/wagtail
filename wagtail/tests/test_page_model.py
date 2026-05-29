@@ -73,6 +73,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 
 def get_ct(model):
@@ -362,6 +363,19 @@ class TestSiteRouting(TestCase):
         request.META["HTTP_HOST"] = "disallowed:80"
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_get_site_root_paths_deprecation(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail90Warning,
+            "The `request` kwarg in `Page._get_site_root_paths()` "
+            "is now `cache_object`.",
+        ):
+            self.assertEqual(
+                self.events_site.root_page._get_site_root_paths(
+                    request=get_dummy_request()
+                ),
+                Site.get_site_root_paths(),
+            )
 
 
 class TestRouting(TestCase):

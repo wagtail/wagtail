@@ -1,4 +1,3 @@
-#
 # Translators:
 # ime11 <pmh.yourworstnightmare@gmail.com>, 2026
 #

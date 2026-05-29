@@ -6,7 +6,7 @@
 
 import { Application } from '@hotwired/stimulus';
 import A11yDialog from 'a11y-dialog';
-import axe, { Check } from 'axe-core';
+import axe, { AxeResults, Check } from 'axe-core';
 
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
@@ -20,6 +20,7 @@ import {
   renderCheckerResults,
 } from './contentChecker';
 import { contentExtractorPluginInstance } from './contentMetrics';
+import { InlineUserbar } from './inlineUserbar';
 import { wagtailPreviewPlugin } from './previewPlugin';
 
 /**
@@ -36,6 +37,7 @@ export class Userbar extends HTMLElement {
   /** Target origin for cross-domain `window.postMessage` calls. */
   declare origin: string;
   declare axeConfig: WagtailAxeConfiguration | null;
+  private annotations: InlineUserbar[] = [];
 
   connectedCallback() {
     const template = document.querySelector<HTMLTemplateElement>(
@@ -63,15 +65,13 @@ export class Userbar extends HTMLElement {
       return;
     }
 
-    const inCrossOriginIframe = this.inCrossOriginIframe;
-
     // Get the origin from the data attribute only if we are in a cross-origin
     // iframe, as it's only needed in that case. Using the data attribute in a
     // same-origin iframe will cause issues if it is not set to the correct
     // value, which can happen in page previews if the page's site root host is
     // different from the host where the admin is accessed.
     const origin =
-      (inCrossOriginIframe &&
+      (this.inCrossOriginIframe &&
         userbar.getAttribute('data-wagtail-userbar-origin')) ||
       '';
     // Use URL() and the current origin as a base, to allow both absolute and
@@ -330,11 +330,9 @@ export class Userbar extends HTMLElement {
     this.handleMessage = this.handleMessage.bind(this);
     this.onWindowLoad = this.onWindowLoad.bind(this);
 
-    // If we are in a cross-origin iframe, request the parent to restore the
-    // scroll position of the preview panel's previous iframe to this one.
-    if (inCrossOriginIframe) {
-      window.addEventListener('message', this.handleMessage);
-    }
+    // Listen for messages from the parent window (e.g. preview scale).
+    // Also handles scroll position restoration in cross-origin iframes.
+    window.addEventListener('message', this.handleMessage);
 
     // The page may already be loaded, e.g. when the userbar is loaded via AJAX.
     // In this case, we need to call the initialisation function immediately.
@@ -436,16 +434,8 @@ export class Userbar extends HTMLElement {
     const rowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
       '#w-content-checker-row-template',
     );
-    const outlineTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
-      '#w-content-checker-outline-template',
-    );
 
-    if (
-      !this.axeConfig ||
-      !checkerResultsBox ||
-      !rowTemplate ||
-      !outlineTemplate
-    ) {
+    if (!this.axeConfig || !checkerResultsBox || !rowTemplate) {
       return;
     }
 
@@ -470,61 +460,12 @@ export class Userbar extends HTMLElement {
     });
 
     const onClickSelector = (selectorName: string) => {
-      const targetElement = document.querySelector<HTMLElement>(selectorName);
-      const outlineContainer = this.shadowRoot?.querySelector<HTMLElement>(
-        '[data-content-checker-outline-container]',
+      const annotation = this.annotations.find(
+        (el) => el.dataset.selector === selectorName,
       );
-      if (outlineContainer?.firstElementChild) {
-        outlineContainer.removeChild(outlineContainer.firstElementChild);
+      if (annotation) {
+        annotation.focusTarget();
       }
-      outlineContainer?.appendChild(outlineTemplate.content.cloneNode(true));
-      const currentOutline = this.shadowRoot?.querySelector<HTMLElement>(
-        '[data-content-checker-outline]',
-      );
-      if (
-        !this.shadowRoot ||
-        !targetElement ||
-        !currentOutline ||
-        !outlineContainer
-      )
-        return;
-
-      const styleOutline = () => {
-        const rect = targetElement.getBoundingClientRect();
-        currentOutline.style.cssText = `
-        top: ${
-          rect.height < 5
-            ? `${rect.top + window.scrollY - 2.5}px`
-            : `${rect.top + window.scrollY}px`
-        };
-        left: ${
-          rect.width < 5
-            ? `${rect.left + window.scrollX - 2.5}px`
-            : `${rect.left + window.scrollX}px`
-        };
-        width: ${Math.max(rect.width, 5)}px;
-        height: ${Math.max(rect.height, 5)}px;
-        position: absolute;
-        z-index: 129;
-        outline: 1px solid #CD4444;
-        box-shadow: 0px 0px 12px 1px #FF0000;
-        pointer-events: none;
-        `;
-      };
-
-      styleOutline();
-
-      window.addEventListener('resize', styleOutline);
-
-      targetElement.style.scrollMargin = '6.25rem';
-      targetElement.scrollIntoView();
-      targetElement.focus();
-
-      checkerResultsBox.addEventListener('hide', () => {
-        currentOutline.style.cssText = '';
-
-        window.removeEventListener('resize', styleOutline);
-      });
     };
 
     renderCheckerResults(
@@ -535,6 +476,8 @@ export class Userbar extends HTMLElement {
       onClickSelector,
     );
 
+    this.createAnnotations(results, this.axeConfig);
+
     // Notify the parent window when the userbar (and thus Axe) has been
     // initialized and is ready, so that it can re-run Axe against this window.
     // We do this here instead of in connectedCallback() or initializeAxe() to
@@ -544,6 +487,21 @@ export class Userbar extends HTMLElement {
     // This also allows custom code in the frontend to trigger a re-run of the
     // checks both in the frontend and in the editor by calling this method.
     this.postAxeReady();
+  }
+
+  private createAnnotations(
+    results: AxeResults,
+    config: WagtailAxeConfiguration,
+  ) {
+    InlineUserbar.clearAnnotations(this.annotations);
+    this.annotations = [];
+
+    if (!results.violations.length) return;
+
+    this.annotations = InlineUserbar.createAnnotations(
+      results.violations,
+      config.messages,
+    );
   }
 
   get inCrossOriginIframe() {
@@ -590,14 +548,20 @@ export class Userbar extends HTMLElement {
         window.scrollTo({ top: data.y, left: data.x, behavior: 'instant' });
         break;
 
+      case 'w-preview:set-scale':
+        for (const annotation of this.annotations) {
+          annotation.setScale(data.scale);
+        }
+        break;
+
       default:
         break;
     }
   }
 
   disconnectedCallback() {
-    if (this.inCrossOriginIframe) {
-      window.removeEventListener('message', this.handleMessage);
-    }
+    InlineUserbar.clearAnnotations(this.annotations);
+    this.annotations = [];
+    window.removeEventListener('message', this.handleMessage);
   }
 }

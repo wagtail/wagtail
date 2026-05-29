@@ -1,6 +1,7 @@
 import datetime
 import json
 import urllib
+import warnings
 from unittest.mock import patch
 
 from django.conf import settings
@@ -23,6 +24,7 @@ from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+from PIL import Image as PILImage
 from willow.optimizers.base import OptimizerBase
 from willow.registry import registry
 
@@ -1206,6 +1208,48 @@ class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             "file",
             "This file has too many pixels (307200). Maximum pixels 1.",
         )
+
+    def test_add_pillow_too_many_pixels(self):
+        cases = [
+            # WAGTAILIMAGES_MAX_IMAGE_PIXELS, PILImage.MAX_IMAGE_PIXELS,
+            # image size, warnings filter action, expected error threshold
+            (None, 20, (5, 10), "default", 40),  # Two times the Pillow soft limit
+            (None, 20, (2, 11), "error", 20),  # Pillow soft limit becomes hard limit
+            (10, 4, (3, 3), "default", 8),  # Pillow hard limit < pixels < Wagtail limit
+        ]
+        for wagtail_limit, pillow_limit, image_size, warning_action, expected in cases:
+            with (
+                self.subTest(
+                    wagtail_limit=wagtail_limit,
+                    pillow_limit=pillow_limit,
+                    image_size=image_size,
+                    warning_action=warning_action,
+                ),
+                override_settings(WAGTAILIMAGES_MAX_IMAGE_PIXELS=wagtail_limit),
+                patch.object(PILImage, "MAX_IMAGE_PIXELS", pillow_limit),
+                warnings.catch_warnings(),
+            ):
+                warnings.simplefilter(warning_action, PILImage.DecompressionBombWarning)
+
+                file_content = get_test_image_file(size=image_size).file.getvalue()
+                response = self.post(
+                    {
+                        "title": "Test image",
+                        "file": SimpleUploadedFile("test.png", file_content),
+                    }
+                )
+
+                # Shouldn't redirect anywhere
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, "wagtailimages/images/add.html")
+
+                # The form should have an error
+                self.assertFormError(
+                    response.context["form"],
+                    "file",
+                    "This file has too many pixels (unknown number). "
+                    f"Maximum pixels {expected}.",
+                )
 
     def test_add_with_collections(self):
         root_collection = Collection.get_first_root_node()

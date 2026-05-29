@@ -1,4 +1,3 @@
-#
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
 # Loic Teixeira, 2024

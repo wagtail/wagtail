@@ -1,4 +1,3 @@
-#
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2022
 # Loic Teixeira, 2024

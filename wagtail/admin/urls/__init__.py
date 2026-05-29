@@ -20,7 +20,7 @@ from wagtail.admin.views import account, chooser, dismissibles, home, tags
 from wagtail.admin.views.bulk_action import index as bulk_actions
 from wagtail.admin.views.generic.preview import StreamFieldBlockPreview
 from wagtail.admin.views.i18n import localized_js_catalog
-from wagtail.admin.views.pages import listing
+from wagtail.admin.viewsets.pages import base_page_viewset, page_viewset_registry
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 urlpatterns = [
@@ -31,17 +31,20 @@ urlpatterns = [
     # TODO: Move into wagtailadmin_pages namespace
     path(
         "pages/",
-        listing.ExplorableIndexView.as_view(),
+        base_page_viewset.index_view,
         name="wagtailadmin_explore_root",
     ),
     path(
         "pages/<int:parent_page_id>/",
-        listing.ExplorableIndexView.as_view(),
+        page_viewset_registry.as_view("index", parent_page_id_kwarg="parent_page_id"),
         name="wagtailadmin_explore",
     ),
     path(
         "pages/<int:parent_page_id>/results/",
-        listing.ExplorableIndexView.as_view(results_only=True),
+        page_viewset_registry.as_view(
+            "index_results",
+            parent_page_id_kwarg="parent_page_id",
+        ),
         name="wagtailadmin_explore_results",
     ),
     # bulk actions

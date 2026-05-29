@@ -369,10 +369,10 @@ class TestStreamFieldRenderingBase(TestCase):
         img_tag = self.image.get_rendition("original").img_tag()
         self.expected = "".join(
             [
-                '<div class="block-rich_text"><p>Rich text</p></div>',
-                '<div class="block-rich_text"><p>Привет, Микола</p></div>',
-                f'<div class="block-image">{img_tag}</div>',
-                '<div class="block-text">Hello, World!</div>',
+                '<div class="w-block-rich_text block-rich_text"><p>Rich text</p></div>',
+                '<div class="w-block-rich_text block-rich_text"><p>Привет, Микола</p></div>',
+                f'<div class="w-block-image block-image">{img_tag}</div>',
+                '<div class="w-block-text block-text">Hello, World!</div>',
             ]
         )
 

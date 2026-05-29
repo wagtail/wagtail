@@ -1,7 +1,35 @@
 Changelog
 =========
 
-7.4 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+8.0 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+* Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
+* Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
+* Make `Button` component render a `<button>` element when no URL is supplied (Nayeli De Jesus, LB (Ben Johnston), Sage Abdullah)
+* Fix: Make `SnippetChooserViewSet.widget_class` a class instead of an instance (Amrinder Singh, Sage Abdullah)
+* Fix: Prevent an error when approving a workflow that has been cancelled in a different session (Kailesh)
+* Fix: Accommodate multilingual sites in skipping the "choose parent" step when creating a new page from a flat page listing (Amrinder Singh)
+* Fix: Prevent error when moving a page to a destination with missing translations and `WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE = True` (Sahil Kumar)
+* Fix: Handle Pillow detecting decompression bombs when validating image pixel count (Jake Howard, Sage Abdullah)
+* Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
+* Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
+* Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
+
+
+7.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+* Fix: Prevent spurious migrations when there are missing child blocks in `StructBlock.Meta.form_layout` (Matthias Brück, Sage Abdullah)
+
+
+7.4.1 (19.05.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Reinstate missing file `jquery.fileupload-validate.js` (Rob Brackett)
+
+
+7.4 LTS (05.05.2026)
 ~~~~~~~~~~~~~~~~~~~~
 
  * Add `is_deferred_validation` flag to support skipping custom validation when saving drafts (Daniel Kirkham)
@@ -13,12 +41,27 @@ Changelog
  * Various user experience improvements to autosave and concurrent editing notifications (Sage Abdullah)
  * Allow validation of required StreamField blocks to be deferred on saving drafts (Sage Abdullah)
  * Add `WAGTAILDOCS_MAX_UPLOAD_SIZE` setting for specifying maximum document file size (Om Harsh)
+ * Set the project template `WAGTAILDOCS_MAX_UPLOAD_SIZE` to 10MB (Thibaud Colas)
  * Optimize combining of querysets in site history report (Alex Bridge)
  * Add more informative error for `format-*` operations on SVG images (Ankit Kumar)
  * Store preview data in new `FormState` model to improve compatibility with cookie-based sessions (Sage Abdullah)
  * Change StreamBlock options so groups are shown in declaration order of their blocks (Darshan Kerkar)
  * Add `WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS` setting to disable permission filtering on page searches (Matt Westcott)
  * Use choice label when displaying choice fields in `SnippetViewSet`/`ModelViewSet`'s `list_display` (Srishti Jaiswal)
+ * Add new content check `empty-meta-description` to validate meta description tags are not empty (Thibaud Colas)
+ * Add `extractMetrics` method to `PreviewController` to retrieve content metrics from the preview panel (Thibaud Colas)
+ * Refine hover / focus styles for title field’s comment button (Srishti Jaiswal)
+ * Preserve "Collapse all" button state when switching between editor tabs (Raghad Dahi)
+ * Upgrade modelsearch to 1.3 (Matt Westcott)
+ * Implement checker error highlights within the preview panel (Thibaud Colas)
+ * Add `routablefullpageurl` template tag (Pravin Kamble)
+ * Add support for customizing page explorer views per page type using `PageViewSet` (Sage Abdullah)
+ * Enhance page content type usage view with custom listings and ability to create new pages (Sage Abdullah)
+ * Fix: CVE-2026-44197: Improper permission handling when comparing revisions (Seoyoung Kang, Jake Howard)
+ * Fix: CVE-2026-44198: Improper permission handling when viewing page history (Seoyoung Kang, Jake Howard, Dan Braghis)
+ * Fix: CVE-2026-44199: Improper permission handling when deleting form submissions (Vishal Shukla, Jake Howard)
+ * Fix: CVE-2026-44200: Improper permission handling when copying pages (Sanjok Karki, Matt Westcott)
+ * Fix: CVE-2026-44201: Improper restriction handling on Documents and Images API (Sanjok Karki, Jake Howard)
  * Fix: Handle nested inline models when displaying object usage information (Sage Abdullah, Kacper Walęga, Tian Jie Wong)
  * Fix: Avoid duplicate `get_object()` DB query in API detail view (Siddheshwar Kadam)
  * Fix: Ensure `ImageBlock` alt text populates on choosing a new image after unchecking decorative state (Pratham Jaiswal)
@@ -34,6 +77,8 @@ Changelog
  * Fix: Correctly HTML-escape URL in photo type oembeds (Thibaud Colas)
  * Fix: Ensure user with appropriate permissions can cancel a workflow task (Dan Braghis)
  * Fix: Ensure "submit to workflow" menu item uses the workflow name when creating pages (Sage Abdullah)
+ * Fix: Better align page descriptions in add subpage views (Tibor Leupold)
+ * Fix: Correctly close the Pages menu panel when clicking sidebar search (Divyansh Mishra)
  * Docs: Add documentation for the `filter_spec` parameter of `ImageRenditionField` (Soumya-codr)
  * Docs: Add guide for testing document upload forms (Wenli Tsai, Bhavesh Sharma)
  * Docs: Document the `nested_default_fields` attribute on API viewsets (Deepanshu Tevathiya)
@@ -55,6 +100,12 @@ Changelog
  * Docs: Add documentation for generic `published` and `unpublished` signals (Kunal Hemnani)
  * Docs: Improve organization of signals reference docs (Sage Abdullah)
  * Docs: Add documentation for overriding the default user avatar image (Aviral Sapra)
+ * Docs: Document how `list_export` in reports accepts a dotted path for nested attribute resolution (mikko2577)
+ * Docs: Update audit log actions docs to cover all currently-logged actions (Thibaud Colas)
+ * Docs: Document more approaches to mitigating untrusted file uploads when storing and serving documents (Thibaud Colas)
+ * Docs: Clarify default value for for `WAGTAILDOCS_SERVE_METHOD` (Thibaud Colas)
+ * Docs: Document security reporting policy about runtime vs. development dependencies (Thibaud Colas)
+ * Docs: Add reference documentation for `wagtail.admin.ui.tables` (Sage Abdullah)
  * Maintenance: Removed support for Django 4.2
  * Maintenance: Fix LocaleController test failures caused by differing timezone representations between Node versions (Saptami, Matt Westcott)
  * Maintenance: Fix frontend coverage upload to Codecov (Sage Abdullah)
@@ -76,16 +127,33 @@ Changelog
  * Maintenance: Upgrade django-treebeard dependency to 4.8-5.x (Samir Shah)
  * Maintenance: Clean up JSDoc & ordering of values in `SwapController` (LB (Ben Johnston))
  * Maintenance: Refactor accessibility checker code to use generic content checker terminology (Thibaud Colas)
+ * Maintenance: Upgrade BeautifulSoup dependency to >=4.13.3 (Matt Westcott)
+ * Maintenance: Make sphinx_llms.txt extension optional when building docs (Sage Abdullah)
+ * Maintenance: Refactor handling of invalid form submissions in choosers (Sage Abdullah)
+ * Maintenance: Switch StreamField block rendering to use `w-block-` prefixes for block type class names (Kalash Kumari Thakur)
+ * Maintenance: Upgrade CodeQL security scanning to cover more parts of the codebase (Thibaud Colas)
+ * Maintenance: Upgrade django-modelcluster to 6.5 to fix issues with duplicated inline children (Alex Tomkins, Matt Westcott)
 
 
-7.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.3.2 (05.05.2026)
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2026-44197: Improper permission handling when comparing revisions (Seoyoung Kang, Jake Howard)
+ * Fix: CVE-2026-44198: Improper permission handling when viewing page history (Seoyoung Kang, Jake Howard, Dan Braghis)
+ * Fix: CVE-2026-44199: Improper permission handling when deleting form submissions (Vishal Shukla, Jake Howard)
+ * Fix: CVE-2026-44200: Improper permission handling when copying pages (Sanjok Karki, Matt Westcott)
+ * Fix: CVE-2026-44201: Improper restriction handling on Documents and Images API (Sanjok Karki, Jake Howard)
  * Fix: Use protocol-relative URLs in the userbar for compatibility with environments where Django does not detect the protocol (Sage Abdullah)
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
  * Fix: Avoid creating a new editing session when updating UI elements after an autosave (Sage Abdullah)
  * Fix: Group audit log entries for autosave operations in page history view (Sage Abdullah)
  * Fix: Retain page explorer header buttons when searching or filtering (Sage Abdullah)
+ * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
+ * Fix: Add accessible label to userbar aside element for accessibility (Kalash Kumari Thakur)
+ * Fix: Pause SessionController pings during autosave to prevent conflict notification with own session (Sage Abdullah)
+ * Fix: Ensure live preview does not get stuck when edits occur during an in-progress update (Aniket Singh)
+ * Fix: Ensure only one autosave request can happen at a time to prevent incorrect conflict notifications with the current session (Sage Abdullah)
+ * Fix: Prevent incorrect concurrent editing conflict notifications when doing a manual save (Sage Abdullah)
 
 7.3.1 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~
@@ -388,10 +456,18 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
-7.0.7 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0.7 (05.05.2026)
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2026-44197: Improper permission handling when comparing revisions (Seoyoung Kang, Jake Howard)
+ * Fix: CVE-2026-44198: Improper permission handling when viewing page history (Seoyoung Kang, Jake Howard, Dan Braghis)
+ * Fix: CVE-2026-44199: Improper permission handling when deleting form submissions (Vishal Shukla, Jake Howard)
+ * Fix: CVE-2026-44200: Improper permission handling when copying pages (Sanjok Karki, Matt Westcott)
+ * Fix: CVE-2026-44201: Improper restriction handling on Documents and Images API (Sanjok Karki, Jake Howard)
  * Fix: Index the contents of image descriptions as well as titles, for CMS search (Advik Sharma)
+ * Fix: Correctly escape the `sizes` attribute in responsive image template tags (Jake Howard)
+ * Fix: Add accessible label to userbar aside element for accessibility (Kalash Kumari Thakur)
+ * Fix: Prevent incorrect concurrent editing conflict notifications when doing a manual save (Sage Abdullah)
 
 7.0.6 (03.03.2026)
 ~~~~~~~~~~~~~~~~~~

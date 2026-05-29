@@ -2,7 +2,7 @@
 
 # Backends
 
-Wagtailsearch has support for multiple backends, giving you the choice between using the database for search or an external service such as Elasticsearch.
+Wagtail search has support for multiple backends, giving you the choice between using the database for search or an external service such as Elasticsearch.
 
 You can configure which backend to use with the `WAGTAILSEARCH_BACKENDS` setting:
 
@@ -12,6 +12,10 @@ WAGTAILSEARCH_BACKENDS = {
         'BACKEND': 'wagtail.search.backends.database',
     }
 }
+```
+
+```{note}
+Wagtail's search functionality is powered by the [Django ModelSearch](https://django-modelsearch.readthedocs.io/) library, which provides [additional configuration options](https://django-modelsearch.readthedocs.io/en/latest/backends.html) beyond those prevented here. When used within Wagtail, the `WAGTAILSEARCH_BACKENDS` setting should be used rather than `MODELSEARCH_BACKENDS`.
 ```
 
 (wagtailsearch_backends_auto_update)=
@@ -54,7 +58,7 @@ Here's a list of backends that Wagtail supports out of the box.
 The database search backend searches content in the database using the full-text search features of the database backend in use (such as PostgreSQL FTS, SQLite FTS5).
 This backend is intended to be used for development and also should be good enough to use in production on sites that don't require any Elasticsearch specific features.
 
-If you use the PostgreSQL database backend, you must add `django.contrib.postgres` to your [`INSTALLED_APPS`](inv:django:std:setting#INSTALLED_APPS) setting.
+If you use the PostgreSQL database backend, you must add `django.contrib.postgres` to your [`INSTALLED_APPS`](inv:django:std:setting#INSTALLED_APPS) setting. Under PostgreSQL, various additional configuration options are available, as detailed in the [ModelSearch PostgreSQL configuration documentation](https://django-modelsearch.readthedocs.io/en/latest/backends.html#postgresql-configuration).
 
 (wagtailsearch_backends_elasticsearch)=
 
@@ -264,7 +268,3 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 ```
-
-## Rolling Your Own
-
-Wagtail's search implementation is provided by the [django-modelsearch](https://github.com/kaedroho/django-modelsearch) package, and backends implement the interface defined in `modelsearch/backends/base.py`. At a minimum, the backend's `search()` method must return a collection of objects or `model.objects.none()`.

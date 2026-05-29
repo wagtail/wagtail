@@ -2,7 +2,6 @@ import * as StimulusModule from '@hotwired/stimulus';
 import Telepath from 'telepath-unpack';
 
 import { Icon, Portal } from '../..';
-import { ExpandingFormset } from '../../components/ExpandingFormset';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
 import { FieldPanel, Panel, PanelGroup } from '../../components/Panel';
@@ -57,13 +56,3 @@ window.telepath.register(
   'wagtail.panels.MultipleChooserPanel',
   MultipleChooserPanel,
 );
-
-/**
- * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.
- * @deprecated RemovedInWagtail80
- */
-function buildExpandingFormset(prefix, opts = {}) {
-  return new ExpandingFormset(prefix, opts);
-}
-
-window.buildExpandingFormset = buildExpandingFormset;

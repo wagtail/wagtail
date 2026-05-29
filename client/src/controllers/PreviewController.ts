@@ -12,7 +12,9 @@ import {
   renderCheckerResults,
 } from '../includes/contentChecker';
 import {
-  ContentExtractorOptions,
+  type ContentExtractorOptions,
+  type ContentMetrics,
+  type ExtractedContent,
   getLIXScore,
   getPreviewContent,
   getReadabilityScore,
@@ -522,6 +524,25 @@ export class PreviewController extends Controller<HTMLElement> {
       this.deviceWidthPropertyValue,
       deviceWidth as string,
     );
+    this.sendScaleToIframe();
+  }
+
+  /**
+   * Send the current preview scale ratio to the iframe so inline
+   * annotations can apply an inverse transform to remain legible.
+   * Mirrors the CSS formula: min(1, panel-width / device-width).
+   */
+  private sendScaleToIframe() {
+    const panelWidth = this.element.clientWidth;
+    const deviceWidth = parseFloat(
+      this.element.style.getPropertyValue(this.deviceWidthPropertyValue),
+    );
+    if (!panelWidth || !deviceWidth || !this.iframeTarget.contentWindow) return;
+    const ratio = Math.max(1, deviceWidth / panelWidth);
+    this.iframeTarget.contentWindow.postMessage(
+      { wagtail: { type: 'w-preview:set-scale', scale: ratio } },
+      '*',
+    );
   }
 
   /**
@@ -544,12 +565,13 @@ export class PreviewController extends Controller<HTMLElement> {
    * This is used to maintain the simulated device width as the side panel is resized.
    */
   observePanelSize() {
-    const resizeObserver = new ResizeObserver((entries) =>
+    const resizeObserver = new ResizeObserver((entries) => {
       this.element.style.setProperty(
         this.panelWidthPropertyValue,
         entries[0].contentRect.width.toString(),
-      ),
-    );
+      );
+      this.sendScaleToIframe();
+    });
     resizeObserver.observe(this.element);
     return resizeObserver;
   }
@@ -565,6 +587,17 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   /**
+   * Automatically updates the preview if it is stale and auto-update is enabled.
+   * @returns whether the data is valid
+   */
+  async autoUpdateStalePreview() {
+    if (this.ready && this.staleValue && this.shouldAutoUpdate) {
+      return this.setPreviewDataLazy();
+    }
+    return undefined;
+  }
+
+  /**
    * Marks the preview data as stale, indicating it needs an update.
    * Accepts an optional `stale` parameter to explicitly override the value.
    */
@@ -572,10 +605,8 @@ export class PreviewController extends Controller<HTMLElement> {
     this.staleValue = event?.params?.stale ?? true;
   }
 
-  staleValueChanged(newValue: boolean) {
-    if (this.ready && newValue && this.shouldAutoUpdate) {
-      this.setPreviewDataLazy();
-    }
+  staleValueChanged() {
+    this.autoUpdateStalePreview();
   }
 
   autoUpdateIntervalValueChanged(newValue?: number) {
@@ -863,6 +894,10 @@ export class PreviewController extends Controller<HTMLElement> {
         return this.contentChecksPromise;
     }
 
+    // The iframe's userbar has finished initialising and annotations now
+    // exist, so send the current scale for counter-scaling.
+    this.sendScaleToIframe();
+
     // If the content checks are already running, wait for them to finish before
     // re-running them, as Axe does not allow concurrent runs.
     if (this.contentChecksPromise) {
@@ -896,6 +931,8 @@ export class PreviewController extends Controller<HTMLElement> {
       this.checkerRowTemplate!,
       () => this.newTabTarget.click(),
     );
+
+    return { results, issueCount };
   }
 
   /**
@@ -909,15 +946,23 @@ export class PreviewController extends Controller<HTMLElement> {
     // previewed page shows an error response), skip doing anything with it.
     if (!content) return;
 
-    const wordCount = getWordCount(content.lang, content.innerText);
-    const readingTime = getReadingTime(content.lang, wordCount);
-    const lixScore = getLIXScore(content.lang, content.innerText);
-    const readabilityScore = getReadabilityScore(lixScore);
-    const metrics = { wordCount, readingTime, lixScore, readabilityScore };
+    const metrics = this.extractMetrics(content);
 
     this.dispatch('content', { detail: { content, metrics } });
 
     renderContentMetrics(metrics);
+  }
+
+  /**
+   * Computes content metrics (word count, reading time, LIX, readability) from
+   * extracted preview content.
+   */
+  extractMetrics(content: ExtractedContent): ContentMetrics {
+    const wordCount = getWordCount(content.lang, content.innerText);
+    const readingTime = getReadingTime(content.lang, wordCount);
+    const lixScore = getLIXScore(content.lang, content.innerText);
+    const readabilityScore = getReadabilityScore(lixScore);
+    return { wordCount, readingTime, lixScore, readabilityScore };
   }
 
   /**
@@ -966,6 +1011,11 @@ export class PreviewController extends Controller<HTMLElement> {
     this.#reloadPromiseResolve?.();
     this.reloadPromise = null;
     this.#reloadPromiseResolve = null;
+
+    // If the preview data became stale while this update was in progress
+    // (e.g. the user kept editing during the fetch/iframe load), schedule
+    // another update now that we are free to do so.
+    this.autoUpdateStalePreview();
   }
 
   /**

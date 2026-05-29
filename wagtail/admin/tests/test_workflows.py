@@ -3156,6 +3156,34 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             "This title was edited while approving",
         )
 
+    def test_workflow_action_valid_with_cancelled_workflow(self):
+        """
+        https://github.com/wagtail/wagtail/issues/13856
+
+        Approving a workflow that has been cancelled after the page was loaded
+        should result in a normal save instead of an error or a publish action.
+        """
+        workflow_state = self.object.current_workflow_state
+        workflow_state.cancel(user=self.superuser)
+        self.object.refresh_from_db()
+
+        response = self.post(
+            "workflow-action",
+            {
+                self.title_field: "Edited Title",
+                "workflow-action-name": "approve",
+                "action-workflow-action": "True",
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.object.refresh_from_db()
+        self.assertFalse(self.object.live)
+        self.assertEqual(
+            getattr(self.object.get_latest_revision_as_object(), self.title_field),
+            "Edited Title",
+        )
+
 
 class TestApproveRejectSnippetWorkflow(
     TestApproveRejectPageWorkflow, BaseSnippetWorkflowTests

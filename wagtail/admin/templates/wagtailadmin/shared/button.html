@@ -1,7 +1,18 @@
 {% load wagtailadmin_tags %}
-<a href="{{ button.url }}" class="{{ button.classname }}" {{ button.base_attrs_string }}>
+
+{% fragment content %}
     {% if button.icon_name %}
         {% icon name=button.icon_name %}
     {% endif %}
     {{ button.label }}
-</a>
+{% endfragment %}
+
+{% if button.url %}
+    <a href="{{ button.url }}" class="{{ button.classname }}" {{ button.base_attrs_string }}>
+        {{ content }}
+    </a>
+{% else %}
+    <button class="{{ button.classname }}" {{ button.base_attrs_string }}>
+        {{ content }}
+    </button>
+{% endif %}

@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abdullah Bamuhrez <bamuhrez@gmail.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -749,13 +749,13 @@ msgstr "هل ما زلت ترغب في نشر %(model_name)s هذا؟"
 msgid "Cancel"
 msgstr "إلغاء"
 
+msgid "Comment"
+msgstr "تعليق"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "الإجراءات"
-
-msgid "Comment"
-msgstr "تعليق"
 
 #, python-format
 msgid ""
@@ -1851,10 +1851,6 @@ msgstr "استكشاف الصفحات الفرعية لـ '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "إضافة صفحة فرعية إلى '%(title)s'"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s من %(items_count)s عبر الموقع بأكمله"
-
 msgid "No results across entire site."
 msgstr "لا توجد نتائج عبر الموقع بأكمله"
 
@@ -1863,23 +1859,11 @@ msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "البحث في '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
-msgid ""
-"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'."
-msgstr ""
-"%(start_index)s-%(end_index)s من %(items_count)s في '<span class=\"w-title-"
-"ellipsis\">%(title)s</span>'"
-
-#, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgstr "لا توجد نتائج في '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 msgid "Search the whole site"
 msgstr "بحث في الموقع بأكمله"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s من %(items_count)s"
 
 msgid "Sites menu"
 msgstr "قائمة المواقع"
@@ -1902,9 +1886,6 @@ msgstr "هذه الصفحة محمية من العرض العام"
 
 msgid "Confirm"
 msgstr "تأكيد"
-
-msgid "Add child page"
-msgstr "إضافة صفحة فرعية"
 
 msgid "Page types"
 msgstr "أنواع الصفحات"
@@ -2114,9 +2095,6 @@ msgstr "النظام"
 msgid "%(user_name)s saved a new version"
 msgstr "حفظ %(user_name)s نسخة جديدة"
 
-msgid "Refresh"
-msgstr "تحديث"
-
 msgid "You have unsaved changes in another window"
 msgstr "لديك تغييرات غير محفوظة في نافذة أخرى"
 
@@ -2137,35 +2115,8 @@ msgstr[3] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
 msgstr[4] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
 msgstr[5] "%(num_user)s مستخدمًا آخر يشاهد حاليًا"
 
-msgid ""
-"Proceeding will overwrite the changes you made in that window. Refreshing "
-"the page will show you the new changes, but you will lose any of your "
-"unsaved changes in the current window."
-msgstr ""
-"المتابعة ستؤدي إلى استبدال التغييرات التي أجريتها في تلك النافذة. سيُظهر "
-"تحديث الصفحة التغييرات الجديدة، ولكنك ستفقد أي تغييرات غير محفوظة في النافذة "
-"الحالية."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will show you the new changes, but you will lose any of your unsaved "
-"changes."
-msgstr ""
-"المتابعة ستؤدي إلى استبدال التغييرات التي أجراها %(user_name)s. سيُظهر تحديث "
-"الصفحة التغييرات الجديدة، ولكنك ستفقد أي تغييرات غير محفوظة لديك."
-
-msgid "Refreshing the page means you will lose any unsaved changes"
-msgstr "تحديث الصفحة يعني أنك ستفقد أي تغييرات غير محفوظة"
-
-msgid "Refresh page"
-msgstr "تحديث الصفحة"
-
 msgid "Continue"
 msgstr "متابعة"
-
-msgid "Refresh the page"
-msgstr "تحديث الصفحة"
 
 msgid "Download XLSX"
 msgstr "تنزيل XLSX"
@@ -2380,6 +2331,9 @@ msgstr "جاري التحميل"
 
 msgid "Refreshing…"
 msgstr "جاري التحديث…"
+
+msgid "Refresh"
+msgstr "تحديث"
 
 msgid "Preview is out of date"
 msgstr "المعاينة قديمة"
@@ -3397,6 +3351,9 @@ msgstr "نوع الصفحة"
 
 msgid "Exploring"
 msgstr "استكشاف"
+
+msgid "Add child page"
+msgstr "إضافة صفحة فرعية"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."

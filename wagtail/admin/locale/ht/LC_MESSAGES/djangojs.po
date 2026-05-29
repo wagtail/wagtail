@@ -1,4 +1,3 @@
-#
 # Translators:
 # Hantz Vius <vhantz@protonmail.com>, 2026
 #

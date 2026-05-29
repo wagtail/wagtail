@@ -1,4 +1,3 @@
-#
 # Translators:
 # Loic Teixeira, 2024
 # karabellyj <jozefkarabelly@gmail.com>, 2026

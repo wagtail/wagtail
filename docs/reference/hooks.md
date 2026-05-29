@@ -462,10 +462,6 @@ def user_listing_external_profile(user, request_user):
         )
 ```
 
-```{versionchanged} 7.0
-The `wagtail.users.widgets.UserListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
-```
-
 (filter_form_submissions_for_user)=
 
 ### `filter_form_submissions_for_user`
@@ -1093,10 +1089,6 @@ The arguments passed to the hook are as follows:
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
 
-```{versionchanged} 7.0
-The `PageListingButton` class is deprecated in favor of `ListingButton`.
-```
-
 (register_page_listing_more_buttons)=
 
 ### `register_page_listing_more_buttons`
@@ -1427,10 +1419,6 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
-
-```{versionchanged} 7.0
-The `wagtail.snippets.widgets.SnippetListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
-```
 
 (construct_snippet_listing_buttons)=
 

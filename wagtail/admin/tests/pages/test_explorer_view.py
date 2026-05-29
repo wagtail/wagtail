@@ -129,13 +129,38 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertContains(response, f'href="{expected_new_page_copy_url}"')
 
+        # There should be a fragment to update the header buttons and it should
+        # retain the existing buttons. This is not very useful for the default
+        # view, but can be used by custom views to ensure export buttons have
+        # their URLs updated with the current filters applied.
         soup = self.get_soup(response.content)
         header_buttons = soup.select_one(
             'template[data-controller="w-teleport"]'
             '[data-w-teleport-target-value="#w-slim-header-buttons"]'
             '[data-w-teleport-mode-value="innerHTML"]'
         )
-        self.assertIsNone(header_buttons)
+        self.assertIsNotNone(header_buttons)
+        add_button = header_buttons.select_one(":is(template > a)")
+        self.assertIsNotNone(add_button)
+        self.assertEqual(
+            add_button.get("href"),
+            reverse("wagtailadmin_pages:add_subpage", args=(self.root_page.id,)),
+        )
+        self.assertEqual(add_button.get("aria-label"), "Add child page")
+        buttons = header_buttons.select('[data-w-dropdown-target="content"] a')
+        self.assertEqual(len(buttons), 7)
+        self.assertEqual(
+            [button.text.strip() for button in buttons],
+            [
+                "Edit",
+                "Move",
+                "Copy",
+                "Delete",
+                "Unpublish",
+                "History",
+                "Sort menu order",
+            ],
+        )
 
         self.assertContains(response, "1-3 of 3")
 
@@ -636,16 +661,29 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
     def test_search(self):
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
-            {"q": "old"},
-        )
+        url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        response = self.client.get(url, {"q": "old"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
 
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
-        self.assertContains(response, "Search the whole site")
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_whole_tree_url = f"{url}?q=old&search_all=1"
+        search_whole_tree_link = title_th.select_one(
+            f'a[href="{search_whole_tree_url}"]'
+        )
+        self.assertIsNotNone(search_whole_tree_link)
+        self.assertHTMLEqual(
+            search_whole_tree_link.extract().decode_contents(),
+            "Search the whole site",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-1 of 1 page in ' | Welcome to your new Wagtail site! | '.",
+        )
 
     def test_search_results(self):
         response = self.client.get(
@@ -681,16 +719,24 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(page_ids, [])
 
     def test_search_whole_tree(self):
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.new_page.id,)),
-            {"q": "old", "search_all": "1"},
-        )
+        url = reverse("wagtailadmin_explore", args=(self.new_page.id,))
+        response = self.client.get(url, {"q": "old", "search_all": "1"})
         self.assertEqual(response.status_code, 200)
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
-        self.assertContains(
-            response,
+        soup = self.get_soup(response.content)
+        title_th = soup.select_one("main table th.title")
+        self.assertIsNotNone(title_th)
+        search_in_parent_url = f"{url}?q=old"
+        search_parent_link = title_th.select_one(f'a[href="{search_in_parent_url}"]')
+        self.assertIsNotNone(search_parent_link)
+        self.assertHTMLEqual(
+            search_parent_link.extract().decode_contents(),
             "Search in '<span class=\"w-title-ellipsis\">New page (simple page)</span>'",
+        )
+        self.assertEqual(
+            title_th.get_text(strip=True, separator=" | "),
+            "Title | 1-1 of 1 page across entire site.",
         )
 
     def test_search_whole_tree_filter_by_permissions(self):
@@ -865,7 +911,28 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             '[data-w-teleport-target-value="#w-slim-header-buttons"]'
             '[data-w-teleport-mode-value="innerHTML"]'
         )
-        self.assertIsNone(header_buttons)
+        self.assertIsNotNone(header_buttons)
+        add_button = header_buttons.select_one(":is(template > a)")
+        self.assertIsNotNone(add_button)
+        self.assertEqual(
+            add_button.get("href"),
+            reverse("wagtailadmin_pages:add_subpage", args=(self.root_page.id,)),
+        )
+        self.assertEqual(add_button.get("aria-label"), "Add child page")
+        buttons = header_buttons.select('[data-w-dropdown-target="content"] a')
+        self.assertEqual(len(buttons), 7)
+        self.assertEqual(
+            [button.text.strip() for button in buttons],
+            [
+                "Edit",
+                "Move",
+                "Copy",
+                "Delete",
+                "Unpublish",
+                "History",
+                "Sort menu order",
+            ],
+        )
 
     def test_filter_by_owner(self):
         barry = self.create_user(
@@ -1549,7 +1616,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(44):
+        with self.assertNumQueries(43):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

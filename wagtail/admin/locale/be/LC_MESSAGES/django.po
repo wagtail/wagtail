@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 18:00+0000\n"
+"POT-Creation-Date: 2026-04-22 16:30+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -411,13 +411,13 @@ msgstr "Не, не публікаваць"
 msgid "Cancel"
 msgstr "Адмена"
 
+msgid "Comment"
+msgstr "Каментар"
+
 #. Translators: Shortcuts for admin actions that can be taken while working on
 #. core models
 msgid "Actions"
 msgstr "Дзеянні"
-
-msgid "Comment"
-msgstr "Каментар"
 
 msgid "Update"
 msgstr "Аднаўленне"
@@ -634,6 +634,10 @@ msgstr "Спіс сайтаў"
 msgid "Pagination"
 msgstr "Пагінацыя"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Старонка %(page_number)s з %(num_pages)s."
+
 msgid "Previous"
 msgstr "Папярэдні"
 
@@ -645,9 +649,6 @@ msgstr "Гэтая старонка ахоўваецца публічнага п
 
 msgid "Confirm"
 msgstr "Пацвярджэнне "
-
-msgid "Add child page"
-msgstr "Дадаць даччыную старонку"
 
 msgid "Page types"
 msgstr "Тыпы старонак"
@@ -790,6 +791,10 @@ msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
 msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
 msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "ад %(user)s"
+
 msgid "Edited"
 msgstr "Зменена"
 
@@ -921,8 +926,28 @@ msgstr "Чарнавік"
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' абноўлены."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' створана."
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Дадаць %(model_name)s"
+
 msgid "Editing"
 msgstr "Рэдагаванне"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' выдалены."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Вы ўпэўненыя, што жадаеце выдаліць %(model_name)s?"
 
 msgid "Earliest"
 msgstr "Ранні"
@@ -932,6 +957,10 @@ msgstr "Апошні"
 
 msgid "Unschedule"
 msgstr "Адмяніць часовую публікацыю"
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "версія %(revision_id)s старонкі \"%(object)s\""
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -976,6 +1005,10 @@ msgid "Page '%(page_title)s' deleted."
 msgstr "Старонка '%(page_title)s' выдаленая."
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "Рэдагаванне %(page_type)s"
+
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Старонка '%(page_title)s' абноўлена."
 
@@ -996,6 +1029,9 @@ msgstr "Сайт"
 
 msgid "Yes"
 msgstr "Так"
+
+msgid "Add child page"
+msgstr "Дадаць даччыную старонку"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -1027,6 +1063,10 @@ msgstr "Адключан"
 
 msgid "Enable"
 msgstr "Уключан"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Рэдагаванне %(task_type)s"
 
 msgid "Heading 1"
 msgstr "Заголовак 1"
