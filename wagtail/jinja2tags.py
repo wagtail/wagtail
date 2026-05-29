@@ -1,7 +1,12 @@
 import jinja2
 import jinja2.nodes
+from django.core.cache import InvalidCacheBackendError, caches
+from django.core.cache.utils import make_template_fragment_key
 from jinja2.ext import Extension
 from markupsafe import Markup, escape
+
+from wagtail.coreutils import make_wagtail_template_fragment_key
+from wagtail.models import PAGE_TEMPLATE_VAR, Site
 
 from .templatetags.wagtailcore_tags import (
     fullpageurl,
@@ -14,7 +19,7 @@ from .templatetags.wagtailcore_tags import (
 
 
 class WagtailCoreExtension(Extension):
-    tags = {"include_block"}
+    tags = {"include_block", "wagtailcache", "wagtailpagecache"}
 
     def __init__(self, environment):
         super().__init__(environment)
@@ -79,6 +84,70 @@ class WagtailCoreExtension(Extension):
             return escape(result)
         else:
             return Markup(result)
+
+    def parse_wagtailpagecache(self, parser):
+        return self._parse_wagtail_cache_tag(parser)
+
+    def parse_wagtailcache(self, parser):
+        return self._parse_wagtail_cache_tag(parser)
+
+    def _parse_wagtail_cache_tag(self, parser):
+        tag_name = next(parser.stream).value
+        lineno = parser.stream.current.lineno
+
+        expire_time = parser.parse_expression()
+        fragment_name = parser.parse_expression()
+
+        vary_on = []
+        while not parser.stream.current.test("block_end"):
+            vary_on.append(parser.parse_expression())
+
+        body = parser.parse_statements((f"name:end{tag_name}",), drop_needle=True)
+
+        return jinja2.nodes.CallBlock(
+            self.call_method(
+                "_cached_render",
+                [
+                    jinja2.nodes.Const(tag_name),
+                    jinja2.nodes.DerivedContextReference(),
+                    expire_time,
+                    fragment_name,
+                    jinja2.nodes.List(vary_on),
+                ],
+            ),
+            [],
+            [],
+            body,
+        ).set_lineno(lineno)
+
+    def _cached_render(
+        self, tag_name, context, expire_time, fragment_name, vary_on, caller
+    ):
+        request = context.get("request")
+
+        if request is None or getattr(request, "is_preview", False):
+            # Skip the cache in preview
+            return caller()
+
+        try:
+            fragment_cache = caches["template_fragments"]
+        except InvalidCacheBackendError:
+            fragment_cache = caches["default"]
+
+        if tag_name == "wagtailcache":
+            cache_key = make_template_fragment_key(fragment_name, vary_on)
+        else:
+            page = context.get(PAGE_TEMPLATE_VAR, None)
+            site = Site.find_for_request(request)
+            cache_key = make_wagtail_template_fragment_key(
+                fragment_name, page, site, vary_on
+            )
+
+        if (value := fragment_cache.get(cache_key)) is None:
+            value = caller()
+            fragment_cache.set(cache_key, value, expire_time)
+
+        return value
 
 
 # Nicer import names
