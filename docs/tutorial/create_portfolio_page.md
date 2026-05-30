@@ -118,7 +118,7 @@ class HeadingBlock(StructBlock):
 
 The first child block, `heading_text`, uses `CharBlock` for specifying the heading text, and it's required. The second child block, `size`, uses `ChoiceBlock` for selecting the heading size. It provides options for **h2**, **h3**, and **h4**. Both `blank=True` and `required=False` make the heading text optional in your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface).
 
-Your `BaseStreamBlock` class inherits from `StreamBlock`. `StreamBlock` defines a set of child block types that you would like to include in all of the StreamField sections across a project. This class gives you a baseline collection of common blocks that you can reuse and customize for all the different page types where you use StreamField. For example, you will definitely want editors to be able to add images and paragraph text to all their pages, but you might want to create a special pull quote block that is only used on blog pages.
+Your `BaseStreamBlock` class inherits from `StreamBlock`. `StreamBlock` defines a set of child block types that you would like to include in all of the StreamField sections across a project. This class gives you a baseline collection of common blocks that you can reuse and customize for all the different page types where you use StreamField. For example, you will definitely want editors to be able to add images and paragraph text to all their pages, but you might want to create a special pull quote block that is only used on Portfolio pages.
 
 ```python
 class BaseStreamBlock(StreamBlock):
@@ -264,7 +264,7 @@ class CardBlock(StructBlock):
 class FeaturedPostsBlock(StructBlock):
     heading = CharBlock()
     text = RichTextBlock(features=["bold", "italic", "link"], required=False)
-    posts = ListBlock(PageChooserBlock(page_type="blog.BlogPage"))
+    posts = ListBlock(PageChooserBlock(page_type="portfolio.PortfolioPage"))
 
     class Meta:
         icon = "folder-open-inverse"
@@ -279,7 +279,7 @@ class PortfolioStreamBlock(BaseStreamBlock):
 
 In the preceding code, `CardBlock` has three child blocks, `heading`, `text` and `image`. You are already familiar with the field block types used by the child pages.
 
-However, in your `FeaturedPostsBlock`, one of the child blocks, `posts`, uses `ListBlock`. `ListBlock` is a structural block type that you can use for multiple sub-blocks of the same type. You used it with `PageChooserBlock` to select only the Blog Page type pages. To better understand structural block types, read the [Structural block types documentation](streamfield_staticblock).
+However, in your `FeaturedPostsBlock`, one of the child blocks, `posts`, uses `ListBlock`. `ListBlock` is a structural block type that you can use for multiple sub-blocks of the same type. You used it with `PageChooserBlock` to select only the Portfolio Page type pages. To better understand structural block types, read the [Structural block types documentation](streamfield_staticblock).
 
 Furthermore, `icon = "form"` and `icon = "folder-open-inverse"` define custom block icons to set your blocks apart in the admin interface. For more information about block icons, read the [documentation on block icons](block_icons).
 
