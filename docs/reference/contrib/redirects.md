@@ -54,7 +54,21 @@ Overrides to the following `Page` methods are respected when generating redirect
 -   {meth}`~wagtail.models.Page.get_url_parts()`
 -   {meth}`~wagtail.models.Page.get_route_paths()`
 
-If you find the feature is not a good fit for your project, you can disable it by adding the following to your project settings:
+The feature can be configured via the `WAGTAILREDIRECTS_AUTO_CREATE` setting:
+
+| Value | Behaviour |
+| ----------- | --------- |
+| `True` (default) | Redirects are created for all pages, including draft pages, whenever their slug or URL path changes. |
+| `False` | Auto-creation is disabled entirely. |
+| `"only_live"` | Redirects are only created when the page being changed is live (published). This avoids creating spurious redirects from autosave slug changes on draft pages. |
+
+For example, to only create redirects for live pages:
+
+```python
+WAGTAILREDIRECTS_AUTO_CREATE = "only_live"
+```
+
+Or to disable the feature entirely:
 
 ```python
 WAGTAILREDIRECTS_AUTO_CREATE = False

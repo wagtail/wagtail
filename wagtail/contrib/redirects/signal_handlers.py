@@ -49,7 +49,10 @@ def autocreate_redirects_on_slug_change(
     # NB: `page_slug_changed` provides specific page instances,
     # so we do not need to 'upcast' them for create_redirects here
 
-    if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
+    auto_create = getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True)
+    if not auto_create:
+        return None
+    if auto_create == "only_live" and not instance.live:
         return None
 
     # Determine sites to create redirects for
@@ -69,7 +72,10 @@ def autocreate_redirects_on_page_move(
     url_path_before: str,
     **kwargs,
 ) -> None:
-    if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
+    auto_create = getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True)
+    if not auto_create:
+        return None
+    if auto_create == "only_live" and not instance.live:
         return None
 
     if url_path_after == url_path_before:

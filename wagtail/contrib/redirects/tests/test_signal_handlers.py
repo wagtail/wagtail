@@ -239,3 +239,37 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
             self.trigger_page_slug_changed_signal(self.event_index)
         self.assertFalse(Redirect.objects.exists())
         self.assertEqual(len(PURGED_URLS), 0)
+
+    @override_settings(WAGTAILREDIRECTS_AUTO_CREATE="only_live")
+    def test_only_live_skips_draft_slug_change(self):
+        draft_page = Page.objects.get(url_path="/home/events/christmas/")
+        draft_page.live = False
+        draft_page.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            self.trigger_page_slug_changed_signal(draft_page)
+        self.assertFalse(Redirect.objects.exists())
+
+    @override_settings(WAGTAILREDIRECTS_AUTO_CREATE="only_live")
+    def test_only_live_creates_redirect_for_live_page(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            self.trigger_page_slug_changed_signal(self.event_index)
+        self.assertTrue(Redirect.objects.exists())
+
+    @override_settings(WAGTAILREDIRECTS_AUTO_CREATE="only_live")
+    def test_only_live_skips_draft_page_move(self):
+        draft_page = Page.objects.get(url_path="/home/events/christmas/")
+        draft_page.live = False
+        draft_page.save()
+        url_path_before = draft_page.url_path
+        draft_page.url_path = "/home/moved/"
+        draft_page.save()
+        from wagtail.contrib.redirects.signal_handlers import (
+            autocreate_redirects_on_page_move,
+        )
+        with self.captureOnCommitCallbacks(execute=True):
+            autocreate_redirects_on_page_move(
+                instance=draft_page,
+                url_path_after=draft_page.url_path,
+                url_path_before=url_path_before,
+            )
+        self.assertFalse(Redirect.objects.exists())
