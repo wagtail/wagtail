@@ -74,13 +74,10 @@ USER wagtail
 # Collect static files.
 RUN python manage.py collectstatic --noinput --clear
 
-# Runtime command that executes when "docker run" is called, it does the
-# following:
-#   1. Migrate the database.
-#   2. Start the application server.
-# WARNING:
-#   Migrating database at the same time as starting the server IS NOT THE BEST
-#   PRACTICE. The database should be migrated manually or using the release
-#   phase facilities of your hosting platform. This is used only so the
-#   Wagtail instance can be started with a simple "docker run" command.
-CMD set -xe; python manage.py migrate --noinput; gunicorn {{ project_name }}.wsgi:application
+# The entrypoint runs "python manage.py migrate" then starts the server.
+# For production deployments on platforms with a dedicated release phase
+# (Heroku, Fly.io, Render, Railway, etc.), set DJANGO_MIGRATE=0 and run
+# migrations as a separate step before launching the container. This avoids
+# running migrations on every replica startup and prevents race conditions.
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
+CMD ["gunicorn", "{{ project_name }}.wsgi:application"]
