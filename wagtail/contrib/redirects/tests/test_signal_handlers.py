@@ -266,6 +266,7 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
         from wagtail.contrib.redirects.signal_handlers import (
             autocreate_redirects_on_page_move,
         )
+
         with self.captureOnCommitCallbacks(execute=True):
             autocreate_redirects_on_page_move(
                 instance=draft_page,
