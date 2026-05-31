@@ -1,5 +1,30 @@
 import { getElementByContentPath } from '../utils/contentPath';
 
+const PANEL_STATE_KEY_PREFIX = 'wagtail:panel-expansion';
+
+function getPanelStorageKey(toggle: HTMLButtonElement): string {
+  return `${PANEL_STATE_KEY_PREFIX}:${toggle.getAttribute('aria-controls')}`;
+}
+
+function savePanelState(toggle: HTMLButtonElement, expanded: boolean): void {
+  try {
+    window.localStorage.setItem(getPanelStorageKey(toggle), String(expanded));
+  } catch {
+    // localStorage may be unavailable (private browsing, storage quota).
+  }
+}
+
+function loadPanelState(toggle: HTMLButtonElement): boolean | null {
+  try {
+    const stored = window.localStorage.getItem(getPanelStorageKey(toggle));
+    if (stored === 'true') return true;
+    if (stored === 'false') return false;
+  } catch {
+    // localStorage may be unavailable.
+  }
+  return null;
+}
+
 /**
  * Switches a collapsible panel from expanded to collapsed, or vice versa.
  * Updates the DOM and fires custom events for other code to hook into.
@@ -70,21 +95,34 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const hasError = content.querySelector(
     '[aria-invalid="true"], .error, .w-field--error',
   );
-  const isCollapsed = hasCollapsed && !hasError;
+  // Never collapse a panel that has errors, regardless of saved state.
+  const savedState = hasError ? null : loadPanelState(toggle);
+  // Saved state takes priority over the CSS class; errors always win.
+  const isCollapsed =
+    savedState !== null ? !savedState : hasCollapsed && !hasError;
 
   if (isCollapsed) {
     togglePanel(false);
   }
 
-  toggle.addEventListener('click', togglePanel.bind(null, undefined));
+  toggle.addEventListener('click', () => {
+    togglePanel(undefined);
+    savePanelState(toggle, toggle.getAttribute('aria-expanded') === 'true');
+  });
 
   const heading = panel.querySelector<HTMLElement>('[data-panel-heading]');
   if (heading) {
-    heading.addEventListener('click', togglePanel.bind(null, undefined));
+    heading.addEventListener('click', () => {
+      togglePanel(undefined);
+      savePanelState(toggle, toggle.getAttribute('aria-expanded') === 'true');
+    });
   }
 
-  // Set the toggle back to expanded upon reveal.
-  content.addEventListener('beforematch', togglePanel.bind(null, true));
+  // Set the toggle back to expanded upon reveal (browser find-in-page).
+  content.addEventListener('beforematch', () => {
+    togglePanel(true);
+    savePanelState(toggle, true);
+  });
 
   toggle.dispatchEvent(
     new CustomEvent('wagtail:panel-init', {
