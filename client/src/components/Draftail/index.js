@@ -158,6 +158,15 @@ const initEditor = (selector, originalOptions, currentScript) => {
     field.draftailEditor = ref;
   };
 
+  // Associate the field's existing <label> with the editor's contenteditable element.
+  // StructBlock labels are generated without an id, so we assign one using the
+  // ${field.id}-label convention that formatted_field.html already uses for top-level fields.
+  const labelEl = document.querySelector(`label[for="${field.id}"]`);
+  if (labelEl && !labelEl.id) {
+    labelEl.id = `${field.id}-label`;
+  }
+  const ariaLabelledBy = labelEl ? labelEl.id : null;
+
   const getSharedPropsFromOptions = (newOptions) => {
     let ariaDescribedBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
@@ -249,6 +258,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
       maxListNesting: 4,
       stripPastedStyles: false,
       ariaDescribedBy,
+      ariaLabelledBy,
       ...newOptions,
       blockTypes: blockTypes.map(wrapWagtailIcon),
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
