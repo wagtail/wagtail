@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Permission
 from django.urls import include, path, reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
@@ -9,9 +10,11 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import AdminOnlyMenuItem, MenuItem
 from wagtail.contrib.search_promotions import admin_urls
-from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import policies_registry, register_permission_policy
 
 from .models import SearchPromotion
+
+register_permission_policy(SearchPromotion)
 
 
 @hooks.register("register_admin_urls")
@@ -65,7 +68,9 @@ def register_permissions():
 
 
 class SearchPromotionAdminURLFinder(ModelAdminURLFinder):
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(SearchPromotion)
 
     def construct_edit_url(self, instance):
         return reverse("wagtailsearchpromotions:edit", args=(instance.query.id,))
