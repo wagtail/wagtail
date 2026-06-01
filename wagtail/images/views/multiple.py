@@ -2,7 +2,6 @@ import os.path
 
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy
 
@@ -23,7 +22,6 @@ from wagtail.images.utils import (
     get_accept_attributes,
     get_allowed_image_extensions,
 )
-from wagtail.permissions import policies_registry
 
 
 class AddView(WagtailAdminTemplateMixin, BaseAddView):
@@ -52,10 +50,6 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
             },
             {"url": "", "label": self.get_page_title()},
         ]
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(get_image_model())
 
     def get_model(self):
         return get_image_model()
@@ -132,10 +126,6 @@ class EditView(BaseEditView):
     edit_object_url_name = "wagtailimages:edit_multiple"
     delete_object_url_name = "wagtailimages:delete_multiple"
 
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(get_image_model())
-
     def get_model(self):
         return get_image_model()
 
@@ -146,10 +136,6 @@ class EditView(BaseEditView):
 class DeleteView(BaseDeleteView):
     pk_url_kwarg = "image_id"
     context_object_id_name = "image_id"
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(get_image_model())
 
     def get_model(self):
         return get_image_model()
