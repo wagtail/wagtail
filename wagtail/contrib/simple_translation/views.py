@@ -12,6 +12,7 @@ from django.views.generic.detail import SingleObjectMixin
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.admin import messages
 from wagtail.models import DraftStateMixin, Page, TranslatableMixin
+from wagtail.permissions import policies_registry
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
 from .forms import SubmitTranslationForm
@@ -145,7 +146,7 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
         if isinstance(object, DraftStateMixin):
             object = object.get_latest_revision_as_object()
 
-        if not model.snippet_viewset.permission_policy.user_has_permission_for_instance(
+        if not policies_registry.get_by_type(model).user_has_permission_for_instance(
             self.request.user, "change", object
         ):
             raise PermissionDenied
