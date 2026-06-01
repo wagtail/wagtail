@@ -141,15 +141,6 @@ class IndexView(generic.IndexView):
             )
         return columns
 
-    @cached_property
-    def collections(self):
-        collections = policies_registry.get_by_type(
-            self.model
-        ).collections_user_has_any_permission_for(self.request.user, ["add", "change"])
-        if len(collections) < 2:
-            collections = None
-        return collections
-
     def get_next_url(self):
         next_url = self.index_url
         request_query_string = self.request.META.get("QUERY_STRING")
