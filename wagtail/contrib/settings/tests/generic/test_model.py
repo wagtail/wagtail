@@ -1,6 +1,8 @@
 from django.test import TestCase, override_settings
 
 from wagtail.models import Site
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import policies_registry
 from wagtail.test.testapp.models import ImportantPagesGenericSetting
 
 from .base import GenericSettingsTestMixin
@@ -121,3 +123,14 @@ class GenericSettingModelTestCase(GenericSettingsTestMixin, TestCase):
             str(ImportantPagesGenericSetting.load()),
             "important pages settings",
         )
+
+    def test_permission_policy_registered(self):
+        self.assertIsInstance(
+            ImportantPagesGenericSetting.get_permission_policy(),
+            ModelPermissionPolicy,
+        )
+        registered = policies_registry.get_by_type(ImportantPagesGenericSetting)
+        # get_permission_policy() creates a new instance each time, so we can't
+        # assertIs, but we can check that they are similar
+        self.assertIsInstance(registered, ModelPermissionPolicy)
+        self.assertIs(registered.model, ImportantPagesGenericSetting)
