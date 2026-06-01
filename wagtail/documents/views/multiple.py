@@ -1,7 +1,6 @@
 import os.path
 
 from django.urls import reverse
-from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy
 
@@ -15,7 +14,6 @@ from wagtail.admin.views.generic.multiple_upload import (
 )
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
-from wagtail.permissions import policies_registry
 
 from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
@@ -47,10 +45,6 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
             },
             {"url": "", "label": self.get_page_title()},
         ]
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
 
     def get_model(self):
         return get_document_model()
@@ -93,10 +87,6 @@ class EditView(BaseEditView):
     edit_object_url_name = "wagtaildocs:edit_multiple"
     delete_object_url_name = "wagtaildocs:delete_multiple"
 
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
-
     def get_model(self):
         return get_document_model()
 
@@ -107,10 +97,6 @@ class EditView(BaseEditView):
 class DeleteView(BaseDeleteView):
     pk_url_kwarg = "doc_id"
     context_object_id_name = "doc_id"
-
-    @cached_property
-    def permission_policy(self):
-        return policies_registry.get_by_type(self.model)
 
     def get_model(self):
         return get_document_model()
