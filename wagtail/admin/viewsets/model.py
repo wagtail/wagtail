@@ -1,3 +1,5 @@
+import warnings
+
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
@@ -19,7 +21,9 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import ReferenceIndex
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import policies_registry, register_permission_policy
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .base import ViewSet, ViewSetGroup
 
@@ -120,8 +124,17 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         ):
             self.sort_order_field = self.model.sort_order_field
 
-    @property
+    @cached_property
     def permission_policy(self):
+        """
+        The permission policy for the model.
+
+        .. versionchanged:: 8.0
+
+            This property is deprecated and will be removed in a future release.
+            Register the permission policy for the model via
+            ``wagtail.permissions.register_permission_policy()`` instead.
+        """
         return ModelPermissionPolicy(self.model)
 
     @cached_property
@@ -581,6 +594,27 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
 
     def register_permissions(self):
         hooks.register("register_permissions", self.get_permissions_to_register)
+        if not policies_registry.get_by_type(self.model):
+            register_permission_policy(
+                self.model,
+                self.permission_policy,
+                # Use exact_class so that subclasses of the model don't inherit
+                # the ModelPermissionPolicy of its parents, as each concrete
+                # model has its own set of Permission records, and historically
+                # we've created a ModelPermissionPolicy for each concrete model.
+                exact_class=True,
+            )
+
+            # When the registration is removed in Wagtail 9.0, we may want to
+            # raise a RuntimeWarning or ImproperlyConfigured to ensure developers
+            # do not forget to register the permission policy for their model.
+            warnings.warn(
+                f"A permission policy for {self.model.__name__} was registered "
+                f"via {self.__class__.__name__}. Please register the policy with "
+                f"wagtail.permissions.register_permission_policy("
+                f"{self.model.__name__}, <policy_instance>) instead.",
+                RemovedInWagtail90Warning,
+            )
 
     def get_urlpatterns(self):
         conv = self.pk_path_converter
