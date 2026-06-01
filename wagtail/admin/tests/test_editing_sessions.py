@@ -11,6 +11,7 @@ from freezegun import freeze_time
 
 from wagtail.admin.models import EditingSession
 from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
+from wagtail.models.pages import PageLogEntry
 from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
@@ -115,17 +116,19 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_ping_non_page_non_snippet_model(self):
-        editors = Group.objects.get(name="Editors")
+        # PageLogEntry is not a model that has a permissions policy, so we
+        # cannot check permissions for editing it, thus cannot ping it either
+        log_entry = PageLogEntry.objects.first()
         session = EditingSession.objects.create(
             user=self.user,
-            content_type=ContentType.objects.get_for_model(Group),
-            object_id=editors.pk,
+            content_type=ContentType.objects.get_for_model(PageLogEntry),
+            object_id=log_entry.pk,
             last_seen_at=TIMESTAMP_1,
         )
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("auth", "group", str(editors.pk), session.id),
+                args=("wagtailcore", "pagelogentry", str(log_entry.pk), session.id),
             )
         )
         self.assertEqual(response.status_code, 404)
