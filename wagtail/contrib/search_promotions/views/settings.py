@@ -19,7 +19,7 @@ from wagtail.admin.views import generic
 from wagtail.contrib.search_promotions import forms, models
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 from wagtail.log_actions import log
-from wagtail.permission_policies.base import ModelPermissionPolicy
+from wagtail.permissions import policies_registry
 from wagtail.search.utils import normalise_query_string
 
 
@@ -35,7 +35,6 @@ class IndexView(generic.IndexView):
     page_title = gettext_lazy("Promoted search results")
     header_icon = "pick"
     paginate_by = 20
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
     index_url_name = "wagtailsearchpromotions:index"
     index_results_url_name = "wagtailsearchpromotions:index_results"
     search_fields = ["query_string"]
@@ -63,6 +62,10 @@ class IndexView(generic.IndexView):
         ),
     ]
 
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(SearchPromotion)
+
     def get_base_queryset(self):
         # Use a subquery to filter out the Query objects that do not have a
         # SearchPromotion instead of using .filter(editors_picks__isnull=False).
@@ -86,12 +89,15 @@ class IndexView(generic.IndexView):
 
 class SearchPromotionCreateEditMixin:
     model = Query
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
     index_url_name = "wagtailsearchpromotions:index"
     edit_url_name = "wagtailsearchpromotions:edit"
     form_class = forms.QueryForm
     header_icon = "pick"
     page_subtitle = gettext_lazy("Promoted search result")
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(SearchPromotion)
 
     def get_success_message(self, instance=None):
         return self.success_message % {"query": instance}
@@ -196,7 +202,6 @@ class EditView(SearchPromotionCreateEditMixin, generic.EditView):
 
 class DeleteView(generic.DeleteView):
     model = Query
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
     pk_url_kwarg = "query_id"
     context_object_name = "query"
     success_message = gettext_lazy("Editor's picks deleted.")
@@ -204,6 +209,10 @@ class DeleteView(generic.DeleteView):
     delete_url_name = "wagtailsearchpromotions:delete"
     header_icon = "pick"
     template_name = "wagtailsearchpromotions/confirm_delete.html"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(SearchPromotion)
 
     def delete_action(self):
         editors_picks = self.object.editors_picks.all()
