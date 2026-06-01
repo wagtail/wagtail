@@ -6,7 +6,9 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.test import TestCase
+from django.test.utils import isolate_apps
 from django.urls import NoReverseMatch, reverse
 from django.utils.formats import date_format, localize
 from django.utils.html import escape
@@ -15,8 +17,11 @@ from openpyxl import load_workbook
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import policies_registry
 from wagtail.test.testapp.models import (
     FeatureCompleteToy,
     JSONStreamModel,
@@ -25,6 +30,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 
 class TestModelViewSetGroup(WagtailTestUtils, TestCase):
@@ -2168,3 +2174,30 @@ class TestReorderView(WagtailTestUtils, TestCase):
         # Check if obj1 is now the second item by taking obj2's sort_order
         # and decrementing sort_order of the other items before it by 1
         self.assertOrder([(self.obj2, 3), (self.obj1, 4), (self.obj3, 9)])
+
+
+class TestPermissionPolicyDeprecation(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @isolate_apps("wagtail")
+    def test_default_policy_registration(self):
+        class Toy(models.Model):
+            pass
+
+        class SomeToyViewSet(ModelViewSet):
+            model = Toy
+
+        self.assertIsNone(policies_registry.get_by_type(Toy))
+        viewset = SomeToyViewSet()
+        with self.assertWarnsMessage(
+            RemovedInWagtail90Warning,
+            "A permission policy for Toy was registered via SomeToyViewSet. "
+            "Please register the policy with "
+            "wagtail.permissions.register_permission_policy(Toy, <policy_instance>) "
+            "instead.",
+        ):
+            viewset.register_permissions()
+            policy = policies_registry.get_by_type(Toy)
+            self.assertIsInstance(policy, ModelPermissionPolicy)
+            self.assertIs(policy, viewset.permission_policy)
