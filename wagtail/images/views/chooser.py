@@ -33,7 +33,7 @@ from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.permissions import permission_policy
-from wagtail.images.utils import find_image_duplicates
+from wagtail.images.utils import find_image_duplicates, get_accept_attributes
 from wagtail.models import ReferenceIndex
 
 permission_checker = PermissionPolicyChecker(permission_policy)
@@ -76,6 +76,15 @@ class ImageCreationFormMixin(CreationFormMixin):
             kwargs["instance"] = self.model(uploaded_by_user=self.request.user)
 
         return kwargs
+
+    def get_creation_form(self):
+        # Update file input accept attribute (for AVIF and HEIC files)
+        form = super().get_creation_form()
+        if form is not None:
+            form.fields["file"].widget.attrs["accept"] = get_accept_attributes(
+                self.request
+            )
+        return form
 
 
 class BaseImageChooseView(BaseChooseView):
