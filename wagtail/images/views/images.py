@@ -7,6 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import (
     FileResponse,
+    Http404,
     HttpResponseBadRequest,
     HttpResponseForbidden,
 )
@@ -343,6 +344,11 @@ class URLGeneratorView(generic.InspectView):
         return super().get_template_names()
 
     def get(self, request, image_id, *args, **kwargs):
+        try:
+            reverse("wagtailimages_serve", args=("foo", "1", "bar"))
+        except NoReverseMatch as exc:
+            raise Http404 from exc
+
         self.object = get_object_or_404(self.model, id=image_id)
 
         if not permission_policy.user_has_permission_for_instance(
