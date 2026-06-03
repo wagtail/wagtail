@@ -32,7 +32,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import (
     ClusterableModel,
 )
-from treebeard.mp_tree import MP_Node
+from treebeard.mp_tree import MP_Node, MP_NodeManager
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.actions.copy_page import CopyPageAction
@@ -135,7 +135,7 @@ def get_streamfield_names(model_class):
     )
 
 
-class BasePageManager(models.Manager):
+class BasePageManager(MP_NodeManager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
 
