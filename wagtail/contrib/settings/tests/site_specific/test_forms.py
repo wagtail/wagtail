@@ -19,7 +19,7 @@ class TestSiteSwitchFormOrdering(TestCase):
         )
         # Site with name
         site_3 = Site.objects.create(
-            hostname="alfa.com", site_name="Alfa Website", root_page=self.root_page
+            hostname="alfa.com", site_name="AAA Website", root_page=self.root_page
         )
         # Site with non-standard port
         site_4 = Site.objects.create(
@@ -31,7 +31,7 @@ class TestSiteSwitchFormOrdering(TestCase):
         site_1, site_2, site_3, site_4 = self._create_sites()
         form = SiteSwitchForm(site_1, TestSiteSetting, sites=Site.objects.all())
         expected_choices = [
-            (f"/admin/settings/tests/testsitesetting/{site_3.id}/", "Alfa Website"),
+            (f"/admin/settings/tests/testsitesetting/{site_3.id}/", "AAA Website"),
             (f"/admin/settings/tests/testsitesetting/{site_4.id}/", "alfa.com:5678"),
             (
                 f"/admin/settings/tests/testsitesetting/{site_2.id}/",
