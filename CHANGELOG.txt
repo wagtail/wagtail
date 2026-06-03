@@ -7,6 +7,7 @@ Changelog
 * Fix: Prevent spurious migrations when there are missing child blocks in `StructBlock.Meta.form_layout` (Matthias Brück, Sage Abdullah)
 * Fix: Prevent error in usage views when using `gettext_lazy` for a model's `verbose_name` (James Biggs)
 * Fix: Prevent development markdown files from being added to virtual environment root upon installation (Dan Braghis)
+* Docs: Add missing `return` in example views for template components (Tibor Leupold)
 
 
 7.4.1 (19.05.2026)
