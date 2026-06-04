@@ -599,3 +599,26 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
                 self.assertFalse(
                     SimplePage.objects.filter(id=grandchild_page.id).exists()
                 )
+
+    def test_bulk_delete_with_ancestor_descendant_selection(self):
+        parent = SimplePage(title="Parent page", slug="parent-page", content="parent")
+        self.root_page.add_child(instance=parent)
+        child = SimplePage(title="Child page", slug="child-page", content="child")
+        parent.add_child(instance=child)
+
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailcore", "page", "delete"),
+            )
+            + "?"
+        )
+        query_params = {
+            "next": self.explore_url,
+            "id": [parent.pk, child.pk],
+        }
+        url += urlencode(query_params, doseq=True)
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(SimplePage.objects.filter(id=parent.id).exists())
+        self.assertFalse(SimplePage.objects.filter(id=child.id).exists())
