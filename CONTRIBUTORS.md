@@ -979,6 +979,7 @@
 * Sahil Kumar
 * Rob Brackett
 * Jack Morgan
+* MariyaOT
 
 ## Translators
 
