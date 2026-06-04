@@ -431,3 +431,50 @@ class BackgroundColorOperation(FilterOperation):
 
     def run(self, willow, image, env):
         return willow.set_background_color_rgb(self.color)
+
+
+class PadOperation(FilterOperation):
+    """
+    Resizes the image to fit within the given dimensions while preserving
+    aspect ratio, then pads the remaining space with transparency to produce
+    an image of exactly WxH pixels.
+    """
+
+    def construct(self, size):
+        try:
+            width_str, height_str = size.split("x")
+            self.width = int(width_str)
+            self.height = int(height_str)
+        except (ValueError, AttributeError) as e:
+            raise ValueError("Image size must be in the format WxH") from e
+
+        if self.width < 1 or self.height < 1:
+            raise ValueError("Image width and height must both be 1 or greater")
+
+    def run(self, willow, image, env):
+        from PIL import Image as PILImage
+        from willow.plugins.pillow import PillowImage
+
+        image_width, image_height = willow.get_size()
+
+        horz_scale = self.width / image_width
+        vert_scale = self.height / image_height
+
+        if horz_scale < vert_scale:
+            fit_width = self.width
+            fit_height = max(1, int(image_height * horz_scale))
+        else:
+            fit_width = max(1, int(image_width * vert_scale))
+            fit_height = self.height
+
+        if fit_width < image_width or fit_height < image_height:
+            willow = willow.resize((fit_width, fit_height))
+            image_width, image_height = fit_width, fit_height
+
+        pad_left = (self.width - image_width) // 2
+        pad_top = (self.height - image_height) // 2
+        pil_image = willow.get_pillow_image().convert("RGBA")
+        canvas = PILImage.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+        canvas.paste(pil_image, (pad_left, pad_top), pil_image)
+
+        return PillowImage(canvas)
