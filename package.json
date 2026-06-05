@@ -72,7 +72,7 @@
     "@types/sortablejs": "^1.15.9",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
-    "@wagtail/eslint-config-wagtail": "^0.6.0-rc1.0",
+    "@wagtail/eslint-config-wagtail": "^0.6.0",
     "@wagtail/stylelint-config-wagtail": "^0.8.0",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^9.2.1",
