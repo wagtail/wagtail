@@ -4,31 +4,31 @@ Changelog
 8.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
-* Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
-* Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
-* Make `Button` component render a `<button>` element when no URL is supplied (Nayeli De Jesus, LB (Ben Johnston), Sage Abdullah)
-* Show site name in site switcher dropdown in site settings editor (Jack Morgan)
-* Improve clarity of different task states in workflow details dialog (Dan Braghis)
-* Add `submenu_hook` attribute to `ViewSetGroup` for collecting submenu items registered via a hook (Hunzlah Malik, MariyaOT, Sage Abdullah)
-* Fix: Make `SnippetChooserViewSet.widget_class` a class instead of an instance (Amrinder Singh, Sage Abdullah)
-* Fix: Prevent an error when approving a workflow that has been cancelled in a different session (Kailesh)
-* Fix: Accommodate multilingual sites in skipping the "choose parent" step when creating a new page from a flat page listing (Amrinder Singh)
-* Fix: Prevent error when moving a page to a destination with missing translations and `WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE = True` (Sahil Kumar)
-* Fix: Handle Pillow detecting decompression bombs when validating image pixel count (Jake Howard, Sage Abdullah)
-* Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
-* Docs: Fix panel classname and deprecated usage of `format_html` in `construct_homepage_panels` example (Andreas Nüßlein)
-* Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
-* Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
-* Maintenance: Ignore `EMAIL_BACKEND` setting deprecation on Django 6.1 when running project template tests (Sage Abdullah)
+ * Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
+ * Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
+ * Make `Button` component render a `<button>` element when no URL is supplied (Nayeli De Jesus, LB (Ben Johnston), Sage Abdullah)
+ * Show site name in site switcher dropdown in site settings editor (Jack Morgan)
+ * Improve clarity of different task states in workflow details dialog (Dan Braghis)
+ * Add `submenu_hook` attribute to `ViewSetGroup` for collecting submenu items registered via a hook (Hunzlah Malik, MariyaOT, Sage Abdullah)
+ * Fix: Make `SnippetChooserViewSet.widget_class` a class instead of an instance (Amrinder Singh, Sage Abdullah)
+ * Fix: Prevent an error when approving a workflow that has been cancelled in a different session (Kailesh)
+ * Fix: Accommodate multilingual sites in skipping the "choose parent" step when creating a new page from a flat page listing (Amrinder Singh)
+ * Fix: Prevent error when moving a page to a destination with missing translations and `WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE = True` (Sahil Kumar)
+ * Fix: Handle Pillow detecting decompression bombs when validating image pixel count (Jake Howard, Sage Abdullah)
+ * Docs: Add reference documentation entry for `SnippetChooserViewSet` (Sage Abdullah)
+ * Docs: Fix panel classname and deprecated usage of `format_html` in `construct_homepage_panels` example (Andreas Nüßlein)
+ * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
+ * Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
+ * Maintenance: Ignore `EMAIL_BACKEND` setting deprecation on Django 6.1 when running project template tests (Sage Abdullah)
 
 
 7.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
-* Fix: Prevent spurious migrations when there are missing child blocks in `StructBlock.Meta.form_layout` (Matthias Brück, Sage Abdullah)
-* Fix: Prevent error in usage views when using `gettext_lazy` for a model's `verbose_name` (James Biggs)
-* Fix: Prevent development markdown files from being added to virtual environment root upon installation (Dan Braghis)
-* Docs: Add missing `return` in example views for template components (Tibor Leupold)
+ * Fix: Prevent spurious migrations when there are missing child blocks in `StructBlock.Meta.form_layout` (Matthias Brück, Sage Abdullah)
+ * Fix: Prevent error in usage views when using `gettext_lazy` for a model's `verbose_name` (James Biggs)
+ * Fix: Prevent development markdown files from being added to virtual environment root upon installation (Dan Braghis)
+ * Docs: Add missing `return` in example views for template components (Tibor Leupold)
 
 
 7.4.1 (19.05.2026)
