@@ -20,6 +20,7 @@ Changelog
  * Maintenance: Rename `request` argument to `cache_object` in `Page._get_site_root_paths()` for correctness (Kailesh)
  * Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
  * Maintenance: Ignore `EMAIL_BACKEND` setting deprecation on Django 6.1 when running project template tests (Sage Abdullah)
+ * Maintenance: Use uv with lockfile in CI configurations (Sage Abdullah)
 
 
 7.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
