@@ -30,6 +30,7 @@ Changelog
  * Fix: Prevent spurious migrations when there are missing child blocks in `StructBlock.Meta.form_layout` (Matthias Brück, Sage Abdullah)
  * Fix: Prevent error in usage views when using `gettext_lazy` for a model's `verbose_name` (James Biggs)
  * Fix: Prevent development markdown files from being added to virtual environment root upon installation (Dan Braghis)
+ * Fix: Prevent StreamField blocks referenced multiple times from losing their required state after deferred validation (Sage Abdullah)
  * Docs: Add missing `return` in example views for template components (Tibor Leupold)
 
 
