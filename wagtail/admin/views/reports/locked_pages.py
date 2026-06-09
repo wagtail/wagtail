@@ -22,9 +22,15 @@ def get_users_for_filter():
 
 
 class LockedPagesReportFilterSet(WagtailFilterSet):
-    locked_at = django_filters.DateFromToRangeFilter(widget=DateRangePickerWidget)
+    locked_at = django_filters.DateFromToRangeFilter(
+        label=_("Locked at"),
+        widget=DateRangePickerWidget,
+    )
     locked_by = django_filters.ModelChoiceFilter(
-        field_name="locked_by", queryset=lambda request: get_users_for_filter()
+        label=_("Locked by"),
+        empty_label=_("Anyone"),
+        field_name="locked_by",
+        queryset=lambda request: get_users_for_filter(),
     )
 
     class Meta:

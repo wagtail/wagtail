@@ -134,12 +134,15 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown
         soup = self.get_soup(response.content)
-        locked_by_options = soup.select(
-            f"{self.drilldown_selector} select[name='locked_by'] option"
+        locked_by_select = soup.select_one(
+            f"{self.drilldown_selector} select[name='locked_by']"
         )
+        label = soup.select_one(f"label[for='{locked_by_select.get('id')}']")
+        locked_by_options = locked_by_select.select("option")
+        self.assertEqual(label.text.strip(), "Locked by")
         # No user locked anything, so there should be no option for the filter
         self.assertEqual(len(locked_by_options), 1)
-        self.assertEqual(locked_by_options[0].text, "---------")
+        self.assertEqual(locked_by_options[0].text, "Anyone")
         self.assertEqual(locked_by_options[0].get("value"), "")
         self.assertActiveFilterNotRendered(soup)
         self.assertPageTitle(soup, "Locked pages - Wagtail")
@@ -189,7 +192,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
         )
         # The options should only display users who have locked pages
         self.assertEqual(len(locked_by_options), 2)
-        self.assertEqual(locked_by_options[0].text, "---------")
+        self.assertEqual(locked_by_options[0].text, "Anyone")
         self.assertIsNone(locked_by_options[0].value)
         self.assertEqual(locked_by_options[1].text, str(self.user))
         self.assertEqual(locked_by_options[1].get("value"), str(self.user.pk))

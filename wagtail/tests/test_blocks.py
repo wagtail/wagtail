@@ -966,9 +966,7 @@ class TestRichTextBlock(TestCase):
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
-        from django.db.models.fields import BLANK_CHOICE_DASH
-
-        self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+        self.blank_choice_dash_label = "- Select an option -"
 
     def test_adapt_choice_block(self):
         block = blocks.ChoiceBlock(choices=[("tea", "Tea"), ("coffee", "Coffee")])
@@ -980,7 +978,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIsInstance(js_args[1], forms.Select)
         self.assertEqual(
             list(js_args[1].choices),
-            [("", "---------"), ("tea", "Tea"), ("coffee", "Coffee")],
+            [("", self.blank_choice_dash_label), ("tea", "Tea"), ("coffee", "Coffee")],
         )
         self.assertEqual(
             js_args[2],
@@ -1016,7 +1014,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIsInstance(js_args[1], forms.Select)
         self.assertEqual(
             list(js_args[1].choices),
-            [("", "---------"), ("tea", "Tea"), ("coffee", "Coffee")],
+            [("", self.blank_choice_dash_label), ("tea", "Tea"), ("coffee", "Coffee")],
         )
 
     def test_validate_required_choice_block(self):
@@ -1120,7 +1118,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 (
                     "Alcoholic",
                     [
@@ -1269,7 +1267,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 ("tea", "Tea"),
                 ("coffee", "Coffee"),
             ],
@@ -1400,7 +1398,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(
             list(js_args[1].choices),
             [
-                ("", "---------"),
+                ("", self.blank_choice_dash_label),
                 ("tea", "Tea"),
                 ("coffee", "Coffee"),
             ],
