@@ -388,7 +388,12 @@ class ListBlock(Block):
             [
                 (
                     self.child_block.render(child_value, context=context),
-                    getattr(value.bound_blocks[i], "id", None) or str(uuid.uuid4()),
+                    (
+                        getattr(value.bound_blocks[i], "id", None)
+                        if hasattr(value, "bound_blocks")
+                        else None
+                    )
+                    or str(uuid.uuid4()),
                 )
                 for i, child_value in enumerate(value)
             ],

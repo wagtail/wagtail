@@ -3516,6 +3516,19 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIn("<h1>Hello world!</h1>", html)
         self.assertIn("<h1>Goodbye world!</h1>", html)
 
+    def test_render_without_to_python(self):
+        """
+        The render method of a ListBlock should be able to handle being passed
+        a plain list value, without having to be converted via to_python first.
+        """
+        block = blocks.ListBlock(
+            blocks.CharBlock(template="tests/blocks/heading_block.html")
+        )
+        html = block.render(["Hello world!", "Goodbye world!"])
+
+        self.assertIn("<h1>Hello world!</h1>", html)
+        self.assertIn("<h1>Goodbye world!</h1>", html)
+
     def test_render_passes_context_to_children(self):
         """
         Template context passed to the render method should be passed on
