@@ -17,13 +17,21 @@ export class WagtailApplication extends Application {
    * const content = await controller?.extractContent();
    * ```
    */
-  queryController<T extends Controller<Element>>(identifier: string) {
-    return this.getControllerForElementAndIdentifier(
-      document.querySelector(
-        `[${this.schema.controllerAttribute}~="${identifier}"]`,
-      )!,
-      identifier,
-    ) as T | null;
+  queryController<T extends Controller>(
+    identifier: string,
+    root: ParentNode | Document | null = document,
+  ): T | null {
+    const searchRoot = root || document;
+    const element = searchRoot.querySelector(
+      `[${this.schema.controllerAttribute}~="${identifier}"]`,
+    );
+    if (element) {
+      return this.getControllerForElementAndIdentifier(
+        element,
+        identifier,
+      ) as T;
+    }
+    return null;
   }
 
   /**
@@ -37,9 +45,13 @@ export class WagtailApplication extends Application {
    * controllers.forEach((controller) => controller.reset());
    * ```
    */
-  queryControllerAll<T extends Controller<Element>>(identifier: string): T[] {
+  queryControllerAll<T extends Controller>(
+    identifier: string,
+    root: ParentNode | Document | null = document,
+  ): T[] {
+    const searchRoot = root || document;
     return Array.from(
-      document.querySelectorAll(
+      searchRoot.querySelectorAll(
         `[${this.schema.controllerAttribute}~="${identifier}"]`,
       ),
     )

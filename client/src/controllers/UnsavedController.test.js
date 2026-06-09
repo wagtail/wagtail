@@ -72,6 +72,7 @@ describe('UnsavedController', () => {
   };
 
   afterEach(() => {
+    jest.clearAllTimers();
     application?.stop && application.stop();
     errors = [];
     eventNames.forEach((name) => {
