@@ -1,5 +1,6 @@
 import json
 import pickle
+from uuid import uuid4
 
 from django.apps import apps
 from django.db import connection, models
@@ -354,14 +355,31 @@ class TestStreamFieldRenderingBase(TestCase):
         self.image = Image.objects.create(
             title="Test image", file=get_test_image_file()
         )
+        self.block_ids = [str(uuid4()) for _ in range(4)]
 
         self.instance = self.model.objects.create(
             body=json.dumps(
                 [
-                    {"type": "rich_text", "value": "<p>Rich text</p>"},
-                    {"type": "rich_text", "value": "<p>Привет, Микола</p>"},
-                    {"type": "image", "value": self.image.pk},
-                    {"type": "text", "value": "Hello, World!"},
+                    {
+                        "type": "rich_text",
+                        "value": "<p>Rich text</p>",
+                        "id": self.block_ids[0],
+                    },
+                    {
+                        "type": "rich_text",
+                        "value": "<p>Привет, Микола</p>",
+                        "id": self.block_ids[1],
+                    },
+                    {
+                        "type": "image",
+                        "value": self.image.pk,
+                        "id": self.block_ids[2],
+                    },
+                    {
+                        "type": "text",
+                        "value": "Hello, World!",
+                        "id": self.block_ids[3],
+                    },
                 ]
             )
         )
@@ -369,10 +387,10 @@ class TestStreamFieldRenderingBase(TestCase):
         img_tag = self.image.get_rendition("original").img_tag()
         self.expected = "".join(
             [
-                '<div class="w-block-rich_text block-rich_text"><p>Rich text</p></div>',
-                '<div class="w-block-rich_text block-rich_text"><p>Привет, Микола</p></div>',
-                f'<div class="w-block-image block-image">{img_tag}</div>',
-                '<div class="w-block-text block-text">Hello, World!</div>',
+                f'<div id="w-block-{self.block_ids[0]}" class="w-block-rich_text block-rich_text"><p>Rich text</p></div>',
+                f'<div id="w-block-{self.block_ids[1]}" class="w-block-rich_text block-rich_text"><p>Привет, Микола</p></div>',
+                f'<div id="w-block-{self.block_ids[2]}" class="w-block-image block-image">{img_tag}</div>',
+                f'<div id="w-block-{self.block_ids[3]}" class="w-block-text block-text">Hello, World!</div>',
             ]
         )
 
@@ -771,8 +789,9 @@ class TestJSONStreamField(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.block_id = str(uuid4())
         cls.instance = JSONStreamModel.objects.create(
-            body=[{"type": "text", "value": "foo"}],
+            body=[{"type": "text", "value": "foo", "id": cls.block_id}],
         )
 
     def test_internal_type(self):
@@ -781,7 +800,7 @@ class TestJSONStreamField(TestCase):
 
     def test_json_body_equals_to_text_body(self):
         instance_text = JSONStreamModel.objects.create(
-            body=json.dumps([{"type": "text", "value": "foo"}]),
+            body=json.dumps([{"type": "text", "value": "foo", "id": self.block_id}]),
         )
         self.assertEqual(
             instance_text.body.render_as_block(), self.instance.body.render_as_block()
@@ -789,7 +808,7 @@ class TestJSONStreamField(TestCase):
 
     def test_json_body_create_preserialised_value(self):
         instance_preserialised = JSONStreamModel.objects.create(
-            body=json.dumps([{"type": "text", "value": "foo"}]),
+            body=json.dumps([{"type": "text", "value": "foo", "id": self.block_id}]),
         )
         self.assertEqual(
             instance_preserialised.body.render_as_block(),
