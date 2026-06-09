@@ -4,6 +4,7 @@ Changelog
 8.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add customizability for all remaining page views to `PageViewSet` (Sage Abdullah)
  * Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
  * Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
  * Make `Button` component render a `<button>` element when no URL is supplied (Nayeli De Jesus, LB (Ben Johnston), Sage Abdullah)

@@ -275,6 +275,31 @@ Support for `list_display`, `list_filter`, `list_per_page`, `list_export`, `expo
 The `PageViewSet` class was added.
 ```
 
+```{versionadded} 8.0
+Endpoints for the following views were added to the viewset:
+`add_view_class`,
+`collect_workflow_action_data_view_class`,
+`confirm_workflow_cancellation_view_class`,
+`edit_view_class`,
+`history_view_class`,
+`lock_view_class`,
+`move_view_class`,
+`unlock_view_class`,
+`preview_on_add_view_class`,
+`preview_on_edit_view_class`,
+`revisions_view_class`,
+`revisions_compare_view_class`,
+`revisions_revert_view_class`,
+`revisions_unschedule_view_class`,
+`search_view_class`,
+`unpublish_view_class`,
+`usage_view_class`,
+`workflow_action_view_class`,
+`workflow_history_view_class`,
+`workflow_history_detail_view_class`,
+`workflow_preview_view_class`.
+```
+
 ```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.pages.PageViewSet
 
