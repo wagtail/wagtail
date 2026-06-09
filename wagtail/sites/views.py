@@ -1,10 +1,11 @@
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.ui.tables import Column, StatusFlagColumn, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.models import Site
-from wagtail.permissions import site_permission_policy
+from wagtail.permissions import policies_registry
 from wagtail.sites.forms import SiteForm
 
 
@@ -53,7 +54,6 @@ class DeleteView(generic.DeleteView):
 class SiteViewSet(ModelViewSet):
     icon = "site"
     model = Site
-    permission_policy = site_permission_policy
     add_to_reference_index = False
 
     index_view_class = IndexView
@@ -62,6 +62,10 @@ class SiteViewSet(ModelViewSet):
     delete_view_class = DeleteView
 
     template_prefix = "wagtailsites/"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(

@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.utils.functional import cached_property
 
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import policies_registry
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
@@ -12,8 +13,11 @@ User = get_user_model()
 
 class UserBulkAction(PermissionCheckedMixin, BulkAction):
     models = [User]
-    permission_policy = ModelPermissionPolicy(User)
     any_permission_required = ["add", "change", "delete"]
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(User)
 
     def get_all_objects_in_listing_query(self, parent_id):
         listing_objects = self.model.objects.all().values_list("pk", flat=True)

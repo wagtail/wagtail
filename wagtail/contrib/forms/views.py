@@ -8,7 +8,7 @@ from django.forms import CheckboxSelectMultiple
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.functional import classproperty
+from django.utils.functional import cached_property, classproperty
 from django.utils.translation import gettext, gettext_lazy, ngettext
 from django.views.generic import TemplateView
 from django_filters import DateFromToRangeFilter
@@ -28,7 +28,7 @@ from wagtail.admin.views.pages.listing import PageFilterSet, PageListingMixin
 from wagtail.contrib.forms.models import FormMixin
 from wagtail.contrib.forms.utils import get_form_types, get_forms_for_user
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policies_registry
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -66,7 +66,6 @@ class FormPageFilterSet(PageFilterSet):
 class FormPagesListView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
     """Lists the available form pages for the current user"""
 
-    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
@@ -87,6 +86,10 @@ class FormPagesListView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
     model = Page
     is_searchable = True
     filterset_class = FormPageFilterSet
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     @classproperty
     def columns(self):

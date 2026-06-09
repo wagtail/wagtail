@@ -19,7 +19,8 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
 from wagtail.models import ReferenceIndex
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import policies_registry
 
 from .base import ViewSet, ViewSetGroup
 
@@ -120,7 +121,7 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
         ):
             self.sort_order_field = self.model.sort_order_field
 
-    @property
+    @cached_property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
 
@@ -581,6 +582,7 @@ class ModelViewSet(ListingViewSetMixin, ViewSet):
 
     def register_permissions(self):
         hooks.register("register_permissions", self.get_permissions_to_register)
+        policies_registry.register(self.model, self.permission_policy)
 
     def get_urlpatterns(self):
         conv = self.pk_path_converter

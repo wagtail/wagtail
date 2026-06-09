@@ -19,7 +19,7 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.blocks import ChooserBlock
 from wagtail.documents import get_document_model, get_document_model_string
-from wagtail.documents.permissions import permission_policy
+from wagtail.permissions import policies_registry
 
 
 class DocumentChosenResponseMixin(ChosenResponseMixin):
@@ -179,7 +179,6 @@ class DocumentChooserViewSet(ChooserViewSet):
     base_widget_class = BaseAdminDocumentChooser
     widget_telepath_adapter_class = DocumentChooserAdapter
     base_block_class = BaseDocumentChooserBlock
-    permission_policy = permission_policy
 
     icon = "doc-full-inverse"
     choose_one_text = _("Choose a document")
@@ -187,6 +186,10 @@ class DocumentChooserViewSet(ChooserViewSet):
     create_action_clicked_label = _("Uploading…")
     choose_another_text = _("Choose another document")
     edit_item_text = _("Edit this document")
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(get_document_model())
 
 
 viewset = DocumentChooserViewSet(

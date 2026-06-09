@@ -2,6 +2,7 @@ import django_filters
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.views.generic import history
@@ -10,7 +11,7 @@ from wagtail.admin.views.pages.utils import (
 )
 from wagtail.admin.widgets import BooleanRadioSelect
 from wagtail.models import Page, PageLogEntry
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policies_registry
 
 
 class PageHistoryFilterSet(history.HistoryFilterSet):
@@ -69,7 +70,6 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     filterset_class = PageHistoryFilterSet
     model = Page
     pk_url_kwarg = "page_id"
-    permission_policy = page_permission_policy
     history_url_name = "wagtailadmin_pages:history"
     history_results_url_name = "wagtailadmin_pages:history_results"
     edit_url_name = "wagtailadmin_pages:edit"
@@ -77,6 +77,10 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     revisions_revert_url_name = "wagtailadmin_pages:revisions_revert"
     revisions_compare_url_name = "wagtailadmin_pages:revisions_compare"
     revisions_unschedule_url_name = "wagtailadmin_pages:revisions_unschedule"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_object(self):
         page = get_object_or_404(self.model, id=self.pk).specific
