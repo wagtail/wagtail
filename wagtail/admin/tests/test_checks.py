@@ -1,8 +1,11 @@
-from django.core.checks import Error
+import zoneinfo
+from unittest import mock
+
+from django.core.checks import Error, Warning
 from django.test import TestCase, override_settings
 from django.utils.formats import reset_format_cache
 
-from wagtail.admin.checks import datetime_format_check
+from wagtail.admin.checks import datetime_format_check, tz_data_available_check
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -140,3 +143,32 @@ class TestDateTimeChecks(WagtailTestUtils, TestCase):
             ),
         ]
         self.assertEqual(errors, expected_errors)
+
+
+class TestTimeZoneDataCheck(TestCase):
+    def test_no_warning_when_zoneinfo_can_load_time_zone(self):
+        with override_settings(USE_TZ=True, TIME_ZONE="UTC"):
+            self.assertEqual(tz_data_available_check(None), [])
+
+    def test_warning_when_zoneinfo_cannot_load_time_zone(self):
+        with override_settings(USE_TZ=True, TIME_ZONE="Europe/London"):
+            with mock.patch(
+                "wagtail.admin.checks.zoneinfo.ZoneInfo",
+                side_effect=zoneinfo.ZoneInfoNotFoundError("no tz data"),
+            ):
+                errors = tz_data_available_check(None)
+
+        self.assertEqual(len(errors), 1)
+        self.assertIsInstance(errors[0], Warning)
+        self.assertEqual(errors[0].id, "wagtailadmin.W005")
+        self.assertIn("Europe/London", errors[0].msg)
+        self.assertIn("tzdata", errors[0].hint)
+
+    def test_no_warning_when_use_tz_disabled(self):
+        with override_settings(USE_TZ=False, TIME_ZONE="Europe/London"):
+            with mock.patch(
+                "wagtail.admin.checks.zoneinfo.ZoneInfo",
+                side_effect=zoneinfo.ZoneInfoNotFoundError("no tz data"),
+            ):
+                errors = tz_data_available_check(None)
+        self.assertEqual(errors, [])
