@@ -1,0 +1,40 @@
+# Overrides for the latest-deps CI workflow.
+#
+# Lists dependencies that have an upper version bound in pyproject.toml,
+# with their upper bound removed. To be used in CI via `uv --override`,
+# to be an early warning when a future version of one of these packages
+# breaks Wagtail. When adding an upper bound to pyproject.toml, add the
+# package name here too.
+
+# Runtime dependencies ([project.dependencies])
+django-modelcluster
+django-permissionedforms
+django-taggit
+django-treebeard
+djangorestframework
+draftjs_exporter
+beautifulsoup4
+Willow[heif]
+requests
+openpyxl
+telepath
+laces
+django-tasks
+modelsearch
+
+# Testing dependencies ([project.optional-dependencies.testing])
+# Linter exact pins (ruff, doc8, semgrep, curlylint, djhtml) are
+# intentionally omitted, as they should be handled separately.
+Jinja2
+boto3
+azure-mgmt-cdn
+azure-mgmt-frontdoor
+responses
+polib
+tblib
+
+# Documentation dependencies ([project.optional-dependencies.docs])
+pyenchant
+sphinxcontrib-spelling
+sphinx-wagtail-theme
+myst_parser
