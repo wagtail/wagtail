@@ -1,0 +1,83 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "extends": ["config:recommended", ":enablePreCommit"],
+
+  // Run weekly.
+  "schedule": ["before 6am on monday"],
+  "timezone": "Etc/UTC",
+  "prConcurrentLimit": 10,
+
+  // Periodically refresh uv.lock to catch transitive dependency updates.
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+
+  "packageRules": [
+    {
+      "matchCategories": ["js"],
+      "enabled": false
+    },
+
+    // Runtime dependencies in [project.dependencies] are user-facing.
+    // Constraint changes propagate to everyone who installs Wagtail, so
+    // they remain deliberate release-planning decisions, never automated.
+    // No per-dep PRs here, the lockfile that CI and local dev environments
+    // use is kept current via lockFileMaintenance above.
+    {
+      "matchManagers": ["pep621"],
+      "matchDepTypes": ["project.dependencies"],
+      "enabled": false
+    },
+
+    // Testing and docs extras only affect contributors, not end users.
+    // Safe to bump floors so contributor tooling stays current.
+    {
+      "matchManagers": ["pep621"],
+      "matchDepTypes": [
+        "project.optional-dependencies.testing",
+        "project.optional-dependencies.docs"
+      ],
+      "rangeStrategy": "bump"
+    },
+
+    // Group linter and formatter updates into a single PR. Regex patterns
+    // (delimited by `/`) catch both the pep621 dep (e.g. "ruff") and any
+    // related pre-commit hook (e.g. the repo URL "astral-sh/ruff-pre-commit"),
+    // so a single rule handles both managers.
+    {
+      "matchPackageNames": [
+        "/ruff/",
+        "/doc8/",
+        "/semgrep/",
+        "/curlylint/",
+        "/djhtml/"
+      ],
+      "groupName": "Python linters and formatters"
+    },
+
+    // Front-end linters and formatters (prettier, eslint, stylelint plus
+    // their plugins/configs) across package.json and .pre-commit-config.yaml.
+    // `enabled: true` overrides the js-category disable above for just
+    // these packages so the npm versions get tracked too.
+    {
+      "matchPackageNames": ["/prettier/", "/eslint/", "/stylelint/"],
+      "enabled": true,
+      "groupName": "Front-end linters and formatters"
+    },
+
+    // Group all dependency updates inside the project template (its
+    // requirements.txt and Dockerfile) into a single PR.
+    {
+      "matchFileNames": ["wagtail/project_template/**"],
+      "groupName": "Project template"
+    },
+
+    // Group all CI updates (GitHub Actions + CircleCI) into a single PR.
+    {
+      "matchCategories": ["ci"],
+      "groupName": "CI configuration"
+    }
+  ]
+}
