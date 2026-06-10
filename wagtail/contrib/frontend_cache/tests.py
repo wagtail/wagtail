@@ -19,6 +19,7 @@ from wagtail.contrib.frontend_cache.backends import (
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, EventPage
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 from .utils import (
     PurgeBatch,
@@ -129,6 +130,34 @@ class TestBackendConfiguration(SimpleTestCase):
             backends["azure_cdn"]._cdn_endpoint_name, "wagtail-io-endpoint"
         )
 
+    @mock.patch("azure.mgmt.cdn.__version__", "12.0.0")
+    def test_azure_cdn_deprecation(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail80Warning,
+            "Support for azure-mgmt-cdn 12.0.0 will be dropped in a future release. "
+            "Please upgrade to azure-mgmt-cdn >= 13.0.0.",
+        ):
+            backends = get_backends(
+                backend_settings={
+                    "azure_cdn": {
+                        "BACKEND": "wagtail.contrib.frontend_cache.backends.AzureCdnBackend",
+                        "RESOURCE_GROUP_NAME": "test-resource-group",
+                        "CDN_PROFILE_NAME": "wagtail-org-profile",
+                        "CDN_ENDPOINT_NAME": "wagtail-org-endpoint",
+                    },
+                }
+            )
+
+        self.assertEqual(set(backends.keys()), {"azure_cdn"})
+        self.assertIsInstance(backends["azure_cdn"], AzureCdnBackend)
+        self.assertEqual(
+            backends["azure_cdn"]._resource_group_name, "test-resource-group"
+        )
+        self.assertEqual(backends["azure_cdn"]._cdn_profile_name, "wagtail-org-profile")
+        self.assertEqual(
+            backends["azure_cdn"]._cdn_endpoint_name, "wagtail-org-endpoint"
+        )
+
     def test_azure_front_door(self):
         backends = get_backends(
             backend_settings={
@@ -147,6 +176,32 @@ class TestBackendConfiguration(SimpleTestCase):
         )
         self.assertEqual(
             backends["azure_front_door"]._front_door_name, "wagtail-io-front-door"
+        )
+
+    @mock.patch("azure.mgmt.frontdoor.__version__", "1.0.0")
+    def test_azure_front_door_deprecation(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail80Warning,
+            "Support for azure-mgmt-frontdoor 1.0.0 will be dropped in a future release. "
+            "Please upgrade to azure-mgmt-frontdoor >= 1.1.0.",
+        ):
+            backends = get_backends(
+                backend_settings={
+                    "azure_front_door": {
+                        "BACKEND": "wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend",
+                        "RESOURCE_GROUP_NAME": "test-resource-group",
+                        "FRONT_DOOR_NAME": "wagtail-org-front-door",
+                    },
+                }
+            )
+
+        self.assertEqual(set(backends.keys()), {"azure_front_door"})
+        self.assertIsInstance(backends["azure_front_door"], AzureFrontDoorBackend)
+        self.assertEqual(
+            backends["azure_front_door"]._resource_group_name, "test-resource-group"
+        )
+        self.assertEqual(
+            backends["azure_front_door"]._front_door_name, "wagtail-org-front-door"
         )
 
     def test_azure_cdn_get_client(self):
