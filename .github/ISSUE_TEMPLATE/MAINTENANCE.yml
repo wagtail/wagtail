@@ -1,0 +1,58 @@
+name: 🔧 Maintenance task
+description: Propose a maintenance, cleanup, or optimisation task for Wagtail
+labels: ['type:Cleanup/Optimisation']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to propose a maintenance task for Wagtail!
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Task summary
+      description: A clear and concise description of the maintenance task.
+      placeholder: Describe the maintenance task here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this maintenance task needed? What problem does it solve or what improvement does it bring?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-approach
+    attributes:
+      label: Proposed approach
+      description: If you have thoughts on how to approach this task, describe them here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: |
+        Is there anything else relevant to this task?
+        You might want to link to related issues, pull requests, or external resources.
+    validations:
+      required: false
+
+  - type: textarea
+    id: working-on-this
+    attributes:
+      label: Working on this
+      description: |
+        Do you have thoughts on skills needed?
+        Are you keen to work on this yourself?
+        Please let us know here. Otherwise, leave the following content as-is.
+      value: |
+        Maintenance tasks generally require expertise as a Wagtail maintainer or a deep familiarity with the codebase. If you're interested in working on this, make sure you understand the area of the codebase involved.
+
+        View our [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html). Add a comment to the issue to explain what approach you are taking, and check with the core team before investing significant effort.
+    validations:
+      required: false
