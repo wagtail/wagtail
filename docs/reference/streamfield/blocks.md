@@ -568,6 +568,8 @@ All block definitions have the following methods and properties that can be over
     :param max_num: Maximum number of sub-blocks that the list may have.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param collapsed: When true, all sub-blocks are initially collapsed.
+    :param label_format:
+     Determines the summary label shown for each item when collapsed in the editing interface, when the sub-block is a ``StructBlock``. By default, each item shows the default label for its sub-block; set a format string here using ``{field_name}`` placeholders for the sub-block's fields, for example ``label_format = "{ingredient} ({amount})"``. To hide the summary label entirely, set this to the empty string ``""``.
 
 
 .. autoclass:: wagtail.blocks.StreamBlock

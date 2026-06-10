@@ -13,6 +13,7 @@ from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.html import escape, json_script
+from django.utils.translation import gettext_lazy
 from freezegun import freeze_time
 
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
@@ -1047,6 +1048,44 @@ class TestFieldPanel(TestCase):
         self.assertIn("request=<WSGIRequest: GET '/'>", field_panel_repr)
         self.assertIn("form=EventPageForm", field_panel_repr)
 
+    def test_label_format(self):
+        panel = FieldPanel("title", label_format="{title}").bind_to_model(EventPage)
+        bound_panel = self._get_bound_panel(panel)
+        attrs = bound_panel.attrs
+        self.assertIn("w-panel-label", attrs["data-controller"].split())
+        self.assertEqual(attrs["data-w-panel-label-format-value"], "{title}")
+
+    def test_label_format_default(self):
+        bound_panel = self._get_bound_panel(self.end_date_panel)
+        attrs = bound_panel.attrs
+        self.assertNotIn("data-w-panel-label-format-value", attrs)
+        self.assertNotIn("w-panel-label", attrs.get("data-controller", "").split())
+
+    def test_label_format_preserves_existing_data_controller(self):
+        panel = FieldPanel(
+            "title",
+            label_format="{title}",
+            attrs={"data-controller": "w-other"},
+        ).bind_to_model(EventPage)
+        bound_panel = self._get_bound_panel(panel)
+        controllers = bound_panel.attrs["data-controller"].split()
+        self.assertIn("w-other", controllers)
+        self.assertIn("w-panel-label", controllers)
+
+    def test_label_format_clone(self):
+        panel = FieldPanel("title", label_format="{title}")
+        self.assertEqual(panel.clone().label_format, "{title}")
+
+    def test_label_format_supports_lazy_translation(self):
+        panel = FieldPanel(
+            "title", label_format=gettext_lazy("Title: {title}")
+        ).bind_to_model(EventPage)
+        bound_panel = self._get_bound_panel(panel)
+        self.assertEqual(
+            str(bound_panel.attrs["data-w-panel-label-format-value"]),
+            "Title: {title}",
+        )
+
 
 class TestFieldRowPanel(TestCase):
     def setUp(self):
@@ -1562,6 +1601,56 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         self.assertEqual(panel.heading, "Social links")
         # Label is the singular term, derived from the related model's verbose_name
         self.assertEqual(panel.label, "social link")
+
+    def get_inline_bound_panel(self, label_format=None):
+        object_list = ObjectList(
+            [InlinePanel("speakers", label="speaker", label_format=label_format)]
+        ).bind_to_model(EventPage)
+        event_page = EventPage.objects.get(slug="christmas")
+        form = object_list.get_form_class()(instance=event_page)
+        return object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+    def test_label_format(self):
+        bound_panel = self.get_inline_bound_panel(
+            label_format="{first_name} {last_name}"
+        )
+        inline_panel = bound_panel.children[0]
+        row_attrs = inline_panel.children[0].label_format_attrs
+        self.assertEqual(row_attrs["data-controller"], "w-panel-label")
+        self.assertEqual(
+            row_attrs["data-w-panel-label-format-value"],
+            "{first_name} {last_name}",
+        )
+        self.assertEqual(
+            row_attrs["data-w-panel-label-widgets-id-value"],
+            "id_speakers-LABEL_FORMAT_WIDGETS",
+        )
+        self.assertEqual(
+            row_attrs["data-w-panel-label-field-prefix-value"], "speakers-0"
+        )
+        self.assertIn(
+            'id="id_speakers-LABEL_FORMAT_WIDGETS"', bound_panel.render_html()
+        )
+
+    def test_label_format_default(self):
+        bound_panel = self.get_inline_bound_panel()
+        inline_panel = bound_panel.children[0]
+        self.assertEqual(inline_panel.children[0].label_format_attrs, {})
+        self.assertNotIn(
+            'id="id_speakers-LABEL_FORMAT_WIDGETS"', bound_panel.render_html()
+        )
+
+    def test_label_format_clone(self):
+        panel = InlinePanel("speakers", label_format="{first_name}")
+        self.assertEqual(panel.clone().label_format, "{first_name}")
+
+    def test_label_format_supports_lazy_translation(self):
+        bound_panel = self.get_inline_bound_panel(
+            label_format=gettext_lazy("Speaker: {first_name} {last_name}")
+        )
+        self.assertIn("Speaker: {first_name} {last_name}", bound_panel.render_html())
 
     def test_inline_panel_order_with_min_num(self):
         event_page = EventPage.objects.get(slug="christmas")
