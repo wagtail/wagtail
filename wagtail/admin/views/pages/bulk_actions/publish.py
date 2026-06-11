@@ -83,7 +83,9 @@ class PublishBulkAction(PageBulkAction):
             num_failed_objects,
         ) % {"num_failed_objects": num_failed_objects}
 
-    def get_success_message(self, num_parent_objects, num_child_objects, num_failed_objects):
+    def get_success_message(
+        self, num_parent_objects, num_child_objects, num_failed_objects
+    ):
         include_descendants = self.cleaned_form.cleaned_data["include_descendants"]
         if include_descendants and num_child_objects > 0:
             message = _("%(parent_pages)s and %(child_pages)s have been published") % {
