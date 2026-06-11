@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
@@ -38,13 +39,16 @@ class PublishBulkAction(PageBulkAction):
 
     @classmethod
     def execute_action(cls, objects, include_descendants=False, user=None, **kwargs):
-        num_parent_objects, num_child_objects = 0, 0
+        num_parent_objects, num_child_objects, num_failed_objects = 0, 0, 0
         for page in objects:
             revision = page.get_latest_revision() or page.specific.save_revision(
                 user=user
             )
-            revision.publish(user=user)
-            num_parent_objects += 1
+            try:
+                revision.publish(user=user)
+                num_parent_objects += 1
+            except ValidationError:
+                num_failed_objects += 1
 
             if include_descendants:
                 for draft_descendant_page in (
@@ -64,22 +68,36 @@ class PublishBulkAction(PageBulkAction):
                             draft_descendant_page.get_latest_revision()
                             or draft_descendant_page.save_revision(user=user)
                         )
-                        draft_descendant_revision.publish(user=user)
-                        num_child_objects += 1
+                        try:
+                            draft_descendant_revision.publish(user=user)
+                            num_child_objects += 1
+                        except ValidationError:
+                            num_failed_objects += 1
 
-        return num_parent_objects, num_child_objects
+        return num_parent_objects, num_child_objects, num_failed_objects
 
-    def get_success_message(self, num_parent_objects, num_child_objects):
+    def get_failed_page_text(self, num_failed_objects):
+        return ngettext(
+            "%(num_failed_objects)d page could not be published due to validation errors",
+            "%(num_failed_objects)d pages could not be published due to validation errors",
+            num_failed_objects,
+        ) % {"num_failed_objects": num_failed_objects}
+
+    def get_success_message(self, num_parent_objects, num_child_objects, num_failed_objects):
         include_descendants = self.cleaned_form.cleaned_data["include_descendants"]
         if include_descendants and num_child_objects > 0:
-            # Translators: This forms a message such as "1 page and 3 child pages have been published"
-            return _("%(parent_pages)s and %(child_pages)s have been published") % {
+            message = _("%(parent_pages)s and %(child_pages)s have been published") % {
                 "parent_pages": self.get_parent_page_text(num_parent_objects),
                 "child_pages": self.get_child_page_text(num_child_objects),
             }
         else:
-            return ngettext(
+            message = ngettext(
                 "%(num_parent_objects)d page has been published",
                 "%(num_parent_objects)d pages have been published",
                 num_parent_objects,
             ) % {"num_parent_objects": num_parent_objects}
+
+        if num_failed_objects > 0:
+            message += ". " + self.get_failed_page_text(num_failed_objects)
+
+        return message
