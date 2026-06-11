@@ -1,6 +1,9 @@
+from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail.admin import messages
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 
 
@@ -34,16 +37,30 @@ class PublishBulkAction(PageBulkAction):
             "include_descendants": self.cleaned_form.cleaned_data[
                 "include_descendants"
             ],
+            "request": self.request,
         }
 
+    @staticmethod
+    def _publish(page, user):
+        try:
+            with transaction.atomic():
+                revision = page.get_latest_revision() or page.specific.save_revision(
+                    user=user
+                )
+                revision.publish(user=user)
+        except ValidationError:
+            return False
+        return True
+
     @classmethod
-    def execute_action(cls, objects, include_descendants=False, user=None, **kwargs):
-        num_parent_objects, num_child_objects = 0, 0
+    def execute_action(
+        cls, objects, include_descendants=False, user=None, request=None, **kwargs
+    ):
+        num_parent_objects, num_child_objects, num_failed_objects = 0, 0, 0
         for page in objects:
-            revision = page.get_latest_revision() or page.specific.save_revision(
-                user=user
-            )
-            revision.publish(user=user)
+            if not cls._publish(page, user):
+                num_failed_objects += 1
+                continue
             num_parent_objects += 1
 
             if include_descendants:
@@ -60,16 +77,28 @@ class PublishBulkAction(PageBulkAction):
                             user
                         ).can_publish()
                     ):
-                        draft_descendant_revision = (
-                            draft_descendant_page.get_latest_revision()
-                            or draft_descendant_page.save_revision(user=user)
-                        )
-                        draft_descendant_revision.publish(user=user)
-                        num_child_objects += 1
+                        if cls._publish(draft_descendant_page, user):
+                            num_child_objects += 1
+                        else:
+                            num_failed_objects += 1
+
+        if num_failed_objects and request is not None:
+            messages.error(
+                request,
+                ngettext(
+                    "%(num_failed_objects)d page could not be published due to validation errors",
+                    "%(num_failed_objects)d pages could not be published due to validation errors",
+                    num_failed_objects,
+                )
+                % {"num_failed_objects": num_failed_objects},
+            )
 
         return num_parent_objects, num_child_objects
 
     def get_success_message(self, num_parent_objects, num_child_objects):
+        if not num_parent_objects and not num_child_objects:
+            return None
+
         include_descendants = self.cleaned_form.cleaned_data["include_descendants"]
         if include_descendants and num_child_objects > 0:
             # Translators: This forms a message such as "1 page and 3 child pages have been published"

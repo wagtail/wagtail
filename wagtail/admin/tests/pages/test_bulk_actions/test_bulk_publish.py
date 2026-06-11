@@ -2,6 +2,7 @@ from unittest import mock
 
 import swapper
 from django.contrib.auth.models import Permission
+from django.contrib.messages import ERROR, SUCCESS, get_messages
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
@@ -226,6 +227,52 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
             'name="include_descendants"',
         )
 
+    def test_publish_view_post_with_validation_error(self):
+        failing_page = self.pages_to_be_published[0]
+        failing_page.content = ""
+        failing_page.save_revision(clean=False)
+
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 302)
+
+        self.assertFalse(Page.objects.get(id=failing_page.id).live)
+        for child_page in self.pages_to_be_published[1:]:
+            self.assertTrue(Page.objects.get(id=child_page.id).live)
+
+        messages = [
+            (m.level, str(m).strip()) for m in get_messages(response.wsgi_request)
+        ]
+        self.assertCountEqual(
+            messages,
+            [
+                (SUCCESS, "3 pages have been published"),
+                (
+                    ERROR,
+                    "1 page could not be published due to validation errors",
+                ),
+            ],
+        )
+
+    def test_publish_view_post_with_only_validation_errors(self):
+        for page in self.pages_to_be_published:
+            page.content = ""
+            page.save_revision(clean=False)
+
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 302)
+        for page in self.pages_to_be_published:
+            self.assertFalse(Page.objects.get(id=page.id).live)
+
+        messages = [
+            (m.level, str(m).strip()) for m in get_messages(response.wsgi_request)
+        ]
+        self.assertEqual(
+            messages,
+            [(ERROR, "4 pages could not be published due to validation errors")],
+        )
+
 
 class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -383,3 +430,40 @@ class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
         for grandchild_pages in self.grandchildren_pages.values():
             for grandchild_page in grandchild_pages:
                 self.assertFalse(Page.objects.get(id=grandchild_page.id).live)
+
+    def test_publish_include_children_with_validation_error(self):
+        parent_page = self.pages_to_be_published[1]
+        grandchild_pages = self.grandchildren_pages[parent_page]
+        failing_page = grandchild_pages[0]
+        failing_page.content = ""
+        failing_page.save_revision(clean=False)
+
+        response = self.client.post(self.url, {"include_descendants": "on"})
+
+        self.assertEqual(response.status_code, 302)
+
+        self.assertFalse(Page.objects.get(id=failing_page.id).live)
+        for page in self.pages_to_be_published:
+            self.assertTrue(Page.objects.get(id=page.id).live)
+        other_grandchildren = [
+            grandchild
+            for grandchildren in self.grandchildren_pages.values()
+            for grandchild in grandchildren
+            if grandchild.id != failing_page.id
+        ]
+        for grandchild in other_grandchildren:
+            self.assertTrue(Page.objects.get(id=grandchild.id).live)
+
+        messages = [
+            (m.level, str(m).strip()) for m in get_messages(response.wsgi_request)
+        ]
+        self.assertCountEqual(
+            messages,
+            [
+                (SUCCESS, "3 pages and 3 child pages have been published"),
+                (
+                    ERROR,
+                    "1 page could not be published due to validation errors",
+                ),
+            ],
+        )
