@@ -222,6 +222,40 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
             'name="include_descendants"',
         )
 
+    def test_publish_view_post_with_validation_error(self):
+        """
+        This posts to the publish view, where one of the pages fails to
+        publish due to a ValidationError, and checks that the other pages
+        are published successfully and the failure is reported.
+        """
+        falling_page = self.pages_to_be_published[0]
+
+        from django.core.exceptions import ValidationError
+
+        from wagtail.models import Revision
+
+        original_publish = Revision.publish
+
+        def mock_publish(self, *args, **kwargs):
+            if self.object_id == str(falling_page.id):
+                raise ValidationError("Simulated validation error")
+            return original_publish(self, *args, **kwargs)
+
+        with mock.patch.object(Revision, "publish", mock_publish):
+            response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 302)
+        # The failing page should remain unpublished
+        self.assertFalse(SimplePage.objects.get(id=falling_page.id).live)
+        # Other pages should be published
+        for child_page in self.pages_to_be_published[1:]:
+            published_page = SimplePage.objects.get(id=child_page.id)
+            self.assertTrue(published_page.live)
+        # Check the success message mentions the failure
+        response = self.client.get(self.redirect_url)
+        html = response.content.decode()
+        self.assertIn("could not be published due to validation errors", html)
+
 
 class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -379,3 +413,52 @@ class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
         for grandchild_pages in self.grandchildren_pages.values():
             for grandchild_page in grandchild_pages:
                 self.assertFalse(Page.objects.get(id=grandchild_page.id).live)
+
+    def test_publish_include_children_view_post_with_validation_error(self):
+        """
+        This posts to the publish view with include_descendants, where one
+        descendant fails to publish due to a ValidationError, and checks
+        that other pages/descendants are still published and the failure
+        is reported.
+        """
+        failing_grandchild = self.grandchildren_pages[self.pages_to_be_published[1]][0]
+
+        from django.core.exceptions import ValidationError
+
+        from wagtail.models import Revision
+
+        original_publish = Revision.publish
+
+        def mock_publish(self, *args, **kwargs):
+            if self.object_id == str(failing_grandchild.id):
+                raise ValidationError("Simulated validation error")
+            return original_publish(self, *args, **kwargs)
+
+        with mock.patch.object(Revision, "publish", mock_publish):
+            response = self.client.post(self.url, {"include_descendants": "on"})
+
+        self.assertEqual(response.status_code, 302)
+
+        # Parent pages should still be published
+        for child_page in self.pages_to_be_published:
+            published_child_page = SimplePage.objects.get(id=child_page.id)
+            self.assertTrue(published_child_page.live)
+
+        # The failing grandchild should remain unpublished
+        self.assertFalse(SimplePage.objects.get(id=failing_grandchild.id).live)
+
+        # Other grandchildren should be published
+        for child_page, grandchild_pages in self.grandchildren_pages.items():
+            for grandchild_page in grandchild_pages:
+                if grandchild_page.id == failing_grandchild.id:
+                    continue
+                published_grandchild_page = SimplePage.objects.get(
+                    id=grandchild_page.id
+                )
+                self.assertTrue(published_grandchild_page.live)
+
+        # Check the success message mentions the failure
+        self.redirect_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        response = self.client.get(self.redirect_url)
+        html = response.content.decode()
+        self.assertIn("could not be published due to validation errors", html)
