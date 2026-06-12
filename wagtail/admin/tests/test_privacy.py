@@ -119,12 +119,17 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
             "wagtailadmin_pages:edit",
             args=(self.private_page.pk,),
         )
-        html = response.json()["html"]
-        self.assertIn(
-            f"<span>Privacy is inherited from the ancestor page - "
-            f'<a href="{parent_edit_url}">Private page (simple page)</a></span>',
-            html,
+        json = response.json()
+        soup = self.get_soup(json["html"])
+        first_option_label = soup.select_one("label[for='id_restriction_type_0']")
+        self.assertIsNotNone(first_option_label)
+        self.assertEqual(
+            first_option_label.text.strip(),
+            "Privacy is inherited from the ancestor page - Private page (simple page)",
         )
+        ancestor_link = first_option_label.find("a", href=parent_edit_url)
+        self.assertIsNotNone(ancestor_link)
+        self.assertEqual(ancestor_link.text.strip(), "Private page (simple page)")
 
     def test_set_password_restriction(self):
         """
@@ -142,7 +147,9 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '"is_public": false')
+        json = response.json()
+        self.assertEqual(json["step"], "set_privacy_done")
+        self.assertEqual(json["is_public"], False)
 
         # Check that a page restriction has been created
         self.assertTrue(
@@ -175,11 +182,52 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
+        json = response.json()
+        self.assertEqual(json["step"], "set_privacy")
 
         # Check that a form error was raised
         self.assertFormError(
             response.context["form"], "password", "This field is required."
         )
+
+    def test_set_password_restriction_password_unset_on_private_child(self):
+        post_data = {
+            "restriction_type": "password",
+            "password": "",
+            "groups": [],
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:set_privacy", args=(self.private_child_page.id,)
+            ),
+            post_data,
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        json = response.json()
+        self.assertEqual(json["step"], "set_privacy")
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "password", "This field is required."
+        )
+
+        # Check that the ancestor message is shown in the re-rendered form
+        soup = self.get_soup(json["html"])
+        parent_edit_url = reverse(
+            "wagtailadmin_pages:edit",
+            args=(self.private_page.pk,),
+        )
+        first_option_label = soup.select_one("label[for='id_restriction_type_0']")
+        self.assertIsNotNone(first_option_label)
+        self.assertEqual(
+            first_option_label.text.strip(),
+            "Privacy is inherited from the ancestor page - Private page (simple page)",
+        )
+        ancestor_link = first_option_label.find("a", href=parent_edit_url)
+        self.assertIsNotNone(ancestor_link)
+        self.assertEqual(ancestor_link.text.strip(), "Private page (simple page)")
 
     def test_unset_password_restriction(self):
         """
@@ -197,7 +245,9 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '"is_public": true')
+        json = response.json()
+        self.assertEqual(json["step"], "set_privacy_done")
+        self.assertEqual(json["is_public"], True)
 
         # Check that the page restriction has been deleted
         self.assertFalse(
@@ -288,7 +338,9 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '"is_public": false')
+        json = response.json()
+        self.assertEqual(json["step"], "set_privacy_done")
+        self.assertEqual(json["is_public"], False)
 
         # Check that a page restriction has been created
         self.assertTrue(
@@ -347,7 +399,9 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '"is_public": true')
+        json = response.json()
+        self.assertEqual(json["step"], "set_privacy_done")
+        self.assertEqual(json["is_public"], True)
 
         # Check that the page restriction has been deleted
         self.assertFalse(

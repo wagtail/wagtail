@@ -23,6 +23,7 @@ Changelog
  * Maintenance: Ignore `EMAIL_BACKEND` setting deprecation on Django 6.1 when running project template tests (Sage Abdullah)
  * Maintenance: Use uv with lockfile in CI configurations (Sage Abdullah)
  * Maintenance: Add `one` and `not` match support to `RulesController` (LB (Ben Johnston))
+ * Maintenance: Refactor pages' function-based views to class-based views (Sage Abdullah)
 
 
 7.4.2 (xx.xx.xxxx) - IN DEVELOPMENT

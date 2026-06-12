@@ -4,15 +4,15 @@ from django.http import Http404
 from django.urls import path
 from django.utils.functional import cached_property, classproperty
 
-from wagtail.admin.views.page_privacy import set_privacy
+from wagtail.admin.views.page_privacy import SetPrivacyView
 from wagtail.admin.views.pages.choose_parent import (
     ChooseParentView,
     GenericChooseParentView,
 )
-from wagtail.admin.views.pages.convert_alias import convert_alias
-from wagtail.admin.views.pages.copy import copy
-from wagtail.admin.views.pages.create import CreateView, add_subpage
-from wagtail.admin.views.pages.delete import delete
+from wagtail.admin.views.pages.convert_alias import ConvertAliasView
+from wagtail.admin.views.pages.copy import CopyView
+from wagtail.admin.views.pages.create import AddSubpageView, CreateView
+from wagtail.admin.views.pages.delete import DeleteView
 from wagtail.admin.views.pages.edit import EditView
 from wagtail.admin.views.pages.history import (
     PageHistoryView,
@@ -26,12 +26,12 @@ from wagtail.admin.views.pages.listing import (
     PageFilterSet,
 )
 from wagtail.admin.views.pages.lock import LockView, UnlockView
-from wagtail.admin.views.pages.move import MoveChooseDestinationView, move_confirm
-from wagtail.admin.views.pages.ordering import set_page_position
+from wagtail.admin.views.pages.move import MoveChooseDestinationView, MoveConfirmView
+from wagtail.admin.views.pages.ordering import SetPagePositionView
 from wagtail.admin.views.pages.preview import (
     PreviewOnCreateView,
     PreviewOnEditView,
-    view_draft,
+    ViewDraftView,
 )
 from wagtail.admin.views.pages.revisions import (
     RevisionsCompareView,
@@ -181,6 +181,11 @@ class PageViewSet(PageListingViewSet):
     The view class to use for the create view; must be a subclass of
     ``wagtail.admin.views.pages.create.CreateView``.
     """
+    add_subpage_view_class = AddSubpageView
+    """
+    The view class to use for the add subpage view; must be a subclass of
+    ``wagtail.admin.views.pages.create.AddSubpageView``.
+    """
     collect_workflow_action_data_view_class = CollectWorkflowActionDataView
     """
     The view class to use for performing a workflow action that returns the
@@ -192,6 +197,21 @@ class PageViewSet(PageListingViewSet):
     The view class to use for confirming the cancellation of a workflow;
     must be a subclass of
     ``wagtail.admin.views.pages.workflow.ConfirmWorkflowCancellationView``.
+    """
+    convert_alias_view_class = ConvertAliasView
+    """
+    The view class to use for the convert alias view; must be a subclass of
+    ``wagtail.admin.views.pages.convert_alias.ConvertAliasView``.
+    """
+    copy_view_class = CopyView
+    """
+    The view class to use for the copy view; must be a subclass of
+    ``wagtail.admin.views.pages.copy.CopyView``.
+    """
+    delete_view_class = DeleteView
+    """
+    The view class to use for the delete view; must be a subclass of
+    ``wagtail.admin.views.pages.delete.DeleteView``.
     """
     edit_view_class = EditView
     """
@@ -218,6 +238,12 @@ class PageViewSet(PageListingViewSet):
     The view class to use for choosing a destination when moving a page;
     must be a subclass of
     ``wagtail.admin.views.pages.move.MoveChooseDestinationView``.
+    """
+    move_confirm_view_class = MoveConfirmView
+    """
+    The view class to use for the confirmation view when moving a page;
+    must be a subclass of
+    ``wagtail.admin.views.pages.move.MoveConfirmView``.
     """
     preview_on_add_view_class = PreviewOnCreateView
     """
@@ -256,6 +282,16 @@ class PageViewSet(PageListingViewSet):
 
     This is only used by the base ``Page`` model's viewset.
     """
+    set_page_position_view_class = SetPagePositionView
+    """
+    The view class to use for the set page position view; must be a subclass of
+    ``wagtail.admin.views.pages.ordering.SetPagePositionView``.
+    """
+    set_privacy_view_class = SetPrivacyView
+    """
+    The view class to use for the set privacy view; must be a subclass of
+    ``wagtail.admin.views.page_privacy.SetPrivacyView``.
+    """
     unlock_view_class = UnlockView
     """
     The view class to use for unlocking a page; must be a subclass of
@@ -270,6 +306,11 @@ class PageViewSet(PageListingViewSet):
     """
     The view class to use for the usage view; must be a subclass of
     ``wagtail.admin.views.pages.usage.UsageView``.
+    """
+    view_draft_view_class = ViewDraftView
+    """
+    The view class to use for the view draft view; must be a subclass of
+    ``wagtail.admin.views.pages.preview.ViewDraftView``.
     """
     workflow_action_view_class = WorkflowActionView
     """
@@ -358,7 +399,9 @@ class PageViewSet(PageListingViewSet):
     def add_view(self):
         return self.construct_view(self.add_view_class)
 
-    add_subpage_view = staticmethod(add_subpage)
+    @cached_property
+    def add_subpage_view(self):
+        return self.construct_view(self.add_subpage_view_class)
 
     @cached_property
     def collect_workflow_action_data_view(self):
@@ -368,11 +411,17 @@ class PageViewSet(PageListingViewSet):
     def confirm_workflow_cancellation_view(self):
         return self.construct_view(self.confirm_workflow_cancellation_view_class)
 
-    convert_alias_view = staticmethod(convert_alias)
+    @cached_property
+    def convert_alias_view(self):
+        return self.construct_view(self.convert_alias_view_class)
 
-    copy_view = staticmethod(copy)
+    @cached_property
+    def copy_view(self):
+        return self.construct_view(self.copy_view_class)
 
-    delete_view = staticmethod(delete)
+    @cached_property
+    def delete_view(self):
+        return self.construct_view(self.delete_view_class)
 
     @cached_property
     def edit_view(self):
@@ -397,7 +446,9 @@ class PageViewSet(PageListingViewSet):
     def move_view(self):
         return self.construct_view(self.move_view_class)
 
-    move_confirm_view = staticmethod(move_confirm)
+    @cached_property
+    def move_confirm_view(self):
+        return self.construct_view(self.move_confirm_view_class)
 
     @cached_property
     def preview_on_add_view(self):
@@ -431,9 +482,13 @@ class PageViewSet(PageListingViewSet):
     def search_results_view(self):
         return self.construct_view(self.search_view_class, results_only=True)
 
-    set_page_position_view = staticmethod(set_page_position)
+    @cached_property
+    def set_page_position_view(self):
+        return self.construct_view(self.set_page_position_view_class)
 
-    set_privacy_view = staticmethod(set_privacy)
+    @cached_property
+    def set_privacy_view(self):
+        return self.construct_view(self.set_privacy_view_class)
 
     @cached_property
     def unlock_view(self):
@@ -447,7 +502,9 @@ class PageViewSet(PageListingViewSet):
     def usage_view(self):
         return self.construct_view(self.usage_view_class)
 
-    view_draft_view = staticmethod(view_draft)
+    @cached_property
+    def view_draft_view(self):
+        return self.construct_view(self.view_draft_view_class)
 
     @cached_property
     def workflow_action_view(self):
