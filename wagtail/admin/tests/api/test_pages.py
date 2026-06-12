@@ -1,6 +1,7 @@
 import collections
 import datetime
 import json
+from http import HTTPStatus
 
 import swapper
 from django.contrib.auth import get_user_model
@@ -118,6 +119,25 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             content["__types"]["demosite.EventPage"]["verbose_name_plural"],
             "event pages",
         )
+
+    def test_get_without_access_to_pages(self):
+        user = self.create_user(username="basic_user")
+
+        can_access_admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            content_type__model="admin",
+            codename="access_admin",
+        )
+        user.user_permissions.add(can_access_admin_permission)
+
+        self.client.force_login(user)
+
+        response = self.get_response()
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        content = json.loads(response.content.decode("UTF-8"))
+        self.assertEqual(content["meta"]["total_count"], 0)
+        self.assertEqual(content["items"], [])
 
     # Not applicable to the admin API
     test_unpublished_pages_dont_appear_in_list = None
@@ -928,6 +948,21 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
             content["__types"]["demosite.BlogIndexPage"]["verbose_name_plural"],
             "blog index pages",
         )
+
+    def test_get_without_access_to_given_page(self):
+        user = self.create_user(username="basic_user")
+
+        can_access_admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            content_type__model="admin",
+            codename="access_admin",
+        )
+        user.user_permissions.add(can_access_admin_permission)
+
+        self.client.force_login(user)
+
+        response = self.get_response(16)
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     # overridden from public API tests
     def test_meta_parent_id_doesnt_show_root_page(self):
