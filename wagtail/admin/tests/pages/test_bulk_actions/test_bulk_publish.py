@@ -231,6 +231,7 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
         falling_page = self.pages_to_be_published[0]
 
         from django.core.exceptions import ValidationError
+
         from wagtail.models import Revision
 
         original_publish = Revision.publish
@@ -422,6 +423,7 @@ class TestBulkPublishIncludingDescendants(WagtailTestUtils, TestCase):
         failing_grandchild = self.grandchildren_pages[self.pages_to_be_published[1]][0]
 
         from django.core.exceptions import ValidationError
+
         from wagtail.models import Revision
 
         original_publish = Revision.publish
