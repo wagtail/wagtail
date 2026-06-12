@@ -235,11 +235,12 @@ class TestBulkPublish(WagtailTestUtils, TestCase):
         from wagtail.models import Revision
 
         original_publish = Revision.publish
+
         def mock_publish(self, *args, **kwargs):
             if self.object_id == str(falling_page.id):
                 raise ValidationError("Simulated validation error")
             return original_publish(self, *args, **kwargs)
-        
+
         with mock.patch.object(Revision, "publish", mock_publish):
             response = self.client.post(self.url)
 
