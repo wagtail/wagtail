@@ -8,6 +8,7 @@ from rest_framework.response import Response
 
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.models import Page
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
@@ -95,7 +96,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
-        return Page.objects.all()
+        return PagePermissionPolicy().explorable_instances(self.request.user)
 
     def get_queryset(self):
         queryset = super().get_queryset()
