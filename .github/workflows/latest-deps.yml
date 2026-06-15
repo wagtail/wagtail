@@ -84,3 +84,14 @@ jobs:
       - name: Build docs
         run: |
           make -C docs html
+
+      - name: Notify Slack on failure
+        if: ${{ failure() && env.SLACK_WEBHOOK_URL != '' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPENDENCY_DASHBOARD_WEBHOOK_URL }}
+        uses: slackapi/slack-github-action@v3.0.3
+        with:
+          webhook: ${{ env.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            text: "Tests with latest versions of all dependencies failed.\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
