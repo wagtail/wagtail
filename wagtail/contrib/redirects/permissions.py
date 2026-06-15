@@ -1,6 +1,5 @@
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.permissions import override_permission_policy
+from wagtail.permissions import get_permission_policy, model_permission_policy_class
 
 
-permission_policy = override_permission_policy("redirect", ModelPermissionPolicy(Redirect))
+permission_policy = get_permission_policy("redirect", default=model_permission_policy_class)(Redirect)

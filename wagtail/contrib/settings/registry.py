@@ -16,6 +16,7 @@ from .forms import SitePermissionForm
 class SettingMenuItem(MenuItem):
     def __init__(self, model, icon="cog", classname="", **kwargs):
         self.model = model
+        # TODO: Revisit this
         self.permission_policy = self.model.get_permission_policy()
         super().__init__(
             label=capfirst(model._meta.verbose_name),
@@ -97,6 +98,7 @@ class Registry(list):
                 return SitePermissionFormSubclass
 
         # Register an admin URL finder
+        # TODO: Revisit this
         permission_policy = model.get_permission_policy()
 
         if issubclass(model, BaseSiteSetting):

@@ -19,7 +19,7 @@ from wagtail.admin.views import generic
 from wagtail.contrib.search_promotions import forms, models
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 from wagtail.log_actions import log
-from wagtail.permission_policies.base import ModelPermissionPolicy
+from wagtail.contrib.search_promotions.permissions import permission_policy
 from wagtail.search.utils import normalise_query_string
 
 
@@ -35,7 +35,7 @@ class IndexView(generic.IndexView):
     page_title = gettext_lazy("Promoted search results")
     header_icon = "pick"
     paginate_by = 20
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    permission_policy = permission_policy
     index_url_name = "wagtailsearchpromotions:index"
     index_results_url_name = "wagtailsearchpromotions:index_results"
     search_fields = ["query_string"]
@@ -86,7 +86,7 @@ class IndexView(generic.IndexView):
 
 class SearchPromotionCreateEditMixin:
     model = Query
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    permission_policy = permission_policy
     index_url_name = "wagtailsearchpromotions:index"
     edit_url_name = "wagtailsearchpromotions:edit"
     form_class = forms.QueryForm
@@ -196,7 +196,7 @@ class EditView(SearchPromotionCreateEditMixin, generic.EditView):
 
 class DeleteView(generic.DeleteView):
     model = Query
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    permission_policy = permission_policy
     pk_url_kwarg = "query_id"
     context_object_name = "query"
     success_message = gettext_lazy("Editor's picks deleted.")

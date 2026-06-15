@@ -24,3 +24,7 @@ class TestOverridePermissionPolicy(TestCase):
         self.assertNotIsInstance(policy, ModelPermissionPolicy)
         self.assertIsInstance(policy, TestPermissionPolicy)
         self.assertIsInstance(policy, BasePermissionPolicy)
+
+    # Add a test to see if setting the model permission policy trickles to site/locale/etc/
+
+    # Add a test to see if setting the "site" policy overrides the model policy

@@ -32,8 +32,9 @@ from wagtail.admin.paginator import WagtailPaginator
 from wagtail.admin.ui.tables import Column, LocaleColumn, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
-from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
+from wagtail.permission_policies import BlanketPermissionPolicy
 from wagtail.search.index import class_is_indexed
+from wagtail.permissions import model_permission_policy_class
 
 
 class ModalPageFurnitureMixin(ContextMixin):
@@ -325,7 +326,7 @@ class CreationFormMixin(ModelLookupMixin, PreserveURLParametersMixin):
         if self.permission_policy:
             return self.permission_policy
         elif self.model_class and issubclass(self.model_class, Model):
-            return ModelPermissionPolicy(self.model_class)
+            return model_permission_policy_class(self.model_class)
         else:
             return BlanketPermissionPolicy(None)
 

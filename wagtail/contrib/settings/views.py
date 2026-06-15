@@ -57,6 +57,7 @@ def redirect_to_relevant_instance(request, app_name, model_name):
         # Redirect the user to the edit page for the current site
         # (or the current request does not correspond to a site, the first site in the list)
         site = Site.find_for_request(request)
+        # TODO: Revisit this
         permission_policy = model.get_permission_policy()
         if not site or not permission_policy.user_has_permission_for_instance(
             request.user, "change", site
@@ -109,6 +110,7 @@ class EditView(generic.EditView):
         self.app_name = app_name
         self.model_name = model_name
         self.model = get_model_from_url_params(app_name, model_name)
+        # TODO: Revisit this
         self.permission_policy = self.model.get_permission_policy()
         self.pk = kwargs.get(self.pk_url_kwarg)
         super().setup(request, app_name, model_name, *args, **kwargs)
@@ -205,6 +207,7 @@ class PreviewOnEdit(preview.PreviewOnEdit):
         self.app_name = app_name
         self.model_name = model_name
         self.model = get_model_from_url_params(app_name, model_name)
+        # TODO: Revisit this
         self.permission_policy = self.model.get_permission_policy()
         self.pk = kwargs.get("pk")
         super().setup(request, app_name, model_name, *args, **kwargs)

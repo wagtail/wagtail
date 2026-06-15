@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.coreutils import InvokeViaAttributeShortcut
 from wagtail.models import Site
-from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import model_permission_policy_class
 from wagtail.permission_policies.sites import SitePermissionPolicy
 
 from .registry import register_setting
@@ -62,7 +62,7 @@ class AbstractSetting(models.Model):
 
     @classmethod
     def get_permission_policy(cls):
-        return ModelPermissionPolicy(cls)
+        return model_permission_policy_class(cls)
 
     @cached_property
     def page_url(self):
