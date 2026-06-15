@@ -9,7 +9,8 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import AdminOnlyMenuItem, MenuItem
 from wagtail.contrib.search_promotions import admin_urls
-from wagtail.permission_policies import ModelPermissionPolicy, override_permission_policy
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import override_permission_policy
 
 from .models import SearchPromotion
 

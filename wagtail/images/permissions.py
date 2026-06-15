@@ -3,7 +3,7 @@ from django.test.signals import setting_changed
 
 from wagtail.images import get_image_model
 from wagtail.images.models import Image
-from wagtail.permission_policies import override_permission_policy
+from wagtail.permissions import override_permission_policy
 from wagtail.permission_policies.collections import CollectionOwnershipPermissionPolicy
 
 permission_policy = None

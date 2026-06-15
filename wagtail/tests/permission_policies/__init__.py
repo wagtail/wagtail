@@ -1,7 +1,7 @@
 from wagtail.models.sites import Site
 from wagtail.permission_policies.base import ModelPermissionPolicy
 from django.test import TestCase, override_settings
-from wagtail.permission_policies import override_permission_policy
+from wagtail.permissions import override_permission_policy
 
 
 class TestPermissionPolicy(ModelPermissionPolicy):

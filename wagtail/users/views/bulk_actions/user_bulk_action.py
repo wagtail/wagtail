@@ -3,7 +3,8 @@ from django.db.models import Q
 
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.permission_policies import ModelPermissionPolicy, override_permission_policy
+from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.permissions import override_permission_policy
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
