@@ -147,6 +147,14 @@ Changelog
  * Maintenance: Upgrade CodeQL security scanning to cover more parts of the codebase (Thibaud Colas)
  * Maintenance: Upgrade django-modelcluster to 6.5 to fix issues with duplicated inline children (Alex Tomkins, Matt Westcott)
 
+7.3.3 (15.06.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * CVE-2026-54259: Improper restriction handling on Documents and Images chosen endpoints
+ * CVE-2026-54260: Denial of service via unbounded filter specs in the image preview
+ * CVE-2026-54261: Improper permission handling in image preview
+ * CVE-2026-54262: Pages translations can be created without page permissions when using simple_translation
+ * CVE-2026-54263: Reflected XSS in dynamic image URL generator view
 
 7.3.2 (05.05.2026)
 ~~~~~~~~~~~~~~~~~~
