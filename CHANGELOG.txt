@@ -1,9 +1,14 @@
 Changelog
 =========
 
-7.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
+7.4.2 (15.06.2026)
 ~~~~~~~~~~~~~~~~~~
 
+ * CVE-2026-54259: Improper restriction handling on Documents and Images chosen endpoints
+ * CVE-2026-54260: Denial of service via unbounded filter specs in the image preview
+ * CVE-2026-54261: Improper permission handling in image preview
+ * CVE-2026-54262: Pages translations can be created without page permissions when using simple_translation
+ * CVE-2026-54263: Reflected XSS in dynamic image URL generator view
  * Fix: Prevent spurious migrations when there are missing child blocks in `StructBlock.Meta.form_layout` (Matthias Brück, Sage Abdullah)
  * Fix: Prevent error in usage views when using `gettext_lazy` for a model's `verbose_name` (James Biggs)
  * Fix: Prevent development markdown files from being added to virtual environment root upon installation (Dan Braghis)
