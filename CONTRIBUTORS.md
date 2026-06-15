@@ -974,6 +974,10 @@
 * Vishal Shukla
 * Sanjok Karki
 * Rob Brackett
+* Harsh Akshit
+* 0x1saac
+* Devansh Bordia
+* alanturing881
 
 ## Translators
 

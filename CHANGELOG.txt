@@ -444,6 +444,14 @@ Changelog
  * Maintenance: Upgrade django-tasks to 0.8.x (Jake Howard)
  * Maintenance: Refresh accessibility targets in contributing docs (Thibaud Colas)
 
+7.0.8 (15.06.2026)
+~~~~~~~~~~~~~~~~~~
+
+ * CVE-2026-54259: Improper restriction handling on Documents and Images chosen endpoints
+ * CVE-2026-54260: Denial of service via unbounded filter specs in the image preview
+ * CVE-2026-54261: Improper permission handling in image preview
+ * CVE-2026-54262: Pages translations can be created without page permissions when using simple_translation
+
 7.0.7 (05.05.2026)
 ~~~~~~~~~~~~~~~~~~
 
