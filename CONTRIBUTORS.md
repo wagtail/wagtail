@@ -980,6 +980,10 @@
 * Rob Brackett
 * Jack Morgan
 * MariyaOT
+* Harsh Akshit
+* 0x1saac
+* Devansh Bordia
+* alanturing881
 
 ## Translators
 
