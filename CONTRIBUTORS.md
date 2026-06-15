@@ -967,6 +967,10 @@
 * Seoyoung Kang
 * Vishal Shukla
 * Sanjok Karki
+* Harsh Akshit
+* 0x1saac
+* Devansh Bordia
+* alanturing881
 
 ## Translators
 
