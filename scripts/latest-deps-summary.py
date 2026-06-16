@@ -60,7 +60,7 @@ if exceeded:
     print()
     print(
         "These packages resolved to a version outside their bound in "
-        "`pyproject.toml`. If this run is green, the cap may be safe to lift."
+        "`pyproject.toml`. If this run is green, the cap may be safe to extend."
     )
     print()
     print("| Package | Cap | Resolved |")
