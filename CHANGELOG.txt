@@ -76,6 +76,7 @@ Changelog
  * Add `routablefullpageurl` template tag (Pravin Kamble)
  * Add support for customizing page explorer views per page type using `PageViewSet` (Sage Abdullah)
  * Enhance page content type usage view with custom listings and ability to create new pages (Sage Abdullah)
+ * Add CI job for testing with latest versions of all dependencies (Sage Abdullah)
  * Fix: CVE-2026-44197: Improper permission handling when comparing revisions (Seoyoung Kang, Jake Howard)
  * Fix: CVE-2026-44198: Improper permission handling when viewing page history (Seoyoung Kang, Jake Howard, Dan Braghis)
  * Fix: CVE-2026-44199: Improper permission handling when deleting form submissions (Vishal Shukla, Jake Howard)
