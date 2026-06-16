@@ -984,6 +984,7 @@
 * 0x1saac
 * Devansh Bordia
 * alanturing881
+* Marquis Nobles
 
 ## Translators
 
