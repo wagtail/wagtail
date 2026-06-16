@@ -124,6 +124,7 @@ class CalendarViewSet(ViewSet):
     icon = "date"
     name = "calendar"
     template_name = "tests/misc/calendar.html"
+    menu_order = 9999
 
     def __init__(self, name=None, **kwargs):
         super().__init__(name, **kwargs)

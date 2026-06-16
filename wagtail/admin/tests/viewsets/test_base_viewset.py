@@ -49,7 +49,6 @@ class TestBaseViewSet(WagtailTestUtils, TestCase):
                 for item in misc_items
             ],
             [
-                ("wagtail.sidebar.LinkMenuItem", "the-calendar", "/admin/calendar/"),
                 ("wagtail.sidebar.LinkMenuItem", "the-greetings", "/admin/greetingz/"),
                 (
                     "wagtail.sidebar.LinkMenuItem",
@@ -61,6 +60,7 @@ class TestBaseViewSet(WagtailTestUtils, TestCase):
                     "submenu-hook-greetings",
                     "/admin/submenu_hook_greetingz/",
                 ),
+                ("wagtail.sidebar.LinkMenuItem", "the-calendar", "/admin/calendar/"),
             ],
         )
 
