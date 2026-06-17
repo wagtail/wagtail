@@ -1,3 +1,5 @@
+from django.db import models
+
 from wagtail.actions.base import BaseAction
 from wagtail.actions.create import CreateAction, CreatePermissionError
 from wagtail.actions.delete import DeleteAction, DeletePermissionError
@@ -15,3 +17,9 @@ __all__ = [
     "ActionRegistry",
     "action_registry",
 ]
+
+
+def register_default_actions():
+    action_registry.register(models.Model, CreateAction)
+    action_registry.register(models.Model, EditAction)
+    action_registry.register(models.Model, DeleteAction)
