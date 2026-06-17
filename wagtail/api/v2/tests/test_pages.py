@@ -1119,16 +1119,21 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
 
     def get_homepage(self):
         return Page.objects.get(slug="home-page")
+    
+    def create_translation(self, page, language_code="fr"):
+        locale, _ = Locale.objects.get_or_create(
+            language_code=language_code
+        )
+        translated = page.copy_for_translation(locale)
+        translated.get_latest_revision().publish()
+        return translated
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_locale_filter_with_search(self):
-        french = Locale.objects.create(language_code="fr")
         homepage = self.get_homepage()
-        french_homepage = homepage.copy_for_translation(french)
-        french_homepage.get_latest_revision().publish()
+        self.create_translation(homepage)
         events_index = Page.objects.get(url_path="/home-page/events-index/")
-        french_events_index = events_index.copy_for_translation(french)
-        french_events_index.get_latest_revision().publish()
+        french_events_index = self.create_translation(events_index)
 
         response = self.get_response(locale="fr", search="events")
         content = json.loads(response.content.decode("UTF-8"))
@@ -1138,18 +1143,26 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_translation_of_filter_with_search(self):
-        french = Locale.objects.create(language_code="fr")
         homepage = self.get_homepage()
-        french_homepage = homepage.copy_for_translation(french)
-        french_homepage.get_latest_revision().publish()
+        french_homepage = self.create_translation(homepage)
 
-        response = self.get_response(translation_of=homepage.id, search="home")
+        response = self.get_response(
+            translation_of=homepage.id,
+            search="home",
+        )
         content = json.loads(response.content.decode("UTF-8"))
+
         self.assertEqual(len(content["items"]), 1)
         self.assertEqual(content["items"][0]["id"], french_homepage.id)
-        response = self.get_response(translation_of=homepage.id, search="gnome")
+
+        response = self.get_response(
+            translation_of=homepage.id,
+            search="gnome",
+        )
         content = json.loads(response.content.decode("UTF-8"))
+
         self.assertEqual(len(content["items"]), 0)
+
 
     def test_search_for_blog(self):
         response = self.get_response(search="blog")
