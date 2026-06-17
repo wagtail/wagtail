@@ -1,11 +1,15 @@
 from django.core.exceptions import ImproperlyConfigured
+from django.db import models
 from django.test import TestCase
 
 from wagtail import hooks
+from wagtail.actions import CreateAction, DeleteAction, EditAction
 from wagtail.actions.base import BaseAction
-from wagtail.actions.registry import ActionRegistry
+from wagtail.actions.registry import ActionRegistry, action_registry
 from wagtail.test.testapp.models import (
     Advert,
+    DraftStateModel,
+    FullFeaturedSnippet,
     RevisableChildModel,
     RevisableModel,
 )
@@ -95,3 +99,25 @@ class TestRegisterActionsHook(TestCase):
         with hooks.register_temporarily("register_actions", register_dummy):
             actions = registry.get_actions_for_model(Advert)
         self.assertEqual(actions, {"dummy": DummyAction})
+
+
+class TestDefaultActions(TestCase):
+    """The global registry is populated with default actions for all models."""
+
+    def test_base_model_has_default_actions(self):
+        self.assertEqual(
+            action_registry.get_actions_for_model(models.Model),
+            {"create": CreateAction, "edit": EditAction, "delete": DeleteAction},
+        )
+
+    def test_custom_models_have_default_actions(self):
+        for model in (Advert, DraftStateModel, FullFeaturedSnippet):
+            with self.subTest(model=model):
+                self.assertEqual(
+                    action_registry.get_actions_for_model(model),
+                    {
+                        "create": CreateAction,
+                        "edit": EditAction,
+                        "delete": DeleteAction,
+                    },
+                )
