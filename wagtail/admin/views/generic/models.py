@@ -22,6 +22,7 @@ from django.views.generic.edit import (
     BaseUpdateView,
 )
 
+from wagtail.actions.delete import DeleteAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
@@ -1232,9 +1233,10 @@ class DeleteView(
         )
 
     def delete_action(self):
-        with transaction.atomic():
-            log(instance=self.object, action="wagtail.delete")
-            self.object.delete()
+        # Permission is already checked by PermissionCheckedMixin.
+        DeleteAction(self.object, user=self.request.user).execute(
+            skip_permission_checks=True
+        )
 
     def form_valid(self, form):
         if self.usage and self.usage.is_protected:
