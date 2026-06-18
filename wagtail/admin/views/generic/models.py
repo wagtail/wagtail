@@ -1015,14 +1015,11 @@ class EditView(
         Called after the form is successfully validated - saves the object to the db.
         Override this to implement custom save logic.
         """
-        self.has_content_changes = self.form.has_changed()
-
         # Permission is already checked by PermissionCheckedMixin.
         self.action_class(
             self.form.instance,
             user=self.request.user,
             form=self.form,
-            content_changed=self.has_content_changes,
         ).execute(skip_permission_checks=True)
 
         return self.form.instance
