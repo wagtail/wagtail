@@ -19,6 +19,10 @@ class EditAction(BaseAction):
 
     :param instance: the object to edit, with its changes already applied.
     :param user: the user performing the action.
+    :param form: an optional bound, validated model form for the instance. When
+        given, the action saves the instance through the form (preserving any
+        custom form save logic and saving many-to-many data); otherwise it saves
+        the instance directly.
     :param log_action: pass a string to override the default ``"wagtail.edit"``
         log action code, or ``False``/``None`` to skip logging.
     :param content_changed: whether the log entry should mark the content as
@@ -40,33 +44,46 @@ class EditAction(BaseAction):
         instance,
         user=None,
         *,
+        form=None,
         log_action="wagtail.edit",
         content_changed=True,
         publish=False,
         previous_revision=None,
         overwrite_revision=None,
     ):
+        from wagtail.models import DraftStateMixin, RevisionMixin
+
         super().__init__(instance, user=user)
+        self.form = form
         self.log_action = log_action
         self.content_changed = content_changed
         self.publish = publish
         self.previous_revision = previous_revision
         self.overwrite_revision = overwrite_revision
+        self.revision_enabled = isinstance(instance, RevisionMixin)
+        self.draftstate_enabled = isinstance(instance, DraftStateMixin)
+
+    def _save_instance(self):
+        if self.draftstate_enabled and self.instance.live:
+            # Do not update the instance if it's a live DraftStateMixin object.
+            # Edits will be saved as a revision, and the live object will be updated
+            # when the revision is published.
+            if self.form:
+                # Ensure any custom form.save() logic is run, but do not save
+                # the instance to the database.
+                self.instance = self.form.save(commit=False)
+            # No form is given, leave the instance as-is.
+        else:
+            if self.form:
+                self.instance = self.form.save()
+            else:
+                self.instance.save()
 
     def _edit(self, skip_permission_checks=False):
-        from wagtail.models import DraftStateMixin, RevisionMixin
-
-        revision_enabled = isinstance(self.instance, RevisionMixin)
-        draftstate_enabled = isinstance(self.instance, DraftStateMixin)
-
-        # Do not update the instance if it's a live DraftStateMixin object.
-        # Edits will be saved as a revision, and the live object will be updated
-        # when the revision is published.
-        if not (draftstate_enabled and self.instance.live):
-            self.instance.save()
+        self._save_instance()
 
         revision = None
-        if revision_enabled:
+        if self.revision_enabled:
             revision = self.instance.save_revision(
                 user=self.user,
                 changed=self.content_changed,
@@ -88,7 +105,7 @@ class EditAction(BaseAction):
         # Publish the new revision to make the object live. This emits its own
         # wagtail.publish log entry and the published signal, and runs its own
         # permission check (for the "publish" permission).
-        if self.publish and draftstate_enabled:
+        if self.publish and self.draftstate_enabled:
             revision.publish(
                 user=self.user,
                 changed=self.content_changed,
