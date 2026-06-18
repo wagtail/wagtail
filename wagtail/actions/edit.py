@@ -25,8 +25,6 @@ class EditAction(BaseAction):
         the instance directly.
     :param log_action: pass a string to override the default ``"wagtail.edit"``
         log action code, or ``False``/``None`` to skip logging.
-    :param content_changed: whether the log entry should mark the content as
-        changed.
     :param publish: whether to publish the object. Only applies to models using
         ``DraftStateMixin``; the new revision is published, making the object
         live. When ``False`` (the default), the changes are saved as a draft.
@@ -46,7 +44,6 @@ class EditAction(BaseAction):
         *,
         form=None,
         log_action="wagtail.edit",
-        content_changed=True,
         publish=False,
         previous_revision=None,
         overwrite_revision=None,
@@ -56,12 +53,14 @@ class EditAction(BaseAction):
         super().__init__(instance, user=user)
         self.form = form
         self.log_action = log_action
-        self.content_changed = content_changed
         self.publish = publish
         self.previous_revision = previous_revision
         self.overwrite_revision = overwrite_revision
         self.revision_enabled = isinstance(instance, RevisionMixin)
         self.draftstate_enabled = isinstance(instance, DraftStateMixin)
+        # Content is considered changed if the form reports changes; without a
+        # form (e.g. a programmatic edit), assume the content has changed.
+        self.content_changed = form.has_changed() if form is not None else True
 
     def _save_instance(self):
         if self.draftstate_enabled and self.instance.live:

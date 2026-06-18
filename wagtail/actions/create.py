@@ -29,8 +29,6 @@ class CreateAction(BaseAction):
         the instance directly.
     :param log_action: pass a string to override the default ``"wagtail.create"``
         log action code, or ``False``/``None`` to skip logging.
-    :param content_changed: whether the log entry should mark the content as
-        changed.
     :param publish: whether to publish the object. Only applies to models using
         ``DraftStateMixin``; the created revision is published, making the
         object live. When ``False`` (the default), the object is created as a
@@ -52,7 +50,6 @@ class CreateAction(BaseAction):
         *,
         form=None,
         log_action="wagtail.create",
-        content_changed=True,
         publish=False,
         sort_order_field=UNSET,
     ):
@@ -61,7 +58,6 @@ class CreateAction(BaseAction):
         super().__init__(instance, user=user)
         self.form = form
         self.log_action = log_action
-        self.content_changed = content_changed
         self.publish = publish
         self.sort_order_field = sort_order_field
         self.revision_enabled = isinstance(instance, RevisionMixin)
@@ -104,7 +100,6 @@ class CreateAction(BaseAction):
         if self.revision_enabled:
             revision = self.instance.save_revision(
                 user=self.user,
-                changed=self.content_changed,
                 clean=self.publish,
                 log_action=False,
             )
@@ -115,7 +110,7 @@ class CreateAction(BaseAction):
                 action=self.log_action,
                 user=self.user,
                 revision=revision,
-                content_changed=self.content_changed,
+                content_changed=True,
             )
 
         # Publish the new revision to make the object live. This emits its own
@@ -124,7 +119,6 @@ class CreateAction(BaseAction):
         if self.publish and self.draftstate_enabled:
             revision.publish(
                 user=self.user,
-                changed=self.content_changed,
                 skip_permission_checks=skip_permission_checks,
             )
 
