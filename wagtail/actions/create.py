@@ -3,6 +3,10 @@ from django.core.exceptions import PermissionDenied
 from wagtail.actions.base import BaseAction
 from wagtail.log_actions import log
 
+# Sentinel for "auto-detect the sort order field from the model", distinct from
+# an explicit None which means "do not set a sort order".
+UNSET = object()
+
 
 class CreatePermissionError(PermissionDenied):
     """
@@ -19,6 +23,10 @@ class CreateAction(BaseAction):
 
     :param instance: the (unsaved) object to create.
     :param user: the user performing the action.
+    :param form: an optional bound, validated model form for the instance. When
+        given, the action saves the instance through the form (preserving any
+        custom form save logic and saving many-to-many data); otherwise it saves
+        the instance directly.
     :param log_action: pass a string to override the default ``"wagtail.create"``
         log action code, or ``False``/``None`` to skip logging.
     :param content_changed: whether the log entry should mark the content as
@@ -27,6 +35,10 @@ class CreateAction(BaseAction):
         ``DraftStateMixin``; the created revision is published, making the
         object live. When ``False`` (the default), the object is created as a
         draft.
+    :param sort_order_field: the name of the field to use for ordering. If not
+        given, it is read from the model's ``sort_order_field`` attribute (e.g.
+        from the ``Orderable`` mixin). Pass ``None`` explicitly to disable
+        setting a sort order.
     """
 
     action_name = "create"
@@ -38,14 +50,22 @@ class CreateAction(BaseAction):
         instance,
         user=None,
         *,
+        form=None,
         log_action="wagtail.create",
         content_changed=True,
         publish=False,
+        sort_order_field=UNSET,
     ):
+        from wagtail.models import DraftStateMixin, RevisionMixin
+
         super().__init__(instance, user=user)
+        self.form = form
         self.log_action = log_action
         self.content_changed = content_changed
         self.publish = publish
+        self.sort_order_field = sort_order_field
+        self.revision_enabled = isinstance(instance, RevisionMixin)
+        self.draftstate_enabled = isinstance(instance, DraftStateMixin)
 
     def user_has_permission(self):
         # "add" is a model-level permission: there is no existing instance to
@@ -54,28 +74,34 @@ class CreateAction(BaseAction):
             self.user, self.permission_policy_action
         )
 
-    def _create(self, skip_permission_checks=False):
-        from wagtail.models import DraftStateMixin, RevisionMixin
-        from wagtail.models.orderable import set_max_order
-
-        revision_enabled = isinstance(self.instance, RevisionMixin)
-        draftstate_enabled = isinstance(self.instance, DraftStateMixin)
-
+    def _save_instance(self):
         # If DraftStateMixin is applied, make sure the object is not live when
         # first created. Making it live is done by publishing a revision below.
-        if draftstate_enabled:
+        if self.draftstate_enabled:
             self.instance.live = False
 
-        self.instance.save()
+        if self.form:
+            self.instance = self.form.save()
+        else:
+            self.instance.save()
+
+    def _create(self, skip_permission_checks=False):
+        from wagtail.models.orderable import set_max_order
+
+        self._save_instance()
 
         # If the model declares a sort order field (e.g. via the Orderable
-        # mixin) and no value was set, place the object last.
-        sort_order_field = getattr(self.instance, "sort_order_field", None)
+        # mixin) and no value was set, place the object last. An explicit
+        # sort_order_field of None disables this.
+        if self.sort_order_field is UNSET:
+            sort_order_field = getattr(self.instance, "sort_order_field", None)
+        else:
+            sort_order_field = self.sort_order_field
         if sort_order_field and getattr(self.instance, sort_order_field) is None:
             set_max_order(self.instance, sort_order_field)
 
         revision = None
-        if revision_enabled:
+        if self.revision_enabled:
             revision = self.instance.save_revision(
                 user=self.user,
                 changed=self.content_changed,
@@ -95,7 +121,7 @@ class CreateAction(BaseAction):
         # Publish the new revision to make the object live. This emits its own
         # wagtail.publish log entry and the published signal, and runs its own
         # permission check (for the "publish" permission).
-        if self.publish and draftstate_enabled:
+        if self.publish and self.draftstate_enabled:
             revision.publish(
                 user=self.user,
                 changed=self.content_changed,
