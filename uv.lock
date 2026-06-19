@@ -119,16 +119,16 @@ wheels = [
 
 [[package]]
 name = "azure-mgmt-frontdoor"
-version = "1.0.1"
+version = "1.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "azure-common" },
     { name = "azure-mgmt-core" },
-    { name = "msrest" },
+    { name = "isodate" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1e/81/c0a517564282ea4592ef7e68af236b43a7216481d2e3941b2f81065585b1/azure-mgmt-frontdoor-1.0.1.zip", hash = "sha256:9c95d0fc1a723b09b26cd52a138701c6ae71c59139ea5aa01d24ca65320722e5", size = 127648, upload-time = "2022-03-29T03:42:26.22Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/8b/4673bde71ed5daa29c6850ef6e456cdb7274816ca09d7ec0c419092bf7b0/azure_mgmt_frontdoor-1.2.0.tar.gz", hash = "sha256:0d257fbc813aaf4c203cba477d3e0e0ea368c737823c894092c9ac9c4b84c528", size = 98142, upload-time = "2024-04-15T08:30:31.075Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3a/43/367830e43e68cf52de4a55ab82908b6db42bf4a33489bfb68c5887275cee/azure_mgmt_frontdoor-1.0.1-py3-none-any.whl", hash = "sha256:16c7e5d50fa276a77d0cf9eb773ded80072c69763b328b88528bd744a4a42150", size = 117046, upload-time = "2022-03-29T03:42:24.127Z" },
+    { url = "https://files.pythonhosted.org/packages/c0/c4/8ea5cfd2452d98b502703e8a07b49054168d85b320f16e24130c4b22ca7c/azure_mgmt_frontdoor-1.2.0-py3-none-any.whl", hash = "sha256:22f1f60a0c875d8a4e71cebcf6557a3c67249b86431a7954fc1fa3fb9fedd2be", size = 143129, upload-time = "2024-04-15T08:30:33.057Z" },
 ]
 
 [[package]]
@@ -2996,7 +2996,7 @@ testing = [
 requires-dist = [
     { name = "anyascii", specifier = ">=0.1.5" },
     { name = "azure-mgmt-cdn", marker = "extra == 'testing'", specifier = ">=12.0,<13.0" },
-    { name = "azure-mgmt-frontdoor", marker = "extra == 'testing'", specifier = ">=1.0,<1.1" },
+    { name = "azure-mgmt-frontdoor", marker = "extra == 'testing'", specifier = ">=1.2,<1.3" },
     { name = "beautifulsoup4", specifier = ">=4.13.3,<5" },
     { name = "boto3", marker = "extra == 'testing'", specifier = ">=1.28,<2" },
     { name = "coverage", marker = "extra == 'testing'", specifier = ">=3.7.0" },
