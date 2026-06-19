@@ -76,7 +76,7 @@
     "@wagtail/stylelint-config-wagtail": "^0.8.0",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^9.2.1",
-    "concurrently": "^9.2.0",
+    "concurrently": "^9.2.3",
     "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^6.11.0",
     "cssnano": "^5.1.15",
