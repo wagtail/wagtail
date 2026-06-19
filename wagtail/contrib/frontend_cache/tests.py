@@ -19,7 +19,7 @@ from wagtail.contrib.frontend_cache.backends import (
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, EventPage
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .utils import (
     PurgeBatch,
@@ -133,7 +133,7 @@ class TestBackendConfiguration(SimpleTestCase):
     @mock.patch("azure.mgmt.cdn.__version__", "12.0.0")
     def test_azure_cdn_deprecation(self):
         with self.assertWarnsMessage(
-            RemovedInWagtail80Warning,
+            RemovedInWagtail90Warning,
             "Support for azure-mgmt-cdn 12.0.0 will be dropped in a future release. "
             "Please upgrade to azure-mgmt-cdn >= 13.0.0.",
         ):
@@ -181,7 +181,7 @@ class TestBackendConfiguration(SimpleTestCase):
     @mock.patch("azure.mgmt.frontdoor.__version__", "1.0.0")
     def test_azure_front_door_deprecation(self):
         with self.assertWarnsMessage(
-            RemovedInWagtail80Warning,
+            RemovedInWagtail90Warning,
             "Support for azure-mgmt-frontdoor 1.0.0 will be dropped in a future release. "
             "Please upgrade to azure-mgmt-frontdoor >= 1.1.0.",
         ):
