@@ -147,7 +147,7 @@ The third-party dependencies of this backend are:
 | [`azure-identity`](https://pypi.org/project/azure-identity/)           | No                   | Obtaining credentials. It's optional if you want to specify your own credential using a `CREDENTIALS` setting (more details below). |
 | [`azure-mgmt-resource`](https://pypi.org/project/azure-mgmt-resource/) | No                   | For obtaining the subscription ID. Redundant if you want to explicitly specify a `SUBSCRIPTION_ID` setting (more details below).    |
 
-```{versionchanged} 7.4
+```{versionchanged} 8.0
 Support for versions of `azure-mgmt-cdn` below 13.0 is deprecated and will be dropped in a future release.
 ```
 
@@ -201,7 +201,7 @@ The third-party dependencies of this backend are:
 | [`azure-identity`](https://pypi.org/project/azure-identity/)             | No                  | Obtaining credentials. It's optional if you want to specify your own credential using a `CREDENTIALS` setting (more details below). |
 | [`azure-mgmt-resource`](https://pypi.org/project/azure-mgmt-resource/)   | No                  | For obtaining the subscription ID. Redundant if you want to explicitly specify a `SUBSCRIPTION_ID` setting (more details below).    |
 
-```{versionchanged} 7.4
+```{versionchanged} 8.0
 Support for versions of `azure-mgmt-frontdoor` below 1.1 is deprecated and will be dropped in a future release.
 ```
 

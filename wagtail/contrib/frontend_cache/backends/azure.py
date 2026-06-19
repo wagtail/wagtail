@@ -4,7 +4,7 @@ from urllib.parse import urlsplit, urlunsplit
 
 from django.core.exceptions import ImproperlyConfigured
 
-from wagtail.utils.deprecation import RemovedInWagtail80Warning
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 
 from .base import BaseBackend
 
@@ -39,7 +39,7 @@ class AzureBaseBackend(BaseBackend):
                 f"Support for {self._package_name} {self._installed_version} "
                 f"will be dropped in a future release. Please upgrade to "
                 f"{self._package_name} >= {self._required_version}.",
-                RemovedInWagtail80Warning,
+                RemovedInWagtail90Warning,
             )
 
     def _is_legacy_azure_library(self, *, required, installed):
