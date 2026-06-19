@@ -12,6 +12,8 @@
   "timezone": "Etc/UTC",
   "prConcurrentLimit": 10,
 
+  "minimumReleaseAge": "7 days",
+
   // Periodically refresh uv.lock to catch transitive dependency updates.
   "lockFileMaintenance": {
     "enabled": true,
