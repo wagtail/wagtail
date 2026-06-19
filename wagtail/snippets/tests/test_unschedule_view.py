@@ -111,7 +111,7 @@ class TestSnippetUnschedule(WagtailTestUtils, TestCase):
         self.assertIsNotNone(log_entry)
         self.assertEqual(
             log_entry.message,
-            f"Draft State Custom Primary Key Model unscheduled for publishing "
+            f"Draft state custom primary key model unscheduled for publishing "
             f"at {render_timestamp(self.go_live_at)}",
         )
 
