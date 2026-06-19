@@ -74,13 +74,13 @@ testing = [
   "coverage>=3.7.0",
   # NOTE: Keep linters in sync with .pre-commit-config.yaml
   "doc8==2.0.0",
-  "ruff==0.15.2",
+  "ruff==0.15.17",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.152.0",
+  "semgrep==1.166.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting
-  "djhtml==3.0.10",
+  "djhtml==3.0.11",
   # For validating string formats in .po translation files
   "polib>=1.1,<2.0",
   # For wagtail.test.utils.wagtail_factories (used for streamfield migration toolkit)
