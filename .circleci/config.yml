@@ -6,7 +6,7 @@ orbs:
 jobs:
   backend:
     docker:
-      - image: cimg/python:3.12
+      - image: cimg/python:3.14
     steps:
       - checkout
       - run: python --version > .python_version
@@ -33,7 +33,7 @@ jobs:
 
   frontend:
     docker:
-      - image: cimg/node:24.13
+      - image: cimg/node:24.16
     steps:
       - checkout
       - restore_cache:
@@ -59,7 +59,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: cimg/python:3.12-browsers
+      - image: cimg/python:3.14-browsers
     environment:
       DJANGO_SETTINGS_MODULE: wagtail.test.settings_ui
       DJANGO_DEBUG: 'true'
@@ -119,7 +119,7 @@ jobs:
 
   nightly-build:
     docker:
-      - image: cimg/python:3.12-node
+      - image: cimg/python:3.14-node
     steps:
       - checkout
       - run: pip install --user build boto3
