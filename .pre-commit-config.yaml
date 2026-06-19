@@ -13,7 +13,7 @@ repos:
     rev: v3.1.0
     hooks:
       - id: prettier
-        types_or: [css, scss, javascript, ts, tsx, json, yaml]
+        files: \.(css|scss|js|ts|tsx|json|jsonc|yaml|yml)$
         additional_dependencies:
           # Keep in sync with package.json
           - prettier@3.8.1
