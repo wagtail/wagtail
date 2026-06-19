@@ -12,6 +12,8 @@
   "timezone": "Etc/UTC",
   "prConcurrentLimit": 10,
 
+  "labels": ["dependencies", "Infrastructure", "type:Cleanup/Optimisation"],
+
   "minimumReleaseAge": "7 days",
 
   // Periodically refresh uv.lock to catch transitive dependency updates.
@@ -60,7 +62,7 @@
         "/curlylint/",
         "/djhtml/",
       ],
-      "groupName": "Python linters and formatters",
+      "groupName": "Python linters and formatters dependencies",
     },
 
     // Front-end linters and formatters (prettier, eslint, stylelint plus
@@ -70,20 +72,20 @@
     {
       "matchPackageNames": ["/prettier/", "/eslint/", "/stylelint/"],
       "enabled": true,
-      "groupName": "Front-end linters and formatters",
+      "groupName": "Front-end linters and formatters dependencies",
     },
 
     // Group all dependency updates inside the project template (its
     // requirements.txt and Dockerfile) into a single PR.
     {
       "matchFileNames": ["wagtail/project_template/**"],
-      "groupName": "Project template",
+      "groupName": "Project template dependencies",
     },
 
     // Group all CI updates (GitHub Actions + CircleCI) into a single PR.
     {
       "matchCategories": ["ci"],
-      "groupName": "CI configuration",
+      "groupName": "CI configuration dependencies",
     },
   ],
 }
