@@ -1,6 +1,7 @@
 from unittest import mock
 
 from django.contrib.auth.models import Permission
+from django.forms.models import modelform_factory
 from django.test import TestCase
 
 from wagtail.actions.edit import EditAction, EditPermissionError
@@ -10,6 +11,9 @@ from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.signals import published
 from wagtail.test.testapp.models import Advert, DraftStateModel, RevisableModel
 from wagtail.test.utils import WagtailTestUtils
+
+AdvertForm = modelform_factory(Advert, fields=["text", "url", "tags"])
+DraftStateModelForm = modelform_factory(DraftStateModel, fields=["text"])
 
 
 class TestEditAction(WagtailTestUtils, TestCase):
@@ -113,6 +117,83 @@ class TestEditAction(WagtailTestUtils, TestCase):
         self.assertEqual(Revision.objects.for_instance(instance).count(), 1)
         instance.refresh_from_db()
         self.assertEqual(instance.latest_revision.content["text"], "Overwritten")
+
+    def test_edit_with_form_saves_instance_and_m2m(self):
+        advert = Advert.objects.create(text="Original", url="https://example.com")
+        form = AdvertForm(
+            {"text": "Edited", "url": "https://example.com", "tags": "alpha, beta"},
+            instance=advert,
+        )
+        self.assertTrue(form.is_valid())
+
+        EditAction(advert, user=self.user, form=form).execute()
+
+        advert.refresh_from_db()
+        self.assertEqual(advert.text, "Edited")
+        self.assertEqual(
+            sorted(advert.tags.values_list("name", flat=True)),
+            ["alpha", "beta"],
+        )
+
+    def test_edit_live_draftstate_with_form_leaves_live_version_untouched(self):
+        instance = DraftStateModel.objects.create(text="Live", live=True)
+        form = DraftStateModelForm({"text": "Draft edit"}, instance=instance)
+        self.assertTrue(form.is_valid())
+
+        EditAction(instance, user=self.user, form=form).execute()
+
+        # The live row is unchanged; the edit only created a new revision.
+        instance.refresh_from_db()
+        self.assertTrue(instance.live)
+        self.assertEqual(instance.text, "Live")
+        self.assertEqual(instance.latest_revision.content["text"], "Draft edit")
+
+    def test_content_changed_derived_from_form(self):
+        advert = Advert.objects.create(text="Original", url="https://example.com")
+        # An unchanged form -> content_changed is False.
+        unchanged = AdvertForm(
+            {"text": "Original", "url": "https://example.com"}, instance=advert
+        )
+        self.assertTrue(unchanged.is_valid())
+        self.assertFalse(
+            EditAction(advert, user=self.user, form=unchanged).content_changed
+        )
+
+        # A changed form -> content_changed is True.
+        changed = AdvertForm(
+            {"text": "Different", "url": "https://example.com"}, instance=advert
+        )
+        self.assertTrue(changed.is_valid())
+        self.assertTrue(
+            EditAction(advert, user=self.user, form=changed).content_changed
+        )
+
+    def test_content_changed_without_form_assumes_changed(self):
+        advert = Advert.objects.create(text="Original", url="https://example.com")
+        self.assertTrue(EditAction(advert, user=self.user).content_changed)
+
+    def test_revision_exposed_on_action(self):
+        instance = RevisableModel.objects.create(text="Original")
+        instance.text = "Edited"
+        action = EditAction(instance, user=self.user)
+        self.assertIsNone(action.revision)
+        action.execute()
+        self.assertIsNotNone(action.revision)
+        self.assertEqual(action.revision, instance.latest_revision)
+
+    def test_clean_defaults(self):
+        # Non-draftstate: validated by default.
+        self.assertTrue(EditAction(RevisableModel(text="x"), user=self.user).clean)
+        # Draftstate without publishing: not validated.
+        self.assertFalse(EditAction(DraftStateModel(text="x"), user=self.user).clean)
+        # Draftstate with publishing: validated.
+        self.assertTrue(
+            EditAction(DraftStateModel(text="x"), user=self.user, publish=True).clean
+        )
+        # Explicit override wins.
+        self.assertFalse(
+            EditAction(RevisableModel(text="x"), user=self.user, clean=False).clean
+        )
 
     def test_log_action_override(self):
         advert = Advert.objects.create(text="Original", url="https://example.com")
