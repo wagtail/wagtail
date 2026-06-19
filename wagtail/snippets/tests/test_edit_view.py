@@ -18,6 +18,7 @@ from taggit.models import Tag
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.models import EditingSession
+from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published
 from wagtail.snippets.action_menu import (
@@ -2374,6 +2375,17 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             Revision.objects.for_instance(self.test_snippet)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
+        )
+        log_entry = (
+            log_registry.get_logs_for_instance(self.test_snippet)
+            .filter(action="wagtail.publish.schedule")
+            .first()
+        )
+        self.assertIsNotNone(log_entry)
+        self.assertEqual(
+            log_entry.message,
+            f"Draft State Custom Primary Key Model scheduled for publishing "
+            f"at {render_timestamp(go_live_at)}",
         )
 
         # The object SHOULD have the "has_unpublished_changes" flag set,
