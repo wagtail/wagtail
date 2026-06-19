@@ -37,6 +37,10 @@ class CreateAction(BaseAction):
         given, it is read from the model's ``sort_order_field`` attribute (e.g.
         from the ``Orderable`` mixin). Pass ``None`` explicitly to disable
         setting a sort order.
+    :param clean: whether to validate the instance when creating its revision.
+        By default the revision is validated unless saving a draft of a
+        draft-enabled object. Pass an explicit value to override this, e.g. when
+        publishing happens in a separate later step.
     """
 
     action_name = "create"
@@ -52,6 +56,7 @@ class CreateAction(BaseAction):
         log_action="wagtail.create",
         publish=False,
         sort_order_field=UNSET,
+        clean=None,
     ):
         from wagtail.models import DraftStateMixin, RevisionMixin
 
@@ -62,6 +67,13 @@ class CreateAction(BaseAction):
         self.sort_order_field = sort_order_field
         self.revision_enabled = isinstance(instance, RevisionMixin)
         self.draftstate_enabled = isinstance(instance, DraftStateMixin)
+        # Validate the revision unless we're saving a draft of a draft-enabled
+        # object (where incomplete content is allowed).
+        if clean is None:
+            clean = self.publish or not self.draftstate_enabled
+        self.clean = clean
+        # The revision created by execute(), if any.
+        self.revision = None
 
     def user_has_permission(self):
         # "add" is a model-level permission: there is no existing instance to
@@ -96,11 +108,10 @@ class CreateAction(BaseAction):
         if sort_order_field and getattr(self.instance, sort_order_field) is None:
             set_max_order(self.instance, sort_order_field)
 
-        revision = None
         if self.revision_enabled:
-            revision = self.instance.save_revision(
+            self.revision = self.instance.save_revision(
                 user=self.user,
-                clean=self.publish,
+                clean=self.clean,
                 log_action=False,
             )
 
@@ -109,7 +120,7 @@ class CreateAction(BaseAction):
                 instance=self.instance,
                 action=self.log_action,
                 user=self.user,
-                revision=revision,
+                revision=self.revision,
                 content_changed=True,
             )
 
@@ -117,7 +128,7 @@ class CreateAction(BaseAction):
         # wagtail.publish log entry and the published signal, and runs its own
         # permission check (for the "publish" permission).
         if self.publish and self.draftstate_enabled:
-            revision.publish(
+            self.revision.publish(
                 user=self.user,
                 skip_permission_checks=skip_permission_checks,
             )
