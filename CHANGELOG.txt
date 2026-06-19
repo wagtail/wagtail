@@ -23,9 +23,11 @@ Changelog
  * Maintenance: Fix blank choice tests for Django 6.1 (Sage Abdullah)
  * Maintenance: Ignore `EMAIL_BACKEND` setting deprecation on Django 6.1 when running project template tests (Sage Abdullah)
  * Maintenance: Use uv with lockfile in CI configurations (Sage Abdullah)
- * Maintenance: Pin all GitHub Actions dependencies to specific versions (Thibaud Colas)
  * Maintenance: Add `one` and `not` match support to `RulesController` (LB (Ben Johnston))
+ * Maintenance: Pin all GitHub Actions dependencies to specific versions (Thibaud Colas)
  * Maintenance: Refactor pages' function-based views to class-based views (Sage Abdullah)
+ * Maintenance: Add renovate configuration to automate Python dependencies management (Sage Abdullah)
+ * Maintenance: Use Renovate to update GitHub Actions dependencies pins (Sage Abdullah)
 
 
 7.4.2 (15.06.2026)
