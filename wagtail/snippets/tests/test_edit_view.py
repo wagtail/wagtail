@@ -2384,7 +2384,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         self.assertIsNotNone(log_entry)
         self.assertEqual(
             log_entry.message,
-            f"Draft State Custom Primary Key Model scheduled for publishing "
+            f"Draft state custom primary key model scheduled for publishing "
             f"at {render_timestamp(go_live_at)}",
         )
 
