@@ -589,7 +589,7 @@ class BaseChoiceBlock(FieldBlock):
                         break
 
             if not has_blank_choice:
-                # Once we drop support for Django < 6.0, remove this and use the
+                # Once we drop support for Django < 6.1, remove this and use the
                 # label from Django directly.
                 choice = [("", _("- Select an option -"))]
 
