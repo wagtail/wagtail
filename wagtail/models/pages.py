@@ -2645,9 +2645,13 @@ class PageLogEntry(BaseLogEntry):
         return "PageLogEntry %d: '%s' on '%s' with id %s" % (
             self.pk,
             self.action,
-            self.object_verbose_name(),
+            self.object_verbose_name,
             self.page_id,
         )
+
+    @cached_property
+    def object_verbose_name(self):
+        return Page._meta.verbose_name
 
     @cached_property
     def object_id(self):

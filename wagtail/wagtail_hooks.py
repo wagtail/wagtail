@@ -290,7 +290,7 @@ def register_core_log_actions(actions):
                     return _(
                         "%(model_name)s scheduled for publishing at %(go_live_at)s"
                     ) % {
-                        "model_name": log_entry.object_verbose_name(),
+                        "model_name": log_entry.object_verbose_name,
                         "go_live_at": render_timestamp(
                             parse_datetime_localized(
                                 log_entry.data["revision"]["go_live_at"],
@@ -299,7 +299,7 @@ def register_core_log_actions(actions):
                     }
             except KeyError:
                 return _("%(model_name)s scheduled for publishing") % {
-                    "model_name": log_entry.object_verbose_name(),
+                    "model_name": log_entry.object_verbose_name,
                 }
 
     @actions.register_action("wagtail.schedule.cancel")
@@ -330,7 +330,7 @@ def register_core_log_actions(actions):
                     return _(
                         "%(model_name)s unscheduled for publishing at %(go_live_at)s"
                     ) % {
-                        "model_name": log_entry.object_verbose_name(),
+                        "model_name": log_entry.object_verbose_name,
                         "go_live_at": render_timestamp(
                             parse_datetime_localized(
                                 log_entry.data["revision"]["go_live_at"],
@@ -341,7 +341,7 @@ def register_core_log_actions(actions):
                     }
             except KeyError:
                 return _("%(model_name)s unscheduled from publishing") % {
-                    "model_name": log_entry.object_verbose_name(),
+                    "model_name": log_entry.object_verbose_name,
                 }
 
     @actions.register_action("wagtail.view_restriction.create")

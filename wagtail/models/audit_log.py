@@ -15,6 +15,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.log_actions import registry as log_action_registry
@@ -289,7 +290,7 @@ class BaseLogEntry(models.Model):
         return "LogEntry %d: '%s' on '%s'" % (
             self.pk,
             self.action,
-            self.object_verbose_name(),
+            self.object_verbose_name,
         )
 
     @cached_property
@@ -319,7 +320,7 @@ class BaseLogEntry(models.Model):
         if model_class is None:
             return self.content_type_id
 
-        return model_class._meta.verbose_name.title
+        return model_class._meta.verbose_name
 
     def object_id(self):
         raise NotImplementedError
@@ -331,7 +332,7 @@ class BaseLogEntry(models.Model):
     @cached_property
     def message(self):
         if self.formatter:
-            return self.formatter.format_message(self)
+            return capfirst(self.formatter.format_message(self))
         else:
             return _("Unknown %(action)s") % {"action": self.action}
 
@@ -375,6 +376,6 @@ class ModelLogEntry(BaseLogEntry):
         return "ModelLogEntry %d: '%s' on '%s' with id %s" % (
             self.pk,
             self.action,
-            self.object_verbose_name(),
+            self.object_verbose_name,
             self.object_id,
         )
