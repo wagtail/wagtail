@@ -1,6 +1,7 @@
 from unittest import mock
 
 from django.contrib.auth.models import Permission
+from django.forms.models import modelform_factory
 from django.test import TestCase
 
 from wagtail.actions.create import CreateAction, CreatePermissionError
@@ -15,6 +16,9 @@ from wagtail.test.testapp.models import (
     RevisableModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+
+AdvertForm = modelform_factory(Advert, fields=["text", "url", "tags"])
+DraftStateModelForm = modelform_factory(DraftStateModel, fields=["text"])
 
 
 class TestCreateAction(WagtailTestUtils, TestCase):
@@ -119,6 +123,67 @@ class TestCreateAction(WagtailTestUtils, TestCase):
         instance = FullFeaturedSnippet(text="Explicit", sort_order=42)
         CreateAction(instance, user=self.user).execute()
         self.assertEqual(instance.sort_order, 42)
+
+    def test_create_with_form_saves_instance_and_m2m(self):
+        form = AdvertForm(
+            {"text": "From form", "url": "https://example.com", "tags": "alpha, beta"}
+        )
+        self.assertTrue(form.is_valid())
+
+        action = CreateAction(form.instance, user=self.user, form=form)
+        instance = action.execute()
+
+        self.assertIsNotNone(instance.pk)
+        instance.refresh_from_db()
+        self.assertEqual(instance.text, "From form")
+        # Many-to-many data is saved via the form.
+        self.assertEqual(
+            sorted(instance.tags.values_list("name", flat=True)),
+            ["alpha", "beta"],
+        )
+
+    def test_create_draftstate_with_form_is_not_live(self):
+        form = DraftStateModelForm({"text": "Draft from form"})
+        self.assertTrue(form.is_valid())
+
+        action = CreateAction(form.instance, user=self.user, form=form)
+        instance = action.execute()
+
+        instance.refresh_from_db()
+        self.assertFalse(instance.live)
+        self.assertEqual(instance.text, "Draft from form")
+        self.assertIsNotNone(instance.latest_revision)
+
+    def test_sort_order_field_none_disables_ordering(self):
+        instance = FullFeaturedSnippet(text="No order")
+        CreateAction(instance, user=self.user, sort_order_field=None).execute()
+        self.assertIsNone(instance.sort_order)
+
+    def test_sort_order_field_explicit_override(self):
+        instance = FullFeaturedSnippet(text="Explicit field")
+        CreateAction(instance, user=self.user, sort_order_field="sort_order").execute()
+        self.assertIsNotNone(instance.sort_order)
+
+    def test_revision_exposed_on_action(self):
+        action = CreateAction(RevisableModel(text="Hello"), user=self.user)
+        self.assertIsNone(action.revision)
+        action.execute()
+        self.assertIsNotNone(action.revision)
+        self.assertEqual(action.revision, action.instance.latest_revision)
+
+    def test_clean_defaults(self):
+        # Non-draftstate: validated by default.
+        self.assertTrue(CreateAction(RevisableModel(text="x"), user=self.user).clean)
+        # Draftstate without publishing: not validated (drafts may be incomplete).
+        self.assertFalse(CreateAction(DraftStateModel(text="x"), user=self.user).clean)
+        # Draftstate with publishing: validated.
+        self.assertTrue(
+            CreateAction(DraftStateModel(text="x"), user=self.user, publish=True).clean
+        )
+        # Explicit override wins.
+        self.assertTrue(
+            CreateAction(DraftStateModel(text="x"), user=self.user, clean=True).clean
+        )
 
     def test_log_action_override(self):
         advert = Advert(text="Custom log", url="https://example.com")
