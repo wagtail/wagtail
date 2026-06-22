@@ -1,6 +1,8 @@
 import re
 from html.parser import HTMLParser
 
+import swapper
+
 from wagtail.admin.rich_text.converters.contentstate_models import (
     Block,
     ContentState,
@@ -9,8 +11,9 @@ from wagtail.admin.rich_text.converters.contentstate_models import (
     InlineStyleRange,
 )
 from wagtail.admin.rich_text.converters.html_ruleset import HTMLRuleset
-from wagtail.models import Page
 from wagtail.rich_text import features as feature_registry
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 # constants to keep track of what to do with leading whitespace on the next text node we encounter
 STRIP_WHITESPACE = 0
