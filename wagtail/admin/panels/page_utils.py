@@ -1,12 +1,8 @@
 from django.utils.translation import gettext_lazy
 
-from wagtail.admin.forms.pages import WagtailAdminPageForm
-from wagtail.models import Page
 from wagtail.utils.decorators import cached_classmethod
 
 from .group import ObjectList, TabbedInterface
-
-Page.base_form_class = WagtailAdminPageForm
 
 
 @cached_classmethod
@@ -33,6 +29,3 @@ def _get_page_edit_handler(cls):
         edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
 
     return edit_handler.bind_to_model(cls)
-
-
-Page.get_edit_handler = _get_page_edit_handler
