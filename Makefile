@@ -20,6 +20,7 @@ develop: clean-pyc
 lint-server:
 	ruff format --check .
 	ruff check .
+	ty check
 	curlylint --parse-only wagtail
 	git ls-files '*.html' | xargs djhtml --check
 	semgrep --config .semgrep.yml --error .

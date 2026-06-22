@@ -25,7 +25,7 @@ django-tasks
 modelsearch
 
 # Testing dependencies ([project.optional-dependencies.testing])
-# Linter exact pins (ruff, doc8, semgrep, curlylint, djhtml) are
+# Linter exact pins (ruff, ty, doc8, semgrep, curlylint, djhtml) are
 # intentionally omitted, as they should be handled separately.
 Jinja2
 boto3
