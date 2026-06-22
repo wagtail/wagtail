@@ -12,6 +12,8 @@ django-permissionedforms
 django-taggit
 django-treebeard
 djangorestframework
+django-ninja
+pydantic
 draftjs_exporter
 beautifulsoup4
 Willow[heif]

@@ -70,6 +70,8 @@ extensions = [
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
+    "sphinxcontrib.openapi",
+    "sphinxcontrib.httpdomain",
 ]
 
 autodoc_type_aliases = {
