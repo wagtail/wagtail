@@ -1,10 +1,13 @@
 from urllib.parse import urlsplit
 
+import swapper
 from django.conf import settings
 from django.utils.encoding import force_str
 
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Page, Site
+from wagtail.models import Site
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class BadRequestError(Exception):
