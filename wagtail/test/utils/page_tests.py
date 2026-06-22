@@ -1,6 +1,7 @@
 from typing import Any
 from unittest import mock
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import Http404
@@ -10,10 +11,11 @@ from django.utils.http import urlencode
 from django.utils.text import slugify
 
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page
 
 from .form_data import querydict_from_html
 from .wagtail_tests import WagtailTestUtils
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 AUTH_BACKEND = settings.AUTHENTICATION_BACKENDS[0]
 
