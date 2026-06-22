@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+import swapper
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
@@ -14,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import PageViewRestriction, Site
 
 from .filters import (
     AncestorOfFilter,
@@ -34,6 +35,8 @@ from .utils import (
     page_models_from_string,
     parse_fields_parameter,
 )
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class BaseAPIViewSet(GenericViewSet):

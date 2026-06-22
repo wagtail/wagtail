@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.core.exceptions import FieldError
 from django.db import models
@@ -5,11 +6,13 @@ from django.shortcuts import get_object_or_404
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
-from wagtail.models import Locale, Page
+from wagtail.models import Locale
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 
 from .utils import BadRequestError, parse_boolean
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class FieldsFilter(BaseFilterBackend):
