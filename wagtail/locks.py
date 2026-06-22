@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -16,7 +17,7 @@ class BaseLock:
     """
 
     def __init__(self, object):
-        from wagtail.models import Page
+        Page = swapper.load_model("wagtailcore", "Page")
 
         self.object = object
         self.is_page = isinstance(object, Page)

@@ -1,8 +1,10 @@
+import swapper
 from django.db.models import Model
 from django.utils.html import escape
 
-from wagtail.models import Page
 from wagtail.rich_text import LinkHandler
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PageLinkHandler(LinkHandler):

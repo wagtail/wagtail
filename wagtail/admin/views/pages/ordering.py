@@ -1,9 +1,10 @@
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
 
-from wagtail.models import Page
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class SetPagePositionView(View):
