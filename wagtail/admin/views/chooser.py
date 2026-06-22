@@ -2,6 +2,7 @@ import re
 from collections import defaultdict
 from urllib.parse import parse_qs, quote, urlencode, urlsplit
 
+import swapper
 from django.conf import settings
 from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
@@ -23,7 +24,9 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Locale, Page, Site
+from wagtail.models import Locale, Site
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def shared_context(request, extra_context=None):

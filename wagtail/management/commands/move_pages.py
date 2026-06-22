@@ -1,6 +1,7 @@
+import swapper
 from django.core.management.base import BaseCommand
 
-from wagtail.models import Page
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class Command(BaseCommand):

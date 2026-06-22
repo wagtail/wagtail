@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
@@ -8,7 +9,8 @@ from wagtail import hooks
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic.models import UnpublishView as GenericUnpublishView
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class UnpublishView(GenericUnpublishView):

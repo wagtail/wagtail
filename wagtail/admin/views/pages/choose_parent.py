@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
@@ -11,8 +12,9 @@ from django.views.generic import FormView
 from wagtail.admin.forms.pages import ParentChooserForm
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.mixins import LocaleMixin
-from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class ChooseParentView(LocaleMixin, WagtailAdminTemplateMixin, FormView):
