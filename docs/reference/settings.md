@@ -866,7 +866,9 @@ Static file URLs within the Wagtail admin are given a version-specific query str
 
 ## API
 
-For full documentation on API configuration, including these settings, see [](api_v2_configuration) documentation.
+(wagtailapi_settings)=
+
+For full documentation on API configuration, including these settings, see [](api_v2_configuration) and the [Wagtail API v3 documentation](api_v3). These settings apply to both the v2 and v3 APIs.
 
 ### `WAGTAILAPI_BASE_URL`
 
