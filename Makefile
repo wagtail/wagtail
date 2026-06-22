@@ -1,4 +1,4 @@
-.PHONY: clean-pyc develop lint-server lint-client lint-docs lint format-server format-client format test coverage
+.PHONY: clean-pyc develop lint-server lint-client lint-docs lint format-server format-client format test coverage openapi-snapshot
 
 help:
 	@echo "clean-pyc - remove Python file artifacts"
@@ -7,6 +7,7 @@ help:
 	@echo "format - enforce a consistent code style across the codebase, sort python files with ruff and fix frontend css/js"
 	@echo "test - run tests"
 	@echo "coverage - check code coverage"
+	@echo "openapi-snapshot - regenerate the v3 API OpenAPI snapshot for CI"
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -46,6 +47,11 @@ format: format-server format-client
 
 test:
 	python runtests.py
+
+OPENAPI_SNAPSHOT := wagtail/api/v3/tests/snapshots/openapi.json
+
+openapi-snapshot:
+	DJANGO_SETTINGS_MODULE=wagtail.test.settings uv run python -c 'import json, django; django.setup(); from wagtail.api.v3.api import api; from ninja.responses import NinjaJSONEncoder; f = open("$(OPENAPI_SNAPSHOT)", "w"); json.dump(api.get_openapi_schema(), f, cls=NinjaJSONEncoder, indent=2, sort_keys=True); f.write("\n"); f.close()'
 
 coverage:
 	coverage run --source wagtail runtests.py
