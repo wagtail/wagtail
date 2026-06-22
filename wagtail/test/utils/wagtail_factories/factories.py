@@ -1,6 +1,7 @@
 import logging
 
 import factory
+import swapper
 from django.utils.text import slugify
 from factory import errors, utils
 from factory.declarations import ParameteredAttribute
@@ -8,7 +9,9 @@ from factory.django import DjangoModelFactory
 
 from wagtail.documents import get_document_model
 from wagtail.images import get_image_model
-from wagtail.models import Collection, Page, Site
+from wagtail.models import Collection, Site
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 __all__ = [
     "CollectionFactory",

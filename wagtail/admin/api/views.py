@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+import swapper
 from django.conf import settings
 from django.http import Http404
 from django.urls import path
@@ -8,7 +9,6 @@ from rest_framework.response import Response
 
 from wagtail.api.v2.utils import parse_boolean
 from wagtail.api.v2.views import PagesAPIViewSet
-from wagtail.models import Page
 
 from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
@@ -21,6 +21,8 @@ from .actions.revert_to_page_revision import RevertToPageRevisionAPIAction
 from .actions.unpublish import UnpublishPageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PagesAdminAPIViewSet(PagesAPIViewSet):
