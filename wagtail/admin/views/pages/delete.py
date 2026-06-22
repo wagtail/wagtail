@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
@@ -12,7 +13,9 @@ from wagtail.actions.delete_page import DeletePageAction
 from wagtail.admin import messages
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.pages.utils import type_to_delete_confirmation
-from wagtail.models import Page, ReferenceIndex
+from wagtail.models import ReferenceIndex
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class DeleteView(TemplateView):

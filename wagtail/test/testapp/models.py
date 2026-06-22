@@ -54,7 +54,6 @@ from wagtail.contrib.forms.models import (
     AbstractFormSubmission,
 )
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
-from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import (
     BaseGenericSetting,
     BaseSiteSetting,
@@ -619,12 +618,18 @@ class FormPage(AbstractEmailForm):
         context["greeting"] = "hello world"
         return context
 
-    # This is redundant (SubmissionsListView is the default view class), but importing
-    # SubmissionsListView in this models.py helps us to confirm that this recipe
+    # FIXME: replace the recipe at
     # https://docs.wagtail.org/en/stable/reference/contrib/forms/customization.html#customise-form-submissions-listing-in-wagtail-admin
-    # works without triggering circular dependency issues -
-    # see https://github.com/wagtail/wagtail/issues/6265
-    submissions_list_view_class = SubmissionsListView
+    # which no longer works because wagtail.contrib.forms.views cannot be imported before models are loaded.
+    # Overriding get_submissions_list_view_class is the quick fix, but a registry mapping form page models to viewsets
+    # would be cleaner.
+    #
+    # submissions_list_view_class = SubmissionsListView
+
+    def get_submissions_list_view_class(self):
+        from wagtail.contrib.forms.views import SubmissionsListView
+
+        return SubmissionsListView
 
     content_panels = [
         TitleFieldPanel("title", classname="title"),

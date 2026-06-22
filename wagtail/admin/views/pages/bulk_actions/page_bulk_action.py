@@ -1,9 +1,11 @@
+import swapper
 from django import forms
 from django.utils.translation import ngettext
 
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.admin.views.pages.search import page_filter_search
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class DefaultPageForm(forms.Form):
