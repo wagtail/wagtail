@@ -1,3 +1,4 @@
+import swapper
 from django import template
 from django.shortcuts import resolve_url
 from django.template.defaulttags import token_kwargs
@@ -7,10 +8,11 @@ from django.utils.functional import Promise
 from django.utils.html import conditional_escape
 
 from wagtail import VERSION, __version__
-from wagtail.models import Page, Site
+from wagtail.models import Site
 from wagtail.rich_text import RichText, expand_db_html
 from wagtail.utils.version import get_main_version
 
+Page = swapper.load_model("wagtailcore", "Page")
 register = template.Library()
 
 

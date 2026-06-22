@@ -1,4 +1,5 @@
 import django_filters
+import swapper
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, F, OuterRef, Q, Subquery
@@ -7,8 +8,10 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.coreutils import get_content_languages
-from wagtail.models import Page, Site, get_page_models
+from wagtail.models import Site, get_page_models
 from wagtail.permissions import page_permission_policy
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def _get_locale_choices():

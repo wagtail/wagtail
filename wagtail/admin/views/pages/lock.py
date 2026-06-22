@@ -1,9 +1,11 @@
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from wagtail.admin.views.generic import lock
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PageOperationViewMixin:

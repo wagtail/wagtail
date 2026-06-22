@@ -1,15 +1,17 @@
 import datetime
 
 import django_filters
+import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
 
 from .base import PageReportView
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def get_users_for_filter():

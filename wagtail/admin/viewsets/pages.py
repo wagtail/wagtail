@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.http import Http404
@@ -49,10 +50,11 @@ from wagtail.admin.views.pages.workflow import (
     WorkflowActionView,
 )
 from wagtail.admin.viewsets.listing import ListingViewSetMixin
-from wagtail.models import Page
 from wagtail.utils.registry import ObjectTypeRegistry
 
 from .base import ViewSet
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PageListingViewSet(ListingViewSetMixin, ViewSet):

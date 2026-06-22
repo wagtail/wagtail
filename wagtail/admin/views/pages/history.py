@@ -1,4 +1,5 @@
 import django_filters
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -9,8 +10,10 @@ from wagtail.admin.views.pages.utils import (
     GenericPageBreadcrumbsMixin,
 )
 from wagtail.admin.widgets import BooleanRadioSelect
-from wagtail.models import Page, PageLogEntry
+from wagtail.models import PageLogEntry
 from wagtail.permissions import page_permission_policy
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PageHistoryFilterSet(history.HistoryFilterSet):

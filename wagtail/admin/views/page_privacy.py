@@ -1,3 +1,4 @@
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -8,8 +9,10 @@ from django.views.generic.edit import ModelFormMixin, ProcessFormView
 
 from wagtail.admin.forms.pages import PageViewRestrictionForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.models import Page, PageViewRestriction
+from wagtail.models import PageViewRestriction
 from wagtail.models.view_restrictions import BaseViewRestriction
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class SetPrivacyView(ModelFormMixin, ProcessFormView):

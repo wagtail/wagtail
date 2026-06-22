@@ -1,5 +1,6 @@
 from typing import Any
 
+import swapper
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
@@ -13,10 +14,11 @@ from wagtail.admin.ui.tables.pages import (
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import PageListingMixin
-from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def page_filter_search(q, pages, all_pages=None, ordering=None):

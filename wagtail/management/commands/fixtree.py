@@ -1,11 +1,14 @@
 import functools
 import operator
 
+import swapper
 from django.core.management.base import BaseCommand
 from django.db import models
 from django.db.models import Q
 
-from wagtail.models import Collection, Page
+from wagtail.models import Collection
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class Command(BaseCommand):
