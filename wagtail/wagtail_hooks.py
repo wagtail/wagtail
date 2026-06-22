@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
@@ -14,12 +15,14 @@ from wagtail import hooks
 from wagtail.compat import HTTPMethod
 from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
-from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
+from wagtail.models import ModelLogEntry, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def require_wagtail_login(next):

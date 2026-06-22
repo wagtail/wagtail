@@ -1,3 +1,4 @@
+import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models import F
@@ -36,8 +37,10 @@ from wagtail.admin.ui.tables.pages import (
 )
 from wagtail.admin.views import generic
 from wagtail.admin.widgets.button import HeaderButton
-from wagtail.models import Page, PageLogEntry, Site, get_page_content_types
+from wagtail.models import PageLogEntry, Site, get_page_content_types
 from wagtail.permissions import page_permission_policy
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class SiteFilter(ModelMultipleChoiceFilter):

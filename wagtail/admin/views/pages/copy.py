@@ -1,3 +1,4 @@
+import swapper
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -10,7 +11,8 @@ from wagtail.actions.create_alias import CreatePageAliasAction
 from wagtail.admin import messages
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.utils import get_valid_next_url_from_request
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class CopyView(FormView):
