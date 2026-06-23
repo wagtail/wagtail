@@ -30,18 +30,18 @@ Browse the interactive docs at `/api/v3/docs` and the OpenAPI schema at `/api/v3
 
 The v3 API reads the same `WAGTAILAPI_*` settings as v2 where applicable (`WAGTAILAPI_BASE_URL`, `WAGTAILAPI_LIMIT_MAX`, `WAGTAILAPI_SEARCH_ENABLED`). See [](api_v2_configuration) and the [API settings reference](/reference/settings).
 
-## Response envelope
+## Pagination
 
-List endpoints use the same envelope as v2:
+List endpoints use Django Ninja's limit/offset pagination:
 
 ```json
 {
-    "meta": {"total_count": 42},
+    "count": 42,
     "items": []
 }
 ```
 
-Ninja's native pagination shape uses `count` instead of `meta.total_count`; Wagtail v3 preserves the v2 envelope for compatibility during the v2 → v3 migration.
+`count` is the total number of results irrespective of pagination. Use `?limit` and `?offset` query parameters to page through results. `WAGTAILAPI_LIMIT_MAX` caps the maximum `limit` value (see [](api_v2_configuration) and the [API settings reference](/reference/settings)).
 
 ## Error format
 
