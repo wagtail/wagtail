@@ -1,6 +1,7 @@
 import logging
 import uuid
 
+import swapper
 from django.core.exceptions import PermissionDenied
 from modelcluster.models import get_all_child_relations
 
@@ -327,7 +328,9 @@ class CopyPageAction:
         )
 
         # Copy child pages
-        from wagtail.models import Page, PageViewRestriction
+        from wagtail.models import PageViewRestriction
+
+        Page = swapper.load_model("wagtailcore", "Page")
 
         if self.recursive:
             numchild = 0
