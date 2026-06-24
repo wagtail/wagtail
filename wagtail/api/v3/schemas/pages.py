@@ -1,12 +1,15 @@
 from datetime import datetime
 from typing import Literal
 
+import swapper
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from ninja import Schema
 
 from wagtail.api.v2.utils import get_full_url
-from wagtail.models import Page
+from wagtail.models import AbstractPage
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class PageMetaSchema(Schema):
@@ -24,7 +27,7 @@ class BasePageSchema(Schema):
     meta: PageMetaSchema
 
     @staticmethod
-    def resolve_meta(obj: Page, context: dict) -> PageMetaSchema:
+    def resolve_meta(obj: AbstractPage, context: dict) -> PageMetaSchema:
         request = context["request"]
 
         try:

@@ -1,6 +1,7 @@
 from collections.abc import Iterable
 from typing import Any, cast
 
+import swapper
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ValidationError
@@ -17,7 +18,8 @@ from wagtail.blocks.base import BlockField
 from wagtail.blocks.list_block import ListBlock
 from wagtail.blocks.stream_block import BaseStreamBlock
 from wagtail.blocks.struct_block import BaseStructBlock
-from wagtail.models import Page
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def filter_form_options(

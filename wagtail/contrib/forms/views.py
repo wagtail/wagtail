@@ -1,6 +1,7 @@
 import datetime
 from collections import OrderedDict
 
+import swapper
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -27,8 +28,9 @@ from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.views.pages.listing import PageFilterSet, PageListingMixin
 from wagtail.contrib.forms.models import FormMixin
 from wagtail.contrib.forms.utils import get_form_types, get_forms_for_user
-from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def get_submissions_list_view(request, *args, **kwargs):

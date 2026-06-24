@@ -1,5 +1,6 @@
 from itertools import groupby
 
+import swapper
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -20,10 +21,10 @@ from wagtail.models import (
     PAGE_PERMISSION_CODENAMES,
     PAGE_PERMISSION_TYPES,
     GroupPagePermission,
-    Page,
 )
 
 User = get_user_model()
+Page = swapper.load_model("wagtailcore", "Page")
 
 # The standard fields each user model is expected to have, as a minimum.
 standard_fields = {"email", "first_name", "last_name", "is_superuser", "groups"}
