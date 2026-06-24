@@ -224,5 +224,8 @@ class RoutablePage(RoutablePageMixin, Page):
     added to it.
     """
 
+    # TODO: Formally deprecate RoutablePage in favour of RoutablePageMixin, as it cannot be used
+    # with custom base page models (and has been undocumented for a long time anyhow).
+
     class Meta:
         abstract = True

@@ -1,7 +1,10 @@
+import swapper
 from django.conf import settings
 
 from wagtail.api.v2.utils import BadRequestError
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import PageViewRestriction, Site
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def get_public_pages_queryset(request):

@@ -1,6 +1,7 @@
 import logging
 import uuid
 
+import swapper
 from django.core.exceptions import PermissionDenied
 
 from wagtail.log_actions import log
@@ -213,7 +214,9 @@ class CreatePageAliasAction:
             'Page alias created: "%s" id=%d from=%d', alias.title, alias.id, page.id
         )
 
-        from wagtail.models import Page, PageViewRestriction
+        from wagtail.models import PageViewRestriction
+
+        Page = swapper.load_model("wagtailcore", "Page")
 
         # Copy child pages
         if recursive:

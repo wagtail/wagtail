@@ -1,3 +1,4 @@
+import swapper
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
@@ -11,10 +12,12 @@ from django.views.generic.detail import SingleObjectMixin
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.admin import messages
-from wagtail.models import DraftStateMixin, Page, TranslatableMixin
+from wagtail.models import DraftStateMixin, TranslatableMixin
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
 from .forms import SubmitTranslationForm
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class SubmitTranslationView(SingleObjectMixin, TemplateView):

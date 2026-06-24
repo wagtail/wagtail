@@ -1,3 +1,4 @@
+import swapper
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import Body, Router, Status
@@ -12,9 +13,10 @@ from wagtail.api.v3.querysets import AccessTier, get_pages_queryset
 from wagtail.api.v3.schemas import BasePageSchema
 from wagtail.api.v3.schemas.base import build_union_schemas
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import Page, get_page_models
+from wagtail.models import get_page_models
 from wagtail.utils.forms import FormValidationError
 
+Page = swapper.load_model("wagtailcore", "Page")
 router = Router(tags=["pages"])
 
 

@@ -1,10 +1,12 @@
 import functools
 
+import swapper
 from django.core.exceptions import PermissionDenied
 
-from wagtail.models import Page
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.permissions import page_permission_policy
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 def require_any_permission(model, actions=("add", "change", "delete", "view")):
