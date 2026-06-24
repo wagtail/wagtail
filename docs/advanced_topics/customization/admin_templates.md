@@ -177,6 +177,10 @@ To customize information density of the admin user interface, inject a CSS file 
 
 UI components which have been designed to use the `--w-density-factor` will increase in size or spacing accordingly.
 
+## Using Wagtail's CSS utility classes
+
+When overriding admin templates, you can use Wagtail's built-in Tailwind utility classes directly in your HTML. All utilities use the `w-` prefix (for example, `w-flex`, `w-bg-surface-page`). For a full reference of available classes, design tokens, and which utilities are intentionally exposed, see [](ui_guidelines_tailwind).
+
 ## Specifying a site or page in the branding
 
 The admin interface has a number of variables available to the renderer context that can be used to customize the branding in the admin page. These can be useful for customizing the dashboard on a multi-tenanted Wagtail installation:

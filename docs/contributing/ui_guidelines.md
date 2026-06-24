@@ -101,16 +101,119 @@ For all of our styles, we use:
 -   A `--w-direction-factor` CSS variable, set to `1` by default and `-1` for RTL languages, to allow reversing of calculations of physical values (transforms, background positions) and mirroring of icons and visuals with directional elements like arrows.
 -   The `--w-density-factor` CSS variable, to let users control the information density of the UI. Set to `1` by default, and lower or higher values to reduce or increase the spacing and size of UI elements.
 
+(ui_guidelines_tailwind)=
+
 ### Tailwind usage
 
-We use [Tailwind](https://tailwindcss.com/) to manage our design tokens via its theme, and generate CSS utilities. It is configured in `tailwind.config.js`, with a base configuration intended to be reusable in other projects.
+We use [Tailwind](https://tailwindcss.com/) to manage our design tokens via its theme, and generate CSS utilities. The configuration lives in two files:
 
-Wagtail uses most of Tailwind’s core plugins, with an override for them to create [Logical properties and values](https://rtlstyling.com/posts/rtl-styling#css-logical-properties) styles while still using Tailwind’s default utility and design token names.
+-   `tailwind.config.js` — the root config for building Wagtail. Sets `content` paths and extends the base config.
+-   `client/tailwind.config.js` — the base config, intended to be reusable in other projects. Defines all design tokens, plugins, and theme values.
+
+All utilities use the `w-` prefix (for example, `w-flex`, `w-text-primary`, `w-mt-4`), to avoid conflicts with other CSS.
+
+Wagtail uses most of Tailwind’s core plugins, overridden to generate [logical property](https://rtlstyling.com/posts/rtl-styling#css-logical-properties) styles via `tailwindcss-vanilla-rtl`. So `w-ml-4` generates `margin-inline-start` rather than `margin-left`, and styles work in both LTR and RTL without extra overrides.
+
+#### Breakpoints
+
+Defined in `client/src/tokens/breakpoints.js`:
+
+| Name | Min-width |
+| ---- | --------- |
+| `sm` | 800px     |
+| `md` | 900px     |
+| `lg` | 1200px    |
+| `xl` | 1600px    |
+
+#### Spacing
+
+Defined in `client/src/tokens/spacing.js`. Values follow a numeric scale from `0` to `96`, plus `px` (1px). Use for margin, padding, width, height, gap, and so on. A `slim-header` value (50px) is also available.
+
+#### Colors
+
+Defined in `client/src/tokens/colors.js` and `client/src/tokens/colorThemes.js`. There are two layers of color tokens, both available as `w-bg-{color}` and `w-text-{color}` utilities:
+
+-   **Semantic colors** describe the *role* of a color in the UI and adapt automatically between light and dark themes. Prefer these:
+
+    | Category | Examples                                                                             |
+    | -------- | ------------------------------------------------------------------------------------ |
+    | Surfaces | `surface-page`, `surface-field`, `surface-header`, `surface-button-default`          |
+    | Text     | `text-label`, `text-context`, `text-meta`, `text-link-default`, `text-error`         |
+    | Icons    | `icon-primary`, `icon-primary-hover`, `icon-secondary`                               |
+    | Borders  | `border-furniture`, `border-field-default`, `border-button-outline-default`          |
+    | Misc     | `focus`, `box-shadow-md`                                                             |
+
+-   **Static colors** are named by hue and shade (`primary`, `grey-100`, `critical-200`, etc.) with fixed values. Use these only when a specific color value is needed rather than a semantic role.
+
+#### Typography
+
+Defined in `client/src/tokens/typography.js`. Rather than composing individual font-size, weight, and color utilities, use the type scale component classes:
+
+| Class               | Usage                              |
+| ------------------- | ---------------------------------- |
+| `w-h1`              | Page headings                      |
+| `w-h2`              | Section headings                   |
+| `w-h3`              | Sub-section headings               |
+| `w-h4`              | Minor headings                     |
+| `w-label-1`         | Bold label, 16px                   |
+| `w-label-2`         | Semibold label, 14px               |
+| `w-label-3`         | Medium label, 14px                 |
+| `w-body-text-large` | Large body copy, 19px              |
+| `w-body-text`       | Standard body copy, 16px           |
+| `w-help-text`       | Helper / supplementary text, 14px  |
+
+Raw typographic utilities (`w-text-14`, `w-font-bold`, etc.) exist but should be avoided in favour of the type scale.
+
+#### Borders and shadows
+
+Defined in `client/src/tokens/objectStyles.js`:
+
+-   Border radius: `none`, `sm` (3px), `DEFAULT` (5px), `md` (10px), `xl` (24px), `full`.
+-   Border width: `DEFAULT` (1px), `0`, `2` (2px), `5` (5px).
+-   Box shadow: `w-shadow`, `w-shadow-md`, `w-shadow-none`.
+
+#### Z-index
+
+Named z-index values keep the admin’s layering consistent:
+
+| Class                 | Value |
+| --------------------- | ----- |
+| `w-z-footer-actions`  | 32    |
+| `w-z-minimap`         | 80    |
+| `w-z-header`          | 100   |
+| `w-z-sidebar`         | 110   |
+| `w-z-sidebar-toggle`  | 120   |
+| `w-z-dialog`          | 130   |
+
+#### Animations and scrollbars
+
+-   `w-animate-fade-in` — fades an element in over 150ms.
+-   `w-scrollbar-thin` — thin cross-browser scrollbar, defined in `client/src/plugins/scrollbarThin.js`.
+
+#### Custom variants
+
+Wagtail registers these variants in addition to Tailwind’s defaults:
+
+| Variant          | Applies when                                                                       |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| `forced-colors:` | Windows High Contrast / Forced Colors mode is active                               |
+| `expanded:`      | The element has `aria-expanded="true"`                                             |
+| `more-contrast:` | `.contrast-more` is set, or `prefers-contrast: more` with `.contrast-system`      |
+
+#### Disabled utilities
+
+Some core Tailwind utilities are intentionally disabled:
+
+-   `preflight` — Wagtail has its own CSS reset; Tailwind’s would conflict.
+-   `float` / `clear` — use Flexbox or Grid instead.
+-   `text-transform` — avoid CSS uppercasing; use correct casing in content directly.
 
 With utility classes, we recommend to:
 
 -   Keep their number to a reasonable maximum, creating component styles instead if the utilities are inter-dependent, or if they are frequently reused together.
--   Avoid utilities relating to font size, weight, or other typographic considerations. Instead, use the higher-level type scale as defined in `typography.js`.
+-   Avoid utilities relating to font size, weight, or other typographic considerations. Instead, use the type scale.
+-   Prefer semantic color tokens (e.g., `w-bg-surface-page`, `w-text-text-label`) over static ones so colours adapt correctly in dark theme and high-contrast mode.
+-   Use named z-index values rather than arbitrary numbers.
 
 ### Sass usage
 
