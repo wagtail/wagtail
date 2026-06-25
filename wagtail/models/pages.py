@@ -91,6 +91,7 @@ PAGE_TEMPLATE_VAR = "page"
 COMMENTS_RELATION_NAME = getattr(
     settings, "WAGTAIL_COMMENTS_RELATION_NAME", "wagtail_admin_comments"
 )
+BASE_PAGE_MODEL_NAME = swapper.get_model_name("wagtailcore", "Page")
 
 
 @receiver(pre_validate_delete, sender=Locale)
@@ -260,16 +261,23 @@ class PageBase(models.base.ModelBase):
             None  # to be filled in on first call to cls.clean_parent_page_models
         )
 
-        # All pages should be creatable unless is_creatable is explicitly set,
-        # or they are a base page model (i.e. a direct subclass of AbstractPage).
-        # This attribute is not inheritable.
-        if "is_creatable" not in dct:
-            # FIXME: ensure this is false for base Page models (i.e. direct subclasses of AbstractPage)
-            cls.is_creatable = not cls._meta.abstract
+        # Find the topmost concrete model in the MTI chain that this model inherits from -
+        # usually this will be Page, but projects may set up their own custom base model
+        # inheriting from AbstractPage.
+        base_page_model = cls.base_page_model
 
-        if not cls._meta.abstract:
-            # register this type in the list of page content types
-            # FIXME: only do this for descendants of the registered base page model
+        # Set the (non-inheritable) is_creatable attribute. If this has been explicitly set on the
+        # model, use it; otherwise, default to False for base page models and abstract models,
+        # and True for others.
+        if "is_creatable" not in dct:
+            cls.is_creatable = not cls._meta.abstract and cls is not base_page_model
+
+        # register this type in the list of page content types, only if it descends from the
+        # base page model set in WAGTAIL_PAGE_MODEL
+        if (
+            not cls._meta.abstract
+            and base_page_model._meta.label == BASE_PAGE_MODEL_NAME
+        ):
             PAGE_MODEL_CLASSES.append(cls)
 
 
@@ -2081,6 +2089,12 @@ class AbstractPage(
         abstract = True
 
 
+class AbstractPageMeta:
+    verbose_name = _("page")
+    verbose_name_plural = _("pages")
+    unique_together = [("translation_key", "locale")]
+
+
 class Page(AbstractPage):
     seo_title = models.CharField(
         verbose_name=_("title tag"),
@@ -2110,10 +2124,6 @@ class Page(AbstractPage):
     search_fields = AbstractPage.search_fields + [
         index.FilterField("show_in_menus"),
     ]
-
-    # FIXME: get PageBase to set this to False for base Page models (i.e. direct subclasses of AbstractPage),
-    # so that the class itself doesn't have to
-    is_creatable = False
 
     promote_panels = [
         PanelPlaceholder(
@@ -2151,17 +2161,8 @@ class Page(AbstractPage):
                 # FIXME: find a way to make this functionality pluggable so that custom Page models
                 # can define show_in_menus without doing this
 
-    class Meta:
+    class Meta(AbstractPageMeta):
         swappable = swapper.swappable_setting("wagtailcore", "Page")
-
-        # FIXME: what is the consequence of custom base page models not setting verbose_name and verbose_name_plural?
-        # Can we set this as a default on AbstractPage without it being picked up by all subclasses of Page?
-        verbose_name = _("page")
-        verbose_name_plural = _("pages")
-
-        # FIXME: how can we set this within AbstractPage without it being picked up by all subclasses of Page
-        # (which fails with "(models.E016) 'unique_together' refers to field 'locale' which is not local to model 'FooPage'.")
-        unique_together = [("translation_key", "locale")]
 
         # Make sure that we auto-create Permission objects that are defined in
         # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
