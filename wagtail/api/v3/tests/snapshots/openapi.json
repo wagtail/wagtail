@@ -139,6 +139,24 @@
         "title": "PagedPageListingSchema",
         "type": "object"
       },
+      "PagedSiteSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SiteSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedSiteSchema",
+        "type": "object"
+      },
       "SchemaDetailResponse": {
         "properties": {
           "create": {
@@ -179,6 +197,74 @@
           }
         },
         "title": "SchemaDetailResponse",
+        "type": "object"
+      },
+      "SiteInputSchema": {
+        "properties": {
+          "hostname": {
+            "title": "Hostname",
+            "type": "string"
+          },
+          "is_default_site": {
+            "default": false,
+            "title": "Is Default Site",
+            "type": "boolean"
+          },
+          "port": {
+            "default": 80,
+            "title": "Port",
+            "type": "integer"
+          },
+          "root_page_id": {
+            "title": "Root Page Id",
+            "type": "integer"
+          },
+          "site_name": {
+            "default": "",
+            "title": "Site Name",
+            "type": "string"
+          }
+        },
+        "required": ["hostname", "root_page_id"],
+        "title": "SiteInputSchema",
+        "type": "object"
+      },
+      "SiteSchema": {
+        "properties": {
+          "hostname": {
+            "title": "Hostname",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_default_site": {
+            "title": "Is Default Site",
+            "type": "boolean"
+          },
+          "port": {
+            "title": "Port",
+            "type": "integer"
+          },
+          "root_page_id": {
+            "title": "Root Page Id",
+            "type": "integer"
+          },
+          "site_name": {
+            "title": "Site Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "hostname",
+          "port",
+          "site_name",
+          "root_page_id",
+          "is_default_site"
+        ],
+        "title": "SiteSchema",
         "type": "object"
       }
     }
@@ -311,6 +397,166 @@
         },
         "summary": "Schemas for a content type",
         "tags": ["schema"]
+      }
+    },
+    "/api/v3/sites/": {
+      "get": {
+        "operationId": "sites_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedSiteSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List sites",
+        "tags": ["sites"]
+      },
+      "post": {
+        "operationId": "sites_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SiteInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create site",
+        "tags": ["sites"]
+      }
+    },
+    "/api/v3/sites/{site_id}/": {
+      "delete": {
+        "operationId": "sites_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "site_id",
+            "required": true,
+            "schema": {
+              "title": "Site Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete site",
+        "tags": ["sites"]
+      },
+      "get": {
+        "operationId": "sites_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "site_id",
+            "required": true,
+            "schema": {
+              "title": "Site Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Site detail",
+        "tags": ["sites"]
+      },
+      "put": {
+        "operationId": "sites_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "site_id",
+            "required": true,
+            "schema": {
+              "title": "Site Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SiteInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update site",
+        "tags": ["sites"]
       }
     }
   },
