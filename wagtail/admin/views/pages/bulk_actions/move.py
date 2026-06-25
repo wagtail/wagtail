@@ -1,8 +1,10 @@
 from django import forms
+from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail import hooks
 from wagtail.admin import widgets
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 from wagtail.models import Page
@@ -152,7 +154,40 @@ class MoveBulkAction(PageBulkAction):
         num_parent_objects = 0
         if destination is None:
             return
+
+        # Collect pages to move including translations if I18N is enabled
+        all_pages_to_move = {}
+        parent_translations_map = {}
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
+                fn_pages = fn(objects, "move")
+                if fn_pages and isinstance(fn_pages, dict):
+                    for source_page, translated_pages in fn_pages.items():
+                        if source_page not in all_pages_to_move:
+                            all_pages_to_move[source_page] = []
+                        all_pages_to_move[source_page].extend(list(translated_pages))
+            
+            # Store parent translations before moving pages
+            for page in objects:
+                parent_translations_map[page] = list(page.get_parent().get_translations())
+
         for page in objects:
             page.move(destination, pos="last-child", user=user)
             num_parent_objects += 1
+
+            # Move translation and alias pages if they have the same parent page
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                translated_pages = all_pages_to_move.get(page, [])
+                parent_page_translations = parent_translations_map.get(page, [])
+                for translation in translated_pages:
+                    if translation.get_parent() in parent_page_translations:
+                        # Move the translated or alias page to its translated or
+                        # alias "destination" page
+                        translated_destination = destination.get_translation(
+                            translation.locale
+                        )
+                        translation.move(
+                            translated_destination, pos="last-child", user=user
+                        )
+
         return num_parent_objects, 0
