@@ -152,7 +152,13 @@ class MoveBulkAction(PageBulkAction):
         num_parent_objects = 0
         if destination is None:
             return
-        for page in objects:
+        object_ids = {page.pk for page in objects}
+        pages_to_move = [
+            page
+            for page in objects
+            if not page.get_ancestors().filter(pk__in=object_ids).exists()
+        ]
+        for page in pages_to_move:
             page.move(destination, pos="last-child", user=user)
             num_parent_objects += 1
         return num_parent_objects, 0
