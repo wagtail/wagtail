@@ -1,9 +1,12 @@
 from http import HTTPStatus
 from typing import Any
 
+from django.core.exceptions import PermissionDenied
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.http import Http404, HttpRequest, HttpResponse
 from ninja import Schema
-from ninja.errors import HttpError, ValidationError
+from ninja.errors import HttpError
+from ninja.errors import ValidationError as NinjaValidationError
 
 PROBLEM_JSON = "application/problem+json"
 DEFAULT_PROBLEM_TYPE = "about:blank"
@@ -70,13 +73,26 @@ def register_exception_handlers(api):
     RFC 7807 choice for request validation failures.
     """
 
-    @api.exception_handler(ValidationError)
-    def validation_error_handler(request: HttpRequest, exc: ValidationError):
+    @api.exception_handler(NinjaValidationError)
+    @api.exception_handler(DjangoValidationError)
+    def validation_error_handler(
+        request: HttpRequest, exc: DjangoValidationError | NinjaValidationError
+    ):
+        if isinstance(exc, DjangoValidationError):
+            errors = [{"message": msg} for msg in exc.messages]
+        else:
+            errors = exc.errors
         return problem_response(
             status=422,
             detail="Validation failed",
-            errors=exc.errors,
+            errors=errors,
         )
+
+    @api.exception_handler(PermissionDenied)
+    def permission_denied_handler(request: HttpRequest, exc: PermissionDenied):
+        if not request.user.is_authenticated:
+            return problem_response(status=401, detail="Authentication required")
+        return problem_response(status=403, detail="Permission denied")
 
     @api.exception_handler(Http404)
     def not_found_handler(request: HttpRequest, exc: Http404):
