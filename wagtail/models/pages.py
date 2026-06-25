@@ -82,6 +82,9 @@ from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
 from .workflows import WorkflowMixin
 
+# Ensure that the setting for swapping the Page model is named WAGTAIL_PAGE_MODEL rather than WAGTAILCORE_PAGE_MODEL
+swapper.set_app_prefix("wagtailcore", "wagtail")
+
 logger = logging.getLogger("wagtail")
 
 PAGE_TEMPLATE_VAR = "page"
