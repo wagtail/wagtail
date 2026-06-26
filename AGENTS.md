@@ -4,6 +4,7 @@ The main developer documentation for Wagtail lives in the `docs/contributing` di
 
 ## Pull request guidelines
 
+- Always use our pull request template: `.github/PULL_REQUEST_TEMPLATE.md`.
 - Describe the "why" of the changes, why the proposed solution is the right one.
 - Highlight areas of the proposed changes that require careful review.
 - Always add a disclaimer to the PR description mentioning how AI agents are involved with the contribution.
