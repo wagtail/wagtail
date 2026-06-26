@@ -54,11 +54,10 @@
                     <button class="button button-secondary no remove-focal-point" type="button">{% trans "Remove focal area" %}</button>
                 </div>
                 <div class="w-col-span-1">
-                    {% image image original as original_image %}
 
                     <dl>
                         <dt>{% trans "Max dimensions" %}</dt>
-                        <dd>{{ original_image.width|unlocalize }}x{{ original_image.height|unlocalize }}</dd>
+                        <dd>{{ image.width|unlocalize }}x{{ image.height|unlocalize }}</dd>
                         <dt>{% trans "Filesize" %}</dt>
                         <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
 

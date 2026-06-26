@@ -1,4 +1,5 @@
 import json
+import mimetypes
 import os
 from tempfile import SpooledTemporaryFile
 
@@ -462,6 +463,23 @@ def preview(request, image_id, filter_spec):
     temp_image.seek(0)
     response = FileResponse(temp_image)
     response["Content-Type"] = "image/" + image.format_name
+    return response
+
+
+@permission_checker.require("change")
+def original_file(request, image_id):
+    image = get_object_or_404(get_image_model(), id=image_id)
+
+    try:
+        file = image.file.open("rb")
+    except IOError:
+        return HttpResponse("Not found", status=404)
+
+    content_type, _ = mimetypes.guess_type(image.file.name)
+    response = FileResponse(
+        file, content_type=content_type or "application/octet-stream"
+    )
+    response["Content-Disposition"] = f'inline; filename="{image.filename}"'
     return response
 
 
