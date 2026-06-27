@@ -906,8 +906,6 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual(form_state_count, 1)
 
 
-
-
 class TestEnablePreview(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
