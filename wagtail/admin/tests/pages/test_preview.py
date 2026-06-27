@@ -1,10 +1,11 @@
 import datetime
 import json
+import threading
 from functools import wraps
 
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase, override_settings
+from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
@@ -861,6 +862,51 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual("1280", radios[1]["data-device-width"])
         self.assertEqual("Original desktop", radios[1]["aria-label"])
         self.assertTrue(radios[1].has_attr("checked"))
+
+    def test_preview_on_edit_concurrent_requests_no_duplicate_form_state(self):
+        """
+        Repeated preview requests should not create duplicate FormState rows.
+        The UniqueConstraint on FormState ensures only one row exists per
+        (user, content_type, object_id, parent_object_id).
+        Regression test for: https://github.com/wagtail/wagtail/issues/XXXX
+        """
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
+        )
+
+        # First request - creates the FormState row
+        response = self.client.post(preview_url, self.post_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Verify exactly one FormState row was created
+        form_state_count = (
+            FormState.objects.filter(user=self.user)
+            .for_instance(self.event_page.specific)
+            .count()
+        )
+        self.assertEqual(form_state_count, 1)
+
+        # Second request - should UPDATE the existing row, not INSERT a duplicate
+        response = self.client.post(preview_url, self.post_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Still exactly ONE FormState row - no duplicates
+        form_state_count = (
+            FormState.objects.filter(user=self.user)
+            .for_instance(self.event_page.specific)
+            .count()
+        )
+        self.assertEqual(form_state_count, 1)
+
+
 
 
 class TestEnablePreview(WagtailTestUtils, TestCase):
