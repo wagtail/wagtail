@@ -862,7 +862,6 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual("Original desktop", radios[1]["aria-label"])
         self.assertTrue(radios[1].has_attr("checked"))
 
-    
 
 class TestFormStateConcurrency(WagtailTestUtils, TransactionTestCase):
     """
@@ -918,11 +917,10 @@ class TestFormStateConcurrency(WagtailTestUtils, TransactionTestCase):
 
         # There should be exactly ONE FormState row, not duplicates
         form_state_count = (
-            FormState.objects.filter(user=self.user)
-            .for_instance(specific_page)
-            .count()
+            FormState.objects.filter(user=self.user).for_instance(specific_page).count()
         )
         self.assertEqual(form_state_count, 1)
+
 
 class TestEnablePreview(WagtailTestUtils, TestCase):
     def setUp(self):
