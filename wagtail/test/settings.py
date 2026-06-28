@@ -58,7 +58,7 @@ if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
     DATABASES["default"]["TEST"]["COLLATION"] = "utf8mb4_general_ci"
 
 
-SECRET_KEY = "not needed"
+SECRET_KEY = "not needed"  # noqa: S105 -  false positive, test setting
 
 ROOT_URLCONF = "wagtail.test.urls"
 

@@ -442,7 +442,7 @@ class EventPage(Page):
         index.FilterField("audience"),
     ]
 
-    password_required_template = "tests/event_page_password_required.html"
+    password_required_template = "tests/event_page_password_required.html"  # noqa: S105 -  false positive
     base_form_class = EventPageForm
 
     content_panels = [
