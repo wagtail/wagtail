@@ -56,7 +56,7 @@ class SetPrivacyView(ModelFormMixin, ProcessFormView):
                 BaseViewRestriction.NONE,
                 format_html(
                     "<span>{}</span>",
-                    mark_safe(
+                    mark_safe(  # noqa: S308 - TODO: investigate if susceptible to XSS (through translations)
                         _(
                             "Privacy is inherited from the ancestor page - %(ancestor_page)s"
                         )
