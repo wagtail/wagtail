@@ -115,7 +115,7 @@ class SubmitTranslationForm(forms.Form):
                     len(disabled_locales),
                 )
                 help_text += "</a>"
-                self.fields["locales"].help_text = mark_safe(help_text)
+                self.fields["locales"].help_text = mark_safe(help_text)  # noqa: S308 - TODO: should this be rewritten to format_html?
 
             # For pages, if there is one locale or all locales are disabled.
             hide_select_all = (

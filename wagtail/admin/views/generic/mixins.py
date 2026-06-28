@@ -916,7 +916,7 @@ class RevisionsRevertMixin:
             "created_at": render_timestamp(self.revision.created_at),
             "user": user_avatar,
         }
-        message = mark_safe(message_string % message_data)
+        message = mark_safe(message_string % message_data)  # noqa: S308 - TODO: investigate if susceptible to XSS
         return message
 
     def _add_warning_message(self):

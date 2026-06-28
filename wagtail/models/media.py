@@ -123,8 +123,8 @@ class Collection(MP_Node):
             # NOTE: &#x21b3 is the hex HTML entity for ↳.
             return format_html(
                 "{indent}{icon} {name}",
-                indent=mark_safe("&nbsp;" * 4 * display_depth),
-                icon=mark_safe("&#x21b3"),
+                indent=mark_safe("&nbsp;" * 4 * display_depth),  # noqa S308 - no security implications
+                icon=mark_safe("&#x21b3"),  # noqa S308 - no security implications
                 name=self.name,
             )
         # Output unicode plain-text version
