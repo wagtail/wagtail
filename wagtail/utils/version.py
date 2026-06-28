@@ -38,8 +38,8 @@ def get_complete_version(version=None):
     if version is None:
         from wagtail import VERSION as version
     else:
-        assert len(version) == 5
-        assert version[3] in ("dev", "alpha", "beta", "rc", "final")
+        assert len(version) == 5  # noqa: S101 - TODO: replace with explicit check?
+        assert version[3] in ("dev", "alpha", "beta", "rc", "final")  # noqa: S101 - TODO: replace with explicit check?
 
     return version
 
