@@ -59,7 +59,10 @@ class OEmbedFinder(EmbedFinder):
         # Perform request
         try:
             r = requests.get(
-                endpoint, params=params, headers={"User-agent": "Mozilla/5.0"}
+                endpoint,
+                params=params,
+                headers={"User-agent": "Mozilla/5.0"},
+                timeout=10,
             )
             r.raise_for_status()
             oembed = r.json()
