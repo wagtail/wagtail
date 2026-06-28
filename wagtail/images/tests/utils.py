@@ -21,7 +21,8 @@ def get_test_image_filename(image, filterspec):
         ext = "." + filterspec.split("format-")[1].split("-")[0].split(".")[0].replace(
             "jpeg", "jpg"
         )
-    return f"{settings.MEDIA_URL}images/{name}.{filterspec}{ext}"
+    # Include image ID in filename (added to fix collision bug)
+    return f"{settings.MEDIA_URL}images/{name}.{image.pk}.{filterspec}{ext}"
 
 
 def get_test_image_file(filename="test.png", colour="white", size=(640, 480)):

@@ -475,10 +475,10 @@ class TestFrontendServeView(TestCase):
             )
         )
 
-        expected_redirect_url = (
-            "/media/images/{filename[0]}.2e16d0ba.fill-800x600{filename[1]}".format(
-                filename=os.path.splitext(os.path.basename(self.image.file.path))
-            )
+        # Updated to include image ID in filename
+        expected_redirect_url = "/media/images/{filename[0]}.{image_id}.2e16d0ba.fill-800x600{filename[1]}".format(
+            filename=os.path.splitext(os.path.basename(self.image.file.path)),
+            image_id=self.image.pk,
         )
 
         self.assertRedirects(
@@ -804,7 +804,10 @@ class TestRenditionFilenames(TestCase):
         )
         rendition = image.get_rendition("width-100")
 
-        self.assertEqual(rendition.file.name, "images/test_rf1.width-100.png")
+        # Updated to include image ID in filename
+        self.assertEqual(
+            rendition.file.name, f"images/test_rf1.{image.pk}.width-100.png"
+        )
 
     def test_fill_filter(self):
         image = Image.objects.create(
@@ -813,8 +816,9 @@ class TestRenditionFilenames(TestCase):
         )
         rendition = image.get_rendition("fill-100x100")
 
+        # Updated to include image ID in filename
         self.assertEqual(
-            rendition.file.name, "images/test_rf2.2e16d0ba.fill-100x100.png"
+            rendition.file.name, f"images/test_rf2.{image.pk}.2e16d0ba.fill-100x100.png"
         )
 
     def test_fill_filter_with_focal_point(self):
@@ -827,8 +831,9 @@ class TestRenditionFilenames(TestCase):
 
         rendition = image.get_rendition("fill-100x100")
 
+        # Updated to include image ID in filename
         self.assertEqual(
-            rendition.file.name, "images/test_rf3.15ee4958.fill-100x100.png"
+            rendition.file.name, f"images/test_rf3.{image.pk}.15ee4958.fill-100x100.png"
         )
 
     def test_filter_with_pipe_gets_dotted(self):
@@ -841,8 +846,10 @@ class TestRenditionFilenames(TestCase):
 
         rendition = image.get_rendition("fill-200x200|height-150")
 
+        # Updated to include image ID in filename
         self.assertEqual(
-            rendition.file.name, "images/test_rf4.15ee4958.fill-200x200.height-150.png"
+            rendition.file.name,
+            f"images/test_rf4.{image.pk}.15ee4958.fill-200x200.height-150.png",
         )
 
 
