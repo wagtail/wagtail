@@ -1185,7 +1185,7 @@ class Filter:
         if not vary_string:
             return ""
 
-        return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]
+        return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]  # noqa: S324 -  use of sha1 is acceptable here to generate a short hash for cache key
 
     def __eq__(self, value):
         if isinstance(value, Filter):
