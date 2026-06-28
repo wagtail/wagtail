@@ -2625,7 +2625,7 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
 def random_quotable_pk():
     quote_chrs = '":/_#?;@&=+$,"[]<>%\n\\'
     components = (quote_chrs, string.ascii_letters, string.digits)
-    return "".join(random.choice(components[i % len(components)]) for i in range(10))
+    return "".join(random.choice(components[i % len(components)]) for i in range(10))  # noqa: S311 - random not used cryptographically
 
 
 # Models to be registered with a ModelViewSet
