@@ -207,7 +207,7 @@ ALLOWED_HOSTS = [
     "testserver",
     "other.example.com",
     "127.0.0.1",
-    "0.0.0.0",
+    "0.0.0.0",  # noqa: S104 -  false positive, test setting
 ]
 
 WAGTAILSEARCH_BACKENDS = {
