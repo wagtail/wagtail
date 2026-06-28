@@ -903,7 +903,7 @@ class TestFormStateConcurrency(WagtailTestUtils, TransactionTestCase):
                         "last_updated_at": timezone.now(),
                     },
                 )
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 errors.append(e)
 
         t1 = threading.Thread(target=call_update_or_create)
