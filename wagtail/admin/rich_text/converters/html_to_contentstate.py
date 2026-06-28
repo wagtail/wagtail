@@ -121,10 +121,10 @@ class BlockElementHandler:
         state.has_preceding_nonatomic_block = True
 
     def handle_endtag(self, name, state, contentState):
-        assert not state.current_inline_styles, (
+        assert not state.current_inline_styles, (  # noqa: S101 - TODO: replace with explicit check?
             "End of block reached without closing inline style elements"
         )
-        assert not state.current_entity_ranges, (
+        assert not state.current_entity_ranges, (  # noqa: S101 - TODO: replace with explicit check?
             "End of block reached without closing entity elements"
         )
         state.current_block = None
@@ -137,7 +137,7 @@ class ListItemElementHandler(BlockElementHandler):
         pass  # skip setting self.block_type
 
     def create_block(self, name, attrs, state, contentstate):
-        assert state.list_item_type is not None, (
+        assert state.list_item_type is not None, (  # noqa: S101 - TODO: replace with explicit check?
             "%s element found outside of an enclosing list element" % name
         )
         return Block(
@@ -168,7 +168,7 @@ class InlineStyleElementHandler:
 
     def handle_endtag(self, name, state, contentstate):
         inline_style_range = state.current_inline_styles.pop()
-        assert inline_style_range.style == self.style
+        assert inline_style_range.style == self.style  # noqa: S101 - TODO: replace with explicit check?
         inline_style_range.length = (
             len(state.current_block.text) - inline_style_range.offset
         )
@@ -388,7 +388,7 @@ class HtmlToContentStateHandler(HTMLParser):
         if not self.open_elements:
             return  # avoid a pop from an empty list if we have an extra end tag
         expected_name, element_handler = self.open_elements.pop()
-        assert name == expected_name, "Unmatched tags: expected {}, got {}".format(
+        assert name == expected_name, "Unmatched tags: expected {}, got {}".format(  # noqa: S101 - TODO: replace with explicit check?
             expected_name,
             name,
         )
