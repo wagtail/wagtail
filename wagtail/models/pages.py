@@ -14,6 +14,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import (
     FieldDoesNotExist,
+    ImproperlyConfigured,
     PermissionDenied,
     ValidationError,
 )
@@ -238,8 +239,57 @@ class BasePageManager(MP_NodeManager):
 PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 
+class AbstractPageMeta:
+    """
+    Meta class to be used for base Page models (i.e. direct subclasses of AbstractPage).
+    """
+
+    verbose_name = _("page")
+    verbose_name_plural = _("pages")
+    unique_together = [("translation_key", "locale")]
+
+
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
+
+    def __new__(cls, name, bases, dct, **kwargs):
+        meta = dct.get("Meta", None)
+        is_abstract = meta is not None and getattr(meta, "abstract", False)
+
+        # This class is a base page model if A) it is not abstract itself, and B) it does not inherit directly
+        # or indirectly from any concrete models.
+        is_base_page_model = not is_abstract and not any(
+            isinstance(base, models.base.ModelBase)
+            and (base._meta.all_parents or not base._meta.abstract)
+            for base in bases
+        )
+
+        if is_base_page_model:
+            # ensure that a Meta class descending from AbstractPageMeta exists
+            if meta is None:
+                meta = type("Meta", (AbstractPageMeta,), {})
+                dct["Meta"] = meta
+            elif not issubclass(meta, AbstractPageMeta):
+                raise ImproperlyConfigured(
+                    "Meta class for base page model {} must inherit from AbstractPageMeta".format(
+                        name
+                    )
+                )
+
+            if not hasattr(meta, "permissions"):
+                # Make sure that we auto-create Permission objects that are defined in
+                # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
+                # These need to be tweaked to match the model name, e.g. lock_custompage - for consistency with
+                # the default permissions that Django creates (add_custompage, change_custompage, delete_custompage, view_custompage).
+                model_name = name.lower()
+                meta.permissions = [
+                    (f"{codename[:-4]}{model_name}", name)
+                    for codename, _, name in PAGE_PERMISSION_TYPES
+                    if codename
+                    not in {"add_page", "change_page", "delete_page", "view_page"}
+                ]
+
+        return super().__new__(cls, name, bases, dct, **kwargs)
 
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
@@ -261,9 +311,7 @@ class PageBase(models.base.ModelBase):
             None  # to be filled in on first call to cls.clean_parent_page_models
         )
 
-        # Find the topmost concrete model in the MTI chain that this model inherits from -
-        # usually this will be Page, but projects may set up their own custom base model
-        # inheriting from AbstractPage.
+        # Find the base page model that this model inherits from.
         base_page_model = cls.base_page_model
 
         # Set the (non-inheritable) is_creatable attribute. If this has been explicitly set on the
@@ -2089,12 +2137,6 @@ class AbstractPage(
         abstract = True
 
 
-class AbstractPageMeta:
-    verbose_name = _("page")
-    verbose_name_plural = _("pages")
-    unique_together = [("translation_key", "locale")]
-
-
 class Page(AbstractPage):
     seo_title = models.CharField(
         verbose_name=_("title tag"),
@@ -2163,16 +2205,6 @@ class Page(AbstractPage):
 
     class Meta(AbstractPageMeta):
         swappable = swapper.swappable_setting("wagtailcore", "Page")
-
-        # Make sure that we auto-create Permission objects that are defined in
-        # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
-        # FIXME: can we define these on AbstractPage while still ensuring that they still have
-        # predictable names (e.g. 'add_page' rather than 'add_abstractpage' or 'add_mycustompage')?
-        permissions = [
-            (codename, name)
-            for codename, _, name in PAGE_PERMISSION_TYPES
-            if codename not in {"add_page", "change_page", "delete_page", "view_page"}
-        ]
 
 
 # set module path of Page so that when Sphinx autodoc sees Page in type annotations
