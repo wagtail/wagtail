@@ -985,6 +985,7 @@
 * Devansh Bordia
 * alanturing881
 * Marquis Nobles
+* Thomas Herman
 
 ## Translators
 
