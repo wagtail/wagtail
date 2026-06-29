@@ -50,8 +50,6 @@ from .orderable import Orderable  # noqa: F401
 from .pages import (  # noqa: F401
     COMMENTS_RELATION_NAME,
     PAGE_MODEL_CLASSES,
-    PAGE_PERMISSION_CODENAMES,
-    PAGE_PERMISSION_TYPE_CHOICES,
     PAGE_PERMISSION_TYPES,
     PAGE_TEMPLATE_VAR,
     AbstractPage,

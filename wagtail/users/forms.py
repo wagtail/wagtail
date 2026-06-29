@@ -18,8 +18,6 @@ from wagtail import hooks
 from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.models import (
-    PAGE_PERMISSION_CODENAMES,
-    PAGE_PERMISSION_TYPES,
     GroupPagePermission,
 )
 
@@ -291,7 +289,7 @@ class PagePermissionsForm(forms.Form):
         queryset=Permission.objects.filter(
             content_type__app_label="wagtailcore",
             content_type__model="page",
-            codename__in=PAGE_PERMISSION_CODENAMES,
+            codename__in=Page.permission_codenames,
         )
         .select_related("content_type")
         .order_by("codename"),
@@ -309,7 +307,7 @@ class PagePermissionsForm(forms.Form):
 
 class BaseGroupPagePermissionFormSet(BaseFormSetMixin, forms.BaseFormSet):
     # defined here for easy access from templates
-    permission_types = PAGE_PERMISSION_TYPES
+    permission_types = Page.permission_types
 
     def __init__(self, data=None, files=None, instance=None, prefix="page_permissions"):
         if instance is None:
