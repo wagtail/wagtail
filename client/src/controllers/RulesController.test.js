@@ -1353,14 +1353,35 @@ describe('RulesController', () => {
         data-w-rules-target="show"
         data-w-rules='${_({ continent: ['', 2] })}'
       >
-        South
-       Africa</option>
+        South Africa
+      </option>
       <option
         value="8"
         data-w-rules-target="show"
         data-w-rules='${_({ continent: ['', 1, 3] })}'
       >
         Turkey
+      </option>
+    </select>
+    <label for="visa-field">Apply for Visa</label>
+    <select id="visa-field" name="visa">
+      <option value="">--------</option>
+      <option selected value="deferred">
+        Apply later
+      </option>
+      <option
+        value="online"
+        data-w-rules-target="show"
+        data-w-rules='${_({ country: ['', '2', '5', '8'] })}'
+      >
+        Online
+      </option>
+      <option
+        value="entry"
+        data-w-rules-target="show"
+        data-w-rules='${_({ country: ['', '1', '3', '4', '6', '7'] })}'
+      >
+        On entry
       </option>
     </select>
   </form>`);
@@ -1402,6 +1423,134 @@ describe('RulesController', () => {
         await jest.runAllTimersAsync();
 
         expect(getShownOptions()).toEqual(allOptions);
+      });
+
+      it('should clear a selected option if it is being hidden/disabled', async () => {
+        const handleChange = jest.fn();
+
+        const continentField = document.getElementById('continent-field');
+        const countryField = document.getElementById('country-field');
+
+        document.addEventListener('change', handleChange);
+
+        expect(getShownOptions()).toEqual(allOptions);
+
+        countryField.value = '8'; // Turkey
+        countryField.dispatchEvent(new Event('change', { bubbles: true }));
+        expect(handleChange).toHaveBeenCalledTimes(1);
+
+        await jest.runAllTimersAsync();
+
+        expect(countryField.value).toEqual('8');
+
+        // now change the continent to an incompatible value (Africa)
+        continentField.value = '2'; // Africa
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        // check that the change event has been dispatched for the resetting of the value on the select
+        expect(handleChange).toHaveBeenCalledTimes(3);
+        expect(handleChange).toHaveBeenLastCalledWith(
+          expect.objectContaining({ target: countryField }),
+        );
+
+        expect(getShownOptions()).toEqual(['', '2', '7']);
+        expect(countryField.value).toEqual('');
+      });
+
+      it('should not try to change the selected value if it is already the default', async () => {
+        const handleChange = jest.fn();
+
+        const continentField = document.getElementById('continent-field');
+        const countryField = document.getElementById('country-field');
+
+        document.addEventListener('change', handleChange);
+
+        expect(getShownOptions()).toEqual(allOptions);
+        expect(countryField.value).toEqual('');
+
+        // now change the continent to an incompatible value (Africa)
+        continentField.value = '2'; // Africa
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        // check that the change event has not been dispatched on the country field as we should not change the value if it's already the default
+        expect(handleChange).toHaveBeenCalledTimes(1);
+        expect(handleChange).toHaveBeenLastCalledWith(
+          expect.objectContaining({
+            target: continentField /* not country field */,
+          }),
+        );
+
+        expect(getShownOptions()).toEqual(['', '2', '7']);
+        expect(countryField.value).toEqual('');
+      });
+
+      it('should support resetting to the correct default value from the select field options', async () => {
+        const continentField = document.getElementById('continent-field');
+        const countryField = document.getElementById('country-field');
+        const visaField = document.getElementById('visa-field');
+
+        expect(visaField.value).toBe('deferred'); // default selected
+        expect(countryField.value).toBe(''); // default selected
+
+        // check that all visa options are shown by default
+        expect(
+          Array.from(visaField.options).map(({ hidden, value }) => ({
+            [value]: hidden ? 'hidden' : 'shown',
+          })),
+        ).toEqual([
+          { '': 'shown' },
+          { deferred: 'shown' },
+          { online: 'shown' },
+          { entry: 'shown' },
+        ]);
+
+        // set a country that requires a visa
+        countryField.value = '2'; // Egypt
+        countryField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+        expect(countryField.value).toBe('2');
+
+        // check that the visa field has updated to only show available options
+        expect(
+          Array.from(visaField.options).map(({ hidden, value }) => ({
+            [value]: hidden ? 'hidden' : 'shown',
+          })),
+        ).toEqual([
+          { '': 'shown' },
+          { deferred: 'shown' },
+          { online: 'shown' },
+          { entry: 'hidden' },
+        ]);
+
+        // set the visa field to an available option
+        visaField.value = 'online';
+        visaField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+        expect(visaField.value).toBe('online');
+
+        // now set the country to one that does not support the currently selected visa option
+        countryField.value = '3'; // France
+        countryField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        // check that the visa field has updated to only show available options
+        expect(
+          Array.from(visaField.options).map(({ hidden, value }) => ({
+            [value]: hidden ? 'hidden' : 'shown',
+          })),
+        ).toEqual([
+          { '': 'shown' },
+          { deferred: 'shown' },
+          { online: 'hidden' },
+          { entry: 'shown' },
+        ]);
+
+        // finally, check that the visa field has reset to the default selected option
+        expect(visaField.value).toBe('deferred');
       });
     });
   });
