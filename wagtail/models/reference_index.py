@@ -684,10 +684,10 @@ class ReferenceIndex(models.Model):
         they are found on for each given object.
 
         Args:
-            object: An iterable of model instances to fetch ReferenceIndex records for
+            objects: An iterable of model instances to fetch ReferenceIndex records for
 
         Returns:
-            An dict that maps a model instance to a ReferenceGroups object
+            A dict that maps a model instance to a ReferenceGroups object
         """
         references = cls.get_references_to_in_bulk(objects)
         grouped_references = references.group_by_source_object_in_bulk()
