@@ -226,6 +226,30 @@ class TestGetFieldUpdatesForResave(TestCase):
             ],
         )
 
+    def test_get_field_updates_for_resave_includes_server_mutated_simple_fields(self):
+        """
+        When the saved instance differs from POST (e.g. post_save signal), field_updates
+        must include those fields so autosave can sync the form inputs.
+        """
+
+        class AdvertForm(WagtailAdminModelForm):
+            class Meta:
+                model = Advert
+                fields = ["url", "text"]
+
+        advert = Advert.objects.create(url="https://example.com/", text="hello")
+        form = AdvertForm(
+            {"url": "https://example.com/", "text": "hello"},
+            instance=advert,
+        )
+        self.assertTrue(form.is_valid())
+        form.save()
+        form.instance.url = "https://changed.example.com/"
+        self.assertEqual(
+            dict(form.get_field_updates_for_resave()),
+            {"url": "https://changed.example.com/"},
+        )
+
     def test_get_field_updates_for_resave_on_update(self):
         snippet = MultiSectionRichTextSnippet()
         section_1 = snippet.sections.create(body="<p>Initial body 1</p>")
