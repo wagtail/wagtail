@@ -1,6 +1,7 @@
 from collections.abc import Mapping
 from typing import Any
 
+import swapper
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
@@ -19,7 +20,6 @@ from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
 from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.models import (
-    Page,
     PageLogEntry,
     Revision,
     TaskState,
@@ -29,6 +29,7 @@ from wagtail.models import (
 from wagtail.permissions import page_permission_policy
 
 User = get_user_model()
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 # Panels for the homepage

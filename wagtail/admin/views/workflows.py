@@ -1,4 +1,5 @@
 import django_filters
+import swapper
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -39,7 +40,6 @@ from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import GenericPageFilterSet, PageListingMixin
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import (
-    Page,
     Task,
     TaskState,
     Workflow,
@@ -53,6 +53,8 @@ from wagtail.permissions import (
 )
 from wagtail.snippets.models import get_workflow_enabled_models
 from wagtail.workflows import get_task_types
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 task_permission_checker = PermissionPolicyChecker(task_permission_policy)
 
