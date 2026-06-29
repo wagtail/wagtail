@@ -139,6 +139,24 @@
         "title": "PagedPageListingSchema",
         "type": "object"
       },
+      "PagedRedirectSchema": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RedirectSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": ["items", "count"],
+        "title": "PagedRedirectSchema",
+        "type": "object"
+      },
       "PagedSiteSchema": {
         "properties": {
           "count": {
@@ -155,6 +173,129 @@
         },
         "required": ["items", "count"],
         "title": "PagedSiteSchema",
+        "type": "object"
+      },
+      "RedirectInputSchema": {
+        "properties": {
+          "is_permanent": {
+            "default": true,
+            "title": "Is Permanent",
+            "type": "boolean"
+          },
+          "old_path": {
+            "title": "Old Path",
+            "type": "string"
+          },
+          "redirect_link": {
+            "default": "",
+            "title": "Redirect Link",
+            "type": "string"
+          },
+          "redirect_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Page Id"
+          },
+          "redirect_page_route_path": {
+            "default": "",
+            "title": "Redirect Page Route Path",
+            "type": "string"
+          },
+          "site": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Site"
+          }
+        },
+        "required": ["old_path"],
+        "title": "RedirectInputSchema",
+        "type": "object"
+      },
+      "RedirectSchema": {
+        "properties": {
+          "automatically_created": {
+            "title": "Automatically Created",
+            "type": "boolean"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_permanent": {
+            "title": "Is Permanent",
+            "type": "boolean"
+          },
+          "old_path": {
+            "title": "Old Path",
+            "type": "string"
+          },
+          "redirect_link": {
+            "title": "Redirect Link",
+            "type": "string"
+          },
+          "redirect_page_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Page Id"
+          },
+          "redirect_page_route_path": {
+            "title": "Redirect Page Route Path",
+            "type": "string"
+          },
+          "site_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Site Id"
+          }
+        },
+        "required": [
+          "id",
+          "old_path",
+          "site_id",
+          "is_permanent",
+          "redirect_page_id",
+          "redirect_page_route_path",
+          "redirect_link",
+          "automatically_created",
+          "created_at"
+        ],
+        "title": "RedirectSchema",
         "type": "object"
       },
       "SchemaDetailResponse": {
@@ -347,6 +488,166 @@
         },
         "summary": "Page detail",
         "tags": ["pages"]
+      }
+    },
+    "/api/v3/redirects/": {
+      "get": {
+        "operationId": "redirects_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedRedirectSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List redirects",
+        "tags": ["redirects"]
+      },
+      "post": {
+        "operationId": "redirects_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RedirectInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectSchema"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create redirect",
+        "tags": ["redirects"]
+      }
+    },
+    "/api/v3/redirects/{redirect_id}/": {
+      "delete": {
+        "operationId": "redirects_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "redirect_id",
+            "required": true,
+            "schema": {
+              "title": "Redirect Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "Delete redirect",
+        "tags": ["redirects"]
+      },
+      "get": {
+        "operationId": "redirects_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "redirect_id",
+            "required": true,
+            "schema": {
+              "title": "Redirect Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Redirect detail",
+        "tags": ["redirects"]
+      },
+      "put": {
+        "operationId": "redirects_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "redirect_id",
+            "required": true,
+            "schema": {
+              "title": "Redirect Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RedirectInputSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectSchema"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update redirect",
+        "tags": ["redirects"]
       }
     },
     "/api/v3/schema/": {
