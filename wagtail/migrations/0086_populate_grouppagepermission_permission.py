@@ -7,8 +7,9 @@ from django.db.models.functions import Concat, Length, Substr
 
 
 def add_permissions(apps, schema_editor):
-    # Ensure all the new permissions in Page.Meta.permissions are created
-    app_config = apps.get_app_config("wagtailcore")
+    # Ensure all the new permissions in the page model's Meta.permissions are created
+    app_label, model_name = swapper.split(swapper.get_model_name("wagtailcore", "Page"))
+    app_config = apps.get_app_config(app_label)
     app_config.models_module = True
     create_permissions(app_config, verbosity=0)
     app_config.models_module = None
@@ -36,7 +37,7 @@ def populate_grouppagepermission_permission(apps, schema_editor):
             content_type=page_type,
             codename=Concat(
                 models.OuterRef("normalised_permission_type"),
-                models.Value("_page"),
+                models.Value(f"_{Page._meta.model_name}"),
             ),
         ).values_list("pk", flat=True)[:1],
         permission_type=models.F("normalised_permission_type"),
@@ -46,6 +47,7 @@ def populate_grouppagepermission_permission(apps, schema_editor):
 def revert_grouppagepermission_permission(apps, schema_editor):
     GroupPagePermission = apps.get_model("wagtailcore.GroupPagePermission")
     Permission = apps.get_model("auth.Permission")
+    Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
 
     permission_type = (
         Permission.objects.filter(pk=models.OuterRef("permission"))
@@ -54,8 +56,8 @@ def revert_grouppagepermission_permission(apps, schema_editor):
                 models.F("codename"),
                 # Substr is 1-indexed
                 1,
-                # Length - 5 to remove "_page" suffix
-                Length(models.F("codename")) - 5,
+                # Truncate to remove "_page" suffix (or whatever the page model name is)
+                Length(models.F("codename")) - len(f"_{Page._meta.model_name}"),
             )
         )
         .annotate(
