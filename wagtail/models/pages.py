@@ -151,20 +151,16 @@ def get_streamfield_names(model_class):
 
 # Make sure that this list is sorted by the codename (first item in the tuple)
 # so that we can follow the same order when querying the Permission objects.
+# Note: codenames will be suffixed with the model name of the base page model
+# (e.g. "add" becomes "add_page" or "add_custompage").
 PAGE_PERMISSION_TYPES = [
-    ("add_page", _("Add"), _("Add/edit pages you own")),
-    ("bulk_delete_page", _("Bulk delete"), _("Delete pages with children")),
-    ("change_page", _("Edit"), _("Edit any page")),
-    ("lock_page", _("Lock"), _("Lock/unlock pages you've locked")),
-    ("publish_page", _("Publish"), _("Publish any page")),
-    ("unlock_page", _("Unlock"), _("Unlock any page")),
+    ("add", _("Add"), _("Add/edit pages you own")),
+    ("bulk_delete", _("Bulk delete"), _("Delete pages with children")),
+    ("change", _("Edit"), _("Edit any page")),
+    ("lock", _("Lock"), _("Lock/unlock pages you've locked")),
+    ("publish", _("Publish"), _("Publish any page")),
+    ("unlock", _("Unlock"), _("Unlock any page")),
 ]
-
-PAGE_PERMISSION_TYPE_CHOICES = [
-    (identifier[:-5], long_label) for identifier, _, long_label in PAGE_PERMISSION_TYPES
-]
-
-PAGE_PERMISSION_CODENAMES = [identifier for identifier, *_ in PAGE_PERMISSION_TYPES]
 
 
 class BasePageManager(MP_NodeManager):
@@ -279,14 +275,11 @@ class PageBase(models.base.ModelBase):
             if not hasattr(meta, "permissions"):
                 # Make sure that we auto-create Permission objects that are defined in
                 # PAGE_PERMISSION_TYPES, skipping the default_permissions from Django.
-                # These need to be tweaked to match the model name, e.g. lock_custompage - for consistency with
-                # the default permissions that Django creates (add_custompage, change_custompage, delete_custompage, view_custompage).
                 model_name = name.lower()
                 meta.permissions = [
-                    (f"{codename[:-4]}{model_name}", name)
+                    (f"{codename}_{model_name}", name)
                     for codename, _, name in PAGE_PERMISSION_TYPES
-                    if codename
-                    not in {"add_page", "change_page", "delete_page", "view_page"}
+                    if codename not in {"add", "change", "delete", "view"}
                 ]
 
         return super().__new__(cls, name, bases, dct, **kwargs)
@@ -502,6 +495,19 @@ class AbstractPage(
         """
         parents = cls._meta.all_parents
         return parents[-1] if parents else cls
+
+    @classproperty
+    def permission_types(cls):
+        model_name = cls.base_page_model._meta.model_name
+        return [
+            (f"{codename}_{model_name}", short_label, long_label)
+            for codename, short_label, long_label in PAGE_PERMISSION_TYPES
+        ]
+
+    @classproperty
+    def permission_codenames(cls):
+        model_name = cls.base_page_model._meta.model_name
+        return [f"{codename}_{model_name}" for codename, *_ in PAGE_PERMISSION_TYPES]
 
     # Privacy options for page
     private_page_options = ["password", "groups", "login"]
