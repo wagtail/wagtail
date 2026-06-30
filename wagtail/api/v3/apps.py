@@ -8,6 +8,6 @@ class WagtailAPIV3AppConfig(AppConfig):
     verbose_name = _("Wagtail API v3")
 
     def ready(self):
-        from wagtail.api.v3.registry import register_default_content_types
+        from wagtail.api.v3.registry import registry
 
-        register_default_content_types()
+        registry.register_defaults()
