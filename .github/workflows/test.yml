@@ -112,12 +112,14 @@ jobs:
             django: 'git+https://github.com/django/django.git@stable/6.1.x#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
+            install_extras: 'uv pip install git+https://github.com/encode/django-rest-framework.git#egg=djangorestframework'
             experimental: true
           - python: '3.14'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
             postgres: 'postgres:latest'
+            install_extras: 'uv pip install git+https://github.com/encode/django-rest-framework.git#egg=djangorestframework'
             parallel: '--parallel'
     services:
       postgres:
