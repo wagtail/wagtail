@@ -27,6 +27,7 @@ from wagtail.test.testapp.models import (
     GenericSnippetNoIndexPage,
     GenericSnippetPage,
     HeadCountRelatedModelUsingPK,
+    ModelWithCustomForeignKey,
     ModelWithNullableParentalKey,
     VariousOnDeleteModel,
 )
@@ -64,7 +65,7 @@ class TestCreateOrUpdateForObject(TestCase):
             self.event_page.carousel_items = [
                 EventPageCarouselItem(
                     caption="1234567", image=self.test_image_1, sort_order=1
-                ),
+                ),  
                 EventPageCarouselItem(
                     caption="7654321", image=self.test_image_2, sort_order=2
                 ),
@@ -965,4 +966,43 @@ class TestReferenceIndex(TestCase):
             refs.count(),
             0,
             "ReferenceIndex should be cleared of inbound references when target is deleted",
+        )
+
+
+
+
+class TestCustomExtractReferences(TestCase):
+
+    """Tests for custom extract_references methods taking precedence over defaults."""
+
+    def setUp(self):
+        """Set up test data."""
+
+
+    def test_custom_extract_references_takes_precedence(self):
+        from django.core.management import call_command
+
+        # Create an instance and a related object
+        parent = ModelWithCustomForeignKey.objects.create(name="Parent")
+        child = ModelWithCustomForeignKey.objects.create(name="Child", related=parent)
+        child.refresh_from_db()
+
+        # Register the model with the reference index
+        ReferenceIndex.register_model(ModelWithCustomForeignKey)
+
+        # Rebuild the reference index
+        call_command("rebuild_references_index")
+
+        # Get references for the child object
+        references = list(ReferenceIndex.get_references_for_object(child))
+
+        # Debug: Print all references to see what we have
+        print(f"\n=== Found {len(references)} references ===")
+        for ref in references:
+            print(f"  model_path: {ref.model_path}")
+
+        # Verify the custom method was used
+        self.assertTrue(
+            any(ref.model_path == "related.custom_field" for ref in references),
+            f"Expected 'related.custom_field' in model_paths, but found: {[ref.model_path for ref in references]}"
         )
