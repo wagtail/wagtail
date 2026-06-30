@@ -3,7 +3,7 @@ from typing import Any
 from django.http import Http404, HttpRequest
 from ninja import Router, Schema
 
-from wagtail.api.v3.registry import get_type_schemas, list_content_types
+from wagtail.api.v3.registry import registry
 from wagtail.api.v3.schemas import ContentTypeSummarySchema
 
 router = Router(tags=["schema"])
@@ -27,7 +27,7 @@ class SchemaDetailResponse(Schema):
     operation_id="schema_list",
 )
 def list_schemas(request: HttpRequest):
-    return {"types": list_content_types()}
+    return {"types": registry.list_content_types()}
 
 
 @router.get(
@@ -38,7 +38,7 @@ def list_schemas(request: HttpRequest):
     operation_id="schema_detail",
 )
 def get_schema_for_type(request: HttpRequest, type_name: str):
-    schemas = get_type_schemas(type_name)
+    schemas = registry.get_type_schemas(type_name)
     if schemas is None:
         raise Http404(f"Unknown content type: {type_name}")
     return schemas
