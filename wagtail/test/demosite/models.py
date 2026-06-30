@@ -9,7 +9,7 @@ from taggit.models import TaggedItemBase
 
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
-from wagtail.contrib.forms.models import AbstractForm, AbstractFormField
+from wagtail.contrib.forms.models import AbstractFormField, FormMixin
 from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable
@@ -689,11 +689,11 @@ class FormField(AbstractFormField):
     page = ParentalKey("FormPage", related_name="form_fields", on_delete=models.CASCADE)
 
 
-class FormPage(AbstractForm):
+class FormPage(FormMixin, Page):
     page_ptr = models.OneToOneField(
         Page, parent_link=True, related_name="+", on_delete=models.CASCADE
     )
     api_fields = [APIField("form_fields")]
-    content_panels = AbstractForm.content_panels + [
+    content_panels = Page.content_panels + [
         InlinePanel("form_fields", label="form field")
     ]
