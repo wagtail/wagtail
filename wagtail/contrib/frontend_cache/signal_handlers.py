@@ -1,3 +1,4 @@
+import swapper
 from django.apps import apps
 
 from wagtail.contrib.frontend_cache.utils import purge_page_from_cache
@@ -14,7 +15,7 @@ def page_unpublished_signal_handler(instance, **kwargs):
 
 def register_signal_handlers():
     # Get list of models that are page types
-    Page = apps.get_model("wagtailcore", "Page")
+    Page = apps.get_model(swapper.get_model_name("wagtailcore", "Page"))
     indexed_models = [model for model in apps.get_models() if issubclass(model, Page)]
 
     # Loop through list and register signal handlers for each one
