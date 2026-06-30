@@ -2233,10 +2233,11 @@ class GroupPagePermissionManager(models.Manager):
         # of permission or permission_type to be passed in.
         permission = kwargs.get("permission")
         permission_type = kwargs.pop("permission_type", None)
+        model_name = swapper.split(BASE_PAGE_MODEL_NAME)[1].lower()
         if not permission and permission_type:
             kwargs["permission"] = Permission.objects.get(
                 content_type=get_default_page_content_type(),
-                codename=f"{permission_type}_page",
+                codename=f"{permission_type}_{model_name}",
             )
         return super().create(**kwargs)
 
