@@ -28,7 +28,7 @@ concurrency:
 # - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 6.0, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 6.0, python 3.14, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
-# - django stable/6.0.x, python 3.14, postgres:15, psycopg 3 (allow failures)
+# - django stable/6.1.x, python 3.14, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.14, postgres:latest, psycopg 3, parallel (allow failures)
 # - elasticsearch 7, django 5.2, python 3.10, postgres:latest, psycopg 2
 # - opensearch 2, django 5.2, python 3.10, sqlite
@@ -109,7 +109,7 @@ jobs:
             experimental: false
             parallel: '--parallel'
           - python: '3.14'
-            django: 'git+https://github.com/django/django.git@stable/6.0.x#egg=Django'
+            django: 'git+https://github.com/django/django.git@stable/6.1.x#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
