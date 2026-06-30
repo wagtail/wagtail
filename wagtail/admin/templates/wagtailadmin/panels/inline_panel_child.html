@@ -14,7 +14,7 @@
     {% fragment as heading %}
         {{ self.label|capfirst }}<span data-inline-panel-child-count></span>
     {% endfragment %}
-    {% panel id=panel_id heading=heading heading_size="label" heading_level="3" header_controls=header_controls %}
+    {% panel id=panel_id heading=heading heading_size="label" heading_level="3" header_controls=header_controls attrs=child.label_format_attrs %}
         {% if child.form.non_field_errors %}
             <ul>
                 {% for error in child.form.non_field_errors %}
