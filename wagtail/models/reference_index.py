@@ -350,9 +350,7 @@ class ReferenceIndex(models.Model):
                                 object instance where the reference was found
         """
 
-
         for field in object._meta.get_fields(include_hidden=True):
-
             # First - Extract references from fields with custom extract_references method
             if hasattr(field, "extract_references"):
                 value = field.value_from_object(object)
@@ -417,8 +415,6 @@ class ReferenceIndex(models.Model):
                         field.name,
                         field.name,
                     )
-
-            
 
         # Extract references from child relations
         if isinstance(object, ClusterableModel):

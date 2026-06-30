@@ -2740,7 +2740,6 @@ class CommentableJSONPage(Page):
     )
 
 
-
 class CustomForeignKey(models.ForeignKey):
     def extract_references(self, value):
         if value is None:
@@ -2758,15 +2757,16 @@ class CustomForeignKey(models.ForeignKey):
 
         # The `yield` statement needs to match the expected structure
         yield (
-            self.remote_field.model,          # to_model (the model class)
-            str(obj.pk),                      # to_object_id
+            self.remote_field.model,  # to_model (the model class)
+            str(obj.pk),  # to_object_id
             "custom_field",
-            "custom_field",                              
+            "custom_field",
         )
+
 
 class ModelWithCustomForeignKey(models.Model):
     name = models.CharField(max_length=50)
-    related = CustomForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL)
+    related = CustomForeignKey("self", null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
