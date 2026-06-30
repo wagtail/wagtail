@@ -2,6 +2,7 @@ import copy
 import datetime
 from decimal import Decimal
 
+import swapper
 from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.db.models import Model
@@ -996,7 +997,7 @@ class PageChooserBlock(ChooserBlock):
         if len(self.target_models) == 1:
             return self.target_models[0]
 
-        return resolve_model_string("wagtailcore.Page")
+        return swapper.load_model("wagtailcore", "Page")
 
     @cached_property
     def target_models(self):
