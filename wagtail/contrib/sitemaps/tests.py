@@ -12,6 +12,9 @@ from wagtail.test.testapp.models import EventIndex, SimplePage
 from .sitemap_generator import Sitemap
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+)
 class TestSitemapGenerator(TestCase):
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
@@ -106,7 +109,7 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(17):
+        with self.assertNumQueries(9):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -123,8 +126,7 @@ class TestSitemapGenerator(TestCase):
 
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
-
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(8):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -139,7 +141,8 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(19):
+
+        with self.assertNumQueries(11):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -157,8 +160,7 @@ class TestSitemapGenerator(TestCase):
 
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
-
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(10):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
