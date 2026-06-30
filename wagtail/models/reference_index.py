@@ -7,7 +7,6 @@ from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, models
 from django.db.models import CharField, Count, OuterRef, Subquery
 from django.db.models.functions import Cast, Coalesce
-from django.test import TestCase
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.text import capfirst

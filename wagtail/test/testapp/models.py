@@ -84,7 +84,6 @@ from wagtail.models import (
     TranslatableMixin,
     WorkflowMixin,
 )
-
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
