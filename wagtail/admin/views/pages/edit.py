@@ -1043,7 +1043,12 @@ class EditView(
             session,
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("wagtailcore", "page", self.page.pk, session.id),
+                args=(
+                    Page._meta.app_label,
+                    Page._meta.model_name,
+                    self.page.pk,
+                    session.id,
+                ),
             ),
             reverse(
                 "wagtailadmin_editing_sessions:release",
