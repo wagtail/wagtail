@@ -25,6 +25,7 @@ def make_parser():
     parser.add_argument("--opensearch2", action="store_true")
     parser.add_argument("--opensearch3", action="store_true")
     parser.add_argument("--emailuser", action="store_true")
+    parser.add_argument("--custompage", action="store_true")
     parser.add_argument("--disabletimezone", action="store_true")
     parser.add_argument("--bench", action="store_true")
     return parser
@@ -86,6 +87,9 @@ def runtests():
 
     if args.disabletimezone:
         os.environ["DISABLE_TIMEZONE"] = "1"
+
+    if args.custompage:
+        os.environ["USE_CUSTOM_PAGE_MODEL"] = "1"
 
     if args.bench:
         benchmarks = [
