@@ -50,9 +50,10 @@ from wagtail.compat import HTTPMethod
 from wagtail.contrib.forms.forms import FormBuilder, WagtailAdminFormPageForm
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES,
-    AbstractEmailForm,
     AbstractFormField,
     AbstractFormSubmission,
+    EmailFormMixin,
+    FormMixin,
 )
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.contrib.settings.models import (
@@ -620,7 +621,7 @@ class FormField(AbstractFormField):
     page = ParentalKey("FormPage", related_name="form_fields", on_delete=models.CASCADE)
 
 
-class FormPage(AbstractEmailForm):
+class FormPage(EmailFormMixin, FormMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context["greeting"] = "hello world"
@@ -695,7 +696,7 @@ class JadeFormField(AbstractFormField):
     )
 
 
-class JadeFormPage(AbstractEmailForm):
+class JadeFormPage(EmailFormMixin, FormMixin, Page):
     template = "tests/form_page.jade"
 
     content_panels = [
@@ -721,7 +722,7 @@ class RedirectFormField(AbstractFormField):
     )
 
 
-class FormPageWithRedirect(AbstractEmailForm):
+class FormPageWithRedirect(EmailFormMixin, FormMixin, Page):
     thank_you_redirect_page = models.ForeignKey(
         swapper.get_model_name("wagtailcore", "Page"),
         null=True,
@@ -777,7 +778,7 @@ class FormPageWithCustomSubmissionForm(WagtailAdminFormPageForm):
         return cleaned_data
 
 
-class FormPageWithCustomSubmission(AbstractEmailForm):
+class FormPageWithCustomSubmission(EmailFormMixin, FormMixin, Page):
     """
     A ``FormPage`` with a custom FormSubmission and other extensive customizations:
 
@@ -892,7 +893,7 @@ class FormFieldForCustomListViewPage(AbstractFormField):
     )
 
 
-class FormPageWithCustomSubmissionListView(AbstractEmailForm):
+class FormPageWithCustomSubmissionListView(EmailFormMixin, FormMixin, Page):
     """Form Page with customised submissions listing view"""
 
     intro = RichTextField(blank=True)
@@ -1037,7 +1038,7 @@ class FormBuilderWithCustomWidget(FormBuilder):
         return super().create_hidden_field(field, options)
 
 
-class FormPageWithCustomFormBuilder(AbstractEmailForm):
+class FormPageWithCustomFormBuilder(EmailFormMixin, FormMixin, Page):
     """
     A Form page that has a custom form builder and uses a custom
     form field model with additional field_type choices.

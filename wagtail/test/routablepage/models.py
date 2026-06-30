@@ -1,15 +1,21 @@
+import swapper
 from django.http import HttpResponse
 from django.shortcuts import redirect
 
-from wagtail.contrib.routable_page.models import RoutablePage, path, re_path, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path, re_path, route
 from wagtail.models import PreviewableMixin
+
+if swapper.is_swapped("wagtailcore", "Page"):
+    from wagtail.test.basepage.models import BasePage as Page
+else:
+    from wagtail.models import Page
 
 
 def routable_page_external_view(request, arg="ARG NOT SET"):
     return HttpResponse("EXTERNAL VIEW: " + arg)
 
 
-class RoutablePageTest(RoutablePage):
+class RoutablePageTest(RoutablePageMixin, Page):
     @route(r"^archive/year/1984/$")
     def archive_for_1984(self, request):
         # check that routes are tested in order (and thus this takes precedence over archive_by_year)
@@ -84,7 +90,7 @@ class RoutablePageTest(RoutablePage):
         return super().serve_preview(request, mode_name)
 
 
-class RoutablePageWithOverriddenIndexRouteTest(RoutablePage):
+class RoutablePageWithOverriddenIndexRouteTest(RoutablePageMixin, Page):
     @route(r"^$")
     def main(self, request):
         return HttpResponse("OVERRIDDEN INDEX ROUTE")
