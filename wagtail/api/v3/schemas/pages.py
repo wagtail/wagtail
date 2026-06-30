@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Literal
 
 import swapper
+from django.core.exceptions import FieldDoesNotExist
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from ninja import Schema
@@ -59,13 +60,17 @@ class BasePageSchema(Schema):
 
 #: Page's own fields that every concrete page type can accept on creation,
 #: beyond whatever extra fields a model declares through ``api_fields``.
-BASE_PAGE_FIELDS = (
+BASE_PAGE_FIELDS = [
     "title",
     "slug",
-    "seo_title",
-    "search_description",
-    "show_in_menus",
-)
+]
+for field in ["seo_title", "search_description", "show_in_menus"]:
+    try:
+        Page._meta.get_field(field)
+    except FieldDoesNotExist:
+        pass
+    else:
+        BASE_PAGE_FIELDS.append(field)
 
 
 class PageCreateMetaSchema(Schema):
