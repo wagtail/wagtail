@@ -3,12 +3,11 @@ import json
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.api.v3.tests.base import assert_problem_response
 from wagtail.models import Locale, Page, Site
 from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.test.demosite import models
 from wagtail.test.utils import WagtailTestUtils
-
-from wagtail.api.v3.tests.base import assert_problem_response
 
 
 def get_total_page_count():
