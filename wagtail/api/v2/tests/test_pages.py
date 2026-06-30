@@ -1932,6 +1932,7 @@ class TestAPIDetailQueryCount(WagtailTestUtils, TestCase):
         self.client.force_login(self.user)
 
     def test_detail_view_does_not_duplicate_queries(self):
-        with self.assertNumQueries(16):
+        response = self.client.get("/api/main/pages/2/")
+        with self.assertNumQueries(10):
             response = self.client.get("/api/main/pages/2/")
             self.assertEqual(response.status_code, 200)
