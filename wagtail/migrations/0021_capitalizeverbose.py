@@ -198,7 +198,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
                 related_name="revisions",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
                 verbose_name="page",
             ),
         ),
