@@ -229,6 +229,12 @@ else:
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"
 
+if os.environ.get("USE_CUSTOM_PAGE_MODEL"):
+    INSTALLED_APPS.insert(2, "wagtail.test.basepage")
+    WAGTAIL_PAGE_MODEL = "basepage.BasePage"
+    print("Custom base page model active")  # noqa: T201
+
+
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
     INSTALLED_APPS.append("django.contrib.postgres")
 
