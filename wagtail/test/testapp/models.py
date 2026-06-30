@@ -2746,7 +2746,6 @@ class CommentableJSONPage(Page):
 
 class CustomForeignKey(models.ForeignKey):
     def extract_references(self, value):
-        print("=== CUSTOM extract_references CALLED ===")
         if value is None:
             return
 

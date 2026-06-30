@@ -328,7 +328,6 @@ class ReferenceIndex(models.Model):
 
     @classmethod
     def _extract_references_from_object(cls, object):
-        print(f"=== _extract_references_from_object called for {object} ===")
         """
         Generator that scans the given object and yields any references it finds.
 

@@ -996,11 +996,6 @@ class TestCustomExtractReferences(TestCase):
         # Get references for the child object
         references = list(ReferenceIndex.get_references_for_object(child))
 
-        # Debug: Print all references to see what we have
-        print(f"\n=== Found {len(references)} references ===")
-        for ref in references:
-            print(f"  model_path: {ref.model_path}")
-
         # Verify the custom method was used
         self.assertTrue(
             any(ref.model_path == "related.custom_field" for ref in references),
