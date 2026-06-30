@@ -469,17 +469,27 @@ class PagesAPIViewSet(BaseAPIViewSet):
     body_fields = BaseAPIViewSet.body_fields + [
         "title",
     ]
+
     meta_fields = BaseAPIViewSet.meta_fields + [
         "html_url",
         "slug",
-        "show_in_menus",
-        "seo_title",
-        "search_description",
-        "first_published_at",
-        "alias_of",
-        "parent",
-        "locale",
     ]
+    for field in ["show_in_menus", "seo_title", "search_description"]:
+        try:
+            Page._meta.get_field(field)
+        except FieldDoesNotExist:
+            pass
+        else:
+            meta_fields.append(field)
+    meta_fields.extend(
+        [
+            "first_published_at",
+            "alias_of",
+            "parent",
+            "locale",
+        ]
+    )
+
     listing_default_fields = BaseAPIViewSet.listing_default_fields + [
         "title",
         "html_url",
