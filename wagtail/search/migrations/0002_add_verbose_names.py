@@ -1,4 +1,5 @@
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -25,7 +26,7 @@ class Migration(migrations.Migration):
             model_name="editorspick",
             name="page",
             field=models.ForeignKey(
-                on_delete=models.CASCADE, verbose_name="Page", to="wagtailcore.Page"
+                on_delete=models.CASCADE, verbose_name="Page", to=swapper.get_model_name("wagtailcore", "Page")
             ),
         ),
     ]

@@ -13,6 +13,7 @@ def set_page_path_collation(apps, schema_editor):
 
     See: https://groups.google.com/d/msg/wagtail/q0leyuCnYWI/I9uDvVlyBAAJ
     """
+    # FIXME: need to do this on custom page models too?
     if schema_editor.connection.vendor == "postgresql":
         schema_editor.execute(
             """
@@ -187,7 +188,7 @@ class Migration(migrations.Migration):
                     "page",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        to="wagtailcore.Page",
+                        to=swapper.get_model_name("wagtailcore", "Page"),
                         related_name="revisions",
                     ),
                 ),
