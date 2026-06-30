@@ -1,6 +1,7 @@
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
+import swapper
 
 
 class Migration(migrations.Migration):
@@ -122,7 +123,7 @@ class Migration(migrations.Migration):
                 on_delete=models.CASCADE,
                 related_name="revisions",
                 verbose_name="Page",
-                to="wagtailcore.Page",
+                to=swapper.get_model_name("wagtailcore", "Page"),
             ),
         ),
         migrations.AlterField(
