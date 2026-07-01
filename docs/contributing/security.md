@@ -85,7 +85,7 @@ Since the CSV format has no concept of formulae or macros, there is also no agre
 
 Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimizes the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format.
 
-### Cross-site scripting through media uploads
+### Cross-site scripting through uploads
 
 Any system that allows user-uploaded files is a potential security risk. Several historical reports have raised the issue that if image or document uploads aren't properly secured, they can potentially lead to arbitrary code execution (via [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)).
 
