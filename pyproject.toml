@@ -74,9 +74,9 @@ testing = [
   "coverage>=3.7.0",
   # NOTE: Keep linters in sync with .pre-commit-config.yaml
   "doc8==2.0.0",
-  "ruff==0.15.17",
+  "ruff==0.15.19",
   # For enforcing string formatting mechanism in source files
-  "semgrep==1.166.0",
+  "semgrep==1.168.0",
   # For templates linting
   "curlylint==0.13.1",
   # For template indenting
