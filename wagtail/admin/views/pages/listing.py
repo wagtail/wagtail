@@ -262,6 +262,7 @@ class PageListingMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["model_opts"] = Page._meta
 
         if any(isinstance(column, ParentPageColumn) for column in self.columns):
             Page.objects.annotate_parent_page(context["object_list"])
