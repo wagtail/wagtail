@@ -122,4 +122,13 @@
   &__panel {
     @apply w-px-5 xl:w-px-10 w-py-4 w-w-full w-h-full w-overflow-y-auto w-scrollbar-thin;
   }
+
+  &__action-button,
+  &__action-link {
+    @media (forced-colors: active) {
+      border: 1px solid ButtonText;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+    }
+  }
 }
