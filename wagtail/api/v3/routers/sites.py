@@ -11,6 +11,7 @@ from wagtail.api.v3.permissions import require_any_permission
 from wagtail.api.v3.schemas import SiteInputSchema, SiteSchema
 from wagtail.models import Site
 from wagtail.permissions import site_permission_policy
+from wagtail.sites.forms import SiteForm
 
 router = Router(tags=["sites"])
 
@@ -58,10 +59,12 @@ def get_site(request: HttpRequest, site_id: int):
 )
 @require_any_permission(Site, ("add",))
 def create_site(request: HttpRequest, data: SiteInputSchema):
-    site = Site(**data.dict())
-    CreateAction(site, user=request.user).execute(skip_permission_checks=True)
+    form = SiteForm(data.dict())
+    CreateAction(form.instance, user=request.user, form=form).execute(
+        skip_permission_checks=True
+    )
     Site.clear_site_root_paths_cache()
-    return Status(201, site)
+    return Status(201, form.instance)
 
 
 @router.put(
@@ -73,11 +76,10 @@ def create_site(request: HttpRequest, data: SiteInputSchema):
 )
 def update_site(request: HttpRequest, site_id: int, data: SiteInputSchema):
     site = get_object_or_404(Site, pk=site_id)
-    for field, value in data.dict().items():
-        setattr(site, field, value)
-    EditAction(site, user=request.user).execute()
+    form = SiteForm(data.dict(), instance=site)
+    EditAction(form.instance, user=request.user, form=form).execute()
     Site.clear_site_root_paths_cache()
-    return site
+    return form.instance
 
 
 @router.delete(
