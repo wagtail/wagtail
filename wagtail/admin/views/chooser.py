@@ -27,6 +27,7 @@ from wagtail.coreutils import resolve_model_string
 from wagtail.models import Locale, Site
 
 Page = swapper.load_model("wagtailcore", "Page")
+base_page_type_string = swapper.get_model_name("wagtailcore", "Page").lower()
 
 
 def shared_context(request, extra_context=None):
@@ -240,8 +241,8 @@ class BrowseView(View):
         self.is_multiple_choice = request.GET.get("multiple")
 
         # A missing or empty page_type parameter indicates 'all page types'
-        # (i.e. descendants of wagtailcore.page)
-        page_type_string = request.GET.get("page_type") or "wagtailcore.page"
+        # (i.e. descendants of the base page model)
+        page_type_string = request.GET.get("page_type") or base_page_type_string
         user_perm = request.GET.get("user_perms", False)
 
         try:
@@ -390,7 +391,7 @@ class BrowseView(View):
                     desired_class.get_verbose_name()
                     for desired_class in self.desired_classes
                 ],
-                "page_types_restricted": (page_type_string != "wagtailcore.page"),
+                "page_types_restricted": (page_type_string != base_page_type_string),
                 "show_locale_controls": self.i18n_enabled,
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
@@ -443,8 +444,8 @@ class SearchView(View):
     def get(self, request):
         self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
         self.is_multiple_choice = request.GET.get("multiple")
-        # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
-        page_type_string = request.GET.get("page_type") or "wagtailcore.page"
+        # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of the base page model)
+        page_type_string = request.GET.get("page_type") or base_page_type_string
 
         try:
             desired_classes = page_models_from_string(page_type_string)
