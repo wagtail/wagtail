@@ -5,6 +5,7 @@ import logging
 import posixpath
 import uuid
 import warnings
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -209,7 +210,15 @@ class BasePageManager(MP_NodeManager):
             page._parent_page = parent_page
 
 
-PageManager = BasePageManager.from_queryset(PageQuerySet)
+if TYPE_CHECKING:
+    # Fake the result of from_queryset() which combines methods from QuerySet
+    # and Manager at runtime. Safe enough for real use cases, since we should
+    # not use internal QuerySet methods on the manager anyway.
+    # https://stackoverflow.com/a/79230607
+    class PageManagerQuerySet(BasePageManager, PageQuerySet): ...
+
+
+PageManager: type[PageManagerQuerySet] = BasePageManager.from_queryset(PageQuerySet)
 
 
 class PageBase(models.base.ModelBase):
