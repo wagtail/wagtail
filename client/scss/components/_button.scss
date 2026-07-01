@@ -293,6 +293,10 @@
     }
   }
 
+  .icon {
+    pointer-events: none; // ensure icons don't interfere with button interactions
+  }
+
   // Larger viewport width adjustments
 
   @include media-breakpoint-up(sm) {
