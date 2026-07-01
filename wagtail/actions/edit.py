@@ -74,6 +74,14 @@ class EditAction(BaseAction):
         # The revision created by execute(), if any.
         self.revision = None
 
+    def _clean_instance(self):
+        if self.form:
+            # Use is_valid() instead of full_clean() to avoid re-validating the
+            # form if it has already been validated.
+            self.form.is_valid()
+        else:
+            self.instance.full_clean()
+
     def _save_instance(self):
         if self.draftstate_enabled and self.instance.live:
             # Do not update the instance if it's a live DraftStateMixin object.
@@ -91,6 +99,9 @@ class EditAction(BaseAction):
                 self.instance.save()
 
     def _edit(self, skip_permission_checks=False):
+        if self.clean:
+            self._clean_instance()
+
         self._save_instance()
 
         if self.revision_enabled:
