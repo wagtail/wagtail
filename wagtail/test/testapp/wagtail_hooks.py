@@ -24,7 +24,7 @@ from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.utils import set_query_params
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
-from wagtail.permission_policies.base import ModelPermissionPolicy
+from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.chooser import SnippetChooserViewSet

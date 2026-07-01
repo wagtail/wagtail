@@ -7,16 +7,18 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.decorators import method_decorator
+from django.utils.functional import cached_property
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic.base import TemplateView, View
 
 from wagtail.admin.views.generic import PermissionCheckedMixin
 from wagtail.models import UploadedFile
+from wagtail.permissions import policies_registry
 
 
 class AddView(PermissionCheckedMixin, TemplateView):
     # subclasses need to provide:
-    # - permission_policy
+    # - permission_policy (if one does not exist in the registry for the model)
     # - template_name
 
     # - edit_object_url_name
@@ -43,6 +45,10 @@ class AddView(PermissionCheckedMixin, TemplateView):
         self.model = self.get_model()
 
         return super().dispatch(request)
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def save_object(self, form):
         return form.save()
@@ -210,6 +216,10 @@ class EditView(View):
     http_method_names = ["post"]
     edit_form_template_name = "wagtailadmin/generic/multiple_upload/edit_form.html"
 
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
+
     def save_object(self, form):
         form.save()
 
@@ -272,6 +282,10 @@ class DeleteView(View):
     # - context_object_id_name
 
     http_method_names = ["post"]
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def post(self, request, *args, **kwargs):
         object_id = kwargs[self.pk_url_kwarg]

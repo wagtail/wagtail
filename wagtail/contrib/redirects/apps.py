@@ -18,3 +18,11 @@ class WagtailRedirectsAppConfig(AppConfig):
 
         post_page_move.connect(autocreate_redirects_on_page_move)
         page_slug_changed.connect(autocreate_redirects_on_slug_change)
+
+        from wagtail.permission_policies import ModelPermissionPolicy
+        from wagtail.permissions import register_permission_policy
+
+        from .models import Redirect
+
+        permission_policy = ModelPermissionPolicy(Redirect)
+        register_permission_policy(Redirect, permission_policy)
