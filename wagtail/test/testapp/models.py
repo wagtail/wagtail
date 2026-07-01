@@ -2738,3 +2738,35 @@ class CommentableJSONPage(Page):
             ("text", CharBlock()),
         ]
     )
+
+
+class CustomForeignKey(models.ForeignKey):
+    def extract_references(self, value):
+        if value is None:
+            return
+
+        # Get the actual model instance from the PK value
+        if isinstance(value, int):
+            model_class = self.remote_field.model
+            try:
+                obj = model_class.objects.get(pk=value)
+            except model_class.DoesNotExist:
+                return
+        else:
+            obj = value
+
+        # The `yield` statement needs to match the expected structure
+        yield (
+            self.remote_field.model,  # to_model (the model class)
+            str(obj.pk),  # to_object_id
+            "custom_field",
+            "custom_field",
+        )
+
+
+class ModelWithCustomForeignKey(models.Model):
+    name = models.CharField(max_length=50)
+    related = CustomForeignKey("self", null=True, blank=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.name
