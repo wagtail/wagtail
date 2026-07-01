@@ -493,38 +493,38 @@ class TestSiteRootPathsCache(PageFixturesMixin, TestCase):
 
 class TestResolveModelString(TestCase):
     def test_resolve_from_string(self):
-        model = resolve_model_string("wagtailcore.Page")
+        model = resolve_model_string("wagtailcore.Site")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_with_default_app(self):
-        model = resolve_model_string("Page", default_app="wagtailcore")
+        model = resolve_model_string("Site", default_app="wagtailcore")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_with_different_default_app(self):
-        model = resolve_model_string("wagtailcore.Page", default_app="wagtailadmin")
+        model = resolve_model_string("wagtailcore.Site", default_app="wagtailadmin")
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_class(self):
-        model = resolve_model_string(Page)
+        model = resolve_model_string(Site)
 
-        self.assertEqual(model, Page)
+        self.assertEqual(model, Site)
 
     def test_resolve_from_string_invalid(self):
-        self.assertRaises(ValueError, resolve_model_string, "wagtail.core.Page")
+        self.assertRaises(ValueError, resolve_model_string, "wagtail.core.Site")
 
     def test_resolve_from_string_with_incorrect_default_app(self):
         self.assertRaises(
-            LookupError, resolve_model_string, "Page", default_app="wagtailadmin"
+            LookupError, resolve_model_string, "Site", default_app="wagtailadmin"
         )
 
     def test_resolve_from_string_with_unknown_model_string(self):
-        self.assertRaises(LookupError, resolve_model_string, "wagtailadmin.Page")
+        self.assertRaises(LookupError, resolve_model_string, "wagtailadmin.Site")
 
     def test_resolve_from_string_with_no_default_app(self):
-        self.assertRaises(ValueError, resolve_model_string, "Page")
+        self.assertRaises(ValueError, resolve_model_string, "Site")
 
     def test_resolve_from_class_that_isnt_a_model(self):
         model = resolve_model_string(object)
