@@ -2668,9 +2668,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
-
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" required id="id_slug">'
-        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" required id="id_slug" />'
+        soup = self.get_soup(response.content)
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -2678,8 +2676,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
 
         # Editing input for slug should be the draft revision
-        self.assertContains(response, input_field_for_draft_slug, html=True)
-        self.assertNotContains(response, input_field_for_live_slug, html=True)
+        self.assertIsNotNone(
+            soup.select_one('input[name="slug"][value="revised-slug-in-draft-only"]')
+        )
+        self.assertIsNone(soup.select_one('input[name="slug"][value="hello-world"]'))
 
     def test_editor_page_shows_custom_live_url_in_status_when_draft_edits_exist(self):
         # When showing a live URL in the status button that differs from the draft one,
@@ -2694,9 +2694,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
-
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" required id="id_slug" />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-compare-as-param="urlify" data-w-slug-allow-unicode-value data-w-slug-trim-value="true" maxlength="255" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" required id="id_slug" />'
+        soup = self.get_soup(response.content)
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -2704,8 +2702,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
 
         # Editing input for slug should be the draft revision
-        self.assertContains(response, input_field_for_draft_slug, html=True)
-        self.assertNotContains(response, input_field_for_live_slug, html=True)
+        self.assertIsNotNone(
+            soup.select_one('input[name="slug"][value="revised-slug-in-draft-only"]')
+        )
+        self.assertIsNone(soup.select_one('input[name="slug"][value="mars-landing"]'))
 
     def test_before_edit_page_hook(self):
         def hook_func(request, page):
