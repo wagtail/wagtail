@@ -1,6 +1,8 @@
 import datetime
+import unittest
 from unittest import mock
 
+import swapper
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
@@ -488,10 +490,11 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # Title field should be present and have TitleFieldPanel behaviour
         # including syncing with slug
         self.assertContains(response, 'data-w-sync-target-value="#id_slug"')
-        # SEO title should be present in promote tab
-        self.assertContains(
-            response, "The name of the page displayed on search engine results"
-        )
+        if not swapper.is_swapped("wagtailcore", "Page"):
+            # SEO title should be present in promote tab
+            self.assertContains(
+                response, "The name of the page displayed on search engine results"
+            )
 
     def test_create_simplepage_post(self):
         post_data = {
@@ -1842,6 +1845,10 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             response.context["form"], "title", "This field is required."
         )
 
+    @unittest.skipIf(
+        swapper.is_swapped("wagtailcore", "Page"),
+        "SEO title is not available on custom base page models",
+    )
     def test_whitespace_titles_with_tab_in_seo_title(self):
         post_data = {
             "title": "Hello",
@@ -1888,7 +1895,8 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         page = Page.objects.order_by("-id").first()
         self.assertEqual(page.title, "Hello")
         self.assertEqual(page.draft_title, "Hello")
-        self.assertEqual(page.seo_title, "hello SEO")
+        if not swapper.is_swapped("wagtailcore", "Page"):
+            self.assertEqual(page.seo_title, "hello SEO")
 
     def test_long_slug(self):
         post_data = {
