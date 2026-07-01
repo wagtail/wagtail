@@ -3586,7 +3586,7 @@ class TestMakePreviewRequest(PageFixturesMixin, TestCase):
     fixtures = ["test.json"]
 
     def test_make_preview_request_for_accessible_page(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3613,7 +3613,7 @@ class TestMakePreviewRequest(PageFixturesMixin, TestCase):
     def test_make_preview_request_for_accessible_page_https(self):
         Site.objects.update(port=443)
 
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3640,7 +3640,7 @@ class TestMakePreviewRequest(PageFixturesMixin, TestCase):
     def test_make_preview_request_for_accessible_page_non_standard_port(self):
         Site.objects.update(port=8888)
 
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         response = event_index.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3665,7 +3665,7 @@ class TestMakePreviewRequest(PageFixturesMixin, TestCase):
         self.assertIn("wsgi.run_once", request.META)
 
     def test_make_preview_request_for_accessible_page_with_original_request(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         original_headers = {
             "REMOTE_ADDR": "192.168.0.1",
             "HTTP_X_FORWARDED_FOR": "192.168.0.2,192.168.0.3",
@@ -3715,7 +3715,7 @@ class TestMakePreviewRequest(PageFixturesMixin, TestCase):
 
     @override_settings(ALLOWED_HOSTS=["production.example.com"])
     def test_make_preview_request_for_inaccessible_page_should_use_valid_host(self):
-        root_page = Page.objects.get(url_path="/")
+        root_page = Page.objects.get(url_path="/").specific
         response = root_page.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3729,7 +3729,7 @@ class TestMakePreviewRequest(PageFixturesMixin, TestCase):
     def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(
         self,
     ):
-        root_page = Page.objects.get(url_path="/")
+        root_page = Page.objects.get(url_path="/").specific
         response = root_page.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data["request"]
@@ -3738,7 +3738,7 @@ class TestMakePreviewRequest(PageFixturesMixin, TestCase):
         self.assertNotEqual(request.headers["host"], "*")
 
     def test_is_previewable(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         stream_page = StreamPage(title="stream page", body=[("text", "hello")])
         event_index.add_child(instance=stream_page)
         plain_stream_page = Page.objects.get(id=stream_page.id)
