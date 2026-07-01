@@ -33,7 +33,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=root_editors_group,
             page=self.root_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="change_page"
+                content_type=page_type, codename=Page.CHANGE_PERMISSION_CODENAME
             ),
         )
 
@@ -42,7 +42,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_editors_group,
             page=self.reports_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="change_page"
+                content_type=page_type, codename=Page.CHANGE_PERMISSION_CODENAME
             ),
         )
 
@@ -51,7 +51,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, Test
             group=report_adders_group,
             page=self.reports_page,
             permission=Permission.objects.get(
-                content_type=page_type, codename="add_page"
+                content_type=page_type, codename=Page.ADD_PERMISSION_CODENAME
             ),
         )
 
