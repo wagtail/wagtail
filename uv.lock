@@ -3046,8 +3046,8 @@ testing = [
 [package.metadata]
 requires-dist = [
     { name = "anyascii", specifier = ">=0.1.5" },
-    { name = "azure-mgmt-cdn", marker = "extra == 'testing'", specifier = ">=12.0,<13.0" },
-    { name = "azure-mgmt-frontdoor", marker = "extra == 'testing'", specifier = ">=1.0,<1.1" },
+    { name = "azure-mgmt-cdn", marker = "extra == 'testing'", specifier = ">=12.0,<14.0" },
+    { name = "azure-mgmt-frontdoor", marker = "extra == 'testing'", specifier = ">=1.0,<1.3" },
     { name = "beautifulsoup4", specifier = ">=4.13.3,<5" },
     { name = "boto3", marker = "extra == 'testing'", specifier = ">=1.28,<2" },
     { name = "coverage", marker = "extra == 'testing'", specifier = ">=3.7.0" },
