@@ -4,7 +4,7 @@ from functools import wraps
 
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase, override_settings
+from django.test import TestCase, TransactionTestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
@@ -861,6 +861,65 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual("1280", radios[1]["data-device-width"])
         self.assertEqual("Original desktop", radios[1]["aria-label"])
         self.assertTrue(radios[1].has_attr("checked"))
+
+
+class TestFormStateConcurrency(WagtailTestUtils, TransactionTestCase):
+    """
+    Uses TransactionTestCase so threads can actually commit to the database,
+    which is required to test concurrent access to FormState.
+    """
+
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.event_page = Page.objects.get(url_path="/home/events/christmas/")
+        self.user = self.login()
+
+    def test_update_or_create_by_instance_concurrent_no_duplicates(self):
+        """
+        Concurrent calls to update_or_create_by_instance should not create
+        duplicate FormState rows or raise database errors.
+        The UniqueConstraint on (user, content_type, object_id, parent_object_id)
+        combined with transaction.atomic() prevents race conditions.
+        Regression test for: https://github.com/wagtail/wagtail/issues/14361
+        """
+        import threading
+
+        from django.utils import timezone
+
+        specific_page = self.event_page.specific
+        errors = []
+        barrier = threading.Barrier(2)
+
+        def call_update_or_create():
+            try:
+                barrier.wait(timeout=5)
+                FormState.objects.update_or_create_by_instance(
+                    instance=specific_page,
+                    user=self.user,
+                    defaults={
+                        "data": "title=test&slug=test",
+                        "last_updated_at": timezone.now(),
+                    },
+                )
+            except Exception as e:  # noqa: BLE001
+                errors.append(e)
+
+        t1 = threading.Thread(target=call_update_or_create)
+        t2 = threading.Thread(target=call_update_or_create)
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+
+        # No exceptions should have occurred (e.g. database is locked)
+        self.assertEqual(errors, [], f"Concurrent calls raised errors: {errors}")
+
+        # There should be exactly ONE FormState row, not duplicates
+        form_state_count = (
+            FormState.objects.filter(user=self.user).for_instance(specific_page).count()
+        )
+        self.assertEqual(form_state_count, 1)
 
 
 class TestEnablePreview(WagtailTestUtils, TestCase):

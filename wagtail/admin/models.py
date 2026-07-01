@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Count
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -162,14 +162,15 @@ class FormStateManager(models.Manager.from_queryset(FormStateQuerySet)):
         parent_object_id="",
         **kwargs,
     ):
-        return super().update_or_create(
-            content_type=ContentType.objects.get_for_model(
-                instance, for_concrete_model=False
-            ),
-            object_id=str(instance.pk or ""),
-            parent_object_id=parent_object_id,
-            **kwargs,
-        )
+        with transaction.atomic():
+            return super().update_or_create(
+                content_type=ContentType.objects.get_for_model(
+                    instance, for_concrete_model=False
+                ),
+                object_id=str(instance.pk or ""),
+                parent_object_id=parent_object_id,
+                **kwargs,
+            )
 
 
 class FormState(models.Model):
@@ -210,10 +211,10 @@ class FormState(models.Model):
     STALE_TIMEOUT = timezone.timedelta(hours=24)
 
     class Meta:
-        indexes = [
-            models.Index(
+        constraints = [
+            models.UniqueConstraint(
                 fields=["user", "content_type", "object_id", "parent_object_id"],
-                name="formstate_user_object",
+                name="formstate_user_object_unique",
             ),
         ]
         ordering = ["-last_updated_at"]
