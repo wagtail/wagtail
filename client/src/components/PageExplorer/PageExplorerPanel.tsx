@@ -125,7 +125,10 @@ class PageExplorerPanel extends React.Component<
         paused={!page || page.isFetchingChildren || page.isFetchingTranslations}
         focusTrapOptions={{
           onDeactivate: onClose,
-          clickOutsideDeactivates: true,
+          clickOutsideDeactivates: (e) => {
+            const target = e.target as HTMLElement;
+            return !target.closest('.sidebar-page-explorer-item button');
+          },
           allowOutsideClick: true,
         }}
       >
