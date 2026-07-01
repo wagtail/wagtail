@@ -16,7 +16,10 @@ class UserBulkAction(PermissionCheckedMixin, BulkAction):
     any_permission_required = ["add", "change", "delete"]
 
     def get_all_objects_in_listing_query(self, parent_id):
-        listing_objects = self.model.objects.all().values_list("pk", flat=True)
+        listing_objects = self.model.objects.all()
+        if not self.request.user.is_superuser:
+            listing_objects = listing_objects.exclude(is_superuser=True)
+        listing_objects = listing_objects.values_list("pk", flat=True)
 
         if q := self.request.GET.get("q"):
             if class_is_indexed(self.model):
@@ -32,3 +35,15 @@ class UserBulkAction(PermissionCheckedMixin, BulkAction):
             return listing_objects.filter(conditions)
 
         return listing_objects
+
+    def get_actionable_objects(self):
+        objects, objects_without_access = super().get_actionable_objects()
+        if not self.request.user.is_superuser:
+            actionable = []
+            for obj in objects:
+                if obj.is_superuser:
+                    objects_without_access["items_with_no_access"].append(obj)
+                else:
+                    actionable.append(obj)
+            objects = actionable
+        return objects, objects_without_access
